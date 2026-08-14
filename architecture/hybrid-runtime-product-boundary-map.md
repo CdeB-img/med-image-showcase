@@ -1,10 +1,10 @@
-# HYBRID-RUNTIME-INTEGRATION-001 — Product Boundary Map
+# SEM-CLOSURE-001R — Product Boundary Map
 
 | Field | Observed value |
 |---|---|
-| Status | `IMPLEMENTATION MAP — NON_NORMATIVE — NON_ADMITTED` |
+| Status | `CLOSURE IMPLEMENTATION MAP — NON_NORMATIVE` |
 | Observation date | 2026-08-14 |
-| Default mode | `LEGACY_ACTIVE` |
+| Default mode | `HYBRID_ACTIVE_WITH_LEGACY_FALLBACK` |
 | Project writes | `0` |
 | Normative documents changed | `NO` |
 
@@ -43,7 +43,7 @@ it is never converted to an adopted V2 object by lexical equality.
 |---|---|---|---|---|
 | `LEGACY_ACTIVE` | legacy SEM | none | none | identical legacy path |
 | `HYBRID_SHADOW` | legacy SEM | hybrid/replay | none | diagnostics only |
-| `HYBRID_ACTIVE_WITH_LEGACY_FALLBACK` | hybrid | none | only explicit technical failure | defined, not enabled by default |
+| `HYBRID_ACTIVE_WITH_LEGACY_FALLBACK` | hybrid | none | only explicit technical failure | nominal product mode |
 
 A scientific disagreement is not a technical failure and cannot trigger a
 silent fallback. Shadow execution exposes no Project adoption action.
@@ -132,12 +132,27 @@ preserved as experimental limitations and are not repaired by this integration.
 - Audit-L is not called by the product facade.
 - the LLM adjudicator is absent from product code and receives no call.
 
-## 9. Remaining closure boundary
+## 9. Closed nominal boundary
 
 The compatibility facade removes the direct model/adapters dependency from
 `ProtocolDesignerDemo` and generalizes Scientific Thinking source identity.
-The API/provider, workspace, client, session/history, embedded Knowledge path
-and legacy public module remain. They are explicit legacy dependencies in
-`architecture/hybrid-runtime-dependency-burndown.json` and block SEM Full
-closure until `SEM-CLOSURE-001` resolves or archives them under the applicable
-gates.
+The API/provider, workspace, client, session/history and Knowledge handoff now
+consume the runtime-neutral Contribution boundary. No nominal product consumer
+calls SEM Full.
+
+The legacy module remains intentionally present for three bounded purposes:
+
+- explicit `LEGACY_ACTIVE` rollback;
+- deterministic historical/non-regression evidence;
+- read-only conversion of an existing legacy session.
+
+The live campaign `SEM-CLOSURE-001R-LIVE-01` established 8/8 provider
+responses, 8/8 raw records, 8/8 internal validations, zero fallback and zero
+Project write. All eight Contributions required review because Audit-D findings
+remained visible; none was projected as acceptable in spite of a critical
+finding. This is runtime closure evidence, not independent scientific
+qualification.
+
+The remaining legacy references are enumerated in
+`architecture/hybrid-runtime-dependency-burndown.json`. They are rollback or
+historical surfaces, not nominal SEM Full consumers.

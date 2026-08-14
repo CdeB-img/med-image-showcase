@@ -102,7 +102,7 @@ const staticRuntime = (contribution: ScientificInterpretationContributionEnvelop
 });
 
 describe("HYBRID-RUNTIME-INTEGRATION-001 contracts", () => {
-  it("HRI-C01 keeps LEGACY_ACTIVE as the default", () => expect(DEFAULT_SCIENTIFIC_INTERPRETATION_MODE).toBe("LEGACY_ACTIVE"));
+  it("HRI-C01 reflects the controlled cutover default", () => expect(DEFAULT_SCIENTIFIC_INTERPRETATION_MODE).toBe("HYBRID_ACTIVE_WITH_LEGACY_FALLBACK"));
 
   it("HRI-C02 returns a Contribution and never a Research Project", () => {
     const contribution = mapSynthetic();
@@ -130,7 +130,7 @@ describe("HYBRID-RUNTIME-INTEGRATION-001 contracts", () => {
   it("HRI-C05 keeps raw inspectable after schema or parsing failure", async () => {
     const store = new InMemoryScientificInterpretationRawStore();
     const runtime = new HybridScientificInterpretationRuntimeAdapter("HYBRID", "1", async () => ({ operationId: "failed", provider: null, model: null, promptDigest: null, schemaDigest: null, configurationDigest: null, runtimeId: "HYBRID", runtimeVersion: "1", rawOutput: { readable: "evidence" } }), store, () => { throw new Error("invalid schema"); });
-    await expect(runtime.interpret(syntheticConversation)).rejects.toMatchObject({ failureClass: "PARSING_FAILURE", rawOutputRef: "memory://scientific-interpretation/failed" });
+    await expect(runtime.interpret(syntheticConversation)).rejects.toMatchObject({ failureClass: "STRUCTURED_CONTRACT_FAILURE", rawOutputRef: "memory://scientific-interpretation/failed" });
     expect(await store.read("memory://scientific-interpretation/failed")).toMatchObject({ payload: { readable: "evidence" } });
   });
 
