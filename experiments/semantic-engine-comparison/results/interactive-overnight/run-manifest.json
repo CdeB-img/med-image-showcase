@@ -1,0 +1,60 @@
+{
+  "adjudication": "SIMULATED_POST_HOC_ADJUDICATION",
+  "adjudicationCompletedAt": "2026-08-14T01:29:03.084949Z",
+  "architecturalConclusion": "HYBRID_ARCHITECTURE",
+  "baselines": [
+    "EXP-SEM-INTERACTIVE-SEM-CURRENT",
+    "EXP-SEM-INTERACTIVE-DSPY",
+    "EXP-SEM-INTERACTIVE-INSTRUCTOR",
+    "EXP-SEM-INTERACTIVE-PYDANTICAI",
+    "EXP-SEM-INTERACTIVE-OUTLINES",
+    "EXP-SEM-INTERACTIVE-LANGEXTRACT"
+  ],
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "codeDigests": {
+    "experiments/semantic-engine-comparison/interactive_overnight/__init__.py": "1743592349fcca0cd277f414ebe6ccba07ff1d01c511d599217b8a8ba0b07d97",
+    "experiments/semantic-engine-comparison/interactive_overnight/baselines.py": "effe7c6d57cb6ea364b6a77b46e0a121f29bb92a4f21e0ce8b44147a0e099a1b",
+    "experiments/semantic-engine-comparison/interactive_overnight/campaign.py": "f5ee9c5ca9e5aa0d1a735ccf3d7f9455adf7408d9452903366aae130fda40d0b",
+    "experiments/semantic-engine-comparison/interactive_overnight/ledger.py": "612fdbdd12d1b9444a5a7ebef8a1b8af389cc8c4a5deeb602a33c3c30409e21f",
+    "experiments/semantic-engine-comparison/interactive_overnight/models.py": "1cc02431159071d530df563340439adc705db936330ec62e6486ed5b46422a4f",
+    "experiments/semantic-engine-comparison/interactive_overnight/sem_runner.ts": "8a83265946832ca0c189f5f5e21dfd5c76023b1ab6262f9b09deb7e76b62be89",
+    "experiments/semantic-engine-comparison/interactive_overnight/test_contracts.py": "6e47844343ba0967f4e808fdd7b34ef5b225ee014a6b7295abf22c376771674c"
+  },
+  "createdAt": "2026-08-14T01:15:50.091908Z",
+  "decision": "EXP_INTERACTIVE_COMPARE_PARTIAL_TECHNICAL",
+  "dialogueControl": {
+    "experimentalPolicy": "Candidate output action constrained by generic prompt; SEM action adapted from native clarification candidates.",
+    "noxiaImplementedStatus": "NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED"
+  },
+  "estimatedDailyUsageAfterMission": 439,
+  "finalArtifactDigests": {
+    "capability-matrix.json": "c24df3df9c0104ffdbd7efd3bb48943903ba26dc44d7ff8ffeeced57c1d51496",
+    "comparative-summary.json": "a294318dbab76280f189de2d51b6a1fc2a1e613e60b0e577ab77692de3533e02",
+    "divergence-analysis.json": "9e6dcb53901895baacde6ddbd91f3b5c11f5827dd1dcaae4a988541ad5b78353",
+    "interactive-comparative-report.md": "5335a50093179a8fa18aee44919321a54764d3909ec726afd602daab6640f371"
+  },
+  "forbiddenClaims": [
+    "PD011_PASS",
+    "INDEPENDENT_BLIND",
+    "HUMAN_EXPERT_ADJUDICATION"
+  ],
+  "knownDailyUsageBeforeMission": 357,
+  "model": "gemini-3.5-flash-lite",
+  "nature": "EXPERIMENTAL_NON_NORMATIVE_EXPLORATORY",
+  "newProviderRequestsReserved": 82,
+  "postHocAdjudicationCodeDigest": "96feb6b86f4a460c26c09c5c7d8477d75f7f83bf0403a2dbe2eab27852e11f49",
+  "provider": "GOOGLE_GEMINI",
+  "samplingParameters": "OMITTED",
+  "scenarioCardsDigest": "26c5b6bdc8c8ba003f2288abae8f7c0aca47ed079f479ddd2cac1bddff3d0de3",
+  "scenarioIdsExecuted": [
+    "I01",
+    "I02",
+    "I03",
+    "I04",
+    "I05"
+  ],
+  "scientificStateOwner": "SEM_OR_EXTERNAL_FRAMEWORK_BASELINE",
+  "sourceHead": "3668a63136d742111ffd9f9135a4f3b337e5af2a",
+  "status": "POST_HOC_ADJUDICATION_COMPLETE_WITH_TECHNICAL_LIMITATIONS",
+  "technicalReadinessDigest": "2854e312680d263636b9ca425c586b9dd0b9f9a29e763c98ef0e6b5597936684"
+}

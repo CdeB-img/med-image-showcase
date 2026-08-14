@@ -1,0 +1,94 @@
+{
+  "baselines": {
+    "dspy": {
+      "runs": [
+        {
+          "caseId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL",
+          "status": "SUCCESS_REUSED"
+        },
+        {
+          "caseId": "DEV-VISIBLE-METHOD-MEASUREMENT",
+          "status": "SUCCESS_REUSED"
+        }
+      ],
+      "status": "TECHNICALLY_READY"
+    },
+    "instructor": {
+      "runs": [
+        {
+          "caseId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL",
+          "status": "SUCCESS_REUSED"
+        },
+        {
+          "caseId": "DEV-VISIBLE-METHOD-MEASUREMENT",
+          "status": "SUCCESS_REUSED"
+        }
+      ],
+      "status": "TECHNICALLY_READY"
+    },
+    "langextract": {
+      "runs": [
+        {
+          "caseId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL",
+          "latencySeconds": 0.987,
+          "status": "SUCCESS"
+        },
+        {
+          "caseId": "DEV-VISIBLE-METHOD-MEASUREMENT",
+          "latencySeconds": 0.927,
+          "status": "SUCCESS"
+        }
+      ],
+      "status": "TECHNICALLY_READY"
+    },
+    "outlines": {
+      "runs": [
+        {
+          "caseId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL",
+          "latencySeconds": 1.673,
+          "status": "SUCCESS"
+        },
+        {
+          "caseId": "DEV-VISIBLE-METHOD-MEASUREMENT",
+          "latencySeconds": 1.395,
+          "status": "SUCCESS"
+        }
+      ],
+      "status": "TECHNICALLY_READY"
+    },
+    "pydanticai": {
+      "runs": [
+        {
+          "caseId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL",
+          "status": "SUCCESS_REUSED"
+        },
+        {
+          "caseId": "DEV-VISIBLE-METHOD-MEASUREMENT",
+          "status": "SUCCESS_REUSED"
+        }
+      ],
+      "status": "TECHNICALLY_READY"
+    },
+    "sem-current": {
+      "runs": [
+        {
+          "caseId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL",
+          "latencySeconds": 24.04,
+          "status": "SUCCESS"
+        },
+        {
+          "caseId": "DEV-VISIBLE-METHOD-MEASUREMENT",
+          "latencySeconds": 9.487,
+          "status": "SUCCESS"
+        }
+      ],
+      "status": "TECHNICALLY_READY"
+    }
+  },
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "generatedAt": "2026-08-14T01:08:47.703830Z",
+  "model": "gemini-3.5-flash-lite",
+  "phase": "A_TECHNICAL_READINESS",
+  "phaseACalls": 24,
+  "phaseACallsBeforeResume": 16
+}

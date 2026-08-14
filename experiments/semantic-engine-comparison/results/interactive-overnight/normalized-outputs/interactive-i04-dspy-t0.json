@@ -1,0 +1,29 @@
+{
+  "baseline": "dspy",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "The user is preparing a multicenter study on Fabry disease.",
+      "The goal is to identify quantitative MRI measures that are comparable across centers."
+    ],
+    "missing_or_ambiguous": [
+      "Specific MRI modalities, sequences, or anatomical regions of interest (e.g., cardiac, brain, renal) have not been specified."
+    ],
+    "negations_or_constraints": [],
+    "next_question": "Quelles structures anatomiques ou modalités IRM (cardiaque, cérébrale, rénale) ciblez-vous en priorité pour cette étude ?",
+    "ownership_or_epistemic_notes": [
+      "User stated the preparation of a multicenter study and the objective regarding quantitative MRI measures."
+    ],
+    "relations": [
+      "Study on Fabry disease -> aims to identify -> comparable quantitative MRI measures between centers"
+    ],
+    "state_summary": "Preparation of a multicenter study in Fabry disease focusing on the identification of comparable quantitative MRI measures across centers.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I04"
+}

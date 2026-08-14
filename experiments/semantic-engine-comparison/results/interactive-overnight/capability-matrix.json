@@ -1,0 +1,1332 @@
+{
+  "adjudication": "SIMULATED_POST_HOC_ADJUDICATION",
+  "adjudicator": "Codex; not a human expert panel",
+  "aggregationRule": "Qualitative property judgment; no weighted or global score.",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "capabilities": [
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les faits visibles restent reconstructibles dans les états observés.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Les faits visibles restent reconstructibles dans les états observés.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "Les faits visibles restent reconstructibles dans les états observés.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "outlines": {
+          "evidence": "Les faits visibles restent reconstructibles dans les états observés.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "pydanticai": {
+          "evidence": "Les faits visibles restent reconstructibles dans les états observés.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "Les faits visibles restent reconstructibles dans les états observés.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        }
+      },
+      "capabilityId": "C01",
+      "label": "Explicit fidelity"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les réponses I02 et I04 sont intégrées sans perdre l'état initial.",
+          "scenarioRefs": [
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Une seule branche multi-tour observable, correctement consolidée.",
+          "scenarioRefs": [
+            "I04"
+          ],
+          "status": "PARTIAL"
+        },
+        "langextract": {
+          "evidence": "L'inconnu temporel reste actif après deux réponses qui le résolvent.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Trois branches multi-tour réussissent; deux branches restent sans réponse checkpointée.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04",
+            "I03",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Les trois réponses reçues sont intégrées dans un état consolidé.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "I02 est maintenu sur deux états; I05 n'a pas reçu la réponse simulateur.",
+          "scenarioRefs": [
+            "I02",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C02",
+      "label": "Multi-turn context"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les corrections I02 et I04 sont explicites et cohérentes.",
+          "scenarioRefs": [
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "La mise à jour I04 est intégrée sans conserver une décision contraire.",
+          "scenarioRefs": [
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "Le contenu corrigé est copié, mais la supersession n'est pas structurée et un ancien inconnu persiste.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PARTIAL"
+        },
+        "outlines": {
+          "evidence": "Les corrections reçues sont consolidées avec leur polarité.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "pydanticai": {
+          "evidence": "Les corrections I01, I02 et I04 deviennent le nouvel état courant.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "La correction I02 est présente dans le sens final mais non exposée comme supersession par l'adapter.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C03",
+      "label": "Correction / change of mind"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les négations I02 et I04 sont explicites.",
+          "scenarioRefs": [
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "La réponse négative sur T2 et la non-primauté du LGE sont préservées.",
+          "scenarioRefs": [
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "La négation apparaît dans le résumé I02, mais pas dans le champ de polarité prévu.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PARTIAL"
+        },
+        "outlines": {
+          "evidence": "Les négations reçues sont conservées sans STOP.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "pydanticai": {
+          "evidence": "Les négations I01, I02 et I04 sont explicites.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "L'absence d'IRM pré-geste et la non-causalité restent reconstructibles.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        }
+      },
+      "capabilityId": "C04",
+      "label": "Negation"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Association et absence de causalité sont explicitement séparées.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Aucune causalité n'est ajoutée à la formulation relationnelle observée.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "Le sens non causal est dans le résumé, sans représentation dédiée.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PARTIAL"
+        },
+        "outlines": {
+          "evidence": "Association et absence de causalité sont explicitement séparées.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        },
+        "pydanticai": {
+          "evidence": "Association et absence de causalité sont explicitement séparées.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "La relation I02 reste associative et la causalité est explicitement niée.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        }
+      },
+      "capabilityId": "C05",
+      "label": "Non-causality"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les variantes exécutées ne permettent pas un test discriminant de l'implicite nécessaire.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "instructor": {
+          "evidence": "Les variantes exécutées ne permettent pas un test discriminant de l'implicite nécessaire.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "langextract": {
+          "evidence": "Les variantes exécutées ne permettent pas un test discriminant de l'implicite nécessaire.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "outlines": {
+          "evidence": "Les variantes exécutées ne permettent pas un test discriminant de l'implicite nécessaire.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "pydanticai": {
+          "evidence": "Les variantes exécutées ne permettent pas un test discriminant de l'implicite nécessaire.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "sem-current": {
+          "evidence": "Les variantes exécutées ne permettent pas un test discriminant de l'implicite nécessaire.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        }
+      },
+      "capabilityId": "C06",
+      "label": "Necessary implicit understanding without promotion"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "La variante I05 exécutée a supprimé les ellipses et coréférences prévues.",
+          "scenarioRefs": [
+            "I05"
+          ],
+          "status": "NOT_TESTED"
+        },
+        "instructor": {
+          "evidence": "La variante I05 exécutée a supprimé les ellipses et coréférences prévues.",
+          "scenarioRefs": [
+            "I05"
+          ],
+          "status": "NOT_TESTED"
+        },
+        "langextract": {
+          "evidence": "La variante I05 exécutée a supprimé les ellipses et coréférences prévues.",
+          "scenarioRefs": [
+            "I05"
+          ],
+          "status": "NOT_TESTED"
+        },
+        "outlines": {
+          "evidence": "La variante I05 exécutée a supprimé les ellipses et coréférences prévues.",
+          "scenarioRefs": [
+            "I05"
+          ],
+          "status": "NOT_TESTED"
+        },
+        "pydanticai": {
+          "evidence": "La variante I05 exécutée a supprimé les ellipses et coréférences prévues.",
+          "scenarioRefs": [
+            "I05"
+          ],
+          "status": "NOT_TESTED"
+        },
+        "sem-current": {
+          "evidence": "La variante I05 exécutée a supprimé les ellipses et coréférences prévues.",
+          "scenarioRefs": [
+            "I05"
+          ],
+          "status": "NOT_TESTED"
+        }
+      },
+      "capabilityId": "C07",
+      "label": "Ellipsis / coreference"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "I02 est clarifié; I01, I03 et I05 se terminent tôt.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "instructor": {
+          "evidence": "Les inconnues sont souvent nommées, mais généralement sans clarification.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "langextract": {
+          "evidence": "Les ambiguïtés sont soit ignorées, soit répétées après résolution.",
+          "scenarioRefs": [
+            "I02",
+            "I03",
+            "I05"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Plusieurs ambiguïtés déclenchent ASK, mais I03 cible un détail secondaire.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Trois ambiguïtés sont questionnées; I03 et I05 sont terminés sans clarification.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "sem-current": {
+          "evidence": "Une ambiguïté temporelle est questionnée en I02, mais plusieurs ambiguïtés structurantes conduisent à FINISH.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C08",
+      "label": "Ambiguity management"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les inconnues sont peu exposées lorsque le système termine tôt.",
+          "scenarioRefs": [
+            "I01",
+            "I03",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "instructor": {
+          "evidence": "Les inconnues importantes sont régulièrement explicitées dans l'état.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "La détection est instable et l'inconnu I02 n'est pas clôturé après réponse.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Les informations absentes sont explicites dans les états observés.",
+          "scenarioRefs": [
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "pydanticai": {
+          "evidence": "Les inconnues sont conservées sans complétion silencieuse.",
+          "scenarioRefs": [
+            "I02",
+            "I03",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "Quelques informations manquantes déclenchent ASK, avec une priorité inégale.",
+          "scenarioRefs": [
+            "I02",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C09",
+      "label": "Missing information"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "I02 est de forte valeur; I04 demande une anatomie déjà contextualisée par Fabry plutôt que la disponibilité des mesures.",
+          "scenarioRefs": [
+            "I02",
+            "I04"
+          ],
+          "status": "PARTIAL"
+        },
+        "instructor": {
+          "evidence": "La question I04 est utile mais large; les autres scénarios finissent sans arbitrage.",
+          "scenarioRefs": [
+            "I04"
+          ],
+          "status": "PARTIAL"
+        },
+        "langextract": {
+          "evidence": "Les questions I02 sont grammaticalement faibles puis répétées après réponse.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "I01 et I04 sont utiles; I03 cible le type tumoral et I05 combine deux questions.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Les questions sont utiles, mais deux sont guidées par des listes d'exemples ou combinent modalités et timing.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PARTIAL"
+        },
+        "sem-current": {
+          "evidence": "La question I02 est discriminante; la question I05 sur les critères d'inclusion ne cible pas la décision centrale.",
+          "scenarioRefs": [
+            "I02",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C10",
+      "label": "Clarification value"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "24 h, J7 et les contextes de traitement sont structurés.",
+          "scenarioRefs": [
+            "I02",
+            "I03",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Le caractère post-thrombectomie et l'incertitude temporelle sont conservés.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "Le temps reste dans le texte, mais la projection temporelle est vide et l'inconnu est obsolète.",
+          "scenarioRefs": [
+            "I02",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "outlines": {
+          "evidence": "Les temps 24 h et J7 sont explicitement conservés.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        },
+        "pydanticai": {
+          "evidence": "Les temps reçus et les contextes pendant traitement sont préservés.",
+          "scenarioRefs": [
+            "I02",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "Les temps 24 h et J7 sont conservés comme éléments temporels.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PASS"
+        }
+      },
+      "capabilityId": "C11",
+      "label": "Temporal reasoning"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les relations scientifiques importantes sont explicitement formulées.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Les relations comparatives et d'observation sont textuellement reconstructibles.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "Aucune relation structurée n'est extraite dans les cinq scénarios.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Les relations majeures sont reconstructibles dans les états observés.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "pydanticai": {
+          "evidence": "Les relations sont bonnes en I01/I03 mais le champ relation reste vide dans plusieurs états.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "sem-current": {
+          "evidence": "Le natif SEM conserve un graphe relationnel; l'adapter expérimental n'en expose que les types.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        }
+      },
+      "capabilityId": "C12",
+      "label": "Relation semantics"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les variantes interactives exécutées ne discriminent pas correctement ces plans conceptuels.",
+          "scenarioRefs": [
+            "I04",
+            "I05"
+          ],
+          "status": "NOT_EVALUABLE"
+        },
+        "instructor": {
+          "evidence": "Les variantes interactives exécutées ne discriminent pas correctement ces plans conceptuels.",
+          "scenarioRefs": [
+            "I04",
+            "I05"
+          ],
+          "status": "NOT_EVALUABLE"
+        },
+        "langextract": {
+          "evidence": "Les variantes interactives exécutées ne discriminent pas correctement ces plans conceptuels.",
+          "scenarioRefs": [
+            "I04",
+            "I05"
+          ],
+          "status": "NOT_EVALUABLE"
+        },
+        "outlines": {
+          "evidence": "Les variantes interactives exécutées ne discriminent pas correctement ces plans conceptuels.",
+          "scenarioRefs": [
+            "I04",
+            "I05"
+          ],
+          "status": "NOT_EVALUABLE"
+        },
+        "pydanticai": {
+          "evidence": "Les variantes interactives exécutées ne discriminent pas correctement ces plans conceptuels.",
+          "scenarioRefs": [
+            "I04",
+            "I05"
+          ],
+          "status": "NOT_EVALUABLE"
+        },
+        "sem-current": {
+          "evidence": "Les variantes interactives exécutées ne discriminent pas correctement ces plans conceptuels.",
+          "scenarioRefs": [
+            "I04",
+            "I05"
+          ],
+          "status": "NOT_EVALUABLE"
+        }
+      },
+      "capabilityId": "C13",
+      "label": "Phenomenon / observable / method / measurement separation"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les paramètres PET proposés sont explicitement conservés comme candidats.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Aucune promotion visible, mais l'ownership n'est pas explicitement tracé.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "PARTIAL"
+        },
+        "langextract": {
+          "evidence": "Aucune promotion visible, mais aucun ownership n'est extrait.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "PARTIAL"
+        },
+        "outlines": {
+          "evidence": "Aucune promotion visible, mais l'ownership n'est pas explicitement tracé.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Aucune promotion visible, mais l'ownership n'est pas explicitement tracé.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "PARTIAL"
+        },
+        "sem-current": {
+          "evidence": "Le natif conserve les statuts épistémiques par élément.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        }
+      },
+      "capabilityId": "C14",
+      "label": "Ownership"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les suggestions I03 sont marquées candidates et non faits utilisateur.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Les inconnues sont séparées, sans statut épistémique systématique.",
+          "scenarioRefs": [
+            "I01",
+            "I03",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "langextract": {
+          "evidence": "Le schéma prévoit des classes, mais elles sont peu renseignées dans les sorties.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "outlines": {
+          "evidence": "Les inconnues sont séparées, sans provenance ou statut systématique.",
+          "scenarioRefs": [
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Les inconnues sont séparées, sans statut épistémique systématique.",
+          "scenarioRefs": [
+            "I02",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "sem-current": {
+          "evidence": "Les éléments natifs portent un statut épistémique traçable.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        }
+      },
+      "capabilityId": "C15",
+      "label": "Epistemic status"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "SUV, MTV, TLG et critères immuno-PET sont proposés comme candidats, sans attribution à l'utilisateur.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Aucun candidat quantitatif n'est proposé en I03.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "FAIL"
+        },
+        "langextract": {
+          "evidence": "Aucun candidat quantitatif n'est proposé en I03.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Aucun candidat quantitatif n'est proposé en I03.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "FAIL"
+        },
+        "pydanticai": {
+          "evidence": "Aucun candidat quantitatif n'est proposé en I03.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "FAIL"
+        },
+        "sem-current": {
+          "evidence": "Aucun candidat contextuel n'est exposé sur I03 malgré la demande de paramètres quantitatifs.",
+          "scenarioRefs": [
+            "I03"
+          ],
+          "status": "FAIL"
+        }
+      },
+      "capabilityId": "C16",
+      "label": "Contextual enrichment"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Sept états interactifs structurés sans échec.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Six états interactifs structurés sans échec.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "Sept états valides, mais l'adapter de dialogue reste fragile et répète un inconnu résolu.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "PARTIAL"
+        },
+        "outlines": {
+          "evidence": "Huit états interactifs structurés sans échec de baseline.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "pydanticai": {
+          "evidence": "Huit états interactifs structurés sans échec.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "Six états interactifs valides; aucune erreur provider SEM.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        }
+      },
+      "capabilityId": "C17",
+      "label": "Structural robustness"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Bon état multi-tour et meilleur enrichissement, mais FINISH précoce sur trois scénarios.",
+          "scenarioRefs": [
+            "I01",
+            "I03",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "instructor": {
+          "evidence": "Bonne fidélité initiale, mais plusieurs états restent incomplets après FINISH précoce.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "langextract": {
+          "evidence": "La copie des faits est fidèle mais relations, polarités et mémoire de résolution sont insuffisantes.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Les états répondus sont riches, mais deux branches restent techniquement incomplètes côté simulateur.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "États finaux les plus complets sur les trois branches multi-tour réussies; aucune promotion observée.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "Le sens explicite et les relations sont riches, mais l'état final manque souvent les décisions cachées faute de clarification.",
+          "scenarioRefs": [
+            "I01",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C18",
+      "label": "Global scientific state reconstruction"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Deux questions; I02 est précise, I04 moins décisionnelle.",
+          "scenarioRefs": [
+            "I02",
+            "I04"
+          ],
+          "status": "PARTIAL"
+        },
+        "instructor": {
+          "evidence": "Une seule question, utile mais large; plusieurs besoins de clarification restent ouverts.",
+          "scenarioRefs": [
+            "I04"
+          ],
+          "status": "PARTIAL"
+        },
+        "langextract": {
+          "evidence": "Trois ASK temporels dont deux répétitions après réponse.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Cinq questions, avec une bonne couverture mais plusieurs questions secondaires ou combinées.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Trois questions utiles, mais parfois orientées par des exemples ou multi-composantes.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PARTIAL"
+        },
+        "sem-current": {
+          "evidence": "Deux questions: une forte valeur en I02, une faible priorité en I05; trois FINISH précoces.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C19",
+      "label": "Question economy"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Les deux réponses reçues sont intégrées avec temporalité et polarité.",
+          "scenarioRefs": [
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "La réponse I04 est intégrée avec négations et rôles.",
+          "scenarioRefs": [
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "L'information reçue est copiée mais l'inconnu résolu reste actif et re-questionné.",
+          "scenarioRefs": [
+            "I02"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Trois réponses sont bien intégrées; deux autres ne sont pas disponibles dans les checkpoints.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04",
+            "I03",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Les trois réponses reçues sont intégrées et clôturent les inconnues centrales.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I04"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "La réponse I02 est intégrée; la branche I05 ne reçoit pas la réponse du simulateur.",
+          "scenarioRefs": [
+            "I02",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C20",
+      "label": "Integration of researcher answer"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Bonne clôture I02/I04, mais FINISH initial sur I01, I03 et I05.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "instructor": {
+          "evidence": "FINISH à T0 sur quatre scénarios malgré des inconnues explicitement détectées.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I05"
+          ],
+          "status": "FAIL"
+        },
+        "langextract": {
+          "evidence": "I02 atteint la profondeur maximale en répétant une question résolue; les autres finissent immédiatement.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "FAIL"
+        },
+        "outlines": {
+          "evidence": "Bonne clôture sur trois branches; deux branches ASK restent sans réponse checkpointée.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Bonne clôture après réponse sur trois scénarios; I03 et I05 finissent sans lever des ambiguïtés utiles.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "sem-current": {
+          "evidence": "FINISH à T0 sur I01, I03 et I04; I05 reste en attente technique.",
+          "scenarioRefs": [
+            "I01",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "FAIL"
+        }
+      },
+      "capabilityId": "C21",
+      "label": "Premature FINISH / failure to FINISH"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Aucun scénario exécuté ne contient une demande explicite d'arrêt.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "instructor": {
+          "evidence": "Aucun scénario exécuté ne contient une demande explicite d'arrêt.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "langextract": {
+          "evidence": "Aucun scénario exécuté ne contient une demande explicite d'arrêt.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "outlines": {
+          "evidence": "Aucun scénario exécuté ne contient une demande explicite d'arrêt.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "pydanticai": {
+          "evidence": "Aucun scénario exécuté ne contient une demande explicite d'arrêt.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        },
+        "sem-current": {
+          "evidence": "Aucun scénario exécuté ne contient une demande explicite d'arrêt.",
+          "scenarioRefs": [],
+          "status": "NOT_TESTED"
+        }
+      },
+      "capabilityId": "C22",
+      "label": "STOP correctness"
+    },
+    {
+      "assessments": {
+        "dspy": {
+          "evidence": "Un appel par état, sept succès interactifs, environ 1,7 s par état.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "instructor": {
+          "evidence": "Un appel par état, six succès interactifs, environ 1,6 s par état.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "langextract": {
+          "evidence": "Un appel et moins d'une seconde par état, mais configuration spécialisée et contrôle de dialogue fragile.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "outlines": {
+          "evidence": "Un appel par état et huit succès interactifs; la phase smoke a nécessité une réparation de parsing.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        },
+        "pydanticai": {
+          "evidence": "Un appel par état, huit succès interactifs, environ 1,2 s par état; un incident smoke 504 reste historique.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PASS"
+        },
+        "sem-current": {
+          "evidence": "Aucun échec interactif provider, mais 2,67 appels et environ 17,2 s par état en moyenne.",
+          "scenarioRefs": [
+            "I01",
+            "I02",
+            "I03",
+            "I04",
+            "I05"
+          ],
+          "status": "PARTIAL"
+        }
+      },
+      "capabilityId": "C23",
+      "label": "Technical robustness / provider cost / latency"
+    }
+  ],
+  "generatedAt": "2026-08-14T01:29:03.084949Z",
+  "scale": [
+    "PASS",
+    "PARTIAL",
+    "FAIL",
+    "NOT_EVALUABLE",
+    "NOT_TESTED"
+  ],
+  "scenarioConformanceLimitation": "Executed scenario variants differ materially from the requested cards; unexercised properties are NOT_TESTED or NOT_EVALUABLE."
+}

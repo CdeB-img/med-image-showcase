@@ -1,0 +1,33 @@
+{
+  "baseline": "instructor",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Target population: patients with STEMI",
+      "Intervention/Comparison: immediate versus delayed stent placement",
+      "Evaluation method: cardiac MRI lesion evaluation"
+    ],
+    "missing_or_ambiguous": [
+      "exact timing of the delayed stent placement",
+      "primary endpoint of the study",
+      "study design (e.g., randomized controlled trial, observational)"
+    ],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "User stated intent to study immediate versus delayed stenting in STEMI with cardiac MRI."
+    ],
+    "relations": [
+      "stent placement compared between immediate and delayed in STEMI patients",
+      "cardiac MRI used for lesion evaluation in STEMI patients undergoing stent placement"
+    ],
+    "state_summary": "The user wants to study immediate versus delayed stent placement in STEMI patients, with cardiac MRI lesion evaluation.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I01"
+}

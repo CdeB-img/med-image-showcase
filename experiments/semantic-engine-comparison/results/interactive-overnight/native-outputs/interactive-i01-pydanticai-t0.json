@@ -1,0 +1,20 @@
+{
+  "action": "ASK",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "Le projet porte sur l'étude chez des patients atteints de STEMI (Infarctus du myocarde avec sus-décalage du segment ST).",
+    "L'intervention comparée est la mise en place immédiate versus différée d'un stent.",
+    "L'évaluation des lésions est réalisée par IRM cardiaque."
+  ],
+  "missing_or_ambiguous": [
+    "Critère de jugement principal (par exemple, la taille de l'infarctus, le salvage myocardique, ou un critère clinique).",
+    "Population exacte ou critères d'inclusion/exclusion additionnels."
+  ],
+  "negations_or_constraints": [],
+  "next_question": "Quel est le critère de jugement principal de votre étude (par exemple, la taille de l'infarctus en IRM, le myocarde sauvé, ou un critère clinique) ?",
+  "ownership_or_epistemic_notes": [],
+  "relations": [],
+  "state_summary": "Étude chez des patients STEMI comparant la pose de stent immédiate vs différée, avec évaluation des lésions par IRM cardiaque. Le critère de jugement principal reste à préciser.",
+  "temporal_context": []
+}

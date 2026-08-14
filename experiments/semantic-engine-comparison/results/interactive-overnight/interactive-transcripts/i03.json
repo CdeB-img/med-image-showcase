@@ -1,0 +1,254 @@
+{
+  "branches": {
+    "dspy": {
+      "baseline": "dspy",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [
+              "Standard PET-FDG quantitative parameters (e.g., SUVmax, SUVmean, MTV, TLG)",
+              "Immune-related response criteria in PET imaging (e.g., PERCIMT, iPERCIST)"
+            ],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The user wants to monitor tumor response under immunotherapy using FDG-PET.",
+              "The user wants to determine which quantitative parameters would be useful."
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "User stated intent to track tumor response and identify useful quantitative parameters under immunotherapy."
+            ],
+            "relations": [
+              "quantitative parameters -> monitor -> tumor response under immunotherapy"
+            ],
+            "state_summary": "The user aims to monitor tumor response under immunotherapy via FDG-PET imaging and identify useful quantitative parameters for this purpose.",
+            "temporal_context": [
+              "During immunotherapy"
+            ]
+          },
+          "reused": true,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+          "message_id": "I03:dspy:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "instructor": {
+      "baseline": "instructor",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The user wants to monitor tumor response under immunotherapy.",
+              "The imaging modality of interest is FDG-PET.",
+              "The user wants to determine which quantitative parameters are useful."
+            ],
+            "missing_or_ambiguous": [
+              "Specific cancer type is not specified.",
+              "Specific immunotherapy agent is not specified."
+            ],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Goal stated directly by the user."
+            ],
+            "relations": [
+              "Monitoring tumor response under immunotherapy is linked to FDG-PET.",
+              "FDG-PET is linked to quantitative parameters."
+            ],
+            "state_summary": "The user wants to monitor tumor response under immunotherapy using FDG-PET and identify useful quantitative parameters.",
+            "temporal_context": []
+          },
+          "reused": true,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+          "message_id": "I03:instructor:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "langextract": {
+      "baseline": "langextract",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "suivre sous immunothérapie la réponse tumorale en TEP-FDG",
+              "voir quels paramètres quantitatifs seraient utiles"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "suivre sous immunothérapie la réponse tumorale en TEP-FDG; voir quels paramètres quantitatifs seraient utiles",
+            "temporal_context": []
+          },
+          "reused": true,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+          "message_id": "I03:langextract:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "outlines": {
+      "baseline": "outlines",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "L'utilisateur souhaite suivre la reponse tumorale sous immunotherapie en TEP-FDG.",
+              "L'utilisateur souhaite identifier les parametres quantitatifs utiles."
+            ],
+            "missing_or_ambiguous": [
+              "Type de cancer ou localisation tumorale non precise",
+              "Parametres quantitatifs specifiques deja envisages ou non"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quel est le type ou la localisation de la tumeur concernee par ce suivi ?",
+            "ownership_or_epistemic_notes": [
+              "Objectif exprime par l'utilisateur"
+            ],
+            "relations": [
+              "Suivi de la reponse tumorale par TEP-FDG sous immunotherapie",
+              "Identification de parametres quantitatifs pour le suivi"
+            ],
+            "state_summary": "L'utilisateur souhaite suivre la reponse tumorale sous immunotherapie grace a la TEP-FDG et identifier les parametres quantitatifs utiles.",
+            "temporal_context": []
+          },
+          "reused": true,
+          "round": "T0"
+        }
+      ],
+      "status": "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING",
+      "turns": [
+        {
+          "content": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+          "message_id": "I03:outlines:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "pydanticai": {
+      "baseline": "pydanticai",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "L'utilisateur souhaite suivre la réponse tumorale sous immunothérapie en TEP-FDG",
+              "L'utilisateur cherche à identifier quels paramètres quantitatifs seraient utiles"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "L'utilisateur exprime un objectif de suivi et de recherche de paramètres pertinents en TEP-FDG sous immunothérapie."
+            ],
+            "relations": [
+              "Suivi de la réponse tumorale (sous immunothérapie) -> TEP-FDG (modalité) -> Paramètres quantitatifs utiles (cibles de l'analyse)"
+            ],
+            "state_summary": "L'utilisateur souhaite suivre la réponse tumorale sous immunothérapie en TEP-FDG et identifier les paramètres quantitatifs pertinents.",
+            "temporal_context": []
+          },
+          "reused": true,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+          "message_id": "I03:pydanticai:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "sem-current": {
+      "baseline": "sem-current",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "TEP-FDG",
+              "Réponse tumorale",
+              "Immunothérapie",
+              "Paramètres quantitatifs",
+              "Suivre la réponse tumorale"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "TEP-FDG: EXPLICIT_USER_STATED",
+              "Réponse tumorale: EXPLICIT_USER_STATED",
+              "Immunothérapie: EXPLICIT_USER_STATED",
+              "Paramètres quantitatifs: EXPLICIT_USER_STATED",
+              "Suivre la réponse tumorale: EXPLICIT_USER_STATED"
+            ],
+            "relations": [
+              "TRIGGERED_BY",
+              "OBSERVED_BY",
+              "AIMS_TO_MODIFY"
+            ],
+            "state_summary": "L'utilisateur souhaite évaluer sous immunothérapie la réponse tumorale par TEP-FDG et identifier les paramètres quantitatifs utiles à cette évaluation.",
+            "temporal_context": []
+          },
+          "reused": true,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+          "message_id": "I03:sem-current:u0",
+          "role": "USER"
+        }
+      ]
+    }
+  },
+  "initialVisible": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+  "scenarioId": "I03",
+  "title": "Immunotherapy and FDG PET"
+}

@@ -1,0 +1,982 @@
+{
+  "mode": "LIVE_LLM",
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I04:sem-current:u0"
+    ],
+    "createdAt": "2026-08-14T01:13:58.975Z",
+    "critic": {
+      "issues": [],
+      "summary": "The semantic inventory, typed candidate, coverage reports, taxonomy, and integrity reports are fully consistent and complete. All checks pass successfully.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-5ec794d075a5ca5c",
+    "elements": [
+      {
+        "canonicalMeaning": "étude multicentrique",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-1"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6724d99d107cd191",
+          "rawElementId": "elem-1",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-7ac44a2b7200f4cf"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-003189523f16dcde",
+        "sourceSpan": {
+          "end": 39,
+          "messageId": "I04:sem-current:u0",
+          "start": 19,
+          "text": "étude multicentrique"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "mesures quantitatives",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-4"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6724d99d107cd191",
+          "rawElementId": "elem-4",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-69c6a16e3e3b4a12",
+          "sem-relation:ke1-93e8367758480383",
+          "sem-relation:ke1-b21e6c329a5d01be"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-45d18284a1077db8",
+        "sourceSpan": {
+          "end": 116,
+          "messageId": "I04:sem-current:u0",
+          "start": 91,
+          "text": "mesures IRM quantitatives"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "comparabilité entre centres",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-6"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6724d99d107cd191",
+          "rawElementId": "elem-6",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-93e8367758480383"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-475157541ff93000",
+        "sourceSpan": {
+          "end": 142,
+          "messageId": "I04:sem-current:u0",
+          "start": 117,
+          "text": "comparables entre centres"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "maladie de Fabry",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-2"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6724d99d107cd191",
+          "rawElementId": "elem-2",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-7ac44a2b7200f4cf"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "sourceSpan": {
+          "end": 64,
+          "messageId": "I04:sem-current:u0",
+          "start": 48,
+          "text": "maladie de Fabry"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "identifier",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-3"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6724d99d107cd191",
+          "rawElementId": "elem-3",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-b21e6c329a5d01be"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-bf359c8fcd52a1a3",
+        "sourceSpan": {
+          "end": 86,
+          "messageId": "I04:sem-current:u0",
+          "start": 76,
+          "text": "identifier"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "imagerie par résonance magnétique",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-5"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6724d99d107cd191",
+          "rawElementId": "elem-5",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-69c6a16e3e3b4a12"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+        "sourceSpan": {
+          "end": 102,
+          "messageId": "I04:sem-current:u0",
+          "start": 99,
+          "text": "IRM"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 2944,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:13:58.973Z",
+          "requestStarted": "2026-08-14T01:13:56.029Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-e559e8930b995cbf",
+      "criticCallIds": [
+        "gemini-call:ke1-e559e8930b995cbf"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T01:13:58.975Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit fragments are fully mapped to valid semantic elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator or comparator arm is requested.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No explicit therapeutic or technical intervention is specified.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "MRI is correctly represented as a MODALITY element.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are explicitly covered by client relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All elements align with operational taxonomy rules.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relation has been weakened.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences were treated as direct facts.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No ambiguities were suppressed.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "No negations are present in the text.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No specific timing elements are requested.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No outcomes or measurements were promoted to endpoints without explicit user action.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Concepts are faithfully preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragments are unrepresented.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "The route DESIGN_STUDY perfectly matches the study preparation intent and parameters.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-indep-001",
+        "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy, and integrity reports are fully consistent and complete. All checks pass successfully.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit fragments are fully mapped to valid semantic elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator or comparator arm is requested.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "No explicit therapeutic or technical intervention is specified.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "MRI is correctly represented as a MODALITY element.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are explicitly covered by client relations.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All elements align with operational taxonomy rules.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relation has been weakened.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No inferences were treated as direct facts.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No ambiguities were suppressed.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "No negations are present in the text.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "No specific timing elements are requested.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No outcomes or measurements were promoted to endpoints without explicit user action.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Concepts are faithfully preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "No source fragments are unrepresented.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "The route DESIGN_STUDY perfectly matches the study preparation intent and parameters.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-indep-001",
+          "criticSummary": "The semantic inventory, typed candidate, coverage reports, taxonomy, and integrity reports are fully consistent and complete. All checks pass successfully.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "étude multicentrique",
+            "clientElementId": "elem-1",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:sem-current:u0",
+            "sourceText": "étude multicentrique",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "STUDY_DESIGN"
+          },
+          {
+            "canonicalMeaning": "maladie de Fabry",
+            "clientElementId": "elem-2",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:sem-current:u0",
+            "sourceText": "maladie de Fabry",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONDITION"
+          },
+          {
+            "canonicalMeaning": "identifier",
+            "clientElementId": "elem-3",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-3"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:sem-current:u0",
+            "sourceText": "identifier",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "mesures quantitatives",
+            "clientElementId": "elem-4",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:sem-current:u0",
+            "sourceText": "mesures IRM quantitatives",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "imagerie par résonance magnétique",
+            "clientElementId": "elem-5",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:sem-current:u0",
+            "sourceText": "IRM",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          },
+          {
+            "canonicalMeaning": "comparabilité entre centres",
+            "clientElementId": "elem-6",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-6"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:sem-current:u0",
+            "sourceText": "comparables entre centres",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "STUDY_DESIGN"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "Préparation d'une étude multicentrique portant sur la maladie de Fabry visant à identifier des mesures d'IRM quantitative comparables entre différents centres.",
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-2"
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO_MODIFY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-4"
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "MEASURED_BY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-5"
+          },
+          {
+            "clientRelationId": "rel-elem-4",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-4"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-6"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 1,
+          "expectedCapabilities": [
+            "multicenter design planning",
+            "quantitative MRI biomarker selection"
+          ],
+          "reason": "L'utilisateur prépare une étude multicentrique et spécifie des paramètres de conception et des objectifs méthodologiques.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-1",
+              "linkedInventoryItemIds": [],
+              "localRole": "study_design",
+              "modifiers": [
+                "multicentrique"
+              ],
+              "normalizedLabel": "étude multicentrique",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "étude multicentrique"
+            },
+            {
+              "inventoryItemId": "item-2",
+              "linkedInventoryItemIds": [],
+              "localRole": "condition",
+              "modifiers": [],
+              "normalizedLabel": "maladie de Fabry",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "maladie de Fabry"
+            },
+            {
+              "inventoryItemId": "item-3",
+              "linkedInventoryItemIds": [
+                "item-4"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "identifier",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "identifier"
+            },
+            {
+              "inventoryItemId": "item-4",
+              "linkedInventoryItemIds": [
+                "item-5"
+              ],
+              "localRole": "biomarker",
+              "modifiers": [
+                "quantitatives"
+              ],
+              "normalizedLabel": "mesures IRM quantitatives",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "mesures IRM quantitatives"
+            },
+            {
+              "inventoryItemId": "item-5",
+              "linkedInventoryItemIds": [],
+              "localRole": "modality",
+              "modifiers": [],
+              "normalizedLabel": "imagerie par résonance magnétique",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "IRM"
+            },
+            {
+              "inventoryItemId": "item-6",
+              "linkedInventoryItemIds": [],
+              "localRole": "design_constraint",
+              "modifiers": [
+                "entre centres"
+              ],
+              "normalizedLabel": "comparables entre centres",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "comparables entre centres"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "normalizedRelation": "STUDY_ADDRESSES_CONDITION",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-1",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "étude multicentrique dans la maladie de Fabry",
+              "targetInventoryItemId": "item-2"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "normalizedRelation": "AIMS_TO_IDENTIFY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-3",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "identifier les mesures IRM quantitatives",
+              "targetInventoryItemId": "item-4"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "normalizedRelation": "MEASURED_BY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-4",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "mesures IRM",
+              "targetInventoryItemId": "item-5"
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "normalizedRelation": "QUALIFIED_BY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-4",
+              "sourceMessageId": "I04:sem-current:u0",
+              "sourceText": "mesures IRM quantitatives comparables entre centres",
+              "targetInventoryItemId": "item-6"
+            }
+          ]
+        },
+        "semanticWarnings": [],
+        "summaryForUser": "Vous préparez une étude multicentrique sur la maladie de Fabry pour identifier des mesures IRM quantitatives comparables entre centres.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 7058,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:13:56.013Z",
+          "requestStarted": "2026-08-14T01:13:48.955Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-6724d99d107cd191",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-1",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "étude multicentrique",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:sem-current:u0",
+          "sourceText": "étude multicentrique"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-2",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "maladie de Fabry",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:sem-current:u0",
+          "sourceText": "maladie de Fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-3",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "identifier",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:sem-current:u0",
+          "sourceText": "identifier"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-4",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "mesures IRM quantitatives",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:sem-current:u0",
+          "sourceText": "mesures IRM quantitatives"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-5",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "imagerie par résonance magnétique",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:sem-current:u0",
+          "sourceText": "IRM"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-6",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "comparables entre centres",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:sem-current:u0",
+          "sourceText": "comparables entre centres"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "Préparation d'une étude multicentrique portant sur la maladie de Fabry visant à identifier des mesures d'IRM quantitative comparables entre différents centres.",
+    "originalRequest": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-1",
+          "mappedClientRelationIds": [
+            "rel-elem-1"
+          ],
+          "normalizedRelation": "STUDY_ADDRESSES_CONDITION",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-2"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-2",
+          "mappedClientRelationIds": [
+            "rel-elem-2"
+          ],
+          "normalizedRelation": "AIMS_TO_IDENTIFY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-3",
+          "targetInventoryItemId": "item-4"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-3",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "normalizedRelation": "MEASURED_BY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-4",
+          "targetInventoryItemId": "item-5"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-4",
+          "mappedClientRelationIds": [
+            "rel-elem-4"
+          ],
+          "normalizedRelation": "QUALIFIED_BY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-4",
+          "targetInventoryItemId": "item-6"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-3"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "MEASURED_BY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-69c6a16e3e3b4a12",
+        "sourceElementId": "sem-element:ke1-45d18284a1077db8",
+        "targetElementId": "sem-element:ke1-cee27023bc99f717",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-7ac44a2b7200f4cf",
+        "sourceElementId": "sem-element:ke1-003189523f16dcde",
+        "targetElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-4"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-93e8367758480383",
+        "sourceElementId": "sem-element:ke1-45d18284a1077db8",
+        "targetElementId": "sem-element:ke1-475157541ff93000",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_MODIFY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-b21e6c329a5d01be",
+        "sourceElementId": "sem-element:ke1-bf359c8fcd52a1a3",
+        "targetElementId": "sem-element:ke1-45d18284a1077db8",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 1,
+      "expectedCapabilities": [
+        "multicenter design planning",
+        "quantitative MRI biomarker selection"
+      ],
+      "reason": "L'utilisateur prépare une étude multicentrique et spécifie des paramètres de conception et des objectifs méthodologiques.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-99af84c820607d14",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Vous préparez une étude multicentrique sur la maladie de Fabry pour identifier des mesures IRM quantitatives comparables entre centres.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T01:13:58.975Z"
+  },
+  "providerStatus": "AVAILABLE"
+}

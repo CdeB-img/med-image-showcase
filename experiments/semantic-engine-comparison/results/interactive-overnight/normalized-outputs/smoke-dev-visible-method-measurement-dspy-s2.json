@@ -1,0 +1,25 @@
+{
+  "baseline": "dspy",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "The user wants to use native T1 mapping and measure myocardial T1.",
+      "The role of the biomarker remains to be discussed."
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Expressed by the user."
+    ],
+    "relations": [],
+    "state_summary": "The user intends to use native T1 mapping to measure myocardial T1, while the role of the biomarker is still open for discussion.",
+    "temporal_context": []
+  },
+  "round": "S2",
+  "scenarioId": "DEV-VISIBLE-METHOD-MEASUREMENT"
+}

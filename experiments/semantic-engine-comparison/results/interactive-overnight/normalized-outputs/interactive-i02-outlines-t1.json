@@ -1,0 +1,39 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [
+      "Correction : pas d'IRM avant thrombectomie (remplace l'incertitude initiale sur les temps d'imagerie)"
+    ],
+    "explicit_facts": [
+      "Étude de la perfusion cérébrale après thrombectomie",
+      "Étude de l'OEF (Oxygen Extraction Fraction) après thrombectomie",
+      "Lien avec l'évolution des lésions",
+      "Pas d'IRM avant thrombectomie",
+      "Temps d'imagerie prévus : 24 h et J7"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [
+      "Pas d'IRM avant thrombectomie",
+      "Étude d'une association, pas d'une causalité"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Déclaré par l'utilisateur"
+    ],
+    "relations": [
+      "Association entre perfusion cérébrale/OEF et évolution des lésions"
+    ],
+    "state_summary": "L'utilisateur souhaite étudier la perfusion cérébrale et l'OEF après thrombectomie en lien avec l'évolution des lésions, sans imagerie avant la thrombectomie. Les temps d'imagerie prévus sont 24 heures et J7. L'étude porte strictement sur une association et non sur une causalité.",
+    "temporal_context": [
+      "Après thrombectomie",
+      "Temps d'imagerie à 24 h",
+      "Temps d'imagerie à J7"
+    ]
+  },
+  "round": "T1",
+  "scenarioId": "I02"
+}

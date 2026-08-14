@@ -1,0 +1,32 @@
+{
+  "baseline": "pydanticai",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [
+      "IRM avant thrombectomie"
+    ],
+    "explicit_facts": [
+      "Étude après thrombectomie de la perfusion cérébrale et de l'OEF en lien avec l'évolution des lésions",
+      "Pas d'IRM avant thrombectomie (correction)",
+      "Temps d'imagerie prévus : 24 heures et J7 (les temps d'imagerie n'étaient pas tous fixés initialement)",
+      "Étude d'une association et non d'une causalité"
+    ],
+    "missing_or_ambiguous": [
+      "Modalités exactes (IRM, TEP, CT) pour la perfusion et l'OEF à 24h et J7"
+    ],
+    "negations_or_constraints": [
+      "Pas d'IRM avant thrombectomie",
+      "Pas de relation causale (uniquement une association)"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [],
+    "relations": [],
+    "state_summary": "L'utilisateur souhaite étudier, après une thrombectomie, la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions. Il est précisé qu'il n'y aura pas d'IRM avant la thrombectomie. Les temps d'imagerie prévus sont 24h et J7. L'étude porte strictement sur une association et non sur une causalité. Les modalités précises d'imagerie (IRM, TEP, CT) pour évaluer la perfusion et l'OEF ne sont pas encore totalement détaillées.",
+    "temporal_context": []
+  },
+  "round": "T1",
+  "scenarioId": "I02"
+}

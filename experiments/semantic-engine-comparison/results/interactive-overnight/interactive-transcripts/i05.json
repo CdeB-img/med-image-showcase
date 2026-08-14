@@ -1,0 +1,268 @@
+{
+  "branches": {
+    "dspy": {
+      "baseline": "dspy",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The user wants to study rectal cancer response during treatment using MRI.",
+              "The user wants to quantify changes in ADC (Apparent Diffusion Coefficient)."
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Expressed by the user."
+            ],
+            "relations": [
+              "MRI is used to study rectal cancer response during treatment.",
+              "ADC evolution is quantified to measure response."
+            ],
+            "state_summary": "The user aims to conduct an MRI study on rectal cancer response during treatment, specifically quantifying ADC evolution.",
+            "temporal_context": [
+              "During treatment"
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+          "message_id": "I05:dspy:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "instructor": {
+      "baseline": "instructor",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The user wants to study rectal cancer response using MRI.",
+              "The study takes place during treatment.",
+              "The user wants to quantify the evolution of the ADC (Apparent Diffusion Coefficient)."
+            ],
+            "missing_or_ambiguous": [
+              "Specific treatment type is not specified",
+              "MRI protocol details are not specified",
+              "Timepoints for ADC quantification are not specified"
+            ],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Expressed as user intent"
+            ],
+            "relations": [
+              "MRI response of rectal cancer during treatment",
+              "quantification of ADC evolution"
+            ],
+            "state_summary": "The user wants to study the MRI response of rectal cancer during treatment and quantify changes in the Apparent Diffusion Coefficient (ADC).",
+            "temporal_context": [
+              "during treatment"
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+          "message_id": "I05:instructor:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "langextract": {
+      "baseline": "langextract",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "étudier en IRM la réponse d'un cancer du rectum pendant le traitement",
+              "quantifier l'évolution de l'ADC"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "étudier en IRM la réponse d'un cancer du rectum pendant le traitement; quantifier l'évolution de l'ADC",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+          "message_id": "I05:langextract:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "outlines": {
+      "baseline": "outlines",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Étude en IRM",
+              "Cible : cancer du rectum",
+              "Contexte : pendant le traitement",
+              "Objectif : quantifier l'évolution de l'ADC"
+            ],
+            "missing_or_ambiguous": [
+              "Type exact de traitement non spécifié",
+              "Séquence IRM ou protocole de mesure de l'ADC non précisé",
+              "Moments précis des examens IRM non définis"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "S'agit-il d'une chimio-radiothérapie néoadjuvante et à quels temps de l'évaluation prévoyez-vous de réaliser les IRM ?",
+            "ownership_or_epistemic_notes": [
+              "Intention déclarée par l'utilisateur"
+            ],
+            "relations": [
+              "IRM utilisée pour étudier le cancer du rectum pendant le traitement",
+              "Quantification de l'évolution de l'ADC en tant que mesure de la réponse"
+            ],
+            "state_summary": "L'utilisateur souhaite étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+            "temporal_context": [
+              "Pendant le traitement"
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING",
+      "turns": [
+        {
+          "content": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+          "message_id": "I05:outlines:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "pydanticai": {
+      "baseline": "pydanticai",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "L'utilisateur souhaite étudier en IRM la réponse d'un cancer du rectum pendant le traitement.",
+              "L'utilisateur souhaite quantifier l'évolution de l'ADC."
+            ],
+            "missing_or_ambiguous": [
+              "Protocole d'IRM précis",
+              "Type de traitement (radiothérapie, chimiothérapie, etc.)",
+              "Moments des examens d'imagerie"
+            ],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "L'utilisateur souhaite étudier par IRM la réponse d'un cancer du rectum en cours de traitement et quantifier l'évolution de l'ADC.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+          "message_id": "I05:pydanticai:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "sem-current": {
+      "baseline": "sem-current",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Cancer du rectum",
+              "Imagerie par résonance magnétique (IRM)",
+              "Évolution du coefficient de diffusion apparent (ADC)",
+              "Étudier la réponse tumorale",
+              "Réponse thérapeutique",
+              "Pendant le traitement",
+              "Quantifier"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": "Quelle est la population cible ou les critères d'inclusion pour cette étude sur le cancer du rectum ?",
+            "ownership_or_epistemic_notes": [
+              "Cancer du rectum: EXPLICIT_USER_STATED",
+              "Imagerie par résonance magnétique (IRM): EXPLICIT_USER_STATED",
+              "Évolution du coefficient de diffusion apparent (ADC): EXPLICIT_USER_STATED",
+              "Étudier la réponse tumorale: EXPLICIT_USER_STATED",
+              "Réponse thérapeutique: EXPLICIT_USER_STATED",
+              "Pendant le traitement: EXPLICIT_USER_STATED",
+              "Quantifier: EXPLICIT_USER_STATED"
+            ],
+            "relations": [
+              "MEASURED_BY",
+              "RECOVERS_AFTER",
+              "RELATED_TO_CANDIDATE",
+              "AIMS_TO_MODIFY",
+              "OBSERVES"
+            ],
+            "state_summary": "Étude par imagerie par résonance magnétique (IRM) de la réponse d'un cancer du rectum pendant le traitement, avec quantification de l'évolution du coefficient de diffusion apparent (ADC).",
+            "temporal_context": [
+              "Pendant le traitement"
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING",
+      "turns": [
+        {
+          "content": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+          "message_id": "I05:sem-current:u0",
+          "role": "USER"
+        }
+      ]
+    }
+  },
+  "initialVisible": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+  "scenarioId": "I05",
+  "title": "Rectal cancer and ADC delta"
+}

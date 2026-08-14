@@ -1,0 +1,36 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Comparaison d'IRM avant traitement",
+      "Comparaison d'IRM après traitement",
+      "Refus de supposer que la variation observée est causée par le traitement"
+    ],
+    "missing_or_ambiguous": [
+      "Nature précise du traitement",
+      "Type de séquence IRM utilisée"
+    ],
+    "negations_or_constraints": [
+      "Sans supposer que la variation observée est causée par le traitement"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "L'utilisateur insiste sur l'absence de lien causal présumé entre la variation et le traitement."
+    ],
+    "relations": [
+      "IRM avant traitement et IRM après traitement font l'objet d'une comparaison"
+    ],
+    "state_summary": "L'utilisateur souhaite comparer l'IRM avant et après traitement en évitant toute supposition de causalité pour la variation observée.",
+    "temporal_context": [
+      "Avant traitement",
+      "Après traitement"
+    ]
+  },
+  "round": "S1",
+  "scenarioId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL"
+}

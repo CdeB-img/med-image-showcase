@@ -1,0 +1,25 @@
+{
+  "action": "FINISH",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "The user wants to monitor tumor response under immunotherapy.",
+    "The imaging modality of interest is FDG-PET.",
+    "The user wants to determine which quantitative parameters are useful."
+  ],
+  "missing_or_ambiguous": [
+    "Specific cancer type is not specified.",
+    "Specific immunotherapy agent is not specified."
+  ],
+  "negations_or_constraints": [],
+  "next_question": null,
+  "ownership_or_epistemic_notes": [
+    "Goal stated directly by the user."
+  ],
+  "relations": [
+    "Monitoring tumor response under immunotherapy is linked to FDG-PET.",
+    "FDG-PET is linked to quantitative parameters."
+  ],
+  "state_summary": "The user wants to monitor tumor response under immunotherapy using FDG-PET and identify useful quantitative parameters.",
+  "temporal_context": []
+}

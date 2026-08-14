@@ -1,0 +1,32 @@
+{
+  "baseline": "dspy",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [
+      "Standard PET-FDG quantitative parameters (e.g., SUVmax, SUVmean, MTV, TLG)",
+      "Immune-related response criteria in PET imaging (e.g., PERCIMT, iPERCIST)"
+    ],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "The user wants to monitor tumor response under immunotherapy using FDG-PET.",
+      "The user wants to determine which quantitative parameters would be useful."
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "User stated intent to track tumor response and identify useful quantitative parameters under immunotherapy."
+    ],
+    "relations": [
+      "quantitative parameters -> monitor -> tumor response under immunotherapy"
+    ],
+    "state_summary": "The user aims to monitor tumor response under immunotherapy via FDG-PET imaging and identify useful quantitative parameters for this purpose.",
+    "temporal_context": [
+      "During immunotherapy"
+    ]
+  },
+  "round": "T0",
+  "scenarioId": "I03"
+}

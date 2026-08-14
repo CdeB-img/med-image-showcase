@@ -1,0 +1,38 @@
+{
+  "baseline": "dspy",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [
+      "Initial vague imaging timepoints; corrected by user specifying no pre-thrombectomy MRI, and planned timepoints at 24 hours and Day 7."
+    ],
+    "explicit_facts": [
+      "The user wants to study cerebral perfusion and OEF after thrombectomy in relation to lesion evolution.",
+      "There will be no MRI before thrombectomy.",
+      "The planned imaging timepoints are 24 hours and Day 7 post-thrombectomy.",
+      "The study investigates an association, not a causality."
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [
+      "No MRI before thrombectomy.",
+      "Association only, explicitly not causality."
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "User stated the study parameters and corrections."
+    ],
+    "relations": [
+      "Cerebral perfusion and OEF are studied in relation to lesion evolution post-thrombectomy."
+    ],
+    "state_summary": "Study of cerebral perfusion and OEF in relation to lesion evolution post-thrombectomy at 24h and Day 7, with no pre-thrombectomy MRI, explicitly focusing on association rather than causality.",
+    "temporal_context": [
+      "Post-thrombectomy",
+      "24 hours",
+      "Day 7"
+    ]
+  },
+  "round": "T1",
+  "scenarioId": "I02"
+}

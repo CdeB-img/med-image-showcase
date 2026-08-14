@@ -1,0 +1,36 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Étude multicentrique dans la maladie de Fabry",
+      "Objectif d'identifier des mesures IRM quantitatives comparables entre centres",
+      "Le T1 natif est le candidat principal",
+      "L'ECV est conditionnel",
+      "Le T2 ne sera pas disponible partout et reste exploratoire",
+      "Le LGE est disponible seulement partiellement et ne sera pas principal"
+    ],
+    "missing_or_ambiguous": [
+      "Critères d'inclusion ou de validation précis pour l'harmonisation du T1 natif et de l'ECV"
+    ],
+    "negations_or_constraints": [
+      "Le T2 ne sera pas disponible partout",
+      "Le LGE ne sera pas principal et n'est disponible que partiellement"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Informations fournies par l'utilisateur concernant les choix de séquences IRM"
+    ],
+    "relations": [
+      "Mesures IRM quantitatives associées à l'étude multicentrique dans la maladie de Fabry"
+    ],
+    "state_summary": "Préparation d'une étude multicentrique sur la maladie de Fabry pour identifier les mesures IRM quantitatives comparables entre centres. Le T1 natif est le candidat principal, l'ECV est conditionnel, le T2 est exploratoire (non disponible partout) et le LGE est partiellement disponible sans être principal.",
+    "temporal_context": []
+  },
+  "round": "T1",
+  "scenarioId": "I04"
+}

@@ -1,0 +1,2001 @@
+{
+  "mode": "LIVE_LLM",
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I02:sem-current:u0",
+      "I02:sem-current:a1",
+      "I02:sem-current:u1"
+    ],
+    "createdAt": "2026-08-14T01:11:45.279Z",
+    "critic": {
+      "issues": [],
+      "summary": "Audit complete. All explicit objects, relations, modalities, and timings are correctly captured and typed according to operational taxonomy. Coverage reports, taxonomy report, and integrity report are all complete. The model is accepted.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-c513f7acffe9f908",
+    "elements": [
+      {
+        "canonicalMeaning": "Perfusion cérébrale",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-4db9282eeb650082",
+          "sem-relation:ke1-5fb083f08ed5377c",
+          "sem-relation:ke1-67c4789c13249e58",
+          "sem-relation:ke1-6aa26848f541556c",
+          "sem-relation:ke1-845852977b3b7d3b",
+          "sem-relation:ke1-dc375c17aae8bc5b",
+          "sem-relation:ke1-f58076e87fb78f84"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-0bec6b48c2560684",
+        "sourceSpan": {
+          "end": 58,
+          "messageId": "I02:sem-current:u0",
+          "start": 39,
+          "text": "perfusion cérébrale"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Extraction d'oxygène (OEF)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-dfb5fb2601d25b2a"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-12cfd183260b3dcf",
+        "sourceSpan": {
+          "end": 67,
+          "messageId": "I02:sem-current:u0",
+          "start": 62,
+          "text": "l'OEF"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Évolution des lésions",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-dc375c17aae8bc5b"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-24ccab6a2181099e",
+        "sourceSpan": {
+          "end": 104,
+          "messageId": "I02:sem-current:u0",
+          "start": 81,
+          "text": "l'évolution des lésions"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Correction des spécifications précédentes",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_07"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u1",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_12",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-2e6af65f5269a7d3",
+        "sourceSpan": {
+          "end": 10,
+          "messageId": "I02:sem-current:u1",
+          "start": 0,
+          "text": "Correction"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "OPERATION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Pas de causalité étudiée",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_12"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I02:sem-current:u1",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_10",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-4db9282eeb650082"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-321847fe0dd7121a",
+        "sourceSpan": {
+          "end": 139,
+          "messageId": "I02:sem-current:u1",
+          "start": 130,
+          "text": "causalité"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "IRM avant thrombectomie",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I02:sem-current:u1",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-eb8ac14687557702"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-45561ed9e4c290ad",
+        "sourceSpan": {
+          "end": 55,
+          "messageId": "I02:sem-current:u1",
+          "start": 32,
+          "text": "IRM avant thrombectomie"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Thrombectomie",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-6aa26848f541556c",
+          "sem-relation:ke1-eb8ac14687557702"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-4d858489eaa7e95d",
+        "sourceSpan": {
+          "end": 35,
+          "messageId": "I02:sem-current:u0",
+          "start": 22,
+          "text": "thrombectomie"
+        },
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Temps d'imagerie initialement non fixés",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_06"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_11",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-4e582b82813cf8ae",
+        "sourceSpan": {
+          "end": 154,
+          "messageId": "I02:sem-current:u0",
+          "start": 106,
+          "text": "sans avoir encore fixé tous les temps d'imagerie"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Étudier la perfusion cérébrale et l'OEF",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-5fb083f08ed5377c",
+          "sem-relation:ke1-dfb5fb2601d25b2a"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-711093279eed4f1b",
+        "sourceSpan": {
+          "end": 15,
+          "messageId": "I02:sem-current:u0",
+          "start": 0,
+          "text": "Je veux étudier"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "24 heures",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u1",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_07",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-67c4789c13249e58"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-8c4798d624628d1a",
+        "sourceSpan": {
+          "end": 83,
+          "messageId": "I02:sem-current:u1",
+          "start": 79,
+          "text": "24 h"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "7 jours (J7)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_10"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u1",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_08",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-845852977b3b7d3b"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-aeee911ca2bd3ac0",
+        "sourceSpan": {
+          "end": 89,
+          "messageId": "I02:sem-current:u1",
+          "start": 87,
+          "text": "J7"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Étude d'une association",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_11"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u1",
+          "providerCallId": "gemini-call:ke1-6f6a77e6447ab802",
+          "rawElementId": "elem_09",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-f58076e87fb78f84"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-f36aeac449377948",
+        "sourceSpan": {
+          "end": 120,
+          "messageId": "I02:sem-current:u1",
+          "start": 109,
+          "text": "association"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "ASSUMPTION",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 7274,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:11:41.848Z",
+          "requestStarted": "2026-08-14T01:11:34.574Z",
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3421,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:11:45.277Z",
+          "requestStarted": "2026-08-14T01:11:41.856Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-c67a9988fb51f6fc",
+      "criticCallIds": [
+        "gemini-call:ke1-93d67be0b45c4a84",
+        "gemini-call:ke1-c67a9988fb51f6fc"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T01:11:45.279Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit entities (perfusion cérébrale, OEF, thrombectomie, IRM, timing fragments, association/causalité terms) are fully mapped in the semantic model.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is introduced in the messages.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Thrombectomy is fully represented as an INTERVENTION with role INTERVENTION_ARM.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "IRM is correctly represented as MODALITY with proper negation.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are completely covered in the semantic model with matching client relation IDs.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "Taxonomy report is complete with no findings; object types strictly adhere to classification precedence.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "All explicit relations preserve their exact source polarity and epistemic status.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No unsupported inferences have been promoted to explicit statements.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "All user modifications, corrections, and negations remain fully transparent.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negations of IRM before thrombectomie, causalité, and initial timing absence are fully preserved with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Timings 24 h, J7, and the initial unspecified timing constraint are all represented as TIMING elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcome and biomarkers are correctly typed and have not been improperly promoted to endpoints.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts such as OEF and cerebral perfusion maintain their precise scientific meaning.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Explicit source fragment list is fully accounted for with zero missing fragments.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY matches the user's explicit request to structure study parameters, imaging times, and associations.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "crit_01",
+        "criticSummary": "Audit complete. All explicit objects, relations, modalities, and timings are correctly captured and typed according to operational taxonomy. Coverage reports, taxonomy report, and integrity report are all complete. The model is accepted.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "Inventory items inv_06 and inv_07 lack source-grounded typed semantic element mappings in the current candidate.",
+              "result": "FAIL"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No comparator was explicitly specified.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Thrombectomy is correctly represented as an intervention element.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "Element elem_06 (IRM avant thrombectomie) is incorrectly typed as METHOD instead of MODALITY.",
+              "result": "FAIL"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "Element elem_06 uses type METHOD whereas the operational taxonomy dictates MODALITY for broad imaging families.",
+              "result": "FAIL"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relations were weakened.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No inferences were promoted improperly.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No ambiguities were hidden.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Negations are fully preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Timings are represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No unsupported outcome-to-endpoint promotions occurred.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Concepts are maintained at their specific levels.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "Unmapped inventory fragments inv_06 and inv_07 remain.",
+              "result": "FAIL"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "Route DESIGN_STUDY appropriately matches the study formulation intent.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic_001",
+          "criticSummary": "Audit completed. Found unmapped explicit inventory fragments inv_06 and inv_07 and a taxonomy violation for elem_06 (should be MODALITY). Proposed explicit element upserts and type correction.",
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "description": "Inventory items inv_06 and inv_07 lack mapped semantic elements.",
+              "elementClientIds": [],
+              "recommendedAction": "Create semantic elements for the unmapped inventory fragments.",
+              "resolved": false,
+              "severity": "WARNING"
+            },
+            {
+              "code": "TYPE_MISMATCH",
+              "description": "elem_06 is typed as METHOD instead of MODALITY.",
+              "elementClientIds": [
+                "elem_06"
+              ],
+              "recommendedAction": "Correct the type of elem_06 to MODALITY via UPSERT_ELEMENT.",
+              "resolved": false,
+              "severity": "WARNING"
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "confidence": 1,
+              "normalizedMeaning": "temps d'imagerie non fixés initialement",
+              "reason": "Explicit fragment inv_06 is unmapped in the current elements list.",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "sans avoir encore fixé tous les temps d'imagerie",
+              "suggestedLocalRole": "TIMING"
+            },
+            {
+              "confidence": 1,
+              "normalizedMeaning": "correction des paramètres précédents",
+              "reason": "Explicit fragment inv_07 is unmapped in the current elements list.",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "Correction",
+              "suggestedLocalRole": "META"
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "Temps d'imagerie initialement non fixés",
+              "elementClientElementId": "elem_11",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "inv_06"
+              ],
+              "elementPolarity": "NEGATED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I02:sem-current:u0",
+              "elementSourceText": "sans avoir encore fixé tous les temps d'imagerie",
+              "elementStudyRole": "NONE",
+              "elementSupersedesElementIds": [],
+              "elementType": "TIMING",
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Map inventory item inv_06 (temps d'imagerie non fixés) to a constraint or timing element.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep_01",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv_06"
+              ],
+              "sourceInventoryRelationIds": []
+            },
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "Correction des spécifications précédentes",
+              "elementClientElementId": "elem_12",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "inv_07"
+              ],
+              "elementPolarity": "AFFIRMED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I02:sem-current:u1",
+              "elementSourceText": "Correction",
+              "elementStudyRole": "NONE",
+              "elementSupersedesElementIds": [],
+              "elementType": "OPERATION",
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Map inventory item inv_07 (correction) to an operation or meta element.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep_02",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv_07"
+              ],
+              "sourceInventoryRelationIds": []
+            },
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "IRM avant thrombectomie",
+              "elementClientElementId": "elem_06",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "inv_08"
+              ],
+              "elementPolarity": "NEGATED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I02:sem-current:u1",
+              "elementSourceText": "IRM avant thrombectomie",
+              "elementStudyRole": "NONE",
+              "elementSupersedesElementIds": [],
+              "elementType": "MODALITY",
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Correct the type of elem_06 from METHOD to MODALITY as required by the taxonomy report.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep_03",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv_08"
+              ],
+              "sourceInventoryRelationIds": []
+            }
+          ],
+          "verdict": "REVISE"
+        },
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit entities (perfusion cérébrale, OEF, thrombectomie, IRM, timing fragments, association/causalité terms) are fully mapped in the semantic model.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator is introduced in the messages.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Thrombectomy is fully represented as an INTERVENTION with role INTERVENTION_ARM.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "IRM is correctly represented as MODALITY with proper negation.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are completely covered in the semantic model with matching client relation IDs.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "Taxonomy report is complete with no findings; object types strictly adhere to classification precedence.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "All explicit relations preserve their exact source polarity and epistemic status.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No unsupported inferences have been promoted to explicit statements.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "All user modifications, corrections, and negations remain fully transparent.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Negations of IRM before thrombectomie, causalité, and initial timing absence are fully preserved with NEGATED polarity.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Timings 24 h, J7, and the initial unspecified timing constraint are all represented as TIMING elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Outcome and biomarkers are correctly typed and have not been improperly promoted to endpoints.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts such as OEF and cerebral perfusion maintain their precise scientific meaning.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "Explicit source fragment list is fully accounted for with zero missing fragments.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY matches the user's explicit request to structure study parameters, imaging times, and associations.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "crit_01",
+          "criticSummary": "Audit complete. All explicit objects, relations, modalities, and timings are correctly captured and typed according to operational taxonomy. Coverage reports, taxonomy report, and integrity report are all complete. The model is accepted.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Étudier la perfusion cérébrale et l'OEF",
+            "clientElementId": "elem_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "Je veux étudier",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Thrombectomie",
+            "clientElementId": "elem_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "thrombectomie",
+            "studyRole": "INTERVENTION_ARM",
+            "supersedesElementIds": [],
+            "type": "INTERVENTION"
+          },
+          {
+            "canonicalMeaning": "Perfusion cérébrale",
+            "clientElementId": "elem_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "perfusion cérébrale",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Extraction d'oxygène (OEF)",
+            "clientElementId": "elem_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "l'OEF",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Évolution des lésions",
+            "clientElementId": "elem_05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "l'évolution des lésions",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "24 heures",
+            "clientElementId": "elem_07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_09"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u1",
+            "sourceText": "24 h",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "7 jours (J7)",
+            "clientElementId": "elem_08",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_10"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u1",
+            "sourceText": "J7",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Étude d'une association",
+            "clientElementId": "elem_09",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_11"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u1",
+            "sourceText": "association",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "ASSUMPTION"
+          },
+          {
+            "canonicalMeaning": "Pas de causalité étudiée",
+            "clientElementId": "elem_10",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_12"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u1",
+            "sourceText": "causalité",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONSTRAINT"
+          },
+          {
+            "canonicalMeaning": "Temps d'imagerie initialement non fixés",
+            "clientElementId": "elem_11",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_06"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "sans avoir encore fixé tous les temps d'imagerie",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Correction des spécifications précédentes",
+            "clientElementId": "elem_12",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_07"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u1",
+            "sourceText": "Correction",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "OPERATION"
+          },
+          {
+            "canonicalMeaning": "IRM avant thrombectomie",
+            "clientElementId": "elem_06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_08"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u1",
+            "sourceText": "IRM avant thrombectomie",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "Étude après thrombectomie de la perfusion cérébrale et de l'OEF en lien avec l'évolution des lésions, sans IRM avant thrombectomie, avec des temps d'imagerie fixés à 24 h et J7, étudiant une association et non une causalité.",
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "OBSERVES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_01",
+            "targetClientElementId": "elem_03"
+          },
+          {
+            "clientRelationId": "rel_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "OBSERVES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_01",
+            "targetClientElementId": "elem_04"
+          },
+          {
+            "clientRelationId": "rel_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "OCCURS_AFTER",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_02"
+          },
+          {
+            "clientRelationId": "rel_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_04"
+            ],
+            "polarity": "NEGATED",
+            "relationType": "PRECEDES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_06",
+            "targetClientElementId": "elem_02"
+          },
+          {
+            "clientRelationId": "rel_05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_05"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "REPEATED_AT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_07"
+          },
+          {
+            "clientRelationId": "rel_06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_06"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "REPEATED_AT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_08"
+          },
+          {
+            "clientRelationId": "rel_07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_07"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_05"
+          },
+          {
+            "clientRelationId": "rel_08",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_08"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_09"
+          },
+          {
+            "clientRelationId": "rel_09",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_09"
+            ],
+            "polarity": "NEGATED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_10"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.95,
+          "expectedCapabilities": [
+            "Définition du protocole d'imagerie",
+            "Structuration des temps de suivi"
+          ],
+          "reason": "L'utilisateur précise les temps d'imagerie, l'intervention, les biomarqueurs et le cadre d'association sans causalité pour structurer son étude.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "linkedInventoryItemIds": [],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "vouloir étudier",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier"
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "linkedInventoryItemIds": [],
+              "localRole": "intervention",
+              "modifiers": [],
+              "normalizedLabel": "thrombectomie",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "thrombectomie"
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "perfusion cérébrale",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "perfusion cérébrale"
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "extraction d'oxygène",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "l'OEF"
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "linkedInventoryItemIds": [],
+              "localRole": "outcome",
+              "modifiers": [],
+              "normalizedLabel": "évolution des lésions",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "l'évolution des lésions"
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "linkedInventoryItemIds": [],
+              "localRole": "timing",
+              "modifiers": [],
+              "normalizedLabel": "temps d'imagerie non fixés",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "sans avoir encore fixé tous les temps d'imagerie"
+            },
+            {
+              "inventoryItemId": "inv_07",
+              "linkedInventoryItemIds": [],
+              "localRole": "meta",
+              "modifiers": [],
+              "normalizedLabel": "correction",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "Correction"
+            },
+            {
+              "inventoryItemId": "inv_08",
+              "linkedInventoryItemIds": [
+                "inv_02"
+              ],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "IRM pré-thrombectomie",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "IRM avant thrombectomie"
+            },
+            {
+              "inventoryItemId": "inv_09",
+              "linkedInventoryItemIds": [],
+              "localRole": "timing",
+              "modifiers": [],
+              "normalizedLabel": "24 heures",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "24 h"
+            },
+            {
+              "inventoryItemId": "inv_10",
+              "linkedInventoryItemIds": [],
+              "localRole": "timing",
+              "modifiers": [],
+              "normalizedLabel": "7 jours",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "J7"
+            },
+            {
+              "inventoryItemId": "inv_11",
+              "linkedInventoryItemIds": [],
+              "localRole": "relation_type",
+              "modifiers": [],
+              "normalizedLabel": "association",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "association"
+            },
+            {
+              "inventoryItemId": "inv_12",
+              "linkedInventoryItemIds": [],
+              "localRole": "relation_type",
+              "modifiers": [],
+              "normalizedLabel": "causalité",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "causalité"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "normalizedRelation": "AIMS_TO_OBSERVE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_01",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier après thrombectomie la perfusion cérébrale",
+              "targetInventoryItemId": "inv_03"
+            },
+            {
+              "inventoryRelationId": "rel_inv_02",
+              "normalizedRelation": "AIMS_TO_OBSERVE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_01",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF",
+              "targetInventoryItemId": "inv_04"
+            },
+            {
+              "inventoryRelationId": "rel_inv_03",
+              "normalizedRelation": "OCCURS_AFTER",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "après thrombectomie la perfusion cérébrale",
+              "targetInventoryItemId": "inv_02"
+            },
+            {
+              "inventoryRelationId": "rel_inv_04",
+              "normalizedRelation": "PRECEDES",
+              "polarity": "NEGATED",
+              "sourceInventoryItemId": "inv_08",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "IRM avant thrombectomie",
+              "targetInventoryItemId": "inv_02"
+            },
+            {
+              "inventoryRelationId": "rel_inv_05",
+              "normalizedRelation": "OCCURS_AT",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "Les temps prévus sont 24 h",
+              "targetInventoryItemId": "inv_09"
+            },
+            {
+              "inventoryRelationId": "rel_inv_06",
+              "normalizedRelation": "OCCURS_AT",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "Les temps prévus sont 24 h et J7",
+              "targetInventoryItemId": "inv_10"
+            },
+            {
+              "inventoryRelationId": "rel_inv_07",
+              "normalizedRelation": "RELATED_TO",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions",
+              "targetInventoryItemId": "inv_05"
+            },
+            {
+              "inventoryRelationId": "rel_inv_08",
+              "normalizedRelation": "IS_ASSOCIATION",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "Nous étudions une association, pas une causalité",
+              "targetInventoryItemId": "inv_11"
+            },
+            {
+              "inventoryRelationId": "rel_inv_09",
+              "normalizedRelation": "IS_CAUSALITY",
+              "polarity": "NEGATED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I02:sem-current:u1",
+              "sourceText": "Nous étudions une association, pas une causalité",
+              "targetInventoryItemId": "inv_12"
+            }
+          ]
+        },
+        "semanticWarnings": [],
+        "summaryForUser": "Reconstruction sémantique des modifications apportées concernant l'absence d'IRM pré-thrombectomie, les temps d'imagerie à 24h et J7, et la nature associative de l'étude.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 15614,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:11:06.335Z",
+          "requestStarted": "2026-08-14T01:10:50.721Z",
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 28211,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:11:34.561Z",
+          "requestStarted": "2026-08-14T01:11:06.350Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-6f6a77e6447ab802",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_01",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "vouloir étudier",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "Je veux étudier"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_02",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "thrombectomie",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "thrombectomie"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_03",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "perfusion cérébrale",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "perfusion cérébrale"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_04",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "extraction d'oxygène",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "l'OEF"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_05",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "évolution des lésions",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "l'évolution des lésions"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_06",
+          "mappedClientElementIds": [
+            "elem_11"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "temps d'imagerie non fixés",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "sans avoir encore fixé tous les temps d'imagerie"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_07",
+          "mappedClientElementIds": [
+            "elem_12"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "correction",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u1",
+          "sourceText": "Correction"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_08",
+          "mappedClientElementIds": [
+            "elem_06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "IRM pré-thrombectomie",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u1",
+          "sourceText": "IRM avant thrombectomie"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_09",
+          "mappedClientElementIds": [
+            "elem_07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "24 heures",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u1",
+          "sourceText": "24 h"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_10",
+          "mappedClientElementIds": [
+            "elem_08"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "7 jours",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u1",
+          "sourceText": "J7"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_11",
+          "mappedClientElementIds": [
+            "elem_09"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "association",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u1",
+          "sourceText": "association"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_12",
+          "mappedClientElementIds": [
+            "elem_10"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "causalité",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u1",
+          "sourceText": "causalité"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "Étude après thrombectomie de la perfusion cérébrale et de l'OEF en lien avec l'évolution des lésions, sans IRM avant thrombectomie, avec des temps d'imagerie fixés à 24 h et J7, étudiant une association et non une causalité.",
+    "originalRequest": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_01",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "normalizedRelation": "AIMS_TO_OBSERVE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_01",
+          "targetInventoryItemId": "inv_03"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_02",
+          "mappedClientRelationIds": [
+            "rel_02"
+          ],
+          "normalizedRelation": "AIMS_TO_OBSERVE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_01",
+          "targetInventoryItemId": "inv_04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_03",
+          "mappedClientRelationIds": [
+            "rel_03"
+          ],
+          "normalizedRelation": "OCCURS_AFTER",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_02"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_04",
+          "mappedClientRelationIds": [
+            "rel_04"
+          ],
+          "normalizedRelation": "PRECEDES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_08",
+          "targetInventoryItemId": "inv_02"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_05",
+          "mappedClientRelationIds": [
+            "rel_05"
+          ],
+          "normalizedRelation": "OCCURS_AT",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_09"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_06",
+          "mappedClientRelationIds": [
+            "rel_06"
+          ],
+          "normalizedRelation": "OCCURS_AT",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_10"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_07",
+          "mappedClientRelationIds": [
+            "rel_07"
+          ],
+          "normalizedRelation": "RELATED_TO",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_08",
+          "mappedClientRelationIds": [
+            "rel_08"
+          ],
+          "normalizedRelation": "IS_ASSOCIATION",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_11"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_09",
+          "mappedClientRelationIds": [
+            "rel_09"
+          ],
+          "normalizedRelation": "IS_CAUSALITY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_12"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_09"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-4db9282eeb650082",
+        "sourceElementId": "sem-element:ke1-0bec6b48c2560684",
+        "targetElementId": "sem-element:ke1-321847fe0dd7121a",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-5fb083f08ed5377c",
+        "sourceElementId": "sem-element:ke1-711093279eed4f1b",
+        "targetElementId": "sem-element:ke1-0bec6b48c2560684",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_05"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-67c4789c13249e58",
+        "sourceElementId": "sem-element:ke1-0bec6b48c2560684",
+        "targetElementId": "sem-element:ke1-8c4798d624628d1a",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OCCURS_AFTER",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-6aa26848f541556c",
+        "sourceElementId": "sem-element:ke1-0bec6b48c2560684",
+        "targetElementId": "sem-element:ke1-4d858489eaa7e95d",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_06"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-845852977b3b7d3b",
+        "sourceElementId": "sem-element:ke1-0bec6b48c2560684",
+        "targetElementId": "sem-element:ke1-aeee911ca2bd3ac0",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_07"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-dc375c17aae8bc5b",
+        "sourceElementId": "sem-element:ke1-0bec6b48c2560684",
+        "targetElementId": "sem-element:ke1-24ccab6a2181099e",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-dfb5fb2601d25b2a",
+        "sourceElementId": "sem-element:ke1-711093279eed4f1b",
+        "targetElementId": "sem-element:ke1-12cfd183260b3dcf",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_04"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "PRECEDES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-eb8ac14687557702",
+        "sourceElementId": "sem-element:ke1-45561ed9e4c290ad",
+        "targetElementId": "sem-element:ke1-4d858489eaa7e95d",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_08"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-f58076e87fb78f84",
+        "sourceElementId": "sem-element:ke1-0bec6b48c2560684",
+        "targetElementId": "sem-element:ke1-f36aeac449377948",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Définition du protocole d'imagerie",
+        "Structuration des temps de suivi"
+      ],
+      "reason": "L'utilisateur précise les temps d'imagerie, l'intervention, les biomarqueurs et le cadre d'association sans causalité pour structurer son étude.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-390d935b5ac94777",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Reconstruction sémantique des modifications apportées concernant l'absence d'IRM pré-thrombectomie, les temps d'imagerie à 24h et J7, et la nature associative de l'étude.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T01:11:45.279Z"
+  },
+  "providerStatus": "AVAILABLE"
+}

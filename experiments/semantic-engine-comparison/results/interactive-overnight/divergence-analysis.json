@@ -1,0 +1,161 @@
+{
+  "adjudication": "SIMULATED_POST_HOC_ADJUDICATION",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "divergences": [
+    {
+      "architectures": [
+        "sem-current",
+        "instructor",
+        "pydanticai",
+        "dspy",
+        "langextract",
+        "outlines"
+      ],
+      "finding": "The harness executed simplified variants rather than the exact messages and hidden cards requested.",
+      "id": "DIV-01",
+      "impact": "C06 and C13 are not evaluable; C07 is not tested; missing-data and ownership conclusions are narrower than planned.",
+      "kind": "SCENARIO_CONFORMANCE",
+      "noPostObservationRepair": true,
+      "scenarios": [
+        "I01",
+        "I02",
+        "I03",
+        "I04",
+        "I05"
+      ]
+    },
+    {
+      "architectures": [
+        "sem-current",
+        "instructor",
+        "dspy",
+        "langextract"
+      ],
+      "finding": "Several candidates chose FINISH at T0 despite consequential unknowns; SEM finished early in I01, I03 and I04.",
+      "id": "DIV-02",
+      "impact": "Hidden corrections were never elicited on those branches.",
+      "kind": "DIALOGUE_CONTROL",
+      "scenarios": [
+        "I01",
+        "I03",
+        "I04",
+        "I05"
+      ]
+    },
+    {
+      "architectures": [
+        "pydanticai",
+        "outlines",
+        "dspy",
+        "sem-current"
+      ],
+      "finding": "PydanticAI and Outlines asked more often; DSPy and SEM produced the strongest single temporal question in I02. Some questions were leading, multi-part, or low-priority.",
+      "id": "DIV-03",
+      "impact": "Question frequency and question value do not rank architectures identically.",
+      "kind": "QUESTION_VALUE",
+      "scenarios": [
+        "I01",
+        "I02",
+        "I04",
+        "I05"
+      ]
+    },
+    {
+      "architectures": [
+        "langextract"
+      ],
+      "finding": "LangExtract retained the missing-time statement after 24 h and J7 were supplied, then repeated the same clarification.",
+      "id": "DIV-04",
+      "impact": "MAX_DIALOGUE_DEPTH_REACHED despite a resolved unknown.",
+      "kind": "STALE_UNKNOWN_AND_REPEAT",
+      "scenarios": [
+        "I02"
+      ]
+    },
+    {
+      "architectures": [
+        "dspy",
+        "sem-current",
+        "instructor",
+        "pydanticai",
+        "langextract",
+        "outlines"
+      ],
+      "finding": "DSPy alone proposed PET quantitative candidates and labeled them as candidates; the other projections did not enrich the request.",
+      "id": "DIV-05",
+      "impact": "DSPy confirms an enrichment signal, but the exact requested I03 constraints were not executed.",
+      "kind": "CONTEXTUAL_ENRICHMENT",
+      "scenarios": [
+        "I03"
+      ]
+    },
+    {
+      "architectures": [
+        "sem-current"
+      ],
+      "finding": "SEM native relations retain endpoints and epistemic fields, while the experimental normalized projection exposes only relation types.",
+      "id": "DIV-06",
+      "impact": "The native output must remain the evidentiary source; normalized relation strings alone are insufficient.",
+      "kind": "SEM_NORMALIZATION_LOSS",
+      "scenarios": [
+        "I01",
+        "I02",
+        "I03",
+        "I04",
+        "I05"
+      ]
+    },
+    {
+      "architectures": [
+        "outlines",
+        "sem-current"
+      ],
+      "finding": "A successful batched simulator call omitted Outlines in I03 and omitted Outlines and SEM in I05.",
+      "id": "DIV-07",
+      "impact": "Three branches cannot be evaluated after ASK; no replay was performed.",
+      "kind": "SIMULATOR_CHECKPOINT_INCOMPLETENESS",
+      "scenarios": [
+        "I03",
+        "I05"
+      ]
+    },
+    {
+      "architectures": [
+        "sem-current",
+        "instructor",
+        "pydanticai",
+        "dspy",
+        "langextract",
+        "outlines"
+      ],
+      "finding": "External frameworks used one provider request per state; SEM used 2.67 requests and about 17.2 seconds per state on average.",
+      "id": "DIV-08",
+      "impact": "SEM's critic/repair pipeline has a material operational cost that requires a demonstrated semantic benefit.",
+      "kind": "TECHNICAL_COST",
+      "scenarios": [
+        "I01",
+        "I02",
+        "I03",
+        "I04",
+        "I05"
+      ]
+    },
+    {
+      "architectures": [
+        "sem-current"
+      ],
+      "finding": "NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED. The experiment maps SEM clarificationCandidates to ASK and otherwise to FINISH.",
+      "id": "DIV-09",
+      "impact": "The observed dialogue decisions are not evidence of a production PD-009 controller.",
+      "kind": "PRODUCT_IMPLEMENTATION_BOUNDARY",
+      "scenarios": [
+        "I01",
+        "I02",
+        "I03",
+        "I04",
+        "I05"
+      ]
+    }
+  ],
+  "generatedAt": "2026-08-14T01:29:03.084949Z"
+}

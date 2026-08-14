@@ -1,0 +1,23 @@
+{
+  "action": "ASK",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "The user wants to use native T1 mapping.",
+    "The user wants to measure myocardial T1.",
+    "The role of the biomarker remains to be discussed."
+  ],
+  "missing_or_ambiguous": [
+    "The specific role of the biomarker"
+  ],
+  "negations_or_constraints": [],
+  "next_question": "Quel biomarqueur souhaitez-vous associer à cette mesure de T1 natif ?",
+  "ownership_or_epistemic_notes": [
+    "User stated intent regarding native T1 mapping and myocardial T1 measurement."
+  ],
+  "relations": [
+    "native T1 mapping is used to measure myocardial T1"
+  ],
+  "state_summary": "The user wants to use native T1 mapping to measure myocardial T1, while the role of the biomarker remains to be discussed.",
+  "temporal_context": []
+}

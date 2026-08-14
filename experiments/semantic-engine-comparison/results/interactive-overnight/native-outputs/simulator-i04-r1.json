@@ -1,0 +1,20 @@
+{
+  "answers": [
+    {
+      "answer": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+      "baseline": "dspy"
+    },
+    {
+      "answer": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+      "baseline": "instructor"
+    },
+    {
+      "answer": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+      "baseline": "outlines"
+    },
+    {
+      "answer": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+      "baseline": "pydanticai"
+    }
+  ]
+}

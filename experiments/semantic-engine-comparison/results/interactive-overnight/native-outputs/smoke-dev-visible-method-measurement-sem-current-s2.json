@@ -1,0 +1,795 @@
+{
+  "mode": "LIVE_LLM",
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [
+      "Le rôle exact du biomarqueur T1 myocardique reste à discuter."
+    ],
+    "clarificationCandidates": [
+      {
+        "question": "Quel sera le rôle précis du biomarqueur T1 myocardique dans votre étude ?",
+        "reason": "Le rôle du biomarqueur est explicitement décrit comme restant à discuter.",
+        "resolvesElementIds": [
+          "sem-element:ke1-0af9eeac3b822bd8"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "DEV-VISIBLE-METHOD-MEASUREMENT:u1"
+    ],
+    "createdAt": "2026-08-14T01:08:42.702Z",
+    "critic": {
+      "issues": [],
+      "summary": "The candidate is fully compliant with the schema, taxonomy, and coverage requirements. All entities and relations are correctly mapped, and ambiguities are properly recorded.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-340d4ffbbf96d5b7",
+    "elements": [
+      {
+        "canonicalMeaning": "T1 myocardique",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-04",
+          "item-05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "UNCERTAIN",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "providerCallId": "gemini-call:ke1-a9a7848ed4d693aa",
+          "rawElementId": "elem-04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-f2f778d204f1c65e"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-0af9eeac3b822bd8",
+        "sourceSpan": {
+          "end": 65,
+          "messageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "start": 51,
+          "text": "T1 myocardique"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Action de mesure",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "providerCallId": "gemini-call:ke1-a9a7848ed4d693aa",
+          "rawElementId": "elem-03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-696257f74605b7bb",
+        "sourceSpan": {
+          "end": 47,
+          "messageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "start": 40,
+          "text": "mesurer"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "OPERATION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Intention d'utiliser une méthode",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "providerCallId": "gemini-call:ke1-a9a7848ed4d693aa",
+          "rawElementId": "elem-01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-9e04b36b0ba8ce8f"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b9d7d8aa7e9ade16",
+        "sourceSpan": {
+          "end": 16,
+          "messageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "start": 8,
+          "text": "utiliser"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "T1 mapping natif",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "providerCallId": "gemini-call:ke1-a9a7848ed4d693aa",
+          "rawElementId": "elem-02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-9e04b36b0ba8ce8f",
+          "sem-relation:ke1-f2f778d204f1c65e"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-da9a9b9811193e7c",
+        "sourceSpan": {
+          "end": 36,
+          "messageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "start": 20,
+          "text": "T1 mapping natif"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3567,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:08:42.700Z",
+          "requestStarted": "2026-08-14T01:08:39.133Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-3d879e6fd9ad5e33",
+      "criticCallIds": [
+        "gemini-call:ke1-3d879e6fd9ad5e33"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T01:08:42.702Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit fragments including the method, operation, and biomarker are correctly represented in the semantic elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No comparator is present in the source message.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No intervention is present in the source message.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "No broad acquisition family/modality is explicitly mentioned outside of the specific method.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit inventory relations are mapped correctly to semantic relations between endpoints.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types conform strictly to the taxonomy and classification precedence.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Relations retain their original intent, usage, and measurement bindings.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No unstated inferences have been promoted to explicit user statements.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "The uncertainty regarding the exact biomarker role is correctly captured as an ambiguity and clarification candidate.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved without reversal or omission.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No explicit timing constraint is mentioned in the message.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No outcome or biomarker has been unjustifiably promoted to endpoint given the uncertain role.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like 'T1 mapping natif' and 'T1 myocardique' are retained precisely.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragment remains unmapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "The route DESIGN_STUDY appropriately matches the study construction intention.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-01",
+        "criticSummary": "The candidate is fully compliant with the schema, taxonomy, and coverage requirements. All entities and relations are correctly mapped, and ambiguities are properly recorded.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit fragments including the method, operation, and biomarker are correctly represented in the semantic elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No comparator is present in the source message.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "No intervention is present in the source message.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "No broad acquisition family/modality is explicitly mentioned outside of the specific method.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All explicit inventory relations are mapped correctly to semantic relations between endpoints.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All element types conform strictly to the taxonomy and classification precedence.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "Relations retain their original intent, usage, and measurement bindings.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No unstated inferences have been promoted to explicit user statements.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "The uncertainty regarding the exact biomarker role is correctly captured as an ambiguity and clarification candidate.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are correctly preserved without reversal or omission.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "No explicit timing constraint is mentioned in the message.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No outcome or biomarker has been unjustifiably promoted to endpoint given the uncertain role.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts like 'T1 mapping natif' and 'T1 myocardique' are retained precisely.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "No source fragment remains unmapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "The route DESIGN_STUDY appropriately matches the study construction intention.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-01",
+          "criticSummary": "The candidate is fully compliant with the schema, taxonomy, and coverage requirements. All entities and relations are correctly mapped, and ambiguities are properly recorded.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [
+          "Le rôle exact du biomarqueur T1 myocardique reste à discuter."
+        ],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [
+          {
+            "question": "Quel sera le rôle précis du biomarqueur T1 myocardique dans votre étude ?",
+            "reason": "Le rôle du biomarqueur est explicitement décrit comme restant à discuter.",
+            "resolvesClientElementIds": [
+              "elem-04"
+            ]
+          }
+        ],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Intention d'utiliser une méthode",
+            "clientElementId": "elem-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+            "sourceText": "utiliser",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "T1 mapping natif",
+            "clientElementId": "elem-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+            "sourceText": "T1 mapping natif",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Action de mesure",
+            "clientElementId": "elem-03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+            "sourceText": "mesurer",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "OPERATION"
+          },
+          {
+            "canonicalMeaning": "T1 myocardique",
+            "clientElementId": "elem-04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-04",
+              "item-05"
+            ],
+            "polarity": "UNCERTAIN",
+            "requiresConfirmation": true,
+            "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+            "sourceText": "T1 myocardique",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "L'utilisateur souhaite utiliser le T1 mapping natif comme méthode pour mesurer le T1 myocardique comme biomarqueur, le rôle exact de ce biomarqueur restant à discuter.",
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-01"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO_MODIFY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-01",
+            "targetClientElementId": "elem-02"
+          },
+          {
+            "clientRelationId": "rel-elem-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "MEASURES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-04"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.9,
+          "expectedCapabilities": [
+            "Définition des rôles des variables",
+            "Sélection des critères d'évaluation"
+          ],
+          "reason": "L'utilisateur définit une méthode et une mesure pour une étude en cours de construction.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-01",
+              "linkedInventoryItemIds": [
+                "item-02",
+                "item-03"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "utiliser",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+              "sourceText": "utiliser"
+            },
+            {
+              "inventoryItemId": "item-02",
+              "linkedInventoryItemIds": [
+                "item-01"
+              ],
+              "localRole": "method",
+              "modifiers": [
+                "natif"
+              ],
+              "normalizedLabel": "T1 mapping natif",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+              "sourceText": "T1 mapping natif"
+            },
+            {
+              "inventoryItemId": "item-03",
+              "linkedInventoryItemIds": [
+                "item-02",
+                "item-04"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "mesurer",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+              "sourceText": "mesurer"
+            },
+            {
+              "inventoryItemId": "item-04",
+              "linkedInventoryItemIds": [
+                "item-03"
+              ],
+              "localRole": "biomarker",
+              "modifiers": [
+                "myocardique"
+              ],
+              "normalizedLabel": "T1 myocardique",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+              "sourceText": "T1 myocardique"
+            },
+            {
+              "inventoryItemId": "item-05",
+              "linkedInventoryItemIds": [
+                "item-04"
+              ],
+              "localRole": "status",
+              "modifiers": [],
+              "normalizedLabel": "rôle du biomarqueur incertain",
+              "polarity": "UNCERTAIN",
+              "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+              "sourceText": "rôle du biomarqueur reste à discuter"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-01",
+              "normalizedRelation": "AIMS_TO_USE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-01",
+              "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+              "sourceText": "utiliser le T1 mapping natif",
+              "targetInventoryItemId": "item-02"
+            },
+            {
+              "inventoryRelationId": "rel-02",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-03",
+              "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+              "sourceText": "mesurer le T1 myocardique",
+              "targetInventoryItemId": "item-04"
+            },
+            {
+              "inventoryRelationId": "rel-03",
+              "normalizedRelation": "METHOD_MEASURES_BIOMARKER",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-02",
+              "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+              "sourceText": "T1 mapping natif et mesurer le T1 myocardique",
+              "targetInventoryItemId": "item-04"
+            }
+          ]
+        },
+        "semanticWarnings": [],
+        "summaryForUser": "Vous souhaitez utiliser le T1 mapping natif pour mesurer le T1 myocardique, avec un rôle de biomarqueur à préciser.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 5624,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:08:39.114Z",
+          "requestStarted": "2026-08-14T01:08:33.490Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-a9a7848ed4d693aa",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-01",
+          "mappedClientElementIds": [
+            "elem-01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "utiliser",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "sourceText": "utiliser"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-02",
+          "mappedClientElementIds": [
+            "elem-02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "T1 mapping natif",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "sourceText": "T1 mapping natif"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-03",
+          "mappedClientElementIds": [
+            "elem-03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "mesurer",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "sourceText": "mesurer"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-04",
+          "mappedClientElementIds": [
+            "elem-04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "T1 myocardique",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "sourceText": "T1 myocardique"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-05",
+          "mappedClientElementIds": [
+            "elem-04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "rôle du biomarqueur incertain",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-METHOD-MEASUREMENT:u1",
+          "sourceText": "rôle du biomarqueur reste à discuter"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite utiliser le T1 mapping natif comme méthode pour mesurer le T1 myocardique comme biomarqueur, le rôle exact de ce biomarqueur restant à discuter.",
+    "originalRequest": "Je veux utiliser le T1 mapping natif et mesurer le T1 myocardique; le rôle du biomarqueur reste à discuter.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-01",
+          "mappedClientRelationIds": [
+            "rel-elem-01"
+          ],
+          "normalizedRelation": "AIMS_TO_USE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-01",
+          "targetInventoryItemId": "item-02"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-02",
+          "mappedClientRelationIds": [
+            "rel-elem-02"
+          ],
+          "normalizedRelation": "MEASURES",
+          "reason": "The functional relation hub is preserved by a direct explicit Semantic Relation between its linked scientific endpoints; a relation-as-object node is not required.",
+          "sourceInventoryItemId": "item-03",
+          "targetInventoryItemId": "item-04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-03",
+          "mappedClientRelationIds": [
+            "rel-elem-02"
+          ],
+          "normalizedRelation": "METHOD_MEASURES_BIOMARKER",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-02",
+          "targetInventoryItemId": "item-04"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_MODIFY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-9e04b36b0ba8ce8f",
+        "sourceElementId": "sem-element:ke1-b9d7d8aa7e9ade16",
+        "targetElementId": "sem-element:ke1-da9a9b9811193e7c",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "MEASURES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-f2f778d204f1c65e",
+        "sourceElementId": "sem-element:ke1-da9a9b9811193e7c",
+        "targetElementId": "sem-element:ke1-0af9eeac3b822bd8",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Définition des rôles des variables",
+        "Sélection des critères d'évaluation"
+      ],
+      "reason": "L'utilisateur définit une méthode et une mesure pour une étude en cours de construction.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-c28ecec9ddd399bd",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Vous souhaitez utiliser le T1 mapping natif pour mesurer le T1 myocardique, avec un rôle de biomarqueur à préciser.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T01:08:42.702Z"
+  },
+  "providerStatus": "AVAILABLE"
+}

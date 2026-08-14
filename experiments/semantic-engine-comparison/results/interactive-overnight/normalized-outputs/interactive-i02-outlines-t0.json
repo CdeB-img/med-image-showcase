@@ -1,0 +1,35 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Étude de la perfusion cérébrale après thrombectomie",
+      "Étude de l'OEF après thrombectomie",
+      "Analyse en lien avec l'évolution des lésions",
+      "Les temps d'imagerie ne sont pas encore tous fixés"
+    ],
+    "missing_or_ambiguous": [
+      "Temps d'imagerie exacts non définis"
+    ],
+    "negations_or_constraints": [],
+    "next_question": "Quelles sont les fenêtres temporelles ou les modalités d'imagerie envisagées pour cette étude ?",
+    "ownership_or_epistemic_notes": [
+      "Intention déclarée par l'utilisateur"
+    ],
+    "relations": [
+      "Perfusion cérébrale et OEF en lien avec l'évolution des lésions",
+      "Étude menée après une thrombectomie"
+    ],
+    "state_summary": "L'utilisateur souhaite étudier la perfusion cérébrale et l'OEF après une thrombectomie en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+    "temporal_context": [
+      "Après thrombectomie",
+      "Temps d'imagerie non fixés"
+    ]
+  },
+  "round": "T0",
+  "scenarioId": "I02"
+}

@@ -1,0 +1,211 @@
+{
+  "architecturalConclusion": "HYBRID_ARCHITECTURE",
+  "bestExternalArchitecture": "pydanticai",
+  "boundaries": {
+    "blindReused": false,
+    "pd011Qualification": false,
+    "realHumanExpertReview": false,
+    "semProductBehaviorModified": false,
+    "sourceOfTruthIndexModified": false,
+    "tuningAfterInteractiveObservation": false
+  },
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "comparisonsAgainstSem": {
+    "dspy": {
+      "classificationAgainstSem": "COMPARABLE_WITH_MAJOR_OPERATIONAL_ADVANTAGE",
+      "rationale": "Meilleur enrichissement contextuel et bonnes mises à jour I02/I04 avec un appel par état; dialogue souvent terminé trop tôt."
+    },
+    "instructor": {
+      "classificationAgainstSem": "WORSE_THAN_NOXIA",
+      "rationale": "Bonne fidélité explicite et faible coût, mais FINISH prématurés fréquents, relations limitées et aucun enrichissement."
+    },
+    "langextract": {
+      "classificationAgainstSem": "WORSE_THAN_NOXIA",
+      "rationale": "Extraction fidèle et rapide, mais relations et polarités faibles, avec inconnus obsolètes en multi-tour."
+    },
+    "outlines": {
+      "classificationAgainstSem": "COMPARABLE_WITHOUT_MEANINGFUL_ADVANTAGE",
+      "rationale": "États riches et large couverture des clarifications, mais valeur des questions inégale et parsing réparé; lacunes simulateur limitantes."
+    },
+    "pydanticai": {
+      "classificationAgainstSem": "COMPARABLE_WITH_MAJOR_OPERATIONAL_ADVANTAGE",
+      "rationale": "Meilleure complétude multi-tour observée, un appel par état et orchestration plus simple; ownership moins explicite que SEM."
+    }
+  },
+  "decision": "EXP_INTERACTIVE_COMPARE_PARTIAL_TECHNICAL",
+  "generatedAt": "2026-08-14T01:29:03.084949Z",
+  "interactiveCampaign": {
+    "askStatesGenerated": 16,
+    "candidateStates": 42,
+    "candidateStatesByBaseline": {
+      "dspy": 7,
+      "instructor": 6,
+      "langextract": 7,
+      "outlines": 8,
+      "pydanticai": 8,
+      "sem-current": 6
+    },
+    "questionsByBaseline": {
+      "dspy": 2,
+      "instructor": 1,
+      "langextract": 2,
+      "outlines": 5,
+      "pydanticai": 3,
+      "sem-current": 2
+    },
+    "questionsDispatchedToSimulator": 15,
+    "researcherAnswersDeliveredToBranches": 12,
+    "researcherSimulatorBatchCalls": 6,
+    "scenarios": 5,
+    "terminalStatusesByBaseline": {
+      "dspy": {
+        "FINISHED": 5
+      },
+      "instructor": {
+        "FINISHED": 5
+      },
+      "langextract": {
+        "FINISHED": 4,
+        "MAX_DIALOGUE_DEPTH_REACHED": 1
+      },
+      "outlines": {
+        "FINISHED": 3,
+        "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING": 2
+      },
+      "pydanticai": {
+        "FINISHED": 5
+      },
+      "sem-current": {
+        "FINISHED": 4,
+        "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING": 1
+      }
+    }
+  },
+  "limitations": [
+    "Executed scenarios are simplified variants, not exact prompt scenarios.",
+    "Three ASK branches lack checkpointed simulator answers.",
+    "Adjudication is simulated post hoc, not human expert review.",
+    "No blind material or PD-011 qualification was used.",
+    "All candidates share the same base model; results mix model and orchestration effects."
+  ],
+  "nature": "EXPERIMENTAL_NON_NORMATIVE_EXPLORATORY",
+  "next": "Design and implement one generic PD-009 dialogue controller over a preserved scientific-state contract, then preregister a clean visible comparison using the exact scenario texts before any further provider run.",
+  "noxia": {
+    "dialogueController": "NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED",
+    "observedExperimentalDialogueControl": "MIXED_ONE_HIGH_VALUE_ASK_MULTIPLE_PREMATURE_FINISHES",
+    "scientificStateUnderstanding": "PARTIAL_BUT_STRUCTURALLY_RICH",
+    "strengths": [
+      "native relations",
+      "epistemic status",
+      "negation/non-causality preservation",
+      "zero interactive provider failure"
+    ],
+    "weaknesses": [
+      "no production generic dialogue controller",
+      "high calls and latency",
+      "no I03 contextual candidates",
+      "early FINISH on I01/I03/I04"
+    ]
+  },
+  "provider": {
+    "byBaseline": {
+      "dspy": {
+        "allMissionFailed": 2,
+        "allMissionReservations": 11,
+        "allMissionSucceeded": 9,
+        "allMissionUnknownReserved": 0,
+        "interactiveCallsPerState": 1.0,
+        "interactiveMeanStateLatencySeconds": 1.652,
+        "interactiveMedianStateLatencySeconds": 1.576,
+        "interactiveProviderRequests": 7,
+        "interactiveProviderSuccesses": 7,
+        "interactiveStatesWithLatency": 7
+      },
+      "instructor": {
+        "allMissionFailed": 1,
+        "allMissionReservations": 9,
+        "allMissionSucceeded": 8,
+        "allMissionUnknownReserved": 0,
+        "interactiveCallsPerState": 1.0,
+        "interactiveMeanStateLatencySeconds": 1.561,
+        "interactiveMedianStateLatencySeconds": 1.571,
+        "interactiveProviderRequests": 6,
+        "interactiveProviderSuccesses": 6,
+        "interactiveStatesWithLatency": 6
+      },
+      "langextract": {
+        "allMissionFailed": 2,
+        "allMissionReservations": 11,
+        "allMissionSucceeded": 9,
+        "allMissionUnknownReserved": 0,
+        "interactiveCallsPerState": 1.0,
+        "interactiveMeanStateLatencySeconds": 0.937,
+        "interactiveMedianStateLatencySeconds": 0.906,
+        "interactiveProviderRequests": 7,
+        "interactiveProviderSuccesses": 7,
+        "interactiveStatesWithLatency": 7
+      },
+      "outlines": {
+        "allMissionFailed": 3,
+        "allMissionReservations": 13,
+        "allMissionSucceeded": 10,
+        "allMissionUnknownReserved": 0,
+        "interactiveCallsPerState": 1.0,
+        "interactiveMeanStateLatencySeconds": 1.562,
+        "interactiveMedianStateLatencySeconds": 1.59,
+        "interactiveProviderRequests": 8,
+        "interactiveProviderSuccesses": 8,
+        "interactiveStatesWithLatency": 8
+      },
+      "pydanticai": {
+        "allMissionFailed": 1,
+        "allMissionReservations": 12,
+        "allMissionSucceeded": 10,
+        "allMissionUnknownReserved": 1,
+        "interactiveCallsPerState": 1.0,
+        "interactiveMeanStateLatencySeconds": 1.234,
+        "interactiveMedianStateLatencySeconds": 1.146,
+        "interactiveProviderRequests": 8,
+        "interactiveProviderSuccesses": 8,
+        "interactiveStatesWithLatency": 8
+      },
+      "sem-current": {
+        "allMissionFailed": 0,
+        "allMissionReservations": 20,
+        "allMissionSucceeded": 20,
+        "allMissionUnknownReserved": 0,
+        "interactiveCallsPerState": 2.67,
+        "interactiveMeanStateLatencySeconds": 17.157,
+        "interactiveMedianStateLatencySeconds": 13.921,
+        "interactiveProviderRequests": 16,
+        "interactiveProviderSuccesses": 16,
+        "interactiveStatesWithLatency": 6
+      }
+    },
+    "byScenario": {
+      "I01": 11,
+      "I02": 18,
+      "I03": 8,
+      "I04": 12,
+      "I05": 9,
+      "SMOKE": 24
+    },
+    "completedEvents": 81,
+    "estimatedDailyUsageAfter": 439,
+    "failedCompletions": 9,
+    "knownDailyUsageBefore": 357,
+    "remainingBeforeHardStop492": 53,
+    "remainingProviderDailyLimit500": 61,
+    "reservationsConservativelyCountedAsConsumed": 82,
+    "successfulCompletions": 72,
+    "unknownReserved": 1
+  },
+  "technicalReadiness": {
+    "dspy": "TECHNICALLY_READY",
+    "instructor": "TECHNICALLY_READY",
+    "langextract": "TECHNICALLY_READY",
+    "outlines": "TECHNICALLY_READY",
+    "pydanticai": "TECHNICALLY_READY",
+    "sem-current": "TECHNICALLY_READY"
+  }
+}

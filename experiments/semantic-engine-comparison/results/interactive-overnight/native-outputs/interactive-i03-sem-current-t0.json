@@ -1,0 +1,847 @@
+{
+  "mode": "LIVE_LLM",
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I03:sem-current:u0"
+    ],
+    "createdAt": "2026-08-14T01:12:26.481Z",
+    "critic": {
+      "issues": [],
+      "summary": "The typed candidate and semantic inventory accurately represent all explicit objects, interventions, methods, and relations from the user message. All reports are complete and verified.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-6e9cab76a1e9d0ea",
+    "elements": [
+      {
+        "canonicalMeaning": "TEP-FDG",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-004"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-eab71788a124a0d4",
+          "rawElementId": "elem-004",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-2fde4de397c432b7"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-1bde27402e1a5f74",
+        "sourceSpan": {
+          "end": 65,
+          "messageId": "I03:sem-current:u0",
+          "start": 58,
+          "text": "TEP-FDG"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Réponse tumorale",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-003"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-eab71788a124a0d4",
+          "rawElementId": "elem-003",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-2fde4de397c432b7",
+          "sem-relation:ke1-9617f7ac1d45add8"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "sourceSpan": {
+          "end": 54,
+          "messageId": "I03:sem-current:u0",
+          "start": 38,
+          "text": "réponse tumorale"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Immunothérapie",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-002"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-eab71788a124a0d4",
+          "rawElementId": "elem-002",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-20dd83f083f6a334"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b94e984a91422b86",
+        "sourceSpan": {
+          "end": 34,
+          "messageId": "I03:sem-current:u0",
+          "start": 20,
+          "text": "immunothérapie"
+        },
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Paramètres quantitatifs",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-005"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-eab71788a124a0d4",
+          "rawElementId": "elem-005",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-c9596726d0ba79c2",
+        "sourceSpan": {
+          "end": 103,
+          "messageId": "I03:sem-current:u0",
+          "start": 80,
+          "text": "paramètres quantitatifs"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Suivre la réponse tumorale",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-001"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-eab71788a124a0d4",
+          "rawElementId": "elem-001",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-20dd83f083f6a334",
+          "sem-relation:ke1-9617f7ac1d45add8"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-dd3ed3ee8d0923ba",
+        "sourceSpan": {
+          "end": 14,
+          "messageId": "I03:sem-current:u0",
+          "start": 8,
+          "text": "suivre"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 25510,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:12:26.479Z",
+          "requestStarted": "2026-08-14T01:12:00.969Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-c23c9680486c30ec",
+      "criticCallIds": [
+        "gemini-call:ke1-c23c9680486c30ec"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T01:12:26.481Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit fragments (suivre, immunothérapie, réponse tumorale, TEP-FDG, paramètres quantitatifs) are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No comparator is present in the source message.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Immunothérapie is correctly represented as an intervention.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "TEP-FDG is correctly represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are mapped to valid semantic relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "Taxonomy report is complete with no type mismatches.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Relations are accurately preserved without weakening.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No unsupported inferences are promoted as explicit facts.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No hidden ambiguities found.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly affirmed.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No explicit timings are stated in the source text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcome and biomarker elements are correctly typed and not improperly promoted.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like TEP-FDG and immunothérapie are preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragment is omitted.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY matches the complete semantic model of a user designing an evaluation protocol.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-01",
+        "criticSummary": "The typed candidate and semantic inventory accurately represent all explicit objects, interventions, methods, and relations from the user message. All reports are complete and verified.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit fragments (suivre, immunothérapie, réponse tumorale, TEP-FDG, paramètres quantitatifs) are fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No comparator is present in the source message.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Immunothérapie is correctly represented as an intervention.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "TEP-FDG is correctly represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are mapped to valid semantic relations.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "Taxonomy report is complete with no type mismatches.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "Relations are accurately preserved without weakening.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No unsupported inferences are promoted as explicit facts.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No hidden ambiguities found.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are correctly affirmed.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "No explicit timings are stated in the source text.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Outcome and biomarker elements are correctly typed and not improperly promoted.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts like TEP-FDG and immunothérapie are preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "No source fragment is omitted.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY matches the complete semantic model of a user designing an evaluation protocol.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-01",
+          "criticSummary": "The typed candidate and semantic inventory accurately represent all explicit objects, interventions, methods, and relations from the user message. All reports are complete and verified.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Suivre la réponse tumorale",
+            "clientElementId": "elem-001",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-001"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:sem-current:u0",
+            "sourceText": "suivre",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Immunothérapie",
+            "clientElementId": "elem-002",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-002"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:sem-current:u0",
+            "sourceText": "immunothérapie",
+            "studyRole": "INTERVENTION_ARM",
+            "supersedesElementIds": [],
+            "type": "INTERVENTION"
+          },
+          {
+            "canonicalMeaning": "Réponse tumorale",
+            "clientElementId": "elem-003",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-003"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:sem-current:u0",
+            "sourceText": "réponse tumorale",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "TEP-FDG",
+            "clientElementId": "elem-004",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-004"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:sem-current:u0",
+            "sourceText": "TEP-FDG",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Paramètres quantitatifs",
+            "clientElementId": "elem-005",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-005"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:sem-current:u0",
+            "sourceText": "paramètres quantitatifs",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "L'utilisateur souhaite évaluer sous immunothérapie la réponse tumorale par TEP-FDG et identifier les paramètres quantitatifs utiles à cette évaluation.",
+        "relations": [
+          {
+            "clientRelationId": "rel-001",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-001"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO_MODIFY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-001",
+            "targetClientElementId": "elem-003"
+          },
+          {
+            "clientRelationId": "rel-002",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-002"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "TRIGGERED_BY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-001",
+            "targetClientElementId": "elem-002"
+          },
+          {
+            "clientRelationId": "rel-003",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-003"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "OBSERVED_BY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-003",
+            "targetClientElementId": "elem-004"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.9,
+          "expectedCapabilities": [
+            "Définition des critères d'évaluation",
+            "Sélection des biomarqueurs TEP-FDG"
+          ],
+          "reason": "L'utilisateur exprime l'intention de concevoir un suivi sous immunothérapie en précisant une modalité et des paramètres à identifier.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-001",
+              "linkedInventoryItemIds": [
+                "inv-002"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "suivre",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:sem-current:u0",
+              "sourceText": "suivre"
+            },
+            {
+              "inventoryItemId": "inv-002",
+              "linkedInventoryItemIds": [],
+              "localRole": "intervention",
+              "modifiers": [],
+              "normalizedLabel": "immunothérapie",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:sem-current:u0",
+              "sourceText": "immunothérapie"
+            },
+            {
+              "inventoryItemId": "inv-003",
+              "linkedInventoryItemIds": [],
+              "localRole": "outcome",
+              "modifiers": [],
+              "normalizedLabel": "réponse tumorale",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:sem-current:u0",
+              "sourceText": "réponse tumorale"
+            },
+            {
+              "inventoryItemId": "inv-004",
+              "linkedInventoryItemIds": [],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "TEP-FDG",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:sem-current:u0",
+              "sourceText": "TEP-FDG"
+            },
+            {
+              "inventoryItemId": "inv-005",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "paramètres quantitatifs",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:sem-current:u0",
+              "sourceText": "paramètres quantitatifs"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-001",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-001",
+              "sourceMessageId": "I03:sem-current:u0",
+              "sourceText": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+              "targetInventoryItemId": "inv-003"
+            },
+            {
+              "inventoryRelationId": "rel-inv-002",
+              "normalizedRelation": "TRIGGERED_BY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-001",
+              "sourceMessageId": "I03:sem-current:u0",
+              "sourceText": "suivre sous immunothérapie",
+              "targetInventoryItemId": "inv-002"
+            },
+            {
+              "inventoryRelationId": "rel-inv-003",
+              "normalizedRelation": "OBSERVED_BY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-003",
+              "sourceMessageId": "I03:sem-current:u0",
+              "sourceText": "réponse tumorale en TEP-FDG",
+              "targetInventoryItemId": "inv-004"
+            }
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ],
+        "summaryForUser": "Demande de suivi de la réponse tumorale sous immunothérapie en TEP-FDG avec recherche des paramètres quantitatifs pertinents.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 7283,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:12:00.947Z",
+          "requestStarted": "2026-08-14T01:11:53.664Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-eab71788a124a0d4",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-001",
+          "mappedClientElementIds": [
+            "elem-001"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "suivre",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:sem-current:u0",
+          "sourceText": "suivre"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-002",
+          "mappedClientElementIds": [
+            "elem-002"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "immunothérapie",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:sem-current:u0",
+          "sourceText": "immunothérapie"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-003",
+          "mappedClientElementIds": [
+            "elem-003"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "réponse tumorale",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:sem-current:u0",
+          "sourceText": "réponse tumorale"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-004",
+          "mappedClientElementIds": [
+            "elem-004"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "TEP-FDG",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:sem-current:u0",
+          "sourceText": "TEP-FDG"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-005",
+          "mappedClientElementIds": [
+            "elem-005"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "paramètres quantitatifs",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:sem-current:u0",
+          "sourceText": "paramètres quantitatifs"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite évaluer sous immunothérapie la réponse tumorale par TEP-FDG et identifier les paramètres quantitatifs utiles à cette évaluation.",
+    "originalRequest": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-001",
+          "mappedClientRelationIds": [
+            "rel-001"
+          ],
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-001",
+          "targetInventoryItemId": "inv-003"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-002",
+          "mappedClientRelationIds": [
+            "rel-002"
+          ],
+          "normalizedRelation": "TRIGGERED_BY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-001",
+          "targetInventoryItemId": "inv-002"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-003",
+          "mappedClientRelationIds": [
+            "rel-003"
+          ],
+          "normalizedRelation": "OBSERVED_BY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-003",
+          "targetInventoryItemId": "inv-004"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-002"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "TRIGGERED_BY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-20dd83f083f6a334",
+        "sourceElementId": "sem-element:ke1-dd3ed3ee8d0923ba",
+        "targetElementId": "sem-element:ke1-b94e984a91422b86",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-003"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVED_BY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-2fde4de397c432b7",
+        "sourceElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "targetElementId": "sem-element:ke1-1bde27402e1a5f74",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-001"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_MODIFY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-9617f7ac1d45add8",
+        "sourceElementId": "sem-element:ke1-dd3ed3ee8d0923ba",
+        "targetElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Définition des critères d'évaluation",
+        "Sélection des biomarqueurs TEP-FDG"
+      ],
+      "reason": "L'utilisateur exprime l'intention de concevoir un suivi sous immunothérapie en précisant une modalité et des paramètres à identifier.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-4f1d646e669e5b22",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Demande de suivi de la réponse tumorale sous immunothérapie en TEP-FDG avec recherche des paramètres quantitatifs pertinents.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T01:12:26.481Z"
+  },
+  "providerStatus": "AVAILABLE"
+}

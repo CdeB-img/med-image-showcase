@@ -1,0 +1,14 @@
+{
+  "extractions": [
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "suivre sous immunothérapie la réponse tumorale en TEP-FDG"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "voir quels paramètres quantitatifs seraient utiles"
+    }
+  ]
+}

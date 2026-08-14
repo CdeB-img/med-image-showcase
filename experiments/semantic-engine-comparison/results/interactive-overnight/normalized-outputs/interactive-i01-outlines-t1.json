@@ -1,0 +1,34 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Population: patients avec STEMI",
+      "Intervention: mise en place immédiate versus différée d'un stent",
+      "Modalité d'évaluation des lésions: IRM cardiaque",
+      "Critère de jugement principal: taille d'infarctus",
+      "Critère de jugement secondaire: MVO"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [
+      "Le strain n'est pas prévu dans l'étude"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Informations fournies directement par l'utilisateur"
+    ],
+    "relations": [
+      "Comparaison de la mise en place immédiate versus différée d'un stent chez les patients STEMI évaluée par IRM cardiaque",
+      "La taille d'infarctus est le critère principal de l'étude",
+      "La MVO est le critère secondaire de l'étude"
+    ],
+    "state_summary": "Le projet d'étude concerne des patients avec STEMI pour comparer la mise en place immédiate versus différée d'un stent avec évaluation des lésions par IRM cardiaque. Le critère de jugement principal est la taille d'infarctus, le critère secondaire est la MVO, et l'analyse du strain n'est pas prévue.",
+    "temporal_context": []
+  },
+  "round": "T1",
+  "scenarioId": "I01"
+}

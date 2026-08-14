@@ -1,0 +1,46 @@
+{
+  "baseline": "sem-current",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Perfusion cérébrale",
+      "Évolution des lésions",
+      "Thrombectomie",
+      "Étudier des paramètres de perfusion et d'extraction d'oxygène",
+      "Fraction d'extraction d'oxygène (OEF)",
+      "Temps d'imagerie non fixés"
+    ],
+    "missing_or_ambiguous": [
+      "Temps d'imagerie précis"
+    ],
+    "negations_or_constraints": [
+      "Temps d'imagerie non fixés"
+    ],
+    "next_question": "Quels temps d'imagerie souhaitez-vous fixer pour évaluer la perfusion et l'OEF après la thrombectomie ?",
+    "ownership_or_epistemic_notes": [
+      "Perfusion cérébrale: EXPLICIT_USER_STATED",
+      "Évolution des lésions: EXPLICIT_USER_STATED",
+      "Thrombectomie: EXPLICIT_USER_STATED",
+      "Étudier des paramètres de perfusion et d'extraction d'oxygène: EXPLICIT_USER_STATED",
+      "Fraction d'extraction d'oxygène (OEF): EXPLICIT_USER_STATED",
+      "Temps d'imagerie non fixés: EXPLICIT_USER_STATED"
+    ],
+    "relations": [
+      "RECOVERS_AFTER",
+      "RELATED_TO_CANDIDATE",
+      "AIMS_TO_OBSERVE",
+      "RELATED_TO_CANDIDATE",
+      "AIMS_TO_OBSERVE"
+    ],
+    "state_summary": "Étude post-thrombectomie de la perfusion cérébrale et de l'extraction d'oxygène (OEF) en relation avec l'évolution des lésions, avec des temps d'imagerie non encore fixés.",
+    "temporal_context": [
+      "Temps d'imagerie non fixés"
+    ]
+  },
+  "round": "T0",
+  "scenarioId": "I02"
+}

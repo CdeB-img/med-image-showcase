@@ -1,0 +1,9 @@
+{
+  "extractions": [
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "comparer l'IRM avant et après traitement, sans supposer que la variation observée est causée par le traitement"
+    }
+  ]
+}

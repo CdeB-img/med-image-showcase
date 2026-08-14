@@ -1,0 +1,1351 @@
+{
+  "mode": "LIVE_LLM",
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [
+      {
+        "question": "Quelle est la population cible ou les critères d'inclusion pour cette étude sur le cancer du rectum ?",
+        "reason": "La population n'est pas explicitement précisée.",
+        "resolvesElementIds": []
+      },
+      {
+        "question": "Quel traitement spécifique est administré pendant la période d'évaluation par IRM ?",
+        "reason": "Le type exact de traitement n'est pas détaillé.",
+        "resolvesElementIds": [
+          "sem-element:ke1-b5ba156c7abfeec0"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I05:sem-current:u0"
+    ],
+    "createdAt": "2026-08-14T01:15:15.775Z",
+    "critic": {
+      "issues": [],
+      "summary": "The semantic model and typed candidate faithfully capture all explicit user statements, modalities, scientific intents, and relations with robust coverage and clean taxonomy compliance.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-fdbedd91b7df6175",
+    "elements": [
+      {
+        "canonicalMeaning": "Cancer du rectum",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I05:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-2bde9f3f6c1cf43b",
+          "rawElementId": "elem-04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-57ce73f5ee386b61"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-00d4bf7c33ca6f20",
+        "sourceSpan": {
+          "end": 55,
+          "messageId": "I05:sem-current:u0",
+          "start": 39,
+          "text": "cancer du rectum"
+        },
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Imagerie par résonance magnétique (IRM)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I05:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-2bde9f3f6c1cf43b",
+          "rawElementId": "elem-02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-c875e1f9e45747e5"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-1b6466ae62694602",
+        "sourceSpan": {
+          "end": 22,
+          "messageId": "I05:sem-current:u0",
+          "start": 19,
+          "text": "IRM"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Évolution du coefficient de diffusion apparent (ADC)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-07",
+          "item-08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I05:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-2bde9f3f6c1cf43b",
+          "rawElementId": "elem-07",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-11d9d17348ae66c7"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-63661d416f1992c5",
+        "sourceSpan": {
+          "end": 112,
+          "messageId": "I05:sem-current:u0",
+          "start": 92,
+          "text": "l'évolution de l'ADC"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Étudier la réponse tumorale",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I05:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-2bde9f3f6c1cf43b",
+          "rawElementId": "elem-01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-858f7d5287750696"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-9a67e0963a928ab2",
+        "sourceSpan": {
+          "end": 15,
+          "messageId": "I05:sem-current:u0",
+          "start": 8,
+          "text": "étudier"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Réponse thérapeutique",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I05:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-2bde9f3f6c1cf43b",
+          "rawElementId": "elem-03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-12b95e94e2c22ce0",
+          "sem-relation:ke1-57ce73f5ee386b61",
+          "sem-relation:ke1-858f7d5287750696",
+          "sem-relation:ke1-c875e1f9e45747e5"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-aa0799eeb927854a",
+        "sourceSpan": {
+          "end": 33,
+          "messageId": "I05:sem-current:u0",
+          "start": 26,
+          "text": "réponse"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Pendant le traitement",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I05:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-2bde9f3f6c1cf43b",
+          "rawElementId": "elem-05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-12b95e94e2c22ce0"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b5ba156c7abfeec0",
+        "sourceSpan": {
+          "end": 77,
+          "messageId": "I05:sem-current:u0",
+          "start": 56,
+          "text": "pendant le traitement"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Quantifier",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-06"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I05:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-2bde9f3f6c1cf43b",
+          "rawElementId": "elem-06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-11d9d17348ae66c7"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-c25c62073e48db8b",
+        "sourceSpan": {
+          "end": 91,
+          "messageId": "I05:sem-current:u0",
+          "start": 81,
+          "text": "quantifier"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "OPERATION",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 4274,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:15:12.214Z",
+          "requestStarted": "2026-08-14T01:15:07.940Z",
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3551,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:15:15.773Z",
+          "requestStarted": "2026-08-14T01:15:12.222Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-b55fc8e58708a941",
+      "criticCallIds": [
+        "gemini-call:ke1-35a6c889632e81dd",
+        "gemini-call:ke1-b55fc8e58708a941"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T01:15:15.775Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All inventory items (IRM, cancer du rectum, réponse, traitement, ADC) are fully represented by corresponding typed semantic elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is present in the source text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Treatment is covered as part of temporal/contextual definitions and appropriately surfaced as clarification when specific intervention protocols are requested.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "IRM is correctly represented as MODALITY with study role MEASUREMENT.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are mapped to source-grounded client relations accurately.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "Taxonomy report is complete with no findings; object types follow the precedence rules.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened or converted into ungrounded inferences.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "Epistemic statuses correctly reflect explicit user statements.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Implicit specifics like population and exact treatment type are properly channeled into clarification candidates rather than hidden.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are consistently affirmed where indicated by the source.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "'pendant le traitement' is correctly captured as a TIMING element.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcome and biomarker variables remain properly typed without unwarranted endpoint promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts such as ADC and rectal cancer are fully preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragment is left out of the semantic model.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Route DESIGN_STUDY is completely justified by study design intent, variables, and modality setup.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "CRITIC-SEM-001",
+        "criticSummary": "The semantic model and typed candidate faithfully capture all explicit user statements, modalities, scientific intents, and relations with robust coverage and clean taxonomy compliance.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit objects ('cancer du rectum', 'ADC', 'IRM') are fully represented by elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No comparator is stated in the prompt.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "No specific active treatment intervention is explicitly named as a study arm (treatment is mentioned as a timing period).",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "IRM is fully represented as elem-02.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "Structural relation report flags that the direct relationship between IRM (modality) and the outcome/target response needs to be represented directly, not only through intent spokes.",
+              "result": "FAIL"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All types conform strictly to the taxonomy report.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "Relations are faithfully preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No inferences are promoted as explicit user facts.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No ambiguities are hidden.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are correctly affirmed.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "'pendant le traitement' is fully captured as elem-05.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Outcome and biomarker roles are appropriately separated without unsupported endpoint promotion.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts like rectal cancer and ADC are kept specific.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "All fragments are covered in the inventory.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY correctly matches the study construction request.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "crit-01",
+          "criticSummary": "The candidate captures all explicit objects, modalities, and actions correctly. However, a structural relation gap between the modality (IRM) and the target response requires a direct relation edge to ensure complete relational coverage without relying solely on action spokes.",
+          "issues": [
+            {
+              "code": "EXPLICIT_RELATION_UNMAPPED",
+              "description": "Direct explicit relation required from intent spokes connecting modality and target/outcome.",
+              "elementClientIds": [
+                "elem-02",
+                "elem-03"
+              ],
+              "recommendedAction": "Add a direct relation between IRM and response using the inventory relations.",
+              "resolved": false,
+              "severity": "WARNING"
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [
+            {
+              "action": "UPSERT_RELATION",
+              "ambiguity": null,
+              "elementCanonicalMeaning": null,
+              "elementClientElementId": null,
+              "elementConfidence": null,
+              "elementEpistemicStatus": null,
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [],
+              "elementPolarity": null,
+              "elementRequiresConfirmation": null,
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementStudyRole": null,
+              "elementSupersedesElementIds": [],
+              "elementType": null,
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Provide the direct scientific relation between IRM and the outcome/response as flagged by structural relation check.",
+              "relationClientRelationId": "rel-elem-06",
+              "relationConfidence": 1,
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationInferenceReason": "Direct connection between modality IRM and response outcome.",
+              "relationInventoryRelationIds": [
+                "rel-01",
+                "rel-02"
+              ],
+              "relationPolarity": "AFFIRMED",
+              "relationRequiresConfirmation": false,
+              "relationSourceClientElementId": "elem-02",
+              "relationTargetClientElementId": "elem-03",
+              "relationType": "OBSERVES",
+              "repairId": "rep-01",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [],
+              "sourceInventoryRelationIds": [
+                "rel-01",
+                "rel-02"
+              ]
+            }
+          ],
+          "verdict": "REVISE"
+        },
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All inventory items (IRM, cancer du rectum, réponse, traitement, ADC) are fully represented by corresponding typed semantic elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator is present in the source text.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Treatment is covered as part of temporal/contextual definitions and appropriately surfaced as clarification when specific intervention protocols are requested.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "IRM is correctly represented as MODALITY with study role MEASUREMENT.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are mapped to source-grounded client relations accurately.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "Taxonomy report is complete with no findings; object types follow the precedence rules.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relations were weakened or converted into ungrounded inferences.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "Epistemic statuses correctly reflect explicit user statements.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "Implicit specifics like population and exact treatment type are properly channeled into clarification candidates rather than hidden.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are consistently affirmed where indicated by the source.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "'pendant le traitement' is correctly captured as a TIMING element.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Outcome and biomarker variables remain properly typed without unwarranted endpoint promotion.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts such as ADC and rectal cancer are fully preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "No source fragment is left out of the semantic model.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "Route DESIGN_STUDY is completely justified by study design intent, variables, and modality setup.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "CRITIC-SEM-001",
+          "criticSummary": "The semantic model and typed candidate faithfully capture all explicit user statements, modalities, scientific intents, and relations with robust coverage and clean taxonomy compliance.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [
+          {
+            "question": "Quelle est la population cible ou les critères d'inclusion pour cette étude sur le cancer du rectum ?",
+            "reason": "La population n'est pas explicitement précisée.",
+            "resolvesClientElementIds": []
+          },
+          {
+            "question": "Quel traitement spécifique est administré pendant la période d'évaluation par IRM ?",
+            "reason": "Le type exact de traitement n'est pas détaillé.",
+            "resolvesClientElementIds": [
+              "elem-05"
+            ]
+          }
+        ],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Étudier la réponse tumorale",
+            "clientElementId": "elem-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I05:sem-current:u0",
+            "sourceText": "étudier",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Imagerie par résonance magnétique (IRM)",
+            "clientElementId": "elem-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I05:sem-current:u0",
+            "sourceText": "IRM",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          },
+          {
+            "canonicalMeaning": "Réponse thérapeutique",
+            "clientElementId": "elem-03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I05:sem-current:u0",
+            "sourceText": "réponse",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "Cancer du rectum",
+            "clientElementId": "elem-04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-04"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I05:sem-current:u0",
+            "sourceText": "cancer du rectum",
+            "studyRole": "SUBJECT",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_OBJECT"
+          },
+          {
+            "canonicalMeaning": "Pendant le traitement",
+            "clientElementId": "elem-05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-05"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I05:sem-current:u0",
+            "sourceText": "pendant le traitement",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Quantifier",
+            "clientElementId": "elem-06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-06"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I05:sem-current:u0",
+            "sourceText": "quantifier",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "OPERATION"
+          },
+          {
+            "canonicalMeaning": "Évolution du coefficient de diffusion apparent (ADC)",
+            "clientElementId": "elem-07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-07",
+              "item-08"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I05:sem-current:u0",
+            "sourceText": "l'évolution de l'ADC",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [
+          "population",
+          "intervention"
+        ],
+        "normalizedMeaning": "Étude par imagerie par résonance magnétique (IRM) de la réponse d'un cancer du rectum pendant le traitement, avec quantification de l'évolution du coefficient de diffusion apparent (ADC).",
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO_MODIFY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-01",
+            "targetClientElementId": "elem-03"
+          },
+          {
+            "clientRelationId": "rel-elem-03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-03",
+            "targetClientElementId": "elem-04"
+          },
+          {
+            "clientRelationId": "rel-elem-04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-04"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RECOVERS_AFTER",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-03",
+            "targetClientElementId": "elem-05"
+          },
+          {
+            "clientRelationId": "rel-elem-05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-05"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "MEASURED_BY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-07",
+            "targetClientElementId": "elem-06"
+          },
+          {
+            "clientRelationId": "rel-elem-06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": "Direct connection between modality IRM and response outcome.",
+            "inventoryRelationIds": [
+              "rel-01",
+              "rel-02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "OBSERVES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-03"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.95,
+          "expectedCapabilities": [
+            "Définir la population",
+            "Préciser le protocole de traitement",
+            "Structurer le calendrier des acquisitions IRM"
+          ],
+          "reason": "L'utilisateur souhaite concevoir une étude clinique/radiologique évaluant l'effet d'un traitement sur le cancer du rectum à l'aide de l'IRM et de mesures d'ADC.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-01",
+              "linkedInventoryItemIds": [
+                "item-02",
+                "item-04"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "étudier",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "étudier"
+            },
+            {
+              "inventoryItemId": "item-02",
+              "linkedInventoryItemIds": [
+                "item-01"
+              ],
+              "localRole": "modality",
+              "modifiers": [],
+              "normalizedLabel": "IRM",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "IRM"
+            },
+            {
+              "inventoryItemId": "item-03",
+              "linkedInventoryItemIds": [
+                "item-04",
+                "item-05"
+              ],
+              "localRole": "outcome",
+              "modifiers": [],
+              "normalizedLabel": "réponse",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "réponse"
+            },
+            {
+              "inventoryItemId": "item-04",
+              "linkedInventoryItemIds": [
+                "item-01",
+                "item-03"
+              ],
+              "localRole": "subject",
+              "modifiers": [],
+              "normalizedLabel": "cancer du rectum",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "cancer du rectum"
+            },
+            {
+              "inventoryItemId": "item-05",
+              "linkedInventoryItemIds": [
+                "item-03"
+              ],
+              "localRole": "timing",
+              "modifiers": [],
+              "normalizedLabel": "pendant le traitement",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "pendant le traitement"
+            },
+            {
+              "inventoryItemId": "item-06",
+              "linkedInventoryItemIds": [
+                "item-07"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "quantifier",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "quantifier"
+            },
+            {
+              "inventoryItemId": "item-07",
+              "linkedInventoryItemIds": [
+                "item-06"
+              ],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "évolution de l'ADC",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "l'évolution de l'ADC"
+            },
+            {
+              "inventoryItemId": "item-08",
+              "linkedInventoryItemIds": [
+                "item-07"
+              ],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "ADC",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "ADC"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-01",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-02",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "étudier en IRM",
+              "targetInventoryItemId": "item-01"
+            },
+            {
+              "inventoryRelationId": "rel-02",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-01",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+              "targetInventoryItemId": "item-03"
+            },
+            {
+              "inventoryRelationId": "rel-03",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-03",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "réponse d'un cancer du rectum",
+              "targetInventoryItemId": "item-04"
+            },
+            {
+              "inventoryRelationId": "rel-04",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-03",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+              "targetInventoryItemId": "item-05"
+            },
+            {
+              "inventoryRelationId": "rel-05",
+              "normalizedRelation": "MEASURES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-06",
+              "sourceMessageId": "I05:sem-current:u0",
+              "sourceText": "quantifier l'évolution de l'ADC",
+              "targetInventoryItemId": "item-07"
+            }
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2",
+          "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-elem-01"
+        ],
+        "summaryForUser": "Vous souhaitez concevoir une étude utilisant l'IRM pour évaluer la réponse d'un cancer du rectum au cours du traitement et quantifier l'évolution de l'ADC.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 9913,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:15:07.918Z",
+          "requestStarted": "2026-08-14T01:14:58.005Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-2bde9f3f6c1cf43b",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-01",
+          "mappedClientElementIds": [
+            "elem-01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "étudier",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I05:sem-current:u0",
+          "sourceText": "étudier"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-02",
+          "mappedClientElementIds": [
+            "elem-02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "IRM",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I05:sem-current:u0",
+          "sourceText": "IRM"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-03",
+          "mappedClientElementIds": [
+            "elem-03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "réponse",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I05:sem-current:u0",
+          "sourceText": "réponse"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-04",
+          "mappedClientElementIds": [
+            "elem-04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "cancer du rectum",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I05:sem-current:u0",
+          "sourceText": "cancer du rectum"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-05",
+          "mappedClientElementIds": [
+            "elem-05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "pendant le traitement",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I05:sem-current:u0",
+          "sourceText": "pendant le traitement"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-06",
+          "mappedClientElementIds": [
+            "elem-06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "quantifier",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I05:sem-current:u0",
+          "sourceText": "quantifier"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-07",
+          "mappedClientElementIds": [
+            "elem-07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "évolution de l'ADC",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I05:sem-current:u0",
+          "sourceText": "l'évolution de l'ADC"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-08",
+          "mappedClientElementIds": [
+            "elem-07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "ADC",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I05:sem-current:u0",
+          "sourceText": "ADC"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [
+      "intervention",
+      "population"
+    ],
+    "normalizedMeaning": "Étude par imagerie par résonance magnétique (IRM) de la réponse d'un cancer du rectum pendant le traitement, avec quantification de l'évolution du coefficient de diffusion apparent (ADC).",
+    "originalRequest": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-01",
+          "mappedClientRelationIds": [
+            "rel-elem-06"
+          ],
+          "normalizedRelation": "OBSERVES",
+          "reason": "The direct Semantic Relation preserves both source-grounded spokes that share one explicit functional hub.",
+          "sourceInventoryItemId": "item-02",
+          "targetInventoryItemId": "item-01"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-02",
+          "mappedClientRelationIds": [
+            "rel-elem-02",
+            "rel-elem-06"
+          ],
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-01",
+          "targetInventoryItemId": "item-03"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-03",
+          "mappedClientRelationIds": [
+            "rel-elem-03"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-03",
+          "targetInventoryItemId": "item-04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-04",
+          "mappedClientRelationIds": [
+            "rel-elem-04"
+          ],
+          "normalizedRelation": "RECOVERS_AFTER",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-03",
+          "targetInventoryItemId": "item-05"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-05",
+          "mappedClientRelationIds": [
+            "rel-elem-05"
+          ],
+          "normalizedRelation": "MEASURES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-06",
+          "targetInventoryItemId": "item-07"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-05"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "MEASURED_BY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-11d9d17348ae66c7",
+        "sourceElementId": "sem-element:ke1-63661d416f1992c5",
+        "targetElementId": "sem-element:ke1-c25c62073e48db8b",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RECOVERS_AFTER",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-12b95e94e2c22ce0",
+        "sourceElementId": "sem-element:ke1-aa0799eeb927854a",
+        "targetElementId": "sem-element:ke1-b5ba156c7abfeec0",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-57ce73f5ee386b61",
+        "sourceElementId": "sem-element:ke1-aa0799eeb927854a",
+        "targetElementId": "sem-element:ke1-00d4bf7c33ca6f20",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_MODIFY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-858f7d5287750696",
+        "sourceElementId": "sem-element:ke1-9a67e0963a928ab2",
+        "targetElementId": "sem-element:ke1-aa0799eeb927854a",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-01",
+          "rel-02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-c875e1f9e45747e5",
+        "sourceElementId": "sem-element:ke1-1b6466ae62694602",
+        "targetElementId": "sem-element:ke1-aa0799eeb927854a",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Définir la population",
+        "Préciser le protocole de traitement",
+        "Structurer le calendrier des acquisitions IRM"
+      ],
+      "reason": "L'utilisateur souhaite concevoir une étude clinique/radiologique évaluant l'effet d'un traitement sur le cancer du rectum à l'aide de l'IRM et de mesures d'ADC.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-f8893db26e883d46",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Vous souhaitez concevoir une étude utilisant l'IRM pour évaluer la réponse d'un cancer du rectum au cours du traitement et quantifier l'évolution de l'ADC.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T01:15:15.775Z"
+  },
+  "providerStatus": "AVAILABLE"
+}

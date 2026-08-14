@@ -1,0 +1,29 @@
+{
+  "baseline": "dspy",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "The user wants to study STEMI patients.",
+      "The study compares immediate versus delayed stent placement.",
+      "Cardiac MRI is used to evaluate lesions."
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "User stated the study design and patient population."
+    ],
+    "relations": [
+      "immediate versus delayed stent placement in STEMI patients",
+      "cardiac MRI evaluation of lesions in STEMI patients"
+    ],
+    "state_summary": "The user is planning a study on STEMI patients comparing immediate versus delayed stent placement, with lesion evaluation via cardiac MRI.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I01"
+}

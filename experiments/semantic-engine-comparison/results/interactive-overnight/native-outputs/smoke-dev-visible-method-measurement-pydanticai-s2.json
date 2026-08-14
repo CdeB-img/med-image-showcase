@@ -1,0 +1,19 @@
+{
+  "action": "FINISH",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "L'utilisateur souhaite utiliser le T1 mapping natif",
+    "L'utilisateur souhaite mesurer le T1 myocardique",
+    "Le rôle du biomarqueur reste à discuter"
+  ],
+  "missing_or_ambiguous": [
+    "Le contexte clinique ou pathologique précis de la mesure du T1 myocardique"
+  ],
+  "negations_or_constraints": [],
+  "next_question": null,
+  "ownership_or_epistemic_notes": [],
+  "relations": [],
+  "state_summary": "L'utilisateur souhaite utiliser le T1 mapping natif et mesurer le T1 myocardique, le rôle du biomarqueur restant à discuter.",
+  "temporal_context": []
+}

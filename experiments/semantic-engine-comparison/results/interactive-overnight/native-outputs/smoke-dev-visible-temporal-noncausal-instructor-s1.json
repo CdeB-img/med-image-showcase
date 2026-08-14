@@ -1,0 +1,23 @@
+{
+  "action": "FINISH",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "Comparaison d'IRM avant et après traitement demandée.",
+    "Rejet explicite de l'hypothèse causale liant la variation observée au traitement."
+  ],
+  "missing_or_ambiguous": [],
+  "negations_or_constraints": [
+    "Ne pas supposer que la variation observée est causée par le traitement."
+  ],
+  "next_question": null,
+  "ownership_or_epistemic_notes": [
+    "Exprimé directement par l'utilisateur."
+  ],
+  "relations": [],
+  "state_summary": "L'utilisateur souhaite comparer une IRM avant traitement et une IRM après traitement, en maintenant explicitement une absence d'hypothèse causale quant au lien entre la variation observée et le traitement.",
+  "temporal_context": [
+    "Avant traitement",
+    "Après traitement"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "action": "FINISH",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "Subject of study: cerebral perfusion and OEF after thrombectomy",
+    "Goal: relate cerebral perfusion and OEF to lesion evolution",
+    "Imaging time points are not yet fixed"
+  ],
+  "missing_or_ambiguous": [
+    "exact imaging time points"
+  ],
+  "negations_or_constraints": [
+    "imaging time points not yet fixed"
+  ],
+  "next_question": null,
+  "ownership_or_epistemic_notes": [
+    "stated by user"
+  ],
+  "relations": [
+    "cerebral perfusion and OEF in relation to lesion evolution"
+  ],
+  "state_summary": "The user wants to study cerebral perfusion and oxygen extraction fraction (OEF) after thrombectomy in relation to lesion evolution, but imaging time points are not yet finalized.",
+  "temporal_context": [
+    "after thrombectomy",
+    "imaging time points not yet fixed"
+  ]
+}

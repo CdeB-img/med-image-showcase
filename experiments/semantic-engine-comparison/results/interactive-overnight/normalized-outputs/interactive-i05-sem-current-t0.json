@@ -1,0 +1,44 @@
+{
+  "baseline": "sem-current",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Cancer du rectum",
+      "Imagerie par résonance magnétique (IRM)",
+      "Évolution du coefficient de diffusion apparent (ADC)",
+      "Étudier la réponse tumorale",
+      "Réponse thérapeutique",
+      "Pendant le traitement",
+      "Quantifier"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": "Quelle est la population cible ou les critères d'inclusion pour cette étude sur le cancer du rectum ?",
+    "ownership_or_epistemic_notes": [
+      "Cancer du rectum: EXPLICIT_USER_STATED",
+      "Imagerie par résonance magnétique (IRM): EXPLICIT_USER_STATED",
+      "Évolution du coefficient de diffusion apparent (ADC): EXPLICIT_USER_STATED",
+      "Étudier la réponse tumorale: EXPLICIT_USER_STATED",
+      "Réponse thérapeutique: EXPLICIT_USER_STATED",
+      "Pendant le traitement: EXPLICIT_USER_STATED",
+      "Quantifier: EXPLICIT_USER_STATED"
+    ],
+    "relations": [
+      "MEASURED_BY",
+      "RECOVERS_AFTER",
+      "RELATED_TO_CANDIDATE",
+      "AIMS_TO_MODIFY",
+      "OBSERVES"
+    ],
+    "state_summary": "Étude par imagerie par résonance magnétique (IRM) de la réponse d'un cancer du rectum pendant le traitement, avec quantification de l'évolution du coefficient de diffusion apparent (ADC).",
+    "temporal_context": [
+      "Pendant le traitement"
+    ]
+  },
+  "round": "T0",
+  "scenarioId": "I05"
+}

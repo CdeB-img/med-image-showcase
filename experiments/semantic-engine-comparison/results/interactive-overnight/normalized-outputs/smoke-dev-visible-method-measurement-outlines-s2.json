@@ -1,0 +1,30 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Utilisation du T1 mapping natif",
+      "Mesure du T1 myocardique",
+      "Le rôle du biomarqueur reste à discuter"
+    ],
+    "missing_or_ambiguous": [
+      "Le rôle exact du biomarqueur"
+    ],
+    "negations_or_constraints": [],
+    "next_question": "Quel biomarqueur envisagez-vous d'associer à cette mesure du T1 myocardique ?",
+    "ownership_or_epistemic_notes": [
+      "Intention déclarée par l'utilisateur"
+    ],
+    "relations": [
+      "Le T1 mapping natif est utilisé pour mesurer le T1 myocardique"
+    ],
+    "state_summary": "L'utilisateur souhaite utiliser le T1 mapping natif pour mesurer le T1 myocardique, tandis que le rôle du biomarqueur reste à discuter.",
+    "temporal_context": []
+  },
+  "round": "S2",
+  "scenarioId": "DEV-VISIBLE-METHOD-MEASUREMENT"
+}

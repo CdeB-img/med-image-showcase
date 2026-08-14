@@ -1,0 +1,37 @@
+{
+  "baseline": "dspy",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "The users are preparing a multicenter study on Fabry disease.",
+      "The goal is to identify comparable quantitative MRI measures across centers.",
+      "Native T1 remains the primary candidate measure.",
+      "ECV is conditional.",
+      "T2 will not be available everywhere and remains exploratory.",
+      "LGE is only partially available and will not be primary."
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [
+      "T2 is not available everywhere (exploratory).",
+      "LGE is only partially available and is not primary."
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Expressed by the user (multicenter Fabry disease study team)."
+    ],
+    "relations": [
+      "Native T1 is targeted as the primary candidate measure for Fabry disease multicenter MRI.",
+      "ECV is linked as conditional.",
+      "T2 is linked as exploratory due to limited availability.",
+      "LGE is linked as partially available and non-primary."
+    ],
+    "state_summary": "Preparation of a multicenter Fabry disease study aiming to identify comparable quantitative MRI measures, designating native T1 as the primary candidate, ECV as conditional, T2 as exploratory (limited availability), and LGE as partially available and non-primary.",
+    "temporal_context": []
+  },
+  "round": "T1",
+  "scenarioId": "I04"
+}

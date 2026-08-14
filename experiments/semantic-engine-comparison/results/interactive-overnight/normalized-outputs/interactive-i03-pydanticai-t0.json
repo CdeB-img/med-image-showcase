@@ -1,0 +1,27 @@
+{
+  "baseline": "pydanticai",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "L'utilisateur souhaite suivre la réponse tumorale sous immunothérapie en TEP-FDG",
+      "L'utilisateur cherche à identifier quels paramètres quantitatifs seraient utiles"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "L'utilisateur exprime un objectif de suivi et de recherche de paramètres pertinents en TEP-FDG sous immunothérapie."
+    ],
+    "relations": [
+      "Suivi de la réponse tumorale (sous immunothérapie) -> TEP-FDG (modalité) -> Paramètres quantitatifs utiles (cibles de l'analyse)"
+    ],
+    "state_summary": "L'utilisateur souhaite suivre la réponse tumorale sous immunothérapie en TEP-FDG et identifier les paramètres quantitatifs pertinents.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I03"
+}

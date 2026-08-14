@@ -1,0 +1,38 @@
+{
+  "baseline": "dspy",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [
+      "Candidate imaging timepoints could include standard follow-up intervals such as 24 hours, 7 days, and 30 days post-thrombectomy."
+    ],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "The user wants to study cerebral perfusion and OEF (Oxygen Extraction Fraction) after thrombectomy.",
+      "The study investigates the relationship between cerebral perfusion/OEF and lesion evolution.",
+      "The imaging timepoints have not been fixed yet."
+    ],
+    "missing_or_ambiguous": [
+      "Specific imaging timepoints post-thrombectomy are not yet defined.",
+      "Modalities for measuring perfusion and OEF are not specified."
+    ],
+    "negations_or_constraints": [
+      "Imaging timepoints are not yet fixed."
+    ],
+    "next_question": "Quels sont les délais post-thrombectomie envisagés pour vos acquisitions d'imagerie de perfusion et d'OEF ?",
+    "ownership_or_epistemic_notes": [
+      "The user explicitly stated the research intent and the lack of fixed imaging timepoints."
+    ],
+    "relations": [
+      "Cerebral perfusion and OEF are linked to lesion evolution."
+    ],
+    "state_summary": "Study of cerebral perfusion and OEF in relation to lesion evolution post-thrombectomy, with imaging timepoints still undefined.",
+    "temporal_context": [
+      "Post-thrombectomy",
+      "Timepoints not yet fixed"
+    ]
+  },
+  "round": "T0",
+  "scenarioId": "I02"
+}

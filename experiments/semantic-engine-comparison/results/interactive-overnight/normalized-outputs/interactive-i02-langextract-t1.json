@@ -1,0 +1,27 @@
+{
+  "baseline": "langextract",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions",
+      "nous n'aurons pas d'IRM avant thrombectomie",
+      "les temps prévus sont 24 h et J7",
+      "nous étudions une association, pas une causalité"
+    ],
+    "missing_or_ambiguous": [
+      "tous les temps d'imagerie n'étaient pas encore fixés"
+    ],
+    "negations_or_constraints": [],
+    "next_question": "Pouvez-vous préciser tous les temps d'imagerie n'étaient pas encore fixés ?",
+    "ownership_or_epistemic_notes": [],
+    "relations": [],
+    "state_summary": "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions; nous n'aurons pas d'IRM avant thrombectomie; les temps prévus sont 24 h et J7; nous étudions une association, pas une causalité",
+    "temporal_context": []
+  },
+  "round": "T1",
+  "scenarioId": "I02"
+}

@@ -1,0 +1,20 @@
+{
+  "action": "FINISH",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "L'utilisateur souhaite étudier en IRM la réponse d'un cancer du rectum pendant le traitement.",
+    "L'utilisateur souhaite quantifier l'évolution de l'ADC."
+  ],
+  "missing_or_ambiguous": [
+    "Protocole d'IRM précis",
+    "Type de traitement (radiothérapie, chimiothérapie, etc.)",
+    "Moments des examens d'imagerie"
+  ],
+  "negations_or_constraints": [],
+  "next_question": null,
+  "ownership_or_epistemic_notes": [],
+  "relations": [],
+  "state_summary": "L'utilisateur souhaite étudier par IRM la réponse d'un cancer du rectum en cours de traitement et quantifier l'évolution de l'ADC.",
+  "temporal_context": []
+}

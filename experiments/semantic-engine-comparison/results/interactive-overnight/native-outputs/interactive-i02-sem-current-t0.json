@@ -1,0 +1,1053 @@
+{
+  "mode": "LIVE_LLM",
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [
+      {
+        "question": "Quels temps d'imagerie souhaitez-vous fixer pour évaluer la perfusion et l'OEF après la thrombectomie ?",
+        "reason": "Les temps d'imagerie ne sont pas encore définis.",
+        "resolvesElementIds": [
+          "sem-element:ke1-d26360c9b263c2d5"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I02:sem-current:u0"
+    ],
+    "createdAt": "2026-08-14T01:10:41.994Z",
+    "critic": {
+      "issues": [],
+      "summary": "The typed candidate and semantic inventory are fully aligned with the source text. All explicit entities and relations are correctly represented without taxonomy or integrity violations.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-38f67b92cd8003d6",
+    "elements": [
+      {
+        "canonicalMeaning": "Perfusion cérébrale",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-3"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-c29a5a3b6484140f",
+          "rawElementId": "elem-3",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-2788ebb0c9c22b4c",
+          "sem-relation:ke1-dc375c17aae8bc5b",
+          "sem-relation:ke1-e7535a369e33481a"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-0bec6b48c2560684",
+        "sourceSpan": {
+          "end": 58,
+          "messageId": "I02:sem-current:u0",
+          "start": 39,
+          "text": "perfusion cérébrale"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Évolution des lésions",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-5"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-c29a5a3b6484140f",
+          "rawElementId": "elem-5",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-517d0320158543b4",
+          "sem-relation:ke1-dc375c17aae8bc5b"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-24ccab6a2181099e",
+        "sourceSpan": {
+          "end": 104,
+          "messageId": "I02:sem-current:u0",
+          "start": 81,
+          "text": "l'évolution des lésions"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Thrombectomie",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-2"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-c29a5a3b6484140f",
+          "rawElementId": "elem-2",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-2788ebb0c9c22b4c"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-4d858489eaa7e95d",
+        "sourceSpan": {
+          "end": 35,
+          "messageId": "I02:sem-current:u0",
+          "start": 22,
+          "text": "thrombectomie"
+        },
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Étudier des paramètres de perfusion et d'extraction d'oxygène",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-1"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-c29a5a3b6484140f",
+          "rawElementId": "elem-1",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-78f02363a6a5d95f",
+          "sem-relation:ke1-e7535a369e33481a"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-6623ab211d1fab2d",
+        "sourceSpan": {
+          "end": 15,
+          "messageId": "I02:sem-current:u0",
+          "start": 0,
+          "text": "Je veux étudier"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Fraction d'extraction d'oxygène (OEF)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-4"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-c29a5a3b6484140f",
+          "rawElementId": "elem-4",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-517d0320158543b4",
+          "sem-relation:ke1-78f02363a6a5d95f"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-6fe064d848f5d124",
+        "sourceSpan": {
+          "end": 67,
+          "messageId": "I02:sem-current:u0",
+          "start": 62,
+          "text": "l'OEF"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Temps d'imagerie non fixés",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item-6"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I02:sem-current:u0",
+          "providerCallId": "gemini-call:ke1-c29a5a3b6484140f",
+          "rawElementId": "elem-6",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-d26360c9b263c2d5",
+        "sourceSpan": {
+          "end": 154,
+          "messageId": "I02:sem-current:u0",
+          "start": 106,
+          "text": "sans avoir encore fixé tous les temps d'imagerie"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 2794,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:10:41.993Z",
+          "requestStarted": "2026-08-14T01:10:39.199Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-b38d5e50e9458894",
+      "criticCallIds": [
+        "gemini-call:ke1-b38d5e50e9458894"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T01:10:41.994Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit fragments including thrombectomy, cerebral perfusion, OEF, and lesion evolution are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is stated in the prompt.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Thrombectomy is correctly mapped to an INTERVENTION element.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "No broader modality family besides imaging mentions is explicitly given.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are properly mirrored by client semantic relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All types adhere strictly to the operational taxonomy.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened or lost.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "Epistemic status is correctly marked as EXPLICIT_USER_STATED for user-stated items.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Timing constraints and unknowns are transparently preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negated timing constraint is correctly marked with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Unfixed imaging timing is accurately captured.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No outcomes are improperly promoted to endpoints.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Concepts like OEF and cerebral perfusion remain fully specific.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "The missingExplicitSourceFragments list is empty and all clauses are covered.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY is the correct route given study setup and open parameters.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-01",
+        "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source text. All explicit entities and relations are correctly represented without taxonomy or integrity violations.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit fragments including thrombectomy, cerebral perfusion, OEF, and lesion evolution are fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator is stated in the prompt.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Thrombectomy is correctly mapped to an INTERVENTION element.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "No broader modality family besides imaging mentions is explicitly given.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are properly mirrored by client semantic relations.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All types adhere strictly to the operational taxonomy.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relations were weakened or lost.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "Epistemic status is correctly marked as EXPLICIT_USER_STATED for user-stated items.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "Timing constraints and unknowns are transparently preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Negated timing constraint is correctly marked with NEGATED polarity.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Unfixed imaging timing is accurately captured.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No outcomes are improperly promoted to endpoints.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Concepts like OEF and cerebral perfusion remain fully specific.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "The missingExplicitSourceFragments list is empty and all clauses are covered.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY is the correct route given study setup and open parameters.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-01",
+          "criticSummary": "The typed candidate and semantic inventory are fully aligned with the source text. All explicit entities and relations are correctly represented without taxonomy or integrity violations.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [
+          {
+            "question": "Quels temps d'imagerie souhaitez-vous fixer pour évaluer la perfusion et l'OEF après la thrombectomie ?",
+            "reason": "Les temps d'imagerie ne sont pas encore définis.",
+            "resolvesClientElementIds": [
+              "elem-6"
+            ]
+          }
+        ],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Étudier des paramètres de perfusion et d'extraction d'oxygène",
+            "clientElementId": "elem-1",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-1"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "Je veux étudier",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Thrombectomie",
+            "clientElementId": "elem-2",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-2"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "thrombectomie",
+            "studyRole": "INTERVENTION_ARM",
+            "supersedesElementIds": [],
+            "type": "INTERVENTION"
+          },
+          {
+            "canonicalMeaning": "Perfusion cérébrale",
+            "clientElementId": "elem-3",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-3"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "perfusion cérébrale",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Fraction d'extraction d'oxygène (OEF)",
+            "clientElementId": "elem-4",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-4"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "l'OEF",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Évolution des lésions",
+            "clientElementId": "elem-5",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-5"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "l'évolution des lésions",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "Temps d'imagerie non fixés",
+            "clientElementId": "elem-6",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item-6"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:sem-current:u0",
+            "sourceText": "sans avoir encore fixé tous les temps d'imagerie",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "Étude post-thrombectomie de la perfusion cérébrale et de l'extraction d'oxygène (OEF) en relation avec l'évolution des lésions, avec des temps d'imagerie non encore fixés.",
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-1",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-1"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO_OBSERVE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-3"
+          },
+          {
+            "clientRelationId": "rel-elem-2",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-2"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO_OBSERVE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-4"
+          },
+          {
+            "clientRelationId": "rel-elem-3",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-3"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RECOVERS_AFTER",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-2"
+          },
+          {
+            "clientRelationId": "rel-elem-4",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-4"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-3",
+            "targetClientElementId": "elem-5"
+          },
+          {
+            "clientRelationId": "rel-elem-5",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-5"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-5"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.9,
+          "expectedCapabilities": [
+            "Définition des temps d'imagerie",
+            "Structuration du design d'étude"
+          ],
+          "reason": "L'utilisateur configure une étude incluant une intervention, des biomarqueurs et un outcome, tout en précisant des éléments de design encore ouverts.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item-1",
+              "linkedInventoryItemIds": [
+                "item-2",
+                "item-3",
+                "item-4",
+                "item-5"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "vouloir étudier",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier"
+            },
+            {
+              "inventoryItemId": "item-2",
+              "linkedInventoryItemIds": [],
+              "localRole": "intervention",
+              "modifiers": [],
+              "normalizedLabel": "thrombectomie",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "thrombectomie"
+            },
+            {
+              "inventoryItemId": "item-3",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "perfusion cérébrale",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "perfusion cérébrale"
+            },
+            {
+              "inventoryItemId": "item-4",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "fraction d'extraction d'oxygène",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "l'OEF"
+            },
+            {
+              "inventoryItemId": "item-5",
+              "linkedInventoryItemIds": [],
+              "localRole": "outcome",
+              "modifiers": [],
+              "normalizedLabel": "évolution des lésions",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "l'évolution des lésions"
+            },
+            {
+              "inventoryItemId": "item-6",
+              "linkedInventoryItemIds": [],
+              "localRole": "timing constraint",
+              "modifiers": [],
+              "normalizedLabel": "temps d'imagerie non fixés",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "sans avoir encore fixé tous les temps d'imagerie"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-1",
+              "normalizedRelation": "AIMS_TO_OBSERVE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-1",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+              "targetInventoryItemId": "item-3"
+            },
+            {
+              "inventoryRelationId": "rel-2",
+              "normalizedRelation": "AIMS_TO_OBSERVE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-1",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+              "targetInventoryItemId": "item-4"
+            },
+            {
+              "inventoryRelationId": "rel-3",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-3",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+              "targetInventoryItemId": "item-2"
+            },
+            {
+              "inventoryRelationId": "rel-4",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-3",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+              "targetInventoryItemId": "item-5"
+            },
+            {
+              "inventoryRelationId": "rel-5",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item-4",
+              "sourceMessageId": "I02:sem-current:u0",
+              "sourceText": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+              "targetInventoryItemId": "item-5"
+            }
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:5"
+        ],
+        "summaryForUser": "Vous souhaitez étudier la perfusion cérébrale et l'OEF après une thrombectomie en lien avec l'évolution des lésions, les temps d'imagerie restant à définir.",
+        "unknowns": [
+          "Temps d'imagerie précis"
+        ]
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 14007,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:10:39.177Z",
+          "requestStarted": "2026-08-14T01:10:25.170Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-c29a5a3b6484140f",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-1",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "vouloir étudier",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "Je veux étudier"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-2",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "thrombectomie",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "thrombectomie"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-3",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "perfusion cérébrale",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "perfusion cérébrale"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-4",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "fraction d'extraction d'oxygène",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "l'OEF"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-5",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "évolution des lésions",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "l'évolution des lésions"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item-6",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "temps d'imagerie non fixés",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:sem-current:u0",
+          "sourceText": "sans avoir encore fixé tous les temps d'imagerie"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "Étude post-thrombectomie de la perfusion cérébrale et de l'extraction d'oxygène (OEF) en relation avec l'évolution des lésions, avec des temps d'imagerie non encore fixés.",
+    "originalRequest": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-1",
+          "mappedClientRelationIds": [
+            "rel-elem-1",
+            "rel-elem-3",
+            "rel-elem-4"
+          ],
+          "normalizedRelation": "AIMS_TO_OBSERVE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-3"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-2",
+          "mappedClientRelationIds": [
+            "rel-elem-2",
+            "rel-elem-5"
+          ],
+          "normalizedRelation": "AIMS_TO_OBSERVE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-1",
+          "targetInventoryItemId": "item-4"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-3",
+          "mappedClientRelationIds": [
+            "rel-elem-3"
+          ],
+          "normalizedRelation": "RECOVERS_AFTER",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-3",
+          "targetInventoryItemId": "item-2"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-4",
+          "mappedClientRelationIds": [
+            "rel-elem-4"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-3",
+          "targetInventoryItemId": "item-5"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-5",
+          "mappedClientRelationIds": [
+            "rel-elem-5"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item-4",
+          "targetInventoryItemId": "item-5"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-3"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RECOVERS_AFTER",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-2788ebb0c9c22b4c",
+        "sourceElementId": "sem-element:ke1-0bec6b48c2560684",
+        "targetElementId": "sem-element:ke1-4d858489eaa7e95d",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-5"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-517d0320158543b4",
+        "sourceElementId": "sem-element:ke1-6fe064d848f5d124",
+        "targetElementId": "sem-element:ke1-24ccab6a2181099e",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-2"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_OBSERVE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-78f02363a6a5d95f",
+        "sourceElementId": "sem-element:ke1-6623ab211d1fab2d",
+        "targetElementId": "sem-element:ke1-6fe064d848f5d124",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-4"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-dc375c17aae8bc5b",
+        "sourceElementId": "sem-element:ke1-0bec6b48c2560684",
+        "targetElementId": "sem-element:ke1-24ccab6a2181099e",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-1"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_OBSERVE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-e7535a369e33481a",
+        "sourceElementId": "sem-element:ke1-6623ab211d1fab2d",
+        "targetElementId": "sem-element:ke1-0bec6b48c2560684",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Définition des temps d'imagerie",
+        "Structuration du design d'étude"
+      ],
+      "reason": "L'utilisateur configure une étude incluant une intervention, des biomarqueurs et un outcome, tout en précisant des éléments de design encore ouverts.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-2504d24095fb16bc",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Vous souhaitez étudier la perfusion cérébrale et l'OEF après une thrombectomie en lien avec l'évolution des lésions, les temps d'imagerie restant à définir.",
+    "unknowns": [
+      "Temps d'imagerie précis"
+    ],
+    "updatedAt": "2026-08-14T01:10:41.994Z"
+  },
+  "providerStatus": "AVAILABLE"
+}

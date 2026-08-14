@@ -1,0 +1,14 @@
+{
+  "extractions": [
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "préparer une étude multicentrique dans la maladie de Fabry"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "identifier les mesures IRM quantitatives comparables entre centres"
+    }
+  ]
+}

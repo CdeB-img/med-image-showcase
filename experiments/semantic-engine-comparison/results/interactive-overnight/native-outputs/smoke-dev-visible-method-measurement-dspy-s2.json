@@ -1,0 +1,3 @@
+{
+  "projection_json": "{\n  \"action\": \"FINISH\",\n  \"contextual_candidates\": [],\n  \"corrected_or_superseded\": [],\n  \"explicit_facts\": [\n    \"The user wants to use native T1 mapping and measure myocardial T1.\",\n    \"The role of the biomarker remains to be discussed.\"\n  ],\n  \"missing_or_ambiguous\": [],\n  \"negations_or_constraints\": [],\n  \"next_question\": null,\n  \"ownership_or_epistemic_notes\": [\n    \"Expressed by the user.\"\n  ],\n  \"relations\": [],\n  \"state_summary\": \"The user intends to use native T1 mapping to measure myocardial T1, while the role of the biomarker is still open for discussion.\",\n  \"temporal_context\": []\n}"
+}

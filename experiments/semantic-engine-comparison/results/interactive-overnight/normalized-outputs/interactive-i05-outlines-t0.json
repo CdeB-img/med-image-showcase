@@ -1,0 +1,36 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Étude en IRM",
+      "Cible : cancer du rectum",
+      "Contexte : pendant le traitement",
+      "Objectif : quantifier l'évolution de l'ADC"
+    ],
+    "missing_or_ambiguous": [
+      "Type exact de traitement non spécifié",
+      "Séquence IRM ou protocole de mesure de l'ADC non précisé",
+      "Moments précis des examens IRM non définis"
+    ],
+    "negations_or_constraints": [],
+    "next_question": "S'agit-il d'une chimio-radiothérapie néoadjuvante et à quels temps de l'évaluation prévoyez-vous de réaliser les IRM ?",
+    "ownership_or_epistemic_notes": [
+      "Intention déclarée par l'utilisateur"
+    ],
+    "relations": [
+      "IRM utilisée pour étudier le cancer du rectum pendant le traitement",
+      "Quantification de l'évolution de l'ADC en tant que mesure de la réponse"
+    ],
+    "state_summary": "L'utilisateur souhaite étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+    "temporal_context": [
+      "Pendant le traitement"
+    ]
+  },
+  "round": "T0",
+  "scenarioId": "I05"
+}

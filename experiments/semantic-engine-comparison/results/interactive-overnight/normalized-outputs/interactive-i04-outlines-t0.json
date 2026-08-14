@@ -1,0 +1,31 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Préparation d'une étude multicentrique",
+      "Domaine: maladie de Fabry",
+      "Objectif: identifier des mesures IRM quantitatives comparables entre centres"
+    ],
+    "missing_or_ambiguous": [
+      "Quelles séquences ou paramètres IRM spécifiques sont envisagés",
+      "Quels types de machines ou constructeurs sont impliqués dans les centres"
+    ],
+    "negations_or_constraints": [],
+    "next_question": "Quelles séquences ou paramètres IRM spécifiques envisagez-vous d'harmoniser entre les centres ?",
+    "ownership_or_epistemic_notes": [
+      "Initiative de l'utilisateur"
+    ],
+    "relations": [
+      "Étude multicentrique sur la maladie de Fabry"
+    ],
+    "state_summary": "Préparation d'une étude multicentrique sur la maladie de Fabry avec pour objectif d'identifier des mesures IRM quantitatives comparables entre les différents centres.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I04"
+}

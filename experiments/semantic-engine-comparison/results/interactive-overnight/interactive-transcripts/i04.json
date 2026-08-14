@@ -1,0 +1,422 @@
+{
+  "branches": {
+    "dspy": {
+      "baseline": "dspy",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The user is preparing a multicenter study on Fabry disease.",
+              "The goal is to identify quantitative MRI measures that are comparable across centers."
+            ],
+            "missing_or_ambiguous": [
+              "Specific MRI modalities, sequences, or anatomical regions of interest (e.g., cardiac, brain, renal) have not been specified."
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quelles structures anatomiques ou modalités IRM (cardiaque, cérébrale, rénale) ciblez-vous en priorité pour cette étude ?",
+            "ownership_or_epistemic_notes": [
+              "User stated the preparation of a multicenter study and the objective regarding quantitative MRI measures."
+            ],
+            "relations": [
+              "Study on Fabry disease -> aims to identify -> comparable quantitative MRI measures between centers"
+            ],
+            "state_summary": "Preparation of a multicenter study in Fabry disease focusing on the identification of comparable quantitative MRI measures across centers.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The users are preparing a multicenter study on Fabry disease.",
+              "The goal is to identify comparable quantitative MRI measures across centers.",
+              "Native T1 remains the primary candidate measure.",
+              "ECV is conditional.",
+              "T2 will not be available everywhere and remains exploratory.",
+              "LGE is only partially available and will not be primary."
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "T2 is not available everywhere (exploratory).",
+              "LGE is only partially available and is not primary."
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Expressed by the user (multicenter Fabry disease study team)."
+            ],
+            "relations": [
+              "Native T1 is targeted as the primary candidate measure for Fabry disease multicenter MRI.",
+              "ECV is linked as conditional.",
+              "T2 is linked as exploratory due to limited availability.",
+              "LGE is linked as partially available and non-primary."
+            ],
+            "state_summary": "Preparation of a multicenter Fabry disease study aiming to identify comparable quantitative MRI measures, designating native T1 as the primary candidate, ECV as conditional, T2 as exploratory (limited availability), and LGE as partially available and non-primary.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+          "message_id": "I04:dspy:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quelles structures anatomiques ou modalités IRM (cardiaque, cérébrale, rénale) ciblez-vous en priorité pour cette étude ?",
+          "message_id": "I04:dspy:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+          "message_id": "I04:dspy:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "instructor": {
+      "baseline": "instructor",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The study is multicentric.",
+              "The disease of interest is Fabry disease.",
+              "The goal is to identify comparable quantitative MRI measures across centers."
+            ],
+            "missing_or_ambiguous": [
+              "Specific MRI modalities or sequences are not yet specified.",
+              "List of participating centers and scanner vendors is not yet specified."
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quelles modalites ou sequences IRM envisagez-vous d'inclure dans cette etude ?",
+            "ownership_or_epistemic_notes": [
+              "Expressed by the user ("
+            ],
+            "relations": [
+              "Quantitative MRI measures are to be evaluated for comparability across centers within the context of a multicentric Fabry disease study."
+            ],
+            "state_summary": "The user is preparing a multicenter study on Fabry disease and wants to identify quantitative MRI measures that are comparable across different centers.",
+            "temporal_context": [
+              "Preparation phase of the study."
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The study is a multicenter study on Fabry disease.",
+              "The goal is to identify comparable quantitative MRI measures between centers.",
+              "Native T1 is the main candidate.",
+              "ECV is conditional.",
+              "T2 is not available everywhere and remains exploratory.",
+              "LGE is only partially available and will not be primary."
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "T2 will not be available everywhere.",
+              "LGE is not available fully and will not be primary."
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "User states the study design and MRI measure statuses."
+            ],
+            "relations": [
+              "Native T1 is related to study candidate measures.",
+              "T2 availability limitation is related to its exploratory status.",
+              "LGE partial availability is related to its exclusion as a primary measure."
+            ],
+            "state_summary": "Preparation of a multicenter study on Fabry disease aiming to identify comparable quantitative MRI measures across centers, evaluating native T1 as the primary candidate, ECV as conditional, T2 as exploratory due to limited availability, and LGE as partial and non-primary.",
+            "temporal_context": [
+              "Current preparation phase of the multicenter study."
+            ]
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+          "message_id": "I04:instructor:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quelles modalites ou sequences IRM envisagez-vous d'inclure dans cette etude ?",
+          "message_id": "I04:instructor:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+          "message_id": "I04:instructor:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "langextract": {
+      "baseline": "langextract",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "préparer une étude multicentrique dans la maladie de Fabry",
+              "identifier les mesures IRM quantitatives comparables entre centres"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "préparer une étude multicentrique dans la maladie de Fabry; identifier les mesures IRM quantitatives comparables entre centres",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+          "message_id": "I04:langextract:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "outlines": {
+      "baseline": "outlines",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Préparation d'une étude multicentrique",
+              "Domaine: maladie de Fabry",
+              "Objectif: identifier des mesures IRM quantitatives comparables entre centres"
+            ],
+            "missing_or_ambiguous": [
+              "Quelles séquences ou paramètres IRM spécifiques sont envisagés",
+              "Quels types de machines ou constructeurs sont impliqués dans les centres"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quelles séquences ou paramètres IRM spécifiques envisagez-vous d'harmoniser entre les centres ?",
+            "ownership_or_epistemic_notes": [
+              "Initiative de l'utilisateur"
+            ],
+            "relations": [
+              "Étude multicentrique sur la maladie de Fabry"
+            ],
+            "state_summary": "Préparation d'une étude multicentrique sur la maladie de Fabry avec pour objectif d'identifier des mesures IRM quantitatives comparables entre les différents centres.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Étude multicentrique dans la maladie de Fabry",
+              "Objectif d'identifier des mesures IRM quantitatives comparables entre centres",
+              "Le T1 natif est le candidat principal",
+              "L'ECV est conditionnel",
+              "Le T2 ne sera pas disponible partout et reste exploratoire",
+              "Le LGE est disponible seulement partiellement et ne sera pas principal"
+            ],
+            "missing_or_ambiguous": [
+              "Critères d'inclusion ou de validation précis pour l'harmonisation du T1 natif et de l'ECV"
+            ],
+            "negations_or_constraints": [
+              "Le T2 ne sera pas disponible partout",
+              "Le LGE ne sera pas principal et n'est disponible que partiellement"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Informations fournies par l'utilisateur concernant les choix de séquences IRM"
+            ],
+            "relations": [
+              "Mesures IRM quantitatives associées à l'étude multicentrique dans la maladie de Fabry"
+            ],
+            "state_summary": "Préparation d'une étude multicentrique sur la maladie de Fabry pour identifier les mesures IRM quantitatives comparables entre centres. Le T1 natif est le candidat principal, l'ECV est conditionnel, le T2 est exploratoire (non disponible partout) et le LGE est partiellement disponible sans être principal.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+          "message_id": "I04:outlines:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quelles séquences ou paramètres IRM spécifiques envisagez-vous d'harmoniser entre les centres ?",
+          "message_id": "I04:outlines:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+          "message_id": "I04:outlines:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "pydanticai": {
+      "baseline": "pydanticai",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Préparation d'une étude multicentrique dans la maladie de Fabry",
+              "Objectif d'identifier les mesures IRM quantitatives comparables entre centres"
+            ],
+            "missing_or_ambiguous": [
+              "Quelles séquences IRM ou paramètres quantitatifs spécifiques (ex. T1 mapping, T2 mapping, LGE, strain) sont envisagés ou disponibles dans les différents centres ?"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quelles séquences IRM ou paramètres quantitatifs spécifiques (ex. T1 mapping, T2 mapping, LGE, strain) sont envisagés ou disponibles dans les différents centres ?",
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "L'utilisateur prépare une étude multicentrique dans la maladie de Fabry et cherche à identifier les mesures IRM quantitatives comparables entre centres.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Étude multicentrique dans la maladie de Fabry.",
+              "Objectif : identifier les mesures IRM quantitatives comparables entre centres.",
+              "T1 natif retenu comme candidat principal.",
+              "ECV retenu comme conditionnel.",
+              "T2 exclu comme non disponible partout (exploratoire).",
+              "LGE disponible seulement partiellement, exclu comme critère principal."
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "Le T2 ne sera pas disponible partout.",
+              "Le LGE n'est disponible que partiellement et ne sera pas principal."
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "Préparation d'une étude multicentrique sur la maladie de Fabry avec sélection des mesures IRM : T1 natif principal, ECV conditionnel, T2 exploratoire non généralisé, LGE partiel et non principal.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+          "message_id": "I04:pydanticai:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quelles séquences IRM ou paramètres quantitatifs spécifiques (ex. T1 mapping, T2 mapping, LGE, strain) sont envisagés ou disponibles dans les différents centres ?",
+          "message_id": "I04:pydanticai:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+          "message_id": "I04:pydanticai:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "sem-current": {
+      "baseline": "sem-current",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "étude multicentrique",
+              "mesures quantitatives",
+              "comparabilité entre centres",
+              "maladie de Fabry",
+              "identifier",
+              "imagerie par résonance magnétique"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "étude multicentrique: EXPLICIT_USER_STATED",
+              "mesures quantitatives: EXPLICIT_USER_STATED",
+              "comparabilité entre centres: EXPLICIT_USER_STATED",
+              "maladie de Fabry: EXPLICIT_USER_STATED",
+              "identifier: EXPLICIT_USER_STATED",
+              "imagerie par résonance magnétique: EXPLICIT_USER_STATED"
+            ],
+            "relations": [
+              "MEASURED_BY",
+              "RELATED_TO_CANDIDATE",
+              "RELATED_TO_CANDIDATE",
+              "AIMS_TO_MODIFY"
+            ],
+            "state_summary": "Préparation d'une étude multicentrique portant sur la maladie de Fabry visant à identifier des mesures d'IRM quantitative comparables entre différents centres.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+          "message_id": "I04:sem-current:u0",
+          "role": "USER"
+        }
+      ]
+    }
+  },
+  "initialVisible": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+  "scenarioId": "I04",
+  "title": "Fabry multicenter"
+}

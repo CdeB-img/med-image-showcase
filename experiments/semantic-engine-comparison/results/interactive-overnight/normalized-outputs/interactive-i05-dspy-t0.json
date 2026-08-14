@@ -1,0 +1,30 @@
+{
+  "baseline": "dspy",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "The user wants to study rectal cancer response during treatment using MRI.",
+      "The user wants to quantify changes in ADC (Apparent Diffusion Coefficient)."
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Expressed by the user."
+    ],
+    "relations": [
+      "MRI is used to study rectal cancer response during treatment.",
+      "ADC evolution is quantified to measure response."
+    ],
+    "state_summary": "The user aims to conduct an MRI study on rectal cancer response during treatment, specifically quantifying ADC evolution.",
+    "temporal_context": [
+      "During treatment"
+    ]
+  },
+  "round": "T0",
+  "scenarioId": "I05"
+}

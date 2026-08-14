@@ -1,0 +1,35 @@
+{
+  "baseline": "instructor",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "The user wants to study rectal cancer response using MRI.",
+      "The study takes place during treatment.",
+      "The user wants to quantify the evolution of the ADC (Apparent Diffusion Coefficient)."
+    ],
+    "missing_or_ambiguous": [
+      "Specific treatment type is not specified",
+      "MRI protocol details are not specified",
+      "Timepoints for ADC quantification are not specified"
+    ],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Expressed as user intent"
+    ],
+    "relations": [
+      "MRI response of rectal cancer during treatment",
+      "quantification of ADC evolution"
+    ],
+    "state_summary": "The user wants to study the MRI response of rectal cancer during treatment and quantify changes in the Apparent Diffusion Coefficient (ADC).",
+    "temporal_context": [
+      "during treatment"
+    ]
+  },
+  "round": "T0",
+  "scenarioId": "I05"
+}

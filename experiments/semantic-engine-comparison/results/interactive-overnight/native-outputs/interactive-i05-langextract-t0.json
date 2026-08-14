@@ -1,0 +1,14 @@
+{
+  "extractions": [
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "étudier en IRM la réponse d'un cancer du rectum pendant le traitement"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "quantifier l'évolution de l'ADC"
+    }
+  ]
+}

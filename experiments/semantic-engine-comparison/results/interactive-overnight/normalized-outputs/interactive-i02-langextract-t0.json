@@ -1,0 +1,24 @@
+{
+  "baseline": "langextract",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions"
+    ],
+    "missing_or_ambiguous": [
+      "sans avoir encore fixé tous les temps d'imagerie"
+    ],
+    "negations_or_constraints": [],
+    "next_question": "Pouvez-vous préciser sans avoir encore fixé tous les temps d'imagerie ?",
+    "ownership_or_epistemic_notes": [],
+    "relations": [],
+    "state_summary": "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I02"
+}

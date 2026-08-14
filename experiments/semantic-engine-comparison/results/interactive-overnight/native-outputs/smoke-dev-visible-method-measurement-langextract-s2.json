@@ -1,0 +1,19 @@
+{
+  "extractions": [
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "utiliser le T1 mapping natif"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "mesurer le T1 myocardique"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "unknown_or_ambiguity",
+      "extraction_text": "le rôle du biomarqueur reste à discuter"
+    }
+  ]
+}

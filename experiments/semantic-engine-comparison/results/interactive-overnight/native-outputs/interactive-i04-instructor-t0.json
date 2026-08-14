@@ -1,0 +1,26 @@
+{
+  "action": "ASK",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "The study is multicentric.",
+    "The disease of interest is Fabry disease.",
+    "The goal is to identify comparable quantitative MRI measures across centers."
+  ],
+  "missing_or_ambiguous": [
+    "Specific MRI modalities or sequences are not yet specified.",
+    "List of participating centers and scanner vendors is not yet specified."
+  ],
+  "negations_or_constraints": [],
+  "next_question": "Quelles modalites ou sequences IRM envisagez-vous d'inclure dans cette etude ?",
+  "ownership_or_epistemic_notes": [
+    "Expressed by the user ("
+  ],
+  "relations": [
+    "Quantitative MRI measures are to be evaluated for comparability across centers within the context of a multicentric Fabry disease study."
+  ],
+  "state_summary": "The user is preparing a multicenter study on Fabry disease and wants to identify quantitative MRI measures that are comparable across different centers.",
+  "temporal_context": [
+    "Preparation phase of the study."
+  ]
+}

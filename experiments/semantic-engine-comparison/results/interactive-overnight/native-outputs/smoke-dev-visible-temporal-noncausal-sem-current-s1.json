@@ -1,0 +1,1052 @@
+{
+  "mode": "LIVE_LLM",
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1"
+    ],
+    "createdAt": "2026-08-14T01:08:33.210Z",
+    "critic": {
+      "issues": [],
+      "summary": "The typed candidate and semantic model fully and accurately represent all components of the user message. All objects, interventions, modalities, timings, relations, and negative constraints are correctly mapped with zero integrity or taxonomy violations. The route proposal is appropriate.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-95527d54111e4fe0",
+    "elements": [
+      {
+        "canonicalMeaning": "Avant le traitement",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-4"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "providerCallId": "gemini-call:ke1-ccac2ccdebb8c079",
+          "rawElementId": "elem-3",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-6ee6c9b766d08f33"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-42563f1e4aca1c3a",
+        "sourceSpan": {
+          "end": 28,
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "start": 23,
+          "text": "avant"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Traitement",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-6"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "providerCallId": "gemini-call:ke1-ccac2ccdebb8c079",
+          "rawElementId": "elem-5",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-97bf74bcdbe600b0"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-472b18422a91a486",
+        "sourceSpan": {
+          "end": 48,
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "start": 38,
+          "text": "traitement"
+        },
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Exclusion d'une relation causale entre la variation et le traitement",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-7"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "providerCallId": "gemini-call:ke1-ccac2ccdebb8c079",
+          "rawElementId": "elem-6",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-430409e480cee5c8"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-4782511dbce9d0e9",
+        "sourceSpan": {
+          "end": 118,
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "start": 50,
+          "text": "sans supposer que la variation observée est causée par le traitement"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Après le traitement",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-5"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "providerCallId": "gemini-call:ke1-ccac2ccdebb8c079",
+          "rawElementId": "elem-4",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-20b3ba48f99f0fc4",
+          "sem-relation:ke1-97bf74bcdbe600b0"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-c1d88d3e59bdfb82",
+        "sourceSpan": {
+          "end": 48,
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "start": 32,
+          "text": "après traitement"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Imagerie par résonance magnétique",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-3"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "providerCallId": "gemini-call:ke1-ccac2ccdebb8c079",
+          "rawElementId": "elem-2",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-20b3ba48f99f0fc4",
+          "sem-relation:ke1-6ee6c9b766d08f33"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-cee27023bc99f717",
+        "sourceSpan": {
+          "end": 22,
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "start": 17,
+          "text": "l'IRM"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Intention de comparer",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-1",
+          "inv-2"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "providerCallId": "gemini-call:ke1-ccac2ccdebb8c079",
+          "rawElementId": "elem-1",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-430409e480cee5c8"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-e322850ad3acf9be",
+        "sourceSpan": {
+          "end": 16,
+          "messageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "start": 0,
+          "text": "Je veux comparer"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 4636,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:08:33.209Z",
+          "requestStarted": "2026-08-14T01:08:28.573Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-3e5fef4660352eaa",
+      "criticCallIds": [
+        "gemini-call:ke1-3e5fef4660352eaa"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T01:08:33.210Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit objects (IRM, avant, après traitement, traitement) are correctly represented in the typed elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator arm or comparator entity is present in the source message.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "The intervention ('traitement') is faithfully represented as an INTERVENTION element.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "The modality ('IRM') is correctly represented as a MODALITY element.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are properly mapped or coalesced into direct semantic relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "Taxonomy report is complete with no incompatible object type findings.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened or lost.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "All elements are marked with correct explicit epistemic statuses.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No ambiguities were hidden.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "The constraint negation regarding causality is fully preserved in elem-6.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Both timing fragments ('avant' and 'après traitement') are fully preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No outcomes or endpoints were improperly promoted.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "No concepts were generalized inappropriately.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "The missing explicit source fragments list is empty and all inventory items are mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Route DESIGN_STUDY perfectly matches the study-construction intent and constraints.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "CRITIC-DEV-VISIBLE-TEMPORAL-NONCAUSAL-01",
+        "criticSummary": "The typed candidate and semantic model fully and accurately represent all components of the user message. All objects, interventions, modalities, timings, relations, and negative constraints are correctly mapped with zero integrity or taxonomy violations. The route proposal is appropriate.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit objects (IRM, avant, après traitement, traitement) are correctly represented in the typed elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator arm or comparator entity is present in the source message.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "The intervention ('traitement') is faithfully represented as an INTERVENTION element.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "The modality ('IRM') is correctly represented as a MODALITY element.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are properly mapped or coalesced into direct semantic relations.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "Taxonomy report is complete with no incompatible object type findings.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relations were weakened or lost.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "All elements are marked with correct explicit epistemic statuses.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No ambiguities were hidden.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "The constraint negation regarding causality is fully preserved in elem-6.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Both timing fragments ('avant' and 'après traitement') are fully preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No outcomes or endpoints were improperly promoted.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "No concepts were generalized inappropriately.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "The missing explicit source fragments list is empty and all inventory items are mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "Route DESIGN_STUDY perfectly matches the study-construction intent and constraints.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "CRITIC-DEV-VISIBLE-TEMPORAL-NONCAUSAL-01",
+          "criticSummary": "The typed candidate and semantic model fully and accurately represent all components of the user message. All objects, interventions, modalities, timings, relations, and negative constraints are correctly mapped with zero integrity or taxonomy violations. The route proposal is appropriate.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Intention de comparer",
+            "clientElementId": "elem-1",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-1",
+              "inv-2"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+            "sourceText": "Je veux comparer",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Imagerie par résonance magnétique",
+            "clientElementId": "elem-2",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-3"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+            "sourceText": "l'IRM",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          },
+          {
+            "canonicalMeaning": "Avant le traitement",
+            "clientElementId": "elem-3",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-4"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+            "sourceText": "avant",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Après le traitement",
+            "clientElementId": "elem-4",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-5"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+            "sourceText": "après traitement",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Traitement",
+            "clientElementId": "elem-5",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-6"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+            "sourceText": "traitement",
+            "studyRole": "INTERVENTION_ARM",
+            "supersedesElementIds": [],
+            "type": "INTERVENTION"
+          },
+          {
+            "canonicalMeaning": "Exclusion d'une relation causale entre la variation et le traitement",
+            "clientElementId": "elem-6",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-7"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+            "sourceText": "sans supposer que la variation observée est causée par le traitement",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONSTRAINT"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "L'utilisateur souhaite comparer l'IRM avant et après traitement, en excluant explicitement toute causalité entre la variation observée et le traitement.",
+        "relations": [
+          {
+            "clientRelationId": "rel-2",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-3"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "REPEATED_AT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-3"
+          },
+          {
+            "clientRelationId": "rel-3",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-4"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "REPEATED_AT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-2",
+            "targetClientElementId": "elem-4"
+          },
+          {
+            "clientRelationId": "rel-4",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-5"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-4",
+            "targetClientElementId": "elem-5"
+          },
+          {
+            "clientRelationId": "rel-5",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-6"
+            ],
+            "polarity": "NEGATED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-1",
+            "targetClientElementId": "elem-6"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.9,
+          "expectedCapabilities": [
+            "Définition du design d'étude",
+            "Gestion des temps de mesure",
+            "Intégration de contraintes causales"
+          ],
+          "reason": "L'utilisateur exprime l'intention de comparer une modalité d'imagerie à différents temps par rapport à un traitement, tout en posant des contraintes méthodologiques.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-1",
+              "linkedInventoryItemIds": [
+                "inv-2"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "vouloir",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "Je veux"
+            },
+            {
+              "inventoryItemId": "inv-2",
+              "linkedInventoryItemIds": [
+                "inv-3",
+                "inv-4",
+                "inv-5"
+              ],
+              "localRole": "operation",
+              "modifiers": [],
+              "normalizedLabel": "comparer",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "comparer"
+            },
+            {
+              "inventoryItemId": "inv-3",
+              "linkedInventoryItemIds": [],
+              "localRole": "modality",
+              "modifiers": [],
+              "normalizedLabel": "IRM",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "l'IRM"
+            },
+            {
+              "inventoryItemId": "inv-4",
+              "linkedInventoryItemIds": [],
+              "localRole": "timing",
+              "modifiers": [],
+              "normalizedLabel": "avant",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "avant"
+            },
+            {
+              "inventoryItemId": "inv-5",
+              "linkedInventoryItemIds": [
+                "inv-6"
+              ],
+              "localRole": "timing",
+              "modifiers": [],
+              "normalizedLabel": "après traitement",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "après traitement"
+            },
+            {
+              "inventoryItemId": "inv-6",
+              "linkedInventoryItemIds": [],
+              "localRole": "intervention",
+              "modifiers": [],
+              "normalizedLabel": "traitement",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "traitement"
+            },
+            {
+              "inventoryItemId": "inv-7",
+              "linkedInventoryItemIds": [
+                "inv-6"
+              ],
+              "localRole": "constraint",
+              "modifiers": [],
+              "normalizedLabel": "sans supposer de causalité avec le traitement",
+              "polarity": "NEGATED",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "sans supposer que la variation observée est causée par le traitement"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-1",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-1",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "Je veux comparer",
+              "targetInventoryItemId": "inv-2"
+            },
+            {
+              "inventoryRelationId": "rel-inv-2",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-2",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "comparer l'IRM",
+              "targetInventoryItemId": "inv-3"
+            },
+            {
+              "inventoryRelationId": "rel-inv-3",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-3",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "l'IRM avant",
+              "targetInventoryItemId": "inv-4"
+            },
+            {
+              "inventoryRelationId": "rel-inv-4",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-3",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "Je veux comparer l'IRM avant et après traitement, sans supposer que la variation observée est causée par le traitement.",
+              "targetInventoryItemId": "inv-5"
+            },
+            {
+              "inventoryRelationId": "rel-inv-5",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-5",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "après traitement",
+              "targetInventoryItemId": "inv-6"
+            },
+            {
+              "inventoryRelationId": "rel-inv-6",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "NEGATED",
+              "sourceInventoryItemId": "inv-2",
+              "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+              "sourceText": "Je veux comparer l'IRM avant et après traitement, sans supposer que la variation observée est causée par le traitement.",
+              "targetInventoryItemId": "inv-7"
+            }
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2",
+          "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-1"
+        ],
+        "summaryForUser": "Vous souhaitez comparer l'IRM avant et après le traitement, tout en excluant explicitement une relation de cause à effet.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 19115,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T01:08:28.549Z",
+          "requestStarted": "2026-08-14T01:08:09.434Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-ccac2ccdebb8c079",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-1",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "vouloir",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "sourceText": "Je veux"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-2",
+          "mappedClientElementIds": [
+            "elem-1"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "comparer",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "sourceText": "comparer"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-3",
+          "mappedClientElementIds": [
+            "elem-2"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "IRM",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "sourceText": "l'IRM"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-4",
+          "mappedClientElementIds": [
+            "elem-3"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "avant",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "sourceText": "avant"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-5",
+          "mappedClientElementIds": [
+            "elem-4"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "après traitement",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "sourceText": "après traitement"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-6",
+          "mappedClientElementIds": [
+            "elem-5"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "traitement",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "sourceText": "traitement"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-7",
+          "mappedClientElementIds": [
+            "elem-6"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "sans supposer de causalité avec le traitement",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL:u1",
+          "sourceText": "sans supposer que la variation observée est causée par le traitement"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite comparer l'IRM avant et après traitement, en excluant explicitement toute causalité entre la variation observée et le traitement.",
+    "originalRequest": "Je veux comparer l'IRM avant et après traitement, sans supposer que la variation observée est causée par le traitement.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-1",
+          "mappedClientRelationIds": [
+            "coalesced:elem-1"
+          ],
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required.",
+          "sourceInventoryItemId": "inv-1",
+          "targetInventoryItemId": "inv-2"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-2",
+          "mappedClientRelationIds": [
+            "rel-2",
+            "rel-3"
+          ],
+          "normalizedRelation": "COMPARES_WITH",
+          "reason": "The functional relation hub is preserved by a direct explicit Semantic Relation between its linked scientific endpoints; a relation-as-object node is not required.",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-3"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-3",
+          "mappedClientRelationIds": [
+            "rel-2"
+          ],
+          "normalizedRelation": "REPEATED_AT",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-4"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-4",
+          "mappedClientRelationIds": [
+            "rel-3"
+          ],
+          "normalizedRelation": "REPEATED_AT",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-3",
+          "targetInventoryItemId": "inv-5"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-5",
+          "mappedClientRelationIds": [
+            "rel-4"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-5",
+          "targetInventoryItemId": "inv-6"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-6",
+          "mappedClientRelationIds": [
+            "rel-5"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-2",
+          "targetInventoryItemId": "inv-7"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-4"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-20b3ba48f99f0fc4",
+        "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+        "targetElementId": "sem-element:ke1-c1d88d3e59bdfb82",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-6"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-430409e480cee5c8",
+        "sourceElementId": "sem-element:ke1-e322850ad3acf9be",
+        "targetElementId": "sem-element:ke1-4782511dbce9d0e9",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-3"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-6ee6c9b766d08f33",
+        "sourceElementId": "sem-element:ke1-cee27023bc99f717",
+        "targetElementId": "sem-element:ke1-42563f1e4aca1c3a",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-5"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-97bf74bcdbe600b0",
+        "sourceElementId": "sem-element:ke1-c1d88d3e59bdfb82",
+        "targetElementId": "sem-element:ke1-472b18422a91a486",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Définition du design d'étude",
+        "Gestion des temps de mesure",
+        "Intégration de contraintes causales"
+      ],
+      "reason": "L'utilisateur exprime l'intention de comparer une modalité d'imagerie à différents temps par rapport à un traitement, tout en posant des contraintes méthodologiques.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-44d7d435aad6f889",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Vous souhaitez comparer l'IRM avant et après le traitement, tout en excluant explicitement une relation de cause à effet.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T01:08:33.210Z"
+  },
+  "providerStatus": "AVAILABLE"
+}

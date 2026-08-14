@@ -1,0 +1,106 @@
+{
+  "branchIsolation": true,
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "classification": "EXPERIMENTAL_VISIBLE_SIMULATOR_CARDS_NOT_BLIND",
+  "scenarios": [
+    {
+      "hiddenCard": {
+        "constraints": [
+          "ne pas inventer de causalité",
+          "ne pas adopter d'autre endpoint"
+        ],
+        "correctionFirstResponse": "La taille d'infarctus est le critère principal; la MVO est secondaire; le strain n'est pas prévu.",
+        "facts": [
+          "STEMI",
+          "stent immédiat versus différé",
+          "IRM cardiaque"
+        ],
+        "unknownResponses": "Si une autre précision non fournie est demandée, répondre qu'elle est inconnue à ce stade."
+      },
+      "initialVisible": "Je veux étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent, avec une évaluation des lésions en IRM cardiaque.",
+      "scenarioId": "I01",
+      "title": "STEMI, stenting and CMR"
+    },
+    {
+      "hiddenCard": {
+        "constraints": [
+          "aucune IRM pré-thrombectomie",
+          "24 h et J7",
+          "association non causale"
+        ],
+        "correctionFirstResponse": "Correction: nous n'aurons pas d'IRM avant thrombectomie. Les temps prévus sont 24 h et J7. Nous étudions une association, pas une causalité.",
+        "facts": [
+          "thrombectomie",
+          "perfusion cérébrale",
+          "OEF",
+          "évolution des lésions"
+        ],
+        "unknownResponses": "Toute précision non fournie reste inconnue."
+      },
+      "initialVisible": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+      "scenarioId": "I02",
+      "title": "Stroke, thrombectomy and OEF"
+    },
+    {
+      "hiddenCard": {
+        "constraints": [
+          "iRECIST à 12 semaines principal",
+          "PFS secondaire",
+          "MTV/TLG candidats",
+          "CT routine non biomarqueur"
+        ],
+        "correctionFirstResponse": "Le critère principal sera la réponse iRECIST à 12 semaines; la PFS est secondaire. MTV et TLG peuvent rester des candidats. Le CT de routine n'est pas un biomarqueur.",
+        "facts": [
+          "immunothérapie",
+          "réponse tumorale",
+          "TEP-FDG"
+        ],
+        "unknownResponses": "Les détails non mentionnés restent inconnus."
+      },
+      "initialVisible": "Je veux suivre sous immunothérapie la réponse tumorale en TEP-FDG et voir quels paramètres quantitatifs seraient utiles.",
+      "scenarioId": "I03",
+      "title": "Immunotherapy and FDG PET"
+    },
+    {
+      "hiddenCard": {
+        "constraints": [
+          "non est une donnée",
+          "T2 exploratoire",
+          "LGE partiel non principal",
+          "ECV conditionnel"
+        ],
+        "correctionFirstResponse": "Le T1 natif peut rester candidat principal. L'ECV est conditionnel. Non, le T2 ne sera pas disponible partout: il reste exploratoire. Le LGE n'est disponible que partiellement et ne sera pas principal.",
+        "facts": [
+          "Fabry",
+          "multicentrique",
+          "IRM quantitative",
+          "comparabilité inter-centres"
+        ],
+        "unknownResponses": "Pour le reste, répondre inconnu."
+      },
+      "initialVisible": "Nous préparons une étude multicentrique dans la maladie de Fabry et voulons identifier les mesures IRM quantitatives comparables entre centres.",
+      "scenarioId": "I04",
+      "title": "Fabry multicenter"
+    },
+    {
+      "hiddenCard": {
+        "constraints": [
+          "delta ADC exploratoire",
+          "réponse pathologique référence",
+          "pas de causalité"
+        ],
+        "correctionFirstResponse": "Le delta ADC entre baseline et mi-traitement est exploratoire. La réponse pathologique finale est la référence, sans supposer qu'une hausse d'ADC la cause.",
+        "facts": [
+          "cancer du rectum",
+          "IRM",
+          "réponse pendant traitement",
+          "variation ADC"
+        ],
+        "unknownResponses": "Les autres paramètres restent inconnus."
+      },
+      "initialVisible": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
+      "scenarioId": "I05",
+      "title": "Rectal cancer and ADC delta"
+    }
+  ]
+}

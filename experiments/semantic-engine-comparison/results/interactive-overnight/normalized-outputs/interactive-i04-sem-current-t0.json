@@ -1,0 +1,39 @@
+{
+  "baseline": "sem-current",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "étude multicentrique",
+      "mesures quantitatives",
+      "comparabilité entre centres",
+      "maladie de Fabry",
+      "identifier",
+      "imagerie par résonance magnétique"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "étude multicentrique: EXPLICIT_USER_STATED",
+      "mesures quantitatives: EXPLICIT_USER_STATED",
+      "comparabilité entre centres: EXPLICIT_USER_STATED",
+      "maladie de Fabry: EXPLICIT_USER_STATED",
+      "identifier: EXPLICIT_USER_STATED",
+      "imagerie par résonance magnétique: EXPLICIT_USER_STATED"
+    ],
+    "relations": [
+      "MEASURED_BY",
+      "RELATED_TO_CANDIDATE",
+      "RELATED_TO_CANDIDATE",
+      "AIMS_TO_MODIFY"
+    ],
+    "state_summary": "Préparation d'une étude multicentrique portant sur la maladie de Fabry visant à identifier des mesures d'IRM quantitative comparables entre différents centres.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I04"
+}

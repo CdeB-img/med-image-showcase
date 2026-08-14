@@ -1,0 +1,19 @@
+{
+  "action": "ASK",
+  "contextual_candidates": [],
+  "corrected_or_superseded": [],
+  "explicit_facts": [
+    "Le cas concerne l'étude de la perfusion cérébrale et de l'extraction d'oxygène (OEF) après une thrombectomie.",
+    "Cette étude est menée en lien avec l'évolution des lésions.",
+    "Les temps d'imagerie ne sont pas encore tous fixés."
+  ],
+  "missing_or_ambiguous": [
+    "Quels sont les temps d'imagerie envisagés ou les modalités d'imagerie (IRM, TEP, CT) prévues pour évaluer la perfusion et l'OEF ?"
+  ],
+  "negations_or_constraints": [],
+  "next_question": "Quels sont les temps d'imagerie envisagés ou les modalités (IRM, TEP, CT) prévues pour évaluer la perfusion et l'OEF ?",
+  "ownership_or_epistemic_notes": [],
+  "relations": [],
+  "state_summary": "L'utilisateur souhaite étudier la perfusion cérébrale et l'OEF après une thrombectomie en lien avec l'évolution des lésions, les temps d'imagerie n'étant pas encore fixés.",
+  "temporal_context": []
+}

@@ -1,0 +1,29 @@
+{
+  "extractions": [
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "unknown_or_ambiguity",
+      "extraction_text": "tous les temps d'imagerie n'étaient pas encore fixés"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "nous n'aurons pas d'IRM avant thrombectomie"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "les temps prévus sont 24 h et J7"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "nous étudions une association, pas une causalité"
+    }
+  ]
+}

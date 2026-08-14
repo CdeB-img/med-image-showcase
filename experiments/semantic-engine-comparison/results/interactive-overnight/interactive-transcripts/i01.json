@@ -1,0 +1,338 @@
+{
+  "branches": {
+    "dspy": {
+      "baseline": "dspy",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The user wants to study STEMI patients.",
+              "The study compares immediate versus delayed stent placement.",
+              "Cardiac MRI is used to evaluate lesions."
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "User stated the study design and patient population."
+            ],
+            "relations": [
+              "immediate versus delayed stent placement in STEMI patients",
+              "cardiac MRI evaluation of lesions in STEMI patients"
+            ],
+            "state_summary": "The user is planning a study on STEMI patients comparing immediate versus delayed stent placement, with lesion evaluation via cardiac MRI.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent, avec une évaluation des lésions en IRM cardiaque.",
+          "message_id": "I01:dspy:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "instructor": {
+      "baseline": "instructor",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Target population: patients with STEMI",
+              "Intervention/Comparison: immediate versus delayed stent placement",
+              "Evaluation method: cardiac MRI lesion evaluation"
+            ],
+            "missing_or_ambiguous": [
+              "exact timing of the delayed stent placement",
+              "primary endpoint of the study",
+              "study design (e.g., randomized controlled trial, observational)"
+            ],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "User stated intent to study immediate versus delayed stenting in STEMI with cardiac MRI."
+            ],
+            "relations": [
+              "stent placement compared between immediate and delayed in STEMI patients",
+              "cardiac MRI used for lesion evaluation in STEMI patients undergoing stent placement"
+            ],
+            "state_summary": "The user wants to study immediate versus delayed stent placement in STEMI patients, with cardiac MRI lesion evaluation.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent, avec une évaluation des lésions en IRM cardiaque.",
+          "message_id": "I01:instructor:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "langextract": {
+      "baseline": "langextract",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent",
+              "évaluation des lésions en IRM cardiaque"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent; évaluation des lésions en IRM cardiaque",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent, avec une évaluation des lésions en IRM cardiaque.",
+          "message_id": "I01:langextract:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "outlines": {
+      "baseline": "outlines",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Population cible : patients avec STEMI",
+              "Intervention : mise en place immédiate versus différée d'un stent",
+              "Évaluation : évaluation des lésions en IRM cardiaque"
+            ],
+            "missing_or_ambiguous": [
+              "Critère de jugement principal",
+              "Délai exact pour la pose différée"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quel est le critère de jugement principal de votre étude ?",
+            "ownership_or_epistemic_notes": [
+              "Intention exprimée par l'utilisateur"
+            ],
+            "relations": [
+              "Comparaison de la mise en place immédiate versus différée d'un stent chez des patients STEMI avec évaluation par IRM cardiaque"
+            ],
+            "state_summary": "L'utilisateur souhaite étudier chez des patients atteints de STEMI la pose immédiate versus différée d'un stent, avec une évaluation des lésions par IRM cardiaque.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Population: patients avec STEMI",
+              "Intervention: mise en place immédiate versus différée d'un stent",
+              "Modalité d'évaluation des lésions: IRM cardiaque",
+              "Critère de jugement principal: taille d'infarctus",
+              "Critère de jugement secondaire: MVO"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "Le strain n'est pas prévu dans l'étude"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Informations fournies directement par l'utilisateur"
+            ],
+            "relations": [
+              "Comparaison de la mise en place immédiate versus différée d'un stent chez les patients STEMI évaluée par IRM cardiaque",
+              "La taille d'infarctus est le critère principal de l'étude",
+              "La MVO est le critère secondaire de l'étude"
+            ],
+            "state_summary": "Le projet d'étude concerne des patients avec STEMI pour comparer la mise en place immédiate versus différée d'un stent avec évaluation des lésions par IRM cardiaque. Le critère de jugement principal est la taille d'infarctus, le critère secondaire est la MVO, et l'analyse du strain n'est pas prévue.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent, avec une évaluation des lésions en IRM cardiaque.",
+          "message_id": "I01:outlines:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quel est le critère de jugement principal de votre étude ?",
+          "message_id": "I01:outlines:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "La taille d'infarctus est le critère principal; la MVO est secondaire; le strain n'est pas prévu.",
+          "message_id": "I01:outlines:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "pydanticai": {
+      "baseline": "pydanticai",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Le projet porte sur l'étude chez des patients atteints de STEMI (Infarctus du myocarde avec sus-décalage du segment ST).",
+              "L'intervention comparée est la mise en place immédiate versus différée d'un stent.",
+              "L'évaluation des lésions est réalisée par IRM cardiaque."
+            ],
+            "missing_or_ambiguous": [
+              "Critère de jugement principal (par exemple, la taille de l'infarctus, le salvage myocardique, ou un critère clinique).",
+              "Population exacte ou critères d'inclusion/exclusion additionnels."
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quel est le critère de jugement principal de votre étude (par exemple, la taille de l'infarctus en IRM, le myocarde sauvé, ou un critère clinique) ?",
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "Étude chez des patients STEMI comparant la pose de stent immédiate vs différée, avec évaluation des lésions par IRM cardiaque. Le critère de jugement principal reste à préciser.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Patient population: patients avec STEMI",
+              "Intervention/Comparison: mise en place immédiate versus différée d'un stent",
+              "Evaluation modality: IRM cardiaque",
+              "Primary endpoint: taille de l'infarctus en IRM",
+              "Secondary endpoint: MVO (microvascular obstruction)",
+              "Excluded parameter: strain n'est pas prévu"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "strain n'est pas prévu"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [],
+            "relations": [
+              "STEMI patients -> immediate vs delayed stent placement -> cardiac MRI evaluation -> primary endpoint: infarct size, secondary endpoint: MVO"
+            ],
+            "state_summary": "Étude chez des patients STEMI comparant la pose immédiate versus différée de stent avec évaluation par IRM cardiaque. Le critère de jugement principal est la taille de l'infarctus, le critère secondaire est la MVO, et le strain est exclu.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent, avec une évaluation des lésions en IRM cardiaque.",
+          "message_id": "I01:pydanticai:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quel est le critère de jugement principal de votre étude (par exemple, la taille de l'infarctus en IRM, le myocarde sauvé, ou un critère clinique) ?",
+          "message_id": "I01:pydanticai:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "La taille d'infarctus est le critère principal; la MVO est secondaire; le strain n'est pas prévu.",
+          "message_id": "I01:pydanticai:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "sem-current": {
+      "baseline": "sem-current",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Mise en place différée d'un stent",
+              "Patients souffrant d'un infarctus du myocarde avec sus-décalage du segment ST",
+              "Évaluation des lésions",
+              "Infarctus du myocarde avec sus-décalage du segment ST (STEMI)",
+              "Lésions myocardiques ou vasculaires",
+              "Mise en place immédiate d'un stent",
+              "Étudier une question clinique",
+              "IRM cardiaque"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Mise en place différée d'un stent: EXPLICIT_USER_STATED",
+              "Patients souffrant d'un infarctus du myocarde avec sus-décalage du segment ST: EXPLICIT_USER_STATED",
+              "Évaluation des lésions: EXPLICIT_USER_STATED",
+              "Infarctus du myocarde avec sus-décalage du segment ST (STEMI): EXPLICIT_USER_STATED",
+              "Lésions myocardiques ou vasculaires: EXPLICIT_USER_STATED",
+              "Mise en place immédiate d'un stent: EXPLICIT_USER_STATED",
+              "Étudier une question clinique: EXPLICIT_USER_STATED",
+              "IRM cardiaque: EXPLICIT_USER_STATED"
+            ],
+            "relations": [
+              "OBSERVES",
+              "RELATED_TO_CANDIDATE",
+              "OBSERVES",
+              "COMPARES_WITH"
+            ],
+            "state_summary": "Étude clinique évaluant l'implantation immédiate par rapport à la mise en place différée d'un stent chez des patients présentant un STEMI, avec évaluation des lésions par IRM cardiaque.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent, avec une évaluation des lésions en IRM cardiaque.",
+          "message_id": "I01:sem-current:u0",
+          "role": "USER"
+        }
+      ]
+    }
+  },
+  "initialVisible": "Je veux étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent, avec une évaluation des lésions en IRM cardiaque.",
+  "scenarioId": "I01",
+  "title": "STEMI, stenting and CMR"
+}

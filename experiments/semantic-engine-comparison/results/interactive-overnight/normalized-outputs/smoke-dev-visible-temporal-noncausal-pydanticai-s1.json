@@ -1,0 +1,25 @@
+{
+  "baseline": "pydanticai",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "L'utilisateur souhaite comparer l'IRM avant et après traitement",
+      "L'utilisateur ne souhaite pas supposer que la variation observée est causée par le traitement"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [
+      "Ne pas supposer de lien de causalité entre le traitement et la variation observée dans l'IRM"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [],
+    "relations": [],
+    "state_summary": "Comparaison d'IRM avant et après traitement sans hypothèse de causalité.",
+    "temporal_context": []
+  },
+  "round": "S1",
+  "scenarioId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL"
+}

@@ -1,0 +1,44 @@
+{
+  "baseline": "sem-current",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Avant le traitement",
+      "Traitement",
+      "Exclusion d'une relation causale entre la variation et le traitement",
+      "Après le traitement",
+      "Imagerie par résonance magnétique",
+      "Intention de comparer"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [
+      "Exclusion d'une relation causale entre la variation et le traitement"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Avant le traitement: EXPLICIT_USER_STATED",
+      "Traitement: EXPLICIT_USER_STATED",
+      "Exclusion d'une relation causale entre la variation et le traitement: EXPLICIT_USER_STATED",
+      "Après le traitement: EXPLICIT_USER_STATED",
+      "Imagerie par résonance magnétique: EXPLICIT_USER_STATED",
+      "Intention de comparer: EXPLICIT_USER_STATED"
+    ],
+    "relations": [
+      "REPEATED_AT",
+      "RELATED_TO_CANDIDATE",
+      "REPEATED_AT",
+      "RELATED_TO_CANDIDATE"
+    ],
+    "state_summary": "L'utilisateur souhaite comparer l'IRM avant et après traitement, en excluant explicitement toute causalité entre la variation observée et le traitement.",
+    "temporal_context": [
+      "Avant le traitement",
+      "Après le traitement"
+    ]
+  },
+  "round": "S1",
+  "scenarioId": "DEV-VISIBLE-TEMPORAL-NONCAUSAL"
+}

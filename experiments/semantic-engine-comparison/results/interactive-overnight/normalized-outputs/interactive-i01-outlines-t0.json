@@ -1,0 +1,31 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "ASK",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Population cible : patients avec STEMI",
+      "Intervention : mise en place immédiate versus différée d'un stent",
+      "Évaluation : évaluation des lésions en IRM cardiaque"
+    ],
+    "missing_or_ambiguous": [
+      "Critère de jugement principal",
+      "Délai exact pour la pose différée"
+    ],
+    "negations_or_constraints": [],
+    "next_question": "Quel est le critère de jugement principal de votre étude ?",
+    "ownership_or_epistemic_notes": [
+      "Intention exprimée par l'utilisateur"
+    ],
+    "relations": [
+      "Comparaison de la mise en place immédiate versus différée d'un stent chez des patients STEMI avec évaluation par IRM cardiaque"
+    ],
+    "state_summary": "L'utilisateur souhaite étudier chez des patients atteints de STEMI la pose immédiate versus différée d'un stent, avec une évaluation des lésions par IRM cardiaque.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I01"
+}

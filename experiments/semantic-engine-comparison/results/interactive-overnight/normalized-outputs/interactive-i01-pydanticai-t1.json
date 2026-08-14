@@ -1,0 +1,31 @@
+{
+  "baseline": "pydanticai",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Patient population: patients avec STEMI",
+      "Intervention/Comparison: mise en place immédiate versus différée d'un stent",
+      "Evaluation modality: IRM cardiaque",
+      "Primary endpoint: taille de l'infarctus en IRM",
+      "Secondary endpoint: MVO (microvascular obstruction)",
+      "Excluded parameter: strain n'est pas prévu"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [
+      "strain n'est pas prévu"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [],
+    "relations": [
+      "STEMI patients -> immediate vs delayed stent placement -> cardiac MRI evaluation -> primary endpoint: infarct size, secondary endpoint: MVO"
+    ],
+    "state_summary": "Étude chez des patients STEMI comparant la pose immédiate versus différée de stent avec évaluation par IRM cardiaque. Le critère de jugement principal est la taille de l'infarctus, le critère secondaire est la MVO, et le strain est exclu.",
+    "temporal_context": []
+  },
+  "round": "T1",
+  "scenarioId": "I01"
+}

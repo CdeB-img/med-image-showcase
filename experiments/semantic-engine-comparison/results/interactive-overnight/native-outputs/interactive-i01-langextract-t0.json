@@ -1,0 +1,14 @@
+{
+  "extractions": [
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "étudier chez des patients avec STEMI la mise en place immédiate versus différée d'un stent"
+    },
+    {
+      "attributes": {},
+      "extraction_class": "fact",
+      "extraction_text": "évaluation des lésions en IRM cardiaque"
+    }
+  ]
+}

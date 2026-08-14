@@ -1,0 +1,23 @@
+{
+  "baseline": "langextract",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "étudier en IRM la réponse d'un cancer du rectum pendant le traitement",
+      "quantifier l'évolution de l'ADC"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [],
+    "relations": [],
+    "state_summary": "étudier en IRM la réponse d'un cancer du rectum pendant le traitement; quantifier l'évolution de l'ADC",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I05"
+}

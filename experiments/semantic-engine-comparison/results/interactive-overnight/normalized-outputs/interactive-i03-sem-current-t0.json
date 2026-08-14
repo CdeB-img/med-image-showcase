@@ -1,0 +1,36 @@
+{
+  "baseline": "sem-current",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "TEP-FDG",
+      "Réponse tumorale",
+      "Immunothérapie",
+      "Paramètres quantitatifs",
+      "Suivre la réponse tumorale"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "TEP-FDG: EXPLICIT_USER_STATED",
+      "Réponse tumorale: EXPLICIT_USER_STATED",
+      "Immunothérapie: EXPLICIT_USER_STATED",
+      "Paramètres quantitatifs: EXPLICIT_USER_STATED",
+      "Suivre la réponse tumorale: EXPLICIT_USER_STATED"
+    ],
+    "relations": [
+      "TRIGGERED_BY",
+      "OBSERVED_BY",
+      "AIMS_TO_MODIFY"
+    ],
+    "state_summary": "L'utilisateur souhaite évaluer sous immunothérapie la réponse tumorale par TEP-FDG et identifier les paramètres quantitatifs utiles à cette évaluation.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I03"
+}

@@ -1,0 +1,43 @@
+{
+  "baseline": "sem-current",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Mise en place différée d'un stent",
+      "Patients souffrant d'un infarctus du myocarde avec sus-décalage du segment ST",
+      "Évaluation des lésions",
+      "Infarctus du myocarde avec sus-décalage du segment ST (STEMI)",
+      "Lésions myocardiques ou vasculaires",
+      "Mise en place immédiate d'un stent",
+      "Étudier une question clinique",
+      "IRM cardiaque"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "Mise en place différée d'un stent: EXPLICIT_USER_STATED",
+      "Patients souffrant d'un infarctus du myocarde avec sus-décalage du segment ST: EXPLICIT_USER_STATED",
+      "Évaluation des lésions: EXPLICIT_USER_STATED",
+      "Infarctus du myocarde avec sus-décalage du segment ST (STEMI): EXPLICIT_USER_STATED",
+      "Lésions myocardiques ou vasculaires: EXPLICIT_USER_STATED",
+      "Mise en place immédiate d'un stent: EXPLICIT_USER_STATED",
+      "Étudier une question clinique: EXPLICIT_USER_STATED",
+      "IRM cardiaque: EXPLICIT_USER_STATED"
+    ],
+    "relations": [
+      "OBSERVES",
+      "RELATED_TO_CANDIDATE",
+      "OBSERVES",
+      "COMPARES_WITH"
+    ],
+    "state_summary": "Étude clinique évaluant l'implantation immédiate par rapport à la mise en place différée d'un stent chez des patients présentant un STEMI, avec évaluation des lésions par IRM cardiaque.",
+    "temporal_context": []
+  },
+  "round": "T0",
+  "scenarioId": "I01"
+}

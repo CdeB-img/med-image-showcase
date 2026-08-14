@@ -1,0 +1,546 @@
+{
+  "branches": {
+    "dspy": {
+      "baseline": "dspy",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [
+              "Candidate imaging timepoints could include standard follow-up intervals such as 24 hours, 7 days, and 30 days post-thrombectomy."
+            ],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "The user wants to study cerebral perfusion and OEF (Oxygen Extraction Fraction) after thrombectomy.",
+              "The study investigates the relationship between cerebral perfusion/OEF and lesion evolution.",
+              "The imaging timepoints have not been fixed yet."
+            ],
+            "missing_or_ambiguous": [
+              "Specific imaging timepoints post-thrombectomy are not yet defined.",
+              "Modalities for measuring perfusion and OEF are not specified."
+            ],
+            "negations_or_constraints": [
+              "Imaging timepoints are not yet fixed."
+            ],
+            "next_question": "Quels sont les délais post-thrombectomie envisagés pour vos acquisitions d'imagerie de perfusion et d'OEF ?",
+            "ownership_or_epistemic_notes": [
+              "The user explicitly stated the research intent and the lack of fixed imaging timepoints."
+            ],
+            "relations": [
+              "Cerebral perfusion and OEF are linked to lesion evolution."
+            ],
+            "state_summary": "Study of cerebral perfusion and OEF in relation to lesion evolution post-thrombectomy, with imaging timepoints still undefined.",
+            "temporal_context": [
+              "Post-thrombectomy",
+              "Timepoints not yet fixed"
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [
+              "Initial vague imaging timepoints; corrected by user specifying no pre-thrombectomy MRI, and planned timepoints at 24 hours and Day 7."
+            ],
+            "explicit_facts": [
+              "The user wants to study cerebral perfusion and OEF after thrombectomy in relation to lesion evolution.",
+              "There will be no MRI before thrombectomy.",
+              "The planned imaging timepoints are 24 hours and Day 7 post-thrombectomy.",
+              "The study investigates an association, not a causality."
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "No MRI before thrombectomy.",
+              "Association only, explicitly not causality."
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "User stated the study parameters and corrections."
+            ],
+            "relations": [
+              "Cerebral perfusion and OEF are studied in relation to lesion evolution post-thrombectomy."
+            ],
+            "state_summary": "Study of cerebral perfusion and OEF in relation to lesion evolution post-thrombectomy at 24h and Day 7, with no pre-thrombectomy MRI, explicitly focusing on association rather than causality.",
+            "temporal_context": [
+              "Post-thrombectomy",
+              "24 hours",
+              "Day 7"
+            ]
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+          "message_id": "I02:dspy:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quels sont les délais post-thrombectomie envisagés pour vos acquisitions d'imagerie de perfusion et d'OEF ?",
+          "message_id": "I02:dspy:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Correction: nous n'aurons pas d'IRM avant thrombectomie. Les temps prévus sont 24 h et J7. Nous étudions une association, pas une causalité.",
+          "message_id": "I02:dspy:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "instructor": {
+      "baseline": "instructor",
+      "questionsAsked": 0,
+      "states": [
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Subject of study: cerebral perfusion and OEF after thrombectomy",
+              "Goal: relate cerebral perfusion and OEF to lesion evolution",
+              "Imaging time points are not yet fixed"
+            ],
+            "missing_or_ambiguous": [
+              "exact imaging time points"
+            ],
+            "negations_or_constraints": [
+              "imaging time points not yet fixed"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "stated by user"
+            ],
+            "relations": [
+              "cerebral perfusion and OEF in relation to lesion evolution"
+            ],
+            "state_summary": "The user wants to study cerebral perfusion and oxygen extraction fraction (OEF) after thrombectomy in relation to lesion evolution, but imaging time points are not yet finalized.",
+            "temporal_context": [
+              "after thrombectomy",
+              "imaging time points not yet fixed"
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+          "message_id": "I02:instructor:u0",
+          "role": "USER"
+        }
+      ]
+    },
+    "langextract": {
+      "baseline": "langextract",
+      "questionsAsked": 2,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions"
+            ],
+            "missing_or_ambiguous": [
+              "sans avoir encore fixé tous les temps d'imagerie"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Pouvez-vous préciser sans avoir encore fixé tous les temps d'imagerie ?",
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions",
+              "nous n'aurons pas d'IRM avant thrombectomie",
+              "les temps prévus sont 24 h et J7",
+              "nous étudions une association, pas une causalité"
+            ],
+            "missing_or_ambiguous": [
+              "tous les temps d'imagerie n'étaient pas encore fixés"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Pouvez-vous préciser tous les temps d'imagerie n'étaient pas encore fixés ?",
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions; nous n'aurons pas d'IRM avant thrombectomie; les temps prévus sont 24 h et J7; nous étudions une association, pas une causalité",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T1"
+        },
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions",
+              "nous n'aurons pas d'IRM avant thrombectomie",
+              "les temps prévus sont 24 h et J7",
+              "nous étudions une association, pas une causalité"
+            ],
+            "missing_or_ambiguous": [
+              "tous les temps d'imagerie n'étaient pas encore fixés"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Pouvez-vous préciser tous les temps d'imagerie n'étaient pas encore fixés ?",
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions; nous n'aurons pas d'IRM avant thrombectomie; les temps prévus sont 24 h et J7; nous étudions une association, pas une causalité",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T2"
+        }
+      ],
+      "status": "MAX_DIALOGUE_DEPTH_REACHED",
+      "turns": [
+        {
+          "content": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+          "message_id": "I02:langextract:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Pouvez-vous préciser sans avoir encore fixé tous les temps d'imagerie ?",
+          "message_id": "I02:langextract:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Correction: nous n'aurons pas d'IRM avant thrombectomie. Les temps prévus sont 24 h et J7. Nous étudions une association, pas une causalité.",
+          "message_id": "I02:langextract:u1",
+          "role": "USER"
+        },
+        {
+          "content": "Pouvez-vous préciser tous les temps d'imagerie n'étaient pas encore fixés ?",
+          "message_id": "I02:langextract:a2",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Les temps prévus sont 24 h et J7.",
+          "message_id": "I02:langextract:u2",
+          "role": "USER"
+        }
+      ]
+    },
+    "outlines": {
+      "baseline": "outlines",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Étude de la perfusion cérébrale après thrombectomie",
+              "Étude de l'OEF après thrombectomie",
+              "Analyse en lien avec l'évolution des lésions",
+              "Les temps d'imagerie ne sont pas encore tous fixés"
+            ],
+            "missing_or_ambiguous": [
+              "Temps d'imagerie exacts non définis"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quelles sont les fenêtres temporelles ou les modalités d'imagerie envisagées pour cette étude ?",
+            "ownership_or_epistemic_notes": [
+              "Intention déclarée par l'utilisateur"
+            ],
+            "relations": [
+              "Perfusion cérébrale et OEF en lien avec l'évolution des lésions",
+              "Étude menée après une thrombectomie"
+            ],
+            "state_summary": "L'utilisateur souhaite étudier la perfusion cérébrale et l'OEF après une thrombectomie en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+            "temporal_context": [
+              "Après thrombectomie",
+              "Temps d'imagerie non fixés"
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [
+              "Correction : pas d'IRM avant thrombectomie (remplace l'incertitude initiale sur les temps d'imagerie)"
+            ],
+            "explicit_facts": [
+              "Étude de la perfusion cérébrale après thrombectomie",
+              "Étude de l'OEF (Oxygen Extraction Fraction) après thrombectomie",
+              "Lien avec l'évolution des lésions",
+              "Pas d'IRM avant thrombectomie",
+              "Temps d'imagerie prévus : 24 h et J7"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "Pas d'IRM avant thrombectomie",
+              "Étude d'une association, pas d'une causalité"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Déclaré par l'utilisateur"
+            ],
+            "relations": [
+              "Association entre perfusion cérébrale/OEF et évolution des lésions"
+            ],
+            "state_summary": "L'utilisateur souhaite étudier la perfusion cérébrale et l'OEF après thrombectomie en lien avec l'évolution des lésions, sans imagerie avant la thrombectomie. Les temps d'imagerie prévus sont 24 heures et J7. L'étude porte strictement sur une association et non sur une causalité.",
+            "temporal_context": [
+              "Après thrombectomie",
+              "Temps d'imagerie à 24 h",
+              "Temps d'imagerie à J7"
+            ]
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+          "message_id": "I02:outlines:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quelles sont les fenêtres temporelles ou les modalités d'imagerie envisagées pour cette étude ?",
+          "message_id": "I02:outlines:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Correction: nous n'aurons pas d'IRM avant thrombectomie. Les temps prévus sont 24 h et J7. Nous étudions une association, pas une causalité.",
+          "message_id": "I02:outlines:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "pydanticai": {
+      "baseline": "pydanticai",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Le cas concerne l'étude de la perfusion cérébrale et de l'extraction d'oxygène (OEF) après une thrombectomie.",
+              "Cette étude est menée en lien avec l'évolution des lésions.",
+              "Les temps d'imagerie ne sont pas encore tous fixés."
+            ],
+            "missing_or_ambiguous": [
+              "Quels sont les temps d'imagerie envisagés ou les modalités d'imagerie (IRM, TEP, CT) prévues pour évaluer la perfusion et l'OEF ?"
+            ],
+            "negations_or_constraints": [],
+            "next_question": "Quels sont les temps d'imagerie envisagés ou les modalités (IRM, TEP, CT) prévues pour évaluer la perfusion et l'OEF ?",
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "L'utilisateur souhaite étudier la perfusion cérébrale et l'OEF après une thrombectomie en lien avec l'évolution des lésions, les temps d'imagerie n'étant pas encore fixés.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [
+              "IRM avant thrombectomie"
+            ],
+            "explicit_facts": [
+              "Étude après thrombectomie de la perfusion cérébrale et de l'OEF en lien avec l'évolution des lésions",
+              "Pas d'IRM avant thrombectomie (correction)",
+              "Temps d'imagerie prévus : 24 heures et J7 (les temps d'imagerie n'étaient pas tous fixés initialement)",
+              "Étude d'une association et non d'une causalité"
+            ],
+            "missing_or_ambiguous": [
+              "Modalités exactes (IRM, TEP, CT) pour la perfusion et l'OEF à 24h et J7"
+            ],
+            "negations_or_constraints": [
+              "Pas d'IRM avant thrombectomie",
+              "Pas de relation causale (uniquement une association)"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [],
+            "relations": [],
+            "state_summary": "L'utilisateur souhaite étudier, après une thrombectomie, la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions. Il est précisé qu'il n'y aura pas d'IRM avant la thrombectomie. Les temps d'imagerie prévus sont 24h et J7. L'étude porte strictement sur une association et non sur une causalité. Les modalités précises d'imagerie (IRM, TEP, CT) pour évaluer la perfusion et l'OEF ne sont pas encore totalement détaillées.",
+            "temporal_context": []
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+          "message_id": "I02:pydanticai:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quels sont les temps d'imagerie envisagés ou les modalités (IRM, TEP, CT) prévues pour évaluer la perfusion et l'OEF ?",
+          "message_id": "I02:pydanticai:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Correction: nous n'aurons pas d'IRM avant thrombectomie. Les temps prévus sont 24 h et J7. Nous étudions une association, pas une causalité.",
+          "message_id": "I02:pydanticai:u1",
+          "role": "USER"
+        }
+      ]
+    },
+    "sem-current": {
+      "baseline": "sem-current",
+      "questionsAsked": 1,
+      "states": [
+        {
+          "projection": {
+            "action": "ASK",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Perfusion cérébrale",
+              "Évolution des lésions",
+              "Thrombectomie",
+              "Étudier des paramètres de perfusion et d'extraction d'oxygène",
+              "Fraction d'extraction d'oxygène (OEF)",
+              "Temps d'imagerie non fixés"
+            ],
+            "missing_or_ambiguous": [
+              "Temps d'imagerie précis"
+            ],
+            "negations_or_constraints": [
+              "Temps d'imagerie non fixés"
+            ],
+            "next_question": "Quels temps d'imagerie souhaitez-vous fixer pour évaluer la perfusion et l'OEF après la thrombectomie ?",
+            "ownership_or_epistemic_notes": [
+              "Perfusion cérébrale: EXPLICIT_USER_STATED",
+              "Évolution des lésions: EXPLICIT_USER_STATED",
+              "Thrombectomie: EXPLICIT_USER_STATED",
+              "Étudier des paramètres de perfusion et d'extraction d'oxygène: EXPLICIT_USER_STATED",
+              "Fraction d'extraction d'oxygène (OEF): EXPLICIT_USER_STATED",
+              "Temps d'imagerie non fixés: EXPLICIT_USER_STATED"
+            ],
+            "relations": [
+              "RECOVERS_AFTER",
+              "RELATED_TO_CANDIDATE",
+              "AIMS_TO_OBSERVE",
+              "RELATED_TO_CANDIDATE",
+              "AIMS_TO_OBSERVE"
+            ],
+            "state_summary": "Étude post-thrombectomie de la perfusion cérébrale et de l'extraction d'oxygène (OEF) en relation avec l'évolution des lésions, avec des temps d'imagerie non encore fixés.",
+            "temporal_context": [
+              "Temps d'imagerie non fixés"
+            ]
+          },
+          "reused": false,
+          "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Perfusion cérébrale",
+              "Extraction d'oxygène (OEF)",
+              "Évolution des lésions",
+              "Correction des spécifications précédentes",
+              "Pas de causalité étudiée",
+              "IRM avant thrombectomie",
+              "Thrombectomie",
+              "Temps d'imagerie initialement non fixés",
+              "Étudier la perfusion cérébrale et l'OEF",
+              "24 heures",
+              "7 jours (J7)",
+              "Étude d'une association"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "Pas de causalité étudiée",
+              "IRM avant thrombectomie",
+              "Temps d'imagerie initialement non fixés"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Perfusion cérébrale: EXPLICIT_USER_STATED",
+              "Extraction d'oxygène (OEF): EXPLICIT_USER_STATED",
+              "Évolution des lésions: EXPLICIT_USER_STATED",
+              "Correction des spécifications précédentes: EXPLICIT_USER_STATED",
+              "Pas de causalité étudiée: EXPLICIT_USER_STATED",
+              "IRM avant thrombectomie: EXPLICIT_USER_STATED",
+              "Thrombectomie: EXPLICIT_USER_STATED",
+              "Temps d'imagerie initialement non fixés: EXPLICIT_USER_STATED",
+              "Étudier la perfusion cérébrale et l'OEF: EXPLICIT_USER_STATED",
+              "24 heures: EXPLICIT_USER_STATED",
+              "7 jours (J7): EXPLICIT_USER_STATED",
+              "Étude d'une association: EXPLICIT_USER_STATED"
+            ],
+            "relations": [
+              "RELATED_TO_CANDIDATE",
+              "OBSERVES",
+              "REPEATED_AT",
+              "OCCURS_AFTER",
+              "REPEATED_AT",
+              "RELATED_TO_CANDIDATE",
+              "OBSERVES",
+              "PRECEDES",
+              "RELATED_TO_CANDIDATE"
+            ],
+            "state_summary": "Étude après thrombectomie de la perfusion cérébrale et de l'OEF en lien avec l'évolution des lésions, sans IRM avant thrombectomie, avec des temps d'imagerie fixés à 24 h et J7, étudiant une association et non une causalité.",
+            "temporal_context": [
+              "Temps d'imagerie initialement non fixés",
+              "24 heures",
+              "7 jours (J7)"
+            ]
+          },
+          "reused": false,
+          "round": "T1"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+          "message_id": "I02:sem-current:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quels temps d'imagerie souhaitez-vous fixer pour évaluer la perfusion et l'OEF après la thrombectomie ?",
+          "message_id": "I02:sem-current:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Correction: nous n'aurons pas d'IRM avant thrombectomie. Les temps prévus sont 24 h et J7. Nous étudions une association, pas une causalité.",
+          "message_id": "I02:sem-current:u1",
+          "role": "USER"
+        }
+      ]
+    }
+  },
+  "initialVisible": "Je veux étudier après thrombectomie la perfusion cérébrale et l'OEF en lien avec l'évolution des lésions, sans avoir encore fixé tous les temps d'imagerie.",
+  "scenarioId": "I02",
+  "title": "Stroke, thrombectomy and OEF"
+}
