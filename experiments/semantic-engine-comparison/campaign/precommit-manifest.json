@@ -1,0 +1,47 @@
+{
+  "baselineFreezeDigest": "6373b7b04838e75582048becb2efdf075b644740f1d3f6bbb381809ecdc010f1",
+  "baselineIds": [
+    "SEM003C1-SEM-CURRENT-01",
+    "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+    "SEM003C1-PYDANTICAI-01",
+    "SEM003C1-DSPY-01",
+    "SEM003C1-LANGEXTRACT-01",
+    "SEM003C1-OUTLINES-01"
+  ],
+  "baselineManifestDigests": {
+    "SEM003C1-DSPY-01": "fb7ee95f90be1e158da3e67bec7769e8fa6ef0133434b5fe0ca6eef054984962",
+    "SEM003C1-INSTRUCTOR-PYDANTIC-01": "30a0d0dc92e7945f7e8da0d34e5cd7363deb624cc5b704988a92b240ebf676d7",
+    "SEM003C1-LANGEXTRACT-01": "12f150af3873ec3574c51dd24790b8cb2728fe46cc1132dc1ba7acb03a4f7ae0",
+    "SEM003C1-OUTLINES-01": "0ff4085d68ce8402ef7e4e36fa51bd63260c54ee68586e929d44cb86a24b000f",
+    "SEM003C1-PYDANTICAI-01": "1e281361303ce2278420122d0f228b5f57e10e12cdfd6b3551e83f42baad8cb8",
+    "SEM003C1-SEM-CURRENT-01": "4adab31a99376bb68a3ab9766075975f9b5e2749c8f90b9ef9dc7e8c891f3a38"
+  },
+  "bindingId": "SEM003C1R2-COMMON-BLIND-EVALUATOR-BINDING-01",
+  "blindSet": {
+    "blindSetId": "SEM003C-BLIND-QUALIFICATION-SET-01",
+    "caseCount": 15,
+    "inputPackageDigest": "2fc328eb1bf81520979029db345355450bf38114be711406ee05bc6f55d9892f",
+    "version": "1.0.0"
+  },
+  "branch": "main",
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "contractType": "SEM003D_COMP_PRECOMMIT_MANIFEST",
+  "createdAt": "2026-08-14T00:00:00Z",
+  "evaluator": {
+    "configurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
+    "version": "1.3.0"
+  },
+  "evaluatorBindingDigest": "b5ad539dfa9e4152149479ac8af3b2ef9bfbf153204ead840b93ebbb33b6ed23",
+  "minimumRunStartIntervalSeconds": 6.0,
+  "model": "gemini-3.5-flash-lite",
+  "provider": "GOOGLE_GEMINI",
+  "providerCalls": 0,
+  "runCount": 90,
+  "scheduleDigest": "18590ed037805cc0903f391322e86f301aeaa86559d30c0ab89a550a342bfb9e",
+  "schedulePolicy": "CASE_MAJOR_WITH_BASELINE_ORDER_ROTATED_BY_CASE_ORDINAL",
+  "schemaVersion": "1.0.0",
+  "sealedReferenceOpened": false,
+  "sourceHead": "fa65bff303fdf7b2d73ac11d93714692867f9712",
+  "status": "PRECOMMITTED_BEFORE_FIRST_BLIND_RUN",
+  "temperature": null
+}
