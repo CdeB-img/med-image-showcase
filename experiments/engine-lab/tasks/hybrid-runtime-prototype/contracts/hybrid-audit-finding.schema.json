@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "SourceEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "sourceText": {
+          "title": "Sourcetext",
+          "type": "string"
+        },
+        "turnId": {
+          "title": "Turnid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turnId",
+        "sourceText"
+      ],
+      "title": "SourceEvidence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "auditJudgment": {
+      "enum": [
+        "NEW",
+        "CONFIRMED",
+        "REJECTED",
+        "UNRESOLVED"
+      ],
+      "title": "Auditjudgment",
+      "type": "string"
+    },
+    "candidatePointer": {
+      "title": "Candidatepointer",
+      "type": "string"
+    },
+    "confidence": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Confidence"
+    },
+    "confirmsFindingIds": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Confirmsfindingids",
+      "type": "array"
+    },
+    "findingClass": {
+      "title": "Findingclass",
+      "type": "string"
+    },
+    "findingId": {
+      "title": "Findingid",
+      "type": "string"
+    },
+    "origin": {
+      "enum": [
+        "SEM_AUDIT_D",
+        "SEM_AUDIT_L"
+      ],
+      "title": "Origin",
+      "type": "string"
+    },
+    "rationale": {
+      "title": "Rationale",
+      "type": "string"
+    },
+    "resolutionOwner": {
+      "title": "Resolutionowner",
+      "type": "string"
+    },
+    "severity": {
+      "enum": [
+        "INFO",
+        "MINOR",
+        "MAJOR",
+        "CRITICAL"
+      ],
+      "title": "Severity",
+      "type": "string"
+    },
+    "sourceEvidence": {
+      "items": {
+        "$ref": "#/$defs/SourceEvidence"
+      },
+      "title": "Sourceevidence",
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "OPEN",
+        "ACKNOWLEDGED",
+        "REJECTED",
+        "RESOLVED"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "structuralOnly": {
+      "default": false,
+      "title": "Structuralonly",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "findingId",
+    "findingClass",
+    "candidatePointer",
+    "auditJudgment",
+    "rationale",
+    "severity",
+    "resolutionOwner",
+    "status",
+    "origin"
+  ],
+  "title": "AuditFinding",
+  "type": "object"
+}
