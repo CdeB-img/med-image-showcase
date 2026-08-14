@@ -56,6 +56,7 @@
     "test:img001b": "vitest run src/features/imaging-study-designer/__tests__/img-001b-project-handoff.test.ts",
     "test:prj": "vitest run src/features/research-project-construction/__tests__",
     "test:system-integration": "vitest run src/features/system-integration/__tests__",
+    "test:data-analysis": "vitest run src/features/data-analysis-planning/__tests__",
     "test:doc002": "vitest run src/features/documentary-knowledge/__tests__",
     "test:tmp": "vitest run src/features/study-template/__tests__",
     "build:documentary-patterns": "node scripts/generate-documentary-pattern-corpus.mjs --source-root=../docs-audit",
