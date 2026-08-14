@@ -15,13 +15,26 @@ export type ScientificInterpretationExecution = {
   shadowContribution: ScientificInterpretationContributionEnvelope | null;
   comparison: ScientificInterpretationShadowComparison | null;
   fallbackUsed: boolean;
+  fallback: {
+    failureClass: "PROVIDER_FAILURE" | "TRANSPORT_FAILURE" | "PARSING_FAILURE" | "STRUCTURED_CONTRACT_FAILURE" | "HYBRID_RUNTIME_UNAVAILABLE";
+    message: string;
+    rawOutputRef: string | null;
+    operationId: string | null;
+  } | null;
   projectWrites: 0;
   uiStateMutatedByShadow: false;
   diagnostics: string[];
 };
 
 const technicalFallbackEligible = (error: unknown) => error instanceof ScientificInterpretationTechnicalError
-  && ["PROVIDER_FAILURE", "TRANSPORT_FAILURE", "RAW_PERSISTENCE_FAILURE", "PARSING_FAILURE", "SCHEMA_FAILURE", "CONTRIBUTION_MAPPING_FAILURE"].includes(error.failureClass);
+  && ["PROVIDER_FAILURE", "TRANSPORT_FAILURE", "PARSING_FAILURE", "STRUCTURED_CONTRACT_FAILURE", "HYBRID_RUNTIME_UNAVAILABLE"].includes(error.failureClass);
+
+const noFallback = {
+  fallbackUsed: false as const,
+  fallback: null,
+  projectWrites: 0 as const,
+  uiStateMutatedByShadow: false as const,
+};
 
 export const executeScientificInterpretation = async (input: {
   conversation: ScientificInterpretationConversation;
@@ -34,24 +47,40 @@ export const executeScientificInterpretation = async (input: {
   const mode = input.mode ?? DEFAULT_SCIENTIFIC_INTERPRETATION_MODE;
   if (mode === "LEGACY_ACTIVE") {
     const activeContribution = await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
-    return { mode, activeContribution, shadowContribution: null, comparison: null, fallbackUsed: false, projectWrites: 0, uiStateMutatedByShadow: false, diagnostics: [] };
+    return { mode, activeContribution, shadowContribution: null, comparison: null, ...noFallback, diagnostics: [] };
   }
-  if (!input.hybridRuntime) throw new ScientificInterpretationTechnicalError("CONTRIBUTION_MAPPING_FAILURE", "HYBRID_RUNTIME_REQUIRED");
+  if (!input.hybridRuntime) throw new ScientificInterpretationTechnicalError("HYBRID_RUNTIME_UNAVAILABLE", "HYBRID_RUNTIME_REQUIRED");
   if (mode === "HYBRID_SHADOW") {
     const activeContribution = await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
     try {
       const shadowContribution = await input.hybridRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
-      return { mode, activeContribution, shadowContribution, comparison: compareScientificInterpretationContributions(activeContribution, shadowContribution), fallbackUsed: false, projectWrites: 0, uiStateMutatedByShadow: false, diagnostics: [] };
+      return { mode, activeContribution, shadowContribution, comparison: compareScientificInterpretationContributions(activeContribution, shadowContribution), ...noFallback, diagnostics: [] };
     } catch (error) {
-      return { mode, activeContribution, shadowContribution: null, comparison: null, fallbackUsed: false, projectWrites: 0, uiStateMutatedByShadow: false, diagnostics: [error instanceof Error ? error.message : "HYBRID_SHADOW_FAILURE"] };
+      return { mode, activeContribution, shadowContribution: null, comparison: null, ...noFallback, diagnostics: [error instanceof Error ? error.message : "HYBRID_SHADOW_FAILURE"] };
     }
   }
   try {
     const activeContribution = await input.hybridRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
-    return { mode, activeContribution, shadowContribution: null, comparison: null, fallbackUsed: false, projectWrites: 0, uiStateMutatedByShadow: false, diagnostics: [] };
+    return { mode, activeContribution, shadowContribution: null, comparison: null, ...noFallback, diagnostics: [] };
   } catch (error) {
     if (!technicalFallbackEligible(error)) throw error;
     const activeContribution = await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
-    return { mode, activeContribution, shadowContribution: null, comparison: null, fallbackUsed: true, projectWrites: 0, uiStateMutatedByShadow: false, diagnostics: [error instanceof Error ? error.message : "HYBRID_TECHNICAL_FAILURE"] };
+    const technical = error as ScientificInterpretationTechnicalError;
+    return {
+      mode,
+      activeContribution,
+      shadowContribution: null,
+      comparison: null,
+      fallbackUsed: true,
+      fallback: {
+        failureClass: technical.failureClass as ScientificInterpretationExecution["fallback"] extends infer F ? F extends { failureClass: infer C } ? C : never : never,
+        message: technical.message,
+        rawOutputRef: technical.rawOutputRef,
+        operationId: technical.operationId,
+      },
+      projectWrites: 0,
+      uiStateMutatedByShadow: false,
+      diagnostics: [technical.message],
+    };
   }
 };

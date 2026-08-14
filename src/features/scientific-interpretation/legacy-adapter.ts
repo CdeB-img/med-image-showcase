@@ -1,6 +1,7 @@
 import { activeSemanticElements } from "@/features/scientific-semantic-reconstruction/canonical";
 import type { ScientificSemanticModel } from "@/features/scientific-semantic-reconstruction/types";
 import { canonicalizeScientificContribution } from "./canonical";
+import { applyDeterministicAudit } from "./audit";
 import {
   SCIENTIFIC_INTERPRETATION_CONTRIBUTION_CONTRACT,
   SCIENTIFIC_INTERPRETATION_CONTRIBUTION_VERSION,
@@ -67,7 +68,7 @@ export const legacySemanticModelToContribution = (model: ScientificSemanticModel
   const contradictions = model.contradictions.map((item, index) => textItem("contradiction", item, index, "CONTRADICTION"));
   const clarificationNeeds = model.clarificationCandidates.map((item, index) => textItem("clarification", item.question, index, "CLARIFICATION"));
   const mappedItems = [...candidateObjects, ...ambiguities, ...unknowns, ...missingInformation, ...contradictions, ...clarificationNeeds];
-  return canonicalizeScientificContribution({
+  return applyDeterministicAudit(canonicalizeScientificContribution({
     contract: SCIENTIFIC_INTERPRETATION_CONTRIBUTION_CONTRACT,
     contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
     identity: {
@@ -152,7 +153,7 @@ export const legacySemanticModelToContribution = (model: ScientificSemanticModel
       permittedHumanDispositions: ["ACCEPT_WORKING_BASIS", "REJECT", "DEFER", "REOPEN", "PARTIAL_SELECTION", "ROUTE_TO_SPECIALIST"],
       projectWriteAuthorized: false,
     },
-  });
+  }));
 };
 
 export class LegacySemRuntimeAdapter implements ScientificInterpretationRuntime {

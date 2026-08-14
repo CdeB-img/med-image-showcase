@@ -1,0 +1,82 @@
+import type { ScientificInterpretationExecution } from "./runtime";
+import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation, ScientificInterpretationFailureClass, ScientificInterpretationMode } from "./contracts";
+import type { ScientificInterpretationProjectionDisposition, V1ScientificInterpretationProjection } from "./v1-compatibility";
+
+export const SCIENTIFIC_INTERPRETATION_API_VERSION = "1.0.0" as const;
+
+export type ScientificInterpretationApiRequest = {
+  apiVersion: typeof SCIENTIFIC_INTERPRETATION_API_VERSION;
+  conversation: ScientificInterpretationConversation;
+  previousContribution: ScientificInterpretationContributionEnvelope | null;
+};
+
+export type ScientificInterpretationApiResponse = {
+  apiVersion: typeof SCIENTIFIC_INTERPRETATION_API_VERSION;
+  technicalStatus: "AVAILABLE" | "FALLBACK_ACTIVE";
+  runtimeMode: ScientificInterpretationMode;
+  contributionId: string;
+  fallbackUsed: boolean;
+  fallback: ScientificInterpretationExecution["fallback"];
+  auditStatus: "COMPLETE" | "CRITICAL_FINDINGS";
+  reviewRequired: boolean;
+  projectionDisposition: ScientificInterpretationProjectionDisposition;
+  contribution: ScientificInterpretationContributionEnvelope;
+  v1Projection: V1ScientificInterpretationProjection | null;
+  projectWrites: 0;
+  semanticAuditLExecuted: false;
+  adjudicatorExecuted: false;
+  diagnostics: string[];
+};
+
+export type ScientificInterpretationApiFailure = {
+  apiVersion: typeof SCIENTIFIC_INTERPRETATION_API_VERSION;
+  technicalStatus: "FAIL_CLOSED";
+  runtimeMode: ScientificInterpretationMode;
+  contributionId: null;
+  fallbackUsed: false;
+  auditStatus: "NOT_COMPLETED";
+  reviewRequired: true;
+  projectionDisposition: "FAIL_CLOSED";
+  projectWrites: 0;
+  error: {
+    code: ScientificInterpretationFailureClass | "METHOD_NOT_ALLOWED" | "INVALID_CONTENT_TYPE" | "ORIGIN_NOT_ALLOWED" | "PAYLOAD_TOO_LARGE" | "INVALID_REQUEST" | "LOCAL_SAFETY_BLOCKED" | "RATE_LIMITED";
+    message: string;
+    retryable: boolean;
+    rawOutputRef: string | null;
+    operationId: string | null;
+  };
+};
+
+export const isScientificInterpretationApiResponse = (value: unknown): value is ScientificInterpretationApiResponse => {
+  if (!value || typeof value !== "object") return false;
+  const record = value as Record<string, unknown>;
+  const contribution = record.contribution as Record<string, unknown> | undefined;
+  return record.apiVersion === SCIENTIFIC_INTERPRETATION_API_VERSION
+    && ["AVAILABLE", "FALLBACK_ACTIVE"].includes(String(record.technicalStatus))
+    && typeof record.contributionId === "string"
+    && typeof record.fallbackUsed === "boolean"
+    && typeof record.reviewRequired === "boolean"
+    && contribution?.contract === "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE";
+};
+
+export const parseScientificInterpretationApiRequest = (value: unknown): ScientificInterpretationApiRequest | null => {
+  if (!value || typeof value !== "object") return null;
+  const input = value as Record<string, unknown>;
+  const conversation = input.conversation as Record<string, unknown> | undefined;
+  if (input.apiVersion !== SCIENTIFIC_INTERPRETATION_API_VERSION || !conversation || typeof conversation.conversationId !== "string") return null;
+  if (!['fr', 'en'].includes(String(conversation.language)) || !Array.isArray(conversation.turns) || conversation.turns.length === 0 || conversation.turns.length > 100) return null;
+  const turnsValid = conversation.turns.every((turn) => {
+    if (!turn || typeof turn !== "object") return false;
+    const item = turn as Record<string, unknown>;
+    return typeof item.turnId === "string" && item.turnId.length > 0 && ["USER", "NOXIA"].includes(String(item.role))
+      && typeof item.content === "string" && item.content.trim().length > 0 && item.content.length <= 4_000;
+  });
+  if (!turnsValid) return null;
+  const previous = input.previousContribution;
+  if (previous !== null && previous !== undefined && (typeof previous !== "object" || (previous as Record<string, unknown>).contract !== "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE")) return null;
+  return {
+    apiVersion: SCIENTIFIC_INTERPRETATION_API_VERSION,
+    conversation: conversation as unknown as ScientificInterpretationConversation,
+    previousContribution: (previous ?? null) as ScientificInterpretationContributionEnvelope | null,
+  };
+};

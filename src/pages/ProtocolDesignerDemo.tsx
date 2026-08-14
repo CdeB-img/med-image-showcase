@@ -18,8 +18,8 @@ import { createEmptyInterpretation } from "@/features/protocol-designer/intake/s
 import { confirmScenario, matchScenarios, scenarioDetails } from "@/features/protocol-designer/intake/scenarios";
 import { buildValidatedIntent, createProtocolDesignerSession, deleteSession, invalidateDownstream, loadSessionCandidate, persistSession } from "@/features/protocol-designer/intake/session";
 import { INTERPRETED_FIELD_KEYS, type AdaptiveQuestion, type HumanFieldReview, type HumanValidationState, type InterpretedFieldKey, type ProtocolDesignerSession, type QuestionChangeKind, type RoutingIntent, type ScientificIntakeInterpretation } from "@/features/protocol-designer/intake/types";
-import { legacySemanticModelToContribution, projectScientificContributionToV1, type LegacySemanticModelInput } from "@/features/scientific-interpretation";
-import SemanticConversationalWorkspace from "@/features/scientific-semantic-reconstruction/SemanticConversationalWorkspace";
+import ScientificInterpretationWorkspace from "@/features/scientific-interpretation/ScientificInterpretationWorkspace";
+import type { V1ScientificInterpretationProjection } from "@/features/scientific-interpretation";
 import ScientificThinkingView from "@/features/scientific-thinking/ScientificThinkingView";
 import { buildScientificThinkingInput, createScientificThinkingSession } from "@/features/scientific-thinking";
 import { ArrowLeft, ArrowRight, BookOpen, CircleAlert, Compass, Copy, Info, LoaderCircle, MessageCircle, Printer, RotateCcw, ShieldCheck, X } from "lucide-react";
@@ -487,12 +487,9 @@ export default function ProtocolDesignerDemo() {
   const reset = () => {
     deleteSession(window.localStorage); deleteKnowledgeSnapshots(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setDocumentProjections([]); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false); setKnowledgeContextOverrides({}); setKnowledgeContextRevision(0);
   };
-  const openStructuredProject = (model: LegacySemanticModelInput) => {
+  const openStructuredProject = (projection: V1ScientificInterpretationProjection) => {
     const now = new Date().toISOString();
     const base = createProtocolDesignerSession(now);
-    if (model.status !== "ACCEPTED") throw new Error("SEMANTIC_MODEL_NOT_ACCEPTED_FOR_DOWNSTREAM");
-    const contribution = legacySemanticModelToContribution(model);
-    const projection = projectScientificContributionToV1(contribution, base.scientificContext);
     const validated = projection.validatedIntent;
     const matches = matchScenarios(validated);
     const scientificContext = projection.scientificSessionContext;
@@ -535,7 +532,7 @@ export default function ProtocolDesignerDemo() {
 
   if (experienceMode === "CONVERSATION") return <>
     {pageHead}
-    <SemanticConversationalWorkspace onOpenStructuredProject={openStructuredProject} onResumeStructuredProject={resumeStructuredProject} />
+    <ScientificInterpretationWorkspace onOpenStructuredProject={openStructuredProject} onResumeStructuredProject={resumeStructuredProject} />
     <div className="print:hidden"><Footer /></div>
   </>;
 

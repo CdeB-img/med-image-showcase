@@ -16,6 +16,24 @@ export type V1ScientificInterpretationProjection = {
   losses: LegacyProjectionLoss[];
 };
 
+export type ScientificInterpretationProjectionDisposition = "ACCEPTED_FOR_V1_PROJECTION" | "NEEDS_REVIEW" | "NEEDS_CLARIFICATION" | "FAIL_CLOSED";
+
+export const scientificInterpretationProjectionDisposition = (contribution: ScientificInterpretationContributionEnvelope): ScientificInterpretationProjectionDisposition => {
+  if (contribution.runtimeEvidence.technicalStatus === "RAW_PERSISTENCE_FAILURE") return "FAIL_CLOSED";
+  if (contribution.audit.unresolvedFindings.some((item) => item.status === "OPEN" && item.severity === "CRITICAL")) return "NEEDS_REVIEW";
+  if (contribution.scientificContent.clarificationNeeds.length || contribution.scientificContent.ambiguities.length || contribution.scientificContent.unknowns.length) return "NEEDS_CLARIFICATION";
+  return "ACCEPTED_FOR_V1_PROJECTION";
+};
+
+export const projectScientificContributionToV1IfAllowed = (
+  contribution: ScientificInterpretationContributionEnvelope,
+  previous?: ScientificSessionContext,
+): { disposition: ScientificInterpretationProjectionDisposition; projection: V1ScientificInterpretationProjection | null } => {
+  const disposition = scientificInterpretationProjectionDisposition(contribution);
+  if (disposition === "NEEDS_REVIEW" || disposition === "FAIL_CLOSED") return { disposition, projection: null };
+  return { disposition, projection: projectScientificContributionToV1(contribution, previous) };
+};
+
 const V1_TYPE_MAP: Record<string, InterpretedFieldKey> = {
   SCIENTIFIC_INTENT: "scientificPurpose",
   OPERATION: "scientificPurpose",
@@ -56,6 +74,7 @@ const routeMap: Record<string, RoutingIntent> = {
 
 const allItems = (contribution: ScientificInterpretationContributionEnvelope) => {
   const items = [
+    ...contribution.scientificContent.explicitStatements,
     ...contribution.scientificContent.candidateObjects,
     ...contribution.scientificContent.inferredContext,
     ...contribution.scientificContent.contextualCandidates,

@@ -26,6 +26,20 @@ export type HybridNativeExecution = {
   runtimeId: string;
   runtimeVersion: string;
   rawOutput: unknown;
+  technicalFailure?: {
+    failureClass: "PROVIDER_FAILURE" | "TRANSPORT_FAILURE" | "PARSING_FAILURE" | "STRUCTURED_CONTRACT_FAILURE" | "HYBRID_RUNTIME_UNAVAILABLE";
+    message: string;
+  } | null;
+  providerAttempts?: Array<{
+    attempt: number;
+    startedAt: string;
+    completedAt: string;
+    httpStatus: number | null;
+    providerStatus: string;
+    outcome: "SUCCESS" | "FAILED";
+    retryable: boolean;
+    waitDurationMs: number;
+  }>;
 };
 
 export type HybridParsedState = GenericRecord;
@@ -40,6 +54,9 @@ const boundaryFrom = (item: GenericRecord): ContributionEpistemicBoundary => ({
   ownership: stringOrNull(item.ownership ?? item.owner),
   epistemicStatus: stringOrNull(item.epistemicStatus),
   adoptionStatus: stringOrNull(item.adoptionStatus),
+  originType: stringOrNull(item.originType),
+  originStatus: stringOrNull(item.originStatus),
+  decisionId: stringOrNull(item.decisionId),
   activeState: typeof item.activeState === "boolean" ? item.activeState : null,
   sourceTurnIds: stringList(item.sourceTurnIds),
   sourceText: stringOrNull(item.sourceText),
@@ -72,6 +89,7 @@ export const mapHybridStateToContribution = (input: {
   rawOutputRef: string;
   rawOutputDigest: string;
   conversation: ScientificInterpretationConversation;
+  previousContribution?: ScientificInterpretationContributionEnvelope | null;
   authorizedContext?: AuthorizedScientificInterpretationContext;
 }): ScientificInterpretationContributionEnvelope => {
   const state = record(input.state);
@@ -168,42 +186,53 @@ export const mapHybridStateToContribution = (input: {
       projectWriteAuthorized: false,
     },
   });
-  return applyDeterministicAudit(mapped);
+  return applyDeterministicAudit(mapped, input.previousContribution);
 };
 
 export class HybridScientificInterpretationRuntimeAdapter implements ScientificInterpretationRuntime {
   constructor(
     readonly runtimeId: string,
     readonly runtimeVersion: string,
-    private readonly executeNative: (conversation: ScientificInterpretationConversation) => Promise<HybridNativeExecution>,
+    private readonly executeNative: (conversation: ScientificInterpretationConversation, previousState?: ScientificInterpretationContributionEnvelope | null) => Promise<HybridNativeExecution>,
     private readonly rawStore: ScientificInterpretationRawStore,
-    private readonly parse: (raw: unknown) => HybridParsedState,
+    private readonly parse: (raw: unknown, execution: HybridNativeExecution, conversation: ScientificInterpretationConversation, previousState?: ScientificInterpretationContributionEnvelope | null) => HybridParsedState,
   ) {}
 
-  async interpret(conversation: ScientificInterpretationConversation, _previousState = null, authorizedContext?: AuthorizedScientificInterpretationContext) {
+  async interpret(conversation: ScientificInterpretationConversation, previousState = null, authorizedContext?: AuthorizedScientificInterpretationContext) {
     let execution: HybridNativeExecution;
     try {
-      execution = await this.executeNative(conversation);
+      execution = await this.executeNative(conversation, previousState);
     } catch (error) {
       if (error instanceof ScientificInterpretationTechnicalError) throw error;
       throw new ScientificInterpretationTechnicalError("PROVIDER_FAILURE", error instanceof Error ? error.message : "PROVIDER_FAILURE");
     }
     const raw = await this.rawStore.persistAtomically({ operationId: execution.operationId, payload: execution.rawOutput });
+    if (execution.technicalFailure) {
+      throw new ScientificInterpretationTechnicalError(
+        execution.technicalFailure.failureClass,
+        execution.technicalFailure.message,
+        raw.rawOutputRef,
+        execution.operationId,
+      );
+    }
     let state: HybridParsedState;
     try {
-      state = this.parse(execution.rawOutput);
+      state = this.parse(execution.rawOutput, execution, conversation, previousState);
     } catch (error) {
-      throw new ScientificInterpretationTechnicalError("PARSING_FAILURE", error instanceof Error ? error.message : "PARSING_FAILURE", raw.rawOutputRef);
+      const failureClass = error instanceof SyntaxError || (error instanceof Error && /JSON|PROVIDER_(?:STRUCTURED_TEXT|RESPONSE_BODY)_MISSING/.test(error.message))
+        ? "PARSING_FAILURE" as const
+        : "STRUCTURED_CONTRACT_FAILURE" as const;
+      throw new ScientificInterpretationTechnicalError(failureClass, error instanceof Error ? error.message : failureClass, raw.rawOutputRef, execution.operationId);
     }
     if (!state.identity || !state.source || !Array.isArray(state.objects) || !Array.isArray(state.relations)) {
-      throw new ScientificInterpretationTechnicalError("SCHEMA_FAILURE", "HYBRID_STATE_REQUIRED_FIELDS_MISSING", raw.rawOutputRef);
+      throw new ScientificInterpretationTechnicalError("STRUCTURED_CONTRACT_FAILURE", "HYBRID_STATE_REQUIRED_FIELDS_MISSING", raw.rawOutputRef, execution.operationId);
     }
     try {
       const { rawOutput: _rawOutput, ...evidence } = execution;
-      return mapHybridStateToContribution({ state, execution: evidence, rawOutputRef: raw.rawOutputRef, rawOutputDigest: raw.rawOutputDigest, conversation, authorizedContext });
+      return mapHybridStateToContribution({ state, execution: evidence, rawOutputRef: raw.rawOutputRef, rawOutputDigest: raw.rawOutputDigest, conversation, previousContribution: previousState, authorizedContext });
     } catch (error) {
       if (error instanceof ScientificInterpretationTechnicalError) throw error;
-      throw new ScientificInterpretationTechnicalError("CONTRIBUTION_MAPPING_FAILURE", error instanceof Error ? error.message : "CONTRIBUTION_MAPPING_FAILURE", raw.rawOutputRef);
+      throw new ScientificInterpretationTechnicalError("STRUCTURED_CONTRACT_FAILURE", error instanceof Error ? error.message : "CONTRIBUTION_MAPPING_FAILURE", raw.rawOutputRef, execution.operationId);
     }
   }
 }

@@ -1,6 +1,8 @@
+import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+
 export const SCIENTIFIC_INTERPRETATION_CONTRIBUTION_CONTRACT = "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE" as const;
 export const SCIENTIFIC_INTERPRETATION_CONTRIBUTION_VERSION = "1.0.0" as const;
-export const DEFAULT_SCIENTIFIC_INTERPRETATION_MODE = "LEGACY_ACTIVE" as const;
+export const DEFAULT_SCIENTIFIC_INTERPRETATION_MODE = "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK" as const;
 export const SEMANTIC_AUDIT_L_STATUS = "SHADOW_ONLY_NOT_PRODUCT_ACTIVE" as const;
 
 export const SCIENTIFIC_INTERPRETATION_MODES = [
@@ -27,6 +29,8 @@ export const SCIENTIFIC_INTERPRETATION_FAILURE_CLASSES = [
   "TRANSPORT_FAILURE",
   "RAW_PERSISTENCE_FAILURE",
   "PARSING_FAILURE",
+  "STRUCTURED_CONTRACT_FAILURE",
+  "HYBRID_RUNTIME_UNAVAILABLE",
   "SCHEMA_FAILURE",
   "CONTRIBUTION_MAPPING_FAILURE",
   "SEMANTIC_AUDIT_FINDING",
@@ -52,6 +56,9 @@ export type ContributionEpistemicBoundary = {
   ownership: string | null;
   epistemicStatus: string | null;
   adoptionStatus: string | null;
+  originType?: string | null;
+  originStatus?: string | null;
+  decisionId?: string | null;
   activeState: boolean | null;
   sourceTurnIds: string[];
   sourceText: string | null;
@@ -193,12 +200,12 @@ export interface SemanticAuditRuntime {
 export class ScientificInterpretationTechnicalError extends Error {
   constructor(
     readonly failureClass: Extract<ScientificInterpretationFailureClass,
-      "PROVIDER_FAILURE" | "TRANSPORT_FAILURE" | "RAW_PERSISTENCE_FAILURE" | "PARSING_FAILURE" | "SCHEMA_FAILURE" | "CONTRIBUTION_MAPPING_FAILURE">,
+      "PROVIDER_FAILURE" | "TRANSPORT_FAILURE" | "RAW_PERSISTENCE_FAILURE" | "PARSING_FAILURE" | "STRUCTURED_CONTRACT_FAILURE" | "HYBRID_RUNTIME_UNAVAILABLE" | "SCHEMA_FAILURE" | "CONTRIBUTION_MAPPING_FAILURE">,
     message: string,
     readonly rawOutputRef: string | null = null,
+    readonly operationId: string | null = null,
   ) {
     super(message);
     this.name = "ScientificInterpretationTechnicalError";
   }
 }
-import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
