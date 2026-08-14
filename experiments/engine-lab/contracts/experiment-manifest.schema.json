@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noxia.local/engine-lab/experiment-manifest.schema.json",
+  "title": "Engine Lab Experiment Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "experimentId",
+    "status",
+    "mode",
+    "track",
+    "taskId",
+    "engineIds",
+    "inputDigest",
+    "configurationDigest",
+    "nativeOutputPersistenceRequired",
+    "normativeAuthority",
+    "productWriteAllowed",
+    "promotionDecisionId",
+    "createdAt"
+  ],
+  "properties": {
+    "experimentId": {"type": "string", "minLength": 1},
+    "status": {"const": "EXPERIMENTAL_SANDBOX"},
+    "mode": {"enum": ["DISCOVERY", "FROZEN_COMPARISON", "PRODUCT_CANDIDATE"]},
+    "track": {"enum": ["NATIVE_CAPABILITY_TRACK", "COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"]},
+    "taskId": {"type": "string", "minLength": 1},
+    "engineIds": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "inputDigest": {"type": "string", "minLength": 1},
+    "configurationDigest": {"type": "string", "minLength": 1},
+    "nativeOutputPersistenceRequired": {"const": true},
+    "normativeAuthority": {"const": "NONE"},
+    "productWriteAllowed": {"const": false},
+    "promotionDecisionId": {"type": ["string", "null"]},
+    "tuningAfterObservationAllowed": {"type": "boolean"},
+    "createdAt": {"type": "string", "format": "date-time"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"mode": {"const": "FROZEN_COMPARISON"}}, "required": ["mode"]},
+      "then": {"properties": {"tuningAfterObservationAllowed": {"const": false}}, "required": ["tuningAfterObservationAllowed"]}
+    },
+    {
+      "if": {"properties": {"mode": {"const": "PRODUCT_CANDIDATE"}}, "required": ["mode"]},
+      "then": {"properties": {"promotionDecisionId": {"type": "string", "minLength": 1}}}
+    }
+  ]
+}

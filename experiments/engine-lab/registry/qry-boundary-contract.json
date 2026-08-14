@@ -1,0 +1,45 @@
+{
+  "contractId": "QRY-BOUNDARY-CONTRACT-001",
+  "version": "1.0.0",
+  "status": "EXPERIMENTAL_ARCHITECTURE_BOUNDARY",
+  "implemented": false,
+  "normativeAuthority": "NONE",
+  "responsibility": "Select the next action or clarification that can reduce uncertainty useful to an open decision.",
+  "inputs": [
+    "currentScientificState",
+    "adoptedProjectState",
+    "unknowns",
+    "ambiguities",
+    "contradictions",
+    "missingInformation",
+    "openDecisions",
+    "dependencyGraph",
+    "knowledgeRequests",
+    "previousQuestions",
+    "userAnswers",
+    "userRole",
+    "currentWorkflowStage"
+  ],
+  "outputs": [
+    "rankedClarificationCandidates",
+    "selectedQuestion",
+    "expectedInformationGain",
+    "affectedDecisions",
+    "affectedBranches",
+    "blockingStatus",
+    "rationale",
+    "action"
+  ],
+  "actions": ["ASK", "FINISH", "FINISH_WITH_OPEN_DECISIONS", "REQUEST_KNOWLEDGE", "REQUEST_SPECIALIST", "STOP"],
+  "rules": [
+    "QRY does not reconstruct the conversation.",
+    "QRY does not create scientific or project truth.",
+    "QRY need not formulate final user-facing text.",
+    "A language model may reformulate a selected question naturally without changing its decision target.",
+    "Every question must alter a decision or reduce useful uncertainty.",
+    "No and I do not know are valid answers.",
+    "An answered question is not asked again unless a documented new dependency reopens it.",
+    "The Adaptive Research Workspace is a projection of the living Research Project, not an owner of state."
+  ],
+  "sourceReferences": ["docs/pd-009-decision-engine-architecture.md", "docs/pd-004-ux-manifesto.md", "docs/pd-003-v2-research-object-model.md"]
+}

@@ -1,0 +1,71 @@
+{
+  "registryId": "NOXIA-TASK-REGISTRY-001",
+  "schemaVersion": "1.0.0",
+  "status": "EXPERIMENTAL_SANDBOX",
+  "asOf": "2026-08-14",
+  "tasks": [
+    {
+      "taskId": "SEMANTIC_RECONSTRUCTION",
+      "responsibility": "Create a candidate semantic representation from conversation and prior state.",
+      "truthOwner": "RESEARCH_PROJECT_FOR_ANY_LATER_ADOPTION",
+      "availableTracks": ["NATIVE_CAPABILITY_TRACK", "COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"],
+      "implementationPath": "experiments/semantic-engine-comparison",
+      "status": "REUSE_EXISTING_RUNNERS",
+      "mutatesProductState": false
+    },
+    {
+      "taskId": "SEMANTIC_AUDIT",
+      "responsibility": "Report semantic integrity findings without mutation.",
+      "truthOwner": "NONE_FINDINGS_ONLY",
+      "availableTracks": ["COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"],
+      "implementationPath": null,
+      "status": "CONTRACT_DEFINED_PROTOTYPE_PENDING",
+      "mutatesProductState": false
+    },
+    {
+      "taskId": "SEMANTIC_ADJUDICATION",
+      "responsibility": "Judge semantic equivalence under an explicit evaluation reference.",
+      "truthOwner": "HUMAN_EVALUATION_GOVERNANCE",
+      "availableTracks": ["COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"],
+      "implementationPath": null,
+      "status": "CONTRACT_TO_CREATE",
+      "mutatesProductState": false
+    },
+    {
+      "taskId": "CLARIFICATION_RANKING",
+      "responsibility": "Rank decision-relevant questions and next actions.",
+      "truthOwner": "RESEARCH_PROJECT",
+      "availableTracks": ["NATIVE_CAPABILITY_TRACK", "COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"],
+      "implementationPath": null,
+      "status": "BOUNDARY_ONLY",
+      "mutatesProductState": false
+    },
+    {
+      "taskId": "CONTEXTUAL_ENRICHMENT",
+      "responsibility": "Propose relevant contextual candidates without adoption.",
+      "truthOwner": "KNOWLEDGE_FOR_SUPPORT_RESEARCH_PROJECT_FOR_ADOPTION",
+      "availableTracks": ["NATIVE_CAPABILITY_TRACK", "COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"],
+      "implementationPath": null,
+      "status": "TO_REEVALUATE",
+      "mutatesProductState": false
+    },
+    {
+      "taskId": "DOCUMENTARY_REASONING",
+      "responsibility": "Select and apply documentary, business and editorial patterns without altering facts.",
+      "truthOwner": "UNDERLYING_DOMAIN_OWNER",
+      "availableTracks": ["NATIVE_CAPABILITY_TRACK", "COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"],
+      "implementationPath": "documentary-pattern-corpus/doc-002",
+      "status": "CORPUS_READY_RUNTIME_PARTIAL",
+      "mutatesProductState": false
+    },
+    {
+      "taskId": "TEMPORAL_MEMORY",
+      "responsibility": "Reconstruct relevant history while leaving canonical state ownership in the Research Project.",
+      "truthOwner": "RESEARCH_PROJECT",
+      "availableTracks": ["NATIVE_CAPABILITY_TRACK", "COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"],
+      "implementationPath": null,
+      "status": "TO_REEVALUATE",
+      "mutatesProductState": false
+    }
+  ]
+}

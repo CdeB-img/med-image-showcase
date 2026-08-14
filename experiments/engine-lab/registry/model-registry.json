@@ -1,0 +1,34 @@
+{
+  "registryId": "NOXIA-MODEL-REGISTRY-001",
+  "schemaVersion": "1.0.0",
+  "status": "EXPERIMENTAL_SANDBOX",
+  "asOf": "2026-08-14",
+  "models": [
+    {
+      "modelId": "GEMINI_3_5_FLASH_LITE",
+      "provider": "Google",
+      "providerModelId": "gemini-3.5-flash-lite",
+      "modelClass": "GENERATIVE_LLM",
+      "currentStatus": "EXPERIMENTALLY_USED_NOT_PRODUCT_QUALIFIED",
+      "supportedRoles": ["scientific interpretation", "semantic review", "researcher simulation"],
+      "structuredOutputExpected": true,
+      "configurationRule": "Every experiment freezes model, API, prompts, schemas and parameters by digest.",
+      "evidencePaths": ["experiments/semantic-engine-comparison/results/common-contract-ablation-02/FINAL-ARCHITECTURE-REPORT.md"],
+      "limitations": ["generative variability", "qualification does not transfer between configurations"],
+      "secretsStored": false
+    },
+    {
+      "modelId": "DETERMINISTIC_LOCAL_RUNTIME",
+      "provider": "NONE",
+      "providerModelId": null,
+      "modelClass": "DETERMINISTIC_SOFTWARE",
+      "currentStatus": "ACTIVE_FOR_LOCAL_GUARDS",
+      "supportedRoles": ["schema validation", "semantic integrity guards", "registry validation"],
+      "structuredOutputExpected": true,
+      "configurationRule": "Code and configuration identity are versioned and tested locally.",
+      "evidencePaths": ["experiments/engine-lab/validation"],
+      "limitations": ["cannot replace contextual semantic understanding"],
+      "secretsStored": false
+    }
+  ]
+}

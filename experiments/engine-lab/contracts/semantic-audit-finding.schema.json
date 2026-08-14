@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noxia.local/engine-lab/semantic-audit-finding.schema.json",
+  "title": "SEM-AUDIT Finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["findingId", "findingClass", "severity", "sourceTurnIds", "sourceText", "candidatePointer", "candidateValue", "expectedBoundary", "rationale", "proposedResolutionOwner", "autoFixAllowed", "status"],
+  "properties": {
+    "findingId": {"type": "string", "pattern": "^SAF-[a-f0-9]{16}$"},
+    "findingClass": {"enum": ["EXPLICIT_OMISSION", "RELATION_MISMATCH", "RELATION_DIRECTION_ERROR", "SELF_REFERENTIAL_RELATION", "POLARITY_CONFLICT", "CAUSAL_PROMOTION", "TEMPORALITY_MISMATCH", "OWNERSHIP_PROMOTION", "LOCAL_PRACTICE_PROMOTED_TO_PROJECT", "CANDIDATE_PROMOTED_TO_ADOPTED", "METHOD_MEASUREMENT_COLLAPSE", "PHENOMENON_OBSERVABLE_COLLAPSE", "SUPERSESSION_ERROR", "HISTORICAL_STATE_REMAINS_ACTIVE", "PROVENANCE_GAP", "AMBIGUITY_SILENTLY_CLOSED", "UNSUPPORTED_INVENTION", "UNRESOLVED_CONTRADICTION", "RAW_OUTPUT_NOT_PERSISTED"]},
+    "severity": {"enum": ["INFO", "WARNING", "ERROR", "CRITICAL"]},
+    "sourceTurnIds": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "sourceText": {"type": ["string", "null"]},
+    "candidatePointer": {"type": "string"},
+    "candidateValue": {},
+    "expectedBoundary": {"type": "string", "minLength": 1},
+    "rationale": {"type": "string", "minLength": 1},
+    "proposedResolutionOwner": {"enum": ["USER", "RESEARCH_PROJECT", "KNOWLEDGE", "SEMANTIC_RECONSTRUCTION", "SEM_AUDIT", "QRY", "SPECIALIZED_CAPABILITY", "EXPERIMENT_OPERATOR"]},
+    "autoFixAllowed": {"const": false},
+    "status": {"enum": ["OPEN", "ACKNOWLEDGED", "DISMISSED", "RESOLVED_BY_OWNER"]}
+  }
+}

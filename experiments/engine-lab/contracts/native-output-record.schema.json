@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noxia.local/engine-lab/native-output-record.schema.json",
+  "title": "Engine Lab Native Output Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["runId", "capturedAt", "captureOrder", "nativeOutputType", "nativeRawOutput", "providerStatus", "parsingStatus", "structuredContractStatus", "normalizationArtifactPath"],
+  "properties": {
+    "runId": {"type": "string", "minLength": 1},
+    "capturedAt": {"type": "string", "format": "date-time"},
+    "captureOrder": {"const": "BEFORE_PARSING_VALIDATION_OR_REJECTION"},
+    "nativeOutputType": {"type": "string", "minLength": 1},
+    "nativeRawOutput": {},
+    "providerStatus": {"enum": ["NOT_APPLICABLE", "SUCCESS", "TRANSIENT_FAILURE", "NON_RETRYABLE_FAILURE"]},
+    "parsingStatus": {"enum": ["NOT_ATTEMPTED", "PASS", "FAIL"]},
+    "structuredContractStatus": {"enum": ["NOT_APPLICABLE", "NOT_ATTEMPTED", "PASS", "FAIL"]},
+    "normalizationArtifactPath": {"type": ["string", "null"]}
+  }
+}

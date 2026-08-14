@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noxia.local/engine-lab/run-record.schema.json",
+  "title": "Engine Lab Run Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["runId", "experimentId", "engineId", "taskId", "inputArtifactPath", "inputDigest", "configurationDigest", "nativeOutputRecordPath", "technicalDisposition", "scientificDisposition", "startedAt", "completedAt"],
+  "properties": {
+    "runId": {"type": "string", "minLength": 1},
+    "experimentId": {"type": "string", "minLength": 1},
+    "engineId": {"type": "string", "minLength": 1},
+    "taskId": {"type": "string", "minLength": 1},
+    "inputArtifactPath": {"type": "string", "minLength": 1},
+    "inputDigest": {"type": "string", "minLength": 1},
+    "configurationDigest": {"type": "string", "minLength": 1},
+    "nativeOutputRecordPath": {"type": "string", "minLength": 1},
+    "technicalDisposition": {"enum": ["SUCCESS", "PROVIDER_FAILURE", "WIRING_FAILURE", "PARSING_FAILURE", "STRUCTURED_CONTRACT_FAILURE", "NOT_RUN"]},
+    "scientificDisposition": {"enum": ["NOT_REVIEWED", "EVALUABLE", "NOT_EVALUABLE", "PASS", "FAIL", "INCONCLUSIVE"]},
+    "startedAt": {"type": "string", "format": "date-time"},
+    "completedAt": {"type": ["string", "null"], "format": "date-time"}
+  }
+}

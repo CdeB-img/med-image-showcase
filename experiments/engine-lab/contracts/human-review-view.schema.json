@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noxia.local/engine-lab/human-review-view.schema.json",
+  "title": "Engine Lab Human Review View",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["runId", "nativeOutputReference", "structuredContractStatus", "scientificInterpretation", "missingStructuralGuarantees", "reviewStatus", "reviewerDecision"],
+  "properties": {
+    "runId": {"type": "string", "minLength": 1},
+    "nativeOutputReference": {"type": "string", "minLength": 1},
+    "structuredContractStatus": {"enum": ["NOT_APPLICABLE", "PASS", "FAIL"]},
+    "scientificInterpretation": {"type": ["string", "null"]},
+    "missingStructuralGuarantees": {"type": "array", "items": {"type": "string"}},
+    "reviewStatus": {"enum": ["NOT_REVIEWED", "REVIEWED", "ADJUDICATION_REQUIRED"]},
+    "reviewerDecision": {"enum": ["NOT_DECIDED", "SCIENTIFICALLY_EVALUABLE", "NOT_SCIENTIFICALLY_EVALUABLE", "PASS", "FAIL", "INCONCLUSIVE"]}
+  }
+}
