@@ -124,6 +124,17 @@ export type ValidatedScientificIntent = {
     promptVersion: string;
     schemaVersion: string;
   };
+  interpretationContributionSnapshot?: {
+    contributionId: string;
+    contributionContractVersion: string;
+    runtimeId: string;
+    runtimeVersion: string;
+    contributionDigest: string;
+    rawOutputRef: string | null;
+    rawOutputDigest: string | null;
+    contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT";
+    projectWriteAuthorized: false;
+  };
 };
 
 export type AdaptiveQuestionImplementationStatus =
@@ -222,6 +233,17 @@ export type ScientificSessionContext = {
   transitions: JourneyTransition[];
   currentProjectStage: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
   activeDesignSurface: "SCIENTIFIC_THINKING" | "IMAGING" | "PROJECT_CONSTRUCTION" | "DOCUMENT_PROJECTION";
+  interpretationTrace?: {
+    contributionId: string;
+    relations: string[];
+    polarities: string[];
+    corrections: string[];
+    unknowns: string[];
+    ambiguities: string[];
+    rejectedOrSuperseded: string[];
+    provenanceRefs: string[];
+    legacyProjectionLosses: Array<{ code: "LEGACY_PROJECTION_LOSS"; itemId: string; reason: string; critical: boolean }>;
+  };
 };
 
 export type ProtocolDesignerSession = {
