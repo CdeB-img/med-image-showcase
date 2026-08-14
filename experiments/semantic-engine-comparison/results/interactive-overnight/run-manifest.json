@@ -1,6 +1,6 @@
 {
   "adjudication": "SIMULATED_POST_HOC_ADJUDICATION",
-  "adjudicationCompletedAt": "2026-08-14T01:29:03.084949Z",
+  "adjudicationCompletedAt": "2026-08-14T01:39:22.991132Z",
   "architecturalConclusion": "HYBRID_ARCHITECTURE",
   "baselines": [
     "EXP-SEM-INTERACTIVE-SEM-CURRENT",
@@ -26,24 +26,33 @@
     "experimentalPolicy": "Candidate output action constrained by generic prompt; SEM action adapted from native clarification candidates.",
     "noxiaImplementedStatus": "NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED"
   },
-  "estimatedDailyUsageAfterMission": 439,
+  "estimatedDailyUsageAfterMission": 444,
   "finalArtifactDigests": {
-    "capability-matrix.json": "c24df3df9c0104ffdbd7efd3bb48943903ba26dc44d7ff8ffeeced57c1d51496",
-    "comparative-summary.json": "a294318dbab76280f189de2d51b6a1fc2a1e613e60b0e577ab77692de3533e02",
-    "divergence-analysis.json": "9e6dcb53901895baacde6ddbd91f3b5c11f5827dd1dcaae4a988541ad5b78353",
-    "interactive-comparative-report.md": "5335a50093179a8fa18aee44919321a54764d3909ec726afd602daab6640f371"
+    "capability-matrix.json": "16442513c3bf2994aed265a21639f36df98d12c5275081868159aa93f9a8ce40",
+    "comparative-summary.json": "44783ca4eac90c2a645da95105f939134159b9e97762bc4735bc3d139f1d229f",
+    "divergence-analysis.json": "6a085f161a68fdeb582b389079e9b3f29a03a7ab5e8d0598799a33fc0df322f2",
+    "interactive-comparative-report.md": "1ddc86c1d69b316c90cf639947fe408a445e0d8183b0da4fcea2502eabd96efd"
   },
   "forbiddenClaims": [
     "PD011_PASS",
     "INDEPENDENT_BLIND",
     "HUMAN_EXPERT_ADJUDICATION"
   ],
+  "generationProviderRequestsReserved": 82,
   "knownDailyUsageBeforeMission": 357,
   "model": "gemini-3.5-flash-lite",
   "nature": "EXPERIMENTAL_NON_NORMATIVE_EXPLORATORY",
-  "newProviderRequestsReserved": 82,
-  "postHocAdjudicationCodeDigest": "96feb6b86f4a460c26c09c5c7d8477d75f7f83bf0403a2dbe2eab27852e11f49",
+  "newProviderRequestsReserved": 87,
+  "postHocAdjudicationCodeDigest": "d967ee9ccf976830624cd181fd0d7c06e2bf38b0d068d843420c2f135c395596",
   "provider": "GOOGLE_GEMINI",
+  "safeResume": {
+    "completedAt": "2026-08-14T01:39:22.991132Z",
+    "providerNormalizationCodeDigest": "0211ca79f1a10ff06ce2d252343832bac3f54b3e3104c6c712f3c9a1d59d0d59",
+    "remainingBranch": "I03:outlines:R1",
+    "resumeCodeDigest": "b4830f3a1a7df1405d16e70618ca5a17d570337661b2b516855f56b97dbc4160",
+    "status": "COMPLETE_WITH_ONE_UNRECOVERABLE_BRANCH",
+    "summaryDigest": "efae2b60fbafd1f506e0b9de54ffc5324605655699c5cd9d66c0f221ad89706d"
+  },
   "samplingParameters": "OMITTED",
   "scenarioCardsDigest": "26c5b6bdc8c8ba003f2288abae8f7c0aca47ed079f479ddd2cac1bddff3d0de3",
   "scenarioIdsExecuted": [

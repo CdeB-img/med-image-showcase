@@ -157,13 +157,55 @@
           },
           "reused": false,
           "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Étude en IRM de la réponse d'un cancer du rectum pendant le traitement",
+              "Quantification de l'évolution de l'ADC",
+              "Exploration du delta ADC entre baseline et mi-traitement",
+              "La réponse pathologique finale est la référence"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "sans supposer qu'une hausse d'ADC la cause"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "L'utilisateur précise que l'analyse est exploratoire et récuse l'hypothèse causale directe de la hausse d'ADC."
+            ],
+            "relations": [
+              "delta ADC entre baseline et mi-traitement"
+            ],
+            "state_summary": "L'utilisateur souhaite étudier par IRM la réponse d'un cancer du rectum pendant un traitement et quantifier l'évolution de l'ADC. Le delta ADC entre la baseline et le mi-traitement est exploratoire. La réponse pathologique finale sert de référence.",
+            "temporal_context": [
+              "baseline",
+              "mi-traitement",
+              "fin de traitement / réponse pathologique finale"
+            ]
+          },
+          "reused": false,
+          "round": "T1"
         }
       ],
-      "status": "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING",
+      "status": "FINISHED",
       "turns": [
         {
           "content": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
           "message_id": "I05:outlines:u0",
+          "role": "USER"
+        },
+        {
+          "content": "S'agit-il d'une chimio-radiothérapie néoadjuvante et à quels temps de l'évaluation prévoyez-vous de réaliser les IRM ?",
+          "message_id": "I05:outlines:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Le delta ADC entre baseline et mi-traitement est exploratoire. La réponse pathologique finale est la référence, sans supposer qu'une hausse d'ADC la cause.",
+          "message_id": "I05:outlines:u1",
           "role": "USER"
         }
       ]
@@ -250,13 +292,86 @@
           },
           "reused": false,
           "round": "T0"
+        },
+        {
+          "projection": {
+            "action": "FINISH",
+            "contextual_candidates": [],
+            "corrected_or_superseded": [],
+            "explicit_facts": [
+              "Mid-treatment timepoint",
+              "Baseline timepoint",
+              "No causal assumption regarding ADC increase",
+              "Exploratory analysis parameter",
+              "Reference standard",
+              "Pathological response",
+              "Response to treatment",
+              "Delta Apparent Diffusion Coefficient (ADC)",
+              "Quantify biomarker evolution",
+              "Rectal cancer",
+              "Study the response of rectal cancer during treatment",
+              "Apparent Diffusion Coefficient (ADC) evolution",
+              "Magnetic Resonance Imaging (MRI)",
+              "During treatment"
+            ],
+            "missing_or_ambiguous": [],
+            "negations_or_constraints": [
+              "No causal assumption regarding ADC increase"
+            ],
+            "next_question": null,
+            "ownership_or_epistemic_notes": [
+              "Mid-treatment timepoint: EXPLICIT_USER_STATED",
+              "Baseline timepoint: EXPLICIT_USER_STATED",
+              "No causal assumption regarding ADC increase: EXPLICIT_USER_STATED",
+              "Exploratory analysis parameter: EXPLICIT_USER_STATED",
+              "Reference standard: EXPLICIT_USER_STATED",
+              "Pathological response: EXPLICIT_USER_STATED",
+              "Response to treatment: EXPLICIT_USER_STATED",
+              "Delta Apparent Diffusion Coefficient (ADC): EXPLICIT_USER_STATED",
+              "Quantify biomarker evolution: EXPLICIT_USER_STATED",
+              "Rectal cancer: EXPLICIT_USER_STATED",
+              "Study the response of rectal cancer during treatment: EXPLICIT_USER_STATED",
+              "Apparent Diffusion Coefficient (ADC) evolution: EXPLICIT_USER_STATED",
+              "Magnetic Resonance Imaging (MRI): EXPLICIT_USER_STATED",
+              "During treatment: EXPLICIT_USER_STATED"
+            ],
+            "relations": [
+              "CONSTRAINS",
+              "REPEATED_AT",
+              "MEASURES",
+              "SERVES_AS_REFERENCE",
+              "OCCURS_AT",
+              "OBSERVED_BY",
+              "REPEATED_AT",
+              "AIMS_TO_OBSERVE",
+              "AFFECTS_OR_OCCURS_IN"
+            ],
+            "state_summary": "Study of rectal cancer response during treatment using MRI, evaluating ADC evolution. The delta ADC between baseline and mid-treatment is exploratory. Final pathological response serves as the reference, without assuming ADC increase causes it.",
+            "temporal_context": [
+              "Mid-treatment timepoint",
+              "Baseline timepoint",
+              "During treatment"
+            ]
+          },
+          "reused": true,
+          "round": "T1"
         }
       ],
-      "status": "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING",
+      "status": "FINISHED",
       "turns": [
         {
           "content": "Je veux étudier en IRM la réponse d'un cancer du rectum pendant le traitement et quantifier l'évolution de l'ADC.",
           "message_id": "I05:sem-current:u0",
+          "role": "USER"
+        },
+        {
+          "content": "Quelle est la population cible ou les critères d'inclusion pour cette étude sur le cancer du rectum ?",
+          "message_id": "I05:sem-current:a1",
+          "role": "ASSISTANT"
+        },
+        {
+          "content": "Le delta ADC entre baseline et mi-traitement est exploratoire. La réponse pathologique finale est la référence, sans supposer qu'une hausse d'ADC la cause.",
+          "message_id": "I05:sem-current:u1",
           "role": "USER"
         }
       ]

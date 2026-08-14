@@ -1,0 +1,56 @@
+{
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "deterministicCheckpointRecovery": {
+    "checkpoint": "native-outputs/simulator-i05-r1.json",
+    "providerReplay": false,
+    "recoveredBranches": [
+      "outlines",
+      "sem-current"
+    ]
+  },
+  "estimatedDailyUsageAfter": 444,
+  "newProviderReservations": 5,
+  "providerReservationsAfter": 87,
+  "providerReservationsBefore": 82,
+  "resumeFailedCompletions": 1,
+  "resumeMode": "SAFE_RESUME_ONLY_MISSING_WORK",
+  "resumeSuccessfulCompletions": 4,
+  "resumedProviderStates": [
+    "I05:EXP-SEM-INTERACTIVE-OUTLINES:T1",
+    "I05:EXP-SEM-INTERACTIVE-SEM-CURRENT:T1"
+  ],
+  "scenarios": [
+    {
+      "remainingIncompleteBranches": [],
+      "resumedProviderStates": [],
+      "reusedSimulatorAnswers": [],
+      "scenarioId": "I01"
+    },
+    {
+      "remainingIncompleteBranches": [],
+      "resumedProviderStates": [],
+      "reusedSimulatorAnswers": [],
+      "scenarioId": "I02"
+    },
+    {
+      "remainingIncompleteBranches": [
+        "outlines"
+      ],
+      "resumedProviderStates": [],
+      "reusedSimulatorAnswers": [],
+      "scenarioId": "I03"
+    },
+    {
+      "remainingIncompleteBranches": [],
+      "resumedProviderStates": [],
+      "reusedSimulatorAnswers": [],
+      "scenarioId": "I04"
+    },
+    {
+      "remainingIncompleteBranches": [],
+      "resumedProviderStates": [],
+      "reusedSimulatorAnswers": [],
+      "scenarioId": "I05"
+    }
+  ]
+}

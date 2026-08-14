@@ -62,12 +62,12 @@ MATRIX: dict[str, dict[str, dict[str, Any]]] = {
         for baseline in BASELINES
     },
     "C02": {
-        "sem-current": cell("PARTIAL", "I02 est maintenu sur deux états; I05 n'a pas reçu la réponse simulateur.", ["I02", "I05"]),
+        "sem-current": cell("PASS", "I02 et I05 sont maintenus sur deux états et leurs réponses sont consolidées.", ["I02", "I05"]),
         "instructor": cell("PARTIAL", "Une seule branche multi-tour observable, correctement consolidée.", ["I04"]),
         "pydanticai": cell("PASS", "Les trois réponses reçues sont intégrées dans un état consolidé.", ["I01", "I02", "I04"]),
         "dspy": cell("PASS", "Les réponses I02 et I04 sont intégrées sans perdre l'état initial.", ["I02", "I04"]),
         "langextract": cell("FAIL", "L'inconnu temporel reste actif après deux réponses qui le résolvent.", ["I02"]),
-        "outlines": cell("PARTIAL", "Trois branches multi-tour réussissent; deux branches restent sans réponse checkpointée.", ["I01", "I02", "I04", "I03", "I05"]),
+        "outlines": cell("PARTIAL", "Quatre branches multi-tour réussissent; I03 reste sans réponse checkpointée.", ["I01", "I02", "I04", "I05", "I03"]),
     },
     "C03": {
         "sem-current": cell("PARTIAL", "La correction I02 est présente dans le sens final mais non exposée comme supersession par l'adapter.", ["I02"]),
@@ -174,7 +174,7 @@ MATRIX: dict[str, dict[str, dict[str, Any]]] = {
         "pydanticai": cell("PASS", "États finaux les plus complets sur les trois branches multi-tour réussies; aucune promotion observée.", ["I01", "I02", "I04"]),
         "dspy": cell("PARTIAL", "Bon état multi-tour et meilleur enrichissement, mais FINISH précoce sur trois scénarios.", ["I01", "I03", "I05"]),
         "langextract": cell("FAIL", "La copie des faits est fidèle mais relations, polarités et mémoire de résolution sont insuffisantes.", ["I01", "I02", "I03", "I04", "I05"]),
-        "outlines": cell("PARTIAL", "Les états répondus sont riches, mais deux branches restent techniquement incomplètes côté simulateur.", ["I01", "I02", "I03", "I04", "I05"]),
+        "outlines": cell("PARTIAL", "Les états répondus sont riches, mais I03 reste techniquement incomplet côté simulateur.", ["I01", "I02", "I03", "I04", "I05"]),
     },
     "C19": {
         "sem-current": cell("PARTIAL", "Deux questions: une forte valeur en I02, une faible priorité en I05; trois FINISH précoces.", ["I01", "I02", "I03", "I04", "I05"]),
@@ -185,7 +185,7 @@ MATRIX: dict[str, dict[str, dict[str, Any]]] = {
         "outlines": cell("PARTIAL", "Cinq questions, avec une bonne couverture mais plusieurs questions secondaires ou combinées.", ["I01", "I02", "I03", "I04", "I05"]),
     },
     "C20": {
-        "sem-current": cell("PARTIAL", "La réponse I02 est intégrée; la branche I05 ne reçoit pas la réponse du simulateur.", ["I02", "I05"]),
+        "sem-current": cell("PASS", "Les réponses I02 et I05 sont intégrées avec temporalité, polarité et relations.", ["I02", "I05"]),
         "instructor": cell("PASS", "La réponse I04 est intégrée avec négations et rôles.", ["I04"]),
         "pydanticai": cell("PASS", "Les trois réponses reçues sont intégrées et clôturent les inconnues centrales.", ["I01", "I02", "I04"]),
         "dspy": cell("PASS", "Les deux réponses reçues sont intégrées avec temporalité et polarité.", ["I02", "I04"]),
@@ -198,11 +198,11 @@ MATRIX: dict[str, dict[str, dict[str, Any]]] = {
         "pydanticai": cell("PARTIAL", "Bonne clôture après réponse sur trois scénarios; I03 et I05 finissent sans lever des ambiguïtés utiles.", ["I01", "I02", "I03", "I04", "I05"]),
         "dspy": cell("PARTIAL", "Bonne clôture I02/I04, mais FINISH initial sur I01, I03 et I05.", ["I01", "I02", "I03", "I04", "I05"]),
         "langextract": cell("FAIL", "I02 atteint la profondeur maximale en répétant une question résolue; les autres finissent immédiatement.", ["I01", "I02", "I03", "I04", "I05"]),
-        "outlines": cell("PARTIAL", "Bonne clôture sur trois branches; deux branches ASK restent sans réponse checkpointée.", ["I01", "I02", "I03", "I04", "I05"]),
+        "outlines": cell("PARTIAL", "Bonne clôture sur quatre branches; I03 reste sans réponse checkpointée.", ["I01", "I02", "I03", "I04", "I05"]),
     },
     "C22": {baseline: cell("NOT_TESTED", "Aucun scénario exécuté ne contient une demande explicite d'arrêt.", [],) for baseline in BASELINES},
     "C23": {
-        "sem-current": cell("PARTIAL", "Aucun échec interactif provider, mais 2,67 appels et environ 17,2 s par état en moyenne.", ["I01", "I02", "I03", "I04", "I05"]),
+        "sem-current": cell("PARTIAL", "Aucun échec interactif provider, mais 2,71 appels et environ 17,9 s par état en moyenne.", ["I01", "I02", "I03", "I04", "I05"]),
         "instructor": cell("PASS", "Un appel par état, six succès interactifs, environ 1,6 s par état.", ["I01", "I02", "I03", "I04", "I05"]),
         "pydanticai": cell("PASS", "Un appel par état, huit succès interactifs, environ 1,2 s par état; un incident smoke 504 reste historique.", ["I01", "I02", "I03", "I04", "I05"]),
         "dspy": cell("PASS", "Un appel par état, sept succès interactifs, environ 1,7 s par état.", ["I01", "I02", "I03", "I04", "I05"]),
@@ -390,8 +390,8 @@ def main() -> int:
                 "kind": "SIMULATOR_CHECKPOINT_INCOMPLETENESS",
                 "architectures": ["outlines", "sem-current"],
                 "scenarios": ["I03", "I05"],
-                "finding": "A successful batched simulator call omitted Outlines in I03 and omitted Outlines and SEM in I05.",
-                "impact": "Three branches cannot be evaluated after ASK; no replay was performed.",
+                "finding": "A successful batched simulator call omitted Outlines in I03. The malformed I05 checkpoint was recovered deterministically by matching each unique question to its branch.",
+                "impact": "I03/Outlines cannot be evaluated after ASK; the successful simulator operation was not replayed.",
             },
             {
                 "id": "DIV-08",
@@ -455,7 +455,7 @@ def main() -> int:
         "comparisonsAgainstSem": comparisons,
         "limitations": [
             "Executed scenarios are simplified variants, not exact prompt scenarios.",
-            "Three ASK branches lack checkpointed simulator answers.",
+            "One ASK branch lacks a checkpointed simulator answer.",
             "Adjudication is simulated post hoc, not human expert review.",
             "No blind material or PD-011 qualification was used.",
             "All candidates share the same base model; results mix model and orchestration effects.",
@@ -505,9 +505,9 @@ Conclusion architecturale: `HYBRID_ARCHITECTURE`
 
 Les six architectures sont techniquement exécutables avec `gemini-3.5-flash-lite`. PydanticAI fournit le meilleur compromis externe observé: états multi-tour complets sur les branches répondables, un appel par état et une latence moyenne d'environ 1,2 s. DSPy confirme un signal spécifique d'enrichissement contextuel: c'est la seule baseline ayant proposé en I03 des paramètres PET comme candidats, sans les attribuer à l'utilisateur.
 
-SEM conserve une valeur structurelle observable dans ses sorties natives — relations, polarités et statuts épistémiques — et n'a connu aucun échec provider pendant les scénarios. En revanche, l'expérience n'observe aucun contrôleur interactif produit générique: `NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED`. L'adapter expérimental transforme la première clarification SEM en `ASK`, sinon en `FINISH`. Il a posé une bonne question temporelle en I02, une question secondaire en I05 et a terminé trop tôt en I01, I03 et I04. Le coût observé est de 2,67 appels et 17,2 s par état, contre un appel et environ 0,9–1,7 s pour les frameworks externes.
+SEM conserve une valeur structurelle observable dans ses sorties natives — relations, polarités et statuts épistémiques — et n'a connu aucun échec provider pendant les scénarios. En revanche, l'expérience n'observe aucun contrôleur interactif produit générique: `NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED`. L'adapter expérimental transforme la première clarification SEM en `ASK`, sinon en `FINISH`. Il a posé une bonne question temporelle en I02, une question secondaire en I05 et a terminé trop tôt en I01, I03 et I04. Le coût observé est de 2,71 appels et 17,9 s par état, contre environ un appel et 0,9–1,7 s pour les frameworks externes.
 
-La conclusion n'est pas un remplacement du coeur SEM. Les scénarios exécutés sont des variantes simplifiées et trois branches n'ont pas reçu de réponse simulateur checkpointée. La recommandation est donc hybride: préserver un état scientifique riche et traçable, mais construire un contrôleur PD-009 générique, plus simple, testable séparément, au-dessus de ce contrat.
+La conclusion n'est pas un remplacement du coeur SEM. Les scénarios exécutés sont des variantes simplifiées et I03/Outlines n'a pas de réponse simulateur checkpointée. La recommandation est donc hybride: préserver un état scientifique riche et traçable, mais construire un contrôleur PD-009 générique, plus simple, testable séparément, au-dessus de ce contrat.
 
 ## Technical readiness
 
@@ -526,6 +526,7 @@ Phase A a consommé 24 réservations sur le plafond de 25. Les erreurs initiales
 - Réservations provider nouvelles, comptées prudemment comme consommées: {ledger['reservationsConservativelyCountedAsConsumed']}.
 - Compteur journalier estimé final: {ledger['estimatedDailyUsageAfter']}/500; marge avant le hard stop 492: {ledger['remainingBeforeHardStop492']}.
 - Ledger: {ledger['successfulCompletions']} succès, {ledger['failedCompletions']} échecs, {ledger['unknownReserved']} réservation à issue inconnue.
+- Reprise sûre: 5 réservations supplémentaires, 4 succès, 1 échec local avant réseau; aucun appel simulateur `SUCCESS` rejoué.
 
 {report_table(["Architecture", "États", "Appels interactifs", "Appels/état", "Latence moyenne/état (s)", "Succès interactifs"], technical_rows)}
 
@@ -593,7 +594,7 @@ DSPy confirme le signal de SEM-003D-COMP uniquement sur un axe: enrichissement c
 - Dialogue control produit: `NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED`.
 - Preuve de dépôt: `src/features/protocol-designer/intake/questions.ts` contient un registre fixe de cinq questions adaptatives; aucun contrôleur générique `ASK`/`FINISH`/`STOP` n'a été trouvé.
 - Forces: relations natives, statut épistémique, négations/non-causalité, robustesse provider interactive.
-- Faiblesses: dialogue control expérimental inégal, enrichissement I03 absent, 2,67 appels/état, latence élevée.
+- Faiblesses: dialogue control expérimental inégal, enrichissement I03 absent, 2,71 appels/état, latence élevée.
 - Complexité expérimentale: bridge SEM d'environ 56 lignes Python + 110 lignes TypeScript, contre 7–15 lignes par adapter direct Instructor/PydanticAI/DSPy/Outlines et 43 lignes pour LangExtract.
 
 ## Incidents techniques conservés
@@ -601,7 +602,9 @@ DSPy confirme le signal de SEM-003D-COMP uniquement sur un axe: enrichissement c
 - Une réservation PydanticAI smoke reste sans issue connue et compte comme consommée.
 - Deux 504 smoke ont reçu l'unique retry autorisé.
 - Des erreurs de parsing Outlines et de configuration LangExtract ont été corrigées avant leurs deux smokes réussis.
-- Le batch simulateur I03 a omis Outlines; celui de I05 a omis Outlines et SEM. Les trois opérations candidates n'ont pas été rejouées.
+- Le batch simulateur I03 a omis Outlines et reste irrécupérable sans rejouer un succès.
+- Le checkpoint I05 associait les réponses au texte des questions; un mapping déterministe vers les deux branches a permis de reprendre SEM T1 et Outlines T1 sans répéter le simulateur.
+- La première tentative Outlines T1 a échoué localement avant réseau faute de clé exportée; elle reste comptée par prudence. La reprise avec la configuration locale existante a réussi.
 
 ## Frontières
 
@@ -624,6 +627,8 @@ Prochaine action unique: concevoir et implémenter un contrôleur PD-009 génér
 
     manifest_path = RESULT_ROOT / "run-manifest.json"
     manifest = read_json(manifest_path)
+    resume_summary_path = RESULT_ROOT / "resume-summary.json"
+    resume_summary = read_json(resume_summary_path) if resume_summary_path.exists() else None
     manifest.update({
         "status": "POST_HOC_ADJUDICATION_COMPLETE_WITH_TECHNICAL_LIMITATIONS",
         "decision": summary["decision"],
@@ -635,6 +640,19 @@ Prochaine action unique: concevoir et implémenter un contrôleur PD-009 génér
         },
         "postHocAdjudicationCodeDigest": sha256(Path(__file__)),
         "adjudicationCompletedAt": generated_at,
+        "newProviderRequestsReserved": ledger["reservationsConservativelyCountedAsConsumed"],
+        "estimatedDailyUsageAfterMission": ledger["estimatedDailyUsageAfter"],
+        "generationProviderRequestsReserved": (
+            resume_summary["providerReservationsBefore"] if resume_summary else manifest["newProviderRequestsReserved"]
+        ),
+        "safeResume": {
+            "status": "COMPLETE_WITH_ONE_UNRECOVERABLE_BRANCH",
+            "remainingBranch": "I03:outlines:R1",
+            "summaryDigest": sha256(resume_summary_path) if resume_summary else None,
+            "resumeCodeDigest": sha256(PACKAGE_ROOT / "resume.py"),
+            "providerNormalizationCodeDigest": sha256(PACKAGE_ROOT / "campaign.py"),
+            "completedAt": generated_at,
+        },
     })
     write_json(manifest_path, manifest)
     return 0

@@ -33,17 +33,17 @@
     }
   },
   "decision": "EXP_INTERACTIVE_COMPARE_PARTIAL_TECHNICAL",
-  "generatedAt": "2026-08-14T01:29:03.084949Z",
+  "generatedAt": "2026-08-14T01:39:22.991132Z",
   "interactiveCampaign": {
     "askStatesGenerated": 16,
-    "candidateStates": 42,
+    "candidateStates": 44,
     "candidateStatesByBaseline": {
       "dspy": 7,
       "instructor": 6,
       "langextract": 7,
-      "outlines": 8,
+      "outlines": 9,
       "pydanticai": 8,
-      "sem-current": 6
+      "sem-current": 7
     },
     "questionsByBaseline": {
       "dspy": 2,
@@ -54,7 +54,7 @@
       "sem-current": 2
     },
     "questionsDispatchedToSimulator": 15,
-    "researcherAnswersDeliveredToBranches": 12,
+    "researcherAnswersDeliveredToBranches": 14,
     "researcherSimulatorBatchCalls": 6,
     "scenarios": 5,
     "terminalStatusesByBaseline": {
@@ -69,21 +69,20 @@
         "MAX_DIALOGUE_DEPTH_REACHED": 1
       },
       "outlines": {
-        "FINISHED": 3,
-        "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING": 2
+        "FINISHED": 4,
+        "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING": 1
       },
       "pydanticai": {
         "FINISHED": 5
       },
       "sem-current": {
-        "FINISHED": 4,
-        "SIMULATOR_OUTPUT_NOT_CHECKPOINTED_OR_BRANCH_MISSING": 1
+        "FINISHED": 5
       }
     }
   },
   "limitations": [
     "Executed scenarios are simplified variants, not exact prompt scenarios.",
-    "Three ASK branches lack checkpointed simulator answers.",
+    "One ASK branch lacks a checkpointed simulator answer.",
     "Adjudication is simulated post hoc, not human expert review.",
     "No blind material or PD-011 qualification was used.",
     "All candidates share the same base model; results mix model and orchestration effects."
@@ -146,16 +145,16 @@
         "interactiveStatesWithLatency": 7
       },
       "outlines": {
-        "allMissionFailed": 3,
-        "allMissionReservations": 13,
-        "allMissionSucceeded": 10,
+        "allMissionFailed": 4,
+        "allMissionReservations": 15,
+        "allMissionSucceeded": 11,
         "allMissionUnknownReserved": 0,
-        "interactiveCallsPerState": 1.0,
-        "interactiveMeanStateLatencySeconds": 1.562,
-        "interactiveMedianStateLatencySeconds": 1.59,
-        "interactiveProviderRequests": 8,
-        "interactiveProviderSuccesses": 8,
-        "interactiveStatesWithLatency": 8
+        "interactiveCallsPerState": 1.11,
+        "interactiveMeanStateLatencySeconds": 1.572,
+        "interactiveMedianStateLatencySeconds": 1.627,
+        "interactiveProviderRequests": 10,
+        "interactiveProviderSuccesses": 9,
+        "interactiveStatesWithLatency": 9
       },
       "pydanticai": {
         "allMissionFailed": 1,
@@ -171,15 +170,15 @@
       },
       "sem-current": {
         "allMissionFailed": 0,
-        "allMissionReservations": 20,
-        "allMissionSucceeded": 20,
+        "allMissionReservations": 23,
+        "allMissionSucceeded": 23,
         "allMissionUnknownReserved": 0,
-        "interactiveCallsPerState": 2.67,
-        "interactiveMeanStateLatencySeconds": 17.157,
-        "interactiveMedianStateLatencySeconds": 13.921,
-        "interactiveProviderRequests": 16,
-        "interactiveProviderSuccesses": 16,
-        "interactiveStatesWithLatency": 6
+        "interactiveCallsPerState": 2.71,
+        "interactiveMeanStateLatencySeconds": 17.905,
+        "interactiveMedianStateLatencySeconds": 16.678,
+        "interactiveProviderRequests": 19,
+        "interactiveProviderSuccesses": 19,
+        "interactiveStatesWithLatency": 7
       }
     },
     "byScenario": {
@@ -187,17 +186,17 @@
       "I02": 18,
       "I03": 8,
       "I04": 12,
-      "I05": 9,
+      "I05": 14,
       "SMOKE": 24
     },
-    "completedEvents": 81,
-    "estimatedDailyUsageAfter": 439,
-    "failedCompletions": 9,
+    "completedEvents": 86,
+    "estimatedDailyUsageAfter": 444,
+    "failedCompletions": 10,
     "knownDailyUsageBefore": 357,
-    "remainingBeforeHardStop492": 53,
-    "remainingProviderDailyLimit500": 61,
-    "reservationsConservativelyCountedAsConsumed": 82,
-    "successfulCompletions": 72,
+    "remainingBeforeHardStop492": 48,
+    "remainingProviderDailyLimit500": 56,
+    "reservationsConservativelyCountedAsConsumed": 87,
+    "successfulCompletions": 76,
     "unknownReserved": 1
   },
   "technicalReadiness": {

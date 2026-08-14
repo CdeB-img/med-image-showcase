@@ -9,9 +9,9 @@ Conclusion architecturale: `HYBRID_ARCHITECTURE`
 
 Les six architectures sont techniquement exécutables avec `gemini-3.5-flash-lite`. PydanticAI fournit le meilleur compromis externe observé: états multi-tour complets sur les branches répondables, un appel par état et une latence moyenne d'environ 1,2 s. DSPy confirme un signal spécifique d'enrichissement contextuel: c'est la seule baseline ayant proposé en I03 des paramètres PET comme candidats, sans les attribuer à l'utilisateur.
 
-SEM conserve une valeur structurelle observable dans ses sorties natives — relations, polarités et statuts épistémiques — et n'a connu aucun échec provider pendant les scénarios. En revanche, l'expérience n'observe aucun contrôleur interactif produit générique: `NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED`. L'adapter expérimental transforme la première clarification SEM en `ASK`, sinon en `FINISH`. Il a posé une bonne question temporelle en I02, une question secondaire en I05 et a terminé trop tôt en I01, I03 et I04. Le coût observé est de 2,67 appels et 17,2 s par état, contre un appel et environ 0,9–1,7 s pour les frameworks externes.
+SEM conserve une valeur structurelle observable dans ses sorties natives — relations, polarités et statuts épistémiques — et n'a connu aucun échec provider pendant les scénarios. En revanche, l'expérience n'observe aucun contrôleur interactif produit générique: `NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED`. L'adapter expérimental transforme la première clarification SEM en `ASK`, sinon en `FINISH`. Il a posé une bonne question temporelle en I02, une question secondaire en I05 et a terminé trop tôt en I01, I03 et I04. Le coût observé est de 2,71 appels et 17,9 s par état, contre environ un appel et 0,9–1,7 s pour les frameworks externes.
 
-La conclusion n'est pas un remplacement du coeur SEM. Les scénarios exécutés sont des variantes simplifiées et trois branches n'ont pas reçu de réponse simulateur checkpointée. La recommandation est donc hybride: préserver un état scientifique riche et traçable, mais construire un contrôleur PD-009 générique, plus simple, testable séparément, au-dessus de ce contrat.
+La conclusion n'est pas un remplacement du coeur SEM. Les scénarios exécutés sont des variantes simplifiées et I03/Outlines n'a pas de réponse simulateur checkpointée. La recommandation est donc hybride: préserver un état scientifique riche et traçable, mais construire un contrôleur PD-009 générique, plus simple, testable séparément, au-dessus de ce contrat.
 
 ## Technical readiness
 
@@ -29,23 +29,24 @@ Phase A a consommé 24 réservations sur le plafond de 25. Les erreurs initiales
 ## Campagne interactive
 
 - Scénarios exécutés: 5 (`I01`–`I05`).
-- États candidats: 42.
+- États candidats: 44.
 - États `ASK` générés: 16.
 - Questions effectivement envoyées au simulateur: 15.
-- Réponses chercheur effectivement livrées aux branches: 12.
+- Réponses chercheur effectivement livrées aux branches: 14.
 - Appels batch du simulateur chercheur: 6.
-- Réservations provider nouvelles, comptées prudemment comme consommées: 82.
-- Compteur journalier estimé final: 439/500; marge avant le hard stop 492: 53.
-- Ledger: 72 succès, 9 échecs, 1 réservation à issue inconnue.
+- Réservations provider nouvelles, comptées prudemment comme consommées: 87.
+- Compteur journalier estimé final: 444/500; marge avant le hard stop 492: 48.
+- Ledger: 76 succès, 10 échecs, 1 réservation à issue inconnue.
+- Reprise sûre: 5 réservations supplémentaires, 4 succès, 1 échec local avant réseau; aucun appel simulateur `SUCCESS` rejoué.
 
 | Architecture | États | Appels interactifs | Appels/état | Latence moyenne/état (s) | Succès interactifs |
 | --- | --- | --- | --- | --- | --- |
-| NOXIA / SEM current | 6 | 16 | 2.67 | 17.157 | 16 |
+| NOXIA / SEM current | 7 | 19 | 2.71 | 17.905 | 19 |
 | Instructor + Pydantic | 6 | 6 | 1.0 | 1.561 | 6 |
 | PydanticAI | 8 | 8 | 1.0 | 1.234 | 8 |
 | DSPy | 7 | 7 | 1.0 | 1.652 | 7 |
 | LangExtract | 7 | 7 | 1.0 | 0.937 | 7 |
-| Outlines | 8 | 8 | 1.0 | 1.562 | 8 |
+| Outlines | 9 | 10 | 1.11 | 1.572 | 9 |
 
 Les durées sont calculées depuis les horodatages du ledger et ne constituent pas un benchmark de performance contrôlé. SEM réalise plusieurs passes natives de reconstruction/critic/repair; les baselines externes effectuent une seule génération par état.
 
@@ -66,7 +67,7 @@ Conséquence: C06 est `NOT_TESTED`, C07 est `NOT_TESTED`, C13 est `NOT_EVALUABLE
 | Capacité | Objet | NOXIA / SEM current | Instructor + Pydantic | PydanticAI | DSPy | LangExtract | Outlines |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | C01 | Explicit fidelity | PASS | PASS | PASS | PASS | PASS | PASS |
-| C02 | Multi-turn context | PARTIAL | PARTIAL | PASS | PASS | FAIL | PARTIAL |
+| C02 | Multi-turn context | PASS | PARTIAL | PASS | PASS | FAIL | PARTIAL |
 | C03 | Correction / change of mind | PARTIAL | PASS | PASS | PASS | PARTIAL | PASS |
 | C04 | Negation | PASS | PASS | PASS | PASS | PARTIAL | PASS |
 | C08 | Ambiguity management | PARTIAL | PARTIAL | PARTIAL | PARTIAL | FAIL | PARTIAL |
@@ -84,12 +85,12 @@ La matrice exhaustive C01–C23, avec preuves et scénarios associés, se trouve
 
 | Architecture | Questions | Valeur | Intégration | FINISH | Max depth | STOP | Sim. manquant |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| NOXIA / SEM current | 2 | PARTIAL | PARTIAL | 4 | 0 | 0 | 1 |
+| NOXIA / SEM current | 2 | PARTIAL | PASS | 5 | 0 | 0 | 0 |
 | Instructor + Pydantic | 1 | PARTIAL | PASS | 5 | 0 | 0 | 0 |
 | PydanticAI | 3 | PARTIAL | PASS | 5 | 0 | 0 | 0 |
 | DSPy | 2 | PARTIAL | PASS | 5 | 0 | 0 | 0 |
 | LangExtract | 2 | FAIL | FAIL | 4 | 1 | 0 | 0 |
-| Outlines | 5 | PARTIAL | PARTIAL | 3 | 0 | 0 | 2 |
+| Outlines | 5 | PARTIAL | PARTIAL | 4 | 0 | 0 | 1 |
 
 Questions les plus utiles observées:
 
@@ -137,7 +138,7 @@ DSPy confirme le signal de SEM-003D-COMP uniquement sur un axe: enrichissement c
 - Dialogue control produit: `NOXIA_INTERACTIVE_CONTROLLER_NOT_IMPLEMENTED`.
 - Preuve de dépôt: `src/features/protocol-designer/intake/questions.ts` contient un registre fixe de cinq questions adaptatives; aucun contrôleur générique `ASK`/`FINISH`/`STOP` n'a été trouvé.
 - Forces: relations natives, statut épistémique, négations/non-causalité, robustesse provider interactive.
-- Faiblesses: dialogue control expérimental inégal, enrichissement I03 absent, 2,67 appels/état, latence élevée.
+- Faiblesses: dialogue control expérimental inégal, enrichissement I03 absent, 2,71 appels/état, latence élevée.
 - Complexité expérimentale: bridge SEM d'environ 56 lignes Python + 110 lignes TypeScript, contre 7–15 lignes par adapter direct Instructor/PydanticAI/DSPy/Outlines et 43 lignes pour LangExtract.
 
 ## Incidents techniques conservés
@@ -145,7 +146,9 @@ DSPy confirme le signal de SEM-003D-COMP uniquement sur un axe: enrichissement c
 - Une réservation PydanticAI smoke reste sans issue connue et compte comme consommée.
 - Deux 504 smoke ont reçu l'unique retry autorisé.
 - Des erreurs de parsing Outlines et de configuration LangExtract ont été corrigées avant leurs deux smokes réussis.
-- Le batch simulateur I03 a omis Outlines; celui de I05 a omis Outlines et SEM. Les trois opérations candidates n'ont pas été rejouées.
+- Le batch simulateur I03 a omis Outlines et reste irrécupérable sans rejouer un succès.
+- Le checkpoint I05 associait les réponses au texte des questions; un mapping déterministe vers les deux branches a permis de reprendre SEM T1 et Outlines T1 sans répéter le simulateur.
+- La première tentative Outlines T1 a échoué localement avant réseau faute de clé exportée; elle reste comptée par prudence. La reprise avec la configuration locale existante a réussi.
 
 ## Frontières
 

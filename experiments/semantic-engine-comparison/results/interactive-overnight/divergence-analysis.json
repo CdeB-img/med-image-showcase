@@ -110,9 +110,9 @@
         "outlines",
         "sem-current"
       ],
-      "finding": "A successful batched simulator call omitted Outlines in I03 and omitted Outlines and SEM in I05.",
+      "finding": "A successful batched simulator call omitted Outlines in I03. The malformed I05 checkpoint was recovered deterministically by matching each unique question to its branch.",
       "id": "DIV-07",
-      "impact": "Three branches cannot be evaluated after ASK; no replay was performed.",
+      "impact": "I03/Outlines cannot be evaluated after ASK; the successful simulator operation was not replayed.",
       "kind": "SIMULATOR_CHECKPOINT_INCOMPLETENESS",
       "scenarios": [
         "I03",
@@ -157,5 +157,5 @@
       ]
     }
   ],
-  "generatedAt": "2026-08-14T01:29:03.084949Z"
+  "generatedAt": "2026-08-14T01:39:22.991132Z"
 }

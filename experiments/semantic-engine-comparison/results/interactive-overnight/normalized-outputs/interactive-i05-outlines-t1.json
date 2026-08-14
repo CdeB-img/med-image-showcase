@@ -1,0 +1,35 @@
+{
+  "baseline": "outlines",
+  "campaignId": "EXP-SEM-INTERACTIVE-01",
+  "normalization": "EXPERIMENTAL_MINIMAL_PROJECTION_NO_SCIENTIFIC_ENRICHMENT",
+  "projection": {
+    "action": "FINISH",
+    "contextual_candidates": [],
+    "corrected_or_superseded": [],
+    "explicit_facts": [
+      "Étude en IRM de la réponse d'un cancer du rectum pendant le traitement",
+      "Quantification de l'évolution de l'ADC",
+      "Exploration du delta ADC entre baseline et mi-traitement",
+      "La réponse pathologique finale est la référence"
+    ],
+    "missing_or_ambiguous": [],
+    "negations_or_constraints": [
+      "sans supposer qu'une hausse d'ADC la cause"
+    ],
+    "next_question": null,
+    "ownership_or_epistemic_notes": [
+      "L'utilisateur précise que l'analyse est exploratoire et récuse l'hypothèse causale directe de la hausse d'ADC."
+    ],
+    "relations": [
+      "delta ADC entre baseline et mi-traitement"
+    ],
+    "state_summary": "L'utilisateur souhaite étudier par IRM la réponse d'un cancer du rectum pendant un traitement et quantifier l'évolution de l'ADC. Le delta ADC entre la baseline et le mi-traitement est exploratoire. La réponse pathologique finale sert de référence.",
+    "temporal_context": [
+      "baseline",
+      "mi-traitement",
+      "fin de traitement / réponse pathologique finale"
+    ]
+  },
+  "round": "T1",
+  "scenarioId": "I05"
+}

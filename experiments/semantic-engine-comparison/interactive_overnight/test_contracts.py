@@ -5,6 +5,7 @@ import unittest
 from pydantic import ValidationError
 
 from .adjudicate import BASELINES, CAPABILITIES, MATRIX
+from .campaign import map_simulator_answers
 from .models import ConversationTurn, InteractiveCase, InteractiveProjection
 
 
@@ -32,6 +33,21 @@ class InteractiveContractTests(unittest.TestCase):
             self.assertEqual(set(assessments), set(BASELINES))
             for assessment in assessments.values():
                 self.assertIn(assessment["status"], {"PASS", "PARTIAL", "FAIL", "NOT_EVALUABLE", "NOT_TESTED"})
+
+    def test_simulator_answer_can_be_recovered_from_a_unique_question_key(self) -> None:
+        questions = {"outlines": "Question A ?", "sem-current": "Question B ?"}
+        recorded = {"answers": [
+            {"baseline": "Question A ?", "answer": "Réponse A"},
+            {"baseline": "Question B ?", "answer": "Réponse B"},
+        ]}
+        self.assertEqual(map_simulator_answers(recorded, questions), {
+            "outlines": "Réponse A", "sem-current": "Réponse B",
+        })
+
+    def test_simulator_answer_does_not_guess_an_ambiguous_question_owner(self) -> None:
+        questions = {"outlines": "Même question ?", "sem-current": "Même question ?"}
+        recorded = {"answers": [{"baseline": "Même question ?", "answer": "Réponse"}]}
+        self.assertEqual(map_simulator_answers(recorded, questions), {})
 
 
 if __name__ == "__main__":

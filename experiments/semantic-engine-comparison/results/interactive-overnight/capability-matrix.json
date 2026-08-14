@@ -101,13 +101,13 @@
           "status": "FAIL"
         },
         "outlines": {
-          "evidence": "Trois branches multi-tour réussissent; deux branches restent sans réponse checkpointée.",
+          "evidence": "Quatre branches multi-tour réussissent; I03 reste sans réponse checkpointée.",
           "scenarioRefs": [
             "I01",
             "I02",
             "I04",
-            "I03",
-            "I05"
+            "I05",
+            "I03"
           ],
           "status": "PARTIAL"
         },
@@ -121,12 +121,12 @@
           "status": "PASS"
         },
         "sem-current": {
-          "evidence": "I02 est maintenu sur deux états; I05 n'a pas reçu la réponse simulateur.",
+          "evidence": "I02 et I05 sont maintenus sur deux états et leurs réponses sont consolidées.",
           "scenarioRefs": [
             "I02",
             "I05"
           ],
-          "status": "PARTIAL"
+          "status": "PASS"
         }
       },
       "capabilityId": "C02",
@@ -993,7 +993,7 @@
           "status": "FAIL"
         },
         "outlines": {
-          "evidence": "Les états répondus sont riches, mais deux branches restent techniquement incomplètes côté simulateur.",
+          "evidence": "Les états répondus sont riches, mais I03 reste techniquement incomplet côté simulateur.",
           "scenarioRefs": [
             "I01",
             "I02",
@@ -1130,12 +1130,12 @@
           "status": "PASS"
         },
         "sem-current": {
-          "evidence": "La réponse I02 est intégrée; la branche I05 ne reçoit pas la réponse du simulateur.",
+          "evidence": "Les réponses I02 et I05 sont intégrées avec temporalité, polarité et relations.",
           "scenarioRefs": [
             "I02",
             "I05"
           ],
-          "status": "PARTIAL"
+          "status": "PASS"
         }
       },
       "capabilityId": "C20",
@@ -1176,7 +1176,7 @@
           "status": "FAIL"
         },
         "outlines": {
-          "evidence": "Bonne clôture sur trois branches; deux branches ASK restent sans réponse checkpointée.",
+          "evidence": "Bonne clôture sur quatre branches; I03 reste sans réponse checkpointée.",
           "scenarioRefs": [
             "I01",
             "I02",
@@ -1305,7 +1305,7 @@
           "status": "PASS"
         },
         "sem-current": {
-          "evidence": "Aucun échec interactif provider, mais 2,67 appels et environ 17,2 s par état en moyenne.",
+          "evidence": "Aucun échec interactif provider, mais 2,71 appels et environ 17,9 s par état en moyenne.",
           "scenarioRefs": [
             "I01",
             "I02",
@@ -1320,7 +1320,7 @@
       "label": "Technical robustness / provider cost / latency"
     }
   ],
-  "generatedAt": "2026-08-14T01:29:03.084949Z",
+  "generatedAt": "2026-08-14T01:39:22.991132Z",
   "scale": [
     "PASS",
     "PARTIAL",

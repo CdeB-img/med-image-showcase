@@ -114,6 +114,24 @@ class SimulatorBatch(BaseModel):
     answers: list[SimulatorAnswer]
 
 
+def map_simulator_answers(recorded: dict[str, Any], questions: dict[str, str]) -> dict[str, str]:
+    """Map a provider batch without inventing an answer or replaying a successful call."""
+    output: dict[str, str] = {}
+    question_owners: dict[str, list[str]] = {}
+    for baseline, question in questions.items():
+        question_owners.setdefault(question, []).append(baseline)
+    for item in recorded.get("answers", []):
+        provider_key = str(item.get("baseline", ""))
+        answer = str(item.get("answer", ""))
+        if provider_key in questions:
+            output[provider_key] = answer
+            continue
+        owners = question_owners.get(provider_key, [])
+        if len(owners) == 1:
+            output[owners[0]] = answer
+    return {baseline: output[baseline] for baseline in questions if baseline in output}
+
+
 def stable_json(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
 
@@ -229,8 +247,7 @@ def simulator_answers(*, ledger: ProviderLedger, scenario: dict[str, Any], round
     operation_key = f"SIMULATOR:{scenario['scenarioId']}:{round_id}"
     checkpoint = NATIVE_ROOT / f"simulator-{scenario['scenarioId']}-{round_id}.json".lower()
     if checkpoint.exists():
-        recorded = read_json(checkpoint)
-        return {str(item["baseline"]): str(item["answer"]) for item in recorded.get("answers", [])}
+        return map_simulator_answers(read_json(checkpoint), questions)
     if operation_key in ledger.completed_operation_keys():
         # The provider operation succeeded during an earlier interrupted run, but
         # its output was not checkpointed. Never replay it silently.
@@ -272,8 +289,7 @@ def simulator_answers(*, ledger: ProviderLedger, scenario: dict[str, Any], round
             function=call, retry=1,
         )
     write_json(checkpoint, result.model_dump(mode="json"))
-    answer_map = {item.baseline: item.answer for item in result.answers}
-    return {key: answer_map[key] for key in questions if key in answer_map}
+    return map_simulator_answers(result.model_dump(mode="json"), questions)
 
 
 def scenario_cost_estimate(readiness: dict[str, Any]) -> int:
