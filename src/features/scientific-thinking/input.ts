@@ -73,8 +73,8 @@ export const buildScientificThinkingInput = (
       intentRef: `validated-scientific-intent:${logicalDigest({ reformulation: intent.validatedReformulation, reviews: intent.reviews })}`,
       userExpertise: asValues(intent, "userExpertise")[0] ?? "UNKNOWN",
       sourceJourney: runtime.sourceJourney ?? "FORMALIZE_IDEA",
-      semanticModelRef: intent.semanticSnapshot?.semanticModelId,
-      semanticModelDigest: intent.semanticSnapshot?.semanticModelDigest,
+      semanticModelRef: intent.semanticSnapshot?.semanticModelId ?? intent.interpretationContributionSnapshot?.contributionId,
+      semanticModelDigest: intent.semanticSnapshot?.semanticModelDigest ?? intent.interpretationContributionSnapshot?.contributionDigest,
     },
     researchContext: {
       sessionId: runtime.sessionId ?? "UNBOUND_SESSION",

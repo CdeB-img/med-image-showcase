@@ -18,8 +18,8 @@ import { createEmptyInterpretation } from "@/features/protocol-designer/intake/s
 import { confirmScenario, matchScenarios, scenarioDetails } from "@/features/protocol-designer/intake/scenarios";
 import { buildValidatedIntent, createProtocolDesignerSession, deleteSession, invalidateDownstream, loadSessionCandidate, persistSession } from "@/features/protocol-designer/intake/session";
 import { INTERPRETED_FIELD_KEYS, type AdaptiveQuestion, type HumanFieldReview, type HumanValidationState, type InterpretedFieldKey, type ProtocolDesignerSession, type QuestionChangeKind, type RoutingIntent, type ScientificIntakeInterpretation } from "@/features/protocol-designer/intake/types";
+import { legacySemanticModelToContribution, projectScientificContributionToV1, type LegacySemanticModelInput } from "@/features/scientific-interpretation";
 import SemanticConversationalWorkspace from "@/features/scientific-semantic-reconstruction/SemanticConversationalWorkspace";
-import { semanticModelToScientificSessionContext, semanticModelToValidatedIntent, type ScientificSemanticModel } from "@/features/scientific-semantic-reconstruction";
 import ScientificThinkingView from "@/features/scientific-thinking/ScientificThinkingView";
 import { buildScientificThinkingInput, createScientificThinkingSession } from "@/features/scientific-thinking";
 import { ArrowLeft, ArrowRight, BookOpen, CircleAlert, Compass, Copy, Info, LoaderCircle, MessageCircle, Printer, RotateCcw, ShieldCheck, X } from "lucide-react";
@@ -487,12 +487,15 @@ export default function ProtocolDesignerDemo() {
   const reset = () => {
     deleteSession(window.localStorage); deleteKnowledgeSnapshots(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setDocumentProjections([]); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false); setKnowledgeContextOverrides({}); setKnowledgeContextRevision(0);
   };
-  const openStructuredProject = (model: ScientificSemanticModel) => {
+  const openStructuredProject = (model: LegacySemanticModelInput) => {
     const now = new Date().toISOString();
-    const validated = semanticModelToValidatedIntent(model);
-    const matches = matchScenarios(validated);
     const base = createProtocolDesignerSession(now);
-    const scientificContext = semanticModelToScientificSessionContext(model, base.scientificContext);
+    if (model.status !== "ACCEPTED") throw new Error("SEMANTIC_MODEL_NOT_ACCEPTED_FOR_DOWNSTREAM");
+    const contribution = legacySemanticModelToContribution(model);
+    const projection = projectScientificContributionToV1(contribution, base.scientificContext);
+    const validated = projection.validatedIntent;
+    const matches = matchScenarios(validated);
+    const scientificContext = projection.scientificSessionContext;
     setSession({
       ...base,
       originalQuestion: validated.originalQuestion,
