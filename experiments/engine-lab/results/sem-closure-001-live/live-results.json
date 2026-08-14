@@ -1,0 +1,349 @@
+{
+  "closureId": "SEM-CLOSURE-001",
+  "startedAt": "2026-08-14T19:52:26.328Z",
+  "completedAt": "2026-08-14T19:53:31.439Z",
+  "providerRequests": 9,
+  "summary": {
+    "states": 8,
+    "acceptedForV1Projection": 0,
+    "needsClarification": 2,
+    "needsReview": 6,
+    "failClosed": 0,
+    "criticalFindingStates": 6,
+    "fallbackCount": 8,
+    "rawReconstructible": 8,
+    "projectWrites": 0,
+    "providerRequests": 9,
+    "retries": 1,
+    "callsPerState": 1.125,
+    "latencyMs": 65094
+  },
+  "records": [
+    {
+      "scenarioId": "I01",
+      "conversationDigest": "ke1-8b0f25cb2436f897",
+      "status": "NEEDS_CLARIFICATION",
+      "runtimeMode": "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+      "activeRuntimeId": "LEGACY_SEM_FULL",
+      "contributionId": "legacy-sem-contribution:semantic-model-degraded:ke1-3839e40d61145829:1",
+      "contributionDigest": "ke1-af00b7f45c322238",
+      "rawOutputRef": "scientific-interpretation-raw:ea5133327621c972e931c5db22c806c5884bc906a1dd0a29f7fa815d15d04502",
+      "rawOutputDigest": "ea5133327621c972e931c5db22c806c5884bc906a1dd0a29f7fa815d15d04502",
+      "rawReconstructible": true,
+      "fallbackUsed": true,
+      "fallback": {
+        "failureClass": "PROVIDER_FAILURE",
+        "message": "HYBRID_PROVIDER_HTTP_400",
+        "rawOutputRef": "scientific-interpretation-raw:ea5133327621c972e931c5db22c806c5884bc906a1dd0a29f7fa815d15d04502",
+        "operationId": "hybrid-operation:ke1-25b7e5eef16cf212"
+      },
+      "criticalFindings": [],
+      "v1ProjectionProduced": true,
+      "projectWrites": 0,
+      "semanticAuditLExecuted": false,
+      "adjudicatorExecuted": false,
+      "providerAttempts": [
+        {
+          "attempt": 1,
+          "startedAt": "2026-08-14T19:52:26.329Z",
+          "completedAt": "2026-08-14T19:52:26.930Z",
+          "httpStatus": 400,
+          "providerStatus": "HTTP_400",
+          "outcome": "FAILED",
+          "retryable": false,
+          "waitDurationMs": 0
+        }
+      ],
+      "providerRequestsForState": 1,
+      "latencyMs": 606
+    },
+    {
+      "scenarioId": "I02",
+      "conversationDigest": "ke1-e708ff046a214758",
+      "status": "NEEDS_REVIEW",
+      "runtimeMode": "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+      "activeRuntimeId": "LEGACY_SEM_FULL",
+      "contributionId": "legacy-sem-contribution:semantic-model-degraded:ke1-7aed3de0ec980c84:1",
+      "contributionDigest": "ke1-34cf50c9a01b8735",
+      "rawOutputRef": "scientific-interpretation-raw:8f5744bd4163debff1fdd9bd3aaf6c8e02bce24c6b53423899f0159415ddc012",
+      "rawOutputDigest": "8f5744bd4163debff1fdd9bd3aaf6c8e02bce24c6b53423899f0159415ddc012",
+      "rawReconstructible": true,
+      "fallbackUsed": true,
+      "fallback": {
+        "failureClass": "PROVIDER_FAILURE",
+        "message": "HYBRID_PROVIDER_HTTP_400",
+        "rawOutputRef": "scientific-interpretation-raw:8f5744bd4163debff1fdd9bd3aaf6c8e02bce24c6b53423899f0159415ddc012",
+        "operationId": "hybrid-operation:ke1-3d063d6c814dae38"
+      },
+      "criticalFindings": [
+        "CRITICAL_NEGATION_LOST"
+      ],
+      "v1ProjectionProduced": false,
+      "projectWrites": 0,
+      "semanticAuditLExecuted": false,
+      "adjudicatorExecuted": false,
+      "providerAttempts": [
+        {
+          "attempt": 1,
+          "startedAt": "2026-08-14T19:52:26.937Z",
+          "completedAt": "2026-08-14T19:52:27.533Z",
+          "httpStatus": 400,
+          "providerStatus": "HTTP_400",
+          "outcome": "FAILED",
+          "retryable": false,
+          "waitDurationMs": 0
+        }
+      ],
+      "providerRequestsForState": 1,
+      "latencyMs": 597
+    },
+    {
+      "scenarioId": "I03",
+      "conversationDigest": "ke1-139f21108be262b4",
+      "status": "NEEDS_CLARIFICATION",
+      "runtimeMode": "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+      "activeRuntimeId": "LEGACY_SEM_FULL",
+      "contributionId": "legacy-sem-contribution:semantic-model-degraded:ke1-0e9b188ffdb8fb7b:1",
+      "contributionDigest": "ke1-a7b67dbe03680d3a",
+      "rawOutputRef": "scientific-interpretation-raw:8c8c04db63c9dd0172fdb162b420ae99754896f6c42a6ea088b96d466fd7e32e",
+      "rawOutputDigest": "8c8c04db63c9dd0172fdb162b420ae99754896f6c42a6ea088b96d466fd7e32e",
+      "rawReconstructible": true,
+      "fallbackUsed": true,
+      "fallback": {
+        "failureClass": "PROVIDER_FAILURE",
+        "message": "HYBRID_PROVIDER_HTTP_400",
+        "rawOutputRef": "scientific-interpretation-raw:8c8c04db63c9dd0172fdb162b420ae99754896f6c42a6ea088b96d466fd7e32e",
+        "operationId": "hybrid-operation:ke1-1eb7b3ed56d02f11"
+      },
+      "criticalFindings": [],
+      "v1ProjectionProduced": true,
+      "projectWrites": 0,
+      "semanticAuditLExecuted": false,
+      "adjudicatorExecuted": false,
+      "providerAttempts": [
+        {
+          "attempt": 1,
+          "startedAt": "2026-08-14T19:52:27.535Z",
+          "completedAt": "2026-08-14T19:52:28.147Z",
+          "httpStatus": 400,
+          "providerStatus": "HTTP_400",
+          "outcome": "FAILED",
+          "retryable": false,
+          "waitDurationMs": 0
+        }
+      ],
+      "providerRequestsForState": 1,
+      "latencyMs": 615
+    },
+    {
+      "scenarioId": "I04",
+      "conversationDigest": "ke1-ff47b641910b0be5",
+      "status": "NEEDS_REVIEW",
+      "runtimeMode": "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+      "activeRuntimeId": "LEGACY_SEM_FULL",
+      "contributionId": "legacy-sem-contribution:semantic-model-degraded:ke1-f17bf692b89b032e:1",
+      "contributionDigest": "ke1-32f3182a713b40b6",
+      "rawOutputRef": "scientific-interpretation-raw:f4545e2b9c84d6ffc9e87c1a0e6ecafd770f6e5adeb0a52622f96f429d990acd",
+      "rawOutputDigest": "f4545e2b9c84d6ffc9e87c1a0e6ecafd770f6e5adeb0a52622f96f429d990acd",
+      "rawReconstructible": true,
+      "fallbackUsed": true,
+      "fallback": {
+        "failureClass": "PROVIDER_FAILURE",
+        "message": "HYBRID_PROVIDER_HTTP_400",
+        "rawOutputRef": "scientific-interpretation-raw:f4545e2b9c84d6ffc9e87c1a0e6ecafd770f6e5adeb0a52622f96f429d990acd",
+        "operationId": "hybrid-operation:ke1-65a2d7b13c950325"
+      },
+      "criticalFindings": [
+        "CRITICAL_NEGATION_LOST"
+      ],
+      "v1ProjectionProduced": false,
+      "projectWrites": 0,
+      "semanticAuditLExecuted": false,
+      "adjudicatorExecuted": false,
+      "providerAttempts": [
+        {
+          "attempt": 1,
+          "startedAt": "2026-08-14T19:52:28.153Z",
+          "completedAt": "2026-08-14T19:52:28.664Z",
+          "httpStatus": 400,
+          "providerStatus": "HTTP_400",
+          "outcome": "FAILED",
+          "retryable": false,
+          "waitDurationMs": 0
+        }
+      ],
+      "providerRequestsForState": 1,
+      "latencyMs": 514
+    },
+    {
+      "scenarioId": "I05",
+      "conversationDigest": "ke1-103247ae0ab5b29a",
+      "status": "NEEDS_REVIEW",
+      "runtimeMode": "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+      "activeRuntimeId": "LEGACY_SEM_FULL",
+      "contributionId": "legacy-sem-contribution:semantic-model-degraded:ke1-849df53981bc159d:1",
+      "contributionDigest": "ke1-c000da77bca20cc3",
+      "rawOutputRef": "scientific-interpretation-raw:75a7c6c70f164d63e9e37a10a27ed65f861d2fd13f78296e641c5d4bb8804500",
+      "rawOutputDigest": "75a7c6c70f164d63e9e37a10a27ed65f861d2fd13f78296e641c5d4bb8804500",
+      "rawReconstructible": true,
+      "fallbackUsed": true,
+      "fallback": {
+        "failureClass": "PROVIDER_FAILURE",
+        "message": "HYBRID_PROVIDER_HTTP_400",
+        "rawOutputRef": "scientific-interpretation-raw:75a7c6c70f164d63e9e37a10a27ed65f861d2fd13f78296e641c5d4bb8804500",
+        "operationId": "hybrid-operation:ke1-9d064310fdb567c4"
+      },
+      "criticalFindings": [
+        "CRITICAL_NEGATION_LOST"
+      ],
+      "v1ProjectionProduced": false,
+      "projectWrites": 0,
+      "semanticAuditLExecuted": false,
+      "adjudicatorExecuted": false,
+      "providerAttempts": [
+        {
+          "attempt": 1,
+          "startedAt": "2026-08-14T19:52:28.669Z",
+          "completedAt": "2026-08-14T19:52:29.253Z",
+          "httpStatus": 400,
+          "providerStatus": "HTTP_400",
+          "outcome": "FAILED",
+          "retryable": false,
+          "waitDurationMs": 0
+        }
+      ],
+      "providerRequestsForState": 1,
+      "latencyMs": 587
+    },
+    {
+      "scenarioId": "I06",
+      "conversationDigest": "ke1-647d11e50ed8f7a1",
+      "status": "NEEDS_REVIEW",
+      "runtimeMode": "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+      "activeRuntimeId": "LEGACY_SEM_FULL",
+      "contributionId": "legacy-sem-contribution:semantic-model-degraded:ke1-c752e20cf90a34f8:1",
+      "contributionDigest": "ke1-48ac60d320ef0707",
+      "rawOutputRef": "scientific-interpretation-raw:359a5e5517d821f439f296f2fd8bece7435999a5766f091f992ba9edf4fa4eb5",
+      "rawOutputDigest": "359a5e5517d821f439f296f2fd8bece7435999a5766f091f992ba9edf4fa4eb5",
+      "rawReconstructible": true,
+      "fallbackUsed": true,
+      "fallback": {
+        "failureClass": "PROVIDER_FAILURE",
+        "message": "HYBRID_PROVIDER_HTTP_400",
+        "rawOutputRef": "scientific-interpretation-raw:359a5e5517d821f439f296f2fd8bece7435999a5766f091f992ba9edf4fa4eb5",
+        "operationId": "hybrid-operation:ke1-14cd1290c77c0f6c"
+      },
+      "criticalFindings": [
+        "CRITICAL_NEGATION_LOST"
+      ],
+      "v1ProjectionProduced": false,
+      "projectWrites": 0,
+      "semanticAuditLExecuted": false,
+      "adjudicatorExecuted": false,
+      "providerAttempts": [
+        {
+          "attempt": 1,
+          "startedAt": "2026-08-14T19:52:29.258Z",
+          "completedAt": "2026-08-14T19:52:29.794Z",
+          "httpStatus": 400,
+          "providerStatus": "HTTP_400",
+          "outcome": "FAILED",
+          "retryable": false,
+          "waitDurationMs": 0
+        }
+      ],
+      "providerRequestsForState": 1,
+      "latencyMs": 538
+    },
+    {
+      "scenarioId": "I07",
+      "conversationDigest": "ke1-fd06dee32829d11f",
+      "status": "NEEDS_REVIEW",
+      "runtimeMode": "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+      "activeRuntimeId": "LEGACY_SEM_FULL",
+      "contributionId": "legacy-sem-contribution:semantic-model-degraded:ke1-5b00bcbbdedc5c6f:1",
+      "contributionDigest": "ke1-8319e49989277ff5",
+      "rawOutputRef": "scientific-interpretation-raw:346e9e0a3b06652a5c5d3f8c3b6c18e560f3ad95083d2320695402f3fcafd340",
+      "rawOutputDigest": "346e9e0a3b06652a5c5d3f8c3b6c18e560f3ad95083d2320695402f3fcafd340",
+      "rawReconstructible": true,
+      "fallbackUsed": true,
+      "fallback": {
+        "failureClass": "PROVIDER_FAILURE",
+        "message": "HYBRID_PROVIDER_HTTP_400",
+        "rawOutputRef": "scientific-interpretation-raw:346e9e0a3b06652a5c5d3f8c3b6c18e560f3ad95083d2320695402f3fcafd340",
+        "operationId": "hybrid-operation:ke1-90eec436d817b23a"
+      },
+      "criticalFindings": [
+        "CRITICAL_NEGATION_LOST"
+      ],
+      "v1ProjectionProduced": false,
+      "projectWrites": 0,
+      "semanticAuditLExecuted": false,
+      "adjudicatorExecuted": false,
+      "providerAttempts": [
+        {
+          "attempt": 1,
+          "startedAt": "2026-08-14T19:52:29.798Z",
+          "completedAt": "2026-08-14T19:52:29.876Z",
+          "httpStatus": 429,
+          "providerStatus": "HTTP_429",
+          "outcome": "FAILED",
+          "retryable": true,
+          "waitDurationMs": 60000
+        },
+        {
+          "attempt": 2,
+          "startedAt": "2026-08-14T19:53:29.878Z",
+          "completedAt": "2026-08-14T19:53:30.619Z",
+          "httpStatus": 400,
+          "providerStatus": "HTTP_400",
+          "outcome": "FAILED",
+          "retryable": false,
+          "waitDurationMs": 0
+        }
+      ],
+      "providerRequestsForState": 2,
+      "latencyMs": 60825
+    },
+    {
+      "scenarioId": "I08",
+      "conversationDigest": "ke1-f2cc80ab40a117a7",
+      "status": "NEEDS_REVIEW",
+      "runtimeMode": "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+      "activeRuntimeId": "LEGACY_SEM_FULL",
+      "contributionId": "legacy-sem-contribution:semantic-model-degraded:ke1-3de007be8588cf22:1",
+      "contributionDigest": "ke1-1997827405473818",
+      "rawOutputRef": "scientific-interpretation-raw:f4d41f7530a743501b358586a49e0fff33361b8948c75931f28c071b34a77430",
+      "rawOutputDigest": "f4d41f7530a743501b358586a49e0fff33361b8948c75931f28c071b34a77430",
+      "rawReconstructible": true,
+      "fallbackUsed": true,
+      "fallback": {
+        "failureClass": "PROVIDER_FAILURE",
+        "message": "HYBRID_PROVIDER_HTTP_400",
+        "rawOutputRef": "scientific-interpretation-raw:f4d41f7530a743501b358586a49e0fff33361b8948c75931f28c071b34a77430",
+        "operationId": "hybrid-operation:ke1-29444aa51078ea89"
+      },
+      "criticalFindings": [
+        "CRITICAL_NEGATION_LOST"
+      ],
+      "v1ProjectionProduced": false,
+      "projectWrites": 0,
+      "semanticAuditLExecuted": false,
+      "adjudicatorExecuted": false,
+      "providerAttempts": [
+        {
+          "attempt": 1,
+          "startedAt": "2026-08-14T19:53:30.625Z",
+          "completedAt": "2026-08-14T19:53:31.433Z",
+          "httpStatus": 400,
+          "providerStatus": "HTTP_400",
+          "outcome": "FAILED",
+          "retryable": false,
+          "waitDurationMs": 0
+        }
+      ],
+      "providerRequestsForState": 1,
+      "latencyMs": 812
+    }
+  ]
+}

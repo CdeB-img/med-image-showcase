@@ -1,0 +1,28 @@
+{
+  "rawOutputRef": "scientific-interpretation-raw:8c8c04db63c9dd0172fdb162b420ae99754896f6c42a6ea088b96d466fd7e32e",
+  "rawOutputDigest": "8c8c04db63c9dd0172fdb162b420ae99754896f6c42a6ea088b96d466fd7e32e",
+  "persistedAt": "2026-08-14T19:52:28.147Z",
+  "payload": {
+    "operationId": "hybrid-operation:ke1-1eb7b3ed56d02f11",
+    "rawAttempts": [
+      {
+        "attempt": 1,
+        "httpStatus": 400,
+        "providerBodyText": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n",
+        "error": null
+      }
+    ],
+    "providerAttempts": [
+      {
+        "attempt": 1,
+        "startedAt": "2026-08-14T19:52:27.535Z",
+        "completedAt": "2026-08-14T19:52:28.147Z",
+        "httpStatus": 400,
+        "providerStatus": "HTTP_400",
+        "outcome": "FAILED",
+        "retryable": false,
+        "waitDurationMs": 0
+      }
+    ]
+  }
+}
