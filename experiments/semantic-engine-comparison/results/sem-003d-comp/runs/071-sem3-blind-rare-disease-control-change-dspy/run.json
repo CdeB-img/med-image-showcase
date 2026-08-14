@@ -1,0 +1,51 @@
+{
+  "baselineId": "SEM003C1-DSPY-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+  "caseInputDigest": "048c9ff3c9398df0e902b77ee7dcdf476441b7998c56ed18ded8e60a27e1d231",
+  "caseOrdinal": 12,
+  "completedAt": "2026-08-14T00:22:57.940792Z",
+  "configuration": {
+    "cache": false,
+    "demonstrations": [],
+    "module": "dspy.Predict",
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "numRetries": 0,
+    "optimizer": null,
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "LMInvalidRequestError",
+    "message": "[gemini-3.5-flash-lite] litellm.BadRequestError: GeminiException BadRequestError - {\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"Request contains an invalid argument.\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n"
+  },
+  "framework": "DSPy",
+  "frameworkVersion": "3.3.0",
+  "latencyMs": 4796.104,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/071-sem3-blind-rare-disease-control-change-dspy/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 0,
+  "providerStatus": "FRAMEWORK_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-12-DSPY",
+  "runOrdinal": 71,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:22:47.613015Z",
+  "stderr": null,
+  "terminalStatus": "FRAMEWORK_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "baselineId": "SEM003C1-LANGEXTRACT-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+  "caseInputDigest": "1b4aae386a595673d297a45c5fcf2aecbfd9fb4a3e71da4178aac6507bc2d91a",
+  "caseOrdinal": 15,
+  "completedAt": "2026-08-14T00:24:29.225560Z",
+  "configuration": {
+    "batchLength": 1,
+    "examples": [],
+    "extractionPasses": 1,
+    "fetchUrls": false,
+    "maxCharBuffer": 20000,
+    "maxRetries": 0,
+    "maxWorkers": 1,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "InferenceConfigError",
+    "message": "output_schema extraction items use extraction-class keys such as 'condition', not LangExtract's internal field names: attributes, extraction_class, extraction_text"
+  },
+  "framework": "LangExtract",
+  "frameworkVersion": "1.6.0",
+  "latencyMs": 2.07,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/087-sem3-blind-wearable-sleep-phenomenon-observable-langextract/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 0,
+  "providerStatus": "FRAMEWORK_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-15-LANGEXTRACT",
+  "runOrdinal": 87,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:24:26.995732Z",
+  "stderr": null,
+  "terminalStatus": "FRAMEWORK_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

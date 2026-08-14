@@ -1,0 +1,51 @@
+{
+  "baselineId": "SEM003C1-DSPY-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+  "caseInputDigest": "43d25abc6865d84936cfbfa0149e26f53c8df6ed544da850f1a04222128c84ac",
+  "caseOrdinal": 7,
+  "completedAt": "2026-08-14T00:19:51.222763Z",
+  "configuration": {
+    "cache": false,
+    "demonstrations": [],
+    "module": "dspy.Predict",
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "numRetries": 0,
+    "optimizer": null,
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": null,
+  "framework": "DSPy",
+  "frameworkVersion": "3.3.0",
+  "latencyMs": 4562.153,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/040-sem3-blind-laa-closure-seal-assessment-dspy/native-output.json",
+    "sha256": "54e82080b5e24608925d37551606b3823b05d7e605f2cd19ac729a7a4b86614d"
+  },
+  "normalizationStatus": "PASS",
+  "normalizedOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/040-sem3-blind-laa-closure-seal-assessment-dspy/normalized-output.json",
+    "sha256": "582e4d52b5bce7eaca92d81378946c4e4fa90dedd518a4011b2726cbb6d7959d"
+  },
+  "parsingStatus": "PASS",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 1,
+  "providerStatus": "SUCCESS",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-07-DSPY",
+  "runOrdinal": 40,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:19:41.209101Z",
+  "stderr": null,
+  "terminalStatus": "SUCCESS",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

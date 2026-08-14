@@ -1,0 +1,51 @@
+{
+  "baselineId": "SEM003C1-DSPY-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+  "caseInputDigest": "5f12f707487910f02f83e9a3b8fe6a8d7b3388a55e4a14ec699bf4b8e401725c",
+  "caseOrdinal": 2,
+  "completedAt": "2026-08-14T00:16:44.233911Z",
+  "configuration": {
+    "cache": false,
+    "demonstrations": [],
+    "module": "dspy.Predict",
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "numRetries": 0,
+    "optimizer": null,
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": null,
+  "framework": "DSPy",
+  "frameworkVersion": "3.3.0",
+  "latencyMs": 3723.153,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/009-sem3-blind-breast-bpe-ambiguous-change-dspy/native-output.json",
+    "sha256": "8361b2df58d57ae13844c0208130d63d4ff0cfac9f6eca109af29d191a67fe20"
+  },
+  "normalizationStatus": "PASS",
+  "normalizedOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/009-sem3-blind-breast-bpe-ambiguous-change-dspy/normalized-output.json",
+    "sha256": "5ae1f28ed5323e3a14788015889cbd25f9769011ad1b29d8eaff53c7c0c663d1"
+  },
+  "parsingStatus": "PASS",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 1,
+  "providerStatus": "SUCCESS",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-02-DSPY",
+  "runOrdinal": 9,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:16:35.032331Z",
+  "stderr": null,
+  "terminalStatus": "SUCCESS",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

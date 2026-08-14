@@ -1,0 +1,611 @@
+{
+  "acceptanceEnvelope": {
+    "acceptableSemanticVariants": [
+      {
+        "caveats": [
+          "Aucune équivalence n'est accordée par simple proximité lexicale.",
+          "Le Level 1 critique reste obligatoire."
+        ],
+        "label": "Composition distribuée",
+        "preservedObligationIds": [
+          "req-1-suspected-infection",
+          "req-2-fdg-signal",
+          "req-3-negative-cultures-possible",
+          "req-4-coexistence-not-proof",
+          "req-5-embolic-events-separate",
+          "req-6-antibiotic-pet-delay-unknown"
+        ],
+        "structureSynopsis": "Plusieurs objets et relations peuvent porter le vecteur d'obligations si leurs statuts, polarités, temporalités, provenance et ownership restent reconstructibles.",
+        "variantId": "variant-distributed-obligation-graph"
+      },
+      {
+        "caveats": [
+          "La compacité ne permet ni omission critique ni fusion de plans conceptuels.",
+          "La topologie n'est pas le critère principal."
+        ],
+        "label": "Composition compacte",
+        "preservedObligationIds": [
+          "req-1-suspected-infection",
+          "req-2-fdg-signal",
+          "req-3-negative-cultures-possible",
+          "req-4-coexistence-not-proof",
+          "req-5-embolic-events-separate",
+          "req-6-antibiotic-pet-delay-unknown"
+        ],
+        "structureSynopsis": "Une représentation plus compacte peut être recevable si elle conserve toutes les obligations et n'ajoute aucune promotion ou décision.",
+        "variantId": "variant-compact-relation-preserving"
+      }
+    ],
+    "adjudication": {
+      "humanAdjudicationPoints": [
+        "Confirmer ultérieurement la recevabilité scientifique de REQUIRED et PROHIBITED.",
+        "Adjuger les équivalences complexes sans modifier rétroactivement l'enveloppe pendant une campagne.",
+        "Conserver les candidats optionnels comme enveloppe non exhaustive."
+      ],
+      "notes": "Référence établie avant toute sortie SEM par revue simulée plurifonctionnelle; aucune revue humaine réelle ni éligibilité finale PD-011 n'est revendiquée.",
+      "requiredExpertise": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "INDEPENDENT_ADJUDICATION"
+      ],
+      "status": "SIMULATED_REVIEW_COMPLETE_NOT_PD011_ELIGIBLE"
+    },
+    "admissibleAmbiguities": [],
+    "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+    "contractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+    "envelopeId": "SEM3-AE-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+    "evaluationDemonstrations": [],
+    "expectedClarification": {
+      "acceptableQuestionClasses": [
+        "Délai entre début des antibiotiques et TEP-TDM"
+      ],
+      "decisionImpact": "Le délai après antibiothérapie affecte l'interprétation temporelle du signal.",
+      "exactWordingRequired": false,
+      "status": "REQUIRED"
+    },
+    "optionalRelevant": [
+      {
+        "absenceIsBlocking": false,
+        "candidateId": "opt-1-pattern-candidate",
+        "description": "Un profil de distribution du signal péri-prothétique peut rester un candidat contextuel à qualifier.",
+        "envelopeIsNonExhaustive": true,
+        "epistemicStatus": "CONTEXTUAL_CANDIDATE",
+        "rationale": "Le contexte d'imagerie peut motiver ce candidat sans en faire une déclaration utilisateur ni une preuve autonome.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.optional-pattern-candidate"
+      }
+    ],
+    "ownershipBoundaries": [
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-sem-project",
+        "description": "SEM peut préserver l'intention, les inconnues, ambiguïtés et candidats; il n'adopte pas une décision de projet.",
+        "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+        "sourceOwner": "SEM",
+        "targetOwner": "Research Project / human decision"
+      },
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-knowledge-specialists",
+        "description": "Les owners spécialisés qualifient preuves, mesures, acquisitions et hypothèses sans devenir la voix de l'utilisateur.",
+        "forbiddenPromotion": "Specialist support to explicit user fact, automatic endpoint or Project truth",
+        "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+        "targetOwner": "SEM benchmark reference"
+      }
+    ],
+    "prohibited": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Présenter le signal TEP ou un support spécialisé comme preuve suffisante et vérité du projet.",
+        "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+        "prohibitionId": "pro-1-pet-proves-infection",
+        "propertyIds": [
+          "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+          "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+          "PROPERTY_NO_UNSUPPORTED_INVENTION"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.forbidden-pet-proves-infection"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Créer une relation causale entre signal métabolique et événements emboliques.",
+        "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+        "prohibitionId": "pro-2-pet-causes-embolism",
+        "propertyIds": [
+          "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.forbidden-pet-causes-embolism"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Transformer des hémocultures négatives en exclusion de l'infection.",
+        "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+        "prohibitionId": "pro-3-negative-culture-excludes",
+        "propertyIds": [
+          "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.forbidden-negative-culture-excludes"
+      }
+    ],
+    "properties": [
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "CONTEXTUAL_ENRICHMENT",
+        "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      }
+    ],
+    "required": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver le contexte de suspicion d'infection sur prothèse valvulaire.",
+        "kind": "EXPLICIT_CONCEPT",
+        "obligationId": "req-1-suspected-infection",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.suspected-infection",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[0]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Relier la TEP-TDM au FDG à la description du signal autour de la prothèse.",
+        "kind": "RELATION",
+        "obligationId": "req-2-fdg-signal",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.fdg-signal",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[1]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver la possibilité d'hémocultures négatives sans en déduire l'absence d'infection.",
+        "kind": "POLARITY",
+        "obligationId": "req-3-negative-cultures-possible",
+        "propertyIds": [
+          "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.negative-cultures-possible",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[2]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Préserver l'étude d'une association contextuelle sans faire du signal une preuve autonome ni une causalité.",
+        "kind": "POLARITY",
+        "obligationId": "req-4-coexistence-not-proof",
+        "propertyIds": [
+          "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+          "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.coexistence-not-proof",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[3]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver les événements emboliques comme dimension séparée.",
+        "kind": "RELATION",
+        "obligationId": "req-5-embolic-events-separate",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.embolic-events-separate",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[4]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Maintenir ouvert le délai entre antibiothérapie et TEP-TDM.",
+        "kind": "UNKNOWN",
+        "obligationId": "req-6-antibiotic-pet-delay-unknown",
+        "propertyIds": [
+          "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-prosthetic-valve-infection-context.antibiotic-pet-delay-unknown",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[5]"
+      }
+    ],
+    "reviewStatus": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION",
+    "schemaVersion": "1.0.0",
+    "version": "1.0.0"
+  },
+  "benchmarkCase": {
+    "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+    "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+    "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+    "createdAt": "2026-08-14T10:00:00.000Z",
+    "exposure": {
+      "contaminationReview": {
+        "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed.",
+        "reviewedAt": "2026-08-14T10:00:00.000Z",
+        "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+        "status": "CLEAR"
+      },
+      "eligibleForBlindQualification": true,
+      "exposureHistory": [
+        {
+          "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+          "eventId": "exposure-prosthetic-valve-infection-context-authored",
+          "fromStatus": null,
+          "occurredAt": "2026-08-14T10:00:00.000Z",
+          "reason": "Independent authoring before parentage review, reference review and sealing.",
+          "toStatus": "BLIND_DESIGN_ONLY"
+        },
+        {
+          "actorRole": "NOXIA_PROJECT_GOVERNANCE_SEALING_OPERATION",
+          "eventId": "exposure-sem3-blind-prosthetic-valve-infection-context-sealed",
+          "fromStatus": "BLIND_DESIGN_ONLY",
+          "occurredAt": "2026-08-14T12:00:00.000Z",
+          "reason": "All SEM-003C structural, reference, parentage and anti-leakage gates completed before any SEM output.",
+          "toStatus": "BLIND_SEALED"
+        }
+      ],
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    "purpose": "BLIND_QUALIFICATION_AUTHORING",
+    "reference": {
+      "acceptanceEnvelopeId": "SEM3-AE-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "adjudicationRequirements": [
+        {
+          "expertise": "SCIENTIFIC_DOMAIN",
+          "mandatory": true,
+          "rationale": "Review the scientific obligations without inventing human authority."
+        },
+        {
+          "expertise": "METHODOLOGICAL_SEM",
+          "mandatory": true,
+          "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability."
+        },
+        {
+          "expertise": "INDEPENDENT_ADJUDICATION",
+          "mandatory": true,
+          "rationale": "Preserve unresolved limitations for future PD-011 review."
+        }
+      ],
+      "applicableSEM002Properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ]
+    },
+    "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
+    "schemaVersion": "1.0.0",
+    "scientificScope": {
+      "difficultyTarget": "COMPOSITIONAL",
+      "domain": "cardiologie infectieuse et imagerie métabolique",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "intentionallyMissingInformation": [
+        {
+          "description": "Délai entre antibiothérapie et TEP-TDM.",
+          "informationId": "missing-1",
+          "intentional": true
+        }
+      ],
+      "scenarioCategory": "STRONG_CONTEXTUAL_IMPLICIT",
+      "secondaryCategories": [
+        "NEGATION_AND_NON_CAUSALITY",
+        "UNDER_SPECIFIED_REQUEST"
+      ]
+    },
+    "source": {
+      "conversationTurns": [
+        {
+          "role": "USER",
+          "text": "On inclut des patients avec suspicion d'infection de prothèse valvulaire.",
+          "turnId": "turn-1"
+        },
+        {
+          "role": "USER",
+          "text": "La TEP-TDM au FDG doit décrire le signal autour de la prothèse.",
+          "turnId": "turn-2"
+        },
+        {
+          "role": "USER",
+          "text": "Les hémocultures peuvent être négatives.",
+          "turnId": "turn-3"
+        },
+        {
+          "role": "USER",
+          "text": "Je veux voir si le signal métabolique accompagne le tableau clinique, sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements.",
+          "turnId": "turn-4"
+        },
+        {
+          "role": "USER",
+          "text": "Les événements emboliques seront décrits séparément.",
+          "turnId": "turn-5"
+        },
+        {
+          "role": "USER",
+          "text": "Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé.",
+          "turnId": "turn-6"
+        }
+      ],
+      "language": "fr-FR",
+      "provenance": {
+        "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+        "createdAt": "2026-08-14T10:00:00.000Z",
+        "inspirationRefs": [
+          "docs/sem-002-scientific-understanding-competence-contract.md",
+          "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+        ],
+        "originType": "SYNTHETIC_AUTHORED",
+        "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output."
+      },
+      "sourceContext": "Conversation synthétique indépendante de cardiologie infectieuse et imagerie métabolique; aucun output SEM ou provider n'a été utilisé.",
+      "sourceRequest": "Tour 1: On inclut des patients avec suspicion d'infection de prothèse valvulaire.\nTour 2: La TEP-TDM au FDG doit décrire le signal autour de la prothèse.\nTour 3: Les hémocultures peuvent être négatives.\nTour 4: Je veux voir si le signal métabolique accompagne le tableau clinique, sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements.\nTour 5: Les événements emboliques seront décrits séparément.\nTour 6: Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé."
+    },
+    "title": "Contexte infectieux sur prothèse valvulaire",
+    "version": "1.0.0"
+  },
+  "benchmarkSet": "BLIND",
+  "candidateOutput": {
+    "adjudicationClaims": [],
+    "ambiguityMappings": [],
+    "candidateId": "SEM3-EVAL-CAND-COMP-A6032F4F50AFBEF661AA",
+    "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+    "caseVersion": "1.0.0",
+    "clarificationMapping": {
+      "decisionImpactMapping": "NOT_EVALUABLE",
+      "evidenceRefs": [],
+      "status": "NOT_EVALUABLE"
+    },
+    "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+    "envelopeId": "SEM3-AE-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+    "envelopeVersion": "1.0.0",
+    "evaluationMode": "FUTURE_SEM_RUNTIME",
+    "executionStatus": "PROVIDER_FAILURE",
+    "obligationMappings": [
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-1-suspected-infection",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-2-fdg-signal",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-3-negative-cultures-possible",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-4-coexistence-not-proof",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-5-embolic-events-separate",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-6-antibiotic-pet-delay-unknown",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "optionalCandidateMappings": [
+      {
+        "candidateId": "opt-1-pattern-candidate",
+        "epistemicStatus": "NOT_EVALUABLE",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "ownershipMappings": [
+      {
+        "boundaryId": "own-sem-project",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "boundaryId": "own-knowledge-specialists",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "prohibitionSignals": [
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-1-pet-proves-infection",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-2-pet-causes-embolism",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-3-negative-culture-excludes",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "provenanceSummary": {
+      "evidenceRefs": [],
+      "historyReconstructible": false,
+      "sourceRequestReconstructible": false,
+      "status": "NOT_EVALUABLE"
+    },
+    "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+    "schemaVersion": "1.3.0",
+    "semanticElements": [],
+    "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+    "structureProfile": "NOT_AVAILABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_INPUT",
+  "evaluationId": "SEM3-EVAL-COMP-A6032F4F50AFBEF661AA",
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "schemaVersion": "1.3.0"
+}

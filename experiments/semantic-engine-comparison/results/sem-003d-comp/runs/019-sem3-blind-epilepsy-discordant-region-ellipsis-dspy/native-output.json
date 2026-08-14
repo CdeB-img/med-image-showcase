@@ -1,0 +1,243 @@
+{
+  "ambiguities": [],
+  "clarifications": [],
+  "concepts": [
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "conceptId": "c1",
+      "conceptType": "phenomenon",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "réseau épileptogène",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "epileptogenic.network",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Je veux localiser le réseau épileptogène avant discussion chirurgicale."
+        }
+      ],
+      "studyRole": "target",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "conceptId": "c2",
+      "conceptType": "intervention",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "discussion chirurgicale",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "surgical.discussion",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Je veux localiser le réseau épileptogène avant discussion chirurgicale."
+        }
+      ],
+      "studyRole": "context",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "conceptId": "c3",
+      "conceptType": "measurement",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "TEP intercritique",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "interictal.pet",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Nous aurons une TEP intercritique et une magnétoencéphalographie."
+        }
+      ],
+      "studyRole": "method",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "conceptId": "c4",
+      "conceptType": "measurement",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "magnétoencéphalographie",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "magnetoencephalography",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Nous aurons une TEP intercritique et une magnétoencéphalographie."
+        }
+      ],
+      "studyRole": "method",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "conceptId": "c5",
+      "conceptType": "observable",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "région concordante",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "concordant.region",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Je veux garder la région concordante comme candidate principale, sans la déclarer foyer certain."
+        }
+      ],
+      "studyRole": "candidate_focus",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "conceptId": "c6",
+      "conceptType": "observable",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "région discordante",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "discordant.region",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Les deux peuvent désigner des régions différentes."
+        },
+        {
+          "messageId": "turn-5",
+          "quote": "Et la discordante aussi, mais séparément."
+        }
+      ],
+      "studyRole": "candidate_focus",
+      "supersedesConceptIds": []
+    }
+  ],
+  "contractType": "SCIENTIFIC_UNDERSTANDING_NATIVE_PROJECTION",
+  "corrections": [],
+  "language": "fr",
+  "normalizedMeaning": "Le patient souhaite localiser le réseau épileptogène avant une discussion chirurgicale, en utilisant une TEP intercritique et une magnétoencéphalographie (MEG). Les deux examens peuvent montrer des régions différentes. Le patient souhaite conserver la région concordante comme candidate principale (sans la déclarer foyer certain) et traiter séparément la région discordante.",
+  "optionalCandidates": [],
+  "relations": [
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "precedes",
+      "relationId": "r1",
+      "requiresConfirmation": false,
+      "semanticKey": "epileptogenic.network.localization.before.surgical.discussion",
+      "sourceConceptId": "c1",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Je veux localiser le réseau épileptogène avant discussion chirurgicale."
+        }
+      ],
+      "targetConceptId": "c2"
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "evaluates",
+      "relationId": "r2",
+      "requiresConfirmation": false,
+      "semanticKey": "interictal.pet.designates.regions",
+      "sourceConceptId": "c3",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Nous aurons une TEP intercritique et une magnétoencéphalographie."
+        },
+        {
+          "messageId": "turn-3",
+          "quote": "Les deux peuvent désigner des régions différentes."
+        }
+      ],
+      "targetConceptId": "c1"
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "evaluates",
+      "relationId": "r3",
+      "requiresConfirmation": false,
+      "semanticKey": "meg.designates.regions",
+      "sourceConceptId": "c4",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Nous aurons une TEP intercritique et une magnétoencéphalographie."
+        },
+        {
+          "messageId": "turn-3",
+          "quote": "Les deux peuvent désigner des régions différentes."
+        }
+      ],
+      "targetConceptId": "c1"
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "is_candidate_for",
+      "relationId": "r4",
+      "requiresConfirmation": false,
+      "semanticKey": "concordant.region.primary.candidate",
+      "sourceConceptId": "c5",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Je veux garder la région concordante comme candidate principale, sans la déclarer foyer certain."
+        }
+      ],
+      "targetConceptId": "c1"
+    },
+    {
+      "adoptionStatus": "ADOPTED_BY_HUMAN",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "is_candidate_for",
+      "relationId": "r5",
+      "requiresConfirmation": false,
+      "semanticKey": "discordant.region.separate.candidate",
+      "sourceConceptId": "c6",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-5",
+          "quote": "Et la discordante aussi, mais séparément."
+        }
+      ],
+      "targetConceptId": "c1"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "unknowns": [],
+  "warnings": []
+}

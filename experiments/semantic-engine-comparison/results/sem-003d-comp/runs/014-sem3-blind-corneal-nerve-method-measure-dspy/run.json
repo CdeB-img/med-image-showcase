@@ -1,0 +1,51 @@
+{
+  "baselineId": "SEM003C1-DSPY-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+  "caseInputDigest": "de11d08bd966c09d2a6694141412fc5239cc8f92470a376654fc8ff857617dcd",
+  "caseOrdinal": 3,
+  "completedAt": "2026-08-14T00:17:13.966726Z",
+  "configuration": {
+    "cache": false,
+    "demonstrations": [],
+    "module": "dspy.Predict",
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "numRetries": 0,
+    "optimizer": null,
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": null,
+  "framework": "DSPy",
+  "frameworkVersion": "3.3.0",
+  "latencyMs": 3433.411,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/014-sem3-blind-corneal-nerve-method-measure-dspy/native-output.json",
+    "sha256": "0e27c922f878ba8b9b435148072b1c6e032400623fedd22a0ec5863114ff5b15"
+  },
+  "normalizationStatus": "PASS",
+  "normalizedOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/014-sem3-blind-corneal-nerve-method-measure-dspy/normalized-output.json",
+    "sha256": "370f51affe506bef7a0573232d1d2040d0664f855482065ec41790b0a825210b"
+  },
+  "parsingStatus": "PASS",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 1,
+  "providerStatus": "SUCCESS",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-03-DSPY",
+  "runOrdinal": 14,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:17:05.029040Z",
+  "stderr": null,
+  "terminalStatus": "SUCCESS",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

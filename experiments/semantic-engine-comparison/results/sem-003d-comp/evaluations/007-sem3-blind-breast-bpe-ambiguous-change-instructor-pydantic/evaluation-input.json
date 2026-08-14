@@ -1,0 +1,516 @@
+{
+  "acceptanceEnvelope": {
+    "acceptableSemanticVariants": [
+      {
+        "caveats": [
+          "Aucune équivalence n'est accordée par simple proximité lexicale.",
+          "Le Level 1 critique reste obligatoire."
+        ],
+        "label": "Composition distribuée",
+        "preservedObligationIds": [
+          "req-1-bpe-increase",
+          "req-2-hormonal-change-context",
+          "req-3-two-comparison-axes",
+          "req-4-primary-axis-open"
+        ],
+        "structureSynopsis": "Plusieurs objets et relations peuvent porter le vecteur d'obligations si leurs statuts, polarités, temporalités, provenance et ownership restent reconstructibles.",
+        "variantId": "variant-distributed-obligation-graph"
+      },
+      {
+        "caveats": [
+          "La compacité ne permet ni omission critique ni fusion de plans conceptuels.",
+          "La topologie n'est pas le critère principal."
+        ],
+        "label": "Composition compacte",
+        "preservedObligationIds": [
+          "req-1-bpe-increase",
+          "req-2-hormonal-change-context",
+          "req-3-two-comparison-axes",
+          "req-4-primary-axis-open"
+        ],
+        "structureSynopsis": "Une représentation plus compacte peut être recevable si elle conserve toutes les obligations et n'ajoute aucune promotion ou décision.",
+        "variantId": "variant-compact-relation-preserving"
+      }
+    ],
+    "adjudication": {
+      "humanAdjudicationPoints": [
+        "Confirmer ultérieurement la recevabilité scientifique de REQUIRED et PROHIBITED.",
+        "Adjuger les équivalences complexes sans modifier rétroactivement l'enveloppe pendant une campagne.",
+        "Conserver les candidats optionnels comme enveloppe non exhaustive."
+      ],
+      "notes": "Référence établie avant toute sortie SEM par revue simulée plurifonctionnelle; aucune revue humaine réelle ni éligibilité finale PD-011 n'est revendiquée.",
+      "requiredExpertise": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "INDEPENDENT_ADJUDICATION"
+      ],
+      "status": "SIMULATED_REVIEW_COMPLETE_NOT_PD011_ELIGIBLE"
+    },
+    "admissibleAmbiguities": [
+      {
+        "ambiguityId": "amb-1-increase-axis",
+        "competingInterpretations": [
+          "hausse intra-sujet dans le temps",
+          "niveau plus élevé entre groupes"
+        ],
+        "description": "Le terme augmentation possède deux axes comparatifs scientifiquement distincts.",
+        "mustRemainOpen": true,
+        "resolutionInformation": [
+          "question principale",
+          "population de comparaison",
+          "unité d'analyse"
+        ]
+      }
+    ],
+    "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+    "contractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+    "envelopeId": "SEM3-AE-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+    "evaluationDemonstrations": [],
+    "expectedClarification": {
+      "acceptableQuestionClasses": [
+        "Axe principal de comparaison"
+      ],
+      "decisionImpact": "Le choix de l'axe détermine la relation, la temporalité et l'unité d'analyse.",
+      "exactWordingRequired": false,
+      "status": "REQUIRED"
+    },
+    "optionalRelevant": [],
+    "ownershipBoundaries": [
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-sem-project",
+        "description": "SEM peut préserver l'intention, les inconnues, ambiguïtés et candidats; il n'adopte pas une décision de projet.",
+        "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+        "sourceOwner": "SEM",
+        "targetOwner": "Research Project / human decision"
+      },
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-knowledge-specialists",
+        "description": "Les owners spécialisés qualifient preuves, mesures, acquisitions et hypothèses sans devenir la voix de l'utilisateur.",
+        "forbiddenPromotion": "Specialist support to explicit user fact, automatic endpoint or Project truth",
+        "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+        "targetOwner": "SEM benchmark reference"
+      }
+    ],
+    "prohibited": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Choisir silencieusement l'axe longitudinal comme principal.",
+        "failureClass": "MISSING_INFORMATION_FAILURE",
+        "prohibitionId": "pro-1-choose-longitudinal",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_NO_UNSUPPORTED_INVENTION"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-breast-bpe-ambiguous-change.forbidden-choose-longitudinal"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Choisir silencieusement l'axe inter-groupes comme principal.",
+        "failureClass": "MISSING_INFORMATION_FAILURE",
+        "prohibitionId": "pro-2-choose-cross-sectional",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_NO_UNSUPPORTED_INVENTION"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-breast-bpe-ambiguous-change.forbidden-choose-cross-sectional"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Inventer un endpoint de risque ou de diagnostic.",
+        "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+        "prohibitionId": "pro-3-invent-risk-endpoint",
+        "propertyIds": [
+          "PROPERTY_NO_UNSUPPORTED_INVENTION",
+          "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-breast-bpe-ambiguous-change.forbidden-invent-risk-endpoint"
+      }
+    ],
+    "properties": [
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      }
+    ],
+    "required": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver l'étude d'une augmentation du rehaussement parenchymateux de fond.",
+        "kind": "EXPLICIT_CONCEPT",
+        "obligationId": "req-1-bpe-increase",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-breast-bpe-ambiguous-change.bpe-increase",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[0]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Relier les examens avant et après à une modification hormonale.",
+        "kind": "TIMING",
+        "obligationId": "req-2-hormonal-change-context",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-breast-bpe-ambiguous-change.hormonal-change-context",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[1]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Maintenir les deux sens possibles d'augmentation: évolution temporelle ou différence entre groupes.",
+        "kind": "AMBIGUITY",
+        "obligationId": "req-3-two-comparison-axes",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-breast-bpe-ambiguous-change.two-comparison-axes",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[2]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver l'absence de choix de la comparaison principale.",
+        "kind": "UNKNOWN",
+        "obligationId": "req-4-primary-axis-open",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-breast-bpe-ambiguous-change.primary-axis-open",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[3]"
+      }
+    ],
+    "reviewStatus": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION",
+    "schemaVersion": "1.0.0",
+    "version": "1.0.0"
+  },
+  "benchmarkCase": {
+    "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+    "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+    "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+    "createdAt": "2026-08-14T10:00:00.000Z",
+    "exposure": {
+      "contaminationReview": {
+        "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed.",
+        "reviewedAt": "2026-08-14T10:00:00.000Z",
+        "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+        "status": "CLEAR"
+      },
+      "eligibleForBlindQualification": true,
+      "exposureHistory": [
+        {
+          "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+          "eventId": "exposure-breast-bpe-ambiguous-change-authored",
+          "fromStatus": null,
+          "occurredAt": "2026-08-14T10:00:00.000Z",
+          "reason": "Independent authoring before parentage review, reference review and sealing.",
+          "toStatus": "BLIND_DESIGN_ONLY"
+        },
+        {
+          "actorRole": "NOXIA_PROJECT_GOVERNANCE_SEALING_OPERATION",
+          "eventId": "exposure-sem3-blind-breast-bpe-ambiguous-change-sealed",
+          "fromStatus": "BLIND_DESIGN_ONLY",
+          "occurredAt": "2026-08-14T12:00:00.000Z",
+          "reason": "All SEM-003C structural, reference, parentage and anti-leakage gates completed before any SEM output.",
+          "toStatus": "BLIND_SEALED"
+        }
+      ],
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    "purpose": "BLIND_QUALIFICATION_AUTHORING",
+    "reference": {
+      "acceptanceEnvelopeId": "SEM3-AE-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "adjudicationRequirements": [
+        {
+          "expertise": "SCIENTIFIC_DOMAIN",
+          "mandatory": true,
+          "rationale": "Review the scientific obligations without inventing human authority."
+        },
+        {
+          "expertise": "METHODOLOGICAL_SEM",
+          "mandatory": true,
+          "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability."
+        },
+        {
+          "expertise": "INDEPENDENT_ADJUDICATION",
+          "mandatory": true,
+          "rationale": "Preserve unresolved limitations for future PD-011 review."
+        }
+      ],
+      "applicableSEM002Properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ]
+    },
+    "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
+    "schemaVersion": "1.0.0",
+    "scientificScope": {
+      "difficultyTarget": "ADVANCED",
+      "domain": "IRM mammaire et facteurs hormonaux",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "intentionallyMissingInformation": [
+        {
+          "description": "Axe principal de comparaison: longitudinal intra-sujet ou transversal inter-groupes.",
+          "informationId": "missing-1",
+          "intentional": true
+        }
+      ],
+      "scenarioCategory": "SCIENTIFIC_AMBIGUITY",
+      "secondaryCategories": [
+        "COMPARISON_AND_TIMING",
+        "UNDER_SPECIFIED_REQUEST"
+      ]
+    },
+    "source": {
+      "conversationTurns": [
+        {
+          "role": "USER",
+          "text": "Je veux étudier une augmentation du rehaussement parenchymateux de fond en IRM mammaire.",
+          "turnId": "turn-1"
+        },
+        {
+          "role": "USER",
+          "text": "On a des examens avant et après une modification hormonale.",
+          "turnId": "turn-2"
+        },
+        {
+          "role": "USER",
+          "text": "Par augmentation, je peux parler d'une hausse dans le temps ou d'un niveau plus élevé entre groupes.",
+          "turnId": "turn-3"
+        },
+        {
+          "role": "USER",
+          "text": "Je n'ai pas encore choisi laquelle de ces deux comparaisons est la question principale.",
+          "turnId": "turn-4"
+        }
+      ],
+      "language": "fr-FR",
+      "provenance": {
+        "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+        "createdAt": "2026-08-14T10:00:00.000Z",
+        "inspirationRefs": [
+          "docs/sem-002-scientific-understanding-competence-contract.md",
+          "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+        ],
+        "originType": "SYNTHETIC_AUTHORED",
+        "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output."
+      },
+      "sourceContext": "Conversation synthétique indépendante de IRM mammaire et facteurs hormonaux; aucun output SEM ou provider n'a été utilisé.",
+      "sourceRequest": "Tour 1: Je veux étudier une augmentation du rehaussement parenchymateux de fond en IRM mammaire.\nTour 2: On a des examens avant et après une modification hormonale.\nTour 3: Par augmentation, je peux parler d'une hausse dans le temps ou d'un niveau plus élevé entre groupes.\nTour 4: Je n'ai pas encore choisi laquelle de ces deux comparaisons est la question principale."
+    },
+    "title": "Rehaussement parenchymateux mammaire ambigu",
+    "version": "1.0.0"
+  },
+  "benchmarkSet": "BLIND",
+  "candidateOutput": {
+    "adjudicationClaims": [],
+    "ambiguityMappings": [
+      {
+        "ambiguityId": "amb-1-increase-axis",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "candidateId": "SEM3-EVAL-CAND-COMP-6053282232E36F4D737E",
+    "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+    "caseVersion": "1.0.0",
+    "clarificationMapping": {
+      "decisionImpactMapping": "NOT_EVALUABLE",
+      "evidenceRefs": [],
+      "status": "NOT_EVALUABLE"
+    },
+    "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+    "envelopeId": "SEM3-AE-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+    "envelopeVersion": "1.0.0",
+    "evaluationMode": "FUTURE_SEM_RUNTIME",
+    "executionStatus": "NOT_EVALUABLE",
+    "obligationMappings": [
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-1-bpe-increase",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-2-hormonal-change-context",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-3-two-comparison-axes",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-4-primary-axis-open",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "optionalCandidateMappings": [],
+    "ownershipMappings": [
+      {
+        "boundaryId": "own-sem-project",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "boundaryId": "own-knowledge-specialists",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "prohibitionSignals": [
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-1-choose-longitudinal",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-2-choose-cross-sectional",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-3-invent-risk-endpoint",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "provenanceSummary": {
+      "evidenceRefs": [],
+      "historyReconstructible": false,
+      "sourceRequestReconstructible": false,
+      "status": "NOT_EVALUABLE"
+    },
+    "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+    "schemaVersion": "1.3.0",
+    "semanticElements": [],
+    "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+    "structureProfile": "NOT_AVAILABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_INPUT",
+  "evaluationId": "SEM3-EVAL-COMP-6053282232E36F4D737E",
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "schemaVersion": "1.3.0"
+}

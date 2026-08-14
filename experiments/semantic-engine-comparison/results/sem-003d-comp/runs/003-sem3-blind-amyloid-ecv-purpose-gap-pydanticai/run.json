@@ -1,0 +1,49 @@
+{
+  "baselineId": "SEM003C1-PYDANTICAI-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+  "caseInputDigest": "08c4ca6ba503cceaefe45d24e6d0074d48e3f2ac9baa6c70068639a2210d9bac",
+  "caseOrdinal": 1,
+  "completedAt": "2026-08-14T00:16:05.641349Z",
+  "configuration": {
+    "agentRetries": 0,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "providerAttempts": 1,
+    "temperature": null,
+    "tools": []
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "ModelHTTPError",
+    "message": "status_code: 400, model_name: gemini-3.5-flash-lite, body: {'error': {'code': 400, 'message': 'Request contains an invalid argument.', 'status': 'INVALID_ARGUMENT'}}"
+  },
+  "framework": "PydanticAI",
+  "frameworkVersion": "2.29.0",
+  "latencyMs": 1405.549,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/003-sem3-blind-amyloid-ecv-purpose-gap-pydanticai/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 1,
+  "providerStatus": "PROVIDER_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-01-PYDANTICAI",
+  "runOrdinal": 3,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:15:58.948396Z",
+  "stderr": null,
+  "terminalStatus": "PROVIDER_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

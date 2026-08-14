@@ -1,0 +1,620 @@
+{
+  "acceptanceEnvelope": {
+    "acceptableSemanticVariants": [
+      {
+        "caveats": [
+          "Aucune équivalence n'est accordée par simple proximité lexicale.",
+          "Le Level 1 critique reste obligatoire."
+        ],
+        "label": "Composition distribuée",
+        "preservedObligationIds": [
+          "req-1-postpartum-hypertension-context",
+          "req-2-myocardial-work-six-weeks",
+          "req-3-blood-pressure-same-time",
+          "req-4-causal-claim-retracted",
+          "req-5-six-month-visit-planned",
+          "req-6-comparison-group-open",
+          "req-7-treatment-context-unknown"
+        ],
+        "structureSynopsis": "Plusieurs objets et relations peuvent porter le vecteur d'obligations si leurs statuts, polarités, temporalités, provenance et ownership restent reconstructibles.",
+        "variantId": "variant-distributed-obligation-graph"
+      },
+      {
+        "caveats": [
+          "La compacité ne permet ni omission critique ni fusion de plans conceptuels.",
+          "La topologie n'est pas le critère principal."
+        ],
+        "label": "Composition compacte",
+        "preservedObligationIds": [
+          "req-1-postpartum-hypertension-context",
+          "req-2-myocardial-work-six-weeks",
+          "req-3-blood-pressure-same-time",
+          "req-4-causal-claim-retracted",
+          "req-5-six-month-visit-planned",
+          "req-6-comparison-group-open",
+          "req-7-treatment-context-unknown"
+        ],
+        "structureSynopsis": "Une représentation plus compacte peut être recevable si elle conserve toutes les obligations et n'ajoute aucune promotion ou décision.",
+        "variantId": "variant-compact-relation-preserving"
+      }
+    ],
+    "adjudication": {
+      "humanAdjudicationPoints": [
+        "Confirmer ultérieurement la recevabilité scientifique de REQUIRED et PROHIBITED.",
+        "Adjuger les équivalences complexes sans modifier rétroactivement l'enveloppe pendant une campagne.",
+        "Conserver les candidats optionnels comme enveloppe non exhaustive."
+      ],
+      "notes": "Référence établie avant toute sortie SEM par revue simulée plurifonctionnelle; aucune revue humaine réelle ni éligibilité finale PD-011 n'est revendiquée.",
+      "requiredExpertise": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "INDEPENDENT_ADJUDICATION"
+      ],
+      "status": "SIMULATED_REVIEW_COMPLETE_NOT_PD011_ELIGIBLE"
+    },
+    "admissibleAmbiguities": [],
+    "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+    "contractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+    "envelopeId": "SEM3-AE-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+    "evaluationDemonstrations": [],
+    "expectedClarification": {
+      "acceptableQuestionClasses": [
+        "Groupe de comparaison",
+        "Disponibilité des traitements antihypertenseurs"
+      ],
+      "decisionImpact": "Le groupe de comparaison modifie le design et la portée de la relation décrite.",
+      "exactWordingRequired": false,
+      "status": "REQUIRED"
+    },
+    "optionalRelevant": [],
+    "ownershipBoundaries": [
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-sem-project",
+        "description": "SEM peut préserver l'intention, les inconnues, ambiguïtés et candidats; il n'adopte pas une décision de projet.",
+        "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+        "sourceOwner": "SEM",
+        "targetOwner": "Research Project / human decision"
+      },
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-knowledge-specialists",
+        "description": "Les owners spécialisés qualifient preuves, mesures, acquisitions et hypothèses sans devenir la voix de l'utilisateur.",
+        "forbiddenPromotion": "Specialist support to explicit user fact, automatic endpoint or Project truth",
+        "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+        "targetOwner": "SEM benchmark reference"
+      }
+    ],
+    "prohibited": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver comme active l'affirmation que l'hypertension explique les changements myocardiques.",
+        "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+        "prohibitionId": "pro-1-retain-causal-claim",
+        "propertyIds": [
+          "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+          "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.forbidden-retain-causal-claim"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Déduire un effet thérapeutique ou un traitement non documenté.",
+        "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+        "prohibitionId": "pro-2-invent-treatment-effect",
+        "propertyIds": [
+          "PROPERTY_NO_UNSUPPORTED_INVENTION",
+          "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.forbidden-invent-treatment-effect"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Choisir un groupe de comparaison non fourni.",
+        "failureClass": "MISSING_INFORMATION_FAILURE",
+        "prohibitionId": "pro-3-invent-comparator",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_NO_UNSUPPORTED_INVENTION"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.forbidden-invent-comparator"
+      }
+    ],
+    "properties": [
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      }
+    ],
+    "required": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver le contexte postpartum après grossesse compliquée d'hypertension.",
+        "kind": "EXPLICIT_CONCEPT",
+        "obligationId": "req-1-postpartum-hypertension-context",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.postpartum-hypertension-context",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[0]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Relier l'estimation échocardiographique du travail myocardique à six semaines.",
+        "kind": "TIMING",
+        "obligationId": "req-2-myocardial-work-six-weeks",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+          "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.myocardial-work-six-weeks",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[1]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver la pression artérielle mesurée au même temps.",
+        "kind": "TIMING",
+        "obligationId": "req-3-blood-pressure-same-time",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.blood-pressure-same-time",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[2]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Appliquer le retrait de l'interprétation causale et conserver seulement la relation descriptive.",
+        "kind": "CORRECTION",
+        "obligationId": "req-4-causal-claim-retracted",
+        "propertyIds": [
+          "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+          "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+          "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.causal-claim-retracted",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[4]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver la seconde visite à six mois comme envisagée, non certaine.",
+        "kind": "TIMING",
+        "obligationId": "req-5-six-month-visit-planned",
+        "propertyIds": [
+          "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+          "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.six-month-visit-planned",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[5]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Maintenir inconnu le groupe de comparaison.",
+        "kind": "UNKNOWN",
+        "obligationId": "req-6-comparison-group-open",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.comparison-group-open",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[6]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Ne pas compléter les traitements antihypertenseurs s'ils ne sont pas documentés.",
+        "kind": "UNKNOWN",
+        "obligationId": "req-7-treatment-context-unknown",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-postpartum-myocardial-work-noncausal.treatment-context-unknown",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[7]"
+      }
+    ],
+    "reviewStatus": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION",
+    "schemaVersion": "1.0.0",
+    "version": "1.0.0"
+  },
+  "benchmarkCase": {
+    "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+    "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+    "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+    "createdAt": "2026-08-14T10:00:00.000Z",
+    "exposure": {
+      "contaminationReview": {
+        "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed.",
+        "reviewedAt": "2026-08-14T10:00:00.000Z",
+        "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+        "status": "CLEAR"
+      },
+      "eligibleForBlindQualification": true,
+      "exposureHistory": [
+        {
+          "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+          "eventId": "exposure-postpartum-myocardial-work-noncausal-authored",
+          "fromStatus": null,
+          "occurredAt": "2026-08-14T10:00:00.000Z",
+          "reason": "Independent authoring before parentage review, reference review and sealing.",
+          "toStatus": "BLIND_DESIGN_ONLY"
+        },
+        {
+          "actorRole": "NOXIA_PROJECT_GOVERNANCE_SEALING_OPERATION",
+          "eventId": "exposure-sem3-blind-postpartum-myocardial-work-noncausal-sealed",
+          "fromStatus": "BLIND_DESIGN_ONLY",
+          "occurredAt": "2026-08-14T12:00:00.000Z",
+          "reason": "All SEM-003C structural, reference, parentage and anti-leakage gates completed before any SEM output.",
+          "toStatus": "BLIND_SEALED"
+        }
+      ],
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    "purpose": "BLIND_QUALIFICATION_AUTHORING",
+    "reference": {
+      "acceptanceEnvelopeId": "SEM3-AE-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "adjudicationRequirements": [
+        {
+          "expertise": "SCIENTIFIC_DOMAIN",
+          "mandatory": true,
+          "rationale": "Review the scientific obligations without inventing human authority."
+        },
+        {
+          "expertise": "METHODOLOGICAL_SEM",
+          "mandatory": true,
+          "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability."
+        },
+        {
+          "expertise": "INDEPENDENT_ADJUDICATION",
+          "mandatory": true,
+          "rationale": "Preserve unresolved limitations for future PD-011 review."
+        }
+      ],
+      "applicableSEM002Properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ]
+    },
+    "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
+    "schemaVersion": "1.0.0",
+    "scientificScope": {
+      "difficultyTarget": "COMPOSITIONAL",
+      "domain": "cardiologie obstétricale et échocardiographie longitudinale",
+      "domainGroup": "CARDIOVASCULAR_IMAGING",
+      "intentionallyMissingInformation": [
+        {
+          "description": "Groupe de comparaison.",
+          "informationId": "missing-1",
+          "intentional": true
+        },
+        {
+          "description": "Documentation des traitements antihypertenseurs.",
+          "informationId": "missing-2",
+          "intentional": true
+        }
+      ],
+      "scenarioCategory": "NEGATION_AND_NON_CAUSALITY",
+      "secondaryCategories": [
+        "MULTI_TURN_CORRECTION",
+        "COMPARISON_AND_TIMING"
+      ]
+    },
+    "source": {
+      "conversationTurns": [
+        {
+          "role": "USER",
+          "text": "Je veux étudier l'adaptation cardiovasculaire après une grossesse compliquée d'hypertension.",
+          "turnId": "turn-1"
+        },
+        {
+          "role": "USER",
+          "text": "Une échocardiographie avec estimation du travail myocardique est prévue à six semaines.",
+          "turnId": "turn-2"
+        },
+        {
+          "role": "USER",
+          "text": "La pression artérielle sera mesurée au même temps.",
+          "turnId": "turn-3"
+        },
+        {
+          "role": "USER",
+          "text": "Au départ, je voulais écrire que l'hypertension expliquait les changements de travail myocardique.",
+          "turnId": "turn-4"
+        },
+        {
+          "role": "USER",
+          "text": "Je retire cette interprétation causale: l'étude doit seulement décrire leur relation.",
+          "turnId": "turn-5"
+        },
+        {
+          "role": "USER",
+          "text": "Une seconde visite à six mois est envisagée.",
+          "turnId": "turn-6"
+        },
+        {
+          "role": "USER",
+          "text": "Le groupe de comparaison n'est pas encore choisi.",
+          "turnId": "turn-7"
+        },
+        {
+          "role": "USER",
+          "text": "Les traitements antihypertenseurs devront rester un contexte non établi s'ils ne sont pas documentés.",
+          "turnId": "turn-8"
+        },
+        {
+          "role": "USER",
+          "text": "Aucun effet thérapeutique ne doit être déduit.",
+          "turnId": "turn-9"
+        }
+      ],
+      "language": "fr-FR",
+      "provenance": {
+        "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+        "createdAt": "2026-08-14T10:00:00.000Z",
+        "inspirationRefs": [
+          "docs/sem-002-scientific-understanding-competence-contract.md",
+          "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+        ],
+        "originType": "SYNTHETIC_AUTHORED",
+        "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output."
+      },
+      "sourceContext": "Conversation synthétique indépendante de cardiologie obstétricale et échocardiographie longitudinale; aucun output SEM ou provider n'a été utilisé.",
+      "sourceRequest": "Tour 1: Je veux étudier l'adaptation cardiovasculaire après une grossesse compliquée d'hypertension.\nTour 2: Une échocardiographie avec estimation du travail myocardique est prévue à six semaines.\nTour 3: La pression artérielle sera mesurée au même temps.\nTour 4: Au départ, je voulais écrire que l'hypertension expliquait les changements de travail myocardique.\nTour 5: Je retire cette interprétation causale: l'étude doit seulement décrire leur relation.\nTour 6: Une seconde visite à six mois est envisagée.\nTour 7: Le groupe de comparaison n'est pas encore choisi.\nTour 8: Les traitements antihypertenseurs devront rester un contexte non établi s'ils ne sont pas documentés.\nTour 9: Aucun effet thérapeutique ne doit être déduit."
+    },
+    "title": "Adaptation cardiovasculaire postpartum sans causalité ajoutée",
+    "version": "1.0.0"
+  },
+  "benchmarkSet": "BLIND",
+  "candidateOutput": {
+    "adjudicationClaims": [],
+    "ambiguityMappings": [],
+    "candidateId": "SEM3-EVAL-CAND-COMP-6A42C19618D6117859E2",
+    "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+    "caseVersion": "1.0.0",
+    "clarificationMapping": {
+      "decisionImpactMapping": "NOT_EVALUABLE",
+      "evidenceRefs": [],
+      "status": "NOT_EVALUABLE"
+    },
+    "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+    "envelopeId": "SEM3-AE-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+    "envelopeVersion": "1.0.0",
+    "evaluationMode": "FUTURE_SEM_RUNTIME",
+    "executionStatus": "NOT_EVALUABLE",
+    "obligationMappings": [
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-1-postpartum-hypertension-context",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-2-myocardial-work-six-weeks",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-3-blood-pressure-same-time",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-4-causal-claim-retracted",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-5-six-month-visit-planned",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-6-comparison-group-open",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-7-treatment-context-unknown",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "optionalCandidateMappings": [],
+    "ownershipMappings": [
+      {
+        "boundaryId": "own-sem-project",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "boundaryId": "own-knowledge-specialists",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "prohibitionSignals": [
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-1-retain-causal-claim",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-2-invent-treatment-effect",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-3-invent-comparator",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "provenanceSummary": {
+      "evidenceRefs": [],
+      "historyReconstructible": false,
+      "sourceRequestReconstructible": false,
+      "status": "NOT_EVALUABLE"
+    },
+    "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+    "schemaVersion": "1.3.0",
+    "semanticElements": [],
+    "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+    "structureProfile": "NOT_AVAILABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_INPUT",
+  "evaluationId": "SEM3-EVAL-COMP-6A42C19618D6117859E2",
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "schemaVersion": "1.3.0"
+}

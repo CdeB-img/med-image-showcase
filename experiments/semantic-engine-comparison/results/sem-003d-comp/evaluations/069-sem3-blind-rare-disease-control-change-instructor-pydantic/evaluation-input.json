@@ -1,0 +1,614 @@
+{
+  "acceptanceEnvelope": {
+    "acceptableSemanticVariants": [
+      {
+        "caveats": [
+          "Aucune équivalence n'est accordée par simple proximité lexicale.",
+          "Le Level 1 critique reste obligatoire."
+        ],
+        "label": "Composition distribuée",
+        "preservedObligationIds": [
+          "req-1-natural-history-registry",
+          "req-2-external-controls-historical",
+          "req-3-unaligned-entry-dates",
+          "req-4-within-patient-primary",
+          "req-5-external-exploratory",
+          "req-6-time-zero-unknown",
+          "req-7-no-treatment-causality"
+        ],
+        "structureSynopsis": "Plusieurs objets et relations peuvent porter le vecteur d'obligations si leurs statuts, polarités, temporalités, provenance et ownership restent reconstructibles.",
+        "variantId": "variant-distributed-obligation-graph"
+      },
+      {
+        "caveats": [
+          "La compacité ne permet ni omission critique ni fusion de plans conceptuels.",
+          "La topologie n'est pas le critère principal."
+        ],
+        "label": "Composition compacte",
+        "preservedObligationIds": [
+          "req-1-natural-history-registry",
+          "req-2-external-controls-historical",
+          "req-3-unaligned-entry-dates",
+          "req-4-within-patient-primary",
+          "req-5-external-exploratory",
+          "req-6-time-zero-unknown",
+          "req-7-no-treatment-causality"
+        ],
+        "structureSynopsis": "Une représentation plus compacte peut être recevable si elle conserve toutes les obligations et n'ajoute aucune promotion ou décision.",
+        "variantId": "variant-compact-relation-preserving"
+      }
+    ],
+    "adjudication": {
+      "humanAdjudicationPoints": [
+        "Confirmer ultérieurement la recevabilité scientifique de REQUIRED et PROHIBITED.",
+        "Adjuger les équivalences complexes sans modifier rétroactivement l'enveloppe pendant une campagne.",
+        "Conserver les candidats optionnels comme enveloppe non exhaustive."
+      ],
+      "notes": "Référence établie avant toute sortie SEM par revue simulée plurifonctionnelle; aucune revue humaine réelle ni éligibilité finale PD-011 n'est revendiquée.",
+      "requiredExpertise": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "INDEPENDENT_ADJUDICATION"
+      ],
+      "status": "SIMULATED_REVIEW_COMPLETE_NOT_PD011_ELIGIBLE"
+    },
+    "admissibleAmbiguities": [],
+    "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+    "contractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+    "envelopeId": "SEM3-AE-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+    "evaluationDemonstrations": [],
+    "expectedClarification": {
+      "acceptableQuestionClasses": [
+        "Définition du temps zéro"
+      ],
+      "decisionImpact": "Le temps zéro conditionne la trajectoire intra-patient devenue principale.",
+      "exactWordingRequired": false,
+      "status": "REQUIRED"
+    },
+    "optionalRelevant": [],
+    "ownershipBoundaries": [
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-sem-project",
+        "description": "SEM peut préserver l'intention, les inconnues, ambiguïtés et candidats; il n'adopte pas une décision de projet.",
+        "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+        "sourceOwner": "SEM",
+        "targetOwner": "Research Project / human decision"
+      },
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-knowledge-specialists",
+        "description": "Les owners spécialisés qualifient preuves, mesures, acquisitions et hypothèses sans devenir la voix de l'utilisateur.",
+        "forbiddenPromotion": "Specialist support to explicit user fact, automatic endpoint or Project truth",
+        "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+        "targetOwner": "SEM benchmark reference"
+      }
+    ],
+    "prohibited": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver les contrôles externes comme comparaison principale active.",
+        "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+        "prohibitionId": "pro-1-external-primary",
+        "propertyIds": [
+          "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.forbidden-external-primary"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Inventer le temps zéro.",
+        "failureClass": "MISSING_INFORMATION_FAILURE",
+        "prohibitionId": "pro-2-invent-time-zero",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_NO_UNSUPPORTED_INVENTION"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.forbidden-invent-time-zero"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Déduire un effet causal de traitement.",
+        "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+        "prohibitionId": "pro-3-causal-treatment-effect",
+        "propertyIds": [
+          "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+          "PROPERTY_NO_UNSUPPORTED_INVENTION"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.forbidden-causal-treatment-effect"
+      }
+    ],
+    "properties": [
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      }
+    ],
+    "required": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver l'étude d'histoire naturelle fondée sur un registre de maladie rare.",
+        "kind": "EXPLICIT_CONCEPT",
+        "obligationId": "req-1-natural-history-registry",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.natural-history-registry",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[0]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver le comparateur externe comme choix initial puis exploratoire.",
+        "kind": "PROVENANCE",
+        "obligationId": "req-2-external-controls-historical",
+        "propertyIds": [
+          "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+          "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.external-controls-historical",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[1]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver le non-alignement des dates d'entrée entre sources.",
+        "kind": "UNKNOWN",
+        "obligationId": "req-3-unaligned-entry-dates",
+        "propertyIds": [
+          "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.unaligned-entry-dates",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[2]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Appliquer la trajectoire intra-patient comme comparaison principale courante.",
+        "kind": "CORRECTION",
+        "obligationId": "req-4-within-patient-primary",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+          "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.within-patient-primary",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[5]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Appliquer les contrôles externes comme analyse exploratoire.",
+        "kind": "CORRECTION",
+        "obligationId": "req-5-external-exploratory",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.external-exploratory",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[6]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Maintenir inconnu le temps zéro de la trajectoire.",
+        "kind": "UNKNOWN",
+        "obligationId": "req-6-time-zero-unknown",
+        "propertyIds": [
+          "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+          "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.time-zero-unknown",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[7]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver l'interdiction d'ajouter une conclusion causale sur un traitement.",
+        "kind": "POLARITY",
+        "obligationId": "req-7-no-treatment-causality",
+        "propertyIds": [
+          "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+          "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-rare-disease-control-change.no-treatment-causality",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[8]"
+      }
+    ],
+    "reviewStatus": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION",
+    "schemaVersion": "1.0.0",
+    "version": "1.0.0"
+  },
+  "benchmarkCase": {
+    "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+    "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+    "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+    "createdAt": "2026-08-14T10:00:00.000Z",
+    "exposure": {
+      "contaminationReview": {
+        "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed.",
+        "reviewedAt": "2026-08-14T10:00:00.000Z",
+        "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+        "status": "CLEAR"
+      },
+      "eligibleForBlindQualification": true,
+      "exposureHistory": [
+        {
+          "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+          "eventId": "exposure-rare-disease-control-change-authored",
+          "fromStatus": null,
+          "occurredAt": "2026-08-14T10:00:00.000Z",
+          "reason": "Independent authoring before parentage review, reference review and sealing.",
+          "toStatus": "BLIND_DESIGN_ONLY"
+        },
+        {
+          "actorRole": "NOXIA_PROJECT_GOVERNANCE_SEALING_OPERATION",
+          "eventId": "exposure-sem3-blind-rare-disease-control-change-sealed",
+          "fromStatus": "BLIND_DESIGN_ONLY",
+          "occurredAt": "2026-08-14T12:00:00.000Z",
+          "reason": "All SEM-003C structural, reference, parentage and anti-leakage gates completed before any SEM output.",
+          "toStatus": "BLIND_SEALED"
+        }
+      ],
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    "purpose": "BLIND_QUALIFICATION_AUTHORING",
+    "reference": {
+      "acceptanceEnvelopeId": "SEM3-AE-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "adjudicationRequirements": [
+        {
+          "expertise": "SCIENTIFIC_DOMAIN",
+          "mandatory": true,
+          "rationale": "Review the scientific obligations without inventing human authority."
+        },
+        {
+          "expertise": "METHODOLOGICAL_SEM",
+          "mandatory": true,
+          "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability."
+        },
+        {
+          "expertise": "INDEPENDENT_ADJUDICATION",
+          "mandatory": true,
+          "rationale": "Preserve unresolved limitations for future PD-011 review."
+        }
+      ],
+      "applicableSEM002Properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ]
+    },
+    "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
+    "schemaVersion": "1.0.0",
+    "scientificScope": {
+      "difficultyTarget": "COMPOSITIONAL",
+      "domain": "méthodologie des registres et histoire naturelle",
+      "domainGroup": "TRANSVERSAL_CLINICAL_BIOMEDICAL_RESEARCH",
+      "intentionallyMissingInformation": [
+        {
+          "description": "Définition du temps zéro de la trajectoire intra-patient.",
+          "informationId": "missing-1",
+          "intentional": true
+        }
+      ],
+      "scenarioCategory": "CHANGE_OF_MIND",
+      "secondaryCategories": [
+        "COMPARISON_AND_TIMING",
+        "MULTI_TURN_CORRECTION"
+      ]
+    },
+    "source": {
+      "conversationTurns": [
+        {
+          "role": "USER",
+          "text": "Nous préparons une étude d'histoire naturelle à partir d'un registre de maladie rare.",
+          "turnId": "turn-1"
+        },
+        {
+          "role": "USER",
+          "text": "Je pensais comparer les patients à des contrôles externes.",
+          "turnId": "turn-2"
+        },
+        {
+          "role": "USER",
+          "text": "Les dates d'entrée ne sont pas alignées entre les sources.",
+          "turnId": "turn-3"
+        },
+        {
+          "role": "USER",
+          "text": "On peut aussi comparer chaque patient à sa trajectoire antérieure.",
+          "turnId": "turn-4"
+        },
+        {
+          "role": "USER",
+          "text": "Les contrôles externes risquent d'être difficiles à rendre comparables.",
+          "turnId": "turn-5"
+        },
+        {
+          "role": "USER",
+          "text": "Je change d'avis: la comparaison intra-patient devient l'analyse principale.",
+          "turnId": "turn-6"
+        },
+        {
+          "role": "USER",
+          "text": "Les contrôles externes restent seulement exploratoires.",
+          "turnId": "turn-7"
+        },
+        {
+          "role": "USER",
+          "text": "Le temps zéro de la trajectoire n'est pas encore défini.",
+          "turnId": "turn-8"
+        },
+        {
+          "role": "USER",
+          "text": "Aucune conclusion causale sur un traitement ne doit être ajoutée.",
+          "turnId": "turn-9"
+        }
+      ],
+      "language": "fr-FR",
+      "provenance": {
+        "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+        "createdAt": "2026-08-14T10:00:00.000Z",
+        "inspirationRefs": [
+          "docs/sem-002-scientific-understanding-competence-contract.md",
+          "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+        ],
+        "originType": "SYNTHETIC_AUTHORED",
+        "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output."
+      },
+      "sourceContext": "Conversation synthétique indépendante de méthodologie des registres et histoire naturelle; aucun output SEM ou provider n'a été utilisé.",
+      "sourceRequest": "Tour 1: Nous préparons une étude d'histoire naturelle à partir d'un registre de maladie rare.\nTour 2: Je pensais comparer les patients à des contrôles externes.\nTour 3: Les dates d'entrée ne sont pas alignées entre les sources.\nTour 4: On peut aussi comparer chaque patient à sa trajectoire antérieure.\nTour 5: Les contrôles externes risquent d'être difficiles à rendre comparables.\nTour 6: Je change d'avis: la comparaison intra-patient devient l'analyse principale.\nTour 7: Les contrôles externes restent seulement exploratoires.\nTour 8: Le temps zéro de la trajectoire n'est pas encore défini.\nTour 9: Aucune conclusion causale sur un traitement ne doit être ajoutée."
+    },
+    "title": "Registre de maladie rare et changement de comparateur",
+    "version": "1.0.0"
+  },
+  "benchmarkSet": "BLIND",
+  "candidateOutput": {
+    "adjudicationClaims": [],
+    "ambiguityMappings": [],
+    "candidateId": "SEM3-EVAL-CAND-COMP-43449428219636903988",
+    "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+    "caseVersion": "1.0.0",
+    "clarificationMapping": {
+      "decisionImpactMapping": "NOT_EVALUABLE",
+      "evidenceRefs": [],
+      "status": "NOT_EVALUABLE"
+    },
+    "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+    "envelopeId": "SEM3-AE-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+    "envelopeVersion": "1.0.0",
+    "evaluationMode": "FUTURE_SEM_RUNTIME",
+    "executionStatus": "NOT_EVALUABLE",
+    "obligationMappings": [
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-1-natural-history-registry",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-2-external-controls-historical",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-3-unaligned-entry-dates",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-4-within-patient-primary",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-5-external-exploratory",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-6-time-zero-unknown",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-7-no-treatment-causality",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "optionalCandidateMappings": [],
+    "ownershipMappings": [
+      {
+        "boundaryId": "own-sem-project",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "boundaryId": "own-knowledge-specialists",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "prohibitionSignals": [
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-1-external-primary",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-2-invent-time-zero",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-3-causal-treatment-effect",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "provenanceSummary": {
+      "evidenceRefs": [],
+      "historyReconstructible": false,
+      "sourceRequestReconstructible": false,
+      "status": "NOT_EVALUABLE"
+    },
+    "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+    "schemaVersion": "1.3.0",
+    "semanticElements": [],
+    "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+    "structureProfile": "NOT_AVAILABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_INPUT",
+  "evaluationId": "SEM3-EVAL-COMP-43449428219636903988",
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "schemaVersion": "1.3.0"
+}

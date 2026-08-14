@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractType": "SEM003D_COMP_POST_CAMPAIGN_DIAGNOSTIC",
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "decision": "SEM003D_COMP_CAMPAIGN_COMPLETE_QUALIFICATION_INCONCLUSIVE",
+  "generation": {
+    "runsExpected": 90,
+    "runsTerminal": 90,
+    "uniqueCaseBaselinePairs": 90,
+    "outputCollectionDigest": "e4a59b48999a7a586bf170ffa837b1f39d5a04e7f385825ec97e41b8bf414f26",
+    "referencesOpenedBeforeFreeze": false
+  },
+  "evaluation": {
+    "evaluationsRecorded": 90,
+    "evaluatorErrors": 0,
+    "evaluatorVersion": "1.3.0",
+    "evaluatorConfigurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
+    "machineDispositions": {
+      "NOT_EVALUABLE": 65,
+      "PROVIDER_EXECUTION_FAILURE": 15,
+      "SEMANTIC_FAILURE": 10
+    },
+    "finalPD011ReferenceEligibility": "NO"
+  },
+  "providerCallReconciliation": {
+    "runRecordCounterTotal": 25,
+    "evidenceReconciledAttemptTotal": 60,
+    "successfulGenerationResponses": 10,
+    "failedProviderAttempts": 50,
+    "tokens": "NOT_EXPOSED_BY_FROZEN_RUNNERS",
+    "countingRule": "One attempt is counted for each frozen run with either a successful provider-backed response or a provider/API exception; every frozen baseline configured at most one attempt and the campaign performed no retry.",
+    "counterLimitation": "The frozen campaign counter recorded zero when a framework raised before returning control, including provider/API exceptions. Run artifacts preserve those exceptions, allowing post-campaign reconciliation without changing any run.",
+    "baselines": [
+      {
+        "baselineId": "SEM003C1-SEM-CURRENT-01",
+        "attempts": 0,
+        "successfulGenerationResponses": 0,
+        "evidence": "15 runs returned no JSON before any provider attempt was evidenced."
+      },
+      {
+        "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+        "attempts": 15,
+        "successfulGenerationResponses": 0,
+        "evidence": "15 InstructorRetryException artifacts contain one HTTP 400 INVALID_ARGUMENT provider response; maxRetries was zero."
+      },
+      {
+        "baselineId": "SEM003C1-PYDANTICAI-01",
+        "attempts": 15,
+        "successfulGenerationResponses": 0,
+        "evidence": "15 ModelHTTPError artifacts contain one HTTP 400 INVALID_ARGUMENT provider response; providerAttempts was one."
+      },
+      {
+        "baselineId": "SEM003C1-DSPY-01",
+        "attempts": 15,
+        "successfulGenerationResponses": 10,
+        "evidence": "10 native projections and 5 LMInvalidRequestError artifacts; numRetries was zero."
+      },
+      {
+        "baselineId": "SEM003C1-LANGEXTRACT-01",
+        "attempts": 0,
+        "successfulGenerationResponses": 0,
+        "evidence": "15 deterministic InferenceConfigError artifacts occurred before provider execution."
+      },
+      {
+        "baselineId": "SEM003C1-OUTLINES-01",
+        "attempts": 15,
+        "successfulGenerationResponses": 0,
+        "evidence": "15 BadRequestError artifacts contain one HTTP 400 INVALID_ARGUMENT provider response; providerAttempts was one."
+      }
+    ]
+  },
+  "semanticBindingAudit": {
+    "baselineId": "SEM003C1-DSPY-01",
+    "structurallyValidOutputs": 10,
+    "requiredMappingsEvaluated": 59,
+    "exactKeyMatches": 0,
+    "mappingsMarkedOmitted": 59,
+    "finding": "The frozen bridge maps obligations only through exact acceptedSemanticKeys. Native outputs use semantically descriptive but different keys. Inspection shows the first required scientific content in the normalized meaning of all 10 structurally valid outputs despite the automated OMITTED judgment.",
+    "classification": "SEMANTIC_EQUIVALENCE_EVALUATION_LIMITATION",
+    "humanAdjudication": "NOT_PERFORMED",
+    "qualificationEffect": "The 10 automated SEMANTIC_FAILURE dispositions cannot establish a scientifically valid comparative competence conclusion without governed equivalence adjudication."
+  },
+  "interpretation": {
+    "semAddsMeasurableValue": "NOT_DEMONSTRATED",
+    "simplerArchitectureScientificallySuperior": "NOT_DEMONSTRATED",
+    "globalRanking": "PROHIBITED_BY_INSUFFICIENT_EVALUABLE_EVIDENCE",
+    "blindSetMayBeReusedAsIndependentEvidenceAfterRepair": false,
+    "reason": "Five baselines produced no structurally valid output, DSPy alone produced 10, and the exact-key bridge did not evaluate semantic equivalence. The Blind package is now exposed."
+  }
+}

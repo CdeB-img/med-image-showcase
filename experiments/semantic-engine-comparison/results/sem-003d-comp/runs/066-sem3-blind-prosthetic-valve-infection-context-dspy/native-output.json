@@ -1,0 +1,186 @@
+{
+  "ambiguities": [
+    {
+      "description": "Le délai exact entre l'initiation des antibiotiques et la réalisation de la TEP-TDM n'est pas fixé.",
+      "issueId": "ambig-1",
+      "semanticKey": "delay.antibiotics.to.pet.unspecified",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-6",
+          "quote": "Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé."
+        }
+      ]
+    }
+  ],
+  "clarifications": [],
+  "concepts": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-1",
+      "conceptType": "population",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Patients avec suspicion d'infection de prothèse valvulaire",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "patient.inclusion.suspected.prosthetic.valve.infection",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "On inclut des patients avec suspicion d'infection de prothèse valvulaire."
+        }
+      ],
+      "studyRole": "population",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-2",
+      "conceptType": "measurement",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "TEP-TDM au FDG décrivant le signal autour de la prothèse",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "fdg.pet.ct.periprosthetic.signal.description",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "La TEP-TDM au FDG doit décrire le signal autour de la prothèse."
+        }
+      ],
+      "studyRole": "measurement",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-3",
+      "conceptType": "biomarker",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Hémocultures négatives",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "blood.cultures.negative",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Les hémocultures peuvent être négatives."
+        }
+      ],
+      "studyRole": "observation",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-4",
+      "conceptType": "phenomenon",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Signal métabolique accompagnant le tableau clinique",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "metabolic.signal.accompanies.clinical.presentation",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Je veux voir si le signal métabolique accompagne le tableau clinique, sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements."
+        }
+      ],
+      "studyRole": "observation",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-5",
+      "conceptType": "endpoint",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Événements emboliques décrits séparément",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "embolic.events.described.separately",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-5",
+          "quote": "Les événements emboliques seront décrits séparément."
+        }
+      ],
+      "studyRole": "endpoint",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-6",
+      "conceptType": "timing",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Délai entre le début des antibiotiques et la TEP non fixé",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "delay.antibiotics.to.pet.unfixed",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-6",
+          "quote": "Le délai entre le début des antibiotiques et la TEP n'est pas encore fixé."
+        }
+      ],
+      "studyRole": "protocol_parameter",
+      "supersedesConceptIds": []
+    }
+  ],
+  "contractType": "SCIENTIFIC_UNDERSTANDING_NATIVE_PROJECTION",
+  "corrections": [],
+  "language": "fr",
+  "normalizedMeaning": "Le dialogue porte sur l'inclusion de patients avec suspicion d'infection de prothèse valvulaire, l'utilisation de la TEP-TDM au FDG pour décrire le signal autour de la prothèse, et la possibilité d'hémocultures négatives. Il est noté que le signal métabolique accompagne le tableau clinique sans constituer une preuve ou une cause unique, que les événements emboliques sont décrits séparément, et que le délai entre le début des antibiotiques et la TEP n'est pas encore fixé.",
+  "optionalCandidates": [],
+  "relations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "NEGATED",
+      "predicate": "does not prove on its own",
+      "relationId": "rel-1",
+      "requiresConfirmation": false,
+      "semanticKey": "metabolic.signal.does.not.prove.infection",
+      "sourceConceptId": "concept-2",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements."
+        }
+      ],
+      "targetConceptId": "concept-4"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "NEGATED",
+      "predicate": "does not cause",
+      "relationId": "rel-2",
+      "requiresConfirmation": false,
+      "semanticKey": "metabolic.signal.does.not.cause.events",
+      "sourceConceptId": "concept-2",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "sans dire qu'il prouve à lui seul l'infection ni qu'il cause les événements."
+        }
+      ],
+      "targetConceptId": "concept-5"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "unknowns": [],
+  "warnings": []
+}

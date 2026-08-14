@@ -1,0 +1,771 @@
+{
+  "candidateId": "SEM3-EVAL-CAND-COMP-10ADC001E4901EB03CB8",
+  "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+  "clarification": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [],
+    "status": "NOT_EVALUABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_RESULT",
+  "criticalViolations": [
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": null,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-001-req-1-microbiome-before-after",
+      "isFirstCause": true,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-1-microbiome-before-after",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-002-req-1-microbiome-before-after",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-1-microbiome-before-after",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-003-req-1-microbiome-before-after",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-1-microbiome-before-after",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-004-req-2-sampling-times",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-2-sampling-times",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "findingId": "finding-005-req-3-diet-unreliable",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "referenceId": "req-3-diet-unreliable",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "findingId": "finding-007-req-4-candidates-not-observed",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      ],
+      "referenceId": "req-4-candidates-not-observed",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "PROVENANCE_FAILURE",
+      "findingId": "finding-008-req-4-candidates-not-observed",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "referenceId": "req-4-candidates-not-observed",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-010-req-5-no-global-causality",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "referenceId": "req-5-no-global-causality",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-011-req-5-no-global-causality",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "referenceId": "req-5-no-global-causality",
+      "stage": "LEVEL_1"
+    }
+  ],
+  "disposition": "SEMANTIC_FAILURE",
+  "enrichment": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [
+      "acceptanceEnvelope.required.req-4-candidates-not-observed"
+    ],
+    "status": "VIOLATED"
+  },
+  "equivalence": {
+    "classification": "NOT_EQUIVALENT",
+    "referenceVariantId": null,
+    "requiresHumanDecision": true,
+    "requiresIndependentQualificationEvidence": false,
+    "structureProfile": "CONSOLIDATED"
+  },
+  "evaluationId": "SEM3-EVAL-COMP-10ADC001E4901EB03CB8",
+  "evaluatorIdentity": {
+    "configurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
+    "version": "1.3.0"
+  },
+  "evidenceTrace": [
+    "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES@1.0.0",
+    "SEM3-AE-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES@1.0.0",
+    "SEM3-EVAL-CAND-COMP-10ADC001E4901EB03CB8@1.3.0",
+    "acceptanceEnvelope.required.req-1-microbiome-before-after",
+    "acceptanceEnvelope.required.req-5-no-global-causality",
+    "acceptanceEnvelope.required.req-2-sampling-times",
+    "acceptanceEnvelope.prohibited.pro-3-all-change-caused",
+    "acceptanceEnvelope.required.req-4-candidates-not-observed",
+    "acceptanceEnvelope.prohibited.pro-1-candidate-as-observation",
+    "acceptanceEnvelope.required.req-3-diet-unreliable",
+    "acceptanceEnvelope.prohibited.pro-2-diet-completed"
+  ],
+  "findings": [
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": null,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-001-req-1-microbiome-before-after",
+      "isFirstCause": true,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-1-microbiome-before-after",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-002-req-1-microbiome-before-after",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-1-microbiome-before-after",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-003-req-1-microbiome-before-after",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-1-microbiome-before-after",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-004-req-2-sampling-times",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-2-sampling-times",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "findingId": "finding-005-req-3-diet-unreliable",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "referenceId": "req-3-diet-unreliable",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "findingId": "finding-006-req-3-diet-unreliable",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "referenceId": "req-3-diet-unreliable",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "findingId": "finding-007-req-4-candidates-not-observed",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      ],
+      "referenceId": "req-4-candidates-not-observed",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "PROVENANCE_FAILURE",
+      "findingId": "finding-008-req-4-candidates-not-observed",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "referenceId": "req-4-candidates-not-observed",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "findingId": "finding-009-req-4-candidates-not-observed",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+      ],
+      "referenceId": "req-4-candidates-not-observed",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-010-req-5-no-global-causality",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "referenceId": "req-5-no-global-causality",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-microbiome-before-after",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-011-req-5-no-global-causality",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "referenceId": "req-5-no-global-causality",
+      "stage": "LEVEL_1"
+    }
+  ],
+  "firstCause": {
+    "code": "REQUIRED_OBLIGATION_OMITTED",
+    "downstreamOf": null,
+    "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+    "findingId": "finding-001-req-1-microbiome-before-after",
+    "isFirstCause": true,
+    "message": "The normalized candidate marks a required obligation as OMITTED.",
+    "propertyIds": [
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+    ],
+    "referenceId": "req-1-microbiome-before-after",
+    "stage": "LEVEL_1"
+  },
+  "level1": {
+    "checkCount": 11,
+    "criticalVector": [
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      },
+      {
+        "judgment": "NOT_APPLICABLE",
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "judgment": "SATISFIED",
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "judgment": "SATISFIED",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "judgment": "ADJUDICATION_REQUIRED",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      }
+    ],
+    "status": "FAIL"
+  },
+  "level2": {
+    "adjudicationPackets": [
+      {
+        "candidateEvidenceRefs": [],
+        "candidateId": "SEM3-EVAL-CAND-COMP-10ADC001E4901EB03CB8",
+        "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "obligationRefs": [],
+        "packetId": "SEM3-ADJ-COMP-10ADC001E4901EB03CB8-P11",
+        "permittedDecisions": [
+          "SATISFIED",
+          "VIOLATED",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "OWNERSHIP_BOUNDARY_FAILURE"
+        ],
+        "propertyIds": [
+          "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "schemaVersion": "1.0.0",
+        "sourceRequestRef": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES.source.sourceRequest",
+        "status": "OPEN"
+      }
+    ],
+    "appliedDecisions": [],
+    "status": "ADJUDICATION_REQUIRED"
+  },
+  "mode": "FUTURE_SEM_RUNTIME",
+  "ownership": {
+    "adjudicationRequired": true,
+    "evidenceRefs": [],
+    "status": "ADJUDICATION_REQUIRED"
+  },
+  "propertyJudgments": [
+    {
+      "adjudicationPacketId": null,
+      "alias": "P01",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-microbiome-before-after"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-1-microbiome-before-after",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P02",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-microbiome-before-after"
+      ],
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-1-microbiome-before-after",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P03",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-5-no-global-causality"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-5-no-global-causality",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P04",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [
+        "finding-004-req-2-sampling-times"
+      ],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-microbiome-before-after",
+        "acceptanceEnvelope.required.req-2-sampling-times"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-1-microbiome-before-after",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P05",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P06",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-5-no-global-causality",
+        "acceptanceEnvelope.prohibited.pro-3-all-change-caused"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-5-no-global-causality",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P07",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-4-candidates-not-observed",
+        "acceptanceEnvelope.prohibited.pro-1-candidate-as-observation"
+      ],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-4-candidates-not-observed",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P08",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.prohibited.pro-1-candidate-as-observation"
+      ],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "SATISFIED",
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P09",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-3-diet-unreliable",
+        "acceptanceEnvelope.prohibited.pro-2-diet-completed"
+      ],
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-3-diet-unreliable",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P10",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.prohibited.pro-1-candidate-as-observation",
+        "acceptanceEnvelope.prohibited.pro-2-diet-completed"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "SATISFIED",
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+    },
+    {
+      "adjudicationPacketId": "SEM3-ADJ-COMP-10ADC001E4901EB03CB8-P11",
+      "alias": "P11",
+      "applicable": true,
+      "checkType": "ADJUDICATION_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "ADJUDICATION_REQUIRED",
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P12",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-4-candidates-not-observed"
+      ],
+      "failureClass": "PROVENANCE_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-4-candidates-not-observed",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P13",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-3-diet-unreliable"
+      ],
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-3-diet-unreliable",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P14",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P15",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P16",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "CLARIFICATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P17",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P18",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-4-candidates-not-observed"
+      ],
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-4-candidates-not-observed",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+    }
+  ],
+  "provenance": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [
+      "acceptanceEnvelope.required.req-4-candidates-not-observed"
+    ],
+    "status": "VIOLATED"
+  },
+  "schemaVersion": "1.1.0"
+}

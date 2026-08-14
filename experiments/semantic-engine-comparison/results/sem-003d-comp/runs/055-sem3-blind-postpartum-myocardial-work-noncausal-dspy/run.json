@@ -1,0 +1,51 @@
+{
+  "baselineId": "SEM003C1-DSPY-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+  "caseInputDigest": "e77caa89aa3120ddfafd3d10337cceb509c9fa16d8845bae6e4ca26a827cfb6e",
+  "caseOrdinal": 10,
+  "completedAt": "2026-08-14T00:21:23.052628Z",
+  "configuration": {
+    "cache": false,
+    "demonstrations": [],
+    "module": "dspy.Predict",
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "numRetries": 0,
+    "optimizer": null,
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": null,
+  "framework": "DSPy",
+  "frameworkVersion": "3.3.0",
+  "latencyMs": 6316.985,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/055-sem3-blind-postpartum-myocardial-work-noncausal-dspy/native-output.json",
+    "sha256": "ac0b4ca70933a7e21264dabc8cb131b8cb360f463a87f4d994a01b8f9cbf1d7e"
+  },
+  "normalizationStatus": "PASS",
+  "normalizedOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/055-sem3-blind-postpartum-myocardial-work-noncausal-dspy/normalized-output.json",
+    "sha256": "0e1a310875109bb8828482b333bd9cd3642c0778a5b88a8e96003923d3156c63"
+  },
+  "parsingStatus": "PASS",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 1,
+  "providerStatus": "SUCCESS",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-10-DSPY",
+  "runOrdinal": 55,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:21:10.903894Z",
+  "stderr": null,
+  "terminalStatus": "SUCCESS",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

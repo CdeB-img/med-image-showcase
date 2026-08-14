@@ -1,0 +1,49 @@
+{
+  "baselineId": "SEM003C1-SEM-CURRENT-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+  "caseInputDigest": "de11d08bd966c09d2a6694141412fc5239cc8f92470a376654fc8ff857617dcd",
+  "caseOrdinal": 3,
+  "completedAt": "2026-08-14T00:17:28.823909Z",
+  "configuration": {
+    "maxAttemptsPerProviderOperation": 1,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "previousModel": null,
+    "strategy": "NATIVE_SEM_RECONSTRUCTION_CRITIC_DETERMINISTIC_CANONICALIZATION",
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "ValueError",
+    "message": "SEM returned no JSON output"
+  },
+  "framework": "NOXIA_SEM",
+  "frameworkVersion": "SEM-001-1.1 / SEM_LEGACY_R5P",
+  "latencyMs": 274.274,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/017-sem3-blind-corneal-nerve-method-measure-sem-current/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 0,
+  "providerStatus": "FRAMEWORK_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-03-SEM-CURRENT",
+  "runOrdinal": 17,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:17:22.698949Z",
+  "stderr": null,
+  "terminalStatus": "FRAMEWORK_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

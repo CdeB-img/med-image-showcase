@@ -1,0 +1,49 @@
+{
+  "baselineId": "SEM003C1-SEM-CURRENT-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+  "caseInputDigest": "08c4ca6ba503cceaefe45d24e6d0074d48e3f2ac9baa6c70068639a2210d9bac",
+  "caseOrdinal": 1,
+  "completedAt": "2026-08-14T00:15:52.487337Z",
+  "configuration": {
+    "maxAttemptsPerProviderOperation": 1,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "previousModel": null,
+    "strategy": "NATIVE_SEM_RECONSTRUCTION_CRITIC_DETERMINISTIC_CANONICALIZATION",
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "ValueError",
+    "message": "SEM returned no JSON output"
+  },
+  "framework": "NOXIA_SEM",
+  "frameworkVersion": "SEM-001-1.1 / SEM_LEGACY_R5P",
+  "latencyMs": 263.045,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/001-sem3-blind-amyloid-ecv-purpose-gap-sem-current/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 0,
+  "providerStatus": "FRAMEWORK_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-01-SEM-CURRENT",
+  "runOrdinal": 1,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:15:52.223859Z",
+  "stderr": null,
+  "terminalStatus": "FRAMEWORK_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

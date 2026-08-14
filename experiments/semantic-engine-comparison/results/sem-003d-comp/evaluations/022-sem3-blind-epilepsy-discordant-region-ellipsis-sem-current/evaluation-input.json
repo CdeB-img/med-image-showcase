@@ -1,0 +1,569 @@
+{
+  "acceptanceEnvelope": {
+    "acceptableSemanticVariants": [
+      {
+        "caveats": [
+          "Aucune équivalence n'est accordée par simple proximité lexicale.",
+          "Le Level 1 critique reste obligatoire."
+        ],
+        "label": "Composition distribuée",
+        "preservedObligationIds": [
+          "req-1-epileptogenic-network-purpose",
+          "req-2-pet-and-meg",
+          "req-3-regional-discordance-possible",
+          "req-4-concordant-primary-candidate",
+          "req-5-discordant-region-separate"
+        ],
+        "structureSynopsis": "Plusieurs objets et relations peuvent porter le vecteur d'obligations si leurs statuts, polarités, temporalités, provenance et ownership restent reconstructibles.",
+        "variantId": "variant-distributed-obligation-graph"
+      },
+      {
+        "caveats": [
+          "La compacité ne permet ni omission critique ni fusion de plans conceptuels.",
+          "La topologie n'est pas le critère principal."
+        ],
+        "label": "Composition compacte",
+        "preservedObligationIds": [
+          "req-1-epileptogenic-network-purpose",
+          "req-2-pet-and-meg",
+          "req-3-regional-discordance-possible",
+          "req-4-concordant-primary-candidate",
+          "req-5-discordant-region-separate"
+        ],
+        "structureSynopsis": "Une représentation plus compacte peut être recevable si elle conserve toutes les obligations et n'ajoute aucune promotion ou décision.",
+        "variantId": "variant-compact-relation-preserving"
+      }
+    ],
+    "adjudication": {
+      "humanAdjudicationPoints": [
+        "Confirmer ultérieurement la recevabilité scientifique de REQUIRED et PROHIBITED.",
+        "Adjuger les équivalences complexes sans modifier rétroactivement l'enveloppe pendant une campagne.",
+        "Conserver les candidats optionnels comme enveloppe non exhaustive."
+      ],
+      "notes": "Référence établie avant toute sortie SEM par revue simulée plurifonctionnelle; aucune revue humaine réelle ni éligibilité finale PD-011 n'est revendiquée.",
+      "requiredExpertise": [
+        "SCIENTIFIC_DOMAIN",
+        "METHODOLOGICAL_SEM",
+        "INDEPENDENT_ADJUDICATION"
+      ],
+      "status": "SIMULATED_REVIEW_COMPLETE_NOT_PD011_ELIGIBLE"
+    },
+    "admissibleAmbiguities": [],
+    "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+    "contractType": "SEM003C_BLIND_ACCEPTANCE_ENVELOPE",
+    "envelopeId": "SEM3-AE-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+    "evaluationDemonstrations": [],
+    "expectedClarification": {
+      "acceptableQuestionClasses": [
+        "Critères futurs d'adoption d'une région candidate"
+      ],
+      "decisionImpact": "La décision chirurgicale n'est pas requise pour représenter l'intention; son owner doit rester humain.",
+      "exactWordingRequired": false,
+      "status": "OPTIONAL"
+    },
+    "optionalRelevant": [
+      {
+        "absenceIsBlocking": false,
+        "candidateId": "opt-1-discordance-review",
+        "description": "Une revue spécialisée de la discordance peut être proposée comme étape candidate.",
+        "envelopeIsNonExhaustive": true,
+        "epistemicStatus": "CONTEXTUAL_CANDIDATE",
+        "rationale": "La discordance explicite justifie un candidat de revue, sans adopter une décision chirurgicale.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.optional-discordance-review"
+      }
+    ],
+    "ownershipBoundaries": [
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-sem-project",
+        "description": "SEM peut préserver l'intention, les inconnues, ambiguïtés et candidats; il n'adopte pas une décision de projet.",
+        "forbiddenPromotion": "Inference, option or contextual candidate to adopted Project decision",
+        "sourceOwner": "SEM",
+        "targetOwner": "Research Project / human decision"
+      },
+      {
+        "adoptionRequiresHumanDecision": true,
+        "boundaryId": "own-knowledge-specialists",
+        "description": "Les owners spécialisés qualifient preuves, mesures, acquisitions et hypothèses sans devenir la voix de l'utilisateur.",
+        "forbiddenPromotion": "Specialist support to explicit user fact, automatic endpoint or Project truth",
+        "sourceOwner": "Knowledge / OBS / Imaging / Scientific Thinking",
+        "targetOwner": "SEM benchmark reference"
+      }
+    ],
+    "prohibited": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Promouvoir une région candidate ou soutenue par un owner spécialisé en foyer certain ou en décision chirurgicale.",
+        "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+        "prohibitionId": "pro-1-candidate-certain-focus",
+        "propertyIds": [
+          "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+          "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+          "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.forbidden-candidate-certain-focus"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Fusionner régions concordante et discordante.",
+        "failureClass": "RELATION_SEMANTICS_FAILURE",
+        "prohibitionId": "pro-2-merge-regions",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.forbidden-merge-regions"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Rattacher l'ellipse à une modalité plutôt qu'à la région discordante.",
+        "failureClass": "RELATION_SEMANTICS_FAILURE",
+        "prohibitionId": "pro-3-wrong-ellipsis-antecedent",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+        ],
+        "rationale": "Cette erreur changerait le sens, le statut épistémique, la provenance ou l'ownership de la demande.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.forbidden-wrong-ellipsis-antecedent"
+      }
+    ],
+    "properties": [
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "CONTEXTUAL_ENRICHMENT",
+        "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      },
+      {
+        "absolute": true,
+        "compensable": false,
+        "criticality": "CRITICAL",
+        "evaluationMode": "RUN_LEVEL",
+        "family": "SAFETY_FIDELITY_INVARIANT",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      },
+      {
+        "absolute": false,
+        "compensable": false,
+        "criticality": "MAJOR",
+        "evaluationMode": "DISTRIBUTION",
+        "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+        "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      }
+    ],
+    "required": [
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver l'objectif de localisation du réseau épileptogène avant discussion chirurgicale.",
+        "kind": "EXPLICIT_CONCEPT",
+        "obligationId": "req-1-epileptogenic-network-purpose",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.epileptogenic-network-purpose",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[0]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver la TEP intercritique et la magnétoencéphalographie comme sources distinctes.",
+        "kind": "RELATION",
+        "obligationId": "req-2-pet-and-meg",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.pet-and-meg",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[1]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver la possibilité de régions différentes selon les deux sources.",
+        "kind": "AMBIGUITY",
+        "obligationId": "req-3-regional-discordance-possible",
+        "propertyIds": [
+          "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.regional-discordance-possible",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[2]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Conserver la région concordante comme candidate principale, jamais comme foyer certain.",
+        "kind": "OWNERSHIP",
+        "obligationId": "req-4-concordant-primary-candidate",
+        "propertyIds": [
+          "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+          "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+          "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.concordant-primary-candidate",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[3]"
+      },
+      {
+        "criticality": "CRITICAL",
+        "description": "Rattacher l'ellipse du dernier tour à la région discordante et la conserver séparément.",
+        "kind": "RELATION",
+        "obligationId": "req-5-discordant-region-separate",
+        "propertyIds": [
+          "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+          "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+          "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+        ],
+        "rationale": "Cette obligation préserve un contenu, une relation, un statut, une temporalité ou une inconnue qui affecte le sens scientifique.",
+        "semanticKey": "sem3-blind-epilepsy-discordant-region-ellipsis.discordant-region-separate",
+        "sourceClassification": "INHERENTLY_REQUIRED",
+        "sourceLocator": "source.conversationTurns[4]"
+      }
+    ],
+    "reviewStatus": "SIMULATED_REFERENCE_STABLE_FOR_BLIND_CONSTRUCTION",
+    "schemaVersion": "1.0.0",
+    "version": "1.0.0"
+  },
+  "benchmarkCase": {
+    "authorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+    "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+    "contractType": "SEM003C_BLIND_BENCHMARK_CASE",
+    "createdAt": "2026-08-14T10:00:00.000Z",
+    "exposure": {
+      "contaminationReview": {
+        "notes": "Simulated parentage review found no translation, paraphrase, discriminating-fact reuse, superficial domain swap or recombination; no human independence is claimed.",
+        "reviewedAt": "2026-08-14T10:00:00.000Z",
+        "reviewerRole": "REVIEWER_SIM_BENCHMARK_GOVERNANCE",
+        "status": "CLEAR"
+      },
+      "eligibleForBlindQualification": true,
+      "exposureHistory": [
+        {
+          "actorRole": "CODEX_INDEPENDENT_BLIND_DOCUMENTARY_AUTHOR",
+          "eventId": "exposure-epilepsy-discordant-region-ellipsis-authored",
+          "fromStatus": null,
+          "occurredAt": "2026-08-14T10:00:00.000Z",
+          "reason": "Independent authoring before parentage review, reference review and sealing.",
+          "toStatus": "BLIND_DESIGN_ONLY"
+        },
+        {
+          "actorRole": "NOXIA_PROJECT_GOVERNANCE_SEALING_OPERATION",
+          "eventId": "exposure-sem3-blind-epilepsy-discordant-region-ellipsis-sealed",
+          "fromStatus": "BLIND_DESIGN_ONLY",
+          "occurredAt": "2026-08-14T12:00:00.000Z",
+          "reason": "All SEM-003C structural, reference, parentage and anti-leakage gates completed before any SEM output.",
+          "toStatus": "BLIND_SEALED"
+        }
+      ],
+      "exposureStatus": "BLIND_SEALED",
+      "parentageStatus": "BLIND_PARENTAGE_CLEAR"
+    },
+    "purpose": "BLIND_QUALIFICATION_AUTHORING",
+    "reference": {
+      "acceptanceEnvelopeId": "SEM3-AE-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "adjudicationRequirements": [
+        {
+          "expertise": "SCIENTIFIC_DOMAIN",
+          "mandatory": true,
+          "rationale": "Review the scientific obligations without inventing human authority."
+        },
+        {
+          "expertise": "METHODOLOGICAL_SEM",
+          "mandatory": true,
+          "rationale": "Review semantic equivalence, epistemic status, ownership and evaluability."
+        },
+        {
+          "expertise": "INDEPENDENT_ADJUDICATION",
+          "mandatory": true,
+          "rationale": "Preserve unresolved limitations for future PD-011 review."
+        }
+      ],
+      "applicableSEM002Properties": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE",
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION",
+        "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE",
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT",
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED",
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED",
+        "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION",
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED",
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE",
+        "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+      ]
+    },
+    "reviewStatus": "SIMULATED_REFERENCE_REVIEW_COMPLETE",
+    "schemaVersion": "1.0.0",
+    "scientificScope": {
+      "difficultyTarget": "ADVANCED",
+      "domain": "neuro-imagerie de l'épilepsie",
+      "domainGroup": "OTHER_MEDICAL_IMAGING",
+      "intentionallyMissingInformation": [
+        {
+          "description": "Règle d'adoption d'une région candidate pour la décision chirurgicale.",
+          "informationId": "missing-1",
+          "intentional": true
+        }
+      ],
+      "scenarioCategory": "ELLIPSIS",
+      "secondaryCategories": [
+        "SCIENTIFIC_AMBIGUITY",
+        "MULTIDIMENSIONAL_REQUEST"
+      ]
+    },
+    "source": {
+      "conversationTurns": [
+        {
+          "role": "USER",
+          "text": "Je veux localiser le réseau épileptogène avant discussion chirurgicale.",
+          "turnId": "turn-1"
+        },
+        {
+          "role": "USER",
+          "text": "Nous aurons une TEP intercritique et une magnétoencéphalographie.",
+          "turnId": "turn-2"
+        },
+        {
+          "role": "USER",
+          "text": "Les deux peuvent désigner des régions différentes.",
+          "turnId": "turn-3"
+        },
+        {
+          "role": "USER",
+          "text": "Je veux garder la région concordante comme candidate principale, sans la déclarer foyer certain.",
+          "turnId": "turn-4"
+        },
+        {
+          "role": "USER",
+          "text": "Et la discordante aussi, mais séparément.",
+          "turnId": "turn-5"
+        }
+      ],
+      "language": "fr-FR",
+      "provenance": {
+        "author": "Codex acting as documentary blind benchmark author, not as human scientific reviewer",
+        "createdAt": "2026-08-14T10:00:00.000Z",
+        "inspirationRefs": [
+          "docs/sem-002-scientific-understanding-competence-contract.md",
+          "docs/sem-003-independent-scientific-understanding-benchmark-architecture.md"
+        ],
+        "originType": "SYNTHETIC_AUTHORED",
+        "originalSource": "Original independent SEM-003C blind authoring; not translated, paraphrased, adapted or generated from SEM output."
+      },
+      "sourceContext": "Conversation synthétique indépendante de neuro-imagerie de l'épilepsie; aucun output SEM ou provider n'a été utilisé.",
+      "sourceRequest": "Tour 1: Je veux localiser le réseau épileptogène avant discussion chirurgicale.\nTour 2: Nous aurons une TEP intercritique et une magnétoencéphalographie.\nTour 3: Les deux peuvent désigner des régions différentes.\nTour 4: Je veux garder la région concordante comme candidate principale, sans la déclarer foyer certain.\nTour 5: Et la discordante aussi, mais séparément."
+    },
+    "title": "Épilepsie et région discordante",
+    "version": "1.0.0"
+  },
+  "benchmarkSet": "BLIND",
+  "candidateOutput": {
+    "adjudicationClaims": [],
+    "ambiguityMappings": [],
+    "candidateId": "SEM3-EVAL-CAND-COMP-7A489C0C2B8E9A21A130",
+    "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+    "caseVersion": "1.0.0",
+    "clarificationMapping": {
+      "decisionImpactMapping": "NOT_EVALUABLE",
+      "evidenceRefs": [],
+      "status": "NOT_EVALUABLE"
+    },
+    "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+    "envelopeId": "SEM3-AE-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+    "envelopeVersion": "1.0.0",
+    "evaluationMode": "FUTURE_SEM_RUNTIME",
+    "executionStatus": "NOT_EVALUABLE",
+    "obligationMappings": [
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-1-epileptogenic-network-purpose",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-2-pet-and-meg",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-3-regional-discordance-possible",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-4-concordant-primary-candidate",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "candidateElementRefs": [],
+        "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+        "obligationId": "req-5-discordant-region-separate",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "optionalCandidateMappings": [
+      {
+        "candidateId": "opt-1-discordance-review",
+        "epistemicStatus": "NOT_EVALUABLE",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "ownershipMappings": [
+      {
+        "boundaryId": "own-sem-project",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "boundaryId": "own-knowledge-specialists",
+        "evidenceRefs": [],
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "prohibitionSignals": [
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-1-candidate-certain-focus",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-2-merge-regions",
+        "status": "NOT_EVALUABLE"
+      },
+      {
+        "evidenceRefs": [],
+        "prohibitionId": "pro-3-wrong-ellipsis-antecedent",
+        "status": "NOT_EVALUABLE"
+      }
+    ],
+    "provenanceSummary": {
+      "evidenceRefs": [],
+      "historyReconstructible": false,
+      "sourceRequestReconstructible": false,
+      "status": "NOT_EVALUABLE"
+    },
+    "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+    "schemaVersion": "1.3.0",
+    "semanticElements": [],
+    "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+    "structureProfile": "NOT_AVAILABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_INPUT",
+  "evaluationId": "SEM3-EVAL-COMP-7A489C0C2B8E9A21A130",
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "schemaVersion": "1.3.0"
+}

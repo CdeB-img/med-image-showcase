@@ -1,0 +1,102 @@
+{
+  "adjudicationClaims": [],
+  "ambiguityMappings": [],
+  "candidateId": "SEM3-EVAL-CAND-COMP-E201E6B366A1857F376B",
+  "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+  "caseVersion": "1.0.0",
+  "clarificationMapping": {
+    "decisionImpactMapping": "NOT_EVALUABLE",
+    "evidenceRefs": [],
+    "status": "NOT_EVALUABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "envelopeId": "SEM3-AE-BLIND-HFPEF-EXERCISE-STATE",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "executionStatus": "NOT_EVALUABLE",
+  "obligationMappings": [
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-1-hfpef-dyspnea-context",
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-2-exercise-state",
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-3-invasive-pressure-and-echo",
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-4-strain-measure-not-phenomenon",
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-5-within-person-comparison",
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-6-exercise-type-unknown",
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-7-no-causal-mechanism",
+      "status": "NOT_EVALUABLE"
+    }
+  ],
+  "optionalCandidateMappings": [],
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "evidenceRefs": [],
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "evidenceRefs": [],
+      "status": "NOT_EVALUABLE"
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "evidenceRefs": [],
+      "prohibitionId": "pro-1-strain-equals-dyspnea",
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "evidenceRefs": [],
+      "prohibitionId": "pro-2-measurements-causal",
+      "status": "NOT_EVALUABLE"
+    },
+    {
+      "evidenceRefs": [],
+      "prohibitionId": "pro-3-invent-exercise",
+      "status": "NOT_EVALUABLE"
+    }
+  ],
+  "provenanceSummary": {
+    "evidenceRefs": [],
+    "historyReconstructible": false,
+    "sourceRequestReconstructible": false,
+    "status": "NOT_EVALUABLE"
+  },
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+  "schemaVersion": "1.3.0",
+  "semanticElements": [],
+  "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+  "structureProfile": "NOT_AVAILABLE"
+}

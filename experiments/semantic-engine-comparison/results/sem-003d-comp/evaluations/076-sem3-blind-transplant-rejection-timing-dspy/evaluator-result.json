@@ -1,0 +1,866 @@
+{
+  "candidateId": "SEM3-EVAL-CAND-COMP-FFA777201B392823C81B",
+  "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+  "clarification": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [],
+    "status": "NOT_EVALUABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_RESULT",
+  "criticalViolations": [
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": null,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-001-req-1-transplant-surveillance",
+      "isFirstCause": true,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-1-transplant-surveillance",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-002-req-2-mri-biopsy-comparison",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-2-mri-biopsy-comparison",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-003-req-2-mri-biopsy-comparison",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-2-mri-biopsy-comparison",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-005-req-3-t2-measurement",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-3-t2-measurement",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-007-req-4-histology-grade-distinct",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-4-histology-grade-distinct",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-009-req-5-nonconcurrent-exams",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-5-nonconcurrent-exams",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-010-req-6-t2-not-rejection",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "referenceId": "req-6-t2-not-rejection",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-011-req-6-t2-not-rejection",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "referenceId": "req-6-t2-not-rejection",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-012-req-7-time-window-open",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-7-time-window-open",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "findingId": "finding-013-req-7-time-window-open",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "referenceId": "req-7-time-window-open",
+      "stage": "LEVEL_1"
+    }
+  ],
+  "disposition": "SEMANTIC_FAILURE",
+  "enrichment": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [],
+    "status": "NOT_APPLICABLE"
+  },
+  "equivalence": {
+    "classification": "NOT_EQUIVALENT",
+    "referenceVariantId": null,
+    "requiresHumanDecision": true,
+    "requiresIndependentQualificationEvidence": false,
+    "structureProfile": "CONSOLIDATED"
+  },
+  "evaluationId": "SEM3-EVAL-COMP-FFA777201B392823C81B",
+  "evaluatorIdentity": {
+    "configurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
+    "version": "1.3.0"
+  },
+  "evidenceTrace": [
+    "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING@1.0.0",
+    "SEM3-AE-BLIND-TRANSPLANT-REJECTION-TIMING@1.0.0",
+    "SEM3-EVAL-CAND-COMP-FFA777201B392823C81B@1.3.0",
+    "acceptanceEnvelope.required.req-1-transplant-surveillance",
+    "acceptanceEnvelope.required.req-3-t2-measurement",
+    "acceptanceEnvelope.required.req-2-mri-biopsy-comparison",
+    "acceptanceEnvelope.required.req-4-histology-grade-distinct",
+    "acceptanceEnvelope.required.req-6-t2-not-rejection",
+    "acceptanceEnvelope.prohibited.pro-2-t2-proves-rejection",
+    "acceptanceEnvelope.required.req-5-nonconcurrent-exams",
+    "acceptanceEnvelope.required.req-7-time-window-open",
+    "acceptanceEnvelope.prohibited.pro-3-invent-window",
+    "acceptanceEnvelope.prohibited.pro-1-collapse-t2-biopsy"
+  ],
+  "findings": [
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": null,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-001-req-1-transplant-surveillance",
+      "isFirstCause": true,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-1-transplant-surveillance",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-002-req-2-mri-biopsy-comparison",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-2-mri-biopsy-comparison",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-003-req-2-mri-biopsy-comparison",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-2-mri-biopsy-comparison",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "findingId": "finding-004-req-2-mri-biopsy-comparison",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "referenceId": "req-2-mri-biopsy-comparison",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-005-req-3-t2-measurement",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-3-t2-measurement",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "findingId": "finding-006-req-3-t2-measurement",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "referenceId": "req-3-t2-measurement",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-007-req-4-histology-grade-distinct",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-4-histology-grade-distinct",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "findingId": "finding-008-req-4-histology-grade-distinct",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "referenceId": "req-4-histology-grade-distinct",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-009-req-5-nonconcurrent-exams",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-5-nonconcurrent-exams",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-010-req-6-t2-not-rejection",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "referenceId": "req-6-t2-not-rejection",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-011-req-6-t2-not-rejection",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "referenceId": "req-6-t2-not-rejection",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-012-req-7-time-window-open",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      ],
+      "referenceId": "req-7-time-window-open",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "findingId": "finding-013-req-7-time-window-open",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "referenceId": "req-7-time-window-open",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-transplant-surveillance",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "findingId": "finding-014-req-7-time-window-open",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "referenceId": "req-7-time-window-open",
+      "stage": "LEVEL_1"
+    }
+  ],
+  "firstCause": {
+    "code": "REQUIRED_OBLIGATION_OMITTED",
+    "downstreamOf": null,
+    "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+    "findingId": "finding-001-req-1-transplant-surveillance",
+    "isFirstCause": true,
+    "message": "The normalized candidate marks a required obligation as OMITTED.",
+    "propertyIds": [
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+    ],
+    "referenceId": "req-1-transplant-surveillance",
+    "stage": "LEVEL_1"
+  },
+  "level1": {
+    "checkCount": 14,
+    "criticalVector": [
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      },
+      {
+        "judgment": "NOT_APPLICABLE",
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      },
+      {
+        "judgment": "ADJUDICATION_REQUIRED",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "judgment": "NOT_APPLICABLE",
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "judgment": "SATISFIED",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "judgment": "ADJUDICATION_REQUIRED",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "judgment": "ADJUDICATION_REQUIRED",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      }
+    ],
+    "status": "FAIL"
+  },
+  "level2": {
+    "adjudicationPackets": [
+      {
+        "candidateEvidenceRefs": [],
+        "candidateId": "SEM3-EVAL-CAND-COMP-FFA777201B392823C81B",
+        "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "obligationRefs": [],
+        "packetId": "SEM3-ADJ-COMP-FFA777201B392823C81B-P07",
+        "permittedDecisions": [
+          "SATISFIED",
+          "VIOLATED",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "EPISTEMIC_PROMOTION_FAILURE"
+        ],
+        "propertyIds": [
+          "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "schemaVersion": "1.0.0",
+        "sourceRequestRef": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING.source.sourceRequest",
+        "status": "OPEN"
+      },
+      {
+        "candidateEvidenceRefs": [],
+        "candidateId": "SEM3-EVAL-CAND-COMP-FFA777201B392823C81B",
+        "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "obligationRefs": [],
+        "packetId": "SEM3-ADJ-COMP-FFA777201B392823C81B-P11",
+        "permittedDecisions": [
+          "SATISFIED",
+          "VIOLATED",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "OWNERSHIP_BOUNDARY_FAILURE"
+        ],
+        "propertyIds": [
+          "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "schemaVersion": "1.0.0",
+        "sourceRequestRef": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING.source.sourceRequest",
+        "status": "OPEN"
+      },
+      {
+        "candidateEvidenceRefs": [],
+        "candidateId": "SEM3-EVAL-CAND-COMP-FFA777201B392823C81B",
+        "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "obligationRefs": [],
+        "packetId": "SEM3-ADJ-COMP-FFA777201B392823C81B-P12",
+        "permittedDecisions": [
+          "SATISFIED",
+          "VIOLATED",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "PROVENANCE_FAILURE"
+        ],
+        "propertyIds": [
+          "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "schemaVersion": "1.0.0",
+        "sourceRequestRef": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING.source.sourceRequest",
+        "status": "OPEN"
+      }
+    ],
+    "appliedDecisions": [],
+    "status": "ADJUDICATION_REQUIRED"
+  },
+  "mode": "FUTURE_SEM_RUNTIME",
+  "ownership": {
+    "adjudicationRequired": true,
+    "evidenceRefs": [],
+    "status": "ADJUDICATION_REQUIRED"
+  },
+  "propertyJudgments": [
+    {
+      "adjudicationPacketId": null,
+      "alias": "P01",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [
+        "finding-005-req-3-t2-measurement"
+      ],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-transplant-surveillance",
+        "acceptanceEnvelope.required.req-3-t2-measurement"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-1-transplant-surveillance",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P02",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [
+        "finding-007-req-4-histology-grade-distinct"
+      ],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-2-mri-biopsy-comparison",
+        "acceptanceEnvelope.required.req-4-histology-grade-distinct"
+      ],
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-2-mri-biopsy-comparison",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P03",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-6-t2-not-rejection",
+        "acceptanceEnvelope.prohibited.pro-2-t2-proves-rejection"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-6-t2-not-rejection",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P04",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [
+        "finding-009-req-5-nonconcurrent-exams",
+        "finding-012-req-7-time-window-open"
+      ],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-2-mri-biopsy-comparison",
+        "acceptanceEnvelope.required.req-5-nonconcurrent-exams",
+        "acceptanceEnvelope.required.req-7-time-window-open"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-2-mri-biopsy-comparison",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P05",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P06",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-6-t2-not-rejection",
+        "acceptanceEnvelope.prohibited.pro-2-t2-proves-rejection"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-6-t2-not-rejection",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+    },
+    {
+      "adjudicationPacketId": "SEM3-ADJ-COMP-FFA777201B392823C81B-P07",
+      "alias": "P07",
+      "applicable": true,
+      "checkType": "ADJUDICATION_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "ADJUDICATION_REQUIRED",
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P08",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P09",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-7-time-window-open",
+        "acceptanceEnvelope.prohibited.pro-3-invent-window"
+      ],
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-7-time-window-open",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P10",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.prohibited.pro-3-invent-window"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "SATISFIED",
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+    },
+    {
+      "adjudicationPacketId": "SEM3-ADJ-COMP-FFA777201B392823C81B-P11",
+      "alias": "P11",
+      "applicable": true,
+      "checkType": "ADJUDICATION_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "ADJUDICATION_REQUIRED",
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": "SEM3-ADJ-COMP-FFA777201B392823C81B-P12",
+      "alias": "P12",
+      "applicable": true,
+      "checkType": "ADJUDICATION_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "PROVENANCE_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "ADJUDICATION_REQUIRED",
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P13",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-7-time-window-open"
+      ],
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-7-time-window-open",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P14",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [
+        "finding-006-req-3-t2-measurement",
+        "finding-008-req-4-histology-grade-distinct"
+      ],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-2-mri-biopsy-comparison",
+        "acceptanceEnvelope.required.req-3-t2-measurement",
+        "acceptanceEnvelope.required.req-4-histology-grade-distinct",
+        "acceptanceEnvelope.prohibited.pro-1-collapse-t2-biopsy"
+      ],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-2-mri-biopsy-comparison",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P15",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P16",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "CLARIFICATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P17",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P18",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+    }
+  ],
+  "provenance": {
+    "adjudicationRequired": true,
+    "evidenceRefs": [],
+    "status": "ADJUDICATION_REQUIRED"
+  },
+  "schemaVersion": "1.1.0"
+}

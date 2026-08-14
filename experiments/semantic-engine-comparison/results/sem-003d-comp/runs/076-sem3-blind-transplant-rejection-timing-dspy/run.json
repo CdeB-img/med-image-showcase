@@ -1,0 +1,51 @@
+{
+  "baselineId": "SEM003C1-DSPY-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+  "caseInputDigest": "48514975a9fccf81afe6a2e9692c7ed571f8e0427c6238c6df94b2623d2e6a47",
+  "caseOrdinal": 13,
+  "completedAt": "2026-08-14T00:23:27.900242Z",
+  "configuration": {
+    "cache": false,
+    "demonstrations": [],
+    "module": "dspy.Predict",
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "numRetries": 0,
+    "optimizer": null,
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": null,
+  "framework": "DSPy",
+  "frameworkVersion": "3.3.0",
+  "latencyMs": 4730.031,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/076-sem3-blind-transplant-rejection-timing-dspy/native-output.json",
+    "sha256": "c9ef206efba6894824d8f073eeffd8cbd91d15747960280f8fbc1864c73f7f85"
+  },
+  "normalizationStatus": "PASS",
+  "normalizedOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/076-sem3-blind-transplant-rejection-timing-dspy/normalized-output.json",
+    "sha256": "e72be4f31a93e376a08ee4e4bad7e313bbdff27a2f002be847df059fc99d236b"
+  },
+  "parsingStatus": "PASS",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 1,
+  "providerStatus": "SUCCESS",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-13-DSPY",
+  "runOrdinal": 76,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:23:17.640804Z",
+  "stderr": null,
+  "terminalStatus": "SUCCESS",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

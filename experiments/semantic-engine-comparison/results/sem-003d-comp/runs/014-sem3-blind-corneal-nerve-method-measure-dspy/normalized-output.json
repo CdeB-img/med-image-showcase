@@ -1,0 +1,151 @@
+{
+  "ambiguities": [],
+  "baselineId": "SEM003C1-DSPY-01",
+  "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+  "caseVersion": "1.0.0",
+  "clarifications": [],
+  "contractType": "NORMALIZED_CANDIDATE_SEMANTIC_REPRESENTATION",
+  "executionStatus": "COMPLETED",
+  "language": "fr",
+  "nativeOutputDigest": "dd37512199d2292edca4de03024319e3d3ef031756a4fabe497d1fb508cc3672",
+  "normalizationPolicy": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+  "normalizedMeaning": "L'utilisateur souhaite étudier la régénération nerveuse après une chirurgie cornéenne en utilisant la microscopie confocale comme méthode pour quantifier la densité des fibres nerveuses comme mesure.",
+  "runId": "SEM003D-RUN-03-DSPY",
+  "schemaVersion": "1.0.0",
+  "semanticElements": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-chirurgie-corneenne",
+      "elementType": "Intervention",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Chirurgie cornéenne",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.corneal-surgery",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Après chirurgie cornéenne"
+        }
+      ],
+      "sourceNativeId": "concept-chirurgie-corneenne",
+      "studyRole": "intervention",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-microscopie-confocale",
+      "elementType": "Method",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Microscopie confocale",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "method.confocal-microscopy",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "utiliser la microscopie confocale"
+        }
+      ],
+      "sourceNativeId": "concept-microscopie-confocale",
+      "studyRole": "method",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-densite-fibres-nerveuses",
+      "elementType": "Measurement",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Densité des fibres nerveuses",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.nerve-fiber-density",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "quantifier la densité des fibres nerveuses"
+        }
+      ],
+      "sourceNativeId": "concept-densite-fibres-nerveuses",
+      "studyRole": "measurement",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-regeneration-nerveuse",
+      "elementType": "Phenomenon",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Régénération nerveuse",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "phenomenon.nerve-regeneration",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "la régénération nerveuse reste le phénomène étudié"
+        }
+      ],
+      "sourceNativeId": "concept-regeneration-nerveuse",
+      "studyRole": "phenomenon",
+      "supersedesSourceNativeIds": []
+    }
+  ],
+  "semanticRelations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "quantifie",
+      "relationId": "relation-rel-method-measurement",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.method.quantifies.measurement",
+      "sourceElementId": "element-concept-microscopie-confocale",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "la microscopie est la méthode et [...] la densité est la mesure"
+        }
+      ],
+      "sourceNativeId": "rel-method-measurement",
+      "targetElementId": "element-concept-densite-fibres-nerveuses"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "concerne-phenomene",
+      "relationId": "relation-rel-phenomenon-studied",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.study.studies.phenomenon",
+      "sourceElementId": "element-concept-chirurgie-corneenne",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Après chirurgie cornéenne[...] la régénération nerveuse reste le phénomène étudié"
+        }
+      ],
+      "sourceNativeId": "rel-phenomenon-studied",
+      "targetElementId": "element-concept-regeneration-nerveuse"
+    }
+  ],
+  "unknowns": [],
+  "warnings": []
+}

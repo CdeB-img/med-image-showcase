@@ -1,0 +1,53 @@
+{
+  "baselineId": "SEM003C1-LANGEXTRACT-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+  "caseInputDigest": "43d25abc6865d84936cfbfa0149e26f53c8df6ed544da850f1a04222128c84ac",
+  "caseOrdinal": 7,
+  "completedAt": "2026-08-14T00:19:52.670276Z",
+  "configuration": {
+    "batchLength": 1,
+    "examples": [],
+    "extractionPasses": 1,
+    "fetchUrls": false,
+    "maxCharBuffer": 20000,
+    "maxRetries": 0,
+    "maxWorkers": 1,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "InferenceConfigError",
+    "message": "output_schema extraction items use extraction-class keys such as 'condition', not LangExtract's internal field names: attributes, extraction_class, extraction_text"
+  },
+  "framework": "LangExtract",
+  "frameworkVersion": "1.6.0",
+  "latencyMs": 3.13,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/041-sem3-blind-laa-closure-seal-assessment-langextract/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 0,
+  "providerStatus": "FRAMEWORK_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-07-LANGEXTRACT",
+  "runOrdinal": 41,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:19:51.245901Z",
+  "stderr": null,
+  "terminalStatus": "FRAMEWORK_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

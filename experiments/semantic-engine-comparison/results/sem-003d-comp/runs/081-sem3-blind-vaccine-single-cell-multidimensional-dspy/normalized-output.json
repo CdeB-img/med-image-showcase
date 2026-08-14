@@ -1,0 +1,261 @@
+{
+  "ambiguities": [
+    {
+      "description": "L'utilisateur souhaite explorer les relations entre la réponse cellulaire et la réponse en anticorps sans transformer l'association en mécanisme.",
+      "issueId": "amb-relation-exploration",
+      "semanticKey": "ambiguity.exploration-relations-sans-mecanisme",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-6",
+          "quote": "Je veux explorer leurs relations, sans transformer l'association en mécanisme."
+        }
+      ]
+    },
+    {
+      "description": "Les effets de lot restent un candidat méthodologique à vérifier et ne constituent pas une explication acquise.",
+      "issueId": "amb-effets-de-lot",
+      "semanticKey": "ambiguity.effets-de-lot-candidat-methodologique",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-7",
+          "quote": "Les effets de lot restent un candidat méthodologique à vérifier, pas une explication acquise."
+        }
+      ]
+    }
+  ],
+  "baselineId": "SEM003C1-DSPY-01",
+  "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+  "caseVersion": "1.0.0",
+  "clarifications": [],
+  "contractType": "NORMALIZED_CANDIDATE_SEMANTIC_REPRESENTATION",
+  "executionStatus": "COMPLETED",
+  "language": "fr",
+  "nativeOutputDigest": "518166f6fff6e5a2a8d0e062e54834a0887f3d4c0e5a2715840f259cf0d866ee",
+  "normalizationPolicy": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+  "normalizedMeaning": "L'utilisateur souhaite caractériser la réponse immunitaire précoce après vaccination en utilisant des prélèvements avant vaccination et à deux temps après vaccination. L'analyse par single-cell RNA-seq vise à décrire les proportions cellulaires et les états transcriptionnels, en évitant de confondre variation de proportion et changement d'état cellulaire. La réponse en anticorps sera mesurée ultérieurement et l'utilisateur souhaite explorer les relations entre ces éléments sans déduire de mécanisme causal. Les effets de lot sont considérés comme un candidat méthodologique à vérifier.",
+  "runId": "SEM003D-RUN-14-DSPY",
+  "schemaVersion": "1.0.0",
+  "semanticElements": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-reponse-immunitaire",
+      "elementType": "phenomenon",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "réponse immunitaire précoce",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.reponse-immunitaire-precoce",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Après vaccination, je veux caractériser la réponse immunitaire précoce."
+        }
+      ],
+      "sourceNativeId": "c-reponse-immunitaire",
+      "studyRole": "endpoint",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-vaccination",
+      "elementType": "intervention",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "vaccination",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.vaccination",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Après vaccination, je veux caractériser la réponse immunitaire précoce."
+        }
+      ],
+      "sourceNativeId": "c-vaccination",
+      "studyRole": "intervention",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-prelevements",
+      "elementType": "measurement",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "prélèvements avant vaccination et deux temps après",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.prelevements",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Nous aurons des prélèvements avant vaccination, puis deux temps après."
+        }
+      ],
+      "sourceNativeId": "c-prelevements",
+      "studyRole": "measurement",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-single-cell-rna-seq",
+      "elementType": "method",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "single-cell RNA-seq",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "method.single-cell-rna-seq",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Le single-cell RNA-seq décrira à la fois des proportions cellulaires et des états transcriptionnels."
+        }
+      ],
+      "sourceNativeId": "c-single-cell-rna-seq",
+      "studyRole": "method",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-proportions-cellulaires",
+      "elementType": "observable",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "proportions cellulaires",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "observable.proportions-cellulaires",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Le single-cell RNA-seq décrira à la fois des proportions cellulaires et des états transcriptionnels."
+        }
+      ],
+      "sourceNativeId": "c-proportions-cellulaires",
+      "studyRole": "endpoint",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-etats-transcriptionnels",
+      "elementType": "observable",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "états transcriptionnels",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "observable.etats-transcriptionnels",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Le single-cell RNA-seq décrira à la fois des proportions cellulaires et des états transcriptionnels."
+        }
+      ],
+      "sourceNativeId": "c-etats-transcriptionnels",
+      "studyRole": "endpoint",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-reponse-anticorps",
+      "elementType": "measurement",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "réponse d'anticorps",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.reponse-anticorps",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-5",
+          "quote": "La réponse d'anticorps sera mesurée plus tard."
+        }
+      ],
+      "sourceNativeId": "c-reponse-anticorps",
+      "studyRole": "endpoint",
+      "supersedesSourceNativeIds": []
+    }
+  ],
+  "semanticRelations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "decrit",
+      "relationId": "relation-r-sc-rna-seq-proportions",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.single-cell-rna-seq.designe.proportions-cellulaires",
+      "sourceElementId": "element-c-single-cell-rna-seq",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Le single-cell RNA-seq décrira à la fois des proportions cellulaires et des états transcriptionnels."
+        }
+      ],
+      "sourceNativeId": "r-sc-rna-seq-proportions",
+      "targetElementId": "element-c-proportions-cellulaires"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "decrit",
+      "relationId": "relation-r-sc-rna-seq-etats",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.single-cell-rna-seq.designe.etats-transcriptionnels",
+      "sourceElementId": "element-c-single-cell-rna-seq",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Le single-cell RNA-seq décrira à la fois des proportions cellulaires et des états transcriptionnels."
+        }
+      ],
+      "sourceNativeId": "r-sc-rna-seq-etats",
+      "targetElementId": "element-c-etats-transcriptionnels"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CORRECTION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "NEGATED",
+      "predicate": "ne doit pas etre confondu avec",
+      "relationId": "relation-corr-proportion-vs-etat",
+      "requiresConfirmation": false,
+      "semanticKey": "correction.variation-proportion.pas-confondre.changement-etat",
+      "sourceElementId": "element-c-proportions-cellulaires",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Une variation de proportion ne doit pas être confondue avec un changement d'état dans une cellule."
+        }
+      ],
+      "sourceNativeId": "corr-proportion-vs-etat",
+      "targetElementId": "element-c-etats-transcriptionnels"
+    }
+  ],
+  "unknowns": [],
+  "warnings": []
+}

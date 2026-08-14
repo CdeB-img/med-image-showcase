@@ -1,0 +1,173 @@
+{
+  "ambiguities": [
+    {
+      "description": "L'utilisateur n'a pas encore choisi si la question principale concerne une comparaison longitudinale (hausse dans le temps) ou transversale (niveau plus élevé entre groupes).",
+      "issueId": "ambig-main-comparison",
+      "semanticKey": "ambiguity.study.main-comparison",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Je n'ai pas encore choisi laquelle de ces deux comparaisons est la question principale."
+        }
+      ]
+    }
+  ],
+  "baselineId": "SEM003C1-DSPY-01",
+  "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+  "caseVersion": "1.0.0",
+  "clarifications": [
+    {
+      "clarificationId": "clarif-main-comparison",
+      "question": "Quelle est la question principale entre la comparaison longitudinale (hausse dans le temps) et la comparaison entre groupes ?",
+      "reason": "Le choix de la comparaison principale est indécis et détermine l'orientation de l'analyse statistique et de la structuration du protocole.",
+      "resolvesSemanticKeys": [
+        "ambiguity.study.main-comparison"
+      ]
+    }
+  ],
+  "contractType": "NORMALIZED_CANDIDATE_SEMANTIC_REPRESENTATION",
+  "executionStatus": "COMPLETED",
+  "language": "fr",
+  "nativeOutputDigest": "d918131825c277a2a4a4358befab9bc06c7cc529398251102c9501da1a457d4a",
+  "normalizationPolicy": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+  "normalizedMeaning": "L'utilisateur souhaite étudier l'augmentation du rehaussement parenchymateux de fond (BPE) en IRM mammaire, en disposant d'examens réalisés avant et après une modification hormonale. Deux types de comparaisons sont évoqués (une hausse dans le temps ou un niveau plus élevé entre groupes), mais le choix de la question principale n'est pas encore arrêté.",
+  "runId": "SEM003D-RUN-02-DSPY",
+  "schemaVersion": "1.0.0",
+  "semanticElements": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-bpe",
+      "elementType": "PHENOMENON",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "rehaussement parenchymateux de fond",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "phenomenon.breast.bpe",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "augmentation du rehaussement parenchymateux de fond en IRM mammaire"
+        }
+      ],
+      "sourceNativeId": "concept-bpe",
+      "studyRole": "OBSERVABLE",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-mri",
+      "elementType": "METHOD",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "IRM mammaire",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "method.imaging.breast-mri",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "IRM mammaire"
+        }
+      ],
+      "sourceNativeId": "concept-mri",
+      "studyRole": "MODALITY",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-hormonal-modification",
+      "elementType": "INTERVENTION",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "modification hormonale",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.hormonal-modification",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "modification hormonale"
+        }
+      ],
+      "sourceNativeId": "concept-hormonal-modification",
+      "studyRole": "INTERVENTION",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-time-comparison",
+      "elementType": "COMPARISON",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "hausse dans le temps",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "comparison.time.longitudinal",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "hausse dans le temps"
+        }
+      ],
+      "sourceNativeId": "concept-time-comparison",
+      "studyRole": "COMPARATOR",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-group-comparison",
+      "elementType": "COMPARISON",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "niveau plus élevé entre groupes",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "comparison.group.between-groups",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "niveau plus élevé entre groupes"
+        }
+      ],
+      "sourceNativeId": "concept-group-comparison",
+      "studyRole": "COMPARATOR",
+      "supersedesSourceNativeIds": []
+    }
+  ],
+  "semanticRelations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "measured_by",
+      "relationId": "relation-rel-bpe-mri",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.phenomenon.measured-by.mri",
+      "sourceElementId": "element-concept-bpe",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "augmentation du rehaussement parenchymateux de fond en IRM mammaire"
+        }
+      ],
+      "sourceNativeId": "rel-bpe-mri",
+      "targetElementId": "element-concept-mri"
+    }
+  ],
+  "unknowns": [],
+  "warnings": []
+}

@@ -1,0 +1,258 @@
+{
+  "ambiguities": [],
+  "baselineId": "SEM003C1-DSPY-01",
+  "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+  "caseVersion": "1.0.0",
+  "clarifications": [],
+  "contractType": "NORMALIZED_CANDIDATE_SEMANTIC_REPRESENTATION",
+  "executionStatus": "COMPLETED",
+  "language": "fr",
+  "nativeOutputDigest": "3f01c1f709740bd9f61ebdea56c6e43876390efe8a07afd29af89ba36c4fdcd9",
+  "normalizationPolicy": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+  "normalizedMeaning": "L'utilisateur souhaite comparer l'IRM et la biopsie de surveillance après une greffe cardiaque. L'IRM utilise la relaxation T2 myocardique comme mesure quantitative, tandis que la biopsie conserve son propre grade histologique. Les examens ne sont pas nécessairement réalisés le même jour, et le délai entre les deux examens doit être conservé séparément, la fenêtre temporelle acceptable restant à définir. Toute élévation du T2 ne doit pas être qualifiée de rejet.",
+  "runId": "SEM003D-RUN-13-DSPY",
+  "schemaVersion": "1.0.0",
+  "semanticElements": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-greffe-cardiaque",
+      "elementType": "intervention",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Greffe cardiaque",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.greffe-cardiaque",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Après greffe cardiaque"
+        }
+      ],
+      "sourceNativeId": "c-greffe-cardiaque",
+      "studyRole": "context",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-irm",
+      "elementType": "method",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "IRM",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "modalite.irm",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "l'IRM"
+        },
+        {
+          "messageId": "turn-2",
+          "quote": "En IRM"
+        }
+      ],
+      "sourceNativeId": "c-irm",
+      "studyRole": "imaging_modality",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-biopsie-surveillance",
+      "elementType": "method",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Biopsie de surveillance",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "modalite.biopsie-surveillance",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "la biopsie de surveillance"
+        }
+      ],
+      "sourceNativeId": "c-biopsie-surveillance",
+      "studyRole": "surveillance_method",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-relaxation-t2",
+      "elementType": "measurement",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Relaxation T2 myocardique",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "mesure.relaxation-t2-myocardique",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "la relaxation T2 myocardique est la mesure quantitative retenue"
+        }
+      ],
+      "sourceNativeId": "c-relaxation-t2",
+      "studyRole": "quantitative_measurement",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-grade-histologique",
+      "elementType": "measurement",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Grade histologique de la biopsie",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "mesure.grade-histologique-biopsie",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "La biopsie conserve son grade histologique propre"
+        }
+      ],
+      "sourceNativeId": "c-grade-histologique",
+      "studyRole": "histological_measurement",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-rejet",
+      "elementType": "phenomenon",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Rejet",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "phenomene.rejet",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-5",
+          "quote": "rejet"
+        }
+      ],
+      "sourceNativeId": "c-rejet",
+      "studyRole": "clinical_phenomenon",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-c-delai-examens",
+      "elementType": "parameter",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Délai entre les deux examens",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "parametre.delai-entre-examens",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Les deux examens ne seront pas toujours faits le même jour"
+        },
+        {
+          "messageId": "turn-6",
+          "quote": "délai entre les deux examens"
+        }
+      ],
+      "sourceNativeId": "c-delai-examens",
+      "studyRole": "timing_parameter",
+      "supersedesSourceNativeIds": []
+    }
+  ],
+  "semanticRelations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "utilise_mesure_quantitative",
+      "relationId": "relation-r-irm-mesure-t2",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.irm-mesure-t2",
+      "sourceElementId": "element-c-irm",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "En IRM, la relaxation T2 myocardique est la mesure quantitative retenue."
+        }
+      ],
+      "sourceNativeId": "r-irm-mesure-t2",
+      "targetElementId": "element-c-relaxation-t2"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "conserve_grade",
+      "relationId": "relation-r-biopsie-grade",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.biopsie-grade-histologique",
+      "sourceElementId": "element-c-biopsie-surveillance",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "La biopsie conserve son grade histologique propre; ce n'est pas une mesure IRM."
+        }
+      ],
+      "sourceNativeId": "r-biopsie-grade",
+      "targetElementId": "element-c-grade-histologique"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "NEGATED",
+      "predicate": "equivaut_a",
+      "relationId": "relation-r-elevation-t2-rejet",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.elevation-t2-rejet.negated",
+      "sourceElementId": "element-c-relaxation-t2",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-5",
+          "quote": "Je ne veux pas appeler toute élévation de T2 un rejet."
+        }
+      ],
+      "sourceNativeId": "r-elevation-t2-rejet",
+      "targetElementId": "element-c-rejet"
+    }
+  ],
+  "unknowns": [
+    {
+      "description": "La fenêtre temporelle acceptable entre l'IRM et la biopsie reste à définir.",
+      "issueId": "u-fenetre-temporelle",
+      "semanticKey": "inconnu.fenetre-temporelle-acceptable",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-7",
+          "quote": "La fenêtre temporelle acceptable reste à définir."
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

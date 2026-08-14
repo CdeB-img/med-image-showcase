@@ -1,0 +1,49 @@
+{
+  "baselineId": "SEM003C1-PYDANTICAI-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+  "caseInputDigest": "e77caa89aa3120ddfafd3d10337cceb509c9fa16d8845bae6e4ca26a827cfb6e",
+  "caseOrdinal": 10,
+  "completedAt": "2026-08-14T00:21:47.721102Z",
+  "configuration": {
+    "agentRetries": 0,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "providerAttempts": 1,
+    "temperature": null,
+    "tools": []
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "ModelHTTPError",
+    "message": "status_code: 400, model_name: gemini-3.5-flash-lite, body: {'error': {'code': 400, 'message': 'Request contains an invalid argument.', 'status': 'INVALID_ARGUMENT'}}"
+  },
+  "framework": "PydanticAI",
+  "frameworkVersion": "2.29.0",
+  "latencyMs": 624.447,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/060-sem3-blind-postpartum-myocardial-work-noncausal-pydanticai/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 1,
+  "providerStatus": "PROVIDER_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-10-PYDANTICAI",
+  "runOrdinal": 60,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:21:41.276153Z",
+  "stderr": null,
+  "terminalStatus": "PROVIDER_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

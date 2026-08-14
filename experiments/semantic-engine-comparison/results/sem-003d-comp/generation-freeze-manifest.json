@@ -1,0 +1,747 @@
+{
+  "baselineMutationAfterFirstRun": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "contractType": "SEM003D_COMP_GENERATION_FREEZE_MANIFEST",
+  "evaluatorMutationAfterFirstRun": false,
+  "outputCollectionDigest": "e4a59b48999a7a586bf170ffa837b1f39d5a04e7f385825ec97e41b8bf414f26",
+  "outputFileCount": 190,
+  "outputFreezeAt": "2026-08-14T00:24:47.899870Z",
+  "providerCallCountUnknownRuns": 0,
+  "providerCallsKnown": 25,
+  "referencesOpened": false,
+  "runRecords": [
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "recordDigest": "d6fd60d82c45d54e95b5964ebaa73adcfc26f12936e52bdaad0fdb49e47e92eb",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/001-sem3-blind-amyloid-ecv-purpose-gap-sem-current/run.json",
+      "runId": "SEM003D-RUN-01-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "recordDigest": "670076a5e65997a360c75d1289800bff1d9682c3f2ef959052d14777b9ea1425",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/002-sem3-blind-amyloid-ecv-purpose-gap-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-01-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "recordDigest": "1c0eb8b1ec1aafed5d872cd44da3877dac9916f39d1079489c2c0932144b99d9",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/003-sem3-blind-amyloid-ecv-purpose-gap-pydanticai/run.json",
+      "runId": "SEM003D-RUN-01-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "recordDigest": "41df02c65ec63408d4d48c0c437df6b38aaa08a013fe6a5dd8896f5f37a5a1c4",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/004-sem3-blind-amyloid-ecv-purpose-gap-dspy/run.json",
+      "runId": "SEM003D-RUN-01-DSPY",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "recordDigest": "11e0ea85b072d4a2835ca3fa991f6730e0d4c8f48c3acff825ed175d301188cc",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/005-sem3-blind-amyloid-ecv-purpose-gap-langextract/run.json",
+      "runId": "SEM003D-RUN-01-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "recordDigest": "eb0350dbf800abc8f72390ff17291c448ee49b2705c1b29c7957661db21d24d8",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/006-sem3-blind-amyloid-ecv-purpose-gap-outlines/run.json",
+      "runId": "SEM003D-RUN-01-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "recordDigest": "a624a2b07dca7b0725b85de2da10648d0612ab24e0dc34e9b9dead0d7d3e712a",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/007-sem3-blind-breast-bpe-ambiguous-change-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-02-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "recordDigest": "8feac1c3db3e90e715318a39cf6a9bd0288ecb09ca8582751c3ebee3772a78ce",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/008-sem3-blind-breast-bpe-ambiguous-change-pydanticai/run.json",
+      "runId": "SEM003D-RUN-02-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "recordDigest": "ec4b1923b722e667c89268f371f1cc290c4545ce4fbee30b4c4cadcc9f763013",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/009-sem3-blind-breast-bpe-ambiguous-change-dspy/run.json",
+      "runId": "SEM003D-RUN-02-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "recordDigest": "4ac931f5932f0334be633cfa1b09345817deb0aeaa95eaac9facb4f841000098",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/010-sem3-blind-breast-bpe-ambiguous-change-langextract/run.json",
+      "runId": "SEM003D-RUN-02-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "recordDigest": "23f44122f9a51edcad5f13b278e59e278e8fc6397c81e7296e247c241fbe1c6b",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/011-sem3-blind-breast-bpe-ambiguous-change-outlines/run.json",
+      "runId": "SEM003D-RUN-02-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "recordDigest": "c078301d7bcb1523d010c1df694135039d059dacb732d08b0a4adc3c69084428",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/012-sem3-blind-breast-bpe-ambiguous-change-sem-current/run.json",
+      "runId": "SEM003D-RUN-02-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "recordDigest": "9d0b346113b4c586968cd051b38a0dec8dbcd8def6c7593dd909ebd719997a76",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/013-sem3-blind-corneal-nerve-method-measure-pydanticai/run.json",
+      "runId": "SEM003D-RUN-03-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "recordDigest": "16da7aeb566c780137dc8e2639eabdc1d49ecd5f8eab3557b149b0da1e0521b1",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/014-sem3-blind-corneal-nerve-method-measure-dspy/run.json",
+      "runId": "SEM003D-RUN-03-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "recordDigest": "33edbc5250052f8f527b6682b9b713427a353524634fccb1b1c067ec0d6ada58",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/015-sem3-blind-corneal-nerve-method-measure-langextract/run.json",
+      "runId": "SEM003D-RUN-03-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "recordDigest": "58807e89ba73bc48109cfdff072a2c1db01389c00e08303cb39982b1c2184c00",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/016-sem3-blind-corneal-nerve-method-measure-outlines/run.json",
+      "runId": "SEM003D-RUN-03-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "recordDigest": "b3b292336c69d24fef12b815ede234c619752a0b61a4bc731ce7dba59191e889",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/017-sem3-blind-corneal-nerve-method-measure-sem-current/run.json",
+      "runId": "SEM003D-RUN-03-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "recordDigest": "8985c4e4bf754309eb071992eadd2400de36a76888bf03f5015f99c1b2f8cd2d",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/018-sem3-blind-corneal-nerve-method-measure-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-03-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "recordDigest": "02f616ea0f968111f86febb9f526e0b63b9ecf7de60b56f321f78c2eb8820b59",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/019-sem3-blind-epilepsy-discordant-region-ellipsis-dspy/run.json",
+      "runId": "SEM003D-RUN-04-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "recordDigest": "7bcaf9576c56d698bda14e5780349f8862b3d0481c357e3c7497dec8ff5c06e6",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/020-sem3-blind-epilepsy-discordant-region-ellipsis-langextract/run.json",
+      "runId": "SEM003D-RUN-04-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "recordDigest": "cffc4dfaf8c9dbffe55fb364e2391c87990d26b9b3a683d60968ab781a066a4e",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/021-sem3-blind-epilepsy-discordant-region-ellipsis-outlines/run.json",
+      "runId": "SEM003D-RUN-04-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "recordDigest": "b176facdf63321e7fd4eb7a36c2a0f03593d558db159c74606f8d73640997103",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/022-sem3-blind-epilepsy-discordant-region-ellipsis-sem-current/run.json",
+      "runId": "SEM003D-RUN-04-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "recordDigest": "028792590e00756b85f0c2590d404b8a3d3f15aa09bd71a77ce7fd3d4de4a89e",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/023-sem3-blind-epilepsy-discordant-region-ellipsis-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-04-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "recordDigest": "3869f87c0c5a098933199028967041095df118ecb4d9ec5299a39fc232ca37ba",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/024-sem3-blind-epilepsy-discordant-region-ellipsis-pydanticai/run.json",
+      "runId": "SEM003D-RUN-04-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "recordDigest": "cb7dfd334da38bcdaf69d2d186d3ef96dadd09e38bbfc0dd061c05bccb2b9321",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/025-sem3-blind-focused-ultrasound-bbb-mri-langextract/run.json",
+      "runId": "SEM003D-RUN-05-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "recordDigest": "b3292b60ed8329ce3b44424915c474740d90bb0d7299e9f96b9a6bfb07abe2ab",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/026-sem3-blind-focused-ultrasound-bbb-mri-outlines/run.json",
+      "runId": "SEM003D-RUN-05-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "recordDigest": "cab4b4f69bd1219d3fca1b62d04229f37d0afdb73c16add55b487509021ebfb9",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/027-sem3-blind-focused-ultrasound-bbb-mri-sem-current/run.json",
+      "runId": "SEM003D-RUN-05-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "recordDigest": "a3c5a5b6440aa1e9162bd7fe667aae525d3bce474342e27aa6a5f5d9e60bf8cf",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/028-sem3-blind-focused-ultrasound-bbb-mri-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-05-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "recordDigest": "b6c3f63568486a0862699bc822a54ad72b880348dba8fd7b8fb70d36e983a25a",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/029-sem3-blind-focused-ultrasound-bbb-mri-pydanticai/run.json",
+      "runId": "SEM003D-RUN-05-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "recordDigest": "245dc15d95e11a3ad3185493aacd8857192620819fd439374e075cab447e4abf",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/030-sem3-blind-focused-ultrasound-bbb-mri-dspy/run.json",
+      "runId": "SEM003D-RUN-05-DSPY",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "recordDigest": "0d4e40d21fd842898a84e186209cdc5790a9e8fe957b8786097789c677e19629",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/031-sem3-blind-hfpef-exercise-state-outlines/run.json",
+      "runId": "SEM003D-RUN-06-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "recordDigest": "439ae75607a1f0c022c94ba94b58a11d337e8b04c28755942e81d54db5dc6f85",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/032-sem3-blind-hfpef-exercise-state-sem-current/run.json",
+      "runId": "SEM003D-RUN-06-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "recordDigest": "dc34948df0a9585d907d2732f06a7e27b8f5922a7c1d0d4bc8a1b8b5d42e1c49",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/033-sem3-blind-hfpef-exercise-state-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-06-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "recordDigest": "3c131580e04c647061500cd3eb50c99dfc39cdbfe30c7def46e82697ef76b95a",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/034-sem3-blind-hfpef-exercise-state-pydanticai/run.json",
+      "runId": "SEM003D-RUN-06-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "recordDigest": "25cc6993502875c133b4af2a2e9b77df5ce1382d1e40da54eb3009029a3d732d",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/035-sem3-blind-hfpef-exercise-state-dspy/run.json",
+      "runId": "SEM003D-RUN-06-DSPY",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "recordDigest": "c5ebe56dc63b56370ba88fa259fa6416c2c541a245ca48e541e8e236b997d3c6",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/036-sem3-blind-hfpef-exercise-state-langextract/run.json",
+      "runId": "SEM003D-RUN-06-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "recordDigest": "112bfe95a089ee47110f532b1a10c72a8c547f7391f531a283d8efceafc6f65f",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/037-sem3-blind-laa-closure-seal-assessment-sem-current/run.json",
+      "runId": "SEM003D-RUN-07-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "recordDigest": "195c80295b497ac1b22adbad6afcb12c7d9f70e7379dddbcc799c5c093720fb9",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/038-sem3-blind-laa-closure-seal-assessment-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-07-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "recordDigest": "2e0c902d706ce4fa2e4c71a9c4c47442964fe09f9bb65c88fab1aed75da518cf",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/039-sem3-blind-laa-closure-seal-assessment-pydanticai/run.json",
+      "runId": "SEM003D-RUN-07-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "recordDigest": "f966474dfac3e3d46f4b6ed6390837dccafbaa8c36280081bdaa013047385a6e",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/040-sem3-blind-laa-closure-seal-assessment-dspy/run.json",
+      "runId": "SEM003D-RUN-07-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "recordDigest": "dc87c46b65a792eeb906bd1162081e09f28e796f3d9d79df8b6cb4ef8c3e0cd6",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/041-sem3-blind-laa-closure-seal-assessment-langextract/run.json",
+      "runId": "SEM003D-RUN-07-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "recordDigest": "c27fee91abf1268f2357c5eb94854f0d169f4cfa96da4539b47981b6cbf825bf",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/042-sem3-blind-laa-closure-seal-assessment-outlines/run.json",
+      "runId": "SEM003D-RUN-07-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "recordDigest": "8bb11727d77a6ccf38db98e220e6766561067816d40fd4dd2932d26a00040a8c",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/043-sem3-blind-microbiome-antibiotic-candidates-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-08-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "recordDigest": "e205a44dc2fd4d14d982d20c56d7eb237c40378510c8393700f379e77f67f619",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/044-sem3-blind-microbiome-antibiotic-candidates-pydanticai/run.json",
+      "runId": "SEM003D-RUN-08-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "recordDigest": "a91677fbe6a3ce68bc3be65337c2b51ee913f127a32569a5bf2e4dd6eb130b89",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/045-sem3-blind-microbiome-antibiotic-candidates-dspy/run.json",
+      "runId": "SEM003D-RUN-08-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "recordDigest": "dff198fe8df251006fb8bc794acad6f1a88fcb6d2560e6b2fb3e120cfb29b681",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/046-sem3-blind-microbiome-antibiotic-candidates-langextract/run.json",
+      "runId": "SEM003D-RUN-08-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "recordDigest": "7177c0529ae4b8d137d62711a86245320ef272d68306f809fc07abba554ae6e3",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/047-sem3-blind-microbiome-antibiotic-candidates-outlines/run.json",
+      "runId": "SEM003D-RUN-08-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "recordDigest": "14274d0b7988dd9605814437418a594533c1715d3a1cd7cee8818a805c1d24d6",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/048-sem3-blind-microbiome-antibiotic-candidates-sem-current/run.json",
+      "runId": "SEM003D-RUN-08-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "recordDigest": "381d364525ff101f1f6453d8b776d2e7779ae9cc11f6dd525760f91312315376",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/049-sem3-blind-orthodontic-cbct-outcome-correction-pydanticai/run.json",
+      "runId": "SEM003D-RUN-09-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "recordDigest": "cd9144e9664ac08420ce0e7e6d9905fb517155d66eff1f5cb4fadaa128074d0c",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/050-sem3-blind-orthodontic-cbct-outcome-correction-dspy/run.json",
+      "runId": "SEM003D-RUN-09-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "recordDigest": "273bb00b1a258bea93d68d3c17fde4fa36af3d9efd898a28e82d150544f7fec0",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/051-sem3-blind-orthodontic-cbct-outcome-correction-langextract/run.json",
+      "runId": "SEM003D-RUN-09-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "recordDigest": "caf857b99260b9003891cb2f1185985384c82881ea9b790539cbcd0fbe6b0ec6",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/052-sem3-blind-orthodontic-cbct-outcome-correction-outlines/run.json",
+      "runId": "SEM003D-RUN-09-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "recordDigest": "944df414e3df21608701c50766a2453550a65570635594a7d08b1b2b34818dab",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/053-sem3-blind-orthodontic-cbct-outcome-correction-sem-current/run.json",
+      "runId": "SEM003D-RUN-09-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "recordDigest": "7ca5cb8383a74bb3977e9643ba0eb7ecbeea2d517a2d9a860cbde8aede82dfb5",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/054-sem3-blind-orthodontic-cbct-outcome-correction-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-09-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "recordDigest": "343ee88ed6dfd5b6d953fb031d6311a04fec0e61a591c9ae62c8cd0717de6710",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/055-sem3-blind-postpartum-myocardial-work-noncausal-dspy/run.json",
+      "runId": "SEM003D-RUN-10-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "recordDigest": "a59bf88423cd9f68115cf24d837258f5462bc125eab6113d4fee62134288ad22",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/056-sem3-blind-postpartum-myocardial-work-noncausal-langextract/run.json",
+      "runId": "SEM003D-RUN-10-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "recordDigest": "cb5eca789b9de03af52ba866b5eda46c12f0ec53c9fa70df3ea6be1dd54c47b2",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/057-sem3-blind-postpartum-myocardial-work-noncausal-outlines/run.json",
+      "runId": "SEM003D-RUN-10-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "recordDigest": "851d87fc5faff6438adb373375ba68ddda26758949f037a8d4854b107f6eecec",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/058-sem3-blind-postpartum-myocardial-work-noncausal-sem-current/run.json",
+      "runId": "SEM003D-RUN-10-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "recordDigest": "422f8fc6cd1fcf93ef8dbe4a693f452043ef9bd548e138818f983cbd5a491411",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/059-sem3-blind-postpartum-myocardial-work-noncausal-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-10-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "recordDigest": "0feeced115f8f9faf96f9f2ccc47e9580631cbf38f583f60eab54b15186cf747",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/060-sem3-blind-postpartum-myocardial-work-noncausal-pydanticai/run.json",
+      "runId": "SEM003D-RUN-10-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "recordDigest": "86ddf63d211eb5d7e5fd62b2f8446aa9552b309457cb51793b67128e13041850",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/061-sem3-blind-prosthetic-valve-infection-context-langextract/run.json",
+      "runId": "SEM003D-RUN-11-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "recordDigest": "175134ff6db0c6bb49688c680b15bac6933208deb7fbf5640231d161dd91f060",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/062-sem3-blind-prosthetic-valve-infection-context-outlines/run.json",
+      "runId": "SEM003D-RUN-11-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "recordDigest": "c48f059d2798d69ccbebde59f42b93603a1142bfaa84ae21a547f7ffbc3ae860",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/063-sem3-blind-prosthetic-valve-infection-context-sem-current/run.json",
+      "runId": "SEM003D-RUN-11-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "recordDigest": "50941eba1063106aa088eafba0f5d5723fc4fc41dfd2168d7e16ae331ec283fd",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/064-sem3-blind-prosthetic-valve-infection-context-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-11-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "recordDigest": "dddf0be5f729a6d62edd0d97173ae7dea7001612bd9425ac2872379a16a71fa6",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/065-sem3-blind-prosthetic-valve-infection-context-pydanticai/run.json",
+      "runId": "SEM003D-RUN-11-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "recordDigest": "f794d2affd57d77a86935c0440ac6fe999b8346e06916e309927ab71fdaa7be4",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/066-sem3-blind-prosthetic-valve-infection-context-dspy/run.json",
+      "runId": "SEM003D-RUN-11-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "recordDigest": "d524cc9d33fc959f78fd96db12af2979cbb8abde098b171ab203d8c5c711db91",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/067-sem3-blind-rare-disease-control-change-outlines/run.json",
+      "runId": "SEM003D-RUN-12-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "recordDigest": "cbe4d163fc07347178e7382427bd78c8c2fbe1e389120e75b2a4391bf1bd2526",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/068-sem3-blind-rare-disease-control-change-sem-current/run.json",
+      "runId": "SEM003D-RUN-12-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "recordDigest": "6fb4202e59ae0a66fefb462be9191895844c3224c44a28fc3e5f1987b1fece69",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/069-sem3-blind-rare-disease-control-change-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-12-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "recordDigest": "eaf8156152c575b054ec0d69852baad543ef25b455a738fa2b600ce13792e8e7",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/070-sem3-blind-rare-disease-control-change-pydanticai/run.json",
+      "runId": "SEM003D-RUN-12-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "recordDigest": "a22fc189e3d400311798ebbe45123b78c60cb1aa33239d992e5e5f645e14fb77",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/071-sem3-blind-rare-disease-control-change-dspy/run.json",
+      "runId": "SEM003D-RUN-12-DSPY",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "recordDigest": "8eabdbd7bbc38a8a6887943ac072dfc1100b87df51e63a623db9dbaf36c5f3ae",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/072-sem3-blind-rare-disease-control-change-langextract/run.json",
+      "runId": "SEM003D-RUN-12-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "recordDigest": "33439d68ed6f6dab4c2abd8feac35eadb14f936ce8ce0c70a35082b1283968f5",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/073-sem3-blind-transplant-rejection-timing-sem-current/run.json",
+      "runId": "SEM003D-RUN-13-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "recordDigest": "bbfcb5da625647e8e94484e8b02340cd6f48ac13509b632e64b084cb578700b0",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/074-sem3-blind-transplant-rejection-timing-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-13-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "recordDigest": "e52e733aa50ea319738f75ef26ce1eaefc83502e5d3f628ddec76c9c208405e9",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/075-sem3-blind-transplant-rejection-timing-pydanticai/run.json",
+      "runId": "SEM003D-RUN-13-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "recordDigest": "d2a8f8616e05d28e0bc0ce22ca716d1e0d89e17ca4eeaf952224316dbea46320",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/076-sem3-blind-transplant-rejection-timing-dspy/run.json",
+      "runId": "SEM003D-RUN-13-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "recordDigest": "50de763f56ff2f5c757e862c0173d0d496587c9e0e28e994d253e00cab17456e",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/077-sem3-blind-transplant-rejection-timing-langextract/run.json",
+      "runId": "SEM003D-RUN-13-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "recordDigest": "add4c82c7504924500ec0ed0b6f58f5a209dbcf74150874b9d584f54db597df7",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/078-sem3-blind-transplant-rejection-timing-outlines/run.json",
+      "runId": "SEM003D-RUN-13-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "recordDigest": "3f58408b791d81b797ba8db95a96f6e82cb19b68b0369c38872bfe6e93916c16",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/079-sem3-blind-vaccine-single-cell-multidimensional-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-14-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "recordDigest": "253a470693343008a07493efba0b0407a8df13a938fc4ebff1b34008d1f404c5",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/080-sem3-blind-vaccine-single-cell-multidimensional-pydanticai/run.json",
+      "runId": "SEM003D-RUN-14-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "recordDigest": "4643f4f19d184ddbfaa557ffbf9b63011978e47a072d7b2d6c64f5a3a60381d9",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/081-sem3-blind-vaccine-single-cell-multidimensional-dspy/run.json",
+      "runId": "SEM003D-RUN-14-DSPY",
+      "terminalStatus": "SUCCESS"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "recordDigest": "50e9ad7d36fe08ffbf9f0befdc15f1d56578961f5717a24f8c3ecd7a4347d82a",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/082-sem3-blind-vaccine-single-cell-multidimensional-langextract/run.json",
+      "runId": "SEM003D-RUN-14-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "recordDigest": "26ac16980dd2b0b9950dd17ee2bcfe87c4fcfd318a2af3e4c17754e52ed1df32",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/083-sem3-blind-vaccine-single-cell-multidimensional-outlines/run.json",
+      "runId": "SEM003D-RUN-14-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "recordDigest": "d6f302d55ca12dba7bb499c591fa75a4ce9d392cfa2fc61385019be38308b604",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/084-sem3-blind-vaccine-single-cell-multidimensional-sem-current/run.json",
+      "runId": "SEM003D-RUN-14-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "recordDigest": "884d6ea460bfcfd0c21f2badd570a8f0c3b60406d663e6b45616067d621b7fc9",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/085-sem3-blind-wearable-sleep-phenomenon-observable-pydanticai/run.json",
+      "runId": "SEM003D-RUN-15-PYDANTICAI",
+      "terminalStatus": "PROVIDER_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-DSPY-01",
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "recordDigest": "dd5b738a3122d522dc62ab63445d193c71b7247e7b1d53ced78f7136e34cc880",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/086-sem3-blind-wearable-sleep-phenomenon-observable-dspy/run.json",
+      "runId": "SEM003D-RUN-15-DSPY",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "recordDigest": "5d250a759b08944a4261a1313aafb882c89191dd1ee61a893681266f92c70306",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/087-sem3-blind-wearable-sleep-phenomenon-observable-langextract/run.json",
+      "runId": "SEM003D-RUN-15-LANGEXTRACT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "recordDigest": "2c5adc7fe147be4bb62ae70445d40af46e5b7429d0032627e1887ed4a80b5f8e",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/088-sem3-blind-wearable-sleep-phenomenon-observable-outlines/run.json",
+      "runId": "SEM003D-RUN-15-OUTLINES",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "recordDigest": "088c2430790c9cf5b0c80b13f375a1d7d7aaa646e3363a98dd9ed3079eb45149",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/089-sem3-blind-wearable-sleep-phenomenon-observable-sem-current/run.json",
+      "runId": "SEM003D-RUN-15-SEM-CURRENT",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    },
+    {
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "recordDigest": "7923bc484b2b222b92d42f8e7195b59b001c608e9668869553eacab5304fc272",
+      "recordPath": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/090-sem3-blind-wearable-sleep-phenomenon-observable-instructor-pydantic/run.json",
+      "runId": "SEM003D-RUN-15-INSTRUCTOR-PYDANTIC",
+      "terminalStatus": "FRAMEWORK_FAILURE"
+    }
+  ],
+  "runsExpected": 90,
+  "runsTerminal": 90,
+  "schemaVersion": "1.0.0",
+  "status": "GENERATION_COMPLETE_OUTPUTS_FROZEN",
+  "terminalStatusCounts": {
+    "FRAMEWORK_FAILURE": 65,
+    "NORMALIZATION_FAILURE": 0,
+    "PARSING_FAILURE": 0,
+    "PROVIDER_FAILURE": 15,
+    "SUCCESS": 10
+  },
+  "tuningAfterObservation": false,
+  "uniqueCaseBaselinePairs": 90
+}

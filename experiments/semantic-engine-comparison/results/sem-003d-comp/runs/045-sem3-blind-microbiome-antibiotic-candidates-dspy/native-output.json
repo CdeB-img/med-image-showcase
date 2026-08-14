@@ -1,0 +1,205 @@
+{
+  "ambiguities": [],
+  "clarifications": [],
+  "concepts": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-microbiome",
+      "conceptType": "phenomenon",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "microbiome",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "phenomenon.microbiome",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Je veux décrire le microbiome avant puis après une antibiothérapie courte."
+        }
+      ],
+      "studyRole": "observable",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-antibiotherapy",
+      "conceptType": "intervention",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "antibiothérapie courte",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.short-antibiotherapy",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "antibiothérapie courte"
+        }
+      ],
+      "studyRole": "intervention",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-stool-sampling",
+      "conceptType": "measurement",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "prélèvements de selles",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.stool-sampling",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Les prélèvements de selles seront faits au départ et après la fin du traitement."
+        }
+      ],
+      "studyRole": "method",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-dietary-intake",
+      "conceptType": "measurement",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "régime alimentaire",
+      "polarity": "NEGATED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.dietary-intake",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Le régime alimentaire n'a pas été recueilli de façon fiable."
+        }
+      ],
+      "studyRole": "confounder",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-microbial-functions",
+      "conceptType": "biomarker",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "fonctions microbiennes",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "biomarker.microbial-functions",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Des fonctions microbiennes ou des groupes taxonomiques peuvent être proposés comme candidats, pas comme faits déjà observés."
+        }
+      ],
+      "studyRole": "observable",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-taxonomic-groups",
+      "conceptType": "biomarker",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "groupes taxonomiques",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "biomarker.taxonomic-groups",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Des fonctions microbiennes ou des groupes taxonomiques peuvent être proposés comme candidats, pas comme faits déjà observés."
+        }
+      ],
+      "studyRole": "observable",
+      "supersedesConceptIds": []
+    }
+  ],
+  "contractType": "SCIENTIFIC_UNDERSTANDING_NATIVE_PROJECTION",
+  "corrections": [],
+  "language": "fr",
+  "normalizedMeaning": "L'utilisateur souhaite décrire le microbiome avant et après une antibiothérapie courte. Les prélèvements de selles sont réalisés au départ et après la fin du traitement. Le régime alimentaire n'a pas été recueilli de manière fiable. Les fonctions microbiennes ou groupes taxonomiques peuvent être proposés comme des candidats et non comme des faits observés. L'utilisateur refuse de conclure que l'antibiotique cause l'ensemble des changements observés.",
+  "optionalCandidates": [],
+  "relations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "collected_at_baseline_before",
+      "relationId": "r-sampling-timing-baseline",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.sampling.timing.baseline",
+      "sourceConceptId": "c-stool-sampling",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Les prélèvements de selles seront faits au départ et après la fin du traitement."
+        }
+      ],
+      "targetConceptId": "c-antibiotherapy"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "collected_after_end_of",
+      "relationId": "r-sampling-timing-post",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.sampling.timing.post-treatment",
+      "sourceConceptId": "c-stool-sampling",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Les prélèvements de selles seront faits au départ et après la fin du traitement."
+        }
+      ],
+      "targetConceptId": "c-antibiotherapy"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "NEGATED",
+      "predicate": "does_not_necessarily_cause_all_changes_in",
+      "relationId": "r-causality-refusal",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.causality.antibiotic-change.negated",
+      "sourceConceptId": "c-antibiotherapy",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-5",
+          "quote": "Je ne veux pas conclure que l'antibiotique cause tout changement observé."
+        }
+      ],
+      "targetConceptId": "c-microbiome"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "unknowns": [
+    {
+      "description": "Le régime alimentaire n'a pas été recueilli de façon fiable, introduisant une incertitude non résolue sur son rôle de facteur de confusion.",
+      "issueId": "u-dietary-confounder",
+      "semanticKey": "unknown.confounder.dietary-reliability",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "Le régime alimentaire n'a pas été recueilli de façon fiable."
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

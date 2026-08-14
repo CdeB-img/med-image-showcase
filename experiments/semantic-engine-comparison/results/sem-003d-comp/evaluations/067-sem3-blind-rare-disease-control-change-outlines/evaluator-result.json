@@ -1,0 +1,578 @@
+{
+  "candidateId": "SEM3-EVAL-CAND-COMP-1218F186293F9C37EFB0",
+  "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+  "clarification": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [
+      "candidate.executionStatus"
+    ],
+    "status": "NOT_EVALUABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_RESULT",
+  "criticalViolations": [],
+  "disposition": "NOT_EVALUABLE",
+  "enrichment": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [],
+    "status": "NOT_APPLICABLE"
+  },
+  "equivalence": {
+    "classification": "NOT_ASSESSED",
+    "referenceVariantId": null,
+    "requiresHumanDecision": false,
+    "requiresIndependentQualificationEvidence": false,
+    "structureProfile": "NOT_AVAILABLE"
+  },
+  "evaluationId": "SEM3-EVAL-COMP-1218F186293F9C37EFB0",
+  "evaluatorIdentity": {
+    "configurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
+    "version": "1.3.0"
+  },
+  "evidenceTrace": [
+    "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE@1.0.0",
+    "SEM3-AE-BLIND-RARE-DISEASE-CONTROL-CHANGE@1.0.0",
+    "SEM3-EVAL-CAND-COMP-1218F186293F9C37EFB0@1.3.0",
+    "candidate.executionStatus"
+  ],
+  "findings": [
+    {
+      "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+      "downstreamOf": null,
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-001-candidate-executionstatus",
+      "isFirstCause": true,
+      "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+      "propertyIds": [],
+      "referenceId": "candidate.executionStatus",
+      "stage": "EXECUTION"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-002-req-1-natural-history-registry",
+      "isFirstCause": false,
+      "message": "A required obligation has no evaluable normalized mapping.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-1-natural-history-registry",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-003-req-2-external-controls-historical",
+      "isFirstCause": false,
+      "message": "A required obligation has no evaluable normalized mapping.",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY",
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "referenceId": "req-2-external-controls-historical",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-004-req-3-unaligned-entry-dates",
+      "isFirstCause": false,
+      "message": "A required obligation has no evaluable normalized mapping.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "referenceId": "req-3-unaligned-entry-dates",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-005-req-4-within-patient-primary",
+      "isFirstCause": false,
+      "message": "A required obligation has no evaluable normalized mapping.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "referenceId": "req-4-within-patient-primary",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-006-req-5-external-exploratory",
+      "isFirstCause": false,
+      "message": "A required obligation has no evaluable normalized mapping.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED",
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "referenceId": "req-5-external-exploratory",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-007-req-6-time-zero-unknown",
+      "isFirstCause": false,
+      "message": "A required obligation has no evaluable normalized mapping.",
+      "propertyIds": [
+        "PROPERTY_COMPARISON_AND_TIMING_PRESERVED",
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+      ],
+      "referenceId": "req-6-time-zero-unknown",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-008-req-7-no-treatment-causality",
+      "isFirstCause": false,
+      "message": "A required obligation has no evaluable normalized mapping.",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      ],
+      "referenceId": "req-7-no-treatment-causality",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "PROHIBITION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-009-pro-1-external-primary",
+      "isFirstCause": false,
+      "message": "A prohibited condition has no evaluable normalized signal.",
+      "propertyIds": [
+        "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      ],
+      "referenceId": "pro-1-external-primary",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "PROHIBITION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-010-pro-2-invent-time-zero",
+      "isFirstCause": false,
+      "message": "A prohibited condition has no evaluable normalized signal.",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "referenceId": "pro-2-invent-time-zero",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "PROHIBITION_NOT_EVALUABLE",
+      "downstreamOf": "finding-001-candidate-executionstatus",
+      "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+      "findingId": "finding-011-pro-3-causal-treatment-effect",
+      "isFirstCause": false,
+      "message": "A prohibited condition has no evaluable normalized signal.",
+      "propertyIds": [
+        "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION",
+        "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      ],
+      "referenceId": "pro-3-causal-treatment-effect",
+      "stage": "LEVEL_1"
+    }
+  ],
+  "firstCause": {
+    "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+    "downstreamOf": null,
+    "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+    "findingId": "finding-001-candidate-executionstatus",
+    "isFirstCause": true,
+    "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+    "propertyIds": [],
+    "referenceId": "candidate.executionStatus",
+    "stage": "EXECUTION"
+  },
+  "level1": {
+    "checkCount": 10,
+    "criticalVector": [
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "judgment": "NOT_APPLICABLE",
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "judgment": "NOT_EVALUABLE",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      }
+    ],
+    "status": "NOT_EVALUABLE"
+  },
+  "level2": {
+    "adjudicationPackets": [],
+    "appliedDecisions": [],
+    "status": "NOT_EVALUABLE"
+  },
+  "mode": "FUTURE_SEM_RUNTIME",
+  "ownership": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [
+      "candidate.executionStatus"
+    ],
+    "status": "NOT_EVALUABLE"
+  },
+  "propertyJudgments": [
+    {
+      "adjudicationPacketId": null,
+      "alias": "P01",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P02",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P03",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P04",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P05",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P06",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P07",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P08",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P09",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P10",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P11",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P12",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "PROVENANCE_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P13",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P14",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P15",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P16",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "CLARIFICATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P17",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "candidate.executionStatus"
+      ],
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P18",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+    }
+  ],
+  "provenance": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [
+      "candidate.executionStatus"
+    ],
+    "status": "NOT_EVALUABLE"
+  },
+  "schemaVersion": "1.1.0"
+}

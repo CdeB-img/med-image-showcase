@@ -1,0 +1,226 @@
+{
+  "ambiguities": [],
+  "baselineId": "SEM003C1-DSPY-01",
+  "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+  "caseVersion": "1.0.0",
+  "clarifications": [],
+  "contractType": "NORMALIZED_CANDIDATE_SEMANTIC_REPRESENTATION",
+  "executionStatus": "COMPLETED",
+  "language": "fr",
+  "nativeOutputDigest": "fb69d578d2ac4c502ad332cec70540bb364943278bb995e59a425343c3821faa",
+  "normalizationPolicy": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+  "normalizedMeaning": "Au cours d'un traitement orthodontique, des examens CBCT sont prévus au début et à la fin. Initialement, la résorption radiculaire était envisagée comme critère de jugement principal, et l'épaisseur de l'os cortical comme mesure secondaire. Suite à une correction explicite, l'épaisseur de l'os cortical devient le critère principal, tandis que la résorption radiculaire est reléguée au statut exploratoire. Les paramètres d'acquisition ne sont pas définis.",
+  "runId": "SEM003D-RUN-09-DSPY",
+  "schemaVersion": "1.0.0",
+  "semanticElements": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-traitement-orthodontique",
+      "elementType": "intervention",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Traitement orthodontique",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.orthodontic-treatment",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Pendant le traitement orthodontique, un CBCT sera disponible au début et à la fin."
+        }
+      ],
+      "sourceNativeId": "concept-traitement-orthodontique",
+      "studyRole": "context",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-cbct-debut-fin",
+      "elementType": "measurement",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "CBCT au début et à la fin",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.cbct.start-and-end",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Pendant le traitement orthodontique, un CBCT sera disponible au début et à la fin."
+        }
+      ],
+      "sourceNativeId": "concept-cbct-debut-fin",
+      "studyRole": "modality",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-resorption-radiculaire",
+      "elementType": "endpoint",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Résorption radiculaire",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "endpoint.root-resorption",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Je pensais d'abord retenir la résorption radiculaire comme outcome principal."
+        }
+      ],
+      "sourceNativeId": "concept-resorption-radiculaire",
+      "studyRole": "outcome",
+      "supersedesSourceNativeIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CONTENT",
+      "confidence": 1.0,
+      "elementId": "element-concept-epaisseur-os-cortical",
+      "elementType": "measurement",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Épaisseur de l'os cortical",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.cortical-bone-thickness",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "On mesurera aussi l'épaisseur de l'os cortical."
+        }
+      ],
+      "sourceNativeId": "concept-epaisseur-os-cortical",
+      "studyRole": "biomarker",
+      "supersedesSourceNativeIds": []
+    }
+  ],
+  "semanticRelations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "occurs_during",
+      "relationId": "relation-rel-cbct-timing",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.cbct.timing.orthodontic-treatment",
+      "sourceElementId": "element-concept-cbct-debut-fin",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Pendant le traitement orthodontique, un CBCT sera disponible au début et à la fin."
+        }
+      ],
+      "sourceNativeId": "rel-cbct-timing",
+      "targetElementId": "element-concept-traitement-orthodontique"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "was_considered_primary_endpoint_for",
+      "relationId": "relation-rel-initial-primary-endpoint",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.endpoint.root-resorption.initial-primary",
+      "sourceElementId": "element-concept-resorption-radiculaire",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Je pensais d'abord retenir la résorption radiculaire comme outcome principal."
+        }
+      ],
+      "sourceNativeId": "rel-initial-primary-endpoint",
+      "targetElementId": "element-concept-traitement-orthodontique"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "is_corrected_primary_endpoint_for",
+      "relationId": "relation-rel-corrected-primary-endpoint",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.endpoint.cortical-thickness.corrected-primary",
+      "sourceElementId": "element-concept-epaisseur-os-cortical",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Correction: l'épaisseur corticale devient principale et la résorption reste exploratoire."
+        }
+      ],
+      "sourceNativeId": "rel-corrected-primary-endpoint",
+      "targetElementId": "element-concept-traitement-orthodontique"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "RELATION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "is_corrected_exploratory_endpoint_for",
+      "relationId": "relation-rel-corrected-exploratory-endpoint",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.endpoint.root-resorption.corrected-exploratory",
+      "sourceElementId": "element-concept-resorption-radiculaire",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Correction: l'épaisseur corticale devient principale et la résorption reste exploratoire."
+        }
+      ],
+      "sourceNativeId": "rel-corrected-exploratory-endpoint",
+      "targetElementId": "element-concept-traitement-orthodontique"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "category": "CORRECTION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "supersedes_as_primary_endpoint",
+      "relationId": "relation-correction-endpoint-swap",
+      "requiresConfirmation": false,
+      "semanticKey": "correction.endpoint.primary-role-reassigned",
+      "sourceElementId": "element-concept-epaisseur-os-cortical",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Correction: l'épaisseur corticale devient principale et la résorption reste exploratoire."
+        }
+      ],
+      "sourceNativeId": "correction-endpoint-swap",
+      "targetElementId": "element-concept-resorption-radiculaire"
+    }
+  ],
+  "unknowns": [
+    {
+      "description": "Les paramètres d'acquisition du CBCT ne sont pas définis.",
+      "issueId": "unknown-acquisition-parameters",
+      "semanticKey": "unknown.cbct.acquisition-parameters",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-5",
+          "quote": "Les paramètres d'acquisition ne sont pas définis et ne doivent pas être inventés."
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

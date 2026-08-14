@@ -1,0 +1,777 @@
+{
+  "candidateId": "SEM3-EVAL-CAND-COMP-89326F8E5B3CD0BC72E0",
+  "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+  "clarification": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [],
+    "status": "NOT_EVALUABLE"
+  },
+  "contractType": "BENCHMARK_EVALUATION_RESULT",
+  "criticalViolations": [
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": null,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-001-req-1-epileptogenic-network-purpose",
+      "isFirstCause": true,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-1-epileptogenic-network-purpose",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-002-req-2-pet-and-meg",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-2-pet-and-meg",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-003-req-2-pet-and-meg",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-2-pet-and-meg",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "findingId": "finding-005-req-3-regional-discordance-possible",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "referenceId": "req-3-regional-discordance-possible",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-006-req-4-concordant-primary-candidate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "referenceId": "req-4-concordant-primary-candidate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "findingId": "finding-007-req-4-concordant-primary-candidate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      ],
+      "referenceId": "req-4-concordant-primary-candidate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "findingId": "finding-008-req-4-concordant-primary-candidate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "referenceId": "req-4-concordant-primary-candidate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-009-req-5-discordant-region-separate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-5-discordant-region-separate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-010-req-5-discordant-region-separate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-5-discordant-region-separate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "PROVENANCE_FAILURE",
+      "findingId": "finding-011-req-5-discordant-region-separate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "referenceId": "req-5-discordant-region-separate",
+      "stage": "LEVEL_1"
+    }
+  ],
+  "disposition": "SEMANTIC_FAILURE",
+  "enrichment": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [],
+    "status": "NOT_EVALUABLE"
+  },
+  "equivalence": {
+    "classification": "NOT_EQUIVALENT",
+    "referenceVariantId": null,
+    "requiresHumanDecision": true,
+    "requiresIndependentQualificationEvidence": false,
+    "structureProfile": "CONSOLIDATED"
+  },
+  "evaluationId": "SEM3-EVAL-COMP-89326F8E5B3CD0BC72E0",
+  "evaluatorIdentity": {
+    "configurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
+    "version": "1.3.0"
+  },
+  "evidenceTrace": [
+    "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS@1.0.0",
+    "SEM3-AE-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS@1.0.0",
+    "SEM3-EVAL-CAND-COMP-89326F8E5B3CD0BC72E0@1.3.0",
+    "acceptanceEnvelope.required.req-1-epileptogenic-network-purpose",
+    "acceptanceEnvelope.required.req-2-pet-and-meg",
+    "acceptanceEnvelope.required.req-5-discordant-region-separate",
+    "acceptanceEnvelope.prohibited.pro-2-merge-regions",
+    "acceptanceEnvelope.prohibited.pro-3-wrong-ellipsis-antecedent",
+    "acceptanceEnvelope.required.req-4-concordant-primary-candidate",
+    "acceptanceEnvelope.prohibited.pro-1-candidate-certain-focus",
+    "acceptanceEnvelope.required.req-3-regional-discordance-possible"
+  ],
+  "findings": [
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": null,
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-001-req-1-epileptogenic-network-purpose",
+      "isFirstCause": true,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-1-epileptogenic-network-purpose",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-002-req-2-pet-and-meg",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-2-pet-and-meg",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-003-req-2-pet-and-meg",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-2-pet-and-meg",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "findingId": "finding-004-req-2-pet-and-meg",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+      ],
+      "referenceId": "req-2-pet-and-meg",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "findingId": "finding-005-req-3-regional-discordance-possible",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      ],
+      "referenceId": "req-3-regional-discordance-possible",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "findingId": "finding-006-req-4-concordant-primary-candidate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      ],
+      "referenceId": "req-4-concordant-primary-candidate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "findingId": "finding-007-req-4-concordant-primary-candidate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      ],
+      "referenceId": "req-4-concordant-primary-candidate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "findingId": "finding-008-req-4-concordant-primary-candidate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      ],
+      "referenceId": "req-4-concordant-primary-candidate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "findingId": "finding-009-req-5-discordant-region-separate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      ],
+      "referenceId": "req-5-discordant-region-separate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "findingId": "finding-010-req-5-discordant-region-separate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      ],
+      "referenceId": "req-5-discordant-region-separate",
+      "stage": "LEVEL_1"
+    },
+    {
+      "code": "REQUIRED_OBLIGATION_OMITTED",
+      "downstreamOf": "finding-001-req-1-epileptogenic-network-purpose",
+      "failureClass": "PROVENANCE_FAILURE",
+      "findingId": "finding-011-req-5-discordant-region-separate",
+      "isFirstCause": false,
+      "message": "The normalized candidate marks a required obligation as OMITTED.",
+      "propertyIds": [
+        "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      ],
+      "referenceId": "req-5-discordant-region-separate",
+      "stage": "LEVEL_1"
+    }
+  ],
+  "firstCause": {
+    "code": "REQUIRED_OBLIGATION_OMITTED",
+    "downstreamOf": null,
+    "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+    "findingId": "finding-001-req-1-epileptogenic-network-purpose",
+    "isFirstCause": true,
+    "message": "The normalized candidate marks a required obligation as OMITTED.",
+    "propertyIds": [
+      "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+    ],
+    "referenceId": "req-1-epileptogenic-network-purpose",
+    "stage": "LEVEL_1"
+  },
+  "level1": {
+    "checkCount": 11,
+    "criticalVector": [
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+      },
+      {
+        "judgment": "NOT_APPLICABLE",
+        "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+      },
+      {
+        "judgment": "NOT_APPLICABLE",
+        "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+      },
+      {
+        "judgment": "NOT_APPLICABLE",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+      },
+      {
+        "judgment": "SATISFIED",
+        "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+      },
+      {
+        "judgment": "ADJUDICATION_REQUIRED",
+        "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+      },
+      {
+        "judgment": "VIOLATED",
+        "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+      }
+    ],
+    "status": "FAIL"
+  },
+  "level2": {
+    "adjudicationPackets": [
+      {
+        "candidateEvidenceRefs": [],
+        "candidateId": "SEM3-EVAL-CAND-COMP-89326F8E5B3CD0BC72E0",
+        "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+        "contractType": "BENCHMARK_EVALUATION_ADJUDICATION_PACKET",
+        "decisionRequested": "Judge the property against the Acceptance Envelope without changing the reference or promoting candidate content.",
+        "obligationRefs": [],
+        "packetId": "SEM3-ADJ-COMP-89326F8E5B3CD0BC72E0-P10",
+        "permittedDecisions": [
+          "SATISFIED",
+          "VIOLATED",
+          "NOT_ADJUDICABLE"
+        ],
+        "potentialFailureClasses": [
+          "UNSUPPORTED_INVENTION_FAILURE"
+        ],
+        "propertyIds": [
+          "PROPERTY_NO_UNSUPPORTED_INVENTION"
+        ],
+        "reason": "The contractual mappings do not establish the non-trivial scientific judgment required by this property.",
+        "schemaVersion": "1.0.0",
+        "sourceRequestRef": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS.source.sourceRequest",
+        "status": "OPEN"
+      }
+    ],
+    "appliedDecisions": [],
+    "status": "ADJUDICATION_REQUIRED"
+  },
+  "mode": "FUTURE_SEM_RUNTIME",
+  "ownership": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [
+      "acceptanceEnvelope.required.req-4-concordant-primary-candidate",
+      "acceptanceEnvelope.prohibited.pro-1-candidate-certain-focus"
+    ],
+    "status": "VIOLATED"
+  },
+  "propertyJudgments": [
+    {
+      "adjudicationPacketId": null,
+      "alias": "P01",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [
+        "finding-002-req-2-pet-and-meg",
+        "finding-009-req-5-discordant-region-separate"
+      ],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-1-epileptogenic-network-purpose",
+        "acceptanceEnvelope.required.req-2-pet-and-meg",
+        "acceptanceEnvelope.required.req-5-discordant-region-separate"
+      ],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-1-epileptogenic-network-purpose",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P02",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [
+        "finding-010-req-5-discordant-region-separate"
+      ],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-2-pet-and-meg",
+        "acceptanceEnvelope.required.req-5-discordant-region-separate",
+        "acceptanceEnvelope.prohibited.pro-2-merge-regions",
+        "acceptanceEnvelope.prohibited.pro-3-wrong-ellipsis-antecedent"
+      ],
+      "failureClass": "RELATION_SEMANTICS_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-2-pet-and-meg",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_EXPLICIT_RELATIONS_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P03",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-4-concordant-primary-candidate"
+      ],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-4-concordant-primary-candidate",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_POLARITY_AND_CONDITIONALITY_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P04",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_COMPARISON_AND_TIMING_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P05",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_CORRECTION_PROPAGATED_WITH_HISTORY"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P06",
+      "applicable": false,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "POLARITY_OR_CAUSALITY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "NOT_APPLICABLE",
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_CAUSAL_PROMOTION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P07",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-4-concordant-primary-candidate",
+        "acceptanceEnvelope.prohibited.pro-1-candidate-certain-focus"
+      ],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-4-concordant-primary-candidate",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_CONTEXTUAL_INFERENCE_NOT_USER_FACT"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P08",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.prohibited.pro-1-candidate-certain-focus"
+      ],
+      "failureClass": "EPISTEMIC_PROMOTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "SATISFIED",
+      "propertyId": "PROPERTY_KNOWLEDGE_SUPPORT_NOT_PROJECT_TRUTH"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P09",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-3-regional-discordance-possible",
+        "acceptanceEnvelope.prohibited.pro-2-merge-regions"
+      ],
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-3-regional-discordance-possible",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_AMBIGUITY_AND_UNKNOWN_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": "SEM3-ADJ-COMP-89326F8E5B3CD0BC72E0-P10",
+      "alias": "P10",
+      "applicable": true,
+      "checkType": "ADJUDICATION_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [],
+      "failureClass": "UNSUPPORTED_INVENTION_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": null,
+      "judgment": "ADJUDICATION_REQUIRED",
+      "propertyId": "PROPERTY_NO_UNSUPPORTED_INVENTION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P11",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-4-concordant-primary-candidate",
+        "acceptanceEnvelope.prohibited.pro-1-candidate-certain-focus"
+      ],
+      "failureClass": "OWNERSHIP_BOUNDARY_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-4-concordant-primary-candidate",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_OWNER_AND_ADOPTION_BOUNDARIES_PRESERVED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P12",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "ABSOLUTE_RUN_LEVEL",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-5-discordant-region-separate",
+        "acceptanceEnvelope.prohibited.pro-3-wrong-ellipsis-antecedent"
+      ],
+      "failureClass": "PROVENANCE_FAILURE",
+      "family": "SAFETY_FIDELITY_INVARIANT",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-5-discordant-region-separate",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_PROVENANCE_RECONSTRUCTIBLE"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P13",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "MISSING_INFORMATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_MISSING_CRITICAL_INFORMATION_DETECTED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P14",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [
+        "acceptanceEnvelope.required.req-2-pet-and-meg"
+      ],
+      "failureClass": "CONCEPTUAL_PLAN_COLLAPSE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": {
+        "code": "REQUIRED_OBLIGATION_OMITTED",
+        "message": "The normalized candidate marks a required obligation as OMITTED.",
+        "referenceId": "req-2-pet-and-meg",
+        "stage": "LEVEL_1"
+      },
+      "judgment": "VIOLATED",
+      "propertyId": "PROPERTY_CONCEPTUAL_PLAN_SEPARATION"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P15",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_SEMANTIC_EQUIVALENCE_RECOGNIZED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P16",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "CLARIFICATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_CLARIFICATION_HAS_DECISIONAL_VALUE"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P17",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "SEMANTIC_EQUIVALENCE_EVALUATION_FAILURE",
+      "family": "SCIENTIFIC_UNDERSTANDING_COMPETENCE",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_NONCRITICAL_FORM_VARIATION_ALLOWED"
+    },
+    {
+      "adjudicationPacketId": null,
+      "alias": "P18",
+      "applicable": true,
+      "checkType": "DETERMINISTIC_CHECK",
+      "compensable": false,
+      "downstreamFindings": [],
+      "evaluationScope": "STATISTICAL_PROPERTY_MECHANIC_ONLY",
+      "evidenceTrace": [],
+      "failureClass": "CONTEXTUAL_UNDERSTANDING_FAILURE",
+      "family": "CONTEXTUAL_ENRICHMENT",
+      "firstCause": null,
+      "judgment": "NOT_EVALUABLE",
+      "propertyId": "PROPERTY_CONTEXTUAL_CANDIDATE_RELEVANCE"
+    }
+  ],
+  "provenance": {
+    "adjudicationRequired": false,
+    "evidenceRefs": [
+      "acceptanceEnvelope.required.req-5-discordant-region-separate",
+      "acceptanceEnvelope.prohibited.pro-3-wrong-ellipsis-antecedent"
+    ],
+    "status": "VIOLATED"
+  },
+  "schemaVersion": "1.1.0"
+}

@@ -1,0 +1,49 @@
+{
+  "baselineId": "SEM003C1-PYDANTICAI-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+  "caseInputDigest": "43d25abc6865d84936cfbfa0149e26f53c8df6ed544da850f1a04222128c84ac",
+  "caseOrdinal": 7,
+  "completedAt": "2026-08-14T00:19:41.182171Z",
+  "configuration": {
+    "agentRetries": 0,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "providerAttempts": 1,
+    "temperature": null,
+    "tools": []
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "ModelHTTPError",
+    "message": "status_code: 400, model_name: gemini-3.5-flash-lite, body: {'error': {'code': 400, 'message': 'Request contains an invalid argument.', 'status': 'INVALID_ARGUMENT'}}"
+  },
+  "framework": "PydanticAI",
+  "frameworkVersion": "2.29.0",
+  "latencyMs": 525.883,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/039-sem3-blind-laa-closure-seal-assessment-pydanticai/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 1,
+  "providerStatus": "PROVIDER_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-07-PYDANTICAI",
+  "runOrdinal": 39,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:19:34.928155Z",
+  "stderr": null,
+  "terminalStatus": "PROVIDER_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

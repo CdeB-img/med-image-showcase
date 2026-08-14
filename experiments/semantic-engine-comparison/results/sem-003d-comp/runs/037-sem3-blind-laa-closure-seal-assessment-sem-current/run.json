@@ -1,0 +1,49 @@
+{
+  "baselineId": "SEM003C1-SEM-CURRENT-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+  "caseInputDigest": "43d25abc6865d84936cfbfa0149e26f53c8df6ed544da850f1a04222128c84ac",
+  "caseOrdinal": 7,
+  "completedAt": "2026-08-14T00:19:28.918394Z",
+  "configuration": {
+    "maxAttemptsPerProviderOperation": 1,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "previousModel": null,
+    "strategy": "NATIVE_SEM_RECONSTRUCTION_CRITIC_DETERMINISTIC_CANONICALIZATION",
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "ValueError",
+    "message": "SEM returned no JSON output"
+  },
+  "framework": "NOXIA_SEM",
+  "frameworkVersion": "SEM-001-1.1 / SEM_LEGACY_R5P",
+  "latencyMs": 273.728,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/037-sem3-blind-laa-closure-seal-assessment-sem-current/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 0,
+  "providerStatus": "FRAMEWORK_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-07-SEM-CURRENT",
+  "runOrdinal": 37,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:19:22.672524Z",
+  "stderr": null,
+  "terminalStatus": "FRAMEWORK_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

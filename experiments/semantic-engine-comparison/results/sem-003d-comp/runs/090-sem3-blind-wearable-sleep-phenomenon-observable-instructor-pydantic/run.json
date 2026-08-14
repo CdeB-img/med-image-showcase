@@ -1,0 +1,49 @@
+{
+  "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+  "caseInputDigest": "1b4aae386a595673d297a45c5fcf2aecbfd9fb4a3e71da4178aac6507bc2d91a",
+  "caseOrdinal": 15,
+  "completedAt": "2026-08-14T00:24:47.403755Z",
+  "configuration": {
+    "maxRetries": 0,
+    "mode": "Instructor.Mode.JSON",
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "strict": true,
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "InstructorRetryException",
+    "message": "400 INVALID_ARGUMENT. {'error': {'code': 400, 'message': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[4].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[4].value.items.properties[8].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[5].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[5].value.items.properties[8].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[6].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[6].value.items.properties[3].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[7].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[7].value.items.properties[3].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[8].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[8].value.items.properties[8].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[9].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[10].value.items\\': Cannot find field.\\nInvalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[10].value.items.properties[8].value.items\\': Cannot find field.', 'status': 'INVALID_ARGUMENT', 'details': [{'@type': 'type.googleapis.com/google.rpc.BadRequest', 'fieldViolations': [{'field': 'generation_config.response_schema', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[4].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[4].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[4].value.items.properties[8].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[4].value.items.properties[8].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[5].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[5].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[5].value.items.properties[8].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[5].value.items.properties[8].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[6].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[6].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[6].value.items.properties[3].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[6].value.items.properties[3].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[7].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[7].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[7].value.items.properties[3].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[7].value.items.properties[3].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[8].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[8].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[8].value.items.properties[8].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[8].value.items.properties[8].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[9].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[9].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[10].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[10].value.items\\': Cannot find field.'}, {'field': 'generation_config.response_schema.properties[10].value.items.properties[8].value.items', 'description': 'Invalid JSON payload received. Unknown name \"additional_properties\" at \\'generation_config.response_schema.properties[10].value.items.properties[8].value.items\\': Cannot find field.'}]}]}}"
+  },
+  "framework": "Instructor + Pydantic",
+  "frameworkVersion": "Instructor 1.15.4 / Pydantic 2.13.4",
+  "latencyMs": 169.951,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/090-sem3-blind-wearable-sleep-phenomenon-observable-instructor-pydantic/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 0,
+  "providerStatus": "FRAMEWORK_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-15-INSTRUCTOR-PYDANTIC",
+  "runOrdinal": 90,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:24:41.556012Z",
+  "stderr": null,
+  "terminalStatus": "FRAMEWORK_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}

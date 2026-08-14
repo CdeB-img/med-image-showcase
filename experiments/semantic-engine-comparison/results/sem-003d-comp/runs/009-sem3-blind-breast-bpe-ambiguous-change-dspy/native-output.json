@@ -1,0 +1,156 @@
+{
+  "ambiguities": [
+    {
+      "description": "L'utilisateur n'a pas encore choisi si la question principale concerne une comparaison longitudinale (hausse dans le temps) ou transversale (niveau plus élevé entre groupes).",
+      "issueId": "ambig-main-comparison",
+      "semanticKey": "ambiguity.study.main-comparison",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Je n'ai pas encore choisi laquelle de ces deux comparaisons est la question principale."
+        }
+      ]
+    }
+  ],
+  "clarifications": [
+    {
+      "clarificationId": "clarif-main-comparison",
+      "question": "Quelle est la question principale entre la comparaison longitudinale (hausse dans le temps) et la comparaison entre groupes ?",
+      "reason": "Le choix de la comparaison principale est indécis et détermine l'orientation de l'analyse statistique et de la structuration du protocole.",
+      "resolvesSemanticKeys": [
+        "ambiguity.study.main-comparison"
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-bpe",
+      "conceptType": "PHENOMENON",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "rehaussement parenchymateux de fond",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "phenomenon.breast.bpe",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "augmentation du rehaussement parenchymateux de fond en IRM mammaire"
+        }
+      ],
+      "studyRole": "OBSERVABLE",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-mri",
+      "conceptType": "METHOD",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "IRM mammaire",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "method.imaging.breast-mri",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "IRM mammaire"
+        }
+      ],
+      "studyRole": "MODALITY",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-hormonal-modification",
+      "conceptType": "INTERVENTION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "modification hormonale",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.hormonal-modification",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "modification hormonale"
+        }
+      ],
+      "studyRole": "INTERVENTION",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-time-comparison",
+      "conceptType": "COMPARISON",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "hausse dans le temps",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "comparison.time.longitudinal",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "hausse dans le temps"
+        }
+      ],
+      "studyRole": "COMPARATOR",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-group-comparison",
+      "conceptType": "COMPARISON",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "niveau plus élevé entre groupes",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "comparison.group.between-groups",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "niveau plus élevé entre groupes"
+        }
+      ],
+      "studyRole": "COMPARATOR",
+      "supersedesConceptIds": []
+    }
+  ],
+  "contractType": "SCIENTIFIC_UNDERSTANDING_NATIVE_PROJECTION",
+  "corrections": [],
+  "language": "fr",
+  "normalizedMeaning": "L'utilisateur souhaite étudier l'augmentation du rehaussement parenchymateux de fond (BPE) en IRM mammaire, en disposant d'examens réalisés avant et après une modification hormonale. Deux types de comparaisons sont évoqués (une hausse dans le temps ou un niveau plus élevé entre groupes), mais le choix de la question principale n'est pas encore arrêté.",
+  "optionalCandidates": [],
+  "relations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "measured_by",
+      "relationId": "rel-bpe-mri",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.phenomenon.measured-by.mri",
+      "sourceConceptId": "concept-bpe",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "augmentation du rehaussement parenchymateux de fond en IRM mammaire"
+        }
+      ],
+      "targetConceptId": "concept-mri"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "unknowns": [],
+  "warnings": []
+}

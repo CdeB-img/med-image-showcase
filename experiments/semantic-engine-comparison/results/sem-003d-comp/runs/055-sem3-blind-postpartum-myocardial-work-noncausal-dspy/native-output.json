@@ -1,0 +1,296 @@
+{
+  "ambiguities": [
+    {
+      "description": "Le groupe de comparaison n'est pas encore choisi.",
+      "issueId": "amb-comparison-group",
+      "semanticKey": "ambiguity.comparison-group.not-chosen",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-7",
+          "quote": "Le groupe de comparaison n'est pas encore choisi."
+        }
+      ]
+    },
+    {
+      "description": "Les traitements antihypertenseurs devront rester un contexte non établi s'ils ne sont pas documentés.",
+      "issueId": "amb-antihypertensive-treatments",
+      "semanticKey": "ambiguity.antihypertensive-treatments.not-documented",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-8",
+          "quote": "Les traitements antihypertenseurs devront rester un contexte non établi s'ils ne sont pas documentés."
+        }
+      ]
+    }
+  ],
+  "clarifications": [],
+  "concepts": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-adaptation-cardiovasculaire",
+      "conceptType": "PHENOMENON",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Adaptation cardiovasculaire",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "phenomenon.cardiovascular-adaptation",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "l'adaptation cardiovasculaire"
+        }
+      ],
+      "studyRole": "endpoint",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-grossesse-hypertension",
+      "conceptType": "PHENOMENON",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Grossesse compliquée d'hypertension",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "phenomenon.pregnancy-complicated-by-hypertension",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "une grossesse compliquée d'hypertension"
+        }
+      ],
+      "studyRole": "comparator",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-echocardiographie-travail-myocardique",
+      "conceptType": "MEASUREMENT",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Échocardiographie avec estimation du travail myocardique",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.echocardiography-myocardial-work",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Une échocardiographie avec estimation du travail myocardique"
+        }
+      ],
+      "studyRole": "method",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-pression-arterielle",
+      "conceptType": "MEASUREMENT",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Pression artérielle",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "measurement.blood-pressure",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "La pression artérielle"
+        }
+      ],
+      "studyRole": "measurement",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-visite-six-semaines",
+      "conceptType": "TIMING",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Six semaines",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "timing.six-weeks-visit",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "à six semaines"
+        }
+      ],
+      "studyRole": "method",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-visite-six-mois",
+      "conceptType": "TIMING",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Seconde visite à six mois",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "timing.six-months-visit",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-6",
+          "quote": "Une seconde visite à six mois est envisagée."
+        }
+      ],
+      "studyRole": "method",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-groupe-comparaison",
+      "conceptType": "COMPARATOR",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Groupe de comparaison",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "comparator.comparison-group",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-7",
+          "quote": "Le groupe de comparaison"
+        }
+      ],
+      "studyRole": "comparator",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "c-traitements-antihypertenseurs",
+      "conceptType": "INTERVENTION",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Traitements antihypertenseurs",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.antihypertensive-treatments",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-8",
+          "quote": "Les traitements antihypertenseurs"
+        }
+      ],
+      "studyRole": "context",
+      "supersedesConceptIds": []
+    }
+  ],
+  "contractType": "SCIENTIFIC_UNDERSTANDING_NATIVE_PROJECTION",
+  "corrections": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "NEGATED",
+      "predicate": "explains",
+      "relationId": "corr-causal-interpretation-withdrawn",
+      "requiresConfirmation": false,
+      "semanticKey": "correction.causal-relationship.withdrawn",
+      "sourceConceptId": "c-grossesse-hypertension",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Au départ, je voulais écrire que l'hypertension expliquait les changements de travail myocardique."
+        },
+        {
+          "messageId": "turn-5",
+          "quote": "Je retire cette interprétation causale: l'étude doit seulement décrire leur relation."
+        }
+      ],
+      "targetConceptId": "c-adaptation-cardiovasculaire"
+    }
+  ],
+  "language": "fr",
+  "normalizedMeaning": "Étude observationnelle descriptive de l'adaptation cardiovasculaire (incluant le travail myocardique et la pression artérielle) à six semaines et potentiellement à six mois du post-partum suite à une grossesse compliquée d'hypertension, sans inférence causale ni effet thérapeutique déduit, avec un groupe de comparaison non encore défini et des traitements antihypertenseurs non documentés.",
+  "optionalCandidates": [],
+  "relations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "occurs_at",
+      "relationId": "rel-echoc-at-six-weeks",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.echocardiography.timing.six-weeks",
+      "sourceConceptId": "c-echocardiographie-travail-myocardique",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Une échocardiographie avec estimation du travail myocardique est prévue à six semaines."
+        }
+      ],
+      "targetConceptId": "c-visite-six-semaines"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "measured_at",
+      "relationId": "rel-bp-at-same-time",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.blood-pressure.timing.same-time",
+      "sourceConceptId": "c-pression-arterielle",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "La pression artérielle sera mesurée au même temps."
+        }
+      ],
+      "targetConceptId": "c-visite-six-semaines"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "describes_relation_with",
+      "relationId": "rel-study-describes-relation",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.study.describes.cardiovascular-adaptation-and-hypertension",
+      "sourceConceptId": "c-grossesse-hypertension",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Je veux étudier l'adaptation cardiovasculaire après une grossesse compliquée d'hypertension."
+        },
+        {
+          "messageId": "turn-5",
+          "quote": "l'étude doit seulement décrire leur relation."
+        }
+      ],
+      "targetConceptId": "c-adaptation-cardiovasculaire"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "unknowns": [
+    {
+      "description": "Aucun effet thérapeutique ne doit être déduit.",
+      "issueId": "unk-therapeutic-effect",
+      "semanticKey": "unknown.therapeutic-effect.none",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-9",
+          "quote": "Aucun effet thérapeutique ne doit être déduit."
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

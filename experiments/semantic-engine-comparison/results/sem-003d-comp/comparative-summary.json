@@ -1,0 +1,4246 @@
+{
+  "baselines": [
+    {
+      "absoluteP01ToP12Violations": 0,
+      "baselineId": "SEM003C1-SEM-CURRENT-01",
+      "capabilityCounts": {
+        "C01_EXPLICIT_FIDELITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C03_CORRECTION_CHANGE_OF_MIND": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C04_NEGATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C05_NON_CAUSALITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C08_AMBIGUITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C09_MISSING_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C10_CLARIFICATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C11_TEMPORAL_REASONING": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C12_RELATION_SEMANTICS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C14_OWNERSHIP": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C17_STRUCTURAL_ROBUSTNESS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        }
+      },
+      "dispositions": {
+        "NOT_EVALUABLE": 15
+      },
+      "latencyMedianMs": 275.121,
+      "latencyTotalMs": 4188.702,
+      "propertyCounts": {
+        "P01": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P02": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P03": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P04": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P05": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P06": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P07": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P08": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P09": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P10": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P11": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P12": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P13": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P14": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P15": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P16": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P17": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P18": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        }
+      },
+      "providerCallUnknownRuns": 0,
+      "providerCallsKnown": 0,
+      "runs": 15,
+      "structurallyValidOutputs": 0,
+      "terminalStatusCounts": {
+        "FRAMEWORK_FAILURE": 15,
+        "NORMALIZATION_FAILURE": 0,
+        "PARSING_FAILURE": 0,
+        "PROVIDER_FAILURE": 0,
+        "SUCCESS": 0
+      },
+      "tokens": "NOT_EXPOSED_BY_FROZEN_RUNNERS"
+    },
+    {
+      "absoluteP01ToP12Violations": 0,
+      "baselineId": "SEM003C1-INSTRUCTOR-PYDANTIC-01",
+      "capabilityCounts": {
+        "C01_EXPLICIT_FIDELITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C03_CORRECTION_CHANGE_OF_MIND": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C04_NEGATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C05_NON_CAUSALITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C08_AMBIGUITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C09_MISSING_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C10_CLARIFICATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C11_TEMPORAL_REASONING": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C12_RELATION_SEMANTICS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C14_OWNERSHIP": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C17_STRUCTURAL_ROBUSTNESS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        }
+      },
+      "dispositions": {
+        "NOT_EVALUABLE": 15
+      },
+      "latencyMedianMs": 169.951,
+      "latencyTotalMs": 3345.308,
+      "propertyCounts": {
+        "P01": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P02": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P03": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P04": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P05": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P06": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P07": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P08": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P09": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P10": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P11": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P12": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P13": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P14": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P15": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P16": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P17": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P18": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        }
+      },
+      "providerCallUnknownRuns": 0,
+      "providerCallsKnown": 0,
+      "runs": 15,
+      "structurallyValidOutputs": 0,
+      "terminalStatusCounts": {
+        "FRAMEWORK_FAILURE": 15,
+        "NORMALIZATION_FAILURE": 0,
+        "PARSING_FAILURE": 0,
+        "PROVIDER_FAILURE": 0,
+        "SUCCESS": 0
+      },
+      "tokens": "NOT_EXPOSED_BY_FROZEN_RUNNERS"
+    },
+    {
+      "absoluteP01ToP12Violations": 0,
+      "baselineId": "SEM003C1-PYDANTICAI-01",
+      "capabilityCounts": {
+        "C01_EXPLICIT_FIDELITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C03_CORRECTION_CHANGE_OF_MIND": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C04_NEGATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C05_NON_CAUSALITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C08_AMBIGUITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C09_MISSING_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C10_CLARIFICATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C11_TEMPORAL_REASONING": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C12_RELATION_SEMANTICS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C14_OWNERSHIP": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C17_STRUCTURAL_ROBUSTNESS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        }
+      },
+      "dispositions": {
+        "PROVIDER_EXECUTION_FAILURE": 15
+      },
+      "latencyMedianMs": 525.883,
+      "latencyTotalMs": 9074.481,
+      "propertyCounts": {
+        "P01": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P02": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P03": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P04": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P05": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P06": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P07": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P08": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P09": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P10": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P11": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P12": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P13": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P14": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P15": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P16": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P17": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P18": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        }
+      },
+      "providerCallUnknownRuns": 0,
+      "providerCallsKnown": 15,
+      "runs": 15,
+      "structurallyValidOutputs": 0,
+      "terminalStatusCounts": {
+        "FRAMEWORK_FAILURE": 0,
+        "NORMALIZATION_FAILURE": 0,
+        "PARSING_FAILURE": 0,
+        "PROVIDER_FAILURE": 15,
+        "SUCCESS": 0
+      },
+      "tokens": "NOT_EXPOSED_BY_FROZEN_RUNNERS"
+    },
+    {
+      "absoluteP01ToP12Violations": 61,
+      "baselineId": "SEM003C1-DSPY-01",
+      "capabilityCounts": {
+        "C01_EXPLICIT_FIDELITY": {
+          "FAIL": 10,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "FAIL": 10,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C03_CORRECTION_CHANGE_OF_MIND": {
+          "FAIL": 2,
+          "NOT_EVALUABLE": 1,
+          "NOT_TESTED": 12,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C04_NEGATION": {
+          "FAIL": 7,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C05_NON_CAUSALITY": {
+          "FAIL": 5,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 6,
+          "PARTIAL": 0,
+          "PASS": 1
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "FAIL": 8,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 2,
+          "PASS": 0
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "FAIL": 10,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C08_AMBIGUITY": {
+          "FAIL": 10,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C09_MISSING_INFORMATION": {
+          "FAIL": 10,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C10_CLARIFICATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C11_TEMPORAL_REASONING": {
+          "FAIL": 9,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 1,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C12_RELATION_SEMANTICS": {
+          "FAIL": 10,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "FAIL": 7,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C14_OWNERSHIP": {
+          "FAIL": 5,
+          "NOT_EVALUABLE": 7,
+          "NOT_TESTED": 0,
+          "PARTIAL": 3,
+          "PASS": 0
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "FAIL": 10,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "FAIL": 4,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 6,
+          "PASS": 0
+        },
+        "C17_STRUCTURAL_ROBUSTNESS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "FAIL": 10,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        }
+      },
+      "dispositions": {
+        "NOT_EVALUABLE": 5,
+        "SEMANTIC_FAILURE": 10
+      },
+      "latencyMedianMs": 4730.031,
+      "latencyTotalMs": 71033.892,
+      "propertyCounts": {
+        "P01": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 10
+        },
+        "P02": {
+          "ADJUDICATION_REQUIRED": 1,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 9
+        },
+        "P03": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 7
+        },
+        "P04": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 1,
+          "SATISFIED": 0,
+          "VIOLATED": 9
+        },
+        "P05": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 1,
+          "NOT_TESTED": 12,
+          "SATISFIED": 0,
+          "VIOLATED": 2
+        },
+        "P06": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 6,
+          "SATISFIED": 1,
+          "VIOLATED": 5
+        },
+        "P07": {
+          "ADJUDICATION_REQUIRED": 7,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 3
+        },
+        "P08": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 0,
+          "NOT_TESTED": 11,
+          "SATISFIED": 4,
+          "VIOLATED": 0
+        },
+        "P09": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 10
+        },
+        "P10": {
+          "ADJUDICATION_REQUIRED": 1,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "SATISFIED": 9,
+          "VIOLATED": 0
+        },
+        "P11": {
+          "ADJUDICATION_REQUIRED": 5,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "SATISFIED": 3,
+          "VIOLATED": 2
+        },
+        "P12": {
+          "ADJUDICATION_REQUIRED": 6,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 5,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 4
+        },
+        "P13": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 6,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 9
+        },
+        "P14": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 7
+        },
+        "P15": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P16": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P17": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P18": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 2,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 2
+        }
+      },
+      "providerCallUnknownRuns": 0,
+      "providerCallsKnown": 10,
+      "runs": 15,
+      "structurallyValidOutputs": 10,
+      "terminalStatusCounts": {
+        "FRAMEWORK_FAILURE": 5,
+        "NORMALIZATION_FAILURE": 0,
+        "PARSING_FAILURE": 0,
+        "PROVIDER_FAILURE": 0,
+        "SUCCESS": 10
+      },
+      "tokens": "NOT_EXPOSED_BY_FROZEN_RUNNERS"
+    },
+    {
+      "absoluteP01ToP12Violations": 0,
+      "baselineId": "SEM003C1-LANGEXTRACT-01",
+      "capabilityCounts": {
+        "C01_EXPLICIT_FIDELITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C03_CORRECTION_CHANGE_OF_MIND": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C04_NEGATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C05_NON_CAUSALITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C08_AMBIGUITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C09_MISSING_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C10_CLARIFICATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C11_TEMPORAL_REASONING": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C12_RELATION_SEMANTICS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C14_OWNERSHIP": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C17_STRUCTURAL_ROBUSTNESS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        }
+      },
+      "dispositions": {
+        "NOT_EVALUABLE": 15
+      },
+      "latencyMedianMs": 1.482,
+      "latencyTotalMs": 193.307,
+      "propertyCounts": {
+        "P01": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P02": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P03": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P04": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P05": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P06": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P07": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P08": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P09": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P10": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P11": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P12": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P13": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P14": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P15": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P16": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P17": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P18": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        }
+      },
+      "providerCallUnknownRuns": 0,
+      "providerCallsKnown": 0,
+      "runs": 15,
+      "structurallyValidOutputs": 0,
+      "terminalStatusCounts": {
+        "FRAMEWORK_FAILURE": 15,
+        "NORMALIZATION_FAILURE": 0,
+        "PARSING_FAILURE": 0,
+        "PROVIDER_FAILURE": 0,
+        "SUCCESS": 0
+      },
+      "tokens": "NOT_EXPOSED_BY_FROZEN_RUNNERS"
+    },
+    {
+      "absoluteP01ToP12Violations": 0,
+      "baselineId": "SEM003C1-OUTLINES-01",
+      "capabilityCounts": {
+        "C01_EXPLICIT_FIDELITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C03_CORRECTION_CHANGE_OF_MIND": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C04_NEGATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C05_NON_CAUSALITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C08_AMBIGUITY": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C09_MISSING_INFORMATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C10_CLARIFICATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C11_TEMPORAL_REASONING": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C12_RELATION_SEMANTICS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C14_OWNERSHIP": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C17_STRUCTURAL_ROBUSTNESS": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "FAIL": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "PARTIAL": 0,
+          "PASS": 0
+        }
+      },
+      "dispositions": {
+        "NOT_EVALUABLE": 15
+      },
+      "latencyMedianMs": 163.768,
+      "latencyTotalMs": 2731.603,
+      "propertyCounts": {
+        "P01": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P02": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P03": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P04": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 14,
+          "NOT_TESTED": 1,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P05": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 3,
+          "NOT_TESTED": 12,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P06": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 9,
+          "NOT_TESTED": 6,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P07": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P08": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P09": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P10": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P11": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P12": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P13": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P14": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 11,
+          "NOT_TESTED": 4,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P15": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P16": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P17": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 15,
+          "NOT_TESTED": 0,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        },
+        "P18": {
+          "ADJUDICATION_REQUIRED": 0,
+          "NOT_APPLICABLE": 0,
+          "NOT_EVALUABLE": 4,
+          "NOT_TESTED": 11,
+          "SATISFIED": 0,
+          "VIOLATED": 0
+        }
+      },
+      "providerCallUnknownRuns": 0,
+      "providerCallsKnown": 0,
+      "runs": 15,
+      "structurallyValidOutputs": 0,
+      "terminalStatusCounts": {
+        "FRAMEWORK_FAILURE": 15,
+        "NORMALIZATION_FAILURE": 0,
+        "PARSING_FAILURE": 0,
+        "PROVIDER_FAILURE": 0,
+        "SUCCESS": 0
+      },
+      "tokens": "NOT_EXPOSED_BY_FROZEN_RUNNERS"
+    }
+  ],
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseComparisons": [
+    {
+      "capabilityDivergences": {},
+      "caseId": "SEM3-BLIND-AMYLOID-ECV-PURPOSE-GAP",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C14_OWNERSHIP": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-BREAST-BPE-AMBIGUOUS-CHANGE",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-bpe-increase",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-bpe-increase",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C05_NON_CAUSALITY": {
+          "SEM003C1-DSPY-01": "PASS",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-post-surgery-context",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-post-surgery-context",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C04_NEGATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C14_OWNERSHIP": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-EPILEPSY-DISCORDANT-REGION-ELLIPSIS",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-epileptogenic-network-purpose",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-epileptogenic-network-purpose",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {},
+      "caseId": "SEM3-BLIND-FOCUSED-ULTRASOUND-BBB-MRI",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {},
+      "caseId": "SEM3-BLIND-HFPEF-EXERCISE-STATE",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C04_NEGATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C14_OWNERSHIP": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-LAA-CLOSURE-SEAL-ASSESSMENT",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-closure-objective",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-closure-objective",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C04_NEGATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C05_NON_CAUSALITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C14_OWNERSHIP": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-MICROBIOME-ANTIBIOTIC-CANDIDATES",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-microbiome-before-after",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-microbiome-before-after",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C03_CORRECTION_CHANGE_OF_MIND": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C14_OWNERSHIP": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-ORTHODONTIC-CBCT-OUTCOME-CORRECTION",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-cbct-baseline-end",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-cbct-baseline-end",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C03_CORRECTION_CHANGE_OF_MIND": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C04_NEGATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C05_NON_CAUSALITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C14_OWNERSHIP": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-POSTPARTUM-MYOCARDIAL-WORK-NONCAUSAL",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-postpartum-hypertension-context",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-postpartum-hypertension-context",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C04_NEGATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C05_NON_CAUSALITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C14_OWNERSHIP": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-suspected-infection",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-suspected-infection",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {},
+      "caseId": "SEM3-BLIND-RARE-DISEASE-CONTROL-CHANGE",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C04_NEGATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C05_NON_CAUSALITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "PARTIAL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-TRANSPLANT-REJECTION-TIMING",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-transplant-surveillance",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-transplant-surveillance",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {
+        "C01_EXPLICIT_FIDELITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C02_MULTI_TURN_CONTEXT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C04_NEGATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C05_NON_CAUSALITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C06_NECESSARY_IMPLICIT_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C07_ELLIPSIS_COREFERENCE": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C08_AMBIGUITY": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C09_MISSING_INFORMATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C11_TEMPORAL_REASONING": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C12_RELATION_SEMANTICS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C13_CONCEPTUAL_PLAN_SEPARATION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C14_OWNERSHIP": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C15_EPISTEMIC_STATUS": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C16_CONTEXTUAL_ENRICHMENT": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        },
+        "C18_GLOBAL_SCIENTIFIC_STATE_RECONSTRUCTION": {
+          "SEM003C1-DSPY-01": "FAIL",
+          "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+          "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+          "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+          "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+          "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+        }
+      },
+      "caseId": "SEM3-BLIND-VACCINE-SINGLE-CELL-MULTIDIMENSIONAL",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "SEMANTIC_FAILURE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "REQUIRED_OBLIGATION_OMITTED",
+          "downstreamOf": null,
+          "failureClass": "EXPLICIT_FIDELITY_FAILURE",
+          "findingId": "finding-001-req-1-early-immune-response",
+          "isFirstCause": true,
+          "message": "The normalized candidate marks a required obligation as OMITTED.",
+          "propertyIds": [
+            "PROPERTY_EXPLICIT_CONTENT_PRESERVED"
+          ],
+          "referenceId": "req-1-early-immune-response",
+          "stage": "LEVEL_1"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "FAIL",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    },
+    {
+      "capabilityDivergences": {},
+      "caseId": "SEM3-BLIND-WEARABLE-SLEEP-PHENOMENON-OBSERVABLE",
+      "dispositions": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "PROVIDER_EXECUTION_FAILURE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      },
+      "firstCauses": {
+        "SEM003C1-DSPY-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-LANGEXTRACT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-OUTLINES-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-PYDANTICAI-01": {
+          "code": "PROVIDER_OUTPUT_UNAVAILABLE",
+          "downstreamOf": null,
+          "failureClass": "PROVIDER_EXECUTION_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The synthetic boundary fixture declares that no semantic output is available from the provider.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        },
+        "SEM003C1-SEM-CURRENT-01": {
+          "code": "CANDIDATE_OUTPUT_NOT_EVALUABLE",
+          "downstreamOf": null,
+          "failureClass": "QUALIFICATION_PROTOCOL_FAILURE",
+          "findingId": "finding-001-candidate-executionstatus",
+          "isFirstCause": true,
+          "message": "The candidate output is explicitly unavailable for a scientifically defensible judgment.",
+          "propertyIds": [],
+          "referenceId": "candidate.executionStatus",
+          "stage": "EXECUTION"
+        }
+      },
+      "level1": {
+        "SEM003C1-DSPY-01": "NOT_EVALUABLE",
+        "SEM003C1-INSTRUCTOR-PYDANTIC-01": "NOT_EVALUABLE",
+        "SEM003C1-LANGEXTRACT-01": "NOT_EVALUABLE",
+        "SEM003C1-OUTLINES-01": "NOT_EVALUABLE",
+        "SEM003C1-PYDANTICAI-01": "NOT_EVALUABLE",
+        "SEM003C1-SEM-CURRENT-01": "NOT_EVALUABLE"
+      }
+    }
+  ],
+  "contractType": "SEM003D_COMP_COMPARATIVE_SUMMARY",
+  "finalPD011ReferenceEligibility": "NO",
+  "noCompositeScore": true,
+  "realHumanReferenceReview": "NOT_PERFORMED",
+  "runs": 90,
+  "schemaVersion": "1.0.0"
+}

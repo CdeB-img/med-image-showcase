@@ -1,0 +1,204 @@
+{
+  "ambiguities": [],
+  "clarifications": [],
+  "concepts": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-laa-closure",
+      "conceptType": "interventions",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Fermeture de l'auricule",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "intervention.laa.closure",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-1",
+          "quote": "Je veux vérifier la fermeture de l'auricule après implantation du dispositif."
+        }
+      ],
+      "studyRole": "interventional_procedure",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-cardiac-ct",
+      "conceptType": "methods",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Scanner cardiaque",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "method.imaging.cardiac-ct",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Le scanner cardiaque est prévu à trois mois"
+        }
+      ],
+      "studyRole": "imaging_modality",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-peri-device-leak",
+      "conceptType": "endpoints",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Fuite péri-dispositif",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "endpoint.peri-device-leak",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "la fuite péri-dispositif est la mesure principale."
+        }
+      ],
+      "studyRole": "primary_endpoint",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-toe",
+      "conceptType": "methods",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Échographie transœsophagienne",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "method.imaging.toe",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "L'échographie transœsophagienne ne sera faite que si le scanner n'est pas concluant, pas comme comparateur systématique."
+        }
+      ],
+      "studyRole": "imaging_modality",
+      "supersedesConceptIds": []
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "conceptId": "concept-device-thrombus",
+      "conceptType": "phenomena",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "label": "Thrombus sur dispositif",
+      "polarity": "AFFIRMED",
+      "requiresConfirmation": false,
+      "semanticKey": "phenomenon.device-thrombus",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "Le thrombus sur dispositif reste exploratoire"
+        }
+      ],
+      "studyRole": "exploratory_phenomenon",
+      "supersedesConceptIds": []
+    }
+  ],
+  "contractType": "SCIENTIFIC_UNDERSTANDING_NATIVE_PROJECTION",
+  "corrections": [],
+  "language": "fr",
+  "normalizedMeaning": "Le patient souhaite vérifier la fermeture de l'auricule gauche après l'implantation d'un dispositif. Un scanner cardiaque est prévu à trois mois pour mesurer principalement la fuite péri-dispositif. L'échographie transœsophagienne est réservée aux cas où le scanner ne serait pas concluant et ne sert pas de comparateur systématique. Le thrombus sur dispositif reste un élément exploratoire dont le calendrier échographique n'est pas fixé.",
+  "optionalCandidates": [],
+  "relations": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "scheduled_at",
+      "relationId": "rel-ct-timing",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.cardiac-ct.timing",
+      "sourceConceptId": "concept-cardiac-ct",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Le scanner cardiaque est prévu à trois mois"
+        }
+      ],
+      "targetConceptId": "concept-cardiac-ct"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "measures",
+      "relationId": "rel-ct-primary-endpoint",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.cardiac-ct.measures.peri-device-leak",
+      "sourceConceptId": "concept-cardiac-ct",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-2",
+          "quote": "Le scanner cardiaque est prévu à trois mois et la fuite péri-dispositif est la mesure principale."
+        }
+      ],
+      "targetConceptId": "concept-peri-device-leak"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "AFFIRMED",
+      "predicate": "conditional_on_inconclusive",
+      "relationId": "rel-toe-conditional",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.toe.conditional-on-ct",
+      "sourceConceptId": "concept-toe",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "L'échographie transœsophagienne ne sera faite que si le scanner n'est pas concluant"
+        }
+      ],
+      "targetConceptId": "concept-cardiac-ct"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "confidence": 1.0,
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "inferenceReason": null,
+      "polarity": "NEGATED",
+      "predicate": "not_systematic_comparator_to",
+      "relationId": "rel-toe-not-comparator",
+      "requiresConfirmation": false,
+      "semanticKey": "relation.toe.not-systematic-comparator",
+      "sourceConceptId": "concept-toe",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-3",
+          "quote": "pas comme comparateur systématique."
+        }
+      ],
+      "targetConceptId": "concept-cardiac-ct"
+    }
+  ],
+  "schemaVersion": "1.0.0",
+  "unknowns": [
+    {
+      "description": "Le calendrier éventuel de l'échographie transœsophagienne n'est pas encore fixé.",
+      "issueId": "unknown-toe-timing",
+      "semanticKey": "unknown.toe.schedule",
+      "sourceEvidence": [
+        {
+          "messageId": "turn-4",
+          "quote": "le calendrier éventuel de l'échographie n'est pas encore fixé."
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}

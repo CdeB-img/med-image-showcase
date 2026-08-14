@@ -1,0 +1,186 @@
+{
+  "adjudicationClaims": [],
+  "ambiguityMappings": [],
+  "candidateId": "SEM3-EVAL-CAND-COMP-EFCDC0E7034DFFD269ED",
+  "caseId": "SEM3-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+  "caseVersion": "1.0.0",
+  "clarificationMapping": {
+    "decisionImpactMapping": "REQUIRES_HUMAN_ADJUDICATION",
+    "evidenceRefs": [],
+    "status": "ABSENT"
+  },
+  "contractType": "BENCHMARK_EVALUATION_CANDIDATE",
+  "envelopeId": "SEM3-AE-BLIND-CORNEAL-NERVE-METHOD-MEASURE",
+  "envelopeVersion": "1.0.0",
+  "evaluationMode": "FUTURE_SEM_RUNTIME",
+  "executionStatus": "COMPLETED",
+  "obligationMappings": [
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-1-post-surgery-context",
+      "status": "OMITTED"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-2-confocal-method",
+      "status": "OMITTED"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-3-nerve-density-measure",
+      "status": "OMITTED"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-4-regeneration-phenomenon",
+      "status": "OMITTED"
+    },
+    {
+      "candidateElementRefs": [],
+      "evidenceType": "EXPLICIT_NORMALIZED_MAPPING",
+      "obligationId": "req-5-timing-unknown",
+      "status": "OMITTED"
+    }
+  ],
+  "optionalCandidateMappings": [],
+  "ownershipMappings": [
+    {
+      "boundaryId": "own-sem-project",
+      "evidenceRefs": [],
+      "status": "PRESERVED"
+    },
+    {
+      "boundaryId": "own-knowledge-specialists",
+      "evidenceRefs": [],
+      "status": "PRESERVED"
+    }
+  ],
+  "prohibitionSignals": [
+    {
+      "evidenceRefs": [],
+      "prohibitionId": "pro-1-method-as-measure",
+      "status": "ABSENT"
+    },
+    {
+      "evidenceRefs": [],
+      "prohibitionId": "pro-2-density-proves-regeneration",
+      "status": "ABSENT"
+    },
+    {
+      "evidenceRefs": [],
+      "prohibitionId": "pro-3-invent-time",
+      "status": "ABSENT"
+    }
+  ],
+  "provenanceSummary": {
+    "evidenceRefs": [
+      "turn-1:Après chirurgie cornéenne",
+      "turn-1:utiliser la microscopie confocale",
+      "turn-1:quantifier la densité des fibres nerveuses",
+      "turn-1:la régénération nerveuse reste le phénomène étudié"
+    ],
+    "historyReconstructible": true,
+    "sourceRequestReconstructible": true,
+    "status": "RECONSTRUCTIBLE"
+  },
+  "purpose": "SCIENTIFIC_UNDERSTANDING_EVALUATOR_BLIND_QUALIFICATION",
+  "schemaVersion": "1.3.0",
+  "semanticElements": [
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "elementId": "element-concept-chirurgie-corneenne",
+      "elementType": "CONTENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "owner": "SEM003C1-DSPY-01",
+      "provenanceRefs": [
+        "native:concept-chirurgie-corneenne"
+      ],
+      "semanticKey": "intervention.corneal-surgery",
+      "sourceRefs": [
+        "turn-1:Après chirurgie cornéenne"
+      ],
+      "state": "CURRENT"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "elementId": "element-concept-microscopie-confocale",
+      "elementType": "CONTENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "owner": "SEM003C1-DSPY-01",
+      "provenanceRefs": [
+        "native:concept-microscopie-confocale"
+      ],
+      "semanticKey": "method.confocal-microscopy",
+      "sourceRefs": [
+        "turn-1:utiliser la microscopie confocale"
+      ],
+      "state": "CURRENT"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "elementId": "element-concept-densite-fibres-nerveuses",
+      "elementType": "CONTENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "owner": "SEM003C1-DSPY-01",
+      "provenanceRefs": [
+        "native:concept-densite-fibres-nerveuses"
+      ],
+      "semanticKey": "measurement.nerve-fiber-density",
+      "sourceRefs": [
+        "turn-1:quantifier la densité des fibres nerveuses"
+      ],
+      "state": "CURRENT"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "elementId": "element-concept-regeneration-nerveuse",
+      "elementType": "CONTENT",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "owner": "SEM003C1-DSPY-01",
+      "provenanceRefs": [
+        "native:concept-regeneration-nerveuse"
+      ],
+      "semanticKey": "phenomenon.nerve-regeneration",
+      "sourceRefs": [
+        "turn-1:la régénération nerveuse reste le phénomène étudié"
+      ],
+      "state": "CURRENT"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "elementId": "element-relation-rel-method-measurement",
+      "elementType": "RELATION",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "owner": "SEM003C1-DSPY-01",
+      "provenanceRefs": [
+        "native:rel-method-measurement"
+      ],
+      "semanticKey": "relation.method.quantifies.measurement",
+      "sourceRefs": [
+        "turn-1:la microscopie est la méthode et [...] la densité est la mesure"
+      ],
+      "state": "CURRENT"
+    },
+    {
+      "adoptionStatus": "NOT_ADOPTED",
+      "elementId": "element-relation-rel-phenomenon-studied",
+      "elementType": "RELATION",
+      "epistemicStatus": "EXPLICIT_USER_STATED",
+      "owner": "SEM003C1-DSPY-01",
+      "provenanceRefs": [
+        "native:rel-phenomenon-studied"
+      ],
+      "semanticKey": "relation.study.studies.phenomenon",
+      "sourceRefs": [
+        "turn-1:Après chirurgie cornéenne[...] la régénération nerveuse reste le phénomène étudié"
+      ],
+      "state": "CURRENT"
+    }
+  ],
+  "sourceType": "FUTURE_SEM_RUNTIME_OUTPUT",
+  "structureProfile": "CONSOLIDATED"
+}

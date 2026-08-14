@@ -1,0 +1,22 @@
+{
+  "baselineReplayAfterReferenceOpening": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "contractType": "SEM003D_COMP_EVALUATION_MANIFEST",
+  "evaluationCollectionDigest": "401bd5d130214ea2d109f7f59754a38989431c9e29af79485133ab9e9595aa72",
+  "evaluationsExpected": 90,
+  "evaluationsRecorded": 90,
+  "evaluatorConfigurationDigest": "0d0f48cf1859d3747fd17eeaf75d51a59e6a5d5a48a096beab67cbe32d94665b",
+  "evaluatorErrors": 0,
+  "evaluatorVersion": "1.3.0",
+  "finalPD011ReferenceEligibility": "NO",
+  "generationFreezeDigest": "af96fed2aa4ccdba6ae9bb7d69ad8a2de5bbf1e7e3823c7fe4ce4611e6689704",
+  "outputFreezeAt": "2026-08-14T00:24:47.899870Z",
+  "realHumanReferenceReview": "NOT_PERFORMED",
+  "referenceCaseCount": 15,
+  "referenceEnvelopeCount": 15,
+  "referencesOpenedAt": "2026-08-14T00:25:21.292752Z",
+  "referencesOpenedOnlyAfterGenerationFreeze": true,
+  "schemaVersion": "1.0.0",
+  "status": "EVALUATION_COMPLETE",
+  "tuningAfterObservation": false
+}

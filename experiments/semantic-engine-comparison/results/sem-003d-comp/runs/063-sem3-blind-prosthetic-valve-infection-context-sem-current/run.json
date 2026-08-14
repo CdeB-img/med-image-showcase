@@ -1,0 +1,49 @@
+{
+  "baselineId": "SEM003C1-SEM-CURRENT-01",
+  "bestRunSelected": false,
+  "campaignId": "SEM003D-COMP-COMMON-BLIND-01",
+  "caseId": "SEM3-BLIND-PROSTHETIC-VALVE-INFECTION-CONTEXT",
+  "caseInputDigest": "a65092466db4c2ebb5d633145ccbe19f8297bdde49cce0041e11610bdb650168",
+  "caseOrdinal": 11,
+  "completedAt": "2026-08-14T00:22:05.375447Z",
+  "configuration": {
+    "maxAttemptsPerProviderOperation": 1,
+    "normalization": "LOSSLESS_REFERENCE_BLIND_1.0.0",
+    "previousModel": null,
+    "strategy": "NATIVE_SEM_RECONSTRUCTION_CRITIC_DETERMINISTIC_CANONICALIZATION",
+    "temperature": null
+  },
+  "contractType": "SEM003D_COMP_RUN_RECORD",
+  "error": {
+    "class": "ValueError",
+    "message": "SEM returned no JSON output"
+  },
+  "framework": "NOXIA_SEM",
+  "frameworkVersion": "SEM-001-1.1 / SEM_LEGACY_R5P",
+  "latencyMs": 262.983,
+  "model": "gemini-3.5-flash-lite",
+  "nativeOutput": {
+    "path": "experiments/semantic-engine-comparison/results/sem-003d-comp/runs/063-sem3-blind-prosthetic-valve-infection-context-sem-current/native-output.json",
+    "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+  },
+  "normalizationStatus": "NOT_AVAILABLE",
+  "normalizedOutput": null,
+  "parsingStatus": "NOT_AVAILABLE",
+  "provider": "GOOGLE_GEMINI",
+  "providerCallCount": 0,
+  "providerStatus": "FRAMEWORK_FAILURE",
+  "retryPerformedByCampaign": false,
+  "runId": "SEM003D-RUN-11-SEM-CURRENT",
+  "runOrdinal": 63,
+  "schemaVersion": "1.0.0",
+  "sealedReferenceAccessed": false,
+  "startedAt": "2026-08-14T00:21:59.284873Z",
+  "stderr": null,
+  "terminalStatus": "FRAMEWORK_FAILURE",
+  "tokenUsage": {
+    "availability": "NOT_EXPOSED_BY_FROZEN_RUNNER",
+    "input": null,
+    "output": null,
+    "total": null
+  }
+}
