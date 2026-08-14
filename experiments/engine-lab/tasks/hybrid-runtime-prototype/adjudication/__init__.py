@@ -1,0 +1,1 @@
+"""Conditional typed adjudicator."""
