@@ -18,8 +18,8 @@
       "responsibility": "Report semantic integrity findings without mutation.",
       "truthOwner": "NONE_FINDINGS_ONLY",
       "availableTracks": ["COMMON_TASK_TRACK", "NOXIA_COMPATIBILITY_TRACK"],
-      "implementationPath": null,
-      "status": "CONTRACT_DEFINED_PROTOTYPE_PENDING",
+      "implementationPath": "experiments/engine-lab/tasks/semantic-audit",
+      "status": "DETERMINISTIC_PROTOTYPE",
       "mutatesProductState": false
     },
     {

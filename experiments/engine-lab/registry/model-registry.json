@@ -26,7 +26,7 @@
       "supportedRoles": ["schema validation", "semantic integrity guards", "registry validation"],
       "structuredOutputExpected": true,
       "configurationRule": "Code and configuration identity are versioned and tested locally.",
-      "evidencePaths": ["experiments/engine-lab/validation"],
+      "evidencePaths": ["experiments/engine-lab/tasks/semantic-audit", "experiments/engine-lab/validation"],
       "limitations": ["cannot replace contextual semantic understanding"],
       "secretsStored": false
     }

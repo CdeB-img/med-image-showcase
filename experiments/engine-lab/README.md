@@ -41,7 +41,7 @@ NOXIA compatibility is not a substitute for scientific understanding. A valid na
 
 - `registry/`: evidence-backed capability, runtime, task, documentary-asset and transition inventories.
 - `contracts/`: machine contracts for reconstructible experiments and non-mutating findings.
-- `tasks/semantic-audit/`: reserved for the first bounded implementation, SEM-AUDIT-D.
+- `tasks/semantic-audit/`: the first implemented task, SEM-AUDIT-D.
 - `validation/`: deterministic registry and lab-contract checks.
 - `results/`: intentionally empty until an explicitly authorized experiment writes a governed result.
 

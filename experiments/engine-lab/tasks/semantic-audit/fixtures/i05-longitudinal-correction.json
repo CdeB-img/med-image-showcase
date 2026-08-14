@@ -1,0 +1,112 @@
+{
+  "fixtureFamily": "I05",
+  "evidencePaths": [
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/human-review/I05.md",
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/common-states/common-transcript-i05-t2-pydantic-common-contract.json"
+  ],
+  "evidenceStatus": "VISIBLE_HISTORICAL_NON_PD011_FIXTURE",
+  "variants": [
+    {
+      "fixtureId": "I05_LONGITUDINAL_DECISION_PRESERVED",
+      "input": {
+        "conversationTurns": [
+          {"turnId": "T0", "text": "Je veux étudier un changement avant/après et la récidive."},
+          {"turnId": "T1", "text": "La réponse pathologique devient principale; la récidive reste exploratoire."},
+          {"turnId": "T2", "text": "Sans seconde imagerie, le delta est impossible mais la baseline reste utilisable."}
+        ],
+        "previousState": {
+          "items": [
+            {
+              "itemId": "recurrence",
+              "semanticIdentity": "recurrence-role",
+              "label": "récidive",
+              "conceptClass": "ENDPOINT_ROLE",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "role": "PRIMARY_ENDPOINT",
+              "active": true,
+              "polarity": "AFFIRMED",
+              "sourceTurnIds": ["T0"],
+              "sourceText": "la récidive"
+            }
+          ],
+          "relations": [],
+          "ambiguities": [],
+          "clarifications": []
+        },
+        "candidateState": {
+          "items": [
+            {
+              "itemId": "recurrence",
+              "semanticIdentity": "recurrence-role",
+              "label": "récidive exploratoire",
+              "conceptClass": "ENDPOINT_ROLE",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "adoptionStatus": "ADOPTED",
+              "role": "EXPLORATORY_ENDPOINT",
+              "decisionId": "decision-role-change",
+              "ownership": "PROJECT",
+              "active": true,
+              "polarity": "AFFIRMED",
+              "sourceTurnIds": ["T0", "T1"],
+              "sourceText": "la récidive reste exploratoire"
+            },
+            {
+              "itemId": "pathological-response",
+              "semanticIdentity": "pathological-response-role",
+              "label": "réponse pathologique principale",
+              "conceptClass": "ENDPOINT_ROLE",
+              "epistemicStatus": "CONFIRMED_BY_USER",
+              "adoptionStatus": "ADOPTED",
+              "role": "PRIMARY_ENDPOINT",
+              "decisionId": "decision-role-change",
+              "ownership": "PROJECT",
+              "active": true,
+              "sourceTurnIds": ["T1"],
+              "sourceText": "La réponse pathologique devient principale"
+            },
+            {
+              "itemId": "delta-imaging",
+              "semanticIdentity": "delta-imaging-availability",
+              "label": "delta impossible sans seconde imagerie",
+              "conceptClass": "MEASURE",
+              "epistemicStatus": "KNOWN",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T2"],
+              "sourceText": "Sans seconde imagerie, le delta est impossible"
+            },
+            {
+              "itemId": "baseline",
+              "semanticIdentity": "baseline-availability",
+              "label": "baseline-only possible",
+              "conceptClass": "MEASURE",
+              "epistemicStatus": "KNOWN",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T2"],
+              "sourceText": "la baseline reste utilisable"
+            }
+          ],
+          "relations": [],
+          "ambiguities": [],
+          "clarifications": [],
+          "corrections": [
+            {
+              "correctionId": "corr-role",
+              "previousSemanticIdentity": "recurrence-primary",
+              "currentSemanticIdentity": "pathological-response-primary",
+              "disposition": "SUPERSEDED",
+              "sourceTurnIds": ["T1"],
+              "sourceText": "devient principale; reste exploratoire"
+            }
+          ]
+        },
+        "confirmedDecisionIds": ["decision-role-change"],
+        "constraints": [],
+        "rawProviderOutput": {"persisted": true}
+      },
+      "expectedFindingClasses": [],
+      "forbiddenFindingClasses": ["SUPERSESSION_ERROR", "CANDIDATE_PROMOTED_TO_ADOPTED", "UNSUPPORTED_INVENTION"]
+    }
+  ]
+}

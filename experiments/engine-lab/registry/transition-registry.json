@@ -24,7 +24,7 @@
       "businessResponsibility": "Detect semantic integrity violations without mutation.",
       "uniqueValue": "Independent guard findings tied to source and owner.",
       "truthOwner": "None; findings only",
-      "currentImplementation": "Legacy guards with SEM-AUDIT-D contract prepared for extraction",
+      "currentImplementation": "SEM-AUDIT-D experimental prototype plus legacy guards",
       "observedProblems": ["legacy critic mixed audit and reconstruction", "LLM second reader not qualified"],
       "preserve": ["deterministic guards", "failure evidence", "non-mutation"],
       "replaceable": ["future second-reader runtime"],

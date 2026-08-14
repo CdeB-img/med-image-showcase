@@ -1,0 +1,79 @@
+{
+  "fixtureFamily": "I06",
+  "evidencePaths": [
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/human-review/I06.md",
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/common-states/common-transcript-i06-t2-sem-single-pass.json"
+  ],
+  "evidenceStatus": "VISIBLE_HISTORICAL_NON_PD011_FIXTURE",
+  "variants": [
+    {
+      "fixtureId": "I06_METHODS_DISTINCT_MEASURE_UNKNOWN",
+      "input": {
+        "conversationTurns": [
+          {"turnId": "T0", "text": "Deux méthodes sont disponibles, mais la mesure principale n'est pas encore choisie."},
+          {"turnId": "T1", "text": "Les patients qui n'ont que la première méthode resteront dans une analyse secondaire."}
+        ],
+        "previousState": {"items": [], "relations": [], "ambiguities": [], "clarifications": []},
+        "candidateState": {
+          "items": [
+            {
+              "itemId": "method-asl",
+              "semanticIdentity": "asl-method",
+              "label": "ASL",
+              "conceptClass": "METHOD",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T0", "T1"],
+              "sourceText": "ASL; première méthode"
+            },
+            {
+              "itemId": "method-dsc",
+              "semanticIdentity": "dsc-method",
+              "label": "DSC",
+              "conceptClass": "METHOD",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T0"],
+              "sourceText": "DSC"
+            },
+            {
+              "itemId": "primary-measure",
+              "semanticIdentity": "primary-measure-choice",
+              "label": "mesure principale",
+              "conceptClass": "MEASURE",
+              "epistemicStatus": "UNKNOWN",
+              "adoptionStatus": "CANDIDATE",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T0"],
+              "sourceText": "n'est pas encore choisie"
+            },
+            {
+              "itemId": "secondary-population",
+              "semanticIdentity": "asl-only-secondary",
+              "label": "patients ASL-only en analyse secondaire",
+              "conceptClass": "PROJECT_VARIABLE",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "adoptionStatus": "CANDIDATE",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T1"],
+              "sourceText": "resteront dans une analyse secondaire"
+            }
+          ],
+          "relations": [],
+          "ambiguities": [],
+          "clarifications": [],
+          "corrections": []
+        },
+        "confirmedDecisionIds": [],
+        "constraints": [],
+        "rawProviderOutput": {"persisted": true}
+      },
+      "expectedFindingClasses": [],
+      "forbiddenFindingClasses": ["METHOD_MEASUREMENT_COLLAPSE", "CANDIDATE_PROMOTED_TO_ADOPTED", "UNSUPPORTED_INVENTION"]
+    }
+  ]
+}

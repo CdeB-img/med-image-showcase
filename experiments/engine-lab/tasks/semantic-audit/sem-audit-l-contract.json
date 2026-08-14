@@ -1,0 +1,21 @@
+{
+  "contractId": "SEM-AUDIT-L-001",
+  "version": "0.1.0",
+  "status": "CONTRACT_ONLY_NOT_IMPLEMENTED_NOT_QUALIFIED",
+  "normativeAuthority": "NONE",
+  "mutationAllowed": false,
+  "providerCallsAuthorized": false,
+  "candidateRuntimes": ["NOXIA_SEM_SINGLE", "PYDANTICAI_TYPED_SECOND_READER"],
+  "inputs": ["conversationTurns", "previousState", "candidateState", "confirmedDecisionIds", "optionalExplicitKnowledgeState", "deterministicFindings"],
+  "outputs": ["findings"],
+  "outputSchema": "../../contracts/semantic-audit-finding.schema.json",
+  "requirements": [
+    "Return findings only.",
+    "Never rewrite, normalize or replace candidate state.",
+    "Cite candidate pointers and exact source evidence.",
+    "Do not infer Project adoption from confidence or Knowledge support.",
+    "Do not access Knowledge unless it is explicitly supplied.",
+    "Do not auto-resolve deterministic findings.",
+    "Record runtime, model, prompt, schema and configuration identities before execution."
+  ]
+}

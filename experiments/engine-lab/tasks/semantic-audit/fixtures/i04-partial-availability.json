@@ -1,0 +1,92 @@
+{
+  "fixtureFamily": "I04",
+  "evidencePaths": [
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/human-review/I04.md",
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/common-states/common-transcript-i04-t1-sem-single-pass.json"
+  ],
+  "evidenceStatus": "VISIBLE_HISTORICAL_NON_PD011_FIXTURE",
+  "variants": [
+    {
+      "fixtureId": "I04_PARTIAL_AVAILABILITY_RAW_MISSING",
+      "input": {
+        "conversationTurns": [
+          {"turnId": "T0", "text": "Tous les centres n'ont pas les mêmes séquences."},
+          {"turnId": "T1", "text": "Deux méthodes sont universelles; les autres sont absentes de certains centres."}
+        ],
+        "previousState": {"items": [], "relations": [], "ambiguities": [], "clarifications": []},
+        "candidateState": {
+          "items": [
+            {
+              "itemId": "method-a",
+              "semanticIdentity": "method-a",
+              "label": "méthode A",
+              "conceptClass": "METHOD",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "availabilityScope": "ALL_SITES",
+              "availabilityClaim": "ALL_SITES",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T1"],
+              "sourceText": "universelles"
+            },
+            {
+              "itemId": "method-b",
+              "semanticIdentity": "method-b",
+              "label": "méthode B",
+              "conceptClass": "METHOD",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "availabilityScope": "PARTIAL",
+              "availabilityClaim": "PARTIAL",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T1"],
+              "sourceText": "absentes de certains centres"
+            }
+          ],
+          "relations": [],
+          "ambiguities": [],
+          "clarifications": [],
+          "corrections": []
+        },
+        "confirmedDecisionIds": [],
+        "constraints": [],
+        "rawProviderOutput": {"persisted": false}
+      },
+      "expectedFindingClasses": ["RAW_OUTPUT_NOT_PERSISTED"],
+      "forbiddenFindingClasses": ["LOCAL_PRACTICE_PROMOTED_TO_PROJECT", "UNSUPPORTED_INVENTION"]
+    },
+    {
+      "fixtureId": "I04_PARTIAL_AVAILABILITY_PROMOTED",
+      "input": {
+        "conversationTurns": [{"turnId": "T0", "text": "Cette méthode est seulement disponible dans certains centres."}],
+        "previousState": {"items": [], "relations": [], "ambiguities": [], "clarifications": []},
+        "candidateState": {
+          "items": [
+            {
+              "itemId": "method-b",
+              "semanticIdentity": "method-b",
+              "label": "méthode B",
+              "conceptClass": "METHOD",
+              "epistemicStatus": "EXPLICIT_USER_STATED",
+              "availabilityScope": "PARTIAL",
+              "availabilityClaim": "SYSTEMATIC",
+              "ownership": "PROJECT",
+              "active": true,
+              "sourceTurnIds": ["T0"],
+              "sourceText": "seulement disponible dans certains centres"
+            }
+          ],
+          "relations": [],
+          "ambiguities": [],
+          "clarifications": [],
+          "corrections": []
+        },
+        "confirmedDecisionIds": [],
+        "constraints": [],
+        "rawProviderOutput": {"persisted": true}
+      },
+      "expectedFindingClasses": ["LOCAL_PRACTICE_PROMOTED_TO_PROJECT"],
+      "forbiddenFindingClasses": []
+    }
+  ]
+}

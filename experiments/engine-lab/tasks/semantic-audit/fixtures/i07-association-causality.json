@@ -1,0 +1,86 @@
+{
+  "fixtureFamily": "I07",
+  "evidencePaths": [
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/human-review/I07.md",
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/common-states/common-transcript-i07-t2-sem-single-pass.json"
+  ],
+  "evidenceStatus": "VISIBLE_HISTORICAL_NON_PD011_FIXTURE",
+  "variants": [
+    {
+      "fixtureId": "I07_POSITIVE_CAUSALITY_CONFLICT",
+      "input": {
+        "conversationTurns": [{"turnId": "T0", "text": "Je veux étudier l'association, pas démontrer une causalité."}],
+        "previousState": {"items": [], "relations": [], "ambiguities": [], "clarifications": []},
+        "candidateState": {
+          "items": [],
+          "relations": [
+            {
+              "relationId": "rel-1",
+              "sourceId": "factor-a",
+              "targetId": "outcome-b",
+              "relationType": "CAUSES",
+              "polarity": "AFFIRMED",
+              "sourceTurnIds": ["T0"],
+              "sourceText": "pas démontrer une causalité"
+            }
+          ],
+          "ambiguities": [],
+          "clarifications": [],
+          "corrections": []
+        },
+        "confirmedDecisionIds": [],
+        "constraints": [
+          {
+            "constraintId": "constraint-1",
+            "type": "NON_CAUSAL",
+            "subjectId": "factor-a",
+            "targetId": "outcome-b",
+            "sourceTurnIds": ["T0"],
+            "sourceText": "pas démontrer une causalité"
+          }
+        ],
+        "rawProviderOutput": {"persisted": true}
+      },
+      "expectedFindingClasses": ["CAUSAL_PROMOTION"],
+      "forbiddenFindingClasses": []
+    },
+    {
+      "fixtureId": "I07_NON_CAUSAL_ASSOCIATION_PRESERVED",
+      "input": {
+        "conversationTurns": [{"turnId": "T0", "text": "Je veux étudier l'association, pas démontrer une causalité."}],
+        "previousState": {"items": [], "relations": [], "ambiguities": [], "clarifications": []},
+        "candidateState": {
+          "items": [],
+          "relations": [
+            {
+              "relationId": "rel-1",
+              "sourceId": "factor-a",
+              "targetId": "outcome-b",
+              "relationType": "ASSOCIATED_WITH",
+              "polarity": "AFFIRMED",
+              "sourceTurnIds": ["T0"],
+              "sourceText": "étudier l'association"
+            }
+          ],
+          "ambiguities": [],
+          "clarifications": [],
+          "corrections": []
+        },
+        "confirmedDecisionIds": [],
+        "constraints": [
+          {
+            "constraintId": "constraint-1",
+            "type": "NON_CAUSAL",
+            "subjectId": "factor-a",
+            "targetId": "outcome-b",
+            "sourceTurnIds": ["T0"],
+            "sourceText": "pas démontrer une causalité"
+          }
+        ],
+        "rawProviderOutput": {"persisted": true}
+      },
+      "expectedFindingClasses": [],
+      "forbiddenFindingClasses": ["CAUSAL_PROMOTION", "POLARITY_CONFLICT"]
+    }
+  ]
+}

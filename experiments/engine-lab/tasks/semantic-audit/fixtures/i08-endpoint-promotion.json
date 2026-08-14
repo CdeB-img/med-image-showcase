@@ -1,0 +1,82 @@
+{
+  "fixtureFamily": "I08",
+  "evidencePaths": [
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/human-review/I08.md",
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/common-states/common-transcript-i08-t1-sem-full.json",
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/common-states/common-transcript-i08-t1-sem-single-pass.json"
+  ],
+  "evidenceStatus": "VISIBLE_HISTORICAL_NON_PD011_FIXTURE",
+  "variants": [
+    {
+      "fixtureId": "I08_PRIMARY_CANDIDATE_PROMOTED",
+      "input": {
+        "conversationTurns": [
+          {"turnId": "T0", "text": "Le T1 natif pourrait être intéressant, mais je n'ai pas décidé d'en faire le critère principal."},
+          {"turnId": "T1", "text": "Tous les centres disposent du T1 natif; l'autre mesure n'est disponible que dans une partie des centres."}
+        ],
+        "previousState": {"items": [], "relations": [], "ambiguities": [], "clarifications": []},
+        "candidateState": {
+          "items": [
+            {
+              "itemId": "metric-a",
+              "semanticIdentity": "native-measurement-a",
+              "label": "mesure native candidate",
+              "conceptClass": "MEASURE",
+              "originStatus": "INFERRED_CANDIDATE",
+              "adoptionStatus": "PRIMARY_ENDPOINT_ADOPTED",
+              "role": "PRIMARY_ENDPOINT",
+              "ownership": "PROJECT",
+              "active": true,
+              "sourceTurnIds": ["T0"],
+              "sourceText": "je n'ai pas décidé d'en faire le critère principal"
+            }
+          ],
+          "relations": [],
+          "ambiguities": [],
+          "clarifications": [],
+          "corrections": []
+        },
+        "confirmedDecisionIds": [],
+        "constraints": [],
+        "rawProviderOutput": {"persisted": true}
+      },
+      "expectedFindingClasses": ["CANDIDATE_PROMOTED_TO_ADOPTED"],
+      "forbiddenFindingClasses": ["RAW_OUTPUT_NOT_PERSISTED"]
+    },
+    {
+      "fixtureId": "I08_SINGLE_PASS_CANDIDATE_PRESERVED",
+      "input": {
+        "conversationTurns": [
+          {"turnId": "T0", "text": "Le T1 natif pourrait être intéressant, mais je n'ai pas décidé d'en faire le critère principal."}
+        ],
+        "previousState": {"items": [], "relations": [], "ambiguities": [], "clarifications": []},
+        "candidateState": {
+          "items": [
+            {
+              "itemId": "metric-a",
+              "semanticIdentity": "native-measurement-a",
+              "label": "mesure native candidate",
+              "conceptClass": "MEASURE",
+              "originStatus": "INFERRED_CANDIDATE",
+              "adoptionStatus": "CANDIDATE",
+              "role": "BIOMARKER_ROLE",
+              "ownership": "USER",
+              "active": true,
+              "sourceTurnIds": ["T0"],
+              "sourceText": "pourrait être intéressant"
+            }
+          ],
+          "relations": [],
+          "ambiguities": [],
+          "clarifications": [],
+          "corrections": []
+        },
+        "confirmedDecisionIds": [],
+        "constraints": [],
+        "rawProviderOutput": {"persisted": true}
+      },
+      "expectedFindingClasses": [],
+      "forbiddenFindingClasses": ["CANDIDATE_PROMOTED_TO_ADOPTED", "LOCAL_PRACTICE_PROMOTED_TO_PROJECT"]
+    }
+  ]
+}
