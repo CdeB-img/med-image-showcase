@@ -14,7 +14,7 @@ import {
   type ProposedProjectObjectChange,
 } from "./types";
 
-const ref = <K extends string>(project: Readonly<ResearchProjectDesignResult>, objectKind: K, objectId: string): CanonicalReference<K> => ({
+export const canonicalReference = <K extends string>(project: Readonly<ResearchProjectDesignResult>, objectKind: K, objectId: string): CanonicalReference<K> => ({
   objectKind,
   objectId,
   objectVersion: project.candidateVersion.versionId,
@@ -36,8 +36,8 @@ export const canonicalPlanningValue = <T>(value: T): T => JSON.parse(stableStrin
 export const digestPlanningValue = (value: unknown) => logicalDigest(canonicalPlanningValue(value));
 
 export const buildDataAnalysisPlanningContext = (project: Readonly<ResearchProjectDesignResult>): DataAnalysisPlanningContext => {
-  const variableRefs = project.variables.map((item) => ref(project, "CanonicalVariable", item.variableId));
-  const expectedOccasionRefs = project.variables.flatMap((variable) => variable.timingIds.map((timingId) => ref(project, "ExpectedVariableOccasion", `${variable.variableId}@${timingId}`)));
+  const variableRefs = project.variables.map((item) => canonicalReference(project, "CanonicalVariable", item.variableId));
+  const expectedOccasionRefs = project.variables.flatMap((variable) => variable.timingIds.map((timingId) => canonicalReference(project, "ExpectedVariableOccasion", `${variable.variableId}@${timingId}`)));
   const measurementRefs = uniqueSorted(project.variables.map((item) => item.sourceRef).filter(Boolean));
   const material = {
     projectId: project.documentHandoff.projectId,
@@ -51,15 +51,15 @@ export const buildDataAnalysisPlanningContext = (project: Readonly<ResearchProje
     contextId: `data-analysis-context:${logicalDigest(material)}`,
     contextDigest: logicalDigest(material),
     project,
-    projectRef: ref(project, "ResearchProject", project.documentHandoff.projectId),
-    objectiveRefs: project.objectives.map((item) => ref(project, "Objective", item.objectiveId)),
-    hypothesisRefs: project.hypotheses.map((item) => ref(project, "Hypothesis", item.hypothesisId)),
-    endpointRefs: project.endpointCandidates.map((item) => ref(project, "Endpoint", item.endpointId)),
-    populationRefs: [ref(project, "Population", project.populationDesign.populationId)],
+    projectRef: canonicalReference(project, "ResearchProject", project.documentHandoff.projectId),
+    objectiveRefs: project.objectives.map((item) => canonicalReference(project, "Objective", item.objectiveId)),
+    hypothesisRefs: project.hypotheses.map((item) => canonicalReference(project, "Hypothesis", item.hypothesisId)),
+    endpointRefs: project.endpointCandidates.map((item) => canonicalReference(project, "Endpoint", item.endpointId)),
+    populationRefs: [canonicalReference(project, "Population", project.populationDesign.populationId)],
     variableRefs,
     expectedOccasionRefs,
     observablePropertyRefs: [],
-    measurementDefinitionRefs: measurementRefs.map((id) => ref(project, "MeasurementDefinition", id)),
+    measurementDefinitionRefs: measurementRefs.map((id) => canonicalReference(project, "MeasurementDefinition", id)),
     biomarkerRoleRefs: [],
     declaredDecisions: [...project.documentHandoff.humanDecisions],
     projectionOnly: true,
