@@ -1,0 +1,90 @@
+{
+  "artifactId": "HYBRID-RUNTIME-DEPENDENCY-BURNDOWN-001",
+  "status": "IMPLEMENTATION_EVIDENCE_NON_NORMATIVE",
+  "observedAt": "2026-08-14",
+  "countingRule": "Counts refer to the 14 SEM-DIRECT dependency classes defined in architecture/sem-transition-map.md. An unbounded class remains in AFTER; preserved historical code is reported separately.",
+  "DIRECT_SEM_DEPENDENCIES_BEFORE": 14,
+  "DIRECT_SEM_DEPENDENCIES_AFTER": 12,
+  "DIRECT_SCIENTIFIC_SEMANTIC_MODEL_CONSUMER_IMPORTS_BEFORE": 1,
+  "DIRECT_SCIENTIFIC_SEMANTIC_MODEL_CONSUMER_IMPORTS_AFTER": 0,
+  "LEGACY_IMPORT_FILES_OUTSIDE_LEGACY_MODULE_AFTER": 3,
+  "LEGACY_IMPORT_FILES_OUTSIDE_LEGACY_MODULE": [
+    "api/prompts/scientific-semantic-reconstruction-prompt.ts",
+    "api/scientific-semantic.ts",
+    "src/pages/ProtocolDesignerDemo.tsx"
+  ],
+  "MIGRATED_OR_BOUNDED": [
+    {
+      "dependencyId": "SEM-DIRECT-005",
+      "status": "PARTIALLY_BOUNDED",
+      "evidence": "ProtocolDesignerDemo no longer imports ScientificSemanticModel or legacy downstream adapters; the legacy workspace component remains."
+    },
+    {
+      "dependencyId": "SEM-DIRECT-006",
+      "status": "BOUNDED_BY_RUNTIME_NEUTRAL_V1_COMPATIBILITY",
+      "evidence": "The active page route now uses legacySemanticModelToContribution then projectScientificContributionToV1; the historic adapter remains frozen for regression evidence."
+    },
+    {
+      "dependencyId": "SEM-INDIRECT-001",
+      "status": "GENERALIZED",
+      "evidence": "ValidatedScientificIntent carries interpretationContributionSnapshot alongside the legacy semanticSnapshot."
+    },
+    {
+      "dependencyId": "SEM-INDIRECT-002",
+      "status": "GENERALIZED_WITH_LEGACY_PRIORITY",
+      "evidence": "Scientific Thinking accepts Contribution identity when no legacy semanticSnapshot exists and preserves historic identity when it does."
+    }
+  ],
+  "LEGACY_DEPENDENCIES_REMAINING": [
+    "SEM-DIRECT-001",
+    "SEM-DIRECT-002",
+    "SEM-DIRECT-003",
+    "SEM-DIRECT-004",
+    "SEM-DIRECT-007",
+    "SEM-DIRECT-008",
+    "SEM-DIRECT-009",
+    "SEM-DIRECT-010",
+    "SEM-DIRECT-011",
+    "SEM-DIRECT-012",
+    "SEM-DIRECT-013",
+    "SEM-DIRECT-014"
+  ],
+  "BLOCKING_FOR_SEM_CLOSURE": [
+    {
+      "dependencyId": "SEM-DIRECT-001",
+      "reason": "The live API still invokes legacy provider/server orchestration."
+    },
+    {
+      "dependencyId": "SEM-DIRECT-004",
+      "reason": "SemanticConversationalWorkspace still owns a legacy ScientificSemanticModel session."
+    },
+    {
+      "dependencyId": "SEM-DIRECT-007",
+      "reason": "Knowledge verification is still embedded in legacy SEM."
+    },
+    {
+      "dependencyId": "SEM-DIRECT-008",
+      "reason": "Legacy provider and server remain the nominal execution path."
+    },
+    {
+      "dependencyId": "SEM-DIRECT-010",
+      "reason": "Resume/history still persist the legacy model shape."
+    },
+    {
+      "dependencyId": "SEM-DIRECT-012",
+      "reason": "The browser transport still targets the legacy endpoint contract."
+    },
+    {
+      "dependencyId": "SEM-DIRECT-014",
+      "reason": "The legacy module remains a live product facade for workspace execution."
+    }
+  ],
+  "PRESERVATION_ONLY_NOT_NOMINAL_CLOSURE_BLOCKERS": [
+    "SEM-DIRECT-002",
+    "SEM-DIRECT-003",
+    "SEM-DIRECT-009",
+    "SEM-DIRECT-011",
+    "SEM-DIRECT-013"
+  ],
+  "nextMission": "SEM-CLOSURE-001"
+}
