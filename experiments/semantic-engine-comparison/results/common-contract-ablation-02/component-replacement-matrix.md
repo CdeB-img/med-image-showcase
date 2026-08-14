@@ -1,0 +1,14 @@
+# EXP-SEM-ABLATION-02 — Component Replacement Matrix
+
+| Composant | Valeur observée | Coût observé | Candidat de remplacement | Perte / gain | Verdict |
+|---|---|---|---|---|---|
+| SEM RECONSTRUCTION | Représentation la plus relationnelle et traçable; compréhension généralement fidèle | 55 reconstructions + 19 réparations structurées dans la campagne | Runtime direct vers le Common Scientific Contract | Gain de simplicité; risque de perdre la densité relationnelle, la provenance et certains objets | `MERGE_IN_COMMON_CONTRACT` |
+| SEM CRITIC | 3 améliorations utiles, 4 dégradations, 16 états sans changement significatif sur 23 comparables Phase A | 33 appels Phase A, 49 appels au total | Guard déterministe puis critic ciblé uniquement sur une violation démontrée | Forte économie; évite les pseudo-corrections et promotions observées | `MAKE_CONDITIONAL` |
+| SEM REPAIR | Récupère certaines sorties structurées; un état I05/T2 reste rejeté | 19 appels | Réparation syntaxique/structurelle locale avant toute régénération | Réduit les appels; doit rester strictement non sémantique | `SIMPLIFY` |
+| SEM CANONICALIZATION DÉTERMINISTE | Rend la sortie SEM exploitable et traçable dans le contrat commun | local | Conserver comme couche générique de normalisation sans ajout scientifique | Garantie de stabilité; coût provider nul | `KEEP` |
+| SEM OWNERSHIP / EPISTEMIC CONTRACT | Garantie structurante absente ou plus sparse chez les runtimes simples | coût local après génération | Common Scientific Contract + guards déterministes | Conserve la frontière user/inférence/candidat; indispensable malgré l’erreur I08 à corriger au niveau génératif | `KEEP` |
+| SEM RELATION MODEL | SEM produit 93–102 relations Phase A contre 37 Pydantic et 14 DSPy | complexité structurelle | Common contract enrichi par exigences relationnelles explicites | Peut réduire le code, mais aucune suppression tant que la perte relationnelle n’est pas testée | `MERGE_IN_COMMON_CONTRACT` |
+| CONTEXTUAL ENRICHMENT | Faible dans toutes les configurations : SEM 0 candidat, Pydantic 4, DSPy 2 sur Phase A | DSPy 36 départs provider + 1 réservation échouée localement, sans bénéfice net d’enrichissement démontré | Aucun remplacement décidé | Les données ne démontrent pas un avantage DSPy d’enrichissement | `INSUFFICIENT_EVIDENCE` |
+| DIALOGUE / QRY / PD-009 | Contrôleur commun déterministe, mais questions répétées, parfois déjà résolues ou de faible valeur; 2 branches Pydantic échouent | 7 appels simulateur + appels d’états interactifs | Contrôleur produit distinct avec déduplication et valeur décisionnelle | Nécessaire pour éviter FINISH précoce ou questions répétitives | `KEEP` pour l’ownership; `SIMPLIFY` le contrôleur expérimental |
+
+Le verdict ne constitue ni une décision produit ni une qualification PD-011. Il identifie les composants dont la valeur est ou n’est pas observée dans cette expérience.

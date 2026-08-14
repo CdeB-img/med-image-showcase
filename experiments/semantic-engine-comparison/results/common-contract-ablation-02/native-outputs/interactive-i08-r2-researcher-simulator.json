@@ -1,0 +1,16 @@
+{
+  "answers": [
+    {
+      "answer": "Non",
+      "configurationId": "PYDANTIC_COMMON_CONTRACT"
+    },
+    {
+      "answer": "Je ne sais pas.",
+      "configurationId": "PYDANTIC_CONDITIONAL_CRITIC"
+    },
+    {
+      "answer": "Je ne sais pas.",
+      "configurationId": "DSPY_COMMON_CONTRACT"
+    }
+  ]
+}

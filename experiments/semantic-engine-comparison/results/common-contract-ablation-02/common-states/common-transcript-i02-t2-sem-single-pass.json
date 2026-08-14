@@ -1,0 +1,736 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T2",
+  "scenarioId": "I02",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+        "role": "USER",
+        "turnId": "I02:T0"
+      },
+      {
+        "content": "L'IRM principale est à 24 h puis à J7. Je n'ai souvent pas d'IRM avant la thrombectomie.",
+        "role": "USER",
+        "turnId": "I02:R1"
+      },
+      {
+        "content": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients. Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF.",
+        "role": "USER",
+        "turnId": "I02:R2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Patients who have undergone thrombectomy",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-05a15b7bdd2783c7",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "POPULATION:SUBJECT",
+        "sourceText": "les patients thrombectomisés",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "At day 7",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-285d41b486d85c30",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à J7",
+        "temporalContext": "At day 7"
+      },
+      {
+        "basis": null,
+        "content": "At 24 hours",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-353c7f527c04db0e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à 24 h",
+        "temporalContext": "At 24 hours"
+      },
+      {
+        "basis": null,
+        "content": "Magnetic Resonance Imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-3944579344f8e407",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "l'IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Denial of causal relationship between perfusion improvement and OEF normalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-581de4fddc7e40e9",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Desire to know/evaluate relation between OEF and perfusion",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-58fb3c0299f638d6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "savoir si",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "MRI is not always available before the procedure",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5e5eb6731d9a58a7",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Main Magnetic Resonance Imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-68dc9d62c1485c16",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "L'IRM principale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Absence of pre-procedure MRI must not automatically exclude patients",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-6971861b6f6ff05f",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Desire to know/evaluate a scientific relation",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-726e7278f4c17f3c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "savoir si",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Before the procedure/gesture",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bd322dd7c1f71d83",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant le geste",
+        "temporalContext": "Before the procedure/gesture"
+      },
+      {
+        "basis": null,
+        "content": "Oxygen Extraction Fraction normalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-ca3c9fc2f04f73ce",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "l'OEF se normalise",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Often no MRI before thrombectomy",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f405a71461aaabe8",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Perfusion improvement",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fb88eb7580e85d11",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "la perfusion s'améliore",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Denial of causal relationship between perfusion improvement and OEF normalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-581de4fddc7e40e9",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "MRI is not always available before the procedure",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5e5eb6731d9a58a7",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Absence of pre-procedure MRI must not automatically exclude patients",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-6971861b6f6ff05f",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Often no MRI before thrombectomy",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f405a71461aaabe8",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "Evaluation de la normalisation de l'OEF en relation avec l'amelioration de la perfusion chez les patients thrombectomises, avec des IRM principales a 24h et J7, tout en precisant que l'absence d'IRM pre-geste ne doit pas exclure automatiquement les patients et en rejetant explicitement l'idee d'un lien de causalite entre l'amelioration de la perfusion et la normalisation de l'OEF.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Patients who have undergone thrombectomy",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-05a15b7bdd2783c7",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "POPULATION:SUBJECT",
+        "sourceText": "les patients thrombectomisés",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "At day 7",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-285d41b486d85c30",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à J7",
+        "temporalContext": "At day 7"
+      },
+      {
+        "basis": null,
+        "content": "At 24 hours",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-353c7f527c04db0e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à 24 h",
+        "temporalContext": "At 24 hours"
+      },
+      {
+        "basis": null,
+        "content": "Magnetic Resonance Imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-3944579344f8e407",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "l'IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Denial of causal relationship between perfusion improvement and OEF normalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-581de4fddc7e40e9",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Desire to know/evaluate relation between OEF and perfusion",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-58fb3c0299f638d6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "savoir si",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "MRI is not always available before the procedure",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5e5eb6731d9a58a7",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Main Magnetic Resonance Imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-68dc9d62c1485c16",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "L'IRM principale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Absence of pre-procedure MRI must not automatically exclude patients",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-6971861b6f6ff05f",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Desire to know/evaluate a scientific relation",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-726e7278f4c17f3c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "savoir si",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Before the procedure/gesture",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bd322dd7c1f71d83",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant le geste",
+        "temporalContext": "Before the procedure/gesture"
+      },
+      {
+        "basis": null,
+        "content": "Oxygen Extraction Fraction normalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-ca3c9fc2f04f73ce",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "l'OEF se normalise",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Often no MRI before thrombectomy",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f405a71461aaabe8",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Perfusion improvement",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fb88eb7580e85d11",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "la perfusion s'améliore",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Patients who have undergone thrombectomy",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-05a15b7bdd2783c7"
+      },
+      {
+        "content": "At day 7",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-285d41b486d85c30"
+      },
+      {
+        "content": "At 24 hours",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-353c7f527c04db0e"
+      },
+      {
+        "content": "Magnetic Resonance Imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-3944579344f8e407"
+      },
+      {
+        "content": "Denial of causal relationship between perfusion improvement and OEF normalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-581de4fddc7e40e9"
+      },
+      {
+        "content": "Desire to know/evaluate relation between OEF and perfusion",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-58fb3c0299f638d6"
+      },
+      {
+        "content": "MRI is not always available before the procedure",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-5e5eb6731d9a58a7"
+      },
+      {
+        "content": "Main Magnetic Resonance Imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-68dc9d62c1485c16"
+      },
+      {
+        "content": "Absence of pre-procedure MRI must not automatically exclude patients",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-6971861b6f6ff05f"
+      },
+      {
+        "content": "Desire to know/evaluate a scientific relation",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-726e7278f4c17f3c"
+      },
+      {
+        "content": "Before the procedure/gesture",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-bd322dd7c1f71d83"
+      },
+      {
+        "content": "Oxygen Extraction Fraction normalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-ca3c9fc2f04f73ce"
+      },
+      {
+        "content": "Often no MRI before thrombectomy",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-f405a71461aaabe8"
+      },
+      {
+        "content": "Perfusion improvement",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-fb88eb7580e85d11"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Perfusion improvement",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-0f8fa4a3bff1d737",
+        "sourceText": null,
+        "subject": "Oxygen Extraction Fraction normalization",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Before the procedure/gesture",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-380ace2027411ec4",
+        "sourceText": null,
+        "subject": "Magnetic Resonance Imaging",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "At 24 hours",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-9bacd885cb178a49",
+        "sourceText": null,
+        "subject": "Main Magnetic Resonance Imaging",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Oxygen Extraction Fraction normalization",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "INFLUENCES",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-d5d6f45e51a6df22",
+        "sourceText": null,
+        "subject": "Perfusion improvement",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "At day 7",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-db661ef934f04f85",
+        "sourceText": null,
+        "subject": "Main Magnetic Resonance Imaging",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Desire to know/evaluate relation between OEF and perfusion; Desire to know/evaluate a scientific relation",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "At day 7",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-285d41b486d85c30",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à J7",
+        "temporalContext": "At day 7"
+      },
+      {
+        "basis": null,
+        "content": "At 24 hours",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-353c7f527c04db0e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à 24 h",
+        "temporalContext": "At 24 hours"
+      },
+      {
+        "basis": null,
+        "content": "Before the procedure/gesture",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bd322dd7c1f71d83",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant le geste",
+        "temporalContext": "Before the procedure/gesture"
+      }
+    ],
+    "unknowns": []
+  }
+}

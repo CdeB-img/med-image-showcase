@@ -1,0 +1,518 @@
+{
+  "configurationId": "SEM_FULL",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": true,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I08",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+        "role": "USER",
+        "turnId": "I08:SEM_FULL:T0"
+      },
+      {
+        "content": "Souhaitez-vous fixer le T1 natif comme critère principal de l'étude ou maintenir cette décision ouverte ?",
+        "role": "ASSISTANT",
+        "turnId": "I08:SEM_FULL:Q1"
+      },
+      {
+        "content": "Non",
+        "role": "USER",
+        "turnId": "I08:SEM_FULL:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [
+      {
+        "correctionId": "sem-correction:d7e79289355a7e72",
+        "currentContent": "Avant l'apparition de la fibrose",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Avant l'apparition de la fibrose",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:ca70c1118538b3f1",
+        "currentContent": "Trouver un marqueur précoce",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Trouver un marqueur précoce",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:be2de61e4229d60c",
+        "currentContent": "Centre de Lyon",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Centre de Lyon",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:45f781396978a182",
+        "currentContent": "ECV (Volume Extracellulaire)",
+        "disposition": "REJECTED",
+        "previousContent": "ECV (Volume Extracellulaire)",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:dc3a5d9ff7c0378b",
+        "currentContent": "ECV (Volume Extracellulaire)",
+        "disposition": "SUPERSEDED",
+        "previousContent": "ECV (Volume Extracellulaire)",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:b47a583c5b276651",
+        "currentContent": "Utilisable dans tous les centres",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Utilisable dans tous les centres",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:7e88b87f5a5984d3",
+        "currentContent": "Non décision de faire du T1 natif le critère principal",
+        "disposition": "REJECTED",
+        "previousContent": "Non décision de faire du T1 natif le critère principal",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:f14875601b3a251a",
+        "currentContent": "Maladie de Fabry",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Maladie de Fabry",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:f49f22ae150325fc",
+        "currentContent": "T1 natif",
+        "disposition": "REJECTED",
+        "previousContent": "T1 natif",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:9ec9187a72306a70",
+        "currentContent": "T1 natif non retenu comme critère principal de l'étude",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Non décision de faire du T1 natif le critère principal",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:R1"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:55a19b6d8a4ca0f7",
+        "currentContent": "T1 natif",
+        "disposition": "SUPERSEDED",
+        "previousContent": "T1 natif",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ]
+      }
+    ],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Avant l'apparition de la fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0435f8ce8901ba2a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant la fibrose",
+        "temporalContext": "Avant l'apparition de la fibrose"
+      },
+      {
+        "basis": null,
+        "content": "Trouver un marqueur précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-26af4155d1cdbae1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "trouver un marqueur précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Centre de Lyon",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-30a2ff4042cb4464",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "Lyon",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "ECV (Volume Extracellulaire)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7b3a4246cdd02d3a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "l'ECV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Utilisable dans tous les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-895b0b661115c98a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "utilisable dans tous les centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "T1 natif non retenu comme critère principal de l'étude",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bface23105b37915",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:R1"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Non",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-ee3869a65b888892",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "le T1 natif",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "T1 natif non retenu comme critère principal de l'étude",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bface23105b37915",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:R1"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Non",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "Recherche d'un marqueur précoce universel dans la maladie de Fabry, avec confirmation par l'utilisateur que le T1 natif n'est pas retenu comme critère principal de l'étude, et mention de l'ECV à Lyon.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Avant l'apparition de la fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0435f8ce8901ba2a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant la fibrose",
+        "temporalContext": "Avant l'apparition de la fibrose"
+      },
+      {
+        "basis": null,
+        "content": "Trouver un marqueur précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-26af4155d1cdbae1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "trouver un marqueur précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Centre de Lyon",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-30a2ff4042cb4464",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "Lyon",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "ECV (Volume Extracellulaire)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7b3a4246cdd02d3a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "l'ECV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Utilisable dans tous les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-895b0b661115c98a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "utilisable dans tous les centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "T1 natif non retenu comme critère principal de l'étude",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bface23105b37915",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:R1"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Non",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-ee3869a65b888892",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "le T1 natif",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Avant l'apparition de la fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-0435f8ce8901ba2a"
+      },
+      {
+        "content": "Trouver un marqueur précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-26af4155d1cdbae1"
+      },
+      {
+        "content": "Centre de Lyon",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-30a2ff4042cb4464"
+      },
+      {
+        "content": "ECV (Volume Extracellulaire)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-7b3a4246cdd02d3a"
+      },
+      {
+        "content": "Utilisable dans tous les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-895b0b661115c98a"
+      },
+      {
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b4c3c91b3ce8d0af"
+      },
+      {
+        "content": "T1 natif non retenu comme critère principal de l'étude",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-bface23105b37915"
+      },
+      {
+        "content": "T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-ee3869a65b888892"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Avant l'apparition de la fibrose",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-3eb5169a6b9164b6",
+        "sourceText": null,
+        "subject": "T1 natif",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Centre de Lyon",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-d050be9d37b8c4b1",
+        "sourceText": null,
+        "subject": "ECV (Volume Extracellulaire)",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Maladie de Fabry",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-f147f546612e01da",
+        "sourceText": null,
+        "subject": "T1 natif",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Trouver un marqueur précoce",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "Avant l'apparition de la fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0435f8ce8901ba2a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:SEM_FULL:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant la fibrose",
+        "temporalContext": "Avant l'apparition de la fibrose"
+      }
+    ],
+    "unknowns": []
+  }
+}

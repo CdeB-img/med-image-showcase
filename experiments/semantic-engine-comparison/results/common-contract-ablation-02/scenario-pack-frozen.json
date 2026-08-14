@@ -1,0 +1,102 @@
+{
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "language": "fr",
+  "scenarios": [
+    {
+      "scenarioId": "I01",
+      "title": "STEMI / REVASCULARISATION / CMR",
+      "t0": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+      "r1": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+      "r2": "La taille d'infarctus sera le critère principal en CMR à J3–J5, la MVO secondaire. Je ne veux pas de strain.",
+      "hiddenCard": {
+        "facts": ["adultes avec STEMI multivaisseaux", "lésion coupable traitée immédiatement dans tous les groupes", "lésions non coupables pendant hospitalisation index versus 4–6 semaines", "CMR J3–J5", "infarct size principal", "MVO secondaire", "strain explicitement rejeté", "aucune causalité automatique"],
+        "acceptableContextualCandidatesWithoutAdoption": ["dommage myocardique", "MVO", "no-reflow", "œdème", "fonction ventriculaire", "angiographie/XA comme contexte procédural"],
+        "tests": ["implicite cardiologique", "intervention/comparateur", "timing", "contextual candidates", "négation", "non-promotion"]
+      }
+    },
+    {
+      "scenarioId": "I02",
+      "title": "THROMBECTOMIE / PERFUSION / OEF",
+      "t0": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+      "r1": "L'IRM principale est à 24 h puis à J7. Je n'ai souvent pas d'IRM avant la thrombectomie.",
+      "r2": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients. Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF.",
+      "hiddenCard": {
+        "facts": ["association intra-patient", "aucune causalité revendiquée", "IRM 24 h et J7", "pré-thrombectomie fréquemment absent", "pas d'exclusion automatique", "variation OEF = axe principal", "perfusion = explicative/secondaire", "aucune imputation silencieuse"],
+        "acceptableContextualCandidatesWithoutAdoption": [],
+        "tests": ["causalité vs association", "temporalité", "données manquantes", "négation", "branche non bloquante"]
+      }
+    },
+    {
+      "scenarioId": "I03",
+      "title": "IMMUNOTHÉRAPIE / FDG PET-CT",
+      "t0": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+      "r1": "Le critère principal sera la réponse iRECIST à 12 semaines. La SSP restera secondaire.",
+      "r2": "MTV et TLG peuvent être proposés comme candidats, mais je ne les ai pas encore choisis. Le scanner de routine n'est pas automatiquement un biomarqueur de recherche.",
+      "hiddenCard": {
+        "facts": ["FDG PET/CT baseline", "iRECIST 12 semaines principal", "SSP secondaire", "MTV/TLG candidats plausibles mais non initialement adoptés", "CT routine ≠ biomarqueur Project automatique", "SUVmax seul explicitement insuffisant"],
+        "acceptableContextualCandidatesWithoutAdoption": ["MTV", "TLG"],
+        "tests": ["enrichment", "ownership", "candidat vs adoption", "endpoint", "routine vs recherche", "négation"]
+      }
+    },
+    {
+      "scenarioId": "I04",
+      "title": "FABRY MULTICENTRIQUE",
+      "t0": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+      "r1": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+      "r2": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal. L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+      "hiddenCard": {
+        "facts": ["atteinte diffuse précoce avant LGE", "native T1 pertinent mais initialement candidat", "ECV conditionnel contraste + hématocrite", "T2 éventuellement exploratoire", "cine + T1 natif tous centres", "LGE partiel", "LGE non principal"],
+        "acceptableContextualCandidatesWithoutAdoption": ["T1 natif", "ECV", "T2"],
+        "tests": ["réponse négative = donnée", "multicentrique", "disponibilité", "conditionnel", "méthode / mesure", "absence de STOP"]
+      }
+    },
+    {
+      "scenarioId": "I05",
+      "title": "CANCER RECTAL / ADC",
+      "t0": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+      "r1": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+      "r2": "Pour ceux qui n'ont pas la seconde IRM, on ne peut pas calculer le delta ADC, mais je veux garder les analyses baseline-only si elles restent valides.",
+      "hiddenCard": {
+        "facts": ["variable d'intérêt = variation ADC tumorale", "baseline + post-radiochimiothérapie", "réponse pathologique = principal", "récidive = exploratoire", "seconde IRM absente → delta ADC impossible", "aucune imputation silencieuse", "analyses baseline-only potentiellement conservables"],
+        "acceptableContextualCandidatesWithoutAdoption": ["delta ADC"],
+        "tests": ["ça", "ceux qui", "la seconde", "coreference", "correction", "missingness", "branches partielles"]
+      }
+    },
+    {
+      "scenarioId": "I06",
+      "title": "GLIOME / DSC / ASL",
+      "t0": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+      "r1": "Par \"la seconde\", je parle de l'ASL. Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+      "r2": "Pour la comparaison DSC-ASL il faut les deux, mais les patients ASL-only peuvent rester dans une analyse secondaire. Je ne sais pas encore laquelle doit être la mesure principale.",
+      "hiddenCard": {
+        "facts": ["gliomes traités", "DSC et ASL = deux méthodes de perfusion", "cible = progression vraie vs pseudoprogression à 3 mois", "paired comparison nécessite les deux", "ASL-only conservables pour analyse secondaire", "aucune méthode principale encore choisie"],
+        "acceptableContextualCandidatesWithoutAdoption": ["rCBV dans contexte DSC", "CBF/perfusion dans contexte ASL", "métriques quantitatives de perfusion"],
+        "tests": ["elles", "laquelle", "ceux qui", "la seconde", "coreference", "méthode vs mesure", "missingness", "inconnu persistant"]
+      }
+    },
+    {
+      "scenarioId": "I07",
+      "title": "SPECTRAL CT / IODE / CAUSALITÉ",
+      "t0": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+      "r1": "Pour cette étude, reste sur l'association avec la réponse. La prédiction sera exploratoire seulement.",
+      "r2": "Et je parle de concentration iodée mesurée, pas simplement de présence d'iode. Je ne veux aucune conclusion causale.",
+      "hiddenCard": {
+        "facts": ["scanner spectral", "concentration iodée = mesure", "association avec réponse = objectif actuel", "prédiction = exploratoire", "causalité explicitement rejetée", "présence d'iode ≠ concentration iodée mesurée", "ça marche bien ne constitue pas une décision Project"],
+        "acceptableContextualCandidatesWithoutAdoption": [],
+        "tests": ["négations imbriquées", "association vs causalité", "prédiction future", "méthode vs mesure", "ça", "correction/précision"]
+      }
+    },
+    {
+      "scenarioId": "I08",
+      "title": "FABRY / OWNERSHIP / PRATIQUE CENTRE",
+      "t0": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+      "r1": "Oui, tous les centres ont du T1 natif. Non, l'ECV seulement deux centres.",
+      "r2": "Je préfère donc partir sur le T1 natif comme candidat principal, mais garder l'ECV exploratoire là où il est disponible.",
+      "hiddenCard": {
+        "facts": ["quatre centres", "T1 natif disponible partout", "ECV seulement deux centres", "pratique lyonnaise ≠ décision Project", "T1 initialement candidat, pas principal adopté", "après R2, T1 devient candidat principal explicitement préféré", "ECV exploratoire conditionnel"],
+        "acceptableContextualCandidatesWithoutAdoption": ["T1 natif", "ECV"],
+        "tests": ["ownership", "pratique locale vs projet", "candidat vs décision", "promotion après confirmation", "disponibilité multicentrique", "réponse négative", "temporalité de décision"]
+      }
+    }
+  ]
+}

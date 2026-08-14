@@ -1,0 +1,503 @@
+{
+  "configurationId": "SEM_FULL",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": true,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T2",
+  "scenarioId": "I07",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+        "role": "USER",
+        "turnId": "I07:T0"
+      },
+      {
+        "content": "Pour cette étude, reste sur l'association avec la réponse. La prédiction sera exploratoire seulement.",
+        "role": "USER",
+        "turnId": "I07:R1"
+      },
+      {
+        "content": "Et je parle de concentration iodée mesurée, pas simplement de présence d'iode. Je ne veux aucune conclusion causale.",
+        "role": "USER",
+        "turnId": "I07:R2"
+      }
+    ],
+    "correctionsAndSupersessions": [
+      {
+        "correctionId": "sem-correction:f5329fb1c66589ca",
+        "currentContent": "scanner spectral du foie",
+        "disposition": "SUPERSEDED",
+        "previousContent": "scanner spectral du foie",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:eaf56a016febeda5",
+        "currentContent": "réponse tumorale",
+        "disposition": "SUPERSEDED",
+        "previousContent": "réponse tumorale",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:0e5f73a1ce7ad872",
+        "currentContent": "maintien de l'étude sur l'association",
+        "disposition": "SUPERSEDED",
+        "previousContent": "maintien de l'étude sur l'association",
+        "provenanceTurnIds": [
+          "I07:R1"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:2d4cd52d826824ec",
+        "currentContent": "concentration iodée mesurée",
+        "disposition": "SUPERSEDED",
+        "previousContent": "iode",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:5659cdaf9738ac45",
+        "currentContent": "iode",
+        "disposition": "REJECTED",
+        "previousContent": "iode",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ]
+      }
+    ],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "scanner spectral du foie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-2600b1697dba8b7d",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "scanner spectral du foie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "réponse tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-39a0cf97ed8175c3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "réponse",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "preuve de viabilité tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-496a4b838dc1b037",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "preuve de viabilité tumorale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "maintien de l'étude sur l'association",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5b58e440dab3bcec",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:R1"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "reste sur l'association avec la réponse",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "condition de bon fonctionnement",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-658bb783323eb46f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "si ça marche bien",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "concentration iodée mesurée",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7b7cf583c54b0797",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "concentration iodée mesurée",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "absence de conclusion causale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7fda63c0931cfe04",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "aucune conclusion causale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "caractère exploratoire de la prédiction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-c74c1bfa88c52756",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:R1"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "exploratoire",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [
+      {
+        "basis": "Inferred from 'ensuite' in temporal projection for prediction.",
+        "content": "ensuite / futur",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "itemId": "sem-element:ke1-7f93fd7c9018c3c8",
+        "ownership": "SEM_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": null,
+        "temporalContext": "ensuite / futur"
+      }
+    ],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "preuve de viabilité tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-496a4b838dc1b037",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "preuve de viabilité tumorale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "absence de conclusion causale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7fda63c0931cfe04",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "aucune conclusion causale",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "Pour cette étude, la concentration iodée mesurée en scanner spectral du foie est maintenue uniquement dans une relation d'association avec la réponse tumorale, sans aucune conclusion causale, tandis que la prédiction est rejetée ou exploratoire.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "scanner spectral du foie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-2600b1697dba8b7d",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "scanner spectral du foie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "réponse tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-39a0cf97ed8175c3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "réponse",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "preuve de viabilité tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-496a4b838dc1b037",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "preuve de viabilité tumorale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "maintien de l'étude sur l'association",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5b58e440dab3bcec",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:R1"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "reste sur l'association avec la réponse",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "condition de bon fonctionnement",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-658bb783323eb46f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "si ça marche bien",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "concentration iodée mesurée",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7b7cf583c54b0797",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "concentration iodée mesurée",
+        "temporalContext": null
+      },
+      {
+        "basis": "Inferred from 'ensuite' in temporal projection for prediction.",
+        "content": "ensuite / futur",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "itemId": "sem-element:ke1-7f93fd7c9018c3c8",
+        "ownership": "SEM_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": null,
+        "temporalContext": "ensuite / futur"
+      },
+      {
+        "basis": null,
+        "content": "absence de conclusion causale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7fda63c0931cfe04",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "aucune conclusion causale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "caractère exploratoire de la prédiction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-c74c1bfa88c52756",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:R1"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "exploratoire",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "scanner spectral du foie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-2600b1697dba8b7d"
+      },
+      {
+        "content": "réponse tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-39a0cf97ed8175c3"
+      },
+      {
+        "content": "preuve de viabilité tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-496a4b838dc1b037"
+      },
+      {
+        "content": "maintien de l'étude sur l'association",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-5b58e440dab3bcec"
+      },
+      {
+        "content": "condition de bon fonctionnement",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-658bb783323eb46f"
+      },
+      {
+        "content": "concentration iodée mesurée",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-7b7cf583c54b0797"
+      },
+      {
+        "content": "ensuite / futur",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "owner": "SEM_CANDIDATE",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-7f93fd7c9018c3c8"
+      },
+      {
+        "content": "absence de conclusion causale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-7fda63c0931cfe04"
+      },
+      {
+        "content": "caractère exploratoire de la prédiction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-c74c1bfa88c52756"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "absence de conclusion causale",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "EXCLUDES_CAUSALITY",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-5823a903b70b969f",
+        "sourceText": null,
+        "subject": "concentration iodée mesurée",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "réponse tumorale",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-6e3c0540c53b3424",
+        "sourceText": null,
+        "subject": "concentration iodée mesurée",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Pour cette étude, la concentration iodée mesurée en scanner spectral du foie est maintenue uniquement dans une relation d'association avec la réponse tumorale, sans aucune conclusion causale, tandis que la prédiction est rejetée ou exploratoire.",
+    "temporalModel": [
+      {
+        "basis": "Inferred from 'ensuite' in temporal projection for prediction.",
+        "content": "ensuite / futur",
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "itemId": "sem-element:ke1-7f93fd7c9018c3c8",
+        "ownership": "SEM_CANDIDATE",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": null,
+        "temporalContext": "ensuite / futur"
+      }
+    ],
+    "unknowns": []
+  }
+}

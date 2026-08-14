@@ -1,0 +1,7 @@
+{
+  "failureClass": "SEM_PROVIDER_OR_STRUCTURED_CONTRACT_FAILURE",
+  "nativeRawOutputAvailable": false,
+  "noAdditionalSemanticRetry": true,
+  "reason": "RuntimeError: SemanticProviderError: SEMANTIC_PROVIDER_TIMEOUT\n    at GeminiScientificSemanticProvider.generate (/Users/charles/Documents/Projets/NOXIA/noxia-dev/src/features/scientific-semantic-reconstruction/provider.ts:706:15)\n    at processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at GeminiScientificSemanticProvider.reconstruct (/Users/charles/Documents/Projets/NOXIA/noxia-dev/src/features/scientific-semantic-reconstruction/provider.ts:767:31)\n    at main (/Users/charles/Documents/Projets/NOXIA/noxia-dev/experiments/semantic-engine-comparison/common_contract_ablation_02/sem_pair_runner.ts:305:28)\n",
+  "status": "FAILED"
+}

@@ -1,0 +1,473 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T1",
+  "scenarioId": "I01",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "I01:T0"
+      },
+      {
+        "content": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+        "role": "USER",
+        "turnId": "I01:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Other non-culprit lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-343b3709c4fac43d",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "les autres lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "4 to 6 weeks later",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4c594dd22f302ba6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "4–6 semaines plus tard",
+        "temporalContext": "4 to 6 weeks later"
+      },
+      {
+        "basis": null,
+        "content": "Immediate stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4d26d13a6c9989f6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "le stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "During hospitalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-6e7070516bda7fcd",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "pendant l'hospitalisation",
+        "temporalContext": "During hospitalization"
+      },
+      {
+        "basis": null,
+        "content": "Lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7377740c719bb0c8",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "les lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Magnetic resonance imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8d483ef98330dc35",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "User intent to compare interventions and observe lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-91cf5aa379f8eaef",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "Je veux",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Culprit lesion",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-ae4d3f3e9197276a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "la lésion coupable",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Myocardial infarction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b6c20eed741fa9d1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "l'infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Delayed stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d5f711cbc470528f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "INTERVENTION:COMPARATOR_ARM",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "Comparison of immediate stenting versus delayed stenting in myocardial infarction, observing lesions using MRI, with immediate treatment of the culprit lesion and non-culprit lesions compared between inpatient treatment and 4-6 weeks later.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Other non-culprit lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-343b3709c4fac43d",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "les autres lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "4 to 6 weeks later",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4c594dd22f302ba6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "4–6 semaines plus tard",
+        "temporalContext": "4 to 6 weeks later"
+      },
+      {
+        "basis": null,
+        "content": "Immediate stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4d26d13a6c9989f6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "le stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "During hospitalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-6e7070516bda7fcd",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "pendant l'hospitalisation",
+        "temporalContext": "During hospitalization"
+      },
+      {
+        "basis": null,
+        "content": "Lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7377740c719bb0c8",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "les lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Magnetic resonance imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8d483ef98330dc35",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "User intent to compare interventions and observe lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-91cf5aa379f8eaef",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "Je veux",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Culprit lesion",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-ae4d3f3e9197276a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "la lésion coupable",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Myocardial infarction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b6c20eed741fa9d1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "l'infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Delayed stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d5f711cbc470528f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "INTERVENTION:COMPARATOR_ARM",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Other non-culprit lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-343b3709c4fac43d"
+      },
+      {
+        "content": "4 to 6 weeks later",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-4c594dd22f302ba6"
+      },
+      {
+        "content": "Immediate stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-4d26d13a6c9989f6"
+      },
+      {
+        "content": "During hospitalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-6e7070516bda7fcd"
+      },
+      {
+        "content": "Lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-7377740c719bb0c8"
+      },
+      {
+        "content": "Magnetic resonance imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-8d483ef98330dc35"
+      },
+      {
+        "content": "User intent to compare interventions and observe lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-91cf5aa379f8eaef"
+      },
+      {
+        "content": "Culprit lesion",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-ae4d3f3e9197276a"
+      },
+      {
+        "content": "Myocardial infarction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b6c20eed741fa9d1"
+      },
+      {
+        "content": "Delayed stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-d5f711cbc470528f"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Delayed stenting",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "COMPARES_WITH",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-b625b8d792d82ab3",
+        "sourceText": null,
+        "subject": "Immediate stenting",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Lesions",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "OBSERVES",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-c97266d820ebe2f4",
+        "sourceText": null,
+        "subject": "Magnetic resonance imaging",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "User intent to compare interventions and observe lesions",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "4 to 6 weeks later",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4c594dd22f302ba6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "4–6 semaines plus tard",
+        "temporalContext": "4 to 6 weeks later"
+      },
+      {
+        "basis": null,
+        "content": "During hospitalization",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-6e7070516bda7fcd",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "pendant l'hospitalisation",
+        "temporalContext": "During hospitalization"
+      }
+    ],
+    "unknowns": []
+  }
+}

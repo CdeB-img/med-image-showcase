@@ -1,0 +1,428 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T2",
+  "scenarioId": "I04",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:23d459714d3bf0d5",
+        "content": "La méthode ou le biomarqueur exact pour détecter l'atteinte cardiaque précoce n'est pas défini par l'utilisateur.",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "sem-clarification:1:24242b5a8a",
+        "decisionImpact": "L'utilisateur a indiqué ne pas savoir quelle méthode ou biomarqueur utiliser.",
+        "priority": "MEDIUM",
+        "question": "Souhaitez-vous explorer des propositions de biomarqueurs ou de méthodes d'imagerie adaptées au contexte multicentrique ?",
+        "targetIds": [
+          "sem-element:ke1-5242e18e14162812"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "role": "USER",
+        "turnId": "I04:SEM_SINGLE_PASS:T0"
+      },
+      {
+        "content": "Quelle méthode ou quel biomarqueur préférez-vous utiliser pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?",
+        "role": "ASSISTANT",
+        "turnId": "I04:SEM_SINGLE_PASS:Q1"
+      },
+      {
+        "content": "Je ne sais pas.",
+        "role": "USER",
+        "turnId": "I04:SEM_SINGLE_PASS:R1"
+      },
+      {
+        "content": "Souhaitez-vous explorer des options standards de biomarqueurs ou de méthodes d'imagerie pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?",
+        "role": "ASSISTANT",
+        "turnId": "I04:SEM_SINGLE_PASS:Q2"
+      },
+      {
+        "content": "Je ne sais pas.",
+        "role": "USER",
+        "turnId": "I04:SEM_SINGLE_PASS:R2"
+      }
+    ],
+    "correctionsAndSupersessions": [
+      {
+        "correctionId": "sem-correction:677cb5ac765b97eb",
+        "currentContent": "Étude multicentrique",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Étude multicentrique",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:4633352f0a3fd67e",
+        "currentContent": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:R2"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:04fea3428938e021",
+        "currentContent": "Séquences d'acquisition hétérogènes entre centres",
+        "disposition": "REJECTED",
+        "previousContent": "Séquences d'acquisition hétérogènes entre centres",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:c791c9387e094145",
+        "currentContent": "Fibrose cardiaque visible",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Fibrose cardiaque visible",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:355a1599a351b216",
+        "currentContent": "Atteinte cardiaque précoce",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Atteinte cardiaque précoce",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:6de75bb096fb73a1",
+        "currentContent": "Maladie de Fabry",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Maladie de Fabry",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ]
+      },
+      {
+        "correctionId": "sem-correction:dd8b87e9f63ad384",
+        "currentContent": "Détecter l'atteinte cardiaque précoce",
+        "disposition": "SUPERSEDED",
+        "previousContent": "Détecter l'atteinte cardiaque précoce",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ]
+      }
+    ],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Étude multicentrique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-003189523f16dcde",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "plusieurs centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5242e18e14162812",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:R2"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Fibrose cardiaque visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-95d3c2b6304607d2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:NONE",
+        "sourceText": "la fibrose visible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b01a8aba7016e06e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "l'atteinte cardiaque précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Détecter l'atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bfe6a6e737b208eb",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "détecter",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Choix de la méthode ou du biomarqueur",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:cb8e178bf69aea0d",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": []
+      }
+    ],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "L'utilisateur réitère qu'il ne sait pas quelle méthode ou quel biomarqueur utiliser pour détecter l'atteinte cardiaque précoce dans la maladie de Fabry dans le contexte multicentrique décrit.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Étude multicentrique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-003189523f16dcde",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "plusieurs centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5242e18e14162812",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:R2"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Fibrose cardiaque visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-95d3c2b6304607d2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:NONE",
+        "sourceText": "la fibrose visible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b01a8aba7016e06e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "l'atteinte cardiaque précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Détecter l'atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bfe6a6e737b208eb",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "détecter",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Étude multicentrique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-003189523f16dcde"
+      },
+      {
+        "content": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-5242e18e14162812"
+      },
+      {
+        "content": "Fibrose cardiaque visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-95d3c2b6304607d2"
+      },
+      {
+        "content": "Atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b01a8aba7016e06e"
+      },
+      {
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b4c3c91b3ce8d0af"
+      },
+      {
+        "content": "Détecter l'atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-bfe6a6e737b208eb"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Détecter l'atteinte cardiaque précoce",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-276378e409f4f588",
+        "sourceText": null,
+        "subject": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Maladie de Fabry",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-8452cd6d33e50e29",
+        "sourceText": null,
+        "subject": "Atteinte cardiaque précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Atteinte cardiaque précoce",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "AIMS_TO_MODIFY",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-f345ee1b721d2257",
+        "sourceText": null,
+        "subject": "Détecter l'atteinte cardiaque précoce",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Détecter l'atteinte cardiaque précoce",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": false,
+        "content": "Choix de la méthode ou du biomarqueur",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:cb8e178bf69aea0d",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": []
+      }
+    ]
+  }
+}

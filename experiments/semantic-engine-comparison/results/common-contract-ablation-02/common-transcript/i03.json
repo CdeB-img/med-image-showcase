@@ -1,0 +1,35 @@
+{
+  "rounds": [
+    {
+      "completedConfigurations": [
+        "SEM_FULL",
+        "SEM_SINGLE_PASS",
+        "PYDANTIC_COMMON_CONTRACT",
+        "PYDANTIC_CONDITIONAL_CRITIC",
+        "DSPY_COMMON_CONTRACT"
+      ],
+      "round": "T0"
+    },
+    {
+      "completedConfigurations": [
+        "SEM_FULL",
+        "SEM_SINGLE_PASS",
+        "PYDANTIC_COMMON_CONTRACT",
+        "PYDANTIC_CONDITIONAL_CRITIC",
+        "DSPY_COMMON_CONTRACT"
+      ],
+      "round": "T1"
+    },
+    {
+      "completedConfigurations": [
+        "SEM_FULL",
+        "SEM_SINGLE_PASS",
+        "PYDANTIC_COMMON_CONTRACT",
+        "PYDANTIC_CONDITIONAL_CRITIC",
+        "DSPY_COMMON_CONTRACT"
+      ],
+      "round": "T2"
+    }
+  ],
+  "scenarioId": "I03"
+}

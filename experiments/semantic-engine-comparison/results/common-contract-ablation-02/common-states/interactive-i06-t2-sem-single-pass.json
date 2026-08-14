@@ -1,0 +1,618 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T2",
+  "scenarioId": "I06",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:fe7d11c5d2af7ed7",
+        "content": "L'utilisateur n'a pas statué sur la formalisation d'un critère d'évaluation formel ou d'un seuil pour mesurer la discordance entre DSC et ASL.",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      },
+      {
+        "ambiguityId": "sem-ambiguity:94c93e65b969681d",
+        "content": "La mesure quantitative produite par la méthode « ASL » et utilisée comme prédicteur n'est pas explicitement nommée.",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "role": "USER",
+        "turnId": "I06:SEM_SINGLE_PASS:T0"
+      },
+      {
+        "content": "Souhaitez-vous formaliser un critère d'évaluation formel pour mesurer la discordance entre DSC et ASL ?",
+        "role": "ASSISTANT",
+        "turnId": "I06:SEM_SINGLE_PASS:Q1"
+      },
+      {
+        "content": "Je ne sais pas.",
+        "role": "USER",
+        "turnId": "I06:SEM_SINGLE_PASS:R1"
+      },
+      {
+        "content": "Souhaitez-vous définir un seuil ou un score spécifique pour qualifier la discordance entre DSC et ASL ?",
+        "role": "ASSISTANT",
+        "turnId": "I06:SEM_SINGLE_PASS:Q2"
+      },
+      {
+        "content": "Je ne sais pas.",
+        "role": "USER",
+        "turnId": "I06:SEM_SINGLE_PASS:R2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-10dbd53730a263c3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "progression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Discordance between methods",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4b391086bbea1622",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "PHENOMENON:NONE",
+        "sourceText": "ne racontent pas la même chose",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Arterial Spin Labeling perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-68c07596e614ebca",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Patient subset having only ASL",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7e65f65b50e4c1a7",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "POPULATION:NONE",
+        "sourceText": "ceux qui n'ont que la seconde",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8976c0e4e1c67c20",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "gliomes",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Uncertainty regarding threshold or score for method discordance (turn 2)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b0eac368c2a3af64",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R2"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Conditional inclusion of single-modality cases",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d4a35b092ad5faad",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "les garder si c'est possible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Uncertainty regarding formal evaluation criterion for method discordance",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d4ff2ce4f3283058",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R1"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Comparative evaluation of method utility",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-df46ee8aeaa3e446",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "OPERATION:NONE",
+        "sourceText": "laquelle est la plus utile",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Uncertainty regarding formal evaluation criterion for method discordance (turn 1)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-eb0e4497dfd0cc93",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R1"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Dynamic Susceptibility Contrast perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f2dbffbaf716bffe",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "DSC",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": true,
+        "content": "Formal evaluation criterion for method discordance",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:892f41f0d9f3e694",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "HIGH",
+        "provenanceTurnIds": []
+      },
+      {
+        "blocking": true,
+        "content": "Threshold or score for method discordance",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:08c5d4b4256bf4d8",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "HIGH",
+        "provenanceTurnIds": []
+      }
+    ],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Conditional inclusion of single-modality cases",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d4a35b092ad5faad",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "les garder si c'est possible",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "L'utilisateur confirme son incertitude persistante face à la définition d'un critère d'évaluation formel pour la discordance entre DSC et ASL tout en maintenant ses choix antérieurs d'étude sur les gliomes.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-10dbd53730a263c3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "progression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Discordance between methods",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4b391086bbea1622",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "PHENOMENON:NONE",
+        "sourceText": "ne racontent pas la même chose",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Arterial Spin Labeling perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-68c07596e614ebca",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Patient subset having only ASL",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7e65f65b50e4c1a7",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "POPULATION:NONE",
+        "sourceText": "ceux qui n'ont que la seconde",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8976c0e4e1c67c20",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "gliomes",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Uncertainty regarding threshold or score for method discordance (turn 2)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b0eac368c2a3af64",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R2"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Conditional inclusion of single-modality cases",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d4a35b092ad5faad",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "les garder si c'est possible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Uncertainty regarding formal evaluation criterion for method discordance",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d4ff2ce4f3283058",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R1"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Comparative evaluation of method utility",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-df46ee8aeaa3e446",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "OPERATION:NONE",
+        "sourceText": "laquelle est la plus utile",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Uncertainty regarding formal evaluation criterion for method discordance (turn 1)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-eb0e4497dfd0cc93",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R1"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Dynamic Susceptibility Contrast perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f2dbffbaf716bffe",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "DSC",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-10dbd53730a263c3"
+      },
+      {
+        "content": "Discordance between methods",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-4b391086bbea1622"
+      },
+      {
+        "content": "Arterial Spin Labeling perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-68c07596e614ebca"
+      },
+      {
+        "content": "Patient subset having only ASL",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-7e65f65b50e4c1a7"
+      },
+      {
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-8976c0e4e1c67c20"
+      },
+      {
+        "content": "Uncertainty regarding threshold or score for method discordance (turn 2)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-b0eac368c2a3af64"
+      },
+      {
+        "content": "Conditional inclusion of single-modality cases",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-d4a35b092ad5faad"
+      },
+      {
+        "content": "Uncertainty regarding formal evaluation criterion for method discordance",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-d4ff2ce4f3283058"
+      },
+      {
+        "content": "Comparative evaluation of method utility",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-df46ee8aeaa3e446"
+      },
+      {
+        "content": "Uncertainty regarding formal evaluation criterion for method discordance (turn 1)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-eb0e4497dfd0cc93"
+      },
+      {
+        "content": "Dynamic Susceptibility Contrast perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-f2dbffbaf716bffe"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Arterial Spin Labeling perfusion MRI",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RESTRICTED_TO_METHOD",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-0e9bd173c6e9ca8f",
+        "sourceText": null,
+        "subject": "Patient subset having only ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Glioma",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CONDITION",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-26bc4a76f8fff5ca",
+        "sourceText": null,
+        "subject": "Arterial Spin Labeling perfusion MRI",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Tumor progression",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "EVALUATES_ENDPOINT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-3561ef74ee628be0",
+        "sourceText": null,
+        "subject": "Comparative evaluation of method utility",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Glioma",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CONDITION",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-3d23ee4d3c53bea1",
+        "sourceText": null,
+        "subject": "Dynamic Susceptibility Contrast perfusion MRI",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Patient subset having only ASL",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "predicate": "CONDITIONAL_INCLUSION",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-423e9e6254124086",
+        "sourceText": null,
+        "subject": "Conditional inclusion of single-modality cases",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Arterial Spin Labeling perfusion MRI",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "COMPARES_WITH",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-ec15b09382c57447",
+        "sourceText": null,
+        "subject": "Dynamic Susceptibility Contrast perfusion MRI",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "L'utilisateur confirme son incertitude persistante face à la définition d'un critère d'évaluation formel pour la discordance entre DSC et ASL tout en maintenant ses choix antérieurs d'étude sur les gliomes.",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": true,
+        "content": "Formal evaluation criterion for method discordance",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:892f41f0d9f3e694",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "HIGH",
+        "provenanceTurnIds": []
+      },
+      {
+        "blocking": true,
+        "content": "Threshold or score for method discordance",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:08c5d4b4256bf4d8",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "HIGH",
+        "provenanceTurnIds": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$defs": {
+    "SimulatorAnswer": {
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "title": "Answer",
+          "type": "string"
+        },
+        "configurationId": {
+          "title": "Configurationid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "configurationId",
+        "answer"
+      ],
+      "title": "SimulatorAnswer",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "answers": {
+      "items": {
+        "$ref": "#/$defs/SimulatorAnswer"
+      },
+      "title": "Answers",
+      "type": "array"
+    }
+  },
+  "required": [
+    "answers"
+  ],
+  "title": "SimulatorBatch",
+  "type": "object"
+}

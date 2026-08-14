@@ -1,0 +1,147 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T1",
+  "scenarioId": "I02",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+        "role": "USER",
+        "turnId": "I02:T0"
+      },
+      {
+        "content": "L'IRM principale est à 24 h puis à J7. Je n'ai souvent pas d'IRM avant la thrombectomie.",
+        "role": "USER",
+        "turnId": "I02:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Chez les patients thrombectomisés",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "Chez les patients thrombectomisés",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "l'OEF se normalise quand la perfusion s'améliore",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "l'OEF se normalise quand la perfusion s'améliore",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "je n'ai pas toujours l'IRM avant le geste",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_3",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "L'IRM principale est à 24 h puis à J7",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "L'IRM principale est à 24 h puis à J7",
+        "temporalContext": "à 24 h puis à J7"
+      },
+      {
+        "basis": null,
+        "content": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_5",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Absence fréquente d'IRM avant la thrombectomie / avant le geste",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_nc_1",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I02:T0",
+          "I02:R1"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "The user aims to investigate whether Oxygen Extraction Fraction (OEF) normalizes when perfusion improves in post-thrombectomy patients. The imaging timeline primarily involves MRI at 24 hours and at Day 7, while pre-thrombectomy MRI is frequently absent.",
+    "objects": [],
+    "originalRequest": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+    "ownershipAndEpistemicState": [],
+    "relations": [],
+    "scientificGoal": "Determine if OEF normalizes when perfusion improves in thrombectomized patients.",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "IRM principale à 24 h puis à J7",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_t_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "L'IRM principale est à 24 h puis à J7.",
+        "temporalContext": "24 h puis à J7"
+      }
+    ],
+    "unknowns": []
+  }
+}

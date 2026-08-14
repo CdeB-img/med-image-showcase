@@ -1,0 +1,22 @@
+{
+  "amendmentId": "EXP-SEM-ABLATION-02-TECHNICAL-AMENDMENT-01",
+  "classification": "TRANSPORT_ONLY_POST_FREEZE_REPAIR",
+  "reason": "The frozen Python-to-vite-node stdin pipe succeeded for I01/T0, then reproducibly failed before I01/T1 provider execution with EAGAIN while readFileSync(0) read a pipe.",
+  "firstObservedAfterProviderRequests": 6,
+  "additionalProviderRequestsCausedByFailedAttempts": 0,
+  "frozenManifestDigest": "2d60f2095d39af55d7a21ff7b0b7ce130ce856795acd1abd35ae6ea93d92163e",
+  "frozenCampaignDigest": "b9ebec2e85b3521742a9ca9a4613237cf3f273bf56421d0d7225e5ba646fd26f",
+  "frozenSemRunnerDigest": "625f0f0306aa2fe3628c994dd01dd0da65ab36f52cf5aff973c5d4584ba90d23",
+  "transportWrapper": "experiments/semantic-engine-comparison/common_contract_ablation_02/resume_file_transport.py",
+  "transportWrapperDigest": "bee1ccf5289624e9da54ae7d629d7e4402ac8a2a5811b7c1c49ca4e458b274ff",
+  "semanticBehaviorChanged": false,
+  "promptsChanged": false,
+  "schemasChanged": false,
+  "scenariosChanged": false,
+  "criticChanged": false,
+  "triggersChanged": false,
+  "payloadChanged": false,
+  "providerChanged": false,
+  "change": "The exact same serialized JSON payload is supplied to the exact same frozen SEM runner through a regular temporary file instead of a subprocess pipe.",
+  "checkpointPolicy": "All existing SUCCESS checkpoints are reused; I01/T0 is not replayed."
+}

@@ -1,0 +1,596 @@
+{
+  "$defs": {
+    "ClarificationCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "blocking": {
+          "title": "Blocking",
+          "type": "boolean"
+        },
+        "clarificationId": {
+          "title": "Clarificationid",
+          "type": "string"
+        },
+        "decisionImpact": {
+          "title": "Decisionimpact",
+          "type": "string"
+        },
+        "priority": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "UNKNOWN"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "question": {
+          "title": "Question",
+          "type": "string"
+        },
+        "targetIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Targetids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "clarificationId",
+        "question",
+        "priority",
+        "blocking",
+        "decisionImpact"
+      ],
+      "title": "ClarificationCandidate",
+      "type": "object"
+    },
+    "ConversationTurn": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "USER",
+            "ASSISTANT"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "turnId": {
+          "title": "Turnid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "turnId",
+        "role",
+        "content"
+      ],
+      "title": "ConversationTurn",
+      "type": "object"
+    },
+    "CorrectionAndSupersession": {
+      "additionalProperties": false,
+      "properties": {
+        "correctionId": {
+          "title": "Correctionid",
+          "type": "string"
+        },
+        "currentContent": {
+          "title": "Currentcontent",
+          "type": "string"
+        },
+        "disposition": {
+          "enum": [
+            "MODIFIED",
+            "REJECTED",
+            "SUPERSEDED",
+            "CONFIRMED"
+          ],
+          "title": "Disposition",
+          "type": "string"
+        },
+        "previousContent": {
+          "title": "Previouscontent",
+          "type": "string"
+        },
+        "provenanceTurnIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Provenanceturnids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "correctionId",
+        "previousContent",
+        "currentContent",
+        "disposition"
+      ],
+      "title": "CorrectionAndSupersession",
+      "type": "object"
+    },
+    "MissingInformation": {
+      "additionalProperties": false,
+      "properties": {
+        "blocking": {
+          "title": "Blocking",
+          "type": "boolean"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "decisionImpact": {
+          "title": "Decisionimpact",
+          "type": "string"
+        },
+        "missingId": {
+          "title": "Missingid",
+          "type": "string"
+        },
+        "owner": {
+          "title": "Owner",
+          "type": "string"
+        },
+        "priority": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "UNKNOWN"
+          ],
+          "title": "Priority",
+          "type": "string"
+        },
+        "provenanceTurnIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Provenanceturnids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "missingId",
+        "content",
+        "priority",
+        "blocking",
+        "decisionImpact",
+        "owner"
+      ],
+      "title": "MissingInformation",
+      "type": "object"
+    },
+    "OwnershipEpistemicStatement": {
+      "additionalProperties": false,
+      "properties": {
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "epistemicStatus": {
+          "enum": [
+            "EXPLICIT_USER_STATED",
+            "INFERRED_HIGH_CONFIDENCE",
+            "INFERRED_CANDIDATE",
+            "SUPPORTED_CANDIDATE",
+            "UNSUPPORTED_CANDIDATE",
+            "CONFIRMED_BY_USER",
+            "REJECTED_BY_USER",
+            "UNKNOWN",
+            "AMBIGUOUS"
+          ],
+          "title": "Epistemicstatus",
+          "type": "string"
+        },
+        "owner": {
+          "title": "Owner",
+          "type": "string"
+        },
+        "provenanceTurnIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Provenanceturnids",
+          "type": "array"
+        },
+        "statementId": {
+          "title": "Statementid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "statementId",
+        "content",
+        "owner",
+        "epistemicStatus"
+      ],
+      "title": "OwnershipEpistemicStatement",
+      "type": "object"
+    },
+    "ScientificAmbiguity": {
+      "additionalProperties": false,
+      "properties": {
+        "ambiguityId": {
+          "title": "Ambiguityid",
+          "type": "string"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "decisionImpact": {
+          "title": "Decisionimpact",
+          "type": "string"
+        },
+        "epistemicStatus": {
+          "const": "AMBIGUOUS",
+          "default": "AMBIGUOUS",
+          "title": "Epistemicstatus",
+          "type": "string"
+        },
+        "interpretations": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Interpretations",
+          "type": "array"
+        },
+        "provenanceTurnIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Provenanceturnids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "ambiguityId",
+        "content",
+        "decisionImpact"
+      ],
+      "title": "ScientificAmbiguity",
+      "type": "object"
+    },
+    "ScientificItem": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Basis"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "epistemicStatus": {
+          "enum": [
+            "EXPLICIT_USER_STATED",
+            "INFERRED_HIGH_CONFIDENCE",
+            "INFERRED_CANDIDATE",
+            "SUPPORTED_CANDIDATE",
+            "UNSUPPORTED_CANDIDATE",
+            "CONFIRMED_BY_USER",
+            "REJECTED_BY_USER",
+            "UNKNOWN",
+            "AMBIGUOUS"
+          ],
+          "title": "Epistemicstatus",
+          "type": "string"
+        },
+        "itemId": {
+          "title": "Itemid",
+          "type": "string"
+        },
+        "ownership": {
+          "title": "Ownership",
+          "type": "string"
+        },
+        "polarity": {
+          "enum": [
+            "AFFIRMED",
+            "NEGATED",
+            "UNCERTAIN",
+            "CONDITIONAL"
+          ],
+          "title": "Polarity",
+          "type": "string"
+        },
+        "provenanceTurnIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Provenanceturnids",
+          "type": "array"
+        },
+        "scientificRole": {
+          "title": "Scientificrole",
+          "type": "string"
+        },
+        "sourceText": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sourcetext"
+        },
+        "temporalContext": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Temporalcontext"
+        }
+      },
+      "required": [
+        "itemId",
+        "content",
+        "scientificRole",
+        "polarity",
+        "epistemicStatus",
+        "ownership"
+      ],
+      "title": "ScientificItem",
+      "type": "object"
+    },
+    "ScientificRelation": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Basis"
+        },
+        "epistemicStatus": {
+          "enum": [
+            "EXPLICIT_USER_STATED",
+            "INFERRED_HIGH_CONFIDENCE",
+            "INFERRED_CANDIDATE",
+            "SUPPORTED_CANDIDATE",
+            "UNSUPPORTED_CANDIDATE",
+            "CONFIRMED_BY_USER",
+            "REJECTED_BY_USER",
+            "UNKNOWN",
+            "AMBIGUOUS"
+          ],
+          "title": "Epistemicstatus",
+          "type": "string"
+        },
+        "object": {
+          "title": "Object",
+          "type": "string"
+        },
+        "ownership": {
+          "title": "Ownership",
+          "type": "string"
+        },
+        "polarity": {
+          "enum": [
+            "AFFIRMED",
+            "NEGATED",
+            "UNCERTAIN",
+            "CONDITIONAL"
+          ],
+          "title": "Polarity",
+          "type": "string"
+        },
+        "predicate": {
+          "title": "Predicate",
+          "type": "string"
+        },
+        "provenanceTurnIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Provenanceturnids",
+          "type": "array"
+        },
+        "relationId": {
+          "title": "Relationid",
+          "type": "string"
+        },
+        "sourceText": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sourcetext"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        },
+        "temporalContext": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Temporalcontext"
+        }
+      },
+      "required": [
+        "relationId",
+        "subject",
+        "predicate",
+        "object",
+        "polarity",
+        "epistemicStatus",
+        "ownership"
+      ],
+      "title": "ScientificRelation",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Experimental comparison contract; it is not a new NOXIA domain model.",
+  "properties": {
+    "ambiguities": {
+      "items": {
+        "$ref": "#/$defs/ScientificAmbiguity"
+      },
+      "title": "Ambiguities",
+      "type": "array"
+    },
+    "clarificationCandidates": {
+      "items": {
+        "$ref": "#/$defs/ClarificationCandidate"
+      },
+      "title": "Clarificationcandidates",
+      "type": "array"
+    },
+    "contextualScientificCandidates": {
+      "items": {
+        "$ref": "#/$defs/ScientificItem"
+      },
+      "title": "Contextualscientificcandidates",
+      "type": "array"
+    },
+    "contradictions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Contradictions",
+      "type": "array"
+    },
+    "conversationTurns": {
+      "items": {
+        "$ref": "#/$defs/ConversationTurn"
+      },
+      "title": "Conversationturns",
+      "type": "array"
+    },
+    "correctionsAndSupersessions": {
+      "items": {
+        "$ref": "#/$defs/CorrectionAndSupersession"
+      },
+      "title": "Correctionsandsupersessions",
+      "type": "array"
+    },
+    "explicitUserStatements": {
+      "items": {
+        "$ref": "#/$defs/ScientificItem"
+      },
+      "title": "Explicituserstatements",
+      "type": "array"
+    },
+    "inferredContext": {
+      "items": {
+        "$ref": "#/$defs/ScientificItem"
+      },
+      "title": "Inferredcontext",
+      "type": "array"
+    },
+    "missingInformation": {
+      "items": {
+        "$ref": "#/$defs/MissingInformation"
+      },
+      "title": "Missinginformation",
+      "type": "array"
+    },
+    "negationsAndConstraints": {
+      "items": {
+        "$ref": "#/$defs/ScientificItem"
+      },
+      "title": "Negationsandconstraints",
+      "type": "array"
+    },
+    "normalizedUnderstanding": {
+      "title": "Normalizedunderstanding",
+      "type": "string"
+    },
+    "objects": {
+      "items": {
+        "$ref": "#/$defs/ScientificItem"
+      },
+      "title": "Objects",
+      "type": "array"
+    },
+    "originalRequest": {
+      "title": "Originalrequest",
+      "type": "string"
+    },
+    "ownershipAndEpistemicState": {
+      "items": {
+        "$ref": "#/$defs/OwnershipEpistemicStatement"
+      },
+      "title": "Ownershipandepistemicstate",
+      "type": "array"
+    },
+    "relations": {
+      "items": {
+        "$ref": "#/$defs/ScientificRelation"
+      },
+      "title": "Relations",
+      "type": "array"
+    },
+    "scientificGoal": {
+      "title": "Scientificgoal",
+      "type": "string"
+    },
+    "temporalModel": {
+      "items": {
+        "$ref": "#/$defs/ScientificItem"
+      },
+      "title": "Temporalmodel",
+      "type": "array"
+    },
+    "unknowns": {
+      "items": {
+        "$ref": "#/$defs/MissingInformation"
+      },
+      "title": "Unknowns",
+      "type": "array"
+    }
+  },
+  "required": [
+    "originalRequest",
+    "conversationTurns",
+    "normalizedUnderstanding",
+    "scientificGoal"
+  ],
+  "title": "CommonScientificState",
+  "type": "object"
+}

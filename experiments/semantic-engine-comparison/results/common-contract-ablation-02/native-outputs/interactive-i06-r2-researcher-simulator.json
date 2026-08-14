@@ -1,0 +1,16 @@
+{
+  "answers": [
+    {
+      "answer": "Je ne sais pas.",
+      "configurationId": "SEM_SINGLE_PASS"
+    },
+    {
+      "answer": "Je ne sais pas.",
+      "configurationId": "PYDANTIC_COMMON_CONTRACT"
+    },
+    {
+      "answer": "Je ne sais pas.",
+      "configurationId": "PYDANTIC_CONDITIONAL_CRITIC"
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T2",
+  "scenarioId": "I07",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [
+      {
+        "basis": null,
+        "content": "Utilisation ultérieure pour la prédiction si les résultats sont favorables (exploratoire seulement)",
+        "epistemicStatus": "SUPPORTED_CANDIDATE",
+        "itemId": "cand_01",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "I07:T0",
+          "I07:R1"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire. / La prédiction sera exploratoire seulement.",
+        "temporalContext": null
+      }
+    ],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+        "role": "USER",
+        "turnId": "I07:T0"
+      },
+      {
+        "content": "Pour cette étude, reste sur l'association avec la réponse. La prédiction sera exploratoire seulement.",
+        "role": "USER",
+        "turnId": "I07:R1"
+      },
+      {
+        "content": "Et je parle de concentration iodée mesurée, pas simplement de présence d'iode. Je ne veux aucune conclusion causale.",
+        "role": "USER",
+        "turnId": "I07:R2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "scanner spectral du foie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_01",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "method",
+        "sourceText": "scanner spectral du foie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "concentration iodée mesurée",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_02",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "scientificRole": "observable property",
+        "sourceText": "concentration iodée mesurée",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "ne pas utiliser l'iode comme preuve de viabilité tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "neg_01",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "je ne veux pas utiliser l'iode comme preuve de viabilité tumorale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "pas dire qu'il la cause / Je ne veux aucune conclusion causale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "neg_02",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:T0",
+          "I07:R2"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire. / Je ne veux aucune conclusion causale.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "pas simplement de présence d'iode",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "neg_03",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I07:R2"
+        ],
+        "scientificRole": "observable property",
+        "sourceText": "pas simplement de présence d'iode",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "The user is investigating liver spectral CT imaging, specifically measuring iodine concentration rather than mere iodine presence. They explicitly reject iodine as proof of tumor viability and strictly restrict the scope of the study to investigating association with treatment response without asserting causality. Future predictive use is designated as exploratory only.",
+    "objects": [],
+    "originalRequest": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Study scope restricted to association with response; prediction is exploratory only; no causal conclusions; measured iodine concentration rather than simple presence.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I07:T0",
+          "I07:R1",
+          "I07:R2"
+        ],
+        "statementId": "own_01"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "réponse",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "associé à",
+        "provenanceTurnIds": [
+          "I07:T0",
+          "I07:R1"
+        ],
+        "relationId": "rel_01",
+        "sourceText": "voir s'il est associé à la réponse",
+        "subject": "concentration iodée mesurée",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Investigate the association between measured iodine concentration from spectral CT of the liver and tumor response, strictly avoiding causal claims.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

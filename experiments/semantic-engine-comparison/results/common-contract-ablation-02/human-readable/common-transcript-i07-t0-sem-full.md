@@ -1,0 +1,2549 @@
+# I07 — SEM_FULL — COMMON_TRANSCRIPT T0
+
+## INPUT
+
+Message utilisateur courant VERBATIM :
+
+> En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.
+
+Conversation précédente VERBATIM :
+
+> —
+
+## NATIVE OUTPUT
+
+Artefact : `experiments/semantic-engine-comparison/results/common-contract-ablation-02/native-outputs/common-transcript-i07-t0-sem-full.json`
+
+```json
+{
+  "criticCycles": {
+    "accepted": true,
+    "attempts": [
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 4782,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T09:04:37.997Z",
+        "requestStarted": "2026-08-14T09:04:33.215Z",
+        "retryable": false
+      },
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 3563,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T09:04:41.563Z",
+        "requestStarted": "2026-08-14T09:04:38.000Z",
+        "retryable": false
+      }
+    ],
+    "callIds": [
+      "gemini-call:ke1-17e3c3d9152025a5",
+      "gemini-call:ke1-5651406b80a5e1f7"
+    ],
+    "candidate": {
+      "ambiguities": [],
+      "candidateId": "cand_01J9XYZ",
+      "clarificationCandidates": [],
+      "contradictions": [],
+      "elements": [
+        {
+          "canonicalMeaning": "scanner spectral du foie",
+          "clientElementId": "elem_01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "item_01"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I07:T0",
+          "sourceText": "scanner spectral du foie",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "MODALITY"
+        },
+        {
+          "canonicalMeaning": "iode",
+          "clientElementId": "elem_02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "item_02"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'iode",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "BIOMARKER"
+        },
+        {
+          "canonicalMeaning": "preuve de viabilité tumorale",
+          "clientElementId": "elem_03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "item_03"
+          ],
+          "polarity": "NEGATED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I07:T0",
+          "sourceText": "preuve de viabilité tumorale",
+          "studyRole": "OUTCOME_ROLE",
+          "supersedesElementIds": [],
+          "type": "ENDPOINT"
+        },
+        {
+          "canonicalMeaning": "réponse tumorale",
+          "clientElementId": "elem_04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "item_06"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I07:T0",
+          "sourceText": "réponse",
+          "studyRole": "OUTCOME_ROLE",
+          "supersedesElementIds": [],
+          "type": "OUTCOME"
+        },
+        {
+          "canonicalMeaning": "ensuite / futur",
+          "clientElementId": "elem_05",
+          "confidence": 0.9,
+          "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+          "inferenceReason": "Inferred from 'ensuite' in temporal projection for prediction.",
+          "inventoryItemIds": [
+            "item_08"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I07:T0",
+          "sourceText": "ensuite",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "TIMING"
+        },
+        {
+          "canonicalMeaning": "condition de bon fonctionnement",
+          "clientElementId": "elem_06",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "item_07"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I07:T0",
+          "sourceText": "si ça marche bien",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONDITION"
+        }
+      ],
+      "ellipses": [],
+      "knowledgeRequests": [],
+      "language": "fr",
+      "missingConcepts": [],
+      "normalizedMeaning": "L'utilisateur souhaite étudier l'utilisation du scanner spectral du foie en évaluant l'iode en tant que biomarqueur associé à la réponse tumorale, sans l'utiliser comme preuve directe de viabilité, sans établir de lien de causalité, mais en envisageant son utilisation prédictive future sous condition de bon fonctionnement.",
+      "relations": [
+        {
+          "clientRelationId": "rel_elem_01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_01"
+          ],
+          "polarity": "NEGATED",
+          "relationType": "EXCLUDES_ENDPOINT",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_02",
+          "targetClientElementId": "elem_03"
+        },
+        {
+          "clientRelationId": "rel_elem_02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_02"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "RELATED_TO_CANDIDATE",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_02",
+          "targetClientElementId": "elem_04"
+        },
+        {
+          "clientRelationId": "rel_elem_03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_03"
+          ],
+          "polarity": "NEGATED",
+          "relationType": "INFLUENCES",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_02",
+          "targetClientElementId": "elem_04"
+        },
+        {
+          "clientRelationId": "rel_elem_04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_04"
+          ],
+          "polarity": "CONDITIONAL",
+          "relationType": "PREDICTS_CANDIDATE",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_02",
+          "targetClientElementId": "elem_04"
+        }
+      ],
+      "routeProposal": {
+        "confidence": 0.95,
+        "expectedCapabilities": [
+          "Clarify biomarker association versus causation",
+          "Define predictive conditions"
+        ],
+        "reason": "The user is framing and refining scientific relationships and intended uses for an imaging biomarker before committing to a final study protocol.",
+        "route": "FORMALIZE_IDEA"
+      },
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "item_01",
+            "linkedInventoryItemIds": [],
+            "localRole": "modality",
+            "modifiers": [],
+            "normalizedLabel": "scanner spectral du foie",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "scanner spectral du foie"
+          },
+          {
+            "inventoryItemId": "item_02",
+            "linkedInventoryItemIds": [],
+            "localRole": "biomarker",
+            "modifiers": [],
+            "normalizedLabel": "iode",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "l'iode"
+          },
+          {
+            "inventoryItemId": "item_03",
+            "linkedInventoryItemIds": [],
+            "localRole": "endpoint",
+            "modifiers": [],
+            "normalizedLabel": "preuve de viabilité tumorale",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "preuve de viabilité tumorale"
+          },
+          {
+            "inventoryItemId": "item_04",
+            "linkedInventoryItemIds": [
+              "item_02"
+            ],
+            "localRole": "relation",
+            "modifiers": [],
+            "normalizedLabel": "associé à la réponse",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "associé à la réponse"
+          },
+          {
+            "inventoryItemId": "item_05",
+            "linkedInventoryItemIds": [
+              "item_02"
+            ],
+            "localRole": "relation",
+            "modifiers": [],
+            "normalizedLabel": "causalité de la réponse",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "pas dire qu'il la cause"
+          },
+          {
+            "inventoryItemId": "item_06",
+            "linkedInventoryItemIds": [],
+            "localRole": "outcome",
+            "modifiers": [],
+            "normalizedLabel": "réponse tumorale",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "réponse"
+          },
+          {
+            "inventoryItemId": "item_07",
+            "linkedInventoryItemIds": [],
+            "localRole": "condition",
+            "modifiers": [],
+            "normalizedLabel": "condition de bon fonctionnement",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "si ça marche bien"
+          },
+          {
+            "inventoryItemId": "item_08",
+            "linkedInventoryItemIds": [
+              "item_02",
+              "item_07"
+            ],
+            "localRole": "intent",
+            "modifiers": [],
+            "normalizedLabel": "utilisation prédictive future",
+            "polarity": "CONDITIONAL",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "l'utiliser ensuite pour prédire"
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel_01",
+            "normalizedRelation": "EXCLUDES_ENDPOINT",
+            "polarity": "NEGATED",
+            "sourceInventoryItemId": "item_02",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "je ne veux pas utiliser l'iode comme preuve de viabilité tumorale",
+            "targetInventoryItemId": "item_03"
+          },
+          {
+            "inventoryRelationId": "rel_02",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "item_02",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "Je veux voir s'il est associé à la réponse",
+            "targetInventoryItemId": "item_06"
+          },
+          {
+            "inventoryRelationId": "rel_03",
+            "normalizedRelation": "INFLUENCES",
+            "polarity": "NEGATED",
+            "sourceInventoryItemId": "item_02",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "pas dire qu'il la cause",
+            "targetInventoryItemId": "item_06"
+          },
+          {
+            "inventoryRelationId": "rel_04",
+            "normalizedRelation": "PREDICTS_CANDIDATE",
+            "polarity": "CONDITIONAL",
+            "sourceInventoryItemId": "item_02",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "l'utiliser ensuite pour prédire",
+            "targetInventoryItemId": "item_06"
+          }
+        ]
+      },
+      "semanticWarnings": [],
+      "summaryForUser": "Analyse de votre demande concernant le scanner spectral du foie et l'iode : l'iode est envisagé comme associé à la réponse sans lien de causalité ni preuve de viabilité, avec une possible utilisation prédictive future.",
+      "unknowns": []
+    },
+    "critics": [
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "Inventory item item_07 ('si ça marche bien') is marked as UNRESOLVED_EXPLICIT_FRAGMENT in the coverage report and lacks a corresponding semantic element.",
+            "result": "FAIL"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No comparator is present in the source text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No active intervention study arm is present.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Modality 'scanner spectral du foie' is correctly represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit relations are mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All types conform to operational taxonomy.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Relations preserved without weakening.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "Inferences are correctly marked.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No ambiguities hidden.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities maintained correctly.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Timing correctly captured.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No unsupported endpoint promotions.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Concepts are specific and faithful.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Fragment item_07 ('si ça marche bien') is unmapped in the elements list.",
+            "result": "FAIL"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Route FORMALIZE_IDEA appropriately matches the model.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic_01",
+        "criticSummary": "The audit revealed an unmapped explicit fragment (item_07 'si ça marche bien') in the inventory coverage report. A repair has been proposed to add a corresponding CONDITION element (elem_06).",
+        "issues": [
+          {
+            "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+            "description": "Inventory item item_07 ('si ça marche bien') has no corresponding semantic element representation.",
+            "elementClientIds": [],
+            "recommendedAction": "Create a semantic element for the condition fragment item_07.",
+            "resolved": false,
+            "severity": "CRITICAL"
+          }
+        ],
+        "missingExplicitSourceFragments": [
+          {
+            "confidence": 1,
+            "normalizedMeaning": "condition de bon fonctionnement",
+            "reason": "Unmapped explicit fragment in inventory coverage report.",
+            "sourceMessageId": "I07:T0",
+            "sourceText": "si ça marche bien",
+            "suggestedLocalRole": "condition"
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "action": "UPSERT_ELEMENT",
+            "ambiguity": null,
+            "elementCanonicalMeaning": "condition de bon fonctionnement",
+            "elementClientElementId": "elem_06",
+            "elementConfidence": 1,
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [
+              "item_07"
+            ],
+            "elementPolarity": "AFFIRMED",
+            "elementRequiresConfirmation": false,
+            "elementSourceMessageId": "I07:T0",
+            "elementSourceText": "si ça marche bien",
+            "elementStudyRole": "NONE",
+            "elementSupersedesElementIds": [],
+            "elementType": "CONDITION",
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryPolarity": null,
+            "inventoryRelationId": null,
+            "inventoryRelationPolarity": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryRelationTargetItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Map unrepresented explicit fragment item_07 ('si ça marche bien') to a semantic element of type CONDITION.",
+            "relationClientRelationId": null,
+            "relationConfidence": null,
+            "relationEpistemicStatus": null,
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [],
+            "relationPolarity": null,
+            "relationRequiresConfirmation": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "repairId": "rep_01",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "item_07"
+            ],
+            "sourceInventoryRelationIds": []
+          }
+        ],
+        "verdict": "REVISE"
+      },
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit objects (scanner spectral du foie, iode, preuve de viabilité tumorale, réponse, condition, timing) are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator arms or reference alternatives are requested in the text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No explicit therapeutic intervention or arm is introduced beyond observation/biomarker usage.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Scanner spectral du foie is correctly represented as MODALITY.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All four explicit relations (exclusion of endpoint, association, non-causality, conditional prediction) are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All types adhere strictly to the operational taxonomy.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Explicit relations retain their exact polarity and semantic intent.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "Inferred epistemic statuses are correctly labeled.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No hidden ambiguities.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negated endpoint and negated causality are fully respected with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Timing fragment 'ensuite' is successfully captured.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcomes and endpoints remain correctly distinguished without unsupported promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts such as spectral liver CT and iodine are preserved precisely.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Zero missing source fragments.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "FORMALIZE_IDEA is entirely consistent with refining relationships and intended biomarker use before a protocol.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "CRIT_01J9XYZ_CYCLE2",
+        "criticSummary": "The semantic model and typed candidate are fully aligned with the user message. All explicit objects, relations, modalities, and timing elements are accurately represented and typed. Coverage reports, taxonomy, and integrity reports are all complete. The routing is correct.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      }
+    ],
+    "cycleAttempts": [
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 4782,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:04:37.997Z",
+          "requestStarted": "2026-08-14T09:04:33.215Z",
+          "retryable": false
+        }
+      ],
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3563,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:04:41.563Z",
+          "requestStarted": "2026-08-14T09:04:38.000Z",
+          "retryable": false
+        }
+      ]
+    ],
+    "repairDiagnostics": [
+      {
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED",
+        "repairId": "rep_01",
+        "status": "ACCEPTED"
+      }
+    ],
+    "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+  },
+  "initialReconstruction": {
+    "ambiguities": [],
+    "candidateId": "cand_01J9XYZ",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "scanner spectral du foie",
+        "clientElementId": "elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "scanner spectral du foie",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "iode",
+        "clientElementId": "elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "l'iode",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "preuve de viabilité tumorale",
+        "clientElementId": "elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_03"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "preuve de viabilité tumorale",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "ENDPOINT"
+      },
+      {
+        "canonicalMeaning": "réponse tumorale",
+        "clientElementId": "elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_06"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "réponse",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "ensuite / futur",
+        "clientElementId": "elem_05",
+        "confidence": 0.9,
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "inferenceReason": "Inferred from 'ensuite' in temporal projection for prediction.",
+        "inventoryItemIds": [
+          "item_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "ensuite",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite étudier l'utilisation du scanner spectral du foie en évaluant l'iode en tant que biomarqueur associé à la réponse tumorale, sans l'utiliser comme preuve directe de viabilité, sans établir de lien de causalité, mais en envisageant son utilisation prédictive future sous condition de bon fonctionnement.",
+    "relations": [
+      {
+        "clientRelationId": "rel_elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "EXCLUDES_ENDPOINT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_03"
+      },
+      {
+        "clientRelationId": "rel_elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_04"
+      },
+      {
+        "clientRelationId": "rel_elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "INFLUENCES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_04"
+      },
+      {
+        "clientRelationId": "rel_elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_04"
+        ],
+        "polarity": "CONDITIONAL",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_04"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Clarify biomarker association versus causation",
+        "Define predictive conditions"
+      ],
+      "reason": "The user is framing and refining scientific relationships and intended uses for an imaging biomarker before committing to a final study protocol.",
+      "route": "FORMALIZE_IDEA"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "item_01",
+          "linkedInventoryItemIds": [],
+          "localRole": "modality",
+          "modifiers": [],
+          "normalizedLabel": "scanner spectral du foie",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "scanner spectral du foie"
+        },
+        {
+          "inventoryItemId": "item_02",
+          "linkedInventoryItemIds": [],
+          "localRole": "biomarker",
+          "modifiers": [],
+          "normalizedLabel": "iode",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'iode"
+        },
+        {
+          "inventoryItemId": "item_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "endpoint",
+          "modifiers": [],
+          "normalizedLabel": "preuve de viabilité tumorale",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "preuve de viabilité tumorale"
+        },
+        {
+          "inventoryItemId": "item_04",
+          "linkedInventoryItemIds": [
+            "item_02"
+          ],
+          "localRole": "relation",
+          "modifiers": [],
+          "normalizedLabel": "associé à la réponse",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "associé à la réponse"
+        },
+        {
+          "inventoryItemId": "item_05",
+          "linkedInventoryItemIds": [
+            "item_02"
+          ],
+          "localRole": "relation",
+          "modifiers": [],
+          "normalizedLabel": "causalité de la réponse",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "pas dire qu'il la cause"
+        },
+        {
+          "inventoryItemId": "item_06",
+          "linkedInventoryItemIds": [],
+          "localRole": "outcome",
+          "modifiers": [],
+          "normalizedLabel": "réponse tumorale",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "réponse"
+        },
+        {
+          "inventoryItemId": "item_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "condition de bon fonctionnement",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "si ça marche bien"
+        },
+        {
+          "inventoryItemId": "item_08",
+          "linkedInventoryItemIds": [
+            "item_02",
+            "item_07"
+          ],
+          "localRole": "intent",
+          "modifiers": [],
+          "normalizedLabel": "utilisation prédictive future",
+          "polarity": "CONDITIONAL",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'utiliser ensuite pour prédire"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_01",
+          "normalizedRelation": "EXCLUDES_ENDPOINT",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "item_02",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "je ne veux pas utiliser l'iode comme preuve de viabilité tumorale",
+          "targetInventoryItemId": "item_03"
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "item_02",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "Je veux voir s'il est associé à la réponse",
+          "targetInventoryItemId": "item_06"
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "normalizedRelation": "INFLUENCES",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "item_02",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "pas dire qu'il la cause",
+          "targetInventoryItemId": "item_06"
+        },
+        {
+          "inventoryRelationId": "rel_04",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "polarity": "CONDITIONAL",
+          "sourceInventoryItemId": "item_02",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'utiliser ensuite pour prédire",
+          "targetInventoryItemId": "item_06"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Analyse de votre demande concernant le scanner spectral du foie et l'iode : l'iode est envisagé comme associé à la réponse sans lien de causalité ni preuve de viabilité, avec une possible utilisation prédictive future.",
+    "unknowns": []
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I07:T0"
+    ],
+    "createdAt": "2026-08-14T09:04:41.563Z",
+    "critic": {
+      "issues": [],
+      "summary": "The semantic model and typed candidate are fully aligned with the user message. All explicit objects, relations, modalities, and timing elements are accurately represented and typed. Coverage reports, taxonomy, and integrity reports are all complete. The routing is correct.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-f1c123e5f95a5391",
+    "elements": [
+      {
+        "canonicalMeaning": "scanner spectral du foie",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I07:T0",
+          "providerCallId": "gemini-call:ke1-8b8b4f46d8eba3ca",
+          "rawElementId": "elem_01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-2600b1697dba8b7d",
+        "sourceSpan": {
+          "end": 27,
+          "messageId": "I07:T0",
+          "start": 3,
+          "text": "scanner spectral du foie"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "réponse tumorale",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_06"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I07:T0",
+          "providerCallId": "gemini-call:ke1-8b8b4f46d8eba3ca",
+          "rawElementId": "elem_04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-72c15c43f497559f",
+          "sem-relation:ke1-9056488b477c4a3f",
+          "sem-relation:ke1-d9df51740bfe6688"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "sourceSpan": {
+          "end": 138,
+          "messageId": "I07:T0",
+          "start": 131,
+          "text": "réponse"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "preuve de viabilité tumorale",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I07:T0",
+          "providerCallId": "gemini-call:ke1-8b8b4f46d8eba3ca",
+          "rawElementId": "elem_03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-6cfb874bb5c306a7"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-496a4b838dc1b037",
+        "sourceSpan": {
+          "end": 94,
+          "messageId": "I07:T0",
+          "start": 66,
+          "text": "preuve de viabilité tumorale"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "ENDPOINT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "condition de bon fonctionnement",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_07"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I07:T0",
+          "providerCallId": "gemini-call:ke1-8b8b4f46d8eba3ca",
+          "rawElementId": "elem_06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-658bb783323eb46f",
+        "sourceSpan": {
+          "end": 194,
+          "messageId": "I07:T0",
+          "start": 177,
+          "text": "si ça marche bien"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "ensuite / futur",
+        "confidence": 0.9,
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "inferenceReason": "Inferred from 'ensuite' in temporal projection for prediction.",
+        "inventoryItemIds": [
+          "item_08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I07:T0",
+          "providerCallId": "gemini-call:ke1-8b8b4f46d8eba3ca",
+          "rawElementId": "elem_05",
+          "source": "LLM_INFERENCE"
+        },
+        "relationships": [],
+        "requiresConfirmation": true,
+        "semanticElementId": "sem-element:ke1-7f93fd7c9018c3c8",
+        "sourceSpan": null,
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "iode",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I07:T0",
+          "providerCallId": "gemini-call:ke1-8b8b4f46d8eba3ca",
+          "rawElementId": "elem_02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-6cfb874bb5c306a7",
+          "sem-relation:ke1-72c15c43f497559f",
+          "sem-relation:ke1-9056488b477c4a3f",
+          "sem-relation:ke1-d9df51740bfe6688"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-a9a595fb96c63a57",
+        "sourceSpan": {
+          "end": 59,
+          "messageId": "I07:T0",
+          "start": 53,
+          "text": "l'iode"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 4782,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:04:37.997Z",
+          "requestStarted": "2026-08-14T09:04:33.215Z",
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3563,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:04:41.563Z",
+          "requestStarted": "2026-08-14T09:04:38.000Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-5651406b80a5e1f7",
+      "criticCallIds": [
+        "gemini-call:ke1-17e3c3d9152025a5",
+        "gemini-call:ke1-5651406b80a5e1f7"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T09:04:41.563Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit objects (scanner spectral du foie, iode, preuve de viabilité tumorale, réponse, condition, timing) are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator arms or reference alternatives are requested in the text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No explicit therapeutic intervention or arm is introduced beyond observation/biomarker usage.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Scanner spectral du foie is correctly represented as MODALITY.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All four explicit relations (exclusion of endpoint, association, non-causality, conditional prediction) are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All types adhere strictly to the operational taxonomy.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Explicit relations retain their exact polarity and semantic intent.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "Inferred epistemic statuses are correctly labeled.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No hidden ambiguities.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negated endpoint and negated causality are fully respected with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Timing fragment 'ensuite' is successfully captured.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcomes and endpoints remain correctly distinguished without unsupported promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts such as spectral liver CT and iodine are preserved precisely.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Zero missing source fragments.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "FORMALIZE_IDEA is entirely consistent with refining relationships and intended biomarker use before a protocol.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "CRIT_01J9XYZ_CYCLE2",
+        "criticSummary": "The semantic model and typed candidate are fully aligned with the user message. All explicit objects, relations, modalities, and timing elements are accurately represented and typed. Coverage reports, taxonomy, and integrity reports are all complete. The routing is correct.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "Inventory item item_07 ('si ça marche bien') is marked as UNRESOLVED_EXPLICIT_FRAGMENT in the coverage report and lacks a corresponding semantic element.",
+              "result": "FAIL"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No comparator is present in the source text.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "No active intervention study arm is present.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "Modality 'scanner spectral du foie' is correctly represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All explicit relations are mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All types conform to operational taxonomy.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "Relations preserved without weakening.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "Inferences are correctly marked.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No ambiguities hidden.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities maintained correctly.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Timing correctly captured.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No unsupported endpoint promotions.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Concepts are specific and faithful.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "Fragment item_07 ('si ça marche bien') is unmapped in the elements list.",
+              "result": "FAIL"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "Route FORMALIZE_IDEA appropriately matches the model.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic_01",
+          "criticSummary": "The audit revealed an unmapped explicit fragment (item_07 'si ça marche bien') in the inventory coverage report. A repair has been proposed to add a corresponding CONDITION element (elem_06).",
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "description": "Inventory item item_07 ('si ça marche bien') has no corresponding semantic element representation.",
+              "elementClientIds": [],
+              "recommendedAction": "Create a semantic element for the condition fragment item_07.",
+              "resolved": false,
+              "severity": "CRITICAL"
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "confidence": 1,
+              "normalizedMeaning": "condition de bon fonctionnement",
+              "reason": "Unmapped explicit fragment in inventory coverage report.",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "si ça marche bien",
+              "suggestedLocalRole": "condition"
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "condition de bon fonctionnement",
+              "elementClientElementId": "elem_06",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "item_07"
+              ],
+              "elementPolarity": "AFFIRMED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I07:T0",
+              "elementSourceText": "si ça marche bien",
+              "elementStudyRole": "NONE",
+              "elementSupersedesElementIds": [],
+              "elementType": "CONDITION",
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Map unrepresented explicit fragment item_07 ('si ça marche bien') to a semantic element of type CONDITION.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep_01",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "item_07"
+              ],
+              "sourceInventoryRelationIds": []
+            }
+          ],
+          "verdict": "REVISE"
+        },
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit objects (scanner spectral du foie, iode, preuve de viabilité tumorale, réponse, condition, timing) are fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator arms or reference alternatives are requested in the text.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "No explicit therapeutic intervention or arm is introduced beyond observation/biomarker usage.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "Scanner spectral du foie is correctly represented as MODALITY.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All four explicit relations (exclusion of endpoint, association, non-causality, conditional prediction) are represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All types adhere strictly to the operational taxonomy.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "Explicit relations retain their exact polarity and semantic intent.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "Inferred epistemic statuses are correctly labeled.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No hidden ambiguities.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Negated endpoint and negated causality are fully respected with NEGATED polarity.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Timing fragment 'ensuite' is successfully captured.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Outcomes and endpoints remain correctly distinguished without unsupported promotion.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts such as spectral liver CT and iodine are preserved precisely.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "Zero missing source fragments.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "FORMALIZE_IDEA is entirely consistent with refining relationships and intended biomarker use before a protocol.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "CRIT_01J9XYZ_CYCLE2",
+          "criticSummary": "The semantic model and typed candidate are fully aligned with the user message. All explicit objects, relations, modalities, and timing elements are accurately represented and typed. Coverage reports, taxonomy, and integrity reports are all complete. The routing is correct.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand_01J9XYZ",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "scanner spectral du foie",
+            "clientElementId": "elem_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I07:T0",
+            "sourceText": "scanner spectral du foie",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          },
+          {
+            "canonicalMeaning": "iode",
+            "clientElementId": "elem_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I07:T0",
+            "sourceText": "l'iode",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "preuve de viabilité tumorale",
+            "clientElementId": "elem_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_03"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I07:T0",
+            "sourceText": "preuve de viabilité tumorale",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "ENDPOINT"
+          },
+          {
+            "canonicalMeaning": "réponse tumorale",
+            "clientElementId": "elem_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_06"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I07:T0",
+            "sourceText": "réponse",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "ensuite / futur",
+            "clientElementId": "elem_05",
+            "confidence": 0.9,
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "inferenceReason": "Inferred from 'ensuite' in temporal projection for prediction.",
+            "inventoryItemIds": [
+              "item_08"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I07:T0",
+            "sourceText": "ensuite",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "condition de bon fonctionnement",
+            "clientElementId": "elem_06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_07"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I07:T0",
+            "sourceText": "si ça marche bien",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONDITION"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "L'utilisateur souhaite étudier l'utilisation du scanner spectral du foie en évaluant l'iode en tant que biomarqueur associé à la réponse tumorale, sans l'utiliser comme preuve directe de viabilité, sans établir de lien de causalité, mais en envisageant son utilisation prédictive future sous condition de bon fonctionnement.",
+        "relations": [
+          {
+            "clientRelationId": "rel_elem_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "polarity": "NEGATED",
+            "relationType": "EXCLUDES_ENDPOINT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03"
+          },
+          {
+            "clientRelationId": "rel_elem_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_04"
+          },
+          {
+            "clientRelationId": "rel_elem_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "polarity": "NEGATED",
+            "relationType": "INFLUENCES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_04"
+          },
+          {
+            "clientRelationId": "rel_elem_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_04"
+            ],
+            "polarity": "CONDITIONAL",
+            "relationType": "PREDICTS_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_04"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.95,
+          "expectedCapabilities": [
+            "Clarify biomarker association versus causation",
+            "Define predictive conditions"
+          ],
+          "reason": "The user is framing and refining scientific relationships and intended uses for an imaging biomarker before committing to a final study protocol.",
+          "route": "FORMALIZE_IDEA"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item_01",
+              "linkedInventoryItemIds": [],
+              "localRole": "modality",
+              "modifiers": [],
+              "normalizedLabel": "scanner spectral du foie",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "scanner spectral du foie"
+            },
+            {
+              "inventoryItemId": "item_02",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "iode",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "l'iode"
+            },
+            {
+              "inventoryItemId": "item_03",
+              "linkedInventoryItemIds": [],
+              "localRole": "endpoint",
+              "modifiers": [],
+              "normalizedLabel": "preuve de viabilité tumorale",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "preuve de viabilité tumorale"
+            },
+            {
+              "inventoryItemId": "item_04",
+              "linkedInventoryItemIds": [
+                "item_02"
+              ],
+              "localRole": "relation",
+              "modifiers": [],
+              "normalizedLabel": "associé à la réponse",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "associé à la réponse"
+            },
+            {
+              "inventoryItemId": "item_05",
+              "linkedInventoryItemIds": [
+                "item_02"
+              ],
+              "localRole": "relation",
+              "modifiers": [],
+              "normalizedLabel": "causalité de la réponse",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "pas dire qu'il la cause"
+            },
+            {
+              "inventoryItemId": "item_06",
+              "linkedInventoryItemIds": [],
+              "localRole": "outcome",
+              "modifiers": [],
+              "normalizedLabel": "réponse tumorale",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "réponse"
+            },
+            {
+              "inventoryItemId": "item_07",
+              "linkedInventoryItemIds": [],
+              "localRole": "condition",
+              "modifiers": [],
+              "normalizedLabel": "condition de bon fonctionnement",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "si ça marche bien"
+            },
+            {
+              "inventoryItemId": "item_08",
+              "linkedInventoryItemIds": [
+                "item_02",
+                "item_07"
+              ],
+              "localRole": "intent",
+              "modifiers": [],
+              "normalizedLabel": "utilisation prédictive future",
+              "polarity": "CONDITIONAL",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "l'utiliser ensuite pour prédire"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_01",
+              "normalizedRelation": "EXCLUDES_ENDPOINT",
+              "polarity": "NEGATED",
+              "sourceInventoryItemId": "item_02",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "je ne veux pas utiliser l'iode comme preuve de viabilité tumorale",
+              "targetInventoryItemId": "item_03"
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item_02",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "Je veux voir s'il est associé à la réponse",
+              "targetInventoryItemId": "item_06"
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "normalizedRelation": "INFLUENCES",
+              "polarity": "NEGATED",
+              "sourceInventoryItemId": "item_02",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "pas dire qu'il la cause",
+              "targetInventoryItemId": "item_06"
+            },
+            {
+              "inventoryRelationId": "rel_04",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "CONDITIONAL",
+              "sourceInventoryItemId": "item_02",
+              "sourceMessageId": "I07:T0",
+              "sourceText": "l'utiliser ensuite pour prédire",
+              "targetInventoryItemId": "item_06"
+            }
+          ]
+        },
+        "semanticWarnings": [],
+        "summaryForUser": "Analyse de votre demande concernant le scanner spectral du foie et l'iode : l'iode est envisagé comme associé à la réponse sans lien de causalité ni preuve de viabilité, avec une possible utilisation prédictive future.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 8880,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:04:25.746Z",
+          "requestStarted": "2026-08-14T09:04:16.866Z",
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 7440,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:04:33.200Z",
+          "requestStarted": "2026-08-14T09:04:25.760Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-8b8b4f46d8eba3ca",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_01",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "scanner spectral du foie",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "scanner spectral du foie"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_02",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "iode",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'iode"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_03",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "preuve de viabilité tumorale",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "preuve de viabilité tumorale"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_04",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_elem_02"
+          ],
+          "normalizedMeaning": "associé à la réponse",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node.",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "associé à la réponse"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_05",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_elem_03"
+          ],
+          "normalizedMeaning": "causalité de la réponse",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node.",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "pas dire qu'il la cause"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_06",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "réponse tumorale",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "réponse"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_07",
+          "mappedClientElementIds": [
+            "elem_06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "condition de bon fonctionnement",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "si ça marche bien"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_08",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "utilisation prédictive future",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'utiliser ensuite pour prédire"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite étudier l'utilisation du scanner spectral du foie en évaluant l'iode en tant que biomarqueur associé à la réponse tumorale, sans l'utiliser comme preuve directe de viabilité, sans établir de lien de causalité, mais en envisageant son utilisation prédictive future sous condition de bon fonctionnement.",
+    "originalRequest": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_01",
+          "mappedClientRelationIds": [
+            "rel_elem_01"
+          ],
+          "normalizedRelation": "EXCLUDES_ENDPOINT",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_03"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_02",
+          "mappedClientRelationIds": [
+            "rel_elem_02"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_06"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_03",
+          "mappedClientRelationIds": [
+            "rel_elem_03"
+          ],
+          "normalizedRelation": "INFLUENCES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_06"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_04",
+          "mappedClientRelationIds": [
+            "rel_elem_04"
+          ],
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_02",
+          "targetInventoryItemId": "item_06"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "EXCLUDES_ENDPOINT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-6cfb874bb5c306a7",
+        "sourceElementId": "sem-element:ke1-a9a595fb96c63a57",
+        "targetElementId": "sem-element:ke1-496a4b838dc1b037",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "INFLUENCES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-72c15c43f497559f",
+        "sourceElementId": "sem-element:ke1-a9a595fb96c63a57",
+        "targetElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_04"
+        ],
+        "polarity": "CONDITIONAL",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-9056488b477c4a3f",
+        "sourceElementId": "sem-element:ke1-a9a595fb96c63a57",
+        "targetElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-d9df51740bfe6688",
+        "sourceElementId": "sem-element:ke1-a9a595fb96c63a57",
+        "targetElementId": "sem-element:ke1-39a0cf97ed8175c3",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Clarify biomarker association versus causation",
+        "Define predictive conditions"
+      ],
+      "reason": "The user is framing and refining scientific relationships and intended uses for an imaging biomarker before committing to a final study protocol.",
+      "route": "FORMALIZE_IDEA"
+    },
+    "semanticModelId": "semantic-model:ke1-9a3a6752a77bc236",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Analyse de votre demande concernant le scanner spectral du foie et l'iode : l'iode est envisagé comme associé à la réponse sans lien de causalité ni preuve de viabilité, avec une possible utilisation prédictive future.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T09:04:41.563Z"
+  },
+  "pairedFirstReconstruction": true,
+  "postCriticCandidate": {
+    "ambiguities": [],
+    "candidateId": "cand_01J9XYZ",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "scanner spectral du foie",
+        "clientElementId": "elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "scanner spectral du foie",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "iode",
+        "clientElementId": "elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "l'iode",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "preuve de viabilité tumorale",
+        "clientElementId": "elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_03"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "preuve de viabilité tumorale",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "ENDPOINT"
+      },
+      {
+        "canonicalMeaning": "réponse tumorale",
+        "clientElementId": "elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_06"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "réponse",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "ensuite / futur",
+        "clientElementId": "elem_05",
+        "confidence": 0.9,
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "inferenceReason": "Inferred from 'ensuite' in temporal projection for prediction.",
+        "inventoryItemIds": [
+          "item_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "ensuite",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "condition de bon fonctionnement",
+        "clientElementId": "elem_06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I07:T0",
+        "sourceText": "si ça marche bien",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite étudier l'utilisation du scanner spectral du foie en évaluant l'iode en tant que biomarqueur associé à la réponse tumorale, sans l'utiliser comme preuve directe de viabilité, sans établir de lien de causalité, mais en envisageant son utilisation prédictive future sous condition de bon fonctionnement.",
+    "relations": [
+      {
+        "clientRelationId": "rel_elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "EXCLUDES_ENDPOINT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_03"
+      },
+      {
+        "clientRelationId": "rel_elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_04"
+      },
+      {
+        "clientRelationId": "rel_elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "INFLUENCES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_04"
+      },
+      {
+        "clientRelationId": "rel_elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_04"
+        ],
+        "polarity": "CONDITIONAL",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_04"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Clarify biomarker association versus causation",
+        "Define predictive conditions"
+      ],
+      "reason": "The user is framing and refining scientific relationships and intended uses for an imaging biomarker before committing to a final study protocol.",
+      "route": "FORMALIZE_IDEA"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "item_01",
+          "linkedInventoryItemIds": [],
+          "localRole": "modality",
+          "modifiers": [],
+          "normalizedLabel": "scanner spectral du foie",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "scanner spectral du foie"
+        },
+        {
+          "inventoryItemId": "item_02",
+          "linkedInventoryItemIds": [],
+          "localRole": "biomarker",
+          "modifiers": [],
+          "normalizedLabel": "iode",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'iode"
+        },
+        {
+          "inventoryItemId": "item_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "endpoint",
+          "modifiers": [],
+          "normalizedLabel": "preuve de viabilité tumorale",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "preuve de viabilité tumorale"
+        },
+        {
+          "inventoryItemId": "item_04",
+          "linkedInventoryItemIds": [
+            "item_02"
+          ],
+          "localRole": "relation",
+          "modifiers": [],
+          "normalizedLabel": "associé à la réponse",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "associé à la réponse"
+        },
+        {
+          "inventoryItemId": "item_05",
+          "linkedInventoryItemIds": [
+            "item_02"
+          ],
+          "localRole": "relation",
+          "modifiers": [],
+          "normalizedLabel": "causalité de la réponse",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "pas dire qu'il la cause"
+        },
+        {
+          "inventoryItemId": "item_06",
+          "linkedInventoryItemIds": [],
+          "localRole": "outcome",
+          "modifiers": [],
+          "normalizedLabel": "réponse tumorale",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "réponse"
+        },
+        {
+          "inventoryItemId": "item_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "condition de bon fonctionnement",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "si ça marche bien"
+        },
+        {
+          "inventoryItemId": "item_08",
+          "linkedInventoryItemIds": [
+            "item_02",
+            "item_07"
+          ],
+          "localRole": "intent",
+          "modifiers": [],
+          "normalizedLabel": "utilisation prédictive future",
+          "polarity": "CONDITIONAL",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'utiliser ensuite pour prédire"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_01",
+          "normalizedRelation": "EXCLUDES_ENDPOINT",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "item_02",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "je ne veux pas utiliser l'iode comme preuve de viabilité tumorale",
+          "targetInventoryItemId": "item_03"
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "item_02",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "Je veux voir s'il est associé à la réponse",
+          "targetInventoryItemId": "item_06"
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "normalizedRelation": "INFLUENCES",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "item_02",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "pas dire qu'il la cause",
+          "targetInventoryItemId": "item_06"
+        },
+        {
+          "inventoryRelationId": "rel_04",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "polarity": "CONDITIONAL",
+          "sourceInventoryItemId": "item_02",
+          "sourceMessageId": "I07:T0",
+          "sourceText": "l'utiliser ensuite pour prédire",
+          "targetInventoryItemId": "item_06"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Analyse de votre demande concernant le scanner spectral du foie et l'iode : l'iode est envisagé comme associé à la réponse sans lien de causalité ni preuve de viabilité, avec une possible utilisation prédictive future.",
+    "unknowns": []
+  },
+  "semanticCriticExecuted": true,
+  "status": "SUCCESS"
+}
+```
+
+## STRUCTURED CONTRACT STATUS
+
+- provider status : `SUCCESS`
+- parsing status : `PARSED_AND_VALIDATED`
+- structured contract conformance : `PASS`
+- scientific semantic evaluability : `EVALUABLE`
+- evaluation mode : `DETERMINISTIC_COMMON_STATE_PROJECTION`
+- native raw output persisted : `false`
+
+## SCIENTIFIC INTERPRETATION
+
+### COMPRÉHENSION GLOBALE
+
+L'utilisateur souhaite étudier l'utilisation du scanner spectral du foie en évaluant l'iode en tant que biomarqueur associé à la réponse tumorale, sans l'utiliser comme preuve directe de viabilité, sans établir de lien de causalité, mais en envisageant son utilisation prédictive future sous condition de bon fonctionnement.
+
+Objectif scientifique produit :
+
+L'utilisateur souhaite étudier l'utilisation du scanner spectral du foie en évaluant l'iode en tant que biomarqueur associé à la réponse tumorale, sans l'utiliser comme preuve directe de viabilité, sans établir de lien de causalité, mais en envisageant son utilisation prédictive future sous condition de bon fonctionnement.
+
+### EXPLICITEMENT DIT PAR LE CHERCHEUR
+
+- content=scanner spectral du foie | scientificRole=MODALITY:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=scanner spectral du foie | provenanceTurnIds=["I07:T0"]
+- content=réponse tumorale | scientificRole=OUTCOME:OUTCOME_ROLE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=réponse | provenanceTurnIds=["I07:T0"]
+- content=preuve de viabilité tumorale | scientificRole=ENDPOINT:OUTCOME_ROLE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=preuve de viabilité tumorale | provenanceTurnIds=["I07:T0"]
+- content=condition de bon fonctionnement | scientificRole=CONDITION:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=si ça marche bien | provenanceTurnIds=["I07:T0"]
+- content=iode | scientificRole=BIOMARKER:MEASUREMENT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=l'iode | provenanceTurnIds=["I07:T0"]
+
+### RELATIONS COMPRISES
+
+- subject=iode | predicate=EXCLUDES_ENDPOINT | object=preuve de viabilité tumorale | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=iode | predicate=INFLUENCES | object=réponse tumorale | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=iode | predicate=PREDICTS_CANDIDATE | object=réponse tumorale | polarity=CONDITIONAL | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=iode | predicate=RELATED_TO_CANDIDATE | object=réponse tumorale | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+
+### CONTEXTE INFÉRÉ
+
+- content=ensuite / futur | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=ensuite / futur | epistemicStatus=INFERRED_HIGH_CONFIDENCE | ownership=SEM_CANDIDATE | basis=Inferred from 'ensuite' in temporal projection for prediction. | provenanceTurnIds=["I07:T0"]
+
+### CANDIDATS SCIENTIFIQUES CONTEXTUELS
+
+- Aucun élément produit.
+
+### NÉGATIONS / CONTRAINTES
+
+- content=preuve de viabilité tumorale | scientificRole=ENDPOINT:OUTCOME_ROLE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=preuve de viabilité tumorale | provenanceTurnIds=["I07:T0"]
+
+### TEMPORALITÉ
+
+- content=ensuite / futur | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=ensuite / futur | epistemicStatus=INFERRED_HIGH_CONFIDENCE | ownership=SEM_CANDIDATE | basis=Inferred from 'ensuite' in temporal projection for prediction. | provenanceTurnIds=["I07:T0"]
+
+### AMBIGUÏTÉS
+
+- Aucun élément produit.
+
+### INFORMATIONS MANQUANTES
+
+- Aucun élément produit.
+
+### INCONNUES
+
+- Aucun élément produit.
+
+### CORRECTIONS / SUPERSESSIONS
+
+- Aucun élément produit.
+
+### OWNERSHIP / STATUT ÉPISTÉMIQUE
+
+- content=scanner spectral du foie | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I07:T0"]
+- content=réponse tumorale | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I07:T0"]
+- content=preuve de viabilité tumorale | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I07:T0"]
+- content=condition de bon fonctionnement | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I07:T0"]
+- content=ensuite / futur | epistemicStatus=INFERRED_HIGH_CONFIDENCE | owner=SEM_CANDIDATE | provenanceTurnIds=["I07:T0"]
+- content=iode | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I07:T0"]
+
+### QUESTIONS DE CLARIFICATION CANDIDATES
+
+- Aucun élément produit.
+
+## MISSING STRUCTURAL GUARANTEES
+
+- EXACT_PROVIDER_RAW_TEXT_NOT_PERSISTED; STRUCTURED_NATIVE_ARTIFACT_AVAILABLE
+
+_Vue locale déterministe. Aucun appel LLM d’interprétation sémantique post-hoc._

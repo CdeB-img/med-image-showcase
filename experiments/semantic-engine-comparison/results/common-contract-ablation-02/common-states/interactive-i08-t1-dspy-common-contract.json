@@ -1,0 +1,179 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I08",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [
+      {
+        "blocking": true,
+        "clarificationId": "clarif_main_criterion",
+        "decisionImpact": "Nécessaire pour définir le critère principal et orienter la suite de l'étude.",
+        "priority": "HIGH",
+        "question": "Quel marqueur envisagez-vous finalement comme critère principal pour l'étude ?",
+        "targetIds": [
+          "miss_main_criterion"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+        "role": "USER",
+        "turnId": "T0"
+      },
+      {
+        "content": "Avez-vous choisi un critère principal pour l'étude parmi les marqueurs envisagés ?",
+        "role": "ASSISTANT",
+        "turnId": "Q1"
+      },
+      {
+        "content": "Non",
+        "role": "USER",
+        "turnId": "R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_fabry",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "T1 natif avant la fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_native_t1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "measurement_or_biomarker",
+        "sourceText": "T1 natif pourrait être intéressant avant la fibrose",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "ECV",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_ecv",
+        "ownership": "Lyon",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "measurement_or_biomarker",
+        "sourceText": "À Lyon ils font aussi de l'ECV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Trouver un marqueur précoce qui soit utilisable dans tous les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_goal_marker",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": true,
+        "content": "Le critère principal de l'étude n'est pas encore défini.",
+        "decisionImpact": "Empêche de fixer le critère principal et de valider le plan d'analyse principal de l'étude.",
+        "missingId": "miss_main_criterion",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "T0",
+          "Q1",
+          "R1"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Le T1 natif n'a pas été décidé comme critère principal / Aucun critère principal n'a été choisi",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_neg_main_criterion",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0",
+          "Q1",
+          "R1"
+        ],
+        "scientificRole": "project_variable",
+        "sourceText": "je n'ai pas décidé d'en faire le critère principal / Non",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "The user is investigating Fabry disease, considering native T1 before fibrosis as potentially interesting (though not chosen as the main endpoint) and noting that ECV is performed in Lyon. The primary scientific goal is to find an early marker usable across all centers. The user confirmed they have not chosen a main endpoint yet.",
+    "objects": [],
+    "originalRequest": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+    "ownershipAndEpistemicState": [],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "item_fabry",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "is_considered_interesting_in",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_t1_fabry",
+        "sourceText": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose",
+        "subject": "item_native_t1",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Trouver un marqueur précoce qui soit utilisable dans tous les centres pour la maladie de Fabry",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": true,
+        "content": "Le critère principal de l'étude n'est pas encore défini.",
+        "decisionImpact": "Empêche de fixer le critère principal et de valider le plan d'analyse principal de l'étude.",
+        "missingId": "miss_main_criterion",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "T0",
+          "Q1",
+          "R1"
+        ]
+      }
+    ]
+  }
+}

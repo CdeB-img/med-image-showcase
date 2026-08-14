@@ -1,0 +1,74 @@
+{
+  "absoluteMarginToHardStop": 64,
+  "assumptions": [
+    "SEM full uses at most two critic cycles per scientific state.",
+    "SEM branches share T0 first reconstruction; later sharing is reused whenever previous semantic contexts remain identical.",
+    "Pydantic branches share every common-transcript first output and interactive T0; later sharing is reused whenever conversations remain identical.",
+    "Every conditional Pydantic critic is conservatively counted as triggered.",
+    "Every interactive branch is conservatively counted through T2.",
+    "Researcher simulator is batched once per scenario and answer round.",
+    "Human views, diffs, adjudication and reports consume zero provider requests.",
+    "Transient retries and structured-output repair generations consume the 24-call soft margin, then the 64-call absolute margin; the ledger hard-stops at 320."
+  ],
+  "calculationBasis": "REAL_FROZEN_HARNESS_NOMINAL_MAXIMUM_WITH_ALL_CONDITIONAL_CRITICS_TRIGGERED_AND_MAXIMUM_DIALOGUE_DEPTH",
+  "configurationAttribution": {
+    "DSPY_COMMON_CONTRACT": {
+      "allocatedHalfOfSharedFirstPassPool": 0,
+      "attributedRequests": 36,
+      "exclusiveRequests": 36
+    },
+    "PYDANTIC_COMMON_CONTRACT": {
+      "allocatedHalfOfSharedFirstPassPool": 14,
+      "attributedRequests": 22,
+      "exclusiveRequests": 8
+    },
+    "PYDANTIC_CONDITIONAL_CRITIC": {
+      "allocatedHalfOfSharedFirstPassPool": 14,
+      "attributedRequests": 58,
+      "exclusiveRequests": 44
+    },
+    "SEM_FULL": {
+      "allocatedHalfOfSharedFirstPassPool": 6,
+      "attributedRequests": 102,
+      "exclusiveRequests": 96
+    },
+    "SEM_SINGLE_PASS": {
+      "allocatedHalfOfSharedFirstPassPool": 6,
+      "attributedRequests": 30,
+      "exclusiveRequests": 24
+    },
+    "SIMULATED_RESEARCH_USER": {
+      "allocatedHalfOfSharedFirstPassPool": 0,
+      "attributedRequests": 8,
+      "exclusiveRequests": 8
+    }
+  },
+  "dailyQuotaBefore": 0,
+  "dailyQuotaLimit": 500,
+  "hardStop": 320,
+  "minimumDailyQuotaPreserved": 180,
+  "nominalMaximum": 256,
+  "phaseA": {
+    "DSPY_COMMON_CONTRACT": 24,
+    "PYDANTIC_COMMON_AND_CONDITIONAL": 48,
+    "SEM_FULL_AND_SINGLE_PASS": 88,
+    "researcherSimulator": 0,
+    "states": 120,
+    "total": 160
+  },
+  "phaseB": {
+    "DSPY_COMMON_CONTRACT": 12,
+    "PYDANTIC_COMMON_AND_CONDITIONAL": 32,
+    "SEM_FULL_AND_SINGLE_PASS": 44,
+    "researcherSimulatorBatched": 8,
+    "statesMaximum": 60,
+    "total": 96
+  },
+  "sharedPools": {
+    "PYDANTIC_SHARED_FIRST_OUTPUT": 28,
+    "SEM_SHARED_FIRST_RECONSTRUCTION": 12
+  },
+  "softLimit": 280,
+  "target": 260,
+  "transientOrStructuredRepairMarginToSoftLimit": 24
+}

@@ -1,0 +1,1639 @@
+# I04 — SEM_SINGLE_PASS — INTERACTIVE T2
+
+## INPUT
+
+Message utilisateur courant VERBATIM :
+
+> Je ne sais pas.
+
+Conversation précédente VERBATIM :
+
+> I04:SEM_SINGLE_PASS:T0 | USER : Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.
+> I04:SEM_SINGLE_PASS:Q1 | ASSISTANT : Quelle méthode ou quel biomarqueur préférez-vous utiliser pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?
+> I04:SEM_SINGLE_PASS:R1 | USER : Je ne sais pas.
+> I04:SEM_SINGLE_PASS:Q2 | ASSISTANT : Souhaitez-vous explorer des options standards de biomarqueurs ou de méthodes d'imagerie pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?
+
+## NATIVE OUTPUT
+
+Artefact : `experiments/semantic-engine-comparison/results/common-contract-ablation-02/native-outputs/interactive-i04-t2-sem-single-pass.json`
+
+```json
+{
+  "deterministicCoverage": {
+    "explicit": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_centres",
+          "mappedClientElementIds": [
+            "sem-element:ke1-003189523f16dcde"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "plusieurs centres",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_fibrose",
+          "mappedClientElementIds": [
+            "sem-element:ke1-95d3c2b6304607d2"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "fibrose visible",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_atteinte_cardiaque",
+          "mappedClientElementIds": [
+            "sem-element:ke1-b01a8aba7016e06e"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "atteinte cardiaque précoce",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "l'atteinte cardiaque précoce"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_fabry",
+          "mappedClientElementIds": [
+            "sem-element:ke1-b4c3c91b3ce8d0af"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "maladie de Fabry",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_detecter",
+          "mappedClientElementIds": [
+            "sem-element:ke1-bfe6a6e737b208eb"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "détecter",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_sequences",
+          "mappedClientElementIds": [
+            "sem-element:ke1-7c730737e246355b"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "mêmes séquences",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "les mêmes séquences"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_ne_sais_pas_r1",
+          "mappedClientElementIds": [
+            "sem-element:ke1-5242e18e14162812"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "ne sait pas",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:R1",
+          "sourceText": "Je ne sais pas."
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_ne_sais_pas_r2",
+          "mappedClientElementIds": [
+            "sem-element:ke1-5242e18e14162812"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "ne sait pas à nouveau",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:R2",
+          "sourceText": "Je ne sais pas."
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "integrity": {
+      "findings": [],
+      "status": "COMPLETE"
+    },
+    "relations": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_fabry_cond",
+          "mappedClientRelationIds": [
+            "sem-relation:ke1-8452cd6d33e50e29"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_atteinte_cardiaque",
+          "targetInventoryItemId": "item_fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_intent_detect",
+          "mappedClientRelationIds": [
+            "sem-relation:ke1-f345ee1b721d2257"
+          ],
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_detecter",
+          "targetInventoryItemId": "item_atteinte_cardiaque"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_unknown_choice_r1",
+          "mappedClientRelationIds": [
+            "sem-relation:ke1-276378e409f4f588"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_ne_sais_pas_r1",
+          "targetInventoryItemId": "item_detecter"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_unknown_choice_r2",
+          "mappedClientRelationIds": [
+            "sem-relation:ke1-276378e409f4f588"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_ne_sais_pas_r2",
+          "targetInventoryItemId": "item_detecter"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "taxonomy": {
+      "findings": [],
+      "status": "COMPLETE"
+    }
+  },
+  "initialReconstruction": {
+    "ambiguities": [
+      "La méthode ou le biomarqueur exact pour détecter l'atteinte cardiaque précoce n'est pas défini par l'utilisateur."
+    ],
+    "candidateId": "cand-ke1-8e48d1b20261abe6-rev3",
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous explorer des propositions de biomarqueurs ou de méthodes d'imagerie adaptées au contexte multicentrique ?",
+        "reason": "L'utilisateur a indiqué ne pas savoir quelle méthode ou biomarqueur utiliser.",
+        "resolvesClientElementIds": [
+          "sem-element:ke1-5242e18e14162812"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Étude multicentrique",
+        "clientElementId": "sem-element:ke1-003189523f16dcde",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_centres"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+        "sourceText": "plusieurs centres",
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-003189523f16dcde"
+        ],
+        "type": "STUDY_DESIGN"
+      },
+      {
+        "canonicalMeaning": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+        "clientElementId": "sem-element:ke1-5242e18e14162812",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_ne_sais_pas_r1",
+          "item_ne_sais_pas_r2"
+        ],
+        "polarity": "UNCERTAIN",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_SINGLE_PASS:R2",
+        "sourceText": "Je ne sais pas.",
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-5242e18e14162812"
+        ],
+        "type": "UNKNOWN"
+      },
+      {
+        "canonicalMeaning": "Séquences d'acquisition hétérogènes entre centres",
+        "clientElementId": "sem-element:ke1-7c730737e246355b",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_sequences"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+        "sourceText": "les mêmes séquences",
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-7c730737e246355b"
+        ],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Fibrose cardiaque visible",
+        "clientElementId": "sem-element:ke1-95d3c2b6304607d2",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_fibrose"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+        "sourceText": "la fibrose visible",
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-95d3c2b6304607d2"
+        ],
+        "type": "SCIENTIFIC_OBJECT"
+      },
+      {
+        "canonicalMeaning": "Atteinte cardiaque précoce",
+        "clientElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_atteinte_cardiaque"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+        "sourceText": "l'atteinte cardiaque précoce",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [
+          "sem-element:ke1-b01a8aba7016e06e"
+        ],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "clientElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_fabry"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+        "sourceText": "Fabry",
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-b4c3c91b3ce8d0af"
+        ],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Détecter l'atteinte cardiaque précoce",
+        "clientElementId": "sem-element:ke1-bfe6a6e737b208eb",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_detecter"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+        "sourceText": "détecter",
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-bfe6a6e737b208eb"
+        ],
+        "type": "SCIENTIFIC_INTENT"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur réitère qu'il ne sait pas quelle méthode ou quel biomarqueur utiliser pour détecter l'atteinte cardiaque précoce dans la maladie de Fabry dans le contexte multicentrique décrit.",
+    "relations": [
+      {
+        "clientRelationId": "sem-relation:ke1-276378e409f4f588",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_unknown_choice_r1",
+          "rel_unknown_choice_r2"
+        ],
+        "polarity": "UNCERTAIN",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "sem-element:ke1-5242e18e14162812",
+        "targetClientElementId": "sem-element:ke1-bfe6a6e737b208eb"
+      },
+      {
+        "clientRelationId": "sem-relation:ke1-8452cd6d33e50e29",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_fabry_cond"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "targetClientElementId": "sem-element:ke1-b4c3c91b3ce8d0af"
+      },
+      {
+        "clientRelationId": "sem-relation:ke1-f345ee1b721d2257",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_intent_detect"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_MODIFY",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "sem-element:ke1-bfe6a6e737b208eb",
+        "targetClientElementId": "sem-element:ke1-b01a8aba7016e06e"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "STUDY_DESIGN_STRUCTURING",
+        "BIOMARKER_SUGGESTION"
+      ],
+      "reason": "L'utilisateur pose les bases d'une étude multicentrique pour détecter une atteinte cardiaque précoce dans la maladie de Fabry, mais a besoin d'aide pour formaliser les méthodes et biomarqueurs.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "item_centres",
+          "linkedInventoryItemIds": [],
+          "localRole": "study_design",
+          "modifiers": [],
+          "normalizedLabel": "plusieurs centres",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "inventoryItemId": "item_fibrose",
+          "linkedInventoryItemIds": [],
+          "localRole": "object",
+          "modifiers": [],
+          "normalizedLabel": "fibrose visible",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "inventoryItemId": "item_atteinte_cardiaque",
+          "linkedInventoryItemIds": [
+            "item_detecter",
+            "item_fabry"
+          ],
+          "localRole": "outcome",
+          "modifiers": [],
+          "normalizedLabel": "atteinte cardiaque précoce",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "l'atteinte cardiaque précoce"
+        },
+        {
+          "inventoryItemId": "item_fabry",
+          "linkedInventoryItemIds": [
+            "item_atteinte_cardiaque"
+          ],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "maladie de Fabry",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "inventoryItemId": "item_detecter",
+          "linkedInventoryItemIds": [
+            "item_atteinte_cardiaque"
+          ],
+          "localRole": "intent",
+          "modifiers": [],
+          "normalizedLabel": "détecter",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "inventoryItemId": "item_sequences",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "mêmes séquences",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "les mêmes séquences"
+        },
+        {
+          "inventoryItemId": "item_ne_sais_pas_r1",
+          "linkedInventoryItemIds": [],
+          "localRole": "unknown",
+          "modifiers": [],
+          "normalizedLabel": "ne sait pas",
+          "polarity": "UNCERTAIN",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:R1",
+          "sourceText": "Je ne sais pas."
+        },
+        {
+          "inventoryItemId": "item_ne_sais_pas_r2",
+          "linkedInventoryItemIds": [],
+          "localRole": "unknown",
+          "modifiers": [],
+          "normalizedLabel": "ne sait pas à nouveau",
+          "polarity": "UNCERTAIN",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:R2",
+          "sourceText": "Je ne sais pas."
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_fabry_cond",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "item_atteinte_cardiaque",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "l'atteinte cardiaque précoce dans Fabry",
+          "targetInventoryItemId": "item_fabry"
+        },
+        {
+          "inventoryRelationId": "rel_intent_detect",
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "item_detecter",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "détecter l'atteinte cardiaque précoce",
+          "targetInventoryItemId": "item_atteinte_cardiaque"
+        },
+        {
+          "inventoryRelationId": "rel_unknown_choice_r1",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "UNCERTAIN",
+          "sourceInventoryItemId": "item_ne_sais_pas_r1",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:R1",
+          "sourceText": "Je ne sais pas.",
+          "targetInventoryItemId": "item_detecter"
+        },
+        {
+          "inventoryRelationId": "rel_unknown_choice_r2",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "UNCERTAIN",
+          "sourceInventoryItemId": "item_ne_sais_pas_r2",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:R2",
+          "sourceText": "Je ne sais pas.",
+          "targetInventoryItemId": "item_detecter"
+        }
+      ]
+    },
+    "semanticWarnings": [
+      "DETERMINISTIC_CANONICAL_CLIENT_ID_BOUND_TO_PRIOR_STATE:6"
+    ],
+    "summaryForUser": "L'utilisateur indique à nouveau ne pas savoir quelle méthode ou biomarqueur choisir.",
+    "unknowns": [
+      "Choix de la méthode ou du biomarqueur"
+    ]
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [
+      "La méthode ou le biomarqueur exact pour détecter l'atteinte cardiaque précoce n'est pas défini par l'utilisateur."
+    ],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous explorer des propositions de biomarqueurs ou de méthodes d'imagerie adaptées au contexte multicentrique ?",
+        "reason": "L'utilisateur a indiqué ne pas savoir quelle méthode ou biomarqueur utiliser.",
+        "resolvesElementIds": [
+          "sem-element:ke1-5242e18e14162812"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I04:SEM_SINGLE_PASS:T0",
+      "I04:SEM_SINGLE_PASS:Q1",
+      "I04:SEM_SINGLE_PASS:R1",
+      "I04:SEM_SINGLE_PASS:Q2",
+      "I04:SEM_SINGLE_PASS:R2"
+    ],
+    "createdAt": "2026-08-14T09:17:03.565Z",
+    "critic": {
+      "issues": [],
+      "summary": "Single-pass deterministic reports complete; no semantic critic was executed.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-9506ed930ca2e517",
+    "elements": [
+      {
+        "canonicalMeaning": "Étude multicentrique",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_centres"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-1b1754db1f53c467",
+          "rawElementId": "sem-element:ke1-003189523f16dcde",
+          "source": "USER_CORRECTION"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-003189523f16dcde",
+        "sourceSpan": {
+          "end": 105,
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "start": 88,
+          "text": "plusieurs centres"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-003189523f16dcde"
+        ],
+        "type": "STUDY_DESIGN",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_ne_sais_pas_r1",
+          "item_ne_sais_pas_r2"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "UNCERTAIN",
+        "provenance": {
+          "messageId": "I04:SEM_SINGLE_PASS:R2",
+          "providerCallId": "gemini-call:ke1-1b1754db1f53c467",
+          "rawElementId": "sem-element:ke1-5242e18e14162812",
+          "source": "USER_CORRECTION"
+        },
+        "relationships": [
+          "sem-relation:ke1-276378e409f4f588"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-5242e18e14162812",
+        "sourceSpan": {
+          "end": 15,
+          "messageId": "I04:SEM_SINGLE_PASS:R2",
+          "start": 0,
+          "text": "Je ne sais pas."
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-5242e18e14162812"
+        ],
+        "type": "UNKNOWN",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Séquences d'acquisition hétérogènes entre centres",
+        "confidence": 1,
+        "epistemicStatus": "REJECTED_BY_USER",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_sequences"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-1b1754db1f53c467",
+          "rawElementId": "sem-element:ke1-7c730737e246355b",
+          "source": "USER_CORRECTION"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-7c730737e246355b",
+        "sourceSpan": {
+          "end": 150,
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "start": 131,
+          "text": "les mêmes séquences"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-7c730737e246355b"
+        ],
+        "type": "METHOD",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Fibrose cardiaque visible",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_fibrose"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-1b1754db1f53c467",
+          "rawElementId": "sem-element:ke1-95d3c2b6304607d2",
+          "source": "USER_CORRECTION"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-95d3c2b6304607d2",
+        "sourceSpan": {
+          "end": 81,
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "start": 63,
+          "text": "la fibrose visible"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-95d3c2b6304607d2"
+        ],
+        "type": "SCIENTIFIC_OBJECT",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Atteinte cardiaque précoce",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_atteinte_cardiaque"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-1b1754db1f53c467",
+          "rawElementId": "sem-element:ke1-b01a8aba7016e06e",
+          "source": "USER_CORRECTION"
+        },
+        "relationships": [
+          "sem-relation:ke1-8452cd6d33e50e29",
+          "sem-relation:ke1-f345ee1b721d2257"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "sourceSpan": {
+          "end": 45,
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "start": 17,
+          "text": "l'atteinte cardiaque précoce"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [
+          "sem-element:ke1-b01a8aba7016e06e"
+        ],
+        "type": "OUTCOME",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_fabry"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-1b1754db1f53c467",
+          "rawElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+          "source": "USER_CORRECTION"
+        },
+        "relationships": [
+          "sem-relation:ke1-8452cd6d33e50e29"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "sourceSpan": {
+          "end": 56,
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "start": 51,
+          "text": "Fabry"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-b4c3c91b3ce8d0af"
+        ],
+        "type": "CONDITION",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Détecter l'atteinte cardiaque précoce",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "item_detecter"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-1b1754db1f53c467",
+          "rawElementId": "sem-element:ke1-bfe6a6e737b208eb",
+          "source": "USER_CORRECTION"
+        },
+        "relationships": [
+          "sem-relation:ke1-276378e409f4f588",
+          "sem-relation:ke1-f345ee1b721d2257"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-bfe6a6e737b208eb",
+        "sourceSpan": {
+          "end": 16,
+          "messageId": "I04:SEM_SINGLE_PASS:T0",
+          "start": 8,
+          "text": "détecter"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [
+          "sem-element:ke1-bfe6a6e737b208eb"
+        ],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 3
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [],
+      "criticCallId": "deterministic-no-critic",
+      "criticCallIds": [],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T09:18:39.026Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Deterministic coverage, relation, taxonomy and integrity reports are complete.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "EXP-SEM-ABLATION-02-DETERMINISTIC-NO-LLM-CRITIC",
+        "criticSummary": "Single-pass deterministic reports complete; no semantic critic was executed.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [],
+      "rawReconstruction": {
+        "ambiguities": [
+          "La méthode ou le biomarqueur exact pour détecter l'atteinte cardiaque précoce n'est pas défini par l'utilisateur."
+        ],
+        "candidateId": "cand-ke1-8e48d1b20261abe6-rev3",
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous explorer des propositions de biomarqueurs ou de méthodes d'imagerie adaptées au contexte multicentrique ?",
+            "reason": "L'utilisateur a indiqué ne pas savoir quelle méthode ou biomarqueur utiliser.",
+            "resolvesClientElementIds": [
+              "sem-element:ke1-5242e18e14162812"
+            ]
+          }
+        ],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Étude multicentrique",
+            "clientElementId": "sem-element:ke1-003189523f16dcde",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_centres"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+            "sourceText": "plusieurs centres",
+            "studyRole": "NONE",
+            "supersedesElementIds": [
+              "sem-element:ke1-003189523f16dcde"
+            ],
+            "type": "STUDY_DESIGN"
+          },
+          {
+            "canonicalMeaning": "Méthode ou biomarqueur non spécifié par l'utilisateur",
+            "clientElementId": "sem-element:ke1-5242e18e14162812",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_ne_sais_pas_r1",
+              "item_ne_sais_pas_r2"
+            ],
+            "polarity": "UNCERTAIN",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_SINGLE_PASS:R2",
+            "sourceText": "Je ne sais pas.",
+            "studyRole": "NONE",
+            "supersedesElementIds": [
+              "sem-element:ke1-5242e18e14162812"
+            ],
+            "type": "UNKNOWN"
+          },
+          {
+            "canonicalMeaning": "Séquences d'acquisition hétérogènes entre centres",
+            "clientElementId": "sem-element:ke1-7c730737e246355b",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_sequences"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+            "sourceText": "les mêmes séquences",
+            "studyRole": "NONE",
+            "supersedesElementIds": [
+              "sem-element:ke1-7c730737e246355b"
+            ],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Fibrose cardiaque visible",
+            "clientElementId": "sem-element:ke1-95d3c2b6304607d2",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_fibrose"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+            "sourceText": "la fibrose visible",
+            "studyRole": "NONE",
+            "supersedesElementIds": [
+              "sem-element:ke1-95d3c2b6304607d2"
+            ],
+            "type": "SCIENTIFIC_OBJECT"
+          },
+          {
+            "canonicalMeaning": "Atteinte cardiaque précoce",
+            "clientElementId": "sem-element:ke1-b01a8aba7016e06e",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_atteinte_cardiaque"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+            "sourceText": "l'atteinte cardiaque précoce",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [
+              "sem-element:ke1-b01a8aba7016e06e"
+            ],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "Maladie de Fabry",
+            "clientElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_fabry"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+            "sourceText": "Fabry",
+            "studyRole": "NONE",
+            "supersedesElementIds": [
+              "sem-element:ke1-b4c3c91b3ce8d0af"
+            ],
+            "type": "CONDITION"
+          },
+          {
+            "canonicalMeaning": "Détecter l'atteinte cardiaque précoce",
+            "clientElementId": "sem-element:ke1-bfe6a6e737b208eb",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "item_detecter"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+            "sourceText": "détecter",
+            "studyRole": "NONE",
+            "supersedesElementIds": [
+              "sem-element:ke1-bfe6a6e737b208eb"
+            ],
+            "type": "SCIENTIFIC_INTENT"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "L'utilisateur réitère qu'il ne sait pas quelle méthode ou quel biomarqueur utiliser pour détecter l'atteinte cardiaque précoce dans la maladie de Fabry dans le contexte multicentrique décrit.",
+        "relations": [
+          {
+            "clientRelationId": "sem-relation:ke1-276378e409f4f588",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_unknown_choice_r1",
+              "rel_unknown_choice_r2"
+            ],
+            "polarity": "UNCERTAIN",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "sem-element:ke1-5242e18e14162812",
+            "targetClientElementId": "sem-element:ke1-bfe6a6e737b208eb"
+          },
+          {
+            "clientRelationId": "sem-relation:ke1-8452cd6d33e50e29",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_fabry_cond"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "sem-element:ke1-b01a8aba7016e06e",
+            "targetClientElementId": "sem-element:ke1-b4c3c91b3ce8d0af"
+          },
+          {
+            "clientRelationId": "sem-relation:ke1-f345ee1b721d2257",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_intent_detect"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO_MODIFY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "sem-element:ke1-bfe6a6e737b208eb",
+            "targetClientElementId": "sem-element:ke1-b01a8aba7016e06e"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.9,
+          "expectedCapabilities": [
+            "STUDY_DESIGN_STRUCTURING",
+            "BIOMARKER_SUGGESTION"
+          ],
+          "reason": "L'utilisateur pose les bases d'une étude multicentrique pour détecter une atteinte cardiaque précoce dans la maladie de Fabry, mais a besoin d'aide pour formaliser les méthodes et biomarqueurs.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "item_centres",
+              "linkedInventoryItemIds": [],
+              "localRole": "study_design",
+              "modifiers": [],
+              "normalizedLabel": "plusieurs centres",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+              "sourceText": "plusieurs centres"
+            },
+            {
+              "inventoryItemId": "item_fibrose",
+              "linkedInventoryItemIds": [],
+              "localRole": "object",
+              "modifiers": [],
+              "normalizedLabel": "fibrose visible",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+              "sourceText": "la fibrose visible"
+            },
+            {
+              "inventoryItemId": "item_atteinte_cardiaque",
+              "linkedInventoryItemIds": [
+                "item_detecter",
+                "item_fabry"
+              ],
+              "localRole": "outcome",
+              "modifiers": [],
+              "normalizedLabel": "atteinte cardiaque précoce",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+              "sourceText": "l'atteinte cardiaque précoce"
+            },
+            {
+              "inventoryItemId": "item_fabry",
+              "linkedInventoryItemIds": [
+                "item_atteinte_cardiaque"
+              ],
+              "localRole": "condition",
+              "modifiers": [],
+              "normalizedLabel": "maladie de Fabry",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+              "sourceText": "Fabry"
+            },
+            {
+              "inventoryItemId": "item_detecter",
+              "linkedInventoryItemIds": [
+                "item_atteinte_cardiaque"
+              ],
+              "localRole": "intent",
+              "modifiers": [],
+              "normalizedLabel": "détecter",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+              "sourceText": "détecter"
+            },
+            {
+              "inventoryItemId": "item_sequences",
+              "linkedInventoryItemIds": [],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "mêmes séquences",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+              "sourceText": "les mêmes séquences"
+            },
+            {
+              "inventoryItemId": "item_ne_sais_pas_r1",
+              "linkedInventoryItemIds": [],
+              "localRole": "unknown",
+              "modifiers": [],
+              "normalizedLabel": "ne sait pas",
+              "polarity": "UNCERTAIN",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:R1",
+              "sourceText": "Je ne sais pas."
+            },
+            {
+              "inventoryItemId": "item_ne_sais_pas_r2",
+              "linkedInventoryItemIds": [],
+              "localRole": "unknown",
+              "modifiers": [],
+              "normalizedLabel": "ne sait pas à nouveau",
+              "polarity": "UNCERTAIN",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:R2",
+              "sourceText": "Je ne sais pas."
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_fabry_cond",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item_atteinte_cardiaque",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+              "sourceText": "l'atteinte cardiaque précoce dans Fabry",
+              "targetInventoryItemId": "item_fabry"
+            },
+            {
+              "inventoryRelationId": "rel_intent_detect",
+              "normalizedRelation": "AIMS_TO_MODIFY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "item_detecter",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+              "sourceText": "détecter l'atteinte cardiaque précoce",
+              "targetInventoryItemId": "item_atteinte_cardiaque"
+            },
+            {
+              "inventoryRelationId": "rel_unknown_choice_r1",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "UNCERTAIN",
+              "sourceInventoryItemId": "item_ne_sais_pas_r1",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:R1",
+              "sourceText": "Je ne sais pas.",
+              "targetInventoryItemId": "item_detecter"
+            },
+            {
+              "inventoryRelationId": "rel_unknown_choice_r2",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "UNCERTAIN",
+              "sourceInventoryItemId": "item_ne_sais_pas_r2",
+              "sourceMessageId": "I04:SEM_SINGLE_PASS:R2",
+              "sourceText": "Je ne sais pas.",
+              "targetInventoryItemId": "item_detecter"
+            }
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_CANONICAL_CLIENT_ID_BOUND_TO_PRIOR_STATE:6"
+        ],
+        "summaryForUser": "L'utilisateur indique à nouveau ne pas savoir quelle méthode ou biomarqueur choisir.",
+        "unknowns": [
+          "Choix de la méthode ou du biomarqueur"
+        ]
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 9049,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:18:39.008Z",
+          "requestStarted": "2026-08-14T09:18:29.959Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-1b1754db1f53c467",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_centres",
+          "mappedClientElementIds": [
+            "sem-element:ke1-003189523f16dcde"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "plusieurs centres",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_fibrose",
+          "mappedClientElementIds": [
+            "sem-element:ke1-95d3c2b6304607d2"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "fibrose visible",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_atteinte_cardiaque",
+          "mappedClientElementIds": [
+            "sem-element:ke1-b01a8aba7016e06e"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "atteinte cardiaque précoce",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "l'atteinte cardiaque précoce"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_fabry",
+          "mappedClientElementIds": [
+            "sem-element:ke1-b4c3c91b3ce8d0af"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "maladie de Fabry",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_detecter",
+          "mappedClientElementIds": [
+            "sem-element:ke1-bfe6a6e737b208eb"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "détecter",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_sequences",
+          "mappedClientElementIds": [
+            "sem-element:ke1-7c730737e246355b"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "mêmes séquences",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:T0",
+          "sourceText": "les mêmes séquences"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_ne_sais_pas_r1",
+          "mappedClientElementIds": [
+            "sem-element:ke1-5242e18e14162812"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "ne sait pas",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:R1",
+          "sourceText": "Je ne sais pas."
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "item_ne_sais_pas_r2",
+          "mappedClientElementIds": [
+            "sem-element:ke1-5242e18e14162812"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "ne sait pas à nouveau",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_SINGLE_PASS:R2",
+          "sourceText": "Je ne sais pas."
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [
+      {
+        "changeReason": "Nouvelle contribution utilisateur analysée sans réécriture de l’état antérieur.",
+        "changedAt": "2026-08-14T09:17:03.565Z",
+        "digest": "ke1-70af2165b12277e1",
+        "modelId": "semantic-model:ke1-f25dbc0ce00a4378",
+        "revision": 1,
+        "status": "CLARIFICATION_REQUIRED"
+      },
+      {
+        "changeReason": "Nouvelle contribution utilisateur analysée sans réécriture de l’état antérieur.",
+        "changedAt": "2026-08-14T09:17:49.507Z",
+        "digest": "ke1-e127397d2c2726b9",
+        "modelId": "semantic-model:ke1-8e48d1b20261abe6",
+        "revision": 2,
+        "status": "CANDIDATE"
+      }
+    ],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur réitère qu'il ne sait pas quelle méthode ou quel biomarqueur utiliser pour détecter l'atteinte cardiaque précoce dans la maladie de Fabry dans le contexte multicentrique décrit.",
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "previousModelId": "semantic-model:ke1-8e48d1b20261abe6",
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_fabry_cond",
+          "mappedClientRelationIds": [
+            "sem-relation:ke1-8452cd6d33e50e29"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_atteinte_cardiaque",
+          "targetInventoryItemId": "item_fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_intent_detect",
+          "mappedClientRelationIds": [
+            "sem-relation:ke1-f345ee1b721d2257"
+          ],
+          "normalizedRelation": "AIMS_TO_MODIFY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_detecter",
+          "targetInventoryItemId": "item_atteinte_cardiaque"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_unknown_choice_r1",
+          "mappedClientRelationIds": [
+            "sem-relation:ke1-276378e409f4f588"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_ne_sais_pas_r1",
+          "targetInventoryItemId": "item_detecter"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_unknown_choice_r2",
+          "mappedClientRelationIds": [
+            "sem-relation:ke1-276378e409f4f588"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "item_ne_sais_pas_r2",
+          "targetInventoryItemId": "item_detecter"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_unknown_choice_r1",
+          "rel_unknown_choice_r2"
+        ],
+        "polarity": "UNCERTAIN",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-276378e409f4f588",
+        "sourceElementId": "sem-element:ke1-5242e18e14162812",
+        "targetElementId": "sem-element:ke1-bfe6a6e737b208eb",
+        "version": 2,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_fabry_cond"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-8452cd6d33e50e29",
+        "sourceElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "targetElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "version": 3,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_intent_detect"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_MODIFY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-f345ee1b721d2257",
+        "sourceElementId": "sem-element:ke1-bfe6a6e737b208eb",
+        "targetElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "version": 3,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 3,
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "BIOMARKER_SUGGESTION",
+        "STUDY_DESIGN_STRUCTURING"
+      ],
+      "reason": "L'utilisateur pose les bases d'une étude multicentrique pour détecter une atteinte cardiaque précoce dans la maladie de Fabry, mais a besoin d'aide pour formaliser les méthodes et biomarqueurs.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-49276880b0c9d364",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "L'utilisateur indique à nouveau ne pas savoir quelle méthode ou biomarqueur choisir.",
+    "unknowns": [
+      "Choix de la méthode ou du biomarqueur"
+    ],
+    "updatedAt": "2026-08-14T09:18:39.026Z"
+  },
+  "pairedFirstReconstruction": false,
+  "semanticCriticExecuted": false,
+  "status": "SUCCESS"
+}
+```
+
+## STRUCTURED CONTRACT STATUS
+
+- provider status : `SUCCESS`
+- parsing status : `PARSED_AND_VALIDATED`
+- structured contract conformance : `PASS`
+- scientific semantic evaluability : `EVALUABLE`
+- evaluation mode : `DETERMINISTIC_COMMON_STATE_PROJECTION`
+- native raw output persisted : `false`
+
+## SCIENTIFIC INTERPRETATION
+
+### COMPRÉHENSION GLOBALE
+
+L'utilisateur réitère qu'il ne sait pas quelle méthode ou quel biomarqueur utiliser pour détecter l'atteinte cardiaque précoce dans la maladie de Fabry dans le contexte multicentrique décrit.
+
+Objectif scientifique produit :
+
+Détecter l'atteinte cardiaque précoce
+
+### EXPLICITEMENT DIT PAR LE CHERCHEUR
+
+- content=Étude multicentrique | scientificRole=STUDY_DESIGN:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=plusieurs centres | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+- content=Méthode ou biomarqueur non spécifié par l'utilisateur | scientificRole=UNKNOWN:NONE | polarity=UNCERTAIN | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Je ne sais pas. | provenanceTurnIds=["I04:SEM_SINGLE_PASS:R2"]
+- content=Fibrose cardiaque visible | scientificRole=SCIENTIFIC_OBJECT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=la fibrose visible | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+- content=Atteinte cardiaque précoce | scientificRole=OUTCOME:OUTCOME_ROLE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=l'atteinte cardiaque précoce | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+- content=Maladie de Fabry | scientificRole=CONDITION:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Fabry | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+- content=Détecter l'atteinte cardiaque précoce | scientificRole=SCIENTIFIC_INTENT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=détecter | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+
+### RELATIONS COMPRISES
+
+- subject=Méthode ou biomarqueur non spécifié par l'utilisateur | predicate=RELATED_TO_CANDIDATE | object=Détecter l'atteinte cardiaque précoce | polarity=UNCERTAIN | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Atteinte cardiaque précoce | predicate=RELATED_TO_CANDIDATE | object=Maladie de Fabry | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Détecter l'atteinte cardiaque précoce | predicate=AIMS_TO_MODIFY | object=Atteinte cardiaque précoce | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+
+### CONTEXTE INFÉRÉ
+
+- Aucun élément produit.
+
+### CANDIDATS SCIENTIFIQUES CONTEXTUELS
+
+- Aucun élément produit.
+
+### NÉGATIONS / CONTRAINTES
+
+- Aucun élément produit.
+
+### TEMPORALITÉ
+
+- Aucun élément produit.
+
+### AMBIGUÏTÉS
+
+- content=La méthode ou le biomarqueur exact pour détecter l'atteinte cardiaque précoce n'est pas défini par l'utilisateur. | epistemicStatus=AMBIGUOUS | decisionImpact=SEM reports an unresolved ambiguity; impact requires clarification.
+
+### INFORMATIONS MANQUANTES
+
+- content=Choix de la méthode ou du biomarqueur | owner=USER_OR_SPECIALIZED_OWNER_UNRESOLVED | priority=MEDIUM | blocking=non | decisionImpact=SEM reports missing or unresolved information.
+
+### INCONNUES
+
+- content=Choix de la méthode ou du biomarqueur | owner=USER_OR_SPECIALIZED_OWNER_UNRESOLVED | priority=MEDIUM | blocking=non | decisionImpact=SEM reports missing or unresolved information.
+
+### CORRECTIONS / SUPERSESSIONS
+
+- previousContent=Étude multicentrique | currentContent=Étude multicentrique | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"] | disposition=SUPERSEDED
+- previousContent=Méthode ou biomarqueur non spécifié par l'utilisateur | currentContent=Méthode ou biomarqueur non spécifié par l'utilisateur | provenanceTurnIds=["I04:SEM_SINGLE_PASS:R2"] | disposition=SUPERSEDED
+- previousContent=Séquences d'acquisition hétérogènes entre centres | currentContent=Séquences d'acquisition hétérogènes entre centres | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"] | disposition=REJECTED
+- previousContent=Fibrose cardiaque visible | currentContent=Fibrose cardiaque visible | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"] | disposition=SUPERSEDED
+- previousContent=Atteinte cardiaque précoce | currentContent=Atteinte cardiaque précoce | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"] | disposition=SUPERSEDED
+- previousContent=Maladie de Fabry | currentContent=Maladie de Fabry | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"] | disposition=SUPERSEDED
+- previousContent=Détecter l'atteinte cardiaque précoce | currentContent=Détecter l'atteinte cardiaque précoce | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"] | disposition=SUPERSEDED
+
+### OWNERSHIP / STATUT ÉPISTÉMIQUE
+
+- content=Étude multicentrique | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+- content=Méthode ou biomarqueur non spécifié par l'utilisateur | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_SINGLE_PASS:R2"]
+- content=Fibrose cardiaque visible | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+- content=Atteinte cardiaque précoce | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+- content=Maladie de Fabry | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+- content=Détecter l'atteinte cardiaque précoce | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_SINGLE_PASS:T0"]
+
+### QUESTIONS DE CLARIFICATION CANDIDATES
+
+- question=Souhaitez-vous explorer des propositions de biomarqueurs ou de méthodes d'imagerie adaptées au contexte multicentrique ? | priority=MEDIUM | blocking=non | decisionImpact=L'utilisateur a indiqué ne pas savoir quelle méthode ou biomarqueur utiliser. | targetIds=["sem-element:ke1-5242e18e14162812"]
+
+## MISSING STRUCTURAL GUARANTEES
+
+- EXACT_PROVIDER_RAW_TEXT_NOT_PERSISTED; STRUCTURED_NATIVE_ARTIFACT_AVAILABLE
+
+_Vue locale déterministe. Aucun appel LLM d’interprétation sémantique post-hoc._

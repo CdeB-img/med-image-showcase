@@ -1,0 +1,151 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I04",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [
+      {
+        "blocking": true,
+        "clarificationId": "clar_1",
+        "decisionImpact": "Determines the available imaging methods across centers, which is critical for defining the analysis pipeline.",
+        "priority": "HIGH",
+        "question": "Pourriez-vous consulter les différents centres pour recenser les séquences disponibles ?",
+        "targetIds": [
+          "miss_1"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "role": "USER",
+        "turnId": "T0"
+      },
+      {
+        "content": "Quelles sont précisément les séquences disponibles dans vos différents centres ?",
+        "role": "ASSISTANT",
+        "turnId": "T1"
+      },
+      {
+        "content": "Je ne sais pas.",
+        "role": "USER",
+        "turnId": "T2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "temporalContext": "précoce avant la fibrose visible"
+      },
+      {
+        "basis": null,
+        "content": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Je ne sais pas.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_3",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "T2"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "Je ne sais pas.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": true,
+        "content": "Séquences disponibles dans les différents centres",
+        "decisionImpact": "Essential to determine the feasibility, harmonization, and methodology of multi-center imaging analysis for early cardiac involvement.",
+        "missingId": "miss_1",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "T0",
+          "T1",
+          "T2"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user wants to detect early cardiac involvement in Fabry disease prior to visible fibrosis, working across multiple centers where available MRI/imaging sequences are heterogeneous and currently unknown to the user.",
+    "objects": [],
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Détection de l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "state_1"
+      },
+      {
+        "content": "Variabilité des séquences selon les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "state_2"
+      }
+    ],
+    "relations": [],
+    "scientificGoal": "Détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": true,
+        "content": "Séquences disponibles dans les différents centres",
+        "decisionImpact": "Essential to determine the feasibility, harmonization, and methodology of multi-center imaging analysis for early cardiac involvement.",
+        "missingId": "miss_1",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "T0",
+          "T1",
+          "T2"
+        ]
+      }
+    ]
+  }
+}

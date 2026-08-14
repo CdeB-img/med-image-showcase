@@ -1,0 +1,55 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I01",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user wants to compare immediate stenting with deferred stenting in infarction and observe lesions using MRI.",
+    "objects": [],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [],
+    "relations": [],
+    "scientificGoal": "Compare immediate stenting vs. deferred stenting in infarction and evaluate lesions using MRI.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

@@ -1,0 +1,678 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T2",
+  "scenarioId": "I03",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:083cea5061ac9625",
+        "content": "Le choix final entre MTV et TLG en tant que biomarqueurs candidats n'est pas encore arrêté.",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "sem-clarification:1:77cbb47648",
+        "decisionImpact": "MTV et TLG sont proposés comme candidats mais ne sont pas encore définitivement choisis.",
+        "priority": "MEDIUM",
+        "question": "Souhaitez-vous inclure le MTV, le TLG ou les deux comme biomarqueurs principaux pour la prédiction de la réponse ?",
+        "targetIds": [
+          "sem-element:ke1-7fd91df39199553f",
+          "sem-element:ke1-d20a6e664ea357c2"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+        "role": "USER",
+        "turnId": "I03:T0"
+      },
+      {
+        "content": "Le critère principal sera la réponse iRECIST à 12 semaines. La SSP restera secondaire.",
+        "role": "USER",
+        "turnId": "I03:R1"
+      },
+      {
+        "content": "MTV et TLG peuvent être proposés comme candidats, mais je ne les ai pas encore choisis. Le scanner de routine n'est pas automatiquement un biomarqueur de recherche.",
+        "role": "USER",
+        "turnId": "I03:R2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Réponse iRECIST",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-176468f8393743b4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "réponse iRECIST",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "SUVmax",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-1f7def6eadf55222",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "SUVmax",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-666fd96a45c9ae0e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "réponse à l'immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7805f83cea267ca8",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "MTV (Metabolic Tumor Volume)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7fd91df39199553f",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "MTV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-84ce93607f1ae944",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "12 semaines",
+        "temporalContext": "12 semaines"
+      },
+      {
+        "basis": null,
+        "content": "Intention d'utiliser la TEP pour une application prédictive",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-92e0ee017f52ec95",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "utiliser",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-a72f9731ef4b67c5",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "pas avec le SUVmax seul",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Scanner tomodensitométrique réalisé en routine",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b92d3070a9b20614",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "scanner",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b94e984a91422b86",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "TLG (Total Lesion Glycolysis)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d20a6e664ea357c2",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "TLG",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tomographie par émission de positons (TEP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fc23491453006d48",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "TEP",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Survie sans progression (SSP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fd14395863fba4ec",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "SSP",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "SUVmax",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-1f7def6eadf55222",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "SUVmax",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7805f83cea267ca8",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-a72f9731ef4b67c5",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "pas avec le SUVmax seul",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "L'utilisateur précise que le MTV et le TLG peuvent être proposés comme biomarqueurs candidats sans être encore choisis, et nuance le rôle du scanner de routine qui n'est pas automatiquement un biomarqueur de recherche, tout en conservant les éléments précédents.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Réponse iRECIST",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-176468f8393743b4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "réponse iRECIST",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "SUVmax",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-1f7def6eadf55222",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "SUVmax",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-666fd96a45c9ae0e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "réponse à l'immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7805f83cea267ca8",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "MTV (Metabolic Tumor Volume)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7fd91df39199553f",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "MTV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-84ce93607f1ae944",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "12 semaines",
+        "temporalContext": "12 semaines"
+      },
+      {
+        "basis": null,
+        "content": "Intention d'utiliser la TEP pour une application prédictive",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-92e0ee017f52ec95",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "utiliser",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-a72f9731ef4b67c5",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "pas avec le SUVmax seul",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Scanner tomodensitométrique réalisé en routine",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b92d3070a9b20614",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "scanner",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b94e984a91422b86",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "TLG (Total Lesion Glycolysis)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d20a6e664ea357c2",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "TLG",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tomographie par émission de positons (TEP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fc23491453006d48",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "TEP",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Survie sans progression (SSP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fd14395863fba4ec",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "SSP",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Réponse iRECIST",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-176468f8393743b4"
+      },
+      {
+        "content": "SUVmax",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-1f7def6eadf55222"
+      },
+      {
+        "content": "Réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-666fd96a45c9ae0e"
+      },
+      {
+        "content": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-7805f83cea267ca8"
+      },
+      {
+        "content": "MTV (Metabolic Tumor Volume)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-7fd91df39199553f"
+      },
+      {
+        "content": "12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-84ce93607f1ae944"
+      },
+      {
+        "content": "Intention d'utiliser la TEP pour une application prédictive",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-92e0ee017f52ec95"
+      },
+      {
+        "content": "Exclusion du SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-a72f9731ef4b67c5"
+      },
+      {
+        "content": "Scanner tomodensitométrique réalisé en routine",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b92d3070a9b20614"
+      },
+      {
+        "content": "Immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b94e984a91422b86"
+      },
+      {
+        "content": "TLG (Total Lesion Glycolysis)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-d20a6e664ea357c2"
+      },
+      {
+        "content": "Tomographie par émission de positons (TEP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-fc23491453006d48"
+      },
+      {
+        "content": "Survie sans progression (SSP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-fd14395863fba4ec"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Réponse à l'immunothérapie",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "PREDICTS_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-290ca39c697ee258",
+        "sourceText": null,
+        "subject": "SUVmax",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "12 semaines",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-4f2ac003ddca3307",
+        "sourceText": null,
+        "subject": "Réponse iRECIST",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Réponse à l'immunothérapie",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "PREDICTS_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-642c8d273aa39d1b",
+        "sourceText": null,
+        "subject": "Tomographie par émission de positons (TEP)",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Réponse à l'immunothérapie",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "predicate": "PREDICTS_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-6b9820f9a81ce5e5",
+        "sourceText": null,
+        "subject": "TLG (Total Lesion Glycolysis)",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Réponse à l'immunothérapie",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "predicate": "PREDICTS_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-a98c9eeeb39bebea",
+        "sourceText": null,
+        "subject": "MTV (Metabolic Tumor Volume)",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Intention d'utiliser la TEP pour une application prédictive",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-84ce93607f1ae944",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "12 semaines",
+        "temporalContext": "12 semaines"
+      }
+    ],
+    "unknowns": []
+  }
+}

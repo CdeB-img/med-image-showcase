@@ -1,0 +1,483 @@
+{
+  "configurationId": "SEM_FULL",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": true,
+    "pairedFirstReconstruction": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T1",
+  "scenarioId": "I05",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:41fb1b73026baac9",
+        "content": "Traitement des patients ne disposant pas de la seconde acquisition d'IRM",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "sem-clarification:1:3a4b34568b",
+        "decisionImpact": "Le constraint sur l'absence de seconde acquisition nécessite une spécification opérationnelle.",
+        "priority": "MEDIUM",
+        "question": "Quelle est la stratégie de gestion prévue pour les patients ne disposant pas de la seconde IRM ?",
+        "targetIds": [
+          "sem-element:ke1-57edbd445f4b9268"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "role": "USER",
+        "turnId": "I05:T0"
+      },
+      {
+        "content": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+        "role": "USER",
+        "turnId": "I05:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [
+      {
+        "correctionId": "sem-correction:1e1a072ffd326073",
+        "currentContent": "Prediction de recidive",
+        "disposition": "REJECTED",
+        "previousContent": "Prediction de recidive",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ]
+      }
+    ],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Changement d'imagerie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0d3ca74e7fc549ea",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "savoir si ça change",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Absence de seconde IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-57edbd445f4b9268",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Ceux qui n'ont pas la seconde",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Reponse pathologique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-68d0f641bb3ef005",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "c'est la réponse pathologique",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Avant intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7ac8956778be240b",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant",
+        "temporalContext": "Avant intervention"
+      },
+      {
+        "basis": null,
+        "content": "Imagerie par resonance magnetique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-a33477dbff33f64f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Recidive en tant qu'analyse exploratoire",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-abe2d99e8bd87d9a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "La récidive sera exploratoire",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Radiochimiotherapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-c22bc681f24fd64d",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "radiochimiothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Apres intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-df46a0d4c4d8fae0",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "après",
+        "temporalContext": "Apres intervention"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Absence de seconde IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-57edbd445f4b9268",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Ceux qui n'ont pas la seconde",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "Evaluation de l'IRM avant et apres radiochemio-therapie pour mesurer les changements et predire la reponse pathologique (la recidive devenant exploratoire), avec gestion des patients sans seconde IRM.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Changement d'imagerie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0d3ca74e7fc549ea",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "savoir si ça change",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Absence de seconde IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-57edbd445f4b9268",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Ceux qui n'ont pas la seconde",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Reponse pathologique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-68d0f641bb3ef005",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "c'est la réponse pathologique",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Avant intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7ac8956778be240b",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant",
+        "temporalContext": "Avant intervention"
+      },
+      {
+        "basis": null,
+        "content": "Imagerie par resonance magnetique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-a33477dbff33f64f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Recidive en tant qu'analyse exploratoire",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-abe2d99e8bd87d9a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "La récidive sera exploratoire",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Radiochimiotherapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-c22bc681f24fd64d",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "radiochimiothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Apres intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-df46a0d4c4d8fae0",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "après",
+        "temporalContext": "Apres intervention"
+      }
+    ],
+    "originalRequest": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Changement d'imagerie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-0d3ca74e7fc549ea"
+      },
+      {
+        "content": "Absence de seconde IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-57edbd445f4b9268"
+      },
+      {
+        "content": "Reponse pathologique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-68d0f641bb3ef005"
+      },
+      {
+        "content": "Avant intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-7ac8956778be240b"
+      },
+      {
+        "content": "Imagerie par resonance magnetique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-a33477dbff33f64f"
+      },
+      {
+        "content": "Recidive en tant qu'analyse exploratoire",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-abe2d99e8bd87d9a"
+      },
+      {
+        "content": "Radiochimiotherapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-c22bc681f24fd64d"
+      },
+      {
+        "content": "Apres intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-df46a0d4c4d8fae0"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Apres intervention",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-1806609e67027022",
+        "sourceText": null,
+        "subject": "Imagerie par resonance magnetique",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Avant intervention",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-2bb70dcc83c732b0",
+        "sourceText": null,
+        "subject": "Imagerie par resonance magnetique",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Changement d'imagerie",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "CHANGES_AFTER",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-3a49db0fc2117433",
+        "sourceText": null,
+        "subject": "Imagerie par resonance magnetique",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Radiochimiotherapie",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-48098be2bd987d86",
+        "sourceText": null,
+        "subject": "Imagerie par resonance magnetique",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Reponse pathologique",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "PREDICTS_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-62469fca2d59defe",
+        "sourceText": null,
+        "subject": "Imagerie par resonance magnetique",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Evaluation de l'IRM avant et apres radiochemio-therapie pour mesurer les changements et predire la reponse pathologique (la recidive devenant exploratoire), avec gestion des patients sans seconde IRM.",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "Avant intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7ac8956778be240b",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "avant",
+        "temporalContext": "Avant intervention"
+      },
+      {
+        "basis": null,
+        "content": "Apres intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-df46a0d4c4d8fae0",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "après",
+        "temporalContext": "Apres intervention"
+      }
+    ],
+    "unknowns": []
+  }
+}

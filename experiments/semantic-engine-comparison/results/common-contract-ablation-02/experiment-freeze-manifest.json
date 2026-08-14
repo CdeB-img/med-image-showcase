@@ -1,0 +1,81 @@
+{
+  "blindAccessed": false,
+  "concurrency": 1,
+  "configurations": [
+    "SEM_FULL",
+    "SEM_SINGLE_PASS",
+    "PYDANTIC_COMMON_CONTRACT",
+    "PYDANTIC_CONDITIONAL_CRITIC",
+    "DSPY_COMMON_CONTRACT"
+  ],
+  "createdAt": "2026-08-14T08:44:29.003654Z",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "files": {
+    "api/prompts/scientific-semantic-reconstruction-prompt.ts": "59604a16c850a45a970a49f30ea9c1a811607502d5e68dafba7c49ffab4206c8",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/campaign.py": "b9ebec2e85b3521742a9ca9a4613237cf3f273bf56421d0d7225e5ba646fd26f",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/common-scientific-state.schema.json": "20efde7dbee23398ee5f8c350b729f172a13827abfeb02bcf18e63c8750f5e1c",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/common-state-system.txt": "96294fe17e27d51c9832f1fa8f07672d7119a570838834acc5f0557f4159cd24",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/conditional-critic-result.schema.json": "9448d4421ec6388cf4834d001769029e6e36f564e3fba0b20281766cf9699dee",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/conditional-critic-system.txt": "b1f6b83e420e351eea912e85dc976404751dbfd0824d5a62ed1e1c865335adb0",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/dialogue-controller.json": "81f4e16ee588d4ef9e0e166635a273baf4ae970e3ef12a9de22f0ba58deeb831",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/ledger.py": "9f3f301535bd24a510dc488d4a2dcf59b9a5a2dc746f29833a5f4ebe36b4830f",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/models.py": "0dbe2c78a32c7880d9c832895b9f336ddbe5afd98577d153b1c94139847674ed",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/reporting.py": "fb4dd41c5a8f088dea801520032f9ab75f92a2bcccd6059a14953743968fa099",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/researcher-simulator-system.txt": "d30b11a3f60d555fe94d9e170dc8bfcf7d6f7766b3c8345e48a1272b684d5801",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/researcher-simulator.schema.json": "e64e7f0edf819b443eff8e1bf76eeabfee4fde133220ecc761667cff8b399343",
+    "experiments/semantic-engine-comparison/common_contract_ablation_02/sem_pair_runner.ts": "625f0f0306aa2fe3628c994dd01dd0da65ab36f52cf5aff973c5d4584ba90d23",
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/provider-budget-plan.json": "00518fabfdbd9403f8dd8a094b5b1771795b306c7ce0d7ad3fa1634a1e8cb8e7",
+    "experiments/semantic-engine-comparison/results/common-contract-ablation-02/scenario-pack-frozen.json": "bfa359da5fe60d42779f7af211ac95313a94a5b3164de8f72ed7a18490026f7b",
+    "src/features/scientific-semantic-reconstruction/canonical.ts": "1d789b545e17a110fb8500b9307107b4057dde2881f3b8e7911ca1c5ff5513c6",
+    "src/features/scientific-semantic-reconstruction/coverage.ts": "c28029fe2614fb7c2c59a974a52f47887fb8c0f8c6796f7fdd9bb6b6bfc90774",
+    "src/features/scientific-semantic-reconstruction/relation-ownership.ts": "5281fcc3706e061441e22177b1649a5c73ef83efccce76c3a14fdd1550c675bf",
+    "src/features/scientific-semantic-reconstruction/schema.ts": "2254bb47c92f97650a50a5c8eff73193d0e94725bcefc5240ad2c8047c5b729e"
+  },
+  "frameworkVersions": {
+    "dspy": "3.3.0",
+    "google-genai": "2.18.1",
+    "pydantic": "2.13.4",
+    "pydantic-ai": "2.29.0"
+  },
+  "freezeDigest": "2d60f2095d39af55d7a21ff7b0b7ce130ce856795acd1abd35ae6ea93d92163e",
+  "freezeVersion": "1.0.0",
+  "gitCommitAtFreeze": "c1afaa54360856baa6a9eff81d2db9af7a420d7a",
+  "maxNewProviderRequests": 320,
+  "maximumStartsPerRolling60Seconds": 10,
+  "maximumTransientRetry": 1,
+  "model": "gemini-3.5-flash-lite",
+  "normativeDocumentsModified": false,
+  "phaseA": {
+    "rounds": [
+      "T0",
+      "T1",
+      "T2"
+    ],
+    "scenarios": [
+      "I01",
+      "I02",
+      "I03",
+      "I04",
+      "I05",
+      "I06",
+      "I07",
+      "I08"
+    ]
+  },
+  "phaseB": {
+    "maximumQuestionsPerBranch": 2,
+    "scenarios": [
+      "I01",
+      "I04",
+      "I06",
+      "I08"
+    ]
+  },
+  "postObservationScientificTuningAllowed": false,
+  "provider": "GOOGLE_GEMINI",
+  "scenarioPackDigest": "bfa359da5fe60d42779f7af211ac95313a94a5b3164de8f72ed7a18490026f7b",
+  "semanticRetry": 0,
+  "softProviderRequestLimit": 280,
+  "targetProviderRequests": 260,
+  "temperature": null
+}

@@ -1,0 +1,11 @@
+{
+  "configurationId": "PYDANTIC_COMMON_CONTRACT",
+  "failureClass": "STRUCTURED_CONTRACT_OR_FRAMEWORK_FAILURE",
+  "nativeRawOutputAvailable": false,
+  "noSemanticRetry": true,
+  "pairedFirstOutput": true,
+  "reason": "UnexpectedModelBehavior: Exceeded maximum output retries (0)",
+  "round": "T1",
+  "scenarioId": "I04",
+  "status": "FAILED"
+}

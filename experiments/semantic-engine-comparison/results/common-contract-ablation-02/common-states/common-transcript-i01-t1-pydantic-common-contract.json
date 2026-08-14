@@ -1,0 +1,73 @@
+{
+  "configurationId": "PYDANTIC_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "PydanticAI",
+    "pairedFirstOutput": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T1",
+  "scenarioId": "I01",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "I01:T0"
+      },
+      {
+        "content": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+        "role": "USER",
+        "turnId": "I01:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": "I01:T0",
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_001",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "PRIMARY_USER_REQUEST",
+        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "temporalContext": null
+      },
+      {
+        "basis": "I01:R1",
+        "content": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_002",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:R1"
+        ],
+        "scientificRole": "PROJECT_DECISION",
+        "sourceText": "Oui, la lésion coupable est traitée tout de suite dans les deux groupes. Je compare les autres lésions pendant l'hospitalisation à un traitement 4–6 semaines plus tard.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "Comparison between immediate stenting and deferred stenting in myocardial infarction, assessing lesions via MRI, where the culprit lesion is treated immediately in both groups, comparing non-culprit/other lesions treated during hospitalization versus 4-6 weeks later.",
+    "objects": [],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [],
+    "relations": [],
+    "scientificGoal": "Compare immediate stenting versus deferred stenting strategies in myocardial infarction with MRI evaluation of lesions.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

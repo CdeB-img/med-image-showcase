@@ -1,0 +1,2630 @@
+# I04 — SEM_FULL — INTERACTIVE T0
+
+## INPUT
+
+Message utilisateur courant VERBATIM :
+
+> Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.
+
+Conversation précédente VERBATIM :
+
+> —
+
+## NATIVE OUTPUT
+
+Artefact : `experiments/semantic-engine-comparison/results/common-contract-ablation-02/native-outputs/interactive-i04-t0-sem-full.json`
+
+```json
+{
+  "criticCycles": {
+    "accepted": true,
+    "attempts": [
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 9608,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T09:16:48.322Z",
+        "requestStarted": "2026-08-14T09:16:38.714Z",
+        "retryable": false
+      }
+    ],
+    "callIds": [
+      "gemini-call:ke1-0da0cf4457a4b100"
+    ],
+    "candidate": {
+      "ambiguities": [
+        "Hétérogénéité des séquences entre les centres non normalisée"
+      ],
+      "candidateId": "CAND-FABRY-001",
+      "clarificationCandidates": [
+        {
+          "question": "Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+          "reason": "Préciser les méthodes d'acquisition face à l'hétérogénéité inter-centre mentionnée.",
+          "resolvesClientElementIds": [
+            "elem_08"
+          ]
+        }
+      ],
+      "contradictions": [],
+      "elements": [
+        {
+          "canonicalMeaning": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+          "clientElementId": "elem_01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_01"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_INTENT"
+        },
+        {
+          "canonicalMeaning": "Action de détecter",
+          "clientElementId": "elem_02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_02"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "détecter",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "OPERATION"
+        },
+        {
+          "canonicalMeaning": "Atteinte cardiaque",
+          "clientElementId": "elem_03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_03"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "l'atteinte cardiaque",
+          "studyRole": "SUBJECT",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_OBJECT"
+        },
+        {
+          "canonicalMeaning": "Phase précoce",
+          "clientElementId": "elem_04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_04"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "précoce",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "TIMING"
+        },
+        {
+          "canonicalMeaning": "Maladie de Fabry",
+          "clientElementId": "elem_05",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_05"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Fabry",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONDITION"
+        },
+        {
+          "canonicalMeaning": "Avant la fibrose visible",
+          "clientElementId": "elem_06",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_06",
+            "inv_07"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "avant la fibrose visible",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONSTRAINT"
+        },
+        {
+          "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+          "clientElementId": "elem_07",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_08"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "plusieurs centres",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "STUDY_DESIGN"
+        },
+        {
+          "canonicalMeaning": "Séquences d'acquisition variables selon les centres",
+          "clientElementId": "elem_08",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_09",
+            "inv_10"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "séquences",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "METHOD"
+        }
+      ],
+      "ellipses": [],
+      "knowledgeRequests": [],
+      "language": "fr",
+      "missingConcepts": [
+        "Modalité d'imagerie précise non spécifiée"
+      ],
+      "normalizedMeaning": "L'utilisateur souhaite concevoir une étude multicentrique pour détecter précocement l'atteinte cardiaque dans la maladie de Fabry avant l'apparition de la fibrose visible, en tenant compte de l'hétérogénéité des séquences disponibles selon les centres.",
+      "relations": [
+        {
+          "clientRelationId": "rel_cl_01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_01"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "AIMS_TO",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_01",
+          "targetClientElementId": "elem_02"
+        },
+        {
+          "clientRelationId": "rel_cl_02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_02"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "OBSERVES",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_02",
+          "targetClientElementId": "elem_03"
+        },
+        {
+          "clientRelationId": "rel_cl_03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_03"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "RELATED_TO_CANDIDATE",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_03",
+          "targetClientElementId": "elem_05"
+        },
+        {
+          "clientRelationId": "rel_cl_04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_04"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "BOUNDED_BY",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_02",
+          "targetClientElementId": "elem_06"
+        }
+      ],
+      "routeProposal": {
+        "confidence": 0.95,
+        "expectedCapabilities": [
+          "Gestion de l'hétérogénéité multicentrique",
+          "Définition des critères de détection précoce"
+        ],
+        "reason": "L'utilisateur exprime un projet d'étude multicentrique nécessitant de structurer les méthodes d'acquisition, la population et les critères de détection précoce.",
+        "route": "DESIGN_STUDY"
+      },
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv_01",
+            "linkedInventoryItemIds": [
+              "inv_02"
+            ],
+            "localRole": "action",
+            "modifiers": [],
+            "normalizedLabel": "intention de l'utilisateur",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "Je veux"
+          },
+          {
+            "inventoryItemId": "inv_02",
+            "linkedInventoryItemIds": [
+              "inv_03",
+              "inv_04"
+            ],
+            "localRole": "operation",
+            "modifiers": [],
+            "normalizedLabel": "détecter",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "détecter"
+          },
+          {
+            "inventoryItemId": "inv_03",
+            "linkedInventoryItemIds": [],
+            "localRole": "target",
+            "modifiers": [
+              "précoce"
+            ],
+            "normalizedLabel": "atteinte cardiaque",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "l'atteinte cardiaque"
+          },
+          {
+            "inventoryItemId": "inv_04",
+            "linkedInventoryItemIds": [
+              "inv_03"
+            ],
+            "localRole": "timing",
+            "modifiers": [],
+            "normalizedLabel": "précoce",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "précoce"
+          },
+          {
+            "inventoryItemId": "inv_05",
+            "linkedInventoryItemIds": [],
+            "localRole": "condition",
+            "modifiers": [],
+            "normalizedLabel": "maladie de Fabry",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "Fabry"
+          },
+          {
+            "inventoryItemId": "inv_06",
+            "linkedInventoryItemIds": [
+              "inv_07"
+            ],
+            "localRole": "temporal_constraint",
+            "modifiers": [],
+            "normalizedLabel": "avant",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "avant"
+          },
+          {
+            "inventoryItemId": "inv_07",
+            "linkedInventoryItemIds": [],
+            "localRole": "constraint_target",
+            "modifiers": [
+              "visible"
+            ],
+            "normalizedLabel": "fibrose visible",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "la fibrose visible"
+          },
+          {
+            "inventoryItemId": "inv_08",
+            "linkedInventoryItemIds": [],
+            "localRole": "study_design",
+            "modifiers": [
+              "multicentrique"
+            ],
+            "normalizedLabel": "plusieurs centres",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "plusieurs centres"
+          },
+          {
+            "inventoryItemId": "inv_09",
+            "linkedInventoryItemIds": [
+              "inv_10"
+            ],
+            "localRole": "method_constraint",
+            "modifiers": [],
+            "normalizedLabel": "hétérogénéité des séquences",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "tout le monde n'a pas les mêmes séquences"
+          },
+          {
+            "inventoryItemId": "inv_10",
+            "linkedInventoryItemIds": [],
+            "localRole": "method",
+            "modifiers": [],
+            "normalizedLabel": "séquences d'acquisition",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "séquences"
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel_01",
+            "normalizedRelation": "AIMS_TO",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_01",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "Je veux détecter",
+            "targetInventoryItemId": "inv_02"
+          },
+          {
+            "inventoryRelationId": "rel_02",
+            "normalizedRelation": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_02",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "détecter l'atteinte cardiaque",
+            "targetInventoryItemId": "inv_03"
+          },
+          {
+            "inventoryRelationId": "rel_03",
+            "normalizedRelation": "RELATED_TO",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_03",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+            "targetInventoryItemId": "inv_05"
+          },
+          {
+            "inventoryRelationId": "rel_04",
+            "normalizedRelation": "BOUNDED_BY",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_02",
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+            "targetInventoryItemId": "inv_07"
+          }
+        ]
+      },
+      "semanticWarnings": [
+        "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+      ],
+      "summaryForUser": "Reconstruction sémantique d'un projet d'étude multicentrique visant la détection précoce de l'atteinte cardiaque dans la maladie de Fabry avant la fibrose, face à l'hétérogénéité des séquences.",
+      "unknowns": []
+    },
+    "critics": [
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicitly mentioned items including 'atteinte cardiaque', 'Fabry', 'fibrose visible', 'plusieurs centres', and 'séquences' are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is stated in the source message.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No explicit active treatment or intervention is stated in the text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "No broad imaging modality family is explicitly named apart from sequences ('séquences').",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit inventory relations (rel_01 to rel_04) are correctly mapped to client relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types comply with the operational taxonomy.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened or converted inappropriately.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No unsupported inferences were promoted to explicit user status.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Center sequence heterogeneity and missing specific modalities are correctly documented in ambiguities and missing concepts.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Temporal elements ('précoce' and 'avant') are correctly mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No outcomes were prematurely promoted to endpoints.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts such as Fabry disease and visible fibrosis are preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragment is omitted.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Route DESIGN_STUDY appropriately matches the multicenter early detection study design intent.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "CRITIC-FABRY-001",
+        "criticSummary": "The candidate semantic model and inventory successfully represent all explicit elements, relations, timings, and constraints from the user message without any critical violations.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      }
+    ],
+    "cycleAttempts": [
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 9608,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:16:48.322Z",
+          "requestStarted": "2026-08-14T09:16:38.714Z",
+          "retryable": false
+        }
+      ]
+    ],
+    "repairDiagnostics": [],
+    "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+  },
+  "initialReconstruction": {
+    "ambiguities": [
+      "Hétérogénéité des séquences entre les centres non normalisée"
+    ],
+    "candidateId": "CAND-FABRY-001",
+    "clarificationCandidates": [
+      {
+        "question": "Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+        "reason": "Préciser les méthodes d'acquisition face à l'hétérogénéité inter-centre mentionnée.",
+        "resolvesClientElementIds": [
+          "elem_08"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+        "clientElementId": "elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "Je veux",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Action de détecter",
+        "clientElementId": "elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "détecter",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "OPERATION"
+      },
+      {
+        "canonicalMeaning": "Atteinte cardiaque",
+        "clientElementId": "elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "l'atteinte cardiaque",
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT"
+      },
+      {
+        "canonicalMeaning": "Phase précoce",
+        "clientElementId": "elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "précoce",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "clientElementId": "elem_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "Fabry",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Avant la fibrose visible",
+        "clientElementId": "elem_06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_06",
+          "inv_07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "avant la fibrose visible",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      },
+      {
+        "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+        "clientElementId": "elem_07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "plusieurs centres",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN"
+      },
+      {
+        "canonicalMeaning": "Séquences d'acquisition variables selon les centres",
+        "clientElementId": "elem_08",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09",
+          "inv_10"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "séquences",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [
+      "Modalité d'imagerie précise non spécifiée"
+    ],
+    "normalizedMeaning": "L'utilisateur souhaite concevoir une étude multicentrique pour détecter précocement l'atteinte cardiaque dans la maladie de Fabry avant l'apparition de la fibrose visible, en tenant compte de l'hétérogénéité des séquences disponibles selon les centres.",
+    "relations": [
+      {
+        "clientRelationId": "rel_cl_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_01",
+        "targetClientElementId": "elem_02"
+      },
+      {
+        "clientRelationId": "rel_cl_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_03"
+      },
+      {
+        "clientRelationId": "rel_cl_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_03",
+        "targetClientElementId": "elem_05"
+      },
+      {
+        "clientRelationId": "rel_cl_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "BOUNDED_BY",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_06"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Gestion de l'hétérogénéité multicentrique",
+        "Définition des critères de détection précoce"
+      ],
+      "reason": "L'utilisateur exprime un projet d'étude multicentrique nécessitant de structurer les méthodes d'acquisition, la population et les critères de détection précoce.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv_01",
+          "linkedInventoryItemIds": [
+            "inv_02"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "intention de l'utilisateur",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux"
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "operation",
+          "modifiers": [],
+          "normalizedLabel": "détecter",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "target",
+          "modifiers": [
+            "précoce"
+          ],
+          "normalizedLabel": "atteinte cardiaque",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "l'atteinte cardiaque"
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "linkedInventoryItemIds": [
+            "inv_03"
+          ],
+          "localRole": "timing",
+          "modifiers": [],
+          "normalizedLabel": "précoce",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "précoce"
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "maladie de Fabry",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "linkedInventoryItemIds": [
+            "inv_07"
+          ],
+          "localRole": "temporal_constraint",
+          "modifiers": [],
+          "normalizedLabel": "avant",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "avant"
+        },
+        {
+          "inventoryItemId": "inv_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "constraint_target",
+          "modifiers": [
+            "visible"
+          ],
+          "normalizedLabel": "fibrose visible",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "inventoryItemId": "inv_08",
+          "linkedInventoryItemIds": [],
+          "localRole": "study_design",
+          "modifiers": [
+            "multicentrique"
+          ],
+          "normalizedLabel": "plusieurs centres",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "inventoryItemId": "inv_09",
+          "linkedInventoryItemIds": [
+            "inv_10"
+          ],
+          "localRole": "method_constraint",
+          "modifiers": [],
+          "normalizedLabel": "hétérogénéité des séquences",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "tout le monde n'a pas les mêmes séquences"
+        },
+        {
+          "inventoryItemId": "inv_10",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquences d'acquisition",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "séquences"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_01",
+          "normalizedRelation": "AIMS_TO",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_01",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux détecter",
+          "targetInventoryItemId": "inv_02"
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "normalizedRelation": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_02",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "détecter l'atteinte cardiaque",
+          "targetInventoryItemId": "inv_03"
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "normalizedRelation": "RELATED_TO",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_03",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "inventoryRelationId": "rel_04",
+          "normalizedRelation": "BOUNDED_BY",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_02",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "targetInventoryItemId": "inv_07"
+        }
+      ]
+    },
+    "semanticWarnings": [
+      "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+    ],
+    "summaryForUser": "Reconstruction sémantique d'un projet d'étude multicentrique visant la détection précoce de l'atteinte cardiaque dans la maladie de Fabry avant la fibrose, face à l'hétérogénéité des séquences.",
+    "unknowns": []
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [
+      "Hétérogénéité des séquences entre les centres non normalisée"
+    ],
+    "clarificationCandidates": [
+      {
+        "question": "Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+        "reason": "Préciser les méthodes d'acquisition face à l'hétérogénéité inter-centre mentionnée.",
+        "resolvesElementIds": [
+          "sem-element:ke1-4d147db90486b8cd"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I04:SEM_FULL:T0"
+    ],
+    "createdAt": "2026-08-14T09:16:48.323Z",
+    "critic": {
+      "issues": [],
+      "summary": "The candidate semantic model and inventory successfully represent all explicit elements, relations, timings, and constraints from the user message without any critical violations.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-63f3f46fbcdf0af3",
+    "elements": [
+      {
+        "canonicalMeaning": "Phase précoce",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_FULL:T0",
+          "providerCallId": "gemini-call:ke1-00c5691dfab13e01",
+          "rawElementId": "elem_04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-0125ad182f4bd87c",
+        "sourceSpan": {
+          "end": 45,
+          "messageId": "I04:SEM_FULL:T0",
+          "start": 38,
+          "text": "précoce"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Séquences d'acquisition variables selon les centres",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09",
+          "inv_10"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_FULL:T0",
+          "providerCallId": "gemini-call:ke1-00c5691dfab13e01",
+          "rawElementId": "elem_08",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-4d147db90486b8cd",
+        "sourceSpan": {
+          "end": 150,
+          "messageId": "I04:SEM_FULL:T0",
+          "start": 141,
+          "text": "séquences"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Action de détecter",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_FULL:T0",
+          "providerCallId": "gemini-call:ke1-00c5691dfab13e01",
+          "rawElementId": "elem_02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-50f06222f315a8be",
+          "sem-relation:ke1-97a997c5c4faadf9",
+          "sem-relation:ke1-d67dd3456b5900c9"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-8ee975cee73682ca",
+        "sourceSpan": {
+          "end": 16,
+          "messageId": "I04:SEM_FULL:T0",
+          "start": 8,
+          "text": "détecter"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "OPERATION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Avant la fibrose visible",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_06",
+          "inv_07"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_FULL:T0",
+          "providerCallId": "gemini-call:ke1-00c5691dfab13e01",
+          "rawElementId": "elem_06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-97a997c5c4faadf9"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-abb32fe017decea4",
+        "sourceSpan": {
+          "end": 81,
+          "messageId": "I04:SEM_FULL:T0",
+          "start": 57,
+          "text": "avant la fibrose visible"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_FULL:T0",
+          "providerCallId": "gemini-call:ke1-00c5691dfab13e01",
+          "rawElementId": "elem_05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-84e65779a297aa65"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "sourceSpan": {
+          "end": 56,
+          "messageId": "I04:SEM_FULL:T0",
+          "start": 51,
+          "text": "Fabry"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_FULL:T0",
+          "providerCallId": "gemini-call:ke1-00c5691dfab13e01",
+          "rawElementId": "elem_07",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-d94779c2cad27a1e",
+        "sourceSpan": {
+          "end": 105,
+          "messageId": "I04:SEM_FULL:T0",
+          "start": 88,
+          "text": "plusieurs centres"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_FULL:T0",
+          "providerCallId": "gemini-call:ke1-00c5691dfab13e01",
+          "rawElementId": "elem_01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-d67dd3456b5900c9"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-f7c5754809b8449c",
+        "sourceSpan": {
+          "end": 7,
+          "messageId": "I04:SEM_FULL:T0",
+          "start": 0,
+          "text": "Je veux"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Atteinte cardiaque",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:SEM_FULL:T0",
+          "providerCallId": "gemini-call:ke1-00c5691dfab13e01",
+          "rawElementId": "elem_03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-50f06222f315a8be",
+          "sem-relation:ke1-84e65779a297aa65"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-f9a45bd622f74a92",
+        "sourceSpan": {
+          "end": 37,
+          "messageId": "I04:SEM_FULL:T0",
+          "start": 17,
+          "text": "l'atteinte cardiaque"
+        },
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 9608,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:16:48.322Z",
+          "requestStarted": "2026-08-14T09:16:38.714Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-0da0cf4457a4b100",
+      "criticCallIds": [
+        "gemini-call:ke1-0da0cf4457a4b100"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T09:16:48.323Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicitly mentioned items including 'atteinte cardiaque', 'Fabry', 'fibrose visible', 'plusieurs centres', and 'séquences' are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is stated in the source message.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No explicit active treatment or intervention is stated in the text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "No broad imaging modality family is explicitly named apart from sequences ('séquences').",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit inventory relations (rel_01 to rel_04) are correctly mapped to client relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types comply with the operational taxonomy.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened or converted inappropriately.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No unsupported inferences were promoted to explicit user status.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Center sequence heterogeneity and missing specific modalities are correctly documented in ambiguities and missing concepts.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Temporal elements ('précoce' and 'avant') are correctly mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No outcomes were prematurely promoted to endpoints.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts such as Fabry disease and visible fibrosis are preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragment is omitted.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Route DESIGN_STUDY appropriately matches the multicenter early detection study design intent.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "CRITIC-FABRY-001",
+        "criticSummary": "The candidate semantic model and inventory successfully represent all explicit elements, relations, timings, and constraints from the user message without any critical violations.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicitly mentioned items including 'atteinte cardiaque', 'Fabry', 'fibrose visible', 'plusieurs centres', and 'séquences' are fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator is stated in the source message.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "No explicit active treatment or intervention is stated in the text.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "No broad imaging modality family is explicitly named apart from sequences ('séquences').",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All explicit inventory relations (rel_01 to rel_04) are correctly mapped to client relations.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All element types comply with the operational taxonomy.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relations were weakened or converted inappropriately.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No unsupported inferences were promoted to explicit user status.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "Center sequence heterogeneity and missing specific modalities are correctly documented in ambiguities and missing concepts.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are correctly preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Temporal elements ('précoce' and 'avant') are correctly mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No outcomes were prematurely promoted to endpoints.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts such as Fabry disease and visible fibrosis are preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "No source fragment is omitted.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "Route DESIGN_STUDY appropriately matches the multicenter early detection study design intent.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "CRITIC-FABRY-001",
+          "criticSummary": "The candidate semantic model and inventory successfully represent all explicit elements, relations, timings, and constraints from the user message without any critical violations.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [
+          "Hétérogénéité des séquences entre les centres non normalisée"
+        ],
+        "candidateId": "CAND-FABRY-001",
+        "clarificationCandidates": [
+          {
+            "question": "Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+            "reason": "Préciser les méthodes d'acquisition face à l'hétérogénéité inter-centre mentionnée.",
+            "resolvesClientElementIds": [
+              "elem_08"
+            ]
+          }
+        ],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+            "clientElementId": "elem_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "Je veux",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Action de détecter",
+            "clientElementId": "elem_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "détecter",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "OPERATION"
+          },
+          {
+            "canonicalMeaning": "Atteinte cardiaque",
+            "clientElementId": "elem_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "l'atteinte cardiaque",
+            "studyRole": "SUBJECT",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_OBJECT"
+          },
+          {
+            "canonicalMeaning": "Phase précoce",
+            "clientElementId": "elem_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "précoce",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Maladie de Fabry",
+            "clientElementId": "elem_05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "Fabry",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONDITION"
+          },
+          {
+            "canonicalMeaning": "Avant la fibrose visible",
+            "clientElementId": "elem_06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_06",
+              "inv_07"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "avant la fibrose visible",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONSTRAINT"
+          },
+          {
+            "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+            "clientElementId": "elem_07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_08"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "plusieurs centres",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "STUDY_DESIGN"
+          },
+          {
+            "canonicalMeaning": "Séquences d'acquisition variables selon les centres",
+            "clientElementId": "elem_08",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_09",
+              "inv_10"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:SEM_FULL:T0",
+            "sourceText": "séquences",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [
+          "Modalité d'imagerie précise non spécifiée"
+        ],
+        "normalizedMeaning": "L'utilisateur souhaite concevoir une étude multicentrique pour détecter précocement l'atteinte cardiaque dans la maladie de Fabry avant l'apparition de la fibrose visible, en tenant compte de l'hétérogénéité des séquences disponibles selon les centres.",
+        "relations": [
+          {
+            "clientRelationId": "rel_cl_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_01"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_01",
+            "targetClientElementId": "elem_02"
+          },
+          {
+            "clientRelationId": "rel_cl_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "OBSERVES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03"
+          },
+          {
+            "clientRelationId": "rel_cl_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_05"
+          },
+          {
+            "clientRelationId": "rel_cl_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_04"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "BOUNDED_BY",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_06"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.95,
+          "expectedCapabilities": [
+            "Gestion de l'hétérogénéité multicentrique",
+            "Définition des critères de détection précoce"
+          ],
+          "reason": "L'utilisateur exprime un projet d'étude multicentrique nécessitant de structurer les méthodes d'acquisition, la population et les critères de détection précoce.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "linkedInventoryItemIds": [
+                "inv_02"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "intention de l'utilisateur",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "Je veux"
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "linkedInventoryItemIds": [
+                "inv_03",
+                "inv_04"
+              ],
+              "localRole": "operation",
+              "modifiers": [],
+              "normalizedLabel": "détecter",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "détecter"
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "linkedInventoryItemIds": [],
+              "localRole": "target",
+              "modifiers": [
+                "précoce"
+              ],
+              "normalizedLabel": "atteinte cardiaque",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "l'atteinte cardiaque"
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "linkedInventoryItemIds": [
+                "inv_03"
+              ],
+              "localRole": "timing",
+              "modifiers": [],
+              "normalizedLabel": "précoce",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "précoce"
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "linkedInventoryItemIds": [],
+              "localRole": "condition",
+              "modifiers": [],
+              "normalizedLabel": "maladie de Fabry",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "Fabry"
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "linkedInventoryItemIds": [
+                "inv_07"
+              ],
+              "localRole": "temporal_constraint",
+              "modifiers": [],
+              "normalizedLabel": "avant",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "avant"
+            },
+            {
+              "inventoryItemId": "inv_07",
+              "linkedInventoryItemIds": [],
+              "localRole": "constraint_target",
+              "modifiers": [
+                "visible"
+              ],
+              "normalizedLabel": "fibrose visible",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "la fibrose visible"
+            },
+            {
+              "inventoryItemId": "inv_08",
+              "linkedInventoryItemIds": [],
+              "localRole": "study_design",
+              "modifiers": [
+                "multicentrique"
+              ],
+              "normalizedLabel": "plusieurs centres",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "plusieurs centres"
+            },
+            {
+              "inventoryItemId": "inv_09",
+              "linkedInventoryItemIds": [
+                "inv_10"
+              ],
+              "localRole": "method_constraint",
+              "modifiers": [],
+              "normalizedLabel": "hétérogénéité des séquences",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "tout le monde n'a pas les mêmes séquences"
+            },
+            {
+              "inventoryItemId": "inv_10",
+              "linkedInventoryItemIds": [],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "séquences d'acquisition",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "séquences"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_01",
+              "normalizedRelation": "AIMS_TO",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_01",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "Je veux détecter",
+              "targetInventoryItemId": "inv_02"
+            },
+            {
+              "inventoryRelationId": "rel_02",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_02",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "détecter l'atteinte cardiaque",
+              "targetInventoryItemId": "inv_03"
+            },
+            {
+              "inventoryRelationId": "rel_03",
+              "normalizedRelation": "RELATED_TO",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+              "targetInventoryItemId": "inv_05"
+            },
+            {
+              "inventoryRelationId": "rel_04",
+              "normalizedRelation": "BOUNDED_BY",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_02",
+              "sourceMessageId": "I04:SEM_FULL:T0",
+              "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+              "targetInventoryItemId": "inv_07"
+            }
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+        ],
+        "summaryForUser": "Reconstruction sémantique d'un projet d'étude multicentrique visant la détection précoce de l'atteinte cardiaque dans la maladie de Fabry avant la fibrose, face à l'hétérogénéité des séquences.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 9135,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:16:38.691Z",
+          "requestStarted": "2026-08-14T09:16:29.556Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-00c5691dfab13e01",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_01",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "intention de l'utilisateur",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_02",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "détecter",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_03",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "atteinte cardiaque",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "l'atteinte cardiaque"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_04",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "précoce",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "précoce"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_05",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "maladie de Fabry",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_06",
+          "mappedClientElementIds": [
+            "elem_06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "avant",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "avant"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_07",
+          "mappedClientElementIds": [
+            "elem_06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "fibrose visible",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_08",
+          "mappedClientElementIds": [
+            "elem_07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "plusieurs centres",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_09",
+          "mappedClientElementIds": [
+            "elem_08"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "hétérogénéité des séquences",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "tout le monde n'a pas les mêmes séquences"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_10",
+          "mappedClientElementIds": [
+            "elem_08"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "séquences d'acquisition",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "séquences"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [
+      "Modalité d'imagerie précise non spécifiée"
+    ],
+    "normalizedMeaning": "L'utilisateur souhaite concevoir une étude multicentrique pour détecter précocement l'atteinte cardiaque dans la maladie de Fabry avant l'apparition de la fibrose visible, en tenant compte de l'hétérogénéité des séquences disponibles selon les centres.",
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_01",
+          "mappedClientRelationIds": [
+            "rel_cl_01"
+          ],
+          "normalizedRelation": "AIMS_TO",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_01",
+          "targetInventoryItemId": "inv_02"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_02",
+          "mappedClientRelationIds": [
+            "rel_cl_02"
+          ],
+          "normalizedRelation": "OBSERVES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_03"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_03",
+          "mappedClientRelationIds": [
+            "rel_cl_03"
+          ],
+          "normalizedRelation": "RELATED_TO",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_04",
+          "mappedClientRelationIds": [
+            "rel_cl_04"
+          ],
+          "normalizedRelation": "BOUNDED_BY",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_07"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-50f06222f315a8be",
+        "sourceElementId": "sem-element:ke1-8ee975cee73682ca",
+        "targetElementId": "sem-element:ke1-f9a45bd622f74a92",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-84e65779a297aa65",
+        "sourceElementId": "sem-element:ke1-f9a45bd622f74a92",
+        "targetElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "BOUNDED_BY",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-97a997c5c4faadf9",
+        "sourceElementId": "sem-element:ke1-8ee975cee73682ca",
+        "targetElementId": "sem-element:ke1-abb32fe017decea4",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-d67dd3456b5900c9",
+        "sourceElementId": "sem-element:ke1-f7c5754809b8449c",
+        "targetElementId": "sem-element:ke1-8ee975cee73682ca",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Définition des critères de détection précoce",
+        "Gestion de l'hétérogénéité multicentrique"
+      ],
+      "reason": "L'utilisateur exprime un projet d'étude multicentrique nécessitant de structurer les méthodes d'acquisition, la population et les critères de détection précoce.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-e41a5db9fc48193d",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Reconstruction sémantique d'un projet d'étude multicentrique visant la détection précoce de l'atteinte cardiaque dans la maladie de Fabry avant la fibrose, face à l'hétérogénéité des séquences.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T09:16:48.323Z"
+  },
+  "pairedFirstReconstruction": false,
+  "postCriticCandidate": {
+    "ambiguities": [
+      "Hétérogénéité des séquences entre les centres non normalisée"
+    ],
+    "candidateId": "CAND-FABRY-001",
+    "clarificationCandidates": [
+      {
+        "question": "Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+        "reason": "Préciser les méthodes d'acquisition face à l'hétérogénéité inter-centre mentionnée.",
+        "resolvesClientElementIds": [
+          "elem_08"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+        "clientElementId": "elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "Je veux",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Action de détecter",
+        "clientElementId": "elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "détecter",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "OPERATION"
+      },
+      {
+        "canonicalMeaning": "Atteinte cardiaque",
+        "clientElementId": "elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "l'atteinte cardiaque",
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT"
+      },
+      {
+        "canonicalMeaning": "Phase précoce",
+        "clientElementId": "elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "précoce",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "clientElementId": "elem_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "Fabry",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Avant la fibrose visible",
+        "clientElementId": "elem_06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_06",
+          "inv_07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "avant la fibrose visible",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      },
+      {
+        "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+        "clientElementId": "elem_07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "plusieurs centres",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN"
+      },
+      {
+        "canonicalMeaning": "Séquences d'acquisition variables selon les centres",
+        "clientElementId": "elem_08",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09",
+          "inv_10"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:SEM_FULL:T0",
+        "sourceText": "séquences",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [
+      "Modalité d'imagerie précise non spécifiée"
+    ],
+    "normalizedMeaning": "L'utilisateur souhaite concevoir une étude multicentrique pour détecter précocement l'atteinte cardiaque dans la maladie de Fabry avant l'apparition de la fibrose visible, en tenant compte de l'hétérogénéité des séquences disponibles selon les centres.",
+    "relations": [
+      {
+        "clientRelationId": "rel_cl_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_01",
+        "targetClientElementId": "elem_02"
+      },
+      {
+        "clientRelationId": "rel_cl_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_03"
+      },
+      {
+        "clientRelationId": "rel_cl_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_03",
+        "targetClientElementId": "elem_05"
+      },
+      {
+        "clientRelationId": "rel_cl_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "BOUNDED_BY",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_06"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Gestion de l'hétérogénéité multicentrique",
+        "Définition des critères de détection précoce"
+      ],
+      "reason": "L'utilisateur exprime un projet d'étude multicentrique nécessitant de structurer les méthodes d'acquisition, la population et les critères de détection précoce.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv_01",
+          "linkedInventoryItemIds": [
+            "inv_02"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "intention de l'utilisateur",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux"
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "operation",
+          "modifiers": [],
+          "normalizedLabel": "détecter",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "target",
+          "modifiers": [
+            "précoce"
+          ],
+          "normalizedLabel": "atteinte cardiaque",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "l'atteinte cardiaque"
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "linkedInventoryItemIds": [
+            "inv_03"
+          ],
+          "localRole": "timing",
+          "modifiers": [],
+          "normalizedLabel": "précoce",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "précoce"
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "maladie de Fabry",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "linkedInventoryItemIds": [
+            "inv_07"
+          ],
+          "localRole": "temporal_constraint",
+          "modifiers": [],
+          "normalizedLabel": "avant",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "avant"
+        },
+        {
+          "inventoryItemId": "inv_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "constraint_target",
+          "modifiers": [
+            "visible"
+          ],
+          "normalizedLabel": "fibrose visible",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "inventoryItemId": "inv_08",
+          "linkedInventoryItemIds": [],
+          "localRole": "study_design",
+          "modifiers": [
+            "multicentrique"
+          ],
+          "normalizedLabel": "plusieurs centres",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "inventoryItemId": "inv_09",
+          "linkedInventoryItemIds": [
+            "inv_10"
+          ],
+          "localRole": "method_constraint",
+          "modifiers": [],
+          "normalizedLabel": "hétérogénéité des séquences",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "tout le monde n'a pas les mêmes séquences"
+        },
+        {
+          "inventoryItemId": "inv_10",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquences d'acquisition",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "séquences"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_01",
+          "normalizedRelation": "AIMS_TO",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_01",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux détecter",
+          "targetInventoryItemId": "inv_02"
+        },
+        {
+          "inventoryRelationId": "rel_02",
+          "normalizedRelation": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_02",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "détecter l'atteinte cardiaque",
+          "targetInventoryItemId": "inv_03"
+        },
+        {
+          "inventoryRelationId": "rel_03",
+          "normalizedRelation": "RELATED_TO",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_03",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "inventoryRelationId": "rel_04",
+          "normalizedRelation": "BOUNDED_BY",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_02",
+          "sourceMessageId": "I04:SEM_FULL:T0",
+          "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "targetInventoryItemId": "inv_07"
+        }
+      ]
+    },
+    "semanticWarnings": [
+      "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+    ],
+    "summaryForUser": "Reconstruction sémantique d'un projet d'étude multicentrique visant la détection précoce de l'atteinte cardiaque dans la maladie de Fabry avant la fibrose, face à l'hétérogénéité des séquences.",
+    "unknowns": []
+  },
+  "semanticCriticExecuted": true,
+  "status": "SUCCESS"
+}
+```
+
+## STRUCTURED CONTRACT STATUS
+
+- provider status : `SUCCESS`
+- parsing status : `PARSED_AND_VALIDATED`
+- structured contract conformance : `PASS`
+- scientific semantic evaluability : `EVALUABLE`
+- evaluation mode : `DETERMINISTIC_COMMON_STATE_PROJECTION`
+- native raw output persisted : `false`
+
+## SCIENTIFIC INTERPRETATION
+
+### COMPRÉHENSION GLOBALE
+
+L'utilisateur souhaite concevoir une étude multicentrique pour détecter précocement l'atteinte cardiaque dans la maladie de Fabry avant l'apparition de la fibrose visible, en tenant compte de l'hétérogénéité des séquences disponibles selon les centres.
+
+Objectif scientifique produit :
+
+Intention de l'utilisateur de concevoir ou réaliser une détection
+
+### EXPLICITEMENT DIT PAR LE CHERCHEUR
+
+- content=Phase précoce | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=Phase précoce | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=précoce | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Séquences d'acquisition variables selon les centres | scientificRole=METHOD:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=séquences | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Action de détecter | scientificRole=OPERATION:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=détecter | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Avant la fibrose visible | scientificRole=CONSTRAINT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=avant la fibrose visible | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Maladie de Fabry | scientificRole=CONDITION:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Fabry | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Étude multicentrique impliquant plusieurs centres | scientificRole=STUDY_DESIGN:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=plusieurs centres | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Intention de l'utilisateur de concevoir ou réaliser une détection | scientificRole=SCIENTIFIC_INTENT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Je veux | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Atteinte cardiaque | scientificRole=SCIENTIFIC_OBJECT:SUBJECT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=l'atteinte cardiaque | provenanceTurnIds=["I04:SEM_FULL:T0"]
+
+### RELATIONS COMPRISES
+
+- subject=Action de détecter | predicate=OBSERVES | object=Atteinte cardiaque | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Atteinte cardiaque | predicate=RELATED_TO_CANDIDATE | object=Maladie de Fabry | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Action de détecter | predicate=BOUNDED_BY | object=Avant la fibrose visible | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Intention de l'utilisateur de concevoir ou réaliser une détection | predicate=AIMS_TO | object=Action de détecter | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+
+### CONTEXTE INFÉRÉ
+
+- Aucun élément produit.
+
+### CANDIDATS SCIENTIFIQUES CONTEXTUELS
+
+- Aucun élément produit.
+
+### NÉGATIONS / CONTRAINTES
+
+- Aucun élément produit.
+
+### TEMPORALITÉ
+
+- content=Phase précoce | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=Phase précoce | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=précoce | provenanceTurnIds=["I04:SEM_FULL:T0"]
+
+### AMBIGUÏTÉS
+
+- content=Hétérogénéité des séquences entre les centres non normalisée | epistemicStatus=AMBIGUOUS | decisionImpact=SEM reports an unresolved ambiguity; impact requires clarification.
+
+### INFORMATIONS MANQUANTES
+
+- content=Modalité d'imagerie précise non spécifiée | owner=USER_OR_SPECIALIZED_OWNER_UNRESOLVED | priority=MEDIUM | blocking=non | decisionImpact=SEM reports missing or unresolved information.
+
+### INCONNUES
+
+- content=Modalité d'imagerie précise non spécifiée | owner=USER_OR_SPECIALIZED_OWNER_UNRESOLVED | priority=MEDIUM | blocking=non | decisionImpact=SEM reports missing or unresolved information.
+
+### CORRECTIONS / SUPERSESSIONS
+
+- Aucun élément produit.
+
+### OWNERSHIP / STATUT ÉPISTÉMIQUE
+
+- content=Phase précoce | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Séquences d'acquisition variables selon les centres | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Action de détecter | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Avant la fibrose visible | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Maladie de Fabry | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Étude multicentrique impliquant plusieurs centres | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Intention de l'utilisateur de concevoir ou réaliser une détection | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_FULL:T0"]
+- content=Atteinte cardiaque | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:SEM_FULL:T0"]
+
+### QUESTIONS DE CLARIFICATION CANDIDATES
+
+- question=Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ? | priority=MEDIUM | blocking=non | decisionImpact=Préciser les méthodes d'acquisition face à l'hétérogénéité inter-centre mentionnée. | targetIds=["sem-element:ke1-4d147db90486b8cd"]
+
+## MISSING STRUCTURAL GUARANTEES
+
+- EXACT_PROVIDER_RAW_TEXT_NOT_PERSISTED; STRUCTURED_NATIVE_ARTIFACT_AVAILABLE
+
+_Vue locale déterministe. Aucun appel LLM d’interprétation sémantique post-hoc._

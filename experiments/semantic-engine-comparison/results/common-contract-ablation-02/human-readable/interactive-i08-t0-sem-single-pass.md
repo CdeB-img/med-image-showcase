@@ -1,0 +1,1888 @@
+# I08 — SEM_SINGLE_PASS — INTERACTIVE T0
+
+## INPUT
+
+Message utilisateur courant VERBATIM :
+
+> Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.
+
+Conversation précédente VERBATIM :
+
+> —
+
+## NATIVE OUTPUT
+
+Artefact : `experiments/semantic-engine-comparison/results/common-contract-ablation-02/native-outputs/interactive-i08-t0-sem-single-pass.json`
+
+```json
+{
+  "deterministicCoverage": {
+    "explicit": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_01",
+          "mappedClientElementIds": [
+            "EL_01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "Fabry",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_02",
+          "mappedClientElementIds": [
+            "EL_02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "T1 natif",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "T1 natif"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_03",
+          "mappedClientElementIds": [
+            "EL_03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "fibrose",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "fibrose"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_04",
+          "mappedClientElementIds": [
+            "EL_04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "avant la fibrose",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "avant la fibrose"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_05",
+          "mappedClientElementIds": [
+            "EL_05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "incertitude sur le critère principal",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "je n'ai pas décidé d'en faire le critère principal"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_06",
+          "mappedClientElementIds": [
+            "EL_06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "Lyon",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "Lyon"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_07",
+          "mappedClientElementIds": [
+            "EL_07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "ECV",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "ECV"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_08",
+          "mappedClientElementIds": [
+            "EL_08"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "marqueur précoce",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "marqueur précoce"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_09",
+          "mappedClientElementIds": [
+            "EL_09"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "utilisable dans tous les centres",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "utilisable dans tous les centres"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "integrity": {
+      "findings": [],
+      "status": "COMPLETE"
+    },
+    "relations": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "REL_01",
+          "mappedClientRelationIds": [
+            "REL_EL_01"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "INV_02",
+          "targetInventoryItemId": "INV_01"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "REL_02",
+          "mappedClientRelationIds": [
+            "REL_EL_02"
+          ],
+          "normalizedRelation": "RECOVERS_AFTER",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "INV_02",
+          "targetInventoryItemId": "INV_04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "REL_03",
+          "mappedClientRelationIds": [
+            "REL_EL_03"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "INV_07",
+          "targetInventoryItemId": "INV_06"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "REL_04",
+          "mappedClientRelationIds": [
+            "REL_EL_04"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "INV_08",
+          "targetInventoryItemId": "INV_09"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "taxonomy": {
+      "findings": [
+        {
+          "clientElementId": "EL_02",
+          "code": "SELECTED_JUDGING_VARIABLE_NOT_ENDPOINT",
+          "currentType": "BIOMARKER",
+          "expectedStudyRole": "OUTCOME_ROLE",
+          "expectedType": "ENDPOINT",
+          "reason": "A variable explicitly selected as what must count to judge the study is an ENDPOINT role in this context; its underlying observable nature must not erase that expressed project role."
+        },
+        {
+          "clientElementId": "EL_03",
+          "code": "SELECTED_JUDGING_VARIABLE_NOT_ENDPOINT",
+          "currentType": "SCIENTIFIC_OBJECT",
+          "expectedStudyRole": "OUTCOME_ROLE",
+          "expectedType": "ENDPOINT",
+          "reason": "A variable explicitly selected as what must count to judge the study is an ENDPOINT role in this context; its underlying observable nature must not erase that expressed project role."
+        },
+        {
+          "clientElementId": "EL_07",
+          "code": "SELECTED_JUDGING_VARIABLE_NOT_ENDPOINT",
+          "currentType": "BIOMARKER",
+          "expectedStudyRole": "OUTCOME_ROLE",
+          "expectedType": "ENDPOINT",
+          "reason": "A variable explicitly selected as what must count to judge the study is an ENDPOINT role in this context; its underlying observable nature must not erase that expressed project role."
+        },
+        {
+          "clientElementId": "EL_08",
+          "code": "SELECTED_JUDGING_VARIABLE_NOT_ENDPOINT",
+          "currentType": "BIOMARKER",
+          "expectedStudyRole": "OUTCOME_ROLE",
+          "expectedType": "ENDPOINT",
+          "reason": "A variable explicitly selected as what must count to judge the study is an ENDPOINT role in this context; its underlying observable nature must not erase that expressed project role."
+        }
+      ],
+      "status": "INCOMPLETE"
+    }
+  },
+  "initialReconstruction": {
+    "ambiguities": [
+      "Le choix exact du critère principal de l'étude n'est pas encore arrêté entre le T1 natif et d'autres options."
+    ],
+    "candidateId": "CAN-FABRY-01",
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous définir formellement le T1 natif comme critère principal de l'étude ou conserver cette question ouverte ?",
+        "reason": "L'utilisateur indique n'avoir pas décidé d'en faire le critère principal.",
+        "resolvesClientElementIds": [
+          "EL_05"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "clientElementId": "EL_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "Fabry",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "T1 natif",
+        "clientElementId": "EL_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "T1 natif",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "Fibrose",
+        "clientElementId": "EL_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "fibrose",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT"
+      },
+      {
+        "canonicalMeaning": "Avant la fibrose",
+        "clientElementId": "EL_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "avant la fibrose",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "Statut de critère principal non décidé pour le T1 natif",
+        "clientElementId": "EL_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_05"
+        ],
+        "polarity": "UNCERTAIN",
+        "requiresConfirmation": true,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "je n'ai pas décidé d'en faire le critère principal",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "UNKNOWN"
+      },
+      {
+        "canonicalMeaning": "Centre de Lyon",
+        "clientElementId": "EL_06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_06"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "Lyon",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN"
+      },
+      {
+        "canonicalMeaning": "ECV (Extracellular Volume fraction)",
+        "clientElementId": "EL_07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "ECV",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "Marqueur précoce",
+        "clientElementId": "EL_08",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "marqueur précoce",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "Utilisable dans tous les centres",
+        "clientElementId": "EL_09",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_09"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+        "sourceText": "utilisable dans tous les centres",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN"
+      },
+      {
+        "canonicalMeaning": "Imagerie par résonance magnétique ou mesure T1/ECV",
+        "clientElementId": "EL_10",
+        "confidence": 0.8,
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "inferenceReason": "T1 natif and ECV imply underlying cardiac MRI or mapping methods.",
+        "inventoryItemIds": [],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": true,
+        "sourceMessageId": null,
+        "sourceText": null,
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "Analyse exploratoire de la maladie de Fabry évaluant le T1 natif avant la phase de fibrose, sans l'avoir encore fixé comme critère principal, en tenant compte de l'ECV mesurée à Lyon, avec l'objectif prioritaire d'identifier un marqueur précoce universellement mesurable dans tous les centres.",
+    "relations": [
+      {
+        "clientRelationId": "REL_EL_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "REL_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "EL_02",
+        "targetClientElementId": "EL_01"
+      },
+      {
+        "clientRelationId": "REL_EL_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "REL_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "EL_02",
+        "targetClientElementId": "EL_04"
+      },
+      {
+        "clientRelationId": "REL_EL_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "REL_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "EL_07",
+        "targetClientElementId": "EL_06"
+      },
+      {
+        "clientRelationId": "REL_EL_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "REL_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "EL_08",
+        "targetClientElementId": "EL_09"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Gestion des critères de jugement",
+        "Définition des biomarqueurs de la maladie de Fabry"
+      ],
+      "reason": "L'utilisateur discute de variables, de timing, de contraintes multi-centres et de critères pour une étude potentielle.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "INV_01",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "Fabry",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "inventoryItemId": "INV_02",
+          "linkedInventoryItemIds": [],
+          "localRole": "biomarker",
+          "modifiers": [],
+          "normalizedLabel": "T1 natif",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "T1 natif"
+        },
+        {
+          "inventoryItemId": "INV_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "target",
+          "modifiers": [],
+          "normalizedLabel": "fibrose",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "fibrose"
+        },
+        {
+          "inventoryItemId": "INV_04",
+          "linkedInventoryItemIds": [
+            "INV_03"
+          ],
+          "localRole": "timing",
+          "modifiers": [],
+          "normalizedLabel": "avant la fibrose",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "avant la fibrose"
+        },
+        {
+          "inventoryItemId": "INV_05",
+          "linkedInventoryItemIds": [
+            "INV_02"
+          ],
+          "localRole": "endpoint_status",
+          "modifiers": [],
+          "normalizedLabel": "incertitude sur le critère principal",
+          "polarity": "UNCERTAIN",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "je n'ai pas décidé d'en faire le critère principal"
+        },
+        {
+          "inventoryItemId": "INV_06",
+          "linkedInventoryItemIds": [],
+          "localRole": "study_design",
+          "modifiers": [],
+          "normalizedLabel": "Lyon",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "Lyon"
+        },
+        {
+          "inventoryItemId": "INV_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "biomarker",
+          "modifiers": [],
+          "normalizedLabel": "ECV",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "ECV"
+        },
+        {
+          "inventoryItemId": "INV_08",
+          "linkedInventoryItemIds": [],
+          "localRole": "biomarker",
+          "modifiers": [],
+          "normalizedLabel": "marqueur précoce",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "marqueur précoce"
+        },
+        {
+          "inventoryItemId": "INV_09",
+          "linkedInventoryItemIds": [],
+          "localRole": "study_design",
+          "modifiers": [],
+          "normalizedLabel": "utilisable dans tous les centres",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "utilisable dans tous les centres"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "REL_01",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "INV_02",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "Dans Fabry, on pense que le T1 natif",
+          "targetInventoryItemId": "INV_01"
+        },
+        {
+          "inventoryRelationId": "REL_02",
+          "normalizedRelation": "RECOVERS_AFTER",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "INV_02",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "le T1 natif pourrait être intéressant avant la fibrose",
+          "targetInventoryItemId": "INV_04"
+        },
+        {
+          "inventoryRelationId": "REL_03",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "INV_07",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "À Lyon ils font aussi de l'ECV.",
+          "targetInventoryItemId": "INV_06"
+        },
+        {
+          "inventoryRelationId": "REL_04",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "INV_08",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "marqueur précoce qui soit utilisable dans tous les centres",
+          "targetInventoryItemId": "INV_09"
+        }
+      ]
+    },
+    "semanticWarnings": [
+      "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+    ],
+    "summaryForUser": "Analyse des propositions autour du T1 natif et de l'ECV dans la maladie de Fabry pour identifier un marqueur précoce universel.",
+    "unknowns": [
+      "Statut définitif du T1 natif comme critère principal."
+    ]
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [
+      "Le choix exact du critère principal de l'étude n'est pas encore arrêté entre le T1 natif et d'autres options."
+    ],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous définir formellement le T1 natif comme critère principal de l'étude ou conserver cette question ouverte ?",
+        "reason": "L'utilisateur indique n'avoir pas décidé d'en faire le critère principal.",
+        "resolvesElementIds": [
+          "sem-element:ke1-08ca25787a622b04"
+        ]
+      }
+    ],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I08:SEM_SINGLE_PASS:T0"
+    ],
+    "createdAt": "2026-08-14T09:21:17.383Z",
+    "critic": {
+      "issues": [],
+      "summary": "Single-pass deterministic reports incomplete; no semantic critic or repair was executed.",
+      "verdict": "CLARIFICATION_REQUIRED"
+    },
+    "digest": "ke1-7afff7e66a568c7a",
+    "elements": [
+      {
+        "canonicalMeaning": "Statut de critère principal non décidé pour le T1 natif",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "UNCERTAIN",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-08ca25787a622b04",
+        "sourceSpan": {
+          "end": 136,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 86,
+          "text": "je n'ai pas décidé d'en faire le critère principal"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "UNKNOWN",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "ECV (Extracellular Volume fraction)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_07"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_07",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-b6c0507c5822ef98"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-1afe27a72610c393",
+        "sourceSpan": {
+          "end": 168,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 165,
+          "text": "ECV"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Centre de Lyon",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_06"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-b6c0507c5822ef98"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-30a2ff4042cb4464",
+        "sourceSpan": {
+          "end": 144,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 140,
+          "text": "Lyon"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Imagerie par résonance magnétique ou mesure T1/ECV",
+        "confidence": 0.8,
+        "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+        "inferenceReason": "T1 natif and ECV imply underlying cardiac MRI or mapping methods.",
+        "inventoryItemIds": [],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": null,
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_10",
+          "source": "LLM_INFERENCE"
+        },
+        "relationships": [],
+        "requiresConfirmation": true,
+        "semanticElementId": "sem-element:ke1-42c79da828e8e32c",
+        "sourceSpan": null,
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Fibrose",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-4cfde86fc77e8703",
+        "sourceSpan": {
+          "end": 79,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 72,
+          "text": "fibrose"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Avant la fibrose",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-865b74b3fb259e1f"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-9670951383f53f87",
+        "sourceSpan": {
+          "end": 79,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 63,
+          "text": "avant la fibrose"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-51e03717530735ab"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "sourceSpan": {
+          "end": 10,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 5,
+          "text": "Fabry"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "T1 natif",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-51e03717530735ab",
+          "sem-relation:ke1-865b74b3fb259e1f"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-bb98f5f3e61f629f",
+        "sourceSpan": {
+          "end": 36,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 28,
+          "text": "T1 natif"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Marqueur précoce",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_08",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-00a012b09b3c5414"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-e2421addbfdae4f1",
+        "sourceSpan": {
+          "end": 213,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 197,
+          "text": "marqueur précoce"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Utilisable dans tous les centres",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "INV_09"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "providerCallId": "gemini-call:ke1-4c5eab9a773120ee",
+          "rawElementId": "EL_09",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-00a012b09b3c5414"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-edd56e098b73fb75",
+        "sourceSpan": {
+          "end": 255,
+          "messageId": "I08:SEM_SINGLE_PASS:T0",
+          "start": 223,
+          "text": "utilisable dans tous les centres"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [],
+      "criticCallId": "deterministic-no-critic",
+      "criticCallIds": [],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T09:21:17.383Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "No semantic critic was executed; deterministic reports remain visible.",
+            "result": "NOT_APPLICABLE"
+          }
+        ],
+        "criticId": "EXP-SEM-ABLATION-02-DETERMINISTIC-NO-LLM-CRITIC",
+        "criticSummary": "Single-pass deterministic reports incomplete; no semantic critic or repair was executed.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "CLARIFICATION_REQUIRED"
+      },
+      "rawCritics": [],
+      "rawReconstruction": {
+        "ambiguities": [
+          "Le choix exact du critère principal de l'étude n'est pas encore arrêté entre le T1 natif et d'autres options."
+        ],
+        "candidateId": "CAN-FABRY-01",
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous définir formellement le T1 natif comme critère principal de l'étude ou conserver cette question ouverte ?",
+            "reason": "L'utilisateur indique n'avoir pas décidé d'en faire le critère principal.",
+            "resolvesClientElementIds": [
+              "EL_05"
+            ]
+          }
+        ],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Maladie de Fabry",
+            "clientElementId": "EL_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "Fabry",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONDITION"
+          },
+          {
+            "canonicalMeaning": "T1 natif",
+            "clientElementId": "EL_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "T1 natif",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Fibrose",
+            "clientElementId": "EL_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "fibrose",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_OBJECT"
+          },
+          {
+            "canonicalMeaning": "Avant la fibrose",
+            "clientElementId": "EL_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_04"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "avant la fibrose",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Statut de critère principal non décidé pour le T1 natif",
+            "clientElementId": "EL_05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_05"
+            ],
+            "polarity": "UNCERTAIN",
+            "requiresConfirmation": true,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "je n'ai pas décidé d'en faire le critère principal",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "UNKNOWN"
+          },
+          {
+            "canonicalMeaning": "Centre de Lyon",
+            "clientElementId": "EL_06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_06"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "Lyon",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "STUDY_DESIGN"
+          },
+          {
+            "canonicalMeaning": "ECV (Extracellular Volume fraction)",
+            "clientElementId": "EL_07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_07"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "ECV",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Marqueur précoce",
+            "clientElementId": "EL_08",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_08"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "marqueur précoce",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Utilisable dans tous les centres",
+            "clientElementId": "EL_09",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "INV_09"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+            "sourceText": "utilisable dans tous les centres",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "STUDY_DESIGN"
+          },
+          {
+            "canonicalMeaning": "Imagerie par résonance magnétique ou mesure T1/ECV",
+            "clientElementId": "EL_10",
+            "confidence": 0.8,
+            "epistemicStatus": "INFERRED_HIGH_CONFIDENCE",
+            "inferenceReason": "T1 natif and ECV imply underlying cardiac MRI or mapping methods.",
+            "inventoryItemIds": [],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": true,
+            "sourceMessageId": null,
+            "sourceText": null,
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "Analyse exploratoire de la maladie de Fabry évaluant le T1 natif avant la phase de fibrose, sans l'avoir encore fixé comme critère principal, en tenant compte de l'ECV mesurée à Lyon, avec l'objectif prioritaire d'identifier un marqueur précoce universellement mesurable dans tous les centres.",
+        "relations": [
+          {
+            "clientRelationId": "REL_EL_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "REL_01"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "EL_02",
+            "targetClientElementId": "EL_01"
+          },
+          {
+            "clientRelationId": "REL_EL_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "REL_02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "REPEATED_AT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "EL_02",
+            "targetClientElementId": "EL_04"
+          },
+          {
+            "clientRelationId": "REL_EL_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "REL_03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "EL_07",
+            "targetClientElementId": "EL_06"
+          },
+          {
+            "clientRelationId": "REL_EL_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "REL_04"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "EL_08",
+            "targetClientElementId": "EL_09"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.9,
+          "expectedCapabilities": [
+            "Gestion des critères de jugement",
+            "Définition des biomarqueurs de la maladie de Fabry"
+          ],
+          "reason": "L'utilisateur discute de variables, de timing, de contraintes multi-centres et de critères pour une étude potentielle.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "INV_01",
+              "linkedInventoryItemIds": [],
+              "localRole": "condition",
+              "modifiers": [],
+              "normalizedLabel": "Fabry",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "Fabry"
+            },
+            {
+              "inventoryItemId": "INV_02",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "T1 natif",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "T1 natif"
+            },
+            {
+              "inventoryItemId": "INV_03",
+              "linkedInventoryItemIds": [],
+              "localRole": "target",
+              "modifiers": [],
+              "normalizedLabel": "fibrose",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "fibrose"
+            },
+            {
+              "inventoryItemId": "INV_04",
+              "linkedInventoryItemIds": [
+                "INV_03"
+              ],
+              "localRole": "timing",
+              "modifiers": [],
+              "normalizedLabel": "avant la fibrose",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "avant la fibrose"
+            },
+            {
+              "inventoryItemId": "INV_05",
+              "linkedInventoryItemIds": [
+                "INV_02"
+              ],
+              "localRole": "endpoint_status",
+              "modifiers": [],
+              "normalizedLabel": "incertitude sur le critère principal",
+              "polarity": "UNCERTAIN",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "je n'ai pas décidé d'en faire le critère principal"
+            },
+            {
+              "inventoryItemId": "INV_06",
+              "linkedInventoryItemIds": [],
+              "localRole": "study_design",
+              "modifiers": [],
+              "normalizedLabel": "Lyon",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "Lyon"
+            },
+            {
+              "inventoryItemId": "INV_07",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "ECV",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "ECV"
+            },
+            {
+              "inventoryItemId": "INV_08",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [],
+              "normalizedLabel": "marqueur précoce",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "marqueur précoce"
+            },
+            {
+              "inventoryItemId": "INV_09",
+              "linkedInventoryItemIds": [],
+              "localRole": "study_design",
+              "modifiers": [],
+              "normalizedLabel": "utilisable dans tous les centres",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "utilisable dans tous les centres"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "REL_01",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "INV_02",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "Dans Fabry, on pense que le T1 natif",
+              "targetInventoryItemId": "INV_01"
+            },
+            {
+              "inventoryRelationId": "REL_02",
+              "normalizedRelation": "RECOVERS_AFTER",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "INV_02",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "le T1 natif pourrait être intéressant avant la fibrose",
+              "targetInventoryItemId": "INV_04"
+            },
+            {
+              "inventoryRelationId": "REL_03",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "INV_07",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "À Lyon ils font aussi de l'ECV.",
+              "targetInventoryItemId": "INV_06"
+            },
+            {
+              "inventoryRelationId": "REL_04",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "INV_08",
+              "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+              "sourceText": "marqueur précoce qui soit utilisable dans tous les centres",
+              "targetInventoryItemId": "INV_09"
+            }
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:1"
+        ],
+        "summaryForUser": "Analyse des propositions autour du T1 natif et de l'ECV dans la maladie de Fabry pour identifier un marqueur précoce universel.",
+        "unknowns": [
+          "Statut définitif du T1 natif comme critère principal."
+        ]
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 7188,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:21:17.361Z",
+          "requestStarted": "2026-08-14T09:21:10.173Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-4c5eab9a773120ee",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_01",
+          "mappedClientElementIds": [
+            "EL_01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "Fabry",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_02",
+          "mappedClientElementIds": [
+            "EL_02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "T1 natif",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "T1 natif"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_03",
+          "mappedClientElementIds": [
+            "EL_03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "fibrose",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "fibrose"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_04",
+          "mappedClientElementIds": [
+            "EL_04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "avant la fibrose",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "avant la fibrose"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_05",
+          "mappedClientElementIds": [
+            "EL_05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "incertitude sur le critère principal",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "je n'ai pas décidé d'en faire le critère principal"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_06",
+          "mappedClientElementIds": [
+            "EL_06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "Lyon",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "Lyon"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_07",
+          "mappedClientElementIds": [
+            "EL_07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "ECV",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "ECV"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_08",
+          "mappedClientElementIds": [
+            "EL_08"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "marqueur précoce",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "marqueur précoce"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "INV_09",
+          "mappedClientElementIds": [
+            "EL_09"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "utilisable dans tous les centres",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I08:SEM_SINGLE_PASS:T0",
+          "sourceText": "utilisable dans tous les centres"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "Analyse exploratoire de la maladie de Fabry évaluant le T1 natif avant la phase de fibrose, sans l'avoir encore fixé comme critère principal, en tenant compte de l'ECV mesurée à Lyon, avec l'objectif prioritaire d'identifier un marqueur précoce universellement mesurable dans tous les centres.",
+    "originalRequest": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "REL_01",
+          "mappedClientRelationIds": [
+            "REL_EL_01"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "INV_02",
+          "targetInventoryItemId": "INV_01"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "REL_02",
+          "mappedClientRelationIds": [
+            "REL_EL_02"
+          ],
+          "normalizedRelation": "RECOVERS_AFTER",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "INV_02",
+          "targetInventoryItemId": "INV_04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "REL_03",
+          "mappedClientRelationIds": [
+            "REL_EL_03"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "INV_07",
+          "targetInventoryItemId": "INV_06"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "REL_04",
+          "mappedClientRelationIds": [
+            "REL_EL_04"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "INV_08",
+          "targetInventoryItemId": "INV_09"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "REL_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-00a012b09b3c5414",
+        "sourceElementId": "sem-element:ke1-e2421addbfdae4f1",
+        "targetElementId": "sem-element:ke1-edd56e098b73fb75",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "REL_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-51e03717530735ab",
+        "sourceElementId": "sem-element:ke1-bb98f5f3e61f629f",
+        "targetElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "REL_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-865b74b3fb259e1f",
+        "sourceElementId": "sem-element:ke1-bb98f5f3e61f629f",
+        "targetElementId": "sem-element:ke1-9670951383f53f87",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "REL_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-b6c0507c5822ef98",
+        "sourceElementId": "sem-element:ke1-1afe27a72610c393",
+        "targetElementId": "sem-element:ke1-30a2ff4042cb4464",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Définition des biomarqueurs de la maladie de Fabry",
+        "Gestion des critères de jugement"
+      ],
+      "reason": "L'utilisateur discute de variables, de timing, de contraintes multi-centres et de critères pour une étude potentielle.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-bcf67b9cf98dc298",
+    "semanticModelVersion": "1.1",
+    "status": "CLARIFICATION_REQUIRED",
+    "summaryForUser": "Analyse des propositions autour du T1 natif et de l'ECV dans la maladie de Fabry pour identifier un marqueur précoce universel.",
+    "unknowns": [
+      "Statut définitif du T1 natif comme critère principal."
+    ],
+    "updatedAt": "2026-08-14T09:21:17.383Z"
+  },
+  "pairedFirstReconstruction": false,
+  "semanticCriticExecuted": false,
+  "status": "SUCCESS"
+}
+```
+
+## STRUCTURED CONTRACT STATUS
+
+- provider status : `SUCCESS`
+- parsing status : `PARSED_AND_VALIDATED`
+- structured contract conformance : `PASS`
+- scientific semantic evaluability : `EVALUABLE`
+- evaluation mode : `DETERMINISTIC_COMMON_STATE_PROJECTION`
+- native raw output persisted : `false`
+
+## SCIENTIFIC INTERPRETATION
+
+### COMPRÉHENSION GLOBALE
+
+Analyse exploratoire de la maladie de Fabry évaluant le T1 natif avant la phase de fibrose, sans l'avoir encore fixé comme critère principal, en tenant compte de l'ECV mesurée à Lyon, avec l'objectif prioritaire d'identifier un marqueur précoce universellement mesurable dans tous les centres.
+
+Objectif scientifique produit :
+
+Analyse exploratoire de la maladie de Fabry évaluant le T1 natif avant la phase de fibrose, sans l'avoir encore fixé comme critère principal, en tenant compte de l'ECV mesurée à Lyon, avec l'objectif prioritaire d'identifier un marqueur précoce universellement mesurable dans tous les centres.
+
+### EXPLICITEMENT DIT PAR LE CHERCHEUR
+
+- content=Statut de critère principal non décidé pour le T1 natif | scientificRole=UNKNOWN:NONE | polarity=UNCERTAIN | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=je n'ai pas décidé d'en faire le critère principal | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=ECV (Extracellular Volume fraction) | scientificRole=BIOMARKER:MEASUREMENT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=ECV | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Centre de Lyon | scientificRole=STUDY_DESIGN:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Lyon | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Fibrose | scientificRole=SCIENTIFIC_OBJECT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=fibrose | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Avant la fibrose | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=Avant la fibrose | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=avant la fibrose | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Maladie de Fabry | scientificRole=CONDITION:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Fabry | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=T1 natif | scientificRole=BIOMARKER:MEASUREMENT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=T1 natif | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Marqueur précoce | scientificRole=BIOMARKER:OUTCOME_ROLE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=marqueur précoce | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Utilisable dans tous les centres | scientificRole=STUDY_DESIGN:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=utilisable dans tous les centres | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+
+### RELATIONS COMPRISES
+
+- subject=Marqueur précoce | predicate=RELATED_TO_CANDIDATE | object=Utilisable dans tous les centres | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=T1 natif | predicate=RELATED_TO_CANDIDATE | object=Maladie de Fabry | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=T1 natif | predicate=REPEATED_AT | object=Avant la fibrose | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=ECV (Extracellular Volume fraction) | predicate=RELATED_TO_CANDIDATE | object=Centre de Lyon | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+
+### CONTEXTE INFÉRÉ
+
+- content=Imagerie par résonance magnétique ou mesure T1/ECV | scientificRole=METHOD:NONE | polarity=AFFIRMED | epistemicStatus=INFERRED_HIGH_CONFIDENCE | ownership=SEM_CANDIDATE | basis=T1 natif and ECV imply underlying cardiac MRI or mapping methods.
+
+### CANDIDATS SCIENTIFIQUES CONTEXTUELS
+
+- Aucun élément produit.
+
+### NÉGATIONS / CONTRAINTES
+
+- Aucun élément produit.
+
+### TEMPORALITÉ
+
+- content=Avant la fibrose | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=Avant la fibrose | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=avant la fibrose | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+
+### AMBIGUÏTÉS
+
+- content=Le choix exact du critère principal de l'étude n'est pas encore arrêté entre le T1 natif et d'autres options. | epistemicStatus=AMBIGUOUS | decisionImpact=SEM reports an unresolved ambiguity; impact requires clarification.
+
+### INFORMATIONS MANQUANTES
+
+- content=Statut définitif du T1 natif comme critère principal. | owner=USER_OR_SPECIALIZED_OWNER_UNRESOLVED | priority=HIGH | blocking=oui | decisionImpact=SEM reports missing or unresolved information.
+
+### INCONNUES
+
+- content=Statut définitif du T1 natif comme critère principal. | owner=USER_OR_SPECIALIZED_OWNER_UNRESOLVED | priority=HIGH | blocking=oui | decisionImpact=SEM reports missing or unresolved information.
+
+### CORRECTIONS / SUPERSESSIONS
+
+- Aucun élément produit.
+
+### OWNERSHIP / STATUT ÉPISTÉMIQUE
+
+- content=Statut de critère principal non décidé pour le T1 natif | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=ECV (Extracellular Volume fraction) | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Centre de Lyon | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Imagerie par résonance magnétique ou mesure T1/ECV | epistemicStatus=INFERRED_HIGH_CONFIDENCE | owner=SEM_CANDIDATE
+- content=Fibrose | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Avant la fibrose | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Maladie de Fabry | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=T1 natif | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Marqueur précoce | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+- content=Utilisable dans tous les centres | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I08:SEM_SINGLE_PASS:T0"]
+
+### QUESTIONS DE CLARIFICATION CANDIDATES
+
+- question=Souhaitez-vous définir formellement le T1 natif comme critère principal de l'étude ou conserver cette question ouverte ? | priority=HIGH | blocking=oui | decisionImpact=L'utilisateur indique n'avoir pas décidé d'en faire le critère principal. | targetIds=["sem-element:ke1-08ca25787a622b04"]
+
+## MISSING STRUCTURAL GUARANTEES
+
+- EXACT_PROVIDER_RAW_TEXT_NOT_PERSISTED; STRUCTURED_NATIVE_ARTIFACT_AVAILABLE
+
+_Vue locale déterministe. Aucun appel LLM d’interprétation sémantique post-hoc._

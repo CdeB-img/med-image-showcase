@@ -1,0 +1,183 @@
+{
+  "configurationId": "PYDANTIC_CONDITIONAL_CRITIC",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": true,
+    "framework": "PydanticAI",
+    "pairedFirstOutput": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I02",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "AMB_OEF_NORMALIZATION_CRITERIA",
+        "content": "Les critères précis de normalisation de l'OEF et d'amélioration de la perfusion ne sont pas définis.",
+        "decisionImpact": "Crucial pour déterminer la méthodologie d'analyse des données d'imagerie.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Normalisation basée sur des seuils absolus (ex: < 40%)",
+          "Normalisation par rapport au côté controlatéral sain"
+        ],
+        "provenanceTurnIds": [
+          "I02:T0"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "CLAR_BASELINE_MRI",
+        "decisionImpact": "Permet d'adapter le plan d'analyse en fonction de la disponibilité variable des IRM pré-procédurales.",
+        "priority": "MEDIUM",
+        "question": "Comment prévoyez-vous de gérer l'absence fréquente d'IRM avant la thrombectomie dans votre analyse ?",
+        "targetIds": [
+          "MISS_BASELINE_MRI_HANDLING"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+        "role": "USER",
+        "turnId": "I02:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": "I02:T0",
+        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "EXP_GOAL_OEF_PERFUSION",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "PRIMARY_QUESTION",
+        "sourceText": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore",
+        "temporalContext": "POST_THROMBECTOMY"
+      },
+      {
+        "basis": "I02:T0",
+        "content": "je n'ai pas toujours l'IRM avant le geste",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "EXP_CONSTRAINT_MISSING_MRI",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "METHODOLOGICAL_CONSTRAINT",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "temporalContext": "PRE_PROCEDURAL"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Stratégie pour gérer l'absence d'IRM pré-thrombectomie chez certains patients.",
+        "decisionImpact": "Affecte la taille de la cohorte analysable et le design de l'étude (analyse longitudinale vs transversale).",
+        "missingId": "MISS_BASELINE_MRI_HANDLING",
+        "owner": "USER",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "L'utilisateur souhaite étudier la relation entre la normalisation de l'OEF (Oxygen Extraction Fraction) et l'amélioration de la perfusion chez des patients ayant subi une thrombectomie, tout en prenant en compte une contrainte méthodologique : l'absence fréquente d'imagerie par résonance magnétique (IRM) avant la réalisation du geste.",
+    "objects": [
+      {
+        "basis": "I02:T0",
+        "content": "OEF (Oxygen Extraction Fraction)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_OEF",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "BIOMARKER",
+        "sourceText": "l'OEF",
+        "temporalContext": null
+      },
+      {
+        "basis": "I02:T0",
+        "content": "Perfusion",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_PERFUSION",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "BIOMARKER",
+        "sourceText": "la perfusion",
+        "temporalContext": null
+      },
+      {
+        "basis": "I02:T0",
+        "content": "IRM avant le geste (IRM pré-thrombectomie)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_PRE_MRI",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "METHOD_OR_MEASUREMENT",
+        "sourceText": "l'IRM avant le geste",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "STMT_01"
+      },
+      {
+        "content": "je n'ai pas toujours l'IRM avant le geste",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "statementId": "STMT_02"
+      }
+    ],
+    "relations": [
+      {
+        "basis": "I02:T0",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "OBJ_PERFUSION",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATION_IMPROVEMENT_CORRELATION",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "relationId": "REL_01",
+        "sourceText": "l'OEF se normalise quand la perfusion s'améliore",
+        "subject": "OBJ_OEF",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Évaluer si la normalisation de l'OEF est corrélée à l'amélioration de la perfusion chez les patients thrombectomisés, malgré des données d'imagerie pré-procédurale incomplètes.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

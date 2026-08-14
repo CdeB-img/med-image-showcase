@@ -1,0 +1,501 @@
+{
+  "criticOutput": {
+    "correctedState": {
+      "ambiguities": [
+        {
+          "ambiguityId": "amb_baseline_mri",
+          "content": "Absence fréquente d'IRM avant la thrombectomie rendant incertaine la mesure de l'OEF basale.",
+          "decisionImpact": "Impacte la capacité à évaluer la normalisation de l'OEF par rapport à un état de référence pré-interventionnel.",
+          "epistemicStatus": "AMBIGUOUS",
+          "interpretations": [
+            "Utiliser une imagerie alternative ou une modélisation pour estimer l'état basal.",
+            "Se baser uniquement sur les données post-opératoires à 24h et J7 pour inférer l'évolution."
+          ],
+          "provenanceTurnIds": [
+            "I02:T0",
+            "I02:R1"
+          ]
+        }
+      ],
+      "clarificationCandidates": [
+        {
+          "blocking": false,
+          "clarificationId": "clar_baseline_mri_strategy",
+          "decisionImpact": "Détermine la stratégie méthodologique pour contourner l'absence d'IRM pré-thrombectomie.",
+          "priority": "MEDIUM",
+          "question": "Quelle stratégie envisagez-vous pour pallier l'absence d'IRM avant la thrombectomie lors de l'évaluation de l'OEF ?",
+          "targetIds": [
+            "amb_baseline_mri"
+          ]
+        }
+      ],
+      "contextualScientificCandidates": [
+        {
+          "basis": null,
+          "content": "L'OEF pourrait se normaliser lorsque la perfusion s'améliore chez les patients thrombectomisés.",
+          "epistemicStatus": "SUPPORTED_CANDIDATE",
+          "itemId": "cand_oef_perfusion",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:T0"
+          ],
+          "scientificRole": "Hypothèse physiopathologique / Relation entre OEF et perfusion",
+          "sourceText": "je veux savoir si l'OEF se normalise quand la perfusion s'améliore",
+          "temporalContext": "Post-thrombectomie"
+        }
+      ],
+      "contradictions": [],
+      "conversationTurns": [
+        {
+          "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+          "role": "USER",
+          "turnId": "I02:T0"
+        },
+        {
+          "content": "L'IRM principale est à 24 h puis à J7. Je n'ai souvent pas d'IRM avant la thrombectomie.",
+          "role": "USER",
+          "turnId": "I02:R1"
+        }
+      ],
+      "correctionsAndSupersessions": [],
+      "explicitUserStatements": [
+        {
+          "basis": null,
+          "content": "Chez les patients thrombectomisés, absence fréquente d'IRM avant le geste.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "itemId": "stmt_no_pre_mri",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:T0",
+            "I02:R1"
+          ],
+          "scientificRole": "Contrainte méthodologique / Disponibilité des données d'imagerie",
+          "sourceText": "je n'ai pas toujours l'IRM avant le geste. / Je n'ai souvent pas d'IRM avant la thrombectomie.",
+          "temporalContext": "Pré-thrombectomie"
+        },
+        {
+          "basis": null,
+          "content": "L'IRM principale est réalisée à 24 h puis à J7.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "itemId": "stmt_mri_schedule",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:R1"
+          ],
+          "scientificRole": "Calendrier de suivi par imagerie (méthode / temps de mesure)",
+          "sourceText": "L'IRM principale est à 24 h puis à J7.",
+          "temporalContext": "Post-thrombectomie (24h et J7)"
+        }
+      ],
+      "inferredContext": [],
+      "missingInformation": [
+        {
+          "blocking": false,
+          "content": "Modalités techniques précises de mesure de l'OEF et de la perfusion (séquences d'IRM utilisées).",
+          "decisionImpact": "Nécessaire pour standardiser la quantification de l'OEF et de la perfusion aux temps 24h et J7.",
+          "missingId": "miss_mri_sequences",
+          "owner": "USER",
+          "priority": "LOW",
+          "provenanceTurnIds": [
+            "I02:T0",
+            "I02:R1"
+          ]
+        }
+      ],
+      "negationsAndConstraints": [
+        {
+          "basis": null,
+          "content": "Absence fréquente d'IRM avant la thrombectomie.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "itemId": "constr_no_baseline_mri",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:T0",
+            "I02:R1"
+          ],
+          "scientificRole": "Contrainte sur la disponibilité des données basales",
+          "sourceText": "je n'ai pas toujours l'IRM avant le geste. / Je n'ai souvent pas d'IRM avant la thrombectomie.",
+          "temporalContext": "Pré-thrombectomie"
+        }
+      ],
+      "normalizedUnderstanding": "Le projet vise à étudier chez les patients thrombectomisés si la fraction d'extraction d'oxygène (OEF) se normalise lors de l'amélioration de la perfusion. Les examens IRM principaux sont réalisés à 24 heures et à J7, mais l'IRM pré-thrombectomie fait fréquemment défaut.",
+      "objects": [
+        {
+          "basis": null,
+          "content": "Patients thrombectomisés",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "itemId": "obj_thrombectomized_patients",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:T0"
+          ],
+          "scientificRole": "Population d'étude / Sujets",
+          "sourceText": "Chez les patients thrombectomisés",
+          "temporalContext": "Période post-thrombectomie et suivi"
+        },
+        {
+          "basis": null,
+          "content": "OEF (Fraction d'Extraction d'Oxygène)",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "itemId": "obj_oef",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:T0"
+          ],
+          "scientificRole": "Biomarqueur / Propriété observable (paramètre hémodynamique et métabolique cérébral)",
+          "sourceText": "l'OEF",
+          "temporalContext": "Global / Suivi à 24h et J7"
+        },
+        {
+          "basis": null,
+          "content": "Perfusion cérébrale",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "itemId": "obj_perfusion",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:T0"
+          ],
+          "scientificRole": "Propriété observable / Phénomène hémodynamique",
+          "sourceText": "la perfusion",
+          "temporalContext": "Global / Évolution post-thrombectomie"
+        },
+        {
+          "basis": null,
+          "content": "IRM à 24h et à J7",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "itemId": "obj_mri_followup",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:R1"
+          ],
+          "scientificRole": "Méthode / Modalité de mesure et calendrier de suivi",
+          "sourceText": "L'IRM principale est à 24 h puis à J7.",
+          "temporalContext": "24 heures et J7 post-thrombectomie"
+        }
+      ],
+      "originalRequest": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste. L'IRM principale est à 24 h puis à J7. Je n'ai souvent pas d'IRM avant la thrombectomie.",
+      "ownershipAndEpistemicState": [
+        {
+          "content": "Évaluation de la normalisation de l'OEF en fonction de l'amélioration de la perfusion chez les patients thrombectomisés, avec des examens IRM principaux à 24h et J7 mais une absence fréquente d'IRM pré-thrombectomie.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "owner": "USER",
+          "provenanceTurnIds": [],
+          "statementId": "state_main_goal"
+        }
+      ],
+      "relations": [
+        {
+          "basis": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "object": "obj_perfusion",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "predicate": "est évaluée en lien avec l'évolution de",
+          "provenanceTurnIds": [
+            "I02:T0"
+          ],
+          "relationId": "rel_oef_perfusion",
+          "sourceText": "si l'OEF se normalise quand la perfusion s'améliore",
+          "subject": "obj_oef",
+          "temporalContext": "Suivi post-thrombectomie"
+        },
+        {
+          "basis": null,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "object": "obj_mri_followup",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "predicate": "est planifiée à",
+          "provenanceTurnIds": [
+            "I02:R1"
+          ],
+          "relationId": "rel_mri_schedule",
+          "sourceText": "L'IRM principale est à 24 h puis à J7.",
+          "subject": "obj_mri_followup",
+          "temporalContext": "24h et J7"
+        }
+      ],
+      "scientificGoal": "Déterminer si l'OEF se normalise suite à l'amélioration de la perfusion chez les patients thrombectomisés, malgré l'absence fréquente de données d'IRM basales (pré-thrombectomie).",
+      "temporalModel": [
+        {
+          "basis": null,
+          "content": "Absence fréquente d'IRM avant la thrombectomie ; IRM principale à 24h et à J7.",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "itemId": "temp_mri_schedule",
+          "ownership": "USER",
+          "polarity": "AFFIRMED",
+          "provenanceTurnIds": [
+            "I02:T0",
+            "I02:R1"
+          ],
+          "scientificRole": "Chronologie des examens et contrainte temporelle",
+          "sourceText": "je n'ai pas toujours l'IRM avant le geste. / L'IRM principale est à 24 h puis à J7.",
+          "temporalContext": "Pré-thrombectomie, 24h post, J7 post"
+        }
+      ],
+      "unknowns": []
+    },
+    "rationale": "The state is fully accurate and faithful to the conversation turns. Minor typo correction in originalRequest string restoration matches user utterance exactly. No scientific changes needed. Verdict ACCEPT.",
+    "verdict": "ACCEPT"
+  },
+  "criticTrigger": {
+    "reasons": [
+      "AMBIGUITIES_PRESENT",
+      "NEGATIONS_OR_CONSTRAINTS_PRESENT",
+      "CONTEXTUAL_CANDIDATES_PRESENT",
+      "OWNERSHIP_OR_EPISTEMIC_CONFLICT"
+    ],
+    "required": true
+  },
+  "firstOutput": {
+    "ambiguities": [
+      {
+        "ambiguityId": "amb_baseline_mri",
+        "content": "Absence fréquente d'IRM avant la thrombectomie rendant incertaine la mesure de l'OEF basale.",
+        "decisionImpact": "Impacte la capacité à évaluer la normalisation de l'OEF par rapport à un état de référence pré-interventionnel.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Utiliser une imagerie alternative ou une modélisation pour estimer l'état basal.",
+          "Se baser uniquement sur les données post-opératoires à 24h et J7 pour inférer l'évolution."
+        ],
+        "provenanceTurnIds": [
+          "I02:T0",
+          "I02:R1"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "clar_baseline_mri_strategy",
+        "decisionImpact": "Détermine la stratégie méthodologique pour contourner l'absence d'IRM pré-thrombectomie.",
+        "priority": "MEDIUM",
+        "question": "Quelle stratégie envisagez-vous pour pallier l'absence d'IRM avant la thrombectomie lors de l'évaluation de l'OEF ?",
+        "targetIds": [
+          "amb_baseline_mri"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [
+      {
+        "basis": null,
+        "content": "L'OEF pourrait se normaliser lorsque la perfusion s'améliore chez les patients thrombectomisés.",
+        "epistemicStatus": "SUPPORTED_CANDIDATE",
+        "itemId": "cand_oef_perfusion",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "Hypothèse physiopathologique / Relation entre OEF et perfusion",
+        "sourceText": "je veux savoir si l'OEF se normalise quand la perfusion s'améliore",
+        "temporalContext": "Post-thrombectomie"
+      }
+    ],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+        "role": "USER",
+        "turnId": "I02:T0"
+      },
+      {
+        "content": "L'IRM principale est à 24 h puis à J7. Je n'ai souvent pas d'IRM avant la thrombectomie.",
+        "role": "USER",
+        "turnId": "I02:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Chez les patients thrombectomisés, absence fréquente d'IRM avant le geste.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_no_pre_mri",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0",
+          "I02:R1"
+        ],
+        "scientificRole": "Contrainte méthodologique / Disponibilité des données d'imagerie",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste. / Je n'ai souvent pas d'IRM avant la thrombectomie.",
+        "temporalContext": "Pré-thrombectomie"
+      },
+      {
+        "basis": null,
+        "content": "L'IRM principale est réalisée à 24 h puis à J7.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_mri_schedule",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "Calendrier de suivi par imagerie (méthode / temps de mesure)",
+        "sourceText": "L'IRM principale est à 24 h puis à J7.",
+        "temporalContext": "Post-thrombectomie (24h et J7)"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Modalités techniques précises de mesure de l'OEF et de la perfusion (séquences d'IRM utilisées).",
+        "decisionImpact": "Nécessaire pour standardiser la quantification de l'OEF et de la perfusion aux temps 24h et J7.",
+        "missingId": "miss_mri_sequences",
+        "owner": "USER",
+        "priority": "LOW",
+        "provenanceTurnIds": [
+          "I02:T0",
+          "I02:R1"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Absence fréquente d'IRM avant la thrombectomie.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "constr_no_baseline_mri",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0",
+          "I02:R1"
+        ],
+        "scientificRole": "Contrainte sur la disponibilité des données basales",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste. / Je n'ai souvent pas d'IRM avant la thrombectomie.",
+        "temporalContext": "Pré-thrombectomie"
+      }
+    ],
+    "normalizedUnderstanding": "Le projet vise à étudier chez les patients thrombectomisés si la fraction d'extraction d'oxygène (OEF) se normalise lors de l'amélioration de la perfusion. Les examens IRM principaux sont réalisés à 24 heures et à J7, mais l'IRM pré-thrombectomie fait fréquemment défaut.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Patients thrombectomisés",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_thrombectomized_patients",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "Population d'étude / Sujets",
+        "sourceText": "Chez les patients thrombectomisés",
+        "temporalContext": "Période post-thrombectomie et suivi"
+      },
+      {
+        "basis": null,
+        "content": "OEF (Fraction d'Extraction d'Oxygène)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_oef",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "Biomarqueur / Propriété observable (paramètre hémodynamique et métabolique cérébral)",
+        "sourceText": "l'OEF",
+        "temporalContext": "Global / Suivi à 24h et J7"
+      },
+      {
+        "basis": null,
+        "content": "Perfusion cérébrale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_perfusion",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "scientificRole": "Propriété observable / Phénomène hémodynamique",
+        "sourceText": "la perfusion",
+        "temporalContext": "Global / Évolution post-thrombectomie"
+      },
+      {
+        "basis": null,
+        "content": "IRM à 24h et à J7",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_mri_followup",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "scientificRole": "Méthode / Modalité de mesure et calendrier de suivi",
+        "sourceText": "L'IRM principale est à 24 h puis à J7.",
+        "temporalContext": "24 heures et J7 post-thrombectomie"
+      }
+    ],
+    "originalRequest": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste. L'IRM principale est à 24 h puis à J7. Je n'often pas d'IRM avant la thrombectomie.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Évaluation de la normalisation de l'OEF en fonction de l'amélioration de la perfusion chez les patients thrombectomisés, avec des examens IRM principaux à 24h et J7 mais une absence fréquente d'IRM pré-thrombectomie.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [],
+        "statementId": "state_main_goal"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_perfusion",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "est évaluée en lien avec l'évolution de",
+        "provenanceTurnIds": [
+          "I02:T0"
+        ],
+        "relationId": "rel_oef_perfusion",
+        "sourceText": "si l'OEF se normalise quand la perfusion s'améliore",
+        "subject": "obj_oef",
+        "temporalContext": "Suivi post-thrombectomie"
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_mri_followup",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "est planifiée à",
+        "provenanceTurnIds": [
+          "I02:R1"
+        ],
+        "relationId": "rel_mri_schedule",
+        "sourceText": "L'IRM principale est à 24 h puis à J7.",
+        "subject": "obj_mri_followup",
+        "temporalContext": "24h et J7"
+      }
+    ],
+    "scientificGoal": "Déterminer si l'OEF se normalise suite à l'amélioration de la perfusion chez les patients thrombectomisés, malgré l'absence fréquente de données d'IRM basales (pré-thrombectomie).",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "Absence fréquente d'IRM avant la thrombectomie ; IRM principale à 24h et à J7.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "temp_mri_schedule",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I02:T0",
+          "I02:R1"
+        ],
+        "scientificRole": "Chronologie des examens et contrainte temporelle",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste. / L'IRM principale est à 24 h puis à J7.",
+        "temporalContext": "Pré-thrombectomie, 24h post, J7 post"
+      }
+    ],
+    "unknowns": []
+  }
+}

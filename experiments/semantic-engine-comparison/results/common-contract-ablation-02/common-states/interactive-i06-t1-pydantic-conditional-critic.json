@@ -1,0 +1,221 @@
+{
+  "configurationId": "PYDANTIC_CONDITIONAL_CRITIC",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": true,
+    "framework": "PydanticAI",
+    "pairedFirstOutput": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I06",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "amb_discordance_meaning",
+        "content": "When DSC and ASL tell different stories ('ne racontent pas la même chose'), the exact imaging features, quantitative thresholds, or clinical criteria defining this discordance are not yet specified.",
+        "decisionImpact": "Defines how discordant cases are categorized and evaluated for progression utility.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Discordance based on qualitative visual assessment of perfusion maps",
+          "Discordance based on quantitative metrics (e.g., rCBV vs. CBF thresholds)"
+        ],
+        "provenanceTurnIds": [
+          "T0"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "clar_discordance_definition",
+        "decisionImpact": "Defines how discordant cases are categorized and evaluated for progression utility.",
+        "priority": "MEDIUM",
+        "question": "How would you like to define when DSC and ASL 'ne racontent pas la même chose' (e.g., quantitative thresholds or qualitative reading)?",
+        "targetIds": [
+          "amb_discordance_meaning"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Je compare DSC et ASL chez mes gliomes.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_compare_dsc_asl",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "project_variable",
+        "sourceText": "Je compare DSC et ASL chez mes gliomes.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_discordance_utility",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_keep_single_modality",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "project_variable",
+        "sourceText": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Specific clinical criteria or definitions for tumor progression in this glioma cohort.",
+        "decisionImpact": "Directly affects how the utility of DSC vs ASL for progression is measured.",
+        "missingId": "miss_progression_criteria",
+        "owner": "USER",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": [
+          "T0"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user is comparing DSC and ASL perfusion MRI in glioma patients. They want to determine which modality is more useful for assessing tumor progression when DSC and ASL findings are discordant. Additionally, patients with only ASL data should preferably be retained in the cohort if possible.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "DSC (Dynamic Susceptibility Contrast) perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_dsc",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method",
+        "sourceText": "DSC",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "ASL (Arterial Spin Labeling) perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_asl",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method",
+        "sourceText": "ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Gliomas",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_gliomas",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "mes gliomes",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "stmt_compare_dsc_asl"
+      },
+      {
+        "content": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "stmt_discordance_utility"
+      },
+      {
+        "content": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "stmt_keep_single_modality"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_dsc",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "compared_with",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_compare_dsc_asl",
+        "sourceText": "Je compare DSC et ASL",
+        "subject": "obj_asl",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_gliomas",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "studied_in",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_gliomas_cohort",
+        "sourceText": "chez mes gliomes",
+        "subject": "obj_dsc",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Evaluate and compare the prognostic utility for tumor progression of DSC and ASL perfusion MRI in gliomas, particularly in cases of discordance, while retaining single-modality (ASL-only) cases where feasible.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

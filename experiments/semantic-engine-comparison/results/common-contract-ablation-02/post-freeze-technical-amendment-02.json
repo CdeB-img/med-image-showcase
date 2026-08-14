@@ -1,0 +1,19 @@
+{
+  "amendmentId": "EXP-SEM-ABLATION-02-TECHNICAL-AMENDMENT-02",
+  "classification": "DETERMINISTIC_JSON_SYNTAX_REPAIR_ONLY",
+  "reason": "DSPy I01/T1 returned a non-JSON textual representation that failed json.loads at line 33 column 7 after one provider call.",
+  "failedProviderRequestNumber": 13,
+  "failedProviderRequestPreserved": true,
+  "frozenManifestDigest": "2d60f2095d39af55d7a21ff7b0b7ce130ce856795acd1abd35ae6ea93d92163e",
+  "transportAmendment": "EXP-SEM-ABLATION-02-TECHNICAL-AMENDMENT-01",
+  "resumeWrapper": "experiments/semantic-engine-comparison/common_contract_ablation_02/resume_file_transport_and_json_repair.py",
+  "resumeWrapperDigest": "891cf608afbc6fb4744b87f4614302a99ccf2904d0868c8379fd6a8e7dbe8371",
+  "semanticBehaviorChanged": false,
+  "promptChanged": false,
+  "schemaChanged": false,
+  "providerChanged": false,
+  "scenarioChanged": false,
+  "llmRepairCallIntroduced": false,
+  "repair": "After the unchanged DSPy generation, parse valid JSON normally; only on JSONDecodeError, apply the installed json-repair parser locally and validate the resulting object against the unchanged CommonScientificState schema.",
+  "measurementDisposition": "The original failed request remains a DSPy technical failure and counts in operational metrics. The resumed operation is a new provider request because the raw invalid output was not persisted by the frozen harness."
+}

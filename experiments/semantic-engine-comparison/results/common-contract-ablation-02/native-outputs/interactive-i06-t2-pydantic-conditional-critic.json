@@ -1,0 +1,12 @@
+{
+  "configurationId": "PYDANTIC_CONDITIONAL_CRITIC",
+  "criticExecuted": false,
+  "failureClass": "STRUCTURED_CONTRACT_OR_FRAMEWORK_FAILURE",
+  "nativeRawOutputAvailable": false,
+  "noSemanticRetry": true,
+  "reason": "UnexpectedModelBehavior: Exceeded maximum output retries (0)",
+  "round": "T2",
+  "scenarioId": "I06",
+  "sharedFirstOutputFailed": true,
+  "status": "FAILED"
+}

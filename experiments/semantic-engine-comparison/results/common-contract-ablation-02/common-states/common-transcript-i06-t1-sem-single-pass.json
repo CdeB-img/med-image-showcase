@@ -1,0 +1,483 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T1",
+  "scenarioId": "I06",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:42c6140ed9631d52",
+        "content": "Gestion des cas avec données ASL partielles sans DSC",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "role": "USER",
+        "turnId": "I06:T0"
+      },
+      {
+        "content": "Par \"la seconde\", je parle de l'ASL. Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "role": "USER",
+        "turnId": "I06:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "True progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4eb67123d6c92def",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "progression vraie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Utility for progression assessment",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5597336786d51373",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "laquelle est la plus utile",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "3 months",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-70c54d162229aeaa",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à 3 mois",
+        "temporalContext": "3 months"
+      },
+      {
+        "basis": null,
+        "content": "Arterial Spin Labeling MRI (ASL)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7d40eceab438999e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "METHOD:INTERVENTION_ARM",
+        "sourceText": "l'ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Distinguish between true progression and pseudoprogression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7d89ee0af54786de",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "distinguer",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8976c0e4e1c67c20",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "gliomes",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Pseudoprogression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8fc6798b686c807f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "pseudoprogression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-9c76acf0bb5c49e4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "METHOD:COMPARATOR_ARM",
+        "sourceText": "DSC",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-9d17ea98e70586d4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "progression",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "L'utilisateur précise que \"la seconde\" désigne l'ASL et indique son intention de distinguer la vraie progression de la pseudoprogression à 3 mois.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "True progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4eb67123d6c92def",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "progression vraie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Utility for progression assessment",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5597336786d51373",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "laquelle est la plus utile",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "3 months",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-70c54d162229aeaa",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à 3 mois",
+        "temporalContext": "3 months"
+      },
+      {
+        "basis": null,
+        "content": "Arterial Spin Labeling MRI (ASL)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7d40eceab438999e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "METHOD:INTERVENTION_ARM",
+        "sourceText": "l'ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Distinguish between true progression and pseudoprogression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7d89ee0af54786de",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "distinguer",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8976c0e4e1c67c20",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "gliomes",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Pseudoprogression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8fc6798b686c807f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "pseudoprogression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-9c76acf0bb5c49e4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "METHOD:COMPARATOR_ARM",
+        "sourceText": "DSC",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-9d17ea98e70586d4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "progression",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "True progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-4eb67123d6c92def"
+      },
+      {
+        "content": "Utility for progression assessment",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-5597336786d51373"
+      },
+      {
+        "content": "3 months",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-70c54d162229aeaa"
+      },
+      {
+        "content": "Arterial Spin Labeling MRI (ASL)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-7d40eceab438999e"
+      },
+      {
+        "content": "Distinguish between true progression and pseudoprogression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-7d89ee0af54786de"
+      },
+      {
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-8976c0e4e1c67c20"
+      },
+      {
+        "content": "Pseudoprogression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-8fc6798b686c807f"
+      },
+      {
+        "content": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-9c76acf0bb5c49e4"
+      },
+      {
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-9d17ea98e70586d4"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Pseudoprogression",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "DISTINGUISHED_FROM",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-591b5c827c246d36",
+        "sourceText": null,
+        "subject": "True progression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "3 months",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-9223a6b11a3dfa5d",
+        "sourceText": null,
+        "subject": "True progression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Tumor progression",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "EVALUATES_OUTCOME",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-d54d0e4719830b6b",
+        "sourceText": null,
+        "subject": "Utility for progression assessment",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Arterial Spin Labeling MRI (ASL)",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "COMPARES_WITH",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-f0026975eec42539",
+        "sourceText": null,
+        "subject": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Glioma",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "APPLIED_TO",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-f31c888f1bf656b3",
+        "sourceText": null,
+        "subject": "Arterial Spin Labeling MRI (ASL)",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Glioma",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "APPLIED_TO",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-fc58f298e796bb54",
+        "sourceText": null,
+        "subject": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Distinguish between true progression and pseudoprogression",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "3 months",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-70c54d162229aeaa",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "à 3 mois",
+        "temporalContext": "3 months"
+      }
+    ],
+    "unknowns": []
+  }
+}

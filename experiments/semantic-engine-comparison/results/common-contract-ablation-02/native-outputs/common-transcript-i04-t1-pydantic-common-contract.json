@@ -1,0 +1,11 @@
+{
+  "configurationId": "PYDANTIC_COMMON_CONTRACT",
+  "failureClass": "STRUCTURED_CONTRACT_FAILURE",
+  "nativeRawOutputAvailable": false,
+  "pairedFirstOutput": true,
+  "providerRequestNumber": 60,
+  "reason": "CommonScientificState rejected: an explicitUserStatements element lacked required turn provenance and sourceText.",
+  "scenarioId": "I04",
+  "round": "T1",
+  "status": "FAILED"
+}

@@ -1,0 +1,358 @@
+{
+  "configurationId": "PYDANTIC_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "PydanticAI",
+    "pairedFirstOutput": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T2",
+  "scenarioId": "I08",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "ambig_t1_natif_primary",
+        "content": "Whether native T1 will ultimately be adopted as the principal endpoint or criterion of the study remains undecided.",
+        "decisionImpact": "Could determine the principal endpoint of the study.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Native T1 is adopted as primary endpoint",
+          "Native T1 is not adopted as primary endpoint"
+        ],
+        "provenanceTurnIds": [
+          "T0",
+          "R1",
+          "R2"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "clarif_t1_natif_primary",
+        "decisionImpact": "Determines whether native T1 serves as the principal endpoint or remains an exploratory/secondary biomarker.",
+        "priority": "MEDIUM",
+        "question": "Le T1 natif sera-t-il retenu comme critère principal de l'étude ?",
+        "targetIds": [
+          "ambig_t1_natif_primary"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [
+      {
+        "basis": null,
+        "content": "In Fabry disease, native T1 could be of interest before the appearance of fibrosis.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "ctx_fabry_native_t1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose",
+        "temporalContext": "pre-fibrosis stage"
+      }
+    ],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+        "role": "USER",
+        "turnId": "T0"
+      },
+      {
+        "content": "Avez-vous décidé si le T1 natif sera retenu comme critère principal de l'étude ?",
+        "role": "ASSISTANT",
+        "turnId": "Q1"
+      },
+      {
+        "content": "Non",
+        "role": "USER",
+        "turnId": "R1"
+      },
+      {
+        "content": "Le T1 natif sera-t-il finalement retenu comme critère principal de l'étude ?",
+        "role": "ASSISTANT",
+        "turnId": "Q2"
+      },
+      {
+        "content": "Non",
+        "role": "USER",
+        "turnId": "R2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_fabry_t1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose",
+        "temporalContext": "pre-fibrosis stage"
+      },
+      {
+        "basis": null,
+        "content": "I have not decided to make native T1 the main criterion.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_t1_not_primary",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "je n'ai pas décidé d'en faire le critère principal",
+        "temporalContext": "current study design"
+      },
+      {
+        "basis": null,
+        "content": "At Lyon, they also do ECV.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_lyon_ecv",
+        "ownership": "EXTERNAL",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "local practice",
+        "sourceText": "À Lyon ils font aussi de l'ECV",
+        "temporalContext": "current practice"
+      },
+      {
+        "basis": null,
+        "content": "I especially want to find an early marker that is usable in all centers.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_early_marker_goal",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres",
+        "temporalContext": "study design goal"
+      },
+      {
+        "basis": null,
+        "content": "Non",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_not_primary_r1",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "R1"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "Non",
+        "temporalContext": "current"
+      },
+      {
+        "basis": null,
+        "content": "Non",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_not_primary_r2",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "R2"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "Non",
+        "temporalContext": "current"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Final selection of the primary endpoint for the study.",
+        "decisionImpact": "Determines the principal endpoint of the study.",
+        "missingId": "miss_primary_endpoint",
+        "owner": "USER",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": [
+          "T0",
+          "R1",
+          "R2"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Native T1 has not been decided as the main criterion.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "neg_t1_primary",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0",
+          "R1",
+          "R2"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "je n'ai pas décidé d'en faire le critère principal / Non",
+        "temporalContext": "current study design"
+      }
+    ],
+    "normalizedUnderstanding": "The user is investigating Fabry disease, considering native T1 pre-fibrosis and noting ECV measurements in Lyon. The primary goal is to find an early, universally usable marker across all centers. The user has explicitly stated they have not decided to make native T1 the principal endpoint of the study (confirmed twice with 'Non').",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Fabry disease",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_fabry",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "Fabry",
+        "temporalContext": "general"
+      },
+      {
+        "basis": null,
+        "content": "Native T1",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_native_t1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "measurement or biomarker role",
+        "sourceText": "T1 natif",
+        "temporalContext": "general"
+      },
+      {
+        "basis": null,
+        "content": "ECV (Extracellular Volume)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_ecv",
+        "ownership": "EXTERNAL",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "measurement or biomarker role",
+        "sourceText": "ECV",
+        "temporalContext": "Lyon practice"
+      },
+      {
+        "basis": null,
+        "content": "Early marker usable in all centers",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_early_marker",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "marqueur précoce qui soit utilisable dans tous les centres",
+        "temporalContext": "study objective"
+      }
+    ],
+    "originalRequest": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Native T1 could be interesting before fibrosis in Fabry disease.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "own_1"
+      },
+      {
+        "content": "Native T1 has not been decided as the principal criterion.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0",
+          "R1",
+          "R2"
+        ],
+        "statementId": "own_2"
+      },
+      {
+        "content": "At Lyon they also do ECV.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "EXTERNAL",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "own_3"
+      },
+      {
+        "content": "Main goal is to find an early marker usable in all centers.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "own_4"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_native_t1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "is of interest before",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_t1_fibrosis",
+        "sourceText": "le T1 natif pourrait être intéressant avant la fibrose",
+        "subject": "obj_fabry",
+        "temporalContext": "pre-fibrosis"
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_ecv",
+        "ownership": "EXTERNAL",
+        "polarity": "AFFIRMED",
+        "predicate": "is performed at",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_lyon_ecv",
+        "sourceText": "À Lyon ils font aussi de l'ECV",
+        "subject": "obj_ecv",
+        "temporalContext": "current"
+      }
+    ],
+    "scientificGoal": "Find an early, universally usable biomarker across all centers for Fabry disease.",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": false,
+        "content": "Whether native T1 will be chosen as the principal endpoint of the study.",
+        "decisionImpact": "Determines the principal endpoint of the study.",
+        "missingId": "unk_t1_primary",
+        "owner": "USER",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": [
+          "T0",
+          "R1",
+          "R2"
+        ]
+      }
+    ]
+  }
+}

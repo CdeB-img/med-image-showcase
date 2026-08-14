@@ -1,0 +1,20 @@
+{
+  "answers": [
+    {
+      "answer": "Non",
+      "configurationId": "SEM_FULL"
+    },
+    {
+      "answer": "Non",
+      "configurationId": "SEM_SINGLE_PASS"
+    },
+    {
+      "answer": "Non",
+      "configurationId": "PYDANTIC_COMMON_CONTRACT"
+    },
+    {
+      "answer": "Non",
+      "configurationId": "DSPY_COMMON_CONTRACT"
+    }
+  ]
+}

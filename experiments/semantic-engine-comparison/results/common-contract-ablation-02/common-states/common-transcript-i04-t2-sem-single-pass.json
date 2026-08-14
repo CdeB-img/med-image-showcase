@@ -1,0 +1,774 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T2",
+  "scenarioId": "I04",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:44dad2e4e8cfe9be",
+        "content": "Disponibilité hétérogène des séquences avancées entre les centres (Ciné et T1 natif universels, T2 et LGE absents de certains centres, ECV conditionnel).",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": true,
+        "clarificationId": "sem-clarification:1:1f45533213",
+        "decisionImpact": "Le LGE est exclu comme critère principal et le T2 n'est pas disponible partout, laissant le choix du critère principal ouvert.",
+        "priority": "HIGH",
+        "question": "Quel est le critère d'évaluation principal retenu pour l'étude multicentrique en l'absence de disponibilité universelle du T2 et du LGE ?",
+        "targetIds": [
+          "sem-element:ke1-03899c9631139b72",
+          "sem-element:ke1-0686fb334b9349d7",
+          "sem-element:ke1-b01a8aba7016e06e",
+          "sem-element:ke1-d66bf74598ad7959",
+          "sem-element:ke1-e84d65e81331d27c"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "role": "USER",
+        "turnId": "I04:T0"
+      },
+      {
+        "content": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+        "role": "USER",
+        "turnId": "I04:R1"
+      },
+      {
+        "content": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal. L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+        "role": "USER",
+        "turnId": "I04:R2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Paramètre ECV",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-03899c9631139b72",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "ECV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0686fb334b9349d7",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "T1 natif",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-109b7e05a8777951",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:NONE",
+        "sourceText": "la fibrose visible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquences d'imagerie variables selon les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-21f2b6e5d9b49b91",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "séquences",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Intention de détecter l'atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-30b41340624f207c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "détecter",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence T2",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-46c9e7e6543bc83a",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "T2",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Agent de contraste",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-50e61ef8192f34b4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "contraste",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Paramètre hématocrite",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-524b1c65c6bba2e9",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "hématocrite",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du LGE comme critère principal",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5b813a58121a9de4",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "je ne veux pas en faire le critère principal",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b01a8aba7016e06e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "l'atteinte cardiaque précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence ciné",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d66bf74598ad7959",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "cine",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Étude multicentrique impliquant plusieurs centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d94779c2cad27a1e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "plusieurs centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Conditionnalité de l'ECV au contraste et à l'hématocrite",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e83966ddca236211",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "L'ECV est possible seulement si contraste et hématocrite sont disponibles",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence LGE",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e84d65e81331d27c",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "LGE",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": true,
+        "content": "Critère d'évaluation principal retenu pour l'étude",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:fdd9b07ef5355efc",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "HIGH",
+        "provenanceTurnIds": []
+      }
+    ],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Séquence T2",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-46c9e7e6543bc83a",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "T2",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du LGE comme critère principal",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5b813a58121a9de4",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "je ne veux pas en faire le critère principal",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Conditionnalité de l'ECV au contraste et à l'hématocrite",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e83966ddca236211",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "L'ECV est possible seulement si contraste et hématocrite sont disponibles",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence LGE",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e84d65e81331d27c",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "LGE",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans le cadre d'une étude multicentrique avec des disponibilités hétérogènes de séquences (ciné et T1 natif universels, T2 et LGE non disponibles partout et non retenus comme critères principaux, ECV conditionné au contraste et à l'hématocrite).",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Paramètre ECV",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-03899c9631139b72",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "ECV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0686fb334b9349d7",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "T1 natif",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-109b7e05a8777951",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:NONE",
+        "sourceText": "la fibrose visible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquences d'imagerie variables selon les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-21f2b6e5d9b49b91",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "séquences",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Intention de détecter l'atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-30b41340624f207c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "détecter",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence T2",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-46c9e7e6543bc83a",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "T2",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Agent de contraste",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-50e61ef8192f34b4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "contraste",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Paramètre hématocrite",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-524b1c65c6bba2e9",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "hématocrite",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du LGE comme critère principal",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-5b813a58121a9de4",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "je ne veux pas en faire le critère principal",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b01a8aba7016e06e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "l'atteinte cardiaque précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence ciné",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d66bf74598ad7959",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "cine",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Étude multicentrique impliquant plusieurs centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d94779c2cad27a1e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "plusieurs centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Conditionnalité de l'ECV au contraste et à l'hématocrite",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e83966ddca236211",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "L'ECV est possible seulement si contraste et hématocrite sont disponibles",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Séquence LGE",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e84d65e81331d27c",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "LGE",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Paramètre ECV",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-03899c9631139b72"
+      },
+      {
+        "content": "Séquence T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-0686fb334b9349d7"
+      },
+      {
+        "content": "Fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-109b7e05a8777951"
+      },
+      {
+        "content": "Séquences d'imagerie variables selon les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-21f2b6e5d9b49b91"
+      },
+      {
+        "content": "Intention de détecter l'atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-30b41340624f207c"
+      },
+      {
+        "content": "Séquence T2",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-46c9e7e6543bc83a"
+      },
+      {
+        "content": "Agent de contraste",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-50e61ef8192f34b4"
+      },
+      {
+        "content": "Paramètre hématocrite",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-524b1c65c6bba2e9"
+      },
+      {
+        "content": "Exclusion du LGE comme critère principal",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-5b813a58121a9de4"
+      },
+      {
+        "content": "Atteinte cardiaque précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b01a8aba7016e06e"
+      },
+      {
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b4c3c91b3ce8d0af"
+      },
+      {
+        "content": "Séquence ciné",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-d66bf74598ad7959"
+      },
+      {
+        "content": "Étude multicentrique impliquant plusieurs centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-d94779c2cad27a1e"
+      },
+      {
+        "content": "Conditionnalité de l'ECV au contraste et à l'hématocrite",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-e83966ddca236211"
+      },
+      {
+        "content": "Séquence LGE",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "statementId": "ownership:sem-element:ke1-e84d65e81331d27c"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Paramètre ECV",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "predicate": "CONDITIONAL_ON",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-0d8ca738a76e68e4",
+        "sourceText": null,
+        "subject": "Conditionnalité de l'ECV au contraste et à l'hématocrite",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Fibrose visible",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "PRECEDES",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-19b53722bc21738e",
+        "sourceText": null,
+        "subject": "Atteinte cardiaque précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Atteinte cardiaque précoce",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "AIMS_TO_OBSERVE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-69bc53a9548f7245",
+        "sourceText": null,
+        "subject": "Intention de détecter l'atteinte cardiaque précoce",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Séquence LGE",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "EXCLUDES_FROM_ENDPOINT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-73a64eee72fe84d2",
+        "sourceText": null,
+        "subject": "Exclusion du LGE comme critère principal",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Maladie de Fabry",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-8452cd6d33e50e29",
+        "sourceText": null,
+        "subject": "Atteinte cardiaque précoce",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Intention de détecter l'atteinte cardiaque précoce",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": true,
+        "content": "Critère d'évaluation principal retenu pour l'étude",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:fdd9b07ef5355efc",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "HIGH",
+        "provenanceTurnIds": []
+      }
+    ]
+  }
+}

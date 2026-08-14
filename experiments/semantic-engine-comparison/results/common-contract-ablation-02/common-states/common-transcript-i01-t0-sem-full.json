@@ -1,0 +1,291 @@
+{
+  "configurationId": "SEM_FULL",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": true,
+    "pairedFirstReconstruction": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I01",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "I01:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Magnetic resonance imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-3944579344f8e407",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Immediate stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4d26d13a6c9989f6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "le stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7377740c719bb0c8",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "les lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "User intent to compare interventions and observe lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-91cf5aa379f8eaef",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "Je veux",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Myocardial infarction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b6c20eed741fa9d1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "l'infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Delayed stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d5f711cbc470528f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "INTERVENTION:COMPARATOR_ARM",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "Comparison of immediate stenting versus delayed stenting in myocardial infarction, observing lesions using MRI.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Magnetic resonance imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-3944579344f8e407",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Immediate stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4d26d13a6c9989f6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "le stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7377740c719bb0c8",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "les lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "User intent to compare interventions and observe lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-91cf5aa379f8eaef",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "Je veux",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Myocardial infarction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b6c20eed741fa9d1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "l'infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Delayed stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d5f711cbc470528f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "INTERVENTION:COMPARATOR_ARM",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Magnetic resonance imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-3944579344f8e407"
+      },
+      {
+        "content": "Immediate stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-4d26d13a6c9989f6"
+      },
+      {
+        "content": "Lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-7377740c719bb0c8"
+      },
+      {
+        "content": "User intent to compare interventions and observe lesions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-91cf5aa379f8eaef"
+      },
+      {
+        "content": "Myocardial infarction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b6c20eed741fa9d1"
+      },
+      {
+        "content": "Delayed stenting",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-d5f711cbc470528f"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Delayed stenting",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "COMPARES_WITH",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-b625b8d792d82ab3",
+        "sourceText": null,
+        "subject": "Immediate stenting",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Lesions",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "OBSERVES",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-ce4892e4379272b8",
+        "sourceText": null,
+        "subject": "Magnetic resonance imaging",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "User intent to compare interventions and observe lesions",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

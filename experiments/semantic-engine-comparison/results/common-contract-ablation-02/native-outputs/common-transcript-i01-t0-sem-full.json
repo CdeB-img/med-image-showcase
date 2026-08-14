@@ -1,0 +1,2293 @@
+{
+  "criticCycles": {
+    "accepted": true,
+    "attempts": [
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 4178,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T08:45:21.826Z",
+        "requestStarted": "2026-08-14T08:45:17.648Z",
+        "retryable": false
+      },
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 3373,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T08:45:25.204Z",
+        "requestStarted": "2026-08-14T08:45:21.831Z",
+        "retryable": false
+      }
+    ],
+    "callIds": [
+      "gemini-call:ke1-c5fb1eb04154dba4",
+      "gemini-call:ke1-042b7f3ca8cd6408"
+    ],
+    "candidate": {
+      "ambiguities": [],
+      "candidateId": "cand-001",
+      "clarificationCandidates": [],
+      "contradictions": [],
+      "elements": [
+        {
+          "canonicalMeaning": "User intent to compare interventions and observe lesions",
+          "clientElementId": "elem-01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-01"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I01:T0",
+          "sourceText": "Je veux",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_INTENT"
+        },
+        {
+          "canonicalMeaning": "Immediate stenting",
+          "clientElementId": "elem-02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-03"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I01:T0",
+          "sourceText": "le stent immédiat",
+          "studyRole": "INTERVENTION_ARM",
+          "supersedesElementIds": [],
+          "type": "INTERVENTION"
+        },
+        {
+          "canonicalMeaning": "Delayed stenting",
+          "clientElementId": "elem-03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-04"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I01:T0",
+          "sourceText": "stent différé",
+          "studyRole": "COMPARATOR_ARM",
+          "supersedesElementIds": [],
+          "type": "INTERVENTION"
+        },
+        {
+          "canonicalMeaning": "Myocardial infarction",
+          "clientElementId": "elem-04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-05"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I01:T0",
+          "sourceText": "l'infarctus",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONDITION"
+        },
+        {
+          "canonicalMeaning": "Lesions",
+          "clientElementId": "elem-05",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-07"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I01:T0",
+          "sourceText": "les lésions",
+          "studyRole": "SUBJECT",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_OBJECT"
+        },
+        {
+          "canonicalMeaning": "Magnetic resonance imaging",
+          "clientElementId": "elem-06",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-08"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I01:T0",
+          "sourceText": "IRM",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "MODALITY"
+        }
+      ],
+      "ellipses": [],
+      "knowledgeRequests": [],
+      "language": "fr",
+      "missingConcepts": [],
+      "normalizedMeaning": "Comparison of immediate stenting versus delayed stenting in myocardial infarction, observing lesions using MRI.",
+      "relations": [
+        {
+          "clientRelationId": "rel-01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-inv-01",
+            "rel-inv-02"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "COMPARES_WITH",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-02",
+          "targetClientElementId": "elem-03"
+        },
+        {
+          "clientRelationId": "rel-02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-inv-03"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "OBSERVES",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-06",
+          "targetClientElementId": "elem-05"
+        }
+      ],
+      "routeProposal": {
+        "confidence": 0.95,
+        "expectedCapabilities": [
+          "Define study population",
+          "Specify primary endpoints",
+          "Establish timing and follow-up"
+        ],
+        "reason": "The user is setting up a comparison between two interventional arms in a specific clinical condition with an observation method.",
+        "route": "DESIGN_STUDY"
+      },
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv-01",
+            "linkedInventoryItemIds": [
+              "inv-02",
+              "inv-03",
+              "inv-04",
+              "inv-05",
+              "inv-06"
+            ],
+            "localRole": "intent",
+            "modifiers": [],
+            "normalizedLabel": "Je veux",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "Je veux"
+          },
+          {
+            "inventoryItemId": "inv-02",
+            "linkedInventoryItemIds": [
+              "inv-03",
+              "inv-04"
+            ],
+            "localRole": "action",
+            "modifiers": [],
+            "normalizedLabel": "comparer",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "comparer"
+          },
+          {
+            "inventoryItemId": "inv-03",
+            "linkedInventoryItemIds": [],
+            "localRole": "intervention",
+            "modifiers": [
+              "immédiat"
+            ],
+            "normalizedLabel": "stent immédiat",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "le stent immédiat"
+          },
+          {
+            "inventoryItemId": "inv-04",
+            "linkedInventoryItemIds": [],
+            "localRole": "intervention",
+            "modifiers": [
+              "différé"
+            ],
+            "normalizedLabel": "stent différé",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "stent différé"
+          },
+          {
+            "inventoryItemId": "inv-05",
+            "linkedInventoryItemIds": [],
+            "localRole": "condition",
+            "modifiers": [],
+            "normalizedLabel": "infarctus",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "l'infarctus"
+          },
+          {
+            "inventoryItemId": "inv-06",
+            "linkedInventoryItemIds": [
+              "inv-07",
+              "inv-08"
+            ],
+            "localRole": "action",
+            "modifiers": [],
+            "normalizedLabel": "voir",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "voir"
+          },
+          {
+            "inventoryItemId": "inv-07",
+            "linkedInventoryItemIds": [],
+            "localRole": "object",
+            "modifiers": [],
+            "normalizedLabel": "lésions",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "les lésions"
+          },
+          {
+            "inventoryItemId": "inv-08",
+            "linkedInventoryItemIds": [],
+            "localRole": "method",
+            "modifiers": [],
+            "normalizedLabel": "IRM",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "IRM"
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel-inv-01",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-02",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "comparer le stent immédiat au stent différé",
+            "targetInventoryItemId": "inv-03"
+          },
+          {
+            "inventoryRelationId": "rel-inv-02",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-02",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "comparer le stent immédiat au stent différé",
+            "targetInventoryItemId": "inv-04"
+          },
+          {
+            "inventoryRelationId": "rel-inv-03",
+            "normalizedRelation": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-08",
+            "sourceMessageId": "I01:T0",
+            "sourceText": "voir les lésions en IRM",
+            "targetInventoryItemId": "inv-07"
+          }
+        ]
+      },
+      "semanticWarnings": [],
+      "summaryForUser": "Comparaison entre stent immédiat et stent différé dans l'infarctus, avec observation des lésions par IRM.",
+      "unknowns": []
+    },
+    "critics": [
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit objects and conditions are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "Both immediate and delayed stenting arms are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Intervention arms are correctly captured.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "IRM is typed as METHOD instead of MODALITY in accordance with the deterministic taxonomy findings.",
+            "result": "FAIL"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are properly mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "The deterministic taxonomy finding flags elem-06 as MODALITY instead of METHOD.",
+            "result": "FAIL"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences are improperly promoted.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No ambiguities are hidden.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Timings/modifiers like immediate and delayed are captured.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No endpoints promoted without criteria.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Concepts maintain correct specificity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No explicit source fragments are missing.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY route matches the complete semantic model.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "crit-001",
+        "criticSummary": "The candidate is well-formed except for a type mismatch where the broad imaging modality IRM was classified as a METHOD. A bounded repair (UPSERT_ELEMENT) corrects this to MODALITY.",
+        "issues": [
+          {
+            "code": "TYPE_MISMATCH",
+            "description": "Broad imaging family IRM is incorrectly typed as METHOD.",
+            "elementClientIds": [
+              "elem-06"
+            ],
+            "recommendedAction": "Update element type to MODALITY via UPSERT_ELEMENT.",
+            "resolved": false,
+            "severity": "CRITICAL"
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [
+          {
+            "action": "UPSERT_ELEMENT",
+            "ambiguity": null,
+            "elementCanonicalMeaning": "Magnetic resonance imaging",
+            "elementClientElementId": "elem-06",
+            "elementConfidence": 1,
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [
+              "inv-08"
+            ],
+            "elementPolarity": "AFFIRMED",
+            "elementRequiresConfirmation": false,
+            "elementSourceMessageId": "I01:T0",
+            "elementSourceText": "IRM",
+            "elementStudyRole": "MEASUREMENT",
+            "elementSupersedesElementIds": [],
+            "elementType": "MODALITY",
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryPolarity": null,
+            "inventoryRelationId": null,
+            "inventoryRelationPolarity": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryRelationTargetItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Correct element type for IRM from METHOD to MODALITY per deterministic taxonomy finding.",
+            "relationClientRelationId": null,
+            "relationConfidence": null,
+            "relationEpistemicStatus": null,
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [],
+            "relationPolarity": null,
+            "relationRequiresConfirmation": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "repairId": "rep-01",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv-08"
+            ],
+            "sourceInventoryRelationIds": []
+          }
+        ],
+        "verdict": "REVISE"
+      },
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit fragments including stent immédiat, stent différé, infarctus, lésions, and IRM are successfully mapped to elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "Immediate stenting and delayed stenting are correctly represented with appropriate intervention and comparator study roles and relation.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Both immediate and delayed stenting interventions are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "MRI (IRM) is accurately represented as a modality.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are mapped to direct explicit semantic relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types adhere to the operational taxonomy without any violations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened or converted to inferences.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "All elements and relations are user-stated or properly grounded without false promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No ambiguities were concealed.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No explicit timings were present, hence no timing lost.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No outcome was prematurely promoted to an endpoint without explicit criteria.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like immediate vs delayed stent and MRI are faithfully preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "The missing explicit source fragments list is empty.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "The routing rule DESIGN_STUDY perfectly matches the study comparison setup.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-02",
+        "criticSummary": "The semantic model and typed candidate are fully compliant, accurate, and completely cover all explicit elements and relations without any critical or minor errors. All checks pass successfully.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      }
+    ],
+    "cycleAttempts": [
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 4178,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:45:21.826Z",
+          "requestStarted": "2026-08-14T08:45:17.648Z",
+          "retryable": false
+        }
+      ],
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3373,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:45:25.204Z",
+          "requestStarted": "2026-08-14T08:45:21.831Z",
+          "retryable": false
+        }
+      ]
+    ],
+    "repairDiagnostics": [
+      {
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED",
+        "repairId": "rep-01",
+        "status": "ACCEPTED"
+      }
+    ],
+    "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+  },
+  "initialReconstruction": {
+    "ambiguities": [],
+    "candidateId": "cand-001",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "User intent to compare interventions and observe lesions",
+        "clientElementId": "elem-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "Je veux",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Immediate stenting",
+        "clientElementId": "elem-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "le stent immédiat",
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION"
+      },
+      {
+        "canonicalMeaning": "Delayed stenting",
+        "clientElementId": "elem-03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "stent différé",
+        "studyRole": "COMPARATOR_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION"
+      },
+      {
+        "canonicalMeaning": "Myocardial infarction",
+        "clientElementId": "elem-04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "l'infarctus",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Lesions",
+        "clientElementId": "elem-05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "les lésions",
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT"
+      },
+      {
+        "canonicalMeaning": "Magnetic resonance imaging",
+        "clientElementId": "elem-06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "IRM",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "Comparison of immediate stenting versus delayed stenting in myocardial infarction, observing lesions using MRI.",
+    "relations": [
+      {
+        "clientRelationId": "rel-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-01",
+          "rel-inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "COMPARES_WITH",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-02",
+        "targetClientElementId": "elem-03"
+      },
+      {
+        "clientRelationId": "rel-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-06",
+        "targetClientElementId": "elem-05"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Define study population",
+        "Specify primary endpoints",
+        "Establish timing and follow-up"
+      ],
+      "reason": "The user is setting up a comparison between two interventional arms in a specific clinical condition with an observation method.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv-01",
+          "linkedInventoryItemIds": [
+            "inv-02",
+            "inv-03",
+            "inv-04",
+            "inv-05",
+            "inv-06"
+          ],
+          "localRole": "intent",
+          "modifiers": [],
+          "normalizedLabel": "Je veux",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "Je veux"
+        },
+        {
+          "inventoryItemId": "inv-02",
+          "linkedInventoryItemIds": [
+            "inv-03",
+            "inv-04"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "comparer",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "comparer"
+        },
+        {
+          "inventoryItemId": "inv-03",
+          "linkedInventoryItemIds": [],
+          "localRole": "intervention",
+          "modifiers": [
+            "immédiat"
+          ],
+          "normalizedLabel": "stent immédiat",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "le stent immédiat"
+        },
+        {
+          "inventoryItemId": "inv-04",
+          "linkedInventoryItemIds": [],
+          "localRole": "intervention",
+          "modifiers": [
+            "différé"
+          ],
+          "normalizedLabel": "stent différé",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "stent différé"
+        },
+        {
+          "inventoryItemId": "inv-05",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "infarctus",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "l'infarctus"
+        },
+        {
+          "inventoryItemId": "inv-06",
+          "linkedInventoryItemIds": [
+            "inv-07",
+            "inv-08"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "voir",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "voir"
+        },
+        {
+          "inventoryItemId": "inv-07",
+          "linkedInventoryItemIds": [],
+          "localRole": "object",
+          "modifiers": [],
+          "normalizedLabel": "lésions",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "les lésions"
+        },
+        {
+          "inventoryItemId": "inv-08",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "IRM",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "IRM"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel-inv-01",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "comparer le stent immédiat au stent différé",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "inventoryRelationId": "rel-inv-02",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "comparer le stent immédiat au stent différé",
+          "targetInventoryItemId": "inv-04"
+        },
+        {
+          "inventoryRelationId": "rel-inv-03",
+          "normalizedRelation": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-08",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "voir les lésions en IRM",
+          "targetInventoryItemId": "inv-07"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Comparaison entre stent immédiat et stent différé dans l'infarctus, avec observation des lésions par IRM.",
+    "unknowns": []
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I01:T0"
+    ],
+    "createdAt": "2026-08-14T08:45:25.204Z",
+    "critic": {
+      "issues": [],
+      "summary": "The semantic model and typed candidate are fully compliant, accurate, and completely cover all explicit elements and relations without any critical or minor errors. All checks pass successfully.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-bc4a96bee718bfa2",
+    "elements": [
+      {
+        "canonicalMeaning": "Magnetic resonance imaging",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I01:T0",
+          "providerCallId": "gemini-call:ke1-1b173d5c115212c8",
+          "rawElementId": "elem-06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-ce4892e4379272b8"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-3944579344f8e407",
+        "sourceSpan": {
+          "end": 95,
+          "messageId": "I01:T0",
+          "start": 92,
+          "text": "IRM"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Immediate stenting",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I01:T0",
+          "providerCallId": "gemini-call:ke1-1b173d5c115212c8",
+          "rawElementId": "elem-02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-b625b8d792d82ab3"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-4d26d13a6c9989f6",
+        "sourceSpan": {
+          "end": 34,
+          "messageId": "I01:T0",
+          "start": 17,
+          "text": "le stent immédiat"
+        },
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Lesions",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-07"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I01:T0",
+          "providerCallId": "gemini-call:ke1-1b173d5c115212c8",
+          "rawElementId": "elem-05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-ce4892e4379272b8"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-7377740c719bb0c8",
+        "sourceSpan": {
+          "end": 88,
+          "messageId": "I01:T0",
+          "start": 77,
+          "text": "les lésions"
+        },
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "User intent to compare interventions and observe lesions",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I01:T0",
+          "providerCallId": "gemini-call:ke1-1b173d5c115212c8",
+          "rawElementId": "elem-01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-91cf5aa379f8eaef",
+        "sourceSpan": {
+          "end": 7,
+          "messageId": "I01:T0",
+          "start": 0,
+          "text": "Je veux"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Myocardial infarction",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I01:T0",
+          "providerCallId": "gemini-call:ke1-1b173d5c115212c8",
+          "rawElementId": "elem-04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b6c20eed741fa9d1",
+        "sourceSpan": {
+          "end": 68,
+          "messageId": "I01:T0",
+          "start": 57,
+          "text": "l'infarctus"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Delayed stenting",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I01:T0",
+          "providerCallId": "gemini-call:ke1-1b173d5c115212c8",
+          "rawElementId": "elem-03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-b625b8d792d82ab3"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-d5f711cbc470528f",
+        "sourceSpan": {
+          "end": 51,
+          "messageId": "I01:T0",
+          "start": 38,
+          "text": "stent différé"
+        },
+        "studyRole": "COMPARATOR_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 4178,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:45:21.826Z",
+          "requestStarted": "2026-08-14T08:45:17.648Z",
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3373,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:45:25.204Z",
+          "requestStarted": "2026-08-14T08:45:21.831Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-042b7f3ca8cd6408",
+      "criticCallIds": [
+        "gemini-call:ke1-c5fb1eb04154dba4",
+        "gemini-call:ke1-042b7f3ca8cd6408"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T08:45:25.204Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit fragments including stent immédiat, stent différé, infarctus, lésions, and IRM are successfully mapped to elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "Immediate stenting and delayed stenting are correctly represented with appropriate intervention and comparator study roles and relation.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Both immediate and delayed stenting interventions are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "MRI (IRM) is accurately represented as a modality.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are mapped to direct explicit semantic relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types adhere to the operational taxonomy without any violations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened or converted to inferences.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "All elements and relations are user-stated or properly grounded without false promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "No ambiguities were concealed.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No explicit timings were present, hence no timing lost.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "No outcome was prematurely promoted to an endpoint without explicit criteria.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like immediate vs delayed stent and MRI are faithfully preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "The missing explicit source fragments list is empty.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "The routing rule DESIGN_STUDY perfectly matches the study comparison setup.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-02",
+        "criticSummary": "The semantic model and typed candidate are fully compliant, accurate, and completely cover all explicit elements and relations without any critical or minor errors. All checks pass successfully.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit objects and conditions are fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "Both immediate and delayed stenting arms are represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Intervention arms are correctly captured.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "IRM is typed as METHOD instead of MODALITY in accordance with the deterministic taxonomy findings.",
+              "result": "FAIL"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are properly mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "The deterministic taxonomy finding flags elem-06 as MODALITY instead of METHOD.",
+              "result": "FAIL"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relations were weakened.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No inferences are improperly promoted.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No ambiguities are hidden.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are correctly preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Timings/modifiers like immediate and delayed are captured.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No endpoints promoted without criteria.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Concepts maintain correct specificity.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "No explicit source fragments are missing.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY route matches the complete semantic model.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "crit-001",
+          "criticSummary": "The candidate is well-formed except for a type mismatch where the broad imaging modality IRM was classified as a METHOD. A bounded repair (UPSERT_ELEMENT) corrects this to MODALITY.",
+          "issues": [
+            {
+              "code": "TYPE_MISMATCH",
+              "description": "Broad imaging family IRM is incorrectly typed as METHOD.",
+              "elementClientIds": [
+                "elem-06"
+              ],
+              "recommendedAction": "Update element type to MODALITY via UPSERT_ELEMENT.",
+              "resolved": false,
+              "severity": "CRITICAL"
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "Magnetic resonance imaging",
+              "elementClientElementId": "elem-06",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "inv-08"
+              ],
+              "elementPolarity": "AFFIRMED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I01:T0",
+              "elementSourceText": "IRM",
+              "elementStudyRole": "MEASUREMENT",
+              "elementSupersedesElementIds": [],
+              "elementType": "MODALITY",
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Correct element type for IRM from METHOD to MODALITY per deterministic taxonomy finding.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep-01",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv-08"
+              ],
+              "sourceInventoryRelationIds": []
+            }
+          ],
+          "verdict": "REVISE"
+        },
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit fragments including stent immédiat, stent différé, infarctus, lésions, and IRM are successfully mapped to elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "Immediate stenting and delayed stenting are correctly represented with appropriate intervention and comparator study roles and relation.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Both immediate and delayed stenting interventions are represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "MRI (IRM) is accurately represented as a modality.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are mapped to direct explicit semantic relations.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All element types adhere to the operational taxonomy without any violations.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relations were weakened or converted to inferences.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "All elements and relations are user-stated or properly grounded without false promotion.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "No ambiguities were concealed.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are correctly preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "No explicit timings were present, hence no timing lost.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "No outcome was prematurely promoted to an endpoint without explicit criteria.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts like immediate vs delayed stent and MRI are faithfully preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "The missing explicit source fragments list is empty.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "The routing rule DESIGN_STUDY perfectly matches the study comparison setup.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-02",
+          "criticSummary": "The semantic model and typed candidate are fully compliant, accurate, and completely cover all explicit elements and relations without any critical or minor errors. All checks pass successfully.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "User intent to compare interventions and observe lesions",
+            "clientElementId": "elem-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I01:T0",
+            "sourceText": "Je veux",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Immediate stenting",
+            "clientElementId": "elem-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I01:T0",
+            "sourceText": "le stent immédiat",
+            "studyRole": "INTERVENTION_ARM",
+            "supersedesElementIds": [],
+            "type": "INTERVENTION"
+          },
+          {
+            "canonicalMeaning": "Delayed stenting",
+            "clientElementId": "elem-03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-04"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I01:T0",
+            "sourceText": "stent différé",
+            "studyRole": "COMPARATOR_ARM",
+            "supersedesElementIds": [],
+            "type": "INTERVENTION"
+          },
+          {
+            "canonicalMeaning": "Myocardial infarction",
+            "clientElementId": "elem-04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-05"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I01:T0",
+            "sourceText": "l'infarctus",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONDITION"
+          },
+          {
+            "canonicalMeaning": "Lesions",
+            "clientElementId": "elem-05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-07"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I01:T0",
+            "sourceText": "les lésions",
+            "studyRole": "SUBJECT",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_OBJECT"
+          },
+          {
+            "canonicalMeaning": "Magnetic resonance imaging",
+            "clientElementId": "elem-06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-08"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I01:T0",
+            "sourceText": "IRM",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "Comparison of immediate stenting versus delayed stenting in myocardial infarction, observing lesions using MRI.",
+        "relations": [
+          {
+            "clientRelationId": "rel-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-01",
+              "rel-inv-02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "COMPARES_WITH",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-03"
+          },
+          {
+            "clientRelationId": "rel-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "OBSERVES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-06",
+            "targetClientElementId": "elem-05"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.95,
+          "expectedCapabilities": [
+            "Define study population",
+            "Specify primary endpoints",
+            "Establish timing and follow-up"
+          ],
+          "reason": "The user is setting up a comparison between two interventional arms in a specific clinical condition with an observation method.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-01",
+              "linkedInventoryItemIds": [
+                "inv-02",
+                "inv-03",
+                "inv-04",
+                "inv-05",
+                "inv-06"
+              ],
+              "localRole": "intent",
+              "modifiers": [],
+              "normalizedLabel": "Je veux",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "Je veux"
+            },
+            {
+              "inventoryItemId": "inv-02",
+              "linkedInventoryItemIds": [
+                "inv-03",
+                "inv-04"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "comparer",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "comparer"
+            },
+            {
+              "inventoryItemId": "inv-03",
+              "linkedInventoryItemIds": [],
+              "localRole": "intervention",
+              "modifiers": [
+                "immédiat"
+              ],
+              "normalizedLabel": "stent immédiat",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "le stent immédiat"
+            },
+            {
+              "inventoryItemId": "inv-04",
+              "linkedInventoryItemIds": [],
+              "localRole": "intervention",
+              "modifiers": [
+                "différé"
+              ],
+              "normalizedLabel": "stent différé",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "stent différé"
+            },
+            {
+              "inventoryItemId": "inv-05",
+              "linkedInventoryItemIds": [],
+              "localRole": "condition",
+              "modifiers": [],
+              "normalizedLabel": "infarctus",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "l'infarctus"
+            },
+            {
+              "inventoryItemId": "inv-06",
+              "linkedInventoryItemIds": [
+                "inv-07",
+                "inv-08"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "voir",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "voir"
+            },
+            {
+              "inventoryItemId": "inv-07",
+              "linkedInventoryItemIds": [],
+              "localRole": "object",
+              "modifiers": [],
+              "normalizedLabel": "lésions",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "les lésions"
+            },
+            {
+              "inventoryItemId": "inv-08",
+              "linkedInventoryItemIds": [],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "IRM",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "IRM"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-01",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-02",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "comparer le stent immédiat au stent différé",
+              "targetInventoryItemId": "inv-03"
+            },
+            {
+              "inventoryRelationId": "rel-inv-02",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-02",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "comparer le stent immédiat au stent différé",
+              "targetInventoryItemId": "inv-04"
+            },
+            {
+              "inventoryRelationId": "rel-inv-03",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-08",
+              "sourceMessageId": "I01:T0",
+              "sourceText": "voir les lésions en IRM",
+              "targetInventoryItemId": "inv-07"
+            }
+          ]
+        },
+        "semanticWarnings": [],
+        "summaryForUser": "Comparaison entre stent immédiat et stent différé dans l'infarctus, avec observation des lésions par IRM.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 6873,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:45:17.626Z",
+          "requestStarted": "2026-08-14T08:45:10.753Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-1b173d5c115212c8",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-01",
+          "mappedClientElementIds": [
+            "elem-01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "Je veux",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "Je veux"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-02",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-01"
+          ],
+          "normalizedMeaning": "comparer",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node.",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "comparer"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-03",
+          "mappedClientElementIds": [
+            "elem-02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "stent immédiat",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "le stent immédiat"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-04",
+          "mappedClientElementIds": [
+            "elem-03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "stent différé",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "stent différé"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-05",
+          "mappedClientElementIds": [
+            "elem-04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "infarctus",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "l'infarctus"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-06",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel-02"
+          ],
+          "normalizedMeaning": "voir",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node.",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "voir"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-07",
+          "mappedClientElementIds": [
+            "elem-05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "lésions",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "les lésions"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-08",
+          "mappedClientElementIds": [
+            "elem-06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "IRM",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "IRM"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "Comparison of immediate stenting versus delayed stenting in myocardial infarction, observing lesions using MRI.",
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-01",
+          "mappedClientRelationIds": [
+            "rel-01"
+          ],
+          "normalizedRelation": "COMPARES_WITH",
+          "reason": "The functional relation hub is preserved by a direct explicit Semantic Relation between its linked scientific endpoints; a relation-as-object node is not required.",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-02",
+          "mappedClientRelationIds": [
+            "rel-01"
+          ],
+          "normalizedRelation": "COMPARES_WITH",
+          "reason": "The functional relation hub is preserved by a direct explicit Semantic Relation between its linked scientific endpoints; a relation-as-object node is not required.",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-03",
+          "mappedClientRelationIds": [
+            "rel-02"
+          ],
+          "normalizedRelation": "OBSERVES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-08",
+          "targetInventoryItemId": "inv-07"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-01",
+          "rel-inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "COMPARES_WITH",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-b625b8d792d82ab3",
+        "sourceElementId": "sem-element:ke1-4d26d13a6c9989f6",
+        "targetElementId": "sem-element:ke1-d5f711cbc470528f",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-ce4892e4379272b8",
+        "sourceElementId": "sem-element:ke1-3944579344f8e407",
+        "targetElementId": "sem-element:ke1-7377740c719bb0c8",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Define study population",
+        "Establish timing and follow-up",
+        "Specify primary endpoints"
+      ],
+      "reason": "The user is setting up a comparison between two interventional arms in a specific clinical condition with an observation method.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-475f31be478cae72",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Comparaison entre stent immédiat et stent différé dans l'infarctus, avec observation des lésions par IRM.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T08:45:25.204Z"
+  },
+  "pairedFirstReconstruction": true,
+  "postCriticCandidate": {
+    "ambiguities": [],
+    "candidateId": "cand-001",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "User intent to compare interventions and observe lesions",
+        "clientElementId": "elem-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "Je veux",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Immediate stenting",
+        "clientElementId": "elem-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "le stent immédiat",
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION"
+      },
+      {
+        "canonicalMeaning": "Delayed stenting",
+        "clientElementId": "elem-03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "stent différé",
+        "studyRole": "COMPARATOR_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION"
+      },
+      {
+        "canonicalMeaning": "Myocardial infarction",
+        "clientElementId": "elem-04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "l'infarctus",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Lesions",
+        "clientElementId": "elem-05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "les lésions",
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT"
+      },
+      {
+        "canonicalMeaning": "Magnetic resonance imaging",
+        "clientElementId": "elem-06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I01:T0",
+        "sourceText": "IRM",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "Comparison of immediate stenting versus delayed stenting in myocardial infarction, observing lesions using MRI.",
+    "relations": [
+      {
+        "clientRelationId": "rel-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-01",
+          "rel-inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "COMPARES_WITH",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-02",
+        "targetClientElementId": "elem-03"
+      },
+      {
+        "clientRelationId": "rel-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "OBSERVES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-06",
+        "targetClientElementId": "elem-05"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Define study population",
+        "Specify primary endpoints",
+        "Establish timing and follow-up"
+      ],
+      "reason": "The user is setting up a comparison between two interventional arms in a specific clinical condition with an observation method.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv-01",
+          "linkedInventoryItemIds": [
+            "inv-02",
+            "inv-03",
+            "inv-04",
+            "inv-05",
+            "inv-06"
+          ],
+          "localRole": "intent",
+          "modifiers": [],
+          "normalizedLabel": "Je veux",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "Je veux"
+        },
+        {
+          "inventoryItemId": "inv-02",
+          "linkedInventoryItemIds": [
+            "inv-03",
+            "inv-04"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "comparer",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "comparer"
+        },
+        {
+          "inventoryItemId": "inv-03",
+          "linkedInventoryItemIds": [],
+          "localRole": "intervention",
+          "modifiers": [
+            "immédiat"
+          ],
+          "normalizedLabel": "stent immédiat",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "le stent immédiat"
+        },
+        {
+          "inventoryItemId": "inv-04",
+          "linkedInventoryItemIds": [],
+          "localRole": "intervention",
+          "modifiers": [
+            "différé"
+          ],
+          "normalizedLabel": "stent différé",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "stent différé"
+        },
+        {
+          "inventoryItemId": "inv-05",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "infarctus",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "l'infarctus"
+        },
+        {
+          "inventoryItemId": "inv-06",
+          "linkedInventoryItemIds": [
+            "inv-07",
+            "inv-08"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "voir",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "voir"
+        },
+        {
+          "inventoryItemId": "inv-07",
+          "linkedInventoryItemIds": [],
+          "localRole": "object",
+          "modifiers": [],
+          "normalizedLabel": "lésions",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "les lésions"
+        },
+        {
+          "inventoryItemId": "inv-08",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "IRM",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "IRM"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel-inv-01",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "comparer le stent immédiat au stent différé",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "inventoryRelationId": "rel-inv-02",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "comparer le stent immédiat au stent différé",
+          "targetInventoryItemId": "inv-04"
+        },
+        {
+          "inventoryRelationId": "rel-inv-03",
+          "normalizedRelation": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-08",
+          "sourceMessageId": "I01:T0",
+          "sourceText": "voir les lésions en IRM",
+          "targetInventoryItemId": "inv-07"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Comparaison entre stent immédiat et stent différé dans l'infarctus, avec observation des lésions par IRM.",
+    "unknowns": []
+  },
+  "semanticCriticExecuted": true,
+  "status": "SUCCESS"
+}

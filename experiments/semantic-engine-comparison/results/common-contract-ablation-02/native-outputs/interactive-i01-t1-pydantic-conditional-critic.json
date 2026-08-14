@@ -1,0 +1,68 @@
+{
+  "criticOutput": null,
+  "criticTrigger": {
+    "reasons": [],
+    "required": false
+  },
+  "firstOutput": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "content": "Comparaison du stent immédiat au stent différé dans l'infarctus du myocarde avec évaluation des lésions par IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "E01",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "STUDY_OBJECTIVE",
+        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "temporalContext": "CURRENT"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Précision sur le type d'infarctus (STEMI vs NSTEMI) ou le délai exact envisagé pour le stent différé.",
+        "decisionImpact": "Précision du protocole et des critères d'inclusion.",
+        "missingId": "M01",
+        "owner": "USER",
+        "priority": "LOW",
+        "provenanceTurnIds": [
+          "T0"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "L'utilisateur souhaite mener une étude comparant l'angioplastie avec stenting immédiat versus stenting différé chez des patients présentant un infarctus du myocarde, avec une évaluation par imagerie par résonance magnétique (IRM) cardiaque des lésions.",
+    "objects": [],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Comparaison stent immédiat vs stent différé dans l'infarctus avec évaluation IRM des lésions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [],
+        "statementId": "S01"
+      }
+    ],
+    "relations": [],
+    "scientificGoal": "Comparer l'efficacité et les résultats (via IRM) du stenting immédiat versus différé dans le contexte de l'infarctus du myocarde.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

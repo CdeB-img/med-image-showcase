@@ -1,0 +1,310 @@
+{
+  "branches": {
+    "DSPY_COMMON_CONTRACT": {
+      "askedQuestions": [
+        "avez-vous choisi un critère principal pour l'étude parmi les marqueurs envisagés ?",
+        "quel marqueur envisagez-vous finalement comme critère principal pour l'étude ?"
+      ],
+      "configurationId": "DSPY_COMMON_CONTRACT",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "CLAR_1",
+            "decisionImpact": "Determines the principal endpoint and decisive comparison for the project.",
+            "priority": "HIGH",
+            "question": "Avez-vous choisi un critère principal pour l'étude parmi les marqueurs envisagés ?",
+            "targetIds": [
+              "ITEM_2"
+            ]
+          }
+        },
+        {
+          "round": "T1",
+          "selection": {
+            "blocking": true,
+            "clarificationId": "clarif_main_criterion",
+            "decisionImpact": "Nécessaire pour définir le critère principal et orienter la suite de l'étude.",
+            "priority": "HIGH",
+            "question": "Quel marqueur envisagez-vous finalement comme critère principal pour l'étude ?",
+            "targetIds": [
+              "miss_main_criterion"
+            ]
+          }
+        },
+        {
+          "round": "T2",
+          "selection": {
+            "blocking": true,
+            "clarificationId": "clarif_primary_endpoint",
+            "decisionImpact": "Defines the principal endpoint and primary analysis of the study.",
+            "priority": "HIGH",
+            "question": "Quel marqueur avez-vous finalement choisi comme critère principal ?",
+            "targetIds": [
+              "missing_primary_endpoint"
+            ]
+          }
+        }
+      ],
+      "status": "MAX_DEPTH_WITH_OPEN_CLARIFICATION",
+      "turns": [
+        {
+          "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+          "role": "USER",
+          "turnId": "I08:DSPY_COMMON_CONTRACT:T0"
+        },
+        {
+          "content": "Avez-vous choisi un critère principal pour l'étude parmi les marqueurs envisagés ?",
+          "role": "ASSISTANT",
+          "turnId": "I08:DSPY_COMMON_CONTRACT:Q1"
+        },
+        {
+          "content": "Non",
+          "role": "USER",
+          "turnId": "I08:DSPY_COMMON_CONTRACT:R1"
+        },
+        {
+          "content": "Quel marqueur envisagez-vous finalement comme critère principal pour l'étude ?",
+          "role": "ASSISTANT",
+          "turnId": "I08:DSPY_COMMON_CONTRACT:Q2"
+        },
+        {
+          "content": "Je ne sais pas.",
+          "role": "USER",
+          "turnId": "I08:DSPY_COMMON_CONTRACT:R2"
+        }
+      ]
+    },
+    "PYDANTIC_COMMON_CONTRACT": {
+      "askedQuestions": [
+        "avez-vous décidé si le t1 natif sera retenu comme critère principal de l'étude ?",
+        "le t1 natif sera-t-il finalement retenu comme critère principal de l'étude ?"
+      ],
+      "configurationId": "PYDANTIC_COMMON_CONTRACT",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "CLAR_1",
+            "decisionImpact": "Determines whether native T1 or another parameter will be adopted as the primary endpoint.",
+            "priority": "MEDIUM",
+            "question": "Avez-vous décidé si le T1 natif sera retenu comme critère principal de l'étude ?",
+            "targetIds": [
+              "AMB_1"
+            ]
+          }
+        },
+        {
+          "round": "T1",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "clar_t1_natif_principal",
+            "decisionImpact": "Determines if native T1 is the primary endpoint.",
+            "priority": "MEDIUM",
+            "question": "Le T1 natif sera-t-il finalement retenu comme critère principal de l'étude ?",
+            "targetIds": [
+              "amb_t1_natif_principal"
+            ]
+          }
+        },
+        {
+          "round": "T2",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "clarif_t1_natif_primary",
+            "decisionImpact": "Determines whether native T1 serves as the principal endpoint or remains an exploratory/secondary biomarker.",
+            "priority": "MEDIUM",
+            "question": "Le T1 natif sera-t-il retenu comme critère principal de l'étude ?",
+            "targetIds": [
+              "ambig_t1_natif_primary"
+            ]
+          }
+        }
+      ],
+      "status": "MAX_DEPTH_WITH_OPEN_CLARIFICATION",
+      "turns": [
+        {
+          "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+          "role": "USER",
+          "turnId": "I08:PYDANTIC_COMMON_CONTRACT:T0"
+        },
+        {
+          "content": "Avez-vous décidé si le T1 natif sera retenu comme critère principal de l'étude ?",
+          "role": "ASSISTANT",
+          "turnId": "I08:PYDANTIC_COMMON_CONTRACT:Q1"
+        },
+        {
+          "content": "Non",
+          "role": "USER",
+          "turnId": "I08:PYDANTIC_COMMON_CONTRACT:R1"
+        },
+        {
+          "content": "Le T1 natif sera-t-il finalement retenu comme critère principal de l'étude ?",
+          "role": "ASSISTANT",
+          "turnId": "I08:PYDANTIC_COMMON_CONTRACT:Q2"
+        },
+        {
+          "content": "Non",
+          "role": "USER",
+          "turnId": "I08:PYDANTIC_COMMON_CONTRACT:R2"
+        }
+      ]
+    },
+    "PYDANTIC_CONDITIONAL_CRITIC": {
+      "askedQuestions": [
+        "souhaitez-vous retenir le t1 natif ou l'ecv comme critère d'évaluation principal de l'étude ?"
+      ],
+      "configurationId": "PYDANTIC_CONDITIONAL_CRITIC",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": "FINISH"
+        },
+        {
+          "round": "T1",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "C_PRIMARY_CRITERIA",
+            "decisionImpact": "Determines whether native T1 or ECV will be adopted as the primary study endpoint.",
+            "priority": "MEDIUM",
+            "question": "Souhaitez-vous retenir le T1 natif ou l'ECV comme critère d'évaluation principal de l'étude ?",
+            "targetIds": [
+              "U_T1_NATIVE_DECISION",
+              "U_ECV_LYON"
+            ]
+          }
+        },
+        {
+          "round": "T2",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "CLAR_PRIMARY_ENDPOINT",
+            "decisionImpact": "Can change the principal endpoint and decisive comparison of the study.",
+            "priority": "HIGH",
+            "question": "Quel marqueur souhaitez-vous retenir comme critère d'évaluation principal ?",
+            "targetIds": [
+              "AMB_PRIMARY_ENDPOINT"
+            ]
+          }
+        }
+      ],
+      "status": "MAX_DEPTH_WITH_OPEN_CLARIFICATION",
+      "turns": [
+        {
+          "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+          "role": "USER",
+          "turnId": "I08:PYDANTIC_CONDITIONAL_CRITIC:T0"
+        },
+        {
+          "content": "Souhaitez-vous retenir le T1 natif ou l'ECV comme critère d'évaluation principal de l'étude ?",
+          "role": "ASSISTANT",
+          "turnId": "I08:PYDANTIC_CONDITIONAL_CRITIC:Q2"
+        },
+        {
+          "content": "Je ne sais pas.",
+          "role": "USER",
+          "turnId": "I08:PYDANTIC_CONDITIONAL_CRITIC:R2"
+        }
+      ]
+    },
+    "SEM_FULL": {
+      "askedQuestions": [
+        "souhaitez-vous fixer le t1 natif comme critère principal de l'étude ou maintenir cette décision ouverte ?"
+      ],
+      "configurationId": "SEM_FULL",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": {
+            "blocking": true,
+            "clarificationId": "sem-clarification:1:21ab4cb136",
+            "decisionImpact": "Le statut du T1 natif en tant que critère principal est incertain.",
+            "priority": "HIGH",
+            "question": "Souhaitez-vous fixer le T1 natif comme critère principal de l'étude ou maintenir cette décision ouverte ?",
+            "targetIds": [
+              "sem-element:ke1-8f10bf580c3efce4"
+            ]
+          }
+        },
+        {
+          "round": "T1",
+          "selection": "FINISH"
+        },
+        {
+          "round": "T2",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+          "role": "USER",
+          "turnId": "I08:SEM_FULL:T0"
+        },
+        {
+          "content": "Souhaitez-vous fixer le T1 natif comme critère principal de l'étude ou maintenir cette décision ouverte ?",
+          "role": "ASSISTANT",
+          "turnId": "I08:SEM_FULL:Q1"
+        },
+        {
+          "content": "Non",
+          "role": "USER",
+          "turnId": "I08:SEM_FULL:R1"
+        }
+      ]
+    },
+    "SEM_SINGLE_PASS": {
+      "askedQuestions": [
+        "souhaitez-vous définir formellement le t1 natif comme critère principal de l'étude ou conserver cette question ouverte ?"
+      ],
+      "configurationId": "SEM_SINGLE_PASS",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": {
+            "blocking": true,
+            "clarificationId": "sem-clarification:1:bced880b09",
+            "decisionImpact": "L'utilisateur indique n'avoir pas décidé d'en faire le critère principal.",
+            "priority": "HIGH",
+            "question": "Souhaitez-vous définir formellement le T1 natif comme critère principal de l'étude ou conserver cette question ouverte ?",
+            "targetIds": [
+              "sem-element:ke1-08ca25787a622b04"
+            ]
+          }
+        },
+        {
+          "round": "T1",
+          "selection": "FINISH"
+        },
+        {
+          "round": "T2",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+          "role": "USER",
+          "turnId": "I08:SEM_SINGLE_PASS:T0"
+        },
+        {
+          "content": "Souhaitez-vous définir formellement le T1 natif comme critère principal de l'étude ou conserver cette question ouverte ?",
+          "role": "ASSISTANT",
+          "turnId": "I08:SEM_SINGLE_PASS:Q1"
+        },
+        {
+          "content": "Non",
+          "role": "USER",
+          "turnId": "I08:SEM_SINGLE_PASS:R1"
+        }
+      ]
+    }
+  },
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "scenarioId": "I08",
+  "status": "COMPLETE"
+}

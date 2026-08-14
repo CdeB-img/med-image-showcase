@@ -1,0 +1,318 @@
+# I07 — PYDANTIC_COMMON_CONTRACT — COMMON_TRANSCRIPT T0
+
+## INPUT
+
+Message utilisateur courant VERBATIM :
+
+> En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.
+
+Conversation précédente VERBATIM :
+
+> —
+
+## NATIVE OUTPUT
+
+Artefact : `experiments/semantic-engine-comparison/results/common-contract-ablation-02/native-outputs/common-transcript-i07-t0-pydantic-common-contract.json`
+
+```json
+{
+  "firstOutput": {
+    "ambiguities": [
+      {
+        "ambiguityId": "AMB_PREDICTION_TIMING",
+        "content": "Le moment exact ou les conditions de validation pour basculer vers une utilisation prédictive de l'iode ne sont pas encore définis.",
+        "decisionImpact": "Détermine le jalon méthodologique et le moment de l'intégration de la modélisation prédictive dans le protocole.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Utilisation prédictive envisagée après confirmation de la robustesse de l'association.",
+          "Utilisation prédictive conditionnée par des performances spécifiques sur un jeu de données de validation externe."
+        ],
+        "provenanceTurnIds": [
+          "T0"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "CLAR_PREDICTION_CRITERIA",
+        "decisionImpact": "Préciser les critères de performance ou de validation requis pour passer d'une analyse d'association à un usage prédictif.",
+        "priority": "MEDIUM",
+        "question": "Quels critères de performance ou de validation devront être atteints pour envisager d'utiliser l'iode en mode prédictif ?",
+        "targetIds": [
+          "AMB_PREDICTION_TIMING"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale.",
+        "content": "En scanner spectral du foie, l'iode ne doit pas être utilisé comme preuve de viabilité tumorale.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "EXP_01",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "CONSTRAINT",
+        "sourceText": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale.",
+        "temporalContext": null
+      },
+      {
+        "basis": "Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause.",
+        "content": "L'analyse vise à étudier l'association entre l'iode et la réponse, sans établir de lien de causalité.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "EXP_02",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "SCIENTIFIC_GOAL",
+        "sourceText": "Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause.",
+        "temporalContext": null
+      },
+      {
+        "basis": "Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+        "content": "L'utilisation potentielle de l'iode pour la prédiction est envisagée conditionnellement si les résultats actuels sont satisfaisants.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "EXP_03",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "FUTURE_APPLICATION",
+        "sourceText": "Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale.",
+        "content": "Rejet de l'iode en tant que preuve directe de viabilité tumorale.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "NEG_01",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "CONSTRAINT",
+        "sourceText": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale.",
+        "temporalContext": null
+      },
+      {
+        "basis": "Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause.",
+        "content": "Exclusion d'une interprétation causale pour l'association entre l'iode et la réponse.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "NEG_02",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "CONSTRAINT",
+        "sourceText": "Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause.",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "L'utilisateur souhaite étudier l'association entre l'iode en scanner spectral du foie et la réponse, en excluant explicitement toute interprétation causale et toute utilisation de l'iode comme preuve de viabilité tumorale. Une utilisation prédictive future est conditionnellement envisagée si l'analyse d'association s'avère concluante.",
+    "objects": [
+      {
+        "basis": "En scanner spectral du foie",
+        "content": "Scanner spectral du foie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_01",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "IMAGING_MODALITY",
+        "sourceText": "En scanner spectral du foie",
+        "temporalContext": null
+      },
+      {
+        "basis": "l'iode",
+        "content": "Iode (imagerie spectrale)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_02",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "BIOMARKER_CANDIDATE",
+        "sourceText": "l'iode",
+        "temporalContext": null
+      },
+      {
+        "basis": "la réponse",
+        "content": "Réponse tumorale / thérapeutique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_03",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "ENDPOINT",
+        "sourceText": "la réponse",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "L'iode ne doit pas être utilisé comme preuve de viabilité tumorale en scanner spectral du foie.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [],
+        "statementId": "ST_01"
+      },
+      {
+        "content": "L'objectif est d'étudier l'association entre l'iode et la réponse sans inférer de causalité.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [],
+        "statementId": "ST_02"
+      },
+      {
+        "content": "L'utilisation potentielle de l'iode pour la prédiction est conditionnelle aux performances de l'analyse d'association.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [],
+        "statementId": "ST_03"
+      }
+    ],
+    "relations": [
+      {
+        "basis": "Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "OBJ_03",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "IS_ASSOCIATED_WITH",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "REL_01",
+        "sourceText": "Je veux voir s'il est associé à la réponse",
+        "subject": "OBJ_02",
+        "temporalContext": null
+      },
+      {
+        "basis": "Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "OBJ_03",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "CAUSES",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "REL_02",
+        "sourceText": "pas dire qu'il la cause",
+        "subject": "OBJ_02",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Analyser l'association entre l'iode en scanner spectral du foie et la réponse tumorale, sans revendiquer de causalité ni utiliser l'iode comme preuve de viabilité, avec une perspective éventuelle de modélisation prédictive conditionnelle.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}
+```
+
+## STRUCTURED CONTRACT STATUS
+
+- provider status : `SUCCESS`
+- parsing status : `PARSED_AND_VALIDATED`
+- structured contract conformance : `PASS`
+- scientific semantic evaluability : `EVALUABLE`
+- evaluation mode : `DETERMINISTIC_COMMON_STATE_PROJECTION`
+- native raw output persisted : `false`
+
+## SCIENTIFIC INTERPRETATION
+
+### COMPRÉHENSION GLOBALE
+
+L'utilisateur souhaite étudier l'association entre l'iode en scanner spectral du foie et la réponse, en excluant explicitement toute interprétation causale et toute utilisation de l'iode comme preuve de viabilité tumorale. Une utilisation prédictive future est conditionnellement envisagée si l'analyse d'association s'avère concluante.
+
+Objectif scientifique produit :
+
+Analyser l'association entre l'iode en scanner spectral du foie et la réponse tumorale, sans revendiquer de causalité ni utiliser l'iode comme preuve de viabilité, avec une perspective éventuelle de modélisation prédictive conditionnelle.
+
+### EXPLICITEMENT DIT PAR LE CHERCHEUR
+
+- content=En scanner spectral du foie, l'iode ne doit pas être utilisé comme preuve de viabilité tumorale. | scientificRole=CONSTRAINT | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | basis=En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. | sourceText=En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. | provenanceTurnIds=["T0"]
+- content=L'analyse vise à étudier l'association entre l'iode et la réponse, sans établir de lien de causalité. | scientificRole=SCIENTIFIC_GOAL | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | basis=Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. | sourceText=Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. | provenanceTurnIds=["T0"]
+- content=L'utilisation potentielle de l'iode pour la prédiction est envisagée conditionnellement si les résultats actuels sont satisfaisants. | scientificRole=FUTURE_APPLICATION | polarity=CONDITIONAL | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | basis=Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire. | sourceText=Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire. | provenanceTurnIds=["T0"]
+
+### RELATIONS COMPRISES
+
+- subject=OBJ_02 | predicate=IS_ASSOCIATED_WITH | object=OBJ_03 | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | basis=Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. | sourceText=Je veux voir s'il est associé à la réponse | provenanceTurnIds=["T0"]
+- subject=OBJ_02 | predicate=CAUSES | object=OBJ_03 | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | basis=Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. | sourceText=pas dire qu'il la cause | provenanceTurnIds=["T0"]
+
+### CONTEXTE INFÉRÉ
+
+- Aucun élément produit.
+
+### CANDIDATS SCIENTIFIQUES CONTEXTUELS
+
+- Aucun élément produit.
+
+### NÉGATIONS / CONTRAINTES
+
+- content=Rejet de l'iode en tant que preuve directe de viabilité tumorale. | scientificRole=CONSTRAINT | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | basis=En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. | sourceText=En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. | provenanceTurnIds=["T0"]
+- content=Exclusion d'une interprétation causale pour l'association entre l'iode et la réponse. | scientificRole=CONSTRAINT | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | basis=Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. | sourceText=Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. | provenanceTurnIds=["T0"]
+
+### TEMPORALITÉ
+
+- Aucun élément produit.
+
+### AMBIGUÏTÉS
+
+- content=Le moment exact ou les conditions de validation pour basculer vers une utilisation prédictive de l'iode ne sont pas encore définis. | epistemicStatus=AMBIGUOUS | decisionImpact=Détermine le jalon méthodologique et le moment de l'intégration de la modélisation prédictive dans le protocole. | provenanceTurnIds=["T0"] | interpretations=["Utilisation prédictive envisagée après confirmation de la robustesse de l'association.", "Utilisation prédictive conditionnée par des performances spécifiques sur un jeu de données de validation externe."]
+
+### INFORMATIONS MANQUANTES
+
+- Aucun élément produit.
+
+### INCONNUES
+
+- Aucun élément produit.
+
+### CORRECTIONS / SUPERSESSIONS
+
+- Aucun élément produit.
+
+### OWNERSHIP / STATUT ÉPISTÉMIQUE
+
+- content=L'iode ne doit pas être utilisé comme preuve de viabilité tumorale en scanner spectral du foie. | epistemicStatus=EXPLICIT_USER_STATED | owner=USER
+- content=L'objectif est d'étudier l'association entre l'iode et la réponse sans inférer de causalité. | epistemicStatus=EXPLICIT_USER_STATED | owner=USER
+- content=L'utilisation potentielle de l'iode pour la prédiction est conditionnelle aux performances de l'analyse d'association. | epistemicStatus=EXPLICIT_USER_STATED | owner=USER
+
+### QUESTIONS DE CLARIFICATION CANDIDATES
+
+- question=Quels critères de performance ou de validation devront être atteints pour envisager d'utiliser l'iode en mode prédictif ? | priority=MEDIUM | blocking=non | decisionImpact=Préciser les critères de performance ou de validation requis pour passer d'une analyse d'association à un usage prédictif. | targetIds=["AMB_PREDICTION_TIMING"]
+
+## MISSING STRUCTURAL GUARANTEES
+
+- EXACT_PROVIDER_RAW_TEXT_NOT_PERSISTED; STRUCTURED_NATIVE_ARTIFACT_AVAILABLE
+
+_Vue locale déterministe. Aucun appel LLM d’interprétation sémantique post-hoc._

@@ -1,0 +1,12 @@
+{
+  "configurationId": "SEM_FULL",
+  "failureClass": "INVALID_STRUCTURED_OUTPUT",
+  "nativeRawOutputAvailable": false,
+  "pairedFirstReconstruction": true,
+  "providerRequestNumbers": [79, 80, 81],
+  "reason": "SEM reconstruction remained invalid after the frozen provider's two bounded structured-output correction generations.",
+  "scenarioId": "I05",
+  "round": "T2",
+  "semanticCriticExecuted": false,
+  "status": "FAILED"
+}

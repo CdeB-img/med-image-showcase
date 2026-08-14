@@ -1,0 +1,123 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I06",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "DSC perfusion imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_dsc",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "DSC",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "ASL perfusion imaging",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_asl",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Gliomas",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_gliomas",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "mes gliomes",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_progression",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "la progression",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user is performing a comparative analysis of DSC and ASL imaging modalities in glioma patients. The primary goal is to determine the superior modality for monitoring tumor progression in cases of disagreement (discordance). A secondary management preference is to retain patients who only possess ASL data.",
+    "objects": [],
+    "originalRequest": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Comparison of DSC and ASL in gliomas and evaluation of utility for progression.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "own_1"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "item_asl",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "compare",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_compare",
+        "sourceText": "Je compare DSC et ASL chez mes gliomes",
+        "subject": "item_dsc",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Compare DSC and ASL perfusion methods in gliomas, determine which method is more useful for assessing progression when discordant, and retain subjects who only have ASL data if possible.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

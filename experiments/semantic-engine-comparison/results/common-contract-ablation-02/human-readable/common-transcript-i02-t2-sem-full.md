@@ -1,0 +1,3446 @@
+# I02 — SEM_FULL — COMMON_TRANSCRIPT T2
+
+## INPUT
+
+Message utilisateur courant VERBATIM :
+
+> L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients. Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF.
+
+Conversation précédente VERBATIM :
+
+> I02:T0 | USER : Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.
+> I02:R1 | USER : L'IRM principale est à 24 h puis à J7. Je n'ai souvent pas d'IRM avant la thrombectomie.
+
+## NATIVE OUTPUT
+
+Artefact : `experiments/semantic-engine-comparison/results/common-contract-ablation-02/native-outputs/common-transcript-i02-t2-sem-full.json`
+
+```json
+{
+  "criticCycles": {
+    "accepted": true,
+    "attempts": [
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 3930,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T08:53:07.544Z",
+        "requestStarted": "2026-08-14T08:53:03.614Z",
+        "retryable": false
+      }
+    ],
+    "callIds": [
+      "gemini-call:ke1-4ce1e52896a3e05c"
+    ],
+    "candidate": {
+      "ambiguities": [],
+      "candidateId": "cand-ke1-r2-v3",
+      "clarificationCandidates": [],
+      "contradictions": [],
+      "elements": [
+        {
+          "canonicalMeaning": "Patients who have undergone thrombectomy",
+          "clientElementId": "elem_01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_01"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:T0",
+          "sourceText": "les patients thrombectomisés",
+          "studyRole": "SUBJECT",
+          "supersedesElementIds": [],
+          "type": "POPULATION"
+        },
+        {
+          "canonicalMeaning": "Desire to know/evaluate relation between OEF and perfusion",
+          "clientElementId": "elem_02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_02"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:T0",
+          "sourceText": "savoir si",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_INTENT"
+        },
+        {
+          "canonicalMeaning": "Oxygen Extraction Fraction normalization",
+          "clientElementId": "elem_03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_03"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'OEF se normalise",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "BIOMARKER"
+        },
+        {
+          "canonicalMeaning": "Perfusion improvement",
+          "clientElementId": "elem_04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_04"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:T0",
+          "sourceText": "la perfusion s'améliore",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "BIOMARKER"
+        },
+        {
+          "canonicalMeaning": "MRI is not always available before the procedure",
+          "clientElementId": "elem_05",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_05"
+          ],
+          "polarity": "NEGATED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:T0",
+          "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONSTRAINT"
+        },
+        {
+          "canonicalMeaning": "Magnetic Resonance Imaging",
+          "clientElementId": "elem_06",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_06"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'IRM",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "MODALITY"
+        },
+        {
+          "canonicalMeaning": "Before the procedure/gesture",
+          "clientElementId": "elem_07",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_07"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:T0",
+          "sourceText": "avant le geste",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "TIMING"
+        },
+        {
+          "canonicalMeaning": "Main Magnetic Resonance Imaging",
+          "clientElementId": "elem_08",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_08"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:R1",
+          "sourceText": "L'IRM principale",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "MODALITY"
+        },
+        {
+          "canonicalMeaning": "At 24 hours",
+          "clientElementId": "elem_09",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_09"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:R1",
+          "sourceText": "à 24 h",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "TIMING"
+        },
+        {
+          "canonicalMeaning": "At day 7",
+          "clientElementId": "elem_10",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_10"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:R1",
+          "sourceText": "à J7",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "TIMING"
+        },
+        {
+          "canonicalMeaning": "Often no MRI before thrombectomy",
+          "clientElementId": "elem_11",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_11"
+          ],
+          "polarity": "NEGATED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:R1",
+          "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONSTRAINT"
+        },
+        {
+          "canonicalMeaning": "Absence of pre-procedure MRI must not automatically exclude patients",
+          "clientElementId": "elem_12",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_12"
+          ],
+          "polarity": "NEGATED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:R2",
+          "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONSTRAINT"
+        },
+        {
+          "canonicalMeaning": "Denial of causal relationship between perfusion improvement and OEF normalization",
+          "clientElementId": "elem_13",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_13"
+          ],
+          "polarity": "NEGATED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I02:R2",
+          "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONSTRAINT"
+        }
+      ],
+      "ellipses": [],
+      "knowledgeRequests": [],
+      "language": "fr",
+      "missingConcepts": [],
+      "normalizedMeaning": "Evaluation de la normalisation de l'OEF en relation avec l'amelioration de la perfusion chez les patients thrombectomises, avec des IRM principales a 24h et J7, tout en precisant que l'absence d'IRM pre-geste ne doit pas exclure automatiquement les patients et en rejetant explicitement l'idee d'un lien de causalite entre l'amelioration de la perfusion et la normalisation de l'OEF.",
+      "relations": [
+        {
+          "clientRelationId": "rel_01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_01"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "RELATED_TO_CANDIDATE",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_03",
+          "targetClientElementId": "elem_04"
+        },
+        {
+          "clientRelationId": "rel_02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_02"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "REPEATED_AT",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_06",
+          "targetClientElementId": "elem_07"
+        },
+        {
+          "clientRelationId": "rel_03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_03"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "REPEATED_AT",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_08",
+          "targetClientElementId": "elem_09"
+        },
+        {
+          "clientRelationId": "rel_04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_04"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "REPEATED_AT",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_08",
+          "targetClientElementId": "elem_10"
+        },
+        {
+          "clientRelationId": "rel_05",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_05"
+          ],
+          "polarity": "NEGATED",
+          "relationType": "INFLUENCES",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_04",
+          "targetClientElementId": "elem_03"
+        }
+      ],
+      "routeProposal": {
+        "confidence": 0.95,
+        "expectedCapabilities": [
+          "Define study criteria accommodating missing baseline imaging",
+          "Structure longitudinal assessments at 24h and J7",
+          "Handle non-causal association tracking between perfusion and OEF"
+        ],
+        "reason": "The user is actively framing a study design around thrombectomized patients, defining timing, biomarkers, and explicit methodological constraints and causal exclusions.",
+        "route": "DESIGN_STUDY"
+      },
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv_01",
+            "linkedInventoryItemIds": [],
+            "localRole": "POPULATION",
+            "modifiers": [],
+            "normalizedLabel": "patients thrombectomisés",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "les patients thrombectomisés"
+          },
+          {
+            "inventoryItemId": "inv_02",
+            "linkedInventoryItemIds": [
+              "inv_03",
+              "inv_04"
+            ],
+            "localRole": "INTENT",
+            "modifiers": [],
+            "normalizedLabel": "savoir si",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "savoir si"
+          },
+          {
+            "inventoryItemId": "inv_03",
+            "linkedInventoryItemIds": [],
+            "localRole": "BIOMARKER",
+            "modifiers": [],
+            "normalizedLabel": "normalisation de l'OEF",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "l'OEF se normalise"
+          },
+          {
+            "inventoryItemId": "inv_04",
+            "linkedInventoryItemIds": [],
+            "localRole": "BIOMARKER",
+            "modifiers": [],
+            "normalizedLabel": "amélioration de la perfusion",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "la perfusion s'améliore"
+          },
+          {
+            "inventoryItemId": "inv_05",
+            "linkedInventoryItemIds": [
+              "inv_06",
+              "inv_07"
+            ],
+            "localRole": "CONSTRAINT",
+            "modifiers": [
+              "pas toujours"
+            ],
+            "normalizedLabel": "absence fréquente d'IRM avant le geste",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "je n'ai pas toujours l'IRM avant le geste"
+          },
+          {
+            "inventoryItemId": "inv_06",
+            "linkedInventoryItemIds": [],
+            "localRole": "MODALITY",
+            "modifiers": [],
+            "normalizedLabel": "IRM",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "l'IRM"
+          },
+          {
+            "inventoryItemId": "inv_07",
+            "linkedInventoryItemIds": [],
+            "localRole": "TIMING",
+            "modifiers": [],
+            "normalizedLabel": "avant le geste",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "avant le geste"
+          },
+          {
+            "inventoryItemId": "inv_08",
+            "linkedInventoryItemIds": [],
+            "localRole": "MODALITY",
+            "modifiers": [
+              "principale"
+            ],
+            "normalizedLabel": "IRM principale",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:R1",
+            "sourceText": "L'IRM principale"
+          },
+          {
+            "inventoryItemId": "inv_09",
+            "linkedInventoryItemIds": [],
+            "localRole": "TIMING",
+            "modifiers": [],
+            "normalizedLabel": "à 24 h",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:R1",
+            "sourceText": "à 24 h"
+          },
+          {
+            "inventoryItemId": "inv_10",
+            "linkedInventoryItemIds": [],
+            "localRole": "TIMING",
+            "modifiers": [],
+            "normalizedLabel": "à J7",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I02:R1",
+            "sourceText": "à J7"
+          },
+          {
+            "inventoryItemId": "inv_11",
+            "linkedInventoryItemIds": [],
+            "localRole": "CONSTRAINT",
+            "modifiers": [
+              "souvent pas"
+            ],
+            "normalizedLabel": "absence fréquente d'IRM avant la thrombectomie",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I02:R1",
+            "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie"
+          },
+          {
+            "inventoryItemId": "inv_12",
+            "linkedInventoryItemIds": [],
+            "localRole": "CONSTRAINT",
+            "modifiers": [
+              "ne doit pas",
+              "automatiquement"
+            ],
+            "normalizedLabel": "l'absence d'IRM pré-geste n'exclut pas les patients",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I02:R2",
+            "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients"
+          },
+          {
+            "inventoryItemId": "inv_13",
+            "linkedInventoryItemIds": [
+              "inv_03",
+              "inv_04"
+            ],
+            "localRole": "CONSTRAINT",
+            "modifiers": [
+              "ne veux surtout pas dire",
+              "cause"
+            ],
+            "normalizedLabel": "refus d'un lien de causalité entre perfusion et OEF",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I02:R2",
+            "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF"
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel_inv_01",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_03",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "l'OEF se normalise quand la perfusion s'améliore",
+            "targetInventoryItemId": "inv_04"
+          },
+          {
+            "inventoryRelationId": "rel_inv_02",
+            "normalizedRelation": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_06",
+            "sourceMessageId": "I02:T0",
+            "sourceText": "l'IRM avant le geste",
+            "targetInventoryItemId": "inv_07"
+          },
+          {
+            "inventoryRelationId": "rel_inv_03",
+            "normalizedRelation": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_08",
+            "sourceMessageId": "I02:R1",
+            "sourceText": "L'IRM principale est à 24 h",
+            "targetInventoryItemId": "inv_09"
+          },
+          {
+            "inventoryRelationId": "rel_inv_04",
+            "normalizedRelation": "REPEATED_AT",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_08",
+            "sourceMessageId": "I02:R1",
+            "sourceText": "L'IRM principale est à 24 h puis à J7",
+            "targetInventoryItemId": "inv_10"
+          },
+          {
+            "inventoryRelationId": "rel_inv_05",
+            "normalizedRelation": "INFLUENCES",
+            "polarity": "NEGATED",
+            "sourceInventoryItemId": "inv_04",
+            "sourceMessageId": "I02:R2",
+            "sourceText": "l'amélioration de la perfusion cause la normalisation de l'OEF",
+            "targetInventoryItemId": "inv_03"
+          }
+        ]
+      },
+      "semanticWarnings": [],
+      "summaryForUser": "Prise en compte de votre consigne selon laquelle l'absence d'IRM pré-geste ne doit pas exclure les patients thrombectomisés, et de votre rejet d'une relation causale entre l'amélioration de la perfusion et la normalisation de l'OEF.",
+      "unknowns": []
+    },
+    "critics": [
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit source fragments, including population, biomarkers, modalities, timings, and constraints, are fully and accurately represented in the inventory and elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator arms or reference standards are present in the user prompt.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Thrombectomy is cited as a procedural context/history for the population rather than evaluated as an active study intervention arm.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Both MRI mentions ('l'IRM' and 'L'IRM principale') are correctly captured as MODALITY elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit relational constructions, including association, timing repetitions, and the explicitly negated causal link, are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types adhere strictly to the operational taxonomy (BIOMARKER for OEF normalization and perfusion improvement, MODALITY for MRI, CONSTRAINT for protocol exclusions).",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "The negated causal relationship between perfusion improvement and OEF normalization is accurately preserved with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No unstated assumptions or inferences are promoted to explicit user states.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "All explicit constraints regarding missing pre-procedure MRI are fully preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negations regarding missing MRI and the rejection of causality are correctly tracked with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "All timings ('avant le geste', 'à 24 h', 'à J7') are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Biomarkers and measurements are not inappropriately promoted to ENDPOINT.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts such as OEF normalization and MRI at 24h/J7 are preserved without generalization.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Independent source comparison yields zero missing explicit fragments.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY is the correct route given the definition of study populations, timing, biomarkers, and operational constraints.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-ke1-v3",
+        "criticSummary": "All semantic elements, relations, modalities, timings, and constraints are fully accounted for. The model accurately tracks negative constraints and explicit causal rejection without introducing unwarranted inferences. The verdict is ACCEPT.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      }
+    ],
+    "cycleAttempts": [
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3930,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:53:07.544Z",
+          "requestStarted": "2026-08-14T08:53:03.614Z",
+          "retryable": false
+        }
+      ]
+    ],
+    "repairDiagnostics": [],
+    "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+  },
+  "initialReconstruction": {
+    "ambiguities": [],
+    "candidateId": "cand-ke1-r2-v3",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Patients who have undergone thrombectomy",
+        "clientElementId": "elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "les patients thrombectomisés",
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "POPULATION"
+      },
+      {
+        "canonicalMeaning": "Desire to know/evaluate relation between OEF and perfusion",
+        "clientElementId": "elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "savoir si",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Oxygen Extraction Fraction normalization",
+        "clientElementId": "elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "l'OEF se normalise",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "Perfusion improvement",
+        "clientElementId": "elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "la perfusion s'améliore",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "MRI is not always available before the procedure",
+        "clientElementId": "elem_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      },
+      {
+        "canonicalMeaning": "Magnetic Resonance Imaging",
+        "clientElementId": "elem_06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_06"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "l'IRM",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "Before the procedure/gesture",
+        "clientElementId": "elem_07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "avant le geste",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "Main Magnetic Resonance Imaging",
+        "clientElementId": "elem_08",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R1",
+        "sourceText": "L'IRM principale",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "At 24 hours",
+        "clientElementId": "elem_09",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R1",
+        "sourceText": "à 24 h",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "At day 7",
+        "clientElementId": "elem_10",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_10"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R1",
+        "sourceText": "à J7",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "Often no MRI before thrombectomy",
+        "clientElementId": "elem_11",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_11"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R1",
+        "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      },
+      {
+        "canonicalMeaning": "Absence of pre-procedure MRI must not automatically exclude patients",
+        "clientElementId": "elem_12",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_12"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R2",
+        "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      },
+      {
+        "canonicalMeaning": "Denial of causal relationship between perfusion improvement and OEF normalization",
+        "clientElementId": "elem_13",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_13"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R2",
+        "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "Evaluation de la normalisation de l'OEF en relation avec l'amelioration de la perfusion chez les patients thrombectomises, avec des IRM principales a 24h et J7, tout en precisant que l'absence d'IRM pre-geste ne doit pas exclure automatiquement les patients et en rejetant explicitement l'idee d'un lien de causalite entre l'amelioration de la perfusion et la normalisation de l'OEF.",
+    "relations": [
+      {
+        "clientRelationId": "rel_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_03",
+        "targetClientElementId": "elem_04"
+      },
+      {
+        "clientRelationId": "rel_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_06",
+        "targetClientElementId": "elem_07"
+      },
+      {
+        "clientRelationId": "rel_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_08",
+        "targetClientElementId": "elem_09"
+      },
+      {
+        "clientRelationId": "rel_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_08",
+        "targetClientElementId": "elem_10"
+      },
+      {
+        "clientRelationId": "rel_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_05"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "INFLUENCES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_04",
+        "targetClientElementId": "elem_03"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Define study criteria accommodating missing baseline imaging",
+        "Structure longitudinal assessments at 24h and J7",
+        "Handle non-causal association tracking between perfusion and OEF"
+      ],
+      "reason": "The user is actively framing a study design around thrombectomized patients, defining timing, biomarkers, and explicit methodological constraints and causal exclusions.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv_01",
+          "linkedInventoryItemIds": [],
+          "localRole": "POPULATION",
+          "modifiers": [],
+          "normalizedLabel": "patients thrombectomisés",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "les patients thrombectomisés"
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "INTENT",
+          "modifiers": [],
+          "normalizedLabel": "savoir si",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "savoir si"
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "BIOMARKER",
+          "modifiers": [],
+          "normalizedLabel": "normalisation de l'OEF",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'OEF se normalise"
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "linkedInventoryItemIds": [],
+          "localRole": "BIOMARKER",
+          "modifiers": [],
+          "normalizedLabel": "amélioration de la perfusion",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "la perfusion s'améliore"
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "linkedInventoryItemIds": [
+            "inv_06",
+            "inv_07"
+          ],
+          "localRole": "CONSTRAINT",
+          "modifiers": [
+            "pas toujours"
+          ],
+          "normalizedLabel": "absence fréquente d'IRM avant le geste",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "je n'ai pas toujours l'IRM avant le geste"
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "linkedInventoryItemIds": [],
+          "localRole": "MODALITY",
+          "modifiers": [],
+          "normalizedLabel": "IRM",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'IRM"
+        },
+        {
+          "inventoryItemId": "inv_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "TIMING",
+          "modifiers": [],
+          "normalizedLabel": "avant le geste",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "avant le geste"
+        },
+        {
+          "inventoryItemId": "inv_08",
+          "linkedInventoryItemIds": [],
+          "localRole": "MODALITY",
+          "modifiers": [
+            "principale"
+          ],
+          "normalizedLabel": "IRM principale",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "L'IRM principale"
+        },
+        {
+          "inventoryItemId": "inv_09",
+          "linkedInventoryItemIds": [],
+          "localRole": "TIMING",
+          "modifiers": [],
+          "normalizedLabel": "à 24 h",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "à 24 h"
+        },
+        {
+          "inventoryItemId": "inv_10",
+          "linkedInventoryItemIds": [],
+          "localRole": "TIMING",
+          "modifiers": [],
+          "normalizedLabel": "à J7",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "à J7"
+        },
+        {
+          "inventoryItemId": "inv_11",
+          "linkedInventoryItemIds": [],
+          "localRole": "CONSTRAINT",
+          "modifiers": [
+            "souvent pas"
+          ],
+          "normalizedLabel": "absence fréquente d'IRM avant la thrombectomie",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie"
+        },
+        {
+          "inventoryItemId": "inv_12",
+          "linkedInventoryItemIds": [],
+          "localRole": "CONSTRAINT",
+          "modifiers": [
+            "ne doit pas",
+            "automatiquement"
+          ],
+          "normalizedLabel": "l'absence d'IRM pré-geste n'exclut pas les patients",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I02:R2",
+          "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients"
+        },
+        {
+          "inventoryItemId": "inv_13",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "CONSTRAINT",
+          "modifiers": [
+            "ne veux surtout pas dire",
+            "cause"
+          ],
+          "normalizedLabel": "refus d'un lien de causalité entre perfusion et OEF",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I02:R2",
+          "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_03",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'OEF se normalise quand la perfusion s'améliore",
+          "targetInventoryItemId": "inv_04"
+        },
+        {
+          "inventoryRelationId": "rel_inv_02",
+          "normalizedRelation": "REPEATED_AT",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_06",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'IRM avant le geste",
+          "targetInventoryItemId": "inv_07"
+        },
+        {
+          "inventoryRelationId": "rel_inv_03",
+          "normalizedRelation": "REPEATED_AT",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_08",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "L'IRM principale est à 24 h",
+          "targetInventoryItemId": "inv_09"
+        },
+        {
+          "inventoryRelationId": "rel_inv_04",
+          "normalizedRelation": "REPEATED_AT",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_08",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "L'IRM principale est à 24 h puis à J7",
+          "targetInventoryItemId": "inv_10"
+        },
+        {
+          "inventoryRelationId": "rel_inv_05",
+          "normalizedRelation": "INFLUENCES",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "inv_03",
+          "sourceMessageId": "I02:R2",
+          "sourceText": "l'amélioration de la perfusion cause la normalisation de l'OEF",
+          "targetInventoryItemId": "inv_04"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Prise en compte de votre consigne selon laquelle l'absence d'IRM pré-geste ne doit pas exclure les patients thrombectomisés, et de votre rejet d'une relation causale entre l'amélioration de la perfusion et la normalisation de l'OEF.",
+    "unknowns": []
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I02:T0",
+      "I02:R1",
+      "I02:R2"
+    ],
+    "createdAt": "2026-08-14T08:51:52.931Z",
+    "critic": {
+      "issues": [],
+      "summary": "All semantic elements, relations, modalities, timings, and constraints are fully accounted for. The model accurately tracks negative constraints and explicit causal rejection without introducing unwarranted inferences. The verdict is ACCEPT.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-2443f9dadeb28cae",
+    "elements": [
+      {
+        "canonicalMeaning": "Patients who have undergone thrombectomy",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:T0",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-05a15b7bdd2783c7",
+        "sourceSpan": {
+          "end": 33,
+          "messageId": "I02:T0",
+          "start": 5,
+          "text": "les patients thrombectomisés"
+        },
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "POPULATION",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "At day 7",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_10"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:R1",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_10",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-db661ef934f04f85"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-285d41b486d85c30",
+        "sourceSpan": {
+          "end": 37,
+          "messageId": "I02:R1",
+          "start": 33,
+          "text": "à J7"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "At 24 hours",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:R1",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_09",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-9bacd885cb178a49"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-353c7f527c04db0e",
+        "sourceSpan": {
+          "end": 27,
+          "messageId": "I02:R1",
+          "start": 21,
+          "text": "à 24 h"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Magnetic Resonance Imaging",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_06"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:T0",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-380ace2027411ec4"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-3944579344f8e407",
+        "sourceSpan": {
+          "end": 134,
+          "messageId": "I02:T0",
+          "start": 129,
+          "text": "l'IRM"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Denial of causal relationship between perfusion improvement and OEF normalization",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_13"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I02:R2",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_13",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-581de4fddc7e40e9",
+        "sourceSpan": {
+          "end": 173,
+          "messageId": "I02:R2",
+          "start": 76,
+          "text": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Desire to know/evaluate relation between OEF and perfusion",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:T0",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-58fb3c0299f638d6",
+        "sourceSpan": {
+          "end": 52,
+          "messageId": "I02:T0",
+          "start": 43,
+          "text": "savoir si"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "MRI is not always available before the procedure",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I02:T0",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-5e5eb6731d9a58a7",
+        "sourceSpan": {
+          "end": 149,
+          "messageId": "I02:T0",
+          "start": 108,
+          "text": "je n'ai pas toujours l'IRM avant le geste"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Main Magnetic Resonance Imaging",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:R1",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_08",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-9bacd885cb178a49",
+          "sem-relation:ke1-db661ef934f04f85"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-68dc9d62c1485c16",
+        "sourceSpan": {
+          "end": 16,
+          "messageId": "I02:R1",
+          "start": 0,
+          "text": "L'IRM principale"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Absence of pre-procedure MRI must not automatically exclude patients",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_12"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I02:R2",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_12",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-6971861b6f6ff05f",
+        "sourceSpan": {
+          "end": 74,
+          "messageId": "I02:R2",
+          "start": 0,
+          "text": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Desire to know/evaluate a scientific relation",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:T0",
+          "providerCallId": "gemini-call:ke1-c60033b8346a4594",
+          "rawElementId": "elem_02",
+          "source": "DETERMINISTIC_CARRY_FORWARD"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-726e7278f4c17f3c",
+        "sourceSpan": {
+          "end": 52,
+          "messageId": "I02:T0",
+          "start": 43,
+          "text": "savoir si"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Before the procedure/gesture",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_07"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:T0",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_07",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-380ace2027411ec4"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-bd322dd7c1f71d83",
+        "sourceSpan": {
+          "end": 149,
+          "messageId": "I02:T0",
+          "start": 135,
+          "text": "avant le geste"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Oxygen Extraction Fraction normalization",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:T0",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-0f8fa4a3bff1d737",
+          "sem-relation:ke1-d5d6f45e51a6df22"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-ca3c9fc2f04f73ce",
+        "sourceSpan": {
+          "end": 71,
+          "messageId": "I02:T0",
+          "start": 53,
+          "text": "l'OEF se normalise"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 3
+      },
+      {
+        "canonicalMeaning": "Often no MRI before thrombectomy",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_11"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I02:R1",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_11",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-f405a71461aaabe8",
+        "sourceSpan": {
+          "end": 87,
+          "messageId": "I02:R1",
+          "start": 39,
+          "text": "Je n'ai souvent pas d'IRM avant la thrombectomie"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Perfusion improvement",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I02:T0",
+          "providerCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+          "rawElementId": "elem_04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-0f8fa4a3bff1d737",
+          "sem-relation:ke1-d5d6f45e51a6df22"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-fb88eb7580e85d11",
+        "sourceSpan": {
+          "end": 101,
+          "messageId": "I02:T0",
+          "start": 78,
+          "text": "la perfusion s'améliore"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 3
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3930,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:53:07.544Z",
+          "requestStarted": "2026-08-14T08:53:03.614Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-4ce1e52896a3e05c",
+      "criticCallIds": [
+        "gemini-call:ke1-4ce1e52896a3e05c"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T08:53:07.544Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit source fragments, including population, biomarkers, modalities, timings, and constraints, are fully and accurately represented in the inventory and elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator arms or reference standards are present in the user prompt.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Thrombectomy is cited as a procedural context/history for the population rather than evaluated as an active study intervention arm.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Both MRI mentions ('l'IRM' and 'L'IRM principale') are correctly captured as MODALITY elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit relational constructions, including association, timing repetitions, and the explicitly negated causal link, are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types adhere strictly to the operational taxonomy (BIOMARKER for OEF normalization and perfusion improvement, MODALITY for MRI, CONSTRAINT for protocol exclusions).",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "The negated causal relationship between perfusion improvement and OEF normalization is accurately preserved with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No unstated assumptions or inferences are promoted to explicit user states.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "All explicit constraints regarding missing pre-procedure MRI are fully preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negations regarding missing MRI and the rejection of causality are correctly tracked with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "All timings ('avant le geste', 'à 24 h', 'à J7') are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Biomarkers and measurements are not inappropriately promoted to ENDPOINT.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts such as OEF normalization and MRI at 24h/J7 are preserved without generalization.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Independent source comparison yields zero missing explicit fragments.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY is the correct route given the definition of study populations, timing, biomarkers, and operational constraints.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-ke1-v3",
+        "criticSummary": "All semantic elements, relations, modalities, timings, and constraints are fully accounted for. The model accurately tracks negative constraints and explicit causal rejection without introducing unwarranted inferences. The verdict is ACCEPT.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit source fragments, including population, biomarkers, modalities, timings, and constraints, are fully and accurately represented in the inventory and elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator arms or reference standards are present in the user prompt.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Thrombectomy is cited as a procedural context/history for the population rather than evaluated as an active study intervention arm.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "Both MRI mentions ('l'IRM' and 'L'IRM principale') are correctly captured as MODALITY elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All explicit relational constructions, including association, timing repetitions, and the explicitly negated causal link, are represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All element types adhere strictly to the operational taxonomy (BIOMARKER for OEF normalization and perfusion improvement, MODALITY for MRI, CONSTRAINT for protocol exclusions).",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "The negated causal relationship between perfusion improvement and OEF normalization is accurately preserved with NEGATED polarity.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No unstated assumptions or inferences are promoted to explicit user states.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "All explicit constraints regarding missing pre-procedure MRI are fully preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Negations regarding missing MRI and the rejection of causality are correctly tracked with NEGATED polarity.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "All timings ('avant le geste', 'à 24 h', 'à J7') are fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Biomarkers and measurements are not inappropriately promoted to ENDPOINT.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts such as OEF normalization and MRI at 24h/J7 are preserved without generalization.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "Independent source comparison yields zero missing explicit fragments.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY is the correct route given the definition of study populations, timing, biomarkers, and operational constraints.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-ke1-v3",
+          "criticSummary": "All semantic elements, relations, modalities, timings, and constraints are fully accounted for. The model accurately tracks negative constraints and explicit causal rejection without introducing unwarranted inferences. The verdict is ACCEPT.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-ke1-r2-v3",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Patients who have undergone thrombectomy",
+            "clientElementId": "elem_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:T0",
+            "sourceText": "les patients thrombectomisés",
+            "studyRole": "SUBJECT",
+            "supersedesElementIds": [],
+            "type": "POPULATION"
+          },
+          {
+            "canonicalMeaning": "Desire to know/evaluate relation between OEF and perfusion",
+            "clientElementId": "elem_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:T0",
+            "sourceText": "savoir si",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Oxygen Extraction Fraction normalization",
+            "clientElementId": "elem_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:T0",
+            "sourceText": "l'OEF se normalise",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Perfusion improvement",
+            "clientElementId": "elem_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:T0",
+            "sourceText": "la perfusion s'améliore",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "MRI is not always available before the procedure",
+            "clientElementId": "elem_05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:T0",
+            "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONSTRAINT"
+          },
+          {
+            "canonicalMeaning": "Magnetic Resonance Imaging",
+            "clientElementId": "elem_06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_06"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:T0",
+            "sourceText": "l'IRM",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          },
+          {
+            "canonicalMeaning": "Before the procedure/gesture",
+            "clientElementId": "elem_07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_07"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:T0",
+            "sourceText": "avant le geste",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Main Magnetic Resonance Imaging",
+            "clientElementId": "elem_08",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_08"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:R1",
+            "sourceText": "L'IRM principale",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          },
+          {
+            "canonicalMeaning": "At 24 hours",
+            "clientElementId": "elem_09",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_09"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:R1",
+            "sourceText": "à 24 h",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "At day 7",
+            "clientElementId": "elem_10",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_10"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:R1",
+            "sourceText": "à J7",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "TIMING"
+          },
+          {
+            "canonicalMeaning": "Often no MRI before thrombectomy",
+            "clientElementId": "elem_11",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_11"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:R1",
+            "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONSTRAINT"
+          },
+          {
+            "canonicalMeaning": "Absence of pre-procedure MRI must not automatically exclude patients",
+            "clientElementId": "elem_12",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_12"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:R2",
+            "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONSTRAINT"
+          },
+          {
+            "canonicalMeaning": "Denial of causal relationship between perfusion improvement and OEF normalization",
+            "clientElementId": "elem_13",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_13"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I02:R2",
+            "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONSTRAINT"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "Evaluation de la normalisation de l'OEF en relation avec l'amelioration de la perfusion chez les patients thrombectomises, avec des IRM principales a 24h et J7, tout en precisant que l'absence d'IRM pre-geste ne doit pas exclure automatiquement les patients et en rejetant explicitement l'idee d'un lien de causalite entre l'amelioration de la perfusion et la normalisation de l'OEF.",
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_01"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_03",
+            "targetClientElementId": "elem_04"
+          },
+          {
+            "clientRelationId": "rel_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "REPEATED_AT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_06",
+            "targetClientElementId": "elem_07"
+          },
+          {
+            "clientRelationId": "rel_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "REPEATED_AT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_08",
+            "targetClientElementId": "elem_09"
+          },
+          {
+            "clientRelationId": "rel_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_04"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "REPEATED_AT",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_08",
+            "targetClientElementId": "elem_10"
+          },
+          {
+            "clientRelationId": "rel_05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_05"
+            ],
+            "polarity": "NEGATED",
+            "relationType": "INFLUENCES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_04",
+            "targetClientElementId": "elem_03"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.95,
+          "expectedCapabilities": [
+            "Define study criteria accommodating missing baseline imaging",
+            "Structure longitudinal assessments at 24h and J7",
+            "Handle non-causal association tracking between perfusion and OEF"
+          ],
+          "reason": "The user is actively framing a study design around thrombectomized patients, defining timing, biomarkers, and explicit methodological constraints and causal exclusions.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "linkedInventoryItemIds": [],
+              "localRole": "POPULATION",
+              "modifiers": [],
+              "normalizedLabel": "patients thrombectomisés",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "les patients thrombectomisés"
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "linkedInventoryItemIds": [
+                "inv_03",
+                "inv_04"
+              ],
+              "localRole": "INTENT",
+              "modifiers": [],
+              "normalizedLabel": "savoir si",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "savoir si"
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "linkedInventoryItemIds": [],
+              "localRole": "BIOMARKER",
+              "modifiers": [],
+              "normalizedLabel": "normalisation de l'OEF",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "l'OEF se normalise"
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "linkedInventoryItemIds": [],
+              "localRole": "BIOMARKER",
+              "modifiers": [],
+              "normalizedLabel": "amélioration de la perfusion",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "la perfusion s'améliore"
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "linkedInventoryItemIds": [
+                "inv_06",
+                "inv_07"
+              ],
+              "localRole": "CONSTRAINT",
+              "modifiers": [
+                "pas toujours"
+              ],
+              "normalizedLabel": "absence fréquente d'IRM avant le geste",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "je n'ai pas toujours l'IRM avant le geste"
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "linkedInventoryItemIds": [],
+              "localRole": "MODALITY",
+              "modifiers": [],
+              "normalizedLabel": "IRM",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "l'IRM"
+            },
+            {
+              "inventoryItemId": "inv_07",
+              "linkedInventoryItemIds": [],
+              "localRole": "TIMING",
+              "modifiers": [],
+              "normalizedLabel": "avant le geste",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "avant le geste"
+            },
+            {
+              "inventoryItemId": "inv_08",
+              "linkedInventoryItemIds": [],
+              "localRole": "MODALITY",
+              "modifiers": [
+                "principale"
+              ],
+              "normalizedLabel": "IRM principale",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:R1",
+              "sourceText": "L'IRM principale"
+            },
+            {
+              "inventoryItemId": "inv_09",
+              "linkedInventoryItemIds": [],
+              "localRole": "TIMING",
+              "modifiers": [],
+              "normalizedLabel": "à 24 h",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:R1",
+              "sourceText": "à 24 h"
+            },
+            {
+              "inventoryItemId": "inv_10",
+              "linkedInventoryItemIds": [],
+              "localRole": "TIMING",
+              "modifiers": [],
+              "normalizedLabel": "à J7",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I02:R1",
+              "sourceText": "à J7"
+            },
+            {
+              "inventoryItemId": "inv_11",
+              "linkedInventoryItemIds": [],
+              "localRole": "CONSTRAINT",
+              "modifiers": [
+                "souvent pas"
+              ],
+              "normalizedLabel": "absence fréquente d'IRM avant la thrombectomie",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I02:R1",
+              "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie"
+            },
+            {
+              "inventoryItemId": "inv_12",
+              "linkedInventoryItemIds": [],
+              "localRole": "CONSTRAINT",
+              "modifiers": [
+                "ne doit pas",
+                "automatiquement"
+              ],
+              "normalizedLabel": "l'absence d'IRM pré-geste n'exclut pas les patients",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I02:R2",
+              "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients"
+            },
+            {
+              "inventoryItemId": "inv_13",
+              "linkedInventoryItemIds": [
+                "inv_03",
+                "inv_04"
+              ],
+              "localRole": "CONSTRAINT",
+              "modifiers": [
+                "ne veux surtout pas dire",
+                "cause"
+              ],
+              "normalizedLabel": "refus d'un lien de causalité entre perfusion et OEF",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I02:R2",
+              "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "l'OEF se normalise quand la perfusion s'améliore",
+              "targetInventoryItemId": "inv_04"
+            },
+            {
+              "inventoryRelationId": "rel_inv_02",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_06",
+              "sourceMessageId": "I02:T0",
+              "sourceText": "l'IRM avant le geste",
+              "targetInventoryItemId": "inv_07"
+            },
+            {
+              "inventoryRelationId": "rel_inv_03",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_08",
+              "sourceMessageId": "I02:R1",
+              "sourceText": "L'IRM principale est à 24 h",
+              "targetInventoryItemId": "inv_09"
+            },
+            {
+              "inventoryRelationId": "rel_inv_04",
+              "normalizedRelation": "REPEATED_AT",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_08",
+              "sourceMessageId": "I02:R1",
+              "sourceText": "L'IRM principale est à 24 h puis à J7",
+              "targetInventoryItemId": "inv_10"
+            },
+            {
+              "inventoryRelationId": "rel_inv_05",
+              "normalizedRelation": "INFLUENCES",
+              "polarity": "NEGATED",
+              "sourceInventoryItemId": "inv_04",
+              "sourceMessageId": "I02:R2",
+              "sourceText": "l'amélioration de la perfusion cause la normalisation de l'OEF",
+              "targetInventoryItemId": "inv_03"
+            }
+          ]
+        },
+        "semanticWarnings": [],
+        "summaryForUser": "Prise en compte de votre consigne selon laquelle l'absence d'IRM pré-geste ne doit pas exclure les patients thrombectomisés, et de votre rejet d'une relation causale entre l'amélioration de la perfusion et la normalisation de l'OEF.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 11372,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:53:03.592Z",
+          "requestStarted": "2026-08-14T08:52:52.220Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-8b5fd27f6790b9e3",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_01",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "patients thrombectomisés",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "les patients thrombectomisés"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_02",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "savoir si",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "savoir si"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_03",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "normalisation de l'OEF",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'OEF se normalise"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_04",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "amélioration de la perfusion",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "la perfusion s'améliore"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_05",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "absence fréquente d'IRM avant le geste",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "je n'ai pas toujours l'IRM avant le geste"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_06",
+          "mappedClientElementIds": [
+            "elem_06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "IRM",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'IRM"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_07",
+          "mappedClientElementIds": [
+            "elem_07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "avant le geste",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "avant le geste"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_08",
+          "mappedClientElementIds": [
+            "elem_08"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "IRM principale",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "L'IRM principale"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_09",
+          "mappedClientElementIds": [
+            "elem_09"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "à 24 h",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "à 24 h"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_10",
+          "mappedClientElementIds": [
+            "elem_10"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "à J7",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "à J7"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_11",
+          "mappedClientElementIds": [
+            "elem_11"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "absence fréquente d'IRM avant la thrombectomie",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_12",
+          "mappedClientElementIds": [
+            "elem_12"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "l'absence d'IRM pré-geste n'exclut pas les patients",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:R2",
+          "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_13",
+          "mappedClientElementIds": [
+            "elem_13"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "refus d'un lien de causalité entre perfusion et OEF",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I02:R2",
+          "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [
+      {
+        "changeReason": "Nouvelle contribution utilisateur analysée sans réécriture de l’état antérieur.",
+        "changedAt": "2026-08-14T08:51:52.931Z",
+        "digest": "ke1-24cc7487ce69f333",
+        "modelId": "semantic-model:ke1-a50f1682b12201b6",
+        "revision": 1,
+        "status": "CANDIDATE"
+      },
+      {
+        "changeReason": "Nouvelle contribution utilisateur analysée sans réécriture de l’état antérieur.",
+        "changedAt": "2026-08-14T08:52:35.888Z",
+        "digest": "ke1-3be1f55ecacd0b6a",
+        "modelId": "semantic-model:ke1-f7a957536b24d527",
+        "revision": 2,
+        "status": "CANDIDATE"
+      }
+    ],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "Evaluation de la normalisation de l'OEF en relation avec l'amelioration de la perfusion chez les patients thrombectomises, avec des IRM principales a 24h et J7, tout en precisant que l'absence d'IRM pre-geste ne doit pas exclure automatiquement les patients et en rejetant explicitement l'idee d'un lien de causalite entre l'amelioration de la perfusion et la normalisation de l'OEF.",
+    "originalRequest": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+    "previousModelId": "semantic-model:ke1-f7a957536b24d527",
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_01",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_02",
+          "mappedClientRelationIds": [
+            "rel_02"
+          ],
+          "normalizedRelation": "REPEATED_AT",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_06",
+          "targetInventoryItemId": "inv_07"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_03",
+          "mappedClientRelationIds": [
+            "rel_03"
+          ],
+          "normalizedRelation": "REPEATED_AT",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_08",
+          "targetInventoryItemId": "inv_09"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_04",
+          "mappedClientRelationIds": [
+            "rel_04"
+          ],
+          "normalizedRelation": "REPEATED_AT",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_08",
+          "targetInventoryItemId": "inv_10"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_05",
+          "mappedClientRelationIds": [
+            "rel_05"
+          ],
+          "normalizedRelation": "INFLUENCES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_04",
+          "targetInventoryItemId": "inv_03"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-0f8fa4a3bff1d737",
+        "sourceElementId": "sem-element:ke1-ca3c9fc2f04f73ce",
+        "targetElementId": "sem-element:ke1-fb88eb7580e85d11",
+        "version": 3,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-380ace2027411ec4",
+        "sourceElementId": "sem-element:ke1-3944579344f8e407",
+        "targetElementId": "sem-element:ke1-bd322dd7c1f71d83",
+        "version": 3,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-9bacd885cb178a49",
+        "sourceElementId": "sem-element:ke1-68dc9d62c1485c16",
+        "targetElementId": "sem-element:ke1-353c7f527c04db0e",
+        "version": 2,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_05"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "INFLUENCES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-d5d6f45e51a6df22",
+        "sourceElementId": "sem-element:ke1-fb88eb7580e85d11",
+        "targetElementId": "sem-element:ke1-ca3c9fc2f04f73ce",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-db661ef934f04f85",
+        "sourceElementId": "sem-element:ke1-68dc9d62c1485c16",
+        "targetElementId": "sem-element:ke1-285d41b486d85c30",
+        "version": 2,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 3,
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Define study criteria accommodating missing baseline imaging",
+        "Handle non-causal association tracking between perfusion and OEF",
+        "Structure longitudinal assessments at 24h and J7"
+      ],
+      "reason": "The user is actively framing a study design around thrombectomized patients, defining timing, biomarkers, and explicit methodological constraints and causal exclusions.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-b4010c6bc701044f",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Prise en compte de votre consigne selon laquelle l'absence d'IRM pré-geste ne doit pas exclure les patients thrombectomisés, et de votre rejet d'une relation causale entre l'amélioration de la perfusion et la normalisation de l'OEF.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T08:53:07.544Z"
+  },
+  "pairedFirstReconstruction": true,
+  "postCriticCandidate": {
+    "ambiguities": [],
+    "candidateId": "cand-ke1-r2-v3",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Patients who have undergone thrombectomy",
+        "clientElementId": "elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "les patients thrombectomisés",
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "POPULATION"
+      },
+      {
+        "canonicalMeaning": "Desire to know/evaluate relation between OEF and perfusion",
+        "clientElementId": "elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "savoir si",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Oxygen Extraction Fraction normalization",
+        "clientElementId": "elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "l'OEF se normalise",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "Perfusion improvement",
+        "clientElementId": "elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "la perfusion s'améliore",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "MRI is not always available before the procedure",
+        "clientElementId": "elem_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      },
+      {
+        "canonicalMeaning": "Magnetic Resonance Imaging",
+        "clientElementId": "elem_06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_06"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "l'IRM",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "Before the procedure/gesture",
+        "clientElementId": "elem_07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:T0",
+        "sourceText": "avant le geste",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "Main Magnetic Resonance Imaging",
+        "clientElementId": "elem_08",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R1",
+        "sourceText": "L'IRM principale",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "At 24 hours",
+        "clientElementId": "elem_09",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R1",
+        "sourceText": "à 24 h",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "At day 7",
+        "clientElementId": "elem_10",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_10"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R1",
+        "sourceText": "à J7",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "TIMING"
+      },
+      {
+        "canonicalMeaning": "Often no MRI before thrombectomy",
+        "clientElementId": "elem_11",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_11"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R1",
+        "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      },
+      {
+        "canonicalMeaning": "Absence of pre-procedure MRI must not automatically exclude patients",
+        "clientElementId": "elem_12",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_12"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R2",
+        "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      },
+      {
+        "canonicalMeaning": "Denial of causal relationship between perfusion improvement and OEF normalization",
+        "clientElementId": "elem_13",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_13"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I02:R2",
+        "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "Evaluation de la normalisation de l'OEF en relation avec l'amelioration de la perfusion chez les patients thrombectomises, avec des IRM principales a 24h et J7, tout en precisant que l'absence d'IRM pre-geste ne doit pas exclure automatiquement les patients et en rejetant explicitement l'idee d'un lien de causalite entre l'amelioration de la perfusion et la normalisation de l'OEF.",
+    "relations": [
+      {
+        "clientRelationId": "rel_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_03",
+        "targetClientElementId": "elem_04"
+      },
+      {
+        "clientRelationId": "rel_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_06",
+        "targetClientElementId": "elem_07"
+      },
+      {
+        "clientRelationId": "rel_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_08",
+        "targetClientElementId": "elem_09"
+      },
+      {
+        "clientRelationId": "rel_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "REPEATED_AT",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_08",
+        "targetClientElementId": "elem_10"
+      },
+      {
+        "clientRelationId": "rel_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_05"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "INFLUENCES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_04",
+        "targetClientElementId": "elem_03"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Define study criteria accommodating missing baseline imaging",
+        "Structure longitudinal assessments at 24h and J7",
+        "Handle non-causal association tracking between perfusion and OEF"
+      ],
+      "reason": "The user is actively framing a study design around thrombectomized patients, defining timing, biomarkers, and explicit methodological constraints and causal exclusions.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv_01",
+          "linkedInventoryItemIds": [],
+          "localRole": "POPULATION",
+          "modifiers": [],
+          "normalizedLabel": "patients thrombectomisés",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "les patients thrombectomisés"
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "INTENT",
+          "modifiers": [],
+          "normalizedLabel": "savoir si",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "savoir si"
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "BIOMARKER",
+          "modifiers": [],
+          "normalizedLabel": "normalisation de l'OEF",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'OEF se normalise"
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "linkedInventoryItemIds": [],
+          "localRole": "BIOMARKER",
+          "modifiers": [],
+          "normalizedLabel": "amélioration de la perfusion",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "la perfusion s'améliore"
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "linkedInventoryItemIds": [
+            "inv_06",
+            "inv_07"
+          ],
+          "localRole": "CONSTRAINT",
+          "modifiers": [
+            "pas toujours"
+          ],
+          "normalizedLabel": "absence fréquente d'IRM avant le geste",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "je n'ai pas toujours l'IRM avant le geste"
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "linkedInventoryItemIds": [],
+          "localRole": "MODALITY",
+          "modifiers": [],
+          "normalizedLabel": "IRM",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'IRM"
+        },
+        {
+          "inventoryItemId": "inv_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "TIMING",
+          "modifiers": [],
+          "normalizedLabel": "avant le geste",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "avant le geste"
+        },
+        {
+          "inventoryItemId": "inv_08",
+          "linkedInventoryItemIds": [],
+          "localRole": "MODALITY",
+          "modifiers": [
+            "principale"
+          ],
+          "normalizedLabel": "IRM principale",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "L'IRM principale"
+        },
+        {
+          "inventoryItemId": "inv_09",
+          "linkedInventoryItemIds": [],
+          "localRole": "TIMING",
+          "modifiers": [],
+          "normalizedLabel": "à 24 h",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "à 24 h"
+        },
+        {
+          "inventoryItemId": "inv_10",
+          "linkedInventoryItemIds": [],
+          "localRole": "TIMING",
+          "modifiers": [],
+          "normalizedLabel": "à J7",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "à J7"
+        },
+        {
+          "inventoryItemId": "inv_11",
+          "linkedInventoryItemIds": [],
+          "localRole": "CONSTRAINT",
+          "modifiers": [
+            "souvent pas"
+          ],
+          "normalizedLabel": "absence fréquente d'IRM avant la thrombectomie",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "Je n'ai souvent pas d'IRM avant la thrombectomie"
+        },
+        {
+          "inventoryItemId": "inv_12",
+          "linkedInventoryItemIds": [],
+          "localRole": "CONSTRAINT",
+          "modifiers": [
+            "ne doit pas",
+            "automatiquement"
+          ],
+          "normalizedLabel": "l'absence d'IRM pré-geste n'exclut pas les patients",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I02:R2",
+          "sourceText": "L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients"
+        },
+        {
+          "inventoryItemId": "inv_13",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "CONSTRAINT",
+          "modifiers": [
+            "ne veux surtout pas dire",
+            "cause"
+          ],
+          "normalizedLabel": "refus d'un lien de causalité entre perfusion et OEF",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I02:R2",
+          "sourceText": "Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_03",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'OEF se normalise quand la perfusion s'améliore",
+          "targetInventoryItemId": "inv_04"
+        },
+        {
+          "inventoryRelationId": "rel_inv_02",
+          "normalizedRelation": "REPEATED_AT",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_06",
+          "sourceMessageId": "I02:T0",
+          "sourceText": "l'IRM avant le geste",
+          "targetInventoryItemId": "inv_07"
+        },
+        {
+          "inventoryRelationId": "rel_inv_03",
+          "normalizedRelation": "REPEATED_AT",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_08",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "L'IRM principale est à 24 h",
+          "targetInventoryItemId": "inv_09"
+        },
+        {
+          "inventoryRelationId": "rel_inv_04",
+          "normalizedRelation": "REPEATED_AT",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_08",
+          "sourceMessageId": "I02:R1",
+          "sourceText": "L'IRM principale est à 24 h puis à J7",
+          "targetInventoryItemId": "inv_10"
+        },
+        {
+          "inventoryRelationId": "rel_inv_05",
+          "normalizedRelation": "INFLUENCES",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "inv_04",
+          "sourceMessageId": "I02:R2",
+          "sourceText": "l'amélioration de la perfusion cause la normalisation de l'OEF",
+          "targetInventoryItemId": "inv_03"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Prise en compte de votre consigne selon laquelle l'absence d'IRM pré-geste ne doit pas exclure les patients thrombectomisés, et de votre rejet d'une relation causale entre l'amélioration de la perfusion et la normalisation de l'OEF.",
+    "unknowns": []
+  },
+  "semanticCriticExecuted": true,
+  "status": "SUCCESS"
+}
+```
+
+## STRUCTURED CONTRACT STATUS
+
+- provider status : `SUCCESS`
+- parsing status : `PARSED_AND_VALIDATED`
+- structured contract conformance : `PASS`
+- scientific semantic evaluability : `EVALUABLE`
+- evaluation mode : `DETERMINISTIC_COMMON_STATE_PROJECTION`
+- native raw output persisted : `false`
+
+## SCIENTIFIC INTERPRETATION
+
+### COMPRÉHENSION GLOBALE
+
+Evaluation de la normalisation de l'OEF en relation avec l'amelioration de la perfusion chez les patients thrombectomises, avec des IRM principales a 24h et J7, tout en precisant que l'absence d'IRM pre-geste ne doit pas exclure automatiquement les patients et en rejetant explicitement l'idee d'un lien de causalite entre l'amelioration de la perfusion et la normalisation de l'OEF.
+
+Objectif scientifique produit :
+
+Desire to know/evaluate relation between OEF and perfusion; Desire to know/evaluate a scientific relation
+
+### EXPLICITEMENT DIT PAR LE CHERCHEUR
+
+- content=Patients who have undergone thrombectomy | scientificRole=POPULATION:SUBJECT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=les patients thrombectomisés | provenanceTurnIds=["I02:T0"]
+- content=At day 7 | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=At day 7 | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=à J7 | provenanceTurnIds=["I02:R1"]
+- content=At 24 hours | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=At 24 hours | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=à 24 h | provenanceTurnIds=["I02:R1"]
+- content=Magnetic Resonance Imaging | scientificRole=MODALITY:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=l'IRM | provenanceTurnIds=["I02:T0"]
+- content=Denial of causal relationship between perfusion improvement and OEF normalization | scientificRole=CONSTRAINT:NONE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF | provenanceTurnIds=["I02:R2"]
+- content=Desire to know/evaluate relation between OEF and perfusion | scientificRole=SCIENTIFIC_INTENT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=savoir si | provenanceTurnIds=["I02:T0"]
+- content=MRI is not always available before the procedure | scientificRole=CONSTRAINT:NONE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=je n'ai pas toujours l'IRM avant le geste | provenanceTurnIds=["I02:T0"]
+- content=Main Magnetic Resonance Imaging | scientificRole=MODALITY:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=L'IRM principale | provenanceTurnIds=["I02:R1"]
+- content=Absence of pre-procedure MRI must not automatically exclude patients | scientificRole=CONSTRAINT:NONE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients | provenanceTurnIds=["I02:R2"]
+- content=Desire to know/evaluate a scientific relation | scientificRole=SCIENTIFIC_INTENT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=savoir si | provenanceTurnIds=["I02:T0"]
+- content=Before the procedure/gesture | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=Before the procedure/gesture | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=avant le geste | provenanceTurnIds=["I02:T0"]
+- content=Oxygen Extraction Fraction normalization | scientificRole=BIOMARKER:MEASUREMENT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=l'OEF se normalise | provenanceTurnIds=["I02:T0"]
+- content=Often no MRI before thrombectomy | scientificRole=CONSTRAINT:NONE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Je n'ai souvent pas d'IRM avant la thrombectomie | provenanceTurnIds=["I02:R1"]
+- content=Perfusion improvement | scientificRole=BIOMARKER:MEASUREMENT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=la perfusion s'améliore | provenanceTurnIds=["I02:T0"]
+
+### RELATIONS COMPRISES
+
+- subject=Oxygen Extraction Fraction normalization | predicate=RELATED_TO_CANDIDATE | object=Perfusion improvement | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Magnetic Resonance Imaging | predicate=REPEATED_AT | object=Before the procedure/gesture | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Main Magnetic Resonance Imaging | predicate=REPEATED_AT | object=At 24 hours | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Perfusion improvement | predicate=INFLUENCES | object=Oxygen Extraction Fraction normalization | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Main Magnetic Resonance Imaging | predicate=REPEATED_AT | object=At day 7 | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+
+### CONTEXTE INFÉRÉ
+
+- Aucun élément produit.
+
+### CANDIDATS SCIENTIFIQUES CONTEXTUELS
+
+- Aucun élément produit.
+
+### NÉGATIONS / CONTRAINTES
+
+- content=Denial of causal relationship between perfusion improvement and OEF normalization | scientificRole=CONSTRAINT:NONE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Et je ne veux surtout pas dire que l'amélioration de la perfusion cause la normalisation de l'OEF | provenanceTurnIds=["I02:R2"]
+- content=MRI is not always available before the procedure | scientificRole=CONSTRAINT:NONE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=je n'ai pas toujours l'IRM avant le geste | provenanceTurnIds=["I02:T0"]
+- content=Absence of pre-procedure MRI must not automatically exclude patients | scientificRole=CONSTRAINT:NONE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=L'absence d'IRM pré-geste ne doit pas exclure automatiquement les patients | provenanceTurnIds=["I02:R2"]
+- content=Often no MRI before thrombectomy | scientificRole=CONSTRAINT:NONE | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Je n'ai souvent pas d'IRM avant la thrombectomie | provenanceTurnIds=["I02:R1"]
+
+### TEMPORALITÉ
+
+- content=At day 7 | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=At day 7 | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=à J7 | provenanceTurnIds=["I02:R1"]
+- content=At 24 hours | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=At 24 hours | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=à 24 h | provenanceTurnIds=["I02:R1"]
+- content=Before the procedure/gesture | scientificRole=TIMING:NONE | polarity=AFFIRMED | temporalContext=Before the procedure/gesture | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=avant le geste | provenanceTurnIds=["I02:T0"]
+
+### AMBIGUÏTÉS
+
+- Aucun élément produit.
+
+### INFORMATIONS MANQUANTES
+
+- Aucun élément produit.
+
+### INCONNUES
+
+- Aucun élément produit.
+
+### CORRECTIONS / SUPERSESSIONS
+
+- Aucun élément produit.
+
+### OWNERSHIP / STATUT ÉPISTÉMIQUE
+
+- content=Patients who have undergone thrombectomy | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:T0"]
+- content=At day 7 | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:R1"]
+- content=At 24 hours | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:R1"]
+- content=Magnetic Resonance Imaging | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:T0"]
+- content=Denial of causal relationship between perfusion improvement and OEF normalization | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:R2"]
+- content=Desire to know/evaluate relation between OEF and perfusion | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:T0"]
+- content=MRI is not always available before the procedure | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:T0"]
+- content=Main Magnetic Resonance Imaging | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:R1"]
+- content=Absence of pre-procedure MRI must not automatically exclude patients | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:R2"]
+- content=Desire to know/evaluate a scientific relation | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:T0"]
+- content=Before the procedure/gesture | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:T0"]
+- content=Oxygen Extraction Fraction normalization | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:T0"]
+- content=Often no MRI before thrombectomy | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:R1"]
+- content=Perfusion improvement | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I02:T0"]
+
+### QUESTIONS DE CLARIFICATION CANDIDATES
+
+- Aucun élément produit.
+
+## MISSING STRUCTURAL GUARANTEES
+
+- EXACT_PROVIDER_RAW_TEXT_NOT_PERSISTED; STRUCTURED_NATIVE_ARTIFACT_AVAILABLE
+
+_Vue locale déterministe. Aucun appel LLM d’interprétation sémantique post-hoc._

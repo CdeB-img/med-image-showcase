@@ -1,0 +1,134 @@
+{
+  "branches": {
+    "DSPY_COMMON_CONTRACT": {
+      "askedQuestions": [],
+      "configurationId": "DSPY_COMMON_CONTRACT",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": "FINISH"
+        },
+        {
+          "round": "T1",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "role": "USER",
+          "turnId": "I01:DSPY_COMMON_CONTRACT:T0"
+        }
+      ]
+    },
+    "PYDANTIC_COMMON_CONTRACT": {
+      "askedQuestions": [
+        "quel est le délai prévu pour la réalisation du stent différé par rapport à l'intervention immédiate ?"
+      ],
+      "configurationId": "PYDANTIC_COMMON_CONTRACT",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "CLAR_TIMING_DELAY",
+            "decisionImpact": "Permet de préciser le protocole exact de stent différé pour l'analyse comparative.",
+            "priority": "MEDIUM",
+            "question": "Quel est le délai prévu pour la réalisation du stent différé par rapport à l'intervention immédiate ?",
+            "targetIds": [
+              "AMB_TIMING_DELAY"
+            ]
+          }
+        },
+        {
+          "round": "T1",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "role": "USER",
+          "turnId": "I01:PYDANTIC_COMMON_CONTRACT:T0"
+        },
+        {
+          "content": "Quel est le délai prévu pour la réalisation du stent différé par rapport à l'intervention immédiate ?",
+          "role": "ASSISTANT",
+          "turnId": "I01:PYDANTIC_COMMON_CONTRACT:Q1"
+        },
+        {
+          "content": "4–6 semaines",
+          "role": "USER",
+          "turnId": "I01:PYDANTIC_COMMON_CONTRACT:R1"
+        }
+      ]
+    },
+    "PYDANTIC_CONDITIONAL_CRITIC": {
+      "askedQuestions": [],
+      "configurationId": "PYDANTIC_CONDITIONAL_CRITIC",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": "FINISH"
+        },
+        {
+          "round": "T1",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "role": "USER",
+          "turnId": "I01:PYDANTIC_CONDITIONAL_CRITIC:T0"
+        }
+      ]
+    },
+    "SEM_FULL": {
+      "askedQuestions": [],
+      "configurationId": "SEM_FULL",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": "FINISH"
+        },
+        {
+          "round": "T1",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "role": "USER",
+          "turnId": "I01:SEM_FULL:T0"
+        }
+      ]
+    },
+    "SEM_SINGLE_PASS": {
+      "askedQuestions": [],
+      "configurationId": "SEM_SINGLE_PASS",
+      "selectedQuestions": [
+        {
+          "round": "T1",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+          "role": "USER",
+          "turnId": "I01:SEM_SINGLE_PASS:T0"
+        }
+      ]
+    }
+  },
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "scenarioId": "I01",
+  "status": "COMPLETE"
+}

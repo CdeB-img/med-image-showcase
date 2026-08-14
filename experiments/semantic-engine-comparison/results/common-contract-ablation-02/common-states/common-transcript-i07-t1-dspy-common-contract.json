@@ -1,0 +1,179 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T1",
+  "scenarioId": "I07",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+        "role": "USER",
+        "turnId": "T0"
+      },
+      {
+        "content": "Pour cette étude, reste sur l'association avec la réponse. La prédiction sera exploratoire seulement.",
+        "role": "USER",
+        "turnId": "T1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "scanner spectral du foie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "scanner spectral du foie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "iode",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "measurement or biomarker role",
+        "sourceText": "l'iode",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "preuve de viabilité tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_3",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "ne veux pas utiliser l'iode comme preuve de viabilité tumorale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "réponse",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "la réponse",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "prédiction",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_5",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "T0",
+          "T1"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "La prédiction sera exploratoire seulement",
+        "temporalContext": "future"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Do not use iodine as proof of tumor viability.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "constraint_1",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "je ne veux pas utiliser l'iode comme preuve de viabilité tumorale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Association only, not causality.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "constraint_2",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0",
+          "T1"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "The user is conducting a liver spectral CT study where iodine is investigated for its association with tumor response, explicitly excluding its use as proof of tumor viability or direct causality for now, while reserving future prediction as exploratory.",
+    "objects": [],
+    "originalRequest": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+    "ownershipAndEpistemicState": [],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "réponse",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "is associated with",
+        "provenanceTurnIds": [
+          "T0",
+          "T1"
+        ],
+        "relationId": "rel_1",
+        "sourceText": "Je veux voir s'il est associé à la réponse",
+        "subject": "iode",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "réponse",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "causes",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_2",
+        "sourceText": "pas dire qu'il la cause",
+        "subject": "iode",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Investigate the association between iodine in spectral CT of the liver and tumor response.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

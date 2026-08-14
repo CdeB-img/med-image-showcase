@@ -1,0 +1,3443 @@
+{
+  "criticCycles": {
+    "accepted": false,
+    "attempts": [
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 5549,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T09:02:02.325Z",
+        "requestStarted": "2026-08-14T09:01:56.776Z",
+        "retryable": false
+      },
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 5776,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T09:02:08.105Z",
+        "requestStarted": "2026-08-14T09:02:02.329Z",
+        "retryable": false
+      }
+    ],
+    "callIds": [
+      "gemini-call:ke1-6e104936e3a0287a",
+      "gemini-call:ke1-00de17c3c6cd453f"
+    ],
+    "candidate": {
+      "ambiguities": [
+        "Gestion des cas avec données ASL partielles sans DSC"
+      ],
+      "candidateId": "cand_01J9XYZ",
+      "clarificationCandidates": [
+        {
+          "question": "Souhaitez-vous définir un critère d'inclusion spécifique pour les patients ne disposant que de l'ASL ?",
+          "reason": "Préciser la gestion des données partielles dans l'analyse.",
+          "resolvesClientElementIds": []
+        }
+      ],
+      "contradictions": [],
+      "elements": [
+        {
+          "canonicalMeaning": "Dynamic Susceptibility Contrast MRI (DSC)",
+          "clientElementId": "elem_01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_03"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I06:T0",
+          "sourceText": "DSC",
+          "studyRole": "COMPARATOR_ARM",
+          "supersedesElementIds": [],
+          "type": "METHOD"
+        },
+        {
+          "canonicalMeaning": "Arterial Spin Labeling MRI (ASL)",
+          "clientElementId": "elem_02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_04"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I06:T0",
+          "sourceText": "ASL",
+          "studyRole": "INTERVENTION_ARM",
+          "supersedesElementIds": [],
+          "type": "METHOD"
+        },
+        {
+          "canonicalMeaning": "Glioma",
+          "clientElementId": "elem_03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_05"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I06:T0",
+          "sourceText": "gliomes",
+          "studyRole": "SUBJECT",
+          "supersedesElementIds": [],
+          "type": "CONDITION"
+        },
+        {
+          "canonicalMeaning": "Tumor progression",
+          "clientElementId": "elem_04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_09"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I06:T0",
+          "sourceText": "progression",
+          "studyRole": "OUTCOME_ROLE",
+          "supersedesElementIds": [],
+          "type": "OUTCOME"
+        },
+        {
+          "canonicalMeaning": "Utility for progression assessment",
+          "clientElementId": "elem_05",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_08"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I06:T0",
+          "sourceText": "laquelle est la plus utile",
+          "studyRole": "OUTCOME_ROLE",
+          "supersedesElementIds": [],
+          "type": "ENDPOINT"
+        },
+        {
+          "canonicalMeaning": "Intent to determine which method is more useful",
+          "clientElementId": "elem_06",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_07"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I06:T0",
+          "sourceText": "je veux savoir",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_INTENT"
+        },
+        {
+          "canonicalMeaning": "User / Researcher conducting the study",
+          "clientElementId": "elem_07",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_01"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Je",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "POPULATION"
+        },
+        {
+          "canonicalMeaning": "Patients with ASL data only",
+          "clientElementId": "elem_08",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv_10"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Pour ceux qui n'ont que la seconde",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "POPULATION"
+        }
+      ],
+      "ellipses": [],
+      "knowledgeRequests": [],
+      "language": "fr",
+      "missingConcepts": [],
+      "normalizedMeaning": "L'utilisateur compare les méthodes d'imagerie DSC et ASL dans les gliomes. Lorsque les résultats divergent, il cherche à déterminer quelle méthode est la plus utile pour évaluer la progression tumorale, tout en exprimant une préférence pour la conservation des cas ne disposant que de la seconde méthode si possible.",
+      "relations": [
+        {
+          "clientRelationId": "rel_01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_01",
+            "rel_inv_02"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "COMPARES_WITH",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_01",
+          "targetClientElementId": "elem_02"
+        },
+        {
+          "clientRelationId": "rel_02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_03"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "APPLIED_TO",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_01",
+          "targetClientElementId": "elem_03"
+        },
+        {
+          "clientRelationId": "rel_03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_04"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "APPLIED_TO",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_02",
+          "targetClientElementId": "elem_03"
+        },
+        {
+          "clientRelationId": "rel_04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel_inv_05"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "EVALUATES_OUTCOME",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem_05",
+          "targetClientElementId": "elem_04"
+        }
+      ],
+      "routeProposal": {
+        "confidence": 0.95,
+        "expectedCapabilities": [
+          "Comparison of imaging methods",
+          "Endpoint definition for tumor progression",
+          "Cohort management strategy"
+        ],
+        "reason": "L'utilisateur compare deux méthodes d'imagerie (DSC et ASL) sur une condition spécifique (gliomes) avec un objectif d'évaluation (progression) et des considérations sur les critères d'inclusion/gestion des données.",
+        "route": "DESIGN_STUDY"
+      },
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv_01",
+            "linkedInventoryItemIds": [],
+            "localRole": "agent",
+            "modifiers": [],
+            "normalizedLabel": "utilisateur",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Je"
+          },
+          {
+            "inventoryItemId": "inv_02",
+            "linkedInventoryItemIds": [
+              "inv_01",
+              "inv_03",
+              "inv_04"
+            ],
+            "localRole": "action",
+            "modifiers": [],
+            "normalizedLabel": "comparaison",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "compare"
+          },
+          {
+            "inventoryItemId": "inv_03",
+            "linkedInventoryItemIds": [],
+            "localRole": "method_a",
+            "modifiers": [],
+            "normalizedLabel": "DSC",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "DSC"
+          },
+          {
+            "inventoryItemId": "inv_04",
+            "linkedInventoryItemIds": [],
+            "localRole": "method_b",
+            "modifiers": [],
+            "normalizedLabel": "ASL",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "ASL"
+          },
+          {
+            "inventoryItemId": "inv_05",
+            "linkedInventoryItemIds": [],
+            "localRole": "condition",
+            "modifiers": [
+              "mes"
+            ],
+            "normalizedLabel": "gliomes",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "gliomes"
+          },
+          {
+            "inventoryItemId": "inv_06",
+            "linkedInventoryItemIds": [
+              "inv_03",
+              "inv_04"
+            ],
+            "localRole": "condition",
+            "modifiers": [],
+            "normalizedLabel": "divergence des résultats",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Quand elles ne racontent pas la même chose"
+          },
+          {
+            "inventoryItemId": "inv_07",
+            "linkedInventoryItemIds": [],
+            "localRole": "intent",
+            "modifiers": [],
+            "normalizedLabel": "intention de savoir",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "je veux savoir"
+          },
+          {
+            "inventoryItemId": "inv_08",
+            "linkedInventoryItemIds": [
+              "inv_03",
+              "inv_04"
+            ],
+            "localRole": "endpoint_criterion",
+            "modifiers": [],
+            "normalizedLabel": "utilité relative",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "laquelle est la plus utile"
+          },
+          {
+            "inventoryItemId": "inv_09",
+            "linkedInventoryItemIds": [],
+            "localRole": "outcome",
+            "modifiers": [],
+            "normalizedLabel": "progression tumorale",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "progression"
+          },
+          {
+            "inventoryItemId": "inv_10",
+            "linkedInventoryItemIds": [
+              "inv_04"
+            ],
+            "localRole": "subset_condition",
+            "modifiers": [],
+            "normalizedLabel": "patients avec ASL uniquement",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Pour ceux qui n'ont que la seconde"
+          },
+          {
+            "inventoryItemId": "inv_11",
+            "linkedInventoryItemIds": [
+              "inv_10"
+            ],
+            "localRole": "preference",
+            "modifiers": [
+              "si c'est possible"
+            ],
+            "normalizedLabel": "conserver les cas partiels",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "je préfère quand même les garder"
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel_inv_01",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_02",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Je compare DSC et ASL",
+            "targetInventoryItemId": "inv_03"
+          },
+          {
+            "inventoryRelationId": "rel_inv_02",
+            "normalizedRelation": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_02",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Je compare DSC et ASL",
+            "targetInventoryItemId": "inv_04"
+          },
+          {
+            "inventoryRelationId": "rel_inv_03",
+            "normalizedRelation": "APPLIED_TO",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_03",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "DSC et ASL chez mes gliomes",
+            "targetInventoryItemId": "inv_05"
+          },
+          {
+            "inventoryRelationId": "rel_inv_04",
+            "normalizedRelation": "APPLIED_TO",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_04",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "DSC et ASL chez mes gliomes",
+            "targetInventoryItemId": "inv_05"
+          },
+          {
+            "inventoryRelationId": "rel_inv_05",
+            "normalizedRelation": "EVALUATES_OUTCOME",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv_08",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "la plus utile pour la progression",
+            "targetInventoryItemId": "inv_09"
+          }
+        ]
+      },
+      "semanticWarnings": [],
+      "summaryForUser": "Analyse de la comparaison entre DSC et ASL dans les gliomes pour la progression tumorale, avec prise en compte des cas partiels.",
+      "unknowns": []
+    },
+    "critics": [
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "Inventory fragments such as inv_01, inv_06, inv_07, inv_10, and inv_11 are unresolved in explicitCoverageReport.",
+            "result": "FAIL"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "Both comparative methods are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Intervention/method arms are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Modalities/methods DSC and ASL are present.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All inventory relations are mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "Taxonomy report is complete and findings-free.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No relations were weakened.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences promoted.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Ambiguities are exposed.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No explicit timing lost.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Endpoint and outcome classification follow rules.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts remain exact.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Several explicit source fragments from the user message are currently unmapped to semantic elements.",
+            "result": "FAIL"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Route DESIGN_STUDY matches the study setup request.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic_01J9XYZ",
+        "criticSummary": "Audit completed. The core methods and endpoints are mapped, but several explicit fragments (intent, divergence condition, subset preference) remain unmapped in the explicit coverage report. A repair is proposed to map the scientific intent element.",
+        "issues": [
+          {
+            "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+            "description": "Inventory fragments inv_01, inv_06, inv_07, inv_10, and inv_11 are not mapped to semantic elements.",
+            "elementClientIds": [],
+            "recommendedAction": "Create corresponding semantic elements for intent, condition, and subset constraints.",
+            "resolved": false,
+            "severity": "WARNING"
+          }
+        ],
+        "missingExplicitSourceFragments": [
+          {
+            "confidence": 1,
+            "normalizedMeaning": "utilisateur",
+            "reason": "Agent reference unmapped.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Je",
+            "suggestedLocalRole": "agent"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "divergence des résultats",
+            "reason": "Condition of divergence unmapped to element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Quand elles ne racontent pas la même chose",
+            "suggestedLocalRole": "condition"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "intention de savoir",
+            "reason": "Scientific intent unmapped.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "je veux savoir",
+            "suggestedLocalRole": "intent"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "patients avec ASL uniquement",
+            "reason": "Subset condition unmapped.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Pour ceux qui n'ont que la seconde",
+            "suggestedLocalRole": "subset_condition"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "conserver les cas partiels",
+            "reason": "User preference unmapped.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "je préfère quand même les garder",
+            "suggestedLocalRole": "preference"
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "action": "UPSERT_ELEMENT",
+            "ambiguity": null,
+            "elementCanonicalMeaning": "Intent to determine which method is more useful",
+            "elementClientElementId": "elem_06",
+            "elementConfidence": 1,
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [
+              "inv_07"
+            ],
+            "elementPolarity": "AFFIRMED",
+            "elementRequiresConfirmation": false,
+            "elementSourceMessageId": "I06:T0",
+            "elementSourceText": "je veux savoir",
+            "elementStudyRole": "NONE",
+            "elementSupersedesElementIds": [],
+            "elementType": "SCIENTIFIC_INTENT",
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryPolarity": null,
+            "inventoryRelationId": null,
+            "inventoryRelationPolarity": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryRelationTargetItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Represent the scientific intent fragment 'je veux savoir'.",
+            "relationClientRelationId": null,
+            "relationConfidence": null,
+            "relationEpistemicStatus": null,
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [],
+            "relationPolarity": null,
+            "relationRequiresConfirmation": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "repairId": "rep_01",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv_07"
+            ],
+            "sourceInventoryRelationIds": []
+          }
+        ],
+        "verdict": "REVISE"
+      },
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "Inventory fragments inv_01, inv_06, inv_10, and inv_11 remain unmapped in the explicit coverage report.",
+            "result": "FAIL"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "Comparator relationship is fully represented between DSC and ASL.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Intervention/methods DSC and ASL are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Imaging methods correctly mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All relation inventory items are mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All types conform to taxonomy rules.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Relations are preserved accurately.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences are treated as explicit user statements inappropriately.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Ambiguities are correctly declared.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No explicit timing lost.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Endpoints and outcomes are correctly distinguished.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like DSC and ASL are preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Fragments inv_01, inv_06, inv_10, inv_11 are unrepresented in elements.",
+            "result": "FAIL"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Route correctly matches DESIGN_STUDY.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "crit_02",
+        "criticSummary": "The candidate captures core methodological comparisons and endpoints correctly, but leaves several explicit inventory items (agent, divergence condition, subset condition, and preference) unmapped to semantic elements. Bounded repairs have been proposed to cover these fragments.",
+        "issues": [
+          {
+            "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+            "description": "Inventory items inv_01, inv_06, inv_10, and inv_11 have no mapped client elements.",
+            "elementClientIds": [],
+            "recommendedAction": "Create semantic elements for the unmapped inventory fragments.",
+            "resolved": false,
+            "severity": "WARNING"
+          }
+        ],
+        "missingExplicitSourceFragments": [
+          {
+            "confidence": 1,
+            "normalizedMeaning": "utilisateur",
+            "reason": "Agent fragment not mapped to an element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Je",
+            "suggestedLocalRole": "agent"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "divergence des résultats",
+            "reason": "Condition fragment not mapped to an element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Quand elles ne racontent pas la même chose",
+            "suggestedLocalRole": "condition"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "patients avec ASL uniquement",
+            "reason": "Subset condition not mapped to an element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Pour ceux qui n'ont que la seconde",
+            "suggestedLocalRole": "subset_condition"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "conserver les cas partiels",
+            "reason": "Preference constraint not mapped to an element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "je préfère quand même les garder",
+            "suggestedLocalRole": "preference"
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "action": "UPSERT_ELEMENT",
+            "ambiguity": null,
+            "elementCanonicalMeaning": "User / Researcher conducting the study",
+            "elementClientElementId": "elem_07",
+            "elementConfidence": 1,
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [
+              "inv_01"
+            ],
+            "elementPolarity": "AFFIRMED",
+            "elementRequiresConfirmation": false,
+            "elementSourceMessageId": "I06:T0",
+            "elementSourceText": "Je",
+            "elementStudyRole": "NONE",
+            "elementSupersedesElementIds": [],
+            "elementType": "POPULATION",
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryPolarity": null,
+            "inventoryRelationId": null,
+            "inventoryRelationPolarity": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryRelationTargetItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Represent the user agent fragment inv_01 as a population or subject attribute.",
+            "relationClientRelationId": null,
+            "relationConfidence": null,
+            "relationEpistemicStatus": null,
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [],
+            "relationPolarity": null,
+            "relationRequiresConfirmation": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "repairId": "rep_01",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceInventoryRelationIds": []
+          },
+          {
+            "action": "UPSERT_ELEMENT",
+            "ambiguity": null,
+            "elementCanonicalMeaning": "Patients with ASL data only",
+            "elementClientElementId": "elem_08",
+            "elementConfidence": 1,
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [
+              "inv_10"
+            ],
+            "elementPolarity": "AFFIRMED",
+            "elementRequiresConfirmation": false,
+            "elementSourceMessageId": "I06:T0",
+            "elementSourceText": "Pour ceux qui n'ont que la seconde",
+            "elementStudyRole": "NONE",
+            "elementSupersedesElementIds": [],
+            "elementType": "POPULATION",
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryPolarity": null,
+            "inventoryRelationId": null,
+            "inventoryRelationPolarity": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryRelationTargetItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Represent fragment inv_10 (patients with ASL only) as a constraint or population subset.",
+            "relationClientRelationId": null,
+            "relationConfidence": null,
+            "relationEpistemicStatus": null,
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [],
+            "relationPolarity": null,
+            "relationRequiresConfirmation": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "repairId": "rep_02",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv_10"
+            ],
+            "sourceInventoryRelationIds": []
+          }
+        ],
+        "verdict": "REVISE"
+      }
+    ],
+    "cycleAttempts": [
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 5549,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:02:02.325Z",
+          "requestStarted": "2026-08-14T09:01:56.776Z",
+          "retryable": false
+        }
+      ],
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 5776,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:02:08.105Z",
+          "requestStarted": "2026-08-14T09:02:02.329Z",
+          "retryable": false
+        }
+      ]
+    ],
+    "repairDiagnostics": [
+      {
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED",
+        "repairId": "rep_01",
+        "status": "ACCEPTED"
+      },
+      {
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED",
+        "repairId": "rep_01",
+        "status": "ACCEPTED"
+      },
+      {
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED",
+        "repairId": "rep_02",
+        "status": "ACCEPTED"
+      }
+    ],
+    "terminalReason": "CRITIC_MAX_CYCLES_EXHAUSTED"
+  },
+  "initialReconstruction": {
+    "ambiguities": [
+      "Gestion des cas avec données ASL partielles sans DSC"
+    ],
+    "candidateId": "cand_01J9XYZ",
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous définir un critère d'inclusion spécifique pour les patients ne disposant que de l'ASL ?",
+        "reason": "Préciser la gestion des données partielles dans l'analyse.",
+        "resolvesClientElementIds": []
+      }
+    ],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "clientElementId": "elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "DSC",
+        "studyRole": "COMPARATOR_ARM",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Arterial Spin Labeling MRI (ASL)",
+        "clientElementId": "elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "ASL",
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Glioma",
+        "clientElementId": "elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "gliomes",
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Tumor progression",
+        "clientElementId": "elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "progression",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "Utility for progression assessment",
+        "clientElementId": "elem_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "laquelle est la plus utile",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "ENDPOINT"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur compare les méthodes d'imagerie DSC et ASL dans les gliomes. Lorsque les résultats divergent, il cherche à déterminer quelle méthode est la plus utile pour évaluer la progression tumorale, tout en exprimant une préférence pour la conservation des cas ne disposant que de la seconde méthode si possible.",
+    "relations": [
+      {
+        "clientRelationId": "rel_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_01",
+          "rel_inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "COMPARES_WITH",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_01",
+        "targetClientElementId": "elem_02"
+      },
+      {
+        "clientRelationId": "rel_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "APPLIED_TO",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_01",
+        "targetClientElementId": "elem_03"
+      },
+      {
+        "clientRelationId": "rel_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "APPLIED_TO",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_03"
+      },
+      {
+        "clientRelationId": "rel_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_05"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "EVALUATES_OUTCOME",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_05",
+        "targetClientElementId": "elem_04"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Comparison of imaging methods",
+        "Endpoint definition for tumor progression",
+        "Cohort management strategy"
+      ],
+      "reason": "L'utilisateur compare deux méthodes d'imagerie (DSC et ASL) sur une condition spécifique (gliomes) avec un objectif d'évaluation (progression) et des considérations sur les critères d'inclusion/gestion des données.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv_01",
+          "linkedInventoryItemIds": [],
+          "localRole": "agent",
+          "modifiers": [],
+          "normalizedLabel": "utilisateur",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Je"
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "linkedInventoryItemIds": [
+            "inv_01",
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "comparaison",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "compare"
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "method_a",
+          "modifiers": [],
+          "normalizedLabel": "DSC",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "DSC"
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "linkedInventoryItemIds": [],
+          "localRole": "method_b",
+          "modifiers": [],
+          "normalizedLabel": "ASL",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "ASL"
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [
+            "mes"
+          ],
+          "normalizedLabel": "gliomes",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "gliomes"
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "divergence des résultats",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Quand elles ne racontent pas la même chose"
+        },
+        {
+          "inventoryItemId": "inv_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "intent",
+          "modifiers": [],
+          "normalizedLabel": "intention de savoir",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "je veux savoir"
+        },
+        {
+          "inventoryItemId": "inv_08",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "endpoint_criterion",
+          "modifiers": [],
+          "normalizedLabel": "utilité relative",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "laquelle est la plus utile"
+        },
+        {
+          "inventoryItemId": "inv_09",
+          "linkedInventoryItemIds": [],
+          "localRole": "outcome",
+          "modifiers": [],
+          "normalizedLabel": "progression tumorale",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "progression"
+        },
+        {
+          "inventoryItemId": "inv_10",
+          "linkedInventoryItemIds": [
+            "inv_04"
+          ],
+          "localRole": "subset_condition",
+          "modifiers": [],
+          "normalizedLabel": "patients avec ASL uniquement",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Pour ceux qui n'ont que la seconde"
+        },
+        {
+          "inventoryItemId": "inv_11",
+          "linkedInventoryItemIds": [
+            "inv_10"
+          ],
+          "localRole": "preference",
+          "modifiers": [
+            "si c'est possible"
+          ],
+          "normalizedLabel": "conserver les cas partiels",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "je préfère quand même les garder"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_02",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Je compare DSC et ASL",
+          "targetInventoryItemId": "inv_03"
+        },
+        {
+          "inventoryRelationId": "rel_inv_02",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_02",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Je compare DSC et ASL",
+          "targetInventoryItemId": "inv_04"
+        },
+        {
+          "inventoryRelationId": "rel_inv_03",
+          "normalizedRelation": "APPLIED_TO",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_03",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "DSC et ASL chez mes gliomes",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "inventoryRelationId": "rel_inv_04",
+          "normalizedRelation": "APPLIED_TO",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_04",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "DSC et ASL chez mes gliomes",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "inventoryRelationId": "rel_inv_05",
+          "normalizedRelation": "EVALUATES_OUTCOME",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_08",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "la plus utile pour la progression",
+          "targetInventoryItemId": "inv_09"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Analyse de la comparaison entre DSC et ASL dans les gliomes pour la progression tumorale, avec prise en compte des cas partiels.",
+    "unknowns": []
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [
+      "Gestion des cas avec données ASL partielles sans DSC"
+    ],
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous définir un critère d'inclusion spécifique pour les patients ne disposant que de l'ASL ?",
+        "reason": "Préciser la gestion des données partielles dans l'analyse.",
+        "resolvesElementIds": []
+      }
+    ],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I06:T0"
+    ],
+    "createdAt": "2026-08-14T09:02:08.109Z",
+    "critic": {
+      "issues": [
+        {
+          "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+          "description": "Inventory items inv_01, inv_06, inv_10, and inv_11 have no mapped client elements.",
+          "elementClientIds": [],
+          "recommendedAction": "Create semantic elements for the unmapped inventory fragments.",
+          "resolved": false,
+          "severity": "WARNING"
+        }
+      ],
+      "summary": "The candidate captures core methodological comparisons and endpoints correctly, but leaves several explicit inventory items (agent, divergence condition, subset condition, and preference) unmapped to semantic elements. Bounded repairs have been proposed to cover these fragments.",
+      "verdict": "REVISE"
+    },
+    "digest": "ke1-87f3f689d55b6e2d",
+    "elements": [
+      {
+        "canonicalMeaning": "User / Researcher conducting the study",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I06:T0",
+          "providerCallId": "gemini-call:ke1-6691eef56f4d7789",
+          "rawElementId": "elem_07",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-273e86f5921fe221",
+        "sourceSpan": {
+          "end": 2,
+          "messageId": "I06:T0",
+          "start": 0,
+          "text": "Je"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "POPULATION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Utility for progression assessment",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I06:T0",
+          "providerCallId": "gemini-call:ke1-6691eef56f4d7789",
+          "rawElementId": "elem_05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-d54d0e4719830b6b"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-5597336786d51373",
+        "sourceSpan": {
+          "end": 125,
+          "messageId": "I06:T0",
+          "start": 99,
+          "text": "laquelle est la plus utile"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "ENDPOINT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Arterial Spin Labeling MRI (ASL)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I06:T0",
+          "providerCallId": "gemini-call:ke1-6691eef56f4d7789",
+          "rawElementId": "elem_02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-f0026975eec42539",
+          "sem-relation:ke1-f31c888f1bf656b3"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-7d40eceab438999e",
+        "sourceSpan": {
+          "end": 21,
+          "messageId": "I06:T0",
+          "start": 18,
+          "text": "ASL"
+        },
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Glioma",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I06:T0",
+          "providerCallId": "gemini-call:ke1-6691eef56f4d7789",
+          "rawElementId": "elem_03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-f31c888f1bf656b3",
+          "sem-relation:ke1-fc58f298e796bb54"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-8976c0e4e1c67c20",
+        "sourceSpan": {
+          "end": 38,
+          "messageId": "I06:T0",
+          "start": 31,
+          "text": "gliomes"
+        },
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "CONDITION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I06:T0",
+          "providerCallId": "gemini-call:ke1-6691eef56f4d7789",
+          "rawElementId": "elem_01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-f0026975eec42539",
+          "sem-relation:ke1-fc58f298e796bb54"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-9c76acf0bb5c49e4",
+        "sourceSpan": {
+          "end": 14,
+          "messageId": "I06:T0",
+          "start": 11,
+          "text": "DSC"
+        },
+        "studyRole": "COMPARATOR_ARM",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Tumor progression",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I06:T0",
+          "providerCallId": "gemini-call:ke1-6691eef56f4d7789",
+          "rawElementId": "elem_04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-d54d0e4719830b6b"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-9d17ea98e70586d4",
+        "sourceSpan": {
+          "end": 145,
+          "messageId": "I06:T0",
+          "start": 134,
+          "text": "progression"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Intent to determine which method is more useful",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_07"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I06:T0",
+          "providerCallId": "gemini-call:ke1-6691eef56f4d7789",
+          "rawElementId": "elem_06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-a8641a2bf4164457",
+        "sourceSpan": {
+          "end": 98,
+          "messageId": "I06:T0",
+          "start": 84,
+          "text": "je veux savoir"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Patients with ASL data only",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_10"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I06:T0",
+          "providerCallId": "gemini-call:ke1-6691eef56f4d7789",
+          "rawElementId": "elem_08",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-c6e15801fed5b40d",
+        "sourceSpan": {
+          "end": 181,
+          "messageId": "I06:T0",
+          "start": 147,
+          "text": "Pour ceux qui n'ont que la seconde"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "POPULATION",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 5549,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:02:02.325Z",
+          "requestStarted": "2026-08-14T09:01:56.776Z",
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 5776,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:02:08.105Z",
+          "requestStarted": "2026-08-14T09:02:02.329Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-00de17c3c6cd453f",
+      "criticCallIds": [
+        "gemini-call:ke1-6e104936e3a0287a",
+        "gemini-call:ke1-00de17c3c6cd453f"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T09:02:08.109Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "Inventory fragments inv_01, inv_06, inv_10, and inv_11 remain unmapped in the explicit coverage report.",
+            "result": "FAIL"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "Comparator relationship is fully represented between DSC and ASL.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Intervention/methods DSC and ASL are represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Imaging methods correctly mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All relation inventory items are mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All types conform to taxonomy rules.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Relations are preserved accurately.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences are treated as explicit user statements inappropriately.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Ambiguities are correctly declared.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Polarities are correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "No explicit timing lost.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Endpoints and outcomes are correctly distinguished.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like DSC and ASL are preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Fragments inv_01, inv_06, inv_10, inv_11 are unrepresented in elements.",
+            "result": "FAIL"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "Route correctly matches DESIGN_STUDY.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "crit_02",
+        "criticSummary": "The candidate captures core methodological comparisons and endpoints correctly, but leaves several explicit inventory items (agent, divergence condition, subset condition, and preference) unmapped to semantic elements. Bounded repairs have been proposed to cover these fragments.",
+        "issues": [
+          {
+            "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+            "description": "Inventory items inv_01, inv_06, inv_10, and inv_11 have no mapped client elements.",
+            "elementClientIds": [],
+            "recommendedAction": "Create semantic elements for the unmapped inventory fragments.",
+            "resolved": false,
+            "severity": "WARNING"
+          }
+        ],
+        "missingExplicitSourceFragments": [
+          {
+            "confidence": 1,
+            "normalizedMeaning": "utilisateur",
+            "reason": "Agent fragment not mapped to an element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Je",
+            "suggestedLocalRole": "agent"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "divergence des résultats",
+            "reason": "Condition fragment not mapped to an element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Quand elles ne racontent pas la même chose",
+            "suggestedLocalRole": "condition"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "patients avec ASL uniquement",
+            "reason": "Subset condition not mapped to an element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Pour ceux qui n'ont que la seconde",
+            "suggestedLocalRole": "subset_condition"
+          },
+          {
+            "confidence": 1,
+            "normalizedMeaning": "conserver les cas partiels",
+            "reason": "Preference constraint not mapped to an element.",
+            "sourceMessageId": "I06:T0",
+            "sourceText": "je préfère quand même les garder",
+            "suggestedLocalRole": "preference"
+          }
+        ],
+        "proposedRepairs": [
+          {
+            "action": "UPSERT_ELEMENT",
+            "ambiguity": null,
+            "elementCanonicalMeaning": "User / Researcher conducting the study",
+            "elementClientElementId": "elem_07",
+            "elementConfidence": 1,
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [
+              "inv_01"
+            ],
+            "elementPolarity": "AFFIRMED",
+            "elementRequiresConfirmation": false,
+            "elementSourceMessageId": "I06:T0",
+            "elementSourceText": "Je",
+            "elementStudyRole": "NONE",
+            "elementSupersedesElementIds": [],
+            "elementType": "POPULATION",
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryPolarity": null,
+            "inventoryRelationId": null,
+            "inventoryRelationPolarity": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryRelationTargetItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Represent the user agent fragment inv_01 as a population or subject attribute.",
+            "relationClientRelationId": null,
+            "relationConfidence": null,
+            "relationEpistemicStatus": null,
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [],
+            "relationPolarity": null,
+            "relationRequiresConfirmation": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "repairId": "rep_01",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv_01"
+            ],
+            "sourceInventoryRelationIds": []
+          },
+          {
+            "action": "UPSERT_ELEMENT",
+            "ambiguity": null,
+            "elementCanonicalMeaning": "Patients with ASL data only",
+            "elementClientElementId": "elem_08",
+            "elementConfidence": 1,
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [
+              "inv_10"
+            ],
+            "elementPolarity": "AFFIRMED",
+            "elementRequiresConfirmation": false,
+            "elementSourceMessageId": "I06:T0",
+            "elementSourceText": "Pour ceux qui n'ont que la seconde",
+            "elementStudyRole": "NONE",
+            "elementSupersedesElementIds": [],
+            "elementType": "POPULATION",
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": null,
+            "inventoryPolarity": null,
+            "inventoryRelationId": null,
+            "inventoryRelationPolarity": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryRelationTargetItemId": null,
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Represent fragment inv_10 (patients with ASL only) as a constraint or population subset.",
+            "relationClientRelationId": null,
+            "relationConfidence": null,
+            "relationEpistemicStatus": null,
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [],
+            "relationPolarity": null,
+            "relationRequiresConfirmation": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "repairId": "rep_02",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv_10"
+            ],
+            "sourceInventoryRelationIds": []
+          }
+        ],
+        "verdict": "REVISE"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "Inventory fragments such as inv_01, inv_06, inv_07, inv_10, and inv_11 are unresolved in explicitCoverageReport.",
+              "result": "FAIL"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "Both comparative methods are fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Intervention/method arms are represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "Modalities/methods DSC and ASL are present.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All inventory relations are mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "Taxonomy report is complete and findings-free.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No relations were weakened.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No inferences promoted.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "Ambiguities are exposed.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are correctly preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "No explicit timing lost.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Endpoint and outcome classification follow rules.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts remain exact.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "Several explicit source fragments from the user message are currently unmapped to semantic elements.",
+              "result": "FAIL"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "Route DESIGN_STUDY matches the study setup request.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic_01J9XYZ",
+          "criticSummary": "Audit completed. The core methods and endpoints are mapped, but several explicit fragments (intent, divergence condition, subset preference) remain unmapped in the explicit coverage report. A repair is proposed to map the scientific intent element.",
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "description": "Inventory fragments inv_01, inv_06, inv_07, inv_10, and inv_11 are not mapped to semantic elements.",
+              "elementClientIds": [],
+              "recommendedAction": "Create corresponding semantic elements for intent, condition, and subset constraints.",
+              "resolved": false,
+              "severity": "WARNING"
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "confidence": 1,
+              "normalizedMeaning": "utilisateur",
+              "reason": "Agent reference unmapped.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Je",
+              "suggestedLocalRole": "agent"
+            },
+            {
+              "confidence": 1,
+              "normalizedMeaning": "divergence des résultats",
+              "reason": "Condition of divergence unmapped to element.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Quand elles ne racontent pas la même chose",
+              "suggestedLocalRole": "condition"
+            },
+            {
+              "confidence": 1,
+              "normalizedMeaning": "intention de savoir",
+              "reason": "Scientific intent unmapped.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "je veux savoir",
+              "suggestedLocalRole": "intent"
+            },
+            {
+              "confidence": 1,
+              "normalizedMeaning": "patients avec ASL uniquement",
+              "reason": "Subset condition unmapped.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Pour ceux qui n'ont que la seconde",
+              "suggestedLocalRole": "subset_condition"
+            },
+            {
+              "confidence": 1,
+              "normalizedMeaning": "conserver les cas partiels",
+              "reason": "User preference unmapped.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "je préfère quand même les garder",
+              "suggestedLocalRole": "preference"
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "Intent to determine which method is more useful",
+              "elementClientElementId": "elem_06",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "inv_07"
+              ],
+              "elementPolarity": "AFFIRMED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I06:T0",
+              "elementSourceText": "je veux savoir",
+              "elementStudyRole": "NONE",
+              "elementSupersedesElementIds": [],
+              "elementType": "SCIENTIFIC_INTENT",
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Represent the scientific intent fragment 'je veux savoir'.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep_01",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv_07"
+              ],
+              "sourceInventoryRelationIds": []
+            }
+          ],
+          "verdict": "REVISE"
+        },
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "Inventory fragments inv_01, inv_06, inv_10, and inv_11 remain unmapped in the explicit coverage report.",
+              "result": "FAIL"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "Comparator relationship is fully represented between DSC and ASL.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Intervention/methods DSC and ASL are represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "Imaging methods correctly mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All relation inventory items are mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All types conform to taxonomy rules.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "Relations are preserved accurately.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No inferences are treated as explicit user statements inappropriately.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "Ambiguities are correctly declared.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Polarities are correctly preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "No explicit timing lost.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Endpoints and outcomes are correctly distinguished.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts like DSC and ASL are preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "Fragments inv_01, inv_06, inv_10, inv_11 are unrepresented in elements.",
+              "result": "FAIL"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "Route correctly matches DESIGN_STUDY.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "crit_02",
+          "criticSummary": "The candidate captures core methodological comparisons and endpoints correctly, but leaves several explicit inventory items (agent, divergence condition, subset condition, and preference) unmapped to semantic elements. Bounded repairs have been proposed to cover these fragments.",
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "description": "Inventory items inv_01, inv_06, inv_10, and inv_11 have no mapped client elements.",
+              "elementClientIds": [],
+              "recommendedAction": "Create semantic elements for the unmapped inventory fragments.",
+              "resolved": false,
+              "severity": "WARNING"
+            }
+          ],
+          "missingExplicitSourceFragments": [
+            {
+              "confidence": 1,
+              "normalizedMeaning": "utilisateur",
+              "reason": "Agent fragment not mapped to an element.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Je",
+              "suggestedLocalRole": "agent"
+            },
+            {
+              "confidence": 1,
+              "normalizedMeaning": "divergence des résultats",
+              "reason": "Condition fragment not mapped to an element.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Quand elles ne racontent pas la même chose",
+              "suggestedLocalRole": "condition"
+            },
+            {
+              "confidence": 1,
+              "normalizedMeaning": "patients avec ASL uniquement",
+              "reason": "Subset condition not mapped to an element.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Pour ceux qui n'ont que la seconde",
+              "suggestedLocalRole": "subset_condition"
+            },
+            {
+              "confidence": 1,
+              "normalizedMeaning": "conserver les cas partiels",
+              "reason": "Preference constraint not mapped to an element.",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "je préfère quand même les garder",
+              "suggestedLocalRole": "preference"
+            }
+          ],
+          "proposedRepairs": [
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "User / Researcher conducting the study",
+              "elementClientElementId": "elem_07",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "inv_01"
+              ],
+              "elementPolarity": "AFFIRMED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I06:T0",
+              "elementSourceText": "Je",
+              "elementStudyRole": "NONE",
+              "elementSupersedesElementIds": [],
+              "elementType": "POPULATION",
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Represent the user agent fragment inv_01 as a population or subject attribute.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep_01",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv_01"
+              ],
+              "sourceInventoryRelationIds": []
+            },
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "Patients with ASL data only",
+              "elementClientElementId": "elem_08",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "inv_10"
+              ],
+              "elementPolarity": "AFFIRMED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I06:T0",
+              "elementSourceText": "Pour ceux qui n'ont que la seconde",
+              "elementStudyRole": "NONE",
+              "elementSupersedesElementIds": [],
+              "elementType": "POPULATION",
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": null,
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Represent fragment inv_10 (patients with ASL only) as a constraint or population subset.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep_02",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv_10"
+              ],
+              "sourceInventoryRelationIds": []
+            }
+          ],
+          "verdict": "REVISE"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [
+          "Gestion des cas avec données ASL partielles sans DSC"
+        ],
+        "candidateId": "cand_01J9XYZ",
+        "clarificationCandidates": [
+          {
+            "question": "Souhaitez-vous définir un critère d'inclusion spécifique pour les patients ne disposant que de l'ASL ?",
+            "reason": "Préciser la gestion des données partielles dans l'analyse.",
+            "resolvesClientElementIds": []
+          }
+        ],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Dynamic Susceptibility Contrast MRI (DSC)",
+            "clientElementId": "elem_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I06:T0",
+            "sourceText": "DSC",
+            "studyRole": "COMPARATOR_ARM",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Arterial Spin Labeling MRI (ASL)",
+            "clientElementId": "elem_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_04"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I06:T0",
+            "sourceText": "ASL",
+            "studyRole": "INTERVENTION_ARM",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Glioma",
+            "clientElementId": "elem_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_05"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I06:T0",
+            "sourceText": "gliomes",
+            "studyRole": "SUBJECT",
+            "supersedesElementIds": [],
+            "type": "CONDITION"
+          },
+          {
+            "canonicalMeaning": "Tumor progression",
+            "clientElementId": "elem_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_09"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I06:T0",
+            "sourceText": "progression",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "Utility for progression assessment",
+            "clientElementId": "elem_05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_08"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I06:T0",
+            "sourceText": "laquelle est la plus utile",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "ENDPOINT"
+          },
+          {
+            "canonicalMeaning": "Intent to determine which method is more useful",
+            "clientElementId": "elem_06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_07"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I06:T0",
+            "sourceText": "je veux savoir",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "User / Researcher conducting the study",
+            "clientElementId": "elem_07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Je",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "POPULATION"
+          },
+          {
+            "canonicalMeaning": "Patients with ASL data only",
+            "clientElementId": "elem_08",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv_10"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I06:T0",
+            "sourceText": "Pour ceux qui n'ont que la seconde",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "POPULATION"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "L'utilisateur compare les méthodes d'imagerie DSC et ASL dans les gliomes. Lorsque les résultats divergent, il cherche à déterminer quelle méthode est la plus utile pour évaluer la progression tumorale, tout en exprimant une préférence pour la conservation des cas ne disposant que de la seconde méthode si possible.",
+        "relations": [
+          {
+            "clientRelationId": "rel_01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_01",
+              "rel_inv_02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "COMPARES_WITH",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_01",
+            "targetClientElementId": "elem_02"
+          },
+          {
+            "clientRelationId": "rel_02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "APPLIED_TO",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_01",
+            "targetClientElementId": "elem_03"
+          },
+          {
+            "clientRelationId": "rel_03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_04"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "APPLIED_TO",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_02",
+            "targetClientElementId": "elem_03"
+          },
+          {
+            "clientRelationId": "rel_04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel_inv_05"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "EVALUATES_OUTCOME",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem_05",
+            "targetClientElementId": "elem_04"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.95,
+          "expectedCapabilities": [
+            "Comparison of imaging methods",
+            "Endpoint definition for tumor progression",
+            "Cohort management strategy"
+          ],
+          "reason": "L'utilisateur compare deux méthodes d'imagerie (DSC et ASL) sur une condition spécifique (gliomes) avec un objectif d'évaluation (progression) et des considérations sur les critères d'inclusion/gestion des données.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv_01",
+              "linkedInventoryItemIds": [],
+              "localRole": "agent",
+              "modifiers": [],
+              "normalizedLabel": "utilisateur",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Je"
+            },
+            {
+              "inventoryItemId": "inv_02",
+              "linkedInventoryItemIds": [
+                "inv_01",
+                "inv_03",
+                "inv_04"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "comparaison",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "compare"
+            },
+            {
+              "inventoryItemId": "inv_03",
+              "linkedInventoryItemIds": [],
+              "localRole": "method_a",
+              "modifiers": [],
+              "normalizedLabel": "DSC",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "DSC"
+            },
+            {
+              "inventoryItemId": "inv_04",
+              "linkedInventoryItemIds": [],
+              "localRole": "method_b",
+              "modifiers": [],
+              "normalizedLabel": "ASL",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "ASL"
+            },
+            {
+              "inventoryItemId": "inv_05",
+              "linkedInventoryItemIds": [],
+              "localRole": "condition",
+              "modifiers": [
+                "mes"
+              ],
+              "normalizedLabel": "gliomes",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "gliomes"
+            },
+            {
+              "inventoryItemId": "inv_06",
+              "linkedInventoryItemIds": [
+                "inv_03",
+                "inv_04"
+              ],
+              "localRole": "condition",
+              "modifiers": [],
+              "normalizedLabel": "divergence des résultats",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Quand elles ne racontent pas la même chose"
+            },
+            {
+              "inventoryItemId": "inv_07",
+              "linkedInventoryItemIds": [],
+              "localRole": "intent",
+              "modifiers": [],
+              "normalizedLabel": "intention de savoir",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "je veux savoir"
+            },
+            {
+              "inventoryItemId": "inv_08",
+              "linkedInventoryItemIds": [
+                "inv_03",
+                "inv_04"
+              ],
+              "localRole": "endpoint_criterion",
+              "modifiers": [],
+              "normalizedLabel": "utilité relative",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "laquelle est la plus utile"
+            },
+            {
+              "inventoryItemId": "inv_09",
+              "linkedInventoryItemIds": [],
+              "localRole": "outcome",
+              "modifiers": [],
+              "normalizedLabel": "progression tumorale",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "progression"
+            },
+            {
+              "inventoryItemId": "inv_10",
+              "linkedInventoryItemIds": [
+                "inv_04"
+              ],
+              "localRole": "subset_condition",
+              "modifiers": [],
+              "normalizedLabel": "patients avec ASL uniquement",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Pour ceux qui n'ont que la seconde"
+            },
+            {
+              "inventoryItemId": "inv_11",
+              "linkedInventoryItemIds": [
+                "inv_10"
+              ],
+              "localRole": "preference",
+              "modifiers": [
+                "si c'est possible"
+              ],
+              "normalizedLabel": "conserver les cas partiels",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "je préfère quand même les garder"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel_inv_01",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_02",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Je compare DSC et ASL",
+              "targetInventoryItemId": "inv_03"
+            },
+            {
+              "inventoryRelationId": "rel_inv_02",
+              "normalizedRelation": "COMPARES_WITH",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_02",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "Je compare DSC et ASL",
+              "targetInventoryItemId": "inv_04"
+            },
+            {
+              "inventoryRelationId": "rel_inv_03",
+              "normalizedRelation": "APPLIED_TO",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_03",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "DSC et ASL chez mes gliomes",
+              "targetInventoryItemId": "inv_05"
+            },
+            {
+              "inventoryRelationId": "rel_inv_04",
+              "normalizedRelation": "APPLIED_TO",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_04",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "DSC et ASL chez mes gliomes",
+              "targetInventoryItemId": "inv_05"
+            },
+            {
+              "inventoryRelationId": "rel_inv_05",
+              "normalizedRelation": "EVALUATES_OUTCOME",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv_08",
+              "sourceMessageId": "I06:T0",
+              "sourceText": "la plus utile pour la progression",
+              "targetInventoryItemId": "inv_09"
+            }
+          ]
+        },
+        "semanticWarnings": [],
+        "summaryForUser": "Analyse de la comparaison entre DSC et ASL dans les gliomes pour la progression tumorale, avec prise en compte des cas partiels.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 8394,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T09:01:56.751Z",
+          "requestStarted": "2026-08-14T09:01:48.357Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-6691eef56f4d7789",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_01",
+          "mappedClientElementIds": [
+            "elem_07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "utilisateur",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Je"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_02",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "normalizedMeaning": "comparaison",
+          "reason": "The explicit functional fragment is represented by its source-grounded direct Semantic Relation rather than by a false object node.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "compare"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_03",
+          "mappedClientElementIds": [
+            "elem_01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "DSC",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "DSC"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_04",
+          "mappedClientElementIds": [
+            "elem_02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "ASL",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "ASL"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_05",
+          "mappedClientElementIds": [
+            "elem_03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "gliomes",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "gliomes"
+        },
+        {
+          "coverageStatus": "UNRESOLVED_EXPLICIT_FRAGMENT",
+          "inventoryItemId": "inv_06",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "divergence des résultats",
+          "reason": "The exact inventory fragment has no source-grounded typed Semantic Element mapping.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Quand elles ne racontent pas la même chose"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_07",
+          "mappedClientElementIds": [
+            "elem_06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "intention de savoir",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "je veux savoir"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_08",
+          "mappedClientElementIds": [
+            "elem_05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "utilité relative",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "laquelle est la plus utile"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_09",
+          "mappedClientElementIds": [
+            "elem_04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "progression tumorale",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "progression"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv_10",
+          "mappedClientElementIds": [
+            "elem_08"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "patients avec ASL uniquement",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Pour ceux qui n'ont que la seconde"
+        },
+        {
+          "coverageStatus": "UNRESOLVED_EXPLICIT_FRAGMENT",
+          "inventoryItemId": "inv_11",
+          "mappedClientElementIds": [],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "conserver les cas partiels",
+          "reason": "The exact inventory fragment has no source-grounded typed Semantic Element mapping.",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "je préfère quand même les garder"
+        }
+      ],
+      "status": "INCOMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur compare les méthodes d'imagerie DSC et ASL dans les gliomes. Lorsque les résultats divergent, il cherche à déterminer quelle méthode est la plus utile pour évaluer la progression tumorale, tout en exprimant une préférence pour la conservation des cas ne disposant que de la seconde méthode si possible.",
+    "originalRequest": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_01",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "normalizedRelation": "COMPARES_WITH",
+          "reason": "The functional relation hub is preserved by a direct explicit Semantic Relation between its linked scientific endpoints; a relation-as-object node is not required.",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_03"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_02",
+          "mappedClientRelationIds": [
+            "rel_01"
+          ],
+          "normalizedRelation": "COMPARES_WITH",
+          "reason": "The functional relation hub is preserved by a direct explicit Semantic Relation between its linked scientific endpoints; a relation-as-object node is not required.",
+          "sourceInventoryItemId": "inv_02",
+          "targetInventoryItemId": "inv_04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_03",
+          "mappedClientRelationIds": [
+            "rel_02"
+          ],
+          "normalizedRelation": "APPLIED_TO",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_03",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_04",
+          "mappedClientRelationIds": [
+            "rel_03"
+          ],
+          "normalizedRelation": "APPLIED_TO",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_04",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel_inv_05",
+          "mappedClientRelationIds": [
+            "rel_04"
+          ],
+          "normalizedRelation": "EVALUATES_OUTCOME",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv_08",
+          "targetInventoryItemId": "inv_09"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_05"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "EVALUATES_OUTCOME",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-d54d0e4719830b6b",
+        "sourceElementId": "sem-element:ke1-5597336786d51373",
+        "targetElementId": "sem-element:ke1-9d17ea98e70586d4",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_01",
+          "rel_inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "COMPARES_WITH",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-f0026975eec42539",
+        "sourceElementId": "sem-element:ke1-9c76acf0bb5c49e4",
+        "targetElementId": "sem-element:ke1-7d40eceab438999e",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "APPLIED_TO",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-f31c888f1bf656b3",
+        "sourceElementId": "sem-element:ke1-7d40eceab438999e",
+        "targetElementId": "sem-element:ke1-8976c0e4e1c67c20",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "APPLIED_TO",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-fc58f298e796bb54",
+        "sourceElementId": "sem-element:ke1-9c76acf0bb5c49e4",
+        "targetElementId": "sem-element:ke1-8976c0e4e1c67c20",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Cohort management strategy",
+        "Comparison of imaging methods",
+        "Endpoint definition for tumor progression"
+      ],
+      "reason": "L'utilisateur compare deux méthodes d'imagerie (DSC et ASL) sur une condition spécifique (gliomes) avec un objectif d'évaluation (progression) et des considérations sur les critères d'inclusion/gestion des données.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-c9c42e6a12a0fa0e",
+    "semanticModelVersion": "1.1",
+    "status": "CLARIFICATION_REQUIRED",
+    "summaryForUser": "Analyse de la comparaison entre DSC et ASL dans les gliomes pour la progression tumorale, avec prise en compte des cas partiels.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T09:02:08.109Z"
+  },
+  "pairedFirstReconstruction": true,
+  "postCriticCandidate": {
+    "ambiguities": [
+      "Gestion des cas avec données ASL partielles sans DSC"
+    ],
+    "candidateId": "cand_01J9XYZ",
+    "clarificationCandidates": [
+      {
+        "question": "Souhaitez-vous définir un critère d'inclusion spécifique pour les patients ne disposant que de l'ASL ?",
+        "reason": "Préciser la gestion des données partielles dans l'analyse.",
+        "resolvesClientElementIds": []
+      }
+    ],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "clientElementId": "elem_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "DSC",
+        "studyRole": "COMPARATOR_ARM",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Arterial Spin Labeling MRI (ASL)",
+        "clientElementId": "elem_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "ASL",
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Glioma",
+        "clientElementId": "elem_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "gliomes",
+        "studyRole": "SUBJECT",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Tumor progression",
+        "clientElementId": "elem_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_09"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "progression",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "Utility for progression assessment",
+        "clientElementId": "elem_05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "laquelle est la plus utile",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "ENDPOINT"
+      },
+      {
+        "canonicalMeaning": "Intent to determine which method is more useful",
+        "clientElementId": "elem_06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "je veux savoir",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "User / Researcher conducting the study",
+        "clientElementId": "elem_07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "Je",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "POPULATION"
+      },
+      {
+        "canonicalMeaning": "Patients with ASL data only",
+        "clientElementId": "elem_08",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv_10"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I06:T0",
+        "sourceText": "Pour ceux qui n'ont que la seconde",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "POPULATION"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur compare les méthodes d'imagerie DSC et ASL dans les gliomes. Lorsque les résultats divergent, il cherche à déterminer quelle méthode est la plus utile pour évaluer la progression tumorale, tout en exprimant une préférence pour la conservation des cas ne disposant que de la seconde méthode si possible.",
+    "relations": [
+      {
+        "clientRelationId": "rel_01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_01",
+          "rel_inv_02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "COMPARES_WITH",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_01",
+        "targetClientElementId": "elem_02"
+      },
+      {
+        "clientRelationId": "rel_02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "APPLIED_TO",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_01",
+        "targetClientElementId": "elem_03"
+      },
+      {
+        "clientRelationId": "rel_03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "APPLIED_TO",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_02",
+        "targetClientElementId": "elem_03"
+      },
+      {
+        "clientRelationId": "rel_04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel_inv_05"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "EVALUATES_OUTCOME",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem_05",
+        "targetClientElementId": "elem_04"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Comparison of imaging methods",
+        "Endpoint definition for tumor progression",
+        "Cohort management strategy"
+      ],
+      "reason": "L'utilisateur compare deux méthodes d'imagerie (DSC et ASL) sur une condition spécifique (gliomes) avec un objectif d'évaluation (progression) et des considérations sur les critères d'inclusion/gestion des données.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv_01",
+          "linkedInventoryItemIds": [],
+          "localRole": "agent",
+          "modifiers": [],
+          "normalizedLabel": "utilisateur",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Je"
+        },
+        {
+          "inventoryItemId": "inv_02",
+          "linkedInventoryItemIds": [
+            "inv_01",
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "comparaison",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "compare"
+        },
+        {
+          "inventoryItemId": "inv_03",
+          "linkedInventoryItemIds": [],
+          "localRole": "method_a",
+          "modifiers": [],
+          "normalizedLabel": "DSC",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "DSC"
+        },
+        {
+          "inventoryItemId": "inv_04",
+          "linkedInventoryItemIds": [],
+          "localRole": "method_b",
+          "modifiers": [],
+          "normalizedLabel": "ASL",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "ASL"
+        },
+        {
+          "inventoryItemId": "inv_05",
+          "linkedInventoryItemIds": [],
+          "localRole": "condition",
+          "modifiers": [
+            "mes"
+          ],
+          "normalizedLabel": "gliomes",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "gliomes"
+        },
+        {
+          "inventoryItemId": "inv_06",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "divergence des résultats",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Quand elles ne racontent pas la même chose"
+        },
+        {
+          "inventoryItemId": "inv_07",
+          "linkedInventoryItemIds": [],
+          "localRole": "intent",
+          "modifiers": [],
+          "normalizedLabel": "intention de savoir",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "je veux savoir"
+        },
+        {
+          "inventoryItemId": "inv_08",
+          "linkedInventoryItemIds": [
+            "inv_03",
+            "inv_04"
+          ],
+          "localRole": "endpoint_criterion",
+          "modifiers": [],
+          "normalizedLabel": "utilité relative",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "laquelle est la plus utile"
+        },
+        {
+          "inventoryItemId": "inv_09",
+          "linkedInventoryItemIds": [],
+          "localRole": "outcome",
+          "modifiers": [],
+          "normalizedLabel": "progression tumorale",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "progression"
+        },
+        {
+          "inventoryItemId": "inv_10",
+          "linkedInventoryItemIds": [
+            "inv_04"
+          ],
+          "localRole": "subset_condition",
+          "modifiers": [],
+          "normalizedLabel": "patients avec ASL uniquement",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Pour ceux qui n'ont que la seconde"
+        },
+        {
+          "inventoryItemId": "inv_11",
+          "linkedInventoryItemIds": [
+            "inv_10"
+          ],
+          "localRole": "preference",
+          "modifiers": [
+            "si c'est possible"
+          ],
+          "normalizedLabel": "conserver les cas partiels",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "je préfère quand même les garder"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel_inv_01",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_02",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Je compare DSC et ASL",
+          "targetInventoryItemId": "inv_03"
+        },
+        {
+          "inventoryRelationId": "rel_inv_02",
+          "normalizedRelation": "COMPARES_WITH",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_02",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "Je compare DSC et ASL",
+          "targetInventoryItemId": "inv_04"
+        },
+        {
+          "inventoryRelationId": "rel_inv_03",
+          "normalizedRelation": "APPLIED_TO",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_03",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "DSC et ASL chez mes gliomes",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "inventoryRelationId": "rel_inv_04",
+          "normalizedRelation": "APPLIED_TO",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_04",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "DSC et ASL chez mes gliomes",
+          "targetInventoryItemId": "inv_05"
+        },
+        {
+          "inventoryRelationId": "rel_inv_05",
+          "normalizedRelation": "EVALUATES_OUTCOME",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv_08",
+          "sourceMessageId": "I06:T0",
+          "sourceText": "la plus utile pour la progression",
+          "targetInventoryItemId": "inv_09"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Analyse de la comparaison entre DSC et ASL dans les gliomes pour la progression tumorale, avec prise en compte des cas partiels.",
+    "unknowns": []
+  },
+  "semanticCriticExecuted": true,
+  "status": "SUCCESS"
+}

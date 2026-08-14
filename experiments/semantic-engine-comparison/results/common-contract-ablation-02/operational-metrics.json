@@ -1,0 +1,207 @@
+{
+  "actualProviderStarts": 235,
+  "byLedgerConfiguration": {
+    "DSPY_COMMON_CONTRACT": {
+      "actualProviderStarts": 36,
+      "failedCalls": 2,
+      "ledgerReservations": 37,
+      "meanLatencySecondsPerLedgerOperation": 3.892,
+      "medianLatencySecondsPerLedgerOperation": 3.924,
+      "retries": 0,
+      "successfulCalls": 35
+    },
+    "PYDANTIC_COMMON_CONTRACT": {
+      "actualProviderStarts": 11,
+      "failedCalls": 3,
+      "ledgerReservations": 11,
+      "meanLatencySecondsPerLedgerOperation": 9.18,
+      "medianLatencySecondsPerLedgerOperation": 5.637,
+      "retries": 0,
+      "successfulCalls": 8
+    },
+    "PYDANTIC_CONDITIONAL_CRITIC": {
+      "actualProviderStarts": 34,
+      "failedCalls": 4,
+      "ledgerReservations": 34,
+      "meanLatencySecondsPerLedgerOperation": 6.698,
+      "medianLatencySecondsPerLedgerOperation": 5.065,
+      "retries": 2,
+      "successfulCalls": 30
+    },
+    "PYDANTIC_SHARED_FIRST_OUTPUT": {
+      "actualProviderStarts": 24,
+      "failedCalls": 2,
+      "ledgerReservations": 24,
+      "meanLatencySecondsPerLedgerOperation": 5.325,
+      "medianLatencySecondsPerLedgerOperation": 5.58,
+      "retries": 0,
+      "successfulCalls": 22
+    },
+    "SEM_FULL": {
+      "actualProviderStarts": 53,
+      "failedCalls": 0,
+      "ledgerReservations": 53,
+      "meanLatencySecondsPerLedgerOperation": 6.702,
+      "medianLatencySecondsPerLedgerOperation": 5.615,
+      "retries": 0,
+      "successfulCalls": 53
+    },
+    "SEM_SHARED_FIRST_RECONSTRUCTION": {
+      "actualProviderStarts": 39,
+      "failedCalls": 0,
+      "ledgerReservations": 39,
+      "meanLatencySecondsPerLedgerOperation": 6.816,
+      "medianLatencySecondsPerLedgerOperation": 6.869,
+      "retries": 0,
+      "successfulCalls": 39
+    },
+    "SEM_SINGLE_PASS": {
+      "actualProviderStarts": 31,
+      "failedCalls": 3,
+      "ledgerReservations": 31,
+      "meanLatencySecondsPerLedgerOperation": 10.275,
+      "medianLatencySecondsPerLedgerOperation": 8.822,
+      "retries": 2,
+      "successfulCalls": 28
+    },
+    "SIMULATED_RESEARCH_USER": {
+      "actualProviderStarts": 7,
+      "failedCalls": 0,
+      "ledgerReservations": 7,
+      "meanLatencySecondsPerLedgerOperation": 0.854,
+      "medianLatencySecondsPerLedgerOperation": 0.884,
+      "retries": 0,
+      "successfulCalls": 7
+    }
+  },
+  "byOperation": {
+    "BATCHED_RESEARCHER_SIMULATOR": 7,
+    "DSPY_COMMON_FIRST_PASS": 37,
+    "PYDANTIC_COMMON_FIRST_PASS": 44,
+    "PYDANTIC_CONDITIONAL_CRITIC": 25,
+    "SEM_CRITIC": 49,
+    "SEM_RECONSTRUCTION": 55,
+    "SEM_RECONSTRUCTION_STRUCTURED_REPAIR": 19
+  },
+  "contractAndScientificEvaluability": {
+    "DSPY_COMMON_CONTRACT": {
+      "COMMON_TRANSCRIPT": {
+        "attemptedStates": 24,
+        "scientificallyEvaluable": 24,
+        "scientificallyNotAssessableBecauseRawUnavailable": 0,
+        "structuredContractFail": 0,
+        "structuredContractPass": 24
+      },
+      "INTERACTIVE": {
+        "attemptedStates": 11,
+        "scientificallyEvaluable": 11,
+        "scientificallyNotAssessableBecauseRawUnavailable": 0,
+        "structuredContractFail": 0,
+        "structuredContractPass": 11
+      }
+    },
+    "PYDANTIC_COMMON_CONTRACT": {
+      "COMMON_TRANSCRIPT": {
+        "attemptedStates": 24,
+        "scientificallyEvaluable": 22,
+        "scientificallyNotAssessableBecauseRawUnavailable": 2,
+        "structuredContractFail": 2,
+        "structuredContractPass": 22
+      },
+      "INTERACTIVE": {
+        "attemptedStates": 11,
+        "scientificallyEvaluable": 6,
+        "scientificallyNotAssessableBecauseRawUnavailable": 5,
+        "structuredContractFail": 5,
+        "structuredContractPass": 6
+      }
+    },
+    "PYDANTIC_CONDITIONAL_CRITIC": {
+      "COMMON_TRANSCRIPT": {
+        "attemptedStates": 24,
+        "scientificallyEvaluable": 22,
+        "scientificallyNotAssessableBecauseRawUnavailable": 2,
+        "structuredContractFail": 2,
+        "structuredContractPass": 22
+      },
+      "INTERACTIVE": {
+        "attemptedStates": 11,
+        "scientificallyEvaluable": 6,
+        "scientificallyNotAssessableBecauseRawUnavailable": 5,
+        "structuredContractFail": 5,
+        "structuredContractPass": 6
+      }
+    },
+    "SEM_FULL": {
+      "COMMON_TRANSCRIPT": {
+        "attemptedStates": 24,
+        "scientificallyEvaluable": 23,
+        "scientificallyNotAssessableBecauseRawUnavailable": 1,
+        "structuredContractFail": 1,
+        "structuredContractPass": 23
+      },
+      "INTERACTIVE": {
+        "attemptedStates": 11,
+        "scientificallyEvaluable": 11,
+        "scientificallyNotAssessableBecauseRawUnavailable": 0,
+        "structuredContractFail": 0,
+        "structuredContractPass": 11
+      }
+    },
+    "SEM_SINGLE_PASS": {
+      "COMMON_TRANSCRIPT": {
+        "attemptedStates": 24,
+        "scientificallyEvaluable": 23,
+        "scientificallyNotAssessableBecauseRawUnavailable": 1,
+        "structuredContractFail": 1,
+        "structuredContractPass": 23
+      },
+      "INTERACTIVE": {
+        "attemptedStates": 11,
+        "scientificallyEvaluable": 10,
+        "scientificallyNotAssessableBecauseRawUnavailable": 1,
+        "structuredContractFail": 1,
+        "structuredContractPass": 10
+      }
+    }
+  },
+  "failedLedgerOperations": 14,
+  "ledgerReservations": 236,
+  "nonProviderLocalFailureReservations": [
+    14
+  ],
+  "notes": [
+    "Request 14 failed locally before HTTP and consumed no provider quota.",
+    "Request 13 was a provider response with invalid JSON whose raw output was not persisted; I01/T1 DSPy was uniquely regenerated in request 15 and is not a primary strict-paired sample.",
+    "Latencies are measured per ledger operation, not end-to-end per architecture state.",
+    "No LLM semantic interpretation call was required or used."
+  ],
+  "phaseA": {
+    "attemptedStates": 120,
+    "commonStates": 114,
+    "scenariosComplete": 8,
+    "scenariosTotal": 8
+  },
+  "phaseB": {
+    "attemptedStates": 55,
+    "branchesComplete": 20,
+    "branchesTotal": 20,
+    "commonStates": 44,
+    "researcherSimulatorCalls": 7,
+    "scenariosComplete": 4,
+    "scenariosTotal": 4
+  },
+  "providerBudget": {
+    "dailyLimit": 500,
+    "hardStop": 320,
+    "remainingAfterActualStarts": 265,
+    "softLimit": 280,
+    "target": 260
+  },
+  "retries": 4,
+  "scenarioPackDigestAfter": "bfa359da5fe60d42779f7af211ac95313a94a5b3164de8f72ed7a18490026f7b",
+  "scenarioPackDigestBefore": "bfa359da5fe60d42779f7af211ac95313a94a5b3164de8f72ed7a18490026f7b",
+  "scenarioPackDigestUnchanged": true,
+  "semanticReviewCalls": 0,
+  "successfulProviderOperations": 222
+}

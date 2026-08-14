@@ -1,0 +1,1856 @@
+{
+  "PYDANTIC_CONDITIONAL_CRITIC_vs_COMMON": {
+    "classificationCounts": {
+      "NO_MEANINGFUL_CHANGE": 22
+    },
+    "comparableCommonTranscriptStates": 22,
+    "criticAccept": 18,
+    "criticRevise": 2,
+    "criticSkipped": 2,
+    "criticTriggers": 20,
+    "incrementalCriticProviderCallsInCommonTranscript": 20,
+    "rows": [
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T0",
+        "scenarioId": "I01"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T1",
+        "scenarioId": "I01"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T2",
+        "scenarioId": "I01"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T0",
+        "scenarioId": "I02"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T1",
+        "scenarioId": "I02"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T2",
+        "scenarioId": "I02"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T0",
+        "scenarioId": "I03"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"La SSP restera secondaire.\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"stmt_secondary_endpoint\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I03:R1\"], \"scientificRole\": \"endpoint\", \"sourceText\": \"La SSP restera secondaire.\", \"temporalContext\": \"null\"}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"mais pas avec le SUVmax seul\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"stmt_not_suvmax_alone\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I03:T0\"], \"scientificRole\": \"method_or_measurement_definition\", \"sourceText\": \"pas avec le SUVmax seul\", \"temporalContext\": \"null\"}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"La SSP restera secondaire.\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"stmt_secondary_endpoint\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I03:R1\"], \"scientificRole\": \"endpoint\", \"sourceText\": \"La SSP restera secondaire.\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"mais pas avec le SUVmax seul\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"stmt_not_suvmax_alone\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I03:T0\"], \"scientificRole\": \"method_or_measurement_definition\", \"sourceText\": \"pas avec le SUVmax seul\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"obj_pfs\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"hasSecondaryEndpoint\", \"provenanceTurnIds\": [\"I03:R1\"], \"relationId\": \"rel_secondary_endpoint\", \"sourceText\": \"La SSP restera secondaire.\", \"subject\": \"stmt_pet_immunotherapy\", \"temporalContext\": \"null\"}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"obj_pfs\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"hasSecondaryEndpoint\", \"provenanceTurnIds\": [\"I03:R1\"], \"relationId\": \"rel_secondary_endpoint\", \"sourceText\": \"La SSP restera secondaire.\", \"subject\": \"stmt_pet_immunotherapy\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Pas avec le SUVmax seul pour la prédiction TEP de la réponse à l'immunothérapie\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"con_no_suvmax_alone\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I03:T0\"], \"scientificRole\": \"method_or_measurement_definition\", \"sourceText\": \"pas avec le SUVmax seul\", \"temporalContext\": \"null\"}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Pas avec le SUVmax seul pour la prédiction TEP de la réponse à l'immunothérapie\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"con_no_suvmax_alone\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I03:T0\"], \"scientificRole\": \"method_or_measurement_definition\", \"sourceText\": \"pas avec le SUVmax seul\", \"temporalContext\": null}"
+          }
+        ],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T1",
+        "scenarioId": "I03"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"SSP\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"hasSecondaryEndpoint\", \"provenanceTurnIds\": [\"I03:R1\"], \"relationId\": \"rel_2\", \"sourceText\": \"La SSP restera secondaire.\", \"subject\": \"projet\", \"temporalContext\": \"null\"}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"SSP\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"hasSecondaryEndpoint\", \"provenanceTurnIds\": [\"I03:R1\"], \"relationId\": \"rel_2\", \"sourceText\": \"La SSP restera secondaire.\", \"subject\": \"projet\", \"temporalContext\": null}"
+          }
+        ],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T2",
+        "scenarioId": "I03"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T0",
+        "scenarioId": "I04"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T0",
+        "scenarioId": "I05"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T1",
+        "scenarioId": "I05"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T2",
+        "scenarioId": "I05"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T0",
+        "scenarioId": "I06"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Par \\\\\\\"la seconde\\\\\\\", je parle de l'ASL.\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"exp_second_definition\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R1\"], \"scientificRole\": \"Variable definition\", \"sourceText\": \"Par \\\\\\\"la seconde\\\\\\\", je parle de l'ASL.\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Par \\\"la seconde\\\", je parle de l'ASL.\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"exp_second_definition\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R1\"], \"scientificRole\": \"Variable definition\", \"sourceText\": \"Par \\\"la seconde\\\", je parle de l'ASL.\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"obj_asl\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"IS_SYNONYM_FOR\", \"provenanceTurnIds\": [\"I06:R1\"], \"relationId\": \"rel_second_asl\", \"sourceText\": \"Par \\\\\\\"la seconde\\\\\\\", je parle de l'ASL.\", \"subject\": \"obj_second_modality\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"obj_asl\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"IS_SYNONYM_FOR\", \"provenanceTurnIds\": [\"I06:R1\"], \"relationId\": \"rel_second_asl\", \"sourceText\": \"Par \\\"la seconde\\\", je parle de l'ASL.\", \"subject\": \"obj_second_modality\", \"temporalContext\": null}"
+          }
+        ],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T1",
+        "scenarioId": "I06"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Par 'la seconde', je parle de l'ASL.\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"stmt_clarify_second\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R1\"], \"scientificRole\": \"method_definition\", \"sourceText\": \"Par \\\\\\\"la seconde\\\\\\\", je parle de l'ASL.\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Par 'la seconde', je parle de l'ASL.\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"stmt_clarify_second\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R1\"], \"scientificRole\": \"method_definition\", \"sourceText\": \"Par \\\"la seconde\\\", je parle de l'ASL.\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"obj_asl\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"is_clarified_as\", \"provenanceTurnIds\": [\"I06:R1\"], \"relationId\": \"rel_second_is_asl\", \"sourceText\": \"Par \\\\\\\"la seconde\\\\\\\", je parle de l'ASL.\", \"subject\": \"stmt_keep_second_only\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"obj_asl\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"is_clarified_as\", \"provenanceTurnIds\": [\"I06:R1\"], \"relationId\": \"rel_second_is_asl\", \"sourceText\": \"Par \\\"la seconde\\\", je parle de l'ASL.\", \"subject\": \"stmt_keep_second_only\", \"temporalContext\": null}"
+          }
+        ],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T2",
+        "scenarioId": "I06"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T0",
+        "scenarioId": "I07"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": \"User statement linking iodine parameters to tumor response association\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"tumor response\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"is associated with\", \"provenanceTurnIds\": [\"I07:T0\", \"I07:R1\"], \"relationId\": \"REL_01\", \"sourceText\": \"associé à la réponse\", \"subject\": \"iodine\", \"temporalContext\": \"current study\"}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": \"User statement linking iodine parameters to tumor response association\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"tumor response\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"is associated with\", \"provenanceTurnIds\": [\"I07:T0\", \"I07:R1\"], \"relationId\": \"REL_01\", \"sourceText\": \"associé à la réponse\", \"subject\": \"iodine\", \"temporalContext\": null}"
+          }
+        ],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T1",
+        "scenarioId": "I07"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T2",
+        "scenarioId": "I07"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T0",
+        "scenarioId": "I08"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T1",
+        "scenarioId": "I08"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Les différences observées sont null/\"null\" ou échappement de chaîne; aucune obligation scientifique n’est ajoutée, retirée ou corrigée.",
+        "round": "T2",
+        "scenarioId": "I08"
+      }
+    ]
+  },
+  "SEM_FULL_vs_SEM_SINGLE_PASS": {
+    "classificationCounts": {
+      "CRITIC_ADDED": 3,
+      "CRITIC_DAMAGED": 4,
+      "NO_MEANINGFUL_CHANGE": 16
+    },
+    "comparableCommonTranscriptStates": 23,
+    "incrementalCriticProviderCallsInCommonTranscript": 33,
+    "rows": [
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Magnetic resonance imaging\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-3944579344f8e407\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:T0\"], \"scientificRole\": \"MODALITY:MEASUREMENT\", \"sourceText\": \"IRM\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Magnetic resonance imaging\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-8d483ef98330dc35\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:T0\"], \"scientificRole\": \"METHOD:MEASUREMENT\", \"sourceText\": \"IRM\", \"temporalContext\": null}"
+          }
+        ],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T0",
+        "scenarioId": "I01"
+      },
+      {
+        "classification": "CRITIC_ADDED",
+        "exactDeterministicDiff": [
+          {
+            "after": "Clarification of the stenting study: the culprit lesion is treated immediately in both groups, and the comparison focuses on other lesions during hospitalization versus treatment 4-6 weeks later, with MRI observation.",
+            "before": "Comparison of immediate stenting versus delayed stenting in myocardial infarction, observing lesions using MRI, with immediate treatment of the culprit lesion and non-culprit lesions compared between inpatient treatment and 4-6 weeks later.",
+            "collection": "normalizedUnderstanding",
+            "disposition": "MODIFIED"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Both study groups\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-d2712457d5dae523\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"les deux groupes\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Confirmation of previous parameters\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-a6db05b09e0c3b24\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"ASSUMPTION:NONE\", \"sourceText\": \"Oui\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Immediate treatment of culprit lesion\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-e0e3897e92ec483a\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"INTERVENTION:INTERVENTION_ARM\", \"sourceText\": \"traitée tout de suite\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Magnetic resonance imaging\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-3944579344f8e407\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:T0\"], \"scientificRole\": \"MODALITY:MEASUREMENT\", \"sourceText\": \"IRM\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Non-culprit other lesions\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-34592119222e228d\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"SCIENTIFIC_OBJECT:SUBJECT\", \"sourceText\": \"les autres lésions\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Treatment 4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-3c5d1e7d6ba32f59\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"INTERVENTION:COMPARATOR_ARM\", \"sourceText\": \"à un traitement 4–6 semaines plus tard\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"User statement agent\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c828dc9340997ed7\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"Je\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-4c594dd22f302ba6\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"TIMING:NONE\", \"sourceText\": \"4–6 semaines plus tard\", \"temporalContext\": \"4 to 6 weeks later\"}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Magnetic resonance imaging\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-8d483ef98330dc35\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:T0\"], \"scientificRole\": \"METHOD:MEASUREMENT\", \"sourceText\": \"IRM\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Other non-culprit lesions\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-343b3709c4fac43d\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"SCIENTIFIC_OBJECT:SUBJECT\", \"sourceText\": \"les autres lésions\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Culprit lesion\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"INFLUENCES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-cf07721350e3deb7\", \"sourceText\": null, \"subject\": \"Immediate treatment of culprit lesion\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Treatment 4 to 6 weeks later\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"COMPARES_WITH\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-9efb4827273e1adb\", \"sourceText\": null, \"subject\": \"Non-culprit other lesions\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "temporalModel",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-4c594dd22f302ba6\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"TIMING:NONE\", \"sourceText\": \"4–6 semaines plus tard\", \"temporalContext\": \"4 to 6 weeks later\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Both study groups\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-d2712457d5dae523\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Confirmation of previous parameters\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-a6db05b09e0c3b24\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Immediate treatment of culprit lesion\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-e0e3897e92ec483a\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Non-culprit other lesions\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-34592119222e228d\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Treatment 4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-3c5d1e7d6ba32f59\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"User statement agent\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-c828dc9340997ed7\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-4c594dd22f302ba6\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Other non-culprit lesions\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-343b3709c4fac43d\"}"
+          }
+        ],
+        "rationale": "Ajoute des explicites et relations cumulatives sur lésions coupables/non coupables.",
+        "round": "T1",
+        "scenarioId": "I01"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "after": "Study design clarification: infarct size is set as the primary endpoint in CMR at D3-D5, MVO is secondary, and strain analysis is explicitly excluded.",
+            "before": "Study comparing immediate stenting versus delayed stenting in myocardial infarction with culprit lesion treated immediately, comparing non-culprit lesions between inpatient treatment and 4-6 weeks later, with infarct size as primary endpoint and microvascular obstruction (MVO) as secondary endpoint assessed by cardiac magnetic resonance at days 3-5, excluding strain.",
+            "collection": "normalizedUnderstanding",
+            "disposition": "MODIFIED"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Both study groups\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-d2712457d5dae523\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"les deux groupes\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Cardiovascular magnetic resonance imaging\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-38584a4c7fdeea40\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"MODALITY:MEASUREMENT\", \"sourceText\": \"CMR\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Confirmation of previous parameters\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-a6db05b09e0c3b24\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"ASSUMPTION:NONE\", \"sourceText\": \"Oui\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Day 3 to Day 5\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-9bd6e2f78e8c9853\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"TIMING:NONE\", \"sourceText\": \"à J3–J5\", \"temporalContext\": \"Day 3 to Day 5\"}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Exclusion of myocardial strain\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c8f0990c9c9ab0e8\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"Je ne veux pas de strain\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Immediate treatment of culprit lesion\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-e0e3897e92ec483a\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"INTERVENTION:INTERVENTION_ARM\", \"sourceText\": \"traitée tout de suite\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Magnetic resonance imaging\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-3944579344f8e407\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:T0\"], \"scientificRole\": \"MODALITY:MEASUREMENT\", \"sourceText\": \"IRM\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Microvascular obstruction as secondary endpoint\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-51a0e41bb7075b2f\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"la MVO secondaire\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Myocardial infarct size as primary endpoint\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-d3a09d5b8e05696f\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"La taille d'infarctus sera le critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Non-culprit other lesions\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-34592119222e228d\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"SCIENTIFIC_OBJECT:SUBJECT\", \"sourceText\": \"les autres lésions\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Treatment 4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-3c5d1e7d6ba32f59\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"INTERVENTION:COMPARATOR_ARM\", \"sourceText\": \"à un traitement 4–6 semaines plus tard\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"User statement agent\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c828dc9340997ed7\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"Je\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-4c594dd22f302ba6\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"TIMING:NONE\", \"sourceText\": \"4–6 semaines plus tard\", \"temporalContext\": \"4 to 6 weeks later\"}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Cardiac magnetic resonance\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-27e21cd4abbef4f8\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"METHOD:MEASUREMENT\", \"sourceText\": \"CMR\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Day 3 to 5\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-3d611bd14f6aaecd\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"TIMING:NONE\", \"sourceText\": \"à J3–J5\", \"temporalContext\": \"Day 3 to 5\"}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Exclusion of strain measurement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-1d19f693bada780f\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"Je ne veux pas de strain\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Infarct size as primary endpoint\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-ada3f6d69a33b5da\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"La taille d'infarctus\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Magnetic resonance imaging\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-8d483ef98330dc35\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:T0\"], \"scientificRole\": \"METHOD:MEASUREMENT\", \"sourceText\": \"IRM\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Microvascular obstruction as secondary endpoint\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-51a0e41bb7075b2f\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"la MVO\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Other non-culprit lesions\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-343b3709c4fac43d\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"SCIENTIFIC_OBJECT:SUBJECT\", \"sourceText\": \"les autres lésions\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Cardiovascular magnetic resonance imaging\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"OBSERVED_BY\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-a5c808fabf2fa8be\", \"sourceText\": null, \"subject\": \"Myocardial infarct size as primary endpoint\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Culprit lesion\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"INFLUENCES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-cf07721350e3deb7\", \"sourceText\": null, \"subject\": \"Immediate treatment of culprit lesion\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Day 3 to Day 5\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"REPEATED_AT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-c84fffa3e5dd3ecf\", \"sourceText\": null, \"subject\": \"Cardiovascular magnetic resonance imaging\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Treatment 4 to 6 weeks later\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"COMPARES_WITH\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-9efb4827273e1adb\", \"sourceText\": null, \"subject\": \"Non-culprit other lesions\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Cardiac magnetic resonance\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"MEASURED_BY\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-9814d3125a25f9fe\", \"sourceText\": null, \"subject\": \"Infarct size as primary endpoint\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Cardiac magnetic resonance\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"MEASURED_BY\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-8c16f07510dd7129\", \"sourceText\": null, \"subject\": \"Microvascular obstruction as secondary endpoint\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Day 3 to 5\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"REPEATED_AT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-06ef5bb27f4d9a36\", \"sourceText\": null, \"subject\": \"Infarct size as primary endpoint\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Exclusion of myocardial strain\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c8f0990c9c9ab0e8\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"Je ne veux pas de strain\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Exclusion of strain measurement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-1d19f693bada780f\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"Je ne veux pas de strain\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "temporalModel",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Day 3 to Day 5\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-9bd6e2f78e8c9853\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"TIMING:NONE\", \"sourceText\": \"à J3–J5\", \"temporalContext\": \"Day 3 to Day 5\"}"
+          },
+          {
+            "collection": "temporalModel",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-4c594dd22f302ba6\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R1\"], \"scientificRole\": \"TIMING:NONE\", \"sourceText\": \"4–6 semaines plus tard\", \"temporalContext\": \"4 to 6 weeks later\"}"
+          },
+          {
+            "collection": "temporalModel",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Day 3 to 5\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-3d611bd14f6aaecd\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I01:R2\"], \"scientificRole\": \"TIMING:NONE\", \"sourceText\": \"à J3–J5\", \"temporalContext\": \"Day 3 to 5\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Both study groups\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-d2712457d5dae523\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Cardiovascular magnetic resonance imaging\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R2\"], \"statementId\": \"ownership:sem-element:ke1-38584a4c7fdeea40\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Confirmation of previous parameters\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-a6db05b09e0c3b24\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Day 3 to Day 5\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R2\"], \"statementId\": \"ownership:sem-element:ke1-9bd6e2f78e8c9853\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Exclusion of myocardial strain\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R2\"], \"statementId\": \"ownership:sem-element:ke1-c8f0990c9c9ab0e8\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Immediate treatment of culprit lesion\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-e0e3897e92ec483a\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Myocardial infarct size as primary endpoint\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R2\"], \"statementId\": \"ownership:sem-element:ke1-d3a09d5b8e05696f\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Non-culprit other lesions\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-34592119222e228d\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Treatment 4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-3c5d1e7d6ba32f59\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"User statement agent\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-c828dc9340997ed7\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"4 to 6 weeks later\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-4c594dd22f302ba6\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Cardiac magnetic resonance\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R2\"], \"statementId\": \"ownership:sem-element:ke1-27e21cd4abbef4f8\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Day 3 to 5\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R2\"], \"statementId\": \"ownership:sem-element:ke1-3d611bd14f6aaecd\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Exclusion of strain measurement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R2\"], \"statementId\": \"ownership:sem-element:ke1-1d19f693bada780f\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Infarct size as primary endpoint\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R2\"], \"statementId\": \"ownership:sem-element:ke1-ada3f6d69a33b5da\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Other non-culprit lesions\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I01:R1\"], \"statementId\": \"ownership:sem-element:ke1-343b3709c4fac43d\"}"
+          }
+        ],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T2",
+        "scenarioId": "I01"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T0",
+        "scenarioId": "I02"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T1",
+        "scenarioId": "I02"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T2",
+        "scenarioId": "I02"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T0",
+        "scenarioId": "I03"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T1",
+        "scenarioId": "I03"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T2",
+        "scenarioId": "I03"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T0",
+        "scenarioId": "I04"
+      },
+      {
+        "classification": "CRITIC_ADDED",
+        "exactDeterministicDiff": [
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité universelle des séquences ciné et T1 natif dans tous les centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-a1bda32f3f40c733\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I04:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"Tous les centres ont cine et T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Séquence T1 natif\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"INCLUDES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-d8a2ce5fd143eeeb\", \"sourceText\": null, \"subject\": \"Disponibilité universelle des séquences ciné et T1 natif dans tous les centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Séquence ciné\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"INCLUDES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-c1980a95b0706c79\", \"sourceText\": null, \"subject\": \"Disponibilité universelle des séquences ciné et T1 natif dans tous les centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Disponibilité universelle des séquences ciné et T1 natif dans tous les centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R1\"], \"statementId\": \"ownership:sem-element:ke1-a1bda32f3f40c733\"}"
+          }
+        ],
+        "rationale": "Ajoute deux relations utiles sur la disponibilité des séquences.",
+        "round": "T1",
+        "scenarioId": "I04"
+      },
+      {
+        "classification": "CRITIC_DAMAGED",
+        "exactDeterministicDiff": [
+          {
+            "after": "Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans le cadre d'une étude multicentrique où les séquences ciné et T1 natif sont universellement disponibles, tandis que le T2 et le LGE ne le sont pas, ce dernier n'étant par ailleurs pas souhaité comme critère principal; l'ECV est conditionné à la disponibilité du contraste et de l'hématocrite.",
+            "before": "Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans le cadre d'une étude multicentrique avec des disponibilités hétérogènes de séquences (ciné et T1 natif universels, T2 et LGE non disponibles partout et non retenus comme critères principaux, ECV conditionné au contraste et à l'hématocrite).",
+            "collection": "normalizedUnderstanding",
+            "disposition": "MODIFIED"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Conditionnalité de l'ECV à la disponibilité du contraste et de l'hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-07179bdd642b0ce9\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"est possible seulement si contraste et hématocrite sont disponibles\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité universelle des séquences ciné et T1 natif dans tous les centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-a1bda32f3f40c733\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I04:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"Tous les centres ont cine et T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Mesure ECV (Volume Extracellulaire)\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-d73445657781afe9\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"L'ECV\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Mesure de l'hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-0d3ae9c96932e2cd\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"hématocrite\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Produit de contraste\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-57e6d2583ff4e9ec\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"INTERVENTION:NONE\", \"sourceText\": \"contraste\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Refus d'utiliser le LGE comme critère principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-f5bda6bd5452c921\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"je ne veux pas en faire le critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Agent de contraste\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-50e61ef8192f34b4\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"METHOD:MEASUREMENT\", \"sourceText\": \"contraste\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Conditionnalité de l'ECV au contraste et à l'hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-e83966ddca236211\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"L'ECV est possible seulement si contraste et hématocrite sont disponibles\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Exclusion du LGE comme critère principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-5b813a58121a9de4\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"je ne veux pas en faire le critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Paramètre ECV\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-03899c9631139b72\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"ECV\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Paramètre hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-524b1c65c6bba2e9\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"hématocrite\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Mesure ECV (Volume Extracellulaire)\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"predicate\": \"CONDITIONAL_ON\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-9260100a8e9065c6\", \"sourceText\": null, \"subject\": \"Conditionnalité de l'ECV à la disponibilité du contraste et de l'hématocrite\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Mesure de l'hématocrite\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"predicate\": \"CONDITIONAL_ON\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-e3e575755eff2e59\", \"sourceText\": null, \"subject\": \"Mesure ECV (Volume Extracellulaire)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Produit de contraste\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"predicate\": \"CONDITIONAL_ON\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-75fdfadaff1f87e6\", \"sourceText\": null, \"subject\": \"Mesure ECV (Volume Extracellulaire)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Séquence LGE\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"predicate\": \"EXCLUDES_AS_ENDPOINT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-9b7232f11084716d\", \"sourceText\": null, \"subject\": \"Refus d'utiliser le LGE comme critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Séquence T1 natif\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"INCLUDES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-d8a2ce5fd143eeeb\", \"sourceText\": null, \"subject\": \"Disponibilité universelle des séquences ciné et T1 natif dans tous les centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Séquence ciné\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"INCLUDES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-c1980a95b0706c79\", \"sourceText\": null, \"subject\": \"Disponibilité universelle des séquences ciné et T1 natif dans tous les centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Paramètre ECV\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"predicate\": \"CONDITIONAL_ON\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-0d8ca738a76e68e4\", \"sourceText\": null, \"subject\": \"Conditionnalité de l'ECV au contraste et à l'hématocrite\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Séquence LGE\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"predicate\": \"EXCLUDES_FROM_ENDPOINT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-73a64eee72fe84d2\", \"sourceText\": null, \"subject\": \"Exclusion du LGE comme critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Conditionnalité de l'ECV à la disponibilité du contraste et de l'hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-07179bdd642b0ce9\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"est possible seulement si contraste et hématocrite sont disponibles\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Refus d'utiliser le LGE comme critère principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-f5bda6bd5452c921\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"je ne veux pas en faire le critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Conditionnalité de l'ECV au contraste et à l'hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-e83966ddca236211\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"L'ECV est possible seulement si contraste et hématocrite sont disponibles\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Exclusion du LGE comme critère principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-5b813a58121a9de4\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I04:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"je ne veux pas en faire le critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "missingInformation",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"blocking\": true, \"content\": \"Critère d'évaluation principal retenu pour l'étude\", \"decisionImpact\": \"SEM reports missing or unresolved information.\", \"missingId\": \"sem-missing:fdd9b07ef5355efc\", \"owner\": \"USER_OR_SPECIALIZED_OWNER_UNRESOLVED\", \"priority\": \"HIGH\", \"provenanceTurnIds\": []}"
+          },
+          {
+            "collection": "unknowns",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"blocking\": true, \"content\": \"Critère d'évaluation principal retenu pour l'étude\", \"decisionImpact\": \"SEM reports missing or unresolved information.\", \"missingId\": \"sem-missing:fdd9b07ef5355efc\", \"owner\": \"USER_OR_SPECIALIZED_OWNER_UNRESOLVED\", \"priority\": \"HIGH\", \"provenanceTurnIds\": []}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Conditionnalité de l'ECV à la disponibilité du contraste et de l'hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-07179bdd642b0ce9\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Disponibilité universelle des séquences ciné et T1 natif dans tous les centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R1\"], \"statementId\": \"ownership:sem-element:ke1-a1bda32f3f40c733\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Mesure ECV (Volume Extracellulaire)\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-d73445657781afe9\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Mesure de l'hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-0d3ae9c96932e2cd\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Produit de contraste\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-57e6d2583ff4e9ec\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Refus d'utiliser le LGE comme critère principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-f5bda6bd5452c921\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Agent de contraste\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-50e61ef8192f34b4\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Conditionnalité de l'ECV au contraste et à l'hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-e83966ddca236211\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Exclusion du LGE comme critère principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-5b813a58121a9de4\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Paramètre ECV\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-03899c9631139b72\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Paramètre hématocrite\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I04:R2\"], \"statementId\": \"ownership:sem-element:ke1-524b1c65c6bba2e9\"}"
+          },
+          {
+            "collection": "clarificationCandidates",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"blocking\": true, \"clarificationId\": \"sem-clarification:1:1f45533213\", \"decisionImpact\": \"Le LGE est exclu comme critère principal et le T2 n'est pas disponible partout, laissant le choix du critère principal ouvert.\", \"priority\": \"HIGH\", \"question\": \"Quel est le critère d'évaluation principal retenu pour l'étude multicentrique en l'absence de disponibilité universelle du T2 et du LGE ?\", \"targetIds\": [\"sem-element:ke1-03899c9631139b72\", \"sem-element:ke1-0686fb334b9349d7\", \"sem-element:ke1-b01a8aba7016e06e\", \"sem-element:ke1-d66bf74598ad7959\", \"sem-element:ke1-e84d65e81331d27c\"]}"
+          }
+        ],
+        "rationale": "Supprime l’inconnue et la clarification légitimes sur le critère principal.",
+        "round": "T2",
+        "scenarioId": "I04"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T0",
+        "scenarioId": "I05"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T1",
+        "scenarioId": "I05"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Intent to determine which method is more useful\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-a8641a2bf4164457\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"je veux savoir\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Patients with ASL data only\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c6e15801fed5b40d\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"Pour ceux qui n'ont que la seconde\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"User / Researcher conducting the study\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-273e86f5921fe221\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"Je\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Intent to determine which method is more useful\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-a8641a2bf4164457\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Patients with ASL data only\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-c6e15801fed5b40d\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"User / Researcher conducting the study\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-273e86f5921fe221\"}"
+          }
+        ],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T0",
+        "scenarioId": "I06"
+      },
+      {
+        "classification": "CRITIC_ADDED",
+        "exactDeterministicDiff": [
+          {
+            "after": "L'utilisateur compare DSC et ASL dans les gliomes, souhaite savoir laquelle est plus utile pour distinguer vraie progression et pseudoprogression à 3 mois, et préfère conserver les cas avec ASL seule si possible.",
+            "before": "L'utilisateur précise que \"la seconde\" désigne l'ASL et indique son intention de distinguer la vraie progression de la pseudoprogression à 3 mois.",
+            "collection": "normalizedUnderstanding",
+            "disposition": "MODIFIED"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Divergence of results between methods\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-58b9515cde473348\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"CONDITION:NONE\", \"sourceText\": \"Quand elles ne racontent pas la même chose\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Intent to determine which method is more useful\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-a8641a2bf4164457\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"je veux savoir\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Patients with ASL data only\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c6e15801fed5b40d\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"Pour ceux qui n'ont que la seconde\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Preference to retain cases with partial data if possible\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-461fe84fe684af7b\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"les garder si c'est possible\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"User / Researcher conducting the study\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-273e86f5921fe221\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"Je\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Distinguish between true progression and pseudoprogression\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-7d89ee0af54786de\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R1\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"distinguer\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"3 months\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"REPEATED_AT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-33e42430a9cdcbc4\", \"sourceText\": null, \"subject\": \"Arterial Spin Labeling MRI (ASL)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Pseudoprogression\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"DISTINGUISHES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-1bad001f334243d3\", \"sourceText\": null, \"subject\": \"Arterial Spin Labeling MRI (ASL)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"True progression\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"DISTINGUISHES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-29443ca933862b6d\", \"sourceText\": null, \"subject\": \"Arterial Spin Labeling MRI (ASL)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"3 months\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"REPEATED_AT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-9223a6b11a3dfa5d\", \"sourceText\": null, \"subject\": \"True progression\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Pseudoprogression\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"DISTINGUISHED_FROM\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-591b5c827c246d36\", \"sourceText\": null, \"subject\": \"True progression\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Divergence of results between methods\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-58b9515cde473348\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Intent to determine which method is more useful\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-a8641a2bf4164457\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Patients with ASL data only\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-c6e15801fed5b40d\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Preference to retain cases with partial data if possible\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-461fe84fe684af7b\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"User / Researcher conducting the study\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-273e86f5921fe221\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Distinguish between true progression and pseudoprogression\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:R1\"], \"statementId\": \"ownership:sem-element:ke1-7d89ee0af54786de\"}"
+          },
+          {
+            "collection": "clarificationCandidates",
+            "disposition": "ADDED",
+            "value": "{\"blocking\": true, \"clarificationId\": \"sem-clarification:1:638f0a49e2\", \"decisionImpact\": \"Préciser le traitement des données partielles pour la population avec ASL seule.\", \"priority\": \"HIGH\", \"question\": \"Comment souhaitez-vous gérer précisément les patients ne disposant que de l'ASL dans l'analyse comparative ?\", \"targetIds\": [\"sem-element:ke1-c6e15801fed5b40d\"]}"
+          }
+        ],
+        "rationale": "Restaure le contexte cumulatif et une clarification sur les cas ASL-only.",
+        "round": "T1",
+        "scenarioId": "I06"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "after": "L'utilisateur compare DSC et ASL dans les gliomes, souhaite savoir laquelle est plus utile pour distinguer vraie progression et pseudoprogression à 3 mois, et précise que pour la comparaison principale il faut les deux, mais que les patients ASL-only peuvent rester dans une analyse secondaire.",
+            "before": "L'utilisateur compare la DSC et l'ASL chez les patients atteints de gliomes pour évaluer leur utilité dans la distinction entre progression vraie et pseudoprogression à 3 mois, tout en précisant que les cas avec ASL seule peuvent être inclus dans une analyse secondaire.",
+            "collection": "normalizedUnderstanding",
+            "disposition": "MODIFIED"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Divergence of results between methods\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-58b9515cde473348\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"CONDITION:NONE\", \"sourceText\": \"Quand elles ne racontent pas la même chose\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Intent to determine which method is more useful\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-a8641a2bf4164457\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"je veux savoir\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Patients with ASL data only\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c6e15801fed5b40d\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"Pour ceux qui n'ont que la seconde\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Preference to retain cases with partial data if possible\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-461fe84fe684af7b\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"les garder si c'est possible\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Secondary analysis for ASL-only patients\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-f1ec391e8620ea72\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R2\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"les patients ASL-only peuvent rester dans une analyse secondaire\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"User / Researcher conducting the study\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-273e86f5921fe221\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:T0\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"Je\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"ASL-only patients\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-ad4d82d800378c94\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R2\"], \"scientificRole\": \"POPULATION:NONE\", \"sourceText\": \"les patients ASL-only\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Distinguish between true progression and pseudoprogression\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-7d89ee0af54786de\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R1\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"distinguer\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Primary measurement endpoint\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-efdcacd518f85991\", \"ownership\": \"USER\", \"polarity\": \"UNCERTAIN\", \"provenanceTurnIds\": [\"I06:R2\"], \"scientificRole\": \"UNKNOWN:OUTCOME_ROLE\", \"sourceText\": \"mesure principale\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Secondary analysis\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-8037ff48ca59070c\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I06:R2\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"analyse secondaire\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"3 months\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"REPEATED_AT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-33e42430a9cdcbc4\", \"sourceText\": null, \"subject\": \"Arterial Spin Labeling MRI (ASL)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Pseudoprogression\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"DISTINGUISHES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-1bad001f334243d3\", \"sourceText\": null, \"subject\": \"Arterial Spin Labeling MRI (ASL)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Secondary analysis for ASL-only patients\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"INCLUDED_IN\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-a7495dfe759e19da\", \"sourceText\": null, \"subject\": \"Patients with ASL data only\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"True progression\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"DISTINGUISHES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-29443ca933862b6d\", \"sourceText\": null, \"subject\": \"Arterial Spin Labeling MRI (ASL)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"3 months\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"REPEATED_AT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-9223a6b11a3dfa5d\", \"sourceText\": null, \"subject\": \"True progression\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Pseudoprogression\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"DISTINGUISHED_FROM\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-591b5c827c246d36\", \"sourceText\": null, \"subject\": \"True progression\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Secondary analysis\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"INCLUDED_IN\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-ce99a3fec4bf4912\", \"sourceText\": null, \"subject\": \"ASL-only patients\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "ambiguities",
+            "disposition": "ADDED",
+            "value": "{\"ambiguityId\": \"sem-ambiguity:d5353b780d6f1acf\", \"content\": \"Choix final de la mesure principale entre DSC et ASL encore incertain\", \"decisionImpact\": \"SEM reports an unresolved ambiguity; impact requires clarification.\", \"epistemicStatus\": \"AMBIGUOUS\", \"interpretations\": [], \"provenanceTurnIds\": []}"
+          },
+          {
+            "collection": "ambiguities",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"ambiguityId\": \"sem-ambiguity:95e71d5b272a6698\", \"content\": \"La mesure principale exacte n'est pas encore définie entre DSC et ASL.\", \"decisionImpact\": \"SEM reports an unresolved ambiguity; impact requires clarification.\", \"epistemicStatus\": \"AMBIGUOUS\", \"interpretations\": [], \"provenanceTurnIds\": []}"
+          },
+          {
+            "collection": "missingInformation",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"blocking\": false, \"content\": \"mesure principale\", \"decisionImpact\": \"SEM reports missing or unresolved information.\", \"missingId\": \"sem-missing:21fc6a4afc5a6f29\", \"owner\": \"USER_OR_SPECIALIZED_OWNER_UNRESOLVED\", \"priority\": \"MEDIUM\", \"provenanceTurnIds\": []}"
+          },
+          {
+            "collection": "unknowns",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"blocking\": false, \"content\": \"mesure principale\", \"decisionImpact\": \"SEM reports missing or unresolved information.\", \"missingId\": \"sem-missing:21fc6a4afc5a6f29\", \"owner\": \"USER_OR_SPECIALIZED_OWNER_UNRESOLVED\", \"priority\": \"MEDIUM\", \"provenanceTurnIds\": []}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Divergence of results between methods\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-58b9515cde473348\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Intent to determine which method is more useful\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-a8641a2bf4164457\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Patients with ASL data only\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-c6e15801fed5b40d\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Preference to retain cases with partial data if possible\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-461fe84fe684af7b\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Secondary analysis for ASL-only patients\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:R2\"], \"statementId\": \"ownership:sem-element:ke1-f1ec391e8620ea72\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"User / Researcher conducting the study\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:T0\"], \"statementId\": \"ownership:sem-element:ke1-273e86f5921fe221\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"ASL-only patients\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:R2\"], \"statementId\": \"ownership:sem-element:ke1-ad4d82d800378c94\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Distinguish between true progression and pseudoprogression\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:R1\"], \"statementId\": \"ownership:sem-element:ke1-7d89ee0af54786de\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Primary measurement endpoint\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:R2\"], \"statementId\": \"ownership:sem-element:ke1-efdcacd518f85991\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Secondary analysis\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I06:R2\"], \"statementId\": \"ownership:sem-element:ke1-8037ff48ca59070c\"}"
+          },
+          {
+            "collection": "clarificationCandidates",
+            "disposition": "ADDED",
+            "value": "{\"blocking\": false, \"clarificationId\": \"sem-clarification:1:007576e96b\", \"decisionImpact\": \"L'utilisateur indique qu'il ne sait pas encore quelle doit être la mesure principale.\", \"priority\": \"MEDIUM\", \"question\": \"Souhaitez-vous formaliser la mesure principale comme étant la DSC, l'ASL, ou une combinaison des deux pour votre étude ?\", \"targetIds\": [\"sem-element:ke1-5597336786d51373\"]}"
+          },
+          {
+            "collection": "clarificationCandidates",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"blocking\": false, \"clarificationId\": \"sem-clarification:1:c31491936e\", \"decisionImpact\": \"La mesure principale reste indéfinie.\", \"priority\": \"MEDIUM\", \"question\": \"Souhaitez-vous désigner la DSC ou l'ASL comme mesure principale, ou maintenir l'incertitude pour l'instant ?\", \"targetIds\": [\"sem-element:ke1-efdcacd518f85991\"]}"
+          }
+        ],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T2",
+        "scenarioId": "I06"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"condition de bon fonctionnement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-658bb783323eb46f\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I07:T0\"], \"scientificRole\": \"CONDITION:NONE\", \"sourceText\": \"si ça marche bien\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"condition de bon fonctionnement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I07:T0\"], \"statementId\": \"ownership:sem-element:ke1-658bb783323eb46f\"}"
+          }
+        ],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T0",
+        "scenarioId": "I07"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "after": "Pour cette étude, l'iode en scanner spectral du foie est maintenu uniquement dans une relation d'association avec la réponse tumorale, tandis que la prédiction devient une option exploratoire.",
+            "before": "Dans le cadre d'une étude en scanner spectral du foie, l'utilisateur souhaite centrer l'analyse sur l'association entre l'iode et la réponse tumorale, tout en maintenant la prédiction comme purement exploratoire, sans utiliser l'iode comme preuve de viabilité tumorale ni établir de lien de causalité.",
+            "collection": "normalizedUnderstanding",
+            "disposition": "MODIFIED"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"caractère exploratoire de la prédiction\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c74c1bfa88c52756\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I07:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"exploratoire\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"condition de bon fonctionnement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-658bb783323eb46f\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I07:T0\"], \"scientificRole\": \"CONDITION:NONE\", \"sourceText\": \"si ça marche bien\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"maintien de l'étude sur l'association\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-5b58e440dab3bcec\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I07:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"reste sur l'association avec la réponse\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"réponse tumorale\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-c0f23ae46757d1b0\", \"sourceText\": null, \"subject\": \"maintien de l'étude sur l'association\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"caractère exploratoire de la prédiction\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I07:R1\"], \"statementId\": \"ownership:sem-element:ke1-c74c1bfa88c52756\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"condition de bon fonctionnement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I07:T0\"], \"statementId\": \"ownership:sem-element:ke1-658bb783323eb46f\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"maintien de l'étude sur l'association\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I07:R1\"], \"statementId\": \"ownership:sem-element:ke1-5b58e440dab3bcec\"}"
+          }
+        ],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T1",
+        "scenarioId": "I07"
+      },
+      {
+        "classification": "CRITIC_DAMAGED",
+        "exactDeterministicDiff": [
+          {
+            "after": "Pour cette étude, la concentration iodée mesurée en scanner spectral du foie est maintenue uniquement dans une relation d'association avec la réponse tumorale, sans aucune conclusion causale, tandis que la prédiction est rejetée ou exploratoire.",
+            "before": "Dans le cadre d'une étude en scanner spectral du foie, l'utilisateur précise que l'élément mesuré est la concentration iodée et non simplement la présence d'iode, maintient l'analyse sur l'association avec la réponse sans causalité, et confirme que la prédiction future est exploratoire.",
+            "collection": "normalizedUnderstanding",
+            "disposition": "MODIFIED"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"absence de conclusion causale\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-7fda63c0931cfe04\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I07:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"aucune conclusion causale\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"caractère exploratoire de la prédiction\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-c74c1bfa88c52756\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I07:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"exploratoire\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"condition de bon fonctionnement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-658bb783323eb46f\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I07:T0\"], \"scientificRole\": \"CONDITION:NONE\", \"sourceText\": \"si ça marche bien\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"maintien de l'étude sur l'association\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-5b58e440dab3bcec\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I07:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"reste sur l'association avec la réponse\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"preuve de viabilité tumorale\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-496a4b838dc1b037\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I07:T0\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"preuve de viabilité tumorale\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"absence de conclusion causale\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-7fda63c0931cfe04\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I07:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"Je ne veux aucune conclusion causale\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"absence de conclusion causale\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"predicate\": \"EXCLUDES_CAUSALITY\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-5823a903b70b969f\", \"sourceText\": null, \"subject\": \"concentration iodée mesurée\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"réponse tumorale\", \"ownership\": \"USER\", \"polarity\": \"CONDITIONAL\", \"predicate\": \"PREDICTS_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-028fd2e3846d7ed7\", \"sourceText\": null, \"subject\": \"concentration iodée mesurée\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"réponse tumorale\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"predicate\": \"INFLUENCES\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-f26662ebbf80d5b7\", \"sourceText\": null, \"subject\": \"concentration iodée mesurée\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"REJECTED_BY_USER\", \"object\": \"preuve de viabilité tumorale\", \"ownership\": \"HISTORICAL_USER_CONTRIBUTION\", \"polarity\": \"NEGATED\", \"predicate\": \"EXCLUDES_ENDPOINT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-f9ea807b7176cf67\", \"sourceText\": null, \"subject\": \"concentration iodée mesurée\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"absence de conclusion causale\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-7fda63c0931cfe04\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I07:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"aucune conclusion causale\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"preuve de viabilité tumorale\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-496a4b838dc1b037\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I07:T0\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"preuve de viabilité tumorale\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"absence de conclusion causale\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-7fda63c0931cfe04\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I07:R2\"], \"scientificRole\": \"CONSTRAINT:NONE\", \"sourceText\": \"Je ne veux aucune conclusion causale\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:0e5f73a1ce7ad872\", \"currentContent\": \"maintien de l'étude sur l'association\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"maintien de l'étude sur l'association\", \"provenanceTurnIds\": [\"I07:R1\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:f5329fb1c66589ca\", \"currentContent\": \"scanner spectral du foie\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"scanner spectral du foie\", \"provenanceTurnIds\": [\"I07:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"correctionId\": \"sem-correction:a50b747922caeed8\", \"currentContent\": \"ensuite / futur\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"ensuite / futur\", \"provenanceTurnIds\": []}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"correctionId\": \"sem-correction:c5786f1ffbd3fcce\", \"currentContent\": \"preuve de viabilité tumorale\", \"disposition\": \"REJECTED\", \"previousContent\": \"preuve de viabilité tumorale\", \"provenanceTurnIds\": [\"I07:T0\"]}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"caractère exploratoire de la prédiction\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I07:R1\"], \"statementId\": \"ownership:sem-element:ke1-c74c1bfa88c52756\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"condition de bon fonctionnement\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I07:T0\"], \"statementId\": \"ownership:sem-element:ke1-658bb783323eb46f\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"maintien de l'étude sur l'association\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I07:R1\"], \"statementId\": \"ownership:sem-element:ke1-5b58e440dab3bcec\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"preuve de viabilité tumorale\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I07:T0\"], \"statementId\": \"ownership:sem-element:ke1-496a4b838dc1b037\"}"
+          }
+        ],
+        "rationale": "Réduit les relations et rend la prédiction ‘rejetée ou exploratoire’ alors qu’elle est exploratoire.",
+        "round": "T2",
+        "scenarioId": "I07"
+      },
+      {
+        "classification": "NO_MEANINGFUL_CHANGE",
+        "exactDeterministicDiff": [
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Centre de Lyon\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"PERFORMED_AT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-078417f05d5c1124\", \"sourceText\": null, \"subject\": \"Volume extracellulaire (ECV)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Centre de Lyon\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-49d4cfef796ab0a3\", \"sourceText\": null, \"subject\": \"Volume extracellulaire (ECV)\", \"temporalContext\": null}"
+          }
+        ],
+        "rationale": "Aucune amélioration scientifique critique observable; différence absente ou seulement de richesse/formulation.",
+        "round": "T0",
+        "scenarioId": "I08"
+      },
+      {
+        "classification": "CRITIC_DAMAGED",
+        "exactDeterministicDiff": [
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité de l'ECV dans seulement deux centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-fb4228b3cbe0c837\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"l'ECV seulement deux centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité du T1 natif dans tous les centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-65f6c21cd3b12540\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"tous les centres ont du T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Marqueur précoce\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-42bb89a48e133768\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"marqueur précoce\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"T1 natif\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-ee3869a65b888892\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"le T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Volume extracellulaire (ECV)\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-256f396a58a6b11e\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"l'ECV\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Critère principal d'évaluation\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-d8c9045b4f4590b7\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité de l'ECV dans seulement deux centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-ba4b5e637b8ab827\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R1\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"l'ECV seulement deux centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité du T1 natif dans tous les centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-85c1367a1fcdefe6\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R1\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"tous les centres ont du T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Marqueur précoce\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-e2421addbfdae4f1\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"BIOMARKER:OUTCOME_ROLE\", \"sourceText\": \"marqueur précoce\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"T1 natif\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-bb98f5f3e61f629f\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"le T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Volume extracellulaire (ECV)\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-ac76601724e22d0b\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"l'ECV\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Centre de Lyon\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"PERFORMED_AT\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-eee32959fb61fa7d\", \"sourceText\": null, \"subject\": \"Volume extracellulaire (ECV)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Disponibilité de l'ECV dans seulement deux centres\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-9f1949d97176005d\", \"sourceText\": null, \"subject\": \"Volume extracellulaire (ECV)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Disponibilité du T1 natif dans tous les centres\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-43b585f8b55c3a54\", \"sourceText\": null, \"subject\": \"T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"REJECTED_BY_USER\", \"object\": \"Critère principal d'évaluation\", \"ownership\": \"HISTORICAL_USER_CONTRIBUTION\", \"polarity\": \"NEGATED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-92929f419135e715\", \"sourceText\": null, \"subject\": \"T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Centre de Lyon\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-49d4cfef796ab0a3\", \"sourceText\": null, \"subject\": \"Volume extracellulaire (ECV)\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Critère principal d'évaluation\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-3a508fe465c36798\", \"sourceText\": null, \"subject\": \"T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Disponibilité de l'ECV dans seulement deux centres\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-f369b11634855dca\", \"sourceText\": null, \"subject\": \"Disponibilité de l'ECV dans seulement deux centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Disponibilité du T1 natif dans tous les centres\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-0a2b8420e77b6ffc\", \"sourceText\": null, \"subject\": \"Disponibilité du T1 natif dans tous les centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "negationsAndConstraints",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Critère principal d'évaluation\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-d8c9045b4f4590b7\", \"ownership\": \"USER\", \"polarity\": \"NEGATED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:e574f8ad13030ceb\", \"currentContent\": \"Applicabilité multicentrique (tous les centres)\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Applicabilité multicentrique (tous les centres)\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:ec6f8ff561b68b17\", \"currentContent\": \"Avant le stade de fibrose\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Avant le stade de fibrose\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:9ffed6da5cf7f9fc\", \"currentContent\": \"Centre de Lyon\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Centre de Lyon\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:e3a4bd159a59d6a2\", \"currentContent\": \"Critère principal d'évaluation\", \"disposition\": \"REJECTED\", \"previousContent\": \"Critère principal d'évaluation\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:8753bbfb086a1a09\", \"currentContent\": \"Maladie de Fabry\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Maladie de Fabry\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:3872f2be54fd55b8\", \"currentContent\": \"Marqueur précoce\", \"disposition\": \"REJECTED\", \"previousContent\": \"Marqueur précoce\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:1d5212df88bb4022\", \"currentContent\": \"Marqueur précoce\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Marqueur précoce\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:b36879a9f22dc8fc\", \"currentContent\": \"T1 natif\", \"disposition\": \"REJECTED\", \"previousContent\": \"T1 natif\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:b0c5ddd3a63e0e7c\", \"currentContent\": \"T1 natif\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"T1 natif\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:05c7a73da4ecd0f6\", \"currentContent\": \"Volume extracellulaire (ECV)\", \"disposition\": \"REJECTED\", \"previousContent\": \"Volume extracellulaire (ECV)\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:99748c1b5bd0070c\", \"currentContent\": \"Volume extracellulaire (ECV)\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Volume extracellulaire (ECV)\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Critère principal d'évaluation\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I08:T0\"], \"statementId\": \"ownership:sem-element:ke1-d8c9045b4f4590b7\"}"
+          }
+        ],
+        "rationale": "Introduit onze pseudo-corrections sans correction utilisateur correspondante.",
+        "round": "T1",
+        "scenarioId": "I08"
+      },
+      {
+        "classification": "CRITIC_DAMAGED",
+        "exactDeterministicDiff": [
+          {
+            "after": "L'utilisateur confirme son choix de retenir le T1 natif comme critère principal de l'étude pour la maladie de Fabry, tout en maintenant l'ECV de manière exploratoire dans les centres où il est disponible.",
+            "before": "L'utilisateur choisit d'utiliser le T1 natif comme candidat principal pour l'étude dans la maladie de Fabry et de garder l'ECV de manière exploratoire là où il est disponible.",
+            "collection": "normalizedUnderstanding",
+            "disposition": "MODIFIED"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Choix de retenir le T1 natif comme candidat principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-d7db5276acc96b72\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R2\"], \"scientificRole\": \"SCIENTIFIC_INTENT:NONE\", \"sourceText\": \"Je préfère donc partir sur\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité de l'ECV dans seulement deux centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-fb4228b3cbe0c837\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"l'ECV seulement deux centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité du T1 natif dans tous les centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-65f6c21cd3b12540\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R1\"], \"scientificRole\": \"STUDY_DESIGN:NONE\", \"sourceText\": \"tous les centres ont du T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Marqueur précoce\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-42bb89a48e133768\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"marqueur précoce\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"T1 natif sélectionné comme critère principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-62c33725890da7f1\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R2\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"le T1 natif comme candidat principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"content\": \"Volume extracellulaire (ECV) maintenu de façon exploratoire\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-5af02f167e72b6a2\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R2\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"l'ECV exploratoire là où il est disponible\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Candidat principal d'évaluation\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-3e82291c9abfe830\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R2\"], \"scientificRole\": \"ENDPOINT:OUTCOME_ROLE\", \"sourceText\": \"candidat principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité de l'ECV dans seulement deux centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-ba4b5e637b8ab827\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R1\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"l'ECV seulement deux centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Disponibilité du T1 natif dans tous les centres\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-85c1367a1fcdefe6\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R1\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"tous les centres ont du T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Marqueur précoce\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-e2421addbfdae4f1\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:T0\"], \"scientificRole\": \"BIOMARKER:OUTCOME_ROLE\", \"sourceText\": \"marqueur précoce\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"T1 natif\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-bb98f5f3e61f629f\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R2\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"le T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "explicitUserStatements",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"content\": \"Volume extracellulaire (ECV) exploratoire\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"itemId\": \"sem-element:ke1-949a9727569cdbc3\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"provenanceTurnIds\": [\"I08:R2\"], \"scientificRole\": \"BIOMARKER:MEASUREMENT\", \"sourceText\": \"l'ECV\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"T1 natif sélectionné comme critère principal\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"AIMS_TO_MODIFY\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-b792be498c37978d\", \"sourceText\": null, \"subject\": \"Choix de retenir le T1 natif comme candidat principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "ADDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"T1 natif sélectionné comme critère principal\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"SELECTED_AS\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-ec10d19b403754ef\", \"sourceText\": null, \"subject\": \"T1 natif sélectionné comme critère principal\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Candidat principal d'évaluation\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"SELECTED_AS\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-1dddfec6ab4de59a\", \"sourceText\": null, \"subject\": \"T1 natif\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Disponibilité de l'ECV dans seulement deux centres\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-f369b11634855dca\", \"sourceText\": null, \"subject\": \"Disponibilité de l'ECV dans seulement deux centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "relations",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"basis\": null, \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"object\": \"Disponibilité du T1 natif dans tous les centres\", \"ownership\": \"USER\", \"polarity\": \"AFFIRMED\", \"predicate\": \"RELATED_TO_CANDIDATE\", \"provenanceTurnIds\": [], \"relationId\": \"sem-relation:ke1-0a2b8420e77b6ffc\", \"sourceText\": null, \"subject\": \"Disponibilité du T1 natif dans tous les centres\", \"temporalContext\": null}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:1235f35510c04983\", \"currentContent\": \"Applicabilité multicentrique (tous les centres)\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Applicabilité multicentrique (tous les centres)\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:cc47951ab4fa013d\", \"currentContent\": \"Avant le stade de fibrose\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Avant le stade de fibrose\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:2642f9a9ff78f5a4\", \"currentContent\": \"Centre de Lyon\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Centre de Lyon\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:3cafb9b79ed4aa96\", \"currentContent\": \"Maladie de Fabry\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Maladie de Fabry\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:6d3efe65dcc52d26\", \"currentContent\": \"Marqueur précoce\", \"disposition\": \"REJECTED\", \"previousContent\": \"Marqueur précoce\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:810611d4a28e2ec1\", \"currentContent\": \"Marqueur précoce\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Marqueur précoce\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:11f603f41b3a49e5\", \"currentContent\": \"T1 natif sélectionné comme critère principal\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Critère principal d'évaluation; T1 natif\", \"provenanceTurnIds\": [\"I08:R2\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:487aa51086d84371\", \"currentContent\": \"T1 natif\", \"disposition\": \"REJECTED\", \"previousContent\": \"T1 natif\", \"provenanceTurnIds\": [\"I08:T0\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "ADDED",
+            "value": "{\"correctionId\": \"sem-correction:9e300440b1fd56ca\", \"currentContent\": \"Volume extracellulaire (ECV) maintenu de façon exploratoire\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Volume extracellulaire (ECV)\", \"provenanceTurnIds\": [\"I08:R2\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"correctionId\": \"sem-correction:5e69aeae2515c5c7\", \"currentContent\": \"Candidat principal d'évaluation\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Critère principal d'évaluation\", \"provenanceTurnIds\": [\"I08:R2\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"correctionId\": \"sem-correction:dc5a471338a47443\", \"currentContent\": \"T1 natif\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"T1 natif\", \"provenanceTurnIds\": [\"I08:R2\"]}"
+          },
+          {
+            "collection": "correctionsAndSupersessions",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"correctionId\": \"sem-correction:50f0efe77632c968\", \"currentContent\": \"Volume extracellulaire (ECV) exploratoire\", \"disposition\": \"SUPERSEDED\", \"previousContent\": \"Volume extracellulaire (ECV)\", \"provenanceTurnIds\": [\"I08:R2\"]}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Choix de retenir le T1 natif comme candidat principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I08:R2\"], \"statementId\": \"ownership:sem-element:ke1-d7db5276acc96b72\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"T1 natif sélectionné comme critère principal\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I08:R2\"], \"statementId\": \"ownership:sem-element:ke1-62c33725890da7f1\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "ADDED",
+            "value": "{\"content\": \"Volume extracellulaire (ECV) maintenu de façon exploratoire\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I08:R2\"], \"statementId\": \"ownership:sem-element:ke1-5af02f167e72b6a2\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Candidat principal d'évaluation\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I08:R2\"], \"statementId\": \"ownership:sem-element:ke1-3e82291c9abfe830\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"T1 natif\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I08:R2\"], \"statementId\": \"ownership:sem-element:ke1-bb98f5f3e61f629f\"}"
+          },
+          {
+            "collection": "ownershipAndEpistemicState",
+            "disposition": "REMOVED_OR_SUPERSEDED",
+            "value": "{\"content\": \"Volume extracellulaire (ECV) exploratoire\", \"epistemicStatus\": \"EXPLICIT_USER_STATED\", \"owner\": \"USER\", \"provenanceTurnIds\": [\"I08:R2\"], \"statementId\": \"ownership:sem-element:ke1-949a9727569cdbc3\"}"
+          }
+        ],
+        "rationale": "Promeut ‘candidat principal’ en ‘critère principal’.",
+        "round": "T2",
+        "scenarioId": "I08"
+      }
+    ]
+  },
+  "adjudication": "SIMULATED_POST_HOC_ADJUDICATION",
+  "crossArchitectureFindings": {
+    "dspyVsPydantic": "DSPy est le plus robuste sur les états acceptés (24/24 Phase A), mais produit moins de relations, aucun objet dédié et peu d’enrichissement; une sortie primaire a été perdue puis régénérée.",
+    "pydanticCriticVsSemFull": "Le critic Pydantic ne récupère aucune perte observable; SEM Full reste plus riche structurellement mais n’est pas systématiquement plus juste.",
+    "pydanticVsSemSingle": "Pydantic est généralement aussi lisible et scientifiquement complet, mais moins riche en relations/provenance structurées et moins robuste sur I04."
+  },
+  "realHumanReview": false,
+  "semanticReviewProviderCalls": 0
+}

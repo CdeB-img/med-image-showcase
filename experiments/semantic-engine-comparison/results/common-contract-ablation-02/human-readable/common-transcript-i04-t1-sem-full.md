@@ -1,0 +1,3641 @@
+# I04 — SEM_FULL — COMMON_TRANSCRIPT T1
+
+## INPUT
+
+Message utilisateur courant VERBATIM :
+
+> Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.
+
+Conversation précédente VERBATIM :
+
+> I04:T0 | USER : Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.
+
+## NATIVE OUTPUT
+
+Artefact : `experiments/semantic-engine-comparison/results/common-contract-ablation-02/native-outputs/common-transcript-i04-t1-sem-full.json`
+
+```json
+{
+  "criticCycles": {
+    "accepted": true,
+    "attempts": [
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 8088,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T08:55:40.943Z",
+        "requestStarted": "2026-08-14T08:55:32.855Z",
+        "retryable": false
+      },
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 3613,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T08:55:44.562Z",
+        "requestStarted": "2026-08-14T08:55:40.949Z",
+        "retryable": false
+      }
+    ],
+    "callIds": [
+      "gemini-call:ke1-4ee2a09ab51d828e",
+      "gemini-call:ke1-4e4a64f0c2d9d144"
+    ],
+    "candidate": {
+      "ambiguities": [
+        "Disponibilité hétérogène des séquences avancées entre les centres (Ciné et T1 natif universels, T2 absent de certains centres)."
+      ],
+      "candidateId": "cand-ke1-update-02",
+      "clarificationCandidates": [],
+      "contradictions": [],
+      "elements": [
+        {
+          "canonicalMeaning": "Intention de détecter l'atteinte cardiaque précoce",
+          "clientElementId": "elem-01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-01"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:T0",
+          "sourceText": "détecter",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_INTENT"
+        },
+        {
+          "canonicalMeaning": "Atteinte cardiaque précoce",
+          "clientElementId": "elem-02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-02"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:T0",
+          "sourceText": "l'atteinte cardiaque précoce",
+          "studyRole": "OUTCOME_ROLE",
+          "supersedesElementIds": [],
+          "type": "OUTCOME"
+        },
+        {
+          "canonicalMeaning": "Maladie de Fabry",
+          "clientElementId": "elem-03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-03"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:T0",
+          "sourceText": "Fabry",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONDITION"
+        },
+        {
+          "canonicalMeaning": "Fibrose visible",
+          "clientElementId": "elem-04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-04"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:T0",
+          "sourceText": "la fibrose visible",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_OBJECT"
+        },
+        {
+          "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+          "clientElementId": "elem-05",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-05"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:T0",
+          "sourceText": "plusieurs centres",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "STUDY_DESIGN"
+        },
+        {
+          "canonicalMeaning": "Séquences d'imagerie variables selon les centres",
+          "clientElementId": "elem-06",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-06"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:T0",
+          "sourceText": "séquences",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "METHOD"
+        },
+        {
+          "canonicalMeaning": "Séquence ciné",
+          "clientElementId": "elem-07",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-07"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:R1",
+          "sourceText": "cine",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "METHOD"
+        },
+        {
+          "canonicalMeaning": "Séquence T1 natif",
+          "clientElementId": "elem-08",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-08"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:R1",
+          "sourceText": "T1 natif",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "METHOD"
+        },
+        {
+          "canonicalMeaning": "Séquence T2",
+          "clientElementId": "elem-09",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-10",
+            "inv-11"
+          ],
+          "polarity": "NEGATED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:R1",
+          "sourceText": "T2",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "METHOD"
+        },
+        {
+          "canonicalMeaning": "Disponibilité universelle des séquences ciné et T1 natif dans tous les centres",
+          "clientElementId": "elem-10",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-09"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I04:R1",
+          "sourceText": "Tous les centres ont cine et T1 natif",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "STUDY_DESIGN"
+        }
+      ],
+      "ellipses": [],
+      "knowledgeRequests": [],
+      "language": "fr",
+      "missingConcepts": [],
+      "normalizedMeaning": "Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans un cadre multicentrique où les centres disposent de séquences ciné et T1 natif, mais sans disponibilité universelle du T2.",
+      "relations": [
+        {
+          "clientRelationId": "rel-01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-inv-03"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "PRECEDES",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-02",
+          "targetClientElementId": "elem-04"
+        },
+        {
+          "clientRelationId": "rel-02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-inv-01"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "AIMS_TO_OBSERVE",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-01",
+          "targetClientElementId": "elem-02"
+        },
+        {
+          "clientRelationId": "rel-03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-inv-02"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "RELATED_TO_CANDIDATE",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-02",
+          "targetClientElementId": "elem-03"
+        },
+        {
+          "clientRelationId": "rel-04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-inv-04"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "INCLUDES",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-10",
+          "targetClientElementId": "elem-07"
+        },
+        {
+          "clientRelationId": "rel-05",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-inv-05"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "INCLUDES",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-10",
+          "targetClientElementId": "elem-08"
+        }
+      ],
+      "routeProposal": {
+        "confidence": 0.95,
+        "expectedCapabilities": [
+          "Gestion des données multicentriques",
+          "Harmonisation des protocoles d'imagerie"
+        ],
+        "reason": "L'utilisateur spécifie les contraintes méthodologiques multicentriques, les séquences disponibles et l'objectif clinique pour concevoir une étude.",
+        "route": "DESIGN_STUDY"
+      },
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv-01",
+            "linkedInventoryItemIds": [
+              "inv-02"
+            ],
+            "localRole": "action",
+            "modifiers": [],
+            "normalizedLabel": "détecter",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "détecter"
+          },
+          {
+            "inventoryItemId": "inv-02",
+            "linkedInventoryItemIds": [
+              "inv-01",
+              "inv-03",
+              "inv-04"
+            ],
+            "localRole": "target",
+            "modifiers": [],
+            "normalizedLabel": "atteinte cardiaque précoce",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "l'atteinte cardiaque précoce"
+          },
+          {
+            "inventoryItemId": "inv-03",
+            "linkedInventoryItemIds": [
+              "inv-02"
+            ],
+            "localRole": "condition",
+            "modifiers": [],
+            "normalizedLabel": "Fabry",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "Fabry"
+          },
+          {
+            "inventoryItemId": "inv-04",
+            "linkedInventoryItemIds": [
+              "inv-02"
+            ],
+            "localRole": "timing reference",
+            "modifiers": [],
+            "normalizedLabel": "fibrose visible",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "la fibrose visible"
+          },
+          {
+            "inventoryItemId": "inv-05",
+            "linkedInventoryItemIds": [],
+            "localRole": "study design",
+            "modifiers": [],
+            "normalizedLabel": "plusieurs centres",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "plusieurs centres"
+          },
+          {
+            "inventoryItemId": "inv-06",
+            "linkedInventoryItemIds": [],
+            "localRole": "method",
+            "modifiers": [],
+            "normalizedLabel": "séquences",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "séquences"
+          },
+          {
+            "inventoryItemId": "inv-07",
+            "linkedInventoryItemIds": [
+              "inv-09"
+            ],
+            "localRole": "method",
+            "modifiers": [],
+            "normalizedLabel": "séquence ciné",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:R1",
+            "sourceText": "cine"
+          },
+          {
+            "inventoryItemId": "inv-08",
+            "linkedInventoryItemIds": [
+              "inv-09"
+            ],
+            "localRole": "method",
+            "modifiers": [],
+            "normalizedLabel": "séquence T1 natif",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:R1",
+            "sourceText": "T1 natif"
+          },
+          {
+            "inventoryItemId": "inv-09",
+            "linkedInventoryItemIds": [
+              "inv-07",
+              "inv-08"
+            ],
+            "localRole": "availability",
+            "modifiers": [],
+            "normalizedLabel": "présence universelle des séquences ciné et T1 natif dans les centres",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I04:R1",
+            "sourceText": "Tous les centres ont cine et T1 natif"
+          },
+          {
+            "inventoryItemId": "inv-10",
+            "linkedInventoryItemIds": [],
+            "localRole": "method",
+            "modifiers": [],
+            "normalizedLabel": "séquence T2",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I04:R1",
+            "sourceText": "T2"
+          },
+          {
+            "inventoryItemId": "inv-11",
+            "linkedInventoryItemIds": [
+              "inv-10"
+            ],
+            "localRole": "availability constraint",
+            "modifiers": [],
+            "normalizedLabel": "non disponible partout",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I04:R1",
+            "sourceText": "n'est pas disponible partout"
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel-inv-01",
+            "normalizedRelation": "AIMS_TO_OBSERVE",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-01",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "détecter l'atteinte cardiaque précoce",
+            "targetInventoryItemId": "inv-02"
+          },
+          {
+            "inventoryRelationId": "rel-inv-02",
+            "normalizedRelation": "RELATED_TO_CANDIDATE",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-02",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "l'atteinte cardiaque précoce dans Fabry",
+            "targetInventoryItemId": "inv-03"
+          },
+          {
+            "inventoryRelationId": "rel-inv-03",
+            "normalizedRelation": "PRECEDES",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-02",
+            "sourceMessageId": "I04:T0",
+            "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+            "targetInventoryItemId": "inv-04"
+          },
+          {
+            "inventoryRelationId": "rel-inv-04",
+            "normalizedRelation": "INCLUDES",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-09",
+            "sourceMessageId": "I04:R1",
+            "sourceText": "Tous les centres ont cine",
+            "targetInventoryItemId": "inv-07"
+          },
+          {
+            "inventoryRelationId": "rel-inv-05",
+            "normalizedRelation": "INCLUDES",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-09",
+            "sourceMessageId": "I04:R1",
+            "sourceText": "Tous les centres ont cine et T1 natif.",
+            "targetInventoryItemId": "inv-08"
+          },
+          {
+            "inventoryRelationId": "rel-inv-06",
+            "normalizedRelation": "APPLIES_TO",
+            "polarity": "NEGATED",
+            "sourceInventoryItemId": "inv-11",
+            "sourceMessageId": "I04:R1",
+            "sourceText": "le T2 n'est pas disponible partout",
+            "targetInventoryItemId": "inv-10"
+          }
+        ]
+      },
+      "semanticWarnings": [
+        "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2",
+        "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-04",
+        "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-05",
+        "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-06"
+      ],
+      "summaryForUser": "Intégration de la disponibilité des séquences ciné et T1 natif dans tous les centres, et de l'exclusion du T2 qui n'est pas disponible partout.",
+      "unknowns": []
+    },
+    "critics": [
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit objects and methods are present in the candidate elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator arm is declared.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No explicit therapeutic intervention is declared.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Implicit and explicit imaging modalities/methods are correctly mapped.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "Inventory relations rel-inv-04 and rel-inv-05 lack explicit semantic relations connecting the availability element to the cine and T1 natif method elements.",
+            "result": "FAIL"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All object types match taxonomy rules.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Relations retain their explicit nature.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No unauthorized inferences are promoted as explicit.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Ambiguities regarding center heterogeneity are explicitly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negation on T2 unavailability is correctly preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Timing references are preserved.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcome remains appropriately typed.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific imaging sequences are retained.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "Inventory fragment inv-09 is marked as unresolved explicit fragment in explicitCoverageReport.",
+            "result": "FAIL"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY route correctly matches the multicenter protocol planning context.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-ke1-audit-01",
+        "criticSummary": "The model successfully captures all primary intents, objects, and constraints, but leaves inventory fragment inv-09 and its corresponding relations rel-inv-04 and rel-inv-05 unmapped. Applying the proposed repairs resolves these coverage gaps.",
+        "issues": [
+          {
+            "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+            "description": "Inventory item inv-09 ('Tous les centres have cine et T1 natif') has no mapped client element.",
+            "elementClientIds": [],
+            "recommendedAction": "Create a STUDY_DESIGN or appropriate element for inv-09 and connect relations rel-inv-04 and rel-inv-05.",
+            "resolved": false,
+            "severity": "CRITICAL"
+          },
+          {
+            "code": "EXPLICIT_RELATION_UNMAPPED",
+            "description": "Inventory relations rel-inv-04 and rel-inv-05 are unmapped in relationCoverageReport.",
+            "elementClientIds": [],
+            "recommendedAction": "Add corresponding semantic relations for rel-inv-04 and rel-inv-05.",
+            "resolved": false,
+            "severity": "CRITICAL"
+          }
+        ],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [
+          {
+            "action": "UPSERT_ELEMENT",
+            "ambiguity": null,
+            "elementCanonicalMeaning": "Disponibilité universelle des séquences ciné et T1 natif dans tous les centres",
+            "elementClientElementId": "elem-10",
+            "elementConfidence": 1,
+            "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [
+              "inv-09"
+            ],
+            "elementPolarity": "AFFIRMED",
+            "elementRequiresConfirmation": false,
+            "elementSourceMessageId": "I04:R1",
+            "elementSourceText": "Tous les centres ont cine et T1 natif",
+            "elementStudyRole": "NONE",
+            "elementSupersedesElementIds": [],
+            "elementType": "STUDY_DESIGN",
+            "inventoryItemId": "inv-09",
+            "inventoryLinkedItemIds": [
+              "inv-07",
+              "inv-08"
+            ],
+            "inventoryLocalRole": "availability",
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": "présence universelle des séquences ciné et T1 natif dans les centres",
+            "inventoryNormalizedRelation": null,
+            "inventoryPolarity": "AFFIRMED",
+            "inventoryRelationId": null,
+            "inventoryRelationPolarity": null,
+            "inventoryRelationSourceItemId": null,
+            "inventoryRelationSourceMessageId": null,
+            "inventoryRelationSourceText": null,
+            "inventoryRelationTargetItemId": null,
+            "inventorySourceMessageId": "I04:R1",
+            "inventorySourceText": "Tous les centres ont cine et T1 natif",
+            "reason": "Map the unmapped inventory fragment inv-09 to a study design element representing universal availability across centers.",
+            "relationClientRelationId": null,
+            "relationConfidence": null,
+            "relationEpistemicStatus": null,
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [],
+            "relationPolarity": null,
+            "relationRequiresConfirmation": null,
+            "relationSourceClientElementId": null,
+            "relationTargetClientElementId": null,
+            "relationType": null,
+            "repairId": "rep-01",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv-09"
+            ],
+            "sourceInventoryRelationIds": []
+          },
+          {
+            "action": "UPSERT_RELATION",
+            "ambiguity": null,
+            "elementCanonicalMeaning": null,
+            "elementClientElementId": null,
+            "elementConfidence": null,
+            "elementEpistemicStatus": null,
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [],
+            "elementPolarity": null,
+            "elementRequiresConfirmation": null,
+            "elementSourceMessageId": null,
+            "elementSourceText": null,
+            "elementStudyRole": null,
+            "elementSupersedesElementIds": [],
+            "elementType": null,
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": "INCLUDES",
+            "inventoryPolarity": null,
+            "inventoryRelationId": "rel-inv-04",
+            "inventoryRelationPolarity": "AFFIRMED",
+            "inventoryRelationSourceItemId": "inv-09",
+            "inventoryRelationSourceMessageId": "I04:R1",
+            "inventoryRelationSourceText": "Tous les centres ont cine",
+            "inventoryRelationTargetItemId": "inv-07",
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Connect the universal availability element to the cine method element to cover inventory relation rel-inv-04.",
+            "relationClientRelationId": "rel-04",
+            "relationConfidence": 1,
+            "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [
+              "rel-inv-04"
+            ],
+            "relationPolarity": "AFFIRMED",
+            "relationRequiresConfirmation": false,
+            "relationSourceClientElementId": "elem-10",
+            "relationTargetClientElementId": "elem-07",
+            "relationType": "INCLUDES",
+            "repairId": "rep-02",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv-09",
+              "inv-07"
+            ],
+            "sourceInventoryRelationIds": [
+              "rel-inv-04"
+            ]
+          },
+          {
+            "action": "UPSERT_RELATION",
+            "ambiguity": null,
+            "elementCanonicalMeaning": null,
+            "elementClientElementId": null,
+            "elementConfidence": null,
+            "elementEpistemicStatus": null,
+            "elementInferenceReason": null,
+            "elementInventoryItemIds": [],
+            "elementPolarity": null,
+            "elementRequiresConfirmation": null,
+            "elementSourceMessageId": null,
+            "elementSourceText": null,
+            "elementStudyRole": null,
+            "elementSupersedesElementIds": [],
+            "elementType": null,
+            "inventoryItemId": null,
+            "inventoryLinkedItemIds": [],
+            "inventoryLocalRole": null,
+            "inventoryModifiers": [],
+            "inventoryNormalizedLabel": null,
+            "inventoryNormalizedRelation": "INCLUDES",
+            "inventoryPolarity": null,
+            "inventoryRelationId": "rel-inv-05",
+            "inventoryRelationPolarity": "AFFIRMED",
+            "inventoryRelationSourceItemId": "inv-09",
+            "inventoryRelationSourceMessageId": "I04:R1",
+            "inventoryRelationSourceText": "Tous les centres ont cine et T1 natif.",
+            "inventoryRelationTargetItemId": "inv-08",
+            "inventorySourceMessageId": null,
+            "inventorySourceText": null,
+            "reason": "Connect the universal availability element to the T1 natif method element to cover inventory relation rel-inv-05.",
+            "relationClientRelationId": "rel-05",
+            "relationConfidence": 1,
+            "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+            "relationInferenceReason": null,
+            "relationInventoryRelationIds": [
+              "rel-inv-05"
+            ],
+            "relationPolarity": "AFFIRMED",
+            "relationRequiresConfirmation": false,
+            "relationSourceClientElementId": "elem-10",
+            "relationTargetClientElementId": "elem-08",
+            "relationType": "INCLUDES",
+            "repairId": "rep-03",
+            "route": null,
+            "routeConfidence": null,
+            "routeExpectedCapabilities": [],
+            "routeReason": null,
+            "sourceInventoryItemIds": [
+              "inv-09",
+              "inv-08"
+            ],
+            "sourceInventoryRelationIds": [
+              "rel-inv-05"
+            ]
+          }
+        ],
+        "verdict": "REVISE"
+      },
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit inventory objects are successfully mapped to corresponding client elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is stated in the messages.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No explicit intervention arm is stated in the messages.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "All method and technique fragments (cine, T1 natif, T2) are correctly mapped as methods.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit inventory relations are mapped or legitimately coalesced.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types adhere strictly to the operational taxonomy.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences were promoted over user-stated explicit facts.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Remaining ambiguities regarding sequence heterogeneity are clearly exposed.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "The negation of T2 availability is correctly preserved with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "The relative timing before visible fibrosis is fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcome and endpoint roles are correctly assigned without unauthorized promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like Fabry disease, cine, and T1 natif are precisely retained.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragments were left unrepresented.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY is completely appropriate for multicentric sequence and protocol specifications.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-ke1-002",
+        "criticSummary": "The typed candidate and semantic models are fully accurate, complete, and properly grounded. All previous warnings regarding relation ownership coalescing have been correctly handled by the pipeline. Accepting candidate as valid.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      }
+    ],
+    "cycleAttempts": [
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 8088,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:55:40.943Z",
+          "requestStarted": "2026-08-14T08:55:32.855Z",
+          "retryable": false
+        }
+      ],
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3613,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:55:44.562Z",
+          "requestStarted": "2026-08-14T08:55:40.949Z",
+          "retryable": false
+        }
+      ]
+    ],
+    "repairDiagnostics": [
+      {
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED",
+        "repairId": "rep-01",
+        "status": "ACCEPTED"
+      },
+      {
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED",
+        "repairId": "rep-02",
+        "status": "ACCEPTED"
+      },
+      {
+        "reason": "SCHEMA_AND_SOURCE_GROUNDING_PASSED",
+        "repairId": "rep-03",
+        "status": "ACCEPTED"
+      }
+    ],
+    "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+  },
+  "initialReconstruction": {
+    "ambiguities": [
+      "Disponibilité hétérogène des séquences avancées entre les centres (Ciné et T1 natif universels, T2 absent de certains centres)."
+    ],
+    "candidateId": "cand-ke1-update-02",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Intention de détecter l'atteinte cardiaque précoce",
+        "clientElementId": "elem-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "détecter",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Atteinte cardiaque précoce",
+        "clientElementId": "elem-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "l'atteinte cardiaque précoce",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "clientElementId": "elem-03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "Fabry",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Fibrose visible",
+        "clientElementId": "elem-04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "la fibrose visible",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT"
+      },
+      {
+        "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+        "clientElementId": "elem-05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "plusieurs centres",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN"
+      },
+      {
+        "canonicalMeaning": "Séquences d'imagerie variables selon les centres",
+        "clientElementId": "elem-06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-06"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "séquences",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Séquence ciné",
+        "clientElementId": "elem-07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:R1",
+        "sourceText": "cine",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Séquence T1 natif",
+        "clientElementId": "elem-08",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:R1",
+        "sourceText": "T1 natif",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Séquence T2",
+        "clientElementId": "elem-09",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-10",
+          "inv-11"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:R1",
+        "sourceText": "T2",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans un cadre multicentrique où les centres disposent de séquences ciné et T1 natif, mais sans disponibilité universelle du T2.",
+    "relations": [
+      {
+        "clientRelationId": "rel-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "PRECEDES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-02",
+        "targetClientElementId": "elem-04"
+      },
+      {
+        "clientRelationId": "rel-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_OBSERVE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-01",
+        "targetClientElementId": "elem-02"
+      },
+      {
+        "clientRelationId": "rel-03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-02",
+        "targetClientElementId": "elem-03"
+      },
+      {
+        "clientRelationId": "rel-04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-05",
+        "targetClientElementId": "elem-07"
+      },
+      {
+        "clientRelationId": "rel-05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-05",
+        "targetClientElementId": "elem-08"
+      },
+      {
+        "clientRelationId": "rel-06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-06"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-05",
+        "targetClientElementId": "elem-09"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Gestion des données multicentriques",
+        "Harmonisation des protocoles d'imagerie"
+      ],
+      "reason": "L'utilisateur spécifie les contraintes méthodologiques multicentriques, les séquences disponibles et l'objectif clinique pour concevoir une étude.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv-01",
+          "linkedInventoryItemIds": [
+            "inv-02"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "détecter",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "inventoryItemId": "inv-02",
+          "linkedInventoryItemIds": [
+            "inv-01",
+            "inv-03",
+            "inv-04"
+          ],
+          "localRole": "target",
+          "modifiers": [],
+          "normalizedLabel": "atteinte cardiaque précoce",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "l'atteinte cardiaque précoce"
+        },
+        {
+          "inventoryItemId": "inv-03",
+          "linkedInventoryItemIds": [
+            "inv-02"
+          ],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "Fabry",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "inventoryItemId": "inv-04",
+          "linkedInventoryItemIds": [
+            "inv-02"
+          ],
+          "localRole": "timing reference",
+          "modifiers": [],
+          "normalizedLabel": "fibrose visible",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "inventoryItemId": "inv-05",
+          "linkedInventoryItemIds": [],
+          "localRole": "study design",
+          "modifiers": [],
+          "normalizedLabel": "plusieurs centres",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "inventoryItemId": "inv-06",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquences",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "séquences"
+        },
+        {
+          "inventoryItemId": "inv-07",
+          "linkedInventoryItemIds": [
+            "inv-09"
+          ],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquence ciné",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "cine"
+        },
+        {
+          "inventoryItemId": "inv-08",
+          "linkedInventoryItemIds": [
+            "inv-09"
+          ],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquence T1 natif",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "T1 natif"
+        },
+        {
+          "inventoryItemId": "inv-09",
+          "linkedInventoryItemIds": [
+            "inv-07",
+            "inv-08"
+          ],
+          "localRole": "availability",
+          "modifiers": [],
+          "normalizedLabel": "présence universelle des séquences ciné et T1 natif dans les centres",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "Tous les centres ont cine et T1 natif"
+        },
+        {
+          "inventoryItemId": "inv-10",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquence T2",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "T2"
+        },
+        {
+          "inventoryItemId": "inv-11",
+          "linkedInventoryItemIds": [
+            "inv-10"
+          ],
+          "localRole": "availability constraint",
+          "modifiers": [],
+          "normalizedLabel": "non disponible partout",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "n'est pas disponible partout"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel-inv-01",
+          "normalizedRelation": "AIMS_TO_OBSERVE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-01",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "détecter l'atteinte cardiaque précoce",
+          "targetInventoryItemId": "inv-02"
+        },
+        {
+          "inventoryRelationId": "rel-inv-02",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "l'atteinte cardiaque précoce dans Fabry",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "inventoryRelationId": "rel-inv-03",
+          "normalizedRelation": "PRECEDES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "targetInventoryItemId": "inv-04"
+        },
+        {
+          "inventoryRelationId": "rel-inv-04",
+          "normalizedRelation": "INCLUDES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-09",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "Tous les centres ont cine",
+          "targetInventoryItemId": "inv-07"
+        },
+        {
+          "inventoryRelationId": "rel-inv-05",
+          "normalizedRelation": "INCLUDES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-09",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "Tous les centres ont cine et T1 natif.",
+          "targetInventoryItemId": "inv-08"
+        },
+        {
+          "inventoryRelationId": "rel-inv-06",
+          "normalizedRelation": "APPLIES_TO",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "inv-11",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "le T2 n'est pas disponible partout",
+          "targetInventoryItemId": "inv-10"
+        }
+      ]
+    },
+    "semanticWarnings": [
+      "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2"
+    ],
+    "summaryForUser": "Intégration de la disponibilité des séquences ciné et T1 natif dans tous les centres, et de l'exclusion du T2 qui n'est pas disponible partout.",
+    "unknowns": []
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [
+      "Disponibilité hétérogène des séquences avancées entre les centres (Ciné et T1 natif universels, T2 absent de certains centres)."
+    ],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I04:T0",
+      "I04:R1"
+    ],
+    "createdAt": "2026-08-14T08:55:01.714Z",
+    "critic": {
+      "issues": [],
+      "summary": "The typed candidate and semantic models are fully accurate, complete, and properly grounded. All previous warnings regarding relation ownership coalescing have been correctly handled by the pipeline. Accepting candidate as valid.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-3cc59cec89bb81c0",
+    "elements": [
+      {
+        "canonicalMeaning": "Séquence T1 natif",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-08"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:R1",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-08",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-d8a2ce5fd143eeeb"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-0686fb334b9349d7",
+        "sourceSpan": {
+          "end": 37,
+          "messageId": "I04:R1",
+          "start": 29,
+          "text": "T1 natif"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Fibrose visible",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:T0",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-19b53722bc21738e"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-109b7e05a8777951",
+        "sourceSpan": {
+          "end": 81,
+          "messageId": "I04:T0",
+          "start": 63,
+          "text": "la fibrose visible"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Séquences d'imagerie variables selon les centres",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-06"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:T0",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-21f2b6e5d9b49b91",
+        "sourceSpan": {
+          "end": 150,
+          "messageId": "I04:T0",
+          "start": 141,
+          "text": "séquences"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Intention de détecter l'atteinte cardiaque précoce",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:T0",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-69bc53a9548f7245"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-30b41340624f207c",
+        "sourceSpan": {
+          "end": 16,
+          "messageId": "I04:T0",
+          "start": 8,
+          "text": "détecter"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Séquence T2",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-10",
+          "inv-11"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I04:R1",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-09",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-46c9e7e6543bc83a",
+        "sourceSpan": {
+          "end": 49,
+          "messageId": "I04:R1",
+          "start": 47,
+          "text": "T2"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Disponibilité universelle des séquences ciné et T1 natif dans tous les centres",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-09"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:R1",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-10",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-c1980a95b0706c79",
+          "sem-relation:ke1-d8a2ce5fd143eeeb"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-a1bda32f3f40c733",
+        "sourceSpan": {
+          "end": 37,
+          "messageId": "I04:R1",
+          "start": 0,
+          "text": "Tous les centres ont cine et T1 natif"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Atteinte cardiaque précoce",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:T0",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-19b53722bc21738e",
+          "sem-relation:ke1-69bc53a9548f7245",
+          "sem-relation:ke1-8452cd6d33e50e29"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "sourceSpan": {
+          "end": 45,
+          "messageId": "I04:T0",
+          "start": 17,
+          "text": "l'atteinte cardiaque précoce"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:T0",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-8452cd6d33e50e29"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "sourceSpan": {
+          "end": 56,
+          "messageId": "I04:T0",
+          "start": 51,
+          "text": "Fabry"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION",
+        "version": 2
+      },
+      {
+        "canonicalMeaning": "Séquence ciné",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-07"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:R1",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-07",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-c1980a95b0706c79"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-d66bf74598ad7959",
+        "sourceSpan": {
+          "end": 25,
+          "messageId": "I04:R1",
+          "start": 21,
+          "text": "cine"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I04:T0",
+          "providerCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+          "rawElementId": "elem-05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-d94779c2cad27a1e",
+        "sourceSpan": {
+          "end": 105,
+          "messageId": "I04:T0",
+          "start": 88,
+          "text": "plusieurs centres"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN",
+        "version": 2
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 8088,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:55:40.943Z",
+          "requestStarted": "2026-08-14T08:55:32.855Z",
+          "retryable": false
+        },
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3613,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:55:44.562Z",
+          "requestStarted": "2026-08-14T08:55:40.949Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-4e4a64f0c2d9d144",
+      "criticCallIds": [
+        "gemini-call:ke1-4ee2a09ab51d828e",
+        "gemini-call:ke1-4e4a64f0c2d9d144"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T08:55:44.562Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit inventory objects are successfully mapped to corresponding client elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is stated in the messages.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "No explicit intervention arm is stated in the messages.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "All method and technique fragments (cine, T1 natif, T2) are correctly mapped as methods.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit inventory relations are mapped or legitimately coalesced.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All element types adhere strictly to the operational taxonomy.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "No explicit relations were weakened.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences were promoted over user-stated explicit facts.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "Remaining ambiguities regarding sequence heterogeneity are clearly exposed.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "The negation of T2 availability is correctly preserved with NEGATED polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "The relative timing before visible fibrosis is fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcome and endpoint roles are correctly assigned without unauthorized promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like Fabry disease, cine, and T1 natif are precisely retained.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragments were left unrepresented.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY is completely appropriate for multicentric sequence and protocol specifications.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-ke1-002",
+        "criticSummary": "The typed candidate and semantic models are fully accurate, complete, and properly grounded. All previous warnings regarding relation ownership coalescing have been correctly handled by the pipeline. Accepting candidate as valid.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit objects and methods are present in the candidate elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator arm is declared.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "No explicit therapeutic intervention is declared.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "Implicit and explicit imaging modalities/methods are correctly mapped.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "Inventory relations rel-inv-04 and rel-inv-05 lack explicit semantic relations connecting the availability element to the cine and T1 natif method elements.",
+              "result": "FAIL"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All object types match taxonomy rules.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "Relations retain their explicit nature.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No unauthorized inferences are promoted as explicit.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "Ambiguities regarding center heterogeneity are explicitly preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Negation on T2 unavailability is correctly preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Timing references are preserved.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Outcome remains appropriately typed.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific imaging sequences are retained.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "Inventory fragment inv-09 is marked as unresolved explicit fragment in explicitCoverageReport.",
+              "result": "FAIL"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY route correctly matches the multicenter protocol planning context.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-ke1-audit-01",
+          "criticSummary": "The model successfully captures all primary intents, objects, and constraints, but leaves inventory fragment inv-09 and its corresponding relations rel-inv-04 and rel-inv-05 unmapped. Applying the proposed repairs resolves these coverage gaps.",
+          "issues": [
+            {
+              "code": "EXPLICIT_FRAGMENT_UNMAPPED",
+              "description": "Inventory item inv-09 ('Tous les centres have cine et T1 natif') has no mapped client element.",
+              "elementClientIds": [],
+              "recommendedAction": "Create a STUDY_DESIGN or appropriate element for inv-09 and connect relations rel-inv-04 and rel-inv-05.",
+              "resolved": false,
+              "severity": "CRITICAL"
+            },
+            {
+              "code": "EXPLICIT_RELATION_UNMAPPED",
+              "description": "Inventory relations rel-inv-04 and rel-inv-05 are unmapped in relationCoverageReport.",
+              "elementClientIds": [],
+              "recommendedAction": "Add corresponding semantic relations for rel-inv-04 and rel-inv-05.",
+              "resolved": false,
+              "severity": "CRITICAL"
+            }
+          ],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [
+            {
+              "action": "UPSERT_ELEMENT",
+              "ambiguity": null,
+              "elementCanonicalMeaning": "Disponibilité universelle des séquences ciné et T1 natif dans tous les centres",
+              "elementClientElementId": "elem-10",
+              "elementConfidence": 1,
+              "elementEpistemicStatus": "EXPLICIT_USER_STATED",
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [
+                "inv-09"
+              ],
+              "elementPolarity": "AFFIRMED",
+              "elementRequiresConfirmation": false,
+              "elementSourceMessageId": "I04:R1",
+              "elementSourceText": "Tous les centres ont cine et T1 natif",
+              "elementStudyRole": "NONE",
+              "elementSupersedesElementIds": [],
+              "elementType": "STUDY_DESIGN",
+              "inventoryItemId": "inv-09",
+              "inventoryLinkedItemIds": [
+                "inv-07",
+                "inv-08"
+              ],
+              "inventoryLocalRole": "availability",
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": "présence universelle des séquences ciné et T1 natif dans les centres",
+              "inventoryNormalizedRelation": null,
+              "inventoryPolarity": "AFFIRMED",
+              "inventoryRelationId": null,
+              "inventoryRelationPolarity": null,
+              "inventoryRelationSourceItemId": null,
+              "inventoryRelationSourceMessageId": null,
+              "inventoryRelationSourceText": null,
+              "inventoryRelationTargetItemId": null,
+              "inventorySourceMessageId": "I04:R1",
+              "inventorySourceText": "Tous les centres ont cine et T1 natif",
+              "reason": "Map the unmapped inventory fragment inv-09 to a study design element representing universal availability across centers.",
+              "relationClientRelationId": null,
+              "relationConfidence": null,
+              "relationEpistemicStatus": null,
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [],
+              "relationPolarity": null,
+              "relationRequiresConfirmation": null,
+              "relationSourceClientElementId": null,
+              "relationTargetClientElementId": null,
+              "relationType": null,
+              "repairId": "rep-01",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv-09"
+              ],
+              "sourceInventoryRelationIds": []
+            },
+            {
+              "action": "UPSERT_RELATION",
+              "ambiguity": null,
+              "elementCanonicalMeaning": null,
+              "elementClientElementId": null,
+              "elementConfidence": null,
+              "elementEpistemicStatus": null,
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [],
+              "elementPolarity": null,
+              "elementRequiresConfirmation": null,
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementStudyRole": null,
+              "elementSupersedesElementIds": [],
+              "elementType": null,
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": "INCLUDES",
+              "inventoryPolarity": null,
+              "inventoryRelationId": "rel-inv-04",
+              "inventoryRelationPolarity": "AFFIRMED",
+              "inventoryRelationSourceItemId": "inv-09",
+              "inventoryRelationSourceMessageId": "I04:R1",
+              "inventoryRelationSourceText": "Tous les centres ont cine",
+              "inventoryRelationTargetItemId": "inv-07",
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Connect the universal availability element to the cine method element to cover inventory relation rel-inv-04.",
+              "relationClientRelationId": "rel-04",
+              "relationConfidence": 1,
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [
+                "rel-inv-04"
+              ],
+              "relationPolarity": "AFFIRMED",
+              "relationRequiresConfirmation": false,
+              "relationSourceClientElementId": "elem-10",
+              "relationTargetClientElementId": "elem-07",
+              "relationType": "INCLUDES",
+              "repairId": "rep-02",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv-09",
+                "inv-07"
+              ],
+              "sourceInventoryRelationIds": [
+                "rel-inv-04"
+              ]
+            },
+            {
+              "action": "UPSERT_RELATION",
+              "ambiguity": null,
+              "elementCanonicalMeaning": null,
+              "elementClientElementId": null,
+              "elementConfidence": null,
+              "elementEpistemicStatus": null,
+              "elementInferenceReason": null,
+              "elementInventoryItemIds": [],
+              "elementPolarity": null,
+              "elementRequiresConfirmation": null,
+              "elementSourceMessageId": null,
+              "elementSourceText": null,
+              "elementStudyRole": null,
+              "elementSupersedesElementIds": [],
+              "elementType": null,
+              "inventoryItemId": null,
+              "inventoryLinkedItemIds": [],
+              "inventoryLocalRole": null,
+              "inventoryModifiers": [],
+              "inventoryNormalizedLabel": null,
+              "inventoryNormalizedRelation": "INCLUDES",
+              "inventoryPolarity": null,
+              "inventoryRelationId": "rel-inv-05",
+              "inventoryRelationPolarity": "AFFIRMED",
+              "inventoryRelationSourceItemId": "inv-09",
+              "inventoryRelationSourceMessageId": "I04:R1",
+              "inventoryRelationSourceText": "Tous les centres ont cine et T1 natif.",
+              "inventoryRelationTargetItemId": "inv-08",
+              "inventorySourceMessageId": null,
+              "inventorySourceText": null,
+              "reason": "Connect the universal availability element to the T1 natif method element to cover inventory relation rel-inv-05.",
+              "relationClientRelationId": "rel-05",
+              "relationConfidence": 1,
+              "relationEpistemicStatus": "EXPLICIT_USER_STATED",
+              "relationInferenceReason": null,
+              "relationInventoryRelationIds": [
+                "rel-inv-05"
+              ],
+              "relationPolarity": "AFFIRMED",
+              "relationRequiresConfirmation": false,
+              "relationSourceClientElementId": "elem-10",
+              "relationTargetClientElementId": "elem-08",
+              "relationType": "INCLUDES",
+              "repairId": "rep-03",
+              "route": null,
+              "routeConfidence": null,
+              "routeExpectedCapabilities": [],
+              "routeReason": null,
+              "sourceInventoryItemIds": [
+                "inv-09",
+                "inv-08"
+              ],
+              "sourceInventoryRelationIds": [
+                "rel-inv-05"
+              ]
+            }
+          ],
+          "verdict": "REVISE"
+        },
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit inventory objects are successfully mapped to corresponding client elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator is stated in the messages.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "No explicit intervention arm is stated in the messages.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "All method and technique fragments (cine, T1 natif, T2) are correctly mapped as methods.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All explicit inventory relations are mapped or legitimately coalesced.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All element types adhere strictly to the operational taxonomy.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "No explicit relations were weakened.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No inferences were promoted over user-stated explicit facts.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "Remaining ambiguities regarding sequence heterogeneity are clearly exposed.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "The negation of T2 availability is correctly preserved with NEGATED polarity.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "The relative timing before visible fibrosis is fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Outcome and endpoint roles are correctly assigned without unauthorized promotion.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts like Fabry disease, cine, and T1 natif are precisely retained.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "No source fragments were left unrepresented.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY is completely appropriate for multicentric sequence and protocol specifications.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-ke1-002",
+          "criticSummary": "The typed candidate and semantic models are fully accurate, complete, and properly grounded. All previous warnings regarding relation ownership coalescing have been correctly handled by the pipeline. Accepting candidate as valid.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [
+          "Disponibilité hétérogène des séquences avancées entre les centres (Ciné et T1 natif universels, T2 absent de certains centres)."
+        ],
+        "candidateId": "cand-ke1-update-02",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Intention de détecter l'atteinte cardiaque précoce",
+            "clientElementId": "elem-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:T0",
+            "sourceText": "détecter",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Atteinte cardiaque précoce",
+            "clientElementId": "elem-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:T0",
+            "sourceText": "l'atteinte cardiaque précoce",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "Maladie de Fabry",
+            "clientElementId": "elem-03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:T0",
+            "sourceText": "Fabry",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONDITION"
+          },
+          {
+            "canonicalMeaning": "Fibrose visible",
+            "clientElementId": "elem-04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-04"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:T0",
+            "sourceText": "la fibrose visible",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_OBJECT"
+          },
+          {
+            "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+            "clientElementId": "elem-05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-05"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:T0",
+            "sourceText": "plusieurs centres",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "STUDY_DESIGN"
+          },
+          {
+            "canonicalMeaning": "Séquences d'imagerie variables selon les centres",
+            "clientElementId": "elem-06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-06"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:T0",
+            "sourceText": "séquences",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Séquence ciné",
+            "clientElementId": "elem-07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-07"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:R1",
+            "sourceText": "cine",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Séquence T1 natif",
+            "clientElementId": "elem-08",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-08"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:R1",
+            "sourceText": "T1 natif",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Séquence T2",
+            "clientElementId": "elem-09",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-10",
+              "inv-11"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:R1",
+            "sourceText": "T2",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "METHOD"
+          },
+          {
+            "canonicalMeaning": "Disponibilité universelle des séquences ciné et T1 natif dans tous les centres",
+            "clientElementId": "elem-10",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-09"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I04:R1",
+            "sourceText": "Tous les centres ont cine et T1 natif",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "STUDY_DESIGN"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans un cadre multicentrique où les centres disposent de séquences ciné et T1 natif, mais sans disponibilité universelle du T2.",
+        "relations": [
+          {
+            "clientRelationId": "rel-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-03"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "PRECEDES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-04"
+          },
+          {
+            "clientRelationId": "rel-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-01"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "AIMS_TO_OBSERVE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-01",
+            "targetClientElementId": "elem-02"
+          },
+          {
+            "clientRelationId": "rel-03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-02"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "RELATED_TO_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-03"
+          },
+          {
+            "clientRelationId": "rel-04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-04"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "INCLUDES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-10",
+            "targetClientElementId": "elem-07"
+          },
+          {
+            "clientRelationId": "rel-05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-inv-05"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "INCLUDES",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-10",
+            "targetClientElementId": "elem-08"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.95,
+          "expectedCapabilities": [
+            "Gestion des données multicentriques",
+            "Harmonisation des protocoles d'imagerie"
+          ],
+          "reason": "L'utilisateur spécifie les contraintes méthodologiques multicentriques, les séquences disponibles et l'objectif clinique pour concevoir une étude.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-01",
+              "linkedInventoryItemIds": [
+                "inv-02"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "détecter",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "détecter"
+            },
+            {
+              "inventoryItemId": "inv-02",
+              "linkedInventoryItemIds": [
+                "inv-01",
+                "inv-03",
+                "inv-04"
+              ],
+              "localRole": "target",
+              "modifiers": [],
+              "normalizedLabel": "atteinte cardiaque précoce",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "l'atteinte cardiaque précoce"
+            },
+            {
+              "inventoryItemId": "inv-03",
+              "linkedInventoryItemIds": [
+                "inv-02"
+              ],
+              "localRole": "condition",
+              "modifiers": [],
+              "normalizedLabel": "Fabry",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "Fabry"
+            },
+            {
+              "inventoryItemId": "inv-04",
+              "linkedInventoryItemIds": [
+                "inv-02"
+              ],
+              "localRole": "timing reference",
+              "modifiers": [],
+              "normalizedLabel": "fibrose visible",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "la fibrose visible"
+            },
+            {
+              "inventoryItemId": "inv-05",
+              "linkedInventoryItemIds": [],
+              "localRole": "study design",
+              "modifiers": [],
+              "normalizedLabel": "plusieurs centres",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "plusieurs centres"
+            },
+            {
+              "inventoryItemId": "inv-06",
+              "linkedInventoryItemIds": [],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "séquences",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "séquences"
+            },
+            {
+              "inventoryItemId": "inv-07",
+              "linkedInventoryItemIds": [
+                "inv-09"
+              ],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "séquence ciné",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:R1",
+              "sourceText": "cine"
+            },
+            {
+              "inventoryItemId": "inv-08",
+              "linkedInventoryItemIds": [
+                "inv-09"
+              ],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "séquence T1 natif",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:R1",
+              "sourceText": "T1 natif"
+            },
+            {
+              "inventoryItemId": "inv-09",
+              "linkedInventoryItemIds": [
+                "inv-07",
+                "inv-08"
+              ],
+              "localRole": "availability",
+              "modifiers": [],
+              "normalizedLabel": "présence universelle des séquences ciné et T1 natif dans les centres",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I04:R1",
+              "sourceText": "Tous les centres ont cine et T1 natif"
+            },
+            {
+              "inventoryItemId": "inv-10",
+              "linkedInventoryItemIds": [],
+              "localRole": "method",
+              "modifiers": [],
+              "normalizedLabel": "séquence T2",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I04:R1",
+              "sourceText": "T2"
+            },
+            {
+              "inventoryItemId": "inv-11",
+              "linkedInventoryItemIds": [
+                "inv-10"
+              ],
+              "localRole": "availability constraint",
+              "modifiers": [],
+              "normalizedLabel": "non disponible partout",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I04:R1",
+              "sourceText": "n'est pas disponible partout"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-inv-01",
+              "normalizedRelation": "AIMS_TO_OBSERVE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-01",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "détecter l'atteinte cardiaque précoce",
+              "targetInventoryItemId": "inv-02"
+            },
+            {
+              "inventoryRelationId": "rel-inv-02",
+              "normalizedRelation": "RELATED_TO_CANDIDATE",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-02",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "l'atteinte cardiaque précoce dans Fabry",
+              "targetInventoryItemId": "inv-03"
+            },
+            {
+              "inventoryRelationId": "rel-inv-03",
+              "normalizedRelation": "PRECEDES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-02",
+              "sourceMessageId": "I04:T0",
+              "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+              "targetInventoryItemId": "inv-04"
+            },
+            {
+              "inventoryRelationId": "rel-inv-04",
+              "normalizedRelation": "INCLUDES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-09",
+              "sourceMessageId": "I04:R1",
+              "sourceText": "Tous les centres ont cine",
+              "targetInventoryItemId": "inv-07"
+            },
+            {
+              "inventoryRelationId": "rel-inv-05",
+              "normalizedRelation": "INCLUDES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-09",
+              "sourceMessageId": "I04:R1",
+              "sourceText": "Tous les centres ont cine et T1 natif.",
+              "targetInventoryItemId": "inv-08"
+            },
+            {
+              "inventoryRelationId": "rel-inv-06",
+              "normalizedRelation": "APPLIES_TO",
+              "polarity": "NEGATED",
+              "sourceInventoryItemId": "inv-11",
+              "sourceMessageId": "I04:R1",
+              "sourceText": "le T2 n'est pas disponible partout",
+              "targetInventoryItemId": "inv-10"
+            }
+          ]
+        },
+        "semanticWarnings": [
+          "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2",
+          "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-04",
+          "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-05",
+          "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-06"
+        ],
+        "summaryForUser": "Intégration de la disponibilité des séquences ciné et T1 natif dans tous les centres, et de l'exclusion du T2 qui n'est pas disponible partout.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 13785,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:55:32.828Z",
+          "requestStarted": "2026-08-14T08:55:19.043Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-14f9d974ed0f7fd0",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-01",
+          "mappedClientElementIds": [
+            "elem-01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "détecter",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-02",
+          "mappedClientElementIds": [
+            "elem-02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "atteinte cardiaque précoce",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "l'atteinte cardiaque précoce"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-03",
+          "mappedClientElementIds": [
+            "elem-03"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "Fabry",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-04",
+          "mappedClientElementIds": [
+            "elem-04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "fibrose visible",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-05",
+          "mappedClientElementIds": [
+            "elem-05"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "plusieurs centres",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-06",
+          "mappedClientElementIds": [
+            "elem-06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "séquences",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "séquences"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-07",
+          "mappedClientElementIds": [
+            "elem-07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "séquence ciné",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "cine"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-08",
+          "mappedClientElementIds": [
+            "elem-08"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "séquence T1 natif",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "T1 natif"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-09",
+          "mappedClientElementIds": [
+            "elem-10"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "présence universelle des séquences ciné et T1 natif dans les centres",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "Tous les centres ont cine et T1 natif"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-10",
+          "mappedClientElementIds": [
+            "elem-09"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "séquence T2",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "T2"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-11",
+          "mappedClientElementIds": [
+            "elem-09"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "non disponible partout",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "n'est pas disponible partout"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [
+      {
+        "changeReason": "Nouvelle contribution utilisateur analysée sans réécriture de l’état antérieur.",
+        "changedAt": "2026-08-14T08:55:01.714Z",
+        "digest": "ke1-bd7c8f5d65849be1",
+        "modelId": "semantic-model:ke1-da08c2369de0224a",
+        "revision": 1,
+        "status": "CANDIDATE"
+      }
+    ],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans un cadre multicentrique où les centres disposent de séquences ciné et T1 natif, mais sans disponibilité universelle du T2.",
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "previousModelId": "semantic-model:ke1-da08c2369de0224a",
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-01",
+          "mappedClientRelationIds": [
+            "rel-02"
+          ],
+          "normalizedRelation": "AIMS_TO_OBSERVE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-01",
+          "targetInventoryItemId": "inv-02"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-02",
+          "mappedClientRelationIds": [
+            "rel-03"
+          ],
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-03",
+          "mappedClientRelationIds": [
+            "rel-01"
+          ],
+          "normalizedRelation": "PRECEDES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-04"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-04",
+          "mappedClientRelationIds": [
+            "rel-04"
+          ],
+          "normalizedRelation": "INCLUDES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-09",
+          "targetInventoryItemId": "inv-07"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-05",
+          "mappedClientRelationIds": [
+            "rel-05"
+          ],
+          "normalizedRelation": "INCLUDES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-09",
+          "targetInventoryItemId": "inv-08"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-inv-06",
+          "mappedClientRelationIds": [
+            "coalesced:elem-09"
+          ],
+          "normalizedRelation": "APPLIES_TO",
+          "reason": "Both inventory fragments are explicitly preserved inside one typed Semantic Element; a redundant self-relation is not required.",
+          "sourceInventoryItemId": "inv-11",
+          "targetInventoryItemId": "inv-10"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "PRECEDES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-19b53722bc21738e",
+        "sourceElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "targetElementId": "sem-element:ke1-109b7e05a8777951",
+        "version": 2,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_OBSERVE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-69bc53a9548f7245",
+        "sourceElementId": "sem-element:ke1-30b41340624f207c",
+        "targetElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "version": 2,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-8452cd6d33e50e29",
+        "sourceElementId": "sem-element:ke1-b01a8aba7016e06e",
+        "targetElementId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "version": 2,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "INCLUDES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-c1980a95b0706c79",
+        "sourceElementId": "sem-element:ke1-a1bda32f3f40c733",
+        "targetElementId": "sem-element:ke1-d66bf74598ad7959",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "INCLUDES",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-d8a2ce5fd143eeeb",
+        "sourceElementId": "sem-element:ke1-a1bda32f3f40c733",
+        "targetElementId": "sem-element:ke1-0686fb334b9349d7",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 2,
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Gestion des données multicentriques",
+        "Harmonisation des protocoles d'imagerie"
+      ],
+      "reason": "L'utilisateur spécifie les contraintes méthodologiques multicentriques, les séquences disponibles et l'objectif clinique pour concevoir une étude.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-b7407e195aecf295",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Intégration de la disponibilité des séquences ciné et T1 natif dans tous les centres, et de l'exclusion du T2 qui n'est pas disponible partout.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T08:55:44.562Z"
+  },
+  "pairedFirstReconstruction": true,
+  "postCriticCandidate": {
+    "ambiguities": [
+      "Disponibilité hétérogène des séquences avancées entre les centres (Ciné et T1 natif universels, T2 absent de certains centres)."
+    ],
+    "candidateId": "cand-ke1-update-02",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Intention de détecter l'atteinte cardiaque précoce",
+        "clientElementId": "elem-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "détecter",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Atteinte cardiaque précoce",
+        "clientElementId": "elem-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "l'atteinte cardiaque précoce",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "Maladie de Fabry",
+        "clientElementId": "elem-03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "Fabry",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONDITION"
+      },
+      {
+        "canonicalMeaning": "Fibrose visible",
+        "clientElementId": "elem-04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "la fibrose visible",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_OBJECT"
+      },
+      {
+        "canonicalMeaning": "Étude multicentrique impliquant plusieurs centres",
+        "clientElementId": "elem-05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "plusieurs centres",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN"
+      },
+      {
+        "canonicalMeaning": "Séquences d'imagerie variables selon les centres",
+        "clientElementId": "elem-06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-06"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:T0",
+        "sourceText": "séquences",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Séquence ciné",
+        "clientElementId": "elem-07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-07"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:R1",
+        "sourceText": "cine",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Séquence T1 natif",
+        "clientElementId": "elem-08",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-08"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:R1",
+        "sourceText": "T1 natif",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Séquence T2",
+        "clientElementId": "elem-09",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-10",
+          "inv-11"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:R1",
+        "sourceText": "T2",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "METHOD"
+      },
+      {
+        "canonicalMeaning": "Disponibilité universelle des séquences ciné et T1 natif dans tous les centres",
+        "clientElementId": "elem-10",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-09"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I04:R1",
+        "sourceText": "Tous les centres ont cine et T1 natif",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "STUDY_DESIGN"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans un cadre multicentrique où les centres disposent de séquences ciné et T1 natif, mais sans disponibilité universelle du T2.",
+    "relations": [
+      {
+        "clientRelationId": "rel-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "PRECEDES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-02",
+        "targetClientElementId": "elem-04"
+      },
+      {
+        "clientRelationId": "rel-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "AIMS_TO_OBSERVE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-01",
+        "targetClientElementId": "elem-02"
+      },
+      {
+        "clientRelationId": "rel-03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "RELATED_TO_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-02",
+        "targetClientElementId": "elem-03"
+      },
+      {
+        "clientRelationId": "rel-04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-04"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "INCLUDES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-10",
+        "targetClientElementId": "elem-07"
+      },
+      {
+        "clientRelationId": "rel-05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "INCLUDES",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-10",
+        "targetClientElementId": "elem-08"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.95,
+      "expectedCapabilities": [
+        "Gestion des données multicentriques",
+        "Harmonisation des protocoles d'imagerie"
+      ],
+      "reason": "L'utilisateur spécifie les contraintes méthodologiques multicentriques, les séquences disponibles et l'objectif clinique pour concevoir une étude.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv-01",
+          "linkedInventoryItemIds": [
+            "inv-02"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "détecter",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "détecter"
+        },
+        {
+          "inventoryItemId": "inv-02",
+          "linkedInventoryItemIds": [
+            "inv-01",
+            "inv-03",
+            "inv-04"
+          ],
+          "localRole": "target",
+          "modifiers": [],
+          "normalizedLabel": "atteinte cardiaque précoce",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "l'atteinte cardiaque précoce"
+        },
+        {
+          "inventoryItemId": "inv-03",
+          "linkedInventoryItemIds": [
+            "inv-02"
+          ],
+          "localRole": "condition",
+          "modifiers": [],
+          "normalizedLabel": "Fabry",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "Fabry"
+        },
+        {
+          "inventoryItemId": "inv-04",
+          "linkedInventoryItemIds": [
+            "inv-02"
+          ],
+          "localRole": "timing reference",
+          "modifiers": [],
+          "normalizedLabel": "fibrose visible",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "la fibrose visible"
+        },
+        {
+          "inventoryItemId": "inv-05",
+          "linkedInventoryItemIds": [],
+          "localRole": "study design",
+          "modifiers": [],
+          "normalizedLabel": "plusieurs centres",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "plusieurs centres"
+        },
+        {
+          "inventoryItemId": "inv-06",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquences",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "séquences"
+        },
+        {
+          "inventoryItemId": "inv-07",
+          "linkedInventoryItemIds": [
+            "inv-09"
+          ],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquence ciné",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "cine"
+        },
+        {
+          "inventoryItemId": "inv-08",
+          "linkedInventoryItemIds": [
+            "inv-09"
+          ],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquence T1 natif",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "T1 natif"
+        },
+        {
+          "inventoryItemId": "inv-09",
+          "linkedInventoryItemIds": [
+            "inv-07",
+            "inv-08"
+          ],
+          "localRole": "availability",
+          "modifiers": [],
+          "normalizedLabel": "présence universelle des séquences ciné et T1 natif dans les centres",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "Tous les centres ont cine et T1 natif"
+        },
+        {
+          "inventoryItemId": "inv-10",
+          "linkedInventoryItemIds": [],
+          "localRole": "method",
+          "modifiers": [],
+          "normalizedLabel": "séquence T2",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "T2"
+        },
+        {
+          "inventoryItemId": "inv-11",
+          "linkedInventoryItemIds": [
+            "inv-10"
+          ],
+          "localRole": "availability constraint",
+          "modifiers": [],
+          "normalizedLabel": "non disponible partout",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "n'est pas disponible partout"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel-inv-01",
+          "normalizedRelation": "AIMS_TO_OBSERVE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-01",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "détecter l'atteinte cardiaque précoce",
+          "targetInventoryItemId": "inv-02"
+        },
+        {
+          "inventoryRelationId": "rel-inv-02",
+          "normalizedRelation": "RELATED_TO_CANDIDATE",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "l'atteinte cardiaque précoce dans Fabry",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "inventoryRelationId": "rel-inv-03",
+          "normalizedRelation": "PRECEDES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I04:T0",
+          "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+          "targetInventoryItemId": "inv-04"
+        },
+        {
+          "inventoryRelationId": "rel-inv-04",
+          "normalizedRelation": "INCLUDES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-09",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "Tous les centres ont cine",
+          "targetInventoryItemId": "inv-07"
+        },
+        {
+          "inventoryRelationId": "rel-inv-05",
+          "normalizedRelation": "INCLUDES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-09",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "Tous les centres ont cine et T1 natif.",
+          "targetInventoryItemId": "inv-08"
+        },
+        {
+          "inventoryRelationId": "rel-inv-06",
+          "normalizedRelation": "APPLIES_TO",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "inv-11",
+          "sourceMessageId": "I04:R1",
+          "sourceText": "le T2 n'est pas disponible partout",
+          "targetInventoryItemId": "inv-10"
+        }
+      ]
+    },
+    "semanticWarnings": [
+      "DETERMINISTIC_INVENTORY_RELATION_SOURCE_SPAN_DERIVED:2",
+      "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-04",
+      "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-05",
+      "RELATION_OWNERSHIP_DROPPED_UNGROUNDED_OR_REDUNDANT_RELATION:rel-06"
+    ],
+    "summaryForUser": "Intégration de la disponibilité des séquences ciné et T1 natif dans tous les centres, et de l'exclusion du T2 qui n'est pas disponible partout.",
+    "unknowns": []
+  },
+  "semanticCriticExecuted": true,
+  "status": "SUCCESS"
+}
+```
+
+## STRUCTURED CONTRACT STATUS
+
+- provider status : `SUCCESS`
+- parsing status : `PARSED_AND_VALIDATED`
+- structured contract conformance : `PASS`
+- scientific semantic evaluability : `EVALUABLE`
+- evaluation mode : `DETERMINISTIC_COMMON_STATE_PROJECTION`
+- native raw output persisted : `false`
+
+## SCIENTIFIC INTERPRETATION
+
+### COMPRÉHENSION GLOBALE
+
+Détection d'une atteinte cardiaque précoce dans la maladie de Fabry avant la fibrose visible, dans un cadre multicentrique où les centres disposent de séquences ciné et T1 natif, mais sans disponibilité universelle du T2.
+
+Objectif scientifique produit :
+
+Intention de détecter l'atteinte cardiaque précoce
+
+### EXPLICITEMENT DIT PAR LE CHERCHEUR
+
+- content=Séquence T1 natif | scientificRole=METHOD:MEASUREMENT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=T1 natif | provenanceTurnIds=["I04:R1"]
+- content=Fibrose visible | scientificRole=SCIENTIFIC_OBJECT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=la fibrose visible | provenanceTurnIds=["I04:T0"]
+- content=Séquences d'imagerie variables selon les centres | scientificRole=METHOD:MEASUREMENT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=séquences | provenanceTurnIds=["I04:T0"]
+- content=Intention de détecter l'atteinte cardiaque précoce | scientificRole=SCIENTIFIC_INTENT:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=détecter | provenanceTurnIds=["I04:T0"]
+- content=Séquence T2 | scientificRole=METHOD:MEASUREMENT | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=T2 | provenanceTurnIds=["I04:R1"]
+- content=Disponibilité universelle des séquences ciné et T1 natif dans tous les centres | scientificRole=STUDY_DESIGN:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Tous les centres ont cine et T1 natif | provenanceTurnIds=["I04:R1"]
+- content=Atteinte cardiaque précoce | scientificRole=OUTCOME:OUTCOME_ROLE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=l'atteinte cardiaque précoce | provenanceTurnIds=["I04:T0"]
+- content=Maladie de Fabry | scientificRole=CONDITION:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Fabry | provenanceTurnIds=["I04:T0"]
+- content=Séquence ciné | scientificRole=METHOD:MEASUREMENT | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=cine | provenanceTurnIds=["I04:R1"]
+- content=Étude multicentrique impliquant plusieurs centres | scientificRole=STUDY_DESIGN:NONE | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=plusieurs centres | provenanceTurnIds=["I04:T0"]
+
+### RELATIONS COMPRISES
+
+- subject=Atteinte cardiaque précoce | predicate=PRECEDES | object=Fibrose visible | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Intention de détecter l'atteinte cardiaque précoce | predicate=AIMS_TO_OBSERVE | object=Atteinte cardiaque précoce | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Atteinte cardiaque précoce | predicate=RELATED_TO_CANDIDATE | object=Maladie de Fabry | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Disponibilité universelle des séquences ciné et T1 natif dans tous les centres | predicate=INCLUDES | object=Séquence ciné | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+- subject=Disponibilité universelle des séquences ciné et T1 natif dans tous les centres | predicate=INCLUDES | object=Séquence T1 natif | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER
+
+### CONTEXTE INFÉRÉ
+
+- Aucun élément produit.
+
+### CANDIDATS SCIENTIFIQUES CONTEXTUELS
+
+- Aucun élément produit.
+
+### NÉGATIONS / CONTRAINTES
+
+- content=Séquence T2 | scientificRole=METHOD:MEASUREMENT | polarity=NEGATED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=T2 | provenanceTurnIds=["I04:R1"]
+
+### TEMPORALITÉ
+
+- Aucun élément produit.
+
+### AMBIGUÏTÉS
+
+- content=Disponibilité hétérogène des séquences avancées entre les centres (Ciné et T1 natif universels, T2 absent de certains centres). | epistemicStatus=AMBIGUOUS | decisionImpact=SEM reports an unresolved ambiguity; impact requires clarification.
+
+### INFORMATIONS MANQUANTES
+
+- Aucun élément produit.
+
+### INCONNUES
+
+- Aucun élément produit.
+
+### CORRECTIONS / SUPERSESSIONS
+
+- Aucun élément produit.
+
+### OWNERSHIP / STATUT ÉPISTÉMIQUE
+
+- content=Séquence T1 natif | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:R1"]
+- content=Fibrose visible | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:T0"]
+- content=Séquences d'imagerie variables selon les centres | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:T0"]
+- content=Intention de détecter l'atteinte cardiaque précoce | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:T0"]
+- content=Séquence T2 | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:R1"]
+- content=Disponibilité universelle des séquences ciné et T1 natif dans tous les centres | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:R1"]
+- content=Atteinte cardiaque précoce | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:T0"]
+- content=Maladie de Fabry | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:T0"]
+- content=Séquence ciné | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:R1"]
+- content=Étude multicentrique impliquant plusieurs centres | epistemicStatus=EXPLICIT_USER_STATED | owner=USER | provenanceTurnIds=["I04:T0"]
+
+### QUESTIONS DE CLARIFICATION CANDIDATES
+
+- Aucun élément produit.
+
+## MISSING STRUCTURAL GUARANTEES
+
+- EXACT_PROVIDER_RAW_TEXT_NOT_PERSISTED; STRUCTURED_NATIVE_ARTIFACT_AVAILABLE
+
+_Vue locale déterministe. Aucun appel LLM d’interprétation sémantique post-hoc._

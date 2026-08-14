@@ -1,0 +1,171 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T2",
+  "scenarioId": "I03",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [
+      {
+        "basis": null,
+        "content": "MTV et TLG peuvent être proposés comme candidats, mais non encore choisis",
+        "epistemicStatus": "SUPPORTED_CANDIDATE",
+        "itemId": "cand_0",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "R2"
+        ],
+        "scientificRole": "measurement or biomarker role",
+        "sourceText": "MTV et TLG peuvent être proposés comme candidats, mais je ne les ai pas encore choisis.",
+        "temporalContext": null
+      }
+    ],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+        "role": "USER",
+        "turnId": "T0"
+      },
+      {
+        "content": "Le critère principal sera la réponse iRECIST à 12 semaines. La SSP restera secondaire.",
+        "role": "USER",
+        "turnId": "R1"
+      },
+      {
+        "content": "MTV et TLG peuvent être proposés comme candidats, mais je ne les ai pas encore choisis. Le scanner de routine n'est pas automatiquement un biomarqueur de recherche.",
+        "role": "USER",
+        "turnId": "R2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Utiliser le TEP pour prédire la réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_0",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method",
+        "sourceText": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Le critère principal sera la réponse iRECIST à 12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "R1"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "Le critère principal sera la réponse iRECIST à 12 semaines.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "La SSP restera secondaire",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "R1"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "La SSP restera secondaire.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [
+      {
+        "basis": null,
+        "content": "Le scanner est déjà fait en routine",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "ctx_0",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "Le scanner est déjà fait en routine.",
+        "temporalContext": null
+      }
+    ],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "pas avec le SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "neg_0",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "measurement or biomarker role",
+        "sourceText": "mais pas avec le SUVmax seul",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "neg_1",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "R2"
+        ],
+        "scientificRole": "measurement or biomarker role",
+        "sourceText": "Le scanner de routine n'est pas automatiquement un biomarqueur de recherche.",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "The user wants to use PET to predict response to immunotherapy, explicitly excluding SUVmax alone. The primary endpoint is iRECIST response at 12 weeks, with progression-free survival (SSP) as a secondary endpoint. MTV and TLG are proposed as contextual candidates but not yet chosen. Routine CT scans are not automatically research biomarkers.",
+    "objects": [],
+    "originalRequest": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Utilisation du TEP pour la prédiction de réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "own_0"
+      },
+      {
+        "content": "Réponse iRECIST à 12 semaines comme critère principal",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "R1"
+        ],
+        "statementId": "own_1"
+      }
+    ],
+    "relations": [],
+    "scientificGoal": "Predict response to immunotherapy using PET imaging.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

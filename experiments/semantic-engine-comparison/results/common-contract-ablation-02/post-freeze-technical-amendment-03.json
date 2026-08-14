@@ -1,0 +1,15 @@
+{
+  "amendmentId": "EXP-SEM-ABLATION-02-TECHNICAL-AMENDMENT-03",
+  "classification": "LOCAL_ENVIRONMENT_INITIALIZATION_ONLY",
+  "reason": "A checkpoint-only resume reached DSPy before any SEM or Pydantic path called api_key(), so the existing .env.local value had not yet been loaded into the process environment.",
+  "ledgerRequestNumber": 14,
+  "providerHttpStarted": false,
+  "providerQuotaConsumed": false,
+  "failedReservationPreserved": true,
+  "frozenManifestDigest": "2d60f2095d39af55d7a21ff7b0b7ce130ce856795acd1abd35ae6ea93d92163e",
+  "resumeWrapper": "experiments/semantic-engine-comparison/common_contract_ablation_02/resume_complete.py",
+  "resumeWrapperDigest": "1d21f6a354b540ace3234e676d1ebaacaefc4484fbb544b9ba9d4d70560aebd1",
+  "semanticBehaviorChanged": false,
+  "secretPersisted": false,
+  "change": "Call the frozen environment loader before checkpoint dispatch; provider, model, prompt, schema and payload remain unchanged."
+}

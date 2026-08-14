@@ -1,0 +1,129 @@
+{
+  "configurationId": "PYDANTIC_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "PydanticAI",
+    "pairedFirstOutput": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I04",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "ambig_sequences",
+        "content": "Heterogeneity of MRI sequences across multiple centers for detecting early cardiac involvement in Fabry disease.",
+        "decisionImpact": "Can affect the choice of imaging biomarkers, standardization of multi-centric acquisition, and comparability of early detection methods.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Standardize sequences across centers before analysis",
+          "Use site-specific robust or harmonized features/radiomics",
+          "Restrict analysis to centers with identical protocols"
+        ],
+        "provenanceTurnIds": [
+          "I04:T0"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "clar_sequences",
+        "decisionImpact": "Determines how multi-centric sequence heterogeneity will be handled in the analysis protocol.",
+        "priority": "MEDIUM",
+        "question": "Quels types de séquences IRM sont disponibles dans les différents centres participants ?",
+        "targetIds": [
+          "ambig_sequences"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "role": "USER",
+        "turnId": "I04:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": "I04:T0",
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_early_detection",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "PRIMARY_GOAL",
+        "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "temporalContext": null
+      },
+      {
+        "basis": "I04:T0",
+        "content": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_multicenter_heterogeneity",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "CONTEXT_CONSTRAINT",
+        "sourceText": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user aims to detect early cardiac involvement in Fabry disease prior to visible fibrosis, using a multi-centric dataset characterized by heterogeneous MRI sequences across centers.",
+    "objects": [],
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Early cardiac involvement detection in Fabry disease prior to visible fibrosis",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "stmt_early_detection"
+      },
+      {
+        "content": "Multi-center setting with heterogeneous MRI sequences",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "stmt_multicenter_heterogeneity"
+      }
+    ],
+    "relations": [
+      {
+        "basis": "I04:T0",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "stmt_early_detection",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "TARGETS_PHENOMENON",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "relationId": "rel_goal",
+        "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "subject": "USER",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Detect early cardiac involvement in Fabry disease before visible fibrosis across a multi-center cohort with heterogeneous imaging sequences.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "criticOutput": null,
+  "criticTrigger": {
+    "reasons": [],
+    "required": false
+  },
+  "firstOutput": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+        "role": "USER",
+        "turnId": "I03:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": "I03:T0",
+        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "USER",
+        "sourceText": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": "I03:T0",
+        "content": "pas avec le SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_2",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "USER",
+        "sourceText": "pas avec le SUVmax seul",
+        "temporalContext": null
+      },
+      {
+        "basis": "I03:T0",
+        "content": "Le scanner est déjà fait en routine",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "stmt_3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "USER",
+        "sourceText": "Le scanner est déjà fait en routine",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user wants to use PET (TEP) to predict response to immunotherapy, explicitly excluding SUVmax alone, noting that the CT scan (scanner) is already done routinely.",
+    "objects": [],
+    "originalRequest": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+    "ownershipAndEpistemicState": [],
+    "relations": [],
+    "scientificGoal": "Predict response to immunotherapy using PET (TEP) imaging without relying solely on SUVmax.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

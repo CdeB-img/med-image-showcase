@@ -1,0 +1,83 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T0",
+  "scenarioId": "I06",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Je compare DSC et ASL chez mes gliomes.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method_comparison",
+        "sourceText": "Je compare DSC et ASL chez mes gliomes.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint_evaluation",
+        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "inclusion_constraint",
+        "sourceText": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user is comparing DSC and ASL imaging modalities in glioma patients. The primary goal is to evaluate their relative utility for progression assessment in cases of discrepancy, and secondarily to retain subjects who have only ASL data available.",
+    "objects": [],
+    "originalRequest": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+    "ownershipAndEpistemicState": [],
+    "relations": [],
+    "scientificGoal": "Compare DSC and ASL perfusion methods in gliomas, determine which method is more useful for assessing tumor progression when discordant, and retain patients with only ASL data if possible.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "configurationId": "PYDANTIC_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "PydanticAI",
+    "pairedFirstOutput": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I05",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "amb_missing_second_mri_handling",
+        "content": "How to handle patients who do not have the second MRI after chemoradiotherapy.",
+        "decisionImpact": "Affects cohort inclusion, missing data strategy, and predictive analysis validity.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Exclude from the recurrence prediction analysis",
+          "Impute data or use alternative imaging/clinical follow-up",
+          "Analyze as a separate subgroup"
+        ],
+        "provenanceTurnIds": [
+          "I05:T0"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "clar_missing_second_mri",
+        "decisionImpact": "Determines how patients lacking the post-chemoradiotherapy MRI are handled in the analysis.",
+        "priority": "MEDIUM",
+        "question": "Comment souhaitez-vous gérer les patients qui n'ont pas eu la seconde IRM ?",
+        "targetIds": [
+          "amb_missing_second_mri_handling"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "role": "USER",
+        "turnId": "I05:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": "On a une IRM avant et après radiochimiothérapie.",
+        "content": "We have an MRI before and after chemoradiotherapy.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "exp_mri_before_after_crt",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "PROJECT_VARIABLE",
+        "sourceText": "On a une IRM avant et après radiochimiothérapie.",
+        "temporalContext": "Before and after chemoradiotherapy"
+      },
+      {
+        "basis": "Je veux savoir si ça change et si ça prédit la récidive.",
+        "content": "I want to know if it changes and if it predicts recurrence.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "exp_goal_predict_recurrence",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_GOAL",
+        "sourceText": "Je veux savoir si ça change et si ça prédit la récidive.",
+        "temporalContext": "Unspecified"
+      },
+      {
+        "basis": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "content": "What do we do with those who do not have the second one?",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "exp_missing_second_mri_query",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "PROJECT_VARIABLE",
+        "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "temporalContext": "Unspecified"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user has pre- and post-chemoradiotherapy MRI data, aims to assess longitudinal changes and predict recurrence from them, and asks how to handle cases missing the second MRI.",
+    "objects": [],
+    "originalRequest": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+    "ownershipAndEpistemicState": [],
+    "relations": [
+      {
+        "basis": "Je veux savoir si ça change et si ça prédit la récidive.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "exp_goal_predict_recurrence",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "aims_to_assess",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "relationId": "rel_mri_change_predict_recurrence",
+        "sourceText": "Je veux savoir si ça change et si ça prédit la récidive.",
+        "subject": "exp_mri_before_after_crt",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Determine whether pre- to post-chemoradiotherapy MRI changes predict recurrence and establish how to handle patients lacking the second MRI.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

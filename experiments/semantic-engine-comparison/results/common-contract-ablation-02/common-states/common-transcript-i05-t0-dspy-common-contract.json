@@ -1,0 +1,116 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I05",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [
+      {
+        "blocking": true,
+        "clarificationId": "clarif_1",
+        "decisionImpact": "Determines the inclusion/exclusion criteria or handling method for incomplete imaging cases in the analysis.",
+        "priority": "HIGH",
+        "question": "Quelle est la prise en charge ou la règle prévue pour les patients qui ne disposent pas de la seconde IRM ?",
+        "targetIds": [
+          "missing_1"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "On a une IRM avant et après radiochimiothérapie.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "On a une IRM avant et après radiochimiothérapie.",
+        "temporalContext": "before and after chemoradiotherapy"
+      },
+      {
+        "basis": null,
+        "content": "Je veux savoir si ça change et si ça prédit la récidive.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "Je veux savoir si ça change et si ça prédit la récidive.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "temporalContext": "for patients missing the second MRI"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user states that an MRI is available before and after chemoradiotherapy. The user wants to know if the MRI changes and whether it predicts recurrence, and asks what should be done for patients who do not have the second MRI.",
+    "objects": [],
+    "originalRequest": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Availability of MRI before and after chemoradiotherapy and objective to assess changes and prediction of recurrence.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "owner_1"
+      }
+    ],
+    "relations": [],
+    "scientificGoal": "Determine whether MRI changes between pre- and post-chemoradiotherapy and whether it predicts recurrence, and determine the management for patients lacking the second MRI.",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": true,
+        "content": "Management strategy or handling for patients who do not have the second MRI.",
+        "decisionImpact": "Can change the cohort definition, analysis population, and clinical management protocol for patients lacking follow-up imaging.",
+        "missingId": "missing_1",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "T0"
+        ]
+      }
+    ]
+  }
+}

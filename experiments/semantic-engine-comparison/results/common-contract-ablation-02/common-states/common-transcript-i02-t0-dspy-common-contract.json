@@ -1,0 +1,151 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I02",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "clar_1",
+        "decisionImpact": "Determines cohort inclusion criteria and methodological approach for missing baseline data.",
+        "priority": "HIGH",
+        "question": "How do you plan to evaluate baseline OEF or perfusion when the pre-procedure MRI is missing?",
+        "targetIds": [
+          "miss_1"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Chez les patients thrombectomisés",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "Chez les patients thrombectomisés",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "l'OEF se normalise",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "observable property",
+        "sourceText": "l'OEF se normalise",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "la perfusion s'améliore",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "observable property",
+        "sourceText": "la perfusion s'améliore",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "l'IRM avant le geste",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_4",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Availability and timing of alternative imaging or assessment methods when pre-procedure MRI is missing",
+        "decisionImpact": "Can affect the feasibility and methodology of assessing baseline OEF and perfusion parameters for the study cohort.",
+        "missingId": "miss_1",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "T0"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "absence of pre-procedure MRI in some cases",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_constraint_1",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "constraint",
+        "sourceText": "je n'ai pas toujours l'IRM avant le geste",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "The user aims to investigate whether Oxygen Extraction Fraction (OEF) normalizes upon improvement of perfusion in thrombectomized patients, noting a limitation regarding pre-procedure MRI availability.",
+    "objects": [],
+    "originalRequest": "Chez les patients thrombectomisés, je veux savoir si l'OEF se normalise quand la perfusion s'améliore, mais je n'ai pas toujours l'IRM avant le geste.",
+    "ownershipAndEpistemicState": [],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "la perfusion s'améliore",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "predicate": "occurs when",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_1",
+        "sourceText": "je veux savoir si l'OEF se normalise quand la perfusion s'améliore",
+        "subject": "l'OEF se normalise",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Determine whether OEF normalizes when perfusion improves in thrombectomized patients",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

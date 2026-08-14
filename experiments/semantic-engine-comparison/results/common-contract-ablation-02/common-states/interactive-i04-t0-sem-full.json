@@ -1,0 +1,446 @@
+{
+  "configurationId": "SEM_FULL",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": true,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T0",
+  "scenarioId": "I04",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:7272c645ca8e6ab4",
+        "content": "Hétérogénéité des séquences entre les centres non normalisée",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "sem-clarification:1:a607994eba",
+        "decisionImpact": "Préciser les méthodes d'acquisition face à l'hétérogénéité inter-centre mentionnée.",
+        "priority": "MEDIUM",
+        "question": "Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+        "targetIds": [
+          "sem-element:ke1-4d147db90486b8cd"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "role": "USER",
+        "turnId": "I04:SEM_FULL:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Phase précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0125ad182f4bd87c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "précoce",
+        "temporalContext": "Phase précoce"
+      },
+      {
+        "basis": null,
+        "content": "Séquences d'acquisition variables selon les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4d147db90486b8cd",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "METHOD:NONE",
+        "sourceText": "séquences",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Action de détecter",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8ee975cee73682ca",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "OPERATION:NONE",
+        "sourceText": "détecter",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Avant la fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-abb32fe017decea4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "avant la fibrose visible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Étude multicentrique impliquant plusieurs centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d94779c2cad27a1e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "plusieurs centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f7c5754809b8449c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "Je veux",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Atteinte cardiaque",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f9a45bd622f74a92",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "l'atteinte cardiaque",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Modalité d'imagerie précise non spécifiée",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:5a2c52b490c0009a",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": []
+      }
+    ],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "L'utilisateur souhaite concevoir une étude multicentrique pour détecter précocement l'atteinte cardiaque dans la maladie de Fabry avant l'apparition de la fibrose visible, en tenant compte de l'hétérogénéité des séquences disponibles selon les centres.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Phase précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0125ad182f4bd87c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "précoce",
+        "temporalContext": "Phase précoce"
+      },
+      {
+        "basis": null,
+        "content": "Séquences d'acquisition variables selon les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4d147db90486b8cd",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "METHOD:NONE",
+        "sourceText": "séquences",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Action de détecter",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8ee975cee73682ca",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "OPERATION:NONE",
+        "sourceText": "détecter",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Avant la fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-abb32fe017decea4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "avant la fibrose visible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Étude multicentrique impliquant plusieurs centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d94779c2cad27a1e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "plusieurs centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f7c5754809b8449c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "Je veux",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Atteinte cardiaque",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-f9a45bd622f74a92",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "l'atteinte cardiaque",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Phase précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-0125ad182f4bd87c"
+      },
+      {
+        "content": "Séquences d'acquisition variables selon les centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-4d147db90486b8cd"
+      },
+      {
+        "content": "Action de détecter",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-8ee975cee73682ca"
+      },
+      {
+        "content": "Avant la fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-abb32fe017decea4"
+      },
+      {
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b4c3c91b3ce8d0af"
+      },
+      {
+        "content": "Étude multicentrique impliquant plusieurs centres",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-d94779c2cad27a1e"
+      },
+      {
+        "content": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-f7c5754809b8449c"
+      },
+      {
+        "content": "Atteinte cardiaque",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-f9a45bd622f74a92"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Atteinte cardiaque",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "OBSERVES",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-50f06222f315a8be",
+        "sourceText": null,
+        "subject": "Action de détecter",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Maladie de Fabry",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-84e65779a297aa65",
+        "sourceText": null,
+        "subject": "Atteinte cardiaque",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Avant la fibrose visible",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "BOUNDED_BY",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-97a997c5c4faadf9",
+        "sourceText": null,
+        "subject": "Action de détecter",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Action de détecter",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "AIMS_TO",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-d67dd3456b5900c9",
+        "sourceText": null,
+        "subject": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Intention de l'utilisateur de concevoir ou réaliser une détection",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "Phase précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0125ad182f4bd87c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:SEM_FULL:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "précoce",
+        "temporalContext": "Phase précoce"
+      }
+    ],
+    "unknowns": [
+      {
+        "blocking": false,
+        "content": "Modalité d'imagerie précise non spécifiée",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:5a2c52b490c0009a",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": []
+      }
+    ]
+  }
+}

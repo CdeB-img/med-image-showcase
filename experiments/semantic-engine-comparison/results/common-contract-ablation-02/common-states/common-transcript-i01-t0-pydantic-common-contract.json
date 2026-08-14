@@ -1,0 +1,192 @@
+{
+  "configurationId": "PYDANTIC_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "PydanticAI",
+    "pairedFirstOutput": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I01",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "AMB_TIMING_DELAY",
+        "content": "The exact time interval for 'deferred stenting' (stent différé) is not specified.",
+        "decisionImpact": "Influences the methodological protocol and comparability of trial arms.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Delayed by a few days during the index hospitalization",
+          "Delayed for several weeks after discharge"
+        ],
+        "provenanceTurnIds": [
+          "I01:T0"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "CLAR_TIMING_DELAY",
+        "decisionImpact": "Influences the methodological protocol and comparability of trial arms.",
+        "priority": "MEDIUM",
+        "question": "Quel est le délai prévu pour la réalisation du stent différé ?",
+        "targetIds": [
+          "AMB_TIMING_DELAY"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "I01:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "EXP_01",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "OBSERVABLE_PROPERTY",
+        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "Comparison between immediate stenting and deferred stenting in myocardial infarction, evaluating myocardial/tissue lesions using cardiac MRI.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "stent immédiat",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_IMMEDIATE_STENT",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "METHOD",
+        "sourceText": "stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "stent différé",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_DEFERRED_STENT",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "METHOD",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "infarctus",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_INFARCTUS",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "PHENOMENON",
+        "sourceText": "infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "lésions en IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_MRI_LESIONS",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "scientificRole": "ENDPOINT",
+        "sourceText": "lésions en IRM",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "statementId": "STMT_01"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "OBJ_DEFERRED_STENT",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "COMPARED_TO",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "relationId": "REL_01",
+        "sourceText": "Je veux comparer le stent immédiat au stent différé",
+        "subject": "OBJ_IMMEDIATE_STENT",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "OBJ_INFARCTUS",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "APPLIED_IN",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "relationId": "REL_02",
+        "sourceText": "dans l'infarctus",
+        "subject": "OBJ_IMMEDIATE_STENT",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "OBJ_MRI_LESIONS",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "EVALUATED_BY",
+        "provenanceTurnIds": [
+          "I01:T0"
+        ],
+        "relationId": "REL_03",
+        "sourceText": "voir les lésions en IRM",
+        "subject": "OBJ_INFARCTUS",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Compare immediate stenting versus deferred stenting in myocardial infarction patients and assess cardiac lesions using MRI.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I04",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "amb_1",
+        "content": "Heterogeneity of imaging sequences across multiple participating centers.",
+        "decisionImpact": "Can affect the harmonization of quantitative outputs and the validity of early detection biomarker comparisons across centers.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "Standardize sequences across all centers",
+          "Use center-specific sequence validation"
+        ],
+        "provenanceTurnIds": [
+          "I04:T0"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": true,
+        "clarificationId": "clar_1",
+        "decisionImpact": "Determines the principal measurement definition and primary endpoint evaluation.",
+        "priority": "HIGH",
+        "question": "Quelles méthodes ou séquences d'imagerie spécifiques envisagez-vous d'utiliser pour harmoniser les centres ?",
+        "targetIds": [
+          "miss_1",
+          "amb_1"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "role": "USER",
+        "turnId": "I04:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "temporalContext": "avant la fibrose visible"
+      },
+      {
+        "basis": null,
+        "content": "plusieurs centres et tout le monde n'a pas les mêmes séquences",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": true,
+        "content": "Specific imaging methods or biomarkers chosen for detecting early cardiac involvement.",
+        "decisionImpact": "Determines the principal measurement definition and primary endpoint evaluation.",
+        "missingId": "miss_1",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user aims to detect early cardiac involvement in Fabry disease prior to visible fibrosis, across a multi-center study where imaging sequences vary by site.",
+    "objects": [],
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "ownershipAndEpistemicState": [],
+    "relations": [],
+    "scientificGoal": "Detect early cardiac involvement in Fabry disease before visible fibrosis.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "firstOutput": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "I01:PYDANTIC_COMMON_CONTRACT:T0"
+      },
+      {
+        "content": "Quel est le délai prévu pour la réalisation du stent différé par rapport à l'intervention immédiate ?",
+        "role": "ASSISTANT",
+        "turnId": "I01:PYDANTIC_COMMON_CONTRACT:Q1"
+      },
+      {
+        "content": "4–6 semaines",
+        "role": "USER",
+        "turnId": "I01:PYDANTIC_COMMON_CONTRACT:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "STMT_01",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:T0"
+        ],
+        "scientificRole": "project_goal",
+        "sourceText": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "temporalContext": null
+      },
+      {
+        "basis": "4–6 semaines",
+        "content": "Délai prévu pour la réalisation du stent différé par rapport à l'intervention immédiate : 4–6 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "STMT_02",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:R1"
+        ],
+        "scientificRole": "project_variable",
+        "sourceText": "4–6 semaines",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user wants to compare immediate stenting versus delayed stenting (at 4-6 weeks) in myocardial infarction and assess lesions using cardiac MRI.",
+    "objects": [
+      {
+        "basis": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "content": "stent immédiat",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_01",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:T0"
+        ],
+        "scientificRole": "method",
+        "sourceText": "stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "content": "stent différé",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_02",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:T0"
+        ],
+        "scientificRole": "method",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      },
+      {
+        "basis": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "content": "infarctus",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_03",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "content": "lésions en IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "OBJ_04",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "lésions en IRM",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [],
+        "statementId": "STMT_01"
+      },
+      {
+        "content": "4–6 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [],
+        "statementId": "STMT_02"
+      }
+    ],
+    "relations": [
+      {
+        "basis": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "OBJ_02",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "compare_to",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:T0"
+        ],
+        "relationId": "REL_01",
+        "sourceText": "Je veux comparer le stent immédiat au stent différé",
+        "subject": "OBJ_01",
+        "temporalContext": null
+      },
+      {
+        "basis": "4–6 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "STMT_02",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "has_delay",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:R1"
+        ],
+        "relationId": "REL_02",
+        "sourceText": "4–6 semaines",
+        "subject": "OBJ_02",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Comparer le stent immédiat au stent différé (4-6 semaines) dans l'infarctus et évaluer les lésions en IRM.",
+    "temporalModel": [
+      {
+        "basis": "4–6 semaines",
+        "content": "Délai du stent différé: 4–6 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "TMP_01",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:PYDANTIC_COMMON_CONTRACT:R1"
+        ],
+        "scientificRole": "project_variable",
+        "sourceText": "4–6 semaines",
+        "temporalContext": null
+      }
+    ],
+    "unknowns": []
+  }
+}

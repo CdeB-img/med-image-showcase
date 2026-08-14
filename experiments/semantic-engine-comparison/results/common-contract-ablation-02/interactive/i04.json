@@ -1,0 +1,244 @@
+{
+  "branches": {
+    "DSPY_COMMON_CONTRACT": {
+      "askedQuestions": [
+        "quelles sont précisément les séquences disponibles dans vos différents centres ?",
+        "pourriez-vous consulter les différents centres pour recenser les séquences disponibles ?"
+      ],
+      "configurationId": "DSPY_COMMON_CONTRACT",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": {
+            "blocking": true,
+            "clarificationId": "clar_1",
+            "decisionImpact": "Can change the method choice and harmonization strategy across centers for detecting early cardiac involvement.",
+            "priority": "HIGH",
+            "question": "Quelles sont précisément les séquences disponibles dans vos différents centres ?",
+            "targetIds": [
+              "missing_1"
+            ]
+          }
+        },
+        {
+          "round": "T1",
+          "selection": {
+            "blocking": true,
+            "clarificationId": "clar_1",
+            "decisionImpact": "Determines the available imaging methods across centers, which is critical for defining the analysis pipeline.",
+            "priority": "HIGH",
+            "question": "Pourriez-vous consulter les différents centres pour recenser les séquences disponibles ?",
+            "targetIds": [
+              "miss_1"
+            ]
+          }
+        },
+        {
+          "round": "T2",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "role": "USER",
+          "turnId": "I04:DSPY_COMMON_CONTRACT:T0"
+        },
+        {
+          "content": "Quelles sont précisément les séquences disponibles dans vos différents centres ?",
+          "role": "ASSISTANT",
+          "turnId": "I04:DSPY_COMMON_CONTRACT:Q1"
+        },
+        {
+          "content": "Je ne sais pas.",
+          "role": "USER",
+          "turnId": "I04:DSPY_COMMON_CONTRACT:R1"
+        },
+        {
+          "content": "Pourriez-vous consulter les différents centres pour recenser les séquences disponibles ?",
+          "role": "ASSISTANT",
+          "turnId": "I04:DSPY_COMMON_CONTRACT:Q2"
+        },
+        {
+          "content": "Je ne sais pas.",
+          "role": "USER",
+          "turnId": "I04:DSPY_COMMON_CONTRACT:R2"
+        }
+      ]
+    },
+    "PYDANTIC_COMMON_CONTRACT": {
+      "askedQuestions": [],
+      "configurationId": "PYDANTIC_COMMON_CONTRACT",
+      "selectedQuestions": [],
+      "status": "FAILED_STATE",
+      "turns": [
+        {
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "role": "USER",
+          "turnId": "I04:PYDANTIC_COMMON_CONTRACT:T0"
+        }
+      ]
+    },
+    "PYDANTIC_CONDITIONAL_CRITIC": {
+      "askedQuestions": [],
+      "configurationId": "PYDANTIC_CONDITIONAL_CRITIC",
+      "selectedQuestions": [],
+      "status": "FAILED_STATE",
+      "turns": [
+        {
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "role": "USER",
+          "turnId": "I04:PYDANTIC_CONDITIONAL_CRITIC:T0"
+        }
+      ]
+    },
+    "SEM_FULL": {
+      "askedQuestions": [
+        "quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+        "souhaitez-vous définir ou sélectionner une modalité ou une séquence spécifique pour harmoniser l'étude entre les centres ?"
+      ],
+      "configurationId": "SEM_FULL",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "sem-clarification:1:a607994eba",
+            "decisionImpact": "Préciser les méthodes d'acquisition face à l'hétérogénéité inter-centre mentionnée.",
+            "priority": "MEDIUM",
+            "question": "Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+            "targetIds": [
+              "sem-element:ke1-4d147db90486b8cd"
+            ]
+          }
+        },
+        {
+          "round": "T1",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "sem-clarification:1:98e57a5fcd",
+            "decisionImpact": "L'utilisateur a indiqué ne pas savoir quelles séquences utiliser.",
+            "priority": "MEDIUM",
+            "question": "Souhaitez-vous définir ou sélectionner une modalité ou une séquence spécifique pour harmoniser l'étude entre les centres ?",
+            "targetIds": [
+              "sem-element:ke1-0e185927f0c5601b",
+              "sem-element:ke1-4d147db90486b8cd"
+            ]
+          }
+        },
+        {
+          "round": "T2",
+          "selection": "FINISH"
+        }
+      ],
+      "status": "FINISHED",
+      "turns": [
+        {
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "role": "USER",
+          "turnId": "I04:SEM_FULL:T0"
+        },
+        {
+          "content": "Quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+          "role": "ASSISTANT",
+          "turnId": "I04:SEM_FULL:Q1"
+        },
+        {
+          "content": "Je ne sais pas.",
+          "role": "USER",
+          "turnId": "I04:SEM_FULL:R1"
+        },
+        {
+          "content": "Souhaitez-vous définir ou sélectionner une modalité ou une séquence spécifique pour harmoniser l'étude entre les centres ?",
+          "role": "ASSISTANT",
+          "turnId": "I04:SEM_FULL:Q2"
+        },
+        {
+          "content": "Je ne sais pas.",
+          "role": "USER",
+          "turnId": "I04:SEM_FULL:R2"
+        }
+      ]
+    },
+    "SEM_SINGLE_PASS": {
+      "askedQuestions": [
+        "quelle méthode ou quel biomarqueur préférez-vous utiliser pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?",
+        "souhaitez-vous explorer des options standards de biomarqueurs ou de méthodes d'imagerie pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?"
+      ],
+      "configurationId": "SEM_SINGLE_PASS",
+      "selectedQuestions": [
+        {
+          "round": "T0",
+          "selection": {
+            "blocking": true,
+            "clarificationId": "sem-clarification:1:cb75a1d9f4",
+            "decisionImpact": "Préciser la modalité ou la méthode d'imagerie/biomarqueur pour formaliser le protocole.",
+            "priority": "HIGH",
+            "question": "Quelle méthode ou quel biomarqueur préférez-vous utiliser pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?",
+            "targetIds": [
+              "sem-element:ke1-7c730737e246355b"
+            ]
+          }
+        },
+        {
+          "round": "T1",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "sem-clarification:1:44fd46e7d4",
+            "decisionImpact": "L'utilisateur a indiqué ne pas savoir quelle méthode ou biomarqueur utiliser.",
+            "priority": "MEDIUM",
+            "question": "Souhaitez-vous explorer des options standards de biomarqueurs ou de méthodes d'imagerie pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?",
+            "targetIds": [
+              "sem-element:ke1-5242e18e14162812"
+            ]
+          }
+        },
+        {
+          "round": "T2",
+          "selection": {
+            "blocking": false,
+            "clarificationId": "sem-clarification:1:24242b5a8a",
+            "decisionImpact": "L'utilisateur a indiqué ne pas savoir quelle méthode ou biomarqueur utiliser.",
+            "priority": "MEDIUM",
+            "question": "Souhaitez-vous explorer des propositions de biomarqueurs ou de méthodes d'imagerie adaptées au contexte multicentrique ?",
+            "targetIds": [
+              "sem-element:ke1-5242e18e14162812"
+            ]
+          }
+        }
+      ],
+      "status": "MAX_DEPTH_WITH_OPEN_CLARIFICATION",
+      "turns": [
+        {
+          "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+          "role": "USER",
+          "turnId": "I04:SEM_SINGLE_PASS:T0"
+        },
+        {
+          "content": "Quelle méthode ou quel biomarqueur préférez-vous utiliser pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?",
+          "role": "ASSISTANT",
+          "turnId": "I04:SEM_SINGLE_PASS:Q1"
+        },
+        {
+          "content": "Je ne sais pas.",
+          "role": "USER",
+          "turnId": "I04:SEM_SINGLE_PASS:R1"
+        },
+        {
+          "content": "Souhaitez-vous explorer des options standards de biomarqueurs ou de méthodes d'imagerie pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?",
+          "role": "ASSISTANT",
+          "turnId": "I04:SEM_SINGLE_PASS:Q2"
+        },
+        {
+          "content": "Je ne sais pas.",
+          "role": "USER",
+          "turnId": "I04:SEM_SINGLE_PASS:R2"
+        }
+      ]
+    }
+  },
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "scenarioId": "I04",
+  "status": "COMPLETE"
+}

@@ -1,0 +1,18 @@
+{
+  "amendmentId": "EXP-SEM-ABLATION-02-TECHNICAL-AMENDMENT-04",
+  "classification": "FAILURE_CHECKPOINT_AND_CONTINUATION_ONLY",
+  "reason": "Pydantic shared first output for I04/T1 violated the frozen explicit provenance invariant. The frozen harness stopped instead of preserving that architecture-level failure and continuing independent configurations.",
+  "failedProviderRequestNumber": 60,
+  "semanticRetryPerformed": false,
+  "sharedFailureOwners": [
+    "PYDANTIC_COMMON_CONTRACT",
+    "PYDANTIC_CONDITIONAL_CRITIC"
+  ],
+  "resumeWrapper": "experiments/semantic-engine-comparison/common_contract_ablation_02/resume_resilient.py",
+  "resumeWrapperDigest": "c1bfddc80cc8c5c2d98021afb37fbac540b62aa5dd4379aa015b29bff64ddefd",
+  "semanticBehaviorChanged": false,
+  "promptChanged": false,
+  "schemaChanged": false,
+  "failedOutputCompleted": false,
+  "change": "Persist the frozen framework/contract failure as a native checkpoint, do not regenerate that state, and continue configurations and rounds that remain independent."
+}

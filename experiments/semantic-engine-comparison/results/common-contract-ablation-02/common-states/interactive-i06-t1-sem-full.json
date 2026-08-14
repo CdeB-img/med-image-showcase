@@ -1,0 +1,569 @@
+{
+  "configurationId": "SEM_FULL",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": true,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I06",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:f7625603f484f690",
+        "content": "Definition of divergence threshold between DSC and ASL remains unknown and undecided by the user.",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "role": "USER",
+        "turnId": "I06:SEM_FULL:T0"
+      },
+      {
+        "content": "Souhaitez-vous définir un seuil particulier pour qualifier le désaccord entre DSC et ASL ?",
+        "role": "ASSISTANT",
+        "turnId": "I06:SEM_FULL:Q1"
+      },
+      {
+        "content": "Je ne sais pas.",
+        "role": "USER",
+        "turnId": "I06:SEM_FULL:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Desire to know the relative utility of methods for progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0d01cd9053d9720c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "je veux savoir",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Uncertainty regarding the divergence threshold between DSC and ASL",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-23f17cfcf7f39978",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:R1"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Compare DSC and ASL methods",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-348b9c6a9b99c6f6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "compare",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Relative utility of methods for progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-54ed3a80295df91c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "laquelle est la plus utile",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Keep subjects with only ASL if possible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-6d7199f7bc6709eb",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Arterial Spin Labeling MRI (ASL)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7d40eceab438999e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8976c0e4e1c67c20",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "mes gliomes",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Researcher or user conducting the comparison",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8bb989ddc3502191",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "POPULATION:SUBJECT",
+        "sourceText": "Je",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-9c76acf0bb5c49e4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "DSC",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-9d17ea98e70586d4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "la progression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Divergence condition between DSC and ASL results",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e4750c1543077f21",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Quand elles ne racontent pas la même chose",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": false,
+        "content": "Divergence threshold between DSC and ASL",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:37a7267f0301a7d0",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": []
+      }
+    ],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Divergence condition between DSC and ASL results",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e4750c1543077f21",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Quand elles ne racontent pas la même chose",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "Response to the question regarding the divergence threshold between DSC and ASL indicating uncertainty ('Je ne sais pas').",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Desire to know the relative utility of methods for progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-0d01cd9053d9720c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "je veux savoir",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Uncertainty regarding the divergence threshold between DSC and ASL",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-23f17cfcf7f39978",
+        "ownership": "USER",
+        "polarity": "UNCERTAIN",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:R1"
+        ],
+        "scientificRole": "UNKNOWN:NONE",
+        "sourceText": "Je ne sais pas",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Compare DSC and ASL methods",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-348b9c6a9b99c6f6",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "compare",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Relative utility of methods for progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-54ed3a80295df91c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "laquelle est la plus utile",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Keep subjects with only ASL if possible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-6d7199f7bc6709eb",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Arterial Spin Labeling MRI (ASL)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-7d40eceab438999e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8976c0e4e1c67c20",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "mes gliomes",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Researcher or user conducting the comparison",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8bb989ddc3502191",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "POPULATION:SUBJECT",
+        "sourceText": "Je",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-9c76acf0bb5c49e4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "METHOD:MEASUREMENT",
+        "sourceText": "DSC",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-9d17ea98e70586d4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "la progression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Divergence condition between DSC and ASL results",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e4750c1543077f21",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "Quand elles ne racontent pas la même chose",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Desire to know the relative utility of methods for progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-0d01cd9053d9720c"
+      },
+      {
+        "content": "Uncertainty regarding the divergence threshold between DSC and ASL",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-23f17cfcf7f39978"
+      },
+      {
+        "content": "Compare DSC and ASL methods",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-348b9c6a9b99c6f6"
+      },
+      {
+        "content": "Relative utility of methods for progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-54ed3a80295df91c"
+      },
+      {
+        "content": "Keep subjects with only ASL if possible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-6d7199f7bc6709eb"
+      },
+      {
+        "content": "Arterial Spin Labeling MRI (ASL)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-7d40eceab438999e"
+      },
+      {
+        "content": "Glioma",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-8976c0e4e1c67c20"
+      },
+      {
+        "content": "Researcher or user conducting the comparison",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-8bb989ddc3502191"
+      },
+      {
+        "content": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-9c76acf0bb5c49e4"
+      },
+      {
+        "content": "Tumor progression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-9d17ea98e70586d4"
+      },
+      {
+        "content": "Divergence condition between DSC and ASL results",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I06:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-e4750c1543077f21"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Glioma",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "APPLIES_TO",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-1175add4f407b848",
+        "sourceText": null,
+        "subject": "Compare DSC and ASL methods",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Arterial Spin Labeling MRI (ASL)",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "MEASURES",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-ad4fe53a60e89a0e",
+        "sourceText": null,
+        "subject": "Compare DSC and ASL methods",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "MEASURES",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-bde7a40f371cc6c3",
+        "sourceText": null,
+        "subject": "Compare DSC and ASL methods",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Tumor progression",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-d362c0141d4ff098",
+        "sourceText": null,
+        "subject": "Relative utility of methods for progression",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Arterial Spin Labeling MRI (ASL)",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "COMPARES_WITH",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-f0026975eec42539",
+        "sourceText": null,
+        "subject": "Dynamic Susceptibility Contrast MRI (DSC)",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Desire to know the relative utility of methods for progression; Compare DSC and ASL methods",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": false,
+        "content": "Divergence threshold between DSC and ASL",
+        "decisionImpact": "SEM reports missing or unresolved information.",
+        "missingId": "sem-missing:37a7267f0301a7d0",
+        "owner": "USER_OR_SPECIALIZED_OWNER_UNRESOLVED",
+        "priority": "MEDIUM",
+        "provenanceTurnIds": []
+      }
+    ]
+  }
+}

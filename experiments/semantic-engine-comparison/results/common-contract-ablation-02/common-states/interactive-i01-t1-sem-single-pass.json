@@ -1,0 +1,328 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I01",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "I01:SEM_SINGLE_PASS:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Implantation différée de stent",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-41c4f4687a076864",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "INTERVENTION:COMPARATOR_ARM",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Infarctus du myocarde",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4828621f8a276e4b",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Intention de comparer deux stratégies d'intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-69b254a3e5f0fd87",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "comparer",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Lésions tissulaires ou myocardiques",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-77773136cccd3a22",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Intention d'observer des lésions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-c24e8cbe844cbb3a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "voir",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Imagerie par résonance magnétique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-cee27023bc99f717",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Implantation immédiate de stent",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-da1f200346076caf",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "stent immédiat",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "Comparaison entre l'intervention par stent immédiat et stent différé dans l'infarctus du myocarde, avec observation des lésions par imagerie par résonance magnétique (IRM).",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Implantation différée de stent",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-41c4f4687a076864",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "INTERVENTION:COMPARATOR_ARM",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Infarctus du myocarde",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-4828621f8a276e4b",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Intention de comparer deux stratégies d'intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-69b254a3e5f0fd87",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "comparer",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Lésions tissulaires ou myocardiques",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-77773136cccd3a22",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Intention d'observer des lésions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-c24e8cbe844cbb3a",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "voir",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Imagerie par résonance magnétique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-cee27023bc99f717",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Implantation immédiate de stent",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-da1f200346076caf",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "stent immédiat",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Implantation différée de stent",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-41c4f4687a076864"
+      },
+      {
+        "content": "Infarctus du myocarde",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-4828621f8a276e4b"
+      },
+      {
+        "content": "Intention de comparer deux stratégies d'intervention",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-69b254a3e5f0fd87"
+      },
+      {
+        "content": "Lésions tissulaires ou myocardiques",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-77773136cccd3a22"
+      },
+      {
+        "content": "Intention d'observer des lésions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-c24e8cbe844cbb3a"
+      },
+      {
+        "content": "Imagerie par résonance magnétique",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-cee27023bc99f717"
+      },
+      {
+        "content": "Implantation immédiate de stent",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_SINGLE_PASS:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-da1f200346076caf"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Implantation différée de stent",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "COMPARES_WITH",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-0bb5fa2b627091b7",
+        "sourceText": null,
+        "subject": "Implantation immédiate de stent",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Imagerie par résonance magnétique",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "OBSERVED_BY",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-23595ce23cbc25ce",
+        "sourceText": null,
+        "subject": "Lésions tissulaires ou myocardiques",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Intention de comparer deux stratégies d'intervention; Intention d'observer des lésions",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

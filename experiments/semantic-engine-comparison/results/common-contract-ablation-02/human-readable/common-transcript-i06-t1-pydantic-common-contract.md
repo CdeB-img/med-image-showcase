@@ -1,0 +1,363 @@
+# I06 — PYDANTIC_COMMON_CONTRACT — COMMON_TRANSCRIPT T1
+
+## INPUT
+
+Message utilisateur courant VERBATIM :
+
+> Par "la seconde", je parle de l'ASL. Je veux distinguer progression vraie et pseudoprogression à 3 mois.
+
+Conversation précédente VERBATIM :
+
+> I06:T0 | USER : Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.
+
+## NATIVE OUTPUT
+
+Artefact : `experiments/semantic-engine-comparison/results/common-contract-ablation-02/native-outputs/common-transcript-i06-t1-pydantic-common-contract.json`
+
+```json
+{
+  "firstOutput": {
+    "ambiguities": [
+      {
+        "ambiguityId": "amb_dsc_asl_discordance_utility",
+        "content": "When DSC and ASL disagree regarding 3-month progression, it is unknown which modality is definitively more useful or how discordance is resolved clinically.",
+        "decisionImpact": "Determines the primary comparative weighting or decision rule between DSC and ASL perfusion MRI for evaluating 3-month progression in gliomas.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [
+          "DSC is more reliable/useful due to established validation in neuro-oncology.",
+          "ASL is more reliable/useful due to non-invasiveness and absence of contrast dependency."
+        ],
+        "provenanceTurnIds": [
+          "I06:T0"
+        ]
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": false,
+        "clarificationId": "clar_asl_discordance_preference",
+        "decisionImpact": "Clarifies whether cases with only ASL should be evaluated using specific adjusted thresholds or standard criteria when DSC is unavailable.",
+        "priority": "LOW",
+        "question": "Do you prefer to use standard ASL thresholds or qualitative grading for cases where only ASL is available?",
+        "targetIds": [
+          "as_only_retention"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "role": "USER",
+        "turnId": "I06:T0"
+      },
+      {
+        "content": "Par \"la seconde\", je parle de l'ASL. Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "role": "USER",
+        "turnId": "I06:T1"
+      }
+    ],
+    "correctionsAndSupersessions": [
+      {
+        "correctionId": "corr_second_modality",
+        "currentContent": "ASL",
+        "disposition": "CONFIRMED",
+        "previousContent": "la seconde (unspecified)",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ]
+      }
+    ],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Je compare DSC et ASL chez mes gliomes.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "exp_compare_dsc_asl",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "Comparative methodological evaluation",
+        "sourceText": "Je compare DSC et ASL chez mes gliomes.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "exp_discordance_utility",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "Comparative utility assessment",
+        "sourceText": "Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "exp_single_modality_retention",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "Cohort inclusion policy",
+        "sourceText": "Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Par \"la seconde\", je parle de l'ASL.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "exp_second_definition",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "Variable definition",
+        "sourceText": "Par \"la seconde\", je parle de l'ASL.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "exp_endpoint_definition",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "Clinical endpoint definition",
+        "sourceText": "Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+        "temporalContext": "3 months"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user is comparing DSC perfusion MRI and ASL perfusion MRI in glioma patients to distinguish true progression from pseudoprogression at 3 months. In cases of discordance between DSC and ASL, the user wants to determine which modality is more clinically useful. For patients who only have ASL available, the user prefers to retain them in the evaluation if possible.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "DSC perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_dsc",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "Method / Measurement modality",
+        "sourceText": "DSC",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "ASL perfusion MRI",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_asl",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0",
+          "I06:R1"
+        ],
+        "scientificRole": "Method / Measurement modality",
+        "sourceText": "ASL",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Glioma patients",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_gliomas",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:T0"
+        ],
+        "scientificRole": "Study population",
+        "sourceText": "mes gliomes",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "3-month true progression versus pseudoprogression",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "obj_endpoint",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "scientificRole": "Clinical endpoint / Phenomenon",
+        "sourceText": "progression vraie et pseudoprogression à 3 mois",
+        "temporalContext": "3 months"
+      }
+    ],
+    "originalRequest": "I06:T0 | USER: Je compare DSC et ASL chez mes gliomes. Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible.\nI06:R1 | USER: Par \"la seconde\", je parle de l'ASL. Je veux distinguer progression vraie et pseudoprogression à 3 mois.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Comparison of DSC and ASL in gliomas for 3-month true progression vs pseudoprogression.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [],
+        "statementId": "st_main_goal"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_asl",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "IS_SYNONYM_FOR",
+        "provenanceTurnIds": [
+          "I06:R1"
+        ],
+        "relationId": "rel_second_asl",
+        "sourceText": "Par \"la seconde\", je parle de l'ASL.",
+        "subject": "obj_second_modality",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_endpoint",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "EVALUATES",
+        "provenanceTurnIds": [
+          "I06:T0",
+          "I06:R1"
+        ],
+        "relationId": "rel_modality_evaluates_endpoint",
+        "sourceText": "Je compare DSC et ASL chez mes gliomes... pour la progression... distinguer progression vraie et pseudoprogression à 3 mois",
+        "subject": "obj_dsc",
+        "temporalContext": "3 months"
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "obj_endpoint",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "EVALUATES",
+        "provenanceTurnIds": [
+          "I06:T0",
+          "I06:R1"
+        ],
+        "relationId": "rel_asl_evaluates_endpoint",
+        "sourceText": "Je compare DSC et ASL chez mes gliomes... pour la progression... distinguer progression vraie et pseudoprogression à 3 mois",
+        "subject": "obj_asl",
+        "temporalContext": "3 months"
+      }
+    ],
+    "scientificGoal": "Determine whether DSC or ASL is more useful for distinguishing true progression from pseudoprogression at 3 months in gliomas when discordant, and establish retention criteria for ASL-only cases.",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": false,
+        "content": "Comparative diagnostic performance or clinical utility of DSC versus ASL when they yield discordant results regarding 3-month true progression vs pseudoprogression in gliomas.",
+        "decisionImpact": "HIGH",
+        "missingId": "unk_dsc_asl_comparative_utility",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "I06:T0",
+          "I06:R1"
+        ]
+      }
+    ]
+  }
+}
+```
+
+## STRUCTURED CONTRACT STATUS
+
+- provider status : `SUCCESS`
+- parsing status : `PARSED_AND_VALIDATED`
+- structured contract conformance : `PASS`
+- scientific semantic evaluability : `EVALUABLE`
+- evaluation mode : `DETERMINISTIC_COMMON_STATE_PROJECTION`
+- native raw output persisted : `false`
+
+## SCIENTIFIC INTERPRETATION
+
+### COMPRÉHENSION GLOBALE
+
+The user is comparing DSC perfusion MRI and ASL perfusion MRI in glioma patients to distinguish true progression from pseudoprogression at 3 months. In cases of discordance between DSC and ASL, the user wants to determine which modality is more clinically useful. For patients who only have ASL available, the user prefers to retain them in the evaluation if possible.
+
+Objectif scientifique produit :
+
+Determine whether DSC or ASL is more useful for distinguishing true progression from pseudoprogression at 3 months in gliomas when discordant, and establish retention criteria for ASL-only cases.
+
+### EXPLICITEMENT DIT PAR LE CHERCHEUR
+
+- content=Je compare DSC et ASL chez mes gliomes. | scientificRole=Comparative methodological evaluation | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Je compare DSC et ASL chez mes gliomes. | provenanceTurnIds=["I06:T0"]
+- content=Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. | scientificRole=Comparative utility assessment | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Quand elles ne racontent pas la même chose, je veux savoir laquelle est la plus utile pour la progression. | provenanceTurnIds=["I06:T0"]
+- content=Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible. | scientificRole=Cohort inclusion policy | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Pour ceux qui n'ont que la seconde, je préfère quand même les garder si c'est possible. | provenanceTurnIds=["I06:T0"]
+- content=Par "la seconde", je parle de l'ASL. | scientificRole=Variable definition | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Par "la seconde", je parle de l'ASL. | provenanceTurnIds=["I06:R1"]
+- content=Je veux distinguer progression vraie et pseudoprogression à 3 mois. | scientificRole=Clinical endpoint definition | polarity=AFFIRMED | temporalContext=3 months | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Je veux distinguer progression vraie et pseudoprogression à 3 mois. | provenanceTurnIds=["I06:R1"]
+
+### RELATIONS COMPRISES
+
+- subject=obj_second_modality | predicate=IS_SYNONYM_FOR | object=obj_asl | polarity=AFFIRMED | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Par "la seconde", je parle de l'ASL. | provenanceTurnIds=["I06:R1"]
+- subject=obj_dsc | predicate=EVALUATES | object=obj_endpoint | polarity=AFFIRMED | temporalContext=3 months | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Je compare DSC et ASL chez mes gliomes... pour la progression... distinguer progression vraie et pseudoprogression à 3 mois | provenanceTurnIds=["I06:T0", "I06:R1"]
+- subject=obj_asl | predicate=EVALUATES | object=obj_endpoint | polarity=AFFIRMED | temporalContext=3 months | epistemicStatus=EXPLICIT_USER_STATED | ownership=USER | sourceText=Je compare DSC et ASL chez mes gliomes... pour la progression... distinguer progression vraie et pseudoprogression à 3 mois | provenanceTurnIds=["I06:T0", "I06:R1"]
+
+### CONTEXTE INFÉRÉ
+
+- Aucun élément produit.
+
+### CANDIDATS SCIENTIFIQUES CONTEXTUELS
+
+- Aucun élément produit.
+
+### NÉGATIONS / CONTRAINTES
+
+- Aucun élément produit.
+
+### TEMPORALITÉ
+
+- Aucun élément produit.
+
+### AMBIGUÏTÉS
+
+- content=When DSC and ASL disagree regarding 3-month progression, it is unknown which modality is definitively more useful or how discordance is resolved clinically. | epistemicStatus=AMBIGUOUS | decisionImpact=Determines the primary comparative weighting or decision rule between DSC and ASL perfusion MRI for evaluating 3-month progression in gliomas. | provenanceTurnIds=["I06:T0"] | interpretations=["DSC is more reliable/useful due to established validation in neuro-oncology.", "ASL is more reliable/useful due to non-invasiveness and absence of contrast dependency."]
+
+### INFORMATIONS MANQUANTES
+
+- Aucun élément produit.
+
+### INCONNUES
+
+- content=Comparative diagnostic performance or clinical utility of DSC versus ASL when they yield discordant results regarding 3-month true progression vs pseudoprogression in gliomas. | owner=USER | priority=HIGH | blocking=non | decisionImpact=HIGH | provenanceTurnIds=["I06:T0", "I06:R1"]
+
+### CORRECTIONS / SUPERSESSIONS
+
+- previousContent=la seconde (unspecified) | currentContent=ASL | provenanceTurnIds=["I06:R1"] | disposition=CONFIRMED
+
+### OWNERSHIP / STATUT ÉPISTÉMIQUE
+
+- content=Comparison of DSC and ASL in gliomas for 3-month true progression vs pseudoprogression. | epistemicStatus=EXPLICIT_USER_STATED | owner=USER
+
+### QUESTIONS DE CLARIFICATION CANDIDATES
+
+- question=Do you prefer to use standard ASL thresholds or qualitative grading for cases where only ASL is available? | priority=LOW | blocking=non | decisionImpact=Clarifies whether cases with only ASL should be evaluated using specific adjusted thresholds or standard criteria when DSC is unavailable. | targetIds=["as_only_retention"]
+
+## MISSING STRUCTURAL GUARANTEES
+
+- EXACT_PROVIDER_RAW_TEXT_NOT_PERSISTED; STRUCTURED_NATIVE_ARTIFACT_AVAILABLE
+
+_Vue locale déterministe. Aucun appel LLM d’interprétation sémantique post-hoc._

@@ -1,0 +1,419 @@
+{
+  "boundaries": {
+    "blindUsed": false,
+    "normativeDocumentsModified": false,
+    "pd011Qualification": false,
+    "realHumanReview": false,
+    "tuningAfterObservation": false
+  },
+  "componentContributionDigest": "03b877f4698c498c0bba5f517f458540d6efeceb744f323a52098da421ee7dcc",
+  "decision": [
+    "HYBRID_SEM_CONTRACT_PYDANTIC_RUNTIME",
+    "SEM_CRITIC_MAKE_CONDITIONAL_OR_REMOVE_PENDING_TARGETED_EVIDENCE",
+    "PYDANTIC_CONDITIONAL_CRITIC_NOT_JUSTIFIED_BY_THIS_EXPERIMENT",
+    "DSPY_RUNTIME_CANDIDATE_REQUIRES_RELATION_AND_RAW_OUTPUT_ROBUSTNESS_WORK"
+  ],
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "interactive": {
+    "byConfiguration": {
+      "DSPY_COMMON_CONTRACT": {
+        "FINISHED": 3,
+        "MAX_DEPTH_WITH_OPEN_CLARIFICATION": 1,
+        "answers": 4,
+        "branches": 4,
+        "questions": 4
+      },
+      "PYDANTIC_COMMON_CONTRACT": {
+        "FAILED_STATE": 2,
+        "FINISHED": 1,
+        "MAX_DEPTH_WITH_OPEN_CLARIFICATION": 1,
+        "answers": 4,
+        "branches": 4,
+        "questions": 4
+      },
+      "PYDANTIC_CONDITIONAL_CRITIC": {
+        "FAILED_STATE": 2,
+        "FINISHED": 1,
+        "MAX_DEPTH_WITH_OPEN_CLARIFICATION": 1,
+        "answers": 2,
+        "branches": 4,
+        "questions": 2
+      },
+      "SEM_FULL": {
+        "FINISHED": 4,
+        "answers": 4,
+        "branches": 4,
+        "questions": 4
+      },
+      "SEM_SINGLE_PASS": {
+        "FINISHED": 3,
+        "MAX_DEPTH_WITH_OPEN_CLARIFICATION": 1,
+        "answers": 5,
+        "branches": 4,
+        "questions": 5
+      }
+    },
+    "byScenario": {
+      "I01": {
+        "DSPY_COMMON_CONTRACT": {
+          "questions": [],
+          "researcherAnswers": 0,
+          "status": "FINISHED"
+        },
+        "PYDANTIC_COMMON_CONTRACT": {
+          "questions": [
+            "quel est le délai prévu pour la réalisation du stent différé par rapport à l'intervention immédiate ?"
+          ],
+          "researcherAnswers": 1,
+          "status": "FINISHED"
+        },
+        "PYDANTIC_CONDITIONAL_CRITIC": {
+          "questions": [],
+          "researcherAnswers": 0,
+          "status": "FINISHED"
+        },
+        "SEM_FULL": {
+          "questions": [],
+          "researcherAnswers": 0,
+          "status": "FINISHED"
+        },
+        "SEM_SINGLE_PASS": {
+          "questions": [],
+          "researcherAnswers": 0,
+          "status": "FINISHED"
+        }
+      },
+      "I04": {
+        "DSPY_COMMON_CONTRACT": {
+          "questions": [
+            "quelles sont précisément les séquences disponibles dans vos différents centres ?",
+            "pourriez-vous consulter les différents centres pour recenser les séquences disponibles ?"
+          ],
+          "researcherAnswers": 2,
+          "status": "FINISHED"
+        },
+        "PYDANTIC_COMMON_CONTRACT": {
+          "questions": [],
+          "researcherAnswers": 0,
+          "status": "FAILED_STATE"
+        },
+        "PYDANTIC_CONDITIONAL_CRITIC": {
+          "questions": [],
+          "researcherAnswers": 0,
+          "status": "FAILED_STATE"
+        },
+        "SEM_FULL": {
+          "questions": [
+            "quelles modalités ou séquences d'imagerie spécifiques souhaitez-vous harmoniser ou utiliser pour détecter cette atteinte cardiaque précoce ?",
+            "souhaitez-vous définir ou sélectionner une modalité ou une séquence spécifique pour harmoniser l'étude entre les centres ?"
+          ],
+          "researcherAnswers": 2,
+          "status": "FINISHED"
+        },
+        "SEM_SINGLE_PASS": {
+          "questions": [
+            "quelle méthode ou quel biomarqueur préférez-vous utiliser pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?",
+            "souhaitez-vous explorer des options standards de biomarqueurs ou de méthodes d'imagerie pour détecter l'atteinte cardiaque précoce dans ce contexte multicentrique ?"
+          ],
+          "researcherAnswers": 2,
+          "status": "MAX_DEPTH_WITH_OPEN_CLARIFICATION"
+        }
+      },
+      "I06": {
+        "DSPY_COMMON_CONTRACT": {
+          "questions": [],
+          "researcherAnswers": 0,
+          "status": "FINISHED"
+        },
+        "PYDANTIC_COMMON_CONTRACT": {
+          "questions": [
+            "when dsc and asl give conflicting results regarding progression in your gliomas, do you have a specific clinical or methodological criterion to decide which one to trust, or should we evaluate them against a specific reference standard?"
+          ],
+          "researcherAnswers": 1,
+          "status": "FAILED_STATE"
+        },
+        "PYDANTIC_CONDITIONAL_CRITIC": {
+          "questions": [
+            "how would you like to define when dsc and asl 'ne racontent pas la même chose' (e.g., quantitative thresholds or qualitative reading)?"
+          ],
+          "researcherAnswers": 1,
+          "status": "FAILED_STATE"
+        },
+        "SEM_FULL": {
+          "questions": [
+            "souhaitez-vous définir un seuil particulier pour qualifier le désaccord entre dsc et asl ?"
+          ],
+          "researcherAnswers": 1,
+          "status": "FINISHED"
+        },
+        "SEM_SINGLE_PASS": {
+          "questions": [
+            "souhaitez-vous formaliser un critère d'évaluation formel pour mesurer la discordance entre dsc et asl ?",
+            "souhaitez-vous définir un seuil ou un score spécifique pour qualifier la discordance entre dsc et asl ?"
+          ],
+          "researcherAnswers": 2,
+          "status": "FINISHED"
+        }
+      },
+      "I08": {
+        "DSPY_COMMON_CONTRACT": {
+          "questions": [
+            "avez-vous choisi un critère principal pour l'étude parmi les marqueurs envisagés ?",
+            "quel marqueur envisagez-vous finalement comme critère principal pour l'étude ?"
+          ],
+          "researcherAnswers": 2,
+          "status": "MAX_DEPTH_WITH_OPEN_CLARIFICATION"
+        },
+        "PYDANTIC_COMMON_CONTRACT": {
+          "questions": [
+            "avez-vous décidé si le t1 natif sera retenu comme critère principal de l'étude ?",
+            "le t1 natif sera-t-il finalement retenu comme critère principal de l'étude ?"
+          ],
+          "researcherAnswers": 2,
+          "status": "MAX_DEPTH_WITH_OPEN_CLARIFICATION"
+        },
+        "PYDANTIC_CONDITIONAL_CRITIC": {
+          "questions": [
+            "souhaitez-vous retenir le t1 natif ou l'ecv comme critère d'évaluation principal de l'étude ?"
+          ],
+          "researcherAnswers": 1,
+          "status": "MAX_DEPTH_WITH_OPEN_CLARIFICATION"
+        },
+        "SEM_FULL": {
+          "questions": [
+            "souhaitez-vous fixer le t1 natif comme critère principal de l'étude ou maintenir cette décision ouverte ?"
+          ],
+          "researcherAnswers": 1,
+          "status": "FINISHED"
+        },
+        "SEM_SINGLE_PASS": {
+          "questions": [
+            "souhaitez-vous définir formellement le t1 natif comme critère principal de l'étude ou conserver cette question ouverte ?"
+          ],
+          "researcherAnswers": 1,
+          "status": "FINISHED"
+        }
+      }
+    }
+  },
+  "mainResult": {
+    "DSPY_COMMON_CONTRACT": "24/24 Phase-A contract states accepted and strong summaries, but sparse relation/object modeling, little contextual enrichment, and one lost primary output followed by a non-primary regeneration.",
+    "PYDANTIC_COMMON_CONTRACT": "Simple and usually scientifically complete, but 4/24 Phase-A states across its two branches failed at I04 and interactive contract robustness was weak; exact provider raw was not persisted.",
+    "PYDANTIC_CONDITIONAL_CRITIC": "No meaningful semantic benefit on 22 comparable Phase-A states despite 20 critic calls.",
+    "SEM_FULL": "Richest structured representation, but 33 Phase-A critic calls produced only 3 adjudicated useful changes, 4 degradations and 16 no-meaningful-change states among 23 comparable states.",
+    "SEM_SINGLE_PASS": "Practically equivalent on most scientific obligations and uniquely preserved I08 candidate status; one shared structured failure at I05/T2."
+  },
+  "operational": {
+    "actualProviderStarts": 235,
+    "byLedgerConfiguration": {
+      "DSPY_COMMON_CONTRACT": {
+        "actualProviderStarts": 36,
+        "failedCalls": 2,
+        "ledgerReservations": 37,
+        "meanLatencySecondsPerLedgerOperation": 3.892,
+        "medianLatencySecondsPerLedgerOperation": 3.924,
+        "retries": 0,
+        "successfulCalls": 35
+      },
+      "PYDANTIC_COMMON_CONTRACT": {
+        "actualProviderStarts": 11,
+        "failedCalls": 3,
+        "ledgerReservations": 11,
+        "meanLatencySecondsPerLedgerOperation": 9.18,
+        "medianLatencySecondsPerLedgerOperation": 5.637,
+        "retries": 0,
+        "successfulCalls": 8
+      },
+      "PYDANTIC_CONDITIONAL_CRITIC": {
+        "actualProviderStarts": 34,
+        "failedCalls": 4,
+        "ledgerReservations": 34,
+        "meanLatencySecondsPerLedgerOperation": 6.698,
+        "medianLatencySecondsPerLedgerOperation": 5.065,
+        "retries": 2,
+        "successfulCalls": 30
+      },
+      "PYDANTIC_SHARED_FIRST_OUTPUT": {
+        "actualProviderStarts": 24,
+        "failedCalls": 2,
+        "ledgerReservations": 24,
+        "meanLatencySecondsPerLedgerOperation": 5.325,
+        "medianLatencySecondsPerLedgerOperation": 5.58,
+        "retries": 0,
+        "successfulCalls": 22
+      },
+      "SEM_FULL": {
+        "actualProviderStarts": 53,
+        "failedCalls": 0,
+        "ledgerReservations": 53,
+        "meanLatencySecondsPerLedgerOperation": 6.702,
+        "medianLatencySecondsPerLedgerOperation": 5.615,
+        "retries": 0,
+        "successfulCalls": 53
+      },
+      "SEM_SHARED_FIRST_RECONSTRUCTION": {
+        "actualProviderStarts": 39,
+        "failedCalls": 0,
+        "ledgerReservations": 39,
+        "meanLatencySecondsPerLedgerOperation": 6.816,
+        "medianLatencySecondsPerLedgerOperation": 6.869,
+        "retries": 0,
+        "successfulCalls": 39
+      },
+      "SEM_SINGLE_PASS": {
+        "actualProviderStarts": 31,
+        "failedCalls": 3,
+        "ledgerReservations": 31,
+        "meanLatencySecondsPerLedgerOperation": 10.275,
+        "medianLatencySecondsPerLedgerOperation": 8.822,
+        "retries": 2,
+        "successfulCalls": 28
+      },
+      "SIMULATED_RESEARCH_USER": {
+        "actualProviderStarts": 7,
+        "failedCalls": 0,
+        "ledgerReservations": 7,
+        "meanLatencySecondsPerLedgerOperation": 0.854,
+        "medianLatencySecondsPerLedgerOperation": 0.884,
+        "retries": 0,
+        "successfulCalls": 7
+      }
+    },
+    "byOperation": {
+      "BATCHED_RESEARCHER_SIMULATOR": 7,
+      "DSPY_COMMON_FIRST_PASS": 37,
+      "PYDANTIC_COMMON_FIRST_PASS": 44,
+      "PYDANTIC_CONDITIONAL_CRITIC": 25,
+      "SEM_CRITIC": 49,
+      "SEM_RECONSTRUCTION": 55,
+      "SEM_RECONSTRUCTION_STRUCTURED_REPAIR": 19
+    },
+    "contractAndScientificEvaluability": {
+      "DSPY_COMMON_CONTRACT": {
+        "COMMON_TRANSCRIPT": {
+          "attemptedStates": 24,
+          "scientificallyEvaluable": 24,
+          "scientificallyNotAssessableBecauseRawUnavailable": 0,
+          "structuredContractFail": 0,
+          "structuredContractPass": 24
+        },
+        "INTERACTIVE": {
+          "attemptedStates": 11,
+          "scientificallyEvaluable": 11,
+          "scientificallyNotAssessableBecauseRawUnavailable": 0,
+          "structuredContractFail": 0,
+          "structuredContractPass": 11
+        }
+      },
+      "PYDANTIC_COMMON_CONTRACT": {
+        "COMMON_TRANSCRIPT": {
+          "attemptedStates": 24,
+          "scientificallyEvaluable": 22,
+          "scientificallyNotAssessableBecauseRawUnavailable": 2,
+          "structuredContractFail": 2,
+          "structuredContractPass": 22
+        },
+        "INTERACTIVE": {
+          "attemptedStates": 11,
+          "scientificallyEvaluable": 6,
+          "scientificallyNotAssessableBecauseRawUnavailable": 5,
+          "structuredContractFail": 5,
+          "structuredContractPass": 6
+        }
+      },
+      "PYDANTIC_CONDITIONAL_CRITIC": {
+        "COMMON_TRANSCRIPT": {
+          "attemptedStates": 24,
+          "scientificallyEvaluable": 22,
+          "scientificallyNotAssessableBecauseRawUnavailable": 2,
+          "structuredContractFail": 2,
+          "structuredContractPass": 22
+        },
+        "INTERACTIVE": {
+          "attemptedStates": 11,
+          "scientificallyEvaluable": 6,
+          "scientificallyNotAssessableBecauseRawUnavailable": 5,
+          "structuredContractFail": 5,
+          "structuredContractPass": 6
+        }
+      },
+      "SEM_FULL": {
+        "COMMON_TRANSCRIPT": {
+          "attemptedStates": 24,
+          "scientificallyEvaluable": 23,
+          "scientificallyNotAssessableBecauseRawUnavailable": 1,
+          "structuredContractFail": 1,
+          "structuredContractPass": 23
+        },
+        "INTERACTIVE": {
+          "attemptedStates": 11,
+          "scientificallyEvaluable": 11,
+          "scientificallyNotAssessableBecauseRawUnavailable": 0,
+          "structuredContractFail": 0,
+          "structuredContractPass": 11
+        }
+      },
+      "SEM_SINGLE_PASS": {
+        "COMMON_TRANSCRIPT": {
+          "attemptedStates": 24,
+          "scientificallyEvaluable": 23,
+          "scientificallyNotAssessableBecauseRawUnavailable": 1,
+          "structuredContractFail": 1,
+          "structuredContractPass": 23
+        },
+        "INTERACTIVE": {
+          "attemptedStates": 11,
+          "scientificallyEvaluable": 10,
+          "scientificallyNotAssessableBecauseRawUnavailable": 1,
+          "structuredContractFail": 1,
+          "structuredContractPass": 10
+        }
+      }
+    },
+    "failedLedgerOperations": 14,
+    "ledgerReservations": 236,
+    "nonProviderLocalFailureReservations": [
+      14
+    ],
+    "notes": [
+      "Request 14 failed locally before HTTP and consumed no provider quota.",
+      "Request 13 was a provider response with invalid JSON whose raw output was not persisted; I01/T1 DSPy was uniquely regenerated in request 15 and is not a primary strict-paired sample.",
+      "Latencies are measured per ledger operation, not end-to-end per architecture state.",
+      "No LLM semantic interpretation call was required or used."
+    ],
+    "phaseA": {
+      "attemptedStates": 120,
+      "commonStates": 114,
+      "scenariosComplete": 8,
+      "scenariosTotal": 8
+    },
+    "phaseB": {
+      "attemptedStates": 55,
+      "branchesComplete": 20,
+      "branchesTotal": 20,
+      "commonStates": 44,
+      "researcherSimulatorCalls": 7,
+      "scenariosComplete": 4,
+      "scenariosTotal": 4
+    },
+    "providerBudget": {
+      "dailyLimit": 500,
+      "hardStop": 320,
+      "remainingAfterActualStarts": 265,
+      "softLimit": 280,
+      "target": 260
+    },
+    "retries": 4,
+    "scenarioPackDigestAfter": "bfa359da5fe60d42779f7af211ac95313a94a5b3164de8f72ed7a18490026f7b",
+    "scenarioPackDigestBefore": "bfa359da5fe60d42779f7af211ac95313a94a5b3164de8f72ed7a18490026f7b",
+    "scenarioPackDigestUnchanged": true,
+    "semanticReviewCalls": 0,
+    "successfulProviderOperations": 222
+  },
+  "scientificVsContract": {
+    "notAssessableOutputs": "Failures with no persisted raw output are not counted as scientific failures.",
+    "rule": "Scientific semantic evaluability and structured contract conformance are independent dimensions.",
+    "semanticReviewCalls": 0
+  },
+  "status": "COMPLETE_WITH_STRUCTURED_CONTRACT_FAILURES_SEPARATELY_REPORTED"
+}

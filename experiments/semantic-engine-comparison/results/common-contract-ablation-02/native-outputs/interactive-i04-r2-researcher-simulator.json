@@ -1,0 +1,16 @@
+{
+  "answers": [
+    {
+      "answer": "Je ne sais pas.",
+      "configurationId": "SEM_FULL"
+    },
+    {
+      "answer": "Je ne sais pas.",
+      "configurationId": "SEM_SINGLE_PASS"
+    },
+    {
+      "answer": "Je ne sais pas.",
+      "configurationId": "DSPY_COMMON_CONTRACT"
+    }
+  ]
+}

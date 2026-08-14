@@ -1,0 +1,442 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": false,
+    "pairedFirstReconstruction": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I08",
+  "state": {
+    "ambiguities": [
+      {
+        "ambiguityId": "sem-ambiguity:af9d4bd97b6f5162",
+        "content": "Le statut exact du T1 natif comme critère principal reste incertain ou non tranché.",
+        "decisionImpact": "SEM reports an unresolved ambiguity; impact requires clarification.",
+        "epistemicStatus": "AMBIGUOUS",
+        "interpretations": [],
+        "provenanceTurnIds": []
+      }
+    ],
+    "clarificationCandidates": [
+      {
+        "blocking": true,
+        "clarificationId": "sem-clarification:1:58408c6c9f",
+        "decisionImpact": "Le choix du critère principal pour l'étude n'a pas encore été tranché.",
+        "priority": "HIGH",
+        "question": "Souhaitez-vous définir le T1 natif comme critère principal ou explorer un autre marqueur précoce ?",
+        "targetIds": [
+          "sem-element:ke1-bb98f5f3e61f629f",
+          "sem-element:ke1-d8c9045b4f4590b7"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+        "role": "USER",
+        "turnId": "I08:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Avant le stade de fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-295c9bdb5ee03d3f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "la fibrose",
+        "temporalContext": "Avant le stade de fibrose"
+      },
+      {
+        "basis": null,
+        "content": "Centre de Lyon",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-30a2ff4042cb4464",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "Lyon",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Applicabilité multicentrique (tous les centres)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8cbc19323026504e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "tous les centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Volume extracellulaire (ECV)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-ac76601724e22d0b",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "l'ECV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bb98f5f3e61f629f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "le T1 natif",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Critère principal d'évaluation",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d8c9045b4f4590b7",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "critère principal",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Marqueur précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e2421addbfdae4f1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "BIOMARKER:OUTCOME_ROLE",
+        "sourceText": "marqueur précoce",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Critère principal d'évaluation",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d8c9045b4f4590b7",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "critère principal",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "Dans la maladie de Fabry, l'évaluation du T1 natif avant la fibrose est envisagée mais non retenue comme critère principal. L'ECV est également pratiquée à Lyon. L'objectif principal est d'identifier un biomarqueur précoce universellement utilisable dans tous les centres.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Avant le stade de fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-295c9bdb5ee03d3f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "la fibrose",
+        "temporalContext": "Avant le stade de fibrose"
+      },
+      {
+        "basis": null,
+        "content": "Centre de Lyon",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-30a2ff4042cb4464",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "Lyon",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Applicabilité multicentrique (tous les centres)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-8cbc19323026504e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "STUDY_DESIGN:NONE",
+        "sourceText": "tous les centres",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Volume extracellulaire (ECV)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-ac76601724e22d0b",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "l'ECV",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b4c3c91b3ce8d0af",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "CONDITION:SUBJECT",
+        "sourceText": "Fabry",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-bb98f5f3e61f629f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "le T1 natif",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Critère principal d'évaluation",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-d8c9045b4f4590b7",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "critère principal",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Marqueur précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-e2421addbfdae4f1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "BIOMARKER:OUTCOME_ROLE",
+        "sourceText": "marqueur précoce",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Dans Fabry, on pense que le T1 natif pourrait être intéressant avant la fibrose, mais je n'ai pas décidé d'en faire le critère principal. À Lyon ils font aussi de l'ECV. Je veux surtout trouver un marqueur précoce qui soit utilisable dans tous les centres.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Avant le stade de fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-295c9bdb5ee03d3f"
+      },
+      {
+        "content": "Centre de Lyon",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-30a2ff4042cb4464"
+      },
+      {
+        "content": "Applicabilité multicentrique (tous les centres)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-8cbc19323026504e"
+      },
+      {
+        "content": "Volume extracellulaire (ECV)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-ac76601724e22d0b"
+      },
+      {
+        "content": "Maladie de Fabry",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b4c3c91b3ce8d0af"
+      },
+      {
+        "content": "T1 natif",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-bb98f5f3e61f629f"
+      },
+      {
+        "content": "Critère principal d'évaluation",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-d8c9045b4f4590b7"
+      },
+      {
+        "content": "Marqueur précoce",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-e2421addbfdae4f1"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Critère principal d'évaluation",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-3a508fe465c36798",
+        "sourceText": null,
+        "subject": "T1 natif",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Centre de Lyon",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-49d4cfef796ab0a3",
+        "sourceText": null,
+        "subject": "Volume extracellulaire (ECV)",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Maladie de Fabry",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RELATED_TO_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-51e03717530735ab",
+        "sourceText": null,
+        "subject": "T1 natif",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Avant le stade de fibrose",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "RECOVERS_AFTER",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-a1a568ba9bcda3f6",
+        "sourceText": null,
+        "subject": "T1 natif",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Dans la maladie de Fabry, l'évaluation du T1 natif avant la fibrose est envisagée mais non retenue comme critère principal. L'ECV est également pratiquée à Lyon. L'objectif principal est d'identifier un biomarqueur précoce universellement utilisable dans tous les centres.",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "Avant le stade de fibrose",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-295c9bdb5ee03d3f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I08:T0"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "la fibrose",
+        "temporalContext": "Avant le stade de fibrose"
+      }
+    ],
+    "unknowns": []
+  }
+}

@@ -1,0 +1,341 @@
+{
+  "configurationId": "SEM_FULL",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": true,
+    "pairedFirstReconstruction": false
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "INTERACTIVE",
+  "round": "T1",
+  "scenarioId": "I01",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+        "role": "USER",
+        "turnId": "I01:SEM_FULL:T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "stent immédiat",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-09e50c63cd78c30f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-24d50b57e4815413",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "voir",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-25baf65ea11dab12",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "voir",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "infarctus",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-46b4fd545a390170",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "stent différé",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-48ccb421200ea55d",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "COMPARATOR:COMPARATOR_ARM",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "lésions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-74272f58b2bb1e9c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Je veux comparer",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fe1eb2d591ff2fb9",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "OPERATION:NONE",
+        "sourceText": "comparer",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "Comparison between immediate stenting and delayed stenting in myocardial infarction, observing lesions using MRI.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "stent immédiat",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-09e50c63cd78c30f",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-24d50b57e4815413",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "IRM",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "voir",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-25baf65ea11dab12",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "voir",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "infarctus",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-46b4fd545a390170",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "CONDITION:NONE",
+        "sourceText": "infarctus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "stent différé",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-48ccb421200ea55d",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "COMPARATOR:COMPARATOR_ARM",
+        "sourceText": "stent différé",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "lésions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-74272f58b2bb1e9c",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_OBJECT:SUBJECT",
+        "sourceText": "lésions",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Je veux comparer",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fe1eb2d591ff2fb9",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "scientificRole": "OPERATION:NONE",
+        "sourceText": "comparer",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux comparer le stent immédiat au stent différé dans l'infarctus et voir les lésions en IRM.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "stent immédiat",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-09e50c63cd78c30f"
+      },
+      {
+        "content": "IRM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-24d50b57e4815413"
+      },
+      {
+        "content": "voir",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-25baf65ea11dab12"
+      },
+      {
+        "content": "infarctus",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-46b4fd545a390170"
+      },
+      {
+        "content": "stent différé",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-48ccb421200ea55d"
+      },
+      {
+        "content": "lésions",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-74272f58b2bb1e9c"
+      },
+      {
+        "content": "Je veux comparer",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I01:SEM_FULL:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-fe1eb2d591ff2fb9"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "stent différé",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "COMPARES_WITH",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-08906878f99e3444",
+        "sourceText": null,
+        "subject": "stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "infarctus",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "APPLIES_TO",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-1e89963322d86e07",
+        "sourceText": null,
+        "subject": "stent immédiat",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "IRM",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "OBSERVED_BY",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-b3d8176eace3090a",
+        "sourceText": null,
+        "subject": "lésions",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "voir",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

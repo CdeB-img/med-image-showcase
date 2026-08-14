@@ -1,0 +1,12 @@
+{
+  "configurationId": "SEM_SINGLE_PASS",
+  "failureClass": "SHARED_FIRST_RECONSTRUCTION_INVALID_STRUCTURED_OUTPUT",
+  "nativeRawOutputAvailable": false,
+  "pairedFirstReconstruction": true,
+  "providerRequestNumbers": [79, 80, 81],
+  "reason": "The shared SEM first reconstruction remained invalid before either ablation branch could canonicalize it.",
+  "scenarioId": "I05",
+  "round": "T2",
+  "semanticCriticExecuted": false,
+  "status": "FAILED"
+}

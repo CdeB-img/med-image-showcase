@@ -1,0 +1,195 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T0",
+  "scenarioId": "I07",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+        "role": "USER",
+        "turnId": "T0"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "scanner spectral du foie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "scanner spectral du foie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "l'iode",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "measurement or biomarker role",
+        "sourceText": "l'iode",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "preuve de viabilité tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_3",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "l'iode comme preuve de viabilité tumorale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "associé à la réponse",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "s'il est associé à la réponse",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "dire qu'il la cause",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_5",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "phenomenon",
+        "sourceText": "pas dire qu'il la cause",
+        "temporalContext": null
+      },
+      {
+        "basis": "si ça marche bien",
+        "content": "l'utiliser ensuite pour prédire",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_6",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "project variable",
+        "sourceText": "on pourra peut-être l'utiliser ensuite pour prédire",
+        "temporalContext": "ensuite"
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "Ne pas utiliser l'iode comme preuve de viabilité tumorale",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_neg_1",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "constraint",
+        "sourceText": "je ne veux pas utiliser l'iode comme preuve de viabilité tumorale",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Ne pas interpréter l'association comme causalité",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_neg_2",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "scientificRole": "constraint",
+        "sourceText": "mais pas dire qu'il la cause",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "The user is planning a spectral CT scan of the liver and explicitly rejects iodine as a proof of tumor viability. They want to test for an association between iodine and response, explicitly avoiding a causal interpretation, with a future conditional possibility of using it for prediction if it performs well.",
+    "objects": [],
+    "originalRequest": "En scanner spectral du foie, je ne veux pas utiliser l'iode comme preuve de viabilité tumorale. Je veux voir s'il est associé à la réponse, mais pas dire qu'il la cause. Enfin, si ça marche bien, on pourra peut-être l'utiliser ensuite pour prédire.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "User rejects iodine as tumor viability proof and causal factor, but accepts testing for association and conditional future predictive use.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "statementId": "own_1"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "la réponse",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "associated with",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_1",
+        "sourceText": "s'il est associé à la réponse",
+        "subject": "l'iode",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "la réponse",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "causes",
+        "provenanceTurnIds": [
+          "T0"
+        ],
+        "relationId": "rel_2",
+        "sourceText": "pas dire qu'il la cause",
+        "subject": "l'iode",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Investigate the association between iodine (measured via spectral liver CT) and tumor response without assuming causality, with a conditional future possibility of using it for prediction.",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

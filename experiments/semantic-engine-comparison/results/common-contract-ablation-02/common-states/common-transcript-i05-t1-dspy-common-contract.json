@@ -1,0 +1,193 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T1",
+  "scenarioId": "I05",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [
+      {
+        "blocking": true,
+        "clarificationId": "clar_1",
+        "decisionImpact": "Can change cohort inclusion/exclusion or analytical handling of patients with missing follow-up MRI.",
+        "priority": "HIGH",
+        "question": "Quelle est la stratégie de gestion pour les patients qui ne disposent pas de la seconde IRM ?",
+        "targetIds": [
+          "miss_1"
+        ]
+      }
+    ],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+        "role": "USER",
+        "turnId": "I05:T0"
+      },
+      {
+        "content": "Je me suis mal exprimé : la récidive n'est pas le critère principal, c'est la réponse pathologique. La récidive sera exploratoire.",
+        "role": "USER",
+        "turnId": "I05:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [
+      {
+        "correctionId": "corr_1",
+        "currentContent": "la récidive n'est pas le critère principal, c'est la réponse pathologique",
+        "disposition": "SUPERSEDED",
+        "previousContent": "la récidive est le critère principal",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ]
+      }
+    ],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "On a une IRM avant et après radiochimiothérapie.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_1",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "On a une IRM avant et après radiochimiothérapie.",
+        "temporalContext": "avant et après radiochimiothérapie"
+      },
+      {
+        "basis": null,
+        "content": "la récidive n'est pas le critère principal, c'est la réponse pathologique.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_2",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "la récidive n'est pas le critère principal, c'est la réponse pathologique.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "La récidive sera exploratoire.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_3",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "La récidive sera exploratoire.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [
+      {
+        "blocking": true,
+        "content": "Ceux qui n'ont pas la seconde [IRM], on en fait quoi ?",
+        "decisionImpact": "Can change cohort inclusion/exclusion or analytical handling of patients with missing follow-up MRI.",
+        "missingId": "miss_1",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ]
+      }
+    ],
+    "negationsAndConstraints": [],
+    "normalizedUnderstanding": "The user is conducting a study involving MRI before and after radiochemotherapy. The primary endpoint is pathological response, while recurrence is treated as an exploratory endpoint. The user asks whether the MRI findings change and whether they predict pathological response (and secondarily recurrence), and raises a question regarding patients missing the second MRI scan.",
+    "objects": [],
+    "originalRequest": "On a une IRM avant et après radiochimiothérapie. Je veux savoir si ça change et si ça prédit la récidive. Ceux qui n'ont pas la seconde, on en fait quoi ?",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "On a une IRM avant et après radiochimiothérapie.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "statementId": "own_1"
+      },
+      {
+        "content": "La réponse pathologique est le critère principal.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "statementId": "own_2"
+      },
+      {
+        "content": "La récidive sera exploratoire.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I05:R1"
+        ],
+        "statementId": "own_3"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "réponse pathologique",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "prédit",
+        "provenanceTurnIds": [
+          "I05:T0",
+          "I05:R1"
+        ],
+        "relationId": "rel_1",
+        "sourceText": "Je veux savoir si ça change et si ça prédit la récidive. [...] la récidive n'est pas le critère principal, c'est la réponse pathologique.",
+        "subject": "IRM avant et après radiochimiothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "récidive",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "prédit",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ],
+        "relationId": "rel_2",
+        "sourceText": "si ça prédit la récidive",
+        "subject": "IRM avant et après radiochimiothérapie",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Determine whether MRI findings before and after radiochemotherapy change and whether they predict pathological response.",
+    "temporalModel": [],
+    "unknowns": [
+      {
+        "blocking": true,
+        "content": "Ceux qui n'ont pas la seconde [IRM], on en fait quoi ?",
+        "decisionImpact": "Can change cohort inclusion/exclusion or analytical handling of patients with missing follow-up MRI.",
+        "missingId": "miss_1",
+        "owner": "USER",
+        "priority": "HIGH",
+        "provenanceTurnIds": [
+          "I05:T0"
+        ]
+      }
+    ]
+  }
+}

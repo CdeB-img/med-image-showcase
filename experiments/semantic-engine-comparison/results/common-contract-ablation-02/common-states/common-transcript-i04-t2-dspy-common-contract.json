@@ -1,0 +1,188 @@
+{
+  "configurationId": "DSPY_COMMON_CONTRACT",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "criticExecuted": false,
+    "framework": "DSPy",
+    "optimizer": null,
+    "scenarioDemonstrations": []
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T2",
+  "scenarioId": "I04",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "role": "USER",
+        "turnId": "I04:T0"
+      },
+      {
+        "content": "Tous les centres ont cine et T1 natif. Non, le T2 n'est pas disponible partout.",
+        "role": "USER",
+        "turnId": "I04:R1"
+      },
+      {
+        "content": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal. L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+        "role": "USER",
+        "turnId": "I04:R2"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_fabry_goal",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "scientific goal",
+        "sourceText": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_multicenter_heterogeneity",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "scientificRole": "project constraint",
+        "sourceText": "On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tous les centres ont cine et T1 natif.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_cine_t1_available",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "Tous les centres ont cine et T1 natif.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Le T2 n'est pas disponible partout.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_t2_not_available",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "Non, le T2 n'est pas disponible partout.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "LGE n'est pas disponible partout non plus",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_lge_not_everywhere",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "LGE n'est pas disponible partout non plus",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "je ne veux pas en faire le critère principal",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_lge_not_main_criterion",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "endpoint",
+        "sourceText": "je ne veux pas en faire le critère principal",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_ecv_conditional",
+        "ownership": "USER",
+        "polarity": "CONDITIONAL",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "method or measurement definition",
+        "sourceText": "L'ECV est possible seulement si contraste et hématocrite sont disponibles.",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "T2 is not universally available",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_constraint_t2",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R1"
+        ],
+        "scientificRole": "constraint",
+        "sourceText": "Non, le T2 n'est pas disponible partout.",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "LGE is not universally available and not the main criterion",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "item_constraint_lge",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I04:R2"
+        ],
+        "scientificRole": "constraint",
+        "sourceText": "LGE n'est pas disponible partout non plus et je ne veux pas en faire le critère principal.",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "The user aims to detect early cardiac involvement in Fabry disease before visible fibrosis across multiple centers with heterogeneous imaging sequences. Cine and native T1 are universally available across all centers. T2 and LGE are not universally available, and LGE is excluded as the primary endpoint. ECV is contingent upon the availability of contrast and hematocrit.",
+    "objects": [],
+    "originalRequest": "Je veux détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible. On a plusieurs centres et tout le monde n'a pas les mêmes séquences.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I04:T0"
+        ],
+        "statementId": "own_fabry_goal"
+      }
+    ],
+    "relations": [],
+    "scientificGoal": "Détecter l'atteinte cardiaque précoce dans Fabry avant la fibrose visible",
+    "temporalModel": [],
+    "unknowns": []
+  }
+}

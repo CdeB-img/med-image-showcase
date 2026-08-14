@@ -1,0 +1,13 @@
+{
+  "amendmentId": "EXP-SEM-ABLATION-02-TECHNICAL-AMENDMENT-05",
+  "classification": "SEM_FAILURE_CHECKPOINT_AND_CONTINUATION_ONLY",
+  "reason": "The paired SEM I05/T2 first reconstruction remained invalid after all frozen structured-output corrections. The frozen runner exited before independent architectures could continue.",
+  "providerRequestNumbers": [79, 80, 81],
+  "semanticRetryPerformed": false,
+  "sharedFailureOwners": ["SEM_FULL", "SEM_SINGLE_PASS"],
+  "resumeWrapper": "experiments/semantic-engine-comparison/common_contract_ablation_02/resume_all_failures.py",
+  "resumeWrapperDigest": "60c59c0733e5b3096453117b90b4d7f863eb12aab2cf6cc0e5ce4f20ff35185a",
+  "semanticBehaviorChanged": false,
+  "failedNativeRawOutputPersistedByFrozenProvider": false,
+  "change": "Persist failed SEM configuration checkpoints, never regenerate completed failed states, and continue independent architectures and later rounds."
+}

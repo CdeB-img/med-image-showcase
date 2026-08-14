@@ -1,0 +1,501 @@
+{
+  "configurationId": "SEM_FULL",
+  "experimentId": "EXP-SEM-ABLATION-02",
+  "metadata": {
+    "adapter": "DETERMINISTIC_SEM_MODEL_TO_COMMON_STATE",
+    "criticExecuted": true,
+    "pairedFirstReconstruction": true
+  },
+  "normalization": "SOURCE_PRESERVING_EXPERIMENTAL_COMMON_CONTRACT_NO_SCIENTIFIC_ENRICHMENT",
+  "phase": "COMMON_TRANSCRIPT",
+  "round": "T1",
+  "scenarioId": "I03",
+  "state": {
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contextualScientificCandidates": [],
+    "contradictions": [],
+    "conversationTurns": [
+      {
+        "content": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+        "role": "USER",
+        "turnId": "I03:T0"
+      },
+      {
+        "content": "Le critère principal sera la réponse iRECIST à 12 semaines. La SSP restera secondaire.",
+        "role": "USER",
+        "turnId": "I03:R1"
+      }
+    ],
+    "correctionsAndSupersessions": [],
+    "explicitUserStatements": [
+      {
+        "basis": null,
+        "content": "Réponse iRECIST",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-176468f8393743b4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "réponse iRECIST",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "SUVmax",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-1f7def6eadf55222",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "SUVmax",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-666fd96a45c9ae0e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "réponse à l'immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-84ce93607f1ae944",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "12 semaines",
+        "temporalContext": "12 semaines"
+      },
+      {
+        "basis": null,
+        "content": "Intention d'utiliser la TEP pour une application prédictive",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-92e0ee017f52ec95",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "utiliser",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-a72f9731ef4b67c5",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "pas avec le SUVmax seul",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Scanner tomodensitométrique réalisé en routine",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b92d3070a9b20614",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "scanner",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b94e984a91422b86",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tomographie par émission de positons (TEP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fc23491453006d48",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "TEP",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Survie sans progression (SSP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fd14395863fba4ec",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "SSP",
+        "temporalContext": null
+      }
+    ],
+    "inferredContext": [],
+    "missingInformation": [],
+    "negationsAndConstraints": [
+      {
+        "basis": null,
+        "content": "SUVmax",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-1f7def6eadf55222",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "SUVmax",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-a72f9731ef4b67c5",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "pas avec le SUVmax seul",
+        "temporalContext": null
+      }
+    ],
+    "normalizedUnderstanding": "L'utilisateur souhaite utiliser la TEP pour prédire la réponse à l'immunothérapie, en excluant l'utilisation du SUVmax seul, tout en sachant que le scanner a déjà été réalisé en routine. Le critère principal est la réponse iRECIST à 12 semaines, et la survie sans progression (SSP) est secondaire.",
+    "objects": [
+      {
+        "basis": null,
+        "content": "Réponse iRECIST",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-176468f8393743b4",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "réponse iRECIST",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "SUVmax",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-1f7def6eadf55222",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "BIOMARKER:MEASUREMENT",
+        "sourceText": "SUVmax",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-666fd96a45c9ae0e",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "OUTCOME:OUTCOME_ROLE",
+        "sourceText": "réponse à l'immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-84ce93607f1ae944",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "12 semaines",
+        "temporalContext": "12 semaines"
+      },
+      {
+        "basis": null,
+        "content": "Intention d'utiliser la TEP pour une application prédictive",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-92e0ee017f52ec95",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "SCIENTIFIC_INTENT:NONE",
+        "sourceText": "utiliser",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Exclusion du SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-a72f9731ef4b67c5",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "CONSTRAINT:NONE",
+        "sourceText": "pas avec le SUVmax seul",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Scanner tomodensitométrique réalisé en routine",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b92d3070a9b20614",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "MODALITY:NONE",
+        "sourceText": "scanner",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-b94e984a91422b86",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "INTERVENTION:INTERVENTION_ARM",
+        "sourceText": "immunothérapie",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Tomographie par émission de positons (TEP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fc23491453006d48",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "scientificRole": "MODALITY:MEASUREMENT",
+        "sourceText": "TEP",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "content": "Survie sans progression (SSP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-fd14395863fba4ec",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "ENDPOINT:OUTCOME_ROLE",
+        "sourceText": "SSP",
+        "temporalContext": null
+      }
+    ],
+    "originalRequest": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+    "ownershipAndEpistemicState": [
+      {
+        "content": "Réponse iRECIST",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-176468f8393743b4"
+      },
+      {
+        "content": "SUVmax",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-1f7def6eadf55222"
+      },
+      {
+        "content": "Réponse à l'immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-666fd96a45c9ae0e"
+      },
+      {
+        "content": "12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-84ce93607f1ae944"
+      },
+      {
+        "content": "Intention d'utiliser la TEP pour une application prédictive",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-92e0ee017f52ec95"
+      },
+      {
+        "content": "Exclusion du SUVmax seul",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-a72f9731ef4b67c5"
+      },
+      {
+        "content": "Scanner tomodensitométrique réalisé en routine",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b92d3070a9b20614"
+      },
+      {
+        "content": "Immunothérapie",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-b94e984a91422b86"
+      },
+      {
+        "content": "Tomographie par émission de positons (TEP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:T0"
+        ],
+        "statementId": "ownership:sem-element:ke1-fc23491453006d48"
+      },
+      {
+        "content": "Survie sans progression (SSP)",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "owner": "USER",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "statementId": "ownership:sem-element:ke1-fd14395863fba4ec"
+      }
+    ],
+    "relations": [
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Réponse à l'immunothérapie",
+        "ownership": "USER",
+        "polarity": "NEGATED",
+        "predicate": "PREDICTS_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-290ca39c697ee258",
+        "sourceText": null,
+        "subject": "SUVmax",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "12 semaines",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "REPEATED_AT",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-4f2ac003ddca3307",
+        "sourceText": null,
+        "subject": "Réponse iRECIST",
+        "temporalContext": null
+      },
+      {
+        "basis": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "object": "Réponse à l'immunothérapie",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "predicate": "PREDICTS_CANDIDATE",
+        "provenanceTurnIds": [],
+        "relationId": "sem-relation:ke1-642c8d273aa39d1b",
+        "sourceText": null,
+        "subject": "Tomographie par émission de positons (TEP)",
+        "temporalContext": null
+      }
+    ],
+    "scientificGoal": "Intention d'utiliser la TEP pour une application prédictive",
+    "temporalModel": [
+      {
+        "basis": null,
+        "content": "12 semaines",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "itemId": "sem-element:ke1-84ce93607f1ae944",
+        "ownership": "USER",
+        "polarity": "AFFIRMED",
+        "provenanceTurnIds": [
+          "I03:R1"
+        ],
+        "scientificRole": "TIMING:NONE",
+        "sourceText": "12 semaines",
+        "temporalContext": "12 semaines"
+      }
+    ],
+    "unknowns": []
+  }
+}

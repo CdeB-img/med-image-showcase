@@ -1,0 +1,12 @@
+{
+  "configurationId": "PYDANTIC_CONDITIONAL_CRITIC",
+  "criticExecuted": false,
+  "failureClass": "SHARED_FIRST_OUTPUT_STRUCTURED_CONTRACT_FAILURE",
+  "nativeRawOutputAvailable": false,
+  "pairedFirstOutput": true,
+  "providerRequestNumber": 60,
+  "reason": "The shared Pydantic first output failed the CommonScientificState provenance invariant before conditional critic evaluation.",
+  "scenarioId": "I04",
+  "round": "T1",
+  "status": "FAILED"
+}

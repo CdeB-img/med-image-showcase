@@ -1,0 +1,1798 @@
+{
+  "criticCycles": {
+    "accepted": true,
+    "attempts": [
+      {
+        "attempt": 1,
+        "category": null,
+        "httpStatus": 200,
+        "latencyMs": 3754,
+        "outcome": "SUCCESS",
+        "providerCode": null,
+        "providerError": null,
+        "providerStatus": null,
+        "requestFinished": "2026-08-14T08:53:35.658Z",
+        "requestStarted": "2026-08-14T08:53:31.904Z",
+        "retryable": false
+      }
+    ],
+    "callIds": [
+      "gemini-call:ke1-3d7c70245ab22ba0"
+    ],
+    "candidate": {
+      "ambiguities": [],
+      "candidateId": "cand-001",
+      "clarificationCandidates": [],
+      "contradictions": [],
+      "elements": [
+        {
+          "canonicalMeaning": "Intention d'utiliser la TEP pour une application prédictive",
+          "clientElementId": "elem-01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-01"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I03:T0",
+          "sourceText": "utiliser",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "SCIENTIFIC_INTENT"
+        },
+        {
+          "canonicalMeaning": "Tomographie par émission de positons (TEP)",
+          "clientElementId": "elem-02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-02"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I03:T0",
+          "sourceText": "TEP",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "MODALITY"
+        },
+        {
+          "canonicalMeaning": "Réponse à l'immunothérapie",
+          "clientElementId": "elem-03",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-03"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I03:T0",
+          "sourceText": "réponse à l'immunothérapie",
+          "studyRole": "OUTCOME_ROLE",
+          "supersedesElementIds": [],
+          "type": "OUTCOME"
+        },
+        {
+          "canonicalMeaning": "Immunothérapie",
+          "clientElementId": "elem-04",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-03"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I03:T0",
+          "sourceText": "immunothérapie",
+          "studyRole": "INTERVENTION_ARM",
+          "supersedesElementIds": [],
+          "type": "INTERVENTION"
+        },
+        {
+          "canonicalMeaning": "SUVmax",
+          "clientElementId": "elem-05",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-04"
+          ],
+          "polarity": "NEGATED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I03:T0",
+          "sourceText": "SUVmax",
+          "studyRole": "MEASUREMENT",
+          "supersedesElementIds": [],
+          "type": "BIOMARKER"
+        },
+        {
+          "canonicalMeaning": "Scanner tomodensitométrique réalisé en routine",
+          "clientElementId": "elem-06",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-05"
+          ],
+          "polarity": "AFFIRMED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I03:T0",
+          "sourceText": "scanner",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "MODALITY"
+        },
+        {
+          "canonicalMeaning": "Exclusion du SUVmax seul",
+          "clientElementId": "elem-07",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryItemIds": [
+            "inv-04"
+          ],
+          "polarity": "NEGATED",
+          "requiresConfirmation": false,
+          "sourceMessageId": "I03:T0",
+          "sourceText": "pas avec le SUVmax seul",
+          "studyRole": "NONE",
+          "supersedesElementIds": [],
+          "type": "CONSTRAINT"
+        }
+      ],
+      "ellipses": [],
+      "knowledgeRequests": [],
+      "language": "fr",
+      "missingConcepts": [],
+      "normalizedMeaning": "L'utilisateur souhaite utiliser la TEP pour prédire la réponse à l'immunothérapie, en excluant l'utilisation du SUVmax seul, tout en sachant que le scanner a déjà été réalisé en routine.",
+      "relations": [
+        {
+          "clientRelationId": "rel-elem-01",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-01"
+          ],
+          "polarity": "AFFIRMED",
+          "relationType": "PREDICTS_CANDIDATE",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-02",
+          "targetClientElementId": "elem-03"
+        },
+        {
+          "clientRelationId": "rel-elem-02",
+          "confidence": 1,
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "inferenceReason": null,
+          "inventoryRelationIds": [
+            "rel-02"
+          ],
+          "polarity": "NEGATED",
+          "relationType": "PREDICTS_CANDIDATE",
+          "requiresConfirmation": false,
+          "sourceClientElementId": "elem-05",
+          "targetClientElementId": "elem-03"
+        }
+      ],
+      "routeProposal": {
+        "confidence": 0.9,
+        "expectedCapabilities": [
+          "Définition de critères d'évaluation",
+          "Structuration des variables d'imagerie"
+        ],
+        "reason": "L'utilisateur exprime un objectif de prédiction avec des modalités spécifiques (TEP, scanner) et des contraintes sur les variables (exclusion du SUVmax seul), ce qui correspond à la conception d'une étude.",
+        "route": "DESIGN_STUDY"
+      },
+      "semanticInventory": {
+        "explicitFragments": [
+          {
+            "inventoryItemId": "inv-01",
+            "linkedInventoryItemIds": [
+              "inv-02",
+              "inv-03"
+            ],
+            "localRole": "action",
+            "modifiers": [],
+            "normalizedLabel": "utiliser",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I03:T0",
+            "sourceText": "utiliser"
+          },
+          {
+            "inventoryItemId": "inv-02",
+            "linkedInventoryItemIds": [],
+            "localRole": "modality",
+            "modifiers": [],
+            "normalizedLabel": "TEP",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I03:T0",
+            "sourceText": "TEP"
+          },
+          {
+            "inventoryItemId": "inv-03",
+            "linkedInventoryItemIds": [],
+            "localRole": "objective",
+            "modifiers": [],
+            "normalizedLabel": "prédire la réponse à l'immunothérapie",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I03:T0",
+            "sourceText": "prédire la réponse à l'immunothérapie"
+          },
+          {
+            "inventoryItemId": "inv-04",
+            "linkedInventoryItemIds": [],
+            "localRole": "biomarker",
+            "modifiers": [
+              "seul"
+            ],
+            "normalizedLabel": "SUVmax",
+            "polarity": "NEGATED",
+            "sourceMessageId": "I03:T0",
+            "sourceText": "SUVmax"
+          },
+          {
+            "inventoryItemId": "inv-05",
+            "linkedInventoryItemIds": [],
+            "localRole": "modality",
+            "modifiers": [
+              "déjà fait en routine"
+            ],
+            "normalizedLabel": "scanner",
+            "polarity": "AFFIRMED",
+            "sourceMessageId": "I03:T0",
+            "sourceText": "scanner"
+          }
+        ],
+        "explicitRelations": [
+          {
+            "inventoryRelationId": "rel-01",
+            "normalizedRelation": "OBSERVES",
+            "polarity": "AFFIRMED",
+            "sourceInventoryItemId": "inv-02",
+            "sourceMessageId": "I03:T0",
+            "sourceText": "utiliser le TEP pour prédire la réponse à l'immunothérapie",
+            "targetInventoryItemId": "inv-03"
+          },
+          {
+            "inventoryRelationId": "rel-02",
+            "normalizedRelation": "PREDICTS_CANDIDATE",
+            "polarity": "NEGATED",
+            "sourceInventoryItemId": "inv-04",
+            "sourceMessageId": "I03:T0",
+            "sourceText": "pas avec le SUVmax seul",
+            "targetInventoryItemId": "inv-03"
+          }
+        ]
+      },
+      "semanticWarnings": [],
+      "summaryForUser": "Vous souhaitez utiliser l'imagerie TEP pour prédire la réponse à l'immunothérapie sans vous limiter au SUVmax seul, en tenant compte d'un examen TDM déjà réalisé en routine.",
+      "unknowns": []
+    },
+    "critics": [
+      {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit objects (TEP, immunothérapie, SUVmax, scanner) are represented in the typed candidate elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is present in the source text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Immunotherapy is correctly represented as an intervention element.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Both TEP and scanner modalities are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit relations from the semantic inventory are covered in the typed candidate relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All elements follow the operational taxonomy rules and have compatible types.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Explicit relations are preserved faithfully without weakening.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences are improperly promoted to explicit user states.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "All constraints and modifiers are visible.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negation on SUVmax and its constraint is correctly captured with negative polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Temporal routine aspect of the scanner is captured.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcome and prediction roles are correctly assigned without unauthorized endpoint promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like SUVmax and TEP are preserved without generalization.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragment is omitted.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY correctly matches the intent to construct a predictive analysis study.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-01",
+        "criticSummary": "The semantic inventory and typed candidate fully and accurately capture all explicit elements, relations, modalities, and constraints from the user message without any taxonomic violations or omitted fragments.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      }
+    ],
+    "cycleAttempts": [
+      [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3754,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:53:35.658Z",
+          "requestStarted": "2026-08-14T08:53:31.904Z",
+          "retryable": false
+        }
+      ]
+    ],
+    "repairDiagnostics": [],
+    "terminalReason": "CRITIC_ACCEPTED_AFTER_COMPLETE_AUDIT"
+  },
+  "initialReconstruction": {
+    "ambiguities": [],
+    "candidateId": "cand-001",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Intention d'utiliser la TEP pour une application prédictive",
+        "clientElementId": "elem-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "utiliser",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Tomographie par émission de positons (TEP)",
+        "clientElementId": "elem-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "TEP",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "Réponse à l'immunothérapie",
+        "clientElementId": "elem-03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "réponse à l'immunothérapie",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "Immunothérapie",
+        "clientElementId": "elem-04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "immunothérapie",
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION"
+      },
+      {
+        "canonicalMeaning": "SUVmax",
+        "clientElementId": "elem-05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "SUVmax",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "Scanner tomodensitométrique réalisé en routine",
+        "clientElementId": "elem-06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "scanner",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "Exclusion du SUVmax seul",
+        "clientElementId": "elem-07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "pas avec le SUVmax seul",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite utiliser la TEP pour prédire la réponse à l'immunothérapie, en excluant l'utilisation du SUVmax seul, tout en sachant que le scanner a déjà été réalisé en routine.",
+    "relations": [
+      {
+        "clientRelationId": "rel-elem-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-02",
+        "targetClientElementId": "elem-03"
+      },
+      {
+        "clientRelationId": "rel-elem-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-02"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-05",
+        "targetClientElementId": "elem-03"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Définition de critères d'évaluation",
+        "Structuration des variables d'imagerie"
+      ],
+      "reason": "L'utilisateur exprime un objectif de prédiction avec des modalités spécifiques (TEP, scanner) et des contraintes sur les variables (exclusion du SUVmax seul), ce qui correspond à la conception d'une étude.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv-01",
+          "linkedInventoryItemIds": [
+            "inv-02",
+            "inv-03"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "utiliser",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "utiliser"
+        },
+        {
+          "inventoryItemId": "inv-02",
+          "linkedInventoryItemIds": [],
+          "localRole": "modality",
+          "modifiers": [],
+          "normalizedLabel": "TEP",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "TEP"
+        },
+        {
+          "inventoryItemId": "inv-03",
+          "linkedInventoryItemIds": [],
+          "localRole": "objective",
+          "modifiers": [],
+          "normalizedLabel": "prédire la réponse à l'immunothérapie",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "prédire la réponse à l'immunothérapie"
+        },
+        {
+          "inventoryItemId": "inv-04",
+          "linkedInventoryItemIds": [],
+          "localRole": "biomarker",
+          "modifiers": [
+            "seul"
+          ],
+          "normalizedLabel": "SUVmax",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "SUVmax"
+        },
+        {
+          "inventoryItemId": "inv-05",
+          "linkedInventoryItemIds": [],
+          "localRole": "modality",
+          "modifiers": [
+            "déjà fait en routine"
+          ],
+          "normalizedLabel": "scanner",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "scanner"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel-01",
+          "normalizedRelation": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "utiliser le TEP pour prédire la réponse à l'immunothérapie",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "inventoryRelationId": "rel-02",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "inv-04",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "pas avec le SUVmax seul",
+          "targetInventoryItemId": "inv-03"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Vous souhaitez utiliser l'imagerie TEP pour prédire la réponse à l'immunothérapie sans vous limiter au SUVmax seul, en tenant compte d'un examen TDM déjà réalisé en routine.",
+    "unknowns": []
+  },
+  "model": {
+    "acceptanceRecord": null,
+    "acceptedAt": null,
+    "ambiguities": [],
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "conversationMessageIds": [
+      "I03:T0"
+    ],
+    "createdAt": "2026-08-14T08:53:35.659Z",
+    "critic": {
+      "issues": [],
+      "summary": "The semantic inventory and typed candidate fully and accurately capture all explicit elements, relations, modalities, and constraints from the user message without any taxonomic violations or omitted fragments.",
+      "verdict": "ACCEPT"
+    },
+    "digest": "ke1-455de89f665b7fcb",
+    "elements": [
+      {
+        "canonicalMeaning": "SUVmax",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I03:T0",
+          "providerCallId": "gemini-call:ke1-02ae492891a8ad1c",
+          "rawElementId": "elem-05",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-290ca39c697ee258"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-1f7def6eadf55222",
+        "sourceSpan": {
+          "end": 91,
+          "messageId": "I03:T0",
+          "start": 85,
+          "text": "SUVmax"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Réponse à l'immunothérapie",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:T0",
+          "providerCallId": "gemini-call:ke1-02ae492891a8ad1c",
+          "rawElementId": "elem-03",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-290ca39c697ee258",
+          "sem-relation:ke1-642c8d273aa39d1b"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-666fd96a45c9ae0e",
+        "sourceSpan": {
+          "end": 66,
+          "messageId": "I03:T0",
+          "start": 40,
+          "text": "réponse à l'immunothérapie"
+        },
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Intention d'utiliser la TEP pour une application prédictive",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:T0",
+          "providerCallId": "gemini-call:ke1-02ae492891a8ad1c",
+          "rawElementId": "elem-01",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-92e0ee017f52ec95",
+        "sourceSpan": {
+          "end": 16,
+          "messageId": "I03:T0",
+          "start": 8,
+          "text": "utiliser"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Exclusion du SUVmax seul",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "NEGATED",
+        "provenance": {
+          "messageId": "I03:T0",
+          "providerCallId": "gemini-call:ke1-02ae492891a8ad1c",
+          "rawElementId": "elem-07",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-a72f9731ef4b67c5",
+        "sourceSpan": {
+          "end": 96,
+          "messageId": "I03:T0",
+          "start": 73,
+          "text": "pas avec le SUVmax seul"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Scanner tomodensitométrique réalisé en routine",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:T0",
+          "providerCallId": "gemini-call:ke1-02ae492891a8ad1c",
+          "rawElementId": "elem-06",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b92d3070a9b20614",
+        "sourceSpan": {
+          "end": 108,
+          "messageId": "I03:T0",
+          "start": 101,
+          "text": "scanner"
+        },
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Immunothérapie",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:T0",
+          "providerCallId": "gemini-call:ke1-02ae492891a8ad1c",
+          "rawElementId": "elem-04",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-b94e984a91422b86",
+        "sourceSpan": {
+          "end": 66,
+          "messageId": "I03:T0",
+          "start": 52,
+          "text": "immunothérapie"
+        },
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION",
+        "version": 1
+      },
+      {
+        "canonicalMeaning": "Tomographie par émission de positons (TEP)",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-02"
+        ],
+        "knowledgeSupport": {
+          "assertionRefs": [],
+          "checkedAt": null,
+          "gapRefs": [],
+          "resultRef": null,
+          "status": "NOT_CHECKED"
+        },
+        "polarity": "AFFIRMED",
+        "provenance": {
+          "messageId": "I03:T0",
+          "providerCallId": "gemini-call:ke1-02ae492891a8ad1c",
+          "rawElementId": "elem-02",
+          "source": "USER_LANGUAGE"
+        },
+        "relationships": [
+          "sem-relation:ke1-642c8d273aa39d1b"
+        ],
+        "requiresConfirmation": false,
+        "semanticElementId": "sem-element:ke1-fc23491453006d48",
+        "sourceSpan": {
+          "end": 23,
+          "messageId": "I03:T0",
+          "start": 20,
+          "text": "TEP"
+        },
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "MODALITY",
+        "version": 1
+      }
+    ],
+    "ellipses": [],
+    "executionSnapshot": {
+      "criticAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 3754,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:53:35.658Z",
+          "requestStarted": "2026-08-14T08:53:31.904Z",
+          "retryable": false
+        }
+      ],
+      "criticCallId": "gemini-call:ke1-3d7c70245ab22ba0",
+      "criticCallIds": [
+        "gemini-call:ke1-3d7c70245ab22ba0"
+      ],
+      "criticPromptVersion": "SEM-001-CRITIC-1.6",
+      "executedAt": "2026-08-14T08:53:35.659Z",
+      "model": "gemini-3.5-flash-lite",
+      "provider": "GOOGLE_GEMINI",
+      "rawCritic": {
+        "checklist": [
+          {
+            "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+            "evidence": "All explicit objects (TEP, immunothérapie, SUVmax, scanner) are represented in the typed candidate elements.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_COMPARATOR_REPRESENTED",
+            "evidence": "No explicit comparator is present in the source text.",
+            "result": "NOT_APPLICABLE"
+          },
+          {
+            "check": "EVERY_INTERVENTION_REPRESENTED",
+            "evidence": "Immunotherapy is correctly represented as an intervention element.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_MODALITY_REPRESENTED",
+            "evidence": "Both TEP and scanner modalities are fully represented.",
+            "result": "PASS"
+          },
+          {
+            "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+            "evidence": "All explicit relations from the semantic inventory are covered in the typed candidate relations.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+            "evidence": "All elements follow the operational taxonomy rules and have compatible types.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_EXPLICIT_RELATION_WEAKENED",
+            "evidence": "Explicit relations are preserved faithfully without weakening.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_INFERENCE_PROMOTED",
+            "evidence": "No inferences are improperly promoted to explicit user states.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_AMBIGUITY_HIDDEN",
+            "evidence": "All constraints and modifiers are visible.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+            "evidence": "Negation on SUVmax and its constraint is correctly captured with negative polarity.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_TIMING_LOST",
+            "evidence": "Temporal routine aspect of the scanner is captured.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+            "evidence": "Outcome and prediction roles are correctly assigned without unauthorized endpoint promotion.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+            "evidence": "Specific concepts like SUVmax and TEP are preserved without generalization.",
+            "result": "PASS"
+          },
+          {
+            "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+            "evidence": "No source fragment is omitted.",
+            "result": "PASS"
+          },
+          {
+            "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+            "evidence": "DESIGN_STUDY correctly matches the intent to construct a predictive analysis study.",
+            "result": "PASS"
+          }
+        ],
+        "criticId": "critic-01",
+        "criticSummary": "The semantic inventory and typed candidate fully and accurately capture all explicit elements, relations, modalities, and constraints from the user message without any taxonomic violations or omitted fragments.",
+        "issues": [],
+        "missingExplicitSourceFragments": [],
+        "proposedRepairs": [],
+        "verdict": "ACCEPT"
+      },
+      "rawCritics": [
+        {
+          "checklist": [
+            {
+              "check": "EVERY_EXPLICIT_OBJECT_REPRESENTED",
+              "evidence": "All explicit objects (TEP, immunothérapie, SUVmax, scanner) are represented in the typed candidate elements.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_COMPARATOR_REPRESENTED",
+              "evidence": "No explicit comparator is present in the source text.",
+              "result": "NOT_APPLICABLE"
+            },
+            {
+              "check": "EVERY_INTERVENTION_REPRESENTED",
+              "evidence": "Immunotherapy is correctly represented as an intervention element.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_MODALITY_REPRESENTED",
+              "evidence": "Both TEP and scanner modalities are fully represented.",
+              "result": "PASS"
+            },
+            {
+              "check": "EVERY_EXPLICIT_RELATION_REPRESENTED",
+              "evidence": "All explicit relations from the semantic inventory are covered in the typed candidate relations.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INCOMPATIBLE_OBJECT_TYPE",
+              "evidence": "All elements follow the operational taxonomy rules and have compatible types.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_EXPLICIT_RELATION_WEAKENED",
+              "evidence": "Explicit relations are preserved faithfully without weakening.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_INFERENCE_PROMOTED",
+              "evidence": "No inferences are improperly promoted to explicit user states.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_AMBIGUITY_HIDDEN",
+              "evidence": "All constraints and modifiers are visible.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_NEGATION_REVERSED_OR_IGNORED",
+              "evidence": "Negation on SUVmax and its constraint is correctly captured with negative polarity.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_TIMING_LOST",
+              "evidence": "Temporal routine aspect of the scanner is captured.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_UNSUPPORTED_OUTCOME_ENDPOINT_PROMOTION",
+              "evidence": "Outcome and prediction roles are correctly assigned without unauthorized endpoint promotion.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_SPECIFIC_CONCEPT_GENERALIZED",
+              "evidence": "Specific concepts like SUVmax and TEP are preserved without generalization.",
+              "result": "PASS"
+            },
+            {
+              "check": "NO_IMPORTANT_FRAGMENT_UNREPRESENTED",
+              "evidence": "No source fragment is omitted.",
+              "result": "PASS"
+            },
+            {
+              "check": "ROUTE_MATCHES_COMPLETE_SEMANTIC_MODEL",
+              "evidence": "DESIGN_STUDY correctly matches the intent to construct a predictive analysis study.",
+              "result": "PASS"
+            }
+          ],
+          "criticId": "critic-01",
+          "criticSummary": "The semantic inventory and typed candidate fully and accurately capture all explicit elements, relations, modalities, and constraints from the user message without any taxonomic violations or omitted fragments.",
+          "issues": [],
+          "missingExplicitSourceFragments": [],
+          "proposedRepairs": [],
+          "verdict": "ACCEPT"
+        }
+      ],
+      "rawReconstruction": {
+        "ambiguities": [],
+        "candidateId": "cand-001",
+        "clarificationCandidates": [],
+        "contradictions": [],
+        "elements": [
+          {
+            "canonicalMeaning": "Intention d'utiliser la TEP pour une application prédictive",
+            "clientElementId": "elem-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-01"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:T0",
+            "sourceText": "utiliser",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "SCIENTIFIC_INTENT"
+          },
+          {
+            "canonicalMeaning": "Tomographie par émission de positons (TEP)",
+            "clientElementId": "elem-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-02"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:T0",
+            "sourceText": "TEP",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          },
+          {
+            "canonicalMeaning": "Réponse à l'immunothérapie",
+            "clientElementId": "elem-03",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:T0",
+            "sourceText": "réponse à l'immunothérapie",
+            "studyRole": "OUTCOME_ROLE",
+            "supersedesElementIds": [],
+            "type": "OUTCOME"
+          },
+          {
+            "canonicalMeaning": "Immunothérapie",
+            "clientElementId": "elem-04",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-03"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:T0",
+            "sourceText": "immunothérapie",
+            "studyRole": "INTERVENTION_ARM",
+            "supersedesElementIds": [],
+            "type": "INTERVENTION"
+          },
+          {
+            "canonicalMeaning": "SUVmax",
+            "clientElementId": "elem-05",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-04"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:T0",
+            "sourceText": "SUVmax",
+            "studyRole": "MEASUREMENT",
+            "supersedesElementIds": [],
+            "type": "BIOMARKER"
+          },
+          {
+            "canonicalMeaning": "Scanner tomodensitométrique réalisé en routine",
+            "clientElementId": "elem-06",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-05"
+            ],
+            "polarity": "AFFIRMED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:T0",
+            "sourceText": "scanner",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "MODALITY"
+          },
+          {
+            "canonicalMeaning": "Exclusion du SUVmax seul",
+            "clientElementId": "elem-07",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryItemIds": [
+              "inv-04"
+            ],
+            "polarity": "NEGATED",
+            "requiresConfirmation": false,
+            "sourceMessageId": "I03:T0",
+            "sourceText": "pas avec le SUVmax seul",
+            "studyRole": "NONE",
+            "supersedesElementIds": [],
+            "type": "CONSTRAINT"
+          }
+        ],
+        "ellipses": [],
+        "knowledgeRequests": [],
+        "language": "fr",
+        "missingConcepts": [],
+        "normalizedMeaning": "L'utilisateur souhaite utiliser la TEP pour prédire la réponse à l'immunothérapie, en excluant l'utilisation du SUVmax seul, tout en sachant que le scanner a déjà été réalisé en routine.",
+        "relations": [
+          {
+            "clientRelationId": "rel-elem-01",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-01"
+            ],
+            "polarity": "AFFIRMED",
+            "relationType": "PREDICTS_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-02",
+            "targetClientElementId": "elem-03"
+          },
+          {
+            "clientRelationId": "rel-elem-02",
+            "confidence": 1,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "inferenceReason": null,
+            "inventoryRelationIds": [
+              "rel-02"
+            ],
+            "polarity": "NEGATED",
+            "relationType": "PREDICTS_CANDIDATE",
+            "requiresConfirmation": false,
+            "sourceClientElementId": "elem-05",
+            "targetClientElementId": "elem-03"
+          }
+        ],
+        "routeProposal": {
+          "confidence": 0.9,
+          "expectedCapabilities": [
+            "Définition de critères d'évaluation",
+            "Structuration des variables d'imagerie"
+          ],
+          "reason": "L'utilisateur exprime un objectif de prédiction avec des modalités spécifiques (TEP, scanner) et des contraintes sur les variables (exclusion du SUVmax seul), ce qui correspond à la conception d'une étude.",
+          "route": "DESIGN_STUDY"
+        },
+        "semanticInventory": {
+          "explicitFragments": [
+            {
+              "inventoryItemId": "inv-01",
+              "linkedInventoryItemIds": [
+                "inv-02",
+                "inv-03"
+              ],
+              "localRole": "action",
+              "modifiers": [],
+              "normalizedLabel": "utiliser",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:T0",
+              "sourceText": "utiliser"
+            },
+            {
+              "inventoryItemId": "inv-02",
+              "linkedInventoryItemIds": [],
+              "localRole": "modality",
+              "modifiers": [],
+              "normalizedLabel": "TEP",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:T0",
+              "sourceText": "TEP"
+            },
+            {
+              "inventoryItemId": "inv-03",
+              "linkedInventoryItemIds": [],
+              "localRole": "objective",
+              "modifiers": [],
+              "normalizedLabel": "prédire la réponse à l'immunothérapie",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:T0",
+              "sourceText": "prédire la réponse à l'immunothérapie"
+            },
+            {
+              "inventoryItemId": "inv-04",
+              "linkedInventoryItemIds": [],
+              "localRole": "biomarker",
+              "modifiers": [
+                "seul"
+              ],
+              "normalizedLabel": "SUVmax",
+              "polarity": "NEGATED",
+              "sourceMessageId": "I03:T0",
+              "sourceText": "SUVmax"
+            },
+            {
+              "inventoryItemId": "inv-05",
+              "linkedInventoryItemIds": [],
+              "localRole": "modality",
+              "modifiers": [
+                "déjà fait en routine"
+              ],
+              "normalizedLabel": "scanner",
+              "polarity": "AFFIRMED",
+              "sourceMessageId": "I03:T0",
+              "sourceText": "scanner"
+            }
+          ],
+          "explicitRelations": [
+            {
+              "inventoryRelationId": "rel-01",
+              "normalizedRelation": "OBSERVES",
+              "polarity": "AFFIRMED",
+              "sourceInventoryItemId": "inv-02",
+              "sourceMessageId": "I03:T0",
+              "sourceText": "utiliser le TEP pour prédire la réponse à l'immunothérapie",
+              "targetInventoryItemId": "inv-03"
+            },
+            {
+              "inventoryRelationId": "rel-02",
+              "normalizedRelation": "PREDICTS_CANDIDATE",
+              "polarity": "NEGATED",
+              "sourceInventoryItemId": "inv-04",
+              "sourceMessageId": "I03:T0",
+              "sourceText": "pas avec le SUVmax seul",
+              "targetInventoryItemId": "inv-03"
+            }
+          ]
+        },
+        "semanticWarnings": [],
+        "summaryForUser": "Vous souhaitez utiliser l'imagerie TEP pour prédire la réponse à l'immunothérapie sans vous limiter au SUVmax seul, en tenant compte d'un examen TDM déjà réalisé en routine.",
+        "unknowns": []
+      },
+      "reconstructionAttempts": [
+        {
+          "attempt": 1,
+          "category": null,
+          "httpStatus": 200,
+          "latencyMs": 6083,
+          "outcome": "SUCCESS",
+          "providerCode": null,
+          "providerError": null,
+          "providerStatus": null,
+          "requestFinished": "2026-08-14T08:53:31.880Z",
+          "requestStarted": "2026-08-14T08:53:25.797Z",
+          "retryable": false
+        }
+      ],
+      "reconstructionCallId": "gemini-call:ke1-02ae492891a8ad1c",
+      "reconstructionPromptVersion": "SEM-001-RECONSTRUCTION-1.6",
+      "schemaVersion": "SEM-001-1.1",
+      "temperature": null
+    },
+    "explicitCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-01",
+          "mappedClientElementIds": [
+            "elem-01"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "utiliser",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "utiliser"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-02",
+          "mappedClientElementIds": [
+            "elem-02"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "TEP",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "TEP"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-03",
+          "mappedClientElementIds": [
+            "elem-03",
+            "elem-04"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "prédire la réponse à l'immunothérapie",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "prédire la réponse à l'immunothérapie"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-04",
+          "mappedClientElementIds": [
+            "elem-05",
+            "elem-07"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "SUVmax",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "SUVmax"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryItemId": "inv-05",
+          "mappedClientElementIds": [
+            "elem-06"
+          ],
+          "mappedClientRelationIds": [],
+          "normalizedMeaning": "scanner",
+          "reason": "At least one source-grounded typed Semantic Element explicitly references this exact inventory fragment.",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "scanner"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "history": [],
+    "knowledgeRequests": [],
+    "knowledgeSnapshot": null,
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite utiliser la TEP pour prédire la réponse à l'immunothérapie, en excluant l'utilisation du SUVmax seul, tout en sachant que le scanner a déjà été réalisé en routine.",
+    "originalRequest": "Je veux utiliser le TEP pour prédire la réponse à l'immunothérapie, mais pas avec le SUVmax seul. Le scanner est déjà fait en routine.",
+    "previousModelId": null,
+    "relationCoverageReport": {
+      "entries": [
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-01",
+          "mappedClientRelationIds": [
+            "rel-elem-01"
+          ],
+          "normalizedRelation": "OBSERVES",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-02",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "coverageStatus": "MAPPED",
+          "inventoryRelationId": "rel-02",
+          "mappedClientRelationIds": [
+            "rel-elem-02"
+          ],
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "reason": "At least one direct Semantic Relation explicitly references this exact relational span.",
+          "sourceInventoryItemId": "inv-04",
+          "targetInventoryItemId": "inv-03"
+        }
+      ],
+      "status": "COMPLETE"
+    },
+    "relations": [
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-02"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-290ca39c697ee258",
+        "sourceElementId": "sem-element:ke1-1f7def6eadf55222",
+        "targetElementId": "sem-element:ke1-666fd96a45c9ae0e",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      },
+      {
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "semanticRelationId": "sem-relation:ke1-642c8d273aa39d1b",
+        "sourceElementId": "sem-element:ke1-fc23491453006d48",
+        "targetElementId": "sem-element:ke1-666fd96a45c9ae0e",
+        "version": 1,
+        "vocabularyStatus": "RUNTIME_CANDIDATE_RELATION"
+      }
+    ],
+    "revision": 1,
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Définition de critères d'évaluation",
+        "Structuration des variables d'imagerie"
+      ],
+      "reason": "L'utilisateur exprime un objectif de prédiction avec des modalités spécifiques (TEP, scanner) et des contraintes sur les variables (exclusion du SUVmax seul), ce qui correspond à la conception d'une étude.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticModelId": "semantic-model:ke1-ee14208a214bb85e",
+    "semanticModelVersion": "1.1",
+    "status": "CANDIDATE",
+    "summaryForUser": "Vous souhaitez utiliser l'imagerie TEP pour prédire la réponse à l'immunothérapie sans vous limiter au SUVmax seul, en tenant compte d'un examen TDM déjà réalisé en routine.",
+    "unknowns": [],
+    "updatedAt": "2026-08-14T08:53:35.659Z"
+  },
+  "pairedFirstReconstruction": true,
+  "postCriticCandidate": {
+    "ambiguities": [],
+    "candidateId": "cand-001",
+    "clarificationCandidates": [],
+    "contradictions": [],
+    "elements": [
+      {
+        "canonicalMeaning": "Intention d'utiliser la TEP pour une application prédictive",
+        "clientElementId": "elem-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-01"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "utiliser",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "SCIENTIFIC_INTENT"
+      },
+      {
+        "canonicalMeaning": "Tomographie par émission de positons (TEP)",
+        "clientElementId": "elem-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-02"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "TEP",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "Réponse à l'immunothérapie",
+        "clientElementId": "elem-03",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "réponse à l'immunothérapie",
+        "studyRole": "OUTCOME_ROLE",
+        "supersedesElementIds": [],
+        "type": "OUTCOME"
+      },
+      {
+        "canonicalMeaning": "Immunothérapie",
+        "clientElementId": "elem-04",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-03"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "immunothérapie",
+        "studyRole": "INTERVENTION_ARM",
+        "supersedesElementIds": [],
+        "type": "INTERVENTION"
+      },
+      {
+        "canonicalMeaning": "SUVmax",
+        "clientElementId": "elem-05",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "SUVmax",
+        "studyRole": "MEASUREMENT",
+        "supersedesElementIds": [],
+        "type": "BIOMARKER"
+      },
+      {
+        "canonicalMeaning": "Scanner tomodensitométrique réalisé en routine",
+        "clientElementId": "elem-06",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-05"
+        ],
+        "polarity": "AFFIRMED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "scanner",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "MODALITY"
+      },
+      {
+        "canonicalMeaning": "Exclusion du SUVmax seul",
+        "clientElementId": "elem-07",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryItemIds": [
+          "inv-04"
+        ],
+        "polarity": "NEGATED",
+        "requiresConfirmation": false,
+        "sourceMessageId": "I03:T0",
+        "sourceText": "pas avec le SUVmax seul",
+        "studyRole": "NONE",
+        "supersedesElementIds": [],
+        "type": "CONSTRAINT"
+      }
+    ],
+    "ellipses": [],
+    "knowledgeRequests": [],
+    "language": "fr",
+    "missingConcepts": [],
+    "normalizedMeaning": "L'utilisateur souhaite utiliser la TEP pour prédire la réponse à l'immunothérapie, en excluant l'utilisation du SUVmax seul, tout en sachant que le scanner a déjà été réalisé en routine.",
+    "relations": [
+      {
+        "clientRelationId": "rel-elem-01",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-01"
+        ],
+        "polarity": "AFFIRMED",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-02",
+        "targetClientElementId": "elem-03"
+      },
+      {
+        "clientRelationId": "rel-elem-02",
+        "confidence": 1,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "inferenceReason": null,
+        "inventoryRelationIds": [
+          "rel-02"
+        ],
+        "polarity": "NEGATED",
+        "relationType": "PREDICTS_CANDIDATE",
+        "requiresConfirmation": false,
+        "sourceClientElementId": "elem-05",
+        "targetClientElementId": "elem-03"
+      }
+    ],
+    "routeProposal": {
+      "confidence": 0.9,
+      "expectedCapabilities": [
+        "Définition de critères d'évaluation",
+        "Structuration des variables d'imagerie"
+      ],
+      "reason": "L'utilisateur exprime un objectif de prédiction avec des modalités spécifiques (TEP, scanner) et des contraintes sur les variables (exclusion du SUVmax seul), ce qui correspond à la conception d'une étude.",
+      "route": "DESIGN_STUDY"
+    },
+    "semanticInventory": {
+      "explicitFragments": [
+        {
+          "inventoryItemId": "inv-01",
+          "linkedInventoryItemIds": [
+            "inv-02",
+            "inv-03"
+          ],
+          "localRole": "action",
+          "modifiers": [],
+          "normalizedLabel": "utiliser",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "utiliser"
+        },
+        {
+          "inventoryItemId": "inv-02",
+          "linkedInventoryItemIds": [],
+          "localRole": "modality",
+          "modifiers": [],
+          "normalizedLabel": "TEP",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "TEP"
+        },
+        {
+          "inventoryItemId": "inv-03",
+          "linkedInventoryItemIds": [],
+          "localRole": "objective",
+          "modifiers": [],
+          "normalizedLabel": "prédire la réponse à l'immunothérapie",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "prédire la réponse à l'immunothérapie"
+        },
+        {
+          "inventoryItemId": "inv-04",
+          "linkedInventoryItemIds": [],
+          "localRole": "biomarker",
+          "modifiers": [
+            "seul"
+          ],
+          "normalizedLabel": "SUVmax",
+          "polarity": "NEGATED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "SUVmax"
+        },
+        {
+          "inventoryItemId": "inv-05",
+          "linkedInventoryItemIds": [],
+          "localRole": "modality",
+          "modifiers": [
+            "déjà fait en routine"
+          ],
+          "normalizedLabel": "scanner",
+          "polarity": "AFFIRMED",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "scanner"
+        }
+      ],
+      "explicitRelations": [
+        {
+          "inventoryRelationId": "rel-01",
+          "normalizedRelation": "OBSERVES",
+          "polarity": "AFFIRMED",
+          "sourceInventoryItemId": "inv-02",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "utiliser le TEP pour prédire la réponse à l'immunothérapie",
+          "targetInventoryItemId": "inv-03"
+        },
+        {
+          "inventoryRelationId": "rel-02",
+          "normalizedRelation": "PREDICTS_CANDIDATE",
+          "polarity": "NEGATED",
+          "sourceInventoryItemId": "inv-04",
+          "sourceMessageId": "I03:T0",
+          "sourceText": "pas avec le SUVmax seul",
+          "targetInventoryItemId": "inv-03"
+        }
+      ]
+    },
+    "semanticWarnings": [],
+    "summaryForUser": "Vous souhaitez utiliser l'imagerie TEP pour prédire la réponse à l'immunothérapie sans vous limiter au SUVmax seul, en tenant compte d'un examen TDM déjà réalisé en routine.",
+    "unknowns": []
+  },
+  "semanticCriticExecuted": true,
+  "status": "SUCCESS"
+}

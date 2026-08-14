@@ -1,0 +1,16 @@
+{
+  "controllerId": "EXP-SEM-ABLATION-02-COMMON-DIALOGUE-CONTROLLER-1.0",
+  "generatesQuestions": false,
+  "maximumClarificationsPerBranch": 2,
+  "maximumStates": ["T0", "T1", "T2"],
+  "selectionOrder": [
+    "UNANSWERED_BLOCKING_HIGH",
+    "UNANSWERED_HIGH",
+    "UNANSWERED_BLOCKING_MEDIUM",
+    "UNANSWERED_MEDIUM",
+    "FINISH"
+  ],
+  "tieBreak": "NATIVE_STABLE_ORDER",
+  "lowPrioritySelection": "FORBIDDEN_WITHOUT_DECISION_IMPACT",
+  "stopCondition": "EXPLICIT_USER_TERMINAL_ABANDON_ONLY"
+}
