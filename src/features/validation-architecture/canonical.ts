@@ -3,7 +3,7 @@ const canonicalize = (value: unknown): unknown => {
   if (value && typeof value === "object") {
     return Object.fromEntries(Object.entries(value as Record<string, unknown>)
       .filter(([, item]) => item !== undefined)
-      .sort(([left], [right]) => left.localeCompare(right))
+      .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0)
       .map(([key, item]) => [key, canonicalize(item)]));
   }
   return value;
@@ -23,7 +23,6 @@ export const validationDigest = (value: unknown) => {
   return `val1-${first.toString(16).padStart(8, "0")}${second.toString(16).padStart(8, "0")}`;
 };
 
-export const validationUniqueSorted = <T extends string>(values: readonly T[]) => [...new Set(values)].sort((left, right) => left.localeCompare(right)) as T[];
+export const validationUniqueSorted = <T extends string>(values: readonly T[]) => [...new Set(values)].sort((left, right) => left < right ? -1 : left > right ? 1 : 0) as T[];
 
-export const normalizeValidationText = (value: string) => value.normalize("NFKC").replace(/[’]/g, "'").replace(/\s+/g, " ").trim().toLocaleLowerCase("fr-FR");
-
+export const normalizeValidationText = (value: string) => value.normalize("NFKC").replace(/[’]/g, "'").replace(/\s+/g, " ").trim().toLowerCase();

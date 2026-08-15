@@ -1,6 +1,8 @@
 import { stableValidationStringify, validationDigest, validationUniqueSorted } from "./canonical";
 import { ERROR_CODE_INVARIANTS, VALIDATION_INVARIANT_IDS, getValidationInvariant } from "./invariants";
 import { getValidationPolicy, getValidator, listValidators } from "./registry";
+
+const compareCodePoints = (left: string, right: string) => left < right ? -1 : left > right ? 1 : 0;
 import type {
   ValidationElement,
   ValidationElementChange,
@@ -240,7 +242,7 @@ const executeStructuralValidation = (request: ValidationRequest, validator: Vali
   if (request.validatorType === "CROSS_PROJECTION" && (lostElements.length > 0 || strengthenedElements.length > 0 || request.context.rendererOnlyChange && request.targetArtifact.sourceArtifactRefs[0] !== request.sourceArtifact.artifactId)) addFinding("PROJECTION_DIVERGENCE", [request.sourceArtifact.artifactId], [request.targetArtifact.artifactId], "Renderer representations do not preserve the same logical projection.");
 
   const uniqueFindings = [...new Map(findings.map((finding) => [`${finding.code}:${finding.sourceRefs.join("|")}:${finding.targetRefs.join("|")}`, finding])).values()]
-    .sort((left, right) => `${left.code}:${left.findingId}`.localeCompare(`${right.code}:${right.findingId}`));
+    .sort((left, right) => compareCodePoints(`${left.code}:${left.findingId}`, `${right.code}:${right.findingId}`));
   const trace = request.expectedInvariantSet.map((invariantId, index) => {
     const invariantFindings = uniqueFindings.filter((finding) => finding.evidence.some((evidence) => evidence.invariantId === invariantId));
     return { sequence: index + 1, invariantId, outcome: invariantFindings.length > 0 ? "FAIL" as const : "PASS" as const, sourceRefs: validationUniqueSorted(invariantFindings.flatMap((finding) => finding.sourceRefs)), targetRefs: validationUniqueSorted(invariantFindings.flatMap((finding) => finding.targetRefs)), findingIds: invariantFindings.map((finding) => finding.findingId), evidence: invariantFindings.length > 0 ? `${invariantFindings.length} structured finding(s).` : "No violation detected by the selected validator contract." };

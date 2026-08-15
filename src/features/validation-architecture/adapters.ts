@@ -9,6 +9,8 @@ import type { DocumentProjection } from "@/features/document-projection/types";
 import { normalizeValidationText, validationDigest, validationUniqueSorted } from "./canonical";
 import type { ValidationArtifact, ValidationArtifactType, ValidationElement, ValidationElementKind, ValidationHumanDecision, ValidationRelation } from "./types";
 
+const compareCodePoints = (left: string, right: string) => left < right ? -1 : left > right ? 1 : 0;
+
 const unknownRef = (scope: string, value: string) => `${scope}:unknown:${validationDigest(normalizeValidationText(value))}`;
 const contradictionRef = (scope: string, value: string) => `${scope}:contradiction:${validationDigest(normalizeValidationText(value))}`;
 
@@ -42,8 +44,8 @@ export const adaptHumanDecision = (decision: HumanDecisionEnvelope): ValidationH
 const artifact = (input: Omit<ValidationArtifact, "elements" | "relations"> & { elements: ValidationElement[]; relations?: ValidationRelation[] }): ValidationArtifact => ({
   ...input,
   sourceArtifactRefs: validationUniqueSorted(input.sourceArtifactRefs),
-  elements: [...new Map(input.elements.map((item) => [item.ref, element(item)])).values()].sort((left, right) => left.ref.localeCompare(right.ref)),
-  relations: [...new Map((input.relations ?? []).map((item) => [item.ref, { ...item, sourceRefs: validationUniqueSorted(item.sourceRefs), provenanceRefs: validationUniqueSorted(item.provenanceRefs) }])).values()].sort((left, right) => left.ref.localeCompare(right.ref)),
+  elements: [...new Map(input.elements.map((item) => [item.ref, element(item)])).values()].sort((left, right) => compareCodePoints(left.ref, right.ref)),
+  relations: [...new Map((input.relations ?? []).map((item) => [item.ref, { ...item, sourceRefs: validationUniqueSorted(item.sourceRefs), provenanceRefs: validationUniqueSorted(item.provenanceRefs) }])).values()].sort((left, right) => compareCodePoints(left.ref, right.ref)),
 });
 
 const textElements = (values: readonly string[], scope: string, kind: Extract<ValidationElementKind, "UNKNOWN" | "CONTRADICTION">, owner: string, provenanceRefs: string[]) => values.map((value) => element({

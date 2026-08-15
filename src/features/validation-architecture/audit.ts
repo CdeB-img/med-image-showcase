@@ -2,6 +2,8 @@ import { stableValidationStringify, validationDigest } from "./canonical";
 import { validateTransformation } from "./engine";
 import { VALIDATION_INVARIANT_IDS } from "./invariants";
 import { VALIDATION_POLICIES, VALIDATOR_REGISTRY } from "./registry";
+
+const compareCodePoints = (left: string, right: string) => left < right ? -1 : left > right ? 1 : 0;
 import type {
   ValidationArchitectureAuditCode,
   ValidationArchitectureAuditFinding,
@@ -104,7 +106,7 @@ export const auditValidationArchitecture = (input: ValidationArchitectureAuditIn
   }
 
   const unique = [...new Map(findings.map((finding) => [`${finding.code}:${finding.subjectId}:${finding.evidenceRefs.join("|")}`, finding])).values()]
-    .sort((left, right) => `${left.code}:${left.subjectId}`.localeCompare(`${right.code}:${right.subjectId}`));
+    .sort((left, right) => compareCodePoints(`${left.code}:${left.subjectId}`, `${right.code}:${right.subjectId}`));
   const counts = {
     ERROR: unique.filter((item) => item.severity === "ERROR").length,
     WARNING: unique.filter((item) => item.severity === "WARNING").length,
@@ -119,4 +121,3 @@ export const auditValidationArchitecture = (input: ValidationArchitectureAuditIn
     boundary: "DETECTION_ONLY_NO_AUTOMATIC_FIX",
   };
 };
-
