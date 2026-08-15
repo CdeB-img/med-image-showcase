@@ -127,6 +127,7 @@ export type NextActionCandidate = {
   owner: string;
   sourceRefs: string[];
   navigationNeedRefs: string[];
+  knownOptionRefs: string[];
   affectedDecisionRefs: string[];
   affectedBranchRefs: string[];
   informationValue: InformationValueVector;

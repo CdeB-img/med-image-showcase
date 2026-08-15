@@ -86,6 +86,7 @@ export const buildNextActionCandidates = (context: QueryNavigationContext, needs
     owner: need.owner,
     sourceRefs: [need.sourceRef],
     navigationNeedRefs: [need.needId],
+    knownOptionRefs: [...need.knownOptions],
     affectedDecisionRefs: [...need.affectedDecisionRefs],
     affectedBranchRefs: [...need.affectedBranchRefs],
     informationValue: informationValueFor(need),

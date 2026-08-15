@@ -11,6 +11,7 @@ const SEMANTIC_ARRAY_KEYS = new Set([
   "findingRefs",
   "gateRefs",
   "knownOptions",
+  "knownOptionRefs",
   "decisionRefs",
   "limitations",
   "navigationNeedRefs",
