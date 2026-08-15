@@ -1,0 +1,26 @@
+{
+  "missionId": "VAL-001-PART5-LOCAL-CLOSURE",
+  "campaignId": "VAL001-CLOSURE-LOCAL-01",
+  "evidenceLevel": "LEVEL_3_CAPABILITY_VALIDATION_EVIDENCE",
+  "classification": "VISIBLE_SYNTHETIC_CONTRACT_FIXTURES_NOT_PD011_QUALIFICATION",
+  "createdAt": "2026-08-15T00:00:00.000Z",
+  "startingCommit": "103783e8349936fa73fe791b0e5b25a42baecc4b",
+  "partCommits": {
+    "part2": "f69c8727c138a71f8fd36b627ce99a763320c8dc",
+    "part3": "6f1fe1a02f09c5cf1f9e4dc9c3effadde2d7212a",
+    "part4": "103783e8349936fa73fe791b0e5b25a42baecc4b"
+  },
+  "caseCount": 60,
+  "replayPasses": 2,
+  "providerPolicy": "DISABLED_BY_DEFAULT",
+  "providerCalls": 0,
+  "freshBlindCount": 0,
+  "patientDataCount": 0,
+  "projectWritesByVal": 0,
+  "sourceMutations": 0,
+  "targetMutations": 0,
+  "autoFixes": 0,
+  "autoDecisions": 0,
+  "pd011QualificationClaimed": false,
+  "decision": "VAL001_LOCAL_CLOSURE_CAMPAIGN_PASS"
+}

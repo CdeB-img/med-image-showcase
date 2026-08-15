@@ -1,0 +1,23 @@
+{
+  "campaignId": "VAL001-CLOSURE-LOCAL-01",
+  "semanticReviewProviderPolicy": "DISABLED_BY_DEFAULT",
+  "semanticReviewCaseRequests": 12,
+  "semanticReviewsNotRequired": 10,
+  "callsAvoidedByDeterministicValidation": 0,
+  "callsDeferred": 1,
+  "fixtureSemanticReviews": 10,
+  "fixtureTechnicalTransportOperations": 2,
+  "liveSemanticCalls": 0,
+  "cacheHits": 0,
+  "equivalentCases": 3,
+  "qualifiedCases": 0,
+  "partialCases": 1,
+  "nonEquivalentCases": 3,
+  "ambiguousCases": 2,
+  "insufficientEvidenceCases": 1,
+  "invalidStructuredOutputs": 1,
+  "providerTechnicalFailures": 1,
+  "liveSemanticSmokeDecision": "LIVE_SEMANTIC_SMOKE_NOT_REQUIRED",
+  "liveSemanticReviewClassification": "LIVE_SEMANTIC_REVIEW_NOT_REQUIRED_FOR_V1_CAPABILITY_CLOSURE",
+  "semanticReviewerQualificationClaimed": false
+}

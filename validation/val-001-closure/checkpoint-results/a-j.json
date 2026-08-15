@@ -1,0 +1,19 @@
+{
+  "campaignId": "VAL001-CLOSURE-LOCAL-01",
+  "corridor": "A-J",
+  "checkpointCount": 10,
+  "results": [
+    { "checkpointId": "VAL-REQUEST-INTERPRETATION-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-INTERPRETATION-ST-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-ST-OBS-IMG-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-SCIENTIFIC-STATE-PRJ-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-PRJ-STUDY-DATA-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-STUDY-DATA-DM-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-SCIENTIFIC-STATE-BIO-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-DATA-ANALYSIS-TMP-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-TMP-DOC-001", "version": "1.0.0", "status": "COVERED" },
+    { "checkpointId": "VAL-PRJ-PRODUCT-VIEW-001", "version": "1.0.0", "status": "COVERED" }
+  ],
+  "cleanCorridor": "PASS_NO_FALSE_CRITICAL",
+  "replay": "IDENTICAL"
+}

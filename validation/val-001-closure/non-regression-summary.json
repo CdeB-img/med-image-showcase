@@ -1,0 +1,37 @@
+{
+  "campaignId": "VAL001-CLOSURE-LOCAL-01",
+  "valTests": {
+    "passed": 364,
+    "failed": 0,
+    "components": {
+      "VAL000": 26,
+      "part2": 89,
+      "part3": 95,
+      "part4": 92,
+      "part5": 62
+    }
+  },
+  "targetedCorridorSuite": {
+    "passed": 1408,
+    "failed": 0,
+    "skipped": 0,
+    "total": 1408
+  },
+  "globalSuiteWithClosureEvidence": {
+    "passed": 2070,
+    "failed": 3,
+    "skipped": 0,
+    "total": 2073,
+    "failures": "PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE editorial-engine only"
+  },
+  "typecheck": "PASS",
+  "build": "PASS",
+  "lintChangedFiles": "PASS",
+  "gitDiffCheck": "PASS",
+  "newFailuresAttributedToVal001": 0,
+  "historicalLimitationsPreserved": [
+    "DM-001 documentary validator historical inventory",
+    "BIOSTATISTICS-001 documentary validator historical inventory",
+    "three external editorial-engine cleanliness guards"
+  ]
+}

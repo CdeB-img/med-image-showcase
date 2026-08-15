@@ -1,0 +1,26 @@
+{
+  "campaignId": "VAL001-CLOSURE-LOCAL-01",
+  "status": "PASS",
+  "cases": {
+    "total": 60,
+    "passed": 60,
+    "failed": 0,
+    "skipped": 0
+  },
+  "additionalClosureAssertions": {
+    "total": 2,
+    "passed": 2
+  },
+  "checkpointFamiliesCovered": 10,
+  "invariantLevelsCovered": ["DETERMINISTIC", "SEMANTIC_REVIEW", "HUMAN_ARBITRATION"],
+  "seededViolationCasesDetected": 12,
+  "cleanCorridorFalseCriticalFindings": 0,
+  "fixtureSemanticReviewCases": 10,
+  "technicalFailureFixtureCases": 4,
+  "humanReviewCases": 3,
+  "productGateCaseExecutions": 10,
+  "uiCaseExecutions": 6,
+  "logicalReplay": "IDENTICAL",
+  "providerCalls": 0,
+  "decision": "VAL001_LOCAL_CLOSURE_CAMPAIGN_PASS"
+}

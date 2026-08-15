@@ -1,0 +1,19 @@
+{
+  "campaignId": "VAL001-CLOSURE-LOCAL-01",
+  "campaignFailures": 0,
+  "unexpectedCriticalFindings": 0,
+  "seededViolationsMissed": 0,
+  "technicalFailureFixtures": {
+    "INVALID_STRUCTURED_OUTPUT": 1,
+    "PROVIDER_UNAVAILABLE": 1,
+    "CONFIGURATION_MISMATCH": 1,
+    "STALE_RESULT": 1
+  },
+  "semanticFailuresFromTechnicalEvents": 0,
+  "knownExternalFailures": [
+    "scientific-knowledge-graph-web.test.mjs: editorial-engine cleanliness",
+    "scientific-corpus.test.mjs: editorial-engine cleanliness",
+    "scientific-multidomain.test.mjs: editorial-engine cleanliness"
+  ],
+  "knownExternalFailuresAttributedToVal001": 0
+}

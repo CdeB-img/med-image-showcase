@@ -1,0 +1,45 @@
+{
+  "configurationId": "VAL001-CLOSURE-CONFIG-1.0.0",
+  "valSchemaVersion": "1.0.0",
+  "checkpointRegistry": {
+    "id": "VAL-001-CHECKPOINT-REGISTRY",
+    "version": "1.0.0",
+    "digest": "val1-745da452f08facae",
+    "count": 10
+  },
+  "invariantRegistry": {
+    "id": "VAL-001-INVARIANT-REFERENCE-REGISTRY",
+    "version": "1.0.0",
+    "digest": "val1-4a9d5eaa744d6eee",
+    "count": 46,
+    "levels": {
+      "DETERMINISTIC": 31,
+      "SEMANTIC_REVIEW": 13,
+      "HUMAN_ARBITRATION": 2
+    }
+  },
+  "artifactAdapters": [
+    "VAL-ADAPTER-ORIGINAL-REQUEST@1.0.0",
+    "VAL-ADAPTER-SCIENTIFIC-INTERPRETATION-CONTRIBUTION@1.0.0",
+    "VAL-ADAPTER-SCIENTIFIC-THINKING@2.0.0",
+    "VAL-ADAPTER-IMAGING-OR-OBSERVATION@2.0.0",
+    "VAL-ADAPTER-RESEARCH-PROJECT@2.0.0",
+    "VAL-ADAPTER-STUDY-DATA-PLAN@1.0.0",
+    "VAL-ADAPTER-DATA-MANAGEMENT-PLAN@1.0.0",
+    "VAL-ADAPTER-BIOSTATISTICS-PLAN@1.0.0",
+    "VAL-ADAPTER-TEMPLATE-INSTANCE@2.0.0",
+    "VAL-ADAPTER-DOCUMENT-PROJECTION@2.0.0",
+    "VAL-ADAPTER-PROJECT-DATA-ANALYSIS-VIEW@1.0.0"
+  ],
+  "deterministicRunner": "VAL001-DETERMINISTIC-ENGINE@1.0.0",
+  "auditDAdapter": "VAL-AUDIT-D-ADAPTER@1.0.0",
+  "semanticReviewContract": "VAL-001-SEMANTIC-REVIEW-1.0",
+  "semanticReviewProviderPolicy": "DISABLED_BY_DEFAULT",
+  "humanReviewContract": "EXISTING_HUMAN_DECISION_ENVELOPE@1.0",
+  "productGatePolicyVersion": "1.0.0",
+  "canonicalizationVersion": "VAL001-CANONICAL-1.0.0",
+  "codeCommit": "103783e8349936fa73fe791b0e5b25a42baecc4b",
+  "auditL": "SHADOW_ONLY_NOT_PRODUCT_ACTIVE",
+  "semFull": "ARCHIVED_NOT_NOMINAL",
+  "liveSemanticSmoke": "LIVE_SEMANTIC_SMOKE_NOT_REQUIRED"
+}
