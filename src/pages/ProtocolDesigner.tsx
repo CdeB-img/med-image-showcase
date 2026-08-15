@@ -108,10 +108,11 @@ const ProtocolDesigner = () => {
         <section className="px-4 py-16 sm:py-20">
           <div className="mx-auto max-w-6xl">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">Parcours inspectable</p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight">Sept étapes, aucune décision cachée</h2>
-            <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {["Intention", "Compréhension", "Hypothèses", "Informations manquantes", "Stratégie", "Revue critique", "Rapport"].map((step, index) => <li key={step} className="rounded-xl border border-border bg-card/40 p-4"><span className="font-mono text-xs text-primary">0{index + 1}</span><span className="mt-2 block font-semibold">{step}</span></li>)}
-            </ol>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight">Un parcours adapté à l’état du projet, sans décision cachée</h2>
+            <p className="mt-4 max-w-3xl text-muted-foreground">Les dimensions du projet restent accessibles dans l’ordre utile à la recherche. La prochaine action dépend de l’état courant ; cette carte n’impose aucun chemin scientifique linéaire.</p>
+            <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {["Question et intention", "Compréhension structurée", "Hypothèses et inconnues", "Stratégies candidates", "Données et analyses", "Revue et décisions", "Documents vivants"].map((territory) => <li key={territory} className="rounded-xl border border-border bg-card/40 p-4"><span className="font-semibold">{territory}</span></li>)}
+            </ul>
             <div className="mt-10 grid gap-4 md:grid-cols-3">
               <article className="rounded-xl border border-border p-5"><h3 className="font-semibold">Scientifiques et méthodologistes</h3><p className="mt-2 text-sm text-muted-foreground">Inspecter les construits, hypothèses et dépendances avant toute formalisation.</p></article>
               <article className="rounded-xl border border-border p-5"><h3 className="font-semibold">Core Labs et équipes d’étude</h3><p className="mt-2 text-sm text-muted-foreground">Rendre visibles les informations critiques, la comparabilité et les limites.</p></article>

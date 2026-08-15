@@ -63,11 +63,32 @@ export type WorkspaceDocumentSummary = {
   projection: string;
   owner: "DOC-001";
   state: "GENERATABLE" | "PARTIALLY_GENERATABLE" | "NOT_GENERATABLE" | "BLOCKED" | "NOT_APPLICABLE";
+  generatabilitySource: "TMP_DOC";
   sourceRef: string;
+  sourceProjectRef: string;
   missing: string[];
   targetRef: string;
   projectVersion: string;
   stale: boolean;
+  freshness: "CURRENT" | "STALE" | "IMPACT_NOT_EVALUATED";
+  actionAvailability: {
+    preview: boolean;
+    generate: boolean;
+    export: boolean;
+    download: boolean;
+    commercialEntitlement: "NOT_APPLICABLE_V1";
+  };
+  limitations: string[];
+};
+
+export type WorkspaceDocumentImpact = "AFFECTED" | "UNAFFECTED_DEMONSTRATED" | "NOT_EVALUATED";
+
+export type WorkspaceDocumentFreshnessAssessment = {
+  state: WorkspaceDocumentSummary["freshness"];
+  sourceProjectVersion: string;
+  currentProjectVersion: string;
+  currentForProject: boolean;
+  reason: string;
 };
 
 export type AdaptiveResearchWorkspaceProjection = {

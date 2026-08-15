@@ -3,7 +3,7 @@ import type { ProjectDataAnalysisView } from "@/features/data-analysis-planning/
 import type { QueryNavigationProductProjection } from "@/features/query-navigation/product-contracts";
 import type { ResearchProjectDesignResult } from "@/features/research-project-construction/types";
 import type { ValidationProductSummary } from "@/features/validation-architecture/product-gates";
-import type { AdaptiveResearchWorkspaceProjection, WorkspaceAttentionItem, WorkspaceDocumentSummary, WorkspaceDomainSummary, WorkspaceSemanticState } from "./contracts";
+import type { AdaptiveResearchWorkspaceProjection, WorkspaceAttentionItem, WorkspaceDocumentFreshnessAssessment, WorkspaceDocumentImpact, WorkspaceDocumentSummary, WorkspaceDomainSummary, WorkspaceSemanticState } from "./contracts";
 import { deduplicateWorkspaceAttentionBySource } from "./interactions";
 
 const domainState = (state: ResearchProjectDesignResult["localReadiness"][number]["state"]): WorkspaceSemanticState => {
@@ -16,9 +16,17 @@ const domainState = (state: ResearchProjectDesignResult["localReadiness"][number
 
 const documentState = (availability: ResearchProjectDesignResult["projectionReadiness"][number]["availability"]): WorkspaceDocumentSummary["state"] => {
   if (availability === "READY_FOR_PROJECTION") return "GENERATABLE";
-  if (availability === "PARTIALLY_GENERATABLE") return "PARTIALLY_GENERATABLE";
+  if (availability === "PARTIALLY_GENERATABLE" || availability === "STRUCTURE_ONLY") return "PARTIALLY_GENERATABLE";
   return "NOT_GENERATABLE";
 };
+
+const documentActionAvailability = (state: WorkspaceDocumentSummary["state"]): WorkspaceDocumentSummary["actionAvailability"] => ({
+  preview: state === "GENERATABLE" || state === "PARTIALLY_GENERATABLE",
+  generate: state === "GENERATABLE",
+  export: state === "GENERATABLE",
+  download: state === "GENERATABLE",
+  commercialEntitlement: "NOT_APPLICABLE_V1",
+});
 
 const attention = (project: Readonly<ResearchProjectDesignResult>, navigation: Readonly<QueryNavigationProductProjection>, validation: Readonly<ValidationProductSummary>): WorkspaceAttentionItem[] => {
   const decisions = project.decisionsRequired.filter((item) => item.status === "PENDING").map((item) => ({
@@ -147,16 +155,24 @@ export const buildAdaptiveResearchWorkspaceProjection = (input: {
     sourceRefs: [dataAnalysis.projectionId],
     openItemCount: dataAnalysis.readiness.blockingCount + dataAnalysis.readiness.warningCount + dataAnalysis.readiness.unknownCount,
   });
-  const documents = project.projectionReadiness.map((item) => ({
-    projection: item.projection,
-    owner: "DOC-001" as const,
-    state: documentState(item.availability),
-    sourceRef: `project-projection-readiness:${item.projection}`,
-    missing: [...item.missing],
-    targetRef: `document:${item.projection.toLocaleLowerCase("fr-FR").replace(/ /g, "-")}`,
-    projectVersion: project.candidateVersion.versionId,
-    stale: false,
-  }));
+  const documents = project.projectionReadiness.map((item) => {
+    const state = documentState(item.availability);
+    return {
+      projection: item.projection,
+      owner: "DOC-001" as const,
+      state,
+      generatabilitySource: "TMP_DOC" as const,
+      sourceRef: `project-projection-readiness:${item.projection}`,
+      sourceProjectRef: project.resultId,
+      missing: [...item.missing],
+      targetRef: `document:${item.projection.toLocaleLowerCase("fr-FR").replace(/ /g, "-")}`,
+      projectVersion: project.candidateVersion.versionId,
+      stale: false,
+      freshness: "CURRENT" as const,
+      actionAvailability: documentActionAvailability(state),
+      limitations: [item.notice],
+    };
+  });
   const sourceDigests = [project.resultDigest, navigation.sourceStateDigest, dataAnalysis.projectionId, ...validation.gates.map((gate) => gate.evaluationDigest)];
   const workspaceProjectionId = `adaptive-research-workspace:${logicalDigest({ project: project.resultId, version: project.candidateVersion.versionId, sourceDigests })}`;
   return {
@@ -218,6 +234,41 @@ export const inspectWorkspaceProjectionFreshness = (projection: Readonly<Adaptiv
   expectedProjectVersion: project.candidateVersion.versionId,
   observedProjectVersion: projection.sourceProjectVersion,
 });
+
+export const inspectWorkspaceDocumentFreshness = (
+  document: Readonly<WorkspaceDocumentSummary>,
+  currentProjectVersion: string,
+  impact: WorkspaceDocumentImpact,
+): WorkspaceDocumentFreshnessAssessment => {
+  if (document.projectVersion === currentProjectVersion) return {
+    state: "CURRENT",
+    sourceProjectVersion: document.projectVersion,
+    currentProjectVersion,
+    currentForProject: true,
+    reason: "La projection est liée à la version courante du Research Project.",
+  };
+  if (impact === "UNAFFECTED_DEMONSTRATED") return {
+    state: "CURRENT",
+    sourceProjectVersion: document.projectVersion,
+    currentProjectVersion,
+    currentForProject: true,
+    reason: "L’absence d’impact sur cette projection est démontrée par le propriétaire du changement.",
+  };
+  if (impact === "AFFECTED") return {
+    state: "STALE",
+    sourceProjectVersion: document.projectVersion,
+    currentProjectVersion,
+    currentForProject: false,
+    reason: "Le changement du Research Project affecte cette projection ; une reconstruction est requise.",
+  };
+  return {
+    state: "IMPACT_NOT_EVALUATED",
+    sourceProjectVersion: document.projectVersion,
+    currentProjectVersion,
+    currentForProject: false,
+    reason: "L’impact de la nouvelle version du Research Project sur cette projection n’a pas encore été évalué.",
+  };
+};
 
 export const computeWorkspaceVisibility = (mode: "STANDARD" | "EXPERT") => ({
   projectSummary: true,
