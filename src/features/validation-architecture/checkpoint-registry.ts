@@ -64,10 +64,10 @@ export const inspectCheckpointApplicability = (
   },
 ): CheckpointApplicability => {
   const base = { checkpointId: checkpoint.checkpointId, checkpointVersion: checkpoint.version, decisionsRequired: [...(input.decisionsRequired ?? [])], limitations: [...checkpoint.limitations, ...(input.limitations ?? [])] };
-  if (!input.sourceArtifact) return { ...base, status: "MISSING_SOURCE", reason: "Required source artifact is absent.", missingArtifacts: [...checkpoint.sourceArtifactTypes] };
-  if (!input.targetArtifact) return { ...base, status: "MISSING_TARGET", reason: "Required target artifact is absent.", missingArtifacts: [...checkpoint.targetArtifactTypes] };
   if (input.realizedTimeRequired) return { ...base, status: "NOT_APPLICABLE", reason: "DEFERRED_TO_REALIZED_TIME", missingArtifacts: [] };
   if (input.notApplicable) return { ...base, status: "NOT_APPLICABLE", reason: "The source contract explicitly marks this checkpoint NOT_APPLICABLE.", missingArtifacts: [] };
+  if (!input.sourceArtifact) return { ...base, status: "MISSING_SOURCE", reason: "Required source artifact is absent.", missingArtifacts: [...checkpoint.sourceArtifactTypes] };
+  if (!input.targetArtifact) return { ...base, status: "MISSING_TARGET", reason: "Required target artifact is absent.", missingArtifacts: [...checkpoint.targetArtifactTypes] };
   if (!checkpoint.sourceArtifactTypes.includes(input.sourceArtifact.artifactType) || !checkpoint.targetArtifactTypes.includes(input.targetArtifact.artifactType)) return { ...base, status: "NOT_READY", reason: "Artifact types do not match the checkpoint contract.", missingArtifacts: [] };
   if (input.notReady || checkpoint.implementationStatus !== "CONTRACT_READY") return { ...base, status: "NOT_READY", reason: "The checkpoint is not ready for execution.", missingArtifacts: [] };
   return { ...base, status: "APPLICABLE", reason: "The declared design-time source and target are available.", missingArtifacts: [] };

@@ -35,9 +35,19 @@ export const VALIDATION_PLANES = [
 export const VALIDATION_EVALUATION_LEVELS = ["DETERMINISTIC", "SEMANTIC_REVIEW", "HUMAN_ARBITRATION"] as const;
 export const VALIDATION_OBSERVATION_TYPES = ["PRESERVED", "ADDED", "LOST", "WEAKENED", "STRENGTHENED", "TRANSFORMED", "NON_MAPPED", "CONFLICT", "NOT_APPLICABLE", "NOT_EVALUABLE"] as const;
 export const VALIDATION_DISPOSITIONS = ["CONTINUE", "CONTINUE_WITH_WARNING", "REQUIRE_REVIEW", "REQUIRE_CLARIFICATION", "REQUIRE_DOMAIN_OWNER", "REQUIRE_HUMAN_DECISION", "BLOCK_HANDOFF", "FAIL_CLOSED", "NOT_APPLICABLE", "NOT_EVALUABLE"] as const;
-export const VALIDATION_TECHNICAL_STATUSES = ["SUCCESS", "ADAPTER_FAILURE", "SCHEMA_FAILURE", "MISSING_ARTIFACT", "DIGEST_FAILURE", "INTERNAL_ERROR", "NOT_RUN"] as const;
+export const VALIDATION_TECHNICAL_STATUSES = ["SUCCESS", "ADAPTER_FAILURE", "SCHEMA_FAILURE", "MISSING_ARTIFACT", "DIGEST_FAILURE", "DOMAIN_VALIDATOR_FAILURE", "INTERNAL_ERROR", "NOT_RUN"] as const;
 export const VALIDATION_SEMANTIC_STATUSES = ["NOT_RUN", "NO_FINDING", "FINDINGS_PRESENT", "REVIEW_REQUIRED", "NOT_EVALUABLE", "NOT_APPLICABLE"] as const;
-export const VALIDATION_RUN_STATUSES = ["PENDING", "COMPLETE", "INCOMPLETE"] as const;
+export const VALIDATION_RUN_STATUSES = [
+  "PENDING",
+  "COMPLETE",
+  "COMPLETE_WITH_FINDINGS",
+  "PENDING_SEMANTIC_REVIEW",
+  "PENDING_HUMAN_REVIEW",
+  "INCOMPLETE",
+  "NOT_APPLICABLE",
+  "NOT_EVALUABLE",
+  "TECHNICAL_FAILURE",
+] as const;
 export const VALIDATION_CHECKPOINT_IMPLEMENTATION_STATUSES = ["CONTRACT_READY", "IMPLEMENTATION_PENDING", "NOT_APPLICABLE_V1"] as const;
 export const VALIDATION_IDENTITY_MATCHES = ["EXACT", "VERSION_DIFFERENT", "DIFFERENT_ID", "MISSING"] as const;
 export const SEMANTIC_EQUIVALENCE_ASSESSMENTS = ["NOT_REQUIRED", "PENDING", "EQUIVALENT", "PARTIALLY_EQUIVALENT", "NOT_EQUIVALENT", "AMBIGUOUS", "NOT_EVALUABLE"] as const;
@@ -363,8 +373,13 @@ export type ValidationRun = {
   status: ValidationRunStatus;
   historicalValidationStatus: ValidationStatus;
   checkpointRef: { checkpointId: string; version: string };
-  sourceArtifactRef: ValidationArtifactReference;
-  targetArtifactRef: ValidationArtifactReference;
+  sourceArtifactRef: ValidationArtifactReference | null;
+  targetArtifactRef: ValidationArtifactReference | null;
+  sourceSnapshotDigest?: string | null;
+  targetSnapshotDigest?: string | null;
+  applicability?: CheckpointApplicability;
+  previousRunRef?: string | null;
+  reasonForRevalidation?: string | null;
   invariantRefs: string[];
   adapterVersions: Array<{ adapterId: string; version: string }>;
   validatorVersions: Array<{ validatorId: string; version: string }>;
@@ -392,6 +407,78 @@ export type ValidationRun = {
   autoDecisionAllowed: false;
   pd011QualificationClaimed: false;
   boundary: "DIAGNOSTIC_ONLY_NO_SOURCE_OR_TARGET_MUTATION";
+};
+
+export type ValidationCheckpointExecutionInput = {
+  request: ValidationRunRequest;
+  source?: unknown;
+  target?: unknown;
+  sourceSnapshot?: ValidationArtifactSnapshot | null;
+  targetSnapshot?: ValidationArtifactSnapshot | null;
+  artifactSet?: ValidationArtifactSnapshot[];
+  domainValidationProviders?: DomainValidationProvider[];
+  notApplicable?: boolean;
+  realizedTimeRequired?: boolean;
+  notReady?: boolean;
+  decisionsRequired?: string[];
+  forceHumanReviewInvariantRefs?: string[];
+  limitations?: string[];
+  technicalTimestamp?: string;
+};
+
+export type DomainValidationExecutionFailure = {
+  providerId: string;
+  validatorVersion: string;
+  errorClass: string;
+  affectedInvariantRefs: string[];
+  checkpointId: string;
+};
+
+export type DomainValidationExecutionResult = {
+  observations: ValidationObservation[];
+  findings: ValidationProductFinding[];
+  validatorVersions: Array<{ validatorId: string; version: string }>;
+  failures: DomainValidationExecutionFailure[];
+};
+
+export type ValidationFindingTrace = {
+  sourceFindingRef: string;
+  downstreamFindingRef: string | null;
+  status: "PRESERVED" | "RESOLUTION_EVIDENCE_PRESENT" | "RESOLUTION_NOT_PROVEN" | "NOT_APPLICABLE";
+  evidenceRefs: string[];
+};
+
+export type CorridorValidationDisposition = "CONTINUE" | "CONTINUE_WITH_REVIEW" | "BLOCKED" | "NOT_EVALUABLE";
+
+export type CorridorValidationSummary = {
+  corridorId: string;
+  checkpointRunRefs: string[];
+  completeCount: number;
+  findingsCountBySeverity: Record<ValidationSeverity, number>;
+  pendingSemanticReviewCount: number;
+  pendingHumanReviewCount: number;
+  blockedCheckpointRefs: string[];
+  notEvaluableCheckpointRefs: string[];
+  technicalFailureRefs: string[];
+  productGateImpactRefs: string[];
+  disposition: CorridorValidationDisposition;
+  limitations: string[];
+  generatedAt: string;
+  summaryDigest: string;
+  projectionOnly: true;
+  scientificQualificationClaimed: false;
+};
+
+export type ValidationCorridorRequest = {
+  corridorId: string;
+  checkpoints: ValidationCheckpointExecutionInput[];
+  dependencyPolicy?: Partial<Record<string, string[]>>;
+  generatedAt?: string;
+};
+
+export type ValidationCorridorResult = {
+  runs: ValidationRun[];
+  summary: CorridorValidationSummary;
 };
 
 export type DomainValidationProvider<TSource = ValidationArtifactSnapshot, TTarget = ValidationArtifactSnapshot> = {

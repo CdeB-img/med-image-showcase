@@ -13,3 +13,4 @@ export * from "./checkpoint-registry";
 export * from "./product-adapters";
 export * from "./audit-d-adapter";
 export * from "./contract-validation";
+export * from "./deterministic-engine";

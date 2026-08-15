@@ -61,11 +61,14 @@ export const finalizeValidationArtifactSnapshot = (snapshot: Omit<ValidationArti
 };
 
 export const computeValidationRunConfigurationDigest = (run: Pick<ValidationRun,
-  "checkpointRef" | "sourceArtifactRef" | "targetArtifactRef" | "invariantRefs" | "adapterVersions" | "validatorVersions" | "semanticReviewPolicy" | "humanReviewPolicy" | "canonicalizationVersion"
+  "checkpointRef" | "sourceArtifactRef" | "targetArtifactRef" | "sourceSnapshotDigest" | "targetSnapshotDigest" | "applicability" | "invariantRefs" | "adapterVersions" | "validatorVersions" | "semanticReviewPolicy" | "humanReviewPolicy" | "canonicalizationVersion"
 >) => validationDigest(cloneCanonical({
   checkpointRef: run.checkpointRef,
   sourceArtifactRef: run.sourceArtifactRef,
   targetArtifactRef: run.targetArtifactRef,
+  sourceSnapshotDigest: run.sourceSnapshotDigest ?? null,
+  targetSnapshotDigest: run.targetSnapshotDigest ?? null,
+  applicability: run.applicability ?? null,
   invariantRefs: run.invariantRefs,
   adapterVersions: run.adapterVersions,
   validatorVersions: run.validatorVersions,
