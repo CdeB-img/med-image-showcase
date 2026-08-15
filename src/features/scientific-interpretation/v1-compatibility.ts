@@ -57,11 +57,15 @@ const V1_TYPE_MAP: Record<string, InterpretedFieldKey> = {
   STUDY_SETTING: "centers",
   MODALITY: "availableEquipment",
   IMAGING_MODALITY: "availableEquipment",
-  METHOD: "availableEquipment",
+  IMAGING_METHOD: "availableEquipment",
   CONSTRAINT: "constraints",
   TIMING: "declaredTimings",
   TEMPORAL_ELEMENT: "declaredTimings",
 };
+
+const v1FieldFor = (contribution: ScientificInterpretationContributionEnvelope, item: ScientificContributionItem) => item.proposedType === "METHOD" && contribution.identity.runtimeId === "LEGACY_SEM_FULL"
+  ? "availableEquipment" as const
+  : item.proposedType ? V1_TYPE_MAP[item.proposedType] : undefined;
 
 const confidence = (value: number | null): ConfidenceLevel => value === null ? "UNKNOWN" : value >= 0.85 ? "HIGH" : value >= 0.6 ? "MEDIUM" : value > 0 ? "LOW" : "UNKNOWN";
 const origin = (items: ScientificContributionItem[]): EvidenceOrigin => items.every((item) => item.epistemicBoundary.epistemicStatus === "EXPLICIT_USER_STATED")
@@ -101,7 +105,7 @@ export const projectScientificContributionToV1 = (
   const eligible = active.filter((item) => ["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER"].includes(item.epistemicBoundary.epistemicStatus ?? ""));
   const grouped = new Map<InterpretedFieldKey, ScientificContributionItem[]>();
   eligible.forEach((item) => {
-    const key = item.proposedType ? V1_TYPE_MAP[item.proposedType] : undefined;
+    const key = v1FieldFor(contribution, item);
     if (key) grouped.set(key, [...(grouped.get(key) ?? []), item]);
   });
   const decisionComplete = !contribution.decisionBoundary.decisionRequired;
@@ -130,7 +134,7 @@ export const projectScientificContributionToV1 = (
 
   const losses: LegacyProjectionLoss[] = [];
   allItems(contribution).forEach((item) => {
-    if (!item.proposedType || !V1_TYPE_MAP[item.proposedType]) losses.push({ code: "LEGACY_PROJECTION_LOSS", itemId: item.itemId, reason: `V1 has no field for runtime type ${item.proposedType ?? "ABSENT"}; source remains in interpretationTrace.`, critical: false });
+    if (!v1FieldFor(contribution, item)) losses.push({ code: "LEGACY_PROJECTION_LOSS", itemId: item.itemId, reason: `V1 has no field for runtime type ${item.proposedType ?? "ABSENT"}; source remains in interpretationTrace.`, critical: false });
     if (item.epistemicBoundary.activeState === false || item.epistemicBoundary.epistemicStatus === "REJECTED_BY_USER" || (item.previousItemIds?.length ?? 0) > 0) losses.push({ code: "LEGACY_PROJECTION_LOSS", itemId: item.itemId, reason: "Rejected or superseded state cannot be expressed in V1 fields; it remains reconstructible in interpretationTrace.", critical: false });
     if (item.availabilityClaim || item.availabilityScope) losses.push({ code: "LEGACY_PROJECTION_LOSS", itemId: item.itemId, reason: "Fine-grained availability is not expressible in V1 fields; source values remain in interpretationTrace.", critical: false });
   });
@@ -157,7 +161,7 @@ export const projectScientificContributionToV1 = (
     routeConfidence: confidence(contribution.scientificContent.routeProposal?.confidence ?? null),
     routeReasons: contribution.scientificContent.routeProposal?.reason ? [contribution.scientificContent.routeProposal.reason] : [],
     centralScientificObject: central?.content ?? contribution.scientificContent.normalizedUnderstanding ?? contribution.source.originalRequest,
-    preservedScientificTerms: [...new Set(eligible.filter((item) => ["SCIENTIFIC_OBJECT", "PHENOMENON", "CONDITION", "CLINICAL_CONDITION", "BIOMARKER", "MODALITY", "IMAGING_MODALITY", "METHOD", "INTERVENTION", "COMPARATOR"].includes(item.proposedType ?? "")).map((item) => item.content))],
+    preservedScientificTerms: [...new Set(eligible.filter((item) => ["SCIENTIFIC_OBJECT", "PHENOMENON", "CONDITION", "CLINICAL_CONDITION", "BIOMARKER", "MODALITY", "IMAGING_MODALITY", "IMAGING_METHOD", "INTERVENTION", "COMPARATOR"].includes(item.proposedType ?? "") || item.proposedType === "METHOD" && contribution.identity.runtimeId === "LEGACY_SEM_FULL").map((item) => item.content))],
     detectedRelationships: relationLabels,
     workingHypotheses: active.filter((item) => ["ASSUMPTION", "EXPECTED_DIRECTION"].includes(item.proposedType ?? "")).map((item) => item.content),
     missingInformation: interpretation.missingInformation,

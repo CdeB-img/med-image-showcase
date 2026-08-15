@@ -25,6 +25,14 @@ const methodsFromText = (text: string) => {
   return detected.filter((term) => term !== "CT" || !detected.includes("CT spectral"));
 };
 
+const methodAlreadyRepresented = (method: string, declared: readonly string[]) => {
+  const normalizedMethod = normalizeScientificText(method).toLocaleLowerCase("fr-FR");
+  return declared.some((value) => {
+    const normalizedValue = normalizeScientificText(value).toLocaleLowerCase("fr-FR");
+    return normalizedValue === normalizedMethod || new RegExp(`(^|[^\\p{L}\\p{N}])${normalizedMethod.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}([^\\p{L}\\p{N}]|$)`, "u").test(normalizedValue);
+  });
+};
+
 const supportFromKnowledge = (result: KnowledgeResult | null): KnowledgeSupport => {
   if (!result) return "UNAVAILABLE";
   if (result.coverageStatus === "SUPPORTED") return "SUPPORTED";
@@ -63,6 +71,8 @@ export const buildScientificThinkingInput = (
     label: item.preferredLabel,
     status: item.kind === "UNKNOWN" || item.kind === "AMBIGUOUS" ? "UNRESOLVED" as const : "RESOLVED" as const,
   })) ?? scientificObjectTerms.map((term) => ({ conceptId: `unresolved:${logicalDigest(term)}`, label: term, status: "UNRESOLVED" as const }));
+  const declaredMethods = asValues(intent, "availableEquipment");
+  const textMethods = methodsFromText(`${source} ${intent.validatedReformulation}`).filter((method) => !methodAlreadyRepresented(method, declaredMethods));
   const result: ScientificThinkingInput = {
     contractVersion: SCIENTIFIC_THINKING_ENGINE_VERSION,
     requestId: `scientific-thinking-request:${logicalDigest(material)}`,
@@ -90,8 +100,8 @@ export const buildScientificThinkingInput = (
     phenomena: uniqueSorted(asValues(intent, "phenomenaOfInterest")),
     outcomes: uniqueSorted(asValues(intent, "outcomesMentioned")),
     methodsMentioned: uniqueSorted([
-      ...methodsFromText(`${source} ${intent.validatedReformulation}`),
-      ...asValues(intent, "availableEquipment"),
+      ...textMethods,
+      ...declaredMethods,
     ]),
     scientificPurpose: uniqueSorted(asValues(intent, "scientificPurpose")),
     context: uniqueSorted(asValues(intent, "clinicalContext")),

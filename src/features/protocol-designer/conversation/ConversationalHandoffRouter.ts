@@ -104,7 +104,7 @@ export type ConversationalTypedSemanticHandoff = {
   ownershipTransferred: false;
 };
 
-const semanticKindFor = (item: ScientificContributionItem): ConversationalSemanticKind => ({
+const semanticKindFor = (item: ScientificContributionItem, runtimeId: string): ConversationalSemanticKind => ({
   SCIENTIFIC_INTENT: "SCIENTIFIC_INTENT",
   OPERATION: "SCIENTIFIC_INTENT",
   GOAL: "SCIENTIFIC_INTENT",
@@ -118,7 +118,7 @@ const semanticKindFor = (item: ScientificContributionItem): ConversationalSemant
   STUDY_DESIGN: "STUDY_DESIGN",
   MODALITY: "IMAGING_MODALITY",
   IMAGING_MODALITY: "IMAGING_MODALITY",
-  METHOD: "IMAGING_METHOD",
+  METHOD: runtimeId === "LEGACY_SEM_FULL" ? "IMAGING_METHOD" : "UNCLASSIFIED_CANDIDATE",
   IMAGING_METHOD: "IMAGING_METHOD",
   BIOMARKER: "BIOLOGICAL_MEASUREMENT",
   BIOLOGICAL_BIOMARKER: "BIOLOGICAL_MEASUREMENT",
@@ -164,7 +164,7 @@ export const buildConversationalSemanticHandoff = (
   scientificElements: uniqueItems(contribution).map((item) => ({
     itemId: item.itemId,
     semanticIdentity: item.semanticIdentity,
-    semanticKind: semanticKindFor(item),
+    semanticKind: semanticKindFor(item, contribution.identity.runtimeId),
     sourceType: item.proposedType,
     content: item.content,
     polarity: item.polarity,
