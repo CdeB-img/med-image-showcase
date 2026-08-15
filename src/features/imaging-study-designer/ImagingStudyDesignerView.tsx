@@ -8,6 +8,7 @@ import {
   setImagingDecisionAuthority,
 } from "./session";
 import type { HumanReviewState, ImagingDesignSession, SupportState } from "./types";
+import ImagingStudyDesignerStandardView from "./ImagingStudyDesignerStandardView";
 
 const STAGES = ["Phénomènes", "Biomarqueurs", "Modalités", "Acquisitions", "Faisabilité technique", "QA", "Analyse", "Stratégie Imaging"] as const;
 const supportLabel: Record<SupportState, string> = {
@@ -28,9 +29,11 @@ type Props = {
   onReturnToScientificThinking: () => void;
   onExploreKnowledge?: () => void;
   onProjectConstructionHandoff: () => void;
+  mode?: "STANDARD" | "EXPERT";
 };
 
-export default function ImagingStudyDesignerView({ session, onChange, onReturnToScientificThinking, onExploreKnowledge, onProjectConstructionHandoff }: Props) {
+export default function ImagingStudyDesignerView({ session, onChange, onReturnToScientificThinking, onExploreKnowledge, onProjectConstructionHandoff, mode = "EXPERT" }: Props) {
+  const [showExpert, setShowExpert] = useState(false);
   const [stage, setStage] = useState(0);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [decisionActor, setDecisionActor] = useState("");
@@ -61,7 +64,10 @@ export default function ImagingStudyDesignerView({ session, onChange, onReturnTo
     </Card>
   </div>;
 
+  if (mode === "STANDARD" && !showExpert) return <ImagingStudyDesignerStandardView session={session} onChange={onChange} onProjectConstructionHandoff={onProjectConstructionHandoff} onShowExpert={() => setShowExpert(true)} />;
+
   return <div className="mt-8 min-w-0" data-testid="imaging-study-designer">
+    {mode === "STANDARD" && <div className="mb-4 flex justify-end"><button type="button" onClick={() => setShowExpert(false)} className="min-h-10 rounded-lg border px-3 py-2 text-sm">Revenir au mode Standard</button></div>}
     <Card className="border-primary/40">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">

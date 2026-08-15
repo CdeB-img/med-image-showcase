@@ -59,6 +59,14 @@ export type WorkspaceDomainSummary = {
   openItemCount: number;
 };
 
+export type WorkspaceProjectSection = {
+  sectionId: "QUESTION" | "HYPOTHESES" | "POPULATION" | "DESIGN" | "IMAGING" | "VARIABLES" | "ANALYSIS";
+  label: string;
+  state: WorkspaceSemanticState;
+  summary: string;
+  targetRef: string;
+};
+
 export type WorkspaceDocumentSummary = {
   projection: string;
   owner: "DOC-001";
@@ -101,6 +109,8 @@ export type AdaptiveResearchWorkspaceProjection = {
     question: string;
     state: WorkspaceSemanticState;
     designSummary: string;
+    sections: WorkspaceProjectSection[];
+    recentChanges: string[];
     branchRefs: string[];
     limitations: string[];
   };

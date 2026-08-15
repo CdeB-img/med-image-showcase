@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+#demo-main[data-standard-orientation="true"] nav[aria-label="Progression de la conversation"],
+#demo-main[data-standard-workspace="true"] nav[aria-label="Progression de la conversation"] {
+  display: none;
+}
+
 /* Design system - Dark/Tech Medical Imaging Portfolio
    All colors in HSL format */
 

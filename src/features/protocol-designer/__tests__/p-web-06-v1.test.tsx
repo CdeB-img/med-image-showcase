@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -123,6 +123,7 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
   it("renders the Knowledge Assistant as a specialized workspace", async () => {
     storeWorkspace("UNDERSTAND");
     await resume();
+    fireEvent.click(within(screen.getByLabelText("Niveau de détail de l’espace scientifique")).getByRole("button", { name: "Expert" }));
     expect(screen.getByRole("heading", { name: "Comprendre une question scientifique" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Comprendre OEF" })).toBeInTheDocument();
     expect(screen.getByText(/Votre question porte sur OEF/)).toBeInTheDocument();
@@ -133,6 +134,7 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
   it("preserves the object when moving from understanding to formalization", async () => {
     storeWorkspace("UNDERSTAND");
     await resume();
+    fireEvent.click(within(screen.getByLabelText("Niveau de détail de l’espace scientifique")).getByRole("button", { name: "Expert" }));
     fireEvent.click(screen.getByRole("button", { name: "Formaliser une question à partir de cette compréhension" }));
     await waitFor(() => expect(screen.getByRole("heading", { name: "Transformer une idée en question scientifique" })).toBeInTheDocument());
     expect(screen.getByRole("heading", { name: "Questions scientifiques candidates" })).toBeInTheDocument();
@@ -142,6 +144,7 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
   it("exposes all eight Imaging stages when the scientific guard allows the direct Imaging route", async () => {
     storeWorkspace("DESIGN_STUDY", true);
     await resume();
+    fireEvent.click(within(screen.getByLabelText("Niveau de détail de l’espace scientifique")).getByRole("button", { name: "Expert" }));
     expect(await screen.findByText("Étape 1 sur environ 8")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "8. Stratégie Imaging" }));
     expect(screen.getByRole("heading", { name: "Stratégie Imaging" })).toBeInTheDocument();

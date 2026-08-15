@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import AdaptiveResearchWorkspace from "@/features/adaptive-research-workspace/AdaptiveResearchWorkspace";
+import type { WorkspaceMode } from "@/features/adaptive-research-workspace/contracts";
 import { buildAdaptiveResearchWorkspaceProjection } from "@/features/adaptive-research-workspace/projection";
 import WorkspaceNextActionInteraction from "@/features/adaptive-research-workspace/WorkspaceNextActionInteraction";
 import DataAnalysisPlanningView from "@/features/data-analysis-planning/DataAnalysisPlanningView";
@@ -33,6 +34,7 @@ type Props = {
 
 export default function ResearchProjectConstructionView({ session, onChange, onReturnToScientificThinking, onReturnToImaging, onExploreKnowledge, onOpenDocument }: Props) {
   const [stage, setStage] = useState(0);
+  const [workspaceMode, setWorkspaceMode] = useState<WorkspaceMode>("STANDARD");
   const [actor, setActor] = useState("");
   const [mandate, setMandate] = useState("");
   const [reason, setReason] = useState("");
@@ -52,6 +54,7 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
   }), [dataAnalysisProjection, navigationProjection, result, validationSummary]);
 
   const openWorkspaceTarget = (targetRef: string) => {
+    setWorkspaceMode("EXPERT");
     if (targetRef.includes("data-analysis") || targetRef.includes("BIOSTATISTICS") || targetRef.includes("DATA_MANAGEMENT")) setStage(7);
     else if (targetRef.includes("document") || targetRef.includes("projection")) setStage(8);
     else if (targetRef.includes("decision")) setStage(2);
@@ -89,6 +92,23 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
     revisions: session.revisions + 1,
   });
 
+  const contextualHumanDecision = navigationProjection.selectedAction?.actionCategory === "REQUEST_HUMAN_DECISION" && currentDecision ? <Card className="mt-5 border-primary/40" aria-labelledby="standard-human-decision-title">
+    <p className="text-xs font-semibold uppercase tracking-wide text-primary">Décision requise maintenant</p>
+    <h4 id="standard-human-decision-title" className="mt-2 text-xl font-semibold">{currentDecision.label}</h4>
+    <p className="mt-2 text-sm text-muted-foreground">{currentDecision.reason}</p>
+    <p className="mt-3 text-sm">Cette décision engage le Research Project. Votre identité décisionnelle et le mandat applicable sont donc nécessaires à ce moment précis.</p>
+    <label htmlFor="standard-project-decision-actor" className="mt-4 block text-sm font-medium">Qui prend cette décision ?</label>
+    <input id="standard-project-decision-actor" value={actor} onChange={(event) => setActor(event.target.value.slice(0, 100))} className="mt-2 w-full rounded-lg border bg-background px-3 py-2" />
+    <label htmlFor="standard-project-decision-mandate" className="mt-4 block text-sm font-medium">Dans quel cadre cette personne peut-elle décider ?</label>
+    <input id="standard-project-decision-mandate" value={mandate} onChange={(event) => setMandate(event.target.value.slice(0, 160))} className="mt-2 w-full rounded-lg border bg-background px-3 py-2" />
+    <label htmlFor="standard-project-decision-reason" className="mt-4 block text-sm font-medium">Pourquoi retenez-vous ou écartez-vous cette proposition ?</label>
+    <textarea id="standard-project-decision-reason" value={reason} onChange={(event) => setReason(event.target.value.slice(0, 500))} className="mt-2 min-h-24 w-full rounded-lg border bg-background p-3" />
+    <div className="mt-4 flex flex-wrap gap-2"><button type="button" disabled={!actor.trim() || !mandate.trim() || !reason.trim() || (currentDecision.gateId === "PRJ-GATE-STUDY-DESIGN" && !selectedCandidateId) || (currentDecision.gateId === "PRJ-GATE-PRIMARY-ENDPOINT" && !selectedPrimaryEndpointId)} onClick={() => decide("APPROVED")} className="rounded-lg bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">Adopter cette décision</button><button type="button" disabled={!actor.trim() || !mandate.trim() || !reason.trim()} onClick={() => decide("REJECTED")} className="rounded-lg border px-4 py-2 disabled:opacity-50">Cette proposition ne correspond pas au projet</button></div>
+    {(!actor.trim() || !mandate.trim() || !reason.trim()) && <p className="mt-2 text-xs text-muted-foreground">Renseignez la personne décisionnaire, son cadre de décision et la justification pour rendre l’action disponible.</p>}
+    {currentDecision.gateId === "PRJ-GATE-STUDY-DESIGN" && !selectedCandidateId && <p className="mt-2 text-xs text-muted-foreground">Un plan doit d’abord être proposé à cette décision.</p>}
+    {currentDecision.gateId === "PRJ-GATE-PRIMARY-ENDPOINT" && !selectedPrimaryEndpointId && <p className="mt-2 text-xs text-muted-foreground">Un critère principal doit d’abord être proposé à cette décision.</p>}
+  </Card> : null;
+
   if (result.refusal) return <div className="mt-8" data-testid="research-project-construction" role="alert">
     <Card className="border-amber-500/50"><Pill warning>Construction suspendue</Pill><h2 className="mt-3 text-2xl font-bold">Le projet ne peut pas être complété artificiellement.</h2><p className="mt-3">{result.refusal.reason}</p><p className="mt-2 text-sm text-muted-foreground">Pour reprendre : {result.refusal.resumeCondition}</p><div className="mt-5 flex flex-wrap gap-2"><button type="button" onClick={onReturnToScientificThinking} className="rounded-lg border px-4 py-2">Revenir à Scientific Thinking</button>{onReturnToImaging && <button type="button" onClick={onReturnToImaging} className="rounded-lg bg-primary px-4 py-2 text-primary-foreground">Revenir à Imaging</button>}</div></Card>
   </div>;
@@ -97,10 +117,14 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
     <AdaptiveResearchWorkspace
       projection={workspaceProjection}
       validation={validationSummary}
+      mode={workspaceMode}
+      onModeChange={setWorkspaceMode}
+      humanDecision={contextualHumanDecision}
       navigation={<WorkspaceNextActionInteraction
         projection={navigationProjection}
         currentProjectVersion={result.candidateVersion.versionId}
         currentSourceStateDigest={navigationProjection.sourceStateDigest}
+        mode={workspaceMode}
         onOpenTarget={openWorkspaceTarget}
         onChooseNavigationPreference={(candidateRef) => openWorkspaceTarget(navigationProjection.alternatives.find((item) => item.candidateId === candidateRef)?.targetRef ?? "project:construction")}
       />}
@@ -108,6 +132,7 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
       onOpenDocument={(targetRef) => targetRef === "document:protocol" && onOpenDocument && result.documentHandoff.status === "AUTHORIZED" ? onOpenDocument() : setStage(8)}
     />
 
+    {workspaceMode === "EXPERT" && <>
     <Card className="mt-5">
       <div aria-label="Carte secondaire du projet"><div className="flex items-center justify-between gap-3 text-sm"><span>Carte du projet</span><span aria-live="polite">Étape {stage + 1} sur environ {STAGES.length}</span></div><p className="mt-2 text-sm text-muted-foreground">Cette carte ouvre une vue spécialisée. QRY reste propriétaire de la prochaine action scientifique.</p><ol className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{STAGES.map((label, index) => <li key={label}><button type="button" onClick={() => setStage(index)} aria-current={stage === index ? "page" : undefined} className={`min-h-11 w-full rounded-lg border px-3 py-2 text-left text-sm ${stage === index ? "border-primary bg-primary text-primary-foreground" : "bg-background"}`}>{index + 1}. {label}</button></li>)}</ol></div>
     </Card>
@@ -133,6 +158,7 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
 
       {stage === 8 && <><h3 className="text-2xl font-bold">Stratégie de projet</h3><p className="mt-1 text-muted-foreground">Version candidate, générabilité locale et handoff propre vers Document — aucun document n’est produit ici.</p><div className="mt-4 grid gap-4 lg:grid-cols-2"><Card><div className="flex flex-wrap gap-2"><Pill>{versionStatusLabel[result.candidateVersion.status]}</Pill><Pill>{result.candidateVersion.decisionRecordIds.length} décision(s)</Pill></div><h4 className="mt-3 font-semibold">Version candidate identifiée</h4><p className="mt-2 text-sm">Version antérieure : {result.candidateVersion.priorVersion}</p><p className="mt-2 text-sm text-muted-foreground">Une version gelée est immuable ; toute évolution crée un changement et une nouvelle version.</p></Card><Card><Pill warning={result.documentHandoff.status !== "AUTHORIZED"}>{documentStatusLabel[result.documentHandoff.status]}</Pill><h4 className="mt-3 font-semibold">Handoff Document Engine</h4><p className="mt-2 text-sm">Aucun document n’est généré ici ; le Document Engine reste propriétaire des projections.</p>{result.documentHandoff.blockedBy.map((item) => <p key={item} className="mt-2 text-sm text-muted-foreground">Blocage : {humanizeCode(item)}</p>)}</Card></div><details className="mt-5 rounded-2xl border bg-card p-5"><summary className="cursor-pointer text-lg font-semibold">Générabilité des projections</summary><div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{result.projectionReadiness.map((item) => <div key={item.projection} className="rounded-lg border p-3"><Pill warning={item.availability === "NOT_AVAILABLE"}>{projectionStatusLabel[item.availability]}</Pill><p className="mt-2 font-medium">{item.projection}</p>{item.missing.map((value) => <p key={value} className="mt-1 text-xs text-muted-foreground">Manque : {value}</p>)}</div>)}</div></details><details className="mt-5 rounded-2xl border bg-card p-5"><summary className="cursor-pointer text-lg font-semibold">Niveau 3 — graphe, dépendances et traçabilité</summary><p className="mt-3 text-sm">{result.impactGraph.nodes.length} nœuds · {result.impactGraph.edges.length} relations · {result.dependencies.length} dépendances explicites.</p><p className="mt-2 break-all text-xs text-muted-foreground">Version : {result.candidateVersion.versionId}</p><p className="mt-2 break-all text-xs text-muted-foreground">Digest : {result.resultDigest}</p></details></>}
     </div>
+    </>}
 
     {pendingChange && <Card className="mt-8 border-amber-500/50" role="alertdialog" aria-labelledby="project-change-title">
       <Pill warning>Modification majeure · avant application</Pill>
@@ -140,10 +166,13 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
       <p className="mt-2 text-sm">NOXIA ne modifiera rien silencieusement. Les impacts sont montrés avant confirmation.</p>
       <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{result.impactGraph.impacts.filter((item) => item.changeId === pendingChange.changeId && item.state !== "UNAFFECTED_DEMONSTRATED").map((item) => <div key={item.impactId} className="rounded-lg border p-3 text-sm"><Pill warning>{humanizeCode(item.state)}</Pill><p className="mt-2 break-all">{humanizeCode(item.targetType)}</p><p className="mt-1 text-xs text-muted-foreground">{item.reason}</p></div>)}</div>
       <div className="mt-5 flex flex-wrap gap-2"><button type="button" disabled={!actor.trim() || !mandate.trim()} onClick={() => onChange(decideProjectChange(session, pendingChange.changeId, "CONFIRMED", actor, mandate))} className="rounded-lg bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">Confirmer et créer une nouvelle révision candidate</button><button type="button" onClick={() => onChange(decideProjectChange(session, pendingChange.changeId, "REJECTED"))} className="rounded-lg border px-4 py-2">Conserver la version actuelle</button></div>
+      {(!actor.trim() || !mandate.trim()) && <p className="mt-2 text-xs text-muted-foreground">Indiquez la personne décisionnaire et son cadre de décision pour confirmer cette modification majeure.</p>}
     </Card>}
 
+    {workspaceMode === "EXPERT" && <>
     <section className="mt-8" aria-labelledby="project-decision-title"><div className="flex flex-wrap items-end justify-between gap-3"><div><h3 id="project-decision-title" className="text-2xl font-bold">Prochaine décision humaine</h3><p className="mt-1 text-muted-foreground">NOXIA prépare la décision et ses conséquences ; l’acteur humain l’adopte ou la refuse.</p></div><Pill>{result.decisionsRequired.filter((item) => item.status === "PENDING").length} en attente</Pill></div>{currentDecision ? <Card className="mt-4 border-primary/40"><Pill>{humanizeCode(currentDecision.type)}</Pill><h4 className="mt-3 text-lg font-semibold">{currentDecision.label}</h4><p className="mt-2 text-sm text-muted-foreground">{currentDecision.reason}</p>{currentDecision.gateId === "PRJ-GATE-STUDY-DESIGN" && !selectedCandidateId && <p role="alert" className="mt-3 text-sm text-amber-700">Soumettez d’abord un plan dans l’étape Design.</p>}{currentDecision.gateId === "PRJ-GATE-PRIMARY-ENDPOINT" && !selectedPrimaryEndpointId && <p role="alert" className="mt-3 text-sm text-amber-700">Proposez d’abord un Critère principal dans l’étape Critères et mesures.</p>}<label htmlFor="project-decision-actor" className="mt-4 block text-sm font-medium">Acteur humain</label><input id="project-decision-actor" value={actor} onChange={(event) => setActor(event.target.value.slice(0, 100))} className="mt-2 w-full rounded-lg border bg-background px-3 py-2" /><label htmlFor="project-decision-reason" className="mt-4 block text-sm font-medium">Justification de la décision</label><textarea id="project-decision-reason" value={reason} onChange={(event) => setReason(event.target.value.slice(0, 500))} className="mt-2 min-h-24 w-full rounded-lg border bg-background p-3" /><div className="mt-4 flex flex-wrap gap-2"><button type="button" disabled={!actor.trim() || !reason.trim() || (currentDecision.gateId === "PRJ-GATE-STUDY-DESIGN" && !selectedCandidateId) || (currentDecision.gateId === "PRJ-GATE-PRIMARY-ENDPOINT" && !selectedPrimaryEndpointId)} onClick={() => decide("APPROVED")} className="rounded-lg bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">Adopter cette décision</button><button type="button" disabled={!actor.trim() || !reason.trim()} onClick={() => decide("REJECTED")} className="rounded-lg border px-4 py-2 disabled:opacity-50">Refuser cette proposition</button></div></Card> : <Card className="mt-4"><p>Toutes les décisions actuellement applicables sont documentées. Le handoff reste lié à la version et à ses décisions.</p></Card>}</section>
 
     <div className="mt-8 flex flex-wrap gap-2 print:hidden"><button type="button" onClick={onReturnToScientificThinking} className="rounded-lg border px-4 py-2">Revenir à Scientific Thinking</button>{onReturnToImaging && <button type="button" onClick={onReturnToImaging} className="rounded-lg border px-4 py-2">Revenir à Imaging</button>}{onExploreKnowledge && <button type="button" onClick={onExploreKnowledge} className="rounded-lg border px-4 py-2">Explorer le concept</button>}{onOpenDocument && result.documentHandoff.status === "AUTHORIZED" && <button type="button" onClick={onOpenDocument} className="rounded-lg bg-primary px-4 py-2 text-primary-foreground">Composer le Protocol</button>}</div>
+    </>}
   </div>;
 }

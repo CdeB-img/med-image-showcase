@@ -84,7 +84,7 @@ cases("DATA-ANALYSIS-INTEGRATION-001 Part 5 — Project integration", [
 const renderDataAnalysis = (project = makeProject(), onProjectChange = vi.fn()) => ({ onProjectChange, ...render(<DataAnalysisPlanningView project={project} onProjectChange={onProjectChange} />) });
 
 cases("DATA-ANALYSIS-INTEGRATION-001 Part 5 — UI", [
-  ["DAI5-UI-C01 Data & Analysis surface is accessible from Project", () => { const session = createResearchProjectConstructionSession(makeProjectInput()); render(<ResearchProjectConstructionView session={session} onChange={vi.fn()} onReturnToScientificThinking={vi.fn()} />); fireEvent.click(screen.getByRole("button", { name: /8\. Données & analyses/ })); expect(screen.getByTestId("data-analysis-planning")).toBeInTheDocument(); }],
+  ["DAI5-UI-C01 Data & Analysis surface is accessible from Project", () => { const session = createResearchProjectConstructionSession(makeProjectInput()); render(<ResearchProjectConstructionView session={session} onChange={vi.fn()} onReturnToScientificThinking={vi.fn()} />); fireEvent.click(screen.getByRole("button", { name: "Expert" })); fireEvent.click(screen.getByRole("button", { name: /8\. Données & analyses/ })); expect(screen.getByTestId("data-analysis-planning")).toBeInTheDocument(); }],
   ["DAI5-UI-C02 Data block is visible", () => { renderDataAnalysis(); expect(screen.getByText("Variables canoniques adoptées")).toBeInTheDocument(); }],
   ["DAI5-UI-C03 Data Management block is visible", () => { renderDataAnalysis(); expect(screen.getByText("Champs logiques adoptés")).toBeInTheDocument(); }],
   ["DAI5-UI-C04 Analyses block is visible", () => { renderDataAnalysis(); expect(screen.getByText("Spécifications adoptées")).toBeInTheDocument(); }],

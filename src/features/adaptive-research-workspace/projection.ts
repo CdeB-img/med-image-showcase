@@ -3,7 +3,7 @@ import type { ProjectDataAnalysisView } from "@/features/data-analysis-planning/
 import type { QueryNavigationProductProjection } from "@/features/query-navigation/product-contracts";
 import type { ResearchProjectDesignResult } from "@/features/research-project-construction/types";
 import type { ValidationProductSummary } from "@/features/validation-architecture/product-gates";
-import type { AdaptiveResearchWorkspaceProjection, WorkspaceAttentionItem, WorkspaceDocumentFreshnessAssessment, WorkspaceDocumentImpact, WorkspaceDocumentSummary, WorkspaceDomainSummary, WorkspaceSemanticState } from "./contracts";
+import type { AdaptiveResearchWorkspaceProjection, WorkspaceAttentionItem, WorkspaceDocumentFreshnessAssessment, WorkspaceDocumentImpact, WorkspaceDocumentSummary, WorkspaceDomainSummary, WorkspaceProjectSection, WorkspaceSemanticState } from "./contracts";
 import { deduplicateWorkspaceAttentionBySource } from "./interactions";
 
 const domainState = (state: ResearchProjectDesignResult["localReadiness"][number]["state"]): WorkspaceSemanticState => {
@@ -173,6 +173,79 @@ export const buildAdaptiveResearchWorkspaceProjection = (input: {
       limitations: [item.notice],
     };
   });
+  const populationSummary = [
+    ...project.populationDesign.populationConcept.conditionOrPathology,
+    ...project.populationDesign.populationConcept.clinicalContext,
+    ...project.populationDesign.populationConcept.questionRequiredCharacteristics,
+  ].filter(Boolean).slice(0, 3).join(" · ");
+  const adoptedHypotheses = project.hypotheses.filter((item) => item.reviewState === "ADOPTED");
+  const pendingHypotheses = project.hypotheses.filter((item) => item.reviewState === "PENDING");
+  const selectedDesign = project.selectedStudyDesignCandidate
+    ? project.studyDesignCandidates.find((item) => item.designId === project.selectedStudyDesignCandidate?.designId)
+    : null;
+  const sections: WorkspaceProjectSection[] = [
+    {
+      sectionId: "QUESTION",
+      label: "Question scientifique",
+      state: "ADOPTED",
+      summary: project.scientificQuestion.text,
+      targetRef: "project:question",
+    },
+    {
+      sectionId: "HYPOTHESES",
+      label: "Hypothèse(s)",
+      state: adoptedHypotheses.length ? "ADOPTED" : pendingHypotheses.length ? "CANDIDATE" : "UNKNOWN",
+      summary: adoptedHypotheses[0]?.text
+        ?? (pendingHypotheses.length ? `${pendingHypotheses.length} proposition(s) à examiner` : "Aucune hypothèse n’est encore définie."),
+      targetRef: "project:hypotheses",
+    },
+    {
+      sectionId: "POPULATION",
+      label: "Population",
+      state: project.populationDesign.reviewState === "ADOPTED" ? "ADOPTED" : populationSummary ? "CANDIDATE" : "UNKNOWN",
+      summary: populationSummary || "La population reste à préciser.",
+      targetRef: "project:population",
+    },
+    {
+      sectionId: "DESIGN",
+      label: "Design",
+      state: selectedDesign ? "ADOPTED" : project.studyDesignCandidates.length ? "CANDIDATE" : "UNKNOWN",
+      summary: selectedDesign?.label
+        ?? (project.studyDesignCandidates.length ? `${project.studyDesignCandidates.length} stratégie(s) à examiner` : "Le design reste à construire."),
+      targetRef: "project:design",
+    },
+    {
+      sectionId: "IMAGING",
+      label: "Imagerie",
+      state: project.imagingContribution.applicability === "NOT_APPLICABLE"
+        ? "NOT_APPLICABLE"
+        : project.imagingContribution.applicability === "APPLICABLE" ? "CANDIDATE" : "BLOCKING",
+      summary: project.imagingContribution.applicability === "NOT_APPLICABLE"
+        ? "Non applicable à ce projet."
+        : project.imagingContribution.resultRef
+          ? `${project.imagingContribution.variableIds.length} mesure(s) d’imagerie reliée(s) au projet`
+          : project.imagingContribution.limitations[0] ?? "La contribution d’imagerie reste à construire.",
+      targetRef: "project-domain:IMAGING_FEASIBILITY",
+    },
+    {
+      sectionId: "VARIABLES",
+      label: "Variables / mesures",
+      state: project.variables.length ? "CANDIDATE" : "UNKNOWN",
+      summary: project.variables.length
+        ? `${project.variables.length} variable(s) conceptuelle(s) reliée(s)`
+        : "Les variables restent à définir.",
+      targetRef: "project:variables",
+    },
+    {
+      sectionId: "ANALYSIS",
+      label: "Analyse",
+      state: project.analysisRequirements.length ? "CANDIDATE" : "UNKNOWN",
+      summary: project.analysisRequirements.length
+        ? `${project.analysisRequirements.length} besoin(s) d’analyse identifié(s) ; revue spécialisée encore requise`
+        : "Les besoins d’analyse restent à définir.",
+      targetRef: "workspace:data-analysis",
+    },
+  ];
   const sourceDigests = [project.resultDigest, navigation.sourceStateDigest, dataAnalysis.projectionId, ...validation.gates.map((gate) => gate.evaluationDigest)];
   const workspaceProjectionId = `adaptive-research-workspace:${logicalDigest({ project: project.resultId, version: project.candidateVersion.versionId, sourceDigests })}`;
   return {
@@ -187,6 +260,8 @@ export const buildAdaptiveResearchWorkspaceProjection = (input: {
       designSummary: project.selectedStudyDesignCandidate
         ? project.studyDesignCandidates.find((item) => item.designId === project.selectedStudyDesignCandidate?.designId)?.label ?? "Plan adopté"
         : `${project.studyDesignCandidates.length} stratégie(s) candidate(s), aucune sélection automatique`,
+      sections,
+      recentChanges: project.impactGraph.changes.filter((item) => item.status === "CONFIRMED").map((item) => item.description),
       branchRefs: project.impactGraph.nodes.map((item) => item.nodeId),
       limitations: [...project.limitations],
     },

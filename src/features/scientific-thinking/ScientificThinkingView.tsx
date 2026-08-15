@@ -10,6 +10,7 @@ import {
   setUnknownAccepted,
 } from "./session";
 import type { CandidateReviewState, ScientificThinkingSession } from "./types";
+import ScientificThinkingStandardView from "./ScientificThinkingStandardView";
 
 type Props = {
   session: ScientificThinkingSession;
@@ -18,6 +19,7 @@ type Props = {
   onExploreKnowledge?: () => void;
   onEnterResearchDesign: () => void;
   onEditOriginalIdea?: () => void;
+  mode?: "STANDARD" | "EXPERT";
 };
 
 const Box = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => <section className={`min-w-0 break-words rounded-2xl border border-border bg-card p-5 shadow-sm ${className}`}>{children}</section>;
@@ -25,7 +27,8 @@ const Badge = ({ children, tone = "neutral" }: { children: React.ReactNode; tone
 const supportLabel = (support: string) => support === "SUPPORTED" ? "Corpus interne pertinent disponible" : support === "PARTIAL" ? "Couverture interne partielle" : support === "CONFLICTING" ? "Connaissances contradictoires" : "Candidat non soutenu par le corpus courant";
 const reviewLabel: Record<CandidateReviewState, string> = { PENDING: "À revoir", ADOPTED: "Retenu par vous", REJECTED: "Rejeté par vous" };
 
-export default function ScientificThinkingView({ session, onChange, onReturnToUnderstand, onExploreKnowledge, onEnterResearchDesign, onEditOriginalIdea }: Props) {
+export default function ScientificThinkingView({ session, onChange, onReturnToUnderstand, onExploreKnowledge, onEnterResearchDesign, onEditOriginalIdea, mode = "EXPERT" }: Props) {
+  const [showExpert, setShowExpert] = useState(false);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [decisionActor, setDecisionActor] = useState("");
   const [decisionMandate, setDecisionMandate] = useState("");
@@ -61,7 +64,10 @@ export default function ScientificThinkingView({ session, onChange, onReturnToUn
     <button onClick={onReturnToUnderstand} className="mt-5 rounded-lg border px-4 py-3">Revenir à la compréhension</button>
   </div>;
 
+  if (mode === "STANDARD" && !showExpert) return <ScientificThinkingStandardView session={session} onChange={onChange} onEnterResearchDesign={onEnterResearchDesign} onShowExpert={() => setShowExpert(true)} />;
+
   return <div className="mt-8 space-y-6" onKeyDown={keyboardSurface}>
+    {mode === "STANDARD" && <div className="flex justify-end"><button type="button" onClick={() => setShowExpert(false)} className="min-h-10 rounded-lg border px-3 py-2 text-sm">Revenir au mode Standard</button></div>}
     <div className="max-w-4xl rounded-2xl rounded-bl-sm bg-primary/10 p-6">
       <div className="flex items-start gap-3"><Lightbulb className="mt-1 h-5 w-5 shrink-0 text-primary" /><div>
         <div className="flex flex-wrap gap-2"><Badge tone={output.status === "CANDIDATES_PROPOSED" ? "good" : "warning"}>{output.status}</Badge><Badge>{output.semanticElements[0]?.type}</Badge></div>

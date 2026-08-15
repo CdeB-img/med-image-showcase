@@ -96,6 +96,6 @@ describe("DOC-001 — surface DOCUMENT", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.click(await screen.findByRole("button", { name: "Reprendre" }));
     expect(await screen.findByTestId("document-projection-view")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Composer un document de recherche" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Protocol — projection documentaire" })).toBeInTheDocument();
   });
 });

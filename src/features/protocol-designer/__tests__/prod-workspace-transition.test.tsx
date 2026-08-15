@@ -78,7 +78,8 @@ describe("V1-PROD-HOTFIX-002 — workspace transition", () => {
   it("PROD-WS-C02 Continue reasoning cannot transition to a blank scientific workspace", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Poursuivre le raisonnement" }));
-    expect(screen.getByRole("heading", { name: "Orientation scientifique requise" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Que voulez-vous faire maintenant ?" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /^Approfondir la question/ })).toBeInTheDocument();
   });
 
   it("PROD-WS-C03 Scientific workspace requires a valid Project/workspace source state", () => {
@@ -109,7 +110,7 @@ describe("V1-PROD-HOTFIX-002 — workspace transition", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Reprendre l’espace de recherche" }));
     expect(screen.getByRole("alert")).toHaveTextContent("Orientation scientifique requise");
     fireEvent.click(screen.getByRole("button", { name: "Choisir l’orientation" }));
-    expect(screen.getByRole("heading", { name: "Orientation scientifique requise" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Que voulez-vous faire maintenant ?" })).toBeInTheDocument();
   });
 
   it("PROD-WS-C07 QRY remains next-action owner after transition", async () => {
@@ -117,7 +118,8 @@ describe("V1-PROD-HOTFIX-002 — workspace transition", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Poursuivre le raisonnement" }));
     const nextAction = await screen.findByTestId("workspace-next-action");
-    expect(nextAction).toHaveTextContent("Prochaine action scientifique");
+    expect(nextAction.closest("[aria-label='Prochaine action scientifique']")).not.toBeNull();
+    expect(nextAction.querySelector("h3")?.textContent).toBeTruthy();
     expect(readFileSync(resolve(process.cwd(), "src/features/research-project-construction/ResearchProjectConstructionView.tsx"), "utf8")).toContain("buildQueryNavigationProductProjection(result)");
   });
 

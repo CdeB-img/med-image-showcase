@@ -145,7 +145,10 @@ const QuestionCard = ({ item, index, total, answer, draft, onDraft, onAnswer }: 
 </Panel>;
 
 export default function ProtocolDesignerDemo() {
-  const [experienceMode, setExperienceMode] = useState<"CONVERSATION" | "EXPERT">("CONVERSATION");
+  const [experienceMode, setExperienceMode] = useState<"CONVERSATION" | "STANDARD" | "EXPERT">("CONVERSATION");
+  const [orientationExpertOpen, setOrientationExpertOpen] = useState(false);
+  const [orientationDraft, setOrientationDraft] = useState("");
+  const [conversationResumeDraft, setConversationResumeDraft] = useState("");
   const [session, setSession] = useState<ProtocolDesignerSession>(() => createProtocolDesignerSession());
   const [candidate, setCandidate] = useState<ProtocolDesignerSession | null>(null);
   const [question, setQuestion] = useState("");
@@ -176,11 +179,17 @@ export default function ProtocolDesignerDemo() {
   }, [session]);
 
   const step = session.currentStep;
+  useEffect(() => {
+    if (step !== 2) {
+      setOrientationExpertOpen(false);
+      setOrientationDraft("");
+    }
+  }, [step]);
   const validationProductSummary = useMemo(() => ({
     ...buildValidationProductSummary([]),
     limitations: ["Aucun ValidationRun transverse n’est attaché à cette projection de démonstration ; aucun succès de validation n’est supposé."],
   }), []);
-  const intent = session.validatedIntent;
+  const intent = step === 2 && !orientationExpertOpen ? null : session.validatedIntent;
   const activeScenario = session.confirmedScenarioId ? scenarioDetails(session.confirmedScenarioId) : undefined;
   const allAdaptiveQuestions = useMemo(() => intent ? selectAdaptiveQuestions(intent, session.scenarioMatches.map((match) => match.scenarioId)) : [], [intent, session.scenarioMatches]);
   const routeIntent = session.scientificContext.routeIntent;
@@ -503,7 +512,7 @@ export default function ProtocolDesignerDemo() {
     setInterpretation(validated.interpretation);
     setReformulation(validated.validatedReformulation);
     setReviews(validated.reviews);
-    setExperienceMode("EXPERT");
+    setExperienceMode("STANDARD");
   };
   const resumeStructuredProject = candidate ? () => {
     setSession(candidate);
@@ -514,7 +523,7 @@ export default function ProtocolDesignerDemo() {
     setAmbiguityResolutions(candidate.validatedIntent?.ambiguityResolutions ?? {});
     setContradictionResolutions(candidate.validatedIntent?.contradictionResolutions ?? {});
     setCandidate(null);
-    setExperienceMode("EXPERT");
+    setExperienceMode("STANDARD");
   } : undefined;
   const copyReport = async () => navigator.clipboard?.writeText(reportToMarkdown(report));
   const downloadMarkdown = () => {
@@ -528,15 +537,40 @@ export default function ProtocolDesignerDemo() {
 
   if (experienceMode === "CONVERSATION") return <>
     {pageHead}
-    <ScientificInterpretationWorkspace onOpenStructuredProject={openStructuredProject} onResumeStructuredProject={resumeStructuredProject} />
+    <ScientificInterpretationWorkspace initialDraft={conversationResumeDraft} onOpenStructuredProject={openStructuredProject} onResumeStructuredProject={resumeStructuredProject} />
     <div className="print:hidden"><Footer /></div>
   </>;
 
   return <>
     {pageHead}
-    <main id="demo-main" className="min-h-screen bg-background text-foreground">
+    <main id="demo-main" data-standard-orientation={step === 2 && !orientationExpertOpen ? "true" : undefined} data-standard-workspace={step === 3 && experienceMode === "STANDARD" ? "true" : undefined} className="min-h-screen bg-background text-foreground">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-7 flex flex-wrap items-center justify-between gap-3 print:hidden"><Link to="/protocol-designer" className="text-sm text-muted-foreground hover:text-foreground">← Protocol Designer</Link><div className="flex gap-2"><button onClick={() => setExperienceMode("CONVERSATION")} className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><MessageCircle className="h-4 w-4" /> Retour à la conversation</button>{session.confirmedScenarioId && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><BookOpen className="h-4 w-4" /> Explorer le concept</button>}<AlertDialog><AlertDialogTrigger asChild><button className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><RotateCcw className="h-4 w-4" /> Réinitialiser</button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Réinitialiser cette session ?</AlertDialogTitle><AlertDialogDescription>La question, les validations, les réponses, la décision et le rapport local seront supprimés. Les autres données du navigateur ne seront pas touchées.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Annuler</AlertDialogCancel><AlertDialogAction onClick={reset}>Supprimer cette session</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog></div></div>
+        {step === 2 && !orientationExpertOpen && session.validatedIntent && <div className="mb-7 grid min-w-0 gap-5 lg:grid-cols-[minmax(18rem,.72fr)_minmax(0,1.35fr)]">
+          <aside className="self-start rounded-2xl border bg-muted/20 p-5 lg:sticky lg:top-4" aria-label="Research Project en construction">
+            <p className="text-xs font-semibold uppercase tracking-[.16em] text-primary">Research Project</p>
+            <h1 className="mt-2 text-xl font-bold">Compréhension confirmée</h1>
+            <p className="mt-3 text-sm">{session.validatedIntent.validatedReformulation}</p>
+            <dl className="mt-5 grid gap-3 text-sm">
+              <div><dt className="font-medium">Question</dt><dd className="mt-1 text-muted-foreground">{session.originalQuestion}</dd></div>
+              <div><dt className="font-medium">Objet scientifique</dt><dd className="mt-1 text-muted-foreground">{session.scientificContext.centralScientificObject}</dd></div>
+              <div><dt className="font-medium">Population</dt><dd className="mt-1 text-muted-foreground">{valueText(session.validatedIntent.interpretation.population.value) || "À préciser"}</dd></div>
+              <div><dt className="font-medium">Documents</dt><dd className="mt-1 text-muted-foreground">Ils apparaîtront avec leurs états réels dès qu’un Research Project aura été construit.</dd></div>
+            </dl>
+          </aside>
+          <section className="min-w-0 rounded-2xl border bg-card p-5 shadow-sm" aria-labelledby="standard-orientation-title">
+            <p className="text-xs font-semibold uppercase tracking-[.16em] text-primary">Conversation scientifique</p>
+            <h2 id="standard-orientation-title" className="mt-2 text-2xl font-bold">Que voulez-vous faire maintenant ?</h2>
+            {!routeIntent && <><p className="mt-3 text-sm text-muted-foreground">Votre compréhension est conservée. Choisissez un raccourci ou précisez votre intention avec vos mots.</p><div className="mt-5 grid gap-3 sm:grid-cols-2"><button type="button" onClick={() => transitionJourney("UNDERSTAND", "Intention choisie explicitement dans la conversation", false)} className="min-h-11 rounded-xl border p-4 text-left"><span className="font-semibold">Approfondir la question</span><span className="mt-1 block text-sm text-muted-foreground">Examiner ce que les connaissances disponibles permettent réellement de comprendre.</span></button><button type="button" onClick={() => transitionJourney("DESIGN_STUDY", "Intention choisie explicitement dans la conversation", false)} className="min-h-11 rounded-xl border p-4 text-left"><span className="font-semibold">Structurer l’étude</span><span className="mt-1 block text-sm text-muted-foreground">Commencer à construire le projet sans inventer les éléments manquants.</span></button></div></>}
+            {routeIntent && !session.confirmedScenarioId && session.scenarioMatches[0] && (() => { const scenario = scenarioDetails(session.scenarioMatches[0].scenarioId); return scenario ? <div className="mt-4 rounded-xl bg-primary/10 p-4"><p className="text-sm font-semibold">NOXIA a trouvé un socle scientifique pertinent</p><p className="mt-2 text-sm">{scenario.comprehension}</p><p className="mt-2 text-xs text-muted-foreground">Le choix de ce socle ne change pas votre question ni votre intention.</p><button type="button" onClick={() => chooseScenario(session.scenarioMatches[0].scenarioId)} className="mt-4 min-h-11 rounded-lg bg-primary px-4 py-2 text-primary-foreground">Utiliser ce socle pour continuer</button></div> : null; })()}
+            {routeIntent && !session.confirmedScenarioId && !session.scenarioMatches.length && <div className="mt-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4"><p className="font-semibold">Le corpus local ne couvre pas encore suffisamment cette demande.</p><p className="mt-2 text-sm">Votre question reste conservée. NOXIA peut continuer avec une structure partielle et des inconnues explicites.</p></div>}
+            {routeIntent && (session.confirmedScenarioId || !session.scenarioMatches.length) && <div className="mt-4 rounded-xl bg-primary/10 p-4"><p className="font-semibold">Point de départ prêt</p><p className="mt-2 text-sm">{ROUTE_DESCRIPTIONS[routeIntent]}</p><button type="button" onClick={() => updateStep(3)} className="mt-4 min-h-11 rounded-lg bg-primary px-4 py-2 font-semibold text-primary-foreground">Continuer le raisonnement</button></div>}
+            <label htmlFor="standard-orientation-response" className="mt-6 block text-sm font-medium">Ou précisez votre intention avec vos mots</label>
+            <textarea id="standard-orientation-response" value={orientationDraft} onChange={(event) => setOrientationDraft(event.target.value.slice(0, 500))} className="mt-2 min-h-24 w-full rounded-xl border bg-background p-3" placeholder="Exemple : je veux d’abord clarifier la comparaison avant de structurer l’étude." />
+            <div className="mt-3 flex flex-wrap gap-2"><button type="button" disabled={!orientationDraft.trim()} onClick={() => { setConversationResumeDraft(orientationDraft.trim()); setExperienceMode("CONVERSATION"); }} className="min-h-11 rounded-lg border px-4 py-2 disabled:opacity-50">Continuer cette précision dans la conversation</button><button type="button" onClick={() => setOrientationExpertOpen(true)} className="min-h-11 rounded-lg border px-4 py-2">Inspecter l’orientation</button></div>
+            {!orientationDraft.trim() && <p className="mt-2 text-xs text-muted-foreground">Écrivez une précision pour pouvoir la transmettre à la conversation.</p>}
+          </section>
+        </div>}
+        <div className="mb-7 flex flex-wrap items-center justify-between gap-3 print:hidden"><Link to="/protocol-designer" className="text-sm text-muted-foreground hover:text-foreground">← Protocol Designer</Link><div className="flex flex-wrap gap-2"><div className="inline-flex rounded-full border p-1" aria-label="Niveau de détail de l’espace scientifique"><button type="button" aria-pressed={experienceMode === "STANDARD"} onClick={() => setExperienceMode("STANDARD")} className="min-h-9 rounded-full px-3 text-sm aria-pressed:bg-primary aria-pressed:text-primary-foreground">Standard</button><button type="button" aria-pressed={experienceMode === "EXPERT"} onClick={() => setExperienceMode("EXPERT")} className="min-h-9 rounded-full px-3 text-sm aria-pressed:bg-primary aria-pressed:text-primary-foreground">Expert</button></div><button onClick={() => setExperienceMode("CONVERSATION")} className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><MessageCircle className="h-4 w-4" /> Retour à la conversation</button>{session.confirmedScenarioId && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><BookOpen className="h-4 w-4" /> Explorer le concept</button>}<AlertDialog><AlertDialogTrigger asChild><button className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm"><RotateCcw className="h-4 w-4" /> Réinitialiser</button></AlertDialogTrigger><AlertDialogContent><AlertDialogHeader><AlertDialogTitle>Réinitialiser cette session ?</AlertDialogTitle><AlertDialogDescription>La question, les validations, les réponses, la décision et le rapport local seront supprimés. Les autres données du navigateur ne seront pas touchées.</AlertDialogDescription></AlertDialogHeader><AlertDialogFooter><AlertDialogCancel>Annuler</AlertDialogCancel><AlertDialogAction onClick={reset}>Supprimer cette session</AlertDialogAction></AlertDialogFooter></AlertDialogContent></AlertDialog></div></div>
 
         {candidate && candidate.sessionId !== session.sessionId && <Panel className="mb-6 border-primary/40 print:hidden"><p className="font-semibold">Une session précédente est disponible.</p><p className="mt-1 text-sm text-muted-foreground">Elle ne sera jamais reprise automatiquement.</p><p className="mt-2 text-xs text-muted-foreground">Dernière activité : {new Date(candidate.updatedAt).toLocaleString("fr-FR")} · {ROUTING_INTENT_LABELS[candidate.scientificContext.routeIntent ?? "UNDERSTAND"]}</p><div className="mt-4 flex flex-wrap gap-2"><button className="rounded-lg bg-primary px-4 py-2 text-sm text-primary-foreground" onClick={() => { setSession(candidate); setQuestion(candidate.originalQuestion); setInterpretation(candidate.validatedIntent?.interpretation ?? null); setReformulation(candidate.validatedIntent?.validatedReformulation ?? ""); setReviews(candidate.validatedIntent?.reviews ?? {}); setAmbiguityResolutions(candidate.validatedIntent?.ambiguityResolutions ?? {}); setContradictionResolutions(candidate.validatedIntent?.contradictionResolutions ?? {}); setCandidate(null); }}>Reprendre</button><button className="rounded-lg border px-4 py-2 text-sm" onClick={() => setCandidate(null)}>Commencer une nouvelle session</button><button className="rounded-lg border px-4 py-2 text-sm text-destructive" onClick={() => { deleteSession(window.localStorage); setCandidate(null); }}>Supprimer</button></div></Panel>}
 
@@ -558,7 +592,7 @@ export default function ProtocolDesignerDemo() {
         {step === 3 && workspaceTransitionState === "ORIENTATION_REQUIRED" && <Panel role="alert" className="border-amber-500/50"><CircleAlert className="h-6 w-6 text-amber-600" /><h1 className="mt-3 text-3xl font-bold">Orientation scientifique requise</h1><p className="mt-2 text-muted-foreground">La session restaurée ne possède aucune orientation valide. La compréhension reste conservée ; aucun Project n’a été créé silencieusement.</p><button type="button" onClick={() => updateStep(2)} className="mt-4 rounded-lg bg-primary px-4 py-2 text-primary-foreground">Choisir l’orientation</button></Panel>}
 
         {step === 3 && intent && routeIntent && <div>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          {experienceMode === "EXPERT" && <><div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-primary">Contexte v{session.scientificContext.contextVersion} · {routeIntent === "DOCUMENT" ? "Document Projection Engine" : activeScenario?.shortLabel ?? (routeIntent === "FORMALIZE_IDEA" ? "Scientific Thinking Engine" : routeIntent === "DESIGN_STUDY" ? "Research Design handoff" : "Knowledge Engine")}</p>
               <h1 className="mt-2 text-4xl font-bold">{ROUTING_INTENT_LABELS[routeIntent]}</h1>
@@ -568,7 +602,7 @@ export default function ProtocolDesignerDemo() {
             </div>
             {activeScenario && routeIntent !== "DOCUMENT" && <button onClick={() => setKnowledgeOpen(true)} className="inline-flex items-center gap-2 rounded-lg border px-4 py-2"><BookOpen className="h-4 w-4" /> Explorer ce concept</button>}
           </div>
-          <div className="mt-6 flex gap-2 overflow-x-auto pb-2 print:hidden">{(Object.keys(ROUTING_INTENT_LABELS) as RoutingIntent[]).map((route) => <button key={route} disabled={(route === "DESIGN_STUDY" && routeIntent === "FORMALIZE_IDEA" && session.scientificThinking?.output.handoff.status !== "AUTHORIZED") || (route === "DOCUMENT" && session.projectConstruction?.result.documentHandoff.status !== "AUTHORIZED")} aria-pressed={routeIntent === route} onClick={() => transitionJourney(route, `Transition depuis ${ROUTING_INTENT_LABELS[routeIntent]}`)} className={`min-w-fit rounded-full border px-3 py-2 text-sm disabled:opacity-50 ${routeIntent === route ? "border-primary bg-primary text-primary-foreground" : "bg-background"}`}>{ROUTING_INTENT_LABELS[route]}</button>)}</div>
+          <div className="mt-6 flex gap-2 overflow-x-auto pb-2 print:hidden">{(Object.keys(ROUTING_INTENT_LABELS) as RoutingIntent[]).map((route) => <button key={route} disabled={(route === "DESIGN_STUDY" && routeIntent === "FORMALIZE_IDEA" && session.scientificThinking?.output.handoff.status !== "AUTHORIZED") || (route === "DOCUMENT" && session.projectConstruction?.result.documentHandoff.status !== "AUTHORIZED")} aria-pressed={routeIntent === route} onClick={() => transitionJourney(route, `Transition depuis ${ROUTING_INTENT_LABELS[routeIntent]}`)} className={`min-w-fit rounded-full border px-3 py-2 text-sm disabled:opacity-50 ${routeIntent === route ? "border-primary bg-primary text-primary-foreground" : "bg-background"}`}>{ROUTING_INTENT_LABELS[route]}</button>)}</div></>}
 
           {routeIntent === "UNDERSTAND" && knowledgeResult && <>
             <KnowledgeUnderstandView
@@ -585,6 +619,7 @@ export default function ProtocolDesignerDemo() {
           </>}
 
           {routeIntent === "FORMALIZE_IDEA" && (session.scientificThinking ? <ScientificThinkingView
+            mode={experienceMode === "EXPERT" ? "EXPERT" : "STANDARD"}
             session={session.scientificThinking}
             onChange={(scientificThinking) => setSession((current) => ({ ...current, scientificThinking, scientificContext: { ...current.scientificContext, workingHypotheses: scientificThinking.output.hypotheses.filter((item) => item.reviewState === "ADOPTED").map((item) => item.text) }, updatedAt: new Date().toISOString() }))}
             onReturnToUnderstand={() => transitionJourney("UNDERSTAND", "Revenir à la compréhension du concept")}
@@ -594,8 +629,9 @@ export default function ProtocolDesignerDemo() {
           /> : <Panel className="mt-8"><LoaderCircle className="h-5 w-5 animate-spin" /><p className="mt-3">NOXIA construit la projection de raisonnement…</p></Panel>)}
 
           {routeIntent === "DESIGN_STUDY" && session.scientificContext.activeDesignSurface === "SCIENTIFIC_THINKING" && (session.scientificThinking ? <>
-            <Panel className="mt-8 border-amber-500/40"><Tag tone="warning">Porte scientifique déterministe</Tag><h2 className="mt-3 text-xl font-semibold">Scientific Thinking requis avant Imaging</h2><p className="mt-2 text-sm text-muted-foreground">La demande décrit le phénomène candidat « {session.scientificContext.centralScientificObject} », mais l’observable ou le biomarqueur à défendre n’est pas encore stabilisé. NOXIA conserve CT et IRM comme préférences méthodologiques ; il ne les transforme pas en choix.</p>{scientificReadiness?.reasons.map((reason) => <p key={reason} className="mt-2 text-xs">• {reason}</p>)}</Panel>
+            {experienceMode === "EXPERT" && <Panel className="mt-8 border-amber-500/40"><Tag tone="warning">Porte scientifique déterministe</Tag><h2 className="mt-3 text-xl font-semibold">Scientific Thinking requis avant Imaging</h2><p className="mt-2 text-sm text-muted-foreground">La demande décrit le phénomène candidat « {session.scientificContext.centralScientificObject} », mais l’observable ou le biomarqueur à défendre n’est pas encore stabilisé. NOXIA conserve CT et IRM comme préférences méthodologiques ; il ne les transforme pas en choix.</p>{scientificReadiness?.reasons.map((reason) => <p key={reason} className="mt-2 text-xs">• {reason}</p>)}</Panel>}
             <ScientificThinkingView
+              mode={experienceMode === "EXPERT" ? "EXPERT" : "STANDARD"}
               session={session.scientificThinking}
               onChange={(scientificThinking) => setSession((current) => ({ ...current, scientificThinking, scientificContext: { ...current.scientificContext, workingHypotheses: scientificThinking.output.hypotheses.filter((item) => item.reviewState === "ADOPTED").map((item) => item.text) }, updatedAt: new Date().toISOString() }))}
               onReturnToUnderstand={() => transitionJourney("UNDERSTAND", "Revenir à la compréhension du concept")}
@@ -617,6 +653,7 @@ export default function ProtocolDesignerDemo() {
           {routeIntent === "DESIGN_STUDY" && workspaceTransitionState === "PROJECT_CONSTRUCTION_PENDING" && <Panel className="mt-8" role="status" aria-live="polite"><LoaderCircle className="h-5 w-5 animate-spin" /><h2 className="mt-3 text-xl font-semibold">Construction du Research Project en cours</h2><p className="mt-2 text-sm text-muted-foreground">Le handoff propriétaire prépare une version candidate avant de construire la projection Adaptive Workspace. Aucune vérité Project n’est créée par l’interface.</p><button type="button" onClick={() => updateStep(2)} className="mt-4 rounded-lg border px-4 py-2">Revoir l’orientation</button></Panel>}
 
           {routeIntent === "DESIGN_STUDY" && session.scientificContext.activeDesignSurface === "IMAGING" && (session.imagingDesign ? <ImagingStudyDesignerView
+            mode={experienceMode === "EXPERT" ? "EXPERT" : "STANDARD"}
             session={session.imagingDesign}
             onChange={(imagingDesign) => setSession((current) => ({ ...current, imagingDesign, updatedAt: new Date().toISOString() }))}
             onReturnToScientificThinking={() => setSession((current) => current.scientificThinking ? ({ ...current, scientificContext: { ...current.scientificContext, activeDesignSurface: "SCIENTIFIC_THINKING" }, updatedAt: new Date().toISOString() }) : current)}
