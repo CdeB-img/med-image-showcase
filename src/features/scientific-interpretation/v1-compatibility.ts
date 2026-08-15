@@ -1,4 +1,5 @@
 import { createEmptyInterpretation } from "../protocol-designer/intake/schema.js";
+import { prepareKnowledgeRelations, prepareScientificObjectTerms } from "../knowledge-engine/scientific-object-boundary.js";
 import type { ConfidenceLevel, EvidenceOrigin, HumanFieldReview, InterpretedFieldKey, RoutingIntent, ScientificSessionContext, ValidatedScientificIntent } from "../protocol-designer/intake/types.js";
 import type { ScientificContributionItem, ScientificInterpretationContributionEnvelope } from "./contracts.js";
 
@@ -151,9 +152,35 @@ export const projectScientificContributionToV1 = (
       ? `${source} ${relation.relationType} ${target}`
       : `${source} ${relation.relationType} ${target} [${relation.polarity ?? "POLARITY_UNAVAILABLE"}]`;
     });
+  const preparedRelations = prepareKnowledgeRelations({ relations: relationLabels, payloadRef: contribution.identity.contributionId });
+  preparedRelations.diagnostics.forEach((diagnostic) => losses.push({
+    code: "LEGACY_PROJECTION_LOSS",
+    itemId: diagnostic.payloadRef ?? contribution.identity.contributionId,
+    reason: `${diagnostic.code}: the full relation remains in interpretationTrace; no shortened relation was fabricated.`,
+    critical: false,
+  }));
   const rejectedOrSuperseded = allItems(contribution)
     .filter((item) => item.epistemicBoundary.activeState === false || item.epistemicBoundary.epistemicStatus === "REJECTED_BY_USER" || (item.previousItemIds?.length ?? 0) > 0)
     .map((item) => item.itemId);
+  const termItems = eligible.filter((item) => ["SCIENTIFIC_OBJECT", "PHENOMENON", "CONDITION", "CLINICAL_CONDITION", "BIOMARKER", "MODALITY", "IMAGING_MODALITY", "IMAGING_METHOD", "INTERVENTION", "COMPARATOR"].includes(item.proposedType ?? "")
+    || item.proposedType === "METHOD" && contribution.identity.runtimeId === "LEGACY_SEM_FULL");
+  const preparedTerms = prepareScientificObjectTerms({
+    originalQuestion: contribution.source.turns.map((turn) => turn.content).join("\n"),
+    payloadRef: contribution.identity.contributionId,
+    candidates: termItems.map((item, index) => ({
+      term: item.content,
+      role: index === 0 ? "SUBJECT" : index === 1 ? "COMPARATOR" : "CONTEXT",
+      sourceText: item.epistemicBoundary.sourceText,
+      sourceRef: item.epistemicBoundary.sourceTurnIds[0] ?? null,
+      payloadRef: item.itemId,
+    })),
+  });
+  preparedTerms.diagnostics.forEach((diagnostic) => losses.push({
+    code: "LEGACY_PROJECTION_LOSS",
+    itemId: diagnostic.payloadRef ?? contribution.identity.contributionId,
+    reason: `${diagnostic.code}: free scientific content remains in the Contribution and raw source; no atomic originalTerm was fabricated.`,
+    critical: false,
+  }));
   const central = eligible.find((item) => ["SCIENTIFIC_OBJECT", "PHENOMENON", "CLINICAL_CONDITION", "CONDITION"].includes(item.proposedType ?? "")) ?? eligible[0];
   const route = contribution.scientificContent.routeProposal ? routeMap[contribution.scientificContent.routeProposal.route] ?? null : previous?.routeIntent ?? null;
   const context: ScientificSessionContext = {
@@ -161,8 +188,8 @@ export const projectScientificContributionToV1 = (
     routeConfidence: confidence(contribution.scientificContent.routeProposal?.confidence ?? null),
     routeReasons: contribution.scientificContent.routeProposal?.reason ? [contribution.scientificContent.routeProposal.reason] : [],
     centralScientificObject: central?.content ?? contribution.scientificContent.normalizedUnderstanding ?? contribution.source.originalRequest,
-    preservedScientificTerms: [...new Set(eligible.filter((item) => ["SCIENTIFIC_OBJECT", "PHENOMENON", "CONDITION", "CLINICAL_CONDITION", "BIOMARKER", "MODALITY", "IMAGING_MODALITY", "IMAGING_METHOD", "INTERVENTION", "COMPARATOR"].includes(item.proposedType ?? "") || item.proposedType === "METHOD" && contribution.identity.runtimeId === "LEGACY_SEM_FULL").map((item) => item.content))],
-    detectedRelationships: relationLabels,
+    preservedScientificTerms: [...new Set(preparedTerms.accepted.map((item) => item.term))],
+    detectedRelationships: preparedRelations.accepted,
     workingHypotheses: active.filter((item) => ["ASSUMPTION", "EXPECTED_DIRECTION"].includes(item.proposedType ?? "")).map((item) => item.content),
     missingInformation: interpretation.missingInformation,
     contextVersion: (previous?.contextVersion ?? 0) + 1,

@@ -2,11 +2,12 @@ import { z } from "zod";
 import { logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical";
 import { createKnowledgeContextPackage, type KnowledgeContextInput } from "./context-package";
 import { classifySensitivity } from "./privacy";
+import { KNOWLEDGE_RELATION_MAX_LENGTH, SCIENTIFIC_OBJECT_ORIGINAL_TERM_MAX_LENGTH } from "./scientific-object-boundary.js";
 import { KNOWLEDGE_ENGINE_VERSION, type ExternalSearchPolicy, type KnowledgePurpose, type KnowledgeRequest, type KnowledgeRequestType, type ScientificObjectRef } from "./types";
 
 const scientificObjectSchema = z.object({
   objectId: z.string().min(1).max(200),
-  originalTerm: z.string().min(1).max(200),
+  originalTerm: z.string().min(1).max(SCIENTIFIC_OBJECT_ORIGINAL_TERM_MAX_LENGTH),
   role: z.enum(["SUBJECT", "COMPARATOR", "CONTEXT", "UNKNOWN"]),
 }).strict();
 
@@ -22,7 +23,7 @@ export const knowledgeRequestSchema = z.object({
   knowledgePurpose: z.enum(["UNDERSTAND", "COMPARE", "CLARIFY_SELECTION", "CHECK_APPLICABILITY", "IDENTIFY_GAP"]),
   consumer: z.enum(["PROTOCOL_DESIGNER_UNDERSTAND", "SCIENTIFIC_THINKING_ENGINE", "IMAGING_STUDY_DESIGNER", "RESEARCH_PROJECT_CONSTRUCTION", "KNOWLEDGE_ENGINE_TEST"]),
   scientificObjects: z.array(scientificObjectSchema).min(1).max(30),
-  relations: z.array(z.string().min(1).max(200)).max(30),
+  relations: z.array(z.string().min(1).max(KNOWLEDGE_RELATION_MAX_LENGTH)).max(30),
   requestedClaimType: z.enum(["DEFINITION", "COMPARISON", "APPLICABILITY", "BEST_OPTION", "GAP"]),
   context: z.object({ contextId: z.string(), version: z.literal(KNOWLEDGE_ENGINE_VERSION) }).passthrough(),
   exclusions: z.array(z.string().max(300)).max(50),

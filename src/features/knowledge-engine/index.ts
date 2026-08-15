@@ -18,5 +18,7 @@ export * from "./privacy";
 export * from "./persistence";
 export * from "./trace";
 export * from "./engine";
+export * from "./scientific-object-boundary";
+export * from "./presentation";
 export * from "./understand-projection";
 export * from "./external-evidence";

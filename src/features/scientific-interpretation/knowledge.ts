@@ -1,4 +1,4 @@
-import { executeKnowledgeEngine, uniqueSorted, type ContextDimensionName, type KnowledgeContextInput, type KnowledgeResult } from "@/features/knowledge-engine";
+import { executeKnowledgeEngine, prepareKnowledgeRelations, prepareScientificObjectTerms, uniqueSorted, type ContextDimensionName, type KnowledgeContextInput, type KnowledgeResult, type ScientificObjectBoundaryDiagnostic } from "@/features/knowledge-engine";
 import type { ScientificContributionItem, ScientificInterpretationContributionEnvelope } from "./contracts";
 
 export type ScientificInterpretationKnowledgeRequest = {
@@ -13,6 +13,7 @@ export type ScientificInterpretationKnowledgeRequest = {
   provenanceRefs: string[];
   ownership: "KNOWLEDGE";
   projectDecisionAuthorized: false;
+  diagnostics: ScientificObjectBoundaryDiagnostic[];
 };
 
 export type ScientificInterpretationKnowledgeLink = {
@@ -47,9 +48,25 @@ export const contributionToKnowledgeRequest = (contribution: ScientificInterpret
     const dimension = item.proposedType ? TYPE_TO_CONTEXT[item.proposedType] : undefined;
     if (dimension) grouped.set(dimension, [...(grouped.get(dimension) ?? []), item.content]);
   });
-  const primary = items.filter((item) => ["SCIENTIFIC_OBJECT", "PHENOMENON", "BIOMARKER", "CONDITION", "CLINICAL_CONDITION", "MODALITY", "IMAGING_MODALITY", "METHOD"].includes(item.proposedType ?? ""));
+  const primary = items.filter((item) => ["SCIENTIFIC_OBJECT", "PHENOMENON", "BIOMARKER", "CONDITION", "CLINICAL_CONDITION", "MODALITY", "IMAGING_MODALITY", "METHOD", "INTERVENTION", "COMPARATOR"].includes(item.proposedType ?? ""));
   const selected = primary.length ? primary : items.slice(0, 6);
+  const preparedTerms = prepareScientificObjectTerms({
+    originalQuestion: contribution.source.turns.map((turn) => turn.content).join("\n"),
+    payloadRef: contribution.identity.contributionId,
+    candidates: selected.map((item, index) => ({
+      term: item.content,
+      role: item.studyRole === "COMPARATOR" || item.studyRole === "COMPARATOR_ARM" ? "COMPARATOR" : index === 0 ? "SUBJECT" : "CONTEXT",
+      sourceText: item.epistemicBoundary.sourceText,
+      sourceRef: item.epistemicBoundary.sourceTurnIds[0] ?? null,
+      payloadRef: item.itemId,
+    })),
+  });
   const byId = new Map(items.map((item) => [item.itemId, item]));
+  const preparedRelations = prepareKnowledgeRelations({
+    relations: contribution.scientificContent.candidateRelations.filter((item) => item.epistemicBoundary.activeState !== false).map((relation) =>
+      `${byId.get(relation.sourceItemId)?.content ?? relation.sourceItemId} ${relation.relationType} ${byId.get(relation.targetItemId)?.content ?? relation.targetItemId}`),
+    payloadRef: contribution.identity.contributionId,
+  });
   const unknowns = uniqueSorted([
     ...contribution.scientificContent.unknowns.map((item) => item.content),
     ...contribution.scientificContent.missingInformation.map((item) => item.content),
@@ -58,12 +75,11 @@ export const contributionToKnowledgeRequest = (contribution: ScientificInterpret
     requestId: `knowledge-request:${contribution.identity.contributionDigest}`,
     contributionId: contribution.identity.contributionId,
     originalQuestion: contribution.source.originalRequest,
-    scientificObjectTerms: selected.map((item, index) => ({
-      term: item.content,
-      role: item.studyRole === "COMPARATOR" || item.studyRole === "COMPARATOR_ARM" ? "COMPARATOR" : index === 0 ? "SUBJECT" : "CONTEXT",
+    scientificObjectTerms: preparedTerms.accepted.map((item) => ({
+      term: item.term,
+      role: item.role === "UNKNOWN" ? "CONTEXT" : item.role,
     })),
-    relations: contribution.scientificContent.candidateRelations.filter((item) => item.epistemicBoundary.activeState !== false).map((relation) =>
-      `${byId.get(relation.sourceItemId)?.content ?? relation.sourceItemId} ${relation.relationType} ${byId.get(relation.targetItemId)?.content ?? relation.targetItemId}`),
+    relations: preparedRelations.accepted,
     context: {
       ...Object.fromEntries([...grouped.entries()].map(([key, values]) => [key, uniqueSorted(values)])),
       unknowns,
@@ -74,6 +90,7 @@ export const contributionToKnowledgeRequest = (contribution: ScientificInterpret
     provenanceRefs: uniqueSorted([contribution.identity.contributionId, ...contribution.source.sourceRefs]),
     ownership: "KNOWLEDGE",
     projectDecisionAuthorized: false,
+    diagnostics: [...preparedTerms.diagnostics, ...preparedRelations.diagnostics],
   };
 };
 
