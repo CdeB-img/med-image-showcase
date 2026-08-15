@@ -1,0 +1,17 @@
+{
+  "campaignId": "UX-001-CLOSURE-01",
+  "contracts": [
+    { "contract": "Project ownership", "preserved": true, "proof": "UX-CLOSE-C03, C10, C11", "note": "Workspace is projection-only." },
+    { "contract": "QRY ownership", "preserved": true, "proof": "UX-CLOSE-C05, C14, C39", "note": "UX consumes and never reranks." },
+    { "contract": "VAL ownership", "preserved": true, "proof": "UX-CLOSE-C06, C12, C33", "note": "No finding or run mutation." },
+    { "contract": "Human Decision ownership", "preserved": true, "proof": "UX-CLOSE-C07, C13, C25", "note": "Targets and handoffs only." },
+    { "contract": "Scientific Interpretation ownership", "preserved": true, "proof": "UX-CLOSE-C29", "note": "Free text remains a raw candidate contribution." },
+    { "contract": "DAI ownership", "preserved": true, "proof": "UX-CLOSE-C35", "note": "Deep link targets the specialized owner." },
+    { "contract": "Document projection-only", "preserved": true, "proof": "UX-CLOSE-C08, C38", "note": "Generatability is read from TMP/DOC state." },
+    { "contract": "Unknown preservation", "preserved": true, "proof": "UX-CLOSE-C27", "note": "CannotAnswer never fills a default." },
+    { "contract": "Candidate/adopted separation", "preserved": true, "proof": "UX-CLOSE-C30, C41", "note": "Distinct text and status presentation." },
+    { "contract": "No hidden writes", "preserved": true, "proof": "UX-CLOSE-C10..C13, C38", "note": "All boundary counters remain zero." },
+    { "contract": "No provider", "preserved": true, "proof": "UX-CLOSE-C09, C34", "note": "Provider calls by UX: zero." },
+    { "contract": "No PD-011 claim", "preserved": true, "proof": "campaign classification", "note": "Product UX acceptance only." }
+  ]
+}

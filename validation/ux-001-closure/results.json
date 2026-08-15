@@ -1,0 +1,32 @@
+{
+  "campaignId": "UX-001-CLOSURE-01",
+  "status": "COMPLETE_WITH_NON_BLOCKING_LIMITATIONS",
+  "closureGates": {
+    "coreUx": { "passed": 50, "failed": 0, "total": 50 },
+    "documentLifecycle": { "passed": 10, "failed": 0, "total": 10 },
+    "overall": { "passed": 60, "failed": 0, "total": 60 }
+  },
+  "tests": {
+    "part4ClosureGates": { "passed": 60, "failed": 0, "skipped": 0, "total": 60 },
+    "targetedTransverse": { "passed": 1544, "failed": 0, "skipped": 0, "total": 1544 },
+    "globalSuite": { "passed": 2490, "failed": 3, "skipped": 0, "total": 2493 }
+  },
+  "globalFailureClassification": "PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE",
+  "uxAttributedFailures": 0,
+  "technicalValidations": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "changedFilesLint": "PASS",
+    "diffCheck": "PASS"
+  },
+  "visualAcceptance": "PASS_LOCAL_BUILD",
+  "responsiveAcceptance": "PASS_1440_1280_768_390",
+  "providerCallsByUx": 0,
+  "projectWritesByUx": 0,
+  "valWritesByUx": 0,
+  "qryRankingRecalculationsByUx": 0,
+  "autoHumanDecisions": 0,
+  "directResponsePromotions": 0,
+  "documentWritesByWorkspace": 0,
+  "decision": "UX001_ADAPTIVE_RESEARCH_WORKSPACE_CLOSED_WITH_LIMITATIONS_READY_FOR_V1_INTEGRATION_FREEZE"
+}

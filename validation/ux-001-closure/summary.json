@@ -1,0 +1,16 @@
+{
+  "campaignId": "UX-001-CLOSURE-01",
+  "evidenceLevel": "LEVEL_3_PRODUCT_UX_ACCEPTANCE_EVIDENCE",
+  "status": "COMPLETE",
+  "coreUxGates": "50/50 PASS",
+  "documentLifecycleGates": "10/10 PASS",
+  "overallGates": "60/60 PASS",
+  "scenarioFamilies": "26/26 COVERED",
+  "targetedTests": "1544/1544 PASS",
+  "globalSuite": "2490 PASS, 3 PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE, 0 SKIP, 2493 TOTAL",
+  "providerCallsByUx": 0,
+  "projectWritesByUx": 0,
+  "valWritesByUx": 0,
+  "autoHumanDecisions": 0,
+  "decision": "UX001_ADAPTIVE_RESEARCH_WORKSPACE_CLOSED_WITH_LIMITATIONS_READY_FOR_V1_INTEGRATION_FREEZE"
+}

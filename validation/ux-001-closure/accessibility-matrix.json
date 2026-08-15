@@ -1,0 +1,16 @@
+{
+  "campaignId": "UX-001-CLOSURE-01",
+  "status": "PASS_BASELINE",
+  "interactions": [
+    { "interaction": "Workspace navigation", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Next action", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Clarification", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Defer", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Decline", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Options", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS_FIELDSET", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Human Decision", "keyboard": "PASS", "focus": "PASS_DIALOG_CONTRACT", "label": "PASS", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Validation finding", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Document blocker", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" },
+    { "interaction": "Expert mode", "keyboard": "PASS", "focus": "PASS_NATIVE", "label": "PASS_ARIA_PRESSED", "statusSemantics": "PASS", "colorIndependent": "PASS", "result": "PASS" }
+  ]
+}

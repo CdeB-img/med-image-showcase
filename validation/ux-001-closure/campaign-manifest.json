@@ -1,0 +1,35 @@
+{
+  "campaignId": "UX-001-CLOSURE-01",
+  "evidenceLevel": "LEVEL_3_PRODUCT_UX_ACCEPTANCE_EVIDENCE",
+  "fixtureClassification": "VISIBLE_SYNTHETIC_PRODUCT_FIXTURES",
+  "qualificationStatus": "NOT_PD011_QUALIFICATION",
+  "startedFromCommit": "3a7877c9223914ae6670a284d145e87b5a1fe80a",
+  "partCommits": {
+    "part1": null,
+    "part2": "efa9fdd7675d7db45afe31fc219bafd2e1722d5a",
+    "part3": "1a6bff59432dbdc60226e651686f91753905e9d5",
+    "part4Functional": "5a79de1c11a726bd448ea5899fdc0905e8e1213a"
+  },
+  "closureGateRanges": [
+    "UX-CLOSE-C01..UX-CLOSE-C50",
+    "UX-DOC-LIVE-C01..UX-DOC-LIVE-C10"
+  ],
+  "closureGateCount": 60,
+  "scenarioFamilyCount": 26,
+  "routes": [
+    "/protocol-designer",
+    "/protocol-designer/demo"
+  ],
+  "visualWidths": [1440, 1280, 768, 390],
+  "providerCallsByUx": 0,
+  "projectWritesByUx": 0,
+  "valWritesByUx": 0,
+  "qryRankingRecalculationsByUx": 0,
+  "autoHumanDecisions": 0,
+  "directResponsePromotions": 0,
+  "documentWritesByWorkspace": 0,
+  "patientDataCount": 0,
+  "blindDataUsed": false,
+  "normativeDocumentsModified": false,
+  "sourceOfTruthIndexModified": false
+}

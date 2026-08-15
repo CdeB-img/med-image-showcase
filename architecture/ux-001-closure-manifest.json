@@ -1,0 +1,103 @@
+{
+  "missionId": "UX-001",
+  "evidenceLevel": "LEVEL_3_PRODUCT_UX_ACCEPTANCE_EVIDENCE",
+  "decision": "UX001_ADAPTIVE_RESEARCH_WORKSPACE_CLOSED_WITH_LIMITATIONS_READY_FOR_V1_INTEGRATION_FREEZE",
+  "closedAt": "2026-08-15T11:39:59+02:00",
+  "startingCommit": "3a7877c9223914ae6670a284d145e87b5a1fe80a",
+  "partCommits": {
+    "part1": null,
+    "part2": "efa9fdd7675d7db45afe31fc219bafd2e1722d5a",
+    "part3": "1a6bff59432dbdc60226e651686f91753905e9d5",
+    "part4Functional": "5a79de1c11a726bd448ea5899fdc0905e8e1213a"
+  },
+  "endingCommitBeforeClosure": "5a79de1c11a726bd448ea5899fdc0905e8e1213a",
+  "workspaceProjectionVersion": "1.0.0",
+  "primarySurface": "PROJECT_CENTRIC_ADAPTIVE_RESEARCH_WORKSPACE",
+  "navigationModel": "QRY_OWNED_ADAPTIVE_NEXT_ACTION_WITH_FREE_SPECIALIZED_EXPLORATION",
+  "queryIntegrationStatus": "CONSUMED_WITHOUT_RERANKING",
+  "validationIntegrationStatus": "READ_ONLY_PRODUCT_SUMMARY_NOT_EVALUABLE_PRESERVED",
+  "humanDecisionIntegrationStatus": "TARGET_AND_HANDOFF_ONLY_NO_AUTO_DECISION",
+  "documentIntegrationStatus": "LIVING_VERSIONED_PROGRESSIVE_PROJECTIONS",
+  "semanticStateCoverage": [
+    "UNKNOWN",
+    "AMBIGUOUS",
+    "CANDIDATE",
+    "ADOPTED",
+    "REJECTED",
+    "DEFERRED",
+    "BLOCKING",
+    "WARNING",
+    "NOT_APPLICABLE",
+    "NOT_EVALUABLE",
+    "NOT_GENERATABLE",
+    "DEFERRED_TO_REALIZED_TIME",
+    "STALE"
+  ],
+  "standardModeStatus": "SUFFICIENT_FOR_NORMAL_WORK",
+  "expertModeStatus": "INSPECTION_ONLY",
+  "guidedIntakeLegacyStatus": "ENTRY_AND_COMPATIBILITY_ONLY_NOT_GLOBAL_NAVIGATION_OWNER",
+  "stepperLegacyStatus": "SECONDARY_PROJECT_MAP_NO_QRY_OVERRIDE",
+  "desktopAcceptance": "PASS_1440_AND_1280",
+  "tabletAcceptance": "PASS_768",
+  "mobileAcceptance": "PASS_390_NO_HORIZONTAL_OVERFLOW",
+  "keyboardAcceptance": "PASS_NATIVE_CONTROLS_AND_DIALOG_CONTRACTS",
+  "accessibilityAcceptance": "PASS_BASELINE",
+  "providerCallsByUx": 0,
+  "projectWritesByUx": 0,
+  "valWritesByUx": 0,
+  "qryRankingRecalculationsByUx": 0,
+  "autoHumanDecisions": 0,
+  "directResponsePromotions": 0,
+  "documentWritesByWorkspace": 0,
+  "globalProgressScores": 0,
+  "paymentFunctionality": 0,
+  "closureGates": {
+    "coreUx": { "passed": 50, "failed": 0, "total": 50 },
+    "documentLifecycle": { "passed": 10, "failed": 0, "total": 10 },
+    "overall": { "passed": 60, "failed": 0, "total": 60 }
+  },
+  "targetedTests": {
+    "part4ClosureGates": { "passed": 60, "failed": 0, "skipped": 0, "total": 60 },
+    "transverseCorridor": { "passed": 1544, "failed": 0, "skipped": 0, "total": 1544 }
+  },
+  "globalSuite": {
+    "passed": 2490,
+    "failed": 3,
+    "skipped": 0,
+    "total": 2493,
+    "failureClassification": "PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE",
+    "uxAttributedFailures": 0
+  },
+  "technicalValidations": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "changedFilesLint": "PASS",
+    "diffCheck": "PASS"
+  },
+  "evidence": {
+    "campaign": "validation/ux-001-closure/campaign-manifest.json",
+    "gates": "validation/ux-001-closure/gates.json",
+    "results": "validation/ux-001-closure/results.json",
+    "scenarios": "validation/ux-001-closure/scenario-catalog.json",
+    "visual": "validation/ux-001-closure/visual-acceptance.json",
+    "accessibility": "validation/ux-001-closure/accessibility-matrix.json",
+    "contracts": "validation/ux-001-closure/contract-matrix.json"
+  },
+  "knownLimitations": [
+    "NAVIGATION_MEMORY_SESSION_SCOPED_PROJECT_STATE_RECONSTRUCTIBLE",
+    "NO_PERSISTED_TRANSVERSE_VALIDATION_RUN_IN_DEMONSTRATOR",
+    "VAL_SEMANTIC_REVIEWER_DISABLED_BY_DEFAULT_NOT_QUALIFIED",
+    "DM_AND_BIOSTATISTICS_HISTORICAL_DOCUMENTARY_VALIDATORS",
+    "THREE_PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURES",
+    "NOT_PD011_QUALIFICATION"
+  ],
+  "boundaries": {
+    "sourceOfTruthIndexModified": false,
+    "normativeDocumentsModified": false,
+    "blindReads": 0,
+    "semFullReopened": false,
+    "paywallImplemented": false,
+    "externalEditorialEngineModifiedByMission": false
+  },
+  "nextMission": "V1-INTEGRATION-FREEZE"
+}

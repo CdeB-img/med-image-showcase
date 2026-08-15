@@ -1,0 +1,35 @@
+{
+  "campaignId": "UX-001-CLOSURE-01",
+  "localBuild": "http://127.0.0.1:5174",
+  "method": {
+    "landingAndDemo": "LOCAL_BROWSER_INSPECTION",
+    "workspaceStates": "COMPONENT_DOM_AND_JOURNEY_TESTS"
+  },
+  "browserWidths": {
+    "desktopLarge": 1440,
+    "laptop": 1280,
+    "tablet": 768,
+    "mobile": 390
+  },
+  "globalHorizontalOverflow": {
+    "landing": false,
+    "demo": false
+  },
+  "surfaces": [
+    { "surface": "Landing", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "PASS", "expert": "NOT_APPLICABLE", "status": "PASS" },
+    { "surface": "Workspace", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "PASS", "expert": "PASS", "status": "PASS" },
+    { "surface": "Clarification", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "PASS", "expert": "PASS", "status": "PASS" },
+    { "surface": "Option comparison", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "PASS", "expert": "PASS", "status": "PASS" },
+    { "surface": "Human Decision", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "PASS", "expert": "PASS", "status": "PASS" },
+    { "surface": "Data/Analysis deep link", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "PASS", "expert": "PASS", "status": "PASS" },
+    { "surface": "Validation context", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "PASS", "expert": "PASS", "status": "PASS" },
+    { "surface": "Documents", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "PASS", "expert": "PASS", "status": "PASS" },
+    { "surface": "Expert detail", "desktop": "PASS", "laptop": "PASS", "tablet": "PASS", "mobile": "PASS", "standard": "NOT_APPLICABLE", "expert": "PASS", "status": "PASS" }
+  ],
+  "observations": [
+    "The local landing describes an adaptive project map instead of a mandatory seven-step flow.",
+    "The initial demo no longer dedicates half the wide viewport to an empty Project pane.",
+    "The former Audit / mode expert label is replaced by Inspecter la trace.",
+    "No horizontal overflow was measured at 1440, 1280, 768 or 390 pixels."
+  ]
+}
