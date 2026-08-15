@@ -1,4 +1,5 @@
 import { compareScientificInterpretationContributions, type ScientificInterpretationShadowComparison } from "./shadow-comparison.js";
+import { canonicalizeScientificContribution } from "./canonical.js";
 import {
   DEFAULT_SCIENTIFIC_INTERPRETATION_MODE,
   ScientificInterpretationTechnicalError,
@@ -36,6 +37,27 @@ const noFallback = {
   uiStateMutatedByShadow: false as const,
 };
 
+export const applyScientificInterpretationInteractionBoundary = (
+  contribution: ScientificInterpretationContributionEnvelope,
+  previousState: ScientificInterpretationContributionEnvelope | null | undefined,
+  conversation: ScientificInterpretationConversation,
+): ScientificInterpretationContributionEnvelope => {
+  if (conversation.interactionContext?.expectedResponseKind !== "ROUTE_INTENT" || !previousState) return contribution;
+  const { contributionDigest: _contributionDigest, ...identity } = contribution.identity;
+  return canonicalizeScientificContribution({
+    ...structuredClone(contribution),
+    identity,
+    scientificContent: {
+      ...structuredClone(previousState.scientificContent),
+      routeProposal: contribution.scientificContent.routeProposal,
+    },
+    epistemicBoundary: structuredClone(previousState.epistemicBoundary),
+    mapping: structuredClone(previousState.mapping),
+    audit: structuredClone(previousState.audit),
+    decisionBoundary: structuredClone(previousState.decisionBoundary),
+  });
+};
+
 export const executeScientificInterpretation = async (input: {
   conversation: ScientificInterpretationConversation;
   legacyRuntime: ScientificInterpretationRuntime;
@@ -46,25 +68,45 @@ export const executeScientificInterpretation = async (input: {
 }): Promise<ScientificInterpretationExecution> => {
   const mode = input.mode ?? DEFAULT_SCIENTIFIC_INTERPRETATION_MODE;
   if (mode === "LEGACY_ACTIVE") {
-    const activeContribution = await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
+    const activeContribution = applyScientificInterpretationInteractionBoundary(
+      await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext),
+      input.previousState,
+      input.conversation,
+    );
     return { mode, activeContribution, shadowContribution: null, comparison: null, ...noFallback, diagnostics: [] };
   }
   if (!input.hybridRuntime) throw new ScientificInterpretationTechnicalError("HYBRID_RUNTIME_UNAVAILABLE", "HYBRID_RUNTIME_REQUIRED");
   if (mode === "HYBRID_SHADOW") {
-    const activeContribution = await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
+    const activeContribution = applyScientificInterpretationInteractionBoundary(
+      await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext),
+      input.previousState,
+      input.conversation,
+    );
     try {
-      const shadowContribution = await input.hybridRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
+      const shadowContribution = applyScientificInterpretationInteractionBoundary(
+        await input.hybridRuntime.interpret(input.conversation, input.previousState, input.authorizedContext),
+        input.previousState,
+        input.conversation,
+      );
       return { mode, activeContribution, shadowContribution, comparison: compareScientificInterpretationContributions(activeContribution, shadowContribution), ...noFallback, diagnostics: [] };
     } catch (error) {
       return { mode, activeContribution, shadowContribution: null, comparison: null, ...noFallback, diagnostics: [error instanceof Error ? error.message : "HYBRID_SHADOW_FAILURE"] };
     }
   }
   try {
-    const activeContribution = await input.hybridRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
+    const activeContribution = applyScientificInterpretationInteractionBoundary(
+      await input.hybridRuntime.interpret(input.conversation, input.previousState, input.authorizedContext),
+      input.previousState,
+      input.conversation,
+    );
     return { mode, activeContribution, shadowContribution: null, comparison: null, ...noFallback, diagnostics: [] };
   } catch (error) {
     if (!technicalFallbackEligible(error)) throw error;
-    const activeContribution = await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext);
+    const activeContribution = applyScientificInterpretationInteractionBoundary(
+      await input.legacyRuntime.interpret(input.conversation, input.previousState, input.authorizedContext),
+      input.previousState,
+      input.conversation,
+    );
     const technical = error as ScientificInterpretationTechnicalError;
     return {
       mode,

@@ -4,8 +4,8 @@ import type { HybridNativeExecution, HybridParsedState } from "./hybrid-adapter.
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation } from "./contracts.js";
 
 export const HYBRID_PRIMARY_RUNTIME_ID = "HYBRID_PRIMARY_STRUCTURED" as const;
-export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.1.0" as const;
-export const HYBRID_PRIMARY_PROMPT_VERSION = "HYBRID-PRIMARY-STRUCTURED-1.0.0" as const;
+export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.2.0" as const;
+export const HYBRID_PRIMARY_PROMPT_VERSION = "HYBRID-PRIMARY-STRUCTURED-1.1.0" as const;
 export const EXPECTED_HYBRID_MODEL_IDENTITY = "gemini-3.5-flash-lite" as const;
 export const HYBRID_PRIMARY_OUTPUT_FUNCTION_NAME = "final_result" as const;
 
@@ -33,6 +33,9 @@ Rules:
 8. An unknown cannot become confirmed without a later source turn supplying it.
 9. Partial or conditional availability remains literal and is not generalized.
 10. Clarification needs describe an intent only; do not rank questions.
+11. Return routeProposal from the complete structured conversation: UNDERSTAND for explanation or concept exploration; FORMALIZE_IDEA for structuring a question or hypothesis without yet constructing a study; DESIGN_STUDY only when the user explicitly asks to construct a study or active structured statements explicitly encode study creation/construction; DOCUMENT only for an explicit documentary objective; null when the route is genuinely ambiguous.
+12. When interactionContext.expectedResponseKind is ROUTE_INTENT, interpret the latest user turn only as a product-routing response. Preserve the previous scientific content, return routeProposal, and never turn the requested product action into a scientific object, unknown, missing information or correction.
+13. When interactionContext is present, the latest response belongs to its declared purpose and targets. Do not infer another owner or response purpose from wording alone.
 
 Do not access or assume a Research Project. Do not provide a protocol or recommendation. Return concise scientific content, not hidden reasoning.
 `.trim();
@@ -44,6 +47,11 @@ const epistemicStatus = z.enum([
 const polarity = z.enum(["AFFIRMED", "NEGATED", "UNCERTAIN", "CONDITIONAL"]);
 const nullableText = z.string().nullable();
 const confidence = z.number().min(0).max(1).nullable();
+const routeProposalSchema = z.object({
+  route: z.enum(["UNDERSTAND", "FORMALIZE_IDEA", "DESIGN_STUDY", "DOCUMENT", "REVIEW_REROUTE"]),
+  confidence,
+  reason: nullableText,
+}).strict().nullable();
 
 const scientificElementSchema = z.object({
   elementId: z.string().min(1),
@@ -123,6 +131,7 @@ const clarificationSchema = z.object({
 
 export const hybridPrimaryInterpretationSchema = z.object({
   normalizedUnderstanding: z.string().min(1),
+  routeProposal: routeProposalSchema.default(null),
   scientificGoalCandidates: z.array(z.string()),
   studyIntentCandidates: z.array(z.string()),
   objects: z.array(scientificElementSchema),
@@ -198,7 +207,13 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
     }, required: ["clarificationId", "targetUnknown", "decisionalImpact", "affectedDecisions", "affectedBranches", "blocking", "candidateQuestionIntent", "resolutionOwner"] },
   },
   properties: {
-    normalizedUnderstanding: { type: "string" }, scientificGoalCandidates: stringArrayJson, studyIntentCandidates: stringArrayJson,
+    normalizedUnderstanding: { type: "string" },
+    routeProposal: { anyOf: [{ type: "object", additionalProperties: false, properties: {
+      route: { type: "string", enum: ["UNDERSTAND", "FORMALIZE_IDEA", "DESIGN_STUDY", "DOCUMENT", "REVIEW_REROUTE"] },
+      confidence: nullableNumberJson,
+      reason: nullableStringJson,
+    }, required: ["route", "confidence", "reason"] }, { type: "null" }] },
+    scientificGoalCandidates: stringArrayJson, studyIntentCandidates: stringArrayJson,
     objects: { type: "array", items: { $ref: "#/$defs/ScientificElement" } }, relations: { type: "array", items: { $ref: "#/$defs/ScientificRelation" } },
     explicitStatements: { type: "array", items: { $ref: "#/$defs/ScientificElement" } }, inferredContext: { type: "array", items: { $ref: "#/$defs/ScientificElement" } },
     contextualCandidates: { type: "array", items: { $ref: "#/$defs/ScientificElement" } }, negationsAndConstraints: { type: "array", items: { $ref: "#/$defs/ScientificElement" } },
@@ -207,7 +222,7 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
     correctionsAndSupersessions: { type: "array", items: { $ref: "#/$defs/Correction" } }, ownershipAndEpistemicStates: { type: "array", items: { $ref: "#/$defs/OwnershipState" } },
     openDecisions: { type: "array", items: { $ref: "#/$defs/OpenDecision" } }, clarificationNeeds: { type: "array", items: { $ref: "#/$defs/ClarificationNeed" } },
   },
-  required: ["normalizedUnderstanding", "scientificGoalCandidates", "studyIntentCandidates", "objects", "relations", "explicitStatements", "inferredContext", "contextualCandidates", "negationsAndConstraints", "temporalElements", "ambiguities", "unknowns", "missingInformation", "correctionsAndSupersessions", "ownershipAndEpistemicStates", "openDecisions", "clarificationNeeds"],
+  required: ["normalizedUnderstanding", "routeProposal", "scientificGoalCandidates", "studyIntentCandidates", "objects", "relations", "explicitStatements", "inferredContext", "contextualCandidates", "negationsAndConstraints", "temporalElements", "ambiguities", "unknowns", "missingInformation", "correctionsAndSupersessions", "ownershipAndEpistemicStates", "openDecisions", "clarificationNeeds"],
 } as const;
 
 type JsonSchemaValue = null | boolean | number | string | JsonSchemaValue[] | { [key: string]: JsonSchemaValue };

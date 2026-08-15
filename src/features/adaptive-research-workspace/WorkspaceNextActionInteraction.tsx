@@ -1,6 +1,8 @@
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { NavigationResponseDisposition } from "@/features/query-navigation/lifecycle-contracts";
 import type { QueryNavigationProductProjection } from "@/features/query-navigation/product-contracts";
+import { createQueryConversationInteraction } from "@/features/protocol-designer/conversation/ActiveConversationInteraction";
+import { useConversationInteractionController } from "@/features/protocol-designer/conversation/ConversationInteractionContext";
 import type { WorkspaceMode } from "./contracts";
 import { createWorkspaceInteractionHandoff, inspectWorkspaceInteractionFreshness, type WorkspaceInteractionHandoff, type WorkspaceResponseState } from "./interactions";
 
@@ -41,6 +43,7 @@ const STATE_LABEL: Record<WorkspaceResponseState, string> = {
 export type WorkspaceNextActionInteractionProps = {
   projection: Readonly<QueryNavigationProductProjection>;
   currentProjectVersion: string;
+  currentProjectDigest?: string | null;
   currentSourceStateDigest: string;
   onOwnerHandoff?: (handoff: WorkspaceInteractionHandoff) => void;
   onOpenTarget?: (targetRef: string) => void;
@@ -48,7 +51,7 @@ export type WorkspaceNextActionInteractionProps = {
   mode?: WorkspaceMode;
 };
 
-export default function WorkspaceNextActionInteraction({ projection, currentProjectVersion, currentSourceStateDigest, onOwnerHandoff, onOpenTarget, onChooseNavigationPreference, mode = "STANDARD" }: WorkspaceNextActionInteractionProps) {
+export default function WorkspaceNextActionInteraction({ projection, currentProjectVersion, currentProjectDigest = null, currentSourceStateDigest, onOwnerHandoff, onOpenTarget, onChooseNavigationPreference, mode = "STANDARD" }: WorkspaceNextActionInteractionProps) {
   const [rawResponse, setRawResponse] = useState("");
   const [selectedOptionRef, setSelectedOptionRef] = useState<string | null>(null);
   const [responseState, setResponseState] = useState<WorkspaceResponseState>("READY");
@@ -56,16 +59,20 @@ export default function WorkspaceNextActionInteraction({ projection, currentProj
   const freshness = useMemo(() => inspectWorkspaceInteractionFreshness(projection, currentProjectVersion, currentSourceStateDigest), [currentProjectVersion, currentSourceStateDigest, projection]);
   const presentation = projection.questionPresentation;
   const action = projection.selectedAction;
+  const interactionController = useConversationInteractionController();
+  const conversationInteraction = useMemo(() => createQueryConversationInteraction(projection, currentProjectDigest), [currentProjectDigest, projection]);
+  const externalFreeResponse = mode === "STANDARD" && Boolean(interactionController && presentation?.expectedAnswerKind === "FREE_TEXT" && conversationInteraction);
+  const dispatchResponseRef = useRef<(disposition: NavigationResponseDisposition, suppliedRawResponse: unknown, suppliedOptionRefs: string[]) => void>(() => {});
 
-  const respond = (disposition: NavigationResponseDisposition) => {
+  const dispatchResponse = useCallback((disposition: NavigationResponseDisposition, suppliedRawResponse: unknown, suppliedOptionRefs: string[]) => {
     if (!presentation || !action) return;
     const handoff = createWorkspaceInteractionHandoff({
       projection,
       currentProjectVersion,
       currentSourceStateDigest,
       disposition,
-      rawResponse: disposition === "ANSWER" ? (presentation.expectedAnswerKind === "FREE_TEXT" ? rawResponse : selectedOptionRef) : null,
-      selectedOptionRefs: disposition === "ANSWER" && selectedOptionRef ? [selectedOptionRef] : [],
+      rawResponse: disposition === "ANSWER" ? suppliedRawResponse : null,
+      selectedOptionRefs: disposition === "ANSWER" ? suppliedOptionRefs : [],
       actorRef: "CURRENT_RESEARCHER",
       actorRole: "RESEARCHER",
       receivedAt: new Date().toISOString(),
@@ -74,7 +81,23 @@ export default function WorkspaceNextActionInteraction({ projection, currentProj
     setSubmittedHandoff(handoff);
     setResponseState(handoff.state);
     onOwnerHandoff?.(handoff);
-  };
+  }, [action, currentProjectVersion, currentSourceStateDigest, onOwnerHandoff, presentation, projection]);
+  dispatchResponseRef.current = dispatchResponse;
+
+  const respond = (disposition: NavigationResponseDisposition) => dispatchResponse(
+    disposition,
+    presentation?.expectedAnswerKind === "FREE_TEXT" ? rawResponse : selectedOptionRef,
+    selectedOptionRef ? [selectedOptionRef] : [],
+  );
+
+  useEffect(() => {
+    if (!interactionController || !externalFreeResponse || !conversationInteraction) return;
+    interactionController.register({
+      interaction: conversationInteraction,
+      submitResponse: (value) => dispatchResponseRef.current("ANSWER", value, []),
+    });
+    return () => interactionController.unregister(conversationInteraction.interactionRef);
+  }, [conversationInteraction, externalFreeResponse, interactionController]);
 
   return <section className="rounded-2xl border border-primary/40 bg-card p-5 shadow-sm" data-testid="workspace-next-action" aria-labelledby="workspace-next-action-title">
     <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs font-semibold uppercase tracking-wide text-primary">NOXIA</p><h3 id="workspace-next-action-title" className="mt-2 text-2xl font-bold">{projection.summary.actionLabel ?? "Choisir la suite"}</h3></div>{mode === "EXPERT" && <span className="rounded-full border bg-muted px-2.5 py-1 text-xs">{projection.status.replace(/_/g, " ").toLocaleLowerCase("fr-FR")}</span>}</div>
@@ -88,7 +111,8 @@ export default function WorkspaceNextActionInteraction({ projection, currentProj
     {action && !presentation && <div className="mt-5"><button type="button" onClick={() => onOpenTarget?.(action.targetRef)} className="min-h-11 rounded-lg bg-primary px-4 py-2 text-primary-foreground">{ACTION_LABEL[action.actionCategory]}</button>{action.actionCategory === "REFUSE_PROTOCOL_PROJECTION" && <p className="mt-3 text-sm text-muted-foreground">Le refus conserve sa règle, ses preuves et sa condition de réévaluation. Aucun faux document n’est produit.</p>}</div>}
 
     {presentation && action && <div className="mt-5 rounded-xl bg-muted/50 p-4" aria-describedby="workspace-question-context"><p className="font-semibold">{presentation.intent}</p><p id="workspace-question-context" className="mt-2 text-sm text-muted-foreground">{mode === "EXPERT" ? `Cette réponse concerne ${presentation.targetRef}.` : "Répondez avec vos mots ou utilisez un raccourci."} Ne pas savoir, attendre ou préférer ne pas répondre restent des réponses légitimes.</p>
-      {presentation.expectedAnswerKind === "FREE_TEXT" && <div className="mt-4"><label htmlFor="workspace-free-response" className="text-sm font-medium">Votre réponse</label><textarea id="workspace-free-response" value={rawResponse} onChange={(event) => setRawResponse(event.target.value)} className="mt-2 min-h-28 w-full rounded-lg border bg-background p-3" aria-describedby="workspace-free-response-help" /><p id="workspace-free-response-help" className="mt-1 text-xs text-muted-foreground">Le texte reste une contribution à examiner ; il ne modifie pas directement le Research Project.</p><button type="button" disabled={!rawResponse.trim() || freshness.status !== "CURRENT"} onClick={() => respond("ANSWER")} className="mt-3 min-h-11 rounded-lg bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">Envoyer ma réponse</button>{!rawResponse.trim() && freshness.status === "CURRENT" && <p className="mt-2 text-xs text-muted-foreground">Écrivez une réponse pour pouvoir l’envoyer.</p>}</div>}
+      {presentation.expectedAnswerKind === "FREE_TEXT" && externalFreeResponse && <p className="mt-4 rounded-lg border bg-background p-3 text-sm">Répondez dans le composeur unique de cette conversation. Votre réponse restera attachée à cette question et à sa version du projet.</p>}
+      {presentation.expectedAnswerKind === "FREE_TEXT" && !externalFreeResponse && <div className="mt-4"><label htmlFor="workspace-free-response" className="text-sm font-medium">Votre réponse</label><textarea id="workspace-free-response" value={rawResponse} onChange={(event) => setRawResponse(event.target.value)} className="mt-2 min-h-28 w-full rounded-lg border bg-background p-3" aria-describedby="workspace-free-response-help" /><p id="workspace-free-response-help" className="mt-1 text-xs text-muted-foreground">Le texte reste une contribution à examiner ; il ne modifie pas directement le Research Project.</p><button type="button" disabled={!rawResponse.trim() || freshness.status !== "CURRENT"} onClick={() => respond("ANSWER")} className="mt-3 min-h-11 rounded-lg bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">Envoyer ma réponse</button>{!rawResponse.trim() && freshness.status === "CURRENT" && <p className="mt-2 text-xs text-muted-foreground">Écrivez une réponse pour pouvoir l’envoyer.</p>}</div>}
       {["SINGLE_OPTION", "MULTIPLE_OPTIONS", "HUMAN_REVIEW_DECISION"].includes(presentation.expectedAnswerKind) && <fieldset className="mt-4"><legend className="text-sm font-medium">Options disponibles</legend><p className="mt-1 text-xs text-muted-foreground">Aucune option n’est présélectionnée.</p><div className="mt-2 grid gap-2">{presentation.knownOptions.map((option) => <label key={option} className="flex min-h-11 items-center gap-3 rounded-lg border bg-background p-3"><input type="radio" name="workspace-option" checked={selectedOptionRef === option} onChange={() => setSelectedOptionRef(option)} /><span>{option}</span></label>)}</div><button type="button" disabled={!selectedOptionRef || freshness.status !== "CURRENT"} onClick={() => respond("ANSWER")} className="mt-3 min-h-11 rounded-lg bg-primary px-4 py-2 text-primary-foreground disabled:opacity-50">Soumettre ce choix à la décision humaine</button>{!selectedOptionRef && freshness.status === "CURRENT" && <p className="mt-2 text-xs text-muted-foreground">Choisissez une option avant de la soumettre. Aucune n’est sélectionnée par défaut.</p>}</fieldset>}
       <div className="mt-4 flex flex-wrap gap-2"><button type="button" onClick={() => respond("DEFER")} className="min-h-11 rounded-lg border px-3 py-2">Différer</button><button type="button" onClick={() => respond("CANNOT_ANSWER")} className="min-h-11 rounded-lg border px-3 py-2">Je ne sais pas</button><button type="button" onClick={() => respond("DECLINE")} className="min-h-11 rounded-lg border px-3 py-2">Je préfère ne pas répondre</button></div>
     </div>}

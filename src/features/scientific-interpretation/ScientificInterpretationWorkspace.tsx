@@ -10,30 +10,42 @@ import {
 import ConversationTimeline from "@/features/protocol-designer/conversation/ConversationTimeline";
 import ConversationalProtocolDesignerShell from "@/features/protocol-designer/conversation/ConversationalProtocolDesignerShell";
 import {
+  composerPlaceholderForActiveInteraction,
+  createActiveConversationInteraction,
+  type ActiveConversationInteraction,
+} from "@/features/protocol-designer/conversation/ActiveConversationInteraction";
+import {
+  ConversationInteractionContext,
+  type ActiveConversationInteractionBinding,
+} from "@/features/protocol-designer/conversation/ConversationInteractionContext";
+import {
+  activateConversationalInteraction,
   appendConversationEvent,
-  clearConversationalWorkspaceSession,
   completeConversationalOwnerHandoff,
+  completeConversationalInteraction,
   confirmConversationalUnderstanding,
   createConversationalWorkspaceSession,
+  deactivateConversationalInteraction,
   markConversationalHandoffPending,
   migrateConversationalWorkspaceSession,
   persistConversationalWorkspaceSession,
+  recordConversationalInteractionResponse,
   registerConversationalContribution,
   type ConversationEventType,
   type ConversationalWorkspaceSession,
 } from "@/features/protocol-designer/conversation/ConversationalWorkspaceSession";
 import { buildContributionProjectPanelProjection, type ProjectPanelProjection } from "@/features/protocol-designer/conversation/ProjectPanel";
 import UnderstandingReviewCard from "@/features/protocol-designer/conversation/UnderstandingReviewCard";
+import { clearProtocolDesignerConversationalWorkspace } from "@/features/protocol-designer/conversation/reset";
 import { detectSensitiveData } from "@/features/protocol-designer/intake/privacy";
 import { INTAKE_SESSION_KEY } from "@/features/protocol-designer/intake/session";
 import { CircleAlert, RotateCcw, ShieldCheck } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ScientificInterpretationClientError, requestScientificInterpretationRuntime } from "./client";
 import { executeContributionKnowledgeVerification } from "./knowledge";
 import {
   acceptScientificInterpretationWorkingBasis,
   appendScientificInterpretationExecution,
-  clearScientificInterpretationSession,
   createScientificInterpretationMessage,
   createScientificInterpretationSession,
   linkKnowledgeResultToScientificInterpretationSession,
@@ -44,9 +56,24 @@ import {
   readLegacySemanticSession,
   type ScientificInterpretationWorkspaceSession,
 } from "./session";
+import type { ScientificInterpretationContributionEnvelope } from "./contracts";
 import type { V1ScientificInterpretationProjection } from "./v1-compatibility";
 
 export type ConversationalOwnerHandoffHandler = (handoff: WorkspaceInteractionHandoff, ownerTarget: ConversationalOwnerTarget) => void;
+
+export type ActiveConversationResponseOutcome = {
+  status: "RESOLVED" | "CLARIFICATION_REQUIRED" | "PARTIAL";
+  feedbackText: string;
+  responseRef: string;
+};
+
+export type ActiveConversationResponseRequest = {
+  interaction: ActiveConversationInteraction;
+  rawResponse: string;
+  contribution: ScientificInterpretationContributionEnvelope;
+  projection: V1ScientificInterpretationProjection | null;
+  typedHandoff: ReturnType<typeof buildConversationalSemanticHandoff>;
+};
 
 type Props = {
   onOpenStructuredProject: (
@@ -59,6 +86,9 @@ type Props = {
     interaction: WorkspaceInteractionHandoff,
   ) => Promise<ConversationalOwnerProcessingResult> | ConversationalOwnerProcessingResult;
   onUnderstandingInvalidated?: (contributionRef: string) => void;
+  activeInteractionRequest?: ActiveConversationInteraction | null;
+  onActiveConversationResponse?: (request: ActiveConversationResponseRequest) => Promise<ActiveConversationResponseOutcome> | ActiveConversationResponseOutcome;
+  onResetWorkspace?: () => void;
   renderContinuation?: (onOwnerHandoff: ConversationalOwnerHandoffHandler, mode: "STANDARD" | "EXPERT") => React.ReactNode;
   projectPanelProjection?: ProjectPanelProjection | null;
   initialDraft?: string;
@@ -81,6 +111,9 @@ export default function ScientificInterpretationWorkspace({
   onResumeStructuredProject,
   onRoutedOwnerHandoff,
   onUnderstandingInvalidated,
+  activeInteractionRequest = null,
+  onActiveConversationResponse,
+  onResetWorkspace,
   renderContinuation,
   projectPanelProjection,
   initialDraft = "",
@@ -90,6 +123,7 @@ export default function ScientificInterpretationWorkspace({
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const activeBindingRef = useRef<ActiveConversationInteractionBinding | null>(null);
 
   useEffect(() => {
     const restoredOwner = loadScientificInterpretationOwnerSessionV2(window.localStorage)
@@ -113,6 +147,10 @@ export default function ScientificInterpretationWorkspace({
   }, []);
 
   useEffect(() => { if (initialDraft.trim()) setDraft(initialDraft); }, [initialDraft]);
+  useEffect(() => {
+    if (!activeInteractionRequest) return;
+    setConversationSession((current) => activateConversationalInteraction(current, activeInteractionRequest));
+  }, [activeInteractionRequest]);
   useEffect(() => {
     if (!ownerSession.messages.length) return;
     try { persistScientificInterpretationOwnerSessionV2(window.localStorage, ownerSession); } catch { /* sensitive sessions remain in memory only */ }
@@ -139,6 +177,7 @@ export default function ScientificInterpretationWorkspace({
     baseOwner: ScientificInterpretationWorkspaceSession,
     includeReview: boolean,
     pendingOwner?: { handoffRef: string; ownerRef: ConversationalOwnerTarget },
+    activeInteraction?: ActiveConversationInteraction | null,
   ) => {
     const userMessage = createScientificInterpretationMessage("USER", content);
     const messages = [...baseOwner.messages, userMessage];
@@ -149,7 +188,14 @@ export default function ScientificInterpretationWorkspace({
       presentationStatus: "CURRENT",
       text: content,
       ownerRefs: ["USER"],
-      replayContext: eventType === "USER_CORRECTION" ? { correctionRequested: true } : null,
+      replayContext: activeInteraction ? {
+        interactionRef: activeInteraction.interactionRef,
+        sourceActionRef: activeInteraction.sourceActionRef,
+        expectedResponseKind: activeInteraction.expectedResponseKind,
+        targetRefs: activeInteraction.targetRefs,
+        informationNeedRefs: activeInteraction.informationNeedRefs,
+        correctionRequested: eventType === "USER_CORRECTION",
+      } : eventType === "USER_CORRECTION" ? { correctionRequested: true } : null,
     });
     if (pendingOwner) {
       nextConversation = markConversationalHandoffPending(
@@ -163,7 +209,23 @@ export default function ScientificInterpretationWorkspace({
     setOwnerSession(ownerWithMessage);
     setConversationSession(nextConversation);
     const response = await requestScientificInterpretationRuntime({
-      conversation: { conversationId: baseConversation.conversationId, language: "fr", turns: messages },
+      conversation: {
+        conversationId: baseConversation.conversationId,
+        language: "fr",
+        turns: messages,
+        ...(activeInteraction ? { interactionContext: {
+          interactionRef: activeInteraction.interactionRef,
+          sourceActionRef: activeInteraction.sourceActionRef,
+          owner: activeInteraction.owner,
+          purpose: activeInteraction.purpose,
+          expectedResponseKind: activeInteraction.expectedResponseKind,
+          targetRefs: activeInteraction.targetRefs,
+          informationNeedRefs: activeInteraction.informationNeedRefs,
+          projectRef: activeInteraction.projectRef,
+          projectVersion: activeInteraction.projectVersion,
+          projectDigest: activeInteraction.projectDigest,
+        } } : {}),
+      },
       previousContribution: baseOwner.currentContribution,
     });
     const assistantMessage = createScientificInterpretationMessage("NOXIA", response.contribution.scientificContent.normalizedUnderstanding ?? "La demande est conservée pour revue.");
@@ -221,10 +283,54 @@ export default function ScientificInterpretationWorkspace({
     if (detectSensitiveData(content).length) { setError("Retirez toute donnée personnelle, patient ou confidentielle avant de poursuivre."); return; }
     if (isPatientLevelExpression(content)) { setError("NOXIA n’interprète pas une valeur individuelle. Reformulez-la comme une question scientifique générale."); return; }
     setDraft("");
+    const activeInteraction = conversationSession.currentInteraction;
+    const activeBinding = activeBindingRef.current;
+    if (activeInteraction && activeBinding?.interaction.interactionRef === activeInteraction.interactionRef
+      && ["QRY_INFORMATION_RESPONSE", "HUMAN_DECISION_RESPONSE"].includes(activeInteraction.expectedResponseKind)) {
+      await activeBinding.submitResponse(content);
+      return;
+    }
     setBusy(true);
     try {
-      const correction = /^\s*(je corrige|correction|l['’]irm et la biologie)/i.test(content);
-      await executeInterpretation(content, correction ? "USER_CORRECTION" : "USER_MESSAGE", conversationSession, ownerSession, true);
+      const correction = activeInteraction?.expectedResponseKind === "SCIENTIFIC_CORRECTION"
+        || (!activeInteraction && conversationSession.understanding.status === "CORRECTION_REQUESTED");
+      const actionScopedResponse = activeInteraction
+        ? ["ROUTE_INTENT", "OWNER_MODIFICATION_REQUEST"].includes(activeInteraction.expectedResponseKind)
+        : false;
+      const interpreted = await executeInterpretation(
+        content,
+        correction ? "USER_CORRECTION" : "USER_MESSAGE",
+        conversationSession,
+        ownerSession,
+        !actionScopedResponse,
+        undefined,
+        activeInteraction,
+      );
+      if (actionScopedResponse && activeInteraction) {
+        if (!onActiveConversationResponse) throw new Error("ACTIVE_CONVERSATION_RESPONSE_CALLBACK_MISSING");
+        const outcome = await onActiveConversationResponse({
+          interaction: activeInteraction,
+          rawResponse: content,
+          contribution: interpreted.response.contribution,
+          projection: interpreted.response.v1Projection,
+          typedHandoff: buildConversationalSemanticHandoff(interpreted.response.contribution),
+        });
+        setConversationSession((current) => {
+          const recorded = recordConversationalInteractionResponse(current, activeInteraction.interactionRef, outcome.responseRef);
+          const interactionState = outcome.status === "RESOLVED"
+            ? completeConversationalInteraction(recorded, activeInteraction.interactionRef, outcome.responseRef)
+            : recorded;
+          return appendConversationEvent(interactionState, {
+            eventId: `active-interaction-feedback:${activeInteraction.interactionRef}:${outcome.responseRef}`,
+            type: "OWNER_FEEDBACK",
+            createdAt: new Date().toISOString(),
+            presentationStatus: outcome.status === "RESOLVED" ? "SUCCESS" : "PARTIAL",
+            text: outcome.feedbackText,
+            ownerRefs: [activeInteraction.owner, activeInteraction.interactionRef, outcome.responseRef],
+            replayContext: { expectedResponseKind: activeInteraction.expectedResponseKind, outcome: outcome.status, projectWriteAuthorized: false },
+          });
+        });
+      }
     } catch (caught) {
       const message = ownerFailureMessage(caught);
       setError(message);
@@ -267,6 +373,9 @@ export default function ScientificInterpretationWorkspace({
     const raw = typeof interaction.response.rawResponse === "string" ? interaction.response.rawResponse.trim() : "";
     if (!raw) return;
     const now = new Date().toISOString();
+    const activeInteraction = conversationSession.currentInteraction?.sourceActionRef === interaction.sourceActionRef
+      ? conversationSession.currentInteraction
+      : null;
     setBusy(true);
     try {
       const interpreted = await executeInterpretation(
@@ -276,6 +385,7 @@ export default function ScientificInterpretationWorkspace({
         ownerSession,
         false,
         { handoffRef: interaction.handoffId, ownerRef: ownerTarget },
+        activeInteraction,
       );
       const route = routeConversationalHandoff({
         interaction,
@@ -347,18 +457,23 @@ export default function ScientificInterpretationWorkspace({
         }));
         return;
       }
-      setConversationSession((current) => completeConversationalOwnerHandoff(current, {
-        handoffRef: interaction.handoffId,
-        ownerRef: ownerResult.ownerRef,
-        ownerResultRef: ownerResult.ownerResultRef,
-        projectRef: ownerResult.projectRef,
-        projectVersion: ownerResult.projectVersion,
-        projectDigest: ownerResult.projectDigest,
-        qryMemoryRef: ownerResult.qryMemoryRef,
-        qryActionRef: ownerResult.qryActionRef,
-        completedAt: new Date().toISOString(),
-        feedbackText: ownerResult.feedbackText,
-      }));
+      setConversationSession((current) => {
+        const completed = completeConversationalOwnerHandoff(current, {
+          handoffRef: interaction.handoffId,
+          ownerRef: ownerResult.ownerRef,
+          ownerResultRef: ownerResult.ownerResultRef,
+          projectRef: ownerResult.projectRef,
+          projectVersion: ownerResult.projectVersion,
+          projectDigest: ownerResult.projectDigest,
+          qryMemoryRef: ownerResult.qryMemoryRef,
+          qryActionRef: ownerResult.qryActionRef,
+          completedAt: new Date().toISOString(),
+          feedbackText: ownerResult.feedbackText,
+        });
+        return activeInteraction
+          ? completeConversationalInteraction(completed, activeInteraction.interactionRef, interaction.response.responseId)
+          : completed;
+      });
     } catch (caught) {
       const message = ownerFailureMessage(caught);
       setConversationSession((current) => appendConversationEvent({
@@ -376,22 +491,53 @@ export default function ScientificInterpretationWorkspace({
     } finally { setBusy(false); }
   };
 
+  const registerActiveInteractionBinding = useCallback((binding: ActiveConversationInteractionBinding) => {
+    activeBindingRef.current = binding;
+    setConversationSession((current) => activateConversationalInteraction(current, binding.interaction));
+  }, []);
+  const unregisterActiveInteractionBinding = useCallback((interactionRef: string) => {
+    if (activeBindingRef.current?.interaction.interactionRef === interactionRef) activeBindingRef.current = null;
+    setConversationSession((current) => deactivateConversationalInteraction(current, interactionRef));
+  }, []);
+  const interactionController = useMemo(() => ({
+    register: registerActiveInteractionBinding,
+    unregister: unregisterActiveInteractionBinding,
+  }), [registerActiveInteractionBinding, unregisterActiveInteractionBinding]);
+
   const requestCorrection = () => {
-    setDraft("Je corrige la compréhension précédente : ");
-    setConversationSession((current) => ({ ...current, understanding: { ...current.understanding, status: "CORRECTION_REQUESTED" }, updatedAt: new Date().toISOString() }));
+    const now = new Date().toISOString();
+    setDraft("");
+    setConversationSession((current) => activateConversationalInteraction({ ...current, understanding: { ...current.understanding, status: "CORRECTION_REQUESTED" }, updatedAt: now }, createActiveConversationInteraction({
+      interactionRef: `scientific-correction:${contribution?.identity.contributionId ?? current.sessionId}`,
+      owner: "SCIENTIFIC_INTERPRETATION",
+      purpose: "CORRECT_SCIENTIFIC_UNDERSTANDING",
+      expectedResponseKind: "SCIENTIFIC_CORRECTION",
+      targetRefs: contribution ? [contribution.identity.contributionId] : [],
+      now,
+    }), now));
     window.setTimeout(() => document.getElementById("continuous-scientific-conversation-message")?.focus(), 0);
   };
   const addPrecision = () => {
-    setDraft("J’ajoute une précision : ");
+    const now = new Date().toISOString();
+    setDraft("");
+    setConversationSession((current) => activateConversationalInteraction(current, createActiveConversationInteraction({
+      interactionRef: `scientific-content:${contribution?.identity.contributionId ?? current.sessionId}:${now}`,
+      owner: "SCIENTIFIC_INTERPRETATION",
+      purpose: "CAPTURE_SCIENTIFIC_CONTENT",
+      expectedResponseKind: "SCIENTIFIC_CONTENT",
+      targetRefs: contribution ? [contribution.identity.contributionId] : [],
+      now,
+    }), now));
     window.setTimeout(() => document.getElementById("continuous-scientific-conversation-message")?.focus(), 0);
   };
   const reset = () => {
-    clearScientificInterpretationSession(window.localStorage);
-    clearConversationalWorkspaceSession(window.localStorage);
+    clearProtocolDesignerConversationalWorkspace(window.localStorage);
+    activeBindingRef.current = null;
     setOwnerSession(createScientificInterpretationSession());
     setConversationSession(createConversationalWorkspaceSession());
     setDraft("");
     setError(null);
+    onResetWorkspace?.();
   };
 
   const mode = conversationSession.currentMode;
@@ -401,6 +547,7 @@ export default function ScientificInterpretationWorkspace({
       ? "CORRECTION_REQUESTED" as const
       : "PENDING" as const;
   const continuation = renderContinuation?.(handleOwnerHandoff, mode);
+  const contextualContinuation = <ConversationInteractionContext.Provider value={interactionController}>{continuation}</ConversationInteractionContext.Provider>;
   const expertProjection = <section className="mb-5 rounded-2xl border bg-card p-5 shadow-sm" aria-label="Inspection experte">
     <h2 className="text-lg font-semibold">Audit de l’interprétation scientifique</h2>
     {!contribution ? <p className="mt-3 text-sm text-muted-foreground">Aucune Contribution disponible.</p> : <div className="mt-3 grid gap-2 text-xs text-muted-foreground sm:grid-cols-2">
@@ -410,14 +557,14 @@ export default function ScientificInterpretationWorkspace({
       <p>Knowledge : {ownerSession.knowledgeResultRefs.at(-1) ?? "non exécuté"}</p>
     </div>}
   </section>;
-  const timeline = <ConversationTimeline session={conversationSession} draft={draft} busy={busy} onDraftChange={setDraft} onSubmit={() => void submitDraft()}>
+  const timeline = <ConversationTimeline session={conversationSession} draft={draft} busy={busy} onDraftChange={setDraft} onSubmit={() => void submitDraft()} placeholder={composerPlaceholderForActiveInteraction(conversationSession.currentInteraction)}>
     <div role="note" className="flex gap-3 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm"><ShieldCheck className="mt-0.5 h-5 w-5 shrink-0" /><span>Ne saisissez aucune donnée patient ou confidentielle. NOXIA structure une question de recherche ; il ne fournit ni avis médical, ni décision thérapeutique.</span></div>
     {contribution && <UnderstandingReviewCard contribution={contribution} status={reviewStatus} onConfirm={confirmUnderstanding} onCorrect={requestCorrection} onAdd={addPrecision} />}
     {canContinue && <button type="button" onClick={continueReasoning} className="min-h-11 w-full rounded-xl bg-primary px-4 py-3 font-semibold text-primary-foreground">Poursuivre le raisonnement</button>}
     {onResumeStructuredProject && !continuation && <button type="button" onClick={onResumeStructuredProject} className="min-h-11 w-full rounded-xl border px-4 py-3 font-semibold">Reprendre</button>}
-    {continuation}
+    {contextualContinuation}
     {error && <div role="alert" className="flex gap-2 rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm"><CircleAlert className="h-5 w-5 shrink-0" /><span>{error}</span></div>}
-    <button type="button" onClick={reset} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm"><RotateCcw className="h-4 w-4" /> Réinitialiser la conversation</button>
+    <button type="button" onClick={reset} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border px-4 py-2 text-sm"><RotateCcw className="h-4 w-4" /> Réinitialiser cet espace</button>
   </ConversationTimeline>;
 
   return <ConversationalProtocolDesignerShell
@@ -427,6 +574,27 @@ export default function ScientificInterpretationWorkspace({
     mode={mode}
     expertProjection={expertProjection}
     onModeChange={(nextMode) => setConversationSession((current) => ({ ...current, currentMode: nextMode, updatedAt: new Date().toISOString() }))}
-    onRequestProjectEdit={(sectionId) => { setDraft(`Je souhaite modifier la section ${sectionId.toLocaleLowerCase("fr-FR")} : `); window.setTimeout(() => document.getElementById("continuous-scientific-conversation-message")?.focus(), 0); }}
+    onRequestProjectEdit={(sectionId) => {
+      const now = new Date().toISOString();
+      setDraft("");
+      setConversationSession((current) => activateConversationalInteraction(current, createActiveConversationInteraction({
+        interactionRef: `owner-modification:${sectionId}:${current.currentProjectVersion ?? current.sessionId}`,
+        sourceActionRef: `project-panel:${sectionId}`,
+        owner: "RESEARCH_PROJECT",
+        purpose: "MODIFY_OWNER_PROJECTION",
+        expectedResponseKind: "OWNER_MODIFICATION_REQUEST",
+        targetRefs: [sectionId],
+        projectRef: current.currentProjectRef,
+        projectVersion: current.currentProjectVersion,
+        projectDigest: current.currentProjectDigest,
+        presentationContext: {
+          prompt: `Que souhaitez-vous modifier dans la section ${sectionId.toLocaleLowerCase("fr-FR")} ?`,
+          composerPlaceholder: "Indique ce que tu veux modifier…",
+          source: "PROJECT_PANEL",
+        },
+        now,
+      }), now));
+      window.setTimeout(() => document.getElementById("continuous-scientific-conversation-message")?.focus(), 0);
+    }}
   />;
 }

@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { deleteKnowledgeSnapshots, executeKnowledgeEngine, isPatientLevelExpression, type ContextDimensionName, type KnowledgeContextInput } from "@/features/knowledge-engine";
+import { executeKnowledgeEngine, isPatientLevelExpression, type ContextDimensionName, type KnowledgeContextInput } from "@/features/knowledge-engine";
 import KnowledgeUnderstandView from "@/features/knowledge-engine/KnowledgeUnderstandView";
 import ImagingStudyDesignerView from "@/features/imaging-study-designer/ImagingStudyDesignerView";
 import DocumentProjectionView from "@/features/document-projection/DocumentProjectionView";
@@ -22,8 +22,11 @@ import { INTERPRETED_FIELD_KEYS, type AdaptiveQuestion, type HumanFieldReview, t
 import { createProtocolDesignerWorkspaceHandoff, inspectProtocolDesignerWorkspaceTransition } from "@/features/protocol-designer/intake/workspace-handoff";
 import ScientificInterpretationWorkspace from "@/features/scientific-interpretation/ScientificInterpretationWorkspace";
 import type { V1ScientificInterpretationProjection } from "@/features/scientific-interpretation";
-import type { ConversationalOwnerHandoffHandler } from "@/features/scientific-interpretation/ScientificInterpretationWorkspace";
+import type { ActiveConversationResponseRequest, ConversationalOwnerHandoffHandler } from "@/features/scientific-interpretation/ScientificInterpretationWorkspace";
 import type { ConversationalHandoffRoute, ConversationalOwnerProcessingResult, ConversationalTypedSemanticHandoff } from "@/features/protocol-designer/conversation/ConversationalHandoffRouter";
+import { createRouteIntentConversationInteraction } from "@/features/protocol-designer/conversation/ActiveConversationInteraction";
+import { resolveRouteIntentContribution } from "@/features/protocol-designer/conversation/RouteIntentResolver";
+import { clearProtocolDesignerConversationalWorkspace } from "@/features/protocol-designer/conversation/reset";
 import { buildResearchProjectPanelProjection } from "@/features/protocol-designer/conversation/ProjectPanel";
 import { buildQueryNavigationProductProjection } from "@/features/query-navigation/product";
 import { createQueryNavigationMemory } from "@/features/query-navigation/lifecycle";
@@ -212,6 +215,21 @@ export default function ProtocolDesignerDemo() {
   const activeScenario = session.confirmedScenarioId ? scenarioDetails(session.confirmedScenarioId) : undefined;
   const allAdaptiveQuestions = useMemo(() => intent ? selectAdaptiveQuestions(intent, session.scenarioMatches.map((match) => match.scenarioId)) : [], [intent, session.scenarioMatches]);
   const routeIntent = session.scientificContext.routeIntent;
+  const routeIntentInteraction = useMemo(() => {
+    if (!session.validatedIntent || routeIntent) return null;
+    const contributionRef = session.validatedIntent.interpretationContributionSnapshot?.contributionId
+      ?? session.validatedIntent.semanticSnapshot?.semanticModelId
+      ?? `validated-intent:${session.sessionId}`;
+    return createRouteIntentConversationInteraction({
+      interactionRef: `route-intent:${contributionRef}:${session.scientificContext.contextVersion}`,
+      sourceActionRef: `protocol-designer-route:${session.sessionId}:${session.scientificContext.contextVersion}`,
+      contributionRef,
+      projectRef: session.projectConstruction?.result.resultId ?? null,
+      projectVersion: session.projectConstruction?.result.candidateVersion.versionId ?? null,
+      projectDigest: session.projectConstruction?.result.resultDigest ?? null,
+      now: session.updatedAt,
+    });
+  }, [routeIntent, session.projectConstruction?.result.candidateVersion.versionId, session.projectConstruction?.result.resultDigest, session.projectConstruction?.result.resultId, session.scientificContext.contextVersion, session.sessionId, session.updatedAt, session.validatedIntent]);
   const journeyQuestions = useMemo(() => routeIntent === "UNDERSTAND" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE"].includes(item.questionId)) : routeIntent === "FORMALIZE_IDEA" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE", "Q-CONTEXT"].includes(item.questionId)) : allAdaptiveQuestions, [allAdaptiveQuestions, routeIntent]);
   const scientificReadiness = useMemo(() => intent ? assessScientificReadiness(intent, session.scientificThinking) : null, [intent, session.scientificThinking]);
   const requiresImaging = scientificReadiness?.imagingRequired ?? false;
@@ -524,7 +542,7 @@ export default function ProtocolDesignerDemo() {
     setReportMode("FINAL");
   };
   const reset = () => {
-    deleteSession(window.localStorage); deleteKnowledgeSnapshots(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setDocumentProjections([]); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false); setKnowledgeContextOverrides({}); setKnowledgeContextRevision(0);
+    clearProtocolDesignerConversationalWorkspace(window.localStorage); setCandidate(null); setSession(createProtocolDesignerSession()); setDocumentProjections([]); setQuestion(""); setInterpretation(null); setReviews({}); setCorrections({}); setReformulation(""); setAmbiguityResolutions({}); setContradictionResolutions({}); setAnswerDrafts({}); setError(null); setBusy(false); setLocalFallbackAvailable(false); setPendingChangeKind("NONE"); setMajorChange(null); setKnowledgeOpen(false); setKnowledgeContextOverrides({}); setKnowledgeContextRevision(0);
   };
   const openStructuredProject = (
     projection: V1ScientificInterpretationProjection,
@@ -538,6 +556,44 @@ export default function ProtocolDesignerDemo() {
     setReformulation(validated.validatedReformulation);
     setReviews(validated.reviews);
     setCandidate(null);
+  };
+  const handleActiveConversationResponse = ({
+    interaction,
+    contribution,
+    projection,
+    typedHandoff,
+  }: ActiveConversationResponseRequest) => {
+    if (interaction.expectedResponseKind !== "ROUTE_INTENT") return {
+      status: "PARTIAL" as const,
+      feedbackText: "La réponse est conservée, mais cette interaction doit être traitée par son propriétaire actif.",
+      responseRef: contribution.identity.contributionId,
+    };
+    const resolution = resolveRouteIntentContribution(contribution);
+    if (resolution.status !== "RESOLVED" || !resolution.routeIntent) return {
+      status: "CLARIFICATION_REQUIRED" as const,
+      feedbackText: resolution.feedbackText,
+      responseRef: contribution.identity.contributionId,
+    };
+    if (!projection) return {
+      status: "PARTIAL" as const,
+      feedbackText: "L’intention de parcours est comprise, mais la projection structurée nécessaire à la poursuite n’est pas disponible. Votre réponse reste conservée et aucune donnée Project n’a été écrite.",
+      responseRef: contribution.identity.contributionId,
+    };
+    const routedProjection: V1ScientificInterpretationProjection = {
+      ...projection,
+      scientificSessionContext: {
+        ...projection.scientificSessionContext,
+        routeIntent: resolution.routeIntent,
+        routeReasons: resolution.routeReason ? [resolution.routeReason] : projection.scientificSessionContext.routeReasons,
+      },
+    };
+    openStructuredProject(routedProjection, typedHandoff);
+    setConversationResumeDraft("");
+    return {
+      status: "RESOLVED" as const,
+      feedbackText: resolution.feedbackText,
+      responseRef: contribution.identity.contributionId,
+    };
   };
   const resumeStructuredProject = candidate ? () => {
     setSession(candidate);
@@ -635,10 +691,10 @@ export default function ProtocolDesignerDemo() {
   const renderQuestions = (questions: AdaptiveQuestion[]) => questions.length ? <div className="mt-6 grid gap-4">{questions.map((item) => <QuestionCard key={item.questionId} item={item} index={journeyQuestions.findIndex((questionItem) => questionItem.questionId === item.questionId)} total={journeyQuestions.length} answer={session.adaptiveAnswers.find((answer) => answer.questionId === item.questionId)} draft={answerDrafts[item.questionId] ?? ""} onDraft={(value) => setAnswerDrafts((current) => ({ ...current, [item.questionId]: value }))} onAnswer={(value, label, consequence, status) => answerQuestion(item, value, label, consequence, status)} />)}</div> : <Panel className="mt-6"><p>Les informations utiles dans ce bloc ont déjà été confirmées. NOXIA ne vous les redemande pas.</p></Panel>;
 
   const renderConversationalContinuation = (onOwnerHandoff: ConversationalOwnerHandoffHandler, workspaceMode: "STANDARD" | "EXPERT") => {
-    if (session.currentStep === 2 && session.validatedIntent && !routeIntent) return <Panel role="alert" className="border-amber-500/50"><CircleAlert className="h-6 w-6 text-amber-600" /><h2 className="mt-3 text-2xl font-bold">Orientation scientifique requise</h2><p className="mt-2 text-muted-foreground">La compréhension reste conservée, mais aucune intention de parcours n’est confirmée. Précisez si vous souhaitez comprendre, formaliser, construire ou documenter.</p><button type="button" onClick={() => setConversationResumeDraft("Je souhaite maintenant : ")} className="mt-4 rounded-lg border px-4 py-2">Préciser l’intention dans la conversation</button></Panel>;
+    if (session.currentStep === 2 && session.validatedIntent && !routeIntent) return <Panel className="border-primary/40"><h2 className="text-2xl font-bold">Que souhaitez-vous faire maintenant ?</h2><p className="mt-2 text-muted-foreground">J’ai compris le sujet. Vous pouvez commencer à construire l’étude, approfondir encore la question scientifique ou demander un document si le projet est déjà suffisamment défini. Répondez simplement avec vos mots.</p><button type="button" onClick={() => document.getElementById("continuous-scientific-conversation-message")?.focus()} className="mt-4 rounded-lg border px-4 py-2">Répondre dans la conversation</button></Panel>;
     if (session.currentStep !== 3) return null;
     if (!session.validatedIntent) return <Panel role="alert" className="border-amber-500/50"><CircleAlert className="h-6 w-6 text-amber-600" /><h2 className="mt-3 text-2xl font-bold">L’espace scientifique n’est pas disponible</h2><p className="mt-2 text-muted-foreground">La compréhension confirmée nécessaire est absente. Aucun Research Project n’a été inventé.</p><button type="button" onClick={() => setConversationResumeDraft("Je souhaite reconstruire la compréhension de ma question : ")} className="mt-4 rounded-lg border px-4 py-2">Préciser dans la conversation</button></Panel>;
-    if (!routeIntent) return <Panel role="alert" className="border-amber-500/50"><CircleAlert className="h-6 w-6 text-amber-600" /><h2 className="mt-3 text-2xl font-bold">Orientation scientifique requise</h2><p className="mt-2 text-muted-foreground">La compréhension reste conservée, mais aucune intention de parcours n’est confirmée. Précisez si vous souhaitez comprendre, formaliser, construire ou documenter.</p><button type="button" onClick={() => setConversationResumeDraft("Je souhaite maintenant : ")} className="mt-4 rounded-lg border px-4 py-2">Préciser l’intention dans la conversation</button></Panel>;
+    if (!routeIntent) return <Panel className="border-primary/40"><h2 className="text-2xl font-bold">Que souhaitez-vous faire maintenant ?</h2><p className="mt-2 text-muted-foreground">J’ai compris le sujet. Dites-moi simplement si vous souhaitez construire l’étude, approfondir la question ou préparer un document à partir d’un projet déjà défini.</p><button type="button" onClick={() => document.getElementById("continuous-scientific-conversation-message")?.focus()} className="mt-4 rounded-lg border px-4 py-2">Répondre dans la conversation</button></Panel>;
     if (routeIntent === "UNDERSTAND" && knowledgeResult) return <KnowledgeUnderstandView
       result={knowledgeResult}
       sessionId={session.sessionId}
@@ -700,8 +756,11 @@ export default function ProtocolDesignerDemo() {
     {pageHead}
     <ScientificInterpretationWorkspace
       initialDraft={conversationResumeDraft}
+      activeInteractionRequest={routeIntentInteraction}
       onOpenStructuredProject={openStructuredProject}
       onResumeStructuredProject={resumeStructuredProject}
+      onActiveConversationResponse={handleActiveConversationResponse}
+      onResetWorkspace={reset}
       onRoutedOwnerHandoff={handleConversationalOwnerHandoff}
       onUnderstandingInvalidated={() => setSession((current) => invalidateDownstream(current, "Correction conversationnelle en revue — projections dépendantes à reconstruire après confirmation"))}
       renderContinuation={renderConversationalContinuation}

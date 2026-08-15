@@ -156,6 +156,7 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
       navigation={<WorkspaceNextActionInteraction
         projection={navigationProjection}
         currentProjectVersion={result.candidateVersion.versionId}
+        currentProjectDigest={result.resultDigest}
         currentSourceStateDigest={navigationProjection.sourceStateDigest}
         mode={workspaceMode}
         onOwnerHandoff={routeOwnerHandoff}

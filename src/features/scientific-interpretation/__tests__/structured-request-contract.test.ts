@@ -74,7 +74,8 @@ describe("SEM-CLOSURE-001R — structured request contract repair", () => {
   });
 
   it("SCR-C03 preserves the complete strict internal contract", () => {
-    expect(HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.required).toHaveLength(17);
+    expect(HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.required).toHaveLength(18);
+    expect(HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.required).toContain("routeProposal");
     expect(hybridPrimaryInterpretationSchema.safeParse({ ...primary, normalizedUnderstanding: "" }).success).toBe(false);
   });
 

@@ -45,6 +45,6 @@ describe("P-WEB-02 — preserved demonstrator foundations after P-WEB-04R", () =
   it("keeps the external Editorial Engine out of the guided page", () => expect(read("src/pages/ProtocolDesignerDemo.tsx")).not.toContain("@editorial-engine"));
   it("keeps the reset confirmation", () => {
     renderDemo();
-    expect(screen.getByRole("button", { name: /Réinitialiser la conversation/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Réinitialiser cet espace/ })).toBeInTheDocument();
   });
 });

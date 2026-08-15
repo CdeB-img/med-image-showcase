@@ -1,4 +1,9 @@
 import { hasSensitiveData } from "@/features/protocol-designer/intake/privacy";
+import {
+  ACTIVE_CONVERSATION_INTERACTION_VERSION,
+  CONVERSATION_EXPECTED_RESPONSE_KINDS,
+  type ActiveConversationInteraction,
+} from "./ActiveConversationInteraction";
 
 export const CONVERSATIONAL_WORKSPACE_SESSION_KEY = "noxia-conversational-workspace-session-v2";
 export const CONVERSATIONAL_WORKSPACE_SESSION_VERSION = "CONVERSATIONAL-WORKSPACE-2.0" as const;
@@ -45,6 +50,8 @@ export type ConversationalWorkspaceSession = {
     refreshRequestedByRef: string | null;
   };
   pendingHandoffRefs: string[];
+  currentInteractionRef: string | null;
+  currentInteraction: ActiveConversationInteraction | null;
   understanding: {
     status: "NOT_REVIEWED" | "PENDING_REVIEW" | "CONFIRMED_WORKING_CONTEXT" | "CORRECTION_REQUESTED";
     contributionRef: string | null;
@@ -93,6 +100,8 @@ export const createConversationalWorkspaceSession = (
   currentProjectDigest: null,
   qry: { memoryRef: null, currentActionRef: null, refreshRequestedByRef: null },
   pendingHandoffRefs: [],
+  currentInteractionRef: null,
+  currentInteraction: null,
   understanding: {
     status: "NOT_REVIEWED",
     contributionRef: null,
@@ -125,6 +134,20 @@ const isTimelineEvent = (value: unknown): value is ConversationTimelineEvent => 
     && Array.isArray(event.ownerRefs);
 };
 
+const isActiveConversationInteraction = (value: unknown): value is ActiveConversationInteraction => {
+  if (!value || typeof value !== "object") return false;
+  const interaction = value as Partial<ActiveConversationInteraction>;
+  return interaction.interactionVersion === ACTIVE_CONVERSATION_INTERACTION_VERSION
+    && typeof interaction.interactionRef === "string"
+    && typeof interaction.owner === "string"
+    && typeof interaction.purpose === "string"
+    && CONVERSATION_EXPECTED_RESPONSE_KINDS.includes(interaction.expectedResponseKind as ActiveConversationInteraction["expectedResponseKind"])
+    && Array.isArray(interaction.targetRefs)
+    && Array.isArray(interaction.informationNeedRefs)
+    && interaction.sourceOfTruth === false
+    && interaction.projectWriteAuthorized === false;
+};
+
 const isConversationalWorkspaceSession = (value: unknown): value is ConversationalWorkspaceSession => {
   if (!value || typeof value !== "object") return false;
   const session = value as Partial<ConversationalWorkspaceSession>;
@@ -135,9 +158,72 @@ const isConversationalWorkspaceSession = (value: unknown): value is Conversation
     && session.timeline.every(isTimelineEvent)
     && Array.isArray(session.contributionRefs)
     && Array.isArray(session.pendingHandoffRefs)
+    && (session.currentInteraction === undefined || session.currentInteraction === null || isActiveConversationInteraction(session.currentInteraction))
     && session.sourceOfTruth === false
     && session.projectWriteAuthorized === false;
 };
+
+export const activateConversationalInteraction = (
+  session: ConversationalWorkspaceSession,
+  interaction: ActiveConversationInteraction,
+  now = new Date().toISOString(),
+): ConversationalWorkspaceSession => {
+  if (session.currentInteractionRef === interaction.interactionRef && session.currentInteraction) {
+    return {
+      ...session,
+      currentInteraction: { ...interaction, responseCount: session.currentInteraction.responseCount, lastResponseRef: session.currentInteraction.lastResponseRef, activatedAt: session.currentInteraction.activatedAt, updatedAt: now },
+      updatedAt: now,
+    };
+  }
+  return {
+    ...session,
+    currentInteractionRef: interaction.interactionRef,
+    currentInteraction: structuredClone(interaction),
+    updatedAt: now,
+  };
+};
+
+export const recordConversationalInteractionResponse = (
+  session: ConversationalWorkspaceSession,
+  interactionRef: string,
+  responseRef: string,
+  now = new Date().toISOString(),
+): ConversationalWorkspaceSession => {
+  if (session.currentInteractionRef !== interactionRef || !session.currentInteraction) return session;
+  return {
+    ...session,
+    currentInteraction: {
+      ...session.currentInteraction,
+      responseCount: session.currentInteraction.responseCount + 1,
+      lastResponseRef: responseRef,
+      updatedAt: now,
+    },
+    updatedAt: now,
+  };
+};
+
+export const completeConversationalInteraction = (
+  session: ConversationalWorkspaceSession,
+  interactionRef: string,
+  _responseRef: string,
+  now = new Date().toISOString(),
+): ConversationalWorkspaceSession => session.currentInteractionRef !== interactionRef ? session : ({
+  ...session,
+  currentInteractionRef: null,
+  currentInteraction: null,
+  updatedAt: now,
+});
+
+export const deactivateConversationalInteraction = (
+  session: ConversationalWorkspaceSession,
+  interactionRef: string,
+  now = new Date().toISOString(),
+): ConversationalWorkspaceSession => session.currentInteractionRef !== interactionRef ? session : ({
+  ...session,
+  currentInteractionRef: null,
+  currentInteraction: null,
+  updatedAt: now,
+});
 
 export const appendConversationEvent = (
   session: ConversationalWorkspaceSession,
@@ -276,7 +362,12 @@ export const loadConversationalWorkspaceSession = (storage: StorageReader): Conv
   try {
     const value = JSON.parse(raw);
     if (!isConversationalWorkspaceSession(value)) throw new Error("INVALID_CONVERSATIONAL_SESSION");
-    return value;
+    const currentInteraction = value.currentInteraction ?? null;
+    return {
+      ...value,
+      currentInteraction,
+      currentInteractionRef: currentInteraction?.interactionRef ?? null,
+    };
   } catch {
     storage.removeItem?.(CONVERSATIONAL_WORKSPACE_SESSION_KEY);
     return null;

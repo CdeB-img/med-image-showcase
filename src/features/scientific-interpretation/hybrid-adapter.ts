@@ -95,6 +95,7 @@ export const mapHybridStateToContribution = (input: {
   const state = record(input.state);
   const identity = record(state.identity);
   const understanding = record(state.understanding);
+  const routeProposal = record(state.routeProposal);
   const source = record(state.source);
   const objects = mapItems(state, "objects");
   const allMappedItems = [
@@ -141,7 +142,11 @@ export const mapHybridStateToContribution = (input: {
     },
     scientificContent: {
       normalizedUnderstanding: stringOrNull(understanding.normalizedUnderstanding),
-      routeProposal: null,
+      routeProposal: stringOrNull(routeProposal.route) ? {
+        route: stringOrNull(routeProposal.route)!,
+        confidence: numberOrNull(routeProposal.confidence),
+        reason: stringOrNull(routeProposal.reason),
+      } : null,
       explicitStatements: mapItems(state, "explicitStatements"),
       candidateObjects: objects,
       candidateRelations: recordList(state.relations).map((value, index) => ({

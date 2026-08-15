@@ -50,6 +50,18 @@ export type ScientificInterpretationConversation = {
   conversationId: string;
   language: "fr" | "en";
   turns: ScientificInterpretationTurn[];
+  interactionContext?: {
+    interactionRef: string;
+    sourceActionRef: string | null;
+    owner: string;
+    purpose: string;
+    expectedResponseKind: "SCIENTIFIC_CONTENT" | "SCIENTIFIC_CORRECTION" | "ROUTE_INTENT" | "QRY_INFORMATION_RESPONSE" | "HUMAN_DECISION_RESPONSE" | "OWNER_MODIFICATION_REQUEST";
+    targetRefs: string[];
+    informationNeedRefs: string[];
+    projectRef: string | null;
+    projectVersion: string | null;
+    projectDigest: string | null;
+  };
 };
 
 export type ContributionEpistemicBoundary = {
