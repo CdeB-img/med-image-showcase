@@ -1,0 +1,146 @@
+{
+  "missionId": "V1-INTEGRATION-FREEZE",
+  "evidenceLevel": "LEVEL_3_IMPLEMENTATION_AND_PRODUCT_FREEZE_EVIDENCE",
+  "status": "COMPLETE_WITH_KNOWN_LIMITATIONS",
+  "decision": "PROTOCOL_DESIGNER_V1_COMPLETE_WITH_KNOWN_LIMITATIONS",
+  "part1Decision": "V1_INTEGRATION_PART1_ZERO_BLOCKERS_READY_FOR_FINAL_FREEZE",
+  "startingCommit": "8174571cd959825db55244f85366da1fb8e2055c",
+  "endingFunctionalCommit": "8174571cd959825db55244f85366da1fb8e2055c",
+  "functionalFixCommits": [],
+  "blockers": {
+    "atStart": 0,
+    "resolved": 0,
+    "remaining": 0
+  },
+  "capabilities": {
+    "AVAILABLE_V1": 10,
+    "AVAILABLE_V1_WITH_LIMITATION": 9,
+    "NOT_APPLICABLE_V1": 0,
+    "POST_V1": 0,
+    "total": 19,
+    "matrix": "validation/v1-integration-freeze/capability-matrix.json"
+  },
+  "journeys": {
+    "passed": 35,
+    "failed": 0,
+    "notApplicable": 0,
+    "limited": 7,
+    "total": 35,
+    "matrix": "validation/v1-integration-freeze/journey-matrix.json"
+  },
+  "contracts": {
+    "passed": 21,
+    "failed": 0,
+    "total": 21,
+    "matrix": "validation/v1-integration-freeze/contracts.json"
+  },
+  "providerAccounting": {
+    "UX_PROVIDER_CALLS": 0,
+    "VAL_PROVIDER_CALLS": 0,
+    "QRY_PROVIDER_CALLS": 0,
+    "SCIENTIFIC_INTERPRETATION_PROVIDER_CALLS_DURING_FREEZE": 0,
+    "OTHER_PROVIDER_CALLS": 0,
+    "total": 0,
+    "liveProviderSmoke": "NOT_REQUIRED_FOR_V1_FREEZE"
+  },
+  "boundaryAccounting": {
+    "projectWritesDuringFreeze": 0,
+    "valWritesDuringFreeze": 0,
+    "humanDecisionsCreatedDuringFreeze": 0,
+    "sourceMutations": 0,
+    "targetMutations": 0,
+    "patientDataInFreezeFixtures": 0,
+    "secretsExposedInUi": 0,
+    "rawProviderResponsesExposed": 0,
+    "blindReads": 0,
+    "unexpectedExternalMutations": 0,
+    "sourceOfTruthIndexModified": false,
+    "normativeDocumentsModified": false,
+    "externalEditorialEngineModifiedByMission": false
+  },
+  "documentLifecycle": {
+    "protocol": "PASS_PROGRESSIVE_PROJECTION",
+    "dmp": "PASS_PROGRESSIVE_PROJECTION",
+    "sap": "PASS_PROGRESSIVE_PROJECTION",
+    "progressiveGeneratability": "PASS",
+    "versionAndFreshness": "PASS",
+    "projectionOnly": "PASS",
+    "commercialEntitlement": "NOT_APPLICABLE_V1_AND_DISTINCT_FROM_GENERATABILITY"
+  },
+  "productAcceptance": {
+    "routes": {
+      "protocolDesigner": "PASS_/protocol-designer",
+      "demonstrator": "PASS_/protocol-designer/demo",
+      "brokenCriticalLinks": 0
+    },
+    "responsive": {
+      "1440x900": "PASS_NO_HORIZONTAL_OVERFLOW",
+      "1280x800": "PASS_NO_HORIZONTAL_OVERFLOW",
+      "768x900": "PASS_NO_HORIZONTAL_OVERFLOW",
+      "390x844": "PASS_NO_HORIZONTAL_OVERFLOW"
+    },
+    "accessibility": "PASS_BASELINE_NATIVE_CONTROLS_LABELS_LANDMARKS_STATUS",
+    "reloadReplay": "PASS_DETERMINISTIC_RECONSTRUCTION",
+    "console": {
+      "blockingErrors": 0,
+      "warnings": [
+        "React Router v7 startTransition future flag",
+        "React Router v7 relativeSplatPath future flag"
+      ]
+    },
+    "network": "NO_PROVIDER_OR_CRITICAL_API_CALL_REQUIRED_DURING_LOCAL_INSPECTION"
+  },
+  "targetedTests": {
+    "scientificInterpretation": {"passed":70,"failed":0,"skipped":0,"total":70},
+    "scientificThinking": {"passed":33,"failed":0,"skipped":0,"total":33},
+    "imaging": {"passed":60,"failed":0,"skipped":0,"total":60},
+    "researchProject": {"passed":56,"failed":0,"skipped":0,"total":56},
+    "dataAnalysisPlanning": {"passed":274,"failed":0,"skipped":0,"total":274},
+    "systemIntegration": {"passed":34,"failed":0,"skipped":0,"total":34},
+    "tmp": {"passed":18,"failed":0,"skipped":0,"total":18},
+    "documentProjection": {"passed":46,"failed":0,"skipped":0,"total":46},
+    "documentaryKnowledge": {"passed":42,"failed":0,"skipped":0,"total":42},
+    "knowledge": {"passed":87,"failed":0,"skipped":0,"total":87},
+    "regulatory": {"passed":21,"failed":0,"skipped":0,"total":21},
+    "qry": {"passed":267,"failed":0,"skipped":0,"total":267},
+    "val": {"passed":364,"failed":0,"skipped":0,"total":364},
+    "adaptiveWorkspace": {"passed":153,"failed":0,"skipped":0,"total":153},
+    "uxClosureGates": {"passed":60,"failed":0,"skipped":0,"total":60},
+    "protocolDesigner": {"passed":148,"failed":0,"skipped":0,"total":148}
+  },
+  "globalSuite": {
+    "passed": 2490,
+    "failed": 3,
+    "skipped": 0,
+    "total": 2493,
+    "testSuitesPassed": 340,
+    "testSuitesFailed": 6,
+    "testSuitesTotal": 346,
+    "failureClassification": "PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE",
+    "v1AttributedFailures": 0,
+    "failingAssertions": [
+      "P3M-Web leaves editorial-engine clean",
+      "P4 leaves editorial-engine unchanged",
+      "P5 leaves editorial-engine unchanged"
+    ]
+  },
+  "technicalValidations": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "appStart": "PASS_LOCAL_VITE_127.0.0.1_5174",
+    "applicableLint": "PASS",
+    "repositoryWideLint": "NON_BLOCKING_PRE_EXISTING_EXPERIMENT_VENDOR_AND_EXPLICIT_ANY_SCOPE",
+    "diffCheck": "PASS"
+  },
+  "acceptedLimitations": {
+    "count": 6,
+    "matrix": "validation/v1-integration-freeze/accepted-limitations.json"
+  },
+  "freezeFingerprint": "validation/v1-integration-freeze/freeze-fingerprint.json",
+  "pd011QualificationClaimed": false,
+  "scientificallyValidatedClaimed": false,
+  "clinicallyValidatedClaimed": false,
+  "regulatoryApprovalClaimed": false,
+  "productionDeploymentClaimed": false,
+  "nextState": "FROZEN_V1"
+}

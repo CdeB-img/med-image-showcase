@@ -1,0 +1,204 @@
+{
+  "missionId": "V1-INTEGRATION-FREEZE",
+  "evidenceLevel": "LEVEL_3_IMPLEMENTATION_AND_PRODUCT_FREEZE_EVIDENCE",
+  "status": "ALL_V1_REQUIRED_CAPABILITIES_AVAILABLE",
+  "counts": {
+    "AVAILABLE_V1": 10,
+    "AVAILABLE_V1_WITH_LIMITATION": 9,
+    "NOT_APPLICABLE_V1": 0,
+    "POST_V1": 0,
+    "total": 19
+  },
+  "capabilities": [
+    {
+      "capability": "Scientific Interpretation",
+      "owner": "Scientific Interpretation",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/scientific-interpretation/", "src/pages/ProtocolDesignerDemo.tsx", "70/70 applicable tests PASS"],
+      "knownLimitation": "Advanced reconstruction depends on its configured executor and fails closed without pretending to understand; no provider was required by the freeze."
+    },
+    {
+      "capability": "Research Project",
+      "owner": "PD-003 V2 / Research Project",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/research-project-construction/", "56/56 Research Project tests PASS", "UX-CLOSE-C21", "UX-CLOSE-C40"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "Scientific Thinking",
+      "owner": "ST",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/scientific-thinking/", "33/33 ST tests PASS", "ResearchProjectConstructionView handoff"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "Imaging",
+      "owner": "IMG",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/imaging-study-designer/", "60/60 Imaging tests PASS", "Project measurement handoff"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "OBS",
+      "owner": "OBS-001 / domain handoffs",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["docs/obs-001-observability-measurement-architecture.md", "VAL A-J corridor tests", "Project and imaging handoffs"],
+      "knownLimitation": "V1 consumes available OBS artifacts and handoffs; no autonomous OBS V2 runtime is claimed."
+    },
+    {
+      "capability": "Knowledge consumption",
+      "owner": "Knowledge",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/knowledge-engine/", "87/87 Knowledge tests PASS", "Protocol Designer knowledge consultation"],
+      "knownLimitation": "Knowledge support never becomes Project truth without the owning workflow and Human Decision."
+    },
+    {
+      "capability": "Study Data",
+      "owner": "Study Data / DAI-001",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/data-analysis-planning/", "DAI targeted tests PASS", "V1-J17"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "CDM",
+      "owner": "CDM-001",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["docs/cdm-001-canonical-study-data-model.md", "DAI canonical identity 10/10 PASS"],
+      "knownLimitation": "V1 is design-time; realized-time data objects remain outside scope."
+    },
+    {
+      "capability": "Data Management planning",
+      "owner": "DM-001 / DAI-001",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/data-analysis-planning/", "274/274 DAI tests PASS", "V1-J18"],
+      "knownLimitation": "Planning only; no realized-time Data Management runtime and historical documentary validator remains frozen."
+    },
+    {
+      "capability": "Biostatistics planning",
+      "owner": "BIOSTATISTICS-001 / DAI-001",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/data-analysis-planning/", "274/274 DAI tests PASS", "V1-J19"],
+      "knownLimitation": "Planning only; no statistical execution and historical documentary validator remains frozen."
+    },
+    {
+      "capability": "Regulatory",
+      "owner": "REG",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/regulatory-resolution/", "21/21 Regulatory tests PASS", "V1-J21"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "Human Decision",
+      "owner": "PD-003 V2 / Human actor",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/protocol-designer/human-decision.ts", "UX-CLOSE-C25", "DAI Human Decision integration"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "QRY",
+      "owner": "PD-009 / QRY-001",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/query-navigation/", "267/267 QRY tests PASS", "45/45 QRY closure gates PASS"],
+      "knownLimitation": "Navigation memory is session-scoped; authoritative state is reconstructible."
+    },
+    {
+      "capability": "VAL",
+      "owner": "VAL-000 / VAL-001",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/validation-architecture/", "364/364 VAL tests PASS", "45/45 VAL closure gates PASS"],
+      "knownLimitation": "No persisted transverse ValidationRun in the demonstrator; live semantic reviewer disabled and unqualified."
+    },
+    {
+      "capability": "TMP",
+      "owner": "TMP",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/study-template/", "18/18 TMP tests PASS", "DAI document handoff"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "DOC",
+      "owner": "DOC",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/document-projection/", "46/46 document projection tests PASS", "UX-DOC-LIVE-C01..C05"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "Adaptive Workspace",
+      "owner": "UX-001",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/features/adaptive-research-workspace/", "153/153 workspace tests PASS", "60/60 UX closure gates PASS"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "Standard / Expert",
+      "owner": "UX-001",
+      "v1Status": "AVAILABLE_V1",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["UX-CLOSE-C42", "UX-CLOSE-C43", "src/features/adaptive-research-workspace/AdaptiveResearchWorkspace.tsx"],
+      "knownLimitation": null
+    },
+    {
+      "capability": "Document previews and exports",
+      "owner": "TMP / DOC / Protocol Designer UX",
+      "v1Status": "AVAILABLE_V1_WITH_LIMITATION",
+      "productAccessible": true,
+      "tested": true,
+      "v1Required": true,
+      "evidence": ["src/pages/ProtocolDesignerDemo.tsx", "UX-CLOSE-C37", "UX-CLOSE-C38", "UX-DOC-LIVE-C08"],
+      "knownLimitation": "Preview/print/Markdown availability is a projection capability; no publication, permanent download entitlement or production release is claimed."
+    }
+  ]
+}

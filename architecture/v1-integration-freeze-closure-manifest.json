@@ -1,0 +1,138 @@
+{
+  "missionId": "V1-INTEGRATION-FREEZE",
+  "evidenceLevel": "LEVEL_3_IMPLEMENTATION_AND_PRODUCT_FREEZE_EVIDENCE",
+  "decision": "PROTOCOL_DESIGNER_V1_COMPLETE_WITH_KNOWN_LIMITATIONS",
+  "closedAt": "2026-08-15T11:13:55Z",
+  "startingCommit": "8174571cd959825db55244f85366da1fb8e2055c",
+  "part1Decision": "V1_INTEGRATION_PART1_ZERO_BLOCKERS_READY_FOR_FINAL_FREEZE",
+  "part1BaselineCommit": "8174571cd959825db55244f85366da1fb8e2055c",
+  "functionalFixCommits": [],
+  "endingFunctionalCommit": "8174571cd959825db55244f85366da1fb8e2055c",
+  "closureCommit": null,
+  "closureCommitResolution": "Resolve the Git commit containing this manifest; the exact hash is reported after creation because a commit cannot embed its own hash.",
+  "closureCommitLocator": "git log -1 --format=%H -- architecture/v1-integration-freeze-closure-manifest.json",
+  "sourceOfTruthIndexVersionRead": "1.45",
+  "capabilityStatus": {
+    "AVAILABLE_V1": 10,
+    "AVAILABLE_V1_WITH_LIMITATION": 9,
+    "NOT_APPLICABLE_V1": 0,
+    "POST_V1": 0,
+    "total": 19,
+    "allV1RequiredAvailable": true,
+    "matrix": "validation/v1-integration-freeze/capability-matrix.json"
+  },
+  "journeyStatus": {
+    "passed": 35,
+    "failed": 0,
+    "notApplicable": 0,
+    "limited": 7,
+    "total": 35,
+    "allEssentialJourneysPass": true,
+    "matrix": "validation/v1-integration-freeze/journey-matrix.json"
+  },
+  "contractStatus": {
+    "passed": 21,
+    "failed": 0,
+    "total": 21,
+    "allPass": true,
+    "matrix": "validation/v1-integration-freeze/contracts.json"
+  },
+  "blockersAtStart": 0,
+  "blockersResolved": 0,
+  "blockersRemaining": 0,
+  "acceptedLimitations": {
+    "count": 6,
+    "allNonBlocking": true,
+    "matrix": "validation/v1-integration-freeze/accepted-limitations.json"
+  },
+  "providerAccounting": {
+    "ux": 0,
+    "val": 0,
+    "qry": 0,
+    "scientificInterpretationDuringFreeze": 0,
+    "other": 0,
+    "total": 0,
+    "liveSmokeDisposition": "NOT_REQUIRED_FOR_V1_FREEZE"
+  },
+  "boundaryAccounting": {
+    "projectWritesDuringFreeze": 0,
+    "valWritesDuringFreeze": 0,
+    "humanDecisionsCreatedDuringFreeze": 0,
+    "patientData": 0,
+    "blindReads": 0,
+    "sourceMutations": 0,
+    "targetMutations": 0,
+    "unexpectedExternalMutations": 0,
+    "semFullReopened": false,
+    "externalEditorialEngineModifiedByMission": false,
+    "foreignExperimentalArtifactIncluded": false
+  },
+  "documentLifecycle": {
+    "protocol": "AVAILABLE_PROGRESSIVELY_BY_GENERATABILITY",
+    "dmp": "AVAILABLE_PROGRESSIVELY_BY_GENERATABILITY",
+    "sap": "AVAILABLE_PROGRESSIVELY_BY_GENERATABILITY",
+    "projectionOnly": true,
+    "versionAndFreshness": "ENFORCED",
+    "staleCannotRepresentCurrentProject": true,
+    "commercialEntitlement": "NOT_APPLICABLE_V1_DISTINCT_FROM_GENERATABILITY"
+  },
+  "responsiveAcceptance": {
+    "1440": "PASS",
+    "1280": "PASS",
+    "768": "PASS",
+    "390": "PASS",
+    "horizontalOverflow": 0
+  },
+  "accessibilityAcceptance": {
+    "status": "PASS_BASELINE",
+    "nativeControls": true,
+    "labels": true,
+    "landmarks": true,
+    "statusNotColorOnly": true,
+    "keyboardContract": "PASS"
+  },
+  "targetedTests": {
+    "scientificInterpretation": {"passed":70,"failed":0,"skipped":0,"total":70},
+    "scientificThinking": {"passed":33,"failed":0,"skipped":0,"total":33},
+    "imaging": {"passed":60,"failed":0,"skipped":0,"total":60},
+    "researchProject": {"passed":56,"failed":0,"skipped":0,"total":56},
+    "dataAnalysisPlanning": {"passed":274,"failed":0,"skipped":0,"total":274},
+    "systemIntegration": {"passed":34,"failed":0,"skipped":0,"total":34},
+    "qry": {"passed":267,"failed":0,"skipped":0,"total":267},
+    "val": {"passed":364,"failed":0,"skipped":0,"total":364},
+    "uxClosure": {"passed":60,"failed":0,"skipped":0,"total":60},
+    "protocolDesigner": {"passed":148,"failed":0,"skipped":0,"total":148}
+  },
+  "globalSuite": {
+    "passed": 2490,
+    "failed": 3,
+    "skipped": 0,
+    "total": 2493,
+    "failureClassification": "PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE",
+    "v1AttributedFailures": 0
+  },
+  "technicalValidations": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "appStart": "PASS",
+    "applicableLint": "PASS",
+    "repositoryWideLint": "NON_BLOCKING_PRE_EXISTING_EXPERIMENT_VENDOR_AND_EXPLICIT_ANY_SCOPE",
+    "diffCheck": "PASS"
+  },
+  "freezeFingerprint": "validation/v1-integration-freeze/freeze-fingerprint.json",
+  "evidence": {
+    "report": "docs/v1-integration-freeze-closure-report.md",
+    "summary": "validation/v1-integration-freeze/summary.json",
+    "journeys": "validation/v1-integration-freeze/journey-matrix.json",
+    "contracts": "validation/v1-integration-freeze/contracts.json",
+    "capabilities": "validation/v1-integration-freeze/capability-matrix.json",
+    "limitations": "validation/v1-integration-freeze/accepted-limitations.json"
+  },
+  "pd011QualificationClaimed": false,
+  "productionDeploymentClaimed": false,
+  "normativeDocumentsModified": false,
+  "sourceOfTruthIndexModified": false,
+  "pushPerformed": false,
+  "deploymentPerformed": false,
+  "nextState": "FROZEN_V1"
+}

@@ -1,0 +1,198 @@
+{
+  "missionId": "V1-INTEGRATION-FREEZE",
+  "evidenceLevel": "LEVEL_3_IMPLEMENTATION_AND_PRODUCT_FREEZE_EVIDENCE",
+  "status": "ALL_PASS",
+  "passed": 21,
+  "failed": 0,
+  "contracts": [
+    {
+      "contract": "SCIENCE_BEFORE_TECHNOLOGY",
+      "owner": "Charte fondatrice / Scientific Product Manifesto",
+      "preserved": true,
+      "evidence": ["src/features/scientific-interpretation/", "src/features/adaptive-research-workspace/", "UX-CLOSE-C19..C23"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "RESEARCH_PROJECT_SOURCE_OF_TRUTH",
+      "owner": "PD-003 V2 / Research Project",
+      "preserved": true,
+      "evidence": ["src/features/research-project-construction/types.ts", "src/features/adaptive-research-workspace/projection.ts", "UX-CLOSE-C40"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "HUMAN_DECISION_OWNERSHIP",
+      "owner": "PD-003 V2 / Human Decision",
+      "preserved": true,
+      "evidence": ["src/features/protocol-designer/human-decision.ts", "UX-CLOSE-C25", "validation/val-001-closure/summary.json"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "UNKNOWN_PRESERVATION",
+      "owner": "PD-003 V2 / semantic state owners",
+      "preserved": true,
+      "evidence": ["src/features/adaptive-research-workspace/interactions.ts", "UX-CLOSE-C27", "UX-CLOSE-C41"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "ABSENCE_REMAINS_ABSENCE",
+      "owner": "PD-003 V2 / domain owners",
+      "preserved": true,
+      "evidence": ["src/features/query-navigation/", "src/features/data-analysis-planning/", "QRY2-PD009-C09"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "TRACEABILITY",
+      "owner": "PD-003 V2 / OBS-001",
+      "preserved": true,
+      "evidence": ["src/features/adaptive-research-workspace/contracts.ts", "src/features/validation-architecture/product-contracts.ts", "validation/ux-001-closure/contract-matrix.json"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "REPRODUCIBILITY",
+      "owner": "PD-011 evaluation boundary / deterministic engines",
+      "preserved": true,
+      "evidence": ["UX-CLOSE-C49", "architecture/qry-001-closure-manifest.json", "architecture/val-001-closure-manifest.json"],
+      "limitation": "Navigation memory is session-scoped but reconstructible from authoritative state.",
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "QRY_NEXT_ACTION_OWNERSHIP",
+      "owner": "PD-009 / QRY-001",
+      "preserved": true,
+      "evidence": ["src/features/query-navigation/product.ts", "src/features/adaptive-research-workspace/projection.ts", "UX-CLOSE-C22", "UX-CLOSE-C39"],
+      "limitation": "Navigation memory is not durable outside the current session.",
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "VAL_READ_ONLY_VALIDATION",
+      "owner": "VAL-000 / VAL-001",
+      "preserved": true,
+      "evidence": ["src/features/validation-architecture/", "architecture/val-001-closure-manifest.json", "validation/val-001-closure/summary.json"],
+      "limitation": "No persisted transverse ValidationRun in the demonstrator.",
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "DATANEED_DISTINCT_INFORMATION_NEED",
+      "owner": "PD-003 V2 / PD-009",
+      "preserved": true,
+      "evidence": ["src/features/query-navigation/adapters.ts", "UX-CLOSE-C36", "QRY2-PD009-C08"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "EXPECTED_DISTINCT_REALIZED",
+      "owner": "CDM-001 / data domain owners",
+      "preserved": true,
+      "evidence": ["src/features/data-analysis-planning/", "architecture/data-analysis-integration-001-closure-manifest.json"],
+      "limitation": "Realized-time CDM/DM/BIO objects remain outside V1.",
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "FACTUAL_DISTINCT_ANALYTICAL_MISSINGNESS",
+      "owner": "CDM-001 / Biostatistics owner",
+      "preserved": true,
+      "evidence": ["src/features/data-analysis-planning/", "docs/cdm-001-canonical-study-data-model.md"],
+      "limitation": "V1 is design-time only and executes no statistical analysis.",
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "CANDIDATE_DISTINCT_ADOPTED",
+      "owner": "PD-003 V2 / Human Decision",
+      "preserved": true,
+      "evidence": ["UX-CLOSE-C29", "UX-CLOSE-C30", "src/features/research-project-construction/ResearchProjectConstructionView.tsx"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "DOCUMENT_PROJECTION_ONLY",
+      "owner": "TMP / DOC / Editorial Engine consumer boundary",
+      "preserved": true,
+      "evidence": ["src/features/document-projection/", "UX-CLOSE-C38", "UX-DOC-LIVE-C01"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "DOCUMENT_VERSION_AND_FRESHNESS",
+      "owner": "TMP / DOC / Research Project version",
+      "preserved": true,
+      "evidence": ["src/features/adaptive-research-workspace/projection.ts", "UX-DOC-LIVE-C03..C05"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "DOCUMENT_PROGRESSIVE_GENERATABILITY",
+      "owner": "TMP / DOC",
+      "preserved": true,
+      "evidence": ["src/features/document-projection/", "UX-DOC-LIVE-C01", "UX-DOC-LIVE-C02"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "GENERATABILITY_DISTINCT_COMMERCIAL_ENTITLEMENT",
+      "owner": "DOC readiness / future commercial policy",
+      "preserved": true,
+      "evidence": ["UX-DOC-LIVE-C06..C09", "src/features/adaptive-research-workspace/contracts.ts"],
+      "limitation": "Commercial entitlement is NOT_APPLICABLE_V1.",
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "NO_HIDDEN_WRITES",
+      "owner": "All V1 product capabilities",
+      "preserved": true,
+      "evidence": ["architecture/ux-001-closure-manifest.json", "architecture/qry-001-closure-manifest.json", "architecture/val-001-closure-manifest.json"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "NO_GLOBAL_COMPLETION_SCORE",
+      "owner": "PD-009 / UX-001",
+      "preserved": true,
+      "evidence": ["src/features/query-navigation/", "src/features/adaptive-research-workspace/", "architecture/ux-001-closure-manifest.json"],
+      "limitation": null,
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "NO_PROVIDER_REQUIRED_BY_UX",
+      "owner": "UX-001 / capability executors",
+      "preserved": true,
+      "evidence": ["architecture/ux-001-closure-manifest.json", "UX-CLOSE-C34", "V1 freeze provider accounting: 0"],
+      "limitation": "Advanced Scientific Interpretation may fail closed when its provider is unavailable; UX itself makes no provider call.",
+      "blocker": false,
+      "finalStatus": "PASS"
+    },
+    {
+      "contract": "NO_PD011_PASS_CLAIM",
+      "owner": "PD-011",
+      "preserved": true,
+      "evidence": ["docs/pd-011-evaluation-framework.md", "architecture/ux-001-closure-manifest.json", "docs/v1-integration-freeze-closure-report.md"],
+      "limitation": "V1 COMPLETE is functional integration evidence only.",
+      "blocker": false,
+      "finalStatus": "PASS"
+    }
+  ]
+}

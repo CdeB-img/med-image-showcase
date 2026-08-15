@@ -1,0 +1,100 @@
+{
+  "missionId": "V1-INTEGRATION-FREEZE",
+  "evidenceLevel": "LEVEL_3_IMPLEMENTATION_AND_PRODUCT_FREEZE_EVIDENCE",
+  "status": "ACCEPTED_NON_BLOCKING_LIMITATIONS",
+  "blockersRemaining": 0,
+  "limitations": [
+    {
+      "id": "V1-LIM-001",
+      "name": "QRY_SESSION_SCOPED_NAVIGATION_MEMORY",
+      "owner": "QRY-001",
+      "currentEvidence": [
+        "architecture/qry-001-closure-manifest.json",
+        "validation/qry-001-closure/summary.json",
+        "UX-CLOSE-C21",
+        "UX-CLOSE-C49"
+      ],
+      "v1Impact": "La mémoire de navigation n'est pas durable hors session ; l'état logique reste reconstructible depuis le Research Project courant.",
+      "blocksEssentialJourney": false,
+      "disposition": "ACCEPTED_FOR_V1_POST_V1_PERSISTENCE_OPTION",
+      "postV1Owner": "QRY / product persistence"
+    },
+    {
+      "id": "V1-LIM-002",
+      "name": "VAL_NO_PERSISTED_TRANSVERSE_VALIDATION_RUN",
+      "owner": "VAL-001 / product integration",
+      "currentEvidence": [
+        "architecture/val-001-closure-manifest.json",
+        "src/features/research-project-construction/ResearchProjectConstructionView.tsx",
+        "UX-CLOSE-C33"
+      ],
+      "v1Impact": "Sans ValidationRun transverse applicable, les gates officiels restent honnêtement NOT_EVALUABLE ; la preview candidate demeure possible selon la policy VAL.",
+      "blocksEssentialJourney": false,
+      "disposition": "ACCEPTED_FOR_V1_NO_FALSE_VALIDATION",
+      "postV1Owner": "VAL / validation persistence"
+    },
+    {
+      "id": "V1-LIM-003",
+      "name": "VAL_LIVE_SEMANTIC_REVIEWER_DISABLED_NOT_QUALIFIED",
+      "owner": "VAL-001",
+      "currentEvidence": [
+        "architecture/val-001-closure-manifest.json",
+        "validation/val-001-closure/semantic-review-accounting.json",
+        "UX-CLOSE-C34"
+      ],
+      "v1Impact": "Les demandes de revue sémantique restent visibles, différables ou orientables vers une revue humaine autorisée ; aucun reviewer live n'est requis pour la V1.",
+      "blocksEssentialJourney": false,
+      "disposition": "ACCEPTED_FOR_V1_DISABLED_BY_DEFAULT",
+      "postV1Owner": "VAL semantic review"
+    },
+    {
+      "id": "V1-LIM-004",
+      "name": "DM_AND_BIOSTATISTICS_HISTORICAL_DOCUMENTARY_VALIDATORS",
+      "owner": "DM-001 / BIOSTATISTICS-001 documentary governance",
+      "currentEvidence": [
+        "architecture/data-analysis-integration-001-closure-manifest.json",
+        "docs/dm-001-study-data-management-architecture.md",
+        "docs/biostatistics-001-analysis-architecture.md"
+      ],
+      "v1Impact": "Les validateurs documentaires gelés conservent un inventaire historique ; les contrats et parcours design-time V1 restent testés et disponibles.",
+      "blocksEssentialJourney": false,
+      "disposition": "ACCEPTED_FROZEN_DOCUMENTARY_LIMITATION",
+      "postV1Owner": "Documentary governance"
+    },
+    {
+      "id": "V1-LIM-005",
+      "name": "EXTERNAL_EDITORIAL_ENGINE_CHECKOUT_NOT_CLEAN",
+      "owner": "External editorial-engine checkout",
+      "currentEvidence": [
+        "global suite: 2490 PASS / 3 PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE",
+        "external HEAD 335fbbea8d138901f0cdf4f5e2d3b96144880e8b",
+        "external status digest 38f04c5939755c9edec9a168dd3bc1db04f17b3fb8ba8916369f49b28444621f"
+      ],
+      "v1Impact": "Trois gardes de propreté globales restent rouges uniquement à cause de modifications préexistantes dans le dépôt protégé externe ; aucune régression NOXIA V1 n'est attribuée.",
+      "blocksEssentialJourney": false,
+      "disposition": "ACCEPTED_EXTERNAL_PRE_EXISTING_FAILURE",
+      "postV1Owner": "editorial-engine checkout owner"
+    },
+    {
+      "id": "V1-LIM-006",
+      "name": "NOT_PD011_QUALIFIED",
+      "owner": "PD-011 evaluation governance",
+      "currentEvidence": [
+        "docs/pd-011-evaluation-framework.md",
+        "architecture/ux-001-closure-manifest.json",
+        "architecture/v1-integration-freeze-closure-manifest.json"
+      ],
+      "v1Impact": "Le gel atteste une capability produit fonctionnelle intégrée, pas une qualification scientifique, clinique ou réglementaire.",
+      "blocksEssentialJourney": false,
+      "disposition": "SCOPE_BOUNDARY_NOT_A_V1_PRODUCT_BLOCKER",
+      "postV1Owner": "Future explicitly authorized PD-011 campaign"
+    }
+  ],
+  "uxMinorLimitations": [],
+  "postV1NonBlockingImprovements": [
+    "Adopter les future flags React Router avant la migration v7.",
+    "Rafraîchir la base Browserslist lors d'une mission de maintenance autorisée.",
+    "Étudier le découpage du chunk ProtocolDesignerDemo lors d'une mission de performance dédiée.",
+    "Borner le lint global aux sources détenues ou exclure explicitement le virtualenv expérimental vendored."
+  ]
+}

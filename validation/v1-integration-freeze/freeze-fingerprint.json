@@ -1,0 +1,96 @@
+{
+  "missionId": "V1-INTEGRATION-FREEZE",
+  "evidenceLevel": "LEVEL_3_IMPLEMENTATION_AND_PRODUCT_FREEZE_EVIDENCE",
+  "productVersionName": "NOXIA PROTOCOL DESIGNER V1",
+  "branch": "main",
+  "finalFunctionalHead": "8174571cd959825db55244f85366da1fb8e2055c",
+  "finalFunctionalTree": "618712c504c6dcc170e7557a0a31d7ab3e8968f8",
+  "finalClosureHead": null,
+  "finalClosureHeadResolution": "Resolve the Git commit containing this file; the exact commit is reported after commit creation because a commit cannot embed its own hash.",
+  "finalClosureHeadLocator": "git log -1 --format=%H -- validation/v1-integration-freeze/freeze-fingerprint.json",
+  "timestamp": "2026-08-15T11:13:55Z",
+  "sourceOfTruthIndex": {
+    "versionRead": "1.45",
+    "status": "OFFICIAL",
+    "modified": false,
+    "sha256": "16866593c1452e4264084540056fd9e4fd77a082e37af5c15473bc23837d18f4"
+  },
+  "keyClosureCommits": {
+    "DAI-001": "7501f66b7b0fbea8d8f200142bf0323cae6dcd7b",
+    "VAL-001": "01d1d22e8c97ed4efd7e586796ba51d4090e3bb7",
+    "QRY-001": "3a7877c9223914ae6670a284d145e87b5a1fe80a",
+    "UX-001": "8174571cd959825db55244f85366da1fb8e2055c"
+  },
+  "closureEvidenceDigests": {
+    "architecture/data-analysis-integration-001-closure-manifest.json": "fa62493022ef3a8e63581b21c15dbac540a9ff504627cdcee8b0c8de51a52111",
+    "architecture/val-001-closure-manifest.json": "674bf277e22f2f5c5bd3629b23aef1fe616f5439706a3884cae7cea885355cc3",
+    "architecture/qry-001-closure-manifest.json": "5cdd23685a12a9a52be303eeeec8d11d2dc7ad6a3e908e9683fc35611c72b7f5",
+    "architecture/ux-001-closure-manifest.json": "bb1a55a5836deb709728e8ee23036fb8c612c9313f0c8114ed0c91576dac79f5",
+    "validation/val-001-closure/summary.json": "b2e61ad175bfe39dd169a855db8f80c82730334aae60da225a6b6aa7f6497569",
+    "validation/qry-001-closure/results.json": "4e9e2e558603e378fdcb4188c8268e6c58e6711465c6294a5354a9a1bce9d332",
+    "validation/ux-001-closure/results.json": "755ff9037b61afd59767162e76f1b17b5d96be61899daa4bfc7d8c1c55ff0a0c"
+  },
+  "v1FreezeEvidenceDigests": {
+    "docs/v1-integration-freeze-closure-report.md": "d92549aac7ede6427aa75fbc8d1e9638819c8ddc055d639aa79d3278b658fdfd",
+    "validation/v1-integration-freeze/summary.json": "292a0a125f5ad7b4b693a52c8f4754ffefe8743a5d560ee9fd0e8a91013beba9",
+    "validation/v1-integration-freeze/journey-matrix.json": "4868761e393d421a585ec482411ffcf327f05a47d3545fa4e7c5618218df389d",
+    "validation/v1-integration-freeze/contracts.json": "fb14d458027c06a60db2a9b8e561ce412fb9e4fb592eafb93e3a21d29d2d3154",
+    "validation/v1-integration-freeze/capability-matrix.json": "6254910886db9d23b7ee82d55c4fb2d4a57090f448c8d3635b64c685624aca78",
+    "validation/v1-integration-freeze/accepted-limitations.json": "f809a948c867c281d1d4e42b9905c8f69d5e7e0759fc6739e77278a1e105326d"
+  },
+  "contractIdentities": {
+    "researchProjectConstruction": "1.1.0",
+    "queryNavigationContract": "1.0.0",
+    "queryNavigationPolicy": "PD-009-1.0",
+    "queryProductProjection": "1.0.0",
+    "validationArchitecture": "1.0.0",
+    "validationProductContract": "1.0.0",
+    "validationProductGatePolicy": "1.0.0",
+    "adaptiveWorkspaceProjection": "1.0.0",
+    "adaptiveWorkspaceInteraction": "1.0.0"
+  },
+  "registryDigests": {
+    "validationCheckpointRegistry": "val1-745da452f08facae",
+    "validationInvariantRegistry": "val1-4a9d5eaa744d6eee"
+  },
+  "dependencyLock": {
+    "path": "package-lock.json",
+    "sha256": "bbe99080afa6c3bcccd287e707d945e36e0fd6f985a092c899a71da2e484b2a3"
+  },
+  "testCounts": {
+    "global": {"passed":2490,"failed":3,"skipped":0,"total":2493},
+    "globalFailureClassification": "PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE",
+    "v1AttributedFailures": 0,
+    "uxClosureGates": {"passed":60,"failed":0,"total":60},
+    "qry": {"passed":267,"failed":0,"total":267},
+    "val": {"passed":364,"failed":0,"total":364},
+    "dataAnalysis": {"passed":274,"failed":0,"total":274}
+  },
+  "technicalValidations": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "appStart": "PASS",
+    "applicableLint": "PASS",
+    "diffCheck": "PASS"
+  },
+  "knownLimitations": [
+    "QRY_SESSION_SCOPED_NAVIGATION_MEMORY",
+    "VAL_NO_PERSISTED_TRANSVERSE_VALIDATION_RUN",
+    "VAL_LIVE_SEMANTIC_REVIEWER_DISABLED_NOT_QUALIFIED",
+    "DM_AND_BIOSTATISTICS_HISTORICAL_DOCUMENTARY_VALIDATORS",
+    "EXTERNAL_EDITORIAL_ENGINE_CHECKOUT_NOT_CLEAN",
+    "NOT_PD011_QUALIFIED"
+  ],
+  "externalEditorialEngine": {
+    "classification": "PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE",
+    "head": "335fbbea8d138901f0cdf4f5e2d3b96144880e8b",
+    "statusDigest": "38f04c5939755c9edec9a168dd3bc1db04f17b3fb8ba8916369f49b28444621f",
+    "modifiedByMission": false
+  },
+  "preservedForeignArtifact": {
+    "path": "experiments/semantic-engine-comparison/results/interactive-overnight/zero-provider-final-analysis.md",
+    "sha256": "03b514d941afe4cd2eb83b3a7d3e343eee7d462340b3bc3ae79173fa6a582e16",
+    "includedInFreezeCommit": false,
+    "modifiedByMission": false
+  }
+}
