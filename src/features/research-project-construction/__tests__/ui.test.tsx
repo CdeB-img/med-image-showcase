@@ -5,11 +5,11 @@ import { createResearchProjectConstructionSession } from "../session";
 import { makeProjectInput } from "./fixtures";
 
 describe("PRJ-001 — UX progressive et retours amont", () => {
-  it("affiche les huit étapes métier, la progression et aucune sortie JSON", () => {
+  it("affiche les neuf étapes métier, la progression et aucune sortie JSON", () => {
     const session = createResearchProjectConstructionSession(makeProjectInput());
     const { container } = render(<ResearchProjectConstructionView session={session} onChange={vi.fn()} onReturnToScientificThinking={vi.fn()} />);
-    ["Question scientifique", "Population", "Design", "Groupes et temporalité", "Critères et mesures", "Faisabilité", "Risques et alternatives", "Stratégie de projet"].forEach((label) => expect(screen.getByRole("button", { name: new RegExp(label, "i") })).toBeInTheDocument());
-    expect(screen.getByText(/Étape 1 sur environ 8/)).toBeInTheDocument();
+    ["Question scientifique", "Population", "Design", "Groupes et temporalité", "Critères et mesures", "Faisabilité", "Risques et alternatives", "Données & analyses", "Stratégie de projet"].forEach((label) => expect(screen.getByRole("button", { name: new RegExp(label, "i") })).toBeInTheDocument());
+    expect(screen.getByText(/Étape 1 sur environ 9/)).toBeInTheDocument();
     expect(container.querySelector("pre")).toBeNull();
     expect(container.textContent).not.toContain('"projectId"');
   });

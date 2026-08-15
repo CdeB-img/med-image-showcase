@@ -296,6 +296,7 @@ export type ResearchProjectDesignResult = {
     blockedBy: string[];
     boundary: "NO_DOCUMENT_GENERATED_DOCUMENT_ENGINE_OWNS_PROJECTIONS";
   };
+  dataAnalysisPlanningState?: unknown;
   provenance: { engineVersion: typeof RESEARCH_PROJECT_CONSTRUCTION_VERSION; inputRef: string; sourceRefs: string[]; policyRefs: string[]; llmContributionStatus: "NO_LLM_SCIENTIFIC_DECISION" };
   trace: Array<{ sequence: number; operation: string; mode: "DETERMINISTIC" | "HUMAN_REQUIRED" | "FORBIDDEN"; decision: string; inputDigest: string; outputDigest: string }>;
   refusal: null | { code: "QUESTION_NOT_CONFIRMED" | "IMAGING_HANDOFF_NOT_READY" | "STRUCTURING_CONTRADICTION"; reason: string; resumeCondition: string };
@@ -320,6 +321,7 @@ export type ResearchProjectControls = {
   studyDesignDecisionId?: string | null;
   priorFrozenVersionId?: string | null;
   frozenVersion?: { actor: string; mandateRef: string | null; frozenAt: string } | null;
+  dataAnalysisPlanningState?: unknown;
 };
 
 export type ResearchProjectConstructionSession = {
@@ -349,13 +351,13 @@ export const researchProjectConstructionInputSchema = z.object({
 const requiredResultKeys = ["scientificQuestion", "objectives", "hypotheses", "populationDesign", "studyDesignCandidates", "selectedStudyDesignCandidate", "groups", "comparators", "visits", "temporalStructure", "endpointCandidates", "variables", "measurementDependencies", "analysisRequirements", "sizingRequirements", "imagingContribution", "dataManagementRequirements", "biostatisticsRequirements", "regulatoryQuestions", "safetyQuestions", "economicsQuestions", "operationsQuestions", "feasibilityAssessment", "recruitmentModelRequirements", "multicenterAssessment", "biases", "confounders", "risks", "limitations", "contradictions", "missingInformation", "alternatives", "compromises", "decisionsRequired", "dependencies", "impactGraph", "localReadiness", "projectionReadiness", "adaptiveQuestions", "candidateVersion", "documentHandoff", "provenance", "trace"] as const;
 export const researchProjectDesignResultSchema = z.object({
   contractVersion: z.literal(RESEARCH_PROJECT_CONSTRUCTION_VERSION), inputVersion: z.literal(RESEARCH_PROJECT_CONSTRUCTION_VERSION), resultId: z.string(), resultDigest: z.string(), status: z.enum(["PROJECT_CANDIDATES", "PARTIAL_PROJECT", "REFUSED"]), projectionNotice: z.literal("RUNTIME_PROJECT_PROJECTION_DOES_NOT_OWN_CANONICAL_TRUTH"),
-  ...Object.fromEntries(requiredResultKeys.map((key) => [key, z.unknown()])), refusal: z.unknown().nullable(),
+  ...Object.fromEntries(requiredResultKeys.map((key) => [key, z.unknown()])), dataAnalysisPlanningState: z.unknown().optional(), refusal: z.unknown().nullable(),
 }).strict();
 
 export const researchProjectConstructionSessionSchema = z.object({
   input: researchProjectConstructionInputSchema,
   result: researchProjectDesignResultSchema,
-  controls: z.object({ selectedDesignId: z.string().nullable().optional(), answers: z.record(z.string()).optional(), gateStatuses: z.record(z.enum(["PENDING", "APPROVED", "REJECTED"])).optional(), endpointRoles: z.record(z.enum(["PRIMARY_CANDIDATE", "SECONDARY_CANDIDATE", "EXPLORATORY_CANDIDATE", "UNDECIDED_CANDIDATE"])).optional(), changes: z.array(z.unknown()).optional(), impacts: z.array(z.unknown()).optional(), decisionRecordIds: stringArray.optional(), decisionRecords: z.array(humanDecisionEnvelopeSchema).optional(), versionDecisionRecordIds: stringArray.optional(), studyDesignDecisionId: z.string().nullable().optional(), priorFrozenVersionId: z.string().nullable().optional(), frozenVersion: z.object({ actor: z.string(), mandateRef: z.string().nullable(), frozenAt: z.string() }).nullable().optional() }).strict(),
+  controls: z.object({ selectedDesignId: z.string().nullable().optional(), answers: z.record(z.string()).optional(), gateStatuses: z.record(z.enum(["PENDING", "APPROVED", "REJECTED"])).optional(), endpointRoles: z.record(z.enum(["PRIMARY_CANDIDATE", "SECONDARY_CANDIDATE", "EXPLORATORY_CANDIDATE", "UNDECIDED_CANDIDATE"])).optional(), changes: z.array(z.unknown()).optional(), impacts: z.array(z.unknown()).optional(), decisionRecordIds: stringArray.optional(), decisionRecords: z.array(humanDecisionEnvelopeSchema).optional(), versionDecisionRecordIds: stringArray.optional(), studyDesignDecisionId: z.string().nullable().optional(), priorFrozenVersionId: z.string().nullable().optional(), frozenVersion: z.object({ actor: z.string(), mandateRef: z.string().nullable(), frozenAt: z.string() }).nullable().optional(), dataAnalysisPlanningState: z.unknown().optional() }).strict(),
   decisionHistory: z.array(humanDecisionEnvelopeSchema),
   versionHistory: z.array(z.unknown()),
   revisions: z.number().int().positive(),

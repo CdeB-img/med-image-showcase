@@ -466,6 +466,7 @@ export type ProjectDataAnalysisState = {
   sourceProjectId: string;
   sourceProjectVersion: string;
   adoptedObjects: Record<string, unknown>;
+  adoptedPlanSnapshots: Partial<Record<PlanningContributionType, PlanningContributionPayload>>;
   decisions: HumanDecisionEnvelope[];
   contributionRefs: Array<{ contributionId: string; contributionDigest: string; adoptedTargetIds: string[]; rejectedTargetIds: string[]; deferredTargetIds: string[] }>;
   audit: Array<{ eventId: string; decisionId: string; priorProjectVersion: string; resultingProjectVersion: string; targetIds: string[]; disposition: string; provenance: string[] }>;
