@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
 import AdaptiveResearchWorkspace from "@/features/adaptive-research-workspace/AdaptiveResearchWorkspace";
 import { buildAdaptiveResearchWorkspaceProjection } from "@/features/adaptive-research-workspace/projection";
+import WorkspaceNextActionInteraction from "@/features/adaptive-research-workspace/WorkspaceNextActionInteraction";
 import DataAnalysisPlanningView from "@/features/data-analysis-planning/DataAnalysisPlanningView";
 import { buildProjectDataAnalysisView } from "@/features/data-analysis-planning/project-integration";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
-import QueryNavigationPanel from "@/features/query-navigation/QueryNavigationPanel";
 import { buildQueryNavigationProductProjection } from "@/features/query-navigation/product";
 import { buildValidationProductSummary } from "@/features/validation-architecture/product-gates";
 import { decideProjectChange, decideProjectGate, proposeEndpointRole, proposeStudyDesign, requestProjectChange } from "./session";
@@ -97,7 +97,13 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
     <AdaptiveResearchWorkspace
       projection={workspaceProjection}
       validation={validationSummary}
-      navigation={<QueryNavigationPanel key={result.candidateVersion.versionId} project={result} />}
+      navigation={<WorkspaceNextActionInteraction
+        projection={navigationProjection}
+        currentProjectVersion={result.candidateVersion.versionId}
+        currentSourceStateDigest={navigationProjection.sourceStateDigest}
+        onOpenTarget={openWorkspaceTarget}
+        onChooseNavigationPreference={(candidateRef) => openWorkspaceTarget(navigationProjection.alternatives.find((item) => item.candidateId === candidateRef)?.targetRef ?? "project:construction")}
+      />}
       onOpenSurface={openWorkspaceTarget}
       onOpenDocument={(targetRef) => targetRef === "document:protocol" && onOpenDocument && result.documentHandoff.status === "AUTHORIZED" ? onOpenDocument() : setStage(8)}
     />

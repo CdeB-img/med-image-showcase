@@ -4,6 +4,7 @@ import type { QueryNavigationProductProjection } from "@/features/query-navigati
 import type { ResearchProjectDesignResult } from "@/features/research-project-construction/types";
 import type { ValidationProductSummary } from "@/features/validation-architecture/product-gates";
 import type { AdaptiveResearchWorkspaceProjection, WorkspaceAttentionItem, WorkspaceDocumentSummary, WorkspaceDomainSummary, WorkspaceSemanticState } from "./contracts";
+import { deduplicateWorkspaceAttentionBySource } from "./interactions";
 
 const domainState = (state: ResearchProjectDesignResult["localReadiness"][number]["state"]): WorkspaceSemanticState => {
   if (state === "READY") return "ADOPTED";
@@ -183,7 +184,7 @@ export const buildAdaptiveResearchWorkspaceProjection = (input: {
       deferAllowed: navigation.summary.deferAllowed,
       systemPrerequisite: navigation.summary.systemPrerequisite,
     },
-    attention: attention(project, navigation, validation),
+    attention: deduplicateWorkspaceAttentionBySource(attention(project, navigation, validation)),
     domains,
     documents,
     validation: {
