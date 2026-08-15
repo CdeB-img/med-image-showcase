@@ -33,4 +33,3 @@ export default function SchemaBoundaryNotice({ diagnostics, mode, onRetry, onCor
     </details>}
   </section>;
 }
-

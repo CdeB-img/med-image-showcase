@@ -72,4 +72,3 @@ export default class ProtocolDesignerErrorBoundary extends Component<ProtocolDes
     </main>;
   }
 }
-
