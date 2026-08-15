@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 import { useEffect, lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import GlobalEntitySchema from "@/components/GlobalEntitySchema";
+import ProtocolDesignerErrorBoundary from "@/features/protocol-designer/ProtocolDesignerErrorBoundary";
 
 const Index = lazy(() => import("./pages/Index"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -121,7 +122,7 @@ const App = () => (
             <Route path="/references-publications" element={<ReferencesPublications />} />
             <Route path="/connaissances" element={<ScientificKnowledgeExplorer />} />
             <Route path="/protocol-designer" element={<ProtocolDesigner />} />
-            <Route path="/protocol-designer/demo" element={<ProtocolDesignerDemo />} />
+            <Route path="/protocol-designer/demo" element={<ProtocolDesignerErrorBoundary><ProtocolDesignerDemo /></ProtocolDesignerErrorBoundary>} />
 
             <Route path="/corelabirm" element={<Navigate to="/corelab-essais-cliniques" replace />} />
             <Route path="/cmro2" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />

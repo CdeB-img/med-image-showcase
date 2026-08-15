@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { executeKnowledgeEngine, isPatientLevelExpression, type ContextDimensionName, type KnowledgeContextInput } from "@/features/knowledge-engine";
+import { executeKnowledgeEngineForPresentation, isPatientLevelExpression, prepareScientificObjectTerms, type ContextDimensionName, type KnowledgeContextInput } from "@/features/knowledge-engine";
 import KnowledgeUnderstandView from "@/features/knowledge-engine/KnowledgeUnderstandView";
 import ImagingStudyDesignerView from "@/features/imaging-study-designer/ImagingStudyDesignerView";
 import DocumentProjectionView from "@/features/document-projection/DocumentProjectionView";
@@ -28,6 +28,7 @@ import { createRouteIntentConversationInteraction } from "@/features/protocol-de
 import { resolveRouteIntentContribution } from "@/features/protocol-designer/conversation/RouteIntentResolver";
 import { clearProtocolDesignerConversationalWorkspace } from "@/features/protocol-designer/conversation/reset";
 import { buildResearchProjectPanelProjection } from "@/features/protocol-designer/conversation/ProjectPanel";
+import SchemaBoundaryNotice from "@/features/protocol-designer/conversation/SchemaBoundaryNotice";
 import { buildQueryNavigationProductProjection } from "@/features/query-navigation/product";
 import { createQueryNavigationMemory } from "@/features/query-navigation/lifecycle";
 import ScientificThinkingView from "@/features/scientific-thinking/ScientificThinkingView";
@@ -233,11 +234,19 @@ export default function ProtocolDesignerDemo() {
   const journeyQuestions = useMemo(() => routeIntent === "UNDERSTAND" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE"].includes(item.questionId)) : routeIntent === "FORMALIZE_IDEA" ? allAdaptiveQuestions.filter((item) => ["Q-PHENOMENON", "Q-PURPOSE", "Q-CONTEXT"].includes(item.questionId)) : allAdaptiveQuestions, [allAdaptiveQuestions, routeIntent]);
   const scientificReadiness = useMemo(() => intent ? assessScientificReadiness(intent, session.scientificThinking) : null, [intent, session.scientificThinking]);
   const requiresImaging = scientificReadiness?.imagingRequired ?? false;
-  const scientificObjectTermsForEngines = useMemo(() => [...new Set([
-    session.scientificContext.centralScientificObject,
-    ...session.scientificContext.preservedScientificTerms,
-  ].map((term) => term.trim()).filter(Boolean))], [session.scientificContext.centralScientificObject, session.scientificContext.preservedScientificTerms]);
-  const knowledgeResult = useMemo(() => intent && routeIntent && routeIntent !== "DOCUMENT" ? executeKnowledgeEngine({
+  const scientificObjectTermBoundary = useMemo(() => prepareScientificObjectTerms({
+    originalQuestion: intent?.originalQuestion ?? session.originalQuestion,
+    payloadRef: session.validatedIntent?.interpretationContributionSnapshot?.contributionId ?? `protocol-session:${session.sessionId}`,
+    candidates: [...new Set([
+      session.scientificContext.centralScientificObject,
+      ...session.scientificContext.preservedScientificTerms,
+    ].map((term) => term.trim()).filter(Boolean))].map((term, index) => ({
+      term,
+      role: index === 0 ? "SUBJECT" as const : index === 1 ? "COMPARATOR" as const : "CONTEXT" as const,
+    })),
+  }), [intent?.originalQuestion, session.originalQuestion, session.scientificContext.centralScientificObject, session.scientificContext.preservedScientificTerms, session.sessionId, session.validatedIntent?.interpretationContributionSnapshot?.contributionId]);
+  const scientificObjectTermsForEngines = useMemo(() => scientificObjectTermBoundary.accepted.map((item) => item.term), [scientificObjectTermBoundary.accepted]);
+  const knowledgeExecution = useMemo(() => intent && routeIntent && routeIntent !== "DOCUMENT" ? executeKnowledgeEngineForPresentation({
     originalQuestion: intent.originalQuestion,
     scientificObjectTerms: session.scientificContext.preservedScientificTerms.map((term, index) => ({ term, role: index === 0 ? "SUBJECT" as const : index === 1 ? "COMPARATOR" as const : "CONTEXT" as const })),
     relations: session.scientificContext.detectedRelationships,
@@ -252,7 +261,13 @@ export default function ProtocolDesignerDemo() {
           : "PROTOCOL_DESIGNER_UNDERSTAND",
     createdAt: session.createdAt,
     strategyVersion: routeIntent === "DESIGN_STUDY" ? `context-${session.scientificContext.contextVersion}` : undefined,
-  }) : null, [intent, knowledgeContextOverrides, requiresImaging, routeIntent, scientificReadiness?.scientificThinkingRequired, session.createdAt, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.missingInformation, session.scientificContext.preservedScientificTerms]);
+    payloadRef: session.validatedIntent?.interpretationContributionSnapshot?.contributionId ?? `protocol-session:${session.sessionId}`,
+  }) : null, [intent, knowledgeContextOverrides, requiresImaging, routeIntent, scientificReadiness?.scientificThinkingRequired, session.createdAt, session.scientificContext.contextVersion, session.scientificContext.detectedRelationships, session.scientificContext.missingInformation, session.scientificContext.preservedScientificTerms, session.sessionId, session.validatedIntent?.interpretationContributionSnapshot?.contributionId]);
+  const knowledgeResult = knowledgeExecution?.result ?? null;
+  const schemaBoundaryDiagnostics = useMemo(() => {
+    const diagnostics = [...(knowledgeExecution?.diagnostics ?? []), ...scientificObjectTermBoundary.diagnostics];
+    return [...new Map(diagnostics.map((item) => [`${item.code}:${item.path.join(".")}:${item.payloadRef ?? ""}`, item])).values()];
+  }, [knowledgeExecution?.diagnostics, scientificObjectTermBoundary.diagnostics]);
   const scientificThinkingInput = useMemo(() => intent && (routeIntent === "FORMALIZE_IDEA" || routeIntent === "DESIGN_STUDY" && scientificReadiness?.scientificThinkingRequired) ? buildScientificThinkingInput(
     intent,
     scientificObjectTermsForEngines,
@@ -688,9 +703,34 @@ export default function ProtocolDesignerDemo() {
     const link = document.createElement("a"); link.href = url; link.download = `noxia-session-${session.sessionId}.md`; link.click(); URL.revokeObjectURL(url);
   };
 
+  const correctSchemaBoundaryInput = () => {
+    setConversationResumeDraft("Je souhaite corriger l’élément de ma réponse qui n’a pas pu être interprété : ");
+    if (experienceMode !== "CONVERSATION") {
+      setQuestion(session.originalQuestion);
+      updateStep(0);
+      return;
+    }
+    window.requestAnimationFrame(() => document.getElementById("continuous-scientific-conversation-message")?.focus());
+  };
+
+  const retrySchemaBoundaryInterpretation = () => {
+    setKnowledgeContextRevision((current) => current + 1);
+    setConversationResumeDraft(session.originalQuestion);
+    setExperienceMode("CONVERSATION");
+    window.requestAnimationFrame(() => document.getElementById("continuous-scientific-conversation-message")?.focus());
+  };
+
+  const schemaBoundaryNotice = (mode: "STANDARD" | "EXPERT") => schemaBoundaryDiagnostics.length ? <SchemaBoundaryNotice
+    diagnostics={schemaBoundaryDiagnostics}
+    mode={mode}
+    onRetry={retrySchemaBoundaryInterpretation}
+    onCorrect={correctSchemaBoundaryInput}
+  /> : null;
+
   const renderQuestions = (questions: AdaptiveQuestion[]) => questions.length ? <div className="mt-6 grid gap-4">{questions.map((item) => <QuestionCard key={item.questionId} item={item} index={journeyQuestions.findIndex((questionItem) => questionItem.questionId === item.questionId)} total={journeyQuestions.length} answer={session.adaptiveAnswers.find((answer) => answer.questionId === item.questionId)} draft={answerDrafts[item.questionId] ?? ""} onDraft={(value) => setAnswerDrafts((current) => ({ ...current, [item.questionId]: value }))} onAnswer={(value, label, consequence, status) => answerQuestion(item, value, label, consequence, status)} />)}</div> : <Panel className="mt-6"><p>Les informations utiles dans ce bloc ont déjà été confirmées. NOXIA ne vous les redemande pas.</p></Panel>;
 
   const renderConversationalContinuation = (onOwnerHandoff: ConversationalOwnerHandoffHandler, workspaceMode: "STANDARD" | "EXPERT") => {
+    const content = (() => {
     if (session.currentStep === 2 && session.validatedIntent && !routeIntent) return <Panel className="border-primary/40"><h2 className="text-2xl font-bold">Que souhaitez-vous faire maintenant ?</h2><p className="mt-2 text-muted-foreground">J’ai compris le sujet. Vous pouvez commencer à construire l’étude, approfondir encore la question scientifique ou demander un document si le projet est déjà suffisamment défini. Répondez simplement avec vos mots.</p><button type="button" onClick={() => document.getElementById("continuous-scientific-conversation-message")?.focus()} className="mt-4 rounded-lg border px-4 py-2">Répondre dans la conversation</button></Panel>;
     if (session.currentStep !== 3) return null;
     if (!session.validatedIntent) return <Panel role="alert" className="border-amber-500/50"><CircleAlert className="h-6 w-6 text-amber-600" /><h2 className="mt-3 text-2xl font-bold">L’espace scientifique n’est pas disponible</h2><p className="mt-2 text-muted-foreground">La compréhension confirmée nécessaire est absente. Aucun Research Project n’a été inventé.</p><button type="button" onClick={() => setConversationResumeDraft("Je souhaite reconstruire la compréhension de ma question : ")} className="mt-4 rounded-lg border px-4 py-2">Préciser dans la conversation</button></Panel>;
@@ -748,6 +788,10 @@ export default function ProtocolDesignerDemo() {
       onOwnerHandoff={onOwnerHandoff}
     />;
     return <Panel role="status"><LoaderCircle className="h-5 w-5 animate-spin" /><p className="mt-3">Le propriétaire du Research Project prépare la projection candidate…</p></Panel>;
+    })();
+    const notice = schemaBoundaryNotice(workspaceMode);
+    if (!notice && !content) return null;
+    return <>{notice}{content}</>;
   };
 
   const pageHead = <Helmet><title>{experienceMode === "CONVERSATION" ? "Protocol Designer — espace scientifique conversationnel | NOXIA" : "Protocol Designer — assistant scientifique | NOXIA"}</title><meta name="description" content={experienceMode === "CONVERSATION" ? "Espace conversationnel NOXIA pour reconstruire et structurer une question scientifique sans effacer l’incertitude." : "Démonstrateur conversationnel NOXIA pour comprendre, formaliser ou construire un projet de recherche en imagerie médicale."} /><meta name="robots" content="noindex, follow" /><link rel="canonical" href={CANONICAL} /></Helmet>;
@@ -804,6 +848,7 @@ export default function ProtocolDesignerDemo() {
 
         {session.invalidatedDownstream.length > 0 && <div role="status" className="mb-6 rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-sm"><strong>Réévaluation visible.</strong> {session.invalidatedDownstream.at(-1)}.</div>}
         {majorChange && <Panel role="alertdialog" aria-labelledby="major-change-title" className="mb-6 border-amber-500/60 bg-amber-500/10"><CircleAlert className="h-6 w-6 text-amber-600" /><h2 id="major-change-title" className="mt-3 text-xl font-semibold">Cette modification change la question scientifique de façon majeure</h2><p className="mt-2 text-sm">NOXIA ne modifiera pas silencieusement le projet. Si vous confirmez, les éléments suivants seront reconstruits :</p><ul className="mt-3 list-disc space-y-1 pl-5 text-sm">{majorChange.affectedElements.map((item) => <li key={item}>{item}</li>)}</ul><div className="mt-4 flex flex-wrap gap-2"><button onClick={confirmMajorChange} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Reconstruire les éléments concernés</button><button onClick={() => setMajorChange(null)} className="rounded-lg border bg-background px-4 py-2 text-sm">Conserver le projet actuel</button></div></Panel>}
+        {schemaBoundaryNotice(experienceMode === "EXPERT" ? "EXPERT" : "STANDARD")}
 
         <nav aria-label="Progression de la conversation" className="mb-8 overflow-x-auto print:hidden"><ol className="flex min-w-max gap-2">{STEPS.map((label, index) => <li key={label}><span aria-current={step === index ? "step" : undefined} className={`inline-flex rounded-full px-3 py-2 text-xs font-medium ${step === index ? "bg-primary text-primary-foreground" : index < step ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>{index + 1}. {label}</span></li>)}</ol></nav>
 
