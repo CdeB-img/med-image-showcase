@@ -1,0 +1,18 @@
+{
+  "campaignId": "QRY-001-CLOSURE-01",
+  "evidenceStatus": "VISIBLE_SYNTHETIC_CONTRACT_FIXTURES",
+  "qualificationStatus": "NOT_PD011_QUALIFICATION",
+  "scenarioFamilies": 22,
+  "closureGates": 45,
+  "closureGateIdRange": "QRY-CLOSE-C01..QRY-CLOSE-C45",
+  "providerCalls": 0,
+  "projectWrites": 0,
+  "validationWrites": 0,
+  "humanDecisionsCreated": 0,
+  "blindDataUsed": false,
+  "parts": {
+    "part2Commit": "18279c4b",
+    "part3Commit": "9a04ad00",
+    "part4FunctionalCommit": "805fe9c1"
+  }
+}

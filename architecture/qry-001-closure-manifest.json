@@ -1,0 +1,117 @@
+{
+  "missionId": "QRY-001",
+  "evidenceLevel": "LEVEL_3_EVIDENCE",
+  "decision": "QRY001_INFORMATION_GAIN_ENGINE_CLOSED_WITH_SESSION_MEMORY_LIMITATION_READY_FOR_UX001",
+  "closedAt": "2026-08-15T09:58:40+02:00",
+  "startingCommit": "01d1d22e8c97ed4efd7e586796ba51d4090e3bb7",
+  "partCommits": {
+    "part1": null,
+    "part2": "18279c4bf58ce99205f7a212ba93a89ac2a2f344",
+    "part3": "9a04ad0057724978a62a731bba0cb0df46251b1a",
+    "part4Functional": "805fe9c1efac217edf91a6972262d0115f27f1ae"
+  },
+  "endingCommitBeforeClosure": "805fe9c1efac217edf91a6972262d0115f27f1ae",
+  "pd009AuthorityRef": "docs/pd-009-decision-engine-architecture.md",
+  "navigationContextVersion": "1.0.0",
+  "actionTaxonomy": [
+    "CLARIFY_BY_ADAPTIVE_EXCHANGE",
+    "BUILD_OR_REVISE_OBJECT",
+    "COMPARE_OPTIONS",
+    "TRIGGER_METHODOLOGICAL_REVIEW",
+    "REQUEST_HUMAN_DECISION",
+    "PRODUCE_PROVISIONAL_PROJECTION",
+    "SUSPEND_OR_STOP",
+    "REFUSE_PROTOCOL_PROJECTION"
+  ],
+  "informationValueModel": {
+    "kind": "QUALITATIVE_LEXICOGRAPHIC_THEN_DOMINANCE",
+    "dimensions": [
+      "blocking",
+      "discrimination",
+      "impactScope",
+      "reducibility",
+      "irreversibility",
+      "temporalUrgency",
+      "burden",
+      "sensitivityRisk",
+      "pedagogicalValue"
+    ],
+    "dimensionCount": 9,
+    "nonDominatedOptionsPreserved": true
+  },
+  "arbitraryScoreCount": 0,
+  "arbitraryTieBreakCount": 0,
+  "providerCalls": 0,
+  "projectWritesByQry": 0,
+  "valWrites": 0,
+  "autoHumanDecisions": 0,
+  "duplicateQuestionCount": 0,
+  "staleResponsesPromoted": 0,
+  "nonDominatedOptionsDropped": 0,
+  "replayStatus": "PASS_DETERMINISTIC",
+  "endToEndCases": {
+    "evidenceStatus": "VISIBLE_SYNTHETIC_CONTRACT_FIXTURES",
+    "qualificationStatus": "NOT_PD011_QUALIFICATION",
+    "scenarioFamilies": 22,
+    "catalog": "validation/qry-001-closure/scenario-catalog.json"
+  },
+  "closureGates": {
+    "passed": 45,
+    "failed": 0,
+    "range": "QRY-CLOSE-C01..QRY-CLOSE-C45",
+    "results": "validation/qry-001-closure/results.json"
+  },
+  "targetedTests": {
+    "qryParts2To4": {
+      "passed": 267,
+      "failed": 0,
+      "skipped": 0,
+      "total": 267
+    },
+    "part4Product": {
+      "passed": 79,
+      "failed": 0,
+      "skipped": 0,
+      "total": 79
+    },
+    "transverseCorridor": {
+      "passed": 1277,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1277
+    }
+  },
+  "globalSuite": {
+    "passed": 2337,
+    "failed": 3,
+    "skipped": 0,
+    "total": 2340,
+    "failureClassification": "PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE",
+    "qryAttributedFailures": 0
+  },
+  "technicalValidations": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "changedFilesLint": "PASS",
+    "diffCheck": "PASS"
+  },
+  "persistence": "NAVIGATION_MEMORY_SESSION_SCOPED_PROJECT_STATE_RECONSTRUCTIBLE",
+  "limitations": [
+    "NAVIGATION_MEMORY_NOT_DURABLE_OUTSIDE_CURRENT_SESSION",
+    "NO_PERSISTED_TRANSVERSE_VALIDATION_RUN_IN_DEMONSTRATOR",
+    "VAL_SEMANTIC_REVIEWER_DISABLED_NOT_QUALIFIED",
+    "NOT_PD011_QUALIFICATION",
+    "UX001_NOT_IMPLEMENTED",
+    "THREE_PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURES"
+  ],
+  "boundaries": {
+    "blindReads": 0,
+    "fuzzyScientificDedup": 0,
+    "pd011PassClaims": 0,
+    "sourceOfTruthIndexModified": false,
+    "normativeDocumentsModified": false,
+    "semFullReopened": false,
+    "ux001Implemented": false
+  },
+  "nextMission": "UX-001"
+}

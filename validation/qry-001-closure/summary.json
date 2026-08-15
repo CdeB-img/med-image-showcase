@@ -1,0 +1,16 @@
+{
+  "campaignId": "QRY-001-CLOSURE-01",
+  "evidenceStatus": "VISIBLE_SYNTHETIC_CONTRACT_FIXTURES",
+  "qualificationStatus": "NOT_PD011_QUALIFICATION",
+  "status": "COMPLETE",
+  "scenarioFamilies": 22,
+  "closureGatesPassed": 45,
+  "closureGatesFailed": 0,
+  "duplicateQuestionCountWithoutExplicitTrigger": 0,
+  "providerCalls": 0,
+  "projectWrites": 0,
+  "validationWrites": 0,
+  "humanDecisionsCreated": 0,
+  "persistence": "NAVIGATION_MEMORY_SESSION_SCOPED_PROJECT_STATE_RECONSTRUCTIBLE",
+  "decision": "QRY001_INFORMATION_GAIN_ENGINE_CLOSED_WITH_SESSION_MEMORY_LIMITATION_READY_FOR_UX001"
+}

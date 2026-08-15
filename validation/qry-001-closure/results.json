@@ -1,0 +1,21 @@
+{
+  "campaignId": "QRY-001-CLOSURE-01",
+  "status": "COMPLETE",
+  "closureGatesPassed": 45,
+  "closureGatesFailed": 0,
+  "closureGateIdRange": "QRY-CLOSE-C01..QRY-CLOSE-C45",
+  "scenarioFamiliesCovered": 22,
+  "duplicateQuestionCountWithoutExplicitTrigger": 0,
+  "providerCalls": 0,
+  "projectWrites": 0,
+  "validationWrites": 0,
+  "humanDecisionsCreated": 0,
+  "pd011QualificationClaimed": false,
+  "persistence": "NAVIGATION_MEMORY_SESSION_SCOPED_PROJECT_STATE_RECONSTRUCTIBLE",
+  "tests": {
+    "qryParts2To4": "267/267 PASS",
+    "part4Product": "79/79 PASS",
+    "transverseCorridor": "1277/1277 PASS",
+    "globalSuite": "2337 PASS, 3 PRE_EXISTING_EXTERNAL_CLEANLINESS_FAILURE, 0 SKIP, 2340 TOTAL"
+  }
+}
