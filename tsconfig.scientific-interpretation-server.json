@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*.ts", "src/*/index.ts"]
+    }
+  },
+  "files": [
+    "src/features/scientific-interpretation/audit.ts",
+    "src/features/scientific-interpretation/canonical.ts",
+    "src/features/scientific-interpretation/contracts.ts",
+    "src/features/scientific-interpretation/hybrid-adapter.ts",
+    "src/features/scientific-interpretation/hybrid-primary.ts",
+    "src/features/scientific-interpretation/raw-persistence.ts",
+    "src/features/scientific-interpretation/runtime.ts",
+    "src/features/scientific-interpretation/server.ts",
+    "src/features/scientific-interpretation/shadow-comparison.ts",
+    "src/features/scientific-interpretation/transport.ts",
+    "src/features/scientific-interpretation/v1-compatibility.ts"
+  ]
+}

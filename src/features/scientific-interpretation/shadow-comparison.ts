@@ -1,5 +1,5 @@
-import { comparableScientificText, logicalDigest } from "@/features/knowledge-engine/canonical";
-import type { ScientificInterpretationContributionEnvelope } from "./contracts";
+import { comparableScientificText, logicalDigest } from "../knowledge-engine/canonical.js";
+import type { ScientificInterpretationContributionEnvelope } from "./contracts.js";
 
 export type ScientificInterpretationShadowComparison = {
   comparisonId: string;

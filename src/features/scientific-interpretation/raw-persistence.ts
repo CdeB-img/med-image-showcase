@@ -1,5 +1,5 @@
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import { ScientificInterpretationTechnicalError } from "./contracts";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
+import { ScientificInterpretationTechnicalError } from "./contracts.js";
 
 export type RawScientificInterpretationRecord = {
   rawOutputRef: string;

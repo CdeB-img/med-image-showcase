@@ -1,7 +1,7 @@
 import { z } from "zod";
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import type { HybridNativeExecution, HybridParsedState } from "./hybrid-adapter";
-import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation } from "./contracts";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
+import type { HybridNativeExecution, HybridParsedState } from "./hybrid-adapter.js";
+import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation } from "./contracts.js";
 
 export const HYBRID_PRIMARY_RUNTIME_ID = "HYBRID_PRIMARY_STRUCTURED" as const;
 export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.1.0" as const;

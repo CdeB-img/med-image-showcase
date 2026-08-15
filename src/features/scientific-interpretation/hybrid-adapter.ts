@@ -1,6 +1,6 @@
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import { applyDeterministicAudit } from "./audit";
-import { canonicalizeScientificContribution } from "./canonical";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
+import { applyDeterministicAudit } from "./audit.js";
+import { canonicalizeScientificContribution } from "./canonical.js";
 import {
   SCIENTIFIC_INTERPRETATION_CONTRIBUTION_CONTRACT,
   SCIENTIFIC_INTERPRETATION_CONTRIBUTION_VERSION,
@@ -11,8 +11,8 @@ import {
   type ScientificInterpretationContributionEnvelope,
   type ScientificInterpretationConversation,
   type ScientificInterpretationRuntime,
-} from "./contracts";
-import type { ScientificInterpretationRawStore } from "./raw-persistence";
+} from "./contracts.js";
+import type { ScientificInterpretationRawStore } from "./raw-persistence.js";
 
 type GenericRecord = Record<string, unknown>;
 

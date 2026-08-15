@@ -1,8 +1,8 @@
-import { detectSensitiveData } from "@/features/protocol-designer/intake/privacy";
-import { DEFAULT_SCIENTIFIC_INTERPRETATION_MODE, ScientificInterpretationTechnicalError, type ScientificInterpretationMode } from "./contracts";
-import { executeScientificInterpretation, type ScientificInterpretationExecution } from "./runtime";
-import { SCIENTIFIC_INTERPRETATION_API_VERSION, parseScientificInterpretationApiRequest, type ScientificInterpretationApiFailure, type ScientificInterpretationApiResponse } from "./transport";
-import { projectScientificContributionToV1IfAllowed } from "./v1-compatibility";
+import { detectSensitiveData } from "../protocol-designer/intake/privacy.js";
+import { DEFAULT_SCIENTIFIC_INTERPRETATION_MODE, ScientificInterpretationTechnicalError, type ScientificInterpretationMode } from "./contracts.js";
+import { executeScientificInterpretation, type ScientificInterpretationExecution } from "./runtime.js";
+import { SCIENTIFIC_INTERPRETATION_API_VERSION, parseScientificInterpretationApiRequest, type ScientificInterpretationApiFailure, type ScientificInterpretationApiResponse } from "./transport.js";
+import { projectScientificContributionToV1IfAllowed } from "./v1-compatibility.js";
 
 export type ScientificInterpretationHttpRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body: unknown; ip?: string };
 export type ScientificInterpretationHttpResponse = { status: number; headers: Record<string, string>; body: ScientificInterpretationApiResponse | ScientificInterpretationApiFailure };

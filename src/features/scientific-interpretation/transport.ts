@@ -1,6 +1,6 @@
-import type { ScientificInterpretationExecution } from "./runtime";
-import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation, ScientificInterpretationFailureClass, ScientificInterpretationMode } from "./contracts";
-import type { ScientificInterpretationProjectionDisposition, V1ScientificInterpretationProjection } from "./v1-compatibility";
+import type { ScientificInterpretationExecution } from "./runtime.js";
+import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation, ScientificInterpretationFailureClass, ScientificInterpretationMode } from "./contracts.js";
+import type { ScientificInterpretationProjectionDisposition, V1ScientificInterpretationProjection } from "./v1-compatibility.js";
 
 export const SCIENTIFIC_INTERPRETATION_API_VERSION = "1.0.0" as const;
 

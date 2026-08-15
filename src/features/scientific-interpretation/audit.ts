@@ -1,5 +1,5 @@
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationFinding } from "./contracts";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
+import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationFinding } from "./contracts.js";
 
 const finding = (code: string, message: string, sourceRefs: string[], severity: ScientificInterpretationFinding["severity"] = "CRITICAL"): ScientificInterpretationFinding => ({
   findingId: `audit-d:${logicalDigest({ code, message, sourceRefs })}`,

@@ -1,5 +1,5 @@
-import { logicalDigest, stableStringify } from "@/features/knowledge-engine/canonical";
-import type { ScientificInterpretationContributionEnvelope } from "./contracts";
+import { logicalDigest, stableStringify } from "../knowledge-engine/canonical.js";
+import type { ScientificInterpretationContributionEnvelope } from "./contracts.js";
 
 export const canonicalizeScientificContribution = (
   contribution: Omit<ScientificInterpretationContributionEnvelope, "identity"> & {

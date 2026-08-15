@@ -1,4 +1,4 @@
-import { compareScientificInterpretationContributions, type ScientificInterpretationShadowComparison } from "./shadow-comparison";
+import { compareScientificInterpretationContributions, type ScientificInterpretationShadowComparison } from "./shadow-comparison.js";
 import {
   DEFAULT_SCIENTIFIC_INTERPRETATION_MODE,
   ScientificInterpretationTechnicalError,
@@ -7,7 +7,7 @@ import {
   type ScientificInterpretationConversation,
   type ScientificInterpretationMode,
   type ScientificInterpretationRuntime,
-} from "./contracts";
+} from "./contracts.js";
 
 export type ScientificInterpretationExecution = {
   mode: ScientificInterpretationMode;

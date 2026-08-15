@@ -1,6 +1,6 @@
-import { createEmptyInterpretation } from "@/features/protocol-designer/intake/schema";
-import type { ConfidenceLevel, EvidenceOrigin, HumanFieldReview, InterpretedFieldKey, RoutingIntent, ScientificSessionContext, ValidatedScientificIntent } from "@/features/protocol-designer/intake/types";
-import type { ScientificContributionItem, ScientificInterpretationContributionEnvelope } from "./contracts";
+import { createEmptyInterpretation } from "../protocol-designer/intake/schema.js";
+import type { ConfidenceLevel, EvidenceOrigin, HumanFieldReview, InterpretedFieldKey, RoutingIntent, ScientificSessionContext, ValidatedScientificIntent } from "../protocol-designer/intake/types.js";
+import type { ScientificContributionItem, ScientificInterpretationContributionEnvelope } from "./contracts.js";
 
 export type LegacyProjectionLoss = {
   code: "LEGACY_PROJECTION_LOSS";

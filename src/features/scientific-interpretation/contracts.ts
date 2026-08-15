@@ -1,4 +1,4 @@
-import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import type { HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
 
 export const SCIENTIFIC_INTERPRETATION_CONTRIBUTION_CONTRACT = "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE" as const;
 export const SCIENTIFIC_INTERPRETATION_CONTRIBUTION_VERSION = "1.0.0" as const;
