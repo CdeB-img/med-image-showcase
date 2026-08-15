@@ -1,0 +1,95 @@
+{
+  "missionId": "DATA-ANALYSIS-INTEGRATION-001",
+  "evidenceLevel": "LEVEL_3_EVIDENCE",
+  "decision": "DAI001_V1_DATA_ANALYSIS_INTEGRATION_CLOSED_READY_FOR_VAL001",
+  "closedAt": "2026-08-15T00:21:45Z",
+  "startingCommit": "6644740b",
+  "endingCommitBeforeClosureCommit": "83749f35",
+  "partCommits": {
+    "contractsAndHandoffs": "c345bfc2",
+    "dataAndDataManagement": "d3bd969f",
+    "biostatistics": "aef67c80",
+    "projectUiAndDocuments": "83749f35"
+  },
+  "contractsImplemented": [
+    "DataAnalysisPlanningContext",
+    "DataAnalysisPlanningContribution",
+    "StudyDataPlanningPayload",
+    "DataManagementPlanningPayload",
+    "BiostatisticsPlanningPayload",
+    "ProjectDataAnalysisState",
+    "ProjectDataAnalysisView",
+    "DataAnalysisDocumentProjectionInput"
+  ],
+  "projectIntegration": {
+    "singleProjectIdentity": true,
+    "versionedAdoption": true,
+    "atomicWrites": true,
+    "staleProtection": true,
+    "frozenProjectProtection": true,
+    "reloadReconstruction": true
+  },
+  "humanDecisionIntegration": {
+    "required": true,
+    "actorRequired": true,
+    "mandateRequired": true,
+    "explicitTargetsRequired": true,
+    "contributionDigestRequired": true,
+    "supportedDispositions": ["ADOPTED", "REJECTED", "DEFERRED"]
+  },
+  "canonicalIdentityChecks": {
+    "fixtureId": "CV-001",
+    "checkpoints": 10,
+    "copiesCreated": 0,
+    "status": "PASS"
+  },
+  "realizedTimeObjectCount": 0,
+  "providerCalls": 0,
+  "blindReads": 0,
+  "patientDataCount": 0,
+  "statisticalCalculationCount": 0,
+  "normativeFilesModified": 0,
+  "targetedTests": {
+    "dataAnalysis": { "passed": 274, "failed": 0, "skipped": 0 },
+    "researchProject": { "passed": 56, "failed": 0, "skipped": 0 },
+    "systemIntegration": { "passed": 34, "failed": 0, "skipped": 0 },
+    "tmp": { "passed": 18, "failed": 0, "skipped": 0 },
+    "doc002": { "passed": 42, "failed": 0, "skipped": 0 },
+    "semLegacyLocal": { "passed": 305, "failed": 0, "skipped": 0 },
+    "knowledge": { "passed": 87, "failed": 0, "skipped": 0 },
+    "imaging": { "passed": 60, "failed": 0, "skipped": 0 },
+    "selectedScientificCoreAndDocuments": { "passed": 253, "failed": 0, "skipped": 0 },
+    "typecheck": "PASS",
+    "build": "PASS",
+    "changedFilesLint": "PASS",
+    "diffCheck": "PASS",
+    "documentarySnapshotValidators": {
+      "biostatistics001": "FROZEN_INVENTORY_EXPECTS_160_DOCS_FOUND_161",
+      "dm001": "HISTORICAL_INDEX_1_44_AND_FROZEN_INVENTORY_MISMATCH"
+    }
+  },
+  "globalSuite": {
+    "passed": 1732,
+    "failed": 3,
+    "skipped": 0,
+    "total": 1735,
+    "daiAttributedFailures": 0
+  },
+  "knownExternalFailures": [
+    "P3M-Web leaves editorial-engine clean",
+    "P4 leaves editorial-engine unchanged",
+    "P5 leaves editorial-engine unchanged"
+  ],
+  "limitations": [
+    "Design-time capability only",
+    "No Data Management runtime",
+    "No analysis execution",
+    "No patient data",
+    "No provider calls",
+    "No statistical calculations",
+    "BIOSTATISTICS-001 documentary validator remains pinned to the pre-closure 160-document inventory while the required closure report creates document 161",
+    "DM-001 documentary validator remains pinned to the historical v1.44 inventory",
+    "Sibling editorial-engine checkout has pre-existing unrelated changes"
+  ],
+  "nextMission": "VAL-001"
+}
