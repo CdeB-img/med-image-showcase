@@ -5,6 +5,7 @@ import { projectScientificContributionToV1IfAllowed, type V1ScientificInterpreta
 
 export const SCIENTIFIC_INTERPRETATION_SESSION_KEY = "noxia-scientific-interpretation-session-v1";
 export const LEGACY_SEMANTIC_WORKSPACE_SESSION_KEY = "noxia-semantic-workspace-session-v1";
+export const SCIENTIFIC_INTERPRETATION_OWNER_SESSION_KEY_V2 = "noxia-scientific-interpretation-owner-session-v2";
 export const SCIENTIFIC_INTERPRETATION_SESSION_VERSION = "SCIENTIFIC-INTERPRETATION-WORKSPACE-1.0" as const;
 
 export type ScientificInterpretationWorkspaceSession = {
@@ -117,6 +118,24 @@ export const loadScientificInterpretationSession = (storage: Pick<Storage, "getI
   }
 };
 
+export const persistScientificInterpretationOwnerSessionV2 = (storage: Pick<Storage, "setItem">, session: ScientificInterpretationWorkspaceSession) => {
+  if (session.messages.some((item) => hasSensitiveData(item.content))) throw new Error("SENSITIVE_SCIENTIFIC_INTERPRETATION_OWNER_SESSION_NOT_PERSISTED");
+  storage.setItem(SCIENTIFIC_INTERPRETATION_OWNER_SESSION_KEY_V2, JSON.stringify(session));
+};
+
+export const loadScientificInterpretationOwnerSessionV2 = (storage: Pick<Storage, "getItem" | "removeItem">): ScientificInterpretationWorkspaceSession | null => {
+  const raw = storage.getItem(SCIENTIFIC_INTERPRETATION_OWNER_SESSION_KEY_V2);
+  if (!raw) return null;
+  try {
+    const value = JSON.parse(raw);
+    if (!isNeutralSession(value)) throw new Error("INVALID");
+    return value;
+  } catch {
+    storage.removeItem(SCIENTIFIC_INTERPRETATION_OWNER_SESSION_KEY_V2);
+    return null;
+  }
+};
+
 export const readLegacySemanticSession = (storage: Pick<Storage, "getItem">): unknown | null => {
   const raw = storage.getItem(LEGACY_SEMANTIC_WORKSPACE_SESSION_KEY);
   if (!raw) return null;
@@ -173,4 +192,7 @@ export const migrateLegacySemanticSession = (
   };
 };
 
-export const clearScientificInterpretationSession = (storage: Pick<Storage, "removeItem">) => storage.removeItem(SCIENTIFIC_INTERPRETATION_SESSION_KEY);
+export const clearScientificInterpretationSession = (storage: Pick<Storage, "removeItem">) => {
+  storage.removeItem(SCIENTIFIC_INTERPRETATION_SESSION_KEY);
+  storage.removeItem(SCIENTIFIC_INTERPRETATION_OWNER_SESSION_KEY_V2);
+};

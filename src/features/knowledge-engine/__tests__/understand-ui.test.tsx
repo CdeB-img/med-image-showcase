@@ -81,7 +81,7 @@ describe("Knowledge Engine — UNDERSTAND projection", () => {
   it("refuses an individual T2 interpretation", async () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.change(screen.getByLabelText("Votre question scientifique"), { target: { value: "J’ai un T2 élevé." } });
-    fireEvent.click(screen.getByRole("button", { name: /Commencer la conversation/ }));
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
     expect(screen.getByText(/NOXIA n’interprète pas une valeur individuelle/)).toBeInTheDocument();
     expect(screen.queryByText(/PRIVACY_BLOCKED/)).not.toBeInTheDocument();
     expect(window.localStorage.length).toBe(0);

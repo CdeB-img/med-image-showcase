@@ -6,17 +6,18 @@ import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import { createEmptyInterpretation } from "../intake/schema";
-import { buildValidatedIntent, createProtocolDesignerSession, loadSessionCandidate, persistSession } from "../intake/session";
+import { buildValidatedIntent, createProtocolDesignerSession, loadProtocolDesignerOwnerSessionV2, persistSession } from "../intake/session";
 import { createProtocolDesignerWorkspaceHandoff, inspectProtocolDesignerWorkspaceTransition } from "../intake/workspace-handoff";
 import type { V1ScientificInterpretationProjection } from "@/features/scientific-interpretation";
 
 const bridge = vi.hoisted(() => ({ projection: null as V1ScientificInterpretationProjection | null }));
 
 vi.mock("@/features/scientific-interpretation/ScientificInterpretationWorkspace", () => ({
-  default: ({ onOpenStructuredProject, onResumeStructuredProject }: { onOpenStructuredProject: (projection: V1ScientificInterpretationProjection) => void; onResumeStructuredProject?: () => void }) => <>
+  default: ({ onOpenStructuredProject, onResumeStructuredProject, renderContinuation }: { onOpenStructuredProject: (projection: V1ScientificInterpretationProjection) => void; onResumeStructuredProject?: () => void; renderContinuation?: (onOwnerHandoff: () => void, mode: "STANDARD" | "EXPERT") => React.ReactNode }) => <div data-testid="mock-conversation-shell">
     <button type="button" onClick={() => onOpenStructuredProject(bridge.projection!)}>Poursuivre le raisonnement</button>
-    {onResumeStructuredProject && <button type="button" onClick={onResumeStructuredProject}>Reprendre l’espace de recherche</button>}
-  </>,
+    {onResumeStructuredProject && <button type="button" onClick={onResumeStructuredProject}>Reprendre</button>}
+    {renderContinuation?.(() => undefined, "STANDARD")}
+  </div>,
 }));
 
 const projection = (routeIntent: V1ScientificInterpretationProjection["scientificSessionContext"]["routeIntent"] = null): V1ScientificInterpretationProjection => {
@@ -78,8 +79,8 @@ describe("V1-PROD-HOTFIX-002 — workspace transition", () => {
   it("PROD-WS-C02 Continue reasoning cannot transition to a blank scientific workspace", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Poursuivre le raisonnement" }));
-    expect(screen.getByRole("heading", { name: "Que voulez-vous faire maintenant ?" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /^Approfondir la question/ })).toBeInTheDocument();
+    expect(screen.getByRole("alert")).toHaveTextContent("Orientation scientifique requise");
+    expect(screen.getByTestId("mock-conversation-shell")).toContainElement(screen.getByRole("alert"));
   });
 
   it("PROD-WS-C03 Scientific workspace requires a valid Project/workspace source state", () => {
@@ -98,19 +99,18 @@ describe("V1-PROD-HOTFIX-002 — workspace transition", () => {
   it("PROD-WS-C05 Missing required state produces explicit failure/recovery UI, never null page", async () => {
     persistSession(window.localStorage, { ...createProtocolDesignerSession(), currentStep: 3 });
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
-    fireEvent.click(await screen.findByRole("button", { name: "Reprendre l’espace de recherche" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Reprendre" }));
     expect(screen.getByRole("alert")).toHaveTextContent("L’espace scientifique n’est pas disponible");
-    expect(screen.getByRole("button", { name: "Revenir à la conversation" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Préciser dans la conversation" })).toBeInTheDocument();
   });
 
   it("PROD-WS-C06 Reload cannot restore workspace with unusable Project silently", async () => {
     const stale = createProtocolDesignerWorkspaceHandoff(projection());
     persistSession(window.localStorage, { ...stale, currentStep: 3 });
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
-    fireEvent.click(await screen.findByRole("button", { name: "Reprendre l’espace de recherche" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Reprendre" }));
     expect(screen.getByRole("alert")).toHaveTextContent("Orientation scientifique requise");
-    fireEvent.click(screen.getByRole("button", { name: "Choisir l’orientation" }));
-    expect(screen.getByRole("heading", { name: "Que voulez-vous faire maintenant ?" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Préciser l’intention dans la conversation" })).toBeInTheDocument();
   });
 
   it("PROD-WS-C07 QRY remains next-action owner after transition", async () => {
@@ -120,7 +120,7 @@ describe("V1-PROD-HOTFIX-002 — workspace transition", () => {
     const nextAction = await screen.findByTestId("workspace-next-action");
     expect(nextAction.closest("[aria-label='Prochaine action scientifique']")).not.toBeNull();
     expect(nextAction.querySelector("h3")?.textContent).toBeTruthy();
-    expect(readFileSync(resolve(process.cwd(), "src/features/research-project-construction/ResearchProjectConstructionView.tsx"), "utf8")).toContain("buildQueryNavigationProductProjection(result)");
+    expect(readFileSync(resolve(process.cwd(), "src/features/research-project-construction/ResearchProjectConstructionView.tsx"), "utf8")).toContain("buildQueryNavigationProductProjection(result, navigationMemory)");
   });
 
   it("PROD-WS-C08 No direct UX to Project write is introduced", () => {
@@ -136,8 +136,8 @@ describe("V1-PROD-HOTFIX-002 — workspace transition", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.click(screen.getByRole("button", { name: "Poursuivre le raisonnement" }));
     await screen.findByTestId("adaptive-research-workspace");
-    await waitFor(() => expect(loadSessionCandidate(window.localStorage)?.projectConstruction?.result.candidateVersion.status).toBe("CANDIDATE_NOT_FROZEN"));
-    expect(loadSessionCandidate(window.localStorage)?.decision).toBeNull();
+    await waitFor(() => expect(loadProtocolDesignerOwnerSessionV2(window.localStorage)?.projectConstruction?.result.candidateVersion.status).toBe("CANDIDATE_NOT_FROZEN"));
+    expect(loadProtocolDesignerOwnerSessionV2(window.localStorage)?.decision).toBeNull();
   });
 
   it("PROD-WS-C10 Existing Scientific Interpretation production path remains functional", () => {

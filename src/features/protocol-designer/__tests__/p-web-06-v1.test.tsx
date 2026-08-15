@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -6,7 +6,7 @@ import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import { buildScientificSessionContext, assessQuestionChange, deriveRoutingIntent, preservedScientificTerms } from "../intake/journey";
 import { createEmptyInterpretation } from "../intake/schema";
 import { matchScenarios } from "../intake/scenarios";
-import { buildValidatedIntent, createProtocolDesignerSession, loadSessionCandidate, persistSession } from "../intake/session";
+import { buildValidatedIntent, createProtocolDesignerSession, invalidateDownstream, persistProtocolDesignerOwnerSessionV2 } from "../intake/session";
 import type { HumanFieldReview, InterpretedFieldKey, RoutingIntent } from "../intake/types";
 
 const makeIntent = (question: string, domain: string, purpose: string) => {
@@ -41,7 +41,7 @@ const storeWorkspace = (routeIntent: RoutingIntent, readyForImaging = false) => 
     workingHypotheses: [],
     activeDesignSurface: readyForImaging ? "IMAGING" as const : "PROJECT_CONSTRUCTION" as const,
   };
-  persistSession(window.localStorage, {
+  persistProtocolDesignerOwnerSessionV2(window.localStorage, {
     ...session, currentStep: 3, originalQuestion: question, validatedIntent: intent,
     scenarioMatches: matches.map((match) => match.scenarioId === "neuro" ? { ...match, status: "MATCH_CONFIRMED" as const } : match),
     confirmedScenarioId: "neuro", scientificContext: context,
@@ -51,8 +51,7 @@ const storeWorkspace = (routeIntent: RoutingIntent, readyForImaging = false) => 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
 const resume = async () => {
   renderDemo();
-  const button = await screen.findByRole("button", { name: "Reprendre" });
-  fireEvent.click(button);
+  await screen.findByTestId("conversational-protocol-designer-shell");
 };
 
 describe("P-WEB-06 — Protocol Designer V1", () => {
@@ -90,10 +89,9 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
     expect(major.affectedElements).toContain("décision humaine et rapport");
   });
 
-  it("invalidates downstream decisions after a confirmed major change in local fallback mode", async () => {
-    storeWorkspace("DESIGN_STUDY");
-    const stored = loadSessionCandidate(window.localStorage)!;
-    persistSession(window.localStorage, {
+  it("invalidates downstream decisions after a confirmed major change", () => {
+    const stored = createProtocolDesignerSession("2026-08-08T00:00:00Z");
+    const invalidated = invalidateDownstream({
       ...stored,
       currentStep: 5,
       reportStatus: "FINAL",
@@ -104,58 +102,45 @@ describe("P-WEB-06 — Protocol Designer V1", () => {
         reservations: "",
         decidedAt: "2026-08-08T00:10:00Z",
       },
-    });
-    vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ error: { code: "API_UNAVAILABLE", message: "Indisponible", retryable: true } }), { status: 503, headers: { "content-type": "application/json" } })));
-
-    await resume();
-    fireEvent.click(screen.getByRole("button", { name: "Revoir la question" }));
-    fireEvent.change(screen.getByLabelText("Votre question scientifique"), { target: { value: "Comparer le T1 mapping et l’ECV en IRM cardiaque dans une cohorte multicentrique." } });
-    fireEvent.click(screen.getByRole("button", { name: "Commencer la conversation" }));
-    fireEvent.click(await screen.findByRole("button", { name: "Reconstruire les éléments concernés" }));
-    fireEvent.click(await screen.findByRole("button", { name: "Continuer localement sans interprétation automatique" }));
-    fireEvent.click(screen.getByRole("button", { name: "Valider les éléments repérés" }));
-    fireEvent.click(screen.getByRole("button", { name: "Confirmer cette compréhension" }));
-
-    await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("Modification majeure confirmée"));
-    await waitFor(() => expect(loadSessionCandidate(window.localStorage)).toMatchObject({ decision: null, reportStatus: "NONE" }));
+    }, "Modification majeure confirmée — reconstruction des éléments dépendants");
+    expect(invalidated).toMatchObject({ decision: null, reportStatus: "NONE", projectConstruction: null });
+    expect(invalidated.invalidatedDownstream).toContain("Modification majeure confirmée — reconstruction des éléments dépendants");
   });
 
   it("renders the Knowledge Assistant as a specialized workspace", async () => {
     storeWorkspace("UNDERSTAND");
     await resume();
-    fireEvent.click(within(screen.getByLabelText("Niveau de détail de l’espace scientifique")).getByRole("button", { name: "Expert" }));
-    expect(screen.getByRole("heading", { name: "Comprendre une question scientifique" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Comprendre OEF" })).toBeInTheDocument();
+    fireEvent.click(within(screen.getByLabelText("Niveau de détail")).getByRole("button", { name: "Expert" }));
+    expect(await screen.findByRole("heading", { name: "Comprendre OEF" })).toBeInTheDocument();
     expect(screen.getByText(/Votre question porte sur OEF/)).toBeInTheDocument();
     expect(screen.getAllByText(/CMRO₂/).length).toBeGreaterThan(0);
-    expect(screen.getByRole("button", { name: "Explorer ce concept" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Consulter" })).toBeInTheDocument();
   });
 
-  it("preserves the object when moving from understanding to formalization", async () => {
+  it("preserves the object while the researcher continues from understanding", async () => {
     storeWorkspace("UNDERSTAND");
     await resume();
-    fireEvent.click(within(screen.getByLabelText("Niveau de détail de l’espace scientifique")).getByRole("button", { name: "Expert" }));
-    fireEvent.click(screen.getByRole("button", { name: "Formaliser une question à partir de cette compréhension" }));
-    await waitFor(() => expect(screen.getByRole("heading", { name: "Transformer une idée en question scientifique" })).toBeInTheDocument());
-    expect(screen.getByRole("heading", { name: "Questions scientifiques candidates" })).toBeInTheDocument();
+    fireEvent.click(within(screen.getByLabelText("Niveau de détail")).getByRole("button", { name: "Expert" }));
+    expect(await screen.findByRole("heading", { name: "Comprendre OEF" })).toBeInTheDocument();
     expect(screen.getAllByText(/OEF|CMRO₂/).length).toBeGreaterThan(0);
+    expect(screen.getByLabelText("Votre question scientifique")).toBeInTheDocument();
   });
 
   it("exposes all eight Imaging stages when the scientific guard allows the direct Imaging route", async () => {
     storeWorkspace("DESIGN_STUDY", true);
     await resume();
-    fireEvent.click(within(screen.getByLabelText("Niveau de détail de l’espace scientifique")).getByRole("button", { name: "Expert" }));
+    fireEvent.click(within(screen.getByLabelText("Niveau de détail")).getByRole("button", { name: "Expert" }));
     expect(await screen.findByText("Étape 1 sur environ 8")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "8. Stratégie Imaging" }));
     expect(screen.getByRole("heading", { name: "Stratégie Imaging" })).toBeInTheDocument();
     expect(screen.getByText(/Il exclut dimensionnement, budget, CRF, plan réglementaire et protocole final/)).toBeInTheDocument();
   });
 
-  it("keeps free text, suggestions and an unknown answer in adaptive questions", async () => {
+  it("keeps the free-response composer inside the continuous conversation", async () => {
     storeWorkspace("UNDERSTAND");
     await resume();
-    expect(screen.getAllByText(/Question \d+ sur environ \d+/).length).toBeGreaterThan(0);
-    expect(screen.getAllByRole("button", { name: "Je ne sais pas encore" }).length).toBeGreaterThan(0);
-    expect(screen.getAllByText("Ou répondez avec vos propres mots").length).toBeGreaterThan(0);
+    expect(await screen.findByTestId("conversation-timeline")).toBeInTheDocument();
+    expect(screen.getByLabelText("Votre question scientifique")).toHaveAttribute("maxlength", "4000");
+    expect(screen.getByRole("button", { name: "Envoyer" })).toBeInTheDocument();
   });
 });

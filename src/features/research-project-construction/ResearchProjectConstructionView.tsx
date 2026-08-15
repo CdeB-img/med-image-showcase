@@ -3,10 +3,14 @@ import AdaptiveResearchWorkspace from "@/features/adaptive-research-workspace/Ad
 import type { WorkspaceMode } from "@/features/adaptive-research-workspace/contracts";
 import { buildAdaptiveResearchWorkspaceProjection } from "@/features/adaptive-research-workspace/projection";
 import WorkspaceNextActionInteraction from "@/features/adaptive-research-workspace/WorkspaceNextActionInteraction";
+import type { WorkspaceInteractionHandoff } from "@/features/adaptive-research-workspace/interactions";
 import DataAnalysisPlanningView from "@/features/data-analysis-planning/DataAnalysisPlanningView";
 import { buildProjectDataAnalysisView } from "@/features/data-analysis-planning/project-integration";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 import { buildQueryNavigationProductProjection } from "@/features/query-navigation/product";
+import { appendNavigationLifecycleEvent, createQueryNavigationMemory, rememberQuestionPresentation, rememberQuestionResponse, rememberSelectedNavigationAction } from "@/features/query-navigation/lifecycle";
+import type { ConversationalOwnerTarget } from "@/features/protocol-designer/conversation/ConversationalHandoffRouter";
+import { resolveConversationalOwnerTarget } from "@/features/protocol-designer/conversation/ConversationalHandoffRouter";
 import { buildValidationProductSummary } from "@/features/validation-architecture/product-gates";
 import { decideProjectChange, decideProjectGate, proposeEndpointRole, proposeStudyDesign, requestProjectChange } from "./session";
 import type { ResearchProjectConstructionSession, SpecializedEvaluationState } from "./types";
@@ -30,20 +34,22 @@ type Props = {
   onReturnToImaging?: () => void;
   onExploreKnowledge?: () => void;
   onOpenDocument?: () => void;
+  onOwnerHandoff?: (handoff: WorkspaceInteractionHandoff, ownerTarget: ConversationalOwnerTarget) => void;
 };
 
-export default function ResearchProjectConstructionView({ session, onChange, onReturnToScientificThinking, onReturnToImaging, onExploreKnowledge, onOpenDocument }: Props) {
+export default function ResearchProjectConstructionView({ session, onChange, onReturnToScientificThinking, onReturnToImaging, onExploreKnowledge, onOpenDocument, onOwnerHandoff }: Props) {
   const [stage, setStage] = useState(0);
   const [workspaceMode, setWorkspaceMode] = useState<WorkspaceMode>("STANDARD");
   const [actor, setActor] = useState("");
   const [mandate, setMandate] = useState("");
   const [reason, setReason] = useState("");
   const result = session.result;
+  const [navigationMemory, setNavigationMemory] = useState(() => createQueryNavigationMemory(result.resultId, result.candidateVersion.versionId));
   const pendingChange = result.impactGraph.changes.find((item) => item.status === "PENDING_CONFIRMATION");
   const currentDecision = result.decisionsRequired.find((item) => item.status === "PENDING");
   const selectedCandidateId = session.controls.selectedDesignId ?? null;
   const selectedPrimaryEndpointId = Object.entries(session.controls.endpointRoles ?? {}).find(([, role]) => role === "PRIMARY_CANDIDATE")?.[0] ?? null;
-  const navigationProjection = useMemo(() => buildQueryNavigationProductProjection(result), [result]);
+  const navigationProjection = useMemo(() => buildQueryNavigationProductProjection(result, navigationMemory), [navigationMemory, result]);
   const validationSummary = useMemo(() => buildValidationProductSummary([]), []);
   const dataAnalysisProjection = useMemo(() => buildProjectDataAnalysisView(result), [result]);
   const workspaceProjection = useMemo(() => buildAdaptiveResearchWorkspaceProjection({
@@ -61,6 +67,33 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
     else if (targetRef.includes("IMAGING") && onReturnToImaging) onReturnToImaging();
     else if (targetRef.includes("unknown") || targetRef.includes("contradiction")) setStage(0);
     else setStage(5);
+  };
+
+  const routeOwnerHandoff = (handoff: WorkspaceInteractionHandoff) => {
+    const action = navigationProjection.selectedAction;
+    const presentation = navigationProjection.questionPresentation;
+    if (!action || !presentation) return;
+    setNavigationMemory((current) => {
+      let next = current;
+      if (!next.selectedActions.some((item) => item.selectedActionId === action.selectedActionId)) next = rememberSelectedNavigationAction(next, action);
+      if (!next.presentations.some((item) => item.presentationId === presentation.presentationId)) next = rememberQuestionPresentation(next, presentation);
+      if (!next.responses.some((item) => item.responseId === handoff.response.responseId)) next = rememberQuestionResponse(next, handoff.response);
+      if (!next.events.some((item) => item.responseRef === handoff.response.responseId)) next = appendNavigationLifecycleEvent(next, {
+        eventType: "RESPONSE_RECEIVED",
+        actionRef: action.selectedActionId,
+        presentationRef: presentation.presentationId,
+        responseRef: handoff.response.responseId,
+        projectRef: action.projectRef,
+        projectVersion: action.projectVersion,
+        sourceStateDigest: action.sourceStateDigest,
+        reason: handoff.response.disposition,
+        evidenceRefs: [...handoff.response.provenanceRefs],
+        recordedAt: handoff.response.receivedAt,
+      });
+      return next;
+    });
+    const owner = resolveConversationalOwnerTarget(handoff.answerOwner) ?? resolveConversationalOwnerTarget(action.owner);
+    if (owner) onOwnerHandoff?.(handoff, owner);
   };
 
   const decide = (decision: "APPROVED" | "REJECTED") => {
@@ -125,6 +158,7 @@ export default function ResearchProjectConstructionView({ session, onChange, onR
         currentProjectVersion={result.candidateVersion.versionId}
         currentSourceStateDigest={navigationProjection.sourceStateDigest}
         mode={workspaceMode}
+        onOwnerHandoff={routeOwnerHandoff}
         onOpenTarget={openWorkspaceTarget}
         onChooseNavigationPreference={(candidateRef) => openWorkspaceTarget(navigationProjection.alternatives.find((item) => item.candidateId === candidateRef)?.targetRef ?? "project:construction")}
       />}

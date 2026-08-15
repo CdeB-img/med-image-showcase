@@ -7,6 +7,7 @@ import { parseScientificIntakeInterpretation } from "./schema.js";
 import { INTAKE_FIXTURE_SET_VERSION, INTAKE_SESSION_SCHEMA_VERSION, type HumanFieldReview, type InterpretedFieldKey, type ProtocolDesignerSession, type ScientificIntakeInterpretation, type ValidatedScientificIntent } from "./types.js";
 
 export const INTAKE_SESSION_KEY = "noxia-guided-intake-session-v10";
+export const PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2 = "noxia-protocol-designer-owner-session-v2";
 
 const storedSessionSchema = z.object({
   sessionSchemaVersion: z.literal(INTAKE_SESSION_SCHEMA_VERSION),
@@ -113,6 +114,13 @@ export const persistSession = (storage: Pick<Storage, "setItem">, session: Proto
   storage.setItem(INTAKE_SESSION_KEY, JSON.stringify(session));
 };
 
+export const persistProtocolDesignerOwnerSessionV2 = (storage: Pick<Storage, "setItem">, session: ProtocolDesignerSession) => {
+  if (hasSensitiveData(session.originalQuestion) || session.validatedIntent?.interpretation.safetyFlags.length) {
+    throw new Error("SENSITIVE_PROTOCOL_DESIGNER_OWNER_SESSION_NOT_PERSISTED");
+  }
+  storage.setItem(PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2, JSON.stringify(session));
+};
+
 export const loadSessionCandidate = (storage: Pick<Storage, "getItem" | "removeItem">): ProtocolDesignerSession | null => {
   const raw = storage.getItem(INTAKE_SESSION_KEY);
   if (!raw) return null;
@@ -137,4 +145,23 @@ export const loadSessionCandidate = (storage: Pick<Storage, "getItem" | "removeI
   }
 };
 
-export const deleteSession = (storage: Pick<Storage, "removeItem">) => storage.removeItem(INTAKE_SESSION_KEY);
+export const loadProtocolDesignerOwnerSessionV2 = (storage: Pick<Storage, "getItem" | "removeItem">): ProtocolDesignerSession | null => {
+  const raw = storage.getItem(PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2);
+  if (!raw) return null;
+  try {
+    const parsed = storedSessionSchema.safeParse(JSON.parse(raw));
+    if (!parsed.success) {
+      storage.removeItem(PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2);
+      return null;
+    }
+    return parsed.data as ProtocolDesignerSession;
+  } catch {
+    storage.removeItem(PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2);
+    return null;
+  }
+};
+
+export const deleteSession = (storage: Pick<Storage, "removeItem">) => {
+  storage.removeItem(INTAKE_SESSION_KEY);
+  storage.removeItem(PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2);
+};
