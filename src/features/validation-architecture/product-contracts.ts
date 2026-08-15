@@ -35,7 +35,7 @@ export const VALIDATION_PLANES = [
 export const VALIDATION_EVALUATION_LEVELS = ["DETERMINISTIC", "SEMANTIC_REVIEW", "HUMAN_ARBITRATION"] as const;
 export const VALIDATION_OBSERVATION_TYPES = ["PRESERVED", "ADDED", "LOST", "WEAKENED", "STRENGTHENED", "TRANSFORMED", "NON_MAPPED", "CONFLICT", "NOT_APPLICABLE", "NOT_EVALUABLE"] as const;
 export const VALIDATION_DISPOSITIONS = ["CONTINUE", "CONTINUE_WITH_WARNING", "REQUIRE_REVIEW", "REQUIRE_CLARIFICATION", "REQUIRE_DOMAIN_OWNER", "REQUIRE_HUMAN_DECISION", "BLOCK_HANDOFF", "FAIL_CLOSED", "NOT_APPLICABLE", "NOT_EVALUABLE"] as const;
-export const VALIDATION_TECHNICAL_STATUSES = ["SUCCESS", "ADAPTER_FAILURE", "SCHEMA_FAILURE", "MISSING_ARTIFACT", "DIGEST_FAILURE", "DOMAIN_VALIDATOR_FAILURE", "INTERNAL_ERROR", "NOT_RUN"] as const;
+export const VALIDATION_TECHNICAL_STATUSES = ["SUCCESS", "ADAPTER_FAILURE", "SCHEMA_FAILURE", "MISSING_ARTIFACT", "DIGEST_FAILURE", "DOMAIN_VALIDATOR_FAILURE", "PROVIDER_UNAVAILABLE", "TIMEOUT", "RATE_LIMIT", "INVALID_STRUCTURED_OUTPUT", "SCHEMA_REJECTION", "PARSING_FAILURE", "INTERNAL_VALIDATION_FAILURE", "INTERNAL_ERROR", "NOT_RUN"] as const;
 export const VALIDATION_SEMANTIC_STATUSES = ["NOT_RUN", "NO_FINDING", "FINDINGS_PRESENT", "REVIEW_REQUIRED", "NOT_EVALUABLE", "NOT_APPLICABLE"] as const;
 export const VALIDATION_RUN_STATUSES = [
   "PENDING",
@@ -50,7 +50,7 @@ export const VALIDATION_RUN_STATUSES = [
 ] as const;
 export const VALIDATION_CHECKPOINT_IMPLEMENTATION_STATUSES = ["CONTRACT_READY", "IMPLEMENTATION_PENDING", "NOT_APPLICABLE_V1"] as const;
 export const VALIDATION_IDENTITY_MATCHES = ["EXACT", "VERSION_DIFFERENT", "DIFFERENT_ID", "MISSING"] as const;
-export const SEMANTIC_EQUIVALENCE_ASSESSMENTS = ["NOT_REQUIRED", "PENDING", "EQUIVALENT", "PARTIALLY_EQUIVALENT", "NOT_EQUIVALENT", "AMBIGUOUS", "NOT_EVALUABLE"] as const;
+export const SEMANTIC_EQUIVALENCE_ASSESSMENTS = ["NOT_REQUIRED", "PENDING", "EQUIVALENT", "EQUIVALENT_WITH_QUALIFICATION", "PARTIALLY_EQUIVALENT", "NOT_EQUIVALENT", "AMBIGUOUS", "INSUFFICIENT_EVIDENCE", "NOT_APPLICABLE", "NOT_EVALUABLE"] as const;
 
 export type ValidationProductArtifactType = (typeof VALIDATION_PRODUCT_ARTIFACT_TYPES)[number];
 export type ValidationPlane = (typeof VALIDATION_PLANES)[number];
@@ -301,7 +301,23 @@ export type SemanticValidationReviewResult = {
   reviewId: string;
   requestId: string;
   status: "PENDING" | "COMPLETE" | "NOT_EVALUABLE";
-  invariantAssessments: Array<{ invariantRef: string; assessment: SemanticEquivalenceAssessment; evidenceRefs: string[] }>;
+  invariantAssessments: Array<{
+    invariantRef: string;
+    assessment: SemanticEquivalenceAssessment;
+    evidenceRefs: string[];
+    sourceEvidenceRefs?: string[];
+    targetEvidenceRefs?: string[];
+    reasoningSummary?: string;
+    preservedDimensions?: string[];
+    changedDimensions?: string[];
+    lostDimensions?: string[];
+    addedDimensions?: string[];
+    forbiddenPromotionsDetected?: string[];
+    ambiguity?: string | null;
+    confidenceKind?: "HIGH_SUPPORT" | "MODERATE_SUPPORT" | "LOW_SUPPORT" | "INSUFFICIENT";
+    requiresHumanReview?: boolean;
+    limitations?: string[];
+  }>;
   semanticEquivalenceAssessments: Array<{ sourceRef: string; targetRef: string; identityMatch: IdentityMatch; assessment: SemanticEquivalenceAssessment; evidenceRefs: string[] }>;
   detectedLosses: string[];
   detectedAdditions: string[];
@@ -316,6 +332,40 @@ export type SemanticValidationReviewResult = {
   targetMutationAuthorized: false;
   autoFixAllowed: false;
   autoDecisionAllowed: false;
+  reviewerId?: string;
+  reviewerVersion?: string;
+  providerIdentity?: string;
+  modelIdentity?: string;
+  promptVersion?: string;
+  responseSchemaVersion?: string;
+  configurationDigest?: string;
+  sourceSnapshotDigest?: string;
+  targetSnapshotDigest?: string;
+  rawResponseRef?: string | null;
+  technicalStatus?: ValidationTechnicalStatus;
+};
+
+export type ValidationHumanReviewOutcomeReference = {
+  humanDecisionId: string;
+  version: number;
+  actor: string;
+  mandate: string;
+  targetRefs: string[];
+  disposition: string;
+  provenance: string[];
+  validationReviewRequestRef: string;
+  projectVersion: string | null;
+};
+
+export type ValidationFindingLifecycleStatus = "OPEN" | "REVIEW_REQUIRED" | "RESOLUTION_PROPOSED" | "RESOLVED_BY_NEW_EVIDENCE" | "RESOLVED_BY_HUMAN_DECISION" | "SUPERSEDED_BY_NEW_RUN" | "NOT_APPLICABLE";
+
+export type ValidationFindingLifecycleReference = {
+  findingRef: string;
+  status: ValidationFindingLifecycleStatus;
+  observedInRunRef: string;
+  resolutionEvidenceRefs: string[];
+  humanDecisionRef: string | null;
+  supersedingRunRef: string | null;
 };
 
 export type ValidationHumanReviewRequest = {
@@ -393,6 +443,9 @@ export type ValidationRun = {
   deterministicResult: "NOT_RUN" | "COMPLETE" | "NOT_EVALUABLE";
   semanticReviewRequests: SemanticValidationReviewRequest[];
   humanReviewRequests: ValidationHumanReviewRequest[];
+  semanticReviewResults?: SemanticValidationReviewResult[];
+  humanReviewOutcomeRefs?: ValidationHumanReviewOutcomeReference[];
+  findingLifecycleRefs?: ValidationFindingLifecycleReference[];
   technicalStatus: ValidationTechnicalStatus;
   semanticStatus: ValidationSemanticStatus;
   disposition: ValidationDisposition;
