@@ -55,6 +55,7 @@ const makePresentable = (): QueryNavigationProductProjection => {
     questionPresentation: {
       presentationId: "v11:presentation:timing",
       selectedActionRef: selectedAction.selectedActionId,
+      informationNeedRefs: ["v11:need:timing"],
       informationNeedRef: "v11:need:timing",
       intent: "Quelle fenêtre temporelle souhaitez-vous étudier ?",
       targetRef: selectedAction.targetRef,

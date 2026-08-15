@@ -34,6 +34,7 @@ const presentable = (kind: "FREE_TEXT" | "SINGLE_OPTION" | "HUMAN_REVIEW_DECISIO
     questionPresentation: {
       presentationId: "presentation:test",
       selectedActionRef: action.selectedActionId,
+      informationNeedRefs: ["need:test"],
       informationNeedRef: "need:test",
       intent: kind === "FREE_TEXT" ? "Quelle fenêtre temporelle souhaitez-vous étudier ?" : "Quelle stratégie souhaitez-vous examiner ?",
       targetRef: action.targetRef,

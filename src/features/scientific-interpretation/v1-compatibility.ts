@@ -50,6 +50,9 @@ const V1_TYPE_MAP: Record<string, InterpretedFieldKey> = {
   COMPARATOR: "interventionsOrGroups",
   ENDPOINT: "outcomesMentioned",
   OUTCOME: "outcomesMentioned",
+  BIOMARKER: "outcomesMentioned",
+  BIOLOGICAL_BIOMARKER: "outcomesMentioned",
+  BIOLOGICAL_MEASUREMENT: "outcomesMentioned",
   STUDY_DESIGN: "studyDesign",
   STUDY_SETTING: "centers",
   MODALITY: "availableEquipment",
@@ -135,13 +138,15 @@ export const projectScientificContributionToV1 = (
     losses.push({ code: "LEGACY_PROJECTION_LOSS", itemId: relation.relationId, reason: "V1 stores a traceable relation label but not the complete typed relation contract.", critical: false });
   });
 
-  const relationLabels = contribution.scientificContent.candidateRelations.map((relation) => {
+  const relationLabels = contribution.scientificContent.candidateRelations
+    .filter((relation) => relation.epistemicBoundary.activeState !== false)
+    .map((relation) => {
     const source = allItems(contribution).find((item) => item.itemId === relation.sourceItemId)?.content ?? relation.sourceItemId;
     const target = allItems(contribution).find((item) => item.itemId === relation.targetItemId)?.content ?? relation.targetItemId;
     return contribution.identity.runtimeId === "LEGACY_SEM_FULL"
       ? `${source} ${relation.relationType} ${target}`
       : `${source} ${relation.relationType} ${target} [${relation.polarity ?? "POLARITY_UNAVAILABLE"}]`;
-  });
+    });
   const rejectedOrSuperseded = allItems(contribution)
     .filter((item) => item.epistemicBoundary.activeState === false || item.epistemicBoundary.epistemicStatus === "REJECTED_BY_USER" || (item.previousItemIds?.length ?? 0) > 0)
     .map((item) => item.itemId);

@@ -1,4 +1,5 @@
 import type { V1ScientificInterpretationProjection } from "@/features/scientific-interpretation";
+import type { ConversationalTypedSemanticHandoff } from "@/features/protocol-designer/conversation/ConversationalHandoffRouter";
 import { matchScenarios } from "./scenarios.js";
 import { createProtocolDesignerSession } from "./session.js";
 import type { ProtocolDesignerSession } from "./types.js";
@@ -19,14 +20,47 @@ export type ProtocolDesignerWorkspaceTransitionState =
 export const createProtocolDesignerWorkspaceHandoff = (
   projection: Readonly<V1ScientificInterpretationProjection>,
   now = new Date().toISOString(),
+  typedHandoff?: Readonly<ConversationalTypedSemanticHandoff>,
 ): ProtocolDesignerSession => {
   const base = createProtocolDesignerSession(now);
-  const validatedIntent = projection.validatedIntent;
+  const validatedIntent = structuredClone(projection.validatedIntent);
   const scientificContext = structuredClone(projection.scientificSessionContext);
+  if (typedHandoff) {
+    const activeConfirmed = typedHandoff.scientificElements.filter((item) => item.activeState !== false
+      && ["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER"].includes(item.epistemicStatus ?? ""));
+    const valuesFor = (...semanticKinds: ConversationalTypedSemanticHandoff["scientificElements"][number]["semanticKind"][]) => [
+      ...new Set(activeConfirmed.filter((item) => semanticKinds.includes(item.semanticKind)).map((item) => item.content.trim()).filter(Boolean)),
+    ];
+    const addValues = (fieldKey: "availableEquipment" | "outcomesMentioned", values: string[]) => {
+      if (!values.length) return;
+      const field = validatedIntent.interpretation[fieldKey];
+      validatedIntent.interpretation[fieldKey] = {
+        ...field,
+        value: [...new Set([...(field.value ?? []), ...values])],
+        origin: field.origin === "NOT_PROVIDED" ? "EXPLICIT_USER_STATEMENT" : field.origin,
+        confidence: field.confidence === "UNKNOWN" ? "HIGH" : field.confidence,
+        userValidated: true,
+      };
+      validatedIntent.reviews[fieldKey] = { state: "CONFIRMED", reviewedAt: now };
+    };
+    addValues("availableEquipment", valuesFor("IMAGING_MODALITY", "IMAGING_METHOD"));
+    addValues("outcomesMentioned", valuesFor("BIOLOGICAL_MEASUREMENT", "QUANTITATIVE_TARGET", "OUTCOME"));
+    scientificContext.preservedScientificTerms = [...new Set([
+      ...scientificContext.preservedScientificTerms,
+      ...activeConfirmed.map((item) => item.content),
+    ])];
+    if (scientificContext.interpretationTrace) scientificContext.interpretationTrace = {
+      ...scientificContext.interpretationTrace,
+      contributionId: typedHandoff.contributionRef,
+      unknowns: [...new Set([...scientificContext.interpretationTrace.unknowns, ...typedHandoff.unknownRefs])],
+      corrections: [...new Set([...scientificContext.interpretationTrace.corrections, ...typedHandoff.correctionRefs])],
+      provenanceRefs: [...new Set([...scientificContext.interpretationTrace.provenanceRefs, ...typedHandoff.provenanceRefs])],
+    };
+  }
   return {
     ...base,
     originalQuestion: validatedIntent.originalQuestion,
-    validatedIntent: structuredClone(validatedIntent),
+    validatedIntent,
     scenarioMatches: matchScenarios(validatedIntent),
     scientificContext,
     interfaceState: "INTERPRETATION_CONFIRMED",

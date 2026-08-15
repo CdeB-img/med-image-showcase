@@ -14,6 +14,8 @@ export const validateQuestionPresentationRequest = (request: QuestionPresentatio
   const errors: NavigationLifecycleValidationResult["errors"] = [];
   if (request.sourceOfTruth || request.projectWriteAuthorized || !request.presentationOnly) errors.push({ code: "QRY_PRESENTATION_BOUNDARY_VIOLATION", path: "presentation", message: "Presentation is read-only." });
   if (request.wordingOwnedBy !== "PD-004") errors.push({ code: "QRY_PRESENTATION_OWNER_INVALID", path: "presentation.wordingOwnedBy", message: "PD-004 owns wording." });
+  if (!request.informationNeedRefs.length) errors.push({ code: "QRY_PRESENTATION_INFORMATION_NEEDS_REQUIRED", path: "presentation.informationNeedRefs", message: "At least one information need reference is required." });
+  if (!request.informationNeedRefs.includes(request.informationNeedRef)) errors.push({ code: "QRY_PRESENTATION_LEGACY_NEED_NOT_INCLUDED", path: "presentation.informationNeedRef", message: "The transitional scalar reference must be included in informationNeedRefs." });
   return { valid: errors.length === 0, errors };
 };
 

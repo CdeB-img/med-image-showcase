@@ -57,6 +57,7 @@ export const buildQuestionPresentationRequest = (action: SelectedNavigationActio
   return {
     presentationId: makeLifecycleId("presentation", { selectedActionRef: action.selectedActionId, needRefs: action.navigationNeedRefs, projectVersion: action.projectVersion, answerKind: answerKindFor(candidate) }),
     selectedActionRef: action.selectedActionId,
+    informationNeedRefs: action.navigationNeedRefs.length ? [...action.navigationNeedRefs] : [action.targetRef],
     informationNeedRef: action.navigationNeedRefs[0] ?? action.targetRef,
     intent: candidate.explanation,
     targetRef: action.targetRef,

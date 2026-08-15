@@ -59,6 +59,8 @@ export type SelectedNavigationAction = {
 export type QuestionPresentationRequest = {
   presentationId: string;
   selectedActionRef: string;
+  informationNeedRefs: string[];
+  /** Transitional scalar reader kept for QRY-001 compatibility. */
   informationNeedRef: string;
   intent: string;
   targetRef: string;

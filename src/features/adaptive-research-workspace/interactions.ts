@@ -23,6 +23,8 @@ export type WorkspaceInteractionHandoff = {
   sourceProjectRef: string;
   sourceProjectVersion: string;
   sourceStateDigest: string;
+  targetRef: string;
+  answerOwner: string;
   response: QuestionResponseEnvelope;
   route: ReturnType<typeof routeNavigationResponse>;
   state: WorkspaceResponseState;
@@ -85,6 +87,8 @@ export const createWorkspaceInteractionHandoff = (input: WorkspaceResponseInput)
     sourceProjectRef: action.projectRef,
     sourceProjectVersion: action.projectVersion,
     sourceStateDigest: action.sourceStateDigest,
+    targetRef: action.targetRef,
+    answerOwner: presentation.answerOwner,
     response,
     route,
     state: stateFor(input.disposition, route.destination),
