@@ -9,3 +9,6 @@ export * from "./lifecycle-canonical";
 export * from "./lifecycle";
 export * from "./response-routing";
 export * from "./lifecycle-validation";
+export * from "./product-contracts";
+export * from "./product";
+export * from "./closure";
