@@ -246,10 +246,10 @@ describe("CONV-UX-V2-01B — active interaction and semantic projection hotfix",
     clearProtocolDesignerConversationalWorkspace({ removeItem: (key) => storage.delete(key) });
     expect(storage.size).toBe(0);
     const workspace = readFileSync(resolve(__dirname, "../../../scientific-interpretation/ScientificInterpretationWorkspace.tsx"), "utf8");
-    const page = readFileSync(resolve(__dirname, "../../../../pages/ProtocolDesignerDemo.tsx"), "utf8");
+    const functionalWorkspace = readFileSync(resolve(__dirname, "../../functional-reset/ProtocolDesignerWorkspace.tsx"), "utf8");
     expect(workspace).toContain("onResetWorkspace?.()");
-    expect(page).toContain("onResetWorkspace={reset}");
-    expect(page).toContain("clearProtocolDesignerConversationalWorkspace(window.localStorage)");
+    expect(functionalWorkspace).toContain("clearFunctionalResetSession(window.localStorage)");
+    expect(functionalWorkspace).not.toContain("clearProtocolDesignerConversationalWorkspace");
   });
 
   it("renders the separated ProjectPanel projection", () => {

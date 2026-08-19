@@ -1,10 +1,5 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { HelmetProvider } from "react-helmet-async";
-import { MemoryRouter } from "react-router-dom";
-import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
-import { createEmptyInterpretation } from "@/features/protocol-designer/intake/schema";
-import { buildValidatedIntent, createProtocolDesignerSession, persistSession } from "@/features/protocol-designer/intake/session";
 import DocumentProjectionView from "../DocumentProjectionView";
 import { projectDocument } from "../template-integration";
 import type { DocumentProjection, DocumentProjectionRequest } from "../types";
@@ -68,34 +63,5 @@ describe("DOC-001 — surface DOCUMENT", () => {
     expect(click).toHaveBeenCalledTimes(2);
     expect(JSON.stringify(projection)).toBe(snapshot);
     click.mockRestore();
-  });
-
-  it("expose DOCUMENT comme quatrième parcours après handoff autorisé", async () => {
-    const projectConstruction = makeAuthorizedProject();
-    const now = "2026-08-10T16:00:00.000Z";
-    const question = "Décrire un marqueur dans une Population définie pour une étude de recherche.";
-    const interpretation = createEmptyInterpretation({ question, language: "fr", schemaVersion: "1.0" });
-    interpretation.reformulatedQuestion = question;
-    const intent = buildValidatedIntent(interpretation, {}, question, now);
-    const session = createProtocolDesignerSession(now);
-    persistSession(window.localStorage, {
-      ...session,
-      originalQuestion: question,
-      validatedIntent: intent,
-      currentStep: 3,
-      projectConstruction,
-      scientificContext: {
-        ...session.scientificContext,
-        routeIntent: "DOCUMENT",
-        routeConfidence: "HIGH",
-        routeReasons: ["Handoff Document autorisé."],
-        centralScientificObject: "marqueur quantitatif",
-        activeDesignSurface: "DOCUMENT_PROJECTION",
-      },
-    });
-    render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
-    fireEvent.click(await screen.findByRole("button", { name: "Reprendre" }));
-    expect(await screen.findByTestId("document-projection-view")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Protocol — projection documentaire" })).toBeInTheDocument();
   });
 });

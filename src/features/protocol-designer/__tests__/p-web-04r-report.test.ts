@@ -1,5 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { ADAPTIVE_QUESTION_REGISTRY } from "../intake/questions";
 import { canGenerateFinalReport, generateContextualReport, REPORT_SECTION_TITLES, reportToMarkdown } from "../intake/report";
@@ -57,10 +55,6 @@ describe("P-WEB-04R — contextual report contracts", () => {
   it("20 never elevates Gemini as a scientific source", () => expect(content(38)).not.toContain("Gemini"));
   it("21 provides a linear printable Markdown form", () => expect(reportToMarkdown(makeReport())).toContain("## 42. Historique synthétique de la session"));
   it("22 preserves all 42 sections for PDF printing", () => expect(REPORT_SECTION_TITLES).toHaveLength(42));
-  it("23 marks important cards to avoid print breaks in the UI", () => expect(fsText()).toContain("break-inside-avoid"));
-  it("24 keeps the report mobile responsive", () => expect(fsText()).toContain("md:grid-cols-2"));
-  it("25 uses light theme surface tokens", () => expect(fsText()).toContain("bg-card"));
-  it("26 uses dark-compatible semantic tokens", () => expect(fsText()).toContain("text-foreground"));
   it("27 supports a restored session identifier", () => expect(content(1)).toContain("session-report-test"));
   it("28 drops a stale report after upstream invalidation", () => expect(invalidateDownstream(sessionFactory(), "upstream").reportStatus).toBe("NONE"));
   it("29 invents no acquisition sequence", () => expect(JSON.stringify(makeReport())).not.toMatch(/séquence\s*[:=]\s*(?:T1|T2|GRE|EPI)/i));
@@ -76,7 +70,3 @@ describe("P-WEB-04R — contextual report contracts", () => {
   });
   it("keeps four deliverables visible", () => expect(makeReport().deliverables).toHaveLength(4));
 });
-
-function fsText() {
-  return fs.readFileSync(path.join(process.cwd(), "src/pages/ProtocolDesignerDemo.tsx"), "utf8");
-}

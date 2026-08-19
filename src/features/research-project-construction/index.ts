@@ -4,3 +4,4 @@ export * from "./engine";
 export * from "./graph";
 export * from "./change";
 export * from "./session";
+export * from "./contribution-owner-boundary";
