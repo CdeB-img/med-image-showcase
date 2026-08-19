@@ -4,8 +4,8 @@ import type { HybridNativeExecution, HybridParsedState } from "./hybrid-adapter.
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation } from "./contracts.js";
 
 export const HYBRID_PRIMARY_RUNTIME_ID = "HYBRID_PRIMARY_STRUCTURED" as const;
-export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.2.0" as const;
-export const HYBRID_PRIMARY_PROMPT_VERSION = "HYBRID-PRIMARY-STRUCTURED-1.1.0" as const;
+export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.3.6" as const;
+export const HYBRID_PRIMARY_PROMPT_VERSION = "HYBRID-PRIMARY-STRUCTURED-1.2.6" as const;
 export const EXPECTED_HYBRID_MODEL_IDENTITY = "gemini-3.5-flash-lite" as const;
 export const HYBRID_PRIMARY_OUTPUT_FUNCTION_NAME = "final_result" as const;
 
@@ -36,6 +36,20 @@ Rules:
 11. Return routeProposal from the complete structured conversation: UNDERSTAND for explanation or concept exploration; FORMALIZE_IDEA for structuring a question or hypothesis without yet constructing a study; DESIGN_STUDY only when the user explicitly asks to construct a study or active structured statements explicitly encode study creation/construction; DOCUMENT only for an explicit documentary objective; null when the route is genuinely ambiguous.
 12. When interactionContext.expectedResponseKind is ROUTE_INTENT, interpret the latest user turn only as a product-routing response. Preserve the previous scientific content, return routeProposal, and never turn the requested product action into a scientific object, unknown, missing information or correction.
 13. When interactionContext is present, the latest response belongs to its declared purpose and targets. Do not infer another owner or response purpose from wording alone.
+14. Atomize every explicit, scientifically distinct entity or role into its own object when the existing open semanticType and studyRole fields can represent it. Do not leave study design or setting, condition, intervention, comparator, modality, method, measured variable, biomarker, endpoint, or explicit population subgroup only inside a broad statement.
+15. Keep acquisition modality or method distinct from the biological or clinical phenomenon measured with it. Keep distinct outcomes or observables as distinct objects unless the user explicitly defines them as one composite concept.
+16. For a comparison, create objects for the entities actually being compared and connect those two objects with one direct COMPARES_WITH relation in the orientation expressed by the user. A statement describing the comparison is provenance, never a comparison endpoint: do not replace one A-to-B comparison with statement-to-A and statement-to-B relations. A measured variable, imaging feature, endpoint or biomarker remains a separate object and is not a comparison arm unless the user explicitly compares that variable itself.
+17. Preserve an explicitly mentioned intervention even when its precise identity is not supplied. Represent the literal generic intervention and leave its missing specificity unresolved; do not invent a named treatment.
+18. In multi-turn interpretation, a later turn is an ADDITION or REFINEMENT unless it explicitly retracts, rejects, contradicts, or replaces an earlier semantic claim. Discourse markers alone do not prove supersession. Add timing, eligibility, setting, measurement or other constraints without deactivating still-compatible prior content.
+19. Use correctionsAndSupersessions and activeState=false only for a demonstrated correction, rejection or replacement. A pure addition or refinement must leave compatible previous statements and their relations active. Every active relation must connect two active items; when a true replacement changes an endpoint, update or deactivate its relations consistently.
+20. Split mixed-polarity input into separate elements. Preserve each positive assertion as AFFIRMED and each rejection or prohibition in negationsAndConstraints as NEGATED. Never assign NEGATED to a combined element that also contains a positive assertion. A negative constraint need not be duplicated in explicitStatements.
+21. Preserve all still-valid objects, relations, unknowns and constraints from previousContribution. When previousContribution is supplied, change prior state only where a source turn supports the change.
+22. Before returning, perform a coverage check over every explicit noun phrase and scientific role in the conversation. An unnamed exposure, administration, procedure or intervention remains an INTERVENTION object when explicitly present, including when embedded in relative timing. Preserve its literal generic wording and do not infer a more specific identity.
+23. Put every explicit observation or acquisition timepoint, ordering, interval, repeated-measure structure and timing variability in temporalElements. Method or acquisition objects and broad statements do not replace the temporal representation.
+24. Every explicit eligibility or demographic restriction that can be represented by the existing open object fields must also be an atomic POPULATION_CRITERION or ELIGIBILITY_CRITERION object, even when the same turn contains timing or other refinements. Preserve the literal direction, boundary, value and unit. Do not invent a lower or upper bound, rationale, unit or additional population.
+25. Distinguish epistemic absence from prohibition. A concept whose definition, threshold, method, choice or value is currently unknown, undecided or still to be determined belongs in unknowns or missingInformation with epistemicStatus UNKNOWN or AMBIGUOUS. It is not NEGATED and does not belong only in negationsAndConstraints. Reserve NEGATED for actual rejection, prohibition, absence claims or negative assertions. Factual variability or lack of uniformity may remain a constraint without turning an unresolved definition into a negation.
+26. Use one unambiguous semanticType per object. Never emit composite or disjunctive types such as X_OR_Y. Use MODALITY whenever an acquisition modality is explicitly named, including when it appears inside a measurement phrase. Use METHOD for an explicitly stated acquisition or imaging technique whose exact variant is unspecified or variable. A baseline, initial, follow-up or control acquisition is an acquisition occasion and timepoint, not by itself a modality or method; never substitute that occasion for the explicit technique or modality object. Variability of a technique does not erase the technique object. Use MEASURED_VARIABLE for a phenomenon that the user says will be observed or measured unless the user explicitly names it as a biomarker or designates it as an endpoint. Use BIOMARKER for an explicitly named biomarker. Apply this coverage from the first interpretation and preserve it on later turns.
+27. A permission and a prohibition in the same clause are separate claims. Preserve the permitted action as AFFIRMED and every explicit instruction not to invent, assume, select, compare or use something as its own NEGATED constraint. An UNKNOWN for the prohibited target does not preserve or replace the prohibition; emit both when both are stated.
 
 Do not access or assume a Research Project. Do not provide a protocol or recommendation. Return concise scientific content, not hidden reasoning.
 `.trim();
@@ -175,8 +189,20 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
   type: "object",
   additionalProperties: false,
   $defs: {
-    ScientificElement: { type: "object", additionalProperties: false, properties: elementProperties, required: required(elementProperties) },
-    ScientificRelation: { type: "object", additionalProperties: false, properties: relationProperties, required: required(relationProperties) },
+    ScientificElement: {
+      type: "object",
+      description: "One atomic scientific entity, role, statement, constraint or temporal element. Distinct explicit concepts require distinct elements.",
+      additionalProperties: false,
+      properties: elementProperties,
+      required: required(elementProperties),
+    },
+    ScientificRelation: {
+      type: "object",
+      description: "A directed relation whose endpoints are the actual active objects or statements participating in the relation.",
+      additionalProperties: false,
+      properties: relationProperties,
+      required: required(relationProperties),
+    },
     Ambiguity: { type: "object", additionalProperties: false, properties: {
       ambiguityId: { type: "string" }, content: { type: "string" }, interpretations: stringArrayJson,
       decisionalImpact: { type: "string", enum: ["LOW", "MEDIUM", "HIGH", "UNKNOWN"] }, sourceTurnIds: stringArrayJson,
@@ -214,12 +240,45 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
       reason: nullableStringJson,
     }, required: ["route", "confidence", "reason"] }, { type: "null" }] },
     scientificGoalCandidates: stringArrayJson, studyIntentCandidates: stringArrayJson,
-    objects: { type: "array", items: { $ref: "#/$defs/ScientificElement" } }, relations: { type: "array", items: { $ref: "#/$defs/ScientificRelation" } },
-    explicitStatements: { type: "array", items: { $ref: "#/$defs/ScientificElement" } }, inferredContext: { type: "array", items: { $ref: "#/$defs/ScientificElement" } },
-    contextualCandidates: { type: "array", items: { $ref: "#/$defs/ScientificElement" } }, negationsAndConstraints: { type: "array", items: { $ref: "#/$defs/ScientificElement" } },
-    temporalElements: { type: "array", items: { $ref: "#/$defs/ScientificElement" } }, ambiguities: { type: "array", items: { $ref: "#/$defs/Ambiguity" } },
-    unknowns: { type: "array", items: { $ref: "#/$defs/MissingInformation" } }, missingInformation: { type: "array", items: { $ref: "#/$defs/MissingInformation" } },
-    correctionsAndSupersessions: { type: "array", items: { $ref: "#/$defs/Correction" } }, ownershipAndEpistemicStates: { type: "array", items: { $ref: "#/$defs/OwnershipState" } },
+    objects: {
+      type: "array",
+      description: "Atomic explicit scientific objects with one unambiguous semanticType per object; composite X_OR_Y types are forbidden. Include design or setting, condition, named or unnamed intervention or exposure, comparator, every explicitly named acquisition modality as MODALITY, every explicitly stated acquisition or imaging technique as METHOD when its exact variant is unspecified or variable, observed or measured phenomena as MEASURED_VARIABLE unless explicitly named as biomarkers or endpoints, explicit biomarkers as BIOMARKER, explicit comparison groups, and each explicit eligibility or demographic criterion. An initial, baseline, follow-up or control acquisition is an occasion/timepoint rather than a modality or method. Preserve criterion direction, boundary, value and unit without invention.",
+      items: { $ref: "#/$defs/ScientificElement" },
+    },
+    relations: {
+      type: "array",
+      description: "Relations between the actual participating objects. Represent a comparison as one direct COMPARES_WITH relation from one comparison arm to the other in the user-expressed orientation. A statement describing the comparison is provenance and must not be a comparison endpoint or create statement-to-arm fan-out. Keep the measured variable separate from the compared arms.",
+      items: { $ref: "#/$defs/ScientificRelation" },
+    },
+    explicitStatements: {
+      type: "array",
+      description: "Atomic explicit assertions. Split positive assertions from negative constraints and never negate a mixed-polarity combined statement.",
+      items: { $ref: "#/$defs/ScientificElement" },
+    }, inferredContext: { type: "array", items: { $ref: "#/$defs/ScientificElement" } },
+    contextualCandidates: { type: "array", items: { $ref: "#/$defs/ScientificElement" } }, negationsAndConstraints: {
+      type: "array",
+      description: "Actual negative assertions, rejections, prohibitions and constraints. Every explicit instruction not to invent, assume, select, compare or use something is a separate NEGATED constraint, including when the same clause also permits another action. A definition, threshold, method, choice or value that is merely unknown or undecided belongs in unknowns or missingInformation instead; an UNKNOWN does not replace a separately stated prohibition.",
+      items: { $ref: "#/$defs/ScientificElement" },
+    },
+    temporalElements: {
+      type: "array",
+      description: "Every explicit timepoint, interval, ordering, initial or repeated observation structure, and timing variability, even when also represented by method or acquisition objects.",
+      items: { $ref: "#/$defs/ScientificElement" },
+    }, ambiguities: { type: "array", items: { $ref: "#/$defs/Ambiguity" } },
+    unknowns: {
+      type: "array",
+      description: "Explicitly unresolved definitions, thresholds, choices, methods, values or knowledge states. These are epistemic unknowns, not negative constraints.",
+      items: { $ref: "#/$defs/MissingInformation" },
+    }, missingInformation: {
+      type: "array",
+      description: "Information explicitly described as not yet defined, selected, known or determined when it is needed to complete the scientific interpretation.",
+      items: { $ref: "#/$defs/MissingInformation" },
+    },
+    correctionsAndSupersessions: {
+      type: "array",
+      description: "Only demonstrated corrections, rejections or replacements. Pure additions and refinements do not supersede compatible prior content.",
+      items: { $ref: "#/$defs/Correction" },
+    }, ownershipAndEpistemicStates: { type: "array", items: { $ref: "#/$defs/OwnershipState" } },
     openDecisions: { type: "array", items: { $ref: "#/$defs/OpenDecision" } }, clarificationNeeds: { type: "array", items: { $ref: "#/$defs/ClarificationNeed" } },
   },
   required: ["normalizedUnderstanding", "routeProposal", "scientificGoalCandidates", "studyIntentCandidates", "objects", "relations", "explicitStatements", "inferredContext", "contextualCandidates", "negationsAndConstraints", "temporalElements", "ambiguities", "unknowns", "missingInformation", "correctionsAndSupersessions", "ownershipAndEpistemicStates", "openDecisions", "clarificationNeeds"],

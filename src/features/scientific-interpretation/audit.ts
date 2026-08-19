@@ -10,6 +10,28 @@ const finding = (code: string, message: string, sourceRefs: string[], severity: 
   status: "OPEN",
 });
 
+const sharesExactSourceClaim = (
+  left: ScientificInterpretationContributionEnvelope["scientificContent"]["explicitStatements"][number],
+  right: ScientificInterpretationContributionEnvelope["scientificContent"]["negationsAndConstraints"][number],
+) => Boolean(
+  left.epistemicBoundary.sourceText
+  && left.epistemicBoundary.sourceText === right.epistemicBoundary.sourceText
+  && left.epistemicBoundary.sourceTurnIds.some((turnId) => right.epistemicBoundary.sourceTurnIds.includes(turnId)),
+);
+
+const sourceTextIsGrounded = (source: string, sourceText: string) => {
+  if (source.includes(sourceText)) return true;
+  const fragments = sourceText.split(/\s*(?:\[\s*(?:…|\.\.\.)\s*\]|…)\s*/u).map((item) => item.trim()).filter(Boolean);
+  if (fragments.length < 2) return false;
+  let cursor = 0;
+  return fragments.every((fragment) => {
+    const index = source.indexOf(fragment, cursor);
+    if (index < 0) return false;
+    cursor = index + fragment.length;
+    return true;
+  });
+};
+
 export const auditScientificInterpretationContribution = (
   contribution: ScientificInterpretationContributionEnvelope,
   previousContribution?: ScientificInterpretationContributionEnvelope | null,
@@ -25,11 +47,17 @@ export const auditScientificInterpretationContribution = (
     ...contribution.scientificContent.temporalElements,
   ];
   const itemIds = new Set(items.map((item) => item.itemId));
+  const activeItemIds = new Set(items.filter((item) => item.epistemicBoundary.activeState !== false).map((item) => item.itemId));
   const sourceByTurn = new Map(contribution.source.turns.map((turn) => [turn.turnId, turn.content]));
   const negatedTurns = contribution.source.turns.filter((turn) => /\b(?:sans|ne\s+[^.!?]{0,80}\s+pas|n['’][^.!?]{0,80}\s+pas|non[- ]?causal|aucun|no\s+causal|not\s+causal|without\s+caus|do\s+not|does\s+not)/i.test(turn.content));
   const hasExplicitNegation = negatedTurns.length > 0;
   contribution.scientificContent.candidateRelations.forEach((relation) => {
     if (!itemIds.has(relation.sourceItemId) || !itemIds.has(relation.targetItemId)) findings.push(finding("RELATION_ENDPOINT_MISSING", "La relation référence un élément absent de la Contribution.", [relation.relationId]));
+    if (relation.epistemicBoundary.activeState !== false
+      && itemIds.has(relation.sourceItemId) && itemIds.has(relation.targetItemId)
+      && (!activeItemIds.has(relation.sourceItemId) || !activeItemIds.has(relation.targetItemId))) {
+      findings.push(finding("ACTIVE_RELATION_ENDPOINT_INACTIVE", "Une relation active ne peut pas référencer un élément inactif.", [relation.relationId]));
+    }
     if (relation.sourceItemId === relation.targetItemId) findings.push(finding("SELF_RELATION", "La relation relie un élément à lui-même.", [relation.relationId]));
     if (hasExplicitNegation && /CAUSE|CAUSAL|PREDICT/i.test(relation.relationType) && relation.polarity !== "NEGATED") {
       findings.push(finding("CAUSALITY_ADDED_AGAINST_EXPLICIT_NEGATION", "Une causalité ou prédiction ne peut pas être ajoutée contre une négation explicite.", [relation.relationId]));
@@ -55,7 +83,9 @@ export const auditScientificInterpretationContribution = (
   }
   items.forEach((item) => {
     if (item.epistemicBoundary.adoptionStatus === "PROJECT_ADOPTED") findings.push(finding("CANDIDATE_PROMOTED_TO_PROJECT", "Un candidat runtime ne peut pas devenir une décision Project.", [item.itemId]));
-    if (item.polarity === "NEGATED" && !contribution.scientificContent.negationsAndConstraints.some((entry) => entry.itemId === item.itemId)) {
+    if (item.polarity === "NEGATED" && !contribution.scientificContent.negationsAndConstraints.some((entry) =>
+      entry.itemId === item.itemId
+      || (entry.polarity === "NEGATED" && entry.epistemicBoundary.activeState !== false && sharesExactSourceClaim(item, entry)))) {
       findings.push(finding("NEGATION_NOT_EXPLICITLY_REPRESENTED", "Un élément négatif doit rester reconstructible dans les contraintes.", [item.itemId]));
     }
     if ((item.epistemicBoundary.epistemicStatus === "REJECTED_BY_USER" || /REJECTED|SUPERSEDED/i.test(item.epistemicBoundary.originStatus ?? ""))
@@ -75,7 +105,10 @@ export const auditScientificInterpretationContribution = (
       findings.push(finding("UNSUPPORTED_DECISION_INVENTION", "Une décision adoptée sans support source ni décision humaine est interdite.", [item.itemId]));
     }
     if (item.epistemicBoundary.epistemicStatus === "EXPLICIT_USER_STATED" && item.epistemicBoundary.sourceText) {
-      const grounded = item.epistemicBoundary.sourceTurnIds.some((turnId) => sourceByTurn.get(turnId)?.includes(item.epistemicBoundary.sourceText ?? ""));
+      const grounded = item.epistemicBoundary.sourceTurnIds.some((turnId) => {
+        const source = sourceByTurn.get(turnId);
+        return source ? sourceTextIsGrounded(source, item.epistemicBoundary.sourceText ?? "") : false;
+      });
       if (!grounded) findings.push(finding("EXPLICIT_SOURCE_NOT_GROUNDED", "Une déclaration explicite doit rester rattachée à un extrait exact de la conversation.", [item.itemId]));
     }
   });

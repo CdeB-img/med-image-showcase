@@ -117,6 +117,7 @@ export const mapHybridStateToContribution = (input: {
     contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
     identity: {
       contributionId: stringOrNull(identity.stateId) ?? `hybrid-contribution:${logicalDigest({ state, raw: input.rawOutputDigest })}`,
+      previousContributionId: stringOrNull(identity.previousStateId) ?? input.previousContribution?.identity.contributionId ?? null,
       contractVersion: SCIENTIFIC_INTERPRETATION_CONTRIBUTION_VERSION,
       runtimeId: input.execution.runtimeId,
       runtimeVersion: input.execution.runtimeVersion,

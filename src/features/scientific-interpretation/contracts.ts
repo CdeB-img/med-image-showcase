@@ -124,6 +124,7 @@ export type ScientificInterpretationContributionEnvelope = {
   contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT";
   identity: {
     contributionId: string;
+    previousContributionId?: string | null;
     contractVersion: typeof SCIENTIFIC_INTERPRETATION_CONTRIBUTION_VERSION;
     runtimeId: string;
     runtimeVersion: string;

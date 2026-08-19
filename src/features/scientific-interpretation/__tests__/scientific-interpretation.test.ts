@@ -249,4 +249,78 @@ describe("HYBRID-RUNTIME-INTEGRATION-001 contracts", () => {
     expect(contributions.every((item) => item.source.rawOutputRef && item.source.rawOutputDigest && item.decisionBoundary.projectWriteAuthorized === false)).toBe(true);
     expect(provider).not.toHaveBeenCalled();
   });
+
+  it("HRI-C21 exposes the previous Contribution identity without a parallel history", () => {
+    const previous = mapSynthetic();
+    const nextState = {
+      ...syntheticState(),
+      identity: {
+        ...syntheticState().identity,
+        stateId: "synthetic-state-next",
+        previousStateId: previous.identity.contributionId,
+      },
+    };
+    const next = mapHybridStateToContribution({
+      state: nextState,
+      execution: { operationId: "synthetic-next", provider: null, model: null, promptDigest: "prompt", schemaDigest: "schema", configurationDigest: "config", runtimeId: "HYBRID_TEST", runtimeVersion: "1" },
+      rawOutputRef: "memory://raw/synthetic-next",
+      rawOutputDigest: "raw-digest-next",
+      conversation: syntheticConversation,
+      previousContribution: previous,
+    });
+    expect(next.identity.previousContributionId).toBe(previous.identity.contributionId);
+  });
+
+  it("HRI-C22 refuses an active relation whose endpoint is inactive", () => {
+    const contribution = structuredClone(mapSynthetic());
+    const endpoint = contribution.scientificContent.candidateObjects.find((item) => item.itemId === "beta")!;
+    endpoint.epistemicBoundary.activeState = false;
+    expect(auditScientificInterpretationContribution(contribution)).toContainEqual(expect.objectContaining({
+      code: "ACTIVE_RELATION_ENDPOINT_INACTIVE",
+      severity: "CRITICAL",
+      sourceRefs: ["association"],
+    }));
+  });
+
+  it("HRI-C23 accepts one sourced negative constraint as representation of the same negative statement", () => {
+    const contribution = structuredClone(mapSynthetic());
+    const boundary = {
+      ownership: "USER",
+      epistemicStatus: "EXPLICIT_USER_STATED",
+      adoptionStatus: null,
+      activeState: true,
+      sourceTurnIds: ["T0"],
+      sourceText: "sans conclure à une causalité",
+    };
+    contribution.scientificContent.explicitStatements.push({
+      itemId: "negative-statement", semanticIdentity: "no-causality", proposedType: "STATEMENT", content: "Sans conclure à une causalité.",
+      polarity: "NEGATED", studyRole: "CONSTRAINT", confidence: 1, epistemicBoundary: boundary,
+    });
+    contribution.scientificContent.negationsAndConstraints.push({
+      itemId: "negative-constraint", semanticIdentity: "no-causality", proposedType: "CONSTRAINT", content: "Sans conclure à une causalité.",
+      polarity: "NEGATED", studyRole: "CONSTRAINT", confidence: 1, epistemicBoundary: boundary,
+    });
+    expect(auditScientificInterpretationContribution(contribution)).not.toContainEqual(expect.objectContaining({
+      code: "NEGATION_NOT_EXPLICITLY_REPRESENTED",
+      sourceRefs: ["negative-statement"],
+    }));
+  });
+
+  it("HRI-C24 accepts ordered exact source fragments separated by an explicit ellipsis only", () => {
+    const contribution = structuredClone(mapSynthetic());
+    const constraint = contribution.scientificContent.negationsAndConstraints[0];
+    constraint.itemId = "elliptical-source";
+    constraint.epistemicBoundary.epistemicStatus = "EXPLICIT_USER_STATED";
+    constraint.epistemicBoundary.sourceText = "Comparer une méthode alpha […] sans conclure à une causalité.";
+    expect(auditScientificInterpretationContribution(contribution)).not.toContainEqual(expect.objectContaining({
+      code: "EXPLICIT_SOURCE_NOT_GROUNDED",
+      sourceRefs: ["elliptical-source"],
+    }));
+
+    constraint.epistemicBoundary.sourceText = "Comparer une méthode alpha […] sans conclure à une supériorité.";
+    expect(auditScientificInterpretationContribution(contribution)).toContainEqual(expect.objectContaining({
+      code: "EXPLICIT_SOURCE_NOT_GROUNDED",
+      sourceRefs: ["elliptical-source"],
+    }));
+  });
 });
