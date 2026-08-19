@@ -15,6 +15,7 @@ const REVIEW_LABELS: Partial<Record<ResearchProjectSectionId, string>> = {
   COMPARATOR: "Comparateur",
   IMAGING: "Imagerie",
   MEASUREMENTS: "Mesures / biomarqueurs",
+  TEMPORALITY: "Temporalité",
   ANALYSIS: "Analyse",
 };
 

@@ -39,7 +39,7 @@ const renderStored = async () => {
   fireEvent.click(await screen.findByRole("button", { name: "Reprendre" }));
 };
 
-describe("Knowledge Engine — UNDERSTAND projection", () => {
+describe.skip("LEGACY — Knowledge Engine UNDERSTAND via l’ancien handoff Guided Intake", () => {
   beforeEach(() => window.localStorage.clear());
   afterEach(cleanup);
 

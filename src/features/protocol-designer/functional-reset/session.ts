@@ -6,8 +6,12 @@ import type {
   ResearchProjectOwnerAuthority,
   ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
+import {
+  createEmptyFunctionalResetDocumentPortfolio,
+  type FunctionalResetDocumentPortfolio,
+} from "@/features/document-projection";
 
-export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v2";
+export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Décris-moi le projet de recherche que tu souhaites construire.\nTu peux partir d’une idée simple ou donner tous les détails que tu connais déjà.";
 
 export type ConversationEntry =
@@ -17,7 +21,7 @@ export type ConversationEntry =
 
 export type FunctionalResetSession = {
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
-  contractVersion: "1.1.0";
+  contractVersion: "1.2.0";
   sessionId: string;
   conversationId: string;
   projectId: string;
@@ -29,6 +33,8 @@ export type FunctionalResetSession = {
   pendingContribution: ScientificInterpretationContributionEnvelope | null;
   projectAuthority: ResearchProjectOwnerAuthority;
   project: ResearchProjectOwnerProjection | null;
+  documents: FunctionalResetDocumentPortfolio;
+  openDocumentProjectionId: string | null;
 };
 
 const id = (prefix: string) => {
@@ -40,7 +46,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
   const sessionId = id("protocol-designer-session");
   return {
     contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION",
-    contractVersion: "1.1.0",
+    contractVersion: "1.2.0",
     sessionId,
     conversationId: id("scientific-conversation"),
     projectId: `${sessionId}:research-project`,
@@ -57,6 +63,8 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
       verification: "DEMO_SESSION_NOT_AUTHENTICATED",
     },
     project: null,
+    documents: createEmptyFunctionalResetDocumentPortfolio(),
+    openDocumentProjectionId: null,
   };
 };
 
@@ -64,13 +72,16 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
   if (!value || typeof value !== "object") return false;
   const record = value as Partial<FunctionalResetSession>;
   return record.contract === "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION"
-    && record.contractVersion === "1.1.0"
+    && record.contractVersion === "1.2.0"
     && typeof record.sessionId === "string"
     && typeof record.conversationId === "string"
     && Array.isArray(record.entries)
     && Array.isArray(record.runtimeTurns)
     && record.projectAuthority?.mandateRef === "PROJECT_OWNER"
-    && (!record.project || record.project.contract === "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION");
+    && (!record.project || record.project.contract === "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION")
+    && record.documents?.contract === "FUNCTIONAL_RESET_DOCUMENT_PORTFOLIO"
+    && record.documents.owner === "DOC-001"
+    && (record.openDocumentProjectionId === null || typeof record.openDocumentProjectionId === "string");
 };
 
 export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSession => {

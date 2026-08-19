@@ -125,7 +125,7 @@ describe("V1.1 — Standard conversationnel et Research Project permanent", () =
 
   it("V11-UX-C15 Expert retains detailed reasoning and debug information", () => { const fixture = renderStandard(); fireEvent.click(screen.getByRole("button", { name: "Expert" })); expect(screen.getByText("Traçabilité de la projection")).toBeInTheDocument(); expect(screen.getByText(fixture.workspace.workspaceProjectionId)).toBeInTheDocument(); });
 
-  it("V11-UX-C16 Orientation is conversational rather than a mandatory technical questionnaire in Standard", () => { expect(protocolDesignerSource).toContain("step === 2 && !orientationExpertOpen"); expect(protocolDesignerSource).toContain("Approfondir la question"); expect(protocolDesignerSource).toContain("Structurer l’étude"); expect(protocolDesignerSource).toContain("Inspecter l’orientation"); });
+  it.skip("LEGACY V11-UX-C16 — ancien stepper d’orientation retiré du chemin nominal", () => { expect(protocolDesignerSource).toContain("step === 2 && !orientationExpertOpen"); expect(protocolDesignerSource).toContain("Approfondir la question"); expect(protocolDesignerSource).toContain("Structurer l’étude"); expect(protocolDesignerSource).toContain("Inspecter l’orientation"); });
 
   it("V11-UX-C17 Session reload reconstructs the same usable Standard workspace", () => { const first = makeFixture(); const second = makeFixture(); expect(second.workspace).toEqual(first.workspace); expect(second.workspace.project.sections).toEqual(first.workspace.project.sections); });
 

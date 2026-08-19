@@ -4,8 +4,17 @@ import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-reac
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { requestScientificInterpretationRuntime } from "@/features/scientific-interpretation/client";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
-import { confirmResearchProjectContribution } from "@/features/research-project-construction";
+import {
+  authorizeResearchProjectDocumentHandoff,
+  confirmResearchProjectContribution,
+} from "@/features/research-project-construction";
+import {
+  functionalProtocolProjection,
+  markFunctionalResetDocumentFailure,
+  refreshFunctionalResetDocumentPortfolio,
+} from "@/features/document-projection";
 import ContributionReview from "./ContributionReview";
+import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
 import {
   clearFunctionalResetSession,
@@ -96,25 +105,118 @@ export default function ProtocolDesignerWorkspace() {
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
     const now = new Date().toISOString();
-    const project = confirmResearchProjectContribution({
-      contribution,
-      current: session.project,
-      projectId: session.projectId,
-      authority: session.projectAuthority,
-      confirmedAt: now,
-    });
-    const feedback = session.project
-      ? `Le Research Project est maintenant en version ${project.revision}. Les informations confirmées précédemment restent conservées.`
-      : "Le Research Project a été créé à partir de ta confirmation. Tu peux continuer à le modifier dans cette conversation.";
+    try {
+      const project = confirmResearchProjectContribution({
+        contribution,
+        current: session.project,
+        projectId: session.projectId,
+        authority: session.projectAuthority,
+        confirmedAt: now,
+      });
+      let documents;
+      let documentWarning = false;
+      try {
+        documents = refreshFunctionalResetDocumentPortfolio({
+          project,
+          previous: session.documents,
+          requestedAt: now,
+        });
+      } catch (error) {
+        documents = markFunctionalResetDocumentFailure(project, session.documents, error);
+        documentWarning = true;
+      }
+      const feedback = session.project
+        ? `Le Research Project est maintenant en version ${project.revision}. Les informations confirmées précédemment restent conservées.`
+        : "Le Research Project a été créé à partir de ta confirmation. Tu peux continuer à le modifier dans cette conversation.";
+      setSession((current) => ({
+        ...current,
+        project,
+        documents,
+        currentContribution: contribution,
+        pendingContribution: null,
+        entries: [
+          ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId ? { ...entry, status: "CONFIRMED" as const } : entry),
+          { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now },
+          ...(documentWarning ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const, role: "NOXIA" as const, content: "NOXIA n’a pas pu mettre à jour la partie documentaire du projet. Le Research Project confirmé reste disponible.", createdAt: now }] : []),
+        ],
+        updatedAt: now,
+      }));
+    } catch {
+      setSession((current) => ({
+        ...current,
+        entries: [...current.entries, {
+          entryId: createConversationEntryId(),
+          kind: "ERROR",
+          role: "NOXIA",
+          content: "NOXIA n’a pas pu mettre à jour cette partie du projet. Ta contribution reste disponible pour réessayer.",
+          createdAt: now,
+        }],
+        updatedAt: now,
+      }));
+    }
+  };
+
+  const requestProtocolProjection = () => {
+    if (!session.project) return;
+    const now = new Date().toISOString();
+    try {
+      const decision = authorizeResearchProjectDocumentHandoff({
+        project: session.project,
+        authority: session.projectAuthority,
+        confirmedAt: now,
+      });
+      const documents = refreshFunctionalResetDocumentPortfolio({
+        project: session.project,
+        previous: session.documents,
+        handoffDecision: decision,
+        requestedAt: now,
+        generateProtocol: true,
+      });
+      const protocol = documents.projections.at(-1) ?? null;
+      if (!protocol || documents.lastFailure) throw new Error(documents.lastFailure?.message ?? "DOC_PROTOCOL_PROJECTION_NOT_CREATED");
+      setSession((current) => ({
+        ...current,
+        documents,
+        openDocumentProjectionId: protocol.projectionId,
+        entries: [...current.entries, {
+          entryId: createConversationEntryId(),
+          kind: "TEXT",
+          role: "NOXIA",
+          content: protocol.readiness === "READY_FOR_REVIEW"
+            ? "Une version de travail du protocole est disponible pour revue."
+            : "Un premier aperçu partiel du protocole est disponible. Les sections encore ouvertes restent visibles.",
+          createdAt: now,
+        }],
+        updatedAt: now,
+      }));
+    } catch (error) {
+      const documents = markFunctionalResetDocumentFailure(session.project, session.documents, error);
+      setSession((current) => ({
+        ...current,
+        documents,
+        entries: [...current.entries, {
+          entryId: createConversationEntryId(),
+          kind: "ERROR",
+          role: "NOXIA",
+          content: "NOXIA n’a pas pu produire l’aperçu du protocole. Le Project et la conversation sont conservés.",
+          createdAt: now,
+        }],
+        updatedAt: now,
+      }));
+    }
+  };
+
+  const deferProtocolProjection = () => {
+    const now = new Date().toISOString();
     setSession((current) => ({
       ...current,
-      project,
-      currentContribution: contribution,
-      pendingContribution: null,
-      entries: [
-        ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId ? { ...entry, status: "CONFIRMED" as const } : entry),
-        { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now },
-      ],
+      entries: [...current.entries, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "NOXIA",
+        content: "D’accord. Tu peux continuer à préciser le Project librement et créer l’aperçu plus tard.",
+        createdAt: now,
+      }],
       updatedAt: now,
     }));
   };
@@ -133,7 +235,15 @@ export default function ProtocolDesignerWorkspace() {
     window.setTimeout(() => composerRef.current?.focus(), 0);
   };
 
-  const projectPanel = <ResearchProjectPanel project={session.project} />;
+  const openProjection = functionalProtocolProjection(session.documents, session.openDocumentProjectionId);
+  const protocolCard = session.documents.cards.find((card) => card.kind === "PROTOCOL");
+  const projectPanel = <ResearchProjectPanel
+    project={session.project}
+    documents={session.documents}
+    onOpenProtocol={(projectionId) => setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }))}
+    onRequestProtocol={requestProtocolProjection}
+    onDeferProtocol={deferProtocolProjection}
+  />;
 
   return <main id="demo-main" className="min-h-screen bg-muted/30 text-foreground" data-testid="functional-reset-workspace">
     <Helmet>
@@ -163,7 +273,11 @@ export default function ProtocolDesignerWorkspace() {
       <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
         <div className="hidden min-w-0 self-start lg:sticky lg:top-4 lg:block lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">{projectPanel}</div>
 
-        <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm">
+        {openProjection ? <ProtocolPreview
+          projection={openProjection}
+          stale={protocolCard?.freshness === "STALE" || openProjection.source.projectVersion !== session.project?.versionId}
+          onClose={() => setSession((current) => ({ ...current, openDocumentProjectionId: null }))}
+        /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm">
           <div className="border-b px-5 py-4">
             <h2 className="font-semibold">Conversation</h2>
             <p className="mt-1 text-sm text-muted-foreground">Explique, confirme, puis continue à préciser ton projet.</p>
@@ -212,7 +326,7 @@ export default function ProtocolDesignerWorkspace() {
               <button type="submit" disabled={busy || !draft.trim()} aria-label="Envoyer" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button>
             </div>
           </form>
-        </section>
+        </section>}
       </div>
     </div>
   </main>;

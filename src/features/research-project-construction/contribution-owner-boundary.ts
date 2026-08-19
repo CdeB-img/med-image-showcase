@@ -1,5 +1,4 @@
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import type { DocumentProjection } from "@/features/document-projection";
 import {
   createHumanDecisionCandidate,
   engageHumanDecision,
@@ -25,6 +24,7 @@ export type ResearchProjectSectionId =
   | "COMPARATOR"
   | "IMAGING"
   | "MEASUREMENTS"
+  | "TEMPORALITY"
   | "ANALYSIS";
 
 export type ResearchProjectSectionState = "DEFINED" | "PARTIAL" | "TO_CLARIFY";
@@ -34,6 +34,9 @@ export type ResearchProjectElement = {
   content: string;
   sourceItemIds: string[];
   sourceTurnIds: string[];
+  sourceProposedType?: string | null;
+  sourceStudyRole?: string | null;
+  sourcePolarity?: string | null;
   disposition: "USER_CONFIRMED_PROJECT_INFORMATION";
   canonicalPromotion: "NOT_PERFORMED";
 };
@@ -94,7 +97,6 @@ export type ResearchProjectOwnerProjection = {
   llmProjectWrites: 0;
   sections: ResearchProjectSection[];
   specializedResponsibilities: SpecializedResponsibility[];
-  documentProjections: DocumentProjection[];
 };
 
 const SECTION_LABELS: Record<ResearchProjectSectionId, string> = {
@@ -105,6 +107,7 @@ const SECTION_LABELS: Record<ResearchProjectSectionId, string> = {
   COMPARATOR: "Comparateur",
   IMAGING: "Imagerie",
   MEASUREMENTS: "Mesures / biomarqueurs",
+  TEMPORALITY: "Temporalité",
   ANALYSIS: "Analyse",
 };
 
@@ -127,19 +130,6 @@ export const contributionItems = (contribution: ScientificInterpretationContribu
 const typeOf = (item: ScientificContributionItem) => `${item.proposedType ?? ""} ${item.studyRole ?? ""}`.toLocaleUpperCase("fr-FR");
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 
-const isImagingTiming = (
-  item: ScientificContributionItem,
-  contribution: ScientificInterpretationContributionEnvelope,
-) => {
-  if (!/TIMING|TEMPORAL/.test(typeOf(item))) return false;
-  const content = normalized(item.content);
-  return contributionItems(contribution).some((candidate) => {
-    if (!/MODALITY|IMAGING_METHOD|ACQUISITION/.test(typeOf(candidate))) return false;
-    const modality = normalized(candidate.content);
-    return Boolean(modality && content.includes(modality));
-  });
-};
-
 export const sectionForContributionItem = (
   item: ScientificContributionItem,
   contribution: ScientificInterpretationContributionEnvelope,
@@ -149,7 +139,8 @@ export const sectionForContributionItem = (
   if (/STUDY_DESIGN|DESIGN|SETTING|CENTER/.test(type)) return "DESIGN";
   if (/COMPARATOR|CONTROL_ARM|REFERENCE_ARM/.test(type)) return "COMPARATOR";
   if (/INTERVENTION|TREATMENT|EXPOSURE_ARM/.test(type)) return "INTERVENTION";
-  if (/MODALITY|IMAGING_METHOD|ACQUISITION/.test(type) || isImagingTiming(item, contribution)) return "IMAGING";
+  if (/TIMING|TEMPORAL/.test(type)) return "TEMPORALITY";
+  if (/MODALITY|IMAGING_METHOD|ACQUISITION/.test(type)) return "IMAGING";
   if (/BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET|SCIENTIFIC_OBJECT/.test(type)) return "MEASUREMENTS";
   if (/ANALYSIS|ESTIMAND|STATISTICAL/.test(type)) return "ANALYSIS";
   return null;
@@ -160,6 +151,9 @@ const elementFrom = (item: ScientificContributionItem): ResearchProjectElement =
   content: item.content.trim(),
   sourceItemIds: [item.itemId],
   sourceTurnIds: item.epistemicBoundary.sourceTurnIds,
+  sourceProposedType: item.proposedType,
+  sourceStudyRole: item.studyRole,
+  sourcePolarity: item.polarity,
   disposition: "USER_CONFIRMED_PROJECT_INFORMATION",
   canonicalPromotion: "NOT_PERFORMED",
 });
@@ -191,6 +185,9 @@ const relationElements = (contribution: ScientificInterpretationContributionEnve
         content: `Comparaison entre ${source.content} et ${target.content}`,
         sourceItemIds: [relation.sourceItemId, relation.targetItemId],
         sourceTurnIds: relation.epistemicBoundary.sourceTurnIds,
+        sourceProposedType: "COMPARATIVE_RELATION",
+        sourceStudyRole: null,
+        sourcePolarity: relation.polarity,
         disposition: "USER_CONFIRMED_PROJECT_INFORMATION" as const,
         canonicalPromotion: "NOT_PERFORMED" as const,
       }];
@@ -207,6 +204,7 @@ const stateFor = (
   if (sectionId === "ANALYSIS" && !items.some((item) => sectionForContributionItem(item, contribution) === "ANALYSIS")) return "PARTIAL";
   if (sectionId === "IMAGING") return "PARTIAL";
   if (sectionId === "MEASUREMENTS") return "PARTIAL";
+  if (sectionId === "TEMPORALITY") return "PARTIAL";
   if (sectionId === "POPULATION") {
     const hasCriterion = items.some((item) => sectionForContributionItem(item, contribution) === "POPULATION" && /POPULATION|ELIGIBILITY|CRITERION/.test(typeOf(item)));
     return hasCriterion ? "DEFINED" : "PARTIAL";
@@ -226,6 +224,9 @@ const buildSections = (
     content: contribution.scientificContent.normalizedUnderstanding?.trim() || contribution.source.originalRequest.trim(),
     sourceItemIds: [],
     sourceTurnIds: contribution.source.turns.filter((turn) => turn.role === "USER").map((turn) => turn.turnId),
+    sourceProposedType: "SCIENTIFIC_QUESTION_WORKING_FORMULATION",
+    sourceStudyRole: null,
+    sourcePolarity: "AFFIRMED",
     disposition: "USER_CONFIRMED_PROJECT_INFORMATION",
     canonicalPromotion: "NOT_PERFORMED",
   }]);
@@ -370,6 +371,45 @@ export const confirmResearchProjectContribution = (input: {
     llmProjectWrites: 0,
     sections: candidate.proposedSections,
     specializedResponsibilities: candidate.specializedResponsibilities,
-    documentProjections: input.current?.documentProjections ?? [],
   };
+};
+
+/**
+ * PRJ-owned authorization for a passive document projection of one exact Project version.
+ * It does not freeze or mutate the adopted Project; the consumer adapter may only use it
+ * to satisfy the historical PRJ-001 document handoff contract for this immutable snapshot.
+ */
+export const authorizeResearchProjectDocumentHandoff = (input: {
+  project: ResearchProjectOwnerProjection;
+  authority: ResearchProjectOwnerAuthority;
+  confirmedAt: string;
+}): HumanDecisionEnvelope => {
+  const candidate = createHumanDecisionCandidate({
+    decisionId: `project-document-handoff:${logicalDigest({
+      projectId: input.project.projectId,
+      versionId: input.project.versionId,
+      projectDigest: input.project.projectDigest,
+    })}`,
+    gateId: "PRJ-GATE-DOCUMENT-WORKING-PROJECTION",
+    scope: ["RESEARCH_PROJECT", "DOCUMENT_HANDOFF", "PROTOCOL_WORKING_PROJECTION"],
+    targets: [input.project.projectId, input.project.versionId, input.project.projectDigest],
+    reason: "Autorisation explicite d’utiliser cette version du Research Project pour produire une projection documentaire de travail en lecture seule.",
+    provenance: [
+      input.project.projectId,
+      input.project.versionId,
+      input.project.projectDigest,
+      `decision:${input.project.confirmationDecision.decisionId}`,
+    ],
+    engineSource: "RESEARCH_PROJECT",
+    projectVersion: input.project.versionId,
+  });
+  const decision = engageHumanDecision(candidate, {
+    status: "ADOPTED",
+    actor: input.authority.actorRef,
+    mandate: input.authority.mandateRef,
+    reason: "L’utilisateur a choisi de produire une version de travail du protocole depuis la version courante du Project.",
+    timestamp: input.confirmedAt,
+  });
+  if (decision.status !== "ADOPTED") throw new Error("PRJ_DOCUMENT_HANDOFF_AUTHORITY_REQUIRED");
+  return decision;
 };

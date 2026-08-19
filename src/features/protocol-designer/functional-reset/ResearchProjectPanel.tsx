@@ -1,4 +1,4 @@
-import type { DocumentProjection } from "@/features/document-projection";
+import type { FunctionalResetDocumentPortfolio } from "@/features/document-projection";
 import {
   emptyResearchProjectSections,
   type ResearchProjectOwnerProjection,
@@ -11,51 +11,16 @@ const STATE_LABEL: Record<ResearchProjectSectionState, string> = {
   TO_CLARIFY: "À préciser",
 };
 
-type DocumentCard = {
-  id: string;
-  label: "Protocole" | "DMP" | "SAP";
-  state: string;
-  explanation: string;
-};
-
-const cardFromProjection = (
-  type: "PROTOCOL" | "DMP" | "SAP",
-  label: DocumentCard["label"],
-  projections: readonly DocumentProjection[],
-  project: ResearchProjectOwnerProjection | null,
-): DocumentCard => {
-  const projection = [...projections].reverse().find((item) => item.projectionType === type);
-  if (!projection) return {
-    id: `document:${type.toLocaleLowerCase("fr-FR")}`,
-    label,
-    state: type === "PROTOCOL" ? "Pas encore générable" : type === "DMP" ? "Informations insuffisantes" : "Analyse non définie",
-    explanation: "Aucune projection TMP/DOC active n’établit une disponibilité.",
-  };
-  const stale = !project
-    || projection.source.projectDigest !== project.projectDigest
-    || projection.source.projectVersion !== project.versionId;
-  return {
-    id: projection.projectionId,
-    label,
-    state: stale ? "À actualiser" : projection.readiness === "READY_FOR_REVIEW" ? "Disponible pour revue" : "Partiellement générable",
-    explanation: stale
-      ? "La projection TMP/DOC appartient à une version antérieure du Project."
-      : projection.sections.flatMap((section) => section.statusReasons).at(0) ?? "État fourni par la projection TMP/DOC active.",
-  };
-};
-
 type Props = {
   project: ResearchProjectOwnerProjection | null;
+  documents: FunctionalResetDocumentPortfolio;
+  onOpenProtocol: (projectionId: string) => void;
+  onRequestProtocol: () => void;
+  onDeferProtocol: () => void;
 };
 
-export default function ResearchProjectPanel({ project }: Props) {
+export default function ResearchProjectPanel({ project, documents, onOpenProtocol, onRequestProtocol, onDeferProtocol }: Props) {
   const sections = project?.sections ?? emptyResearchProjectSections();
-  const projections = project?.documentProjections ?? [];
-  const documents = [
-    cardFromProjection("PROTOCOL", "Protocole", projections, project),
-    cardFromProjection("DMP", "DMP", projections, project),
-    cardFromProjection("SAP", "SAP", projections, project),
-  ];
 
   return <aside aria-label="Research Project" className="rounded-3xl border bg-card shadow-sm" data-testid="functional-research-project">
     <div className="border-b px-5 py-5">
@@ -80,12 +45,31 @@ export default function ResearchProjectPanel({ project }: Props) {
       <section className="rounded-2xl border px-4 py-3" aria-labelledby="functional-project-documents">
         <h3 id="functional-project-documents" className="text-sm font-semibold">Documents</h3>
         <div className="mt-3 space-y-2.5">
-          {documents.map((document) => <article key={document.id} className="rounded-xl bg-muted/60 p-3">
+          {documents.cards.map((document) => <article key={document.kind} className="rounded-xl bg-muted/60 p-3">
             <div className="flex items-start justify-between gap-3">
               <p className="text-sm font-medium">{document.label}</p>
-              <span className="text-right text-xs font-medium text-muted-foreground">{document.state}</span>
+              <span className="text-right text-xs font-medium text-muted-foreground">{document.stateLabel}</span>
             </div>
             <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{document.explanation}</p>
+            {document.blockerGroups.length > 0 && <details className="mt-2 text-xs">
+              <summary className="cursor-pointer font-medium">Éléments encore ouverts</summary>
+              <div className="mt-2 space-y-2">
+                {document.blockerGroups.map((group) => <div key={group.dimension}>
+                  <p className="font-medium">{group.dimension}</p>
+                  <ul className="mt-1 list-disc space-y-1 pl-4 text-muted-foreground">{group.items.map((item) => <li key={item}>{item}</li>)}</ul>
+                </div>)}
+              </div>
+            </details>}
+            {document.canOpen && document.projectionId && <button type="button" onClick={() => onOpenProtocol(document.projectionId!)} className="mt-3 min-h-10 rounded-lg border bg-background px-3 text-xs font-medium">Ouvrir</button>}
+            {document.canRequestProjection && project && <div className="mt-3 rounded-lg border bg-background p-2.5">
+              <p className="text-xs leading-relaxed">{document.freshness === "STALE"
+                ? "Souhaites-tu actualiser le protocole depuis cette version du projet ?"
+                : "Souhaites-tu utiliser cette version du projet pour produire une version de travail du protocole ?"}</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                <button type="button" onClick={onRequestProtocol} className="min-h-10 rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground">{document.freshness === "STALE" ? "Actualiser" : "Oui, créer l’aperçu"}</button>
+                <button type="button" onClick={onDeferProtocol} className="min-h-10 rounded-lg border px-3 text-xs font-medium">Pas encore</button>
+              </div>
+            </div>}
           </article>)}
         </div>
       </section>
