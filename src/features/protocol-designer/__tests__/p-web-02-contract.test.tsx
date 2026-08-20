@@ -23,7 +23,7 @@ describe("P-WEB-02 — preserved public boundaries after FUNCTIONAL-RESET-01", (
   it("starts from the scientific question instead of an internal corpus", () => {
     renderDemo();
     expect(screen.getByRole("heading", { name: "Protocol Designer" })).toBeInTheDocument();
-    expect(screen.getByText(/Décris-moi le projet de recherche/)).toBeInTheDocument();
+    expect(screen.getByText(/Décrivez-moi le projet de recherche/)).toBeInTheDocument();
     expect(screen.queryByText("RB-003")).not.toBeInTheDocument();
   });
   it("retains the public landing and private demo routes", () => {

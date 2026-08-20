@@ -147,13 +147,13 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
   it("FR02-P04/P05/P06/P08/P10/P11/P12/P13 — completes the colchicine product vertical", async () => {
     const firstRender = renderDemo();
     submit(COLCHICINE_INITIAL);
-    await screen.findByRole("heading", { name: "Voici ce que j’ai compris" });
+    await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." });
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
 
     const projectPanel = screen.getByTestId("functional-research-project");
-    expect(await within(projectPanel).findByText("Version de travail possible")).toBeInTheDocument();
-    expect(within(projectPanel).getAllByText("Non disponible actuellement")).toHaveLength(2);
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Oui, créer l’aperçu" }));
+    expect(await within(projectPanel).findByText("Construction en cours")).toBeInTheDocument();
+    expect(within(projectPanel).queryByText(/DMP|SAP/)).toBeNull();
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" }));
 
     const previewV1 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV1).getByText("Aperçu produit à partir du Research Project version 1.")).toBeInTheDocument();
@@ -167,9 +167,9 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     await screen.findByText("J’ai compris deux modifications :");
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     expect(await within(projectPanel).findByText("Version 2")).toBeInTheDocument();
-    expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();
-    expect(within(projectPanel).getByText("Le projet a changé depuis cette version du protocole.")).toBeInTheDocument();
-    fireEvent.click(within(projectPanel).getByRole("button", { name: "Actualiser" }));
+    expect(within(projectPanel).getByText("Aperçu à actualiser")).toBeInTheDocument();
+    expect(within(projectPanel).getByText("Le projet a évolué depuis le dernier aperçu.")).toBeInTheDocument();
+    fireEvent.click(within(projectPanel).getByRole("button", { name: "Actualiser l’aperçu" }));
 
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV2).getByText("Aperçu produit à partir du Research Project version 2.")).toBeInTheDocument();
@@ -186,13 +186,13 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(await within(projectPanel).findByText("Version 3")).toBeInTheDocument();
     expect(within(projectPanel).getByText("IRM entre J5 et J7")).toBeInTheDocument();
     expect(within(projectPanel).queryByText("IRM entre J3 et J5")).toBeNull();
-    expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();
+    expect(within(projectPanel).getByText("Aperçu à actualiser")).toBeInTheDocument();
 
     firstRender.unmount();
     renderDemo();
     const reloadedProject = screen.getByTestId("functional-research-project");
     expect(within(reloadedProject).getByText("Version 3")).toBeInTheDocument();
-    expect(within(reloadedProject).getByText("À actualiser")).toBeInTheDocument();
+    expect(within(reloadedProject).getByText("Aperçu à actualiser")).toBeInTheDocument();
     expect(screen.getByText(COLCHICINE_LATER_MODIFICATION)).toBeInTheDocument();
     expect(screen.queryByText(/Guided Intake|Orientation|Actor|Mandate|Scientific Reasoning Graph/)).toBeNull();
 
@@ -202,7 +202,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(reset.project).toBeNull();
     expect(reset.documents.projections).toEqual([]);
     expect(reset.runtimeTurns).toEqual([]);
-    expect(screen.getByText(/Décris-moi le projet de recherche/)).toBeInTheDocument();
+    expect(screen.getByText(/Décrivez-moi le projet de recherche/)).toBeInTheDocument();
   });
 
   it("FR02 error recovery — preserves Project and the prior preview when DOC fails", () => {

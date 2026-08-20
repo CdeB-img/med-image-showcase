@@ -12,7 +12,7 @@ import {
 } from "@/features/document-projection";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
-export const INITIAL_NOXIA_MESSAGE = "Décris-moi le projet de recherche que tu souhaites construire.\nTu peux partir d’une idée simple ou donner tous les détails que tu connais déjà.";
+export const INITIAL_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.\nVous pouvez partir d’une idée simple ou donner tous les détails que vous connaissez déjà.";
 
 export type ConversationEntry =
   | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; createdAt: string }

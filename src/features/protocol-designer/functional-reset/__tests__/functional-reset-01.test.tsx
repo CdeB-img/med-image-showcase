@@ -30,13 +30,14 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
   it("starts with one conversation, one Project panel and honest document states", () => {
     renderDemo();
     expect(screen.getByTestId("functional-reset-workspace")).toBeInTheDocument();
-    expect(screen.getByText(/Décris-moi le projet de recherche/)).toHaveTextContent(/Tu peux partir d’une idée simple/);
+    expect(screen.getByText(/Décrivez-moi le projet de recherche/)).toHaveTextContent(/Vous pouvez partir d’une idée simple/);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
     const project = screen.getByTestId("functional-research-project");
     for (const label of ["Question", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Mesures / biomarqueurs", "Temporalité", "Analyse", "Documents"]) {
       expect(within(project).getByText(label)).toBeInTheDocument();
     }
-    expect(within(project).getAllByText("En attente du projet")).toHaveLength(3);
+    expect(within(project).getByText("Construction en cours")).toBeInTheDocument();
+    expect(within(project).getAllByText("À préciser dans la conversation.")).toHaveLength(9);
     expect(screen.queryByText(/Actor|Mandate|Branch|Gate|Guided Intake|Orientation/)).toBeNull();
   });
 
@@ -46,7 +47,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     fireEvent.change(composer, { target: { value: COLCHICINE_INITIAL } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 
-    expect(await screen.findByRole("heading", { name: "Voici ce que j’ai compris" })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." })).toBeInTheDocument();
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ previousContribution: null }));
     expect(screen.getByText("lésions myocardiques")).toBeInTheDocument();
     expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project).toBeNull();
@@ -95,7 +96,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Recommencer" }));
     await waitFor(() => expect(within(screen.getByTestId("functional-research-project")).queryByText("Version 2")).toBeNull());
-    expect(screen.getByText(/Décris-moi le projet de recherche/)).toBeInTheDocument();
+    expect(screen.getByText(/Décrivez-moi le projet de recherche/)).toBeInTheDocument();
     expect(within(screen.getByTestId("functional-research-project")).queryByText("colchicine")).toBeNull();
   });
 

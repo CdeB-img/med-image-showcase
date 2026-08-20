@@ -7,6 +7,7 @@ import type { ScientificInterpretationTurn } from "@/features/scientific-interpr
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
+  type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 import {
   functionalProtocolProjection,
@@ -30,6 +31,17 @@ const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
   : loadFunctionalResetSession(window.localStorage);
 
+const projectProgressMessage = (project: ResearchProjectOwnerProjection) => {
+  const openSections = project.sections
+    .filter((section) => section.state !== "DEFINED")
+    .map((section) => section.label.toLocaleLowerCase("fr-FR"));
+  if (!openSections.length) return "La structure actuelle ne comporte plus de section générale signalée comme ouverte.";
+  const readable = openSections.length === 1
+    ? openSections[0]
+    : `${openSections.slice(0, -1).join(", ")} et ${openSections.at(-1)}`;
+  return `Il reste principalement à préciser : ${readable}.\n\nVous pouvez poursuivre librement et regrouper plusieurs précisions dans un même message. Une réponse partielle suffit.`;
+};
+
 export default function ProtocolDesignerWorkspace() {
   const [session, setSession] = useState<FunctionalResetSession>(loadInitialSession);
   const [draft, setDraft] = useState("");
@@ -47,7 +59,7 @@ export default function ProtocolDesignerWorkspace() {
   }, [busy, session.entries.length]);
 
   const projectExistedForReview = useMemo(() => {
-    const firstProjectContributionIndex = session.entries.findIndex((entry) => entry.kind === "TEXT" && entry.role === "NOXIA" && /Research Project (?:a été créé|est maintenant en version)/.test(entry.content));
+    const firstProjectContributionIndex = session.entries.findIndex((entry) => entry.kind === "REVIEW" && entry.status === "CONFIRMED");
     return (entryIndex: number) => firstProjectContributionIndex >= 0 && entryIndex > firstProjectContributionIndex;
   }, [session.entries]);
 
@@ -125,9 +137,7 @@ export default function ProtocolDesignerWorkspace() {
         documents = markFunctionalResetDocumentFailure(project, session.documents, error);
         documentWarning = true;
       }
-      const feedback = session.project
-        ? `Le Research Project est maintenant en version ${project.revision}. Les informations confirmées précédemment restent conservées.`
-        : "Le Research Project a été créé à partir de ta confirmation. Tu peux continuer à le modifier dans cette conversation.";
+      const feedback = `${session.project ? "Projet mis à jour." : "Projet créé."}\n\n${projectProgressMessage(project)}`;
       setSession((current) => ({
         ...current,
         project,
@@ -148,7 +158,7 @@ export default function ProtocolDesignerWorkspace() {
           entryId: createConversationEntryId(),
           kind: "ERROR",
           role: "NOXIA",
-          content: "NOXIA n’a pas pu mettre à jour cette partie du projet. Ta contribution reste disponible pour réessayer.",
+          content: "NOXIA n’a pas pu mettre à jour cette partie du projet. Votre contribution reste disponible pour réessayer.",
           createdAt: now,
         }],
         updatedAt: now,
@@ -214,7 +224,7 @@ export default function ProtocolDesignerWorkspace() {
         entryId: createConversationEntryId(),
         kind: "TEXT",
         role: "NOXIA",
-        content: "D’accord. Tu peux continuer à préciser le Project librement et créer l’aperçu plus tard.",
+        content: "D’accord. Vous pouvez continuer à préciser le projet librement et créer l’aperçu plus tard.",
         createdAt: now,
       }],
       updatedAt: now,
@@ -257,6 +267,7 @@ export default function ProtocolDesignerWorkspace() {
         <div>
           <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">NOXIA</p>
           <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">Protocol Designer</h1>
+          <p className="mt-1 text-sm text-muted-foreground">Assistant méthodologique conversationnel</p>
         </div>
         <div className="flex items-center gap-2">
           <Sheet>
@@ -280,7 +291,7 @@ export default function ProtocolDesignerWorkspace() {
         /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm">
           <div className="border-b px-5 py-4">
             <h2 className="font-semibold">Conversation</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Explique, confirme, puis continue à préciser ton projet.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Décrivez votre idée, confirmez la structure proposée, puis faites évoluer le projet dans le même échange.</p>
           </div>
 
           <div className="flex-1 space-y-5 px-4 py-5 sm:px-6" aria-live="polite">
@@ -288,7 +299,7 @@ export default function ProtocolDesignerWorkspace() {
               ? <ContributionReview
                 key={entry.entryId}
                 contribution={entry.contribution}
-                projectExists={projectExistedForReview(index)}
+                project={projectExistedForReview(index) ? session.project : null}
                 status={entry.status}
                 onConfirm={() => confirmContribution(entry.contribution.identity.contributionId)}
                 onCorrect={requestCorrection}
@@ -299,12 +310,12 @@ export default function ProtocolDesignerWorkspace() {
                     : entry.role === "USER" ? "bg-primary text-primary-foreground" : "bg-muted"
                 }`} role={entry.kind === "ERROR" ? "alert" : undefined}>{entry.content}</div>
               </article>)}
-            {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />NOXIA structure ta demande…</div></div>}
+            {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />NOXIA organise votre proposition…</div></div>}
             <div ref={endRef} />
           </div>
 
           <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5">
-            {correctionMode && <p className="mb-2 text-sm font-medium text-primary">Décris librement ce que tu veux corriger.</p>}
+            {correctionMode && <p className="mb-2 text-sm font-medium text-primary">Décrivez librement ce que vous souhaitez corriger. Vous pouvez regrouper plusieurs changements dans un seul message.</p>}
             <label htmlFor="protocol-designer-message" className="sr-only">Votre message</label>
             <div className="flex items-end gap-2 rounded-2xl border bg-background p-2 shadow-sm focus-within:ring-2 focus-within:ring-ring">
               <textarea
@@ -320,7 +331,7 @@ export default function ProtocolDesignerWorkspace() {
                 }}
                 rows={2}
                 maxLength={4_000}
-                placeholder={correctionMode ? "Ce que je veux corriger…" : session.project ? "Ajouter ou modifier un élément du projet…" : "Décris ton projet de recherche…"}
+                placeholder={correctionMode ? "Ce que je souhaite corriger…" : session.project ? "Ajouter ou modifier un élément du projet…" : "Décrivez votre projet de recherche…"}
                 className="max-h-40 min-h-12 flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none"
               />
               <button type="submit" disabled={busy || !draft.trim()} aria-label="Envoyer" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button>

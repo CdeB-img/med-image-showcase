@@ -8,6 +8,8 @@ import type {
 export const COLCHICINE_INITIAL = "Je veux étudier l’effet de la colchicine après infarctus du myocarde, notamment sur l’inflammation et les lésions en IRM, dans une étude multicentrique comparant colchicine et placebo. Je veux également prévoir des biomarqueurs sanguins et mesurer la taille de l’infarctus à l’IRM.";
 export const COLCHICINE_MODIFICATION = "Je veux faire l’IRM entre J3 et J5 et limiter l’âge à 75 ans.";
 export const COLCHICINE_LATER_MODIFICATION = "Finalement je veux faire l’IRM entre J5 et J7.";
+export const COLCHICINE_03A_INITIAL = "Je veux étudier l'effet de la colchicine après infarctus du myocarde, notamment sur l'inflammation et les lésions en IRM, dans une étude multicentrique comparant colchicine et placebo.";
+export const COLCHICINE_03A_MODIFICATION = "L'âge maximal sera 75 ans et je préfère une IRM entre J3 et J5.";
 
 const boundary = (turnId: string): ContributionEpistemicBoundary => ({
   ownership: "SCIENTIFIC_INTERPRETATION",
@@ -31,7 +33,10 @@ const item = (itemId: string, proposedType: string, content: string, turnId: str
 
 export const makeFunctionalResetContribution = (turns: ScientificInterpretationTurn[]): ScientificInterpretationContributionEnvelope => {
   const firstTurn = turns[0]!.turnId;
+  const firstSource = turns[0]!.content;
   const lastTurn = turns.at(-1)!.turnId;
+  const secondSource = turns[1]?.content ?? "";
+  const lastSource = turns.at(-1)!.content;
   const initialItems = [
     item("condition:idm", "CONDITION", "infarctus du myocarde", firstTurn),
     item("intervention:colchicine", "INTERVENTION", "colchicine", firstTurn, "INTERVENTION_ARM"),
@@ -40,14 +45,14 @@ export const makeFunctionalResetContribution = (turns: ScientificInterpretationT
     item("modality:mri", "MODALITY", "IRM", firstTurn),
     item("measure:inflammation", "MEASURED_VARIABLE", "inflammation", firstTurn),
     item("measure:lesions", "MEASURED_VARIABLE", "lésions myocardiques", firstTurn),
-    item("biomarker:blood", "BIOMARKER", "biomarqueurs sanguins", firstTurn),
-    item("endpoint:infarct-size", "ENDPOINT", "taille de l’infarctus", firstTurn),
+    ...(/biomarqueurs?\s+sanguins?/i.test(firstSource) ? [item("biomarker:blood", "BIOMARKER", "biomarqueurs sanguins", firstTurn)] : []),
+    ...(/taille\s+de\s+l[’']infarctus/i.test(firstSource) ? [item("endpoint:infarct-size", "ENDPOINT", "taille de l’infarctus", firstTurn)] : []),
   ];
   const firstModificationItems = turns.length > 1 ? [
-    ...(turns.length === 2 ? [item("timing:mri", "TEMPORAL_ELEMENT", "IRM entre J3 et J5", turns[1]!.turnId)] : []),
-    item("criterion:age", "POPULATION_CRITERION", "âge maximal 75 ans", turns[1]!.turnId),
+    ...(turns.length === 2 && /J3\s+(?:et|à|-)\s+J5/i.test(secondSource) ? [item("timing:mri", "TEMPORAL_ELEMENT", "IRM entre J3 et J5", turns[1]!.turnId)] : []),
+    ...(/âge[^.]*75|75\s+ans/i.test(secondSource) ? [item("criterion:age", "POPULATION_CRITERION", "âge maximal 75 ans", turns[1]!.turnId)] : []),
   ] : [];
-  const laterModification = turns.length > 2 ? [
+  const laterModification = turns.length > 2 && /J5\s+(?:et|à|-)\s+J7/i.test(lastSource) ? [
     item("timing:mri-v2", "TEMPORAL_ELEMENT", "IRM entre J5 et J7", lastTurn),
   ] : [];
   const allItems = [...initialItems, ...firstModificationItems, ...laterModification];
@@ -87,7 +92,9 @@ export const makeFunctionalResetContribution = (turns: ScientificInterpretationT
         ? "Conserver le projet confirmé et modifier la fenêtre IRM entre J5 et J7."
         : turns.length > 1
           ? "Conserver l’étude confirmée et ajouter une IRM entre J3 et J5 avec un âge maximal de 75 ans."
-          : "Évaluer l’effet de la colchicine après infarctus du myocarde, dans une étude multicentrique versus placebo, avec mesures IRM et biologiques.",
+          : /biomarqueurs?\s+sanguins?/i.test(firstSource)
+            ? "Évaluer l’effet de la colchicine après infarctus du myocarde, dans une étude multicentrique versus placebo, avec mesures IRM et biologiques."
+            : "Évaluer l’effet de la colchicine après infarctus du myocarde, dans une étude multicentrique versus placebo, avec inflammation et lésions en IRM.",
       routeProposal: null,
       explicitStatements: [],
       candidateObjects: allItems.filter((value) => value.proposedType !== "TEMPORAL_ELEMENT"),
