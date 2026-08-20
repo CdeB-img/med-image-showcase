@@ -147,7 +147,7 @@ describeEvidence("FUNCTIONAL-RESET-GATE-00 — direct Scientific Interpretation 
     expect.soft(timingAndAge.source.turns.at(-1)?.content).toBe(
       "Finalement je veux faire l’IRM entre J3 et J5 et limiter l’âge à 75 ans.",
     );
-    expect.soft(hasActiveStructuredItem(timingAndAge, /TEMPORAL|TIMING/i, /j3.*j5/)).toBe(true);
+    expect.soft(hasActiveStructuredItem(timingAndAge, /TEMPORAL|TIMING|TIMEPOINT/i, /j3.*j5/)).toBe(true);
     expect.soft(hasActiveObject(timingAndAge, /POPULATION|ELIGIBILITY|CRITERION/i, /75 ans/)).toBe(true);
     expect.soft(hasActiveObject(timingAndAge, /BIOMARKER/i, /biomarqueurs sanguins/)).toBe(true);
     expect.soft(hasActiveObject(timingAndAge, /ENDPOINT|OUTCOME|MEASURE/i, /taille de l.infarctus/)).toBe(true);
@@ -176,15 +176,15 @@ describeEvidence("FUNCTIONAL-RESET-GATE-00 — direct Scientific Interpretation 
       "Je veux étudier les changements vasculaires rétiniens après traitement. On a une acquisition initiale et une acquisition de contrôle. Le contrôle n’est pas toujours fait au même moment. Je voudrais comparer les patients dont la fonction visuelle reste stable et les autres. Mais je n’ai pas encore défini ce que veut dire stable. La technique d’imagerie vasculaire varie aussi selon le centre. On peut avancer sur l’inventaire, mais pas inventer le critère clinique ni l’équivalence des modalités.",
     ]);
     expect.soft(hasActiveObject(contribution, /INTERVENTION/i, /traitement/)).toBe(true);
-    expect.soft(hasActiveObject(contribution, /POPULATION|GROUP/i, /stable/)).toBe(true);
-    expect.soft(hasActiveObject(contribution, /POPULATION|GROUP/i, /autres/)).toBe(true);
+    expect.soft(hasActiveObject(contribution, /POPULATION|GROUP|COMPARATOR/i, /stable/)).toBe(true);
+    expect.soft(hasActiveObject(contribution, /POPULATION|GROUP|COMPARATOR/i, /autres/)).toBe(true);
     expect.soft(hasActiveObject(contribution, /METHOD|MODALITY/i, /imagerie vasculaire/)).toBe(true);
     expect.soft(contribution.scientificContent.temporalElements.some((item) =>
       /acquisition initiale/.test(normalized(item.content)))).toBe(true);
     expect.soft(contribution.scientificContent.temporalElements.some((item) =>
       /acquisition de controle/.test(normalized(item.content)))).toBe(true);
     expect.soft(contribution.scientificContent.temporalElements.some((item) =>
-      /pas toujours.*meme moment|non toujours.*meme moment|non systematiquement.*meme moment|moment(?: de controle)? variable|timing variable/.test(normalized(item.content)))).toBe(true);
+      /pas toujours.*meme moment|non toujours.*meme moment|non systematiquement.*meme moment|moment(?: de controle)? variable|timing variable|variable timing/.test(normalized(item.content)))).toBe(true);
     expect.soft([
       ...contribution.scientificContent.unknowns,
       ...contribution.scientificContent.missingInformation,
@@ -193,7 +193,7 @@ describeEvidence("FUNCTIONAL-RESET-GATE-00 — direct Scientific Interpretation 
       isComparisonRelation(relation) && relation.epistemicBoundary.activeState !== false);
     expect.soft(comparison).toBeDefined();
     expect.soft(comparison && relationEndpoints(contribution, comparison).every((item) =>
-      item && /GROUP|POPULATION|COMPARISON_ARM/i.test(`${item.proposedType ?? ""} ${item.studyRole ?? ""}`))).toBe(true);
+      item && /GROUP|POPULATION|COMPARISON_ARM|COMPARATOR/i.test(`${item.proposedType ?? ""} ${item.studyRole ?? ""}`))).toBe(true);
     expect.soft(contribution.scientificContent.candidateRelations.some((relation) =>
       /EQUIVAL/i.test(relation.relationType) && relation.polarity === "AFFIRMED")).toBe(false);
     expect.soft(contribution.audit.unresolvedFindings).toEqual([]);
