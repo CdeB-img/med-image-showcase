@@ -136,6 +136,15 @@ export const rememberAuthoritativeResolution = (memory: QueryNavigationMemory, n
   digest: "",
 });
 
+export const rebaseQueryNavigationMemory = (
+  memory: QueryNavigationMemory,
+  projectVersion: string,
+): QueryNavigationMemory => finalizeMemory({
+  ...structuredClone(memory),
+  projectVersion,
+  digest: "",
+});
+
 export const appendNavigationLifecycleEvent = (memory: QueryNavigationMemory, event: Omit<QueryNavigationLifecycleEvent, "eventId" | "sequence" | "projectWriteAuthorized">): QueryNavigationMemory => {
   const nextSequence = memory.events.length ? Math.max(...memory.events.map((item) => item.sequence)) + 1 : 1;
   const nextEvent: QueryNavigationLifecycleEvent = {

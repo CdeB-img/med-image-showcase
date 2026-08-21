@@ -8,13 +8,17 @@ import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
   prepareResearchProjectContributionCandidate,
-  type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 import {
   functionalProtocolProjection,
   markFunctionalResetDocumentFailure,
   refreshFunctionalResetDocumentPortfolio,
 } from "@/features/document-projection";
+import {
+  buildFunctionalResetQueryNavigation,
+  recordFunctionalResetQueryResponse,
+  restateFunctionalResetQueryAfterNoChange,
+} from "@/features/query-navigation";
 import ContributionReview from "./ContributionReview";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
@@ -32,16 +36,11 @@ const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
   : loadFunctionalResetSession(window.localStorage);
 
-const projectProgressMessage = (project: ResearchProjectOwnerProjection) => {
-  const openSections = project.sections
-    .filter((section) => section.state !== "DEFINED")
-    .map((section) => section.label.toLocaleLowerCase("fr-FR"));
-  if (!openSections.length) return "La structure actuelle ne comporte plus de section générale signalée comme ouverte.";
-  const readable = openSections.length === 1
-    ? openSections[0]
-    : `${openSections.slice(0, -1).join(", ")} et ${openSections.at(-1)}`;
-  return `Il reste principalement à préciser : ${readable}.\n\nVous pouvez poursuivre librement et regrouper plusieurs précisions dans un même message. Une réponse partielle suffit.`;
-};
+const documentBlockerSignals = (documents: FunctionalResetSession["documents"]) =>
+  documents.cards.flatMap((card) => card.blockerGroups.map((group) => ({
+    dimension: group.dimension,
+    items: [...group.items],
+  })));
 
 export default function ProtocolDesignerWorkspace() {
   const [session, setSession] = useState<FunctionalResetSession>(loadInitialSession);
@@ -72,8 +71,19 @@ export default function ProtocolDesignerWorkspace() {
     const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
     const runtimeTurns = [...session.runtimeTurns, userTurn];
     const previousContribution = session.pendingContribution ?? session.currentContribution;
+    const queryNavigation = session.queryNavigation
+      ? recordFunctionalResetQueryResponse({
+        navigation: session.queryNavigation,
+        rawResponse: content,
+        actorRef: session.projectAuthority.actorRef,
+        actorRole: "RESEARCHER",
+        receivedAt: now,
+        responseId: createConversationEntryId(),
+      })
+      : null;
     const withUser: FunctionalResetSession = {
       ...session,
+      queryNavigation,
       runtimeTurns,
       entries: [...session.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: now }],
       updatedAt: now,
@@ -90,19 +100,38 @@ export default function ProtocolDesignerWorkspace() {
       const receivedAt = new Date().toISOString();
       const candidate = prepareResearchProjectContributionCandidate(response.contribution, session.project);
       if (session.project && candidate.changeSet.status === "NO_NET_CHANGE") {
-        setSession((current) => ({
-          ...current,
-          currentContribution: response.contribution,
-          pendingContribution: null,
-          entries: [...current.entries, {
-            entryId: createConversationEntryId(),
-            kind: "TEXT",
-            role: "NOXIA",
-            content: candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
-            createdAt: receivedAt,
-          }],
-          updatedAt: receivedAt,
-        }));
+        setSession((current) => {
+          const queryNavigation = current.queryNavigation
+            ? restateFunctionalResetQueryAfterNoChange({ navigation: current.queryNavigation, recordedAt: receivedAt })
+            : null;
+          const question = queryNavigation?.standardQuestion
+            ? `${queryNavigation.standardQuestion.priorityLead}\n\n${queryNavigation.standardQuestion.text}`
+            : null;
+          return {
+            ...current,
+            queryNavigation,
+            currentContribution: response.contribution,
+            pendingContribution: null,
+            entries: [
+              ...current.entries,
+              {
+                entryId: createConversationEntryId(),
+                kind: "TEXT",
+                role: "NOXIA",
+                content: candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
+                createdAt: receivedAt,
+              },
+              ...(question ? [{
+                entryId: createConversationEntryId(),
+                kind: "TEXT" as const,
+                role: "NOXIA" as const,
+                content: question,
+                createdAt: receivedAt,
+              }] : []),
+            ],
+            updatedAt: receivedAt,
+          };
+        });
         return;
       }
       setSession((current) => ({
@@ -156,10 +185,22 @@ export default function ProtocolDesignerWorkspace() {
         documents = markFunctionalResetDocumentFailure(project, session.documents, error);
         documentWarning = true;
       }
-      const feedback = `${session.project ? "Projet mis à jour." : "Projet créé."}\n\n${projectProgressMessage(project)}`;
+      const queryNavigation = buildFunctionalResetQueryNavigation({
+        project,
+        previous: session.queryNavigation,
+        documentBlockers: documentBlockerSignals(documents),
+        recordedAt: now,
+      });
+      const nextQuestion = queryNavigation.standardQuestion
+        ? `${queryNavigation.standardQuestion.priorityLead}\n\n${queryNavigation.standardQuestion.text}`
+        : null;
+      const feedback = [session.project ? "Projet mis à jour." : "Projet créé.", nextQuestion]
+        .filter((value): value is string => Boolean(value))
+        .join("\n\n");
       setSession((current) => ({
         ...current,
         project,
+        queryNavigation,
         documents,
         currentContribution: contribution,
         pendingContribution: null,
@@ -235,21 +276,6 @@ export default function ProtocolDesignerWorkspace() {
     }
   };
 
-  const deferProtocolProjection = () => {
-    const now = new Date().toISOString();
-    setSession((current) => ({
-      ...current,
-      entries: [...current.entries, {
-        entryId: createConversationEntryId(),
-        kind: "TEXT",
-        role: "NOXIA",
-        content: "D’accord. Vous pouvez continuer à préciser le projet librement et créer l’aperçu plus tard.",
-        createdAt: now,
-      }],
-      updatedAt: now,
-    }));
-  };
-
   const requestCorrection = () => {
     setCorrectionMode(true);
     composerRef.current?.focus();
@@ -271,7 +297,6 @@ export default function ProtocolDesignerWorkspace() {
     documents={session.documents}
     onOpenProtocol={(projectionId) => setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }))}
     onRequestProtocol={requestProtocolProjection}
-    onDeferProtocol={deferProtocolProjection}
   />;
 
   return <main id="demo-main" className="min-h-screen bg-muted/30 text-foreground" data-testid="functional-reset-workspace">

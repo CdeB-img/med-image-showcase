@@ -10,10 +10,9 @@ type Props = {
   documents: FunctionalResetDocumentPortfolio;
   onOpenProtocol: (projectionId: string) => void;
   onRequestProtocol: () => void;
-  onDeferProtocol: () => void;
 };
 
-export default function ResearchProjectPanel({ project, documents, onOpenProtocol, onRequestProtocol, onDeferProtocol }: Props) {
+export default function ResearchProjectPanel({ project, documents, onOpenProtocol, onRequestProtocol }: Props) {
   const sections = project?.sections ?? emptyResearchProjectSections();
   const standardQuestion = project ? researchProjectQuestionPresentation(sections) : null;
   const protocol = documents.cards.find((document) => document.kind === "PROTOCOL");
@@ -72,7 +71,6 @@ export default function ResearchProjectPanel({ project, documents, onOpenProtoco
                 : "Souhaitez-vous créer un premier aperçu du protocole de travail ?"}</p>
               <div className="mt-2 flex flex-wrap gap-2">
                 <button type="button" onClick={onRequestProtocol} className="min-h-10 rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground">{protocol.freshness === "STALE" ? "Actualiser l’aperçu" : "Créer l’aperçu"}</button>
-                <button type="button" onClick={onDeferProtocol} className="min-h-10 rounded-lg border px-3 text-xs font-medium">Continuer le projet</button>
               </div>
             </div>}
           </article>

@@ -12,3 +12,4 @@ export * from "./lifecycle-validation";
 export * from "./product-contracts";
 export * from "./product";
 export * from "./closure";
+export * from "./functional-reset-progression";
