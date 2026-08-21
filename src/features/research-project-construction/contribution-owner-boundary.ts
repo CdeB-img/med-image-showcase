@@ -159,8 +159,6 @@ const structuredProjectItems = (contribution: ScientificInterpretationContributi
   return [
     ...content.candidateObjects,
     ...content.temporalElements,
-    ...content.unknowns,
-    ...content.missingInformation,
   ];
 };
 
@@ -191,24 +189,48 @@ export const sectionForContributionItem = (
   return null;
 };
 
-const itemContext = (item: ScientificContributionItem, contribution: ScientificInterpretationContributionEnvelope) => [
+const itemLocalContext = (item: ScientificContributionItem) => [
   item.semanticIdentity,
   item.content,
   item.epistemicBoundary.sourceText,
+  item.proposedType,
+  item.studyRole,
+].filter((value): value is string => Boolean(value)).join(" ");
+
+const itemContext = (item: ScientificContributionItem, contribution: ScientificInterpretationContributionEnvelope) => [
+  itemLocalContext(item),
   ...contribution.source.turns
     .filter((turn) => item.epistemicBoundary.sourceTurnIds.includes(turn.turnId))
     .map((turn) => turn.content),
 ].filter((value): value is string => Boolean(value)).join(" ");
 
 const ageCriterion = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope) => {
-  const context = folded(itemContext(item, contribution));
+  const localContext = folded(itemLocalContext(item));
+  const fallbackContext = folded(itemContext(item, contribution));
+  const context = /\bage\b/.test(localContext) ? localContext : fallbackContext;
   if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION/.test(typeOf(item)) || !/\bage\b/.test(context)) return null;
-  const value = context.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*ans?\b/)?.[1]?.replace(",", ".") ?? null;
-  const direction = /\b(?:maxim\w*|au plus|limiter|limite superieure|moins de)\b/.test(context)
-    ? "max"
-    : /\b(?:minim\w*|au moins|a partir de|limite inferieure)\b/.test(context)
-      ? "min"
-      : "criterion";
+  const directionIn = (value: string) => /\b(?:maxim\w*|au plus|jusqu a|limiter|limite superieure|moins de)\b/.test(value)
+    ? "max" as const
+    : /\b(?:minim\w*|au moins|a partir de|limite inferieure)\b/.test(value)
+      ? "min" as const
+      : null;
+  const localValues = [...localContext.matchAll(/\b(\d{1,3}(?:[.,]\d+)?)\s*ans?\b/g)]
+    .map((match) => match[1]?.replace(",", "."))
+    .filter((value): value is string => Boolean(value));
+  const fallbackValues = [...fallbackContext.matchAll(/\b(\d{1,3}(?:[.,]\d+)?)\s*ans?\b/g)]
+    .map((match) => match[1]?.replace(",", "."))
+    .filter((value): value is string => Boolean(value));
+  const localDirection = directionIn(localContext);
+  const atomicLocalValue = localValues.length === 1 ? localValues[0]! : null;
+  const expressedRange = fallbackContext.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:a|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*ans?\b/);
+  const rangeDirection = atomicLocalValue && expressedRange
+    ? atomicLocalValue === expressedRange[1]?.replace(",", ".") ? "min" as const
+      : atomicLocalValue === expressedRange[2]?.replace(",", ".") ? "max" as const
+        : null
+    : null;
+  const direction = localDirection ?? rangeDirection ?? directionIn(fallbackContext) ?? "criterion";
+  const values = localValues.length ? localValues : fallbackValues;
+  const value = direction === "max" ? values.at(-1) ?? null : values[0] ?? null;
   const label = direction === "max" ? "Âge maximal" : direction === "min" ? "Âge minimal" : "Âge";
   return {
     semanticKey: `POPULATION:ELIGIBILITY:AGE:${direction.toLocaleUpperCase("fr-FR")}`,
@@ -216,15 +238,42 @@ const ageCriterion = (item: ScientificContributionItem, sectionId: ResearchProje
   };
 };
 
+type TemporalOccurrenceRole = "INITIAL" | "FOLLOW_UP" | "WINDOW";
+
+const temporalOccurrenceRole = (item: ScientificContributionItem): TemporalOccurrenceRole => {
+  const context = folded(itemLocalContext(item));
+  if (/\b(?:follow up|suivi|controle|control|subsequent|repeat)\b/.test(context)) return "FOLLOW_UP";
+  if (/\b(?:initial|baseline|aigu|acute)\b/.test(context)) return "INITIAL";
+  return "WINDOW";
+};
+
+const temporalModality = (context: string) => {
+  if (/\b(?:irm|mri)\b/.test(context)) return "IRM";
+  if (/\b(?:ct|scanner)\b/.test(context)) return "CT";
+  if (/\b(?:tep|pet)\b/.test(context)) return "TEP";
+  if (/\b(?:echograph|ultrasound)\b/.test(context)) return "Échographie";
+  return "Mesure";
+};
+
 const timingCriterion = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope) => {
   if (sectionId !== "TEMPORALITY") return null;
   const context = folded(itemContext(item, contribution));
-  const range = context.match(/\bj\s*(\d+)\s*(?:et|a|-)\s*j\s*(\d+)\b/);
-  if (!range) return null;
-  const modality = /\b(?:irm|mri)\b/.test(context) ? "IRM" : "Fenêtre";
+  const localContext = folded(itemLocalContext(item));
+  const localRange = localContext.match(/\bj\s*(\d+)\s*(?:et|a|-)\s*j\s*(\d+)\b/);
+  const duration = localContext.match(/\b(\d+(?:[.,]\d+)?)\s*(mois|month(?:s)?|semaines?|weeks?|jours?|days?|ans?|years?)\b/);
+  const range = localRange ?? (duration ? null : context.match(/\bj\s*(\d+)\s*(?:et|a|-)\s*j\s*(\d+)\b/));
+  if (!range && !duration) return null;
+  const modality = temporalModality(context);
+  const role = temporalOccurrenceRole(item);
+  const label = role === "INITIAL" ? `${modality} initiale`
+    : role === "FOLLOW_UP" ? `${modality} de suivi`
+      : modality;
+  const value = range
+    ? `J${range[1]}–J${range[2]}`
+    : `${duration![1]!.replace(",", ".")} ${duration![2]!.toLocaleLowerCase("fr-FR")}`;
   return {
-    semanticKey: `TEMPORALITY:${modality.toLocaleUpperCase("fr-FR")}:WINDOW`,
-    content: `${modality} : J${range[1]}–J${range[2]}`,
+    semanticKey: `TEMPORALITY:${folded(modality).toLocaleUpperCase("fr-FR")}:${role}`,
+    content: `${label} : ${value}`,
   };
 };
 
@@ -267,7 +316,9 @@ const semanticKeyForElement = (sectionId: ResearchProjectSectionId, element: Res
     return `POPULATION:ELIGIBILITY:AGE:${direction}`;
   }
   if (sectionId === "TEMPORALITY" && /\bj\s*\d+/.test(context)) {
-    return `TEMPORALITY:${/\b(?:irm|mri)\b/.test(context) ? "IRM" : "WINDOW"}:WINDOW`;
+    const role = /\b(?:follow up|suivi|controle|control)\b/.test(context) ? "FOLLOW_UP"
+      : /\b(?:initial|baseline|aigu|acute)\b/.test(context) ? "INITIAL" : "WINDOW";
+    return `TEMPORALITY:${/\b(?:irm|mri)\b/.test(context) ? "IRM" : "MEASURE"}:${role}`;
   }
   return `${sectionId}:${folded(element.sourceProposedType ?? element.sourceStudyRole ?? "ITEM")}:${folded(element.elementId)}`;
 };
@@ -278,6 +329,8 @@ const elementValueKey = (sectionId: ResearchProjectSectionId, element: ResearchP
   if (sectionId === "TEMPORALITY") {
     const range = context.match(/\bj\s*(\d+)\s*(?:et|a|-|–)\s*j\s*(\d+)\b/);
     if (range) return `j${range[1]}-j${range[2]}`;
+    const duration = context.match(/\b(\d+(?:[.,]\d+)?)\s*(mois|month(?:s)?|semaines?|weeks?|jours?|days?|ans?|years?)\b/);
+    if (duration) return `${duration[1]!.replace(",", ".")}-${duration[2]}`;
   }
   return context;
 };
@@ -431,6 +484,23 @@ const currentElements = (current: ResearchProjectOwnerProjection | null) => (cur
   .filter((section) => section.sectionId !== "QUESTION")
   .flatMap((section) => section.elements.map((element) => ({ sectionId: section.sectionId, element })));
 
+const temporalSemanticParts = (sectionId: ResearchProjectSectionId, element: ResearchProjectElement) => {
+  if (sectionId !== "TEMPORALITY") return null;
+  const match = semanticKeyForElement(sectionId, element).match(/^TEMPORALITY:([^:]+):(INITIAL|FOLLOW_UP|WINDOW)$/);
+  return match ? { modality: match[1]!, role: match[2]! as TemporalOccurrenceRole } : null;
+};
+
+const sameTemporalOccurrence = (
+  previous: { sectionId: ResearchProjectSectionId; element: ResearchProjectElement },
+  proposed: { sectionId: ResearchProjectSectionId; element: ResearchProjectElement },
+) => {
+  const previousParts = temporalSemanticParts(previous.sectionId, previous.element);
+  const proposedParts = temporalSemanticParts(proposed.sectionId, proposed.element);
+  if (!previousParts || !proposedParts || previousParts.modality !== proposedParts.modality) return false;
+  if (previousParts.role === proposedParts.role) return true;
+  return previousParts.role === "WINDOW" && proposedParts.role === "INITIAL";
+};
+
 const removalTargetMatchesProjectElement = (input: {
   target: ScientificContributionItem;
   targetElement: ResearchProjectElement | null;
@@ -473,8 +543,10 @@ const buildContributionProjectChangeSet = (
   const changes: ContributionProjectChange[] = [];
 
   for (const proposed of proposedThisTurn) {
-    const match = previous.find((candidate) => candidate.sectionId === proposed.sectionId
+    const exactMatch = previous.find((candidate) => candidate.sectionId === proposed.sectionId
       && semanticKeyForElement(candidate.sectionId, candidate.element) === semanticKeyForElement(proposed.sectionId, proposed.element));
+    const compatibleTemporalMatches = exactMatch ? [] : previous.filter((candidate) => sameTemporalOccurrence(candidate, proposed));
+    const match = exactMatch ?? (compatibleTemporalMatches.length === 1 ? compatibleTemporalMatches[0] : undefined);
     if (!match) {
       changes.push(projectChange({ operation: "ADD", sectionId: proposed.sectionId, previous: null, proposed: proposed.element, contribution, rationale: "Nouvel objet structuré explicite absent du Project courant." }));
       continue;

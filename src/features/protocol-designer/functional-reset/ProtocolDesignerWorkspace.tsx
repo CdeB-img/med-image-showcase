@@ -16,6 +16,7 @@ import {
 } from "@/features/document-projection";
 import {
   buildFunctionalResetQueryNavigation,
+  deferFunctionalResetQueryNavigation,
   recordFunctionalResetQueryResponse,
   restateFunctionalResetQueryAfterNoChange,
 } from "@/features/query-navigation";
@@ -31,6 +32,7 @@ import {
   persistFunctionalResetSession,
   type FunctionalResetSession,
 } from "./session";
+import { classifyFunctionalResetQueryDeferral } from "./query-deferral";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -94,15 +96,49 @@ export default function ProtocolDesignerWorkspace() {
     setBusy(true);
     try {
       const response = await requestScientificInterpretationRuntime({
-        conversation: { conversationId: session.conversationId, language: "fr", turns: runtimeTurns },
+        conversation: {
+          conversationId: session.conversationId,
+          language: "fr",
+          turns: runtimeTurns,
+          ...(queryNavigation?.currentAction && queryNavigation.currentPresentation ? {
+            interactionContext: {
+              interactionRef: queryNavigation.currentPresentation.presentationId,
+              sourceActionRef: queryNavigation.currentAction.selectedActionId,
+              owner: "QUERY_NAVIGATION",
+              purpose: queryNavigation.currentPresentation.intent,
+              expectedResponseKind: "QRY_INFORMATION_RESPONSE" as const,
+              targetRefs: [queryNavigation.currentAction.targetRef],
+              informationNeedRefs: [...queryNavigation.currentAction.navigationNeedRefs],
+              projectRef: queryNavigation.projectRef,
+              projectVersion: queryNavigation.projectVersion,
+              projectDigest: queryNavigation.projectDigest,
+            },
+          } : {}),
+        },
         previousContribution,
       });
       const receivedAt = new Date().toISOString();
       const candidate = prepareResearchProjectContributionCandidate(response.contribution, session.project);
+      const deferralReason = queryNavigation ? classifyFunctionalResetQueryDeferral({
+        contribution: response.contribution,
+        sourceTurnId: userTurn.turnId,
+        rawResponse: content,
+      }) : null;
+      const navigationAfterInterpretation = queryNavigation && deferralReason
+        ? deferFunctionalResetQueryNavigation({ navigation: queryNavigation, reason: deferralReason, recordedAt: receivedAt })
+        : queryNavigation;
       if (session.project && candidate.changeSet.status === "NO_NET_CHANGE") {
         setSession((current) => {
-          const queryNavigation = current.queryNavigation
-            ? restateFunctionalResetQueryAfterNoChange({ navigation: current.queryNavigation, recordedAt: receivedAt })
+          const queryNavigation = navigationAfterInterpretation
+            ? deferralReason
+              ? buildFunctionalResetQueryNavigation({
+                project: session.project!,
+                previous: navigationAfterInterpretation,
+                documentBlockers: documentBlockerSignals(current.documents),
+                recordedAt: receivedAt,
+                forceRebuild: true,
+              })
+              : restateFunctionalResetQueryAfterNoChange({ navigation: navigationAfterInterpretation, recordedAt: receivedAt })
             : null;
           const question = queryNavigation?.standardQuestion
             ? `${queryNavigation.standardQuestion.priorityLead}\n\n${queryNavigation.standardQuestion.text}`
@@ -118,7 +154,9 @@ export default function ProtocolDesignerWorkspace() {
                 entryId: createConversationEntryId(),
                 kind: "TEXT",
                 role: "NOXIA",
-                content: candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
+                content: deferralReason
+                  ? "Ce point reste ouvert dans le projet, mais il est mis de côté pour le moment."
+                  : candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
                 createdAt: receivedAt,
               },
               ...(question ? [{
@@ -126,6 +164,12 @@ export default function ProtocolDesignerWorkspace() {
                 kind: "TEXT" as const,
                 role: "NOXIA" as const,
                 content: question,
+                createdAt: receivedAt,
+              }] : deferralReason ? [{
+                entryId: createConversationEntryId(),
+                kind: "TEXT" as const,
+                role: "NOXIA" as const,
+                content: "Les autres dimensions sont suffisamment avancées pour le moment. Nous pourrons revenir à ce point plus tard, ou vous pouvez continuer à modifier librement le projet.",
                 createdAt: receivedAt,
               }] : []),
             ],
@@ -136,6 +180,7 @@ export default function ProtocolDesignerWorkspace() {
       }
       setSession((current) => ({
         ...current,
+        queryNavigation: navigationAfterInterpretation,
         pendingContribution: response.contribution,
         entries: [...current.entries, {
           entryId: createConversationEntryId(),

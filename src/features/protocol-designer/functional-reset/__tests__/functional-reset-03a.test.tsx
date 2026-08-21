@@ -55,6 +55,9 @@ const storedSession = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RE
       boundary: string;
     }>;
   };
+  queryNavigation: {
+    memory: { events: Array<{ eventType: string; reason: string }> };
+  } | null;
 };
 
 describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
@@ -146,7 +149,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     expect(within(proposal).getByText("+ IRM : J3–J5")).toBeInTheDocument();
   });
 
-  it("FR03A-C06 — une réponse partielle conserve les inconnues", async () => {
+  it("FR03A-C06 — une réponse partielle conserve les inconnues sans les promouvoir dans le Project", async () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
@@ -183,18 +186,25 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
       };
     });
     submit("Le critère principal reste à définir.");
-    await screen.findByText(/Critère principal encore à définir/);
-    confirm();
+    await screen.findByText(/Ce point reste ouvert dans le projet/);
+    expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).toBeNull();
 
     const session = storedSession();
     expect(session.currentContribution?.scientificContent.unknowns).toEqual([
       expect.objectContaining({ content: "critère principal encore à définir", polarity: "UNKNOWN" }),
     ]);
+    expect(session.project?.revision).toBe(1);
     expect(session.project!.sections.flatMap((section) => section.elements)).toEqual(expect.arrayContaining([
-      expect.objectContaining({ content: "critère principal encore à définir", sourcePolarity: "UNKNOWN" }),
       expect.objectContaining({ content: "colchicine" }),
       expect.objectContaining({ content: "placebo" }),
     ]));
+    expect(session.project!.sections.flatMap((section) => section.elements)).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ content: "critère principal encore à définir" }),
+    ]));
+    expect(session.queryNavigation?.memory.events).toContainEqual(expect.objectContaining({
+      eventType: "ACTION_DEFERRED",
+      reason: "USER_DOES_NOT_KNOW",
+    }));
   });
 
   it("FR03A-C07 — le Project Panel reste visible dans la boucle", async () => {

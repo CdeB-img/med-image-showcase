@@ -34,6 +34,10 @@ import { buildQuestionResponseEnvelope, routeNavigationResponse } from "./respon
 
 export const FUNCTIONAL_RESET_QRY_BOUNDARY = "QRY_001_FUNCTIONAL_RESET_STANDARD_ADAPTER" as const;
 
+export type FunctionalResetQueryDeferralReason =
+  | "USER_DOES_NOT_KNOW"
+  | "USER_REQUESTED_TO_MOVE_ON";
+
 export type FunctionalResetDocumentBlockerSignal = {
   dimension: string;
   items: string[];
@@ -395,21 +399,53 @@ const resolveNeedsNoLongerOpen = (
 ) => Object.keys(previousNeedSections).reduce((current, needRef) =>
   currentNeedRefs.includes(needRef) ? current : rememberAuthoritativeResolution(current, needRef, resolutionRef), memory);
 
+const actionForEvent = (memory: QueryNavigationMemory, actionRef: string) =>
+  memory.selectedActions.find((action) => action.selectedActionId === actionRef) ?? null;
+
+const activeDeferredBranchRefs = (memory: QueryNavigationMemory) => {
+  const deferred = new Set<string>();
+  for (const event of memory.events.filter((candidate) => candidate.eventType === "ACTION_DEFERRED")) {
+    const action = actionForEvent(memory, event.actionRef);
+    if (!action) continue;
+    const laterEvents = memory.events.filter((candidate) => candidate.sequence > event.sequence);
+    const reopened = laterEvents.some((candidate) => candidate.eventType === "ACTION_REOPENED"
+      && actionForEvent(memory, candidate.actionRef)?.affectedBranchRefs.some((ref) => action.affectedBranchRefs.includes(ref)));
+    const distinctActionAnswered = laterEvents.some((candidate) => {
+      if (candidate.eventType !== "RESPONSE_RECEIVED") return false;
+      const answered = actionForEvent(memory, candidate.actionRef);
+      return answered !== null && !answered.affectedBranchRefs.some((ref) => action.affectedBranchRefs.includes(ref));
+    });
+    if (!reopened && !distinctActionAnswered) action.affectedBranchRefs.forEach((ref) => deferred.add(ref));
+  }
+  return deferred;
+};
+
+const candidatesOutsideImmediateDeferral = (
+  candidates: NextActionCandidate[],
+  memory: QueryNavigationMemory,
+) => {
+  const deferredBranches = activeDeferredBranchRefs(memory);
+  if (!deferredBranches.size) return candidates;
+  return candidates.filter((candidate) =>
+    !candidate.affectedBranchRefs.some((ref) => deferredBranches.has(ref)));
+};
+
 export const buildFunctionalResetQueryNavigation = (input: {
   project: Readonly<ResearchProjectOwnerProjection>;
   previous?: Readonly<FunctionalResetQueryNavigation> | null;
   documentBlockers?: FunctionalResetDocumentBlockerSignal[];
   recordedAt: string;
   wordingProposal?: FunctionalResetQuestionWordingProposal | null;
+  forceRebuild?: boolean;
 }): FunctionalResetQueryNavigation => {
-  if (input.previous
+  if (!input.forceRebuild && input.previous
     && input.previous.projectVersion === input.project.versionId
     && input.previous.projectDigest === input.project.projectDigest) return structuredClone(input.previous);
 
   let memory = input.previous
     ? rebaseQueryNavigationMemory(input.previous.memory, input.project.versionId)
     : createQueryNavigationMemory(input.project.projectId, input.project.versionId);
-  if (input.previous?.currentAction) {
+  if (input.previous?.currentAction && input.previous.projectVersion !== input.project.versionId) {
     memory = recordLifecycleEvent(memory, {
       eventType: "ACTION_SUPERSEDED",
       actionRef: input.previous.currentAction.selectedActionId,
@@ -452,11 +488,12 @@ export const buildFunctionalResetQueryNavigation = (input: {
     ],
   });
   const individualCandidates = buildNextActionCandidates(context, selectNextAction(context).needs);
-  const selection = selectNextAction(context, groupCandidatesByScientificDimension(
+  const groupedCandidates = groupCandidatesByScientificDimension(
     input.project,
     individualCandidates,
     input.documentBlockers ?? [],
-  ));
+  );
+  const selection = selectNextAction(context, candidatesOutsideImmediateDeferral(groupedCandidates, memory));
   const needSections = Object.fromEntries(selection.needs.flatMap((need) => {
     const decisionRef = need.affectedDecisionRefs.find((ref) => ref.startsWith("project-section:"));
     return decisionRef ? [[need.needId, decisionRef.replace("project-section:", "") as ResearchProjectSectionId]] : [];
@@ -543,6 +580,65 @@ export const buildFunctionalResetQueryNavigation = (input: {
     sourceOfTruth: false,
     projectWriteAuthorized: false,
   };
+};
+
+export const deferFunctionalResetQueryNavigation = (input: {
+  navigation: Readonly<FunctionalResetQueryNavigation>;
+  reason: FunctionalResetQueryDeferralReason;
+  recordedAt: string;
+}): FunctionalResetQueryNavigation => {
+  const action = input.navigation.currentAction;
+  if (!action) return structuredClone(input.navigation);
+  const response = input.navigation.memory.responses.at(-1) ?? null;
+  const memory = recordLifecycleEvent(input.navigation.memory, {
+    eventType: "ACTION_DEFERRED",
+    actionRef: action.selectedActionId,
+    presentationRef: input.navigation.currentPresentation?.presentationId ?? null,
+    responseRef: response?.responseId ?? null,
+    projectRef: input.navigation.projectRef,
+    projectVersion: input.navigation.projectVersion,
+    sourceStateDigest: input.navigation.sourceStateDigest,
+    reason: input.reason,
+    evidenceRefs: [
+      ...action.navigationNeedRefs,
+      ...(response ? [response.responseId] : []),
+    ],
+    recordedAt: input.recordedAt,
+  });
+  return { ...structuredClone(input.navigation), memory };
+};
+
+export const reopenFunctionalResetQueryDeferral = (input: {
+  navigation: Readonly<FunctionalResetQueryNavigation>;
+  sectionId: ResearchProjectSectionId;
+  recordedAt: string;
+}): FunctionalResetQueryNavigation => {
+  let memory = structuredClone(input.navigation.memory);
+  const deferredActionRefs = memory.events
+    .filter((event) => event.eventType === "ACTION_DEFERRED")
+    .map((event) => event.actionRef)
+    .filter((actionRef, index, refs) => refs.indexOf(actionRef) === index)
+    .filter((actionRef) => {
+      const action = actionForEvent(memory, actionRef);
+      return action ? sectionsForAction(action).includes(input.sectionId) : false;
+    });
+  for (const actionRef of deferredActionRefs) {
+    const action = actionForEvent(memory, actionRef);
+    if (!action) continue;
+    memory = recordLifecycleEvent(memory, {
+      eventType: "ACTION_REOPENED",
+      actionRef,
+      presentationRef: memory.presentations.find((item) => item.selectedActionRef === actionRef)?.presentationId ?? null,
+      responseRef: null,
+      projectRef: input.navigation.projectRef,
+      projectVersion: input.navigation.projectVersion,
+      sourceStateDigest: input.navigation.sourceStateDigest,
+      reason: "EXPLICIT_USER_REQUEST_TO_REVISIT_DEFERRED_DIMENSION",
+      evidenceRefs: action.navigationNeedRefs,
+      recordedAt: input.recordedAt,
+    });
+  }
+  return { ...structuredClone(input.navigation), memory };
 };
 
 export const restateFunctionalResetQueryAfterNoChange = (input: {
