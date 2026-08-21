@@ -173,8 +173,8 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
 
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV2).getByText("Aperçu produit à partir du Research Project version 2.")).toBeInTheDocument();
-    expect(within(previewV2).getAllByText(/âge maximal\s*:?\s*75 ans/i).length).toBeGreaterThan(0);
-    expect(within(previewV2).getAllByText(/IRM\s*:?\s*J3.?J5/i).length).toBeGreaterThan(0);
+    expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);
+    expect(within(previewV2).getByRole("heading", { name: "Temporalité" }).closest("article")).toHaveTextContent(/IRM\s*J3.?J5/i);
     const storedV2 = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
     expect(storedV2.documents.projections).toHaveLength(2);
     expect(storedV2.documents.projections[1].source.projectVersion).toBe(storedV2.project.versionId);

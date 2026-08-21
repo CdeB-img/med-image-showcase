@@ -71,6 +71,12 @@ const hasType = (element: ResearchProjectElement, pattern: RegExp) => pattern.te
 const refs = (element: ResearchProjectElement) => uniqueSorted([element.elementId, ...element.sourceItemIds, ...element.sourceTurnIds]);
 const allElements = (project: ResearchProjectOwnerProjection) => project.sections.flatMap((section) => section.elements);
 
+const temporalRoleFor = (element: ResearchProjectElement): ResearchProjectDesignResult["visits"][number]["temporalRole"] => {
+  if (element.semanticKey?.endsWith(":INITIAL")) return "BASELINE";
+  if (element.semanticKey?.endsWith(":FOLLOW_UP")) return "FOLLOW_UP";
+  return "SINGLE_ASSESSMENT";
+};
+
 const missingFromProject = (project: ResearchProjectOwnerProjection) => project.sections
   .filter((section) => section.state === "TO_CLARIFY")
   .map((section) => `${section.label} : information à préciser dans le Research Project.`);
@@ -225,7 +231,7 @@ export const projectDocumentSourceFromFunctionalProject = (
     visits: timingElements.map((item) => ({
       visitId: item.elementId,
       label: "Temporalité confirmée",
-      temporalRole: "SINGLE_ASSESSMENT" as const,
+      temporalRole: temporalRoleFor(item),
       timingValue: item.content,
       timingStatus: "KNOWN" as const,
       justification: "Fenêtre temporelle explicitement confirmée dans le Research Project.",
@@ -239,7 +245,7 @@ export const projectDocumentSourceFromFunctionalProject = (
       anchor: timingElements[0]?.content ?? null,
       biologicalWindows: timingElements.map((item) => item.content),
       operationalWindows: [],
-      repeatedMeasures: false,
+      repeatedMeasures: timingElements.length > 1,
       unknowns: timingElements.length ? [] : ["La temporalité du projet reste à préciser."],
     },
     endpointCandidates: endpoints,
@@ -284,7 +290,7 @@ export const projectDocumentSourceFromFunctionalProject = (
       endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
       variableIds: variables.map((variable) => variable.variableId),
       timingIds: timingElements.map((item) => item.elementId),
-      repeatedMeasures: false,
+      repeatedMeasures: timingElements.length > 1,
       multicenterStructure: designElements.map((item) => item.content).join(" ; "),
       analysisPurposes: analysisElements.map((item) => item.content),
       knownAssumptions: [],
