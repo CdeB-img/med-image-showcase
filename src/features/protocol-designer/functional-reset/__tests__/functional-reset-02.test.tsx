@@ -173,19 +173,19 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
 
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
     expect(within(previewV2).getByText("Aperçu produit à partir du Research Project version 2.")).toBeInTheDocument();
-    expect(within(previewV2).getAllByText(/âge maximal 75 ans/i).length).toBeGreaterThan(0);
-    expect(within(previewV2).getAllByText(/IRM entre J3 et J5/i).length).toBeGreaterThan(0);
+    expect(within(previewV2).getAllByText(/âge maximal\s*:?\s*75 ans/i).length).toBeGreaterThan(0);
+    expect(within(previewV2).getAllByText(/IRM\s*:?\s*J3.?J5/i).length).toBeGreaterThan(0);
     const storedV2 = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
     expect(storedV2.documents.projections).toHaveLength(2);
     expect(storedV2.documents.projections[1].source.projectVersion).toBe(storedV2.project.versionId);
 
     fireEvent.click(within(previewV2).getByRole("button", { name: "Retour à la conversation" }));
     submit(COLCHICINE_LATER_MODIFICATION);
-    await screen.findByText("• IRM entre J5 et J7");
+    await screen.findByText("IRM : J3–J5 → J5–J7");
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     expect(await within(projectPanel).findByText("Version 3")).toBeInTheDocument();
-    expect(within(projectPanel).getByText("IRM entre J5 et J7")).toBeInTheDocument();
-    expect(within(projectPanel).queryByText("IRM entre J3 et J5")).toBeNull();
+    expect(within(projectPanel).getByText("IRM : J5–J7")).toBeInTheDocument();
+    expect(within(projectPanel).queryByText("IRM : J3–J5")).toBeNull();
     expect(within(projectPanel).getByText("Aperçu à actualiser")).toBeInTheDocument();
 
     firstRender.unmount();

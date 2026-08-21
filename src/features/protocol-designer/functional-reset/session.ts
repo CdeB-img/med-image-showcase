@@ -5,6 +5,7 @@ import type {
 import type {
   ResearchProjectOwnerAuthority,
   ResearchProjectOwnerProjection,
+  ResearchProjectContributionCandidate,
 } from "@/features/research-project-construction";
 import {
   createEmptyFunctionalResetDocumentPortfolio,
@@ -16,7 +17,7 @@ export const INITIAL_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que v
 
 export type ConversationEntry =
   | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; createdAt: string }
-  | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; status: "PENDING" | "CONFIRMED"; createdAt: string }
+  | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; status: "PENDING" | "CONFIRMED"; createdAt: string }
   | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string };
 
 export type FunctionalResetSession = {

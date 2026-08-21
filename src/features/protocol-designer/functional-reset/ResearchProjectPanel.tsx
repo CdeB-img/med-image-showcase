@@ -1,6 +1,7 @@
 import type { FunctionalResetDocumentPortfolio } from "@/features/document-projection";
 import {
   emptyResearchProjectSections,
+  researchProjectQuestionPresentation,
   type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 
@@ -14,6 +15,7 @@ type Props = {
 
 export default function ResearchProjectPanel({ project, documents, onOpenProtocol, onRequestProtocol, onDeferProtocol }: Props) {
   const sections = project?.sections ?? emptyResearchProjectSections();
+  const standardQuestion = project ? researchProjectQuestionPresentation(sections) : null;
   const protocol = documents.cards.find((document) => document.kind === "PROTOCOL");
   const protocolState = protocol?.canOpen && protocol.freshness === "CURRENT"
     ? "Aperçu disponible"
@@ -38,8 +40,10 @@ export default function ResearchProjectPanel({ project, documents, onOpenProtoco
     <div className="space-y-3 p-4">
       {sections.map((section) => <section key={section.sectionId} className="rounded-2xl border px-4 py-3" aria-labelledby={`functional-project-${section.sectionId.toLocaleLowerCase("fr-FR")}`}>
         <h3 id={`functional-project-${section.sectionId.toLocaleLowerCase("fr-FR")}`} className="text-sm font-semibold">{section.label}</h3>
-        {section.elements.length > 0
-          ? <ul className="mt-2 space-y-1.5 text-sm">{section.elements.map((element) => <li key={element.elementId} className="break-words leading-relaxed">{element.content}</li>)}</ul>
+        {(section.sectionId === "QUESTION" && standardQuestion) || section.elements.length > 0
+          ? <ul className="mt-2 space-y-1.5 text-sm">{section.sectionId === "QUESTION" && standardQuestion
+            ? <li className="break-words leading-relaxed">{standardQuestion}</li>
+            : section.elements.map((element) => <li key={element.elementId} className="break-words leading-relaxed">{element.content}</li>)}</ul>
           : <p className="mt-2 text-sm text-muted-foreground">À préciser dans la conversation.</p>}
       </section>)}
 

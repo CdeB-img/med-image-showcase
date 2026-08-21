@@ -77,14 +77,14 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_MODIFICATION } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
     expect(await screen.findByText("J’ai compris deux modifications :")).toBeInTheDocument();
-    expect(screen.getByText("• IRM entre J3 et J5")).toBeInTheDocument();
-    expect(screen.getByText("• âge maximal 75 ans")).toBeInTheDocument();
+    expect(screen.getByText("+ IRM : J3–J5")).toBeInTheDocument();
+    expect(screen.getByText("+ Âge maximal : 75 ans")).toBeInTheDocument();
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ previousContribution: expect.objectContaining({ identity: expect.objectContaining({ contributionId: "contribution:colchicine-v1" }) }) }));
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
 
     expect(within(project).getByText("Version 2")).toBeInTheDocument();
-    expect(within(project).getByText("IRM entre J3 et J5")).toBeInTheDocument();
-    expect(within(project).getByText("âge maximal 75 ans")).toBeInTheDocument();
+    expect(within(project).getByText("IRM : J3–J5")).toBeInTheDocument();
+    expect(within(project).getByText("Âge maximal : 75 ans")).toBeInTheDocument();
     expect(within(project).getByText("biomarqueurs sanguins")).toBeInTheDocument();
     expect(within(project).getByText("taille de l’infarctus")).toBeInTheDocument();
 
@@ -92,7 +92,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     renderDemo();
     const reloaded = screen.getByTestId("functional-research-project");
     expect(within(reloaded).getByText("Version 2")).toBeInTheDocument();
-    expect(within(reloaded).getByText("âge maximal 75 ans")).toBeInTheDocument();
+    expect(within(reloaded).getByText("Âge maximal : 75 ans")).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: "Recommencer" }));
     await waitFor(() => expect(within(screen.getByTestId("functional-research-project")).queryByText("Version 2")).toBeNull());

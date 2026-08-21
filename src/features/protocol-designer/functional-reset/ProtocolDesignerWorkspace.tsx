@@ -7,6 +7,7 @@ import type { ScientificInterpretationTurn } from "@/features/scientific-interpr
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
+  prepareResearchProjectContributionCandidate,
   type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 import {
@@ -87,6 +88,23 @@ export default function ProtocolDesignerWorkspace() {
         previousContribution,
       });
       const receivedAt = new Date().toISOString();
+      const candidate = prepareResearchProjectContributionCandidate(response.contribution, session.project);
+      if (session.project && candidate.changeSet.status === "NO_NET_CHANGE") {
+        setSession((current) => ({
+          ...current,
+          currentContribution: response.contribution,
+          pendingContribution: null,
+          entries: [...current.entries, {
+            entryId: createConversationEntryId(),
+            kind: "TEXT",
+            role: "NOXIA",
+            content: candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
+            createdAt: receivedAt,
+          }],
+          updatedAt: receivedAt,
+        }));
+        return;
+      }
       setSession((current) => ({
         ...current,
         pendingContribution: response.contribution,
@@ -95,6 +113,7 @@ export default function ProtocolDesignerWorkspace() {
           kind: "REVIEW",
           role: "NOXIA",
           contribution: response.contribution,
+          candidate,
           status: "PENDING",
           createdAt: receivedAt,
         }],
@@ -299,7 +318,10 @@ export default function ProtocolDesignerWorkspace() {
               ? <ContributionReview
                 key={entry.entryId}
                 contribution={entry.contribution}
-                project={projectExistedForReview(index) ? session.project : null}
+                candidate={entry.candidate ?? prepareResearchProjectContributionCandidate(
+                  entry.contribution,
+                  projectExistedForReview(index) ? session.project : null,
+                )}
                 status={entry.status}
                 onConfirm={() => confirmContribution(entry.contribution.identity.contributionId)}
                 onCorrect={requestCorrection}

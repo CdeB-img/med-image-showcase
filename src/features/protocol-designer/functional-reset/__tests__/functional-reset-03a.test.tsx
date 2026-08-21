@@ -127,7 +127,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     const project = storedSession().project!;
     expect(project).toMatchObject({ revision: 2, previousVersionId: versionOne });
     const contents = project.sections.flatMap((section) => section.elements.map((element) => element.content));
-    expect(contents).toEqual(expect.arrayContaining(["âge maximal 75 ans", "IRM entre J3 et J5", "colchicine", "placebo", "inflammation", "lésions myocardiques"]));
+    expect(contents).toEqual(expect.arrayContaining(["Âge maximal : 75 ans", "IRM : J3–J5", "colchicine", "placebo", "inflammation", "lésions myocardiques"]));
     expect(await screen.findByText(/Projet mis à jour\./)).toBeInTheDocument();
   });
 
@@ -142,8 +142,8 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     const proposal = heading.closest("section")!;
     expect(within(proposal).getByText("Population")).toBeInTheDocument();
     expect(within(proposal).getByText("Temporalité")).toBeInTheDocument();
-    expect(within(proposal).getByText("• âge maximal 75 ans")).toBeInTheDocument();
-    expect(within(proposal).getByText("• IRM entre J3 et J5")).toBeInTheDocument();
+    expect(within(proposal).getByText("+ Âge maximal : 75 ans")).toBeInTheDocument();
+    expect(within(proposal).getByText("+ IRM : J3–J5")).toBeInTheDocument();
   });
 
   it("FR03A-C06 — une réponse partielle conserve les inconnues", async () => {
@@ -183,7 +183,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
       };
     });
     submit("Le critère principal reste à définir.");
-    await screen.findByText(/critère principal encore à définir/);
+    await screen.findByText(/Critère principal encore à définir/);
     confirm();
 
     const session = storedSession();
