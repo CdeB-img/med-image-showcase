@@ -431,6 +431,28 @@ const currentElements = (current: ResearchProjectOwnerProjection | null) => (cur
   .filter((section) => section.sectionId !== "QUESTION")
   .flatMap((section) => section.elements.map((element) => ({ sectionId: section.sectionId, element })));
 
+const removalTargetMatchesProjectElement = (input: {
+  target: ScientificContributionItem;
+  targetElement: ResearchProjectElement | null;
+  targetSection: ResearchProjectSectionId | null;
+  sectionId: ResearchProjectSectionId;
+  element: ResearchProjectElement;
+}) => {
+  if (input.targetSection !== null && input.targetSection !== input.sectionId) return false;
+  const refs = [input.target.itemId, input.target.semanticIdentity, ...(input.target.previousItemIds ?? [])]
+    .filter((value): value is string => Boolean(value))
+    .map(folded);
+  const directRefs = [input.element.elementId, ...input.element.sourceItemIds].map(folded);
+  if (refs.some((ref) => directRefs.includes(ref))) return true;
+  if (!input.targetElement) return false;
+
+  const targetSemanticKey = semanticKeyForElement(input.sectionId, input.targetElement);
+  const projectSemanticKey = semanticKeyForElement(input.sectionId, input.element);
+  if (targetSemanticKey === projectSemanticKey) return true;
+
+  return folded(input.targetElement.content) === folded(input.element.content);
+};
+
 const buildContributionProjectChangeSet = (
   contribution: ScientificInterpretationContributionEnvelope,
   current: ResearchProjectOwnerProjection | null,
@@ -504,11 +526,13 @@ const buildContributionProjectChangeSet = (
     for (const target of targetCandidates) {
       const targetElement = elementFrom(target, contribution);
       const targetSection = targetElement ? sectionForContributionItem(target, contribution) : null;
-      const match = previous.find(({ sectionId, element }) =>
-        (targetSection === null || targetSection === sectionId)
-        && (element.sourceItemIds.includes(target.itemId)
-          || Boolean(target.semanticIdentity && folded(element.elementId) === folded(target.semanticIdentity))
-          || (target.previousItemIds ?? []).some((ref) => element.sourceItemIds.includes(ref) || folded(element.elementId) === folded(ref))));
+      const match = previous.find(({ sectionId, element }) => removalTargetMatchesProjectElement({
+        target,
+        targetElement,
+        targetSection,
+        sectionId,
+        element,
+      }));
       if (!match) continue;
       const alreadyReplaced = changes.some((change) => change.operation === "REPLACE" && change.previousElement?.elementId === match.element.elementId);
       const alreadyRemoved = changes.some((change) => change.operation === "REMOVE" && change.previousElement?.elementId === match.element.elementId);
