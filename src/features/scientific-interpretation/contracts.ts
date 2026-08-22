@@ -46,10 +46,81 @@ export type ScientificInterpretationTurn = {
   createdAt?: string;
 };
 
+export const SCIENTIFIC_INTERPRETATION_TERMINOLOGY_STATUSES = [
+  "RESOLVED_PROJECT",
+  "RESOLVED_CONVERSATION",
+  "RESOLVED_GOVERNED_CONTEXT",
+  "RESOLVED_LINGUISTICALLY",
+  "AMBIGUOUS",
+  "UNRESOLVED",
+] as const;
+export type ScientificInterpretationTerminologyStatus = typeof SCIENTIFIC_INTERPRETATION_TERMINOLOGY_STATUSES[number];
+
+export type ScientificInterpretationTerminologyEntry = {
+  termId: string;
+  preferredMeaning: string;
+  surfaceForms: string[];
+  semanticRoleCandidate: string | null;
+  referencedProjectElementIds: string[];
+  source: "PROJECT" | "CONVERSATION_USER_DEFINED" | "NOXIA_SUPPORTED_ROLE_VOCABULARY";
+};
+
+export type ScientificInterpretationTerminologyContext = {
+  lifecycle: "EPHEMERAL_TRACEABLE_NON_AUTHORITATIVE";
+  contractNature: "RUNTIME_TERMINOLOGY_CONTEXT_NOT_PD003_OBJECT";
+  authoritative: false;
+  scope: "CURRENT_INTERPRETATION_TURN";
+  entries: ScientificInterpretationTerminologyEntry[];
+  resolutionPolicy: "KNOWN_OR_CONTEXT_DEFINED_ELSE_CLARIFY";
+};
+
+export type ScientificInterpretationTerminologyResolution = {
+  resolutionId: string;
+  surfaceForm: string;
+  resolvedMeaning: string | null;
+  status: ScientificInterpretationTerminologyStatus;
+  source: "PROJECT" | "CONVERSATION_USER_DEFINED" | "NOXIA_SUPPORTED_ROLE_VOCABULARY" | "LLM_LINGUISTIC_KNOWLEDGE" | "NONE";
+  confidence: number | null;
+  alternatives: string[];
+  semanticRoleCandidate: string | null;
+  referencedProjectElementIds: string[];
+  understandingElementIds: string[];
+  sourceTurnIds: string[];
+  sourceText: string | null;
+};
+
+export type ScientificInterpretationSemanticRepairContext = {
+  lifecycle: "EPHEMERAL_TRACEABLE_NON_AUTHORITATIVE";
+  attempt: 1;
+  initialContributionId: string;
+  initialContributionDigest: string;
+  criticResultDigest: string;
+  findings: Array<{
+    category: "INFORMATION_LOST" | "ROLE_MISMATCH" | "RELATION_MISMATCH" | "OVER_INTERPRETATION" | "AMBIGUITY_LOST" | "DUPLICATE_CONCEPT";
+    failureStage: "INTERPRETER" | "COMPILER" | "BOTH";
+    message: string;
+    rawEvidence: Array<{ turnId: string; quote: string }>;
+    repairHint: string | null;
+  }>;
+};
+
 export type ScientificInterpretationConversation = {
   conversationId: string;
   language: "fr" | "en";
   turns: ScientificInterpretationTurn[];
+  projectContext?: {
+    projectRef: string;
+    projectVersion: string;
+    projectDigest: string;
+    elements: Array<{
+      elementId: string;
+      sectionId: string;
+      semanticKey: string | null;
+      content: string;
+      semanticRoles: string[];
+      aliases?: string[];
+    }>;
+  };
   interactionContext?: {
     interactionRef: string;
     sourceActionRef: string | null;
@@ -61,6 +132,98 @@ export type ScientificInterpretationConversation = {
     projectRef: string | null;
     projectVersion: string | null;
     projectDigest: string | null;
+    currentQuestion?: string | null;
+    questionRationale?: string | null;
+    scopeSectionIds?: string[];
+  };
+  semanticRepairContext?: ScientificInterpretationSemanticRepairContext;
+};
+
+export const SCIENTIFIC_INTERPRETATION_DOMAIN_DECISIONS = [
+  "IN_SCOPE",
+  "BORDERLINE",
+  "OUT_OF_SCOPE",
+  "OUT_OF_SCOPE_CLINICAL",
+  "MIXED",
+] as const;
+export type ScientificInterpretationDomainDecision = typeof SCIENTIFIC_INTERPRETATION_DOMAIN_DECISIONS[number];
+
+export const SCIENTIFIC_INTERPRETATION_DIALOGUE_INTENTS = [
+  "SCIENTIFIC_INPUT",
+  "PARTIAL_SCIENTIFIC_INPUT",
+  "CORRECTION",
+  "DEFER",
+  "REQUEST_REPHRASE",
+  "REQUEST_EXPLANATION",
+  "USER_QUESTION",
+  "TOPIC_SHIFT",
+  "OUT_OF_SCOPE",
+  "BORDERLINE",
+  "MIXED",
+] as const;
+export type ScientificInterpretationDialogueIntent = typeof SCIENTIFIC_INTERPRETATION_DIALOGUE_INTENTS[number];
+
+export const SEMANTIC_UNDERSTANDING_FUNCTIONS = [
+  "CONCEPT",
+  "ENTITY",
+  "EVENT",
+  "ACTION",
+  "ROLE_ASSIGNMENT",
+  "RELATION",
+  "COMPARISON",
+  "TEMPORALITY",
+  "QUANTITY",
+  "BOUND",
+  "CORRECTION",
+  "NEGATION",
+  "PREFERENCE",
+  "EXCLUSION",
+  "INCLUSION",
+  "REFERENCE",
+  "UNCERTAINTY",
+  "AMBIGUITY",
+  "UNKNOWN",
+] as const;
+export type SemanticUnderstandingFunction = typeof SEMANTIC_UNDERSTANDING_FUNCTIONS[number];
+
+export type SemanticUnderstandingBasis = "EXPLICIT" | "CONTEXTUAL" | "AMBIGUOUS" | "NOT_SPECIFIED";
+export type SemanticUnderstandingProjectDisposition = "PROJECT_CANDIDATE" | "DIALOGUE_ONLY" | "OUT_OF_SCOPE";
+
+export type SemanticUnderstandingQuantitativeBounds = {
+  lower: number | null;
+  upper: number | null;
+  unit: string | null;
+};
+
+export type ScientificInterpretationCognitiveBoundary = {
+  lifecycle: "EPHEMERAL_TRACEABLE_NON_AUTHORITATIVE";
+  authoritative: false;
+  domainDecision: {
+    decision: ScientificInterpretationDomainDecision;
+    confidence: number | null;
+    rationale: string;
+    inScopeSegments: string[];
+    outOfScopeSegments: string[];
+    responseMessage: string | null;
+    projectMutationAllowed: boolean;
+  };
+  dialogueRouting: {
+    intent: ScientificInterpretationDialogueIntent;
+    confidence: number | null;
+    rationale: string;
+    answersCurrentQuery: boolean;
+    preservesCurrentQueryAction: boolean;
+    questionContextMismatch: boolean;
+    responseMessage: string | null;
+  };
+  terminologyGrounding?: {
+    context: ScientificInterpretationTerminologyContext;
+    resolutions: ScientificInterpretationTerminologyResolution[];
+  };
+  semanticUnderstanding: {
+    summary: string;
+    elements: ScientificContributionItem[];
+    relations: ScientificContributionRelation[];
   };
 };
 
@@ -88,6 +251,12 @@ export type ScientificContributionItem = {
   availabilityScope?: string | null;
   previousItemIds?: string[];
   evidenceRefs?: string[];
+  semanticFunction?: SemanticUnderstandingFunction;
+  evidenceBasis?: SemanticUnderstandingBasis;
+  projectDisposition?: SemanticUnderstandingProjectDisposition;
+  referencedProjectElementIds?: string[];
+  relatedItemIds?: string[];
+  quantitativeBounds?: SemanticUnderstandingQuantitativeBounds | null;
   epistemicBoundary: ContributionEpistemicBoundary;
 };
 
@@ -149,6 +318,7 @@ export type ScientificInterpretationContributionEnvelope = {
     parseStatus: "NOT_REQUIRED" | "PENDING" | "PARSED" | "FAILED";
     validationErrors: Array<{ failureClass: ScientificInterpretationFailureClass; message: string; path?: string }>;
   };
+  cognitiveBoundary?: ScientificInterpretationCognitiveBoundary;
   scientificContent: {
     normalizedUnderstanding: string | null;
     routeProposal: { route: string; confidence: number | null; reason: string | null } | null;

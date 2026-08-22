@@ -8,11 +8,16 @@ import {
   type AuthorizedScientificInterpretationContext,
   type ContributionEpistemicBoundary,
   type ScientificContributionItem,
+  type ScientificContributionRelation,
+  type ScientificInterpretationDialogueIntent,
+  type ScientificInterpretationDomainDecision,
   type ScientificInterpretationContributionEnvelope,
   type ScientificInterpretationConversation,
+  type ScientificInterpretationTerminologyResolution,
   type ScientificInterpretationRuntime,
 } from "./contracts.js";
 import type { ScientificInterpretationRawStore } from "./raw-persistence.js";
+import { buildScientificInterpretationTerminologyContext } from "./terminology-grounding.js";
 
 type GenericRecord = Record<string, unknown>;
 
@@ -47,6 +52,10 @@ export type HybridParsedState = GenericRecord;
 const record = (value: unknown): GenericRecord => value && typeof value === "object" && !Array.isArray(value) ? value as GenericRecord : {};
 const stringOrNull = (value: unknown) => typeof value === "string" ? value : null;
 const numberOrNull = (value: unknown) => typeof value === "number" ? value : null;
+const semanticUnitOrNull = (value: unknown) => {
+  const unit = stringOrNull(value)?.trim() ?? null;
+  return unit && !/^(?:null|none|n\/?a|not specified|unspecified)$/i.test(unit) ? unit : null;
+};
 const stringList = (value: unknown) => Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : [];
 const recordList = (value: unknown) => Array.isArray(value) ? value.map(record) : [];
 
@@ -77,11 +86,48 @@ const itemFrom = (value: unknown, path: string, index: number): ScientificContri
     availabilityScope: stringOrNull(item.availabilityScope),
     previousItemIds: stringList(item.previousElementIds).length ? stringList(item.previousElementIds) : stringOrNull(item.previousSemanticIdentity) ? [stringOrNull(item.previousSemanticIdentity)!] : [],
     evidenceRefs: stringList(item.evidenceRefs),
+    semanticFunction: stringOrNull(item.semanticFunction) as ScientificContributionItem["semanticFunction"] ?? undefined,
+    evidenceBasis: stringOrNull(item.evidenceBasis) as ScientificContributionItem["evidenceBasis"] ?? undefined,
+    projectDisposition: stringOrNull(item.projectDisposition) as ScientificContributionItem["projectDisposition"] ?? undefined,
+    referencedProjectElementIds: stringList(item.referencedProjectElementIds),
+    relatedItemIds: stringList(item.relatedElementIds),
+    quantitativeBounds: item.quantitativeBounds && typeof item.quantitativeBounds === "object" && !Array.isArray(item.quantitativeBounds)
+      ? {
+        lower: numberOrNull(record(item.quantitativeBounds).lower),
+        upper: numberOrNull(record(item.quantitativeBounds).upper),
+        unit: semanticUnitOrNull(record(item.quantitativeBounds).unit),
+      }
+      : null,
     epistemicBoundary: boundaryFrom(item),
   };
 };
 
 const mapItems = (state: GenericRecord, key: string) => recordList(state[key]).map((item, index) => itemFrom(item, key, index));
+
+const terminologyResolutionFrom = (value: GenericRecord): ScientificInterpretationTerminologyResolution => ({
+  resolutionId: stringOrNull(value.resolutionId) ?? `terminology-resolution:${logicalDigest(value)}`,
+  surfaceForm: stringOrNull(value.surfaceForm) ?? "",
+  resolvedMeaning: stringOrNull(value.resolvedMeaning),
+  status: (stringOrNull(value.status) ?? "UNRESOLVED") as ScientificInterpretationTerminologyResolution["status"],
+  source: (stringOrNull(value.source) ?? "NONE") as ScientificInterpretationTerminologyResolution["source"],
+  confidence: numberOrNull(value.confidence),
+  alternatives: stringList(value.alternatives),
+  semanticRoleCandidate: stringOrNull(value.semanticRoleCandidate),
+  referencedProjectElementIds: stringList(value.referencedProjectElementIds),
+  understandingElementIds: stringList(value.understandingElementIds),
+  sourceTurnIds: stringList(value.sourceTurnIds),
+  sourceText: stringOrNull(value.sourceText),
+});
+
+const relationFrom = (value: GenericRecord, index: number, path = "relations"): ScientificContributionRelation => ({
+  relationId: stringOrNull(value.relationId) ?? `${path}:${index}:${logicalDigest(value)}`,
+  relationType: stringOrNull(value.relationType) ?? "UNSPECIFIED_RELATION",
+  sourceItemId: stringOrNull(value.sourceElementId) ?? "UNRESOLVED_SOURCE",
+  targetItemId: stringOrNull(value.targetElementId) ?? "UNRESOLVED_TARGET",
+  polarity: stringOrNull(value.polarity),
+  confidence: numberOrNull(value.confidence),
+  epistemicBoundary: boundaryFrom(value),
+});
 
 export const mapHybridStateToContribution = (input: {
   state: HybridParsedState;
@@ -95,9 +141,17 @@ export const mapHybridStateToContribution = (input: {
   const state = record(input.state);
   const identity = record(state.identity);
   const understanding = record(state.understanding);
+  const domainDecision = record(state.domainDecision);
+  const dialogueRouting = record(state.dialogueRouting);
   const routeProposal = record(state.routeProposal);
   const source = record(state.source);
+  const richUnderstandingItems = mapItems(state, "understandingElements");
   const objects = mapItems(state, "objects");
+  const negationsAndConstraints = mapItems(state, "negationsAndConstraints");
+  const ambiguities = mapItems(state, "ambiguities");
+  const unknowns = mapItems(state, "unknowns");
+  const correctionsAndSupersessions = mapItems(state, "correctionsAndSupersessions");
+  const terminologyResolutions = recordList(state.terminologyResolutions).map(terminologyResolutionFrom);
   const allMappedItems = [
     ...objects,
     ...mapItems(state, "explicitStatements"),
@@ -141,6 +195,37 @@ export const mapHybridStateToContribution = (input: {
       parseStatus: "PARSED",
       validationErrors: [],
     },
+    cognitiveBoundary: {
+      lifecycle: "EPHEMERAL_TRACEABLE_NON_AUTHORITATIVE",
+      authoritative: false,
+      domainDecision: {
+        decision: (stringOrNull(domainDecision.decision) ?? "IN_SCOPE") as ScientificInterpretationDomainDecision,
+        confidence: numberOrNull(domainDecision.confidence),
+        rationale: stringOrNull(domainDecision.rationale) ?? "No domain rationale supplied.",
+        inScopeSegments: stringList(domainDecision.inScopeSegments),
+        outOfScopeSegments: stringList(domainDecision.outOfScopeSegments),
+        responseMessage: stringOrNull(domainDecision.responseMessage),
+        projectMutationAllowed: domainDecision.projectMutationAllowed === true,
+      },
+      dialogueRouting: {
+        intent: (stringOrNull(dialogueRouting.intent) ?? "SCIENTIFIC_INPUT") as ScientificInterpretationDialogueIntent,
+        confidence: numberOrNull(dialogueRouting.confidence),
+        rationale: stringOrNull(dialogueRouting.rationale) ?? "No dialogue rationale supplied.",
+        answersCurrentQuery: dialogueRouting.answersCurrentQuery === true,
+        preservesCurrentQueryAction: dialogueRouting.preservesCurrentQueryAction !== false,
+        questionContextMismatch: dialogueRouting.questionContextMismatch === true,
+        responseMessage: stringOrNull(dialogueRouting.responseMessage),
+      },
+      terminologyGrounding: {
+        context: buildScientificInterpretationTerminologyContext(input.conversation, input.previousContribution),
+        resolutions: terminologyResolutions,
+      },
+      semanticUnderstanding: {
+        summary: stringOrNull(understanding.normalizedUnderstanding) ?? stringOrNull(state.normalizedUnderstanding) ?? "",
+        elements: richUnderstandingItems,
+        relations: recordList(state.understandingRelations).map((value, index) => relationFrom(value, index, "understandingRelations")),
+      },
+    },
     scientificContent: {
       normalizedUnderstanding: stringOrNull(understanding.normalizedUnderstanding),
       routeProposal: stringOrNull(routeProposal.route) ? {
@@ -150,23 +235,23 @@ export const mapHybridStateToContribution = (input: {
       } : null,
       explicitStatements: mapItems(state, "explicitStatements"),
       candidateObjects: objects,
-      candidateRelations: recordList(state.relations).map((value, index) => ({
-        relationId: stringOrNull(value.relationId) ?? `relations:${index}:${logicalDigest(value)}`,
-        relationType: stringOrNull(value.relationType) ?? "UNSPECIFIED_RELATION",
-        sourceItemId: stringOrNull(value.sourceElementId) ?? "UNRESOLVED_SOURCE",
-        targetItemId: stringOrNull(value.targetElementId) ?? "UNRESOLVED_TARGET",
-        polarity: stringOrNull(value.polarity),
-        confidence: numberOrNull(value.confidence),
-        epistemicBoundary: boundaryFrom(value),
-      })),
+      candidateRelations: recordList(state.relations).map((value, index) => relationFrom(value, index)),
       inferredContext: mapItems(state, "inferredContext"),
       contextualCandidates: mapItems(state, "contextualCandidates"),
-      negationsAndConstraints: mapItems(state, "negationsAndConstraints"),
+      negationsAndConstraints: negationsAndConstraints.length
+        ? negationsAndConstraints
+        : richUnderstandingItems.filter((item) => item.semanticFunction === "NEGATION"),
       temporalElements: mapItems(state, "temporalElements"),
-      ambiguities: mapItems(state, "ambiguities"),
-      unknowns: mapItems(state, "unknowns"),
+      ambiguities: ambiguities.length
+        ? ambiguities
+        : richUnderstandingItems.filter((item) => item.semanticFunction === "AMBIGUITY"),
+      unknowns: unknowns.length
+        ? unknowns
+        : richUnderstandingItems.filter((item) => ["UNKNOWN", "UNCERTAINTY"].includes(item.semanticFunction ?? "")),
       missingInformation: mapItems(state, "missingInformation"),
-      correctionsAndSupersessions: mapItems(state, "correctionsAndSupersessions"),
+      correctionsAndSupersessions: correctionsAndSupersessions.length
+        ? correctionsAndSupersessions
+        : richUnderstandingItems.filter((item) => item.semanticFunction === "CORRECTION"),
       openDecisions: mapItems(state, "openDecisions"),
       clarificationNeeds: mapItems(state, "clarificationNeeds"),
     },

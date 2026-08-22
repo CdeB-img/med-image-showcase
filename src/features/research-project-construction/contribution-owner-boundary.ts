@@ -38,6 +38,9 @@ export type ResearchProjectElement = {
   sourceProposedType?: string | null;
   sourceStudyRole?: string | null;
   sourcePolarity?: string | null;
+  semanticRoles?: string[];
+  semanticBasis?: "EXPLICIT" | "CONTEXTUAL" | "AMBIGUOUS" | "NOT_SPECIFIED";
+  quantitativeBounds?: { lower: number | null; upper: number | null; unit: string | null } | null;
   disposition: "USER_CONFIRMED_PROJECT_INFORMATION";
   canonicalPromotion: "NOT_PERFORMED";
 };
@@ -180,6 +183,20 @@ const foldedWithSeparators = (value: string) => value
   .trim();
 const capitalize = (value: string) => value ? `${value.charAt(0).toLocaleUpperCase("fr-FR")}${value.slice(1)}` : value;
 
+const semanticRolesForItem = (item: ScientificContributionItem) => [...new Set([
+  item.studyRole,
+  ...(item.semanticFunction === "EXCLUSION" ? ["EXCLUSION"] : []),
+  ...(item.semanticFunction === "INCLUSION" ? ["INCLUSION"] : []),
+].filter((value): value is string => Boolean(value)))];
+
+const rolePresentation = (role: string) => {
+  const normalizedRole = folded(role);
+  if (/primary.*endpoint|endpoint.*primary|critere.*principal/.test(normalizedRole)) return "Critère de jugement principal";
+  if (/exclusion/.test(normalizedRole)) return "Exclusion";
+  if (/inclusion/.test(normalizedRole)) return "Inclusion";
+  return role.replace(/_/g, " ").toLocaleLowerCase("fr-FR");
+};
+
 export const sectionForContributionItem = (
   item: ScientificContributionItem,
   contribution: ScientificInterpretationContributionEnvelope,
@@ -220,7 +237,11 @@ const itemContext = (item: ScientificContributionItem, contribution: ScientificI
     .map((turn) => turn.content),
 ].filter((value): value is string => Boolean(value)).join(" ");
 
-type SpecializedProjectElement = { semanticKey: string; content: string };
+type SpecializedProjectElement = {
+  semanticKey: string;
+  content: string;
+  quantitativeBounds?: { lower: number | null; upper: number | null; unit: string | null } | null;
+};
 
 const populationEventWindow = (
   item: ScientificContributionItem,
@@ -249,7 +270,13 @@ const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjec
   const ageSignal = /\bage\b/.test(localContext)
     || /\b\d{1,3}(?:[.,]\d+)?\s*(?:ans?|years?)\b/.test(localWithSeparators);
   if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|LOWER_BOUND|UPPER_BOUND/.test(typeOf(item)) || !ageSignal) return [];
-  const range = localWithSeparators.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:a|au|to|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/);
+  const structuredLower = item.quantitativeBounds?.lower ?? null;
+  const structuredUpper = item.quantitativeBounds?.upper ?? null;
+  if (structuredLower !== null || structuredUpper !== null) return [
+    ...(structuredLower !== null ? [{ semanticKey: "POPULATION:ELIGIBILITY:AGE:MIN", content: `Âge minimal : ${structuredLower} ans`, quantitativeBounds: { lower: structuredLower, upper: null, unit: "ans" } }] : []),
+    ...(structuredUpper !== null ? [{ semanticKey: "POPULATION:ELIGIBILITY:AGE:MAX", content: `Âge maximal : ${structuredUpper} ans`, quantitativeBounds: { lower: null, upper: structuredUpper, unit: "ans" } }] : []),
+  ];
+  const range = localWithSeparators.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:a|au|to|et|and|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/);
   if (range?.[1] && range[2]) return [
     { semanticKey: "POPULATION:ELIGIBILITY:AGE:MIN", content: `Âge minimal : ${range[1].replace(",", ".")} ans` },
     { semanticKey: "POPULATION:ELIGIBILITY:AGE:MAX", content: `Âge maximal : ${range[2].replace(",", ".")} ans` },
@@ -275,6 +302,27 @@ const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjec
     semanticKey: `POPULATION:ELIGIBILITY:AGE:${direction.toLocaleUpperCase("fr-FR")}`,
     content: value ? `${label} : ${value} ans` : capitalize(item.content.trim()),
   }];
+};
+
+const quantitativeCriterion = (
+  item: ScientificContributionItem,
+  sectionId: ResearchProjectSectionId,
+): SpecializedProjectElement | null => {
+  const bounds = item.quantitativeBounds;
+  if (!bounds || (bounds.lower === null && bounds.upper === null)) return null;
+  const unit = bounds.unit ? ` ${bounds.unit}` : "";
+  const direction = bounds.lower !== null && bounds.upper !== null ? "RANGE"
+    : bounds.lower !== null ? "MIN" : "MAX";
+  const value = direction === "RANGE" ? `${bounds.lower}–${bounds.upper}${unit}`
+    : direction === "MIN" ? `minimum : ${bounds.lower}${unit}`
+      : `maximum : ${bounds.upper}${unit}`;
+  const explicitValues = [bounds.lower, bounds.upper].filter((bound): bound is number => bound !== null);
+  const contentAlreadyCarriesValues = explicitValues.every((bound) => new RegExp(`\\b${String(bound).replace(".", "[.,]")}\\b`).test(item.content));
+  return {
+    semanticKey: `${sectionId}:QUANTITATIVE:${stableSemanticIdentity(item)}:${direction}`,
+    content: contentAlreadyCarriesValues ? capitalize(item.content.trim()) : `${capitalize(item.content.trim())} ${value}`,
+    quantitativeBounds: { ...bounds },
+  };
 };
 
 type TemporalOccurrenceRole = "INITIAL" | "FOLLOW_UP" | "WINDOW";
@@ -356,21 +404,39 @@ const elementsFrom = (
   const age = ageCriteria(item, sectionId, contribution);
   const eventWindow = populationEventWindow(item, sectionId);
   const timing = timingCriterion(item, sectionId, contribution);
-  const specialized = age.length ? age : eventWindow ? [eventWindow] : timing ? [timing] : [null];
-  return specialized.map((value, index) => ({
+  const quantitative = quantitativeCriterion(item, sectionId);
+  const specialized: Array<SpecializedProjectElement | null> = age.length ? age : eventWindow ? [eventWindow] : timing ? [timing] : quantitative ? [quantitative] : [null];
+  const semanticRoles = semanticRolesForItem(item);
+  return specialized.map((value, index) => {
+    const quantitativeRoles = value?.semanticKey.endsWith(":MIN") ? ["LOWER_BOUND"]
+      : value?.semanticKey.endsWith(":MAX") ? ["UPPER_BOUND"]
+        : [
+          ...(item.quantitativeBounds?.lower !== null && item.quantitativeBounds?.lower !== undefined ? ["LOWER_BOUND"] : []),
+          ...(item.quantitativeBounds?.upper !== null && item.quantitativeBounds?.upper !== undefined ? ["UPPER_BOUND"] : []),
+        ];
+    const elementRoles = [...new Set([...semanticRoles, ...quantitativeRoles])];
+    return {
     elementId: value && specialized.length > 1
       ? `${item.semanticIdentity ?? item.itemId}:${value.semanticKey.split(":").at(-1)?.toLocaleLowerCase("fr-FR") ?? index}`
       : item.semanticIdentity ?? item.itemId,
     semanticKey: value?.semanticKey ?? `${sectionId}:${folded(item.proposedType ?? item.studyRole ?? "ITEM")}:${stableSemanticIdentity(item)}`,
-    content: value?.content ?? item.content.trim(),
+    content: value?.content ?? (elementRoles.includes("EXCLUSION")
+      ? `Exclusion : ${capitalize(item.content.trim())}`
+      : elementRoles.includes("INCLUSION")
+        ? `Inclusion : ${capitalize(item.content.trim())}`
+        : item.content.trim()),
     sourceItemIds: [item.itemId],
     sourceTurnIds: item.epistemicBoundary.sourceTurnIds,
     sourceProposedType: item.proposedType,
     sourceStudyRole: item.studyRole,
     sourcePolarity: item.polarity,
+    semanticRoles: elementRoles,
+    semanticBasis: item.evidenceBasis,
+    quantitativeBounds: value?.quantitativeBounds ?? item.quantitativeBounds ?? null,
     disposition: "USER_CONFIRMED_PROJECT_INFORMATION",
     canonicalPromotion: "NOT_PERFORMED",
-  }));
+    };
+  });
 };
 
 const elementFrom = (item: ScientificContributionItem, contribution: ScientificInterpretationContributionEnvelope) =>
@@ -405,7 +471,7 @@ const elementValueKey = (sectionId: ResearchProjectSectionId, element: ResearchP
     const codedPoint = context.match(/\b([jmw])\s*(\d+)\b/);
     if (codedPoint) return `${codedPoint[1]}${codedPoint[2]}`;
   }
-  return context;
+  return `${context}|roles:${[...(element.semanticRoles ?? [])].sort().join(",")}`;
 };
 
 const uniqueElements = (sectionId: ResearchProjectSectionId, elements: ResearchProjectElement[]) => {
@@ -447,7 +513,9 @@ const relationElements = (contribution: ScientificInterpretationContributionEnve
 };
 
 const projectValueElements = (contribution: ScientificInterpretationContributionEnvelope) => [
-  ...contributionItems(contribution).flatMap((item) => elementsFrom(item, contribution)),
+  ...contributionItems(contribution)
+    .filter((item) => !(item.referencedProjectElementIds?.length && ["ROLE_ASSIGNMENT", "REFERENCE"].includes(item.semanticFunction ?? "")))
+    .flatMap((item) => elementsFrom(item, contribution)),
   ...relationElements(contribution),
 ];
 
@@ -496,6 +564,10 @@ const changePresentation = (
   if (operation === "ADD" && proposed) return `+ ${capitalize(proposed.content)}`;
   if (operation === "REMOVE" && previous) return `− ${capitalize(previous.content)}`;
   if (operation === "REPLACE" && previous && proposed) {
+    const addedRoles = (proposed.semanticRoles ?? []).filter((role) => !(previous.semanticRoles ?? []).includes(role));
+    if (previous.content === proposed.content && addedRoles.length > 0) {
+      return `${rolePresentation(addedRoles[0]!)} : ${proposed.content}`;
+    }
     const previousParts = previous.content.split(":").map((part) => part.trim());
     const proposedParts = proposed.content.split(":").map((part) => part.trim());
     if (previousParts.length === 2 && proposedParts.length === 2 && folded(previousParts[0]) === folded(proposedParts[0])) {
@@ -553,6 +625,26 @@ const latestUserTurnId = (contribution: ScientificInterpretationContributionEnve
 const currentElements = (current: ResearchProjectOwnerProjection | null) => (current?.sections ?? [])
   .filter((section) => section.sectionId !== "QUESTION")
   .flatMap((section) => section.elements.map((element) => ({ sectionId: section.sectionId, element })));
+
+const roleAssignmentTarget = (
+  assignment: ScientificContributionItem,
+  candidates: Array<{ sectionId: ResearchProjectSectionId; element: ResearchProjectElement }>,
+) => {
+  const referenced = candidates.filter(({ sectionId, element }) => (assignment.referencedProjectElementIds ?? []).some((ref) =>
+    ref === element.elementId || ref === semanticKeyForElement(sectionId, element) || element.sourceItemIds.includes(ref)));
+  if (referenced.length <= 1) return referenced[0];
+  const role = typeOf(assignment);
+  const expectedSection: ResearchProjectSectionId | null = /ENDPOINT|OUTCOME|MEASURED_VARIABLE|MEASUREMENT|BIOMARKER/.test(role) ? "MEASUREMENTS"
+    : /EXCLUSION|INCLUSION|ELIGIBILITY|POPULATION/.test(role) ? "POPULATION"
+      : /COMPARATOR|CONTROL_ARM|REFERENCE_ARM/.test(role) ? "COMPARATOR"
+        : /INTERVENTION|TREATMENT|EXPOSURE/.test(role) ? "INTERVENTION"
+          : /MODALITY|IMAGING|ACQUISITION/.test(role) ? "IMAGING"
+            : /ANALYSIS|ESTIMAND|STATISTICAL/.test(role) ? "ANALYSIS"
+              : null;
+  if (!expectedSection) return undefined;
+  const compatible = referenced.filter((candidate) => candidate.sectionId === expectedSection);
+  return compatible.length === 1 ? compatible[0] : undefined;
+};
 
 const temporalSemanticParts = (sectionId: ResearchProjectSectionId, element: ResearchProjectElement) => {
   if (sectionId !== "TEMPORALITY") return null;
@@ -620,6 +712,36 @@ const buildContributionProjectChangeSet = (
     })
     : snapshot;
   const changes: ContributionProjectChange[] = [];
+
+  const roleAssignments = (contribution.cognitiveBoundary?.semanticUnderstanding.elements ?? [])
+    .filter((item) => item.epistemicBoundary.activeState !== false)
+    .filter((item) => item.projectDisposition === "PROJECT_CANDIDATE")
+    .filter((item) => item.referencedProjectElementIds?.length)
+    .filter((item) => ["ROLE_ASSIGNMENT", "REFERENCE"].includes(item.semanticFunction ?? ""));
+  for (const assignment of roleAssignments) {
+    const target = roleAssignmentTarget(assignment, previous);
+    if (!target) continue;
+    const assignedRoles = semanticRolesForItem(assignment);
+    if (!assignedRoles.length) continue;
+    const proposed: ResearchProjectElement = {
+      ...target.element,
+      sourceItemIds: [...new Set([...target.element.sourceItemIds, assignment.itemId])],
+      sourceTurnIds: [...new Set([...target.element.sourceTurnIds, ...assignment.epistemicBoundary.sourceTurnIds])],
+      semanticRoles: [...new Set([...(target.element.semanticRoles ?? []), ...assignedRoles])],
+      semanticBasis: assignment.evidenceBasis,
+    };
+    const unchanged = assignedRoles.every((role) => (target.element.semanticRoles ?? []).includes(role));
+    changes.push(projectChange({
+      operation: unchanged ? "NO_CHANGE" : "REPLACE",
+      sectionId: target.sectionId,
+      previous: target.element,
+      proposed,
+      contribution,
+      rationale: unchanged
+        ? "Le rôle sémantique demandé est déjà actif sur l’objet Project référencé."
+        : "Un rôle explicitement demandé est appliqué à l’objet Project existant sans créer de concept dupliqué.",
+    }));
+  }
 
   for (const proposed of proposedThisTurn) {
     const exactMatch = previous.find((candidate) => candidate.sectionId === proposed.sectionId
@@ -750,6 +872,8 @@ const applyContributionProjectChangeSet = (
       sourceProposedType: "SCIENTIFIC_QUESTION_WORKING_FORMULATION",
       sourceStudyRole: null,
       sourcePolarity: "AFFIRMED",
+      semanticRoles: [],
+      semanticBasis: "CONTEXTUAL",
       disposition: "USER_CONFIRMED_PROJECT_INFORMATION",
       canonicalPromotion: "NOT_PERFORMED",
     }],
@@ -802,6 +926,21 @@ export const emptyResearchProjectSections = (): ResearchProjectSection[] => RESE
   elements: [],
 }));
 
+export const projectContextForScientificInterpretation = (project: ResearchProjectOwnerProjection | null) => project ? ({
+  projectRef: project.projectId,
+  projectVersion: project.versionId,
+  projectDigest: project.projectDigest,
+  elements: project.sections
+    .filter((section) => section.sectionId !== "QUESTION")
+    .flatMap((section) => section.elements.map((element) => ({
+      elementId: element.elementId,
+      sectionId: section.sectionId,
+      semanticKey: element.semanticKey ?? null,
+      content: element.content,
+      semanticRoles: [...(element.semanticRoles ?? [])],
+    }))),
+}) : undefined;
+
 export const prepareResearchProjectContributionCandidate = (
   contribution: ScientificInterpretationContributionEnvelope,
   current: ResearchProjectOwnerProjection | null,
@@ -818,6 +957,11 @@ export const prepareResearchProjectContributionCandidate = (
     specializedResponsibilities: specializedResponsibilities(contribution),
   };
 };
+
+export const repairResearchProjectContributionCandidate = (
+  contribution: ScientificInterpretationContributionEnvelope,
+  current: ResearchProjectOwnerProjection | null,
+): ResearchProjectContributionCandidate => prepareResearchProjectContributionCandidate(contribution, current);
 
 export const confirmResearchProjectContribution = (input: {
   contribution: ScientificInterpretationContributionEnvelope;

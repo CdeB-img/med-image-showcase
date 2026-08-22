@@ -12,6 +12,14 @@ type Props = {
   onRequestProtocol: () => void;
 };
 
+const visibleRole = (role: string) => {
+  const normalized = role.toLocaleUpperCase("fr-FR");
+  if (/PRIMARY.*ENDPOINT|ENDPOINT.*PRIMARY|CRITERE.*PRINCIPAL/.test(normalized)) return "Critère principal";
+  if (normalized.includes("EXCLUSION")) return "Exclusion";
+  if (normalized.includes("INCLUSION")) return "Inclusion";
+  return null;
+};
+
 export default function ResearchProjectPanel({ project, documents, onOpenProtocol, onRequestProtocol }: Props) {
   const sections = project?.sections ?? emptyResearchProjectSections();
   const standardQuestion = project ? researchProjectQuestionPresentation(sections) : null;
@@ -42,7 +50,10 @@ export default function ResearchProjectPanel({ project, documents, onOpenProtoco
         {(section.sectionId === "QUESTION" && standardQuestion) || section.elements.length > 0
           ? <ul className="mt-2 space-y-1.5 text-sm">{section.sectionId === "QUESTION" && standardQuestion
             ? <li className="break-words leading-relaxed">{standardQuestion}</li>
-            : section.elements.map((element) => <li key={element.elementId} className="break-words leading-relaxed">{element.content}</li>)}</ul>
+            : section.elements.map((element) => <li key={element.elementId} className="break-words leading-relaxed">
+              <span>{element.content}</span>
+              {(element.semanticRoles ?? []).map(visibleRole).filter((role) => role !== null).map((role) => <span key={role} className="ml-2 inline-flex rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">{role}</span>)}
+            </li>)}</ul>
           : <p className="mt-2 text-sm text-muted-foreground">À préciser dans la conversation.</p>}
       </section>)}
 

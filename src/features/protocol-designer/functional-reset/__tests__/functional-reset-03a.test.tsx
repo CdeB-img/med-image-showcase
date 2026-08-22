@@ -13,12 +13,20 @@ import {
   COLCHICINE_03A_INITIAL,
   COLCHICINE_03A_MODIFICATION,
   makeFunctionalResetContribution,
+  makeFunctionalResetRuntimeResponse,
 } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
 vi.mock("@/features/scientific-interpretation/client", () => ({
   requestScientificInterpretationRuntime: runtime.request,
+}));
+vi.mock("@/features/scientific-interpretation/semantic-critic-client", () => ({
+  requestSemanticCritic: vi.fn(async ({ candidate }) => ({
+    apiVersion: "1.0.0",
+    critic: { contract: "NOXIA_SEMANTIC_INTEGRATION_CRITIC", contractVersion: "1.1.0", status: "FAITHFUL", authoritative: false, groundingDigest: "test-grounding", understandingDigest: "test-understanding", candidateDigest: candidate.candidateDigest, findings: [], repairAllowed: false, provider: "TEST", model: "TEST", promptDigest: "test-prompt", rawOutputRef: "test:critic", technicalMessage: null },
+    providerAttempts: 1, retries: 0, invalidStructuredOutputs: 0,
+  })),
 }));
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
@@ -64,9 +72,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => ({
-      contribution: makeFunctionalResetContribution(conversation.turns),
-    }));
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetRuntimeResponse(makeFunctionalResetContribution(conversation.turns)));
   });
   afterEach(cleanup);
 
@@ -161,8 +167,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     runtime.request.mockImplementationOnce(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
       const contribution = makeFunctionalResetContribution(conversation.turns);
       const turnId = conversation.turns.at(-1)!.turnId;
-      return {
-        contribution: {
+      return makeFunctionalResetRuntimeResponse({
           ...contribution,
           scientificContent: {
             ...contribution.scientificContent,
@@ -185,8 +190,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
               },
             }],
           },
-        },
-      };
+      });
     });
     submit("Le critère principal reste à définir.");
     await screen.findByText(/Ce point reste ouvert dans le projet/);
@@ -260,8 +264,8 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     });
   });
 
-  it("FR03A-C10 — Scientific Interpretation reste sur la fondation admise", async () => {
-    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.10");
+  it("FR03A-C10 — Scientific Interpretation reste sur la fondation cognitive admise", async () => {
+    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.5.0");
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();

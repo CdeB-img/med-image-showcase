@@ -14,6 +14,7 @@
   },
   "files": [
     "api/scientific-interpretation.ts",
+    "api/scientific-interpretation-critic.ts",
     "api/scientific-semantic.ts"
   ]
 }

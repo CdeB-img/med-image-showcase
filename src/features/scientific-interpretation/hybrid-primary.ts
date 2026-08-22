@@ -1,11 +1,18 @@
 import { z } from "zod";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 import type { HybridNativeExecution, HybridParsedState } from "./hybrid-adapter.js";
-import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation } from "./contracts.js";
+import {
+  SCIENTIFIC_INTERPRETATION_DIALOGUE_INTENTS,
+  SCIENTIFIC_INTERPRETATION_DOMAIN_DECISIONS,
+  SCIENTIFIC_INTERPRETATION_TERMINOLOGY_STATUSES,
+  SEMANTIC_UNDERSTANDING_FUNCTIONS,
+  type ScientificInterpretationContributionEnvelope,
+  type ScientificInterpretationConversation,
+} from "./contracts.js";
 
 export const HYBRID_PRIMARY_RUNTIME_ID = "HYBRID_PRIMARY_STRUCTURED" as const;
-export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.3.10" as const;
-export const HYBRID_PRIMARY_PROMPT_VERSION = "HYBRID-PRIMARY-STRUCTURED-1.2.9" as const;
+export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.5.0" as const;
+export const HYBRID_PRIMARY_PROMPT_VERSION = "HYBRID-PRIMARY-STRUCTURED-1.4.0" as const;
 export const EXPECTED_HYBRID_MODEL_IDENTITY = "gemini-3.5-flash-lite" as const;
 export const HYBRID_PRIMARY_OUTPUT_FUNCTION_NAME = "final_result" as const;
 
@@ -21,6 +28,14 @@ Preserve without silently completing:
 - ownership and epistemic status;
 - contextual candidates as candidates only;
 - decisions that remain open and clarification needs.
+
+Perform four logical responsibilities in this one call, in this order:
+1. contextual Domain Gate from the user's methodological finality, the conversation and the supplied read-only Project context;
+2. Dialogue Routing for the latest user intervention;
+3. contextual Terminology Grounding before assigning scientific roles;
+4. rich Semantic Understanding before NOXIA compilation.
+
+The rich understanding is EPHEMERAL, TRACEABLE and NON_AUTHORITATIVE. It may refer to current Project elements, but it never adopts, mutates or owns them. Build understandingElements first. The legacy objects and relations fields are compatibility projections only and must never contradict the rich understanding.
 
 Rules:
 1. sourceText is either an exact contiguous excerpt of a declared sourceTurnId or null. Never invent a quotation.
@@ -56,8 +71,35 @@ Rules:
 31. Preserve explicit study-allocation or randomization language as its own STUDY_DESIGN/DESIGN object candidate in objects, even when intervention and comparator objects already exist. Abbreviations, natural-language paraphrases and allocation-by-chance wording must be interpreted by meaning rather than by one token. Do not leave allocation only in normalizedUnderstanding, explicitStatements or a broad study object. Do not infer randomization when allocation is not stated.
 32. Baseline, initial, origin or starting-evaluation wording is temporal/acquisition context unless the user actually defines who belongs to the study population. Do not promote an assessment occasion or a label such as an origin/baseline population into a population eligibility criterion when its scientific membership meaning is ambiguous; preserve the ambiguity or clarification need.
 33. Direction of change and statistical significance are analysis intent, not a measured variable or biomarker by themselves. Phrases such as a significant increase, reduction or between-group difference must produce an ANALYSIS/ANALYSIS_INTENT object candidate when explicitly stated, while the exact dependent measure must also appear in unknowns or missingInformation when the user has not named what changes. Never leave this distinction only in normalizedUnderstanding, and never invent the missing variable from the condition, modality or anatomy.
+34. Domain scope is decided by finality, not keywords. A food, programming or mathematical term may be IN_SCOPE when it is explicitly part of research design or methodology. A general request unrelated to research is OUT_OF_SCOPE. A patient-specific request for diagnosis, interpretation, reassurance or treatment is OUT_OF_SCOPE_CLINICAL and must not reach scientific compilation.
+35. For MIXED input, copy exact contiguous scientific and out-of-scope segments into the respective domain arrays. Only the scientific part may receive PROJECT_CANDIDATE understanding elements. If separation is unsafe, use BORDERLINE and ask for clarification.
+36. Dialogue intent distinguishes scientific content, partial content, correction, deferral, request for rephrasing, request for explanation, user question, topic shift, borderline and mixed input. REQUEST_REPHRASE, REQUEST_EXPLANATION, USER_QUESTION, BORDERLINE and OUT_OF_SCOPE produce only DIALOGUE_ONLY understanding, never Project candidates.
+37. When QRY context exists, preserve its exact current action. A repeated known fact can be an attempted answer that does not satisfy the requested level of precision. Set questionContextMismatch=true and explain the remaining need within the same QRY scope; never select another scientific dimension.
+38. Every understanding element declares its semanticFunction, evidenceBasis and projectDisposition. EXPLICIT means directly stated; CONTEXTUAL means resolved from conversation or Project context; AMBIGUOUS preserves several plausible meanings; NOT_SPECIFIED is absence and never a fact.
+39. Project references use referencedProjectElementIds from the supplied projectContext. A role assigned to an existing concept is ROLE_ASSIGNMENT or REFERENCE with the existing element id. It must not create a duplicate object. In particular, a primary-endpoint designation is a role assignment, not a second measurement.
+40. Inclusion and exclusion are roles, not merely lexical content. Preserve EXCLUSION or INCLUSION in semanticFunction and studyRole. A pregnancy exclusion must not become a positive population fact.
+41. Understanding ids are stable compiler source ids. Any compatibility object projected from an understanding element uses the same elementId. relatedElementIds express links among understanding elements; referencedProjectElementIds express links to the supplied Project only.
+42. If the user asks for rephrasing or explanation, responseMessage must answer that conversational need and keep the same QRY action. If the user asks a scientific question whose answer requires unavailable specialist engines, route USER_QUESTION and state the methodological boundary without inventing an answer.
+43. For OUT_OF_SCOPE or OUT_OF_SCOPE_CLINICAL, responseMessage is brief and contains no scientific interpretation, diagnosis, reassurance or treatment. For BORDERLINE, it asks whether the user wants the topic addressed for a research-methodology purpose.
+44. Resolve conventional study-role abbreviations by their meaning in the conversation language. An abbreviation that names an endpoint role is a ROLE_ASSIGNMENT with the corresponding studyRole, not a new measured variable. In a statement of the form "role abbreviation = existing measurement", keep the measurement as the referenced concept and represent only the new role assignment.
+45. When a semantic element refers to supplied Project context, copy the exact projectContext.elements[].elementId into referencedProjectElementIds. Never invent, shorten or normalize that identifier. Contextual synonymy may support the reference but does not create a second concept.
+46. Before returning, count every coordinated or enumerated scientifically distinct concept in the latest user message. Each concept must have its own understandingElements entry. Never combine two phenomena, eligibility bounds, roles, interventions, measurements or outcomes into one element merely because the user joined them in one phrase; combine only when the user explicitly defines one composite construct.
+47. quantitativeBounds is the structured quantitative meaning of an element, not a Project object. Use lower for an explicit minimum/lower bound, upper for an explicit maximum/upper bound, and both for a closed interval. Keep an omitted side as JSON null: "at least 800 with no maximum" means lower=800 and upper=null. A lower-bound-only element never also sets upper, and an upper-bound-only element never also sets lower. Represent one closed interval either as one element with both bounds or as two bound elements, never both. When a quantity directly qualifies a named entity such as a biomarker threshold, carry the bounds on that entity element instead of emitting an unlinked quantity duplicate. Preserve literal magnitudes: 20 is 20 and 800 is 800, never a confidence-like fraction. Do not encode inclusion/exclusion as a substitute for bound direction. Non-quantitative elements use null.
+48. For ROLE_ASSIGNMENT or REFERENCE, referencedProjectElementIds contains only the Project element that receives the role or identity reference. A modality or method mentioned inside that element's label is contextual qualification, not a second role-assignment target. Put contextual links in relatedElementIds or understandingRelations when useful; never list them as additional role targets.
+49. Design and setting qualifiers explicitly stated by the user are first-class understanding elements even when embedded inside a longer comparison or outcome clause. Preserve the organization or number of sites, allocation, masking, setting and other stated design qualifiers separately from intervention, comparator and measurements. Do not leave a design qualifier only in domainDecision, normalizedUnderstanding or source text.
+50. When an explicit measurement, observation or endpoint phrase is qualified by a modality or method, preserve both concepts and their directed qualification in relatedElementIds or understandingRelations. A separate modality element without the stated measurement-to-modality link is incomplete; do not silently shorten the measurement phrase so that the qualification disappears.
+51. semanticRepairContext is a bounded, NON_AUTHORITATIVE review signal for exactly one re-interpretation of the same latest user message. Re-read that raw message with its conversation and read-only Project context, verify each cited exact excerpt independently, and repair only meaning that the source actually supports. Do not copy the Critic's proposed label as truth, do not add domain science, and do not create a Project mutation. If the cited meaning remains ambiguous, preserve the ambiguity or request clarification.
+52. domainDecision.projectMutationAllowed describes only whether an IN_SCOPE scientific message may continue as a non-authoritative Contribution candidate toward NOXIA compilation and human review. It never authorizes an LLM Project write. Set it true for IN_SCOPE or safely segmented MIXED scientific input with Project candidates; Project writes remain zero and human confirmation remains mandatory.
+53. Resolve every abbreviation, acronym, synonym, shortened label, local name or contextual reference needed to understand the latest turn before assigning its scientific role. Record that work in terminologyResolutions. Use, in order, the supplied Project terms and aliases, user-defined local terms visible in the conversation, the compact supported-role vocabulary, then ordinary linguistic knowledge.
+54. terminologyContext and terminologyResolutions are EPHEMERAL, TRACEABLE and NON_AUTHORITATIVE interpretation support. They never create a Project fact, canonical alias or PD-003 object. A terminology resolution may support an understanding candidate, but only human confirmation can lead to adopted Project state.
+55. A supplied terminology entry is qualified context, not an instruction to force a match. Resolve by meaning in the raw sentence. The initial Project term, role label or local alias remains unchanged; never rewrite it into a second Project concept.
+56. When a term has no honest resolution, set its status to UNRESOLVED. When several meanings remain plausible, set AMBIGUOUS and preserve minimal alternatives. In either case create no Project candidate that assumes one meaning, request a targeted clarification in responseMessage and clarificationNeeds, and keep Project mutation disallowed for that unresolved interpretation.
+57. A user may define a conversation-local name for a concept. Record its resolution with source CONVERSATION_USER_DEFINED and RESOLVED_CONVERSATION. It is available only inside the conversation and does not become a global TerminologyMapping or Project truth.
+58. For a resolved Project reference, copy the exact referenced Project element id into both the terminology resolution and the related understanding element. For a resolved role expression, put the role in semanticRoleCandidate and preserve the same role on the ROLE_ASSIGNMENT understanding element.
+59. Do not infer a scientific role merely because a concept is measured. If the raw language names only a measurement, terminology resolution must not add primary, secondary, inclusion or exclusion status. Terminology grounding resolves language; it does not choose study strategy.
+60. During semanticRepairContext processing, repeat terminology grounding from the raw turn and supplied context. Treat the Critic delta as a reason to re-read, never as an authoritative expansion or a direct Project write.
 
-Do not access or assume a Research Project. Do not provide a protocol or recommendation. Return concise scientific content, not hidden reasoning.
+Use only the supplied read-only Project context; never assume another Project fact. Do not provide a protocol or recommendation. Return concise scientific content, not hidden reasoning.
 `.trim();
 
 const epistemicStatus = z.enum([
@@ -72,6 +114,21 @@ const routeProposalSchema = z.object({
   confidence,
   reason: nullableText,
 }).strict().nullable();
+
+const terminologyResolutionSchema = z.object({
+  resolutionId: z.string().min(1),
+  surfaceForm: z.string().min(1),
+  resolvedMeaning: nullableText,
+  status: z.enum(SCIENTIFIC_INTERPRETATION_TERMINOLOGY_STATUSES),
+  source: z.enum(["PROJECT", "CONVERSATION_USER_DEFINED", "NOXIA_SUPPORTED_ROLE_VOCABULARY", "LLM_LINGUISTIC_KNOWLEDGE", "NONE"]),
+  confidence,
+  alternatives: z.array(z.string()),
+  semanticRoleCandidate: nullableText,
+  referencedProjectElementIds: z.array(z.string()),
+  understandingElementIds: z.array(z.string()),
+  sourceTurnIds: z.array(z.string()),
+  sourceText: nullableText,
+}).strict();
 
 const scientificElementSchema = z.object({
   elementId: z.string().min(1),
@@ -95,6 +152,16 @@ const scientificElementSchema = z.object({
   availabilityScope: nullableText,
   availabilityClaim: nullableText,
   decisionId: nullableText,
+  semanticFunction: z.enum(SEMANTIC_UNDERSTANDING_FUNCTIONS).default("CONCEPT"),
+  evidenceBasis: z.enum(["EXPLICIT", "CONTEXTUAL", "AMBIGUOUS", "NOT_SPECIFIED"]).default("EXPLICIT"),
+  projectDisposition: z.enum(["PROJECT_CANDIDATE", "DIALOGUE_ONLY", "OUT_OF_SCOPE"]).default("PROJECT_CANDIDATE"),
+  referencedProjectElementIds: z.array(z.string()).default([]),
+  relatedElementIds: z.array(z.string()).default([]),
+  quantitativeBounds: z.object({
+    lower: z.number().nullable(),
+    upper: z.number().nullable(),
+    unit: nullableText,
+  }).strict().nullable().default(null),
 }).strict();
 
 const relationSchema = z.object({
@@ -149,29 +216,71 @@ const clarificationSchema = z.object({
   affectedBranches: z.array(z.string()), blocking: z.boolean(), candidateQuestionIntent: z.string().min(1), resolutionOwner: z.string().min(1),
 }).strict();
 
+const domainDecisionSchema = z.object({
+  decision: z.enum(SCIENTIFIC_INTERPRETATION_DOMAIN_DECISIONS),
+  confidence,
+  rationale: z.string().min(1),
+  inScopeSegments: z.array(z.string()),
+  outOfScopeSegments: z.array(z.string()),
+  responseMessage: nullableText,
+  projectMutationAllowed: z.boolean(),
+}).strict();
+
+const dialogueRoutingSchema = z.object({
+  intent: z.enum(SCIENTIFIC_INTERPRETATION_DIALOGUE_INTENTS),
+  confidence,
+  rationale: z.string().min(1),
+  answersCurrentQuery: z.boolean(),
+  preservesCurrentQueryAction: z.boolean(),
+  questionContextMismatch: z.boolean(),
+  responseMessage: nullableText,
+}).strict();
+
 export const hybridPrimaryInterpretationSchema = z.object({
+  domainDecision: domainDecisionSchema.default({
+    decision: "IN_SCOPE",
+    confidence: null,
+    rationale: "Legacy-compatible scientific input.",
+    inScopeSegments: [],
+    outOfScopeSegments: [],
+    responseMessage: null,
+    projectMutationAllowed: true,
+  }),
+  dialogueRouting: dialogueRoutingSchema.default({
+    intent: "SCIENTIFIC_INPUT",
+    confidence: null,
+    rationale: "Legacy-compatible scientific input.",
+    answersCurrentQuery: false,
+    preservesCurrentQueryAction: true,
+    questionContextMismatch: false,
+    responseMessage: null,
+  }),
   normalizedUnderstanding: z.string().min(1),
   routeProposal: routeProposalSchema.default(null),
-  scientificGoalCandidates: z.array(z.string()),
-  studyIntentCandidates: z.array(z.string()),
-  objects: z.array(scientificElementSchema),
-  relations: z.array(relationSchema),
-  explicitStatements: z.array(scientificElementSchema),
-  inferredContext: z.array(scientificElementSchema),
-  contextualCandidates: z.array(scientificElementSchema),
-  negationsAndConstraints: z.array(scientificElementSchema),
-  temporalElements: z.array(scientificElementSchema),
-  ambiguities: z.array(ambiguitySchema),
-  unknowns: z.array(missingSchema),
-  missingInformation: z.array(missingSchema),
-  correctionsAndSupersessions: z.array(correctionSchema),
-  ownershipAndEpistemicStates: z.array(ownershipSchema),
-  openDecisions: z.array(openDecisionSchema),
-  clarificationNeeds: z.array(clarificationSchema),
+  scientificGoalCandidates: z.array(z.string()).default([]),
+  studyIntentCandidates: z.array(z.string()).default([]),
+  terminologyResolutions: z.array(terminologyResolutionSchema).default([]),
+  understandingElements: z.array(scientificElementSchema).default([]),
+  understandingRelations: z.array(relationSchema).default([]),
+  objects: z.array(scientificElementSchema).default([]),
+  relations: z.array(relationSchema).default([]),
+  explicitStatements: z.array(scientificElementSchema).default([]),
+  inferredContext: z.array(scientificElementSchema).default([]),
+  contextualCandidates: z.array(scientificElementSchema).default([]),
+  negationsAndConstraints: z.array(scientificElementSchema).default([]),
+  temporalElements: z.array(scientificElementSchema).default([]),
+  ambiguities: z.array(ambiguitySchema).default([]),
+  unknowns: z.array(missingSchema).default([]),
+  missingInformation: z.array(missingSchema).default([]),
+  correctionsAndSupersessions: z.array(correctionSchema).default([]),
+  ownershipAndEpistemicStates: z.array(ownershipSchema).default([]),
+  openDecisions: z.array(openDecisionSchema).default([]),
+  clarificationNeeds: z.array(clarificationSchema).default([]),
 }).strict();
 
 const nullableStringJson = { anyOf: [{ type: "string" }, { type: "null" }] } as const;
 const nullableNumberJson = { anyOf: [{ type: "number", minimum: 0, maximum: 1 }, { type: "null" }] } as const;
+const nullableScalarJson = { anyOf: [{ type: "number" }, { type: "null" }] } as const;
 const stringArrayJson = { type: "array", items: { type: "string" } } as const;
 const required = (properties: Record<string, unknown>) => Object.keys(properties);
 
@@ -183,6 +292,13 @@ const elementProperties = {
   previousElementIds: stringArrayJson, evidenceRefs: stringArrayJson, confidence: nullableNumberJson,
   adoptionStatus: nullableStringJson, originStatus: nullableStringJson, originType: nullableStringJson,
   availabilityScope: nullableStringJson, availabilityClaim: nullableStringJson, decisionId: nullableStringJson,
+  semanticFunction: { type: "string", enum: [...SEMANTIC_UNDERSTANDING_FUNCTIONS] },
+  evidenceBasis: { type: "string", enum: ["EXPLICIT", "CONTEXTUAL", "AMBIGUOUS", "NOT_SPECIFIED"] },
+  projectDisposition: { type: "string", enum: ["PROJECT_CANDIDATE", "DIALOGUE_ONLY", "OUT_OF_SCOPE"] },
+  referencedProjectElementIds: stringArrayJson, relatedElementIds: stringArrayJson,
+  quantitativeBounds: { anyOf: [{ type: "object", additionalProperties: false, properties: {
+    lower: nullableScalarJson, upper: nullableScalarJson, unit: nullableStringJson,
+  }, required: ["lower", "upper", "unit"] }, { type: "null" }] },
 };
 const relationProperties = {
   relationId: { type: "string" }, sourceElementId: { type: "string" }, targetElementId: { type: "string" }, relationType: { type: "string" },
@@ -239,6 +355,24 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
     }, required: ["clarificationId", "targetUnknown", "decisionalImpact", "affectedDecisions", "affectedBranches", "blocking", "candidateQuestionIntent", "resolutionOwner"] },
   },
   properties: {
+    domainDecision: { type: "object", additionalProperties: false, properties: {
+      decision: { type: "string", enum: [...SCIENTIFIC_INTERPRETATION_DOMAIN_DECISIONS] },
+      confidence: nullableNumberJson,
+      rationale: { type: "string" },
+      inScopeSegments: stringArrayJson,
+      outOfScopeSegments: stringArrayJson,
+      responseMessage: nullableStringJson,
+      projectMutationAllowed: { type: "boolean" },
+    }, required: ["decision", "confidence", "rationale", "inScopeSegments", "outOfScopeSegments", "responseMessage", "projectMutationAllowed"] },
+    dialogueRouting: { type: "object", additionalProperties: false, properties: {
+      intent: { type: "string", enum: [...SCIENTIFIC_INTERPRETATION_DIALOGUE_INTENTS] },
+      confidence: nullableNumberJson,
+      rationale: { type: "string" },
+      answersCurrentQuery: { type: "boolean" },
+      preservesCurrentQueryAction: { type: "boolean" },
+      questionContextMismatch: { type: "boolean" },
+      responseMessage: nullableStringJson,
+    }, required: ["intent", "confidence", "rationale", "answersCurrentQuery", "preservesCurrentQueryAction", "questionContextMismatch", "responseMessage"] },
     normalizedUnderstanding: { type: "string" },
     routeProposal: { anyOf: [{ type: "object", additionalProperties: false, properties: {
       route: { type: "string", enum: ["UNDERSTAND", "FORMALIZE_IDEA", "DESIGN_STUDY", "DOCUMENT", "REVIEW_REROUTE"] },
@@ -246,6 +380,39 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
       reason: nullableStringJson,
     }, required: ["route", "confidence", "reason"] }, { type: "null" }] },
     scientificGoalCandidates: stringArrayJson, studyIntentCandidates: stringArrayJson,
+    terminologyResolutions: {
+      type: "array",
+      description: "Independent terminology work performed before semantic role assignment. Include every abbreviation, acronym, shortened/local label, contextual synonym or Project reference needed for the latest turn. Unknown terms remain UNRESOLVED and ambiguous terms remain AMBIGUOUS; neither may authorize a Project candidate.",
+      items: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          resolutionId: { type: "string" },
+          surfaceForm: { type: "string" },
+          resolvedMeaning: nullableStringJson,
+          status: { type: "string", enum: [...SCIENTIFIC_INTERPRETATION_TERMINOLOGY_STATUSES] },
+          source: { type: "string", enum: ["PROJECT", "CONVERSATION_USER_DEFINED", "NOXIA_SUPPORTED_ROLE_VOCABULARY", "LLM_LINGUISTIC_KNOWLEDGE", "NONE"] },
+          confidence: nullableNumberJson,
+          alternatives: stringArrayJson,
+          semanticRoleCandidate: nullableStringJson,
+          referencedProjectElementIds: stringArrayJson,
+          understandingElementIds: stringArrayJson,
+          sourceTurnIds: stringArrayJson,
+          sourceText: nullableStringJson,
+        },
+        required: ["resolutionId", "surfaceForm", "resolvedMeaning", "status", "source", "confidence", "alternatives", "semanticRoleCandidate", "referencedProjectElementIds", "understandingElementIds", "sourceTurnIds", "sourceText"],
+      },
+    },
+    understandingElements: {
+      type: "array",
+      description: "Rich ephemeral semantic understanding built before NOXIA compilation. Emit one atomic entry for every scientifically distinct concept or role, including each member of a conjunction or enumeration. Never merge two distinct phenomena into one element unless the user explicitly defines a composite. IDs remain compiler provenance; Project references copy the exact supplied elementId into referencedProjectElementIds.",
+      items: { $ref: "#/$defs/ScientificElement" },
+    },
+    understandingRelations: {
+      type: "array",
+      description: "Relations inside the rich semantic understanding, before canonical compilation.",
+      items: { $ref: "#/$defs/ScientificRelation" },
+    },
     objects: {
       type: "array",
       description: "Atomic explicit scientific objects with one unambiguous semanticType per object; composite X_OR_Y types are forbidden. Include design or setting, every explicit allocation/randomization statement as its own STUDY_DESIGN or DESIGN object, condition, named or unnamed intervention or exposure, comparator, every explicitly named acquisition modality as MODALITY, every explicitly stated acquisition or imaging technique as METHOD when its exact variant is unspecified or variable, observed or measured phenomena as MEASURED_VARIABLE unless explicitly named as biomarkers or endpoints, explicit biomarkers as BIOMARKER, explicit comparison groups, every explicit eligibility or demographic criterion, and explicit comparative/statistical change intent as ANALYSIS or ANALYSIS_INTENT. An initial, baseline, follow-up or control acquisition is an occasion/timepoint rather than a modality or method. Direction or statistical significance without a named dependent measure is analysis intent and never a measurement or biomarker. Preserve criterion direction, boundary, value and unit without invention.",
@@ -287,7 +454,7 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
     }, ownershipAndEpistemicStates: { type: "array", items: { $ref: "#/$defs/OwnershipState" } },
     openDecisions: { type: "array", items: { $ref: "#/$defs/OpenDecision" } }, clarificationNeeds: { type: "array", items: { $ref: "#/$defs/ClarificationNeed" } },
   },
-  required: ["normalizedUnderstanding", "routeProposal", "scientificGoalCandidates", "studyIntentCandidates", "objects", "relations", "explicitStatements", "inferredContext", "contextualCandidates", "negationsAndConstraints", "temporalElements", "ambiguities", "unknowns", "missingInformation", "correctionsAndSupersessions", "ownershipAndEpistemicStates", "openDecisions", "clarificationNeeds"],
+  required: ["domainDecision", "dialogueRouting", "normalizedUnderstanding", "routeProposal", "scientificGoalCandidates", "studyIntentCandidates", "terminologyResolutions", "understandingElements", "understandingRelations", "objects", "relations", "explicitStatements", "inferredContext", "contextualCandidates", "negationsAndConstraints", "temporalElements", "ambiguities", "unknowns", "missingInformation", "correctionsAndSupersessions", "ownershipAndEpistemicStates", "openDecisions", "clarificationNeeds"],
 } as const;
 
 type JsonSchemaValue = null | boolean | number | string | JsonSchemaValue[] | { [key: string]: JsonSchemaValue };
@@ -311,8 +478,24 @@ const toProviderTransportSchema = (value: JsonSchemaValue, context: "SCHEMA" | "
   }));
 };
 
+const HYBRID_PRIMARY_PROVIDER_SOURCE_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  $defs: HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.$defs,
+  properties: {
+    domainDecision: HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.properties.domainDecision,
+    dialogueRouting: HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.properties.dialogueRouting,
+    normalizedUnderstanding: HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.properties.normalizedUnderstanding,
+    routeProposal: HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.properties.routeProposal,
+    terminologyResolutions: HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.properties.terminologyResolutions,
+    understandingElements: HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.properties.understandingElements,
+    understandingRelations: HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.properties.understandingRelations,
+  },
+  required: ["domainDecision", "dialogueRouting", "normalizedUnderstanding", "routeProposal", "terminologyResolutions", "understandingElements", "understandingRelations"],
+} as const;
+
 export const HYBRID_PRIMARY_PROVIDER_TRANSPORT_SCHEMA = toProviderTransportSchema(
-  HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA as unknown as JsonSchemaValue,
+  HYBRID_PRIMARY_PROVIDER_SOURCE_SCHEMA as unknown as JsonSchemaValue,
 ) as Record<string, JsonSchemaValue>;
 
 export const validateHybridProviderTransportSchema = (schema: JsonSchemaValue): string[] => {
@@ -374,8 +557,17 @@ export const parseHybridPrimaryProviderOutput = (
   });
   const groundedUnknowns = groundedMissing(parsedValue.unknowns);
   const groundedMissingInformation = groundedMissing(parsedValue.missingInformation);
-  const analyses = parsedValue.objects.filter((item) => /ANALYSIS|ESTIMAND|STATISTICAL/i.test(`${item.semanticType} ${item.studyRole}`));
-  const hasStructuredDependentMeasure = parsedValue.objects.some((item) => /BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET/i.test(item.semanticType));
+  const compiledUnderstanding = parsedValue.understandingElements
+    .filter((item) => item.projectDisposition === "PROJECT_CANDIDATE" && item.activeState)
+    .filter((item) => !["AMBIGUITY", "UNKNOWN", "UNCERTAINTY", "NEGATION", "CORRECTION", "TEMPORALITY"].includes(item.semanticFunction));
+  const compiledRelations = parsedValue.understandingRelations.filter((relation) => relation.activeState);
+  const objects = compiledUnderstanding.length ? compiledUnderstanding : parsedValue.objects;
+  const relations = compiledRelations.length ? compiledRelations : parsedValue.relations;
+  const temporalFromUnderstanding = parsedValue.understandingElements
+    .filter((item) => item.projectDisposition === "PROJECT_CANDIDATE" && item.activeState && item.semanticFunction === "TEMPORALITY");
+  const temporalElements = [...new Map([...parsedValue.temporalElements, ...temporalFromUnderstanding].map((item) => [item.elementId, item])).values()];
+  const analyses = objects.filter((item) => /ANALYSIS|ESTIMAND|STATISTICAL/i.test(`${item.semanticType} ${item.studyRole}`));
+  const hasStructuredDependentMeasure = objects.some((item) => /BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET/i.test(item.semanticType));
   const analysisTargetUnknowns = hasStructuredDependentMeasure ? [] : analyses
     .filter((analysis) => ![...groundedUnknowns, ...groundedMissingInformation].some((missing) =>
       missing.sourceText === analysis.sourceText
@@ -392,6 +584,9 @@ export const parseHybridPrimaryProviderOutput = (
     }));
   const value = {
     ...parsedValue,
+    objects,
+    relations,
+    temporalElements,
     unknowns: [...groundedUnknowns, ...analysisTargetUnknowns],
     missingInformation: groundedMissingInformation,
   };

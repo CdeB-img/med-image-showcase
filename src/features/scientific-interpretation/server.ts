@@ -1,4 +1,5 @@
 import { detectSensitiveData } from "../protocol-designer/intake/privacy.js";
+import { resolveScientificInterpretationProductRoute } from "./cognitive-boundary.js";
 import { DEFAULT_SCIENTIFIC_INTERPRETATION_MODE, ScientificInterpretationTechnicalError, type ScientificInterpretationMode } from "./contracts.js";
 import { executeScientificInterpretation, type ScientificInterpretationExecution } from "./runtime.js";
 import { SCIENTIFIC_INTERPRETATION_API_VERSION, parseScientificInterpretationApiRequest, type ScientificInterpretationApiFailure, type ScientificInterpretationApiResponse } from "./transport.js";
@@ -81,6 +82,33 @@ export const processScientificInterpretationHttp = async (
 
   try {
     const execution = await dependencies.execute(parsed);
+    const productRoute = resolveScientificInterpretationProductRoute(execution.activeContribution);
+    if (!productRoute.contributionAllowed) {
+      return {
+        status: 200,
+        headers,
+        body: {
+          apiVersion: SCIENTIFIC_INTERPRETATION_API_VERSION,
+          technicalStatus: execution.fallbackUsed ? "FALLBACK_ACTIVE" : "AVAILABLE",
+          runtimeMode: execution.mode,
+          productDisposition: productRoute.disposition,
+          contributionId: null,
+          fallbackUsed: execution.fallbackUsed,
+          fallback: execution.fallback,
+          auditStatus: "COMPLETE",
+          reviewRequired: false,
+          projectionDisposition: "NO_SCIENTIFIC_CONTRIBUTION",
+          contribution: null,
+          cognitiveBoundary: productRoute.cognitiveBoundary,
+          responseMessage: productRoute.responseMessage,
+          v1Projection: null,
+          projectWrites: 0,
+          semanticAuditLExecuted: false,
+          adjudicatorExecuted: false,
+          diagnostics: execution.diagnostics,
+        },
+      };
+    }
     const projection = projectScientificContributionToV1IfAllowed(execution.activeContribution);
     const critical = execution.activeContribution.audit.unresolvedFindings.some((item) => item.status === "OPEN" && item.severity === "CRITICAL");
     return {
@@ -90,6 +118,7 @@ export const processScientificInterpretationHttp = async (
         apiVersion: SCIENTIFIC_INTERPRETATION_API_VERSION,
         technicalStatus: execution.fallbackUsed ? "FALLBACK_ACTIVE" : "AVAILABLE",
         runtimeMode: execution.mode,
+        productDisposition: productRoute.disposition,
         contributionId: execution.activeContribution.identity.contributionId,
         fallbackUsed: execution.fallbackUsed,
         fallback: execution.fallback,
@@ -97,6 +126,8 @@ export const processScientificInterpretationHttp = async (
         reviewRequired: projection.disposition !== "ACCEPTED_FOR_V1_PROJECTION",
         projectionDisposition: projection.disposition,
         contribution: execution.activeContribution,
+        cognitiveBoundary: productRoute.cognitiveBoundary,
+        responseMessage: productRoute.responseMessage,
         v1Projection: projection.projection,
         projectWrites: 0,
         semanticAuditLExecuted: false,

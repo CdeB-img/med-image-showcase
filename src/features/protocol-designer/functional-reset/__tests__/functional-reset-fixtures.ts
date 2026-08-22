@@ -1,9 +1,11 @@
 import type {
   ContributionEpistemicBoundary,
   ScientificContributionItem,
+  ScientificInterpretationCognitiveBoundary,
   ScientificInterpretationContributionEnvelope,
   ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation/contracts";
+import type { ScientificInterpretationApiResponse } from "@/features/scientific-interpretation/transport";
 import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
 
 export const COLCHICINE_INITIAL = "Je veux étudier l’effet de la colchicine après infarctus du myocarde, notamment sur l’inflammation et les lésions en IRM, dans une étude multicentrique comparant colchicine et placebo. Je veux également prévoir des biomarqueurs sanguins et mesurer la taille de l’infarctus à l’IRM.";
@@ -133,5 +135,71 @@ export const makeFunctionalResetContribution = (turns: ScientificInterpretationT
       permittedHumanDispositions: ["ACCEPT_WORKING_BASIS", "REJECT", "DEFER", "REOPEN", "PARTIAL_SELECTION", "ROUTE_TO_SPECIALIST"],
       projectWriteAuthorized: false,
     },
+  };
+};
+
+export const makeFunctionalResetRuntimeResponse = (
+  sourceContribution: ScientificInterpretationContributionEnvelope,
+): ScientificInterpretationApiResponse => {
+  const understandingElements = [
+    ...sourceContribution.scientificContent.candidateObjects,
+    ...sourceContribution.scientificContent.temporalElements,
+    ...sourceContribution.scientificContent.negationsAndConstraints,
+    ...sourceContribution.scientificContent.unknowns,
+  ].map((value) => ({
+    ...value,
+    semanticFunction: value.semanticFunction ?? (value.proposedType === "TEMPORAL_ELEMENT" ? "TEMPORALITY" as const : "CONCEPT" as const),
+    evidenceBasis: value.evidenceBasis ?? "EXPLICIT" as const,
+    projectDisposition: value.projectDisposition ?? "PROJECT_CANDIDATE" as const,
+    referencedProjectElementIds: value.referencedProjectElementIds ?? [],
+    relatedItemIds: value.relatedItemIds ?? [],
+  }));
+  const cognitiveBoundary: ScientificInterpretationCognitiveBoundary = {
+    lifecycle: "EPHEMERAL_TRACEABLE_NON_AUTHORITATIVE",
+    authoritative: false,
+    domainDecision: {
+      decision: "IN_SCOPE",
+      confidence: 1,
+      rationale: "Test fixture for an explicit protocol-design message.",
+      inScopeSegments: [sourceContribution.source.originalRequest],
+      outOfScopeSegments: [],
+      responseMessage: null,
+      projectMutationAllowed: true,
+    },
+    dialogueRouting: {
+      intent: "SCIENTIFIC_INPUT",
+      confidence: 1,
+      rationale: "Test fixture for scientific input.",
+      answersCurrentQuery: false,
+      preservesCurrentQueryAction: true,
+      questionContextMismatch: false,
+      responseMessage: null,
+    },
+    semanticUnderstanding: {
+      summary: sourceContribution.scientificContent.normalizedUnderstanding ?? sourceContribution.source.originalRequest,
+      elements: understandingElements,
+      relations: sourceContribution.scientificContent.candidateRelations,
+    },
+  };
+  const contribution = { ...sourceContribution, cognitiveBoundary };
+  return {
+    apiVersion: "1.0.0",
+    technicalStatus: "AVAILABLE",
+    runtimeMode: "HYBRID_ACTIVE_WITH_LEGACY_FALLBACK",
+    productDisposition: "SCIENTIFIC_CONTRIBUTION",
+    contributionId: contribution.identity.contributionId,
+    fallbackUsed: false,
+    fallback: null,
+    auditStatus: "COMPLETE",
+    reviewRequired: true,
+    projectionDisposition: "ACCEPTED_FOR_V1_PROJECTION",
+    contribution,
+    cognitiveBoundary,
+    responseMessage: null,
+    v1Projection: null,
+    projectWrites: 0,
+    semanticAuditLExecuted: false,
+    adjudicatorExecuted: false,
+    diagnostics: [],
   };
 };

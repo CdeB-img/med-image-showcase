@@ -20,12 +20,20 @@ import {
   COLCHICINE_LATER_MODIFICATION,
   COLCHICINE_MODIFICATION,
   makeFunctionalResetContribution,
+  makeFunctionalResetRuntimeResponse,
 } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
 vi.mock("@/features/scientific-interpretation/client", () => ({
   requestScientificInterpretationRuntime: runtime.request,
+}));
+vi.mock("@/features/scientific-interpretation/semantic-critic-client", () => ({
+  requestSemanticCritic: vi.fn(async ({ candidate }) => ({
+    apiVersion: "1.0.0",
+    critic: { contract: "NOXIA_SEMANTIC_INTEGRATION_CRITIC", contractVersion: "1.1.0", status: "FAITHFUL", authoritative: false, groundingDigest: "test-grounding", understandingDigest: "test-understanding", candidateDigest: candidate.candidateDigest, findings: [], repairAllowed: false, provider: "TEST", model: "TEST", promptDigest: "test-prompt", rawOutputRef: "test:critic", technicalMessage: null },
+    providerAttempts: 1, retries: 0, invalidStructuredOutputs: 0,
+  })),
 }));
 
 const authority = {
@@ -61,9 +69,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => ({
-      contribution: makeFunctionalResetContribution(conversation.turns),
-    }));
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetRuntimeResponse(makeFunctionalResetContribution(conversation.turns)));
   });
   afterEach(cleanup);
 

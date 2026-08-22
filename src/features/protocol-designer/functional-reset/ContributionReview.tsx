@@ -1,4 +1,5 @@
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
+import type { SemanticCriticResult } from "@/features/scientific-interpretation/semantic-critic";
 import {
   type ResearchProjectContributionCandidate,
   type ResearchProjectSectionId,
@@ -30,12 +31,13 @@ const OPEN_POINT_LABELS: Partial<Record<ResearchProjectSectionId, string>> = {
 type Props = {
   contribution: ScientificInterpretationContributionEnvelope;
   candidate: ResearchProjectContributionCandidate;
+  semanticCritic?: SemanticCriticResult;
   status: "PENDING" | "CONFIRMED";
   onConfirm: () => void;
   onCorrect: () => void;
 };
 
-export default function ContributionReview({ contribution, candidate, status, onConfirm, onCorrect }: Props) {
+export default function ContributionReview({ contribution, candidate, semanticCritic, status, onConfirm, onCorrect }: Props) {
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
   const changes = candidate.changeSet.changes.filter((change) => change.operation !== "NO_CHANGE");
   const initialSections = candidate.proposedSections
@@ -65,6 +67,9 @@ export default function ContributionReview({ contribution, candidate, status, on
       ? "Voici les changements repérés dans votre dernier message. Ils ne seront appliqués qu’après votre confirmation."
       : "Cette proposition reste modifiable. Vous pouvez la confirmer ou décrire librement ce que vous souhaitez changer."}</p>
 
+    {semanticCritic?.status === "FAITHFUL" && <p className="mt-3 rounded-xl bg-emerald-500/10 px-3 py-2 text-sm text-emerald-800 dark:text-emerald-100">Fidélité vérifiée : l’intégration proposée respecte la compréhension de votre message.</p>}
+    {semanticCritic && semanticCritic.status !== "FAITHFUL" && <p role="alert" className="mt-3 rounded-xl bg-amber-500/10 px-3 py-2 text-sm text-amber-900 dark:text-amber-100">Cette intégration n’est pas validée par le contrôle de fidélité et ne peut pas être confirmée.</p>}
+
     <div className="mt-4 grid gap-3 sm:grid-cols-2">
       {sections.map((section) => <section key={section.id} className="rounded-2xl border p-3">
         <h4 className="text-sm font-semibold">{section.label}</h4>
@@ -78,7 +83,7 @@ export default function ContributionReview({ contribution, candidate, status, on
     </section>}
 
     {status === "PENDING" ? <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-      <button type="button" onClick={onConfirm} className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Cela correspond à mon projet</button>
+      <button type="button" onClick={onConfirm} disabled={semanticCritic !== undefined && semanticCritic.status !== "FAITHFUL"} className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50">Cela correspond à mon projet</button>
       <button type="button" onClick={onCorrect} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium">Décrire une correction</button>
     </div> : <p role="status" className="mt-5 rounded-xl bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">{isUpdate ? "Modifications confirmées." : "Structure confirmée."}</p>}
   </section>;

@@ -21,12 +21,19 @@ import {
   CHANGESET_SCOPE,
   makeFunctionalReset03A1Contribution,
 } from "./functional-reset-03a1-fixtures";
-import { COLCHICINE_03A_INITIAL, COLCHICINE_03A_MODIFICATION, makeFunctionalResetContribution } from "./functional-reset-fixtures";
+import { COLCHICINE_03A_INITIAL, COLCHICINE_03A_MODIFICATION, makeFunctionalResetContribution, makeFunctionalResetRuntimeResponse } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
 vi.mock("@/features/scientific-interpretation/client", () => ({
   requestScientificInterpretationRuntime: runtime.request,
+}));
+vi.mock("@/features/scientific-interpretation/semantic-critic-client", () => ({
+  requestSemanticCritic: vi.fn(async ({ candidate }) => ({
+    apiVersion: "1.0.0",
+    critic: { contract: "NOXIA_SEMANTIC_INTEGRATION_CRITIC", contractVersion: "1.1.0", status: "FAITHFUL", authoritative: false, groundingDigest: "test-grounding", understandingDigest: "test-understanding", candidateDigest: candidate.candidateDigest, findings: [], repairAllowed: false, provider: "TEST", model: "TEST", promptDigest: "test-prompt", rawOutputRef: "test:critic", technicalMessage: null },
+    providerAttempts: 1, retries: 0, invalidStructuredOutputs: 0,
+  })),
 }));
 
 const authority = {
@@ -113,9 +120,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => ({
-      contribution: makeFunctionalReset03A1Contribution(conversation.turns),
-    }));
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetRuntimeResponse(makeFunctionalReset03A1Contribution(conversation.turns)));
   });
   afterEach(cleanup);
 
@@ -249,8 +254,8 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     expect(within(projectPanel).getByText(/Projet sur infarctus du myocarde/)).toBeInTheDocument();
   });
 
-  it("FR03A1-C14 — Scientific Interpretation runtime remains on the admitted foundation", () => {
-    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.10");
+  it("FR03A1-C14 — Scientific Interpretation runtime remains on the admitted cognitive foundation", () => {
+    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.5.0");
     expect(makeFunctionalReset03A1Contribution(turnsTo(7)).identity).toMatchObject({
       runtimeId: "HYBRID_PRIMARY_STRUCTURED",
       runtimeVersion: HYBRID_PRIMARY_RUNTIME_VERSION,

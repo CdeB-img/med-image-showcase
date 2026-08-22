@@ -71,10 +71,16 @@ describe("SEM-CLOSURE-001R — structured request contract repair", () => {
   it("SCR-C02 builds a deterministic, locally supported provider transport schema", () => {
     expect(validateHybridProviderTransportSchema(HYBRID_PRIMARY_PROVIDER_TRANSPORT_SCHEMA)).toEqual([]);
     expect(JSON.stringify(buildGeminiHybridProviderPayload(conversation))).toBe(JSON.stringify(buildGeminiHybridProviderPayload(conversation)));
+    const quantitativeBounds = (HYBRID_PRIMARY_PROVIDER_TRANSPORT_SCHEMA as {
+      $defs: { ScientificElement: { properties: Record<string, unknown> } };
+    }).$defs.ScientificElement.properties.quantitativeBounds;
+    expect(JSON.stringify(quantitativeBounds)).not.toContain('"maximum":1');
+    expect(JSON.stringify(quantitativeBounds)).not.toContain('"minimum":0');
   });
 
   it("SCR-C03 preserves the complete strict internal contract", () => {
-    expect(HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.required).toHaveLength(18);
+    expect(HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.required).toHaveLength(23);
+    expect(HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.required).toContain("terminologyResolutions");
     expect(HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA.required).toContain("routeProposal");
     expect(hybridPrimaryInterpretationSchema.safeParse({ ...primary, normalizedUnderstanding: "" }).success).toBe(false);
   });
@@ -137,9 +143,9 @@ describe("SEM-CLOSURE-001R — structured request contract repair", () => {
     await expect(adapter.interpret(conversation)).rejects.toBeInstanceOf(ScientificInterpretationTechnicalError);
   });
 
-  it("SCR-C08 adds no repair LLM", () => {
+  it("SCR-C08 keeps repair orchestration outside the primary provider", () => {
     const implementation = `${source("api/scientific-interpretation-provider.ts")}\n${source("src/features/scientific-interpretation/hybrid-primary.ts")}`;
-    expect(implementation).not.toMatch(/repair[_ -]?llm|regenerat/i);
+    expect(implementation).not.toMatch(/requestSemanticCritic|evaluateFunctionalResetSemanticIntegration/);
   });
 
   it("SCR-C09 contains no case-specific transport transformation", () => {

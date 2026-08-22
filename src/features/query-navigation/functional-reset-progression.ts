@@ -771,6 +771,79 @@ export const clarifyFunctionalResetQueryAfterMisunderstanding = (input: {
   return { ...structuredClone(input.navigation), memory, standardQuestion, lastResponseRoute };
 };
 
+export const mediateFunctionalResetQueryDialogue = (input: {
+  navigation: Readonly<FunctionalResetQueryNavigation>;
+  intent: "REQUEST_REPHRASE" | "REQUEST_EXPLANATION" | "USER_QUESTION";
+  responseMessage: string;
+  rawResponse: string;
+  actorRef: string;
+  actorRole: string;
+  receivedAt: string;
+  responseId: string;
+}): FunctionalResetQueryNavigation => {
+  const action = input.navigation.currentAction;
+  const presentation = input.navigation.currentPresentation;
+  const previousQuestion = input.navigation.standardQuestion;
+  if (!action || !presentation || !previousQuestion) return structuredClone(input.navigation);
+  const response = buildQuestionResponseEnvelope({
+    responseId: input.responseId,
+    selectedActionRef: action.selectedActionId,
+    presentationRef: presentation.presentationId,
+    projectRef: input.navigation.projectRef,
+    projectVersionAtPresentation: input.navigation.projectVersion,
+    responseKind: "FREE_TEXT",
+    rawResponse: input.rawResponse,
+    actorRef: input.actorRef,
+    actorRole: input.actorRole,
+    selectedOptionRefs: [],
+    disposition: "REQUEST_CLARIFICATION",
+    receivedAt: input.receivedAt,
+    provenanceRefs: [input.actorRef],
+  });
+  const freshness = inspectNavigationActionFreshness(action, {
+    projectVersion: input.navigation.projectVersion,
+    sourceStateDigest: input.navigation.sourceStateDigest,
+  });
+  const lastResponseRoute = routeNavigationResponse(action, presentation, response, freshness);
+  const standardQuestion = presentFunctionalResetQuestion(
+    action,
+    presentation,
+    previousQuestion.repeatCount + 1,
+    {
+      selectedActionRef: action.selectedActionId,
+      informationNeedRefs: [...presentation.informationNeedRefs],
+      scopeSectionIds: sectionsForAction(action),
+      question: input.responseMessage,
+    },
+  );
+  let memory = rememberQuestionResponse(input.navigation.memory, response);
+  memory = recordLifecycleEvent(memory, {
+    eventType: "RESPONSE_RECEIVED",
+    actionRef: action.selectedActionId,
+    presentationRef: presentation.presentationId,
+    responseRef: response.responseId,
+    projectRef: input.navigation.projectRef,
+    projectVersion: input.navigation.projectVersion,
+    sourceStateDigest: input.navigation.sourceStateDigest,
+    reason: `DIALOGUE_MEDIATION_${input.intent}`,
+    evidenceRefs: [response.responseId],
+    recordedAt: input.receivedAt,
+  });
+  memory = recordLifecycleEvent(memory, {
+    eventType: "ACTION_PRESENTED",
+    actionRef: action.selectedActionId,
+    presentationRef: presentation.presentationId,
+    responseRef: null,
+    projectRef: input.navigation.projectRef,
+    projectVersion: input.navigation.projectVersion,
+    sourceStateDigest: input.navigation.sourceStateDigest,
+    reason: "SAME_QRY_ACTION_MEDIATED_WITH_CONVERSATION_CONTEXT",
+    evidenceRefs: [standardQuestion.questionId],
+    recordedAt: input.receivedAt,
+  });
+  return { ...structuredClone(input.navigation), memory, standardQuestion, lastResponseRoute };
+};
+
 export const reopenFunctionalResetQueryDeferral = (input: {
   navigation: Readonly<FunctionalResetQueryNavigation>;
   sectionId: ResearchProjectSectionId;
@@ -807,6 +880,7 @@ export const reopenFunctionalResetQueryDeferral = (input: {
 export const restateFunctionalResetQueryAfterNoChange = (input: {
   navigation: Readonly<FunctionalResetQueryNavigation>;
   recordedAt: string;
+  responseMessage?: string | null;
 }): FunctionalResetQueryNavigation => {
   const action = input.navigation.currentAction;
   const presentation = input.navigation.currentPresentation;
@@ -816,6 +890,12 @@ export const restateFunctionalResetQueryAfterNoChange = (input: {
     action,
     presentation,
     previousQuestion.repeatCount + 1,
+    input.responseMessage ? {
+      selectedActionRef: action.selectedActionId,
+      informationNeedRefs: [...presentation.informationNeedRefs],
+      scopeSectionIds: sectionsForAction(action),
+      question: input.responseMessage,
+    } : null,
   );
   let memory = recordLifecycleEvent(input.navigation.memory, {
     eventType: "ACTION_REOPENED",

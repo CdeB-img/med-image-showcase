@@ -4,9 +4,11 @@ import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-reac
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { requestScientificInterpretationRuntime } from "@/features/scientific-interpretation/client";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
+import { buildSemanticCriticGroundingContext } from "@/features/scientific-interpretation/semantic-critic";
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
+  projectContextForScientificInterpretation,
   prepareResearchProjectContributionCandidate,
 } from "@/features/research-project-construction";
 import {
@@ -16,10 +18,9 @@ import {
 } from "@/features/document-projection";
 import {
   buildFunctionalResetQueryNavigation,
-  clarifyFunctionalResetQueryAfterMisunderstanding,
   deferFunctionalResetQueryNeeds,
   deferFunctionalResetQueryNavigation,
-  isFunctionalResetQueryMisunderstanding,
+  mediateFunctionalResetQueryDialogue,
   recordFunctionalResetQueryResponse,
   restateFunctionalResetQueryAfterNoChange,
 } from "@/features/query-navigation";
@@ -36,6 +37,7 @@ import {
   type FunctionalResetSession,
 } from "./session";
 import { classifyFunctionalResetQueryDeferral, classifyFunctionalResetQueryDeferralScope } from "./query-deferral";
+import { evaluateFunctionalResetSemanticIntegration, semanticRepairContextFromCritic } from "./semantic-integration";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -77,72 +79,89 @@ export default function ProtocolDesignerWorkspace() {
     const runtimeTurns = [...session.runtimeTurns, userTurn];
     const previousContribution = session.pendingContribution ?? session.currentContribution;
     const responseId = createConversationEntryId();
-    const misunderstanding = Boolean(session.queryNavigation && isFunctionalResetQueryMisunderstanding(content));
-    const queryNavigation = session.queryNavigation
-      ? misunderstanding
-        ? clarifyFunctionalResetQueryAfterMisunderstanding({
-          navigation: session.queryNavigation,
-          rawResponse: content,
-          actorRef: session.projectAuthority.actorRef,
-          actorRole: "RESEARCHER",
-          receivedAt: now,
-          responseId,
-        })
-        : recordFunctionalResetQueryResponse({
-          navigation: session.queryNavigation,
-          rawResponse: content,
-          actorRef: session.projectAuthority.actorRef,
-          actorRole: "RESEARCHER",
-          receivedAt: now,
-          responseId,
-        })
-      : null;
     const withUser: FunctionalResetSession = {
       ...session,
-      queryNavigation,
-      runtimeTurns: misunderstanding ? session.runtimeTurns : runtimeTurns,
+      runtimeTurns,
       entries: [
         ...session.entries,
         { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: now },
-        ...(misunderstanding && queryNavigation?.standardQuestion ? [{
-          entryId: createConversationEntryId(),
-          kind: "TEXT" as const,
-          role: "NOXIA" as const,
-          content: queryNavigation.standardQuestion.text,
-          createdAt: now,
-        }] : []),
       ],
       updatedAt: now,
     };
     setSession(withUser);
     setDraft("");
     setCorrectionMode(false);
-    if (misunderstanding) return;
     setBusy(true);
     try {
+      const activeNavigation = session.queryNavigation;
+      const conversation = {
+        conversationId: session.conversationId,
+        language: "fr" as const,
+        turns: runtimeTurns,
+        projectContext: projectContextForScientificInterpretation(session.project),
+        ...(activeNavigation?.currentAction && activeNavigation.currentPresentation ? {
+          interactionContext: {
+            interactionRef: activeNavigation.currentPresentation.presentationId,
+            sourceActionRef: activeNavigation.currentAction.selectedActionId,
+            owner: "QUERY_NAVIGATION",
+            purpose: activeNavigation.currentPresentation.intent,
+            expectedResponseKind: "QRY_INFORMATION_RESPONSE" as const,
+            targetRefs: [activeNavigation.currentAction.targetRef],
+            informationNeedRefs: [...activeNavigation.currentAction.navigationNeedRefs],
+            projectRef: activeNavigation.projectRef,
+            projectVersion: activeNavigation.projectVersion,
+            projectDigest: activeNavigation.projectDigest,
+            currentQuestion: activeNavigation.standardQuestion?.text ?? null,
+            questionRationale: activeNavigation.currentPresentation.whyNow,
+            scopeSectionIds: activeNavigation.standardQuestion?.scopeSectionIds ?? [],
+          },
+        } : {}),
+      };
       const response = await requestScientificInterpretationRuntime({
-        conversation: {
-          conversationId: session.conversationId,
-          language: "fr",
-          turns: runtimeTurns,
-          ...(queryNavigation?.currentAction && queryNavigation.currentPresentation ? {
-            interactionContext: {
-              interactionRef: queryNavigation.currentPresentation.presentationId,
-              sourceActionRef: queryNavigation.currentAction.selectedActionId,
-              owner: "QUERY_NAVIGATION",
-              purpose: queryNavigation.currentPresentation.intent,
-              expectedResponseKind: "QRY_INFORMATION_RESPONSE" as const,
-              targetRefs: [queryNavigation.currentAction.targetRef],
-              informationNeedRefs: [...queryNavigation.currentAction.navigationNeedRefs],
-              projectRef: queryNavigation.projectRef,
-              projectVersion: queryNavigation.projectVersion,
-              projectDigest: queryNavigation.projectDigest,
-            },
-          } : {}),
-        },
+        conversation,
         previousContribution,
       });
       const receivedAt = new Date().toISOString();
+      const trace = {
+        sourceTurnId: userTurn.turnId,
+        disposition: response.productDisposition,
+        boundary: response.cognitiveBoundary,
+        recordedAt: receivedAt,
+      };
+      if (!response.contribution) {
+        const intent = response.cognitiveBoundary.dialogueRouting.intent;
+        const responseMessage = response.responseMessage ?? "NOXIA ne peut pas intégrer ce message au projet dans son état actuel.";
+        const mediatedNavigation = activeNavigation && ["REQUEST_REPHRASE", "REQUEST_EXPLANATION", "USER_QUESTION"].includes(intent)
+          ? mediateFunctionalResetQueryDialogue({
+            navigation: activeNavigation,
+            intent: intent as "REQUEST_REPHRASE" | "REQUEST_EXPLANATION" | "USER_QUESTION",
+            responseMessage,
+            rawResponse: content,
+            actorRef: session.projectAuthority.actorRef,
+            actorRole: "RESEARCHER",
+            receivedAt,
+            responseId,
+          })
+          : activeNavigation;
+        const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: responseMessage, createdAt: receivedAt };
+        setSession((current) => ({
+          ...current,
+          queryNavigation: mediatedNavigation,
+          runtimeTurns: [...current.runtimeTurns, assistantTurn],
+          cognitiveTraceHistory: [...current.cognitiveTraceHistory, trace],
+          entries: [...current.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: responseMessage, createdAt: receivedAt }],
+          updatedAt: receivedAt,
+        }));
+        return;
+      }
+      const queryNavigation = activeNavigation ? recordFunctionalResetQueryResponse({
+        navigation: activeNavigation,
+        rawResponse: content,
+        actorRef: session.projectAuthority.actorRef,
+        actorRole: "RESEARCHER",
+        receivedAt,
+        responseId,
+      }) : null;
       const candidate = prepareResearchProjectContributionCandidate(response.contribution, session.project);
       const deferralReason = queryNavigation ? classifyFunctionalResetQueryDeferral({
         contribution: response.contribution,
@@ -165,7 +184,10 @@ export default function ProtocolDesignerWorkspace() {
           ? deferFunctionalResetQueryNavigation({ navigation: queryNavigation, reason: deferralReason, recordedAt: receivedAt })
           : queryNavigation;
       const deferred = Boolean(deferralScope || deferralReason);
-      if (session.project && candidate.changeSet.status === "NO_NET_CHANGE") {
+      const qryDialogueNoChange = Boolean(activeNavigation
+        && candidate.changeSet.status === "NO_NET_CHANGE"
+        && (deferred || response.cognitiveBoundary.dialogueRouting.questionContextMismatch));
+      if (session.project && qryDialogueNoChange) {
         setSession((current) => {
           const queryNavigation = navigationAfterInterpretation
             ? deferred
@@ -176,7 +198,11 @@ export default function ProtocolDesignerWorkspace() {
                 recordedAt: receivedAt,
                 forceRebuild: true,
               })
-              : restateFunctionalResetQueryAfterNoChange({ navigation: navigationAfterInterpretation, recordedAt: receivedAt })
+              : restateFunctionalResetQueryAfterNoChange({
+                navigation: navigationAfterInterpretation,
+                recordedAt: receivedAt,
+                responseMessage: response.cognitiveBoundary.dialogueRouting.questionContextMismatch ? response.responseMessage : null,
+              })
             : null;
           const question = queryNavigation?.standardQuestion
             ? `${queryNavigation.standardQuestion.priorityLead}\n\n${queryNavigation.standardQuestion.text}`
@@ -186,13 +212,16 @@ export default function ProtocolDesignerWorkspace() {
             queryNavigation,
             currentContribution: response.contribution,
             pendingContribution: null,
+            cognitiveTraceHistory: [...current.cognitiveTraceHistory, trace],
             entries: [
               ...current.entries,
               {
                 entryId: createConversationEntryId(),
                 kind: "TEXT",
                 role: "NOXIA",
-                content: deferred
+                content: response.cognitiveBoundary.dialogueRouting.questionContextMismatch && response.responseMessage
+                  ? response.responseMessage
+                  : deferred
                   ? "Ce point reste ouvert dans le projet, mais il est mis de côté pour le moment."
                   : candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
                 createdAt: receivedAt,
@@ -216,19 +245,124 @@ export default function ProtocolDesignerWorkspace() {
         });
         return;
       }
+      const integration = await evaluateFunctionalResetSemanticIntegration({
+        contribution: response.contribution,
+        groundingContext: buildSemanticCriticGroundingContext(conversation, response.contribution),
+        candidate,
+        currentProject: session.project,
+        repairInterpretation: async ({ contribution, critic }) => {
+          const repaired = await requestScientificInterpretationRuntime({
+            conversation: {
+              ...conversation,
+              semanticRepairContext: semanticRepairContextFromCritic({ contribution, critic }),
+            },
+            previousContribution,
+          });
+          if (!repaired.contribution) throw new Error("SEMANTIC_REPAIR_DID_NOT_RETURN_SCIENTIFIC_CONTRIBUTION");
+          return repaired.contribution;
+        },
+      });
+      const cognitiveTraces = integration.repairCount === 1 ? [
+        trace,
+        {
+          sourceTurnId: userTurn.turnId,
+          disposition: "SCIENTIFIC_CONTRIBUTION" as const,
+          boundary: integration.contribution.cognitiveBoundary!,
+          recordedAt: receivedAt,
+        },
+      ] : [trace];
+      if (integration.status !== "READY_FOR_HUMAN_REVIEW") {
+        const message = integration.status === "CRITIC_UNAVAILABLE"
+          ? "Le contrôle de fidélité sémantique est momentanément indisponible. Aucune modification n’est présentée comme correcte et le projet reste inchangé."
+          : "NOXIA n’a pas pu confirmer que l’intégration proposée respecte fidèlement votre message. Merci de préciser ou reformuler ce point ; le projet reste inchangé.";
+        setSession((current) => ({
+          ...current,
+          queryNavigation: navigationAfterInterpretation,
+          pendingContribution: null,
+          cognitiveTraceHistory: [...current.cognitiveTraceHistory, ...cognitiveTraces],
+          criticTraceHistory: [...current.criticTraceHistory, {
+            contributionId: integration.contribution.identity.contributionId,
+            result: integration.critic,
+            repairCount: integration.repairCount,
+            recordedAt: receivedAt,
+          }],
+          entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: message, createdAt: receivedAt }],
+          updatedAt: receivedAt,
+        }));
+        return;
+      }
+      if (session.project && integration.candidate.changeSet.status === "NO_NET_CHANGE") {
+        setSession((current) => {
+          const queryNavigation = navigationAfterInterpretation
+            ? restateFunctionalResetQueryAfterNoChange({
+              navigation: navigationAfterInterpretation,
+              recordedAt: receivedAt,
+              responseMessage: null,
+            })
+            : null;
+          const question = queryNavigation?.standardQuestion
+            ? `${queryNavigation.standardQuestion.priorityLead}\n\n${queryNavigation.standardQuestion.text}`
+            : null;
+          return {
+            ...current,
+            queryNavigation,
+            currentContribution: integration.contribution,
+            pendingContribution: null,
+            cognitiveTraceHistory: [...current.cognitiveTraceHistory, ...cognitiveTraces],
+            criticTraceHistory: [...current.criticTraceHistory, {
+              contributionId: integration.contribution.identity.contributionId,
+              result: integration.critic,
+              repairCount: integration.repairCount,
+              recordedAt: receivedAt,
+            }],
+            entries: [
+              ...current.entries,
+              {
+                entryId: createConversationEntryId(),
+                kind: "TEXT",
+                role: "NOXIA",
+                content: integration.candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
+                createdAt: receivedAt,
+              },
+              ...(question ? [{
+                entryId: createConversationEntryId(),
+                kind: "TEXT" as const,
+                role: "NOXIA" as const,
+                content: question,
+                createdAt: receivedAt,
+              }] : []),
+            ],
+            updatedAt: receivedAt,
+          };
+        });
+        return;
+      }
       setSession((current) => ({
         ...current,
         queryNavigation: navigationAfterInterpretation,
-        pendingContribution: response.contribution,
-        entries: [...current.entries, {
+        pendingContribution: integration.contribution,
+        cognitiveTraceHistory: [...current.cognitiveTraceHistory, ...cognitiveTraces],
+        criticTraceHistory: [...current.criticTraceHistory, {
+          contributionId: integration.contribution.identity.contributionId,
+          result: integration.critic,
+          repairCount: integration.repairCount,
+          recordedAt: receivedAt,
+        }],
+        entries: [
+          ...current.entries,
+          ...(response.responseMessage ? [{ entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const, content: response.responseMessage, createdAt: receivedAt }] : []),
+          {
           entryId: createConversationEntryId(),
           kind: "REVIEW",
           role: "NOXIA",
-          contribution: response.contribution,
-          candidate,
+          contribution: integration.contribution,
+          candidate: integration.candidate,
+          semanticCritic: integration.critic,
+          repairCount: integration.repairCount,
           status: "PENDING",
           createdAt: receivedAt,
-        }],
+          },
+        ],
         updatedAt: receivedAt,
       }));
     } catch (error) {
@@ -247,6 +381,8 @@ export default function ProtocolDesignerWorkspace() {
   const confirmContribution = (contributionId: string) => {
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
+    const review = session.entries.find((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId && entry.status === "PENDING");
+    if (!review || review.kind !== "REVIEW" || review.semanticCritic?.status !== "FAITHFUL") return;
     const now = new Date().toISOString();
     try {
       const project = confirmResearchProjectContribution({
@@ -430,6 +566,7 @@ export default function ProtocolDesignerWorkspace() {
                   entry.contribution,
                   projectExistedForReview(index) ? session.project : null,
                 )}
+                semanticCritic={entry.semanticCritic}
                 status={entry.status}
                 onConfirm={() => confirmContribution(entry.contribution.identity.contributionId)}
                 onCorrect={requestCorrection}

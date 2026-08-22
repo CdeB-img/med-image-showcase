@@ -345,7 +345,8 @@ describe("FUNCTIONAL-RESET-03D — live semantic completeness and contextual QRY
 
   it("FR03D-C20 — No ST, IMG or Knowledge reasoning is introduced", () => {
     const boundaries = `${HYBRID_PRIMARY_SYSTEM_PROMPT} ${JSON.stringify(temporalNavigation().boundary)}`;
-    expect(boundaries).toMatch(/Do not access or assume a Research Project/);
+    expect(boundaries).toMatch(/supplied read-only Project context/);
+    expect(boundaries).toMatch(/never adopts, mutates or owns them/);
     expect(temporalNavigation()).toMatchObject({ projectWriteAuthorized: false, sourceOfTruth: false });
   });
 

@@ -59,6 +59,7 @@ export const appendScientificInterpretationExecution = (
   response: ScientificInterpretationApiResponse,
   assistantMessage?: ScientificInterpretationTurn,
 ): ScientificInterpretationWorkspaceSession => {
+  if (!response.contribution || !response.contributionId) return session;
   const prior = session.currentContribution;
   const recordedAt = assistantMessage?.createdAt ?? response.contribution.identity.createdAt;
   return {

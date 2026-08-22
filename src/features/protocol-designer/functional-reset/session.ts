@@ -1,7 +1,10 @@
 import type {
+  ScientificInterpretationCognitiveBoundary,
   ScientificInterpretationContributionEnvelope,
   ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation/contracts";
+import type { ScientificInterpretationProductDisposition } from "@/features/scientific-interpretation/cognitive-boundary";
+import type { SemanticCriticResult } from "@/features/scientific-interpretation/semantic-critic";
 import type {
   ResearchProjectOwnerAuthority,
   ResearchProjectOwnerProjection,
@@ -18,12 +21,12 @@ export const INITIAL_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que v
 
 export type ConversationEntry =
   | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; createdAt: string }
-  | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; status: "PENDING" | "CONFIRMED"; createdAt: string }
+  | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; semanticCritic?: SemanticCriticResult; repairCount?: 0 | 1; status: "PENDING" | "CONFIRMED"; createdAt: string }
   | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string };
 
 export type FunctionalResetSession = {
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
-  contractVersion: "1.3.0";
+  contractVersion: "1.4.0";
   sessionId: string;
   conversationId: string;
   projectId: string;
@@ -38,6 +41,8 @@ export type FunctionalResetSession = {
   queryNavigation: FunctionalResetQueryNavigation | null;
   documents: FunctionalResetDocumentPortfolio;
   openDocumentProjectionId: string | null;
+  cognitiveTraceHistory: Array<{ sourceTurnId: string; disposition: ScientificInterpretationProductDisposition; boundary: ScientificInterpretationCognitiveBoundary; recordedAt: string }>;
+  criticTraceHistory: Array<{ contributionId: string; result: SemanticCriticResult; repairCount: 0 | 1; recordedAt: string }>;
 };
 
 const id = (prefix: string) => {
@@ -49,7 +54,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
   const sessionId = id("protocol-designer-session");
   return {
     contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION",
-    contractVersion: "1.3.0",
+    contractVersion: "1.4.0",
     sessionId,
     conversationId: id("scientific-conversation"),
     projectId: `${sessionId}:research-project`,
@@ -69,6 +74,8 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     queryNavigation: null,
     documents: createEmptyFunctionalResetDocumentPortfolio(),
     openDocumentProjectionId: null,
+    cognitiveTraceHistory: [],
+    criticTraceHistory: [],
   };
 };
 
@@ -76,7 +83,7 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
   if (!value || typeof value !== "object") return false;
   const record = value as Partial<FunctionalResetSession>;
   return record.contract === "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION"
-    && record.contractVersion === "1.3.0"
+    && record.contractVersion === "1.4.0"
     && typeof record.sessionId === "string"
     && typeof record.conversationId === "string"
     && Array.isArray(record.entries)
@@ -86,14 +93,22 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
     && (!record.queryNavigation || record.queryNavigation.contract === "FUNCTIONAL_RESET_QUERY_NAVIGATION")
     && record.documents?.contract === "FUNCTIONAL_RESET_DOCUMENT_PORTFOLIO"
     && record.documents.owner === "DOC-001"
+    && Array.isArray(record.cognitiveTraceHistory)
+    && Array.isArray(record.criticTraceHistory)
     && (record.openDocumentProjectionId === null || typeof record.openDocumentProjectionId === "string");
 };
 
 const migrateLegacySession = (value: unknown): FunctionalResetSession | null => {
   if (!value || typeof value !== "object") return null;
   const record = value as Record<string, unknown>;
-  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || record.contractVersion !== "1.2.0") return null;
-  const migrated = { ...record, contractVersion: "1.3.0", queryNavigation: null };
+  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0"].includes(String(record.contractVersion))) return null;
+  const migrated = {
+    ...record,
+    contractVersion: "1.4.0",
+    queryNavigation: record.contractVersion === "1.2.0" ? null : record.queryNavigation,
+    cognitiveTraceHistory: [],
+    criticTraceHistory: [],
+  };
   return looksLikeSession(migrated) ? migrated : null;
 };
 
