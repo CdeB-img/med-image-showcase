@@ -52,6 +52,7 @@
     "validate:sem003c1": "experiments/.venv/bin/python experiments/semantic-engine-comparison/tools/validate.py",
     "test:sem003c1": "experiments/.venv/bin/python -m unittest discover -s experiments/semantic-engine-comparison/tests -p 'test_*.py'",
     "test:semantic:live": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign.manual.ts",
+    "test:functional-reset:03d:live": "vite-node src/features/protocol-designer/functional-reset/manual/functional-reset-03d-live-gate.manual.ts",
     "test:semantic:r3:development": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign-r3.manual.ts --development",
     "test:semantic:r3:holdout": "vite-node src/features/scientific-semantic-reconstruction/manual/live-competence-campaign-r3.manual.ts --holdout",
     "test:knowledge": "vitest run src/features/knowledge-engine/__tests__",

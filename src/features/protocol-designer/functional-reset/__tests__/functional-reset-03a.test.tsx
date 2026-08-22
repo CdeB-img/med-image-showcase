@@ -93,7 +93,10 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     const session = storedSession();
     expect(session.project).toBeNull();
     expect(session.pendingContribution).toMatchObject({
-      identity: { runtimeId: "HYBRID_PRIMARY_STRUCTURED", runtimeVersion: "1.3.6" },
+      identity: {
+        runtimeId: "HYBRID_PRIMARY_STRUCTURED",
+        runtimeVersion: HYBRID_PRIMARY_RUNTIME_VERSION,
+      },
       epistemicBoundary: { candidateIsAdopted: false, projectOwnershipTransferred: false },
       decisionBoundary: { projectWriteAuthorized: false },
     });
@@ -257,8 +260,8 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     });
   });
 
-  it("FR03A-C10 — Scientific Interpretation reste inchangé", async () => {
-    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.6");
+  it("FR03A-C10 — Scientific Interpretation reste sur la fondation admise", async () => {
+    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.10");
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();

@@ -171,21 +171,37 @@ export const contributionItems = (contribution: ScientificInterpretationContribu
 const typeOf = (item: ScientificContributionItem) => `${item.proposedType ?? ""} ${item.studyRole ?? ""}`.toLocaleUpperCase("fr-FR");
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 const folded = (value: string) => normalized(value).normalize("NFD").replace(/\p{Diacritic}/gu, "");
+const foldedWithSeparators = (value: string) => value
+  .normalize("NFKC")
+  .normalize("NFD")
+  .replace(/\p{Diacritic}/gu, "")
+  .toLocaleLowerCase("fr-FR")
+  .replace(/\s+/g, " ")
+  .trim();
 const capitalize = (value: string) => value ? `${value.charAt(0).toLocaleUpperCase("fr-FR")}${value.slice(1)}` : value;
 
 export const sectionForContributionItem = (
   item: ScientificContributionItem,
-  _contribution: ScientificInterpretationContributionEnvelope,
+  contribution: ScientificInterpretationContributionEnvelope,
 ): ResearchProjectSectionId | null => {
   const type = typeOf(item);
+  const local = foldedWithSeparators(itemLocalContext(item));
+  const source = foldedWithSeparators(contribution.source.turns
+    .filter((turn) => item.epistemicBoundary.sourceTurnIds.includes(turn.turnId) && turn.role === "USER")
+    .map((turn) => turn.content)
+    .join(" "));
+  const explicitEligibilityWindow = /TEMPORAL|TIMEPOINT|WINDOW|DURATION/.test(type)
+    && /\b(?:moins de|less than|under|within|dans les)\s*\d+(?:[.,]\d+)?\s*(?:jours?|days?|semaines?|weeks?|mois|months?|ans?|years?)\b/.test(local)
+    && /\b(?:inclu\w*|eligib\w*)\b/.test(source);
+  if (explicitEligibilityWindow) return "POPULATION";
   if (/POPULATION|ELIGIBILITY|CRITERION|CONDITION|DISEASE/.test(type)) return "POPULATION";
   if (/STUDY_DESIGN|DESIGN|SETTING|CENTER/.test(type)) return "DESIGN";
   if (/COMPARATOR|CONTROL_ARM|REFERENCE_ARM/.test(type)) return "COMPARATOR";
   if (/INTERVENTION|TREATMENT|EXPOSURE_ARM/.test(type)) return "INTERVENTION";
   if (/TIMING|TEMPORAL|TIMEPOINT|WINDOW|VISIT/.test(type)) return "TEMPORALITY";
   if (/MODALITY|IMAGING_METHOD|ACQUISITION/.test(type)) return "IMAGING";
-  if (/BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET|SCIENTIFIC_OBJECT/.test(type)) return "MEASUREMENTS";
   if (/ANALYSIS|ESTIMAND|STATISTICAL/.test(type)) return "ANALYSIS";
+  if (/BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET|SCIENTIFIC_OBJECT/.test(type)) return "MEASUREMENTS";
   return null;
 };
 
@@ -204,46 +220,83 @@ const itemContext = (item: ScientificContributionItem, contribution: ScientificI
     .map((turn) => turn.content),
 ].filter((value): value is string => Boolean(value)).join(" ");
 
-const ageCriterion = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope) => {
+type SpecializedProjectElement = { semanticKey: string; content: string };
+
+const populationEventWindow = (
+  item: ScientificContributionItem,
+  sectionId: ResearchProjectSectionId,
+): SpecializedProjectElement | null => {
+  if (sectionId !== "POPULATION") return null;
+  const context = foldedWithSeparators(itemLocalContext(item));
+  const bound = context.match(/\b(?:moins de|less than|under|within|dans les)\s*(\d+(?:[.,]\d+)?)\s*(jours?|days?|semaines?|weeks?|mois|months?|ans?|years?)\b/);
+  if (!bound?.[1] || !bound[2]) return null;
+  const unit = /^(?:jour|day)/.test(bound[2]) ? "DAY"
+    : /^(?:semaine|week)/.test(bound[2]) ? "WEEK"
+      : /^(?:mois|month)/.test(bound[2]) ? "MONTH"
+        : "YEAR";
+  const value = bound[1].replace(",", ".");
+  return {
+    semanticKey: `POPULATION:ELIGIBILITY:EVENT_WINDOW:LT:${value}:${unit}`,
+    content: capitalize(item.content.trim()),
+  };
+};
+
+const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope): SpecializedProjectElement[] => {
   const localContext = folded(itemLocalContext(item));
   const fallbackContext = folded(itemContext(item, contribution));
+  const localWithSeparators = foldedWithSeparators(itemLocalContext(item));
   const context = /\bage\b/.test(localContext) ? localContext : fallbackContext;
-  if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION/.test(typeOf(item)) || !/\bage\b/.test(context)) return null;
-  const directionIn = (value: string) => /\b(?:maxim\w*|au plus|jusqu a|limiter|limite superieure|moins de)\b/.test(value)
+  const ageSignal = /\bage\b/.test(localContext)
+    || /\b\d{1,3}(?:[.,]\d+)?\s*(?:ans?|years?)\b/.test(localWithSeparators);
+  if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|LOWER_BOUND|UPPER_BOUND/.test(typeOf(item)) || !ageSignal) return [];
+  const range = localWithSeparators.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:a|au|to|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/);
+  if (range?.[1] && range[2]) return [
+    { semanticKey: "POPULATION:ELIGIBILITY:AGE:MIN", content: `Âge minimal : ${range[1].replace(",", ".")} ans` },
+    { semanticKey: "POPULATION:ELIGIBILITY:AGE:MAX", content: `Âge maximal : ${range[2].replace(",", ".")} ans` },
+  ];
+  const directionIn = (value: string) => /\b(?:maxim\w*|upper bound|au plus|ou moins|jusqu a|limiter|limite superieure|moins de)\b/.test(value)
     ? "max" as const
-    : /\b(?:minim\w*|au moins|a partir de|limite inferieure)\b/.test(value)
+    : /\b(?:minim\w*|lower bound|au moins|ou plus|a partir de|limite inferieure)\b/.test(value)
       ? "min" as const
       : null;
-  const localValues = [...localContext.matchAll(/\b(\d{1,3}(?:[.,]\d+)?)\s*ans?\b/g)]
+  const localValues = [...localContext.matchAll(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/g)]
     .map((match) => match[1]?.replace(",", "."))
     .filter((value): value is string => Boolean(value));
-  const fallbackValues = [...fallbackContext.matchAll(/\b(\d{1,3}(?:[.,]\d+)?)\s*ans?\b/g)]
+  const fallbackValues = [...fallbackContext.matchAll(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/g)]
     .map((match) => match[1]?.replace(",", "."))
     .filter((value): value is string => Boolean(value));
   const localDirection = directionIn(localContext);
-  const atomicLocalValue = localValues.length === 1 ? localValues[0]! : null;
-  const expressedRange = fallbackContext.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:a|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*ans?\b/);
-  const rangeDirection = atomicLocalValue && expressedRange
-    ? atomicLocalValue === expressedRange[1]?.replace(",", ".") ? "min" as const
-      : atomicLocalValue === expressedRange[2]?.replace(",", ".") ? "max" as const
-        : null
-    : null;
-  const direction = localDirection ?? rangeDirection ?? directionIn(fallbackContext) ?? "criterion";
+  const roleDirection = directionIn(folded(typeOf(item)));
+  const direction = localDirection ?? roleDirection ?? directionIn(fallbackContext) ?? "criterion";
   const values = localValues.length ? localValues : fallbackValues;
   const value = direction === "max" ? values.at(-1) ?? null : values[0] ?? null;
   const label = direction === "max" ? "Âge maximal" : direction === "min" ? "Âge minimal" : "Âge";
-  return {
+  return [{
     semanticKey: `POPULATION:ELIGIBILITY:AGE:${direction.toLocaleUpperCase("fr-FR")}`,
     content: value ? `${label} : ${value} ans` : capitalize(item.content.trim()),
-  };
+  }];
 };
 
 type TemporalOccurrenceRole = "INITIAL" | "FOLLOW_UP" | "WINDOW";
 
-const temporalOccurrenceRole = (item: ScientificContributionItem): TemporalOccurrenceRole => {
-  const context = folded(itemLocalContext(item));
+const temporalOccurrenceRole = (
+  item: ScientificContributionItem,
+  contribution: ScientificInterpretationContributionEnvelope,
+): TemporalOccurrenceRole => {
+  const userSource = foldedWithSeparators(contribution.source.turns
+    .filter((turn) => item.epistemicBoundary.sourceTurnIds.includes(turn.turnId) && turn.role === "USER")
+    .map((turn) => turn.content)
+    .join(" "));
+  const bareTemporalAnswer = /^(?:(?:j|jour)\s*\d+\s*(?:et|a|au|to|-|–)\s*(?:(?:j|jour)\s*)?\d+|[jmw]\s*\d+|\d+(?:[.,]\d+)?\s*(?:mois|months?|semaines?|weeks?|jours?|days?|ans?|years?))$/.test(userSource);
+  if (bareTemporalAnswer) return "WINDOW";
+  const localSource = foldedWithSeparators(`${item.epistemicBoundary.sourceText ?? ""} ${item.content}`);
+  const temporalSignature = localSource.match(/(?:j|jour)\s*\d+\s*(?:et|a|au|to|-|–)\s*(?:(?:j|jour)\s*)?\d+|\b[jmw]\s*\d+\b|\d+(?:[.,]\d+)?\s*(?:mois|months?|semaines?|weeks?|jours?|days?|ans?|years?)/)?.[0] ?? null;
+  const sourceClause = temporalSignature
+    ? userSource.split(/\b(?:puis|ensuite|then|followed by)\b/).find((clause) => clause.includes(temporalSignature)) ?? ""
+    : "";
+  const context = folded(`${itemLocalContext(item)} ${sourceClause}`);
   if (/\b(?:follow up|suivi|controle|control|subsequent|repeat)\b/.test(context)) return "FOLLOW_UP";
-  if (/\b(?:initial|baseline|aigu|acute)\b/.test(context)) return "INITIAL";
+  if (/\b(?:initial(?:e|es|s)?|baseline|aigu|acute|depart|origine)\b/.test(context)) return "INITIAL";
   return "WINDOW";
 };
 
@@ -259,20 +312,27 @@ const timingCriterion = (item: ScientificContributionItem, sectionId: ResearchPr
   if (sectionId !== "TEMPORALITY") return null;
   const context = folded(itemContext(item, contribution));
   const localContext = folded(itemLocalContext(item));
-  const localRange = localContext.match(/\bj\s*(\d+)\s*(?:et|a|-)\s*j\s*(\d+)\b/);
+  const localWithSeparators = foldedWithSeparators(itemLocalContext(item));
+  const contextWithSeparators = foldedWithSeparators(itemContext(item, contribution));
+  const dayRange = (value: string) => value.match(/\b(?:j|jour)\s*(\d+)\s*(?:et|a|au|to|-|–)\s*(?:(?:j|jour)\s*)?(\d+)\b/);
+  const localRange = dayRange(localWithSeparators);
+  const codedPoint = localWithSeparators.match(/\b([jmw])\s*(\d+)\b/);
   const duration = localContext.match(/\b(\d+(?:[.,]\d+)?)\s*(mois|month(?:s)?|semaines?|weeks?|jours?|days?|ans?|years?)\b/);
-  const range = localRange ?? (duration ? null : context.match(/\bj\s*(\d+)\s*(?:et|a|-)\s*j\s*(\d+)\b/));
-  if (!range && !duration) return null;
+  const range = localRange ?? (duration || codedPoint ? null : dayRange(contextWithSeparators));
+  if (!range && !duration && !codedPoint) return null;
   const modality = temporalModality(context);
-  const role = temporalOccurrenceRole(item);
+  const modalityKey = modality === "Mesure" ? "MEASURE" : folded(modality).toLocaleUpperCase("fr-FR");
+  const role = temporalOccurrenceRole(item, contribution);
   const label = role === "INITIAL" ? `${modality} initiale`
     : role === "FOLLOW_UP" ? `${modality} de suivi`
       : modality;
   const value = range
     ? `J${range[1]}–J${range[2]}`
-    : `${duration![1]!.replace(",", ".")} ${duration![2]!.toLocaleLowerCase("fr-FR")}`;
+    : duration
+      ? `${duration[1]!.replace(",", ".")} ${duration[2]!.toLocaleLowerCase("fr-FR")}`
+      : `${codedPoint![1]!.toLocaleUpperCase("fr-FR")}${codedPoint![2]}`;
   return {
-    semanticKey: `TEMPORALITY:${folded(modality).toLocaleUpperCase("fr-FR")}:${role}`,
+    semanticKey: `TEMPORALITY:${modalityKey}:${role}`,
     content: `${label} : ${value}`,
   };
 };
@@ -287,17 +347,22 @@ const stableSemanticIdentity = (item: ScientificContributionItem) => {
   return identity || folded(`${item.proposedType ?? "ITEM"} ${item.studyRole ?? ""}`);
 };
 
-const elementFrom = (
+const elementsFrom = (
   item: ScientificContributionItem,
   contribution: ScientificInterpretationContributionEnvelope,
-): ResearchProjectElement | null => {
+): ResearchProjectElement[] => {
   const sectionId = sectionForContributionItem(item, contribution);
-  if (!sectionId) return null;
-  const specialized = ageCriterion(item, sectionId, contribution) ?? timingCriterion(item, sectionId, contribution);
-  return {
-    elementId: item.semanticIdentity ?? item.itemId,
-    semanticKey: specialized?.semanticKey ?? `${sectionId}:${folded(item.proposedType ?? item.studyRole ?? "ITEM")}:${stableSemanticIdentity(item)}`,
-    content: specialized?.content ?? item.content.trim(),
+  if (!sectionId) return [];
+  const age = ageCriteria(item, sectionId, contribution);
+  const eventWindow = populationEventWindow(item, sectionId);
+  const timing = timingCriterion(item, sectionId, contribution);
+  const specialized = age.length ? age : eventWindow ? [eventWindow] : timing ? [timing] : [null];
+  return specialized.map((value, index) => ({
+    elementId: value && specialized.length > 1
+      ? `${item.semanticIdentity ?? item.itemId}:${value.semanticKey.split(":").at(-1)?.toLocaleLowerCase("fr-FR") ?? index}`
+      : item.semanticIdentity ?? item.itemId,
+    semanticKey: value?.semanticKey ?? `${sectionId}:${folded(item.proposedType ?? item.studyRole ?? "ITEM")}:${stableSemanticIdentity(item)}`,
+    content: value?.content ?? item.content.trim(),
     sourceItemIds: [item.itemId],
     sourceTurnIds: item.epistemicBoundary.sourceTurnIds,
     sourceProposedType: item.proposedType,
@@ -305,8 +370,11 @@ const elementFrom = (
     sourcePolarity: item.polarity,
     disposition: "USER_CONFIRMED_PROJECT_INFORMATION",
     canonicalPromotion: "NOT_PERFORMED",
-  };
+  }));
 };
+
+const elementFrom = (item: ScientificContributionItem, contribution: ScientificInterpretationContributionEnvelope) =>
+  elementsFrom(item, contribution)[0] ?? null;
 
 const semanticKeyForElement = (sectionId: ResearchProjectSectionId, element: ResearchProjectElement) => {
   if (element.semanticKey) return element.semanticKey;
@@ -326,11 +394,16 @@ const semanticKeyForElement = (sectionId: ResearchProjectSectionId, element: Res
 const elementValueKey = (sectionId: ResearchProjectSectionId, element: ResearchProjectElement) => {
   const context = folded(element.content);
   if (sectionId === "POPULATION" && /\bage\b/.test(context)) return context.match(/\b\d{1,3}(?:[.,]\d+)?\b/)?.[0] ?? context;
+  if (sectionId === "POPULATION" && element.semanticKey?.startsWith("POPULATION:ELIGIBILITY:EVENT_WINDOW:")) {
+    return element.semanticKey.split(":").slice(-3).join(":");
+  }
   if (sectionId === "TEMPORALITY") {
     const range = context.match(/\bj\s*(\d+)\s*(?:et|a|-|–)\s*j\s*(\d+)\b/);
     if (range) return `j${range[1]}-j${range[2]}`;
     const duration = context.match(/\b(\d+(?:[.,]\d+)?)\s*(mois|month(?:s)?|semaines?|weeks?|jours?|days?|ans?|years?)\b/);
     if (duration) return `${duration[1]!.replace(",", ".")}-${duration[2]}`;
+    const codedPoint = context.match(/\b([jmw])\s*(\d+)\b/);
+    if (codedPoint) return `${codedPoint[1]}${codedPoint[2]}`;
   }
   return context;
 };
@@ -374,10 +447,7 @@ const relationElements = (contribution: ScientificInterpretationContributionEnve
 };
 
 const projectValueElements = (contribution: ScientificInterpretationContributionEnvelope) => [
-  ...contributionItems(contribution).flatMap((item) => {
-    const element = elementFrom(item, contribution);
-    return element ? [element] : [];
-  }),
+  ...contributionItems(contribution).flatMap((item) => elementsFrom(item, contribution)),
   ...relationElements(contribution),
 ];
 
@@ -528,17 +598,26 @@ const buildContributionProjectChangeSet = (
   current: ResearchProjectOwnerProjection | null,
 ): ContributionProjectChangeSet => {
   const lastTurnId = latestUserTurnId(contribution);
-  const snapshot = projectValueElements(contribution)
+  const rawSnapshot = projectValueElements(contribution)
     .flatMap((element) => {
       const sectionId = sectionForElement(element, contribution);
       return sectionId ? [{ sectionId, element: { ...element, semanticKey: semanticKeyForElement(sectionId, element) } }] : [];
     });
+  const snapshot = RESEARCH_PROJECT_SECTION_ORDER.flatMap((sectionId) => uniqueElements(
+    sectionId,
+    rawSnapshot.filter((entry) => entry.sectionId === sectionId).map((entry) => entry.element),
+  ).map((element) => ({ sectionId, element })));
   const previous = currentElements(current).map(({ sectionId, element }) => ({
     sectionId,
     element: { ...element, semanticKey: semanticKeyForElement(sectionId, element) },
   }));
   const proposedThisTurn = current
-    ? snapshot.filter(({ element }) => Boolean(lastTurnId && element.sourceTurnIds.includes(lastTurnId)))
+    ? snapshot.filter(({ sectionId, element }) => {
+      if (lastTurnId && element.sourceTurnIds.includes(lastTurnId)) return true;
+      const semanticKey = semanticKeyForElement(sectionId, element);
+      return !previous.some((candidate) => candidate.sectionId === sectionId
+        && semanticKeyForElement(candidate.sectionId, candidate.element) === semanticKey);
+    })
     : snapshot;
   const changes: ContributionProjectChange[] = [];
 

@@ -88,6 +88,7 @@ const visibleLanguage = (value: string) => value
   .replace(/\bCT\b/g, "CT")
   .replace(/\bPET\b/g, "TEP")
   .replace(/\bfollow[- ]?up\b/gi, "suivi")
+  .replace(/\b(\d+(?:[.,]\d+)?)\s+months?\b/gi, "$1 mois")
   .replace(/\bknown\b/gi, "")
   .replace(/\s+/g, " ")
   .trim();

@@ -53,9 +53,10 @@ afterEach(() => {
 });
 
 describe("CONV-UX-V2-01C — schema boundary hardening", () => {
-  it("CONV-V2C-C01 exact production payload cannot crash ProtocolDesignerDemo render", async () => {
+  it("CONV-V2C-C01 exact legacy payload cannot crash the nominal conversational workspace", async () => {
     expect(() => renderProductionSession()).not.toThrow();
-    expect(await screen.findByText(/Décris-moi le projet de recherche/)).toBeInTheDocument();
+    expect(await screen.findByTestId("functional-reset-workspace")).toBeInTheDocument();
+    expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
   });
 
   it("CONV-V2C-C02 runtime-derived schema validation never throws uncaught from React render", () => {
@@ -121,14 +122,15 @@ describe("CONV-UX-V2-01C — schema boundary hardening", () => {
     await expect(schemaFailure.interpret(conversation)).rejects.toMatchObject({ failureClass: "STRUCTURED_CONTRACT_FAILURE" });
   });
 
-  it("CONV-V2C-C08 persisted invalid data cannot create a reload crash loop", async () => {
+  it("CONV-V2C-C08 persisted invalid legacy data cannot create a reload crash loop", async () => {
     const serialized = JSON.stringify(persistedProductionSession());
     const storage = new Map([[PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2, serialized]]);
     const adapter = { getItem: (key: string) => storage.get(key) ?? null, removeItem: (key: string) => storage.delete(key) };
     expect(loadProtocolDesignerOwnerSessionV2(adapter)?.scientificContext.preservedScientificTerms[3]).toHaveLength(264);
     expect(storage.get(PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2)).toBe(serialized);
     renderProductionSession();
-    await screen.findByText(/Décris-moi le projet de recherche/);
+    await screen.findByTestId("functional-reset-workspace");
+    expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
     expect(window.localStorage.getItem(PROTOCOL_DESIGNER_OWNER_SESSION_KEY_V2)).not.toBeNull();
   });
 

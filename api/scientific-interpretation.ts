@@ -30,7 +30,7 @@ export const handleScientificInterpretation = async (request: ApiRequest, respon
       HYBRID_PRIMARY_RUNTIME_ID,
       HYBRID_PRIMARY_RUNTIME_VERSION,
       async (conversation, previousState) => {
-        const provider = new GeminiHybridScientificInterpretationProvider({ apiKey, model, temperature: null, maxAttempts: 2 });
+        const provider = new GeminiHybridScientificInterpretationProvider({ apiKey, model, temperature: 0, maxAttempts: 2 });
         nativeExecution = await provider.execute(conversation, previousState);
         return nativeExecution;
       },

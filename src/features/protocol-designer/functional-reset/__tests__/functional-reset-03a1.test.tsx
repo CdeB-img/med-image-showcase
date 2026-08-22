@@ -249,11 +249,11 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     expect(within(projectPanel).getByText(/Projet sur infarctus du myocarde/)).toBeInTheDocument();
   });
 
-  it("FR03A1-C14 — Scientific Interpretation runtime remains unchanged", () => {
-    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.6");
+  it("FR03A1-C14 — Scientific Interpretation runtime remains on the admitted foundation", () => {
+    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.10");
     expect(makeFunctionalReset03A1Contribution(turnsTo(7)).identity).toMatchObject({
       runtimeId: "HYBRID_PRIMARY_STRUCTURED",
-      runtimeVersion: "1.3.6",
+      runtimeVersion: HYBRID_PRIMARY_RUNTIME_VERSION,
     });
   });
 

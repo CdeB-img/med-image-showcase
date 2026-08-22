@@ -608,6 +608,169 @@ export const deferFunctionalResetQueryNavigation = (input: {
   return { ...structuredClone(input.navigation), memory };
 };
 
+export const deferFunctionalResetQueryNeeds = (input: {
+  navigation: Readonly<FunctionalResetQueryNavigation>;
+  reason: FunctionalResetQueryDeferralReason;
+  targets: Array<{ sectionId: ResearchProjectSectionId; facetIds: string[] }>;
+  recordedAt: string;
+}): FunctionalResetQueryNavigation => {
+  let memory = structuredClone(input.navigation.memory);
+  const response = memory.responses.at(-1) ?? null;
+  for (const target of input.targets) {
+    const branchRefs = target.facetIds.map((facetId) => `project-facet:${target.sectionId}:${facetId}`);
+    const needRefs = input.navigation.selection.needs
+      .filter((need) => need.affectedDecisionRefs.includes(`project-section:${target.sectionId}`)
+        && need.affectedBranchRefs.some((ref) => branchRefs.includes(ref)))
+      .map((need) => need.needId);
+    if (!needRefs.length) continue;
+    const baseCandidate = input.navigation.selection.candidates.find((candidate) =>
+      candidate.affectedDecisionRefs.includes(`project-section:${target.sectionId}`));
+    if (!baseCandidate) continue;
+    const scopedCandidate: NextActionCandidate = {
+      ...structuredClone(baseCandidate),
+      candidateId: makeQueryNavigationId("qry-explicit-defer-scope", {
+        projectVersion: input.navigation.projectVersion,
+        sectionId: target.sectionId,
+        needRefs,
+        branchRefs,
+      }),
+      navigationNeedRefs: [...needRefs].sort(),
+      affectedDecisionRefs: [`project-section:${target.sectionId}`],
+      affectedBranchRefs: [...branchRefs].sort(),
+      explanation: "Le chercheur a explicitement indiqué que ces informations restent à définir pour le moment.",
+    };
+    const scopedSelection: NavigationSelection = {
+      ...structuredClone(input.navigation.selection),
+      selected: scopedCandidate,
+      nonDominated: [scopedCandidate],
+      trace: {
+        ...structuredClone(input.navigation.selection.trace),
+        nonDominatedCandidateRefs: [scopedCandidate.candidateId],
+        selectedCandidateRef: scopedCandidate.candidateId,
+      },
+    };
+    const action = buildSelectedNavigationAction(scopedSelection, scopedCandidate);
+    memory = rememberSelectedNavigationAction(memory, action);
+    memory = recordLifecycleEvent(memory, {
+      eventType: "ACTION_DEFERRED",
+      actionRef: action.selectedActionId,
+      presentationRef: null,
+      responseRef: response?.responseId ?? null,
+      projectRef: input.navigation.projectRef,
+      projectVersion: input.navigation.projectVersion,
+      sourceStateDigest: input.navigation.sourceStateDigest,
+      reason: input.reason,
+      evidenceRefs: [...needRefs, ...(response ? [response.responseId] : [])],
+      recordedAt: input.recordedAt,
+    });
+  }
+  return { ...structuredClone(input.navigation), memory };
+};
+
+export const isFunctionalResetQueryMisunderstanding = (value: string) => {
+  const text = value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLocaleLowerCase("fr-FR");
+  return /\b(?:je|nous|on)\s+(?:ne\s+)?compr(?:ends?|enons?)\s+(?:toujours\s+)?pas\b/.test(text)
+    || /\b(?:question|demande)\s+(?:n.est\s+)?pas\s+claire?\b/.test(text)
+    || /\b(?:peux|pouvez|pourrais|pourriez)[- ]?(?:tu|vous)\s+(?:me\s+)?(?:reformuler|expliquer|clarifier)\b/.test(text);
+};
+
+const clarificationQuestion = (
+  action: SelectedNavigationAction,
+  previous: FunctionalResetStandardQuestion,
+) => {
+  const scope = sectionsForAction(action);
+  const level = previous.repeatCount + 1;
+  if (scope.some((section) => ["DESIGN", "INTERVENTION", "COMPARATOR"].includes(section))) {
+    return level === 1
+      ? "Je cherche à préciser comment l’étude sera organisée. Comment les participants seront-ils répartis entre les groupes étudiés ?"
+      : "Plus concrètement, je cherche seulement à savoir qui reçoit quoi dans l’étude et comment cette répartition est décidée. Quelle organisation prévoyez-vous ?";
+  }
+  if (scope.includes("TEMPORALITY")) return level === 1
+    ? "Je cherche les moments prévus pour les évaluations. À quel jour, mois ou intervalle souhaitez-vous les réaliser ?"
+    : "Plus concrètement, indiquez simplement quand la première évaluation puis les éventuelles suivantes doivent avoir lieu.";
+  if (scope.includes("POPULATION")) return level === 1
+    ? "Je cherche à savoir quelles personnes pourraient participer à l’étude. Quelles caractéristiques faut-il retenir ou exclure ?"
+    : "Plus concrètement, indiquez les principales conditions qu’une personne doit remplir, ou celles qui empêcheraient sa participation.";
+  if (scope.includes("MEASUREMENTS")) return level === 1
+    ? "Je cherche ce que vous souhaitez observer ou quantifier. Quelle mesure permettra de répondre à votre question ?"
+    : "Plus concrètement, indiquez la valeur, le signal ou le critère dont vous souhaitez suivre le changement.";
+  return level === 1
+    ? `Je cherche uniquement à clarifier ${scope.map((section) => STANDARD_SECTION_LABELS[section]).join(" et ")}. Pouvez-vous décrire ce que vous souhaitez décider ?`
+    : "Plus concrètement, quelle information souhaitez-vous fixer pour cette partie du projet ?";
+};
+
+export const clarifyFunctionalResetQueryAfterMisunderstanding = (input: {
+  navigation: Readonly<FunctionalResetQueryNavigation>;
+  rawResponse: string;
+  actorRef: string;
+  actorRole: string;
+  receivedAt: string;
+  responseId: string;
+}): FunctionalResetQueryNavigation => {
+  const action = input.navigation.currentAction;
+  const presentation = input.navigation.currentPresentation;
+  const previousQuestion = input.navigation.standardQuestion;
+  if (!action || !presentation || !previousQuestion) return structuredClone(input.navigation);
+  const response = buildQuestionResponseEnvelope({
+    responseId: input.responseId,
+    selectedActionRef: action.selectedActionId,
+    presentationRef: presentation.presentationId,
+    projectRef: input.navigation.projectRef,
+    projectVersionAtPresentation: input.navigation.projectVersion,
+    responseKind: "FREE_TEXT",
+    rawResponse: input.rawResponse,
+    actorRef: input.actorRef,
+    actorRole: input.actorRole,
+    selectedOptionRefs: [],
+    disposition: "REQUEST_CLARIFICATION",
+    receivedAt: input.receivedAt,
+    provenanceRefs: [input.actorRef],
+  });
+  const freshness = inspectNavigationActionFreshness(action, {
+    projectVersion: input.navigation.projectVersion,
+    sourceStateDigest: input.navigation.sourceStateDigest,
+  });
+  const lastResponseRoute = routeNavigationResponse(action, presentation, response, freshness);
+  const text = clarificationQuestion(action, previousQuestion);
+  const standardQuestion: FunctionalResetStandardQuestion = {
+    ...previousQuestion,
+    questionId: makeQueryNavigationId("qry-standard-clarification", {
+      selectedActionRef: action.selectedActionId,
+      previousQuestionRef: previousQuestion.questionId,
+      text,
+    }),
+    text,
+    repeatCount: previousQuestion.repeatCount + 1,
+    presentationSource: "DETERMINISTIC_FALLBACK",
+  };
+  let memory = rememberQuestionResponse(input.navigation.memory, response);
+  memory = recordLifecycleEvent(memory, {
+    eventType: "RESPONSE_RECEIVED",
+    actionRef: action.selectedActionId,
+    presentationRef: presentation.presentationId,
+    responseRef: response.responseId,
+    projectRef: input.navigation.projectRef,
+    projectVersion: input.navigation.projectVersion,
+    sourceStateDigest: input.navigation.sourceStateDigest,
+    reason: "USER_REQUESTED_EXPLANATION_OF_CURRENT_QRY_QUESTION",
+    evidenceRefs: [response.responseId],
+    recordedAt: input.receivedAt,
+  });
+  memory = recordLifecycleEvent(memory, {
+    eventType: "ACTION_PRESENTED",
+    actionRef: action.selectedActionId,
+    presentationRef: presentation.presentationId,
+    responseRef: null,
+    projectRef: input.navigation.projectRef,
+    projectVersion: input.navigation.projectVersion,
+    sourceStateDigest: input.navigation.sourceStateDigest,
+    reason: "SAME_QRY_ACTION_EXPLAINED_WITH_CLEARER_PRESENTATION",
+    evidenceRefs: [standardQuestion.questionId],
+    recordedAt: input.receivedAt,
+  });
+  return { ...structuredClone(input.navigation), memory, standardQuestion, lastResponseRoute };
+};
+
 export const reopenFunctionalResetQueryDeferral = (input: {
   navigation: Readonly<FunctionalResetQueryNavigation>;
   sectionId: ResearchProjectSectionId;

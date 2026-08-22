@@ -4,8 +4,8 @@ import type { HybridNativeExecution, HybridParsedState } from "./hybrid-adapter.
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationConversation } from "./contracts.js";
 
 export const HYBRID_PRIMARY_RUNTIME_ID = "HYBRID_PRIMARY_STRUCTURED" as const;
-export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.3.6" as const;
-export const HYBRID_PRIMARY_PROMPT_VERSION = "HYBRID-PRIMARY-STRUCTURED-1.2.6" as const;
+export const HYBRID_PRIMARY_RUNTIME_VERSION = "1.3.10" as const;
+export const HYBRID_PRIMARY_PROMPT_VERSION = "HYBRID-PRIMARY-STRUCTURED-1.2.9" as const;
 export const EXPECTED_HYBRID_MODEL_IDENTITY = "gemini-3.5-flash-lite" as const;
 export const HYBRID_PRIMARY_OUTPUT_FUNCTION_NAME = "final_result" as const;
 
@@ -50,6 +50,12 @@ Rules:
 25. Distinguish epistemic absence from prohibition. A concept whose definition, threshold, method, choice or value is currently unknown, undecided or still to be determined belongs in unknowns or missingInformation with epistemicStatus UNKNOWN or AMBIGUOUS. It is not NEGATED and does not belong only in negationsAndConstraints. Reserve NEGATED for actual rejection, prohibition, absence claims or negative assertions. Factual variability or lack of uniformity may remain a constraint without turning an unresolved definition into a negation.
 26. Use one unambiguous semanticType per object. Never emit composite or disjunctive types such as X_OR_Y. Use MODALITY whenever an acquisition modality is explicitly named, including when it appears inside a measurement phrase. Use METHOD for an explicitly stated acquisition or imaging technique whose exact variant is unspecified or variable. A baseline, initial, follow-up or control acquisition is an acquisition occasion and timepoint, not by itself a modality or method; never substitute that occasion for the explicit technique or modality object. Variability of a technique does not erase the technique object. Use MEASURED_VARIABLE for a phenomenon that the user says will be observed or measured unless the user explicitly names it as a biomarker or designates it as an endpoint. Use BIOMARKER for an explicitly named biomarker. Apply this coverage from the first interpretation and preserve it on later turns.
 27. A permission and a prohibition in the same clause are separate claims. Preserve the permitted action as AFFIRMED and every explicit instruction not to invent, assume, select, compare or use something as its own NEGATED constraint. An UNKNOWN for the prohibited target does not preserve or replace the prohibition; emit both when both are stated.
+28. Treat interactionContext as semantic ellipsis context, not merely provenance. For QRY_INFORMATION_RESPONSE, combine the latest answer with the declared purpose, targetRefs and informationNeedRefs. A short value, interval, date, duration, option or yes/no answer may therefore instantiate an atomic candidate in the active scope even when the user does not repeat the noun from the question. Do not copy a modality, anchor, temporal role or other Project fact that is not present in the conversation payload; keep those qualifiers unresolved when the contextual answer does not establish them. In particular, a bare temporal value answering a generic moments/windows question is a neutral MEASUREMENT_TIMING or WINDOW, never INITIAL, BASELINE or FOLLOW_UP unless that role is stated elsewhere in the supplied conversation. If the user instead supplies valid scientific information in another scope, preserve that information. The text of an unanswered NOXIA question is not user evidence: never emit an unknown, missing-information item or defer signal merely because its QRY target remains unanswered, and never cite a NOXIA turn as the source of a user unknown without an explicit user expression of uncertainty.
+29. Preserve both endpoints of every explicit closed eligibility or demographic interval. If the open element fields cannot encode one structured range, emit two atomic criteria with distinct semantic identities and explicit LOWER_BOUND/MINIMUM and UPPER_BOUND/MAXIMUM roles. A one-sided limit produces only the stated bound. Never collapse an interval to one endpoint.
+30. A single fragment may state several temporal occurrences. Emit one temporalElements entry for every distinct initial, baseline, follow-up, control or repeated occurrence, preserving its role and its own value/window. Conjunction, ordering or a later occurrence never licenses dropping an earlier compatible occurrence. Every explicit timepoint, duration and window belongs in temporalElements; an object or broad statement never substitutes for it. Before returning, count the distinct temporal expressions in each user turn and verify that temporalElements contains each one exactly once with the corresponding value and role. When an event-age or recency cutoff qualifies an explicitly stated inclusion condition, keep its temporal element tied to eligibility with an ELIGIBILITY, INCLUSION or DURATION_LIMIT role; it is not a measurement timepoint.
+31. Preserve explicit study-allocation or randomization language as its own STUDY_DESIGN/DESIGN object candidate in objects, even when intervention and comparator objects already exist. Abbreviations, natural-language paraphrases and allocation-by-chance wording must be interpreted by meaning rather than by one token. Do not leave allocation only in normalizedUnderstanding, explicitStatements or a broad study object. Do not infer randomization when allocation is not stated.
+32. Baseline, initial, origin or starting-evaluation wording is temporal/acquisition context unless the user actually defines who belongs to the study population. Do not promote an assessment occasion or a label such as an origin/baseline population into a population eligibility criterion when its scientific membership meaning is ambiguous; preserve the ambiguity or clarification need.
+33. Direction of change and statistical significance are analysis intent, not a measured variable or biomarker by themselves. Phrases such as a significant increase, reduction or between-group difference must produce an ANALYSIS/ANALYSIS_INTENT object candidate when explicitly stated, while the exact dependent measure must also appear in unknowns or missingInformation when the user has not named what changes. Never leave this distinction only in normalizedUnderstanding, and never invent the missing variable from the condition, modality or anatomy.
 
 Do not access or assume a Research Project. Do not provide a protocol or recommendation. Return concise scientific content, not hidden reasoning.
 `.trim();
@@ -242,7 +248,7 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
     scientificGoalCandidates: stringArrayJson, studyIntentCandidates: stringArrayJson,
     objects: {
       type: "array",
-      description: "Atomic explicit scientific objects with one unambiguous semanticType per object; composite X_OR_Y types are forbidden. Include design or setting, condition, named or unnamed intervention or exposure, comparator, every explicitly named acquisition modality as MODALITY, every explicitly stated acquisition or imaging technique as METHOD when its exact variant is unspecified or variable, observed or measured phenomena as MEASURED_VARIABLE unless explicitly named as biomarkers or endpoints, explicit biomarkers as BIOMARKER, explicit comparison groups, and each explicit eligibility or demographic criterion. An initial, baseline, follow-up or control acquisition is an occasion/timepoint rather than a modality or method. Preserve criterion direction, boundary, value and unit without invention.",
+      description: "Atomic explicit scientific objects with one unambiguous semanticType per object; composite X_OR_Y types are forbidden. Include design or setting, every explicit allocation/randomization statement as its own STUDY_DESIGN or DESIGN object, condition, named or unnamed intervention or exposure, comparator, every explicitly named acquisition modality as MODALITY, every explicitly stated acquisition or imaging technique as METHOD when its exact variant is unspecified or variable, observed or measured phenomena as MEASURED_VARIABLE unless explicitly named as biomarkers or endpoints, explicit biomarkers as BIOMARKER, explicit comparison groups, every explicit eligibility or demographic criterion, and explicit comparative/statistical change intent as ANALYSIS or ANALYSIS_INTENT. An initial, baseline, follow-up or control acquisition is an occasion/timepoint rather than a modality or method. Direction or statistical significance without a named dependent measure is analysis intent and never a measurement or biomarker. Preserve criterion direction, boundary, value and unit without invention.",
       items: { $ref: "#/$defs/ScientificElement" },
     },
     relations: {
@@ -262,16 +268,16 @@ export const HYBRID_PRIMARY_INTERNAL_JSON_SCHEMA = {
     },
     temporalElements: {
       type: "array",
-      description: "Every explicit timepoint, interval, ordering, initial or repeated observation structure, and timing variability, even when also represented by method or acquisition objects.",
+      description: "Every explicit timepoint, interval, ordering, initial or repeated observation structure, and timing variability, even when also represented by method or acquisition objects. A compound fragment with baseline/initial and later/control/follow-up occasions requires one distinct entry per occurrence, with distinct semantic identities and BASELINE/INITIAL versus FOLLOW_UP roles when explicitly established.",
       items: { $ref: "#/$defs/ScientificElement" },
     }, ambiguities: { type: "array", items: { $ref: "#/$defs/Ambiguity" } },
     unknowns: {
       type: "array",
-      description: "Explicitly unresolved definitions, thresholds, choices, methods, values or knowledge states. These are epistemic unknowns, not negative constraints.",
+      description: "Explicitly unresolved definitions, thresholds, choices, methods, values or knowledge states. These are epistemic unknowns, not negative constraints. When direction of change or statistical significance is explicit but the dependent measure is unnamed, record that exact dependent measure as UNKNOWN. Never derive a user unknown from an unanswered NOXIA question alone.",
       items: { $ref: "#/$defs/MissingInformation" },
     }, missingInformation: {
       type: "array",
-      description: "Information explicitly described as not yet defined, selected, known or determined when it is needed to complete the scientific interpretation.",
+      description: "Information explicitly described as not yet defined, selected, known or determined when it is needed to complete the scientific interpretation, including an unnamed dependent measure behind an explicit change/comparison intent. Never derive missing information from an unanswered NOXIA question alone.",
       items: { $ref: "#/$defs/MissingInformation" },
     },
     correctionsAndSupersessions: {
@@ -357,7 +363,38 @@ export const parseHybridPrimaryProviderOutput = (
   const envelope = raw && typeof raw === "object" ? raw as ProviderRawEnvelope : {};
   const finalBody = envelope.rawAttempts?.at(-1)?.providerBodyText;
   if (typeof finalBody !== "string") throw new Error("PROVIDER_RESPONSE_BODY_MISSING");
-  const value = hybridPrimaryInterpretationSchema.parse(structuredArgumentsFromProviderBody(finalBody));
+  const parsedValue = hybridPrimaryInterpretationSchema.parse(structuredArgumentsFromProviderBody(finalBody));
+  const noxiaTurnIds = new Set(conversation.turns.filter((turn) => turn.role === "NOXIA").map((turn) => turn.turnId));
+  const userTurnIds = new Set(conversation.turns.filter((turn) => turn.role === "USER").map((turn) => turn.turnId));
+  const groundedMissing = <T extends { sourceTurnIds?: string[] }>(items: T[]) => items.filter((item) => {
+    const refs = item.sourceTurnIds ?? [];
+    const citesNoxia = refs.some((turnId) => noxiaTurnIds.has(turnId));
+    const citesUser = refs.some((turnId) => userTurnIds.has(turnId));
+    return !citesNoxia || citesUser;
+  });
+  const groundedUnknowns = groundedMissing(parsedValue.unknowns);
+  const groundedMissingInformation = groundedMissing(parsedValue.missingInformation);
+  const analyses = parsedValue.objects.filter((item) => /ANALYSIS|ESTIMAND|STATISTICAL/i.test(`${item.semanticType} ${item.studyRole}`));
+  const hasStructuredDependentMeasure = parsedValue.objects.some((item) => /BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET/i.test(item.semanticType));
+  const analysisTargetUnknowns = hasStructuredDependentMeasure ? [] : analyses
+    .filter((analysis) => ![...groundedUnknowns, ...groundedMissingInformation].some((missing) =>
+      missing.sourceText === analysis.sourceText
+      || missing.sourceTurnIds.some((turnId) => analysis.sourceTurnIds.includes(turnId))))
+    .map((analysis) => ({
+      missingId: `analysis-target:${logicalDigest({ analysis: analysis.elementId, source: analysis.sourceTurnIds })}`,
+      content: `Exact dependent measure for analysis intent: ${analysis.content}`,
+      decisionalImpact: "HIGH" as const,
+      blocking: false,
+      owner: "USER",
+      sourceTurnIds: analysis.sourceTurnIds,
+      sourceText: analysis.sourceText,
+      epistemicStatus: "UNKNOWN" as const,
+    }));
+  const value = {
+    ...parsedValue,
+    unknowns: [...groundedUnknowns, ...analysisTargetUnknowns],
+    missingInformation: groundedMissingInformation,
+  };
   const generatedAt = new Date().toISOString();
   return {
     identity: {

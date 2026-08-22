@@ -82,7 +82,7 @@ export type QuestionPresentationRequest = {
   projectWriteAuthorized: false;
 };
 
-export type NavigationResponseDisposition = "ANSWER" | "DEFER" | "DECLINE" | "CANNOT_ANSWER" | "CANCEL";
+export type NavigationResponseDisposition = "ANSWER" | "DEFER" | "DECLINE" | "CANNOT_ANSWER" | "REQUEST_CLARIFICATION" | "CANCEL";
 
 export type QuestionResponseEnvelope = {
   responseId: string;

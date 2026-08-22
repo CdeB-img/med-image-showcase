@@ -163,4 +163,40 @@ describe("SEM-CLOSURE-001R — structured request contract repair", () => {
   it("SCR-C12 preserves the complete prior live evidence directory", () => {
     expect(directoryDigest(resolve(ROOT, "experiments/engine-lab/results/sem-closure-001-live"))).toBe("59f40177fbccbf093149d1c47364fd7ffaf2f7ab4443c861cbd8599f8b840254");
   });
+
+  it("SCR-C13 cannot attribute an unanswered QRY need to the user as an unknown", () => {
+    const contextualConversation: ScientificInterpretationConversation = {
+      conversationId: "qry-grounding",
+      language: "fr",
+      turns: [
+        { turnId: "Q1", role: "NOXIA", content: "À quels moments ?" },
+        { turnId: "U1", role: "USER", content: "Je n’ai pas défini les exclusions." },
+      ],
+    };
+    const unknown = (missingId: string, sourceTurnIds: string[], sourceText: string) => ({
+      missingId, content: sourceText, decisionalImpact: "MEDIUM", blocking: false, owner: "USER",
+      sourceTurnIds, sourceText, epistemicStatus: "UNKNOWN",
+    });
+    const runtimeExecution = execution({
+      ...primary,
+      unknowns: [
+        unknown("user-unknown", ["U1"], "Je n’ai pas défini les exclusions."),
+        unknown("qry-unknown", ["Q1"], "À quels moments ?"),
+      ],
+    });
+    const state = parseHybridPrimaryProviderOutput(runtimeExecution.rawOutput, runtimeExecution, contextualConversation);
+    expect((state.unknowns as Array<{ missingId: string }>).map((item) => item.missingId)).toEqual(["user-unknown"]);
+  });
+
+  it("SCR-C14 keeps the dependent measure unknown when analysis intent has no measured object", () => {
+    const analysis = {
+      elementId: "analysis", content: "Réduction significative entre les groupes", semanticIdentity: "analysis", semanticType: "ANALYSIS_INTENT", studyRole: "PRIMARY_ANALYSIS",
+      sourceTurnIds: ["T0"], sourceText: "Comparer deux méthodes sans conclure à une causalité.", polarity: "AFFIRMED", temporalContext: null, ownership: "USER",
+      epistemicStatus: "EXPLICIT_USER_STATED", activeState: true, previousElementIds: [], evidenceRefs: [], confidence: 1,
+      adoptionStatus: null, originStatus: null, originType: null, availabilityScope: null, availabilityClaim: null, decisionId: null,
+    };
+    const runtimeExecution = execution({ ...primary, objects: [analysis] });
+    const state = parseHybridPrimaryProviderOutput(runtimeExecution.rawOutput, runtimeExecution, conversation);
+    expect(state.unknowns).toContainEqual(expect.objectContaining({ epistemicStatus: "UNKNOWN", sourceTurnIds: ["T0"] }));
+  });
 });

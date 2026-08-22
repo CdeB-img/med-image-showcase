@@ -6,6 +6,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
+import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
 import {
   confirmResearchProjectContribution,
   prepareResearchProjectContributionCandidate,
@@ -348,7 +349,7 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
       turn("turn:fr03b:remove", CHANGESET_REMOVE),
     ]);
     const removalSet = prepareResearchProjectContributionCandidate(removal, projectV2).changeSet;
-    expect(first.identity.runtimeVersion).toBe("1.3.6");
+    expect(first.identity.runtimeVersion).toBe(HYBRID_PRIMARY_RUNTIME_VERSION);
     expect(ageTimingSet.changes.filter((change) => change.operation !== "NO_CHANGE").map((change) => change.operation)).toEqual(["ADD", "ADD"]);
     expect(removalSet.changes.filter((change) => change.operation !== "NO_CHANGE")).toEqual([
       expect.objectContaining({ operation: "REMOVE", targetSectionId: "MEASUREMENTS" }),

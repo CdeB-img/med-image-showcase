@@ -4,6 +4,7 @@ import type {
   ScientificInterpretationContributionEnvelope,
   ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation/contracts";
+import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
 import { COLCHICINE_INITIAL } from "./functional-reset-fixtures";
 
 export const CHANGESET_INITIAL = COLCHICINE_INITIAL;
@@ -146,7 +147,7 @@ export const makeFunctionalReset03A1Contribution = (turns: ScientificInterpretat
       previousContributionId: stage > 1 ? `contribution:changeset:${stage - 1}` : null,
       contractVersion: "1.0.0",
       runtimeId: "HYBRID_PRIMARY_STRUCTURED",
-      runtimeVersion: "1.3.6",
+      runtimeVersion: HYBRID_PRIMARY_RUNTIME_VERSION,
       createdAt: "2026-08-20T10:00:00.000Z",
       contributionDigest: `${contributionId}:digest`,
     },

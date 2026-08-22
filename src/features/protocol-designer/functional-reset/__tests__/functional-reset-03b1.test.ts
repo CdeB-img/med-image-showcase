@@ -308,7 +308,7 @@ describe("FUNCTIONAL-RESET-03B1 — deferral and multi-timepoint completeness", 
     expect(changes.map((change) => change.semanticKey)).toEqual(expect.arrayContaining([
       "POPULATION:ELIGIBILITY:AGE:MIN",
       "POPULATION:ELIGIBILITY:AGE:MAX",
-      expect.stringContaining("recent myocardial infarction seven"),
+      "POPULATION:ELIGIBILITY:EVENT_WINDOW:LT:7:DAY",
     ]));
   });
 
@@ -329,7 +329,7 @@ describe("FUNCTIONAL-RESET-03B1 — deferral and multi-timepoint completeness", 
     const updated = confirm(partialContribution(), project);
     const next = buildFunctionalResetQueryNavigation({ project: updated, previous: deferred, recordedAt: "2026-08-21T12:06:02.000Z" });
     expect(contents(updated, "POPULATION")).toEqual(expect.arrayContaining([
-      "Âge minimal : 18 ans", "Âge maximal : 75 ans", "infarctus datant de moins de 7 jours",
+      "Âge minimal : 18 ans", "Âge maximal : 75 ans", "Infarctus datant de moins de 7 jours",
     ]));
     expect(next.standardQuestion?.scopeSectionIds).not.toContain("POPULATION");
   });

@@ -342,8 +342,8 @@ describe("FUNCTIONAL-RESET-03C — human-readable protocol working preview", () 
     expect(after).toEqual(before);
   });
 
-  it("FR03C-C26 — Scientific Interpretation v1.3.6 is unchanged", () => {
-    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.6");
+  it("FR03C-C26 — Scientific Interpretation uses the admitted v1.3.10 foundation", () => {
+    expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.10");
   });
 
   it("FR03C-C27 — 03B1 QRY deferral remains PASS", () => {

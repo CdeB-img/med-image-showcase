@@ -16,7 +16,10 @@ import {
 } from "@/features/document-projection";
 import {
   buildFunctionalResetQueryNavigation,
+  clarifyFunctionalResetQueryAfterMisunderstanding,
+  deferFunctionalResetQueryNeeds,
   deferFunctionalResetQueryNavigation,
+  isFunctionalResetQueryMisunderstanding,
   recordFunctionalResetQueryResponse,
   restateFunctionalResetQueryAfterNoChange,
 } from "@/features/query-navigation";
@@ -32,7 +35,7 @@ import {
   persistFunctionalResetSession,
   type FunctionalResetSession,
 } from "./session";
-import { classifyFunctionalResetQueryDeferral } from "./query-deferral";
+import { classifyFunctionalResetQueryDeferral, classifyFunctionalResetQueryDeferralScope } from "./query-deferral";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -73,26 +76,48 @@ export default function ProtocolDesignerWorkspace() {
     const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
     const runtimeTurns = [...session.runtimeTurns, userTurn];
     const previousContribution = session.pendingContribution ?? session.currentContribution;
+    const responseId = createConversationEntryId();
+    const misunderstanding = Boolean(session.queryNavigation && isFunctionalResetQueryMisunderstanding(content));
     const queryNavigation = session.queryNavigation
-      ? recordFunctionalResetQueryResponse({
-        navigation: session.queryNavigation,
-        rawResponse: content,
-        actorRef: session.projectAuthority.actorRef,
-        actorRole: "RESEARCHER",
-        receivedAt: now,
-        responseId: createConversationEntryId(),
-      })
+      ? misunderstanding
+        ? clarifyFunctionalResetQueryAfterMisunderstanding({
+          navigation: session.queryNavigation,
+          rawResponse: content,
+          actorRef: session.projectAuthority.actorRef,
+          actorRole: "RESEARCHER",
+          receivedAt: now,
+          responseId,
+        })
+        : recordFunctionalResetQueryResponse({
+          navigation: session.queryNavigation,
+          rawResponse: content,
+          actorRef: session.projectAuthority.actorRef,
+          actorRole: "RESEARCHER",
+          receivedAt: now,
+          responseId,
+        })
       : null;
     const withUser: FunctionalResetSession = {
       ...session,
       queryNavigation,
-      runtimeTurns,
-      entries: [...session.entries, { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: now }],
+      runtimeTurns: misunderstanding ? session.runtimeTurns : runtimeTurns,
+      entries: [
+        ...session.entries,
+        { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: now },
+        ...(misunderstanding && queryNavigation?.standardQuestion ? [{
+          entryId: createConversationEntryId(),
+          kind: "TEXT" as const,
+          role: "NOXIA" as const,
+          content: queryNavigation.standardQuestion.text,
+          createdAt: now,
+        }] : []),
+      ],
       updatedAt: now,
     };
     setSession(withUser);
     setDraft("");
     setCorrectionMode(false);
+    if (misunderstanding) return;
     setBusy(true);
     try {
       const response = await requestScientificInterpretationRuntime({
@@ -124,13 +149,26 @@ export default function ProtocolDesignerWorkspace() {
         sourceTurnId: userTurn.turnId,
         rawResponse: content,
       }) : null;
-      const navigationAfterInterpretation = queryNavigation && deferralReason
-        ? deferFunctionalResetQueryNavigation({ navigation: queryNavigation, reason: deferralReason, recordedAt: receivedAt })
-        : queryNavigation;
+      const deferralScope = queryNavigation ? classifyFunctionalResetQueryDeferralScope({
+        contribution: response.contribution,
+        sourceTurnId: userTurn.turnId,
+        rawResponse: content,
+      }) : null;
+      const navigationAfterInterpretation = queryNavigation && deferralScope
+        ? deferFunctionalResetQueryNeeds({
+          navigation: queryNavigation,
+          reason: deferralScope.reason,
+          targets: deferralScope.targets,
+          recordedAt: receivedAt,
+        })
+        : queryNavigation && deferralReason
+          ? deferFunctionalResetQueryNavigation({ navigation: queryNavigation, reason: deferralReason, recordedAt: receivedAt })
+          : queryNavigation;
+      const deferred = Boolean(deferralScope || deferralReason);
       if (session.project && candidate.changeSet.status === "NO_NET_CHANGE") {
         setSession((current) => {
           const queryNavigation = navigationAfterInterpretation
-            ? deferralReason
+            ? deferred
               ? buildFunctionalResetQueryNavigation({
                 project: session.project!,
                 previous: navigationAfterInterpretation,
@@ -154,7 +192,7 @@ export default function ProtocolDesignerWorkspace() {
                 entryId: createConversationEntryId(),
                 kind: "TEXT",
                 role: "NOXIA",
-                content: deferralReason
+                content: deferred
                   ? "Ce point reste ouvert dans le projet, mais il est mis de côté pour le moment."
                   : candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
                 createdAt: receivedAt,
@@ -165,7 +203,7 @@ export default function ProtocolDesignerWorkspace() {
                 role: "NOXIA" as const,
                 content: question,
                 createdAt: receivedAt,
-              }] : deferralReason ? [{
+              }] : deferred ? [{
                 entryId: createConversationEntryId(),
                 kind: "TEXT" as const,
                 role: "NOXIA" as const,

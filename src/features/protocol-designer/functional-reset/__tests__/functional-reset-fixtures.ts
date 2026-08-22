@@ -4,6 +4,7 @@ import type {
   ScientificInterpretationContributionEnvelope,
   ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation/contracts";
+import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
 
 export const COLCHICINE_INITIAL = "Je veux étudier l’effet de la colchicine après infarctus du myocarde, notamment sur l’inflammation et les lésions en IRM, dans une étude multicentrique comparant colchicine et placebo. Je veux également prévoir des biomarqueurs sanguins et mesurer la taille de l’infarctus à l’IRM.";
 export const COLCHICINE_MODIFICATION = "Je veux faire l’IRM entre J3 et J5 et limiter l’âge à 75 ans.";
@@ -65,7 +66,7 @@ export const makeFunctionalResetContribution = (turns: ScientificInterpretationT
       previousContributionId: turns.length > 1 ? `contribution:colchicine-v${turns.length - 1}` : null,
       contractVersion: "1.0.0",
       runtimeId: "HYBRID_PRIMARY_STRUCTURED",
-      runtimeVersion: "1.3.6",
+      runtimeVersion: HYBRID_PRIMARY_RUNTIME_VERSION,
       createdAt: "2026-08-19T10:00:00.000Z",
       contributionDigest: `${contributionId}:digest`,
     },
