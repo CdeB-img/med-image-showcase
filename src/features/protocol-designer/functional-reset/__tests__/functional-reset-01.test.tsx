@@ -8,13 +8,14 @@ import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import {
   COLCHICINE_INITIAL,
   COLCHICINE_MODIFICATION,
+  makeFunctionalResetBridgeResponse,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
-vi.mock("@/features/scientific-interpretation/client", () => ({
-  requestScientificInterpretationRuntime: runtime.request,
+vi.mock("@/features/protocol-designer/product-bridge-client", () => ({
+  requestProtocolDesignerBridge: runtime.request,
 }));
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
@@ -23,7 +24,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => ({ contribution: makeFunctionalResetContribution(conversation.turns) }));
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(conversation.turns));
   });
   afterEach(cleanup);
 
@@ -48,7 +49,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 
     expect(await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." })).toBeInTheDocument();
-    expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ previousContribution: null }));
+    expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: null }));
     expect(screen.getByText("lésions myocardiques")).toBeInTheDocument();
     expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
@@ -79,7 +80,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(await screen.findByText("J’ai compris deux modifications :")).toBeInTheDocument();
     expect(screen.getByText("+ IRM : J3–J5")).toBeInTheDocument();
     expect(screen.getByText("+ Âge maximal : 75 ans")).toBeInTheDocument();
-    expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ previousContribution: expect.objectContaining({ identity: expect.objectContaining({ contributionId: "contribution:colchicine-v1" }) }) }));
+    expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: expect.objectContaining({ contributionRef: "contribution:colchicine-v1" }) }));
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
 
     expect(within(project).getByText("Version 2")).toBeInTheDocument();

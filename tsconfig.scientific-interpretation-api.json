@@ -13,6 +13,8 @@
     }
   },
   "files": [
+    "api/protocol-designer-bridge.ts",
+    "api/protocol-designer-bridge-provider.ts",
     "api/scientific-interpretation.ts",
     "api/scientific-semantic.ts"
   ]

@@ -140,7 +140,7 @@ describe("FUNCTIONAL-RESET-03A2 — semantic REMOVE resolution", () => {
     const contribution = removalContribution({ semanticIdentity: "blood-biomarkers", content: "biomarqueurs sanguins" });
     const candidate = prepareResearchProjectContributionCandidate(contribution, current);
     const currentSnapshot = JSON.stringify(current);
-    render(<ContributionReview contribution={contribution} candidate={candidate} status="PENDING" onConfirm={vi.fn()} onCorrect={vi.fn()} />);
+    render(<ContributionReview contribution={contribution} candidate={candidate} status="PENDING" onConfirm={vi.fn()} onCorrect={vi.fn()} onReject={vi.fn()} />);
     const review = screen.getByTestId("functional-contribution-review");
     expect(within(review).getByText("Mesures / biomarqueurs")).toBeInTheDocument();
     expect(within(review).getByText("− Biomarqueurs sanguins")).toBeInTheDocument();

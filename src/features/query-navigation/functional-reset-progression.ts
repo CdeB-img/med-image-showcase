@@ -671,7 +671,8 @@ export const isFunctionalResetQueryMisunderstanding = (value: string) => {
   const text = value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLocaleLowerCase("fr-FR");
   return /\b(?:je|nous|on)\s+(?:ne\s+)?compr(?:ends?|enons?)\s+(?:toujours\s+)?pas\b/.test(text)
     || /\b(?:question|demande)\s+(?:n.est\s+)?pas\s+claire?\b/.test(text)
-    || /\b(?:peux|pouvez|pourrais|pourriez)[- ]?(?:tu|vous)\s+(?:me\s+)?(?:reformuler|expliquer|clarifier)\b/.test(text);
+    || /\b(?:peux|pouvez|pourrais|pourriez)[- ]?(?:tu|vous)\s+(?:me\s+)?(?:reformuler|expliquer|clarifier)\b/.test(text)
+    || /\bpourquoi\s+(?:est-ce\s+que\s+)?(?:tu|vous)\s+(?:me\s+)?demand/.test(text);
 };
 
 const clarificationQuestion = (

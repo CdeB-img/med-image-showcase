@@ -31,13 +31,14 @@ import {
 import {
   COLCHICINE_03A_INITIAL,
   COLCHICINE_03A_MODIFICATION,
+  makeFunctionalResetBridgeResponse,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
-vi.mock("@/features/scientific-interpretation/client", () => ({
-  requestScientificInterpretationRuntime: runtime.request,
+vi.mock("@/features/protocol-designer/product-bridge-client", () => ({
+  requestProtocolDesignerBridge: runtime.request,
 }));
 
 const authority = {
@@ -129,9 +130,7 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => ({
-      contribution: makeFunctionalResetContribution(conversation.turns),
-    }));
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(conversation.turns));
   });
   afterEach(cleanup);
 

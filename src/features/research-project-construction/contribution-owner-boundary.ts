@@ -888,6 +888,40 @@ export const confirmResearchProjectContribution = (input: {
   };
 };
 
+export const rejectResearchProjectContribution = (input: {
+  contribution: ScientificInterpretationContributionEnvelope;
+  current: ResearchProjectOwnerProjection | null;
+  authority: ResearchProjectOwnerAuthority;
+  rejectedAt: string;
+}): HumanDecisionEnvelope => {
+  const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
+  const pendingDecision = createHumanDecisionCandidate({
+    decisionId: `project-contribution-decision:${logicalDigest({
+      contributionRef: candidate.contributionRef,
+      baseProjectVersion: candidate.changeSet.baseProjectVersion,
+      disposition: "REJECTED",
+    })}`,
+    gateId: "PRJ-CONTRIBUTION-INTAKE",
+    scope: ["RESEARCH_PROJECT", "USER_CONFIRMED_PROJECT_INFORMATION"],
+    targets: [candidate.contributionRef, ...candidate.changeSet.changes
+      .filter((change) => change.operation !== "NO_CHANGE")
+      .flatMap((change) => change.sourceObjectRefs)],
+    reason: "Rejet explicite de la Contribution candidate. Le Research Project reste inchangé.",
+    provenance: [candidate.contributionRef, input.contribution.identity.contributionDigest, ...input.contribution.source.sourceRefs],
+    engineSource: "RESEARCH_PROJECT",
+    projectVersion: input.current?.versionId ?? null,
+  });
+  const decision = engageHumanDecision(pendingDecision, {
+    status: "REJECTED",
+    actor: input.authority.actorRef,
+    mandate: input.authority.mandateRef,
+    reason: "L’utilisateur a refusé la proposition dans la session de travail courante.",
+    timestamp: input.rejectedAt,
+  });
+  if (decision.status !== "REJECTED") throw new Error("PRJ_CONTRIBUTION_REJECTION_AUTHORITY_REQUIRED");
+  return decision;
+};
+
 /**
  * PRJ-owned authorization for a passive document projection of one exact Project version.
  * It does not freeze or mutate the adopted Project; the consumer adapter may only use it

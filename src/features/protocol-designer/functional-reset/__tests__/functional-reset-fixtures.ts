@@ -5,6 +5,7 @@ import type {
   ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation/contracts";
 import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
+import type { ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 
 export const COLCHICINE_INITIAL = "Je veux étudier l’effet de la colchicine après infarctus du myocarde, notamment sur l’inflammation et les lésions en IRM, dans une étude multicentrique comparant colchicine et placebo. Je veux également prévoir des biomarqueurs sanguins et mesurer la taille de l’infarctus à l’IRM.";
 export const COLCHICINE_MODIFICATION = "Je veux faire l’IRM entre J3 et J5 et limiter l’âge à 75 ans.";
@@ -134,4 +135,39 @@ export const makeFunctionalResetContribution = (turns: ScientificInterpretationT
       projectWriteAuthorized: false,
     },
   };
+};
+
+export const makeFunctionalResetBridgeResponse = (
+  turns: ScientificInterpretationTurn[],
+  contribution: ScientificInterpretationContributionEnvelope | null | undefined = undefined,
+  assistantReply = "Je comprends votre proposition. Je vous la présente séparément pour confirmation.",
+): ProductBridgeResponse => {
+  const effectiveContribution = contribution === undefined
+    ? makeFunctionalResetContribution(turns.filter((turn) => turn.role === "USER"))
+    : contribution;
+  return ({
+  apiVersion: "1.0.0",
+  assistantReply,
+  assistantTurn: {
+    turnId: `noxia:${turns.at(-1)?.turnId ?? "test"}`,
+    role: "NOXIA",
+    content: assistantReply,
+    createdAt: "2026-08-20T09:00:01.000Z",
+  },
+  persistentExtraction: {
+    called: effectiveContribution !== null,
+    status: effectiveContribution ? "CANDIDATE" : "NOT_REQUESTED",
+    candidate: null,
+    validation: null,
+    contribution: effectiveContribution,
+  },
+  observability: {
+    provider: "GOOGLE_GEMINI",
+    model: "gemini-3.5-flash-lite",
+    conversationLatencyMs: 10,
+    extractionLatencyMs: effectiveContribution ? 10 : null,
+    calls: effectiveContribution ? 2 : 1,
+    projectWrites: 0,
+  },
+  });
 };

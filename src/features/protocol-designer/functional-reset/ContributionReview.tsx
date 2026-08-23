@@ -30,12 +30,13 @@ const OPEN_POINT_LABELS: Partial<Record<ResearchProjectSectionId, string>> = {
 type Props = {
   contribution: ScientificInterpretationContributionEnvelope;
   candidate: ResearchProjectContributionCandidate;
-  status: "PENDING" | "CONFIRMED";
+  status: "PENDING" | "CONFIRMED" | "REJECTED";
   onConfirm: () => void;
   onCorrect: () => void;
+  onReject: () => void;
 };
 
-export default function ContributionReview({ contribution, candidate, status, onConfirm, onCorrect }: Props) {
+export default function ContributionReview({ contribution, candidate, status, onConfirm, onCorrect, onReject }: Props) {
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
   const changes = candidate.changeSet.changes.filter((change) => change.operation !== "NO_CHANGE");
   const initialSections = candidate.proposedSections
@@ -80,6 +81,9 @@ export default function ContributionReview({ contribution, candidate, status, on
     {status === "PENDING" ? <div className="mt-5 flex flex-col gap-2 sm:flex-row">
       <button type="button" onClick={onConfirm} className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Cela correspond à mon projet</button>
       <button type="button" onClick={onCorrect} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium">Décrire une correction</button>
-    </div> : <p role="status" className="mt-5 rounded-xl bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">{isUpdate ? "Modifications confirmées." : "Structure confirmée."}</p>}
+      <button type="button" onClick={onReject} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium text-muted-foreground">Refuser cette proposition</button>
+    </div> : status === "CONFIRMED"
+      ? <p role="status" className="mt-5 rounded-xl bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">{isUpdate ? "Modifications confirmées." : "Structure confirmée."}</p>
+      : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">Proposition refusée. Le Research Project est inchangé.</p>}
   </section>;
 }

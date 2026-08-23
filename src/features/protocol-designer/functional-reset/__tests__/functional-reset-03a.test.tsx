@@ -12,13 +12,14 @@ import { FUNCTIONAL_RESET_STORAGE_KEY } from "../session";
 import {
   COLCHICINE_03A_INITIAL,
   COLCHICINE_03A_MODIFICATION,
+  makeFunctionalResetBridgeResponse,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
-vi.mock("@/features/scientific-interpretation/client", () => ({
-  requestScientificInterpretationRuntime: runtime.request,
+vi.mock("@/features/protocol-designer/product-bridge-client", () => ({
+  requestProtocolDesignerBridge: runtime.request,
 }));
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
@@ -56,6 +57,7 @@ const storedSession = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RE
     }>;
   };
   queryNavigation: {
+    owner: string;
     memory: { events: Array<{ eventType: string; reason: string }> };
   } | null;
 };
@@ -64,9 +66,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => ({
-      contribution: makeFunctionalResetContribution(conversation.turns),
-    }));
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(conversation.turns));
   });
   afterEach(cleanup);
 
@@ -158,44 +158,16 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await waitForProposal();
     confirm();
 
-    runtime.request.mockImplementationOnce(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
-      const contribution = makeFunctionalResetContribution(conversation.turns);
-      const turnId = conversation.turns.at(-1)!.turnId;
-      return {
-        contribution: {
-          ...contribution,
-          scientificContent: {
-            ...contribution.scientificContent,
-            normalizedUnderstanding: "Le critère principal reste à définir.",
-            unknowns: [{
-              itemId: "unknown:primary-endpoint",
-              semanticIdentity: "unknown:primary-endpoint",
-              proposedType: "ENDPOINT",
-              content: "critère principal encore à définir",
-              polarity: "UNKNOWN",
-              studyRole: null,
-              confidence: 1,
-              epistemicBoundary: {
-                ownership: "SCIENTIFIC_INTERPRETATION",
-                epistemicStatus: "UNKNOWN",
-                adoptionStatus: "CANDIDATE",
-                activeState: true,
-                sourceTurnIds: [turnId],
-                sourceText: "Le critère principal reste à définir.",
-              },
-            }],
-          },
-        },
-      };
-    });
+    runtime.request.mockImplementationOnce(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(
+      conversation.turns,
+      null,
+      "Ce point reste ouvert dans le projet. Nous pouvons le laisser indéterminé pour le moment.",
+    ));
     submit("Le critère principal reste à définir.");
     await screen.findByText(/Ce point reste ouvert dans le projet/);
     expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).toBeNull();
 
     const session = storedSession();
-    expect(session.currentContribution?.scientificContent.unknowns).toEqual([
-      expect.objectContaining({ content: "critère principal encore à définir", polarity: "UNKNOWN" }),
-    ]);
     expect(session.project?.revision).toBe(1);
     expect(session.project!.sections.flatMap((section) => section.elements)).toEqual(expect.arrayContaining([
       expect.objectContaining({ content: "colchicine" }),
@@ -204,10 +176,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     expect(session.project!.sections.flatMap((section) => section.elements)).not.toEqual(expect.arrayContaining([
       expect.objectContaining({ content: "critère principal encore à définir" }),
     ]));
-    expect(session.queryNavigation?.memory.events).toContainEqual(expect.objectContaining({
-      eventType: "ACTION_DEFERRED",
-      reason: "USER_DOES_NOT_KNOW",
-    }));
+    expect(session.queryNavigation?.owner).toBe("QUERY_NAVIGATION");
   });
 
   it("FR03A-C07 — le Project Panel reste visible dans la boucle", async () => {
@@ -260,19 +229,17 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     });
   });
 
-  it("FR03A-C10 — Scientific Interpretation reste sur la fondation admise", async () => {
+  it("FR03A-C10 — le pont conversationnel remplace l'appel SEM nominal", async () => {
     expect(HYBRID_PRIMARY_RUNTIME_VERSION).toBe("1.3.10");
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
 
     expect(runtime.request).toHaveBeenCalledWith(expect.objectContaining({
-      previousContribution: null,
+      currentProject: null,
+      evaluatePersistentDelta: true,
       conversation: expect.objectContaining({ language: "fr" }),
     }));
-    expect(storedSession().pendingContribution?.identity).toMatchObject({
-      runtimeId: "HYBRID_PRIMARY_STRUCTURED",
-      runtimeVersion: HYBRID_PRIMARY_RUNTIME_VERSION,
-    });
+    expect(storedSession().pendingContribution).not.toBeNull();
   });
 });

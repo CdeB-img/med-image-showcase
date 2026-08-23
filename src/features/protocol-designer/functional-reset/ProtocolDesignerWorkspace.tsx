@@ -2,12 +2,13 @@ import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { requestScientificInterpretationRuntime } from "@/features/scientific-interpretation/client";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
+import { requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
   prepareResearchProjectContributionCandidate,
+  rejectResearchProjectContribution,
 } from "@/features/research-project-construction";
 import {
   functionalProtocolProjection,
@@ -17,11 +18,8 @@ import {
 import {
   buildFunctionalResetQueryNavigation,
   clarifyFunctionalResetQueryAfterMisunderstanding,
-  deferFunctionalResetQueryNeeds,
-  deferFunctionalResetQueryNavigation,
   isFunctionalResetQueryMisunderstanding,
   recordFunctionalResetQueryResponse,
-  restateFunctionalResetQueryAfterNoChange,
 } from "@/features/query-navigation";
 import ContributionReview from "./ContributionReview";
 import ProtocolPreview from "./ProtocolPreview";
@@ -35,7 +33,6 @@ import {
   persistFunctionalResetSession,
   type FunctionalResetSession,
 } from "./session";
-import { classifyFunctionalResetQueryDeferral, classifyFunctionalResetQueryDeferralScope } from "./query-deferral";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -57,6 +54,9 @@ export default function ProtocolDesignerWorkspace() {
 
   useEffect(() => {
     persistFunctionalResetSession(window.localStorage, session);
+    if (import.meta.env.DEV && session.bridgeTraces.length > 0) {
+      console.debug("NOXIA_PRODUCT_BRIDGE_TRACE", JSON.stringify(session.bridgeTraces.at(-1)));
+    }
   }, [session]);
 
   useEffect(() => {
@@ -75,9 +75,13 @@ export default function ProtocolDesignerWorkspace() {
     const now = new Date().toISOString();
     const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
     const runtimeTurns = [...session.runtimeTurns, userTurn];
-    const previousContribution = session.pendingContribution ?? session.currentContribution;
     const responseId = createConversationEntryId();
-    const misunderstanding = Boolean(session.queryNavigation && isFunctionalResetQueryMisunderstanding(content));
+    const asksForExplanationOrRephrase = isFunctionalResetQueryMisunderstanding(content);
+    const misunderstanding = Boolean(session.queryNavigation && asksForExplanationOrRephrase);
+    const standaloneQuestion = content.endsWith("?")
+      && !/[.;\n]/.test(content.slice(0, -1))
+      && (content.match(/,/g)?.length ?? 0) === 0;
+    const qryNeedBefore = session.queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null;
     const queryNavigation = session.queryNavigation
       ? misunderstanding
         ? clarifyFunctionalResetQueryAfterMisunderstanding({
@@ -100,27 +104,19 @@ export default function ProtocolDesignerWorkspace() {
     const withUser: FunctionalResetSession = {
       ...session,
       queryNavigation,
-      runtimeTurns: misunderstanding ? session.runtimeTurns : runtimeTurns,
+      runtimeTurns,
       entries: [
         ...session.entries,
         { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: now },
-        ...(misunderstanding && queryNavigation?.standardQuestion ? [{
-          entryId: createConversationEntryId(),
-          kind: "TEXT" as const,
-          role: "NOXIA" as const,
-          content: queryNavigation.standardQuestion.text,
-          createdAt: now,
-        }] : []),
       ],
       updatedAt: now,
     };
     setSession(withUser);
     setDraft("");
     setCorrectionMode(false);
-    if (misunderstanding) return;
     setBusy(true);
     try {
-      const response = await requestScientificInterpretationRuntime({
+      const response = await requestProtocolDesignerBridge({
         conversation: {
           conversationId: session.conversationId,
           language: "fr",
@@ -140,95 +136,54 @@ export default function ProtocolDesignerWorkspace() {
             },
           } : {}),
         },
-        previousContribution,
+        currentProject: session.project,
+        // QRY clarification/explanation requests are already identified by the
+        // existing product contract and must remain one-call conversation turns.
+        evaluatePersistentDelta: !asksForExplanationOrRephrase && !standaloneQuestion,
       });
       const receivedAt = new Date().toISOString();
-      const candidate = prepareResearchProjectContributionCandidate(response.contribution, session.project);
-      const deferralReason = queryNavigation ? classifyFunctionalResetQueryDeferral({
-        contribution: response.contribution,
-        sourceTurnId: userTurn.turnId,
-        rawResponse: content,
-      }) : null;
-      const deferralScope = queryNavigation ? classifyFunctionalResetQueryDeferralScope({
-        contribution: response.contribution,
-        sourceTurnId: userTurn.turnId,
-        rawResponse: content,
-      }) : null;
-      const navigationAfterInterpretation = queryNavigation && deferralScope
-        ? deferFunctionalResetQueryNeeds({
-          navigation: queryNavigation,
-          reason: deferralScope.reason,
-          targets: deferralScope.targets,
-          recordedAt: receivedAt,
-        })
-        : queryNavigation && deferralReason
-          ? deferFunctionalResetQueryNavigation({ navigation: queryNavigation, reason: deferralReason, recordedAt: receivedAt })
-          : queryNavigation;
-      const deferred = Boolean(deferralScope || deferralReason);
-      if (session.project && candidate.changeSet.status === "NO_NET_CHANGE") {
-        setSession((current) => {
-          const queryNavigation = navigationAfterInterpretation
-            ? deferred
-              ? buildFunctionalResetQueryNavigation({
-                project: session.project!,
-                previous: navigationAfterInterpretation,
-                documentBlockers: documentBlockerSignals(current.documents),
-                recordedAt: receivedAt,
-                forceRebuild: true,
-              })
-              : restateFunctionalResetQueryAfterNoChange({ navigation: navigationAfterInterpretation, recordedAt: receivedAt })
-            : null;
-          const question = queryNavigation?.standardQuestion
-            ? `${queryNavigation.standardQuestion.priorityLead}\n\n${queryNavigation.standardQuestion.text}`
-            : null;
-          return {
-            ...current,
-            queryNavigation,
-            currentContribution: response.contribution,
-            pendingContribution: null,
-            entries: [
-              ...current.entries,
-              {
-                entryId: createConversationEntryId(),
-                kind: "TEXT",
-                role: "NOXIA",
-                content: deferred
-                  ? "Ce point reste ouvert dans le projet, mais il est mis de côté pour le moment."
-                  : candidate.changeSet.noChangeExplanation ?? "Cette précision ne change pas le projet actuel.",
-                createdAt: receivedAt,
-              },
-              ...(question ? [{
-                entryId: createConversationEntryId(),
-                kind: "TEXT" as const,
-                role: "NOXIA" as const,
-                content: question,
-                createdAt: receivedAt,
-              }] : deferred ? [{
-                entryId: createConversationEntryId(),
-                kind: "TEXT" as const,
-                role: "NOXIA" as const,
-                content: "Les autres dimensions sont suffisamment avancées pour le moment. Nous pourrons revenir à ce point plus tard, ou vous pouvez continuer à modifier librement le projet.",
-                createdAt: receivedAt,
-              }] : []),
-            ],
-            updatedAt: receivedAt,
-          };
-        });
-        return;
-      }
+      const contribution = response.persistentExtraction.contribution;
+      const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
+      const effectiveCandidate = candidate?.changeSet.status === "PENDING_HUMAN_CONFIRMATION" ? candidate : null;
       setSession((current) => ({
         ...current,
-        queryNavigation: navigationAfterInterpretation,
-        pendingContribution: response.contribution,
-        entries: [...current.entries, {
-          entryId: createConversationEntryId(),
-          kind: "REVIEW",
-          role: "NOXIA",
-          contribution: response.contribution,
-          candidate,
-          status: "PENDING",
-          createdAt: receivedAt,
-        }],
+        queryNavigation,
+        runtimeTurns: [...runtimeTurns, response.assistantTurn],
+        pendingContribution: effectiveCandidate ? contribution : null,
+        entries: [
+          ...current.entries,
+          { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: response.assistantReply, createdAt: receivedAt },
+          ...(effectiveCandidate && contribution ? [{
+            entryId: createConversationEntryId(),
+            kind: "REVIEW" as const,
+            role: "NOXIA" as const,
+            contribution,
+            candidate: effectiveCandidate,
+            status: "PENDING" as const,
+            decision: null,
+            createdAt: receivedAt,
+          }] : []),
+        ],
+        bridgeTraces: import.meta.env.DEV ? [...current.bridgeTraces, {
+          turnId: userTurn.turnId,
+          raw: content,
+          assistantReply: response.assistantReply,
+          persistentExtractionCalled: response.persistentExtraction.called,
+          persistentExtractionStatus: response.persistentExtraction.status,
+          persistentCandidate: response.persistentExtraction.candidate,
+          deterministicValidation: response.persistentExtraction.validation,
+          projectChangeSetCandidate: effectiveCandidate?.changeSet ?? null,
+          humanDecision: null,
+          projectVersionBefore: session.project?.versionId ?? null,
+          projectVersionAfter: session.project?.versionId ?? null,
+          qryNeedBefore,
+          qryNeedAfter: queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null,
+          provider: response.observability.provider,
+          model: response.observability.model,
+          conversationLatencyMs: response.observability.conversationLatencyMs,
+          extractionLatencyMs: response.observability.extractionLatencyMs,
+          calls: response.observability.calls,
+        }] : current.bridgeTraces,
         updatedAt: receivedAt,
       }));
     } catch (error) {
@@ -288,10 +243,15 @@ export default function ProtocolDesignerWorkspace() {
         currentContribution: contribution,
         pendingContribution: null,
         entries: [
-          ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId ? { ...entry, status: "CONFIRMED" as const } : entry),
+          ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
+            ? { ...entry, status: "CONFIRMED" as const, decision: project.confirmationDecision }
+            : entry),
           { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now },
           ...(documentWarning ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const, role: "NOXIA" as const, content: "NOXIA n’a pas pu mettre à jour la partie documentaire du projet. Le Research Project confirmé reste disponible.", createdAt: now }] : []),
         ],
+        bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
+          ? { ...trace, humanDecision: project.confirmationDecision, projectVersionAfter: project.versionId }
+          : trace),
         updatedAt: now,
       }));
     } catch {
@@ -302,6 +262,43 @@ export default function ProtocolDesignerWorkspace() {
           kind: "ERROR",
           role: "NOXIA",
           content: "NOXIA n’a pas pu mettre à jour cette partie du projet. Votre contribution reste disponible pour réessayer.",
+          createdAt: now,
+        }],
+        updatedAt: now,
+      }));
+    }
+  };
+
+  const rejectContribution = (contributionId: string) => {
+    const contribution = session.pendingContribution;
+    if (!contribution || contribution.identity.contributionId !== contributionId) return;
+    const now = new Date().toISOString();
+    try {
+      const decision = rejectResearchProjectContribution({
+        contribution,
+        current: session.project,
+        authority: session.projectAuthority,
+        rejectedAt: now,
+      });
+      setSession((current) => ({
+        ...current,
+        pendingContribution: null,
+        entries: current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
+          ? { ...entry, status: "REJECTED" as const, decision }
+          : entry),
+        bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
+          ? { ...trace, humanDecision: decision, projectVersionAfter: current.project?.versionId ?? null }
+          : trace),
+        updatedAt: now,
+      }));
+    } catch {
+      setSession((current) => ({
+        ...current,
+        entries: [...current.entries, {
+          entryId: createConversationEntryId(),
+          kind: "ERROR",
+          role: "NOXIA",
+          content: "NOXIA n’a pas pu enregistrer ce refus. Le Research Project reste inchangé.",
           createdAt: now,
         }],
         updatedAt: now,
@@ -433,6 +430,7 @@ export default function ProtocolDesignerWorkspace() {
                 status={entry.status}
                 onConfirm={() => confirmContribution(entry.contribution.identity.contributionId)}
                 onCorrect={requestCorrection}
+                onReject={() => rejectContribution(entry.contribution.identity.contributionId)}
               />
               : <article key={entry.entryId} className={`flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
                 <div className={`max-w-[88%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed sm:max-w-[78%] ${
@@ -440,7 +438,7 @@ export default function ProtocolDesignerWorkspace() {
                     : entry.role === "USER" ? "bg-primary text-primary-foreground" : "bg-muted"
                 }`} role={entry.kind === "ERROR" ? "alert" : undefined}>{entry.content}</div>
               </article>)}
-            {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />NOXIA organise votre proposition…</div></div>}
+            {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />NOXIA vous répond…</div></div>}
             <div ref={endRef} />
           </div>
 

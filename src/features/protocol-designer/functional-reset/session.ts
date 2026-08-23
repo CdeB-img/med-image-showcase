@@ -12,18 +12,42 @@ import {
   type FunctionalResetDocumentPortfolio,
 } from "@/features/document-projection";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
+import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import type { PersistentDeltaValidation, PersistentProjectDeltaCandidate } from "@/features/protocol-designer/product-bridge";
+import type { ContributionProjectChangeSet } from "@/features/research-project-construction";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.\nVous pouvez partir d’une idée simple ou donner tous les détails que vous connaissez déjà.";
 
 export type ConversationEntry =
   | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; createdAt: string }
-  | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; status: "PENDING" | "CONFIRMED"; createdAt: string }
+  | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; createdAt: string }
   | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string };
+
+export type ProductBridgeTrace = {
+  turnId: string;
+  raw: string;
+  assistantReply: string;
+  persistentExtractionCalled: boolean;
+  persistentExtractionStatus: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
+  persistentCandidate: PersistentProjectDeltaCandidate | null;
+  deterministicValidation: PersistentDeltaValidation | null;
+  projectChangeSetCandidate: ContributionProjectChangeSet | null;
+  humanDecision: HumanDecisionEnvelope | null;
+  projectVersionBefore: string | null;
+  projectVersionAfter: string | null;
+  qryNeedBefore: string | null;
+  qryNeedAfter: string | null;
+  provider: string;
+  model: string;
+  conversationLatencyMs: number;
+  extractionLatencyMs: number | null;
+  calls: number;
+};
 
 export type FunctionalResetSession = {
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
-  contractVersion: "1.3.0";
+  contractVersion: "1.4.0";
   sessionId: string;
   conversationId: string;
   projectId: string;
@@ -38,6 +62,7 @@ export type FunctionalResetSession = {
   queryNavigation: FunctionalResetQueryNavigation | null;
   documents: FunctionalResetDocumentPortfolio;
   openDocumentProjectionId: string | null;
+  bridgeTraces: ProductBridgeTrace[];
 };
 
 const id = (prefix: string) => {
@@ -49,7 +74,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
   const sessionId = id("protocol-designer-session");
   return {
     contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION",
-    contractVersion: "1.3.0",
+    contractVersion: "1.4.0",
     sessionId,
     conversationId: id("scientific-conversation"),
     projectId: `${sessionId}:research-project`,
@@ -69,6 +94,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     queryNavigation: null,
     documents: createEmptyFunctionalResetDocumentPortfolio(),
     openDocumentProjectionId: null,
+    bridgeTraces: [],
   };
 };
 
@@ -76,7 +102,7 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
   if (!value || typeof value !== "object") return false;
   const record = value as Partial<FunctionalResetSession>;
   return record.contract === "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION"
-    && record.contractVersion === "1.3.0"
+    && record.contractVersion === "1.4.0"
     && typeof record.sessionId === "string"
     && typeof record.conversationId === "string"
     && Array.isArray(record.entries)
@@ -86,14 +112,20 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
     && (!record.queryNavigation || record.queryNavigation.contract === "FUNCTIONAL_RESET_QUERY_NAVIGATION")
     && record.documents?.contract === "FUNCTIONAL_RESET_DOCUMENT_PORTFOLIO"
     && record.documents.owner === "DOC-001"
-    && (record.openDocumentProjectionId === null || typeof record.openDocumentProjectionId === "string");
+    && (record.openDocumentProjectionId === null || typeof record.openDocumentProjectionId === "string")
+    && Array.isArray(record.bridgeTraces);
 };
 
 const migrateLegacySession = (value: unknown): FunctionalResetSession | null => {
   if (!value || typeof value !== "object") return null;
   const record = value as Record<string, unknown>;
-  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || record.contractVersion !== "1.2.0") return null;
-  const migrated = { ...record, contractVersion: "1.3.0", queryNavigation: null };
+  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0"].includes(String(record.contractVersion))) return null;
+  const migrated = {
+    ...record,
+    contractVersion: "1.4.0",
+    queryNavigation: record.contractVersion === "1.2.0" ? null : record.queryNavigation,
+    bridgeTraces: [],
+  };
   return looksLikeSession(migrated) ? migrated : null;
 };
 

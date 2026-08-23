@@ -21,12 +21,12 @@ import {
   CHANGESET_SCOPE,
   makeFunctionalReset03A1Contribution,
 } from "./functional-reset-03a1-fixtures";
-import { COLCHICINE_03A_INITIAL, COLCHICINE_03A_MODIFICATION, makeFunctionalResetContribution } from "./functional-reset-fixtures";
+import { COLCHICINE_03A_INITIAL, COLCHICINE_03A_MODIFICATION, makeFunctionalResetBridgeResponse, makeFunctionalResetContribution } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
-vi.mock("@/features/scientific-interpretation/client", () => ({
-  requestScientificInterpretationRuntime: runtime.request,
+vi.mock("@/features/protocol-designer/product-bridge-client", () => ({
+  requestProtocolDesignerBridge: runtime.request,
 }));
 
 const authority = {
@@ -104,7 +104,7 @@ const confirmInitialAndAge = async () => {
 const reachRemovalReview = async () => {
   await confirmInitialAndAge();
   submit(CHANGESET_SCOPE);
-  await screen.findByText("Cette précision ne change pas le projet actuel.");
+  expect((await screen.findAllByText("Je comprends votre proposition. Je vous la présente séparément pour confirmation.")).length).toBeGreaterThan(0);
   submit(CHANGESET_REMOVE);
   await screen.findByText("J’ai compris une modification :");
 };
@@ -113,9 +113,10 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => ({
-      contribution: makeFunctionalReset03A1Contribution(conversation.turns),
-    }));
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(
+      conversation.turns,
+      makeFunctionalReset03A1Contribution(conversation.turns.filter((turn) => turn.role === "USER")),
+    ));
   });
   afterEach(cleanup);
 
@@ -207,7 +208,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     renderDemo();
     await confirmInitialAndAge();
     submit(CHANGESET_SCOPE);
-    expect(await screen.findByText("Cette précision ne change pas le projet actuel.")).toBeInTheDocument();
+    expect((await screen.findAllByText("Je comprends votre proposition. Je vous la présente séparément pour confirmation.")).length).toBeGreaterThan(0);
     expect(screen.queryByText(/J’ai compris 0 modifications/i)).toBeNull();
     expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).toBeNull();
     expect(stored().project?.revision).toBe(2);
@@ -232,7 +233,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     renderDemo();
     await confirmInitialAndAge();
     submit(CHANGESET_SCOPE);
-    await screen.findByText("Cette précision ne change pas le projet actuel.");
+    expect((await screen.findAllByText("Je comprends votre proposition. Je vous la présente séparément pour confirmation.")).length).toBeGreaterThan(0);
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(projectPanel.textContent).not.toMatch(/pas l’ensemble de la population|l’âge maximal est de 75 ans, pas/i);
     expect(within(projectPanel).getByText("Âge maximal : 75 ans")).toBeInTheDocument();
