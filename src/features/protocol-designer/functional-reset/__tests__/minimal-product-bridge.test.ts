@@ -7,6 +7,7 @@ import { executeProtocolDesignerBridge } from "../../../../../api/protocol-desig
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import {
   contributionFromPersistentDelta,
+  PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   validatePersistentProjectDelta,
   type ProductBridgeRequest,
 } from "@/features/protocol-designer/product-bridge";
@@ -75,10 +76,17 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
   });
 
   it("never provides assistant-generated content to persistent extraction", () => {
-    const payload = buildPersistentDeltaPayload(requestFor("Pourquoi cette question ?"));
+    const request = requestFor("Que proposes-tu ?");
+    request.conversation.turns = [
+      turn("assistant-suggestion", "Cette MVO pourrait devenir un critère principal", "NOXIA"),
+      turn("user-current", "Que proposes-tu ?"),
+    ];
+    const payload = buildPersistentDeltaPayload(request);
     const serialized = JSON.stringify(payload);
-    expect(serialized).toContain("Pourquoi cette question ?");
+    expect(serialized).toContain("Que proposes-tu ?");
     expect(serialized).not.toContain("Cette MVO pourrait devenir un critère principal");
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("Une mention dans une question");
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("retourne une liste vide");
 
     const checked = validatePersistentProjectDelta({ changes: [{
       operation: "ADD",
@@ -89,6 +97,50 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     }] }, "Pourquoi cette question ?", currentProject());
     expect(checked.validation).toMatchObject({ valid: false, blocks: ["change:0:SOURCE_TEXT_NOT_IN_USER_TURN"] });
     expect(checked.candidate).toBeNull();
+  });
+
+  it("keeps a pure Project question conversational when the extractor reports no persistent consequence", async () => {
+    const fetchImpl = vi.fn()
+      .mockResolvedValueOnce(jsonResponse({
+        candidates: [{ content: { parts: [{ text: "Le nombre de procédures n'est pas encore défini dans le Project adopté." }] } }],
+        responseId: "question-conversation",
+      }))
+      .mockResolvedValueOnce(jsonResponse({
+        candidates: [{ content: { parts: [{ functionCall: { name: "propose_persistent_project_delta", args: { changes: [] } } }] } }],
+        responseId: "question-no-delta",
+      })) as unknown as typeof fetch;
+    const result = await executeProtocolDesignerBridge({
+      body: requestFor("Combien de procédures sont prévues ?"),
+      apiKey: "test-key",
+      fetchImpl,
+    });
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(result.body).toMatchObject({
+      assistantReply: expect.stringContaining("pas encore défini"),
+      persistentExtraction: { called: true, status: "NO_CHANGE", contribution: null },
+      observability: { calls: 2, projectWrites: 0 },
+    });
+  });
+
+  it("accepts an explicit Project assertion as a candidate without writing the Project", () => {
+    const project = currentProject();
+    const before = JSON.stringify(project);
+    const raw = "Le suivi à 6 mois fait partie de ce projet.";
+    const checked = validatePersistentProjectDelta({ changes: [{
+      operation: "ADD",
+      sourceText: "suivi à 6 mois",
+      targetSectionId: "TEMPORALITY",
+      targetProjectRef: null,
+      content: "Suivi à 6 mois",
+    }] }, raw, project);
+    expect(checked.validation).toMatchObject({ valid: true, blocks: [], acceptedChanges: [expect.any(Object)] });
+    const contribution = contributionFromPersistentDelta({
+      candidate: checked.candidate!,
+      conversation: requestFor(raw).conversation,
+      currentProject: project,
+    });
+    expect(contribution?.decisionBoundary.projectWriteAuthorized).toBe(false);
+    expect(JSON.stringify(project)).toBe(before);
   });
 
   it("validates a stable ref and compiles 75 to 80 without mutating before Human Decision", () => {

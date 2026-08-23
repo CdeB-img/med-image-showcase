@@ -24,6 +24,28 @@ const submit = (content: string) => {
 };
 const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
 
+const acceptInitialProject = async () => {
+  submit(COLCHICINE_03A_INITIAL);
+  await screen.findByTestId("functional-contribution-review");
+  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+  expect(await within(screen.getByTestId("functional-research-project")).findByText("Version 1")).toBeInTheDocument();
+};
+
+const noChangeResponse = (turns: ScientificInterpretationTurn[], assistantReply: string) => {
+  const response = makeFunctionalResetBridgeResponse(turns, null, assistantReply);
+  return {
+    ...response,
+    persistentExtraction: {
+      called: true,
+      status: "NO_CHANGE" as const,
+      candidate: { contract: "PERSISTENT_PROJECT_DELTA_CANDIDATE" as const, contractVersion: "0.1.0" as const, projectWriteAuthorized: false as const, changes: [] },
+      validation: { valid: true, acceptedChanges: [], blocks: [], noOps: [] },
+      contribution: null,
+    },
+    observability: { ...response.observability, calls: 2 as const, extractionLatencyMs: 10 },
+  };
+};
+
 describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
   beforeEach(() => {
     window.localStorage.clear();
@@ -80,5 +102,70 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     first.unmount();
     renderDemo();
     expect(within(screen.getByTestId("functional-research-project")).getByText("Version 1")).toBeInTheDocument();
+  });
+
+  it("passes the exact active QRY question as context while the natural explanation remains the visible reply", async () => {
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
+      const latest = conversation.turns.at(-1)?.content;
+      return latest === COLCHICINE_03A_INITIAL
+        ? makeFunctionalResetBridgeResponse(conversation.turns)
+        : makeFunctionalResetBridgeResponse(
+          conversation.turns,
+          null,
+          "Je reformule : je cherche à comprendre comment les participants seront répartis entre les groupes.",
+        );
+    });
+    renderDemo();
+    await acceptInitialProject();
+    const before = stored();
+    const questionBefore = before.queryNavigation.standardQuestion.text;
+    const needBefore = before.queryNavigation.currentAction.selectedActionId;
+    const projectBefore = JSON.stringify(before.project);
+    const entriesBefore = before.entries.length;
+
+    submit("je ne comprends pas");
+    expect(await screen.findByText(/Je reformule : je cherche à comprendre/)).toBeInTheDocument();
+    const request = runtime.request.mock.calls.at(-1)?.[0];
+    expect(request.conversation.interactionContext.purpose).toContain("Question actuellement présentée au chercheur");
+    const after = stored();
+    expect(request.conversation.interactionContext.purpose).toContain(after.queryNavigation.standardQuestion.text);
+    expect(after.entries).toHaveLength(entriesBefore + 2);
+    expect(after.entries.at(-1).content).toContain("Je reformule");
+    expect(after.entries.filter((entry: { kind: string; content?: string }) => entry.kind === "TEXT" && entry.content === questionBefore)).toHaveLength(0);
+    expect(after.queryNavigation.currentAction.selectedActionId).toBe(needBefore);
+    expect(after.queryNavigation.memory.responses.at(-1).disposition).toBe("REQUEST_CLARIFICATION");
+    expect(JSON.stringify(after.project)).toBe(projectBefore);
+    expect(after.bridgeTraces.at(-1)).toMatchObject({ persistentExtractionCalled: false, projectVersionBefore: before.project.versionId, projectVersionAfter: before.project.versionId });
+  });
+
+  it("keeps an unresolved QRY active while a topic switch and NO_CHANGE receive a natural reply", async () => {
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
+      const latest = conversation.turns.at(-1)?.content;
+      return latest === COLCHICINE_03A_INITIAL
+        ? makeFunctionalResetBridgeResponse(conversation.turns)
+        : noChangeResponse(conversation.turns, "Bien sûr. Parlons de la population : quels participants souhaitez-vous inclure ou exclure ?");
+    });
+    renderDemo();
+    await acceptInitialProject();
+    const before = stored();
+    const queryBefore = JSON.stringify(before.queryNavigation);
+    const projectBefore = JSON.stringify(before.project);
+
+    submit("je voudrais parler de la population");
+    expect(await screen.findByText(/Bien sûr. Parlons de la population/)).toBeInTheDocument();
+    const after = stored();
+    expect(after.entries.at(-1).content).toContain("Parlons de la population");
+    expect(JSON.stringify(after.queryNavigation)).toBe(queryBefore);
+    expect(JSON.stringify(after.project)).toBe(projectBefore);
+    expect(after.pendingContribution).toBeNull();
+    expect(after.bridgeTraces.at(-1)).toMatchObject({
+      persistentExtractionCalled: true,
+      persistentExtractionStatus: "NO_CHANGE",
+      projectChangeSetCandidate: null,
+      projectVersionBefore: before.project.versionId,
+      projectVersionAfter: before.project.versionId,
+      qryNeedBefore: before.queryNavigation.currentAction.navigationNeedRefs[0],
+      qryNeedAfter: before.queryNavigation.currentAction.navigationNeedRefs[0],
+    });
   });
 });

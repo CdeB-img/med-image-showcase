@@ -19,7 +19,6 @@ import {
   buildFunctionalResetQueryNavigation,
   clarifyFunctionalResetQueryAfterMisunderstanding,
   isFunctionalResetQueryMisunderstanding,
-  recordFunctionalResetQueryResponse,
 } from "@/features/query-navigation";
 import ContributionReview from "./ContributionReview";
 import ProtocolPreview from "./ProtocolPreview";
@@ -78,9 +77,6 @@ export default function ProtocolDesignerWorkspace() {
     const responseId = createConversationEntryId();
     const asksForExplanationOrRephrase = isFunctionalResetQueryMisunderstanding(content);
     const misunderstanding = Boolean(session.queryNavigation && asksForExplanationOrRephrase);
-    const standaloneQuestion = content.endsWith("?")
-      && !/[.;\n]/.test(content.slice(0, -1))
-      && (content.match(/,/g)?.length ?? 0) === 0;
     const qryNeedBefore = session.queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null;
     const queryNavigation = session.queryNavigation
       ? misunderstanding
@@ -92,14 +88,7 @@ export default function ProtocolDesignerWorkspace() {
           receivedAt: now,
           responseId,
         })
-        : recordFunctionalResetQueryResponse({
-          navigation: session.queryNavigation,
-          rawResponse: content,
-          actorRef: session.projectAuthority.actorRef,
-          actorRole: "RESEARCHER",
-          receivedAt: now,
-          responseId,
-        })
+        : session.queryNavigation
       : null;
     const withUser: FunctionalResetSession = {
       ...session,
@@ -126,7 +115,12 @@ export default function ProtocolDesignerWorkspace() {
               interactionRef: queryNavigation.currentPresentation.presentationId,
               sourceActionRef: queryNavigation.currentAction.selectedActionId,
               owner: "QUERY_NAVIGATION",
-              purpose: queryNavigation.currentPresentation.intent,
+              purpose: [
+                queryNavigation.currentPresentation.intent,
+                queryNavigation.standardQuestion
+                  ? `Question actuellement présentée au chercheur : ${queryNavigation.standardQuestion.text}`
+                  : null,
+              ].filter((value): value is string => Boolean(value)).join("\n"),
               expectedResponseKind: "QRY_INFORMATION_RESPONSE" as const,
               targetRefs: [queryNavigation.currentAction.targetRef],
               informationNeedRefs: [...queryNavigation.currentAction.navigationNeedRefs],
@@ -139,7 +133,7 @@ export default function ProtocolDesignerWorkspace() {
         currentProject: session.project,
         // QRY clarification/explanation requests are already identified by the
         // existing product contract and must remain one-call conversation turns.
-        evaluatePersistentDelta: !asksForExplanationOrRephrase && !standaloneQuestion,
+        evaluatePersistentDelta: !asksForExplanationOrRephrase,
       });
       const receivedAt = new Date().toISOString();
       const contribution = response.persistentExtraction.contribution;

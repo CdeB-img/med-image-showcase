@@ -50,6 +50,8 @@ Utilise exclusivement les informations explicitement exprimées dans le DERNIER 
 
 Ignore la conversation, les demandes d'explication ou de reformulation, les méta-questions, le ton, les pistes plausibles et toute information non explicitement acceptée par l'utilisateur.
 
+Une mention dans une question, une demande d'information, une hypothèse exploratoire, un exemple ou une proposition n'est pas un fait du Project. Extrais uniquement ce que l'utilisateur affirme explicitement comme appartenant à son projet ou ce qu'il demande explicitement d'ajouter, retirer ou corriger. Demander si, combien, quand ou comment un élément est prévu n'établit ni sa présence ni sa valeur dans le Project. En cas de doute entre une demande conversationnelle et une modification persistante, retourne une liste vide.
+
 Pour chaque modification durable explicite, propose une opération minimale. Une correction ou suppression doit référencer l'identifiant stable exact de l'élément Project concerné. Une information inchangée déjà présente n'est pas une modification. Si aucune conséquence persistante explicite n'existe, retourne une liste vide.
 
 Ne complète pas la science. Ne crée pas de rôle scientifique non formulé. Ne décide pas pour l'utilisateur. N'applique jamais le Project.`;
