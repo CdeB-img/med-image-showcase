@@ -1,0 +1,116 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R2_PROVIDER_EXACT_EVIDENCE",
+  "contractVersion": "1.0.0",
+  "evidenceStatus": "PERSISTED_PRE_ADJUDICATION",
+  "diagnosticRunId": "PROJECT-HANDS-ON-02R2-MOCK-001",
+  "evidenceNature": "DETERMINISTIC_MOCK",
+  "originalProviderArtifactStatus": "ORIGINAL_PROVIDER_ARTIFACT_NOT_PERSISTED",
+  "originalProviderArtifactReconstructed": false,
+  "createdAt": "2026-08-24T10:00:00.000Z",
+  "turnId": "PROJECT-HANDS-ON-02R2-MOCK-001:turn",
+  "rawUserText": "Le traitement est comparé au contrôle avec une acquisition par modalité M à T3.",
+  "provider": "GOOGLE_GEMINI",
+  "model": "gemini-3.5-flash-lite",
+  "promptContractDigest": "ke1-0e4fd41b7df8fd67",
+  "functionName": "propose_persistent_project_delta",
+  "providerResponseId": "MOCK_NO_PROVIDER_CALL",
+  "exactStructuredProviderArgs": {
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "traitement",
+        "targetProjectRef": null,
+        "candidateRef": "mock:intervention",
+        "semanticIdentity": "mock:intervention",
+        "proposedType": "INTERVENTION",
+        "content": "traitement",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "contrôle",
+        "targetProjectRef": null,
+        "candidateRef": "mock:comparator",
+        "semanticIdentity": "mock:comparator",
+        "proposedType": "COMPARATOR",
+        "content": "contrôle",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "acquisition par modalité M",
+        "targetProjectRef": null,
+        "candidateRef": "mock:acquisition",
+        "semanticIdentity": "mock:acquisition",
+        "proposedType": "ACQUISITION",
+        "content": "acquisition par modalité M",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [
+      {
+        "relationRef": "mock:comparison",
+        "sourceText": "traitement est comparé au contrôle",
+        "relationType": "COMPARES_WITH",
+        "sourceObjectRef": "mock:intervention",
+        "targetObjectRef": "mock:comparator",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "temporalQualifications": [
+      {
+        "operation": "ADD",
+        "qualificationId": "mock:timing",
+        "sourceText": "T3",
+        "subjectProjectRef": "mock:acquisition",
+        "temporalRole": "ACQUISITION_TIME",
+        "anchor": {
+          "kind": "TIMEPOINT",
+          "direction": "AT",
+          "unit": "MONTH",
+          "offset": 3,
+          "lowerBound": null,
+          "upperBound": null,
+          "relativeEventLabel": null,
+          "tolerance": null,
+          "reference": {
+            "status": "UNKNOWN",
+            "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+          }
+        },
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "expectedVariableOccasions": []
+  },
+  "exactStructuredProviderArgsSerialized": "{\"changes\":[{\"operation\":\"ADD\",\"sourceText\":\"traitement\",\"targetProjectRef\":null,\"candidateRef\":\"mock:intervention\",\"semanticIdentity\":\"mock:intervention\",\"proposedType\":\"INTERVENTION\",\"content\":\"traitement\",\"polarity\":\"AFFIRMED\",\"studyRole\":null,\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"assertionKind\":\"USER_STATED\",\"proposalSourceText\":null,\"evidenceRefs\":[]},{\"operation\":\"ADD\",\"sourceText\":\"contrôle\",\"targetProjectRef\":null,\"candidateRef\":\"mock:comparator\",\"semanticIdentity\":\"mock:comparator\",\"proposedType\":\"COMPARATOR\",\"content\":\"contrôle\",\"polarity\":\"AFFIRMED\",\"studyRole\":null,\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"assertionKind\":\"USER_STATED\",\"proposalSourceText\":null,\"evidenceRefs\":[]},{\"operation\":\"ADD\",\"sourceText\":\"acquisition par modalité M\",\"targetProjectRef\":null,\"candidateRef\":\"mock:acquisition\",\"semanticIdentity\":\"mock:acquisition\",\"proposedType\":\"ACQUISITION\",\"content\":\"acquisition par modalité M\",\"polarity\":\"AFFIRMED\",\"studyRole\":null,\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"assertionKind\":\"USER_STATED\",\"proposalSourceText\":null,\"evidenceRefs\":[]}],\"relations\":[{\"relationRef\":\"mock:comparison\",\"sourceText\":\"traitement est comparé au contrôle\",\"relationType\":\"COMPARES_WITH\",\"sourceObjectRef\":\"mock:intervention\",\"targetObjectRef\":\"mock:comparator\",\"polarity\":\"AFFIRMED\",\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"assertionKind\":\"USER_STATED\",\"proposalSourceText\":null,\"evidenceRefs\":[]}],\"temporalQualifications\":[{\"operation\":\"ADD\",\"qualificationId\":\"mock:timing\",\"sourceText\":\"T3\",\"subjectProjectRef\":\"mock:acquisition\",\"temporalRole\":\"ACQUISITION_TIME\",\"anchor\":{\"kind\":\"TIMEPOINT\",\"direction\":\"AT\",\"unit\":\"MONTH\",\"offset\":3,\"lowerBound\":null,\"upperBound\":null,\"relativeEventLabel\":null,\"tolerance\":null,\"reference\":{\"status\":\"UNKNOWN\",\"unresolvedReason\":\"REFERENCE_EVENT_NOT_SUPPLIED\"}},\"assertionKind\":\"USER_STATED\",\"proposalSourceText\":null,\"evidenceRefs\":[]}],\"expectedVariableOccasions\":[]}",
+  "exactStructuredProviderArgsDigest": "ke1-daa149ae319e996a",
+  "sourceProject": null,
+  "calls": {
+    "conversation": null,
+    "extraction": null
+  },
+  "secretMaterialPersisted": false,
+  "adjudication": null
+}

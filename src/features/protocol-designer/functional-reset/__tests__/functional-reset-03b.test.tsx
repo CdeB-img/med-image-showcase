@@ -31,7 +31,7 @@ import {
 import {
   COLCHICINE_03A_INITIAL,
   COLCHICINE_03A_MODIFICATION,
-  makeFunctionalResetBridgeResponse,
+  makeFunctionalResetBridgeResponseForRequest,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
@@ -122,15 +122,18 @@ const confirm = () => fireEvent.click(screen.getByRole("button", { name: "Cela c
 const createProjectInUi = async () => {
   submit(COLCHICINE_03A_INITIAL);
   await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." });
+  const callsBefore = runtime.request.mock.calls.length;
   confirm();
   await screen.findByText(/Projet créé\./);
+  await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThan(callsBefore));
+  await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 };
 
 describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(conversation.turns));
+    runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request));
   });
   afterEach(cleanup);
 

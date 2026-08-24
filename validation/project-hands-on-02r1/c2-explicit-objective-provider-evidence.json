@@ -1,0 +1,82 @@
+{
+  "evidenceContract": "PROJECT_HANDS_ON_02R1_C2_EXPLICIT_OBJECTIVE_PROVIDER_EVIDENCE",
+  "evidenceVersion": "1.0.0",
+  "evidenceNature": "FIRST_GENERATION_NO_REROLL",
+  "requestStarts": 2,
+  "retries": 0,
+  "sourceProject": {
+    "projectId": "project:project-hands-on-02r1-live",
+    "versionId": "project:project-hands-on-02r1-live:version:1",
+    "revision": 1,
+    "projectDigest": "ke1-f2ed3eba8ffaeaae"
+  },
+  "rawUserTurn": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+  "conversation": {
+    "httpStatus": 200,
+    "providerResponseId": "QhCMavmVBIuaxN8P-NbW6Qg",
+    "latencyMs": 1142,
+    "usage": {
+      "promptTokenCount": 904,
+      "candidatesTokenCount": 94,
+      "totalTokenCount": 998,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 904
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "assistantReply": "Je comprends que vous visez un critère d'évaluation binaire ou catégoriel centré sur la régression complète ou la disparition totale de la plaque carotidienne. \n\nPour préciser la structure de l'étude, est-ce que cette disparition totale à M3 est le critère de jugement principal, ou envisagez-vous plutôt de mesurer d'abord une variation continue du volume de la plaque avant d'évaluer ce seuil de disparition ?"
+  },
+  "extraction": {
+    "httpStatus": 200,
+    "providerResponseId": "QxCMaoHrCdPgxN8Pkd77uAw",
+    "latencyMs": 1122,
+    "usage": {
+      "promptTokenCount": 5850,
+      "candidatesTokenCount": 170,
+      "totalTokenCount": 6020,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 5850
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "providerArtifact": {
+      "artifactRef": "gemini-structured-args:ke1-ffc3d3434715f0c7",
+      "requestTurnRef": "project-hands-on-02r1:c2-explicit-objective:user",
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "functionName": "propose_persistent_project_delta",
+      "receivedAt": "2026-08-24T09:35:00.056Z",
+      "providerResponseId": "QxCMaoHrCdPgxN8Pkd77uAw",
+      "structuredArgsExact": {
+        "expectedVariableOccasions": [],
+        "temporalQualifications": [],
+        "relations": [],
+        "changes": [
+          {
+            "studyRole": null,
+            "evidenceRefs": [],
+            "targetProjectRef": null,
+            "polarity": "AFFIRMED",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "proposalSourceText": "null",
+            "assertionKind": "USER_STATED",
+            "content": "disparition totale de la plaque",
+            "proposedType": "OBJECTIVE",
+            "operation": "ADD",
+            "candidateRef": "obj_disparition_totale_plaque",
+            "semanticIdentity": "OBJECTIVE:disparition totale de la plaque",
+            "sourceText": "démontrer l'efficacité du traitement sur la disparition totale de la plaque"
+          }
+        ]
+      },
+      "structuredArgsSerialized": "{\"expectedVariableOccasions\":[],\"temporalQualifications\":[],\"relations\":[],\"changes\":[{\"studyRole\":null,\"evidenceRefs\":[],\"targetProjectRef\":null,\"polarity\":\"AFFIRMED\",\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"proposalSourceText\":\"null\",\"assertionKind\":\"USER_STATED\",\"content\":\"disparition totale de la plaque\",\"proposedType\":\"OBJECTIVE\",\"operation\":\"ADD\",\"candidateRef\":\"obj_disparition_totale_plaque\",\"semanticIdentity\":\"OBJECTIVE:disparition totale de la plaque\",\"sourceText\":\"démontrer l'efficacité du traitement sur la disparition totale de la plaque\"}]}",
+      "structuredArgsDigest": "ke1-ffc3d3434715f0c7"
+    }
+  }
+}

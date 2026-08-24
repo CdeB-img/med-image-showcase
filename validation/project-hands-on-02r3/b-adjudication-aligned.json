@@ -1,0 +1,85 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R3_ADJUDICATION",
+  "contractVersion": "1.0.0",
+  "sourceEvidence": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/project-hands-on-02r3/b-provider-exact.json",
+  "exactArgsDigest": "ke1-7f3cac79505e0cdd",
+  "providerContract": {
+    "valid": true,
+    "blocks": []
+  },
+  "wireCandidate": {
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+        "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+        "candidateRef": "obj_objective_new_1",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "REMOVE",
+        "sourceText": "réduction des plaques carotiennes",
+        "targetProjectRef": "cand_objective_1",
+        "content": "réduction des plaques carotiennes",
+        "candidateRef": "cand_objective_1",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [
+      {
+        "relationRef": "rel_obj_1",
+        "sourceText": "la disparition totale de la plaque",
+        "relationType": "TARGETS",
+        "sourceObjectRef": "obj_objective_new_1",
+        "targetObjectRef": "cand_objective_1",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "temporalQualifications": [],
+    "expectedVariableOccasions": []
+  },
+  "normalizedCandidate": null,
+  "validation": {
+    "valid": false,
+    "acceptedChanges": [
+      {
+        "operation": "ADD",
+        "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+        "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+        "candidateRef": "obj_objective_new_1",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedRelations": [],
+    "acceptedTemporalQualifications": [],
+    "acceptedExpectedVariableOccasions": [],
+    "blocks": [
+      "change:1:SOURCE_TEXT_NOT_IN_USER_TURN",
+      "relation:0:PROJECT_RELATION_ENDPOINT_INVALID"
+    ],
+    "noOps": [],
+    "normalizations": []
+  },
+  "contribution": null,
+  "canonicalProjectChangeSet": null,
+  "humanReviewProjection": null
+}

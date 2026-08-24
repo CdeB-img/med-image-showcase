@@ -1,0 +1,127 @@
+{
+  "evidenceContract": "PROJECT_HANDS_ON_02R1_C3_POPULATION_PROVIDER_EVIDENCE",
+  "evidenceVersion": "1.0.0",
+  "evidenceNature": "FIRST_GENERATION_NO_REROLL",
+  "requestStarts": 2,
+  "retries": 0,
+  "sourceProject": {
+    "projectId": "project:project-hands-on-02r1-live",
+    "versionId": "project:project-hands-on-02r1-live:version:2",
+    "revision": 2,
+    "projectDigest": "ke1-673fc9f52de8bb41"
+  },
+  "rawUserTurn": "Population 35 à 75 ans, sans antécédent, avec plaque carotidienne et sténose supérieure à 40 %.",
+  "conversation": {
+    "httpStatus": 200,
+    "providerResponseId": "jhGMapb4Bq_2xN8PpZbV8AE",
+    "latencyMs": 1070,
+    "usage": {
+      "promptTokenCount": 1038,
+      "candidatesTokenCount": 97,
+      "totalTokenCount": 1135,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 1038
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "assistantReply": "Je comprends que vous ciblez une population adulte de 35 à 75 ans, sans antécédent, présentant une plaque carotidienne associée à une sténose supérieure à 40 %. \n\nPour finaliser la définition de ce critère de jugement principal entre la disparition totale de la plaque à M3 et la variation continue de son volume, est-ce que l'analyse statistique portera prioritairement sur l'obtention de cette disparition complète ?"
+  },
+  "extraction": {
+    "httpStatus": 200,
+    "providerResponseId": "jxGMapGPCZ6FxN8Pop6rmAs",
+    "latencyMs": 1724,
+    "usage": {
+      "promptTokenCount": 6110,
+      "candidatesTokenCount": 531,
+      "totalTokenCount": 6641,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 6110
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "providerArtifact": {
+      "artifactRef": "gemini-structured-args:ke1-6e0f413d41ba0269",
+      "requestTurnRef": "project-hands-on-02r1:c3-population:user",
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "functionName": "propose_persistent_project_delta",
+      "receivedAt": "2026-08-24T09:40:32.644Z",
+      "providerResponseId": "jxGMapGPCZ6FxN8Pop6rmAs",
+      "structuredArgsExact": {
+        "relations": [],
+        "temporalQualifications": [],
+        "expectedVariableOccasions": [],
+        "changes": [
+          {
+            "sourceText": "35 à 75 ans",
+            "studyRole": null,
+            "targetProjectRef": null,
+            "evidenceRefs": [],
+            "proposalSourceText": "null",
+            "polarity": "AFFIRMED",
+            "assertionKind": "USER_STATED",
+            "proposedType": "POPULATION",
+            "content": "35 à 75 ans",
+            "candidateRef": "cand_pop_age",
+            "semanticIdentity": "POPULATION:age:35-75",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "operation": "ADD"
+          },
+          {
+            "studyRole": null,
+            "polarity": "AFFIRMED",
+            "content": "sans antécédent",
+            "evidenceRefs": [],
+            "targetProjectRef": null,
+            "candidateRef": "cand_elig_sans_antecedent",
+            "proposedType": "ELIGIBILITY_CRITERION",
+            "semanticIdentity": "ELIGIBILITY_CRITERION:no_history",
+            "assertionKind": "USER_STATED",
+            "operation": "ADD",
+            "sourceText": "sans antécédent",
+            "proposalSourceText": "null",
+            "epistemicStatus": "EXPLICIT_USER_STATED"
+          },
+          {
+            "evidenceRefs": [],
+            "studyRole": null,
+            "proposedType": "CONDITION",
+            "candidateRef": "cand_cond_plaque",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "targetProjectRef": null,
+            "polarity": "AFFIRMED",
+            "proposalSourceText": "null",
+            "content": "plaque carotidienne",
+            "sourceText": "plaque carotidienne",
+            "operation": "ADD",
+            "semanticIdentity": "CONDITION:carotid_plaque"
+          },
+          {
+            "content": "sténose supérieure à 40 %",
+            "semanticIdentity": "ELIGIBILITY_CRITERION:stenosis_gt_40",
+            "proposedType": "ELIGIBILITY_CRITERION",
+            "candidateRef": "cand_elig_stenose",
+            "operation": "ADD",
+            "evidenceRefs": [],
+            "studyRole": null,
+            "assertionKind": "USER_STATED",
+            "polarity": "AFFIRMED",
+            "targetProjectRef": null,
+            "sourceText": "sténose supérieure à 40 %",
+            "proposalSourceText": "null",
+            "epistemicStatus": "EXPLICIT_USER_STATED"
+          }
+        ]
+      },
+      "structuredArgsSerialized": "{\"relations\":[],\"temporalQualifications\":[],\"expectedVariableOccasions\":[],\"changes\":[{\"sourceText\":\"35 à 75 ans\",\"studyRole\":null,\"targetProjectRef\":null,\"evidenceRefs\":[],\"proposalSourceText\":\"null\",\"polarity\":\"AFFIRMED\",\"assertionKind\":\"USER_STATED\",\"proposedType\":\"POPULATION\",\"content\":\"35 à 75 ans\",\"candidateRef\":\"cand_pop_age\",\"semanticIdentity\":\"POPULATION:age:35-75\",\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"operation\":\"ADD\"},{\"studyRole\":null,\"polarity\":\"AFFIRMED\",\"content\":\"sans antécédent\",\"evidenceRefs\":[],\"targetProjectRef\":null,\"candidateRef\":\"cand_elig_sans_antecedent\",\"proposedType\":\"ELIGIBILITY_CRITERION\",\"semanticIdentity\":\"ELIGIBILITY_CRITERION:no_history\",\"assertionKind\":\"USER_STATED\",\"operation\":\"ADD\",\"sourceText\":\"sans antécédent\",\"proposalSourceText\":\"null\",\"epistemicStatus\":\"EXPLICIT_USER_STATED\"},{\"evidenceRefs\":[],\"studyRole\":null,\"proposedType\":\"CONDITION\",\"candidateRef\":\"cand_cond_plaque\",\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"assertionKind\":\"USER_STATED\",\"targetProjectRef\":null,\"polarity\":\"AFFIRMED\",\"proposalSourceText\":\"null\",\"content\":\"plaque carotidienne\",\"sourceText\":\"plaque carotidienne\",\"operation\":\"ADD\",\"semanticIdentity\":\"CONDITION:carotid_plaque\"},{\"content\":\"sténose supérieure à 40 %\",\"semanticIdentity\":\"ELIGIBILITY_CRITERION:stenosis_gt_40\",\"proposedType\":\"ELIGIBILITY_CRITERION\",\"candidateRef\":\"cand_elig_stenose\",\"operation\":\"ADD\",\"evidenceRefs\":[],\"studyRole\":null,\"assertionKind\":\"USER_STATED\",\"polarity\":\"AFFIRMED\",\"targetProjectRef\":null,\"sourceText\":\"sténose supérieure à 40 %\",\"proposalSourceText\":\"null\",\"epistemicStatus\":\"EXPLICIT_USER_STATED\"}]}",
+      "structuredArgsDigest": "ke1-6e0f413d41ba0269"
+    }
+  }
+}

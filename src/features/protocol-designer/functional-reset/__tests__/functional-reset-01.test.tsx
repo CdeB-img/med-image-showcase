@@ -8,7 +8,7 @@ import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import {
   COLCHICINE_INITIAL,
   COLCHICINE_MODIFICATION,
-  makeFunctionalResetBridgeResponse,
+  makeFunctionalResetBridgeResponseForRequest,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
@@ -24,7 +24,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(conversation.turns));
+    runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request));
   });
   afterEach(cleanup);
 
@@ -53,6 +53,8 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(screen.getByText("lésions myocardiques")).toBeInTheDocument();
     expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(2));
+    await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 
     const project = screen.getByTestId("functional-research-project");
     expect(within(project).getByText("Version 1")).toBeInTheDocument();
@@ -82,6 +84,8 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(screen.getByText("+ Âge maximal : 75 ans")).toBeInTheDocument();
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: expect.objectContaining({ contributionRef: "contribution:colchicine-v1" }) }));
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(4));
+    await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 
     expect(within(project).getByText("Version 2")).toBeInTheDocument();
     expect(within(project).getByText("IRM : J3–J5")).toBeInTheDocument();

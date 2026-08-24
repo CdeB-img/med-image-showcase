@@ -4,7 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
-import { FUNCTIONAL_RESET_STORAGE_KEY } from "../session";
+import { FUNCTIONAL_RESET_STORAGE_KEY, shouldMediatePostAdoptionQuery } from "../session";
 import {
   COLCHICINE_03A_INITIAL,
   makeFunctionalResetBridgeResponse,
@@ -53,6 +53,10 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
   });
   afterEach(cleanup);
 
+  it("F15 does not request a continuation when QRY has no useful action", () => {
+    expect(shouldMediatePostAdoptionQuery({ currentAction: null, currentPresentation: null, standardQuestion: null })).toBe(false);
+  });
+
   it("shows the natural reply and creates no Project candidate for a pure conversation turn", async () => {
     runtime.request.mockImplementationOnce(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(
       conversation.turns,
@@ -81,7 +85,12 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     ));
     const first = renderDemo();
     submit(COLCHICINE_03A_INITIAL);
-    await screen.findByTestId("functional-contribution-review");
+    const firstReview = await screen.findByTestId("functional-contribution-review");
+    expect(within(firstReview).getByText(/COMPARES_WITH/)).toBeInTheDocument();
+    expect(stored().entries.find((entry: { kind: string }) => entry.kind === "REVIEW").candidate.humanReviewProjection).toMatchObject({
+      status: "COMPLETE",
+      missingChangeRefs: [],
+    });
     expect(stored().project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Refuser cette proposition" }));
     expect(await screen.findByText("Proposition refusée. Le Research Project est inchangé.")).toBeInTheDocument();
@@ -136,6 +145,50 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     expect(after.queryNavigation.memory.responses.at(-1).disposition).toBe("REQUEST_CLARIFICATION");
     expect(JSON.stringify(after.project)).toBe(projectBefore);
     expect(after.bridgeTraces.at(-1)).toMatchObject({ persistentExtractionCalled: false, projectVersionBefore: before.project.versionId, projectVersionAfter: before.project.versionId });
+  });
+
+  it("F11–F13 recomputes QRY after adoption and displays a mediated continuation below the confirmation", async () => {
+    runtime.request.mockImplementation(async (request: { requestKind?: string; conversation: { turns: ScientificInterpretationTurn[] } }) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
+      ? noChangeResponse(request.conversation.turns, "Quel mode de répartition souhaitez-vous entre les groupes ?")
+      : makeFunctionalResetBridgeResponse(
+        request.conversation.turns,
+        makeFunctionalResetContribution(request.conversation.turns),
+        "Je retiens une comparaison entre la colchicine et le placebo.",
+      ));
+    renderDemo();
+    submit(COLCHICINE_03A_INITIAL);
+    await screen.findByTestId("functional-contribution-review");
+    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+
+    expect(await screen.findByText("Projet créé.")).toBeInTheDocument();
+    expect(await screen.findByText("Quel mode de répartition souhaitez-vous entre les groupes ?")).toBeInTheDocument();
+    const after = stored();
+    const feedbackIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === "Projet créé.");
+    const continuationIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === "Quel mode de répartition souhaitez-vous entre les groupes ?");
+    expect(continuationIndex).toBeGreaterThan(feedbackIndex);
+    expect(after.queryNavigation).toMatchObject({
+      projectVersion: after.project.versionId,
+      projectDigest: after.project.projectDigest,
+      currentAction: { navigationNeedRefs: expect.any(Array) },
+    });
+    const continuationRequest = runtime.request.mock.calls.find(([request]) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION")?.[0];
+    expect(continuationRequest).toMatchObject({
+      currentProject: { versionId: after.project.versionId },
+      evaluatePersistentDelta: false,
+      conversation: {
+        interactionContext: {
+          owner: "QUERY_NAVIGATION",
+          projectVersion: after.project.versionId,
+          informationNeedRefs: after.queryNavigation.currentAction.navigationNeedRefs,
+        },
+      },
+    });
+    expect(after.bridgeTraces.at(-1)).toMatchObject({
+      requestKind: "POST_ADOPTION_QRY_CONTINUATION",
+      persistentExtractionCalled: false,
+      qryNeedAfter: after.queryNavigation.currentAction.navigationNeedRefs[0],
+      projectVersionAfter: after.project.versionId,
+    });
   });
 
   it("keeps an unresolved QRY active while a topic switch and NO_CHANGE receive a natural reply", async () => {

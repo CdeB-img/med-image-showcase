@@ -1,0 +1,32 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R3_ADJUDICATION",
+  "contractVersion": "1.0.0",
+  "sourceEvidence": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/project-hands-on-02r3/a-provider-exact.json",
+  "exactArgsDigest": "ke1-057f28d79b432633",
+  "providerContract": {
+    "valid": false,
+    "blocks": [
+      "PROVIDER_SCHEMA:relations.0.proposalSourceText:invalid_type",
+      "PROVIDER_SCHEMA:temporalQualifications.0.proposalSourceText:invalid_type"
+    ]
+  },
+  "wireCandidate": null,
+  "normalizedCandidate": null,
+  "validation": {
+    "valid": false,
+    "acceptedChanges": [],
+    "acceptedRelations": [],
+    "acceptedTemporalQualifications": [],
+    "acceptedExpectedVariableOccasions": [],
+    "blocks": [
+      "PERSISTENT_DELTA_CONTRACT_INVALID",
+      "PROVIDER_SCHEMA:relations.0.proposalSourceText:invalid_type",
+      "PROVIDER_SCHEMA:temporalQualifications.0.proposalSourceText:invalid_type"
+    ],
+    "noOps": [],
+    "normalizations": []
+  },
+  "contribution": null,
+  "canonicalProjectChangeSet": null,
+  "humanReviewProjection": null
+}

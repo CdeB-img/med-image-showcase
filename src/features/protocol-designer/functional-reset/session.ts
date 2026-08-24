@@ -13,12 +13,22 @@ import {
 } from "@/features/document-projection";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
-import type { PersistentDeltaValidation, PersistentProjectDeltaCandidate } from "@/features/protocol-designer/product-bridge";
-import type { ContributionProjectChangeSet } from "@/features/research-project-construction";
+import type {
+  PersistentDeltaValidation,
+  PersistentExtractionProviderArtifact,
+  PersistentProjectDeltaCandidate,
+  PersistentProjectDeltaWireCandidate,
+  ProductBridgeRequest,
+} from "@/features/protocol-designer/product-bridge";
+import type { CanonicalProjectChangeSet, ContributionProjectChangeSet, HumanReviewProjection } from "@/features/research-project-construction";
 import { ensureCanonicalProjectState } from "@/features/research-project-construction";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.\nVous pouvez partir d’une idée simple ou donner tous les détails que vous connaissez déjà.";
+
+export const shouldMediatePostAdoptionQuery = (
+  navigation: Pick<FunctionalResetQueryNavigation, "currentAction" | "currentPresentation" | "standardQuestion">,
+) => Boolean(navigation.currentAction && navigation.currentPresentation && navigation.standardQuestion);
 
 export type ConversationEntry =
   | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; createdAt: string }
@@ -27,13 +37,18 @@ export type ConversationEntry =
 
 export type ProductBridgeTrace = {
   turnId: string;
+  requestKind?: ProductBridgeRequest["requestKind"];
   raw: string;
   assistantReply: string;
   persistentExtractionCalled: boolean;
   persistentExtractionStatus: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
+  providerArtifact: PersistentExtractionProviderArtifact | null;
+  wireCandidate: PersistentProjectDeltaWireCandidate | null;
   persistentCandidate: PersistentProjectDeltaCandidate | null;
   deterministicValidation: PersistentDeltaValidation | null;
   projectChangeSetCandidate: ContributionProjectChangeSet | null;
+  canonicalProjectChangeSetCandidate: CanonicalProjectChangeSet | null;
+  humanReviewProjection: HumanReviewProjection | null;
   humanDecision: HumanDecisionEnvelope | null;
   projectVersionBefore: string | null;
   projectVersionAfter: string | null;

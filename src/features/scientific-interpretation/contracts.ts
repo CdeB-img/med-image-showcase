@@ -66,6 +66,11 @@ export type ScientificInterpretationConversation = {
 
 export type ContributionEpistemicBoundary = {
   ownership: string | null;
+  /**
+   * PD-003 epistemic state of the represented content. This is deliberately
+   * independent from epistemicStatus, which records linguistic/source origin.
+   */
+  epistemicState?: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD" | null;
   epistemicStatus: string | null;
   adoptionStatus: string | null;
   originType?: string | null;

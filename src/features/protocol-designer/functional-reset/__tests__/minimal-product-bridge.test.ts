@@ -10,6 +10,7 @@ import {
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   validatePersistentProjectDelta,
   type ProductBridgeRequest,
+  type ProductBridgeResponse,
 } from "@/features/protocol-designer/product-bridge";
 import {
   confirmResearchProjectContribution,
@@ -86,9 +87,9 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     expect(serialized).toContain("Que proposes-tu ?");
     expect(serialized).toContain("Cette MVO pourrait devenir un critère principal");
     expect(serialized).toContain("utilisables uniquement si le dernier message les adopte explicitement");
-    expect(serialized).toContain("MUST be null for ADD");
-    expect(serialized).toContain("Never use it only to provide context for a new object");
-    expect(serialized).toContain("null explicitly clears the old role");
+    expect(serialized).toContain("Omit for ADD");
+    expect(serialized).toContain("never use it only to provide context for a new object");
+    expect(serialized).toContain("Null is allowed only on REPLACE to clear an existing role");
     expect(serialized).toContain("Existing canonical Project stable ID or candidateRef declared in this same output");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("Une mention dans une question");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("retourne une liste vide");
@@ -326,19 +327,20 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     if (!age) throw new Error("AGE_MAX_FIXTURE_MISSING");
     const request = requestFor("Finalement jusqu'à 80 ans.");
     request.currentProject = project;
+    const exactProviderArgs = { changes: [{
+      operation: "REPLACE",
+      sourceText: "jusqu'à 80 ans",
+      targetSectionId: "POPULATION",
+      targetProjectRef: age.elementId,
+      content: "Âge maximal : 80 ans",
+    }] };
     const fetchImpl = vi.fn()
       .mockResolvedValueOnce(jsonResponse({
         candidates: [{ content: { parts: [{ text: "Je comprends que vous souhaitez porter la borne d'âge à 80 ans. Cette modification restera une proposition jusqu'à votre confirmation." }] } }],
         responseId: "conversation-change",
       }))
       .mockResolvedValueOnce(jsonResponse({
-        candidates: [{ content: { parts: [{ functionCall: { name: "propose_persistent_project_delta", args: { changes: [{
-          operation: "REPLACE",
-          sourceText: "jusqu'à 80 ans",
-          targetSectionId: "POPULATION",
-          targetProjectRef: age.elementId,
-          content: "Âge maximal : 80 ans",
-        }] } } }] } }],
+        candidates: [{ content: { parts: [{ functionCall: { name: "propose_persistent_project_delta", args: exactProviderArgs } }] } }],
         responseId: "delta-change",
       })) as unknown as typeof fetch;
     const before = JSON.stringify(project);
@@ -346,8 +348,41 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     expect(result.status).toBe(200);
     expect(fetchImpl).toHaveBeenCalledTimes(2);
     expect(result.body).toMatchObject({
-      persistentExtraction: { called: true, status: "CANDIDATE", contribution: { decisionBoundary: { projectWriteAuthorized: false } } },
+      persistentExtraction: {
+        called: true,
+        status: "CANDIDATE",
+        providerArtifact: {
+          requestTurnRef: "user-current",
+          providerResponseId: "delta-change",
+          structuredArgsExact: exactProviderArgs,
+          structuredArgsSerialized: JSON.stringify(exactProviderArgs),
+          structuredArgsDigest: expect.any(String),
+        },
+        wireCandidate: expect.objectContaining({ changes: exactProviderArgs.changes, relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
+        candidate: expect.objectContaining({ changes: exactProviderArgs.changes }),
+        contribution: {
+          source: { rawOutputRef: expect.stringMatching(/^gemini-structured-args:/), rawOutputDigest: expect.any(String) },
+          decisionBoundary: { projectWriteAuthorized: false },
+        },
+      },
       observability: { calls: 2, projectWrites: 0 },
+    });
+    const response = result.body as ProductBridgeResponse;
+    const prepared = prepareResearchProjectContributionCandidate(response.persistentExtraction.contribution!, project);
+    expect({
+      raw: request.conversation.turns.at(-1)?.content,
+      providerArgs: response.persistentExtraction.providerArtifact?.structuredArgsExact,
+      wire: response.persistentExtraction.wireCandidate?.changes,
+      normalized: response.persistentExtraction.candidate?.changes,
+      canonical: prepared.canonicalChangeSet.objectChanges.map((change) => change.changeRef),
+      review: prepared.humanReviewProjection.coveredChangeRefs,
+    }).toEqual({
+      raw: "Finalement jusqu'à 80 ans.",
+      providerArgs: exactProviderArgs,
+      wire: exactProviderArgs.changes,
+      normalized: exactProviderArgs.changes,
+      canonical: prepared.humanReviewProjection.expectedChangeRefs,
+      review: prepared.humanReviewProjection.expectedChangeRefs,
     });
     expect(JSON.stringify(project)).toBe(before);
   });

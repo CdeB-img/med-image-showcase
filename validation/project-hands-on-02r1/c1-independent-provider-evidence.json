@@ -1,0 +1,159 @@
+{
+  "evidenceContract": "PROJECT_HANDS_ON_02R1_C1_INDEPENDENT_PROVIDER_EVIDENCE",
+  "evidenceVersion": "1.0.0",
+  "evidenceNature": "NEW_INDEPENDENT_GENERATION_NOT_RECOVERY_NOT_REROLL",
+  "requestStarts": 2,
+  "retries": 0,
+  "rawUserTurn": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+  "conversation": {
+    "httpStatus": 200,
+    "providerResponseId": "TA6MaoPRDf_Z7M8Pre6rsAk",
+    "latencyMs": 924,
+    "usage": {
+      "promptTokenCount": 678,
+      "candidatesTokenCount": 77,
+      "totalTokenCount": 755,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 678
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "assistantReply": "Je comprends que vous envisagez d'évaluer l'effet d'un médicament par rapport à un placebo sur la réduction des plaques carotidiennes, avec une mesure par IRM à trois mois. \n\nEst-ce que l'objectif principal est de mesurer une variation du volume de la plaque, ou s'intéresse-t-on plutôt à sa composition tissulaire ?"
+  },
+  "extraction": {
+    "httpStatus": 200,
+    "providerResponseId": "TQ6Mao7SDNa9kdUPlqibuQQ",
+    "latencyMs": 2253,
+    "usage": {
+      "promptTokenCount": 4073,
+      "candidatesTokenCount": 719,
+      "totalTokenCount": 4792,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 4073
+        }
+      ],
+      "serviceTier": "standard"
+    },
+    "providerArtifact": {
+      "artifactRef": "gemini-structured-args:ke1-56621e975e793f33",
+      "requestTurnRef": "project-hands-on-02r1:c1-independent-diagnostic:user",
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "functionName": "propose_persistent_project_delta",
+      "receivedAt": "2026-08-24T09:26:39.020Z",
+      "providerResponseId": "TQ6Mao7SDNa9kdUPlqibuQQ",
+      "structuredArgsExact": {
+        "expectedVariableOccasions": [],
+        "temporalQualifications": [
+          {
+            "qualificationId": "temp_qual_01",
+            "sourceText": "M3",
+            "anchor": {
+              "reference": {
+                "status": "UNKNOWN",
+                "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+              },
+              "tolerance": null,
+              "direction": "AT",
+              "kind": "TIMEPOINT",
+              "offset": 3,
+              "lowerBound": null,
+              "relativeEventLabel": null,
+              "upperBound": null,
+              "unit": "MONTH"
+            },
+            "temporalRole": "ACQUISITION_TIME",
+            "assertionKind": "USER_STATED",
+            "evidenceRefs": [],
+            "proposalSourceText": null,
+            "subjectProjectRef": "cand_imaging_01",
+            "operation": "ADD"
+          }
+        ],
+        "relations": [
+          {
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "relationType": "COMPARES_WITH",
+            "polarity": "AFFIRMED",
+            "evidenceRefs": [],
+            "sourceObjectRef": "cand_intervention_01",
+            "targetObjectRef": "cand_comparator_01",
+            "relationRef": "rel_comp_01",
+            "sourceText": "médicament contre placebo"
+          }
+        ],
+        "changes": [
+          {
+            "proposedType": "INTERVENTION",
+            "operation": "ADD",
+            "proposalSourceText": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "semanticIdentity": "intervention_medicament",
+            "evidenceRefs": [],
+            "sourceText": "médicament",
+            "polarity": "AFFIRMED",
+            "targetProjectRef": null,
+            "content": "médicament",
+            "candidateRef": "cand_intervention_01",
+            "studyRole": null
+          },
+          {
+            "evidenceRefs": [],
+            "targetProjectRef": null,
+            "operation": "ADD",
+            "assertionKind": "USER_STATED",
+            "candidateRef": "cand_comparator_01",
+            "sourceText": "placebo",
+            "proposedType": "COMPARATOR",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "content": "placebo",
+            "polarity": "AFFIRMED",
+            "semanticIdentity": "comparator_placebo",
+            "proposalSourceText": null
+          },
+          {
+            "evidenceRefs": [],
+            "proposalSourceText": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "semanticIdentity": "objective_reduction_plaques_carotiennes",
+            "candidateRef": "cand_objective_01",
+            "assertionKind": "USER_STATED",
+            "content": "réduction des plaques carotiennes",
+            "polarity": "AFFIRMED",
+            "sourceText": "réduction des plaques carotiennes",
+            "studyRole": null,
+            "operation": "ADD",
+            "proposedType": "OBJECTIVE",
+            "targetProjectRef": null
+          },
+          {
+            "studyRole": null,
+            "sourceText": "IRM",
+            "targetProjectRef": null,
+            "candidateRef": "cand_imaging_01",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "polarity": "AFFIRMED",
+            "assertionKind": "USER_STATED",
+            "evidenceRefs": [],
+            "semanticIdentity": "imaging_irm",
+            "proposedType": "IMAGING_MODALITY",
+            "proposalSourceText": null,
+            "content": "IRM",
+            "operation": "ADD"
+          }
+        ]
+      },
+      "structuredArgsSerialized": "{\"expectedVariableOccasions\":[],\"temporalQualifications\":[{\"qualificationId\":\"temp_qual_01\",\"sourceText\":\"M3\",\"anchor\":{\"reference\":{\"status\":\"UNKNOWN\",\"unresolvedReason\":\"REFERENCE_EVENT_NOT_SUPPLIED\"},\"tolerance\":null,\"direction\":\"AT\",\"kind\":\"TIMEPOINT\",\"offset\":3,\"lowerBound\":null,\"relativeEventLabel\":null,\"upperBound\":null,\"unit\":\"MONTH\"},\"temporalRole\":\"ACQUISITION_TIME\",\"assertionKind\":\"USER_STATED\",\"evidenceRefs\":[],\"proposalSourceText\":null,\"subjectProjectRef\":\"cand_imaging_01\",\"operation\":\"ADD\"}],\"relations\":[{\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"assertionKind\":\"USER_STATED\",\"proposalSourceText\":null,\"relationType\":\"COMPARES_WITH\",\"polarity\":\"AFFIRMED\",\"evidenceRefs\":[],\"sourceObjectRef\":\"cand_intervention_01\",\"targetObjectRef\":\"cand_comparator_01\",\"relationRef\":\"rel_comp_01\",\"sourceText\":\"médicament contre placebo\"}],\"changes\":[{\"proposedType\":\"INTERVENTION\",\"operation\":\"ADD\",\"proposalSourceText\":null,\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"assertionKind\":\"USER_STATED\",\"semanticIdentity\":\"intervention_medicament\",\"evidenceRefs\":[],\"sourceText\":\"médicament\",\"polarity\":\"AFFIRMED\",\"targetProjectRef\":null,\"content\":\"médicament\",\"candidateRef\":\"cand_intervention_01\",\"studyRole\":null},{\"evidenceRefs\":[],\"targetProjectRef\":null,\"operation\":\"ADD\",\"assertionKind\":\"USER_STATED\",\"candidateRef\":\"cand_comparator_01\",\"sourceText\":\"placebo\",\"proposedType\":\"COMPARATOR\",\"studyRole\":null,\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"content\":\"placebo\",\"polarity\":\"AFFIRMED\",\"semanticIdentity\":\"comparator_placebo\",\"proposalSourceText\":null},{\"evidenceRefs\":[],\"proposalSourceText\":null,\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"semanticIdentity\":\"objective_reduction_plaques_carotiennes\",\"candidateRef\":\"cand_objective_01\",\"assertionKind\":\"USER_STATED\",\"content\":\"réduction des plaques carotiennes\",\"polarity\":\"AFFIRMED\",\"sourceText\":\"réduction des plaques carotiennes\",\"studyRole\":null,\"operation\":\"ADD\",\"proposedType\":\"OBJECTIVE\",\"targetProjectRef\":null},{\"studyRole\":null,\"sourceText\":\"IRM\",\"targetProjectRef\":null,\"candidateRef\":\"cand_imaging_01\",\"epistemicStatus\":\"EXPLICIT_USER_STATED\",\"polarity\":\"AFFIRMED\",\"assertionKind\":\"USER_STATED\",\"evidenceRefs\":[],\"semanticIdentity\":\"imaging_irm\",\"proposedType\":\"IMAGING_MODALITY\",\"proposalSourceText\":null,\"content\":\"IRM\",\"operation\":\"ADD\"}]}",
+      "structuredArgsDigest": "ke1-56621e975e793f33"
+    }
+  }
+}

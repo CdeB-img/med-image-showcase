@@ -1,9 +1,14 @@
 import { productHybridProviderGate } from "./scientific-interpretation-provider.js";
+import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
 import {
   NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
+  PERSISTENT_PROJECT_OBJECT_TYPES,
+  PERSISTENT_PROJECT_RELATION_TYPES,
+  PERSISTENT_PROJECT_STUDY_ROLES,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   PRODUCT_BRIDGE_MODEL,
   relevantProjectContext,
+  type PersistentExtractionProviderArtifact,
   type PersistentProjectDeltaCandidate,
   type ProductBridgeRequest,
 } from "../src/features/protocol-designer/product-bridge.js";
@@ -51,6 +56,9 @@ export const naturalConversationContext = (request: ProductBridgeRequest) => {
   const interaction = request.conversation.interactionContext;
   const project = relevantProjectContext(request.currentProject);
   const lines = [
+    request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
+      ? "Tâche actuelle : le Project vient d'être adopté. Formule uniquement la continuation naturelle courte du besoin QRY fourni ; ne récapitule pas le Project et ne choisis pas un autre besoin."
+      : "Tâche actuelle : répondre naturellement au dernier message du chercheur.",
     "Contexte de travail utile :",
     project
       ? `Research Project adopté (lecture seule), version ${project.revision} :\n${project.sections.map((section) => {
@@ -133,13 +141,14 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
     ].join("\n\n") }] }],
     tools: [{ functionDeclarations: [{
       name: FUNCTION_NAME,
-      description: "Propose only persistent scientific objects and relations grounded in an explicit user statement or explicit adoption; return empty lists when there is no persistent consequence.",
+      description: "Propose every persistent scientific object, relation and temporal qualification grounded in the complete explicit user statement or explicit adoption; preserve multiple independent consequences from one turn and return empty lists only when there is no persistent consequence.",
       parametersJsonSchema: {
         type: "object",
         additionalProperties: false,
         properties: {
           changes: {
             type: "array",
+            description: "All atomic persistent object changes explicitly supported by the complete user turn. Do not collapse population criteria, study arms, objectives, modalities, acquisitions or data needs that have distinct identities.",
             items: {
               type: "object",
               additionalProperties: false,
@@ -149,26 +158,39 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                   enum: ["ADD", "REMOVE", "REPLACE"],
                   description: "ADD creates a genuinely new scientific identity. REPLACE or REMOVE modifies one existing canonical Project object identified by targetProjectRef.",
                 },
-                sourceText: { type: "string" },
+                sourceText: {
+                  type: "string",
+                  description: "Exact fragment of the latest user message that states this ADD or authorizes this REPLACE/REMOVE. Never copy previous Project content unless the latest user message literally repeats it.",
+                },
                 targetProjectRef: {
-                  anyOf: [{ type: "string" }, { type: "null" }],
-                  description: "Exact stable ID of the existing object being REPLACED or REMOVED. MUST be null for ADD. Never use it only to provide context for a new object.",
+                  type: "string",
+                  description: "Optional. Exact stableId from the Project Context Snapshot objects inventory for the existing object being REPLACED or REMOVED. Omit for ADD. Never emit a textual null sentinel, label, section ID or invented ID, and never use it only to provide context for a new object.",
                 },
                 candidateRef: { type: "string", description: "New local reference for this proposed change; for ADD it must not reuse an existing Project stable ID." },
-                semanticIdentity: { anyOf: [{ type: "string" }, { type: "null" }], description: "Scientific identity of the proposed object. Preserve an existing identity for REPLACE; use a new identity for ADD." },
-                proposedType: { type: "string" },
+                semanticIdentity: { type: "string", description: "Optional scientific identity. Preserve an existing identity for REPLACE; use a new identity for ADD. Omit when not established." },
+                proposedType: {
+                  type: "string",
+                  enum: PERSISTENT_PROJECT_OBJECT_TYPES,
+                  description: "Use one existing Project backbone type. Keep OBJECTIVE distinct from ENDPOINT/CANONICAL_VARIABLE; keep INTERVENTION distinct from COMPARATOR; use IMAGING_MODALITY, ACQUISITION and DATA_NEED without inventing a MeasurementDefinition.",
+                },
                 content: { type: "string" },
                 polarity: { type: "string", enum: ["AFFIRMED", "NEGATED", "UNKNOWN"] },
                 studyRole: {
-                  anyOf: [{ type: "string" }, { type: "null" }],
-                  description: "Scientific role explicitly stated by the user. For a role replacement, null explicitly clears the old role before PRIMARY_ENDPOINT is assigned to the distinct new or existing object.",
+                  type: ["string", "null"],
+                  enum: [...PERSISTENT_PROJECT_STUDY_ROLES, null],
+                  description: "Optional source-grounded role, independent from proposedType. Omit when no role is established. Null is allowed only on REPLACE to clear an existing role. Never emit a textual null sentinel and never infer priority from mere mention.",
                 },
                 epistemicStatus: { type: "string", enum: ["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"] },
+                epistemicState: {
+                  type: "string",
+                  enum: ["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"],
+                  description: "PD-003 epistemic state, independent from linguistic provenance. Use UNKNOWN when explicit content has an unresolved scope or qualifier.",
+                },
                 assertionKind: { type: "string", enum: ["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"] },
-                proposalSourceText: { anyOf: [{ type: "string" }, { type: "null" }] },
+                proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
                 evidenceRefs: { type: "array", items: { type: "string" } },
               },
-              required: ["operation", "sourceText", "targetProjectRef", "candidateRef", "semanticIdentity", "proposedType", "content", "polarity", "studyRole", "epistemicStatus", "assertionKind", "proposalSourceText", "evidenceRefs"],
+              required: ["operation", "sourceText", "candidateRef", "proposedType", "content", "polarity", "epistemicStatus", "epistemicState", "assertionKind", "evidenceRefs"],
             },
           },
           relations: {
@@ -178,22 +200,27 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               additionalProperties: false,
               properties: {
                 relationRef: { type: "string" },
-                sourceText: { type: "string" },
-                relationType: { type: "string" },
-                sourceObjectRef: { type: "string", description: "Existing canonical Project stable ID or candidateRef declared in this same output." },
-                targetObjectRef: { type: "string", description: "Existing canonical Project stable ID or candidateRef declared in this same output." },
+                sourceText: { type: "string", description: "Exact fragment of the latest user message that states this relation." },
+                relationType: {
+                  type: "string",
+                  enum: PERSISTENT_PROJECT_RELATION_TYPES,
+                  description: "Use only a relation admitted by the current Project compiler. Do not invent a more convenient relation type.",
+                },
+                sourceObjectRef: { type: "string", description: "Existing canonical Project stable ID or candidateRef declared in this same output: use the exact stableId from the Project Context Snapshot objects inventory or a candidateRef declared in changes. Never use a label, content, section ID or invented ID." },
+                targetObjectRef: { type: "string", description: "Existing canonical Project stable ID or candidateRef declared in this same output: use the exact stableId from the Project Context Snapshot objects inventory or a candidateRef declared in changes. Omit the optional relation when no compatible endpoint exists; never invent an ID." },
                 polarity: { type: "string", enum: ["AFFIRMED", "NEGATED", "UNKNOWN"] },
                 epistemicStatus: { type: "string", enum: ["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"] },
+                epistemicState: { type: "string", enum: ["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"] },
                 assertionKind: { type: "string", enum: ["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"] },
-                proposalSourceText: { anyOf: [{ type: "string" }, { type: "null" }] },
+                proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
                 evidenceRefs: { type: "array", items: { type: "string" } },
               },
-              required: ["relationRef", "sourceText", "relationType", "sourceObjectRef", "targetObjectRef", "polarity", "epistemicStatus", "assertionKind", "proposalSourceText", "evidenceRefs"],
+              required: ["relationRef", "sourceText", "relationType", "sourceObjectRef", "targetObjectRef", "polarity", "epistemicStatus", "epistemicState", "assertionKind", "evidenceRefs"],
             },
           },
           temporalQualifications: {
             type: "array",
-            description: "Typed temporal value changes carried by an existing Project object. Never create a TEMPORAL_ANCHOR root object.",
+            description: "All explicit typed temporal value changes carried by an existing object or by a candidateRef declared in changes of this same output. Never create a TEMPORAL_ANCHOR root object and never drop an explicit time because its reference event is unknown.",
             items: {
               type: "object",
               additionalProperties: false,
@@ -201,14 +228,14 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 qualificationId: { type: "string", description: "Stable qualification identity. Preserve it for REPLACE or REMOVE." },
                 sourceText: { type: "string" },
-                subjectProjectRef: { type: "string", description: "Exact stable ID of the existing Project object carrying the temporal role." },
+                subjectProjectRef: { type: "string", description: "Exact stable ID of an existing Project object or candidateRef declared in changes of this same output and carrying the temporal role." },
                 temporalRole: { type: "string", enum: ["ACQUISITION_TIME", "COLLECTION_TIME", "PROCESSING_TIME", "TRANSFORMATION_TIME", "ANALYSIS_TIME"] },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
                 assertionKind: { type: "string", enum: ["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"] },
-                proposalSourceText: { anyOf: [{ type: "string" }, { type: "null" }] },
+                proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
                 evidenceRefs: { type: "array", items: { type: "string" } },
               },
-              required: ["operation", "qualificationId", "sourceText", "subjectProjectRef", "temporalRole", "anchor", "assertionKind", "proposalSourceText", "evidenceRefs"],
+              required: ["operation", "qualificationId", "sourceText", "subjectProjectRef", "temporalRole", "anchor", "assertionKind", "evidenceRefs"],
             },
           },
           expectedVariableOccasions: {
@@ -221,15 +248,15 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 occasionId: { type: "string", description: "Stable expected-occasion identity. Preserve it for REPLACE or REMOVE." },
                 sourceText: { type: "string" },
-                variableProjectRef: { type: "string", description: "Exact stable ID of an existing CANONICAL_VARIABLE." },
+                variableProjectRef: { type: "string", description: "Exact stable ID of an existing CANONICAL_VARIABLE or candidateRef for a CANONICAL_VARIABLE declared in changes of this same output." },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
-                studyUnitOrGroupRef: { anyOf: [{ type: "string" }, { type: "null" }] },
-                applicableContext: { anyOf: [{ type: "string" }, { type: "null" }] },
+                studyUnitOrGroupRef: { type: "string", description: "Optional stable Project or candidate-local group reference." },
+                applicableContext: { type: "string", description: "Optional bounded applicability context." },
                 assertionKind: { type: "string", enum: ["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"] },
-                proposalSourceText: { anyOf: [{ type: "string" }, { type: "null" }] },
+                proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
                 evidenceRefs: { type: "array", items: { type: "string" } },
               },
-              required: ["operation", "occasionId", "sourceText", "variableProjectRef", "anchor", "studyUnitOrGroupRef", "applicableContext", "assertionKind", "proposalSourceText", "evidenceRefs"],
+              required: ["operation", "occasionId", "sourceText", "variableProjectRef", "anchor", "assertionKind", "evidenceRefs"],
             },
           },
         },
@@ -306,7 +333,10 @@ export const executePersistentDelta = async (
   request: ProductBridgeRequest,
   apiKey: string,
   fetchImpl?: typeof fetch,
-): Promise<ProductBridgeProviderResult<unknown>> => {
+): Promise<ProductBridgeProviderResult<{
+  structuredArgs: unknown;
+  providerArtifact: PersistentExtractionProviderArtifact;
+}>> => {
   const result = await callGemini(apiKey, "PERSISTENT_DELTA", buildPersistentDeltaPayload(request), fetchImpl);
   const call = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
     .map((part) => part.functionCall)
@@ -314,5 +344,25 @@ export const executePersistentDelta = async (
   if (!call?.args || typeof call.args !== "object" || Array.isArray(call.args)) {
     throw new ProductBridgeProviderError("PERSISTENT_DELTA", 200, "FUNCTION_CALL_MISSING", "Gemini returned no persistent-delta function arguments.", result.responseId);
   }
-  return { ...result, value: call.args as PersistentProjectDeltaCandidate };
+  const structuredArgsSerialized = JSON.stringify(call.args);
+  const structuredArgsDigest = logicalDigest(structuredArgsSerialized);
+  const requestTurnRef = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER")?.turnId ?? "UNKNOWN_USER_TURN";
+  return {
+    ...result,
+    value: {
+      structuredArgs: call.args as PersistentProjectDeltaCandidate,
+      providerArtifact: {
+        artifactRef: `gemini-structured-args:${structuredArgsDigest}`,
+        requestTurnRef,
+        provider: "GOOGLE_GEMINI",
+        model: PRODUCT_BRIDGE_MODEL,
+        functionName: FUNCTION_NAME,
+        receivedAt: new Date().toISOString(),
+        providerResponseId: result.responseId,
+        structuredArgsExact: call.args,
+        structuredArgsSerialized,
+        structuredArgsDigest,
+      },
+    },
+  };
 };

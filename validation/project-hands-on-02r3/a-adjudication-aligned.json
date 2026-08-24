@@ -1,0 +1,969 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R3_ADJUDICATION",
+  "contractVersion": "1.0.0",
+  "sourceEvidence": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/project-hands-on-02r3/a-provider-exact.json",
+  "exactArgsDigest": "ke1-057f28d79b432633",
+  "providerContract": {
+    "valid": true,
+    "blocks": []
+  },
+  "wireCandidate": {
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "médicament",
+        "content": "médicament",
+        "candidateRef": "cand_intervention_1",
+        "proposedType": "INTERVENTION",
+        "polarity": "AFFIRMED",
+        "studyRole": "INTERVENTION_ARM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "placebo",
+        "content": "placebo",
+        "candidateRef": "cand_comparator_1",
+        "proposedType": "COMPARATOR",
+        "polarity": "AFFIRMED",
+        "studyRole": "COMPARATOR_ARM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "réduction des plaques carotiennes",
+        "content": "réduction des plaques carotiennes",
+        "candidateRef": "cand_objective_1",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "IRM",
+        "content": "IRM",
+        "candidateRef": "cand_modality_1",
+        "proposedType": "IMAGING_MODALITY",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [
+      {
+        "relationRef": "rel_comp_1",
+        "sourceText": "médicament contre placebo",
+        "relationType": "COMPARES_WITH",
+        "sourceObjectRef": "cand_intervention_1",
+        "targetObjectRef": "cand_comparator_1",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "temporalQualifications": [
+      {
+        "operation": "ADD",
+        "qualificationId": "temp_qual_1",
+        "sourceText": "M3",
+        "subjectProjectRef": "cand_modality_1",
+        "temporalRole": "ACQUISITION_TIME",
+        "anchor": {
+          "kind": "TIMEPOINT",
+          "direction": "AT",
+          "unit": "month",
+          "offset": 3,
+          "lowerBound": 3,
+          "upperBound": 3,
+          "relativeEventLabel": "M3",
+          "tolerance": null,
+          "reference": {
+            "status": "UNKNOWN",
+            "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+          }
+        },
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "expectedVariableOccasions": []
+  },
+  "normalizedCandidate": {
+    "contract": "PERSISTENT_PROJECT_DELTA_CANDIDATE",
+    "contractVersion": "0.4.0",
+    "projectWriteAuthorized": false,
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "médicament",
+        "content": "médicament",
+        "candidateRef": "cand_intervention_1",
+        "proposedType": "INTERVENTION",
+        "polarity": "AFFIRMED",
+        "studyRole": "INTERVENTION_ARM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "placebo",
+        "content": "placebo",
+        "candidateRef": "cand_comparator_1",
+        "proposedType": "COMPARATOR",
+        "polarity": "AFFIRMED",
+        "studyRole": "COMPARATOR_ARM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "réduction des plaques carotiennes",
+        "content": "réduction des plaques carotiennes",
+        "candidateRef": "cand_objective_1",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "IRM",
+        "content": "IRM",
+        "candidateRef": "cand_modality_1",
+        "proposedType": "ACQUISITION",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [
+      {
+        "relationRef": "rel_comp_1",
+        "sourceText": "médicament contre placebo",
+        "relationType": "COMPARES_WITH",
+        "sourceObjectRef": "cand_intervention_1",
+        "targetObjectRef": "cand_comparator_1",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "temporalQualifications": [
+      {
+        "operation": "ADD",
+        "qualificationId": "temp_qual_1",
+        "sourceText": "M3",
+        "subjectProjectRef": "cand_modality_1",
+        "temporalRole": "ACQUISITION_TIME",
+        "anchor": {
+          "kind": "TIMEPOINT",
+          "direction": "AT",
+          "unit": "month",
+          "offset": 3,
+          "lowerBound": 3,
+          "upperBound": 3,
+          "relativeEventLabel": "M3",
+          "tolerance": null,
+          "reference": {
+            "status": "UNKNOWN",
+            "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+          }
+        },
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "expectedVariableOccasions": []
+  },
+  "validation": {
+    "valid": true,
+    "acceptedChanges": [
+      {
+        "operation": "ADD",
+        "sourceText": "médicament",
+        "content": "médicament",
+        "candidateRef": "cand_intervention_1",
+        "proposedType": "INTERVENTION",
+        "polarity": "AFFIRMED",
+        "studyRole": "INTERVENTION_ARM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "placebo",
+        "content": "placebo",
+        "candidateRef": "cand_comparator_1",
+        "proposedType": "COMPARATOR",
+        "polarity": "AFFIRMED",
+        "studyRole": "COMPARATOR_ARM",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "réduction des plaques carotiennes",
+        "content": "réduction des plaques carotiennes",
+        "candidateRef": "cand_objective_1",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "IRM",
+        "content": "IRM",
+        "candidateRef": "cand_modality_1",
+        "proposedType": "ACQUISITION",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedRelations": [
+      {
+        "relationRef": "rel_comp_1",
+        "sourceText": "médicament contre placebo",
+        "relationType": "COMPARES_WITH",
+        "sourceObjectRef": "cand_intervention_1",
+        "targetObjectRef": "cand_comparator_1",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedTemporalQualifications": [
+      {
+        "operation": "ADD",
+        "qualificationId": "temp_qual_1",
+        "sourceText": "M3",
+        "subjectProjectRef": "cand_modality_1",
+        "temporalRole": "ACQUISITION_TIME",
+        "anchor": {
+          "kind": "TIMEPOINT",
+          "direction": "AT",
+          "unit": "month",
+          "offset": 3,
+          "lowerBound": 3,
+          "upperBound": 3,
+          "relativeEventLabel": "M3",
+          "tolerance": null,
+          "reference": {
+            "status": "UNKNOWN",
+            "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+          }
+        },
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedExpectedVariableOccasions": [],
+    "blocks": [],
+    "noOps": [],
+    "normalizations": [
+      {
+        "code": "IMAGING_MODALITY_TEMPORAL_SUBJECT_NORMALIZED_TO_ACQUISITION",
+        "sourceCandidateRef": "cand_modality_1",
+        "fromObjectType": "IMAGING_MODALITY",
+        "toObjectType": "ACQUISITION",
+        "reason": "ACQUISITION_TIME_SUBJECT"
+      }
+    ]
+  },
+  "contribution": {
+    "contract": "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE",
+    "contractNature": "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
+    "identity": {
+      "contributionId": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+      "previousContributionId": null,
+      "contractVersion": "1.0.0",
+      "runtimeId": "MINIMAL_PRODUCT_BRIDGE_PERSISTENT_DELTA",
+      "runtimeVersion": "0.4.0",
+      "createdAt": "2026-08-24T10:57:22.517Z",
+      "contributionDigest": "ke1-cfc5807ea366de32"
+    },
+    "source": {
+      "conversationId": "project-hands-on-02r3:live-gate",
+      "originalRequest": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+      "turns": [
+        {
+          "turnId": "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER",
+          "role": "USER",
+          "content": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+          "createdAt": "2026-08-24T10:55:25.249Z"
+        }
+      ],
+      "sourceRefs": [
+        "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+      ],
+      "rawOutputRef": "gemini-structured-args:ke1-057f28d79b432633",
+      "rawOutputDigest": "ke1-057f28d79b432633"
+    },
+    "runtimeEvidence": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "promptDigest": "ke1-8756a7bfd58f8fdb",
+      "schemaDigest": "ke1-06426627773c34eb",
+      "configurationDigest": "ke1-19e4c9756e112a01",
+      "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+      "parseStatus": "PARSED",
+      "validationErrors": []
+    },
+    "scientificContent": {
+      "normalizedUnderstanding": null,
+      "routeProposal": null,
+      "explicitStatements": [],
+      "candidateObjects": [
+        {
+          "itemId": "cand_intervention_1",
+          "semanticIdentity": "cand_intervention_1",
+          "proposedType": "INTERVENTION",
+          "content": "médicament",
+          "polarity": "AFFIRMED",
+          "studyRole": "INTERVENTION_ARM",
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "UNKNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "médicament"
+          }
+        },
+        {
+          "itemId": "cand_comparator_1",
+          "semanticIdentity": "cand_comparator_1",
+          "proposedType": "COMPARATOR",
+          "content": "placebo",
+          "polarity": "AFFIRMED",
+          "studyRole": "COMPARATOR_ARM",
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "UNKNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "placebo"
+          }
+        },
+        {
+          "itemId": "cand_objective_1",
+          "semanticIdentity": "cand_objective_1",
+          "proposedType": "OBJECTIVE",
+          "content": "réduction des plaques carotiennes",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "UNKNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "réduction des plaques carotiennes"
+          }
+        },
+        {
+          "itemId": "cand_modality_1",
+          "semanticIdentity": "cand_modality_1",
+          "proposedType": "ACQUISITION",
+          "content": "IRM",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "UNKNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "IRM"
+          }
+        }
+      ],
+      "candidateRelations": [
+        {
+          "relationId": "rel_comp_1",
+          "relationType": "COMPARES_WITH",
+          "sourceItemId": "cand_intervention_1",
+          "targetItemId": "cand_comparator_1",
+          "polarity": "AFFIRMED",
+          "confidence": 1,
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "UNKNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "médicament contre placebo"
+          }
+        }
+      ],
+      "inferredContext": [],
+      "contextualCandidates": [],
+      "negationsAndConstraints": [],
+      "temporalElements": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "missingInformation": [],
+      "correctionsAndSupersessions": [],
+      "openDecisions": [],
+      "clarificationNeeds": [],
+      "temporalQualifications": [
+        {
+          "operation": "ADD",
+          "qualificationId": "temp_qual_1",
+          "subjectProjectRef": "cand_modality_1",
+          "temporalRole": "ACQUISITION_TIME",
+          "anchor": {
+            "kind": "TIMEPOINT",
+            "direction": "AT",
+            "unit": "month",
+            "offset": 3,
+            "lowerBound": 3,
+            "upperBound": 3,
+            "relativeEventLabel": "M3",
+            "tolerance": null,
+            "reference": {
+              "status": "UNKNOWN",
+              "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+            }
+          },
+          "sourceText": "M3",
+          "assertionKind": "USER_STATED",
+          "evidenceRefs": []
+        }
+      ],
+      "expectedVariableOccasions": []
+    },
+    "epistemicBoundary": {
+      "candidateIsAdopted": false,
+      "knowledgeSupportIsProjectDecision": false,
+      "projectOwnershipTransferred": false,
+      "humanDecisionEnvelopeRef": null
+    },
+    "mapping": [
+      {
+        "sourceItemId": "cand_intervention_1",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "INTERVENTION"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      },
+      {
+        "sourceItemId": "cand_comparator_1",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "COMPARATOR"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      },
+      {
+        "sourceItemId": "cand_objective_1",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "OBJECTIVE"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      },
+      {
+        "sourceItemId": "cand_modality_1",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "ACQUISITION"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      }
+    ],
+    "audit": {
+      "deterministicFindings": [],
+      "semanticAuditFindings": [],
+      "unresolvedFindings": []
+    },
+    "decisionBoundary": {
+      "decisionRequired": true,
+      "decisionEnvelopeRef": null,
+      "permittedHumanDispositions": [
+        "ACCEPT_WORKING_BASIS",
+        "REJECT",
+        "DEFER",
+        "REOPEN",
+        "PARTIAL_SELECTION",
+        "ROUTE_TO_SPECIALIST"
+      ],
+      "projectWriteAuthorized": false
+    }
+  },
+  "canonicalProjectChangeSet": {
+    "contract": "PRJ001_CANONICAL_PROJECT_CHANGESET",
+    "contractVersion": "0.2.0",
+    "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+    "baseProjectVersion": null,
+    "status": "READY_FOR_HUMAN_DECISION",
+    "objectChanges": [
+      {
+        "changeRef": "contribution-project-change:ke1-753828eb2d4b87e7",
+        "operation": "ADD",
+        "objectId": "cand_objective_1",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "cand_objective_1",
+          "objectType": "OBJECTIVE",
+          "sectionId": "QUESTION",
+          "content": "réduction des plaques carotiennes",
+          "scientificRole": null,
+          "semanticKey": "QUESTION:OBJECTIVE:cand objective 1",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "réduction des plaques carotiennes",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceItemRefs": [
+            "cand_objective_1"
+          ],
+          "projection": {
+            "elementId": "cand_objective_1",
+            "semanticKey": "QUESTION:objective:cand objective",
+            "content": "réduction des plaques carotiennes",
+            "sourceItemIds": [
+              "cand_objective_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "OBJECTIVE",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      },
+      {
+        "changeRef": "contribution-project-change:ke1-8bfbcc0c8525d230",
+        "operation": "ADD",
+        "objectId": "cand_intervention_1",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "cand_intervention_1",
+          "objectType": "INTERVENTION_OR_EXPOSURE",
+          "sectionId": "INTERVENTION",
+          "content": "médicament",
+          "scientificRole": "INTERVENTION_ARM",
+          "semanticKey": "INTERVENTION:INTERVENTION_OR_EXPOSURE:cand intervention 1",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "médicament",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceItemRefs": [
+            "cand_intervention_1"
+          ],
+          "projection": {
+            "elementId": "cand_intervention_1",
+            "semanticKey": "INTERVENTION:intervention:cand intervention",
+            "content": "médicament",
+            "sourceItemIds": [
+              "cand_intervention_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "INTERVENTION",
+            "sourceStudyRole": "INTERVENTION_ARM",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      },
+      {
+        "changeRef": "contribution-project-change:ke1-e6565f0620f5a29a",
+        "operation": "ADD",
+        "objectId": "cand_comparator_1",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "cand_comparator_1",
+          "objectType": "GROUP",
+          "sectionId": "COMPARATOR",
+          "content": "placebo",
+          "scientificRole": "COMPARATOR_ARM",
+          "semanticKey": "COMPARATOR:GROUP:cand comparator 1",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "placebo",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceItemRefs": [
+            "cand_comparator_1"
+          ],
+          "projection": {
+            "elementId": "cand_comparator_1",
+            "semanticKey": "COMPARATOR:comparator:cand comparator",
+            "content": "placebo",
+            "sourceItemIds": [
+              "cand_comparator_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "COMPARATOR",
+            "sourceStudyRole": "COMPARATOR_ARM",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      },
+      {
+        "changeRef": "contribution-project-change:ke1-4195f7822d610966",
+        "operation": "ADD",
+        "objectId": "cand_modality_1",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "cand_modality_1",
+          "objectType": "ACQUISITION",
+          "sectionId": "IMAGING",
+          "content": "IRM",
+          "scientificRole": null,
+          "semanticKey": "IMAGING:ACQUISITION:cand modality 1",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "IRM",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceItemRefs": [
+            "cand_modality_1"
+          ],
+          "projection": {
+            "elementId": "cand_modality_1",
+            "semanticKey": "IMAGING:acquisition:cand modality",
+            "content": "IRM",
+            "sourceItemIds": [
+              "cand_modality_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "ACQUISITION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      }
+    ],
+    "relationChanges": [
+      {
+        "changeRef": "relation-change:ke1-6f6f8b8d49615191",
+        "operation": "ADD",
+        "relationId": "rel_comp_1",
+        "previousVersionRef": null,
+        "candidate": {
+          "relationId": "rel_comp_1",
+          "relationType": "COMPARES_WITH",
+          "sourceObjectRef": "cand_intervention_1",
+          "targetObjectRef": "cand_comparator_1",
+          "polarity": "AFFIRMED",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "médicament contre placebo",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb"
+        }
+      }
+    ],
+    "temporalQualificationChanges": [
+      {
+        "changeRef": "temporal-change:ke1-312ca84d5e7e7669",
+        "operation": "ADD",
+        "qualificationId": "temp_qual_1",
+        "previousVersionRef": null,
+        "candidate": {
+          "qualificationId": "temp_qual_1",
+          "subjectProjectRef": "cand_modality_1",
+          "temporalRole": "ACQUISITION_TIME",
+          "anchor": {
+            "valueType": "TEMPORAL_ANCHOR_VALUE",
+            "kind": "TIMEPOINT",
+            "direction": "AT",
+            "unit": "month",
+            "offset": 3,
+            "lowerBound": 3,
+            "upperBound": 3,
+            "relativeEventLabel": "M3",
+            "tolerance": null,
+            "reference": {
+              "status": "UNKNOWN",
+              "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+            },
+            "provenance": {
+              "sourcePlan": "USER",
+              "assertionKind": "USER_STATED",
+              "sourceTurnRefs": [
+                "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+              ],
+              "sourceText": "M3",
+              "proposalSourceTurnRefs": [],
+              "adoptionSourceTurnRefs": [],
+              "evidenceRefs": [],
+              "evidenceQualification": "NOT_EVALUATED"
+            }
+          },
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "M3",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb"
+        }
+      }
+    ],
+    "expectedVariableOccasionChanges": [],
+    "legacyTemporalChanges": [],
+    "conflicts": []
+  },
+  "humanReviewProjection": {
+    "contract": "PRJ001_HUMAN_REVIEW_PROJECTION",
+    "contractVersion": "1.0.0",
+    "sourceChangeSetRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+    "sections": [
+      {
+        "sectionRef": "review-section:question",
+        "label": "Question",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-753828eb2d4b87e7",
+            "changeRef": "contribution-project-change:ke1-753828eb2d4b87e7",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "réduction des plaques carotiennes — précision encore requise"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:intervention",
+        "label": "Intervention",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-8bfbcc0c8525d230",
+            "changeRef": "contribution-project-change:ke1-8bfbcc0c8525d230",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "médicament — précision encore requise"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:comparateur",
+        "label": "Comparateur",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-e6565f0620f5a29a",
+            "changeRef": "contribution-project-change:ke1-e6565f0620f5a29a",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "placebo — précision encore requise"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:imagerie",
+        "label": "Imagerie",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-4195f7822d610966",
+            "changeRef": "contribution-project-change:ke1-4195f7822d610966",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "IRM — précision encore requise"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:relations",
+        "label": "Relations",
+        "items": [
+          {
+            "reviewItemRef": "review:relation-change:ke1-6f6f8b8d49615191",
+            "changeRef": "relation-change:ke1-6f6f8b8d49615191",
+            "changeKind": "RELATION",
+            "operation": "ADD",
+            "content": "+ médicament — COMPARES_WITH → placebo"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:temporalite",
+        "label": "Temporalité",
+        "items": [
+          {
+            "reviewItemRef": "review:temporal-change:ke1-312ca84d5e7e7669",
+            "changeRef": "temporal-change:ke1-312ca84d5e7e7669",
+            "changeKind": "TEMPORAL_QUALIFICATION",
+            "operation": "ADD",
+            "content": "+ IRM : month 3 (référentiel à préciser)"
+          }
+        ]
+      }
+    ],
+    "status": "COMPLETE",
+    "expectedChangeRefs": [
+      "contribution-project-change:ke1-753828eb2d4b87e7",
+      "contribution-project-change:ke1-8bfbcc0c8525d230",
+      "contribution-project-change:ke1-e6565f0620f5a29a",
+      "contribution-project-change:ke1-4195f7822d610966",
+      "relation-change:ke1-6f6f8b8d49615191",
+      "temporal-change:ke1-312ca84d5e7e7669"
+    ],
+    "coveredChangeRefs": [
+      "contribution-project-change:ke1-753828eb2d4b87e7",
+      "contribution-project-change:ke1-8bfbcc0c8525d230",
+      "contribution-project-change:ke1-e6565f0620f5a29a",
+      "contribution-project-change:ke1-4195f7822d610966",
+      "relation-change:ke1-6f6f8b8d49615191",
+      "temporal-change:ke1-312ca84d5e7e7669"
+    ],
+    "missingChangeRefs": [],
+    "unexpectedChangeRefs": [],
+    "duplicateChangeRefs": []
+  }
+}

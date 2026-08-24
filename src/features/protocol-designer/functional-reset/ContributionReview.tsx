@@ -1,20 +1,9 @@
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
 import {
+  researchProjectQuestionPresentation,
   type ResearchProjectContributionCandidate,
   type ResearchProjectSectionId,
 } from "@/features/research-project-construction";
-
-const REVIEW_LABELS: Partial<Record<ResearchProjectSectionId, string>> = {
-  QUESTION: "Projet",
-  POPULATION: "Population",
-  DESIGN: "Design",
-  INTERVENTION: "Intervention",
-  COMPARATOR: "Comparateur",
-  IMAGING: "Imagerie",
-  MEASUREMENTS: "Mesures / biomarqueurs",
-  TEMPORALITY: "Temporalité",
-  ANALYSIS: "Analyse",
-};
 
 const countInFrench = (count: number) => count === 1 ? "une modification" : count === 2 ? "deux modifications" : `${count} modifications`;
 
@@ -38,41 +27,13 @@ type Props = {
 
 export default function ContributionReview({ contribution, candidate, status, onConfirm, onCorrect, onReject }: Props) {
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
-  const changes = candidate.changeSet.changes.filter((change) => change.operation !== "NO_CHANGE");
-  const canonicalFallback = changes.length ? [] : [
-    ...candidate.canonicalChangeSet.objectChanges.map((change) => ({
-      id: change.changeRef,
-      label: REVIEW_LABELS[change.candidate?.sectionId ?? "ANALYSIS"] ?? "Projet",
-      content: change.candidate?.content ?? `Retrait de ${change.objectId}`,
-    })),
-    ...candidate.canonicalChangeSet.relationChanges.map((change) => ({
-      id: change.changeRef,
-      label: "Analyse",
-      content: change.candidate
-        ? `${change.candidate.relationType} : ${change.candidate.sourceObjectRef} → ${change.candidate.targetObjectRef}`
-        : `Retrait de la relation ${change.relationId}`,
-    })),
-  ];
-  const initialSections = candidate.proposedSections
-    .filter((section) => section.elements.length > 0 && REVIEW_LABELS[section.sectionId])
-    .map((section) => ({
-      id: section.sectionId,
-      label: REVIEW_LABELS[section.sectionId]!,
-      items: section.elements.map((element) => ({ itemId: element.elementId, content: element.content })),
-    }));
-  const changeSectionIds = [...new Set(changes.map((change) => change.targetSectionId))];
-  const changeSections = changeSectionIds.map((id) => ({
-    id,
-    label: REVIEW_LABELS[id]!,
-    items: changes.filter((change) => change.targetSectionId === id).map((change) => ({ itemId: change.changeId, content: change.presentation })),
-  }));
-  const canonicalSections = [...new Set(canonicalFallback.map((change) => change.label))].map((label) => ({
-    id: `canonical:${label}`,
-    label,
-    items: canonicalFallback.filter((change) => change.label === label).map((change) => ({ itemId: change.id, content: change.content })),
-  }));
-  const sections = isUpdate ? (changeSections.length ? changeSections : canonicalSections) : (initialSections.length ? initialSections : canonicalSections);
-  const changeCount = changes.length || canonicalFallback.length;
+  const sections = candidate.humanReviewProjection.sections;
+  const displayedSections = isUpdate ? sections : [{
+    sectionRef: "review-section:project-summary",
+    label: "Projet",
+    items: [{ reviewItemRef: "review:project-summary", content: researchProjectQuestionPresentation(candidate.proposedSections) }],
+  }, ...sections];
+  const changeCount = candidate.humanReviewProjection.coveredChangeRefs.length;
   const openPoints = candidate.proposedSections
     .filter((section) => section.state !== "DEFINED" && OPEN_POINT_LABELS[section.sectionId])
     .map((section) => OPEN_POINT_LABELS[section.sectionId]!);
@@ -87,9 +48,9 @@ export default function ContributionReview({ contribution, candidate, status, on
       : "Cette proposition reste modifiable. Vous pouvez la confirmer ou décrire librement ce que vous souhaitez changer."}</p>
 
     <div className="mt-4 grid gap-3 sm:grid-cols-2">
-      {sections.map((section) => <section key={section.id} className="rounded-2xl border p-3">
+      {displayedSections.map((section) => <section key={section.sectionRef} className="rounded-2xl border p-3">
         <h4 className="text-sm font-semibold">{section.label}</h4>
-        <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.itemId} className="break-words">{item.content}</li>)}</ul>
+        <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.reviewItemRef} className="break-words">{item.content}</li>)}</ul>
       </section>)}
     </div>
 

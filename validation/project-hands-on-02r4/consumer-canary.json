@@ -1,0 +1,183 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R4_CONSUMER_CANARY",
+  "contractVersion": "1.0.0",
+  "sourceProject": {
+    "projectId": "project:project-hands-on-02r3-live-gate",
+    "versionId": "project:project-hands-on-02r3-live-gate:version:3",
+    "projectDigest": "ke1-790cbb08f136cac4"
+  },
+  "queryNavigation": {
+    "owner": "QUERY_NAVIGATION",
+    "projectVersion": "project:project-hands-on-02r3-live-gate:version:3",
+    "projectDigest": "ke1-790cbb08f136cac4",
+    "status": "QUESTION_READY",
+    "activeNeedRefs": [
+      "qry-need-52bb58a3d967e577"
+    ],
+    "scopeSectionIds": [
+      "DESIGN"
+    ],
+    "standardQuestion": "Pour faire progresser le projet, comment souhaitez-vous structurer l’étude, l’intervention et le comparateur ?",
+    "projectWriteAuthorized": false
+  },
+  "documentCanary": {
+    "resultId": "project:project-hands-on-02r3-live-gate:version:3:document-source-projection",
+    "resultDigest": "ke1-790cbb08f136cac4",
+    "status": "PARTIAL_PROJECT",
+    "scientificQuestion": {
+      "questionId": "question:persistent-project-contribution:ke1-e2e83c0f78090ecb",
+      "text": "Projet sur plaque carotidienne, avec médicament comme intervention et placebo comme comparateur.",
+      "confirmation": "HUMAN_CONFIRMED"
+    },
+    "objectives": [],
+    "population": {
+      "populationId": "project:project-hands-on-02r3-live-gate:population",
+      "populationConcept": {
+        "conditionOrPathology": [
+          "plaque carotidienne"
+        ],
+        "stage": [],
+        "phenotype": [],
+        "clinicalContext": [],
+        "exposureOrIntervention": [
+          "médicament"
+        ],
+        "questionRequiredCharacteristics": [
+          "35 à 75 ans",
+          "sténose supérieure à 40 %",
+          "sans antécédent"
+        ],
+        "conceptuallyJustifiedExclusions": [],
+        "relevantSubpopulations": []
+      },
+      "operationalEligibility": {
+        "status": "FUTURE_SPECIALIZED_DEFINITION_REQUIRED",
+        "requirements": [
+          {
+            "requirement": "35 à 75 ans",
+            "whyNeeded": "Contrainte d’éligibilité explicitement confirmée ; formulation opérationnelle spécialisée non définie.",
+            "finalWordingStatus": "NOT_DEFINED"
+          },
+          {
+            "requirement": "sténose supérieure à 40 %",
+            "whyNeeded": "Contrainte d’éligibilité explicitement confirmée ; formulation opérationnelle spécialisée non définie.",
+            "finalWordingStatus": "NOT_DEFINED"
+          },
+          {
+            "requirement": "sans antécédent",
+            "whyNeeded": "Contrainte d’éligibilité explicitement confirmée ; formulation opérationnelle spécialisée non définie.",
+            "finalWordingStatus": "NOT_DEFINED"
+          }
+        ]
+      },
+      "justification": "Population composée uniquement depuis les informations confirmées dans le Project.",
+      "sourceRefs": [
+        "cand_cond_antecedent",
+        "cand_cond_plaque",
+        "cand_crit_stenose",
+        "cand_pop_age",
+        "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+      ],
+      "missingInformation": [],
+      "reviewState": "ADOPTED"
+    },
+    "groups": [
+      {
+        "groupId": "cand_intervention_1:group",
+        "role": "EXPOSURE",
+        "label": "médicament",
+        "justification": "Intervention explicitement confirmée dans le Research Project.",
+        "populationId": "project:project-hands-on-02r3-live-gate:population",
+        "sourceRefs": [
+          "cand_intervention_1",
+          "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+        ],
+        "reviewState": "ADOPTED"
+      },
+      {
+        "groupId": "cand_comparator_1:group",
+        "role": "COMPARATOR",
+        "label": "placebo",
+        "justification": "Comparateur explicitement confirmé dans le Research Project.",
+        "populationId": "project:project-hands-on-02r3-live-gate:population",
+        "sourceRefs": [
+          "cand_comparator_1",
+          "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+        ],
+        "reviewState": "ADOPTED"
+      }
+    ],
+    "comparators": [
+      {
+        "comparatorId": "project:project-hands-on-02r3-live-gate:version:3:confirmed-comparison",
+        "groupIds": [
+          "cand_intervention_1:group",
+          "cand_comparator_1:group"
+        ],
+        "kind": "USER_CONFIRMED_COMPARISON",
+        "justification": "Intervention et comparateur explicitement confirmés.",
+        "reviewState": "ADOPTED"
+      }
+    ],
+    "imaging": {
+      "applicability": "APPLICABLE",
+      "resultRef": "project:project-hands-on-02r3-live-gate:version:3:confirmed-imaging-information",
+      "variableIds": [],
+      "acquisitionRefs": [
+        "IRM"
+      ],
+      "qualityRefs": [],
+      "limitations": [
+        "Imaging conserve les MeasurementDefinitions spécialisées, l’acquisition, la qualité, la lecture, la faisabilité et les limites."
+      ],
+      "projectHandoffReadiness": null,
+      "equipmentCompatibilityStatus": null,
+      "executableProtocolReadiness": null,
+      "requiredFutureReviews": []
+    },
+    "visits": [
+      {
+        "visitId": "temp_qual_1",
+        "label": "Temporalité confirmée",
+        "temporalRole": "SINGLE_ASSESSMENT",
+        "timingValue": "IRM — ACQUISITION_TIME : month 3 (référence inconnue)",
+        "timingStatus": "KNOWN",
+        "justification": "Fenêtre temporelle explicitement confirmée dans le Research Project.",
+        "hypothesisIds": [],
+        "endpointIds": [],
+        "measurementIds": [],
+        "dependencies": [
+          "cand_modality_1"
+        ]
+      }
+    ],
+    "missingInformation": [
+      "Design : information à préciser dans le Research Project.",
+      "Mesures / biomarqueurs : information à préciser dans le Research Project."
+    ],
+    "limitations": [
+      "Adaptation de lecture PRJ-001 : le snapshot est immuable pour DOC, sans gel scientifique supplémentaire ni promotion canonique du Research Project.",
+      "Les champs booléens historiques non qualifiables par le Project minimal ne doivent pas être interprétés comme des décisions scientifiques."
+    ],
+    "sourceRefs": [
+      "cand_comparator_1",
+      "cand_cond_antecedent",
+      "cand_cond_plaque",
+      "cand_crit_stenose",
+      "cand_intervention_1",
+      "cand_modality_1",
+      "cand_objective_1",
+      "cand_pop_age",
+      "ke1-790cbb08f136cac4",
+      "obj_objective_2",
+      "persistent-project-contribution:ke1-d2e3e5b11b0be925",
+      "project:project-hands-on-02r3-live-gate",
+      "project:project-hands-on-02r3-live-gate:version:3",
+      "question:persistent-project-contribution:ke1-e2e83c0f78090ecb",
+      "rel_comp_1",
+      "temp_qual_1"
+    ],
+    "containsTranscriptOnlyMaterial": null,
+    "sourceOfTruth": false
+  }
+}

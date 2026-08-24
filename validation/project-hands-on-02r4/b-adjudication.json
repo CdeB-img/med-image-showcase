@@ -1,0 +1,297 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R4_ADJUDICATION",
+  "contractVersion": "1.0.0",
+  "sourceEvidence": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/project-hands-on-02r4/b-provider-exact.json",
+  "exactArgsDigest": "ke1-3a3a9a15bd485ae1",
+  "providerContract": {
+    "valid": true,
+    "blocks": []
+  },
+  "wireCandidate": {
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+        "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+        "candidateRef": "obj_objective_2",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [],
+    "temporalQualifications": [],
+    "expectedVariableOccasions": []
+  },
+  "normalizedCandidate": {
+    "contract": "PERSISTENT_PROJECT_DELTA_CANDIDATE",
+    "contractVersion": "0.4.0",
+    "projectWriteAuthorized": false,
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+        "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+        "candidateRef": "obj_objective_2",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [],
+    "temporalQualifications": [],
+    "expectedVariableOccasions": []
+  },
+  "validation": {
+    "valid": true,
+    "acceptedChanges": [
+      {
+        "operation": "ADD",
+        "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+        "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+        "candidateRef": "obj_objective_2",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedRelations": [],
+    "acceptedTemporalQualifications": [],
+    "acceptedExpectedVariableOccasions": [],
+    "blocks": [],
+    "noOps": [],
+    "normalizations": []
+  },
+  "contribution": {
+    "contract": "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE",
+    "contractNature": "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
+    "identity": {
+      "contributionId": "persistent-project-contribution:ke1-14bf0efe1809ac5a",
+      "previousContributionId": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+      "contractVersion": "1.0.0",
+      "runtimeId": "MINIMAL_PRODUCT_BRIDGE_PERSISTENT_DELTA",
+      "runtimeVersion": "0.4.0",
+      "createdAt": "2026-08-24T12:07:20.353Z",
+      "contributionDigest": "ke1-a0e01eb88b676d4c"
+    },
+    "source": {
+      "conversationId": "project-hands-on-02r3:live-gate",
+      "originalRequest": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+      "turns": [
+        {
+          "turnId": "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER",
+          "role": "USER",
+          "content": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+          "createdAt": "2026-08-24T10:55:25.249Z"
+        },
+        {
+          "turnId": "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:NOXIA",
+          "role": "NOXIA",
+          "content": "Je comprends que vous envisagez d'évaluer l'effet d'un médicament par rapport à un placebo sur la réduction des plaques carotidiennes, avec une mesure par IRM à trois mois. \n\nEst-ce que l'objectif principal est de mesurer une variation du volume de la plaque, ou s'intéresse-t-on plutôt à sa composition tissulaire ?",
+          "createdAt": "2026-08-24T10:55:27.977Z"
+        },
+        {
+          "turnId": "PROJECT-HANDS-ON-02R4-POST-FIX-001:B:USER",
+          "role": "USER",
+          "content": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+          "createdAt": "2026-08-24T12:06:44.118Z"
+        }
+      ],
+      "sourceRefs": [
+        "PROJECT-HANDS-ON-02R4-POST-FIX-001:B:USER"
+      ],
+      "rawOutputRef": "gemini-structured-args:ke1-3a3a9a15bd485ae1",
+      "rawOutputDigest": "ke1-3a3a9a15bd485ae1"
+    },
+    "runtimeEvidence": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "promptDigest": "ke1-a150fd940c544a00",
+      "schemaDigest": "ke1-06426627773c34eb",
+      "configurationDigest": "ke1-19e4c9756e112a01",
+      "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+      "parseStatus": "PARSED",
+      "validationErrors": []
+    },
+    "scientificContent": {
+      "normalizedUnderstanding": null,
+      "routeProposal": null,
+      "explicitStatements": [],
+      "candidateObjects": [
+        {
+          "itemId": "obj_objective_2",
+          "semanticIdentity": "obj_objective_2",
+          "proposedType": "OBJECTIVE",
+          "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "KNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:B:USER"
+            ],
+            "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque."
+          }
+        }
+      ],
+      "candidateRelations": [],
+      "inferredContext": [],
+      "contextualCandidates": [],
+      "negationsAndConstraints": [],
+      "temporalElements": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "missingInformation": [],
+      "correctionsAndSupersessions": [],
+      "openDecisions": [],
+      "clarificationNeeds": [],
+      "temporalQualifications": [],
+      "expectedVariableOccasions": []
+    },
+    "epistemicBoundary": {
+      "candidateIsAdopted": false,
+      "knowledgeSupportIsProjectDecision": false,
+      "projectOwnershipTransferred": false,
+      "humanDecisionEnvelopeRef": null
+    },
+    "mapping": [
+      {
+        "sourceItemId": "obj_objective_2",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "OBJECTIVE"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      }
+    ],
+    "audit": {
+      "deterministicFindings": [],
+      "semanticAuditFindings": [],
+      "unresolvedFindings": []
+    },
+    "decisionBoundary": {
+      "decisionRequired": true,
+      "decisionEnvelopeRef": null,
+      "permittedHumanDispositions": [
+        "ACCEPT_WORKING_BASIS",
+        "REJECT",
+        "DEFER",
+        "REOPEN",
+        "PARTIAL_SELECTION",
+        "ROUTE_TO_SPECIALIST"
+      ],
+      "projectWriteAuthorized": false
+    }
+  },
+  "canonicalProjectChangeSet": {
+    "contract": "PRJ001_CANONICAL_PROJECT_CHANGESET",
+    "contractVersion": "0.2.0",
+    "sourceContributionRef": "persistent-project-contribution:ke1-14bf0efe1809ac5a",
+    "baseProjectVersion": "project:project-hands-on-02r3-live-gate:version:1",
+    "status": "READY_FOR_HUMAN_DECISION",
+    "objectChanges": [
+      {
+        "changeRef": "contribution-project-change:ke1-57fb26047589ff10",
+        "operation": "ADD",
+        "objectId": "obj_objective_2",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "obj_objective_2",
+          "objectType": "OBJECTIVE",
+          "sectionId": "QUESTION",
+          "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+          "scientificRole": null,
+          "semanticKey": "QUESTION:OBJECTIVE:obj objective 2",
+          "epistemicState": "KNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:B:USER"
+            ],
+            "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-14bf0efe1809ac5a",
+          "sourceItemRefs": [
+            "obj_objective_2"
+          ],
+          "projection": {
+            "elementId": "obj_objective_2",
+            "semanticKey": "QUESTION:objective:obj objective",
+            "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+            "sourceItemIds": [
+              "obj_objective_2"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:B:USER"
+            ],
+            "sourceProposedType": "OBJECTIVE",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      }
+    ],
+    "relationChanges": [],
+    "temporalQualificationChanges": [],
+    "expectedVariableOccasionChanges": [],
+    "legacyTemporalChanges": [],
+    "conflicts": []
+  },
+  "humanReviewProjection": {
+    "contract": "PRJ001_HUMAN_REVIEW_PROJECTION",
+    "contractVersion": "1.0.0",
+    "sourceChangeSetRef": "persistent-project-contribution:ke1-14bf0efe1809ac5a",
+    "sections": [
+      {
+        "sectionRef": "review-section:question",
+        "label": "Question",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-57fb26047589ff10",
+            "changeRef": "contribution-project-change:ke1-57fb26047589ff10",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "+ Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque."
+          }
+        ]
+      }
+    ],
+    "status": "COMPLETE",
+    "expectedChangeRefs": [
+      "contribution-project-change:ke1-57fb26047589ff10"
+    ],
+    "coveredChangeRefs": [
+      "contribution-project-change:ke1-57fb26047589ff10"
+    ],
+    "missingChangeRefs": [],
+    "unexpectedChangeRefs": [],
+    "duplicateChangeRefs": []
+  }
+}

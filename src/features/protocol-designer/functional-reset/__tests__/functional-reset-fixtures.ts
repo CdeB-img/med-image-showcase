@@ -5,7 +5,7 @@ import type {
   ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation/contracts";
 import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
-import type { ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
+import type { ProductBridgeRequest, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 
 export const COLCHICINE_INITIAL = "Je veux étudier l’effet de la colchicine après infarctus du myocarde, notamment sur l’inflammation et les lésions en IRM, dans une étude multicentrique comparant colchicine et placebo. Je veux également prévoir des biomarqueurs sanguins et mesurer la taille de l’infarctus à l’IRM.";
 export const COLCHICINE_MODIFICATION = "Je veux faire l’IRM entre J3 et J5 et limiter l’âge à 75 ans.";
@@ -157,6 +157,8 @@ export const makeFunctionalResetBridgeResponse = (
   persistentExtraction: {
     called: effectiveContribution !== null,
     status: effectiveContribution ? "CANDIDATE" : "NOT_REQUESTED",
+    providerArtifact: null,
+    wireCandidate: null,
     candidate: null,
     validation: null,
     contribution: effectiveContribution,
@@ -170,4 +172,19 @@ export const makeFunctionalResetBridgeResponse = (
     projectWrites: 0,
   },
   });
+};
+
+export const makeFunctionalResetBridgeResponseForRequest = (
+  request: Pick<ProductBridgeRequest, "requestKind" | "conversation">,
+  contribution: ScientificInterpretationContributionEnvelope | null | undefined = undefined,
+): ProductBridgeResponse => {
+  if (request.requestKind === "POST_ADOPTION_QRY_CONTINUATION") {
+    const purpose = request.conversation.interactionContext?.purpose ?? "";
+    const marker = "Question à formuler naturellement : ";
+    const question = purpose.includes(marker)
+      ? purpose.slice(purpose.indexOf(marker) + marker.length).trim()
+      : "Quel point utile souhaitez-vous préciser ensuite ?";
+    return makeFunctionalResetBridgeResponse(request.conversation.turns, null, question);
+  }
+  return makeFunctionalResetBridgeResponse(request.conversation.turns, contribution);
 };

@@ -73,14 +73,44 @@ export type SpecializedResponsibility = {
 
 export type ResearchProjectContributionCandidate = {
   boundary: typeof RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY;
-  status: "CANDIDATE_PENDING_HUMAN_CONFIRMATION" | "NO_NET_CHANGE";
+  status: "CANDIDATE_PENDING_HUMAN_CONFIRMATION" | "NO_NET_CHANGE" | "BLOCKED_BY_STRUCTURAL_CONFLICT" | "REVIEW_PROJECTION_INCOMPLETE";
   projectWriteAuthorized: false;
   contributionRef: string;
   contributionDigest: string;
   changeSet: ContributionProjectChangeSet;
   canonicalChangeSet: CanonicalProjectChangeSet;
+  humanReviewProjection: HumanReviewProjection;
   proposedSections: ResearchProjectSection[];
   specializedResponsibilities: SpecializedResponsibility[];
+};
+
+export type HumanReviewChangeKind = "OBJECT" | "RELATION" | "TEMPORAL_QUALIFICATION" | "EXPECTED_VARIABLE_OCCASION" | "LEGACY_TEMPORAL";
+
+export type HumanReviewProjectionItem = {
+  reviewItemRef: string;
+  changeRef: string;
+  changeKind: HumanReviewChangeKind;
+  operation: "ADD" | "REMOVE" | "REPLACE";
+  content: string;
+};
+
+export type HumanReviewProjectionSection = {
+  sectionRef: string;
+  label: string;
+  items: HumanReviewProjectionItem[];
+};
+
+export type HumanReviewProjection = {
+  contract: "PRJ001_HUMAN_REVIEW_PROJECTION";
+  contractVersion: "1.0.0";
+  sourceChangeSetRef: string;
+  status: "COMPLETE" | "INCOMPLETE" | "NOT_APPLICABLE";
+  sections: HumanReviewProjectionSection[];
+  expectedChangeRefs: string[];
+  coveredChangeRefs: string[];
+  missingChangeRefs: string[];
+  unexpectedChangeRefs: string[];
+  duplicateChangeRefs: string[];
 };
 
 export type ContributionProjectChangeOperation = "ADD" | "REMOVE" | "REPLACE" | "NO_CHANGE";
@@ -212,7 +242,8 @@ export const sectionForContributionItem = (
   if (/TIMING|TEMPORAL|TIMEPOINT|WINDOW|VISIT/.test(type)) return "TEMPORALITY";
   if (/MODALITY|IMAGING_METHOD|ACQUISITION/.test(type)) return "IMAGING";
   if (/ANALYSIS|ESTIMAND|STATISTICAL/.test(type)) return "ANALYSIS";
-  if (/HYPOTHESIS|OBJECTIVE|SCIENTIFIC_QUESTION/.test(type)) return "ANALYSIS";
+  if (/OBJECTIVE|SCIENTIFIC_QUESTION/.test(type)) return "QUESTION";
+  if (/HYPOTHESIS/.test(type)) return "ANALYSIS";
   if (/BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET|SCIENTIFIC_OBJECT/.test(type)) return "MEASUREMENTS";
   return null;
 };
@@ -568,9 +599,25 @@ const latestUserTurnId = (contribution: ScientificInterpretationContributionEnve
   .reverse()
   .find((turn) => turn.role === "USER")?.turnId ?? null;
 
-const currentElements = (current: ResearchProjectOwnerProjection | null) => (current?.sections ?? [])
-  .filter((section) => section.sectionId !== "QUESTION")
-  .flatMap((section) => section.elements.map((element) => ({ sectionId: section.sectionId, element })));
+const currentElements = (current: ResearchProjectOwnerProjection | null) => {
+  if (!current) return [];
+  const indexed = new Map<string, { sectionId: ResearchProjectSectionId; element: ResearchProjectElement }>();
+  current.sections.forEach((section) => section.elements.forEach((element) => {
+    indexed.set(element.elementId, { sectionId: section.sectionId, element });
+  }));
+  ensureCanonicalProjectState(current).objects
+    .filter((object) => object.actuality === "CURRENT")
+    .forEach((object) => indexed.set(object.objectId, {
+      sectionId: object.sectionId,
+      element: {
+        ...object.projection,
+        elementId: object.objectId,
+        sourceProposedType: object.projection.sourceProposedType ?? object.objectType,
+        sourceStudyRole: object.scientificRole,
+      },
+    }));
+  return [...indexed.values()];
+};
 
 const temporalSemanticParts = (sectionId: ResearchProjectSectionId, element: ResearchProjectElement) => {
   if (sectionId !== "TEMPORALITY") return null;
@@ -816,6 +863,157 @@ const specializedResponsibilities = (
   ];
 };
 
+const reviewOperationPrefix = (operation: "ADD" | "REMOVE" | "REPLACE") => operation === "ADD" ? "+" : operation === "REMOVE" ? "−" : "Modifier";
+
+const reviewReplacement = (previous: string, proposed: string) => {
+  const previousParts = previous.split(":").map((part) => part.trim());
+  const proposedParts = proposed.split(":").map((part) => part.trim());
+  if (previousParts.length === 2 && proposedParts.length === 2 && folded(previousParts[0]!) === folded(proposedParts[0]!)) {
+    return `${proposedParts[0]} : ${previousParts[1]} → ${proposedParts[1]}`;
+  }
+  return `${previous} → ${proposed}`;
+};
+
+const reviewObjectLabel = (object: { objectType: string; content: string; epistemicState: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD"; provenance: { sourceText: string } } | null | undefined) => {
+  if (!object) return null;
+  const sourceText = object.provenance.sourceText?.trim();
+  if (object.objectType === "OBJECTIVE" && sourceText && folded(sourceText) !== folded(object.content)) {
+    return `${sourceText}${object.epistemicState === "UNKNOWN" ? " — précision encore requise" : ""}`;
+  }
+  return `${object.content}${object.epistemicState === "UNKNOWN" ? " — précision encore requise" : ""}`;
+};
+
+const reviewTemporalAnchor = (anchor: NonNullable<CanonicalProjectChangeSet["temporalQualificationChanges"][number]["candidate"]>["anchor"]) => {
+  const unit = anchor.unit === "DAY" ? "jour" : anchor.unit === "WEEK" ? "semaine" : anchor.unit === "MONTH" ? "mois" : anchor.unit === "YEAR" ? "an" : anchor.unit.toLocaleLowerCase("fr-FR");
+  const reference = anchor.reference.status === "KNOWN" ? `réf. ${anchor.reference.referenceProjectRef}` : "référentiel à préciser";
+  if (anchor.kind === "WINDOW" || anchor.kind === "INTERVAL") return `${anchor.lowerBound} à ${anchor.upperBound} ${unit}${anchor.upperBound === 1 ? "" : "s"} (${reference})`;
+  if (anchor.kind === "RELATIVE_EVENT") {
+    const direction = anchor.direction === "BEFORE" ? "avant" : anchor.direction === "AFTER" ? "après" : "au moment de";
+    return `${direction} ${anchor.relativeEventLabel ?? reference}`;
+  }
+  const codedUnit = anchor.unit === "DAY" ? "J" : anchor.unit === "WEEK" ? "S" : anchor.unit === "MONTH" ? "M" : anchor.unit === "YEAR" ? "A" : `${anchor.unit} `;
+  return `${codedUnit}${anchor.offset ?? "?"} (${reference})`;
+};
+
+const engagingCanonicalChangeRefs = (changeSet: CanonicalProjectChangeSet) => [
+  ...changeSet.objectChanges.map((change) => change.changeRef),
+  ...changeSet.relationChanges.map((change) => change.changeRef),
+  ...changeSet.temporalQualificationChanges.map((change) => change.changeRef),
+  ...changeSet.expectedVariableOccasionChanges.map((change) => change.changeRef),
+  ...changeSet.legacyTemporalChanges.map((change) => change.changeRef),
+];
+
+export const validateHumanReviewProjectionCoverage = (
+  changeSet: CanonicalProjectChangeSet,
+  projection: Pick<HumanReviewProjection, "sections">,
+): Omit<HumanReviewProjection, "contract" | "contractVersion" | "sourceChangeSetRef" | "sections"> => {
+  const expectedChangeRefs = engagingCanonicalChangeRefs(changeSet);
+  const coveredChangeRefs = projection.sections.flatMap((section) => section.items.map((item) => item.changeRef));
+  const expected = new Set(expectedChangeRefs);
+  const counts = new Map<string, number>();
+  coveredChangeRefs.forEach((ref) => counts.set(ref, (counts.get(ref) ?? 0) + 1));
+  const missingChangeRefs = expectedChangeRefs.filter((ref) => !counts.has(ref));
+  const unexpectedChangeRefs = [...counts.keys()].filter((ref) => !expected.has(ref));
+  const duplicateChangeRefs = [...counts.entries()].filter(([, count]) => count !== 1).map(([ref]) => ref);
+  const applicable = changeSet.status === "READY_FOR_HUMAN_DECISION" && expectedChangeRefs.length > 0;
+  return {
+    status: !applicable ? "NOT_APPLICABLE" : missingChangeRefs.length || unexpectedChangeRefs.length || duplicateChangeRefs.length ? "INCOMPLETE" : "COMPLETE",
+    expectedChangeRefs,
+    coveredChangeRefs,
+    missingChangeRefs,
+    unexpectedChangeRefs,
+    duplicateChangeRefs,
+  };
+};
+
+export const buildHumanReviewProjection = (
+  changeSet: CanonicalProjectChangeSet,
+  current: ResearchProjectOwnerProjection | null,
+): HumanReviewProjection => {
+  const currentState = current ? ensureCanonicalProjectState(current) : null;
+  const objectLabels = new Map<string, string>(currentState?.objects
+    .filter((object) => object.actuality === "CURRENT")
+    .map((object) => [object.objectId, object.content] as const) ?? []);
+  changeSet.objectChanges.forEach((change) => {
+    if (change.candidate) objectLabels.set(change.objectId, change.candidate.content);
+  });
+  const grouped = new Map<string, HumanReviewProjectionItem[]>();
+  const add = (label: string, item: HumanReviewProjectionItem) => grouped.set(label, [...(grouped.get(label) ?? []), item]);
+  const previousObject = (objectId: string) => currentState?.objects.find((object) => object.objectId === objectId && object.actuality === "CURRENT") ?? null;
+  const previousRelation = (relationId: string) => currentState?.relations.find((relation) => relation.relationId === relationId && relation.actuality === "CURRENT") ?? null;
+  const previousTemporal = (qualificationId: string) => currentState?.temporalQualifications.find((item) => item.qualificationId === qualificationId && item.actuality === "CURRENT") ?? null;
+  const previousOccasion = (occasionId: string) => currentState?.expectedVariableOccasions.find((item) => item.occasionId === occasionId && item.actuality === "CURRENT") ?? null;
+  const previousLegacyTemporal = (objectId: string, versionRef: string | null) => currentState?.legacyTemporalObjects.find((item) => (
+    versionRef ? item.legacyObject.objectVersionId === versionRef : item.legacyObject.objectId === objectId && item.legacyObject.actuality === "CURRENT"
+  ))?.legacyObject ?? null;
+  const initialStructure = changeSet.baseProjectVersion === null;
+
+  changeSet.objectChanges.forEach((change) => {
+    const previous = previousObject(change.objectId);
+    const sectionId = change.candidate?.sectionId ?? previous?.sectionId ?? "ANALYSIS";
+    const next = change.candidate;
+    const previousLabel = reviewObjectLabel(previous) ?? change.objectId;
+    const nextLabel = reviewObjectLabel(next) ?? change.objectId;
+    const content = change.operation === "REMOVE"
+      ? `${reviewOperationPrefix(change.operation)} ${capitalize(previousLabel)}`
+      : change.operation === "REPLACE" && previous
+        ? `${reviewReplacement(previousLabel, nextLabel)}${previous.scientificRole !== next?.scientificRole ? ` (rôle : ${previous.scientificRole ?? "aucun"} → ${next?.scientificRole ?? "aucun"})` : ""}`
+        : `${initialStructure ? "" : `${reviewOperationPrefix(change.operation)} `}${initialStructure ? nextLabel : capitalize(nextLabel)}${!initialStructure && next?.scientificRole ? ` (rôle : ${next.scientificRole})` : ""}`;
+    add(SECTION_LABELS[sectionId], { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "OBJECT", operation: change.operation, content });
+  });
+
+  changeSet.relationChanges.forEach((change) => {
+    const relation = change.candidate ?? previousRelation(change.relationId);
+    const content = relation
+      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(relation.sourceObjectRef) ?? relation.sourceObjectRef} — ${relation.relationType} → ${objectLabels.get(relation.targetObjectRef) ?? relation.targetObjectRef}`
+      : `${reviewOperationPrefix(change.operation)} relation ${change.relationId}`;
+    add("Relations", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "RELATION", operation: change.operation, content });
+  });
+
+  changeSet.temporalQualificationChanges.forEach((change) => {
+    const qualification = change.candidate ?? previousTemporal(change.qualificationId);
+    const content = qualification
+      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef} : ${reviewTemporalAnchor(qualification.anchor)}`
+      : `${reviewOperationPrefix(change.operation)} temporalité ${change.qualificationId}`;
+    add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "TEMPORAL_QUALIFICATION", operation: change.operation, content });
+  });
+
+  changeSet.expectedVariableOccasionChanges.forEach((change) => {
+    const occasion = change.candidate ?? previousOccasion(change.occasionId);
+    const content = occasion
+      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(occasion.variableProjectRef) ?? occasion.variableProjectRef} attendu : ${reviewTemporalAnchor(occasion.anchor)}`
+      : `${reviewOperationPrefix(change.operation)} occasion attendue ${change.occasionId}`;
+    add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "EXPECTED_VARIABLE_OCCASION", operation: change.operation, content });
+  });
+
+  changeSet.legacyTemporalChanges.forEach((change) => {
+    const previous = previousLegacyTemporal(change.legacyObjectId, change.previousVersionRef);
+    const proposed = change.candidate?.projection.content ?? change.candidate?.content ?? null;
+    const content = change.operation === "REMOVE"
+      ? `${reviewOperationPrefix(change.operation)} ${capitalize(previous?.projection.content ?? previous?.content ?? change.legacyObjectId)}`
+      : change.operation === "REPLACE" && previous && proposed
+        ? reviewReplacement(previous.projection.content, proposed)
+        : `${reviewOperationPrefix(change.operation)} ${capitalize(proposed ?? change.legacyObjectId)}`;
+    add("Temporalité", {
+      reviewItemRef: `review:${change.changeRef}`,
+      changeRef: change.changeRef,
+      changeKind: "LEGACY_TEMPORAL",
+      operation: change.operation,
+      content,
+    });
+  });
+
+  const sections = [...grouped.entries()].map(([label, items]) => ({ sectionRef: `review-section:${folded(label)}`, label, items }));
+  const coverage = validateHumanReviewProjectionCoverage(changeSet, { sections });
+  return {
+    contract: "PRJ001_HUMAN_REVIEW_PROJECTION",
+    contractVersion: "1.0.0",
+    sourceChangeSetRef: changeSet.sourceContributionRef,
+    sections,
+    ...coverage,
+  };
+};
+
 export const emptyResearchProjectSections = (): ResearchProjectSection[] => RESEARCH_PROJECT_SECTION_ORDER.map((sectionId) => ({
   sectionId,
   label: SECTION_LABELS[sectionId],
@@ -833,14 +1031,23 @@ export const prepareResearchProjectContributionCandidate = (
     sectionChangeSet: changeSet,
     current: current ? ensureCanonicalProjectState(current) : null,
   });
+  const humanReviewProjection = buildHumanReviewProjection(canonicalChangeSet, current);
+  const status: ResearchProjectContributionCandidate["status"] = canonicalChangeSet.status === "NO_NET_CHANGE"
+    ? "NO_NET_CHANGE"
+    : canonicalChangeSet.status === "BLOCKED_BY_STRUCTURAL_CONFLICT"
+      ? "BLOCKED_BY_STRUCTURAL_CONFLICT"
+      : humanReviewProjection.status === "COMPLETE"
+        ? "CANDIDATE_PENDING_HUMAN_CONFIRMATION"
+        : "REVIEW_PROJECTION_INCOMPLETE";
   return {
     boundary: RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY,
-    status: canonicalChangeSet.status === "NO_NET_CHANGE" ? "NO_NET_CHANGE" : "CANDIDATE_PENDING_HUMAN_CONFIRMATION",
+    status,
     projectWriteAuthorized: false,
     contributionRef: contribution.identity.contributionId,
     contributionDigest: contribution.identity.contributionDigest,
     changeSet,
     canonicalChangeSet,
+    humanReviewProjection,
     proposedSections: applyContributionProjectChangeSet(changeSet, contribution, current),
     specializedResponsibilities: specializedResponsibilities(contribution),
   };
@@ -852,6 +1059,7 @@ export const confirmResearchProjectContribution = (input: {
   projectId: string;
   authority: ResearchProjectOwnerAuthority;
   confirmedAt: string;
+  reviewedProjection?: HumanReviewProjection;
 }): ResearchProjectOwnerProjection => {
   const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
   if (candidate.changeSet.effectiveChangeCount === 0 && candidate.canonicalChangeSet.status === "NO_NET_CHANGE") {
@@ -861,6 +1069,9 @@ export const confirmResearchProjectContribution = (input: {
   if (candidate.canonicalChangeSet.status === "BLOCKED_BY_STRUCTURAL_CONFLICT") {
     throw new Error("PRJ_CONFLICTING_ADOPTED_STATE_REQUIRES_EXPLICIT_REPLACEMENT");
   }
+  const reviewedProjection = input.reviewedProjection ?? candidate.humanReviewProjection;
+  const reviewCoverage = validateHumanReviewProjectionCoverage(candidate.canonicalChangeSet, reviewedProjection);
+  if (reviewCoverage.status !== "COMPLETE") throw new Error("REVIEW_PROJECTION_INCOMPLETE");
   const revision = (input.current?.revision ?? 0) + 1;
   const versionId = `${input.projectId}:version:${revision}`;
   const pendingDecision = createHumanDecisionCandidate({

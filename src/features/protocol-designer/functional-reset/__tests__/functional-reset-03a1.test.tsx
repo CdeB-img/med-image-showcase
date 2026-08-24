@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -21,7 +21,7 @@ import {
   CHANGESET_SCOPE,
   makeFunctionalReset03A1Contribution,
 } from "./functional-reset-03a1-fixtures";
-import { COLCHICINE_03A_INITIAL, COLCHICINE_03A_MODIFICATION, makeFunctionalResetBridgeResponse, makeFunctionalResetContribution } from "./functional-reset-fixtures";
+import { COLCHICINE_03A_INITIAL, COLCHICINE_03A_MODIFICATION, makeFunctionalResetBridgeResponseForRequest, makeFunctionalResetContribution } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
@@ -84,7 +84,12 @@ const submit = (content: string) => {
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 };
 
-const confirm = () => fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+const confirm = async () => {
+  const callsBefore = runtime.request.mock.calls.length;
+  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+  await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThan(callsBefore));
+  await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
+};
 
 const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as {
   project: ResearchProjectOwnerProjection | null;
@@ -94,10 +99,10 @@ const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STO
 const confirmInitialAndAge = async () => {
   submit(CHANGESET_INITIAL);
   await screen.findByText("J’ai suffisamment d’éléments pour vous proposer une première structure d’étude.");
-  confirm();
+  await confirm();
   submit(CHANGESET_AGE_TIMING);
   await screen.findByText("J’ai compris deux modifications :");
-  confirm();
+  await confirm();
   await screen.findByText(/Projet mis à jour\./);
 };
 
@@ -113,9 +118,9 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(
-      conversation.turns,
-      makeFunctionalReset03A1Contribution(conversation.turns.filter((turn) => turn.role === "USER")),
+    runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(
+      request,
+      makeFunctionalReset03A1Contribution(request.conversation.turns.filter((turn: ScientificInterpretationTurn) => turn.role === "USER")),
     ));
   });
   afterEach(cleanup);
@@ -171,7 +176,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
   it("FR03A1-C06 — removal creates a Project version only after confirmation", async () => {
     renderDemo();
     await reachRemovalReview();
-    confirm();
+    await confirm();
     const project = stored().project!;
     expect(project.revision).toBe(3);
     const measurements = project.sections.find((section) => section.sectionId === "MEASUREMENTS")!.elements.map((element) => element.content);
@@ -244,7 +249,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     submit(CHANGESET_INITIAL);
     await screen.findByText("J’ai suffisamment d’éléments pour vous proposer une première structure d’étude.");
     expect(screen.getByTestId("functional-contribution-review").textContent).not.toMatch(/The user wants to study/i);
-    confirm();
+    await confirm();
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(projectPanel.textContent).not.toMatch(/The user wants to study/i);
     expect(within(projectPanel).getByText(/Projet sur infarctus du myocarde/)).toBeInTheDocument();

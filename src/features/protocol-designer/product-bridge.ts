@@ -13,12 +13,63 @@ import type {
 } from "../research-project-construction/contribution-owner-boundary.js";
 import {
   buildProjectContextSnapshot,
+  canonicalProjectObjectType,
   ensureCanonicalProjectState,
 } from "../research-project-construction/canonical-project-backbone.js";
 
 export const PRODUCT_BRIDGE_API_VERSION = "1.0.0" as const;
 export const PRODUCT_BRIDGE_MODEL = "gemini-3.5-flash-lite" as const;
 export const PERSISTENT_PROJECT_DELTA_CONTRACT = "PERSISTENT_PROJECT_DELTA_CANDIDATE" as const;
+
+export const PERSISTENT_PROJECT_OBJECT_TYPES = [
+  "SCIENTIFIC_QUESTION",
+  "OBJECTIVE",
+  "HYPOTHESIS",
+  "CONDITION",
+  "POPULATION",
+  "ELIGIBILITY_CRITERION",
+  "STUDY_DESIGN",
+  "INTERVENTION",
+  "COMPARATOR",
+  "ENDPOINT",
+  "CANONICAL_VARIABLE",
+  "IMAGING_MODALITY",
+  "ACQUISITION",
+  "VISIT",
+  "CONSTRAINT",
+  "ANALYSIS_SPECIFICATION",
+  "DATA_NEED",
+  "UNCERTAINTY",
+] as const;
+
+/**
+ * Roles that the current canonical Project runtime can preserve without
+ * confusing an object's semantic type with a source-grounded study role.
+ * Absence of a role is represented by omission at the provider boundary.
+ */
+export const PERSISTENT_PROJECT_STUDY_ROLES = [
+  "SUBJECT",
+  "INTERVENTION_ARM",
+  "COMPARATOR_ARM",
+  "REFERENCE_STANDARD",
+  "MEASUREMENT",
+  "OUTCOME_ROLE",
+  "PRIMARY_REFERENCE_ARM",
+  "PRIMARY_ENDPOINT",
+] as const;
+
+/**
+ * Relations that the current Project delta compiler can preserve with endpoint
+ * semantics derived from PD-003 V2 (plus the retained V1 design comparison).
+ * EXPECTED_AT is intentionally carried by its dedicated typed contract.
+ */
+export const PERSISTENT_PROJECT_RELATION_TYPES = [
+  "COMPARES_WITH",
+  "COMPARED_WITH",
+  "MOTIVATES_DATA_NEED",
+  "COVERS_DATA_NEED",
+  "OPERATIONALIZES",
+] as const;
 
 /**
  * Product form of the instruction validated by ARCH-CONV-03V. The experimental
@@ -47,11 +98,17 @@ Lorsqu'une formulation reste scientifiquement elliptique, cherche d'abord quelle
 
 Tu peux comprendre, reformuler ou proposer une modification. Tu ne dois jamais dire qu'une modification du Research Project a été effectuée, enregistrée ou adoptée si le contexte ne confirme pas qu'une décision humaine et une mise à jour du Project ont réellement eu lieu. Utilise par exemple « je comprends que vous souhaitez… », « je retiens comme proposition… » ou « on peut modifier… », et non « j'ai modifié… » ou « je fais la modification… » si aucune adoption n'est démontrée.
 
+Reste concis dans l'échange nominal : deux à cinq phrases, sans accueil répété, sans résumé complet du projet et sans phrase de remplissage. Pose au plus une question principale. Une réponse plus longue est réservée à une explication demandée, une comparaison d'options, un risque important ou un résultat spécialisé nécessitant du contexte.
+
+Lorsque NOXIA te fournit explicitement un besoin QRY après une adoption Project, ne choisis pas un autre besoin scientifique. Formule ce besoin comme une continuation courte et naturelle. Si l'utilisateur change de sujet, suis son sujet sans répéter mécaniquement la question précédente.
+
 Pas de JSON. Pas de labels internes. Pas de description de l'architecture NOXIA. Réponds directement à l'utilisateur.`;
 
 export const PERSISTENT_DELTA_SYSTEM_INSTRUCTION = `Tu extrais uniquement les conséquences scientifiques persistantes candidates pour le Research Project.
 
 Le DERNIER MESSAGE UTILISATEUR est la source de l'assertion ou de l'adoption. Le Project adopté sert seulement à résoudre une référence, une correction ou un doublon. Les propositions récentes de NOXIA ne peuvent devenir une source scientifique que si le dernier message utilisateur les accepte explicitement ; conserve alors séparément le texte de la proposition et le texte de l'adoption.
+
+Le Project Context Snapshot est une mémoire en lecture seule. Son tableau objects est l'inventaire exclusif des identifiants Project stables utilisables. Le contenu d'un objet Project antérieur n'est jamais une preuve du tour utilisateur courant et ne doit jamais être recopié dans sourceText, epistemicStatus ou proposalSourceText comme s'il venait du dernier message.
 
 Ignore la conversation, les demandes d'explication ou de reformulation, les méta-questions, le ton, les pistes plausibles et toute information non explicitement acceptée par l'utilisateur.
 
@@ -59,7 +116,21 @@ Une mention dans une question, une demande d'information, une hypothèse explora
 
 Pour chaque modification durable explicite, propose une opération minimale et un objet scientifique typé. Préserve les rôles, hypothèses, comparaisons, temporalités, négations et relations explicitement formulés.
 
-ADD crée une nouvelle identité scientifique : targetProjectRef doit alors être null. Un objet Project existant seulement utile comme contexte n'est jamais la cible de ADD ; référence-le dans une relation.
+Lis le message entier avant de produire la sortie. Un même tour peut contenir plusieurs faits persistants indépendants : produis toutes leurs modifications atomiques, leurs relations et leurs qualifications temporelles. Ne sélectionne jamais un seul changement principal au détriment des autres faits explicites.
+
+N'aplatis jamais plusieurs identités explicites dans un seul objet. Une comparaison entre une intervention et un comparateur produit deux objets distincts et une relation COMPARES_WITH. Une intervention dont l'identité exacte n'est pas fournie reste explicite comme catégorie et inconnue quant à son identité précise ; n'invente aucun nom, dose, phase, randomisation ou aveugle.
+
+Traite séparément la provenance linguistique et l'état épistémique. EXPLICIT_USER_STATED signifie uniquement que le contenu est ancré dans un fragment utilisateur exact. Cela ne suffit jamais à rendre KNOWN une portée, un référentiel ou un qualificatif non fourni. Pour un contenu explicitement dit mais sous-spécifié, conserve la provenance EXPLICIT_USER_STATED et porte epistemicState = UNKNOWN. N'efface ni le contenu explicite ni l'inconnue.
+
+Conserve un OBJECTIVE séparément d'une CONDITION, d'un ENDPOINT, d'une CANONICAL_VARIABLE et d'une ANALYSIS_SPECIFICATION. Lorsqu'une formulation exprime ce que le projet cherche à démontrer, évaluer, comparer, réduire, augmenter ou faire disparaître, représente ce but comme OBJECTIVE même si le mot « objectif » n'est pas écrit. Préserve séparément la cible ou condition concernée. Un objectif d'efficacité n'est pas une mesure. Un effet ou phénomène visé peut rester à préciser quant à sa définition opérationnelle.
+
+Pour l'imagerie, distingue IMAGING_MODALITY, ACQUISITION et DATA_NEED. Une modalité ou acquisition utilisée pour quantifier ou caractériser quelque chose peut OPERATIONALIZES un DATA_NEED, mais ne crée jamais à elle seule une MeasurementDefinition ni un rôle biomarqueur.
+
+Toute temporalité explicitement exprimée doit être conservée dans temporalQualifications ; ne la résume pas dans content et ne la supprime pas lorsque son référentiel manque. Une temporalité exprimée dans le même message qu'un nouvel objet référence le candidateRef de cet objet. Un repère relatif ou abrégé reste une information temporelle explicite : conserve le référentiel UNKNOWN lorsqu'il n'est pas fourni ou reste ambigu.
+
+Pour la population, sépare les dimensions persistantes qui possèdent des identités différentes lorsque le contrat le permet : cohorte ou population, borne d'âge, condition d'inclusion, absence ou exclusion, seuil d'éligibilité. Utilise ELIGIBILITY_CRITERION pour une contrainte d'éligibilité et conserve AMBIGUOUS ou UNKNOWN lorsque la portée exacte d'une absence ou exclusion n'est pas fournie. Ne transforme pas plusieurs critères indépendants en une seule phrase POPULATION.
+
+ADD crée une nouvelle identité scientifique : omets targetProjectRef. Un objet Project existant seulement utile comme contexte n'est jamais la cible de ADD ; référence-le dans une relation. REPLACE et REMOVE exigent au contraire targetProjectRef. N'émets jamais les chaînes sentinelles "null", "none", "N/A" ou "undefined".
 
 Une temporalité portant sur un objet Project existant n'est jamais un nouvel objet autonome. Utilise temporalQualifications avec l'identifiant stable de l'objet porteur, un rôle temporel typé et un anchor structuré. Pour « l'IRM sera réalisée entre J3 et J5 » sur une Acquisition IRM existante, propose ACQUISITION_TIME avec une fenêtre J3–J5 ; si le référentiel de J0 n'est pas fourni, conserve reference.status = UNKNOWN et n'invente aucune relation ANCHORED_TO.
 
@@ -67,9 +138,11 @@ Une occasion attendue de mesure utilise expectedVariableOccasions et référence
 
 REPLACE et REMOVE modifient l'objet existant désigné par targetProjectRef, qui doit être l'identifiant stable exact fourni dans les objets canoniques du Project. Une section ou un libellé n'est qu'une projection et ne remplace jamais cet identifiant stable.
 
-Un changement de rôle scientifique ne remplace pas l'identité scientifique. Si l'utilisateur désigne un nouveau critère principal, conserve les objets distincts : retire explicitement le rôle principal de l'ancien objet avec REPLACE et studyRole null, puis attribue PRIMARY_ENDPOINT au nouvel objet par REPLACE s'il existe déjà ou ADD s'il est réellement nouveau. Ne déduis pas un rôle secondaire non formulé.
+N'émets REPLACE ou REMOVE que lorsque le DERNIER MESSAGE UTILISATEUR autorise réellement la correction, le remplacement ou le retrait de cette identité Project. sourceText doit alors être le fragment exact de ce dernier message qui autorise la mutation ; l'ancien contenu est retrouvé via targetProjectRef et ne devient jamais la source courante. Une précision, un enrichissement ou un fait plus spécifique n'autorise pas à lui seul le retrait, le remplacement ou la supersession d'un contenu antérieur. Conserve les deux candidats si leur articulation reste ouverte.
 
-Une relation référence uniquement un objet candidat de cette même sortie ou un identifiant stable du Project fourni. Une information inchangée déjà présente n'est pas une modification. Si aucune conséquence persistante explicite n'existe, retourne des listes vides.
+Un changement de rôle scientifique ne remplace pas l'identité scientifique. studyRole est indépendant de proposedType. Omets studyRole lorsqu'aucun rôle n'est explicitement établi par le dernier message ou déjà adopté sur l'objet Project référencé. Ne remplis jamais ce champ seulement parce qu'il existe. N'attribue jamais PRIMARY_INTERVENTION ou PRIMARY_OBJECTIVE : ces rôles ne font pas partie du contrat Project courant. Si l'utilisateur désigne explicitement un nouveau critère principal, conserve les objets distincts : retire le rôle principal de l'ancien objet avec REPLACE et studyRole explicitement nul dans le contrat local, puis attribue PRIMARY_ENDPOINT au nouvel objet par REPLACE s'il existe déjà ou ADD s'il est réellement nouveau. Ne déduis aucun rôle secondaire non formulé.
+
+Une relation utilise uniquement un relationType admis par le contrat, un candidateRef déclaré dans changes de cette même sortie ou un stableId présent dans objects du Project Context Snapshot. N'invente jamais un identifiant, et n'utilise jamais un label, un contenu ou un sectionId comme référence. Si une relation optionnelle ne possède pas deux extrémités résolubles et compatibles, omets-la au lieu de fabriquer une extrémité. Une information inchangée déjà présente n'est pas une modification. Si aucune conséquence persistante explicite n'existe, retourne des listes vides.
 
 Ne complète pas la science. Ne crée pas de rôle scientifique non formulé. Ne décide pas pour l'utilisateur. N'applique jamais le Project.`;
 
@@ -88,14 +161,19 @@ export const persistentProjectDeltaChangeSchema = z.object({
   operation: z.enum(["ADD", "REMOVE", "REPLACE"]),
   sourceText: z.string().min(1).max(4_000),
   targetSectionId: z.enum(PROJECT_SECTION_IDS).optional(),
-  targetProjectRef: z.string().min(1).nullable(),
+  targetProjectRef: z.string().min(1).nullable().optional(),
   content: z.string().min(1).max(4_000),
   candidateRef: z.string().min(1).max(300).optional(),
   semanticIdentity: z.string().min(1).max(300).nullable().optional(),
+  // Keep historical Level-3 payloads readable locally; the live provider is
+  // bounded to PERSISTENT_PROJECT_OBJECT_TYPES by its function declaration.
   proposedType: z.string().min(1).max(120).optional(),
   polarity: z.enum(["AFFIRMED", "NEGATED", "UNKNOWN"]).optional(),
+  // Keep historical Level-3 owner payloads readable locally. The live Gemini
+  // boundary is separately checked against PERSISTENT_PROJECT_STUDY_ROLES.
   studyRole: z.string().min(1).max(120).nullable().optional(),
   epistemicStatus: z.enum(["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"]).optional(),
+  epistemicState: z.enum(["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"]).optional(),
   assertionKind: z.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]).optional(),
   proposalSourceText: z.string().min(1).max(4_000).nullable().optional(),
   evidenceRefs: z.array(z.string().min(1).max(500)).max(20).optional(),
@@ -109,8 +187,9 @@ export const persistentProjectRelationSchema = z.object({
   targetObjectRef: z.string().min(1).max(300),
   polarity: z.enum(["AFFIRMED", "NEGATED", "UNKNOWN"]),
   epistemicStatus: z.enum(["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"]),
+  epistemicState: z.enum(["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"]).optional(),
   assertionKind: z.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
-  proposalSourceText: z.string().min(1).max(4_000).nullable(),
+  proposalSourceText: z.string().min(1).max(4_000).nullable().optional(),
   evidenceRefs: z.array(z.string().min(1).max(500)).max(20),
 }).strict();
 
@@ -141,7 +220,7 @@ export const persistentTemporalQualificationSchema = z.object({
   temporalRole: z.enum(["ACQUISITION_TIME", "COLLECTION_TIME", "PROCESSING_TIME", "TRANSFORMATION_TIME", "ANALYSIS_TIME"]),
   anchor: persistentTemporalAnchorSchema.nullable(),
   assertionKind: z.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
-  proposalSourceText: z.string().min(1).max(4_000).nullable(),
+  proposalSourceText: z.string().min(1).max(4_000).nullable().optional(),
   evidenceRefs: z.array(z.string().min(1).max(500)).max(20),
 }).strict();
 
@@ -151,10 +230,10 @@ export const persistentExpectedVariableOccasionSchema = z.object({
   sourceText: z.string().min(1).max(4_000),
   variableProjectRef: z.string().min(1).max(300),
   anchor: persistentTemporalAnchorSchema.nullable(),
-  studyUnitOrGroupRef: z.string().min(1).max(300).nullable(),
-  applicableContext: z.string().min(1).max(1_000).nullable(),
+  studyUnitOrGroupRef: z.string().min(1).max(300).nullable().optional(),
+  applicableContext: z.string().min(1).max(1_000).nullable().optional(),
   assertionKind: z.enum(["USER_STATED", "USER_ADOPTED_PROPOSAL", "OWNER_SUPPORTED"]),
-  proposalSourceText: z.string().min(1).max(4_000).nullable(),
+  proposalSourceText: z.string().min(1).max(4_000).nullable().optional(),
   evidenceRefs: z.array(z.string().min(1).max(500)).max(20),
 }).strict();
 
@@ -165,18 +244,80 @@ export const persistentProjectDeltaSchema = z.object({
   expectedVariableOccasions: z.array(persistentExpectedVariableOccasionSchema).max(30).default([]),
 }).strict();
 
+const TEXTUAL_NULL_SENTINELS = new Set(["null", "none", "n/a", "undefined"]);
+
+export type PersistentProviderContractValidation = {
+  valid: boolean;
+  blocks: string[];
+};
+
+/**
+ * Checks the exact live-provider wire contract without narrowing historical
+ * Level-3 fixtures or native owner payloads that legitimately use other role
+ * vocabularies. This is a structural boundary only; it performs no linguistic
+ * or scientific repair.
+ */
+export const validatePersistentProviderContract = (value: unknown): PersistentProviderContractValidation => {
+  const parsed = persistentProjectDeltaSchema.safeParse(value);
+  if (!parsed.success) return {
+    valid: false,
+    blocks: parsed.error.issues.map((issue) => `PROVIDER_SCHEMA:${issue.path.join(".")}:${issue.code}`),
+  };
+
+  const blocks: string[] = [];
+  parsed.data.changes.forEach((change, index) => {
+    const target = typeof change.targetProjectRef === "string" ? change.targetProjectRef.trim().toLocaleLowerCase("en-US") : null;
+    if (target && TEXTUAL_NULL_SENTINELS.has(target)) blocks.push(`change:${index}:TARGET_PROJECT_REF_SENTINEL_FORBIDDEN`);
+    if (change.targetProjectRef === null) blocks.push(`change:${index}:TARGET_PROJECT_REF_NULL_MUST_BE_OMITTED`);
+
+    const role = typeof change.studyRole === "string" ? change.studyRole.trim() : null;
+    if (role && TEXTUAL_NULL_SENTINELS.has(role.toLocaleLowerCase("en-US"))) blocks.push(`change:${index}:STUDY_ROLE_SENTINEL_FORBIDDEN`);
+    if (role && !PERSISTENT_PROJECT_STUDY_ROLES.includes(role as (typeof PERSISTENT_PROJECT_STUDY_ROLES)[number])) {
+      blocks.push(`change:${index}:STUDY_ROLE_OUTSIDE_PROVIDER_VOCABULARY`);
+    }
+  });
+  parsed.data.relations.forEach((relation, index) => {
+    if (!PERSISTENT_PROJECT_RELATION_TYPES.includes(relation.relationType as (typeof PERSISTENT_PROJECT_RELATION_TYPES)[number])) {
+      blocks.push(`relation:${index}:RELATION_TYPE_OUTSIDE_PROVIDER_VOCABULARY`);
+    }
+  });
+  return { valid: blocks.length === 0, blocks };
+};
+
 export type PersistentProjectDeltaChange = z.infer<typeof persistentProjectDeltaChangeSchema>;
 export type PersistentProjectRelation = z.infer<typeof persistentProjectRelationSchema>;
 export type PersistentTemporalQualification = z.infer<typeof persistentTemporalQualificationSchema>;
 export type PersistentExpectedVariableOccasion = z.infer<typeof persistentExpectedVariableOccasionSchema>;
+export type PersistentProjectDeltaWireCandidate = z.infer<typeof persistentProjectDeltaSchema>;
 export type PersistentProjectDeltaCandidate = {
   contract: typeof PERSISTENT_PROJECT_DELTA_CONTRACT;
-  contractVersion: "0.3.0";
+  contractVersion: "0.4.0";
   projectWriteAuthorized: false;
   changes: PersistentProjectDeltaChange[];
   relations: PersistentProjectRelation[];
   temporalQualifications: PersistentTemporalQualification[];
   expectedVariableOccasions: PersistentExpectedVariableOccasion[];
+};
+
+export type PersistentExtractionProviderArtifact = {
+  artifactRef: string;
+  requestTurnRef: string;
+  provider: "GOOGLE_GEMINI";
+  model: typeof PRODUCT_BRIDGE_MODEL;
+  functionName: "propose_persistent_project_delta";
+  receivedAt: string;
+  providerResponseId: string | null;
+  structuredArgsExact: unknown;
+  structuredArgsSerialized: string;
+  structuredArgsDigest: string;
+};
+
+export type PersistentDeltaNormalization = {
+  code: "IMAGING_MODALITY_TEMPORAL_SUBJECT_NORMALIZED_TO_ACQUISITION";
+  sourceCandidateRef: string;
+  fromObjectType: "IMAGING_MODALITY";
+  toObjectType: "ACQUISITION";
+  reason: "ACQUISITION_TIME_SUBJECT";
 };
 
 export type PersistentDeltaValidation = {
@@ -187,6 +328,7 @@ export type PersistentDeltaValidation = {
   acceptedExpectedVariableOccasions: PersistentExpectedVariableOccasion[];
   blocks: string[];
   noOps: string[];
+  normalizations: PersistentDeltaNormalization[];
 };
 
 export type ProductBridgeRequest = {
@@ -194,6 +336,7 @@ export type ProductBridgeRequest = {
   conversation: ScientificInterpretationConversation;
   currentProject: ResearchProjectOwnerProjection | null;
   evaluatePersistentDelta: boolean;
+  requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
 };
 
 export type ProductBridgeResponse = {
@@ -203,6 +346,8 @@ export type ProductBridgeResponse = {
   persistentExtraction: {
     called: boolean;
     status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
+    providerArtifact: PersistentExtractionProviderArtifact | null;
+    wireCandidate: PersistentProjectDeltaWireCandidate | null;
     candidate: PersistentProjectDeltaCandidate | null;
     validation: PersistentDeltaValidation | null;
     contribution: ScientificInterpretationContributionEnvelope | null;
@@ -221,7 +366,7 @@ const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase(
 
 const projectElements = (project: ResearchProjectOwnerProjection | null) => project
   ? ensureCanonicalProjectState(project).objects
-    .filter((object) => object.actuality === "CURRENT" && object.sectionId !== "QUESTION")
+    .filter((object) => object.actuality === "CURRENT")
     .map((object) => ({
       sectionId: object.sectionId,
       element: {
@@ -238,9 +383,10 @@ export const validatePersistentProjectDelta = (
   rawUserTurn: string,
   project: ResearchProjectOwnerProjection | null,
   conversation?: ScientificInterpretationConversation,
-): { candidate: PersistentProjectDeltaCandidate | null; validation: PersistentDeltaValidation } => {
+): { wireCandidate: z.infer<typeof persistentProjectDeltaSchema> | null; candidate: PersistentProjectDeltaCandidate | null; validation: PersistentDeltaValidation } => {
   const parsed = persistentProjectDeltaSchema.safeParse(value);
   if (!parsed.success) return {
+    wireCandidate: null,
     candidate: null,
     validation: {
       valid: false,
@@ -250,6 +396,7 @@ export const validatePersistentProjectDelta = (
       acceptedExpectedVariableOccasions: [],
       blocks: ["PERSISTENT_DELTA_CONTRACT_INVALID"],
       noOps: [],
+      normalizations: [],
     },
   };
 
@@ -261,6 +408,7 @@ export const validatePersistentProjectDelta = (
   const acceptedExpectedVariableOccasions: PersistentExpectedVariableOccasion[] = [];
   const blocks: string[] = [];
   const noOps: string[] = [];
+  const normalizations: PersistentDeltaNormalization[] = [];
   const signatures = new Set<string>();
   const candidateRefs = new Set<string>();
   const recentAssistantText = (conversation?.turns ?? []).filter((turn) => turn.role === "NOXIA");
@@ -302,7 +450,7 @@ export const validatePersistentProjectDelta = (
     const target = change.targetProjectRef
       ? elements.find(({ element }) => element.elementId === change.targetProjectRef)
       : null;
-    if (change.operation === "ADD" && change.targetProjectRef !== null) {
+    if (change.operation === "ADD" && change.targetProjectRef != null) {
       blocks.push(`${prefix}:ADD_MUST_NOT_TARGET_EXISTING_REF`);
       return;
     }
@@ -343,10 +491,67 @@ export const validatePersistentProjectDelta = (
     acceptedChanges.push(change);
   });
 
+  // The wire contract may express “IRM à M3” as a modality carrying an
+  // AcquisitionTime. Preserve the exact wire artifact, but normalize that
+  // same-turn candidate to the canonical object capable of carrying the role.
+  // This rule is structural only: it does not inspect French or create a fact
+  // absent from the provider proposal.
+  const acquisitionTimeSubjectRefs = new Set(parsed.data.temporalQualifications
+    .filter((qualification) => qualification.temporalRole === "ACQUISITION_TIME")
+    .map((qualification) => qualification.subjectProjectRef));
+  const normalizedChanges = acceptedChanges.map((change) => {
+    if (change.operation !== "ADD") return change;
+    const matchingRef = [change.candidateRef, change.semanticIdentity]
+      .find((ref): ref is string => Boolean(ref && acquisitionTimeSubjectRefs.has(ref)));
+    if (!matchingRef || canonicalProjectObjectType({
+      proposedType: change.proposedType ?? null,
+      studyRole: change.studyRole ?? null,
+    }) !== "IMAGING_MODALITY") return change;
+    normalizations.push({
+      code: "IMAGING_MODALITY_TEMPORAL_SUBJECT_NORMALIZED_TO_ACQUISITION",
+      sourceCandidateRef: matchingRef,
+      fromObjectType: "IMAGING_MODALITY",
+      toObjectType: "ACQUISITION",
+      reason: "ACQUISITION_TIME_SUBJECT",
+    });
+    return { ...change, proposedType: "ACQUISITION" };
+  });
+
   const allowedObjectRefs = new Set([
     ...elements.map(({ element }) => element.elementId),
-    ...acceptedChanges.flatMap((change) => [change.candidateRef, change.semanticIdentity, change.targetProjectRef].filter((ref): ref is string => Boolean(ref))),
+    ...normalizedChanges.flatMap((change) => [change.candidateRef, change.semanticIdentity, change.targetProjectRef].filter((ref): ref is string => Boolean(ref))),
   ]);
+  const currentObjectType = new Map(canonicalState?.objects
+    .filter((object) => object.actuality === "CURRENT")
+    .map((object) => [object.objectId, object.objectType] as const) ?? []);
+  const knownObjectType = new Map(currentObjectType);
+  for (const change of normalizedChanges) {
+    if (change.operation === "REMOVE") continue;
+    const candidateType = canonicalProjectObjectType({
+      proposedType: change.proposedType ?? null,
+      studyRole: change.studyRole ?? null,
+    });
+    for (const ref of [change.candidateRef, change.semanticIdentity].filter((value): value is string => Boolean(value))) {
+      knownObjectType.set(ref, candidateType);
+    }
+  }
+  const relationEndpointsCompatible = (relationType: string, sourceRef: string, targetRef: string) => {
+    const sourceType = knownObjectType.get(sourceRef);
+    const targetType = knownObjectType.get(targetRef);
+    if (!sourceType || !targetType) return false;
+    if (relationType === "COMPARES_WITH" || relationType === "COMPARED_WITH") {
+      const comparable = new Set(["INTERVENTION_OR_EXPOSURE", "GROUP"]);
+      return comparable.has(sourceType) && comparable.has(targetType);
+    }
+    if (relationType === "MOTIVATES_DATA_NEED") {
+      return ["SCIENTIFIC_QUESTION", "OBJECTIVE", "HYPOTHESIS"].includes(sourceType) && targetType === "DATA_NEED";
+    }
+    if (relationType === "COVERS_DATA_NEED") return sourceType === "CANONICAL_VARIABLE" && targetType === "DATA_NEED";
+    if (relationType === "OPERATIONALIZES") {
+      return ["CANONICAL_VARIABLE", "ACQUISITION"].includes(sourceType) && targetType === "DATA_NEED";
+    }
+    return false;
+  };
   (parsed.data.relations ?? []).forEach((relation, index) => {
     const prefix = `relation:${index}`;
     if (!rawUserTurn.includes(relation.sourceText)) {
@@ -354,9 +559,17 @@ export const validatePersistentProjectDelta = (
       return;
     }
     if (!validateAssertion({ prefix, assertionKind: relation.assertionKind, proposalSourceText: relation.proposalSourceText, evidenceRefs: relation.evidenceRefs })) return;
+    if (!PERSISTENT_PROJECT_RELATION_TYPES.includes(relation.relationType as (typeof PERSISTENT_PROJECT_RELATION_TYPES)[number])) {
+      blocks.push(`${prefix}:RELATION_TYPE_OUTSIDE_PROVIDER_VOCABULARY`);
+      return;
+    }
     const missing = [relation.sourceObjectRef, relation.targetObjectRef].filter((ref) => !allowedObjectRefs.has(ref));
     if (missing.length) {
       blocks.push(`${prefix}:PROJECT_RELATION_ENDPOINT_INVALID`);
+      return;
+    }
+    if (!relationEndpointsCompatible(relation.relationType, relation.sourceObjectRef, relation.targetObjectRef)) {
+      blocks.push(`${prefix}:PROJECT_RELATION_ENDPOINT_TYPE_MISMATCH`);
       return;
     }
     const signature = `${relation.relationType}:${relation.sourceObjectRef}:${relation.targetObjectRef}:${relation.polarity}`;
@@ -368,9 +581,6 @@ export const validatePersistentProjectDelta = (
     acceptedRelations.push(relation);
   });
 
-  const currentObjectType = new Map(canonicalState?.objects
-    .filter((object) => object.actuality === "CURRENT")
-    .map((object) => [object.objectId, object.objectType] as const) ?? []);
   const currentTemporalQualifications = canonicalState?.temporalQualifications.filter((item) => item.actuality === "CURRENT") ?? [];
   const currentExpectedOccasions = canonicalState?.expectedVariableOccasions.filter((item) => item.actuality === "CURRENT") ?? [];
 
@@ -388,7 +598,7 @@ export const validatePersistentProjectDelta = (
       blocks.push(`${prefix}:TEMPORAL_ANCHOR_OFFSET_REQUIRED`);
       return false;
     }
-    if (anchor.reference.status === "KNOWN" && !currentObjectType.has(anchor.reference.referenceProjectRef)) {
+    if (anchor.reference.status === "KNOWN" && !knownObjectType.has(anchor.reference.referenceProjectRef)) {
       blocks.push(`${prefix}:TEMPORAL_REFERENCE_INVALID`);
       return false;
     }
@@ -402,7 +612,7 @@ export const validatePersistentProjectDelta = (
       return;
     }
     if (!validateAssertion({ prefix, assertionKind: qualification.assertionKind, proposalSourceText: qualification.proposalSourceText, evidenceRefs: qualification.evidenceRefs })) return;
-    const subjectType = currentObjectType.get(qualification.subjectProjectRef);
+    const subjectType = knownObjectType.get(qualification.subjectProjectRef);
     if (!subjectType) {
       blocks.push(`${prefix}:PROJECT_REF_INVALID`);
       return;
@@ -443,11 +653,11 @@ export const validatePersistentProjectDelta = (
       return;
     }
     if (!validateAssertion({ prefix, assertionKind: occasion.assertionKind, proposalSourceText: occasion.proposalSourceText, evidenceRefs: occasion.evidenceRefs })) return;
-    if (currentObjectType.get(occasion.variableProjectRef) !== "CANONICAL_VARIABLE") {
+    if (knownObjectType.get(occasion.variableProjectRef) !== "CANONICAL_VARIABLE") {
       blocks.push(`${prefix}:EXPECTED_AT_SOURCE_NOT_CANONICAL_VARIABLE`);
       return;
     }
-    if (occasion.studyUnitOrGroupRef && !currentObjectType.has(occasion.studyUnitOrGroupRef)) {
+    if (occasion.studyUnitOrGroupRef && !knownObjectType.has(occasion.studyUnitOrGroupRef)) {
       blocks.push(`${prefix}:EXPECTED_OCCASION_CONTEXT_REF_INVALID`);
       return;
     }
@@ -474,19 +684,21 @@ export const validatePersistentProjectDelta = (
 
   const validation = {
     valid: blocks.length === 0,
-    acceptedChanges,
+    acceptedChanges: normalizedChanges,
     acceptedRelations,
     acceptedTemporalQualifications,
     acceptedExpectedVariableOccasions,
     blocks,
     noOps,
+    normalizations,
   };
   return {
+    wireCandidate: parsed.data,
     candidate: blocks.length ? null : {
       contract: PERSISTENT_PROJECT_DELTA_CONTRACT,
-      contractVersion: "0.3.0",
+      contractVersion: "0.4.0",
       projectWriteAuthorized: false,
-      changes: acceptedChanges,
+      changes: normalizedChanges,
       relations: acceptedRelations,
       temporalQualifications: acceptedTemporalQualifications,
       expectedVariableOccasions: acceptedExpectedVariableOccasions,
@@ -532,6 +744,7 @@ const itemFromChange = (input: {
     evidenceRefs: [...(input.change.evidenceRefs ?? [])],
     epistemicBoundary: {
       ownership: assertionKind === "USER_ADOPTED_PROPOSAL" ? "NOXIA" : assertionKind === "OWNER_SUPPORTED" ? "OWNER" : "USER",
+      epistemicState: input.change.epistemicState ?? null,
       epistemicStatus: assertionKind === "USER_ADOPTED_PROPOSAL"
         ? "CONFIRMED_BY_USER"
         : assertionKind === "OWNER_SUPPORTED"
@@ -565,6 +778,7 @@ const relationFromPersistentCandidate = (input: {
     evidenceRefs: [...input.relation.evidenceRefs],
     epistemicBoundary: {
       ownership: input.relation.assertionKind === "USER_ADOPTED_PROPOSAL" ? "NOXIA" : input.relation.assertionKind === "OWNER_SUPPORTED" ? "OWNER" : "USER",
+      epistemicState: input.relation.epistemicState ?? null,
       epistemicStatus: input.relation.assertionKind === "USER_ADOPTED_PROPOSAL"
         ? "CONFIRMED_BY_USER"
         : input.relation.assertionKind === "OWNER_SUPPORTED"
@@ -613,6 +827,7 @@ export const contributionFromPersistentDelta = (input: {
   candidate: PersistentProjectDeltaCandidate;
   conversation: ScientificInterpretationConversation;
   currentProject: ResearchProjectOwnerProjection | null;
+  providerArtifact?: PersistentExtractionProviderArtifact | null;
   createdAt?: string;
 }): ScientificInterpretationContributionEnvelope | null => {
   if (!input.candidate.changes.length
@@ -650,7 +865,7 @@ export const contributionFromPersistentDelta = (input: {
       previousContributionId: input.currentProject?.contributionRef ?? null,
       contractVersion: "1.0.0",
       runtimeId: "MINIMAL_PRODUCT_BRIDGE_PERSISTENT_DELTA",
-      runtimeVersion: "0.3.0",
+      runtimeVersion: "0.4.0",
       createdAt,
       contributionDigest,
     },
@@ -663,8 +878,8 @@ export const contributionFromPersistentDelta = (input: {
         ...items.flatMap((item) => item.epistemicBoundary.sourceTurnIds),
         ...relations.flatMap((relation) => relation.epistemicBoundary.sourceTurnIds),
       ])],
-      rawOutputRef: null,
-      rawOutputDigest: null,
+      rawOutputRef: input.providerArtifact?.artifactRef ?? null,
+      rawOutputDigest: input.providerArtifact?.structuredArgsDigest ?? null,
     },
     runtimeEvidence: {
       provider: "GOOGLE_GEMINI",
@@ -759,6 +974,7 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
   const record = value as Partial<ProductBridgeRequest>;
   if (record.apiVersion !== PRODUCT_BRIDGE_API_VERSION
     || typeof record.evaluatePersistentDelta !== "boolean"
+    || (record.requestKind !== undefined && !["USER_TURN", "POST_ADOPTION_QRY_CONTINUATION"].includes(record.requestKind))
     || !record.conversation
     || typeof record.conversation.conversationId !== "string"
     || !["fr", "en"].includes(record.conversation.language)

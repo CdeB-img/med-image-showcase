@@ -1,0 +1,840 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R2_RECONSTRUCTED_ADJUDICATION",
+  "contractVersion": "1.0.0",
+  "diagnosticRunId": "PROJECT-HANDS-ON-02R2-MOCK-001",
+  "sourceExactEvidencePath": "project-hands-on-02r2-mock-001-provider-exact.json",
+  "sourceExactEvidenceDigest": "ke1-daa149ae319e996a",
+  "reconstructedAfterPersistence": true,
+  "wireCandidate": {
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "traitement",
+        "targetProjectRef": null,
+        "content": "traitement",
+        "candidateRef": "mock:intervention",
+        "semanticIdentity": "mock:intervention",
+        "proposedType": "INTERVENTION",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "contrôle",
+        "targetProjectRef": null,
+        "content": "contrôle",
+        "candidateRef": "mock:comparator",
+        "semanticIdentity": "mock:comparator",
+        "proposedType": "COMPARATOR",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "acquisition par modalité M",
+        "targetProjectRef": null,
+        "content": "acquisition par modalité M",
+        "candidateRef": "mock:acquisition",
+        "semanticIdentity": "mock:acquisition",
+        "proposedType": "ACQUISITION",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [
+      {
+        "relationRef": "mock:comparison",
+        "sourceText": "traitement est comparé au contrôle",
+        "relationType": "COMPARES_WITH",
+        "sourceObjectRef": "mock:intervention",
+        "targetObjectRef": "mock:comparator",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "temporalQualifications": [
+      {
+        "operation": "ADD",
+        "qualificationId": "mock:timing",
+        "sourceText": "T3",
+        "subjectProjectRef": "mock:acquisition",
+        "temporalRole": "ACQUISITION_TIME",
+        "anchor": {
+          "kind": "TIMEPOINT",
+          "direction": "AT",
+          "unit": "MONTH",
+          "offset": 3,
+          "lowerBound": null,
+          "upperBound": null,
+          "relativeEventLabel": null,
+          "tolerance": null,
+          "reference": {
+            "status": "UNKNOWN",
+            "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+          }
+        },
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "expectedVariableOccasions": []
+  },
+  "normalizedCandidate": {
+    "contract": "PERSISTENT_PROJECT_DELTA_CANDIDATE",
+    "contractVersion": "0.3.0",
+    "projectWriteAuthorized": false,
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "traitement",
+        "targetProjectRef": null,
+        "content": "traitement",
+        "candidateRef": "mock:intervention",
+        "semanticIdentity": "mock:intervention",
+        "proposedType": "INTERVENTION",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "contrôle",
+        "targetProjectRef": null,
+        "content": "contrôle",
+        "candidateRef": "mock:comparator",
+        "semanticIdentity": "mock:comparator",
+        "proposedType": "COMPARATOR",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "acquisition par modalité M",
+        "targetProjectRef": null,
+        "content": "acquisition par modalité M",
+        "candidateRef": "mock:acquisition",
+        "semanticIdentity": "mock:acquisition",
+        "proposedType": "ACQUISITION",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [
+      {
+        "relationRef": "mock:comparison",
+        "sourceText": "traitement est comparé au contrôle",
+        "relationType": "COMPARES_WITH",
+        "sourceObjectRef": "mock:intervention",
+        "targetObjectRef": "mock:comparator",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "temporalQualifications": [
+      {
+        "operation": "ADD",
+        "qualificationId": "mock:timing",
+        "sourceText": "T3",
+        "subjectProjectRef": "mock:acquisition",
+        "temporalRole": "ACQUISITION_TIME",
+        "anchor": {
+          "kind": "TIMEPOINT",
+          "direction": "AT",
+          "unit": "MONTH",
+          "offset": 3,
+          "lowerBound": null,
+          "upperBound": null,
+          "relativeEventLabel": null,
+          "tolerance": null,
+          "reference": {
+            "status": "UNKNOWN",
+            "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+          }
+        },
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "expectedVariableOccasions": []
+  },
+  "validation": {
+    "valid": true,
+    "acceptedChanges": [
+      {
+        "operation": "ADD",
+        "sourceText": "traitement",
+        "targetProjectRef": null,
+        "content": "traitement",
+        "candidateRef": "mock:intervention",
+        "semanticIdentity": "mock:intervention",
+        "proposedType": "INTERVENTION",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "contrôle",
+        "targetProjectRef": null,
+        "content": "contrôle",
+        "candidateRef": "mock:comparator",
+        "semanticIdentity": "mock:comparator",
+        "proposedType": "COMPARATOR",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "acquisition par modalité M",
+        "targetProjectRef": null,
+        "content": "acquisition par modalité M",
+        "candidateRef": "mock:acquisition",
+        "semanticIdentity": "mock:acquisition",
+        "proposedType": "ACQUISITION",
+        "polarity": "AFFIRMED",
+        "studyRole": null,
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedRelations": [
+      {
+        "relationRef": "mock:comparison",
+        "sourceText": "traitement est comparé au contrôle",
+        "relationType": "COMPARES_WITH",
+        "sourceObjectRef": "mock:intervention",
+        "targetObjectRef": "mock:comparator",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedTemporalQualifications": [
+      {
+        "operation": "ADD",
+        "qualificationId": "mock:timing",
+        "sourceText": "T3",
+        "subjectProjectRef": "mock:acquisition",
+        "temporalRole": "ACQUISITION_TIME",
+        "anchor": {
+          "kind": "TIMEPOINT",
+          "direction": "AT",
+          "unit": "MONTH",
+          "offset": 3,
+          "lowerBound": null,
+          "upperBound": null,
+          "relativeEventLabel": null,
+          "tolerance": null,
+          "reference": {
+            "status": "UNKNOWN",
+            "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+          }
+        },
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": null,
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedExpectedVariableOccasions": [],
+    "blocks": [],
+    "noOps": [],
+    "normalizations": []
+  },
+  "canonicalProjectChangeSet": {
+    "contract": "PRJ001_CANONICAL_PROJECT_CHANGESET",
+    "contractVersion": "0.2.0",
+    "sourceContributionRef": "persistent-project-contribution:ke1-1f1fe8e04ed5e524",
+    "baseProjectVersion": null,
+    "status": "READY_FOR_HUMAN_DECISION",
+    "objectChanges": [
+      {
+        "changeRef": "contribution-project-change:ke1-bf4986daa763dd36",
+        "operation": "ADD",
+        "objectId": "mock:intervention",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "mock:intervention",
+          "objectType": "INTERVENTION_OR_EXPOSURE",
+          "sectionId": "INTERVENTION",
+          "content": "traitement",
+          "scientificRole": null,
+          "semanticKey": "INTERVENTION:INTERVENTION_OR_EXPOSURE:mock intervention",
+          "epistemicState": "KNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "traitement",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-1f1fe8e04ed5e524",
+          "sourceItemRefs": [
+            "mock:intervention"
+          ],
+          "projection": {
+            "elementId": "mock:intervention",
+            "semanticKey": "INTERVENTION:intervention:mock intervention",
+            "content": "traitement",
+            "sourceItemIds": [
+              "mock:intervention"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceProposedType": "INTERVENTION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      },
+      {
+        "changeRef": "contribution-project-change:ke1-660b4f5b7ee239ff",
+        "operation": "ADD",
+        "objectId": "mock:comparator",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "mock:comparator",
+          "objectType": "GROUP",
+          "sectionId": "COMPARATOR",
+          "content": "contrôle",
+          "scientificRole": null,
+          "semanticKey": "COMPARATOR:GROUP:mock comparator",
+          "epistemicState": "KNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "contrôle",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-1f1fe8e04ed5e524",
+          "sourceItemRefs": [
+            "mock:comparator"
+          ],
+          "projection": {
+            "elementId": "mock:comparator",
+            "semanticKey": "COMPARATOR:comparator:mock comparator",
+            "content": "contrôle",
+            "sourceItemIds": [
+              "mock:comparator"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceProposedType": "COMPARATOR",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      },
+      {
+        "changeRef": "contribution-project-change:ke1-dba90204dced9268",
+        "operation": "ADD",
+        "objectId": "mock:acquisition",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "mock:acquisition",
+          "objectType": "ACQUISITION",
+          "sectionId": "IMAGING",
+          "content": "acquisition par modalité M",
+          "scientificRole": null,
+          "semanticKey": "IMAGING:ACQUISITION:mock acquisition",
+          "epistemicState": "KNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "acquisition par modalité M",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-1f1fe8e04ed5e524",
+          "sourceItemRefs": [
+            "mock:acquisition"
+          ],
+          "projection": {
+            "elementId": "mock:acquisition",
+            "semanticKey": "IMAGING:acquisition:mock acquisition",
+            "content": "acquisition par modalité M",
+            "sourceItemIds": [
+              "mock:acquisition"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceProposedType": "ACQUISITION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      }
+    ],
+    "relationChanges": [
+      {
+        "changeRef": "relation-change:ke1-333ccc8169193465",
+        "operation": "ADD",
+        "relationId": "mock:comparison",
+        "previousVersionRef": null,
+        "candidate": {
+          "relationId": "mock:comparison",
+          "relationType": "COMPARES_WITH",
+          "sourceObjectRef": "mock:intervention",
+          "targetObjectRef": "mock:comparator",
+          "polarity": "AFFIRMED",
+          "epistemicState": "KNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "traitement est comparé au contrôle",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-1f1fe8e04ed5e524"
+        }
+      }
+    ],
+    "temporalQualificationChanges": [
+      {
+        "changeRef": "temporal-change:ke1-fbb2d1432f0ddd0f",
+        "operation": "ADD",
+        "qualificationId": "mock:timing",
+        "previousVersionRef": null,
+        "candidate": {
+          "qualificationId": "mock:timing",
+          "subjectProjectRef": "mock:acquisition",
+          "temporalRole": "ACQUISITION_TIME",
+          "anchor": {
+            "valueType": "TEMPORAL_ANCHOR_VALUE",
+            "kind": "TIMEPOINT",
+            "direction": "AT",
+            "unit": "MONTH",
+            "offset": 3,
+            "lowerBound": null,
+            "upperBound": null,
+            "relativeEventLabel": null,
+            "tolerance": null,
+            "reference": {
+              "status": "UNKNOWN",
+              "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+            },
+            "provenance": {
+              "sourcePlan": "USER",
+              "assertionKind": "USER_STATED",
+              "sourceTurnRefs": [
+                "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+              ],
+              "sourceText": "T3",
+              "proposalSourceTurnRefs": [],
+              "adoptionSourceTurnRefs": [],
+              "evidenceRefs": [],
+              "evidenceQualification": "NOT_EVALUATED"
+            }
+          },
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "T3",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-1f1fe8e04ed5e524"
+        }
+      }
+    ],
+    "expectedVariableOccasionChanges": [],
+    "legacyTemporalChanges": [],
+    "conflicts": []
+  },
+  "humanReviewProjection": {
+    "contract": "PRJ001_HUMAN_REVIEW_PROJECTION",
+    "contractVersion": "1.0.0",
+    "sourceChangeSetRef": "persistent-project-contribution:ke1-1f1fe8e04ed5e524",
+    "sections": [
+      {
+        "sectionRef": "review-section:intervention",
+        "label": "Intervention",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-bf4986daa763dd36",
+            "changeRef": "contribution-project-change:ke1-bf4986daa763dd36",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "traitement"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:comparateur",
+        "label": "Comparateur",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-660b4f5b7ee239ff",
+            "changeRef": "contribution-project-change:ke1-660b4f5b7ee239ff",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "contrôle"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:imagerie",
+        "label": "Imagerie",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-dba90204dced9268",
+            "changeRef": "contribution-project-change:ke1-dba90204dced9268",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "acquisition par modalité M"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:relations",
+        "label": "Relations",
+        "items": [
+          {
+            "reviewItemRef": "review:relation-change:ke1-333ccc8169193465",
+            "changeRef": "relation-change:ke1-333ccc8169193465",
+            "changeKind": "RELATION",
+            "operation": "ADD",
+            "content": "+ traitement — COMPARES_WITH → contrôle"
+          }
+        ]
+      },
+      {
+        "sectionRef": "review-section:temporalite",
+        "label": "Temporalité",
+        "items": [
+          {
+            "reviewItemRef": "review:temporal-change:ke1-fbb2d1432f0ddd0f",
+            "changeRef": "temporal-change:ke1-fbb2d1432f0ddd0f",
+            "changeKind": "TEMPORAL_QUALIFICATION",
+            "operation": "ADD",
+            "content": "+ acquisition par modalité M : M3 (référentiel à préciser)"
+          }
+        ]
+      }
+    ],
+    "status": "COMPLETE",
+    "expectedChangeRefs": [
+      "contribution-project-change:ke1-bf4986daa763dd36",
+      "contribution-project-change:ke1-660b4f5b7ee239ff",
+      "contribution-project-change:ke1-dba90204dced9268",
+      "relation-change:ke1-333ccc8169193465",
+      "temporal-change:ke1-fbb2d1432f0ddd0f"
+    ],
+    "coveredChangeRefs": [
+      "contribution-project-change:ke1-bf4986daa763dd36",
+      "contribution-project-change:ke1-660b4f5b7ee239ff",
+      "contribution-project-change:ke1-dba90204dced9268",
+      "relation-change:ke1-333ccc8169193465",
+      "temporal-change:ke1-fbb2d1432f0ddd0f"
+    ],
+    "missingChangeRefs": [],
+    "unexpectedChangeRefs": [],
+    "duplicateChangeRefs": []
+  },
+  "contribution": {
+    "contract": "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE",
+    "contractNature": "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
+    "identity": {
+      "contributionId": "persistent-project-contribution:ke1-1f1fe8e04ed5e524",
+      "previousContributionId": null,
+      "contractVersion": "1.0.0",
+      "runtimeId": "MINIMAL_PRODUCT_BRIDGE_PERSISTENT_DELTA",
+      "runtimeVersion": "0.3.0",
+      "createdAt": "2026-08-24T09:53:37.718Z",
+      "contributionDigest": "ke1-663a586f3ee6500b"
+    },
+    "source": {
+      "conversationId": "project-hands-on-02r2:mock",
+      "originalRequest": "Le traitement est comparé au contrôle avec une acquisition par modalité M à T3.",
+      "turns": [
+        {
+          "turnId": "PROJECT-HANDS-ON-02R2-MOCK-001:turn",
+          "role": "USER",
+          "content": "Le traitement est comparé au contrôle avec une acquisition par modalité M à T3."
+        }
+      ],
+      "sourceRefs": [
+        "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+      ],
+      "rawOutputRef": "gemini-structured-args:ke1-daa149ae319e996a",
+      "rawOutputDigest": "ke1-daa149ae319e996a"
+    },
+    "runtimeEvidence": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "promptDigest": "ke1-ffc00040a5b329c4",
+      "schemaDigest": "ke1-06426627773c34eb",
+      "configurationDigest": "ke1-19e4c9756e112a01",
+      "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+      "parseStatus": "PARSED",
+      "validationErrors": []
+    },
+    "scientificContent": {
+      "normalizedUnderstanding": null,
+      "routeProposal": null,
+      "explicitStatements": [],
+      "candidateObjects": [
+        {
+          "itemId": "mock:intervention",
+          "semanticIdentity": "mock:intervention",
+          "proposedType": "INTERVENTION",
+          "content": "traitement",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "traitement"
+          }
+        },
+        {
+          "itemId": "mock:comparator",
+          "semanticIdentity": "mock:comparator",
+          "proposedType": "COMPARATOR",
+          "content": "contrôle",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "contrôle"
+          }
+        },
+        {
+          "itemId": "mock:acquisition",
+          "semanticIdentity": "mock:acquisition",
+          "proposedType": "ACQUISITION",
+          "content": "acquisition par modalité M",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "acquisition par modalité M"
+          }
+        }
+      ],
+      "candidateRelations": [
+        {
+          "relationId": "mock:comparison",
+          "relationType": "COMPARES_WITH",
+          "sourceItemId": "mock:intervention",
+          "targetItemId": "mock:comparator",
+          "polarity": "AFFIRMED",
+          "confidence": 1,
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R2-MOCK-001:turn"
+            ],
+            "sourceText": "traitement est comparé au contrôle"
+          }
+        }
+      ],
+      "inferredContext": [],
+      "contextualCandidates": [],
+      "negationsAndConstraints": [],
+      "temporalElements": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "missingInformation": [],
+      "correctionsAndSupersessions": [],
+      "openDecisions": [],
+      "clarificationNeeds": [],
+      "temporalQualifications": [
+        {
+          "operation": "ADD",
+          "qualificationId": "mock:timing",
+          "subjectProjectRef": "mock:acquisition",
+          "temporalRole": "ACQUISITION_TIME",
+          "anchor": {
+            "kind": "TIMEPOINT",
+            "direction": "AT",
+            "unit": "MONTH",
+            "offset": 3,
+            "lowerBound": null,
+            "upperBound": null,
+            "relativeEventLabel": null,
+            "tolerance": null,
+            "reference": {
+              "status": "UNKNOWN",
+              "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+            }
+          },
+          "sourceText": "T3",
+          "assertionKind": "USER_STATED",
+          "evidenceRefs": []
+        }
+      ],
+      "expectedVariableOccasions": []
+    },
+    "epistemicBoundary": {
+      "candidateIsAdopted": false,
+      "knowledgeSupportIsProjectDecision": false,
+      "projectOwnershipTransferred": false,
+      "humanDecisionEnvelopeRef": null
+    },
+    "mapping": [
+      {
+        "sourceItemId": "mock:intervention",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "INTERVENTION"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      },
+      {
+        "sourceItemId": "mock:comparator",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "COMPARATOR"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      },
+      {
+        "sourceItemId": "mock:acquisition",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "ACQUISITION"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      }
+    ],
+    "audit": {
+      "deterministicFindings": [],
+      "semanticAuditFindings": [],
+      "unresolvedFindings": []
+    },
+    "decisionBoundary": {
+      "decisionRequired": true,
+      "decisionEnvelopeRef": null,
+      "permittedHumanDispositions": [
+        "ACCEPT_WORKING_BASIS",
+        "REJECT",
+        "DEFER",
+        "REOPEN",
+        "PARTIAL_SELECTION",
+        "ROUTE_TO_SPECIALIST"
+      ],
+      "projectWriteAuthorized": false
+    }
+  }
+}

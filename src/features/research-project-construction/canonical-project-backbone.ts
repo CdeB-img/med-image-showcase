@@ -387,12 +387,16 @@ export const canonicalProjectObjectType = (item: Pick<ScientificContributionItem
   return "PROJECT_INFORMATION";
 };
 
-const epistemicState = (value: string | null): CanonicalProjectEpistemicState => {
+const legacyEpistemicState = (value: string | null): CanonicalProjectEpistemicState => {
   if (value === "UNKNOWN" || value === "AMBIGUOUS") return "UNKNOWN";
   if (value === "WITHHELD") return "WITHHELD";
   if (value?.startsWith("INFERRED") || value === "SUPPORTED_CANDIDATE" || value === "UNSUPPORTED_CANDIDATE") return "ASSUMED";
   return "KNOWN";
 };
+
+const epistemicState = (boundary: ScientificContributionItem["epistemicBoundary"]): CanonicalProjectEpistemicState => (
+  boundary.epistemicState ?? legacyEpistemicState(boundary.epistemicStatus)
+);
 
 const provenanceFrom = (
   item: ScientificContributionItem,
@@ -527,7 +531,7 @@ const rawObjectCandidateFrom = (
     content: item.content.trim(),
     scientificRole: item.studyRole,
     semanticKey: projection.semanticKey!,
-    epistemicState: epistemicState(item.epistemicBoundary.epistemicStatus),
+    epistemicState: epistemicState(item.epistemicBoundary),
     provenance: provenanceFrom(item, contribution),
     sourceContributionRef: contribution.identity.contributionId,
     sourceItemRefs: [item.itemId],
@@ -561,14 +565,16 @@ const objectCandidateFrom = (
       sourceText: null,
     },
   };
+  const objectType = canonicalProjectObjectType(fallbackItem);
+  const sectionId = sectionForCanonicalType(objectType);
   return {
     objectId: element.elementId,
-    objectType: canonicalProjectObjectType(fallbackItem),
-    sectionId: change.targetSectionId,
+    objectType,
+    sectionId,
     content: element.content,
     scientificRole: fallbackItem.studyRole,
-    semanticKey: element.semanticKey ?? change.semanticKey,
-    epistemicState: epistemicState(fallbackItem.epistemicBoundary.epistemicStatus),
+    semanticKey: `${sectionId}:${objectType}:${normalized(fallbackItem.semanticIdentity ?? fallbackItem.content)}`,
+    epistemicState: epistemicState(fallbackItem.epistemicBoundary),
     provenance: provenanceFrom(fallbackItem, contribution),
     sourceContributionRef: contribution.identity.contributionId,
     sourceItemRefs: [...element.sourceItemIds],
@@ -673,7 +679,7 @@ export const buildCanonicalProjectChangeSet = (input: {
         && previous.sourceObjectRef === sourceObjectRef
         && previous.targetObjectRef === targetObjectRef
         && previous.polarity === relation.polarity
-        && previous.epistemicState === epistemicState(relation.epistemicBoundary.epistemicStatus)) return [];
+        && previous.epistemicState === epistemicState(relation.epistemicBoundary)) return [];
       return [{
         changeRef: `relation-change:${logicalDigest({ contribution: input.contribution.identity.contributionId, relationId })}`,
         operation: previous ? "REPLACE" as const : "ADD" as const,
@@ -685,7 +691,7 @@ export const buildCanonicalProjectChangeSet = (input: {
           sourceObjectRef,
           targetObjectRef,
           polarity: relation.polarity,
-          epistemicState: epistemicState(relation.epistemicBoundary.epistemicStatus),
+          epistemicState: epistemicState(relation.epistemicBoundary),
           provenance: provenanceFrom({
             itemId: relation.relationId,
             semanticIdentity: relation.relationId,
@@ -780,24 +786,53 @@ export const buildCanonicalProjectChangeSet = (input: {
   };
   const temporalQualifications = (input.contribution.scientificContent.temporalQualifications ?? []).map((candidate) => {
     const provenance = temporalProvenanceFrom(candidate, input.contribution);
+    const subjectProjectRef = candidateObjectRefs.get(candidate.subjectProjectRef) ?? candidate.subjectProjectRef;
+    const anchor = candidate.anchor
+      ? {
+        ...candidate.anchor,
+        reference: candidate.anchor.reference.status === "KNOWN"
+          ? {
+            ...candidate.anchor.reference,
+            referenceProjectRef: candidateObjectRefs.get(candidate.anchor.reference.referenceProjectRef)
+              ?? candidate.anchor.reference.referenceProjectRef,
+          }
+          : candidate.anchor.reference,
+      }
+      : null;
     return {
       operation: candidate.operation,
       qualificationId: candidate.qualificationId,
-      subjectProjectRef: candidate.subjectProjectRef,
+      subjectProjectRef,
       temporalRole: candidate.temporalRole,
-      anchor: candidate.anchor ? temporalAnchorFrom(candidate.anchor, provenance) : null,
+      anchor: anchor ? temporalAnchorFrom(anchor, provenance) : null,
       provenance,
       sourceContributionRef: input.contribution.identity.contributionId,
     } satisfies CanonicalTemporalQualificationProposal;
   });
   const expectedVariableOccasions = (input.contribution.scientificContent.expectedVariableOccasions ?? []).map((candidate) => {
     const provenance = temporalProvenanceFrom(candidate, input.contribution);
+    const variableProjectRef = candidateObjectRefs.get(candidate.variableProjectRef) ?? candidate.variableProjectRef;
+    const studyUnitOrGroupRef = candidate.studyUnitOrGroupRef
+      ? candidateObjectRefs.get(candidate.studyUnitOrGroupRef) ?? candidate.studyUnitOrGroupRef
+      : null;
+    const anchor = candidate.anchor
+      ? {
+        ...candidate.anchor,
+        reference: candidate.anchor.reference.status === "KNOWN"
+          ? {
+            ...candidate.anchor.reference,
+            referenceProjectRef: candidateObjectRefs.get(candidate.anchor.reference.referenceProjectRef)
+              ?? candidate.anchor.reference.referenceProjectRef,
+          }
+          : candidate.anchor.reference,
+      }
+      : null;
     return {
       operation: candidate.operation,
       occasionId: candidate.occasionId,
-      variableProjectRef: candidate.variableProjectRef,
-      anchor: candidate.anchor ? temporalAnchorFrom(candidate.anchor, provenance) : null,
-      studyUnitOrGroupRef: candidate.studyUnitOrGroupRef,
+      variableProjectRef,
+      anchor: anchor ? temporalAnchorFrom(anchor, provenance) : null,
+      studyUnitOrGroupRef,
       applicableContext: candidate.applicableContext,
       provenance,
       sourceContributionRef: input.contribution.identity.contributionId,
@@ -1307,7 +1342,10 @@ export const projectSectionsFromCanonicalState = (
     const prefix = anchor.unit === "DAY" ? "J" : anchor.unit === "HOUR" ? "H" : `${anchor.unit} `;
     const value = anchor.kind === "WINDOW" || anchor.kind === "INTERVAL"
       ? `${prefix}${anchor.lowerBound}–${prefix}${anchor.upperBound}`
-      : anchor.offset === null ? anchor.relativeEventLabel ?? "temps relatif"
+      : anchor.offset === null
+        ? anchor.relativeEventLabel
+          ? `${anchor.direction === "BEFORE" ? "avant" : anchor.direction === "AFTER" ? "après" : "au moment de"} ${anchor.relativeEventLabel}`
+          : "temps relatif"
         : `${prefix}${anchor.offset}`;
     const reference = anchor.reference.status === "KNOWN"
       ? `référence ${byObjectRef.get(anchor.reference.referenceProjectRef)?.content ?? anchor.reference.referenceProjectRef}`
@@ -1345,14 +1383,29 @@ export const projectSectionsFromCanonicalState = (
   const legacyTemporalProjections = state.legacyTemporalObjects
     .filter(({ legacyObject }) => legacyObject.actuality === "CURRENT")
     .map(({ legacyObject }) => legacyObject.projection);
-  return sectionTemplate.map((section) => section.sectionId === "QUESTION" ? section : ({
-    ...section,
-    elements: [
-      ...currentObjects.filter((object) => object.sectionId === section.sectionId).map((object) => object.projection),
-      ...(section.sectionId === "ANALYSIS" ? relationProjections : []),
-      ...(section.sectionId === "TEMPORALITY" ? [...temporalProjections, ...expectedOccasionProjections, ...legacyTemporalProjections] : []),
-    ],
-  }));
+  return sectionTemplate.map((section) => {
+    const canonicalObjects = currentObjects
+      .filter((object) => object.sectionId === section.sectionId)
+      .map((object) => object.projection);
+    if (section.sectionId === "QUESTION") {
+      const existingRefs = new Set(section.elements.map((element) => element.elementId));
+      return {
+        ...section,
+        elements: [
+          ...section.elements,
+          ...canonicalObjects.filter((element) => !existingRefs.has(element.elementId)),
+        ],
+      };
+    }
+    return {
+      ...section,
+      elements: [
+        ...canonicalObjects,
+        ...(section.sectionId === "ANALYSIS" ? relationProjections : []),
+        ...(section.sectionId === "TEMPORALITY" ? [...temporalProjections, ...expectedOccasionProjections, ...legacyTemporalProjections] : []),
+      ],
+    };
+  });
 };
 
 export const migrateLegacyProjectToCanonicalState = (project: Omit<ResearchProjectOwnerProjection, "canonicalState">): CanonicalResearchProjectState => {

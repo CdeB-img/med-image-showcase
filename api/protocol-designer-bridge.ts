@@ -4,6 +4,7 @@ import {
   PRODUCT_BRIDGE_MODEL,
   contributionFromPersistentDelta,
   parseProductBridgeRequest,
+  validatePersistentProviderContract,
   validatePersistentProjectDelta,
   type ProductBridgeResponse,
 } from "../src/features/protocol-designer/product-bridge.js";
@@ -62,6 +63,8 @@ export const executeProtocolDesignerBridge = async (input: {
   let persistentExtraction: ProductBridgeResponse["persistentExtraction"] = {
     called: false,
     status: "NOT_REQUESTED",
+    providerArtifact: null,
+    wireCandidate: null,
     candidate: null,
     validation: null,
     contribution: null,
@@ -72,24 +75,38 @@ export const executeProtocolDesignerBridge = async (input: {
     try {
       const extracted = await executePersistentDelta(request, input.apiKey, input.fetchImpl);
       extractionLatencyMs = extracted.latencyMs;
-      const checked = validatePersistentProjectDelta(extracted.value, latestUser.content, request.currentProject, request.conversation);
-      const contribution = checked.candidate && checked.validation.valid
-        ? contributionFromPersistentDelta({ candidate: checked.candidate, conversation: request.conversation, currentProject: request.currentProject, createdAt })
+      const checked = validatePersistentProjectDelta(extracted.value.structuredArgs, latestUser.content, request.currentProject, request.conversation);
+      const providerContract = validatePersistentProviderContract(extracted.value.structuredArgs);
+      const validation = providerContract.valid ? checked.validation : {
+        ...checked.validation,
+        valid: false,
+        blocks: [...checked.validation.blocks, ...providerContract.blocks],
+      };
+      const contribution = checked.candidate && validation.valid
+        ? contributionFromPersistentDelta({
+          candidate: checked.candidate,
+          conversation: request.conversation,
+          currentProject: request.currentProject,
+          providerArtifact: extracted.value.providerArtifact,
+          createdAt,
+        })
         : null;
       persistentExtraction = {
         called: true,
-        status: checked.validation.valid
+        status: validation.valid
           ? (checked.candidate?.changes.length
             || checked.candidate?.relations.length
             || checked.candidate?.temporalQualifications.length
             || checked.candidate?.expectedVariableOccasions.length) ? "CANDIDATE" : "NO_CHANGE"
           : "BLOCKED",
+        providerArtifact: extracted.value.providerArtifact,
+        wireCandidate: checked.wireCandidate,
         candidate: checked.candidate,
-        validation: checked.validation,
+        validation,
         contribution,
       };
     } catch {
-      persistentExtraction = { called: true, status: "TECHNICAL_FAILURE", candidate: null, validation: null, contribution: null };
+      persistentExtraction = { called: true, status: "TECHNICAL_FAILURE", providerArtifact: null, wireCandidate: null, candidate: null, validation: null, contribution: null };
     }
   }
 

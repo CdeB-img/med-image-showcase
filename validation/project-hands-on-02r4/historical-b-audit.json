@@ -1,0 +1,122 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R4_HISTORICAL_B_AUDIT",
+  "contractVersion": "1.0.0",
+  "historicalEvidenceRef": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/project-hands-on-02r3/b-provider-exact.json",
+  "historicalEvidenceDigest": "ke1-7f3cac79505e0cdd",
+  "immutableHistoricalEvidence": true,
+  "projectReferenceInventory": [
+    {
+      "stableRef": "cand_objective_1",
+      "content": "réduction des plaques carotiennes",
+      "type": "OBJECTIVE",
+      "role": null,
+      "provenanceKind": "USER_STATED"
+    },
+    {
+      "stableRef": "cand_intervention_1",
+      "content": "médicament",
+      "type": "INTERVENTION_OR_EXPOSURE",
+      "role": "INTERVENTION_ARM",
+      "provenanceKind": "USER_STATED"
+    },
+    {
+      "stableRef": "cand_comparator_1",
+      "content": "placebo",
+      "type": "GROUP",
+      "role": "COMPARATOR_ARM",
+      "provenanceKind": "USER_STATED"
+    },
+    {
+      "stableRef": "cand_modality_1",
+      "content": "IRM",
+      "type": "ACQUISITION",
+      "role": null,
+      "provenanceKind": "USER_STATED"
+    }
+  ],
+  "providerContract": {
+    "valid": false,
+    "blocks": [
+      "relation:0:RELATION_TYPE_OUTSIDE_PROVIDER_VOCABULARY"
+    ]
+  },
+  "deterministicReplay": {
+    "wireCandidate": {
+      "changes": [
+        {
+          "operation": "ADD",
+          "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+          "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+          "candidateRef": "obj_objective_new_1",
+          "proposedType": "OBJECTIVE",
+          "polarity": "AFFIRMED",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "epistemicState": "KNOWN",
+          "assertionKind": "USER_STATED",
+          "evidenceRefs": []
+        },
+        {
+          "operation": "REMOVE",
+          "sourceText": "réduction des plaques carotiennes",
+          "targetProjectRef": "cand_objective_1",
+          "content": "réduction des plaques carotiennes",
+          "candidateRef": "cand_objective_1",
+          "proposedType": "OBJECTIVE",
+          "polarity": "AFFIRMED",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "epistemicState": "UNKNOWN",
+          "assertionKind": "USER_STATED",
+          "evidenceRefs": []
+        }
+      ],
+      "relations": [
+        {
+          "relationRef": "rel_obj_1",
+          "sourceText": "la disparition totale de la plaque",
+          "relationType": "TARGETS",
+          "sourceObjectRef": "obj_objective_new_1",
+          "targetObjectRef": "cand_objective_1",
+          "polarity": "AFFIRMED",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "epistemicState": "UNKNOWN",
+          "assertionKind": "USER_STATED",
+          "evidenceRefs": []
+        }
+      ],
+      "temporalQualifications": [],
+      "expectedVariableOccasions": []
+    },
+    "normalizedCandidate": null,
+    "validation": {
+      "valid": false,
+      "acceptedChanges": [
+        {
+          "operation": "ADD",
+          "sourceText": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+          "content": "démontrer l'efficacité du traitement sur la disparition totale de la plaque",
+          "candidateRef": "obj_objective_new_1",
+          "proposedType": "OBJECTIVE",
+          "polarity": "AFFIRMED",
+          "epistemicStatus": "EXPLICIT_USER_STATED",
+          "epistemicState": "KNOWN",
+          "assertionKind": "USER_STATED",
+          "evidenceRefs": []
+        }
+      ],
+      "acceptedRelations": [],
+      "acceptedTemporalQualifications": [],
+      "acceptedExpectedVariableOccasions": [],
+      "blocks": [
+        "change:1:SOURCE_TEXT_NOT_IN_USER_TURN",
+        "relation:0:RELATION_TYPE_OUTSIDE_PROVIDER_VOCABULARY"
+      ],
+      "noOps": [],
+      "normalizations": []
+    }
+  },
+  "firstDivergentStages": {
+    "remove": "PERSISTENT_EXTRACTION_INSTRUCTION_GAP",
+    "targets": "FUNCTION_DECLARATION_REFERENCE_SEMANTICS_GAP",
+    "downstreamHistoricalValidator": "QUESTION_OBJECT_EXCLUDED_FROM_REFERENCE_RESOLUTION"
+  }
+}

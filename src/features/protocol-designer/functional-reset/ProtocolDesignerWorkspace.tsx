@@ -30,6 +30,7 @@ import {
   createTurnId,
   loadFunctionalResetSession,
   persistFunctionalResetSession,
+  shouldMediatePostAdoptionQuery,
   type FunctionalResetSession,
 } from "./session";
 
@@ -106,6 +107,7 @@ export default function ProtocolDesignerWorkspace() {
     setBusy(true);
     try {
       const response = await requestProtocolDesignerBridge({
+        requestKind: "USER_TURN",
         conversation: {
           conversationId: session.conversationId,
           language: "fr",
@@ -158,15 +160,20 @@ export default function ProtocolDesignerWorkspace() {
             createdAt: receivedAt,
           }] : []),
         ],
-        bridgeTraces: import.meta.env.DEV ? [...current.bridgeTraces, {
+        bridgeTraces: [...current.bridgeTraces, {
           turnId: userTurn.turnId,
+          requestKind: "USER_TURN" as const,
           raw: content,
           assistantReply: response.assistantReply,
           persistentExtractionCalled: response.persistentExtraction.called,
           persistentExtractionStatus: response.persistentExtraction.status,
+          providerArtifact: response.persistentExtraction.providerArtifact,
+          wireCandidate: response.persistentExtraction.wireCandidate,
           persistentCandidate: response.persistentExtraction.candidate,
           deterministicValidation: response.persistentExtraction.validation,
-          projectChangeSetCandidate: effectiveCandidate?.changeSet ?? null,
+          projectChangeSetCandidate: candidate?.changeSet ?? null,
+          canonicalProjectChangeSetCandidate: candidate?.canonicalChangeSet ?? null,
+          humanReviewProjection: candidate?.humanReviewProjection ?? null,
           humanDecision: null,
           projectVersionBefore: session.project?.versionId ?? null,
           projectVersionAfter: session.project?.versionId ?? null,
@@ -177,7 +184,7 @@ export default function ProtocolDesignerWorkspace() {
           conversationLatencyMs: response.observability.conversationLatencyMs,
           extractionLatencyMs: response.observability.extractionLatencyMs,
           calls: response.observability.calls,
-        }] : current.bridgeTraces,
+        }].slice(-20),
         updatedAt: receivedAt,
       }));
     } catch (error) {
@@ -193,17 +200,22 @@ export default function ProtocolDesignerWorkspace() {
     }
   };
 
-  const confirmContribution = (contributionId: string) => {
+  const confirmContribution = async (contributionId: string) => {
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
     const now = new Date().toISOString();
+    setBusy(true);
     try {
+      const reviewEntry = session.entries.find((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId);
       const project = confirmResearchProjectContribution({
         contribution,
         current: session.project,
         projectId: session.projectId,
         authority: session.projectAuthority,
         confirmedAt: now,
+        reviewedProjection: reviewEntry?.kind === "REVIEW"
+          ? (reviewEntry.candidate ?? prepareResearchProjectContributionCandidate(reviewEntry.contribution, session.project)).humanReviewProjection
+          : undefined,
       });
       let documents;
       let documentWarning = false;
@@ -223,12 +235,14 @@ export default function ProtocolDesignerWorkspace() {
         documentBlockers: documentBlockerSignals(documents),
         recordedAt: now,
       });
-      const nextQuestion = queryNavigation.standardQuestion
-        ? `${queryNavigation.standardQuestion.priorityLead}\n\n${queryNavigation.standardQuestion.text}`
-        : null;
-      const feedback = [session.project ? "Projet mis à jour." : "Projet créé.", nextQuestion]
-        .filter((value): value is string => Boolean(value))
-        .join("\n\n");
+      const feedback = session.project ? "Projet mis à jour." : "Projet créé.";
+      const confirmationTurn: ScientificInterpretationTurn = {
+        turnId: createTurnId(),
+        role: "NOXIA",
+        content: feedback,
+        createdAt: now,
+      };
+      const runtimeTurns = [...session.runtimeTurns, confirmationTurn];
       setSession((current) => ({
         ...current,
         project,
@@ -236,6 +250,7 @@ export default function ProtocolDesignerWorkspace() {
         documents,
         currentContribution: contribution,
         pendingContribution: null,
+        runtimeTurns,
         entries: [
           ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
             ? { ...entry, status: "CONFIRMED" as const, decision: project.confirmationDecision }
@@ -248,6 +263,73 @@ export default function ProtocolDesignerWorkspace() {
           : trace),
         updatedAt: now,
       }));
+
+      if (shouldMediatePostAdoptionQuery(queryNavigation)
+        && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion) {
+        const continuation = await requestProtocolDesignerBridge({
+          requestKind: "POST_ADOPTION_QRY_CONTINUATION",
+          conversation: {
+            conversationId: session.conversationId,
+            language: "fr",
+            turns: runtimeTurns,
+            interactionContext: {
+              interactionRef: queryNavigation.currentPresentation.presentationId,
+              sourceActionRef: queryNavigation.currentAction.selectedActionId,
+              owner: "QUERY_NAVIGATION",
+              purpose: [
+                queryNavigation.currentPresentation.intent,
+                `Question à formuler naturellement : ${queryNavigation.standardQuestion.text}`,
+              ].join("\n"),
+              expectedResponseKind: "QRY_INFORMATION_RESPONSE",
+              targetRefs: [queryNavigation.currentAction.targetRef],
+              informationNeedRefs: [...queryNavigation.currentAction.navigationNeedRefs],
+              projectRef: queryNavigation.projectRef,
+              projectVersion: queryNavigation.projectVersion,
+              projectDigest: queryNavigation.projectDigest,
+            },
+          },
+          currentProject: project,
+          evaluatePersistentDelta: false,
+        });
+        const continuedAt = new Date().toISOString();
+        setSession((current) => ({
+          ...current,
+          runtimeTurns: [...runtimeTurns, continuation.assistantTurn],
+          entries: [...current.entries, {
+            entryId: createConversationEntryId(),
+            kind: "TEXT",
+            role: "NOXIA",
+            content: continuation.assistantReply,
+            createdAt: continuedAt,
+          }],
+          bridgeTraces: [...current.bridgeTraces, {
+            turnId: continuation.assistantTurn.turnId,
+            requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
+            raw: feedback,
+            assistantReply: continuation.assistantReply,
+            persistentExtractionCalled: false,
+            persistentExtractionStatus: "NOT_REQUESTED" as const,
+            providerArtifact: null,
+            wireCandidate: null,
+            persistentCandidate: null,
+            deterministicValidation: null,
+            projectChangeSetCandidate: null,
+            canonicalProjectChangeSetCandidate: null,
+            humanReviewProjection: null,
+            humanDecision: project.confirmationDecision,
+            projectVersionBefore: project.versionId,
+            projectVersionAfter: project.versionId,
+            qryNeedBefore: null,
+            qryNeedAfter: queryNavigation.currentAction.navigationNeedRefs[0] ?? null,
+            provider: continuation.observability.provider,
+            model: continuation.observability.model,
+            conversationLatencyMs: continuation.observability.conversationLatencyMs,
+            extractionLatencyMs: null,
+            calls: continuation.observability.calls,
+          }].slice(-20),
+          updatedAt: continuedAt,
+        }));
+      }
     } catch {
       setSession((current) => ({
         ...current,
@@ -255,11 +337,15 @@ export default function ProtocolDesignerWorkspace() {
           entryId: createConversationEntryId(),
           kind: "ERROR",
           role: "NOXIA",
-          content: "NOXIA n’a pas pu mettre à jour cette partie du projet. Votre contribution reste disponible pour réessayer.",
+          content: current.project?.versionId !== session.project?.versionId
+            ? "Le projet est à jour, mais NOXIA n’a pas pu formuler la prochaine étape. Vous pouvez poursuivre librement."
+            : "NOXIA n’a pas pu mettre à jour cette partie du projet. Votre contribution reste disponible pour réessayer.",
           createdAt: now,
         }],
         updatedAt: now,
       }));
+    } finally {
+      setBusy(false);
     }
   };
 

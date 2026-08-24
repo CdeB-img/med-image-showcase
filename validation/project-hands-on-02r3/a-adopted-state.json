@@ -1,0 +1,835 @@
+{
+  "turn": "A",
+  "project": {
+    "contract": "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION",
+    "contractVersion": "1.1.0",
+    "contractNature": "PRJ001_MINIMAL_OWNER_ADAPTER_NOT_PD003_V2_ROOT",
+    "boundary": "PRJ_001_CONTRIBUTION_INTAKE_ADAPTER",
+    "pd003V2Compatibility": "COMPATIBLE_IN_PRINCIPLE_ADAPTATION_REQUIRED",
+    "canonicalV2Status": "NO_SCIENTIFIC_OBJECT_PROMOTION_CLAIMED",
+    "canonicalBackboneStatus": "PRJ_OWNED_CANONICAL_PROJECT_BACKBONE_ACTIVE",
+    "contractAdaptation": {
+      "existingContractGap": "PRJ001_V1_REQUIRES_SCIENTIFIC_THINKING_HANDOFF_AND_CANNOT_REPRESENT_EXPLICIT_IMAGING_PENDING_OWNER_WITHOUT_FALSE_NOT_APPLICABLE_FALSE_FROZEN_OR_REFUSAL",
+      "adaptationScope": "USER_CONFIRMED_PROJECT_INFORMATION_ONLY_NO_DESIGN_FREEZE_NO_PD003_V2_CANONICAL_PROMOTION"
+    },
+    "projectId": "project:project-hands-on-02r3-live-gate",
+    "versionId": "project:project-hands-on-02r3-live-gate:version:1",
+    "projectDigest": "ke1-37438658b54cce0c",
+    "revision": 1,
+    "contributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+    "contributionDigest": "ke1-cfc5807ea366de32",
+    "previousVersionId": null,
+    "adoptedAt": "2026-08-24T10:57:42.777Z",
+    "owner": "RESEARCH_PROJECT",
+    "confirmationDecision": {
+      "envelopeVersion": "1.0",
+      "decisionId": "project-contribution-decision:ke1-dcbadf40c9de9ab4",
+      "gateId": "PRJ-CONTRIBUTION-INTAKE",
+      "actor": "hands-on-02r3:diagnostic-researcher",
+      "mandate": "PROJECT_OWNER",
+      "scope": [
+        "RESEARCH_PROJECT",
+        "USER_CONFIRMED_PROJECT_INFORMATION"
+      ],
+      "status": "ADOPTED",
+      "version": 1,
+      "timestamp": "2026-08-24T10:57:42.777Z",
+      "impact": {
+        "affectedObjects": [],
+        "affectedEngines": [],
+        "reopenedGates": [],
+        "obsoleteProjections": []
+      },
+      "targets": [
+        "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+        "cand_objective_1",
+        "cand_intervention_1",
+        "cand_comparator_1",
+        "cand_modality_1"
+      ],
+      "reason": "L’utilisateur a activé « Cela correspond à mon projet » dans la session de travail courante.",
+      "provenance": [
+        "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+        "ke1-cfc5807ea366de32",
+        "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+      ],
+      "engineSource": "RESEARCH_PROJECT",
+      "projectVersion": "project:project-hands-on-02r3-live-gate:version:1"
+    },
+    "llmProjectWrites": 0,
+    "sections": [
+      {
+        "sectionId": "QUESTION",
+        "label": "Question",
+        "state": "DEFINED",
+        "elements": [
+          {
+            "elementId": "question:persistent-project-contribution:ke1-e2e83c0f78090ecb",
+            "semanticKey": "QUESTION:STRUCTURED_PROJECT_SUMMARY",
+            "content": "Projet de recherche à préciser.",
+            "sourceItemIds": [],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "SCIENTIFIC_QUESTION_WORKING_FORMULATION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          {
+            "elementId": "cand_objective_1",
+            "semanticKey": "QUESTION:objective:cand objective",
+            "content": "réduction des plaques carotiennes",
+            "sourceItemIds": [
+              "cand_objective_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "OBJECTIVE",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        ]
+      },
+      {
+        "sectionId": "POPULATION",
+        "label": "Population",
+        "state": "TO_CLARIFY",
+        "elements": []
+      },
+      {
+        "sectionId": "DESIGN",
+        "label": "Design",
+        "state": "TO_CLARIFY",
+        "elements": []
+      },
+      {
+        "sectionId": "INTERVENTION",
+        "label": "Intervention",
+        "state": "DEFINED",
+        "elements": [
+          {
+            "elementId": "cand_intervention_1",
+            "semanticKey": "INTERVENTION:intervention:cand intervention",
+            "content": "médicament",
+            "sourceItemIds": [
+              "cand_intervention_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "INTERVENTION",
+            "sourceStudyRole": "INTERVENTION_ARM",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        ]
+      },
+      {
+        "sectionId": "COMPARATOR",
+        "label": "Comparateur",
+        "state": "DEFINED",
+        "elements": [
+          {
+            "elementId": "cand_comparator_1",
+            "semanticKey": "COMPARATOR:comparator:cand comparator",
+            "content": "placebo",
+            "sourceItemIds": [
+              "cand_comparator_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "COMPARATOR",
+            "sourceStudyRole": "COMPARATOR_ARM",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        ]
+      },
+      {
+        "sectionId": "IMAGING",
+        "label": "Imagerie",
+        "state": "PARTIAL",
+        "elements": [
+          {
+            "elementId": "cand_modality_1",
+            "semanticKey": "IMAGING:acquisition:cand modality",
+            "content": "IRM",
+            "sourceItemIds": [
+              "cand_modality_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "ACQUISITION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        ]
+      },
+      {
+        "sectionId": "MEASUREMENTS",
+        "label": "Mesures / biomarqueurs",
+        "state": "TO_CLARIFY",
+        "elements": []
+      },
+      {
+        "sectionId": "TEMPORALITY",
+        "label": "Temporalité",
+        "state": "TO_CLARIFY",
+        "elements": [
+          {
+            "elementId": "temp_qual_1",
+            "semanticKey": "TEMPORALITY:QUALIFICATION:cand_modality_1:ACQUISITION_TIME",
+            "content": "IRM — ACQUISITION_TIME : month 3 (référence inconnue)",
+            "sourceItemIds": [
+              "cand_modality_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "TEMPORAL_QUALIFICATION_VALUE",
+            "sourceStudyRole": "ACQUISITION_TIME",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        ]
+      },
+      {
+        "sectionId": "ANALYSIS",
+        "label": "Analyse",
+        "state": "TO_CLARIFY",
+        "elements": [
+          {
+            "elementId": "rel_comp_1",
+            "semanticKey": "ANALYSIS:RELATION:COMPARES_WITH:cand_intervention_1:cand_comparator_1",
+            "content": "COMPARES_WITH : médicament → placebo",
+            "sourceItemIds": [
+              "cand_intervention_1",
+              "cand_comparator_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "CANONICAL_PROJECT_RELATION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        ]
+      }
+    ],
+    "specializedResponsibilities": [
+      {
+        "owner": "SCIENTIFIC_THINKING",
+        "state": "RETAINED_OUTSIDE_NOMINAL_UX",
+        "retainedResponsibility": "Questions, hypothèses et ScientificModels restent candidats tant qu’une Contribution spécialisée et une adoption mandatée ne les qualifient pas.",
+        "sourceItemIds": []
+      },
+      {
+        "owner": "IMAGING",
+        "state": "PENDING_SPECIALIST_CONTRIBUTION",
+        "retainedResponsibility": "Imaging conserve les MeasurementDefinitions spécialisées, l’acquisition, la qualité, la lecture, la faisabilité et les limites.",
+        "sourceItemIds": [
+          "cand_modality_1"
+        ]
+      },
+      {
+        "owner": "OBSERVABILITY_MEASUREMENT",
+        "state": "NOT_TRIGGERED",
+        "retainedResponsibility": "OBS et les domaines compétents conservent ObservableProperties, MeasurementDefinitions et BiomarkerRoles ; le Project ne les déduit pas du texte confirmé.",
+        "sourceItemIds": []
+      },
+      {
+        "owner": "BIOSTATISTICS",
+        "state": "NOT_TRIGGERED",
+        "retainedResponsibility": "Biostatistics conserve AnalysisSpecifications, estimands, méthodes et dimensionnement.",
+        "sourceItemIds": []
+      }
+    ],
+    "appliedChangeSet": {
+      "contract": "CONTRIBUTION_PROJECT_CHANGESET",
+      "contractVersion": "1.0.0",
+      "contractNature": "PRJ001_LEVEL_3_IMPLEMENTATION_NOT_CANONICAL_OBJECT",
+      "boundary": "PRJ_001_CONTRIBUTION_INTAKE_ADAPTER",
+      "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+      "sourceContributionDigest": "ke1-cfc5807ea366de32",
+      "baseProjectVersion": null,
+      "status": "PENDING_HUMAN_CONFIRMATION",
+      "changes": [
+        {
+          "changeId": "contribution-project-change:ke1-753828eb2d4b87e7",
+          "operation": "ADD",
+          "targetSectionId": "QUESTION",
+          "semanticIdentity": "cand_objective_1",
+          "semanticKey": "QUESTION:objective:cand objective",
+          "previousElement": null,
+          "proposedElement": {
+            "elementId": "cand_objective_1",
+            "semanticKey": "QUESTION:objective:cand objective",
+            "content": "réduction des plaques carotiennes",
+            "sourceItemIds": [
+              "cand_objective_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "OBJECTIVE",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceObjectRefs": [
+            "cand_objective_1"
+          ],
+          "rationale": "Nouvel objet structuré explicite absent du Project courant.",
+          "presentation": "+ Réduction des plaques carotiennes",
+          "status": "PROPOSED"
+        },
+        {
+          "changeId": "contribution-project-change:ke1-8bfbcc0c8525d230",
+          "operation": "ADD",
+          "targetSectionId": "INTERVENTION",
+          "semanticIdentity": "cand_intervention_1",
+          "semanticKey": "INTERVENTION:intervention:cand intervention",
+          "previousElement": null,
+          "proposedElement": {
+            "elementId": "cand_intervention_1",
+            "semanticKey": "INTERVENTION:intervention:cand intervention",
+            "content": "médicament",
+            "sourceItemIds": [
+              "cand_intervention_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "INTERVENTION",
+            "sourceStudyRole": "INTERVENTION_ARM",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceObjectRefs": [
+            "cand_intervention_1"
+          ],
+          "rationale": "Nouvel objet structuré explicite absent du Project courant.",
+          "presentation": "+ Médicament",
+          "status": "PROPOSED"
+        },
+        {
+          "changeId": "contribution-project-change:ke1-e6565f0620f5a29a",
+          "operation": "ADD",
+          "targetSectionId": "COMPARATOR",
+          "semanticIdentity": "cand_comparator_1",
+          "semanticKey": "COMPARATOR:comparator:cand comparator",
+          "previousElement": null,
+          "proposedElement": {
+            "elementId": "cand_comparator_1",
+            "semanticKey": "COMPARATOR:comparator:cand comparator",
+            "content": "placebo",
+            "sourceItemIds": [
+              "cand_comparator_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "COMPARATOR",
+            "sourceStudyRole": "COMPARATOR_ARM",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceObjectRefs": [
+            "cand_comparator_1"
+          ],
+          "rationale": "Nouvel objet structuré explicite absent du Project courant.",
+          "presentation": "+ Placebo",
+          "status": "PROPOSED"
+        },
+        {
+          "changeId": "contribution-project-change:ke1-4195f7822d610966",
+          "operation": "ADD",
+          "targetSectionId": "IMAGING",
+          "semanticIdentity": "cand_modality_1",
+          "semanticKey": "IMAGING:acquisition:cand modality",
+          "previousElement": null,
+          "proposedElement": {
+            "elementId": "cand_modality_1",
+            "semanticKey": "IMAGING:acquisition:cand modality",
+            "content": "IRM",
+            "sourceItemIds": [
+              "cand_modality_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "ACQUISITION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceObjectRefs": [
+            "cand_modality_1"
+          ],
+          "rationale": "Nouvel objet structuré explicite absent du Project courant.",
+          "presentation": "+ IRM",
+          "status": "PROPOSED"
+        }
+      ],
+      "effectiveChangeCount": 4,
+      "noChangeExplanation": null
+    },
+    "canonicalState": {
+      "contract": "PRJ001_CANONICAL_RESEARCH_PROJECT_STATE",
+      "contractVersion": "0.2.0",
+      "contractNature": "PRJ_OWNED_MATERIALIZED_PD003_PROJECT_AGGREGATE",
+      "owner": "RESEARCH_PROJECT",
+      "projectId": "project:project-hands-on-02r3-live-gate",
+      "currentVersionId": "project:project-hands-on-02r3-live-gate:version:1",
+      "revision": 1,
+      "objects": [
+        {
+          "objectId": "cand_objective_1",
+          "objectType": "OBJECTIVE",
+          "sectionId": "QUESTION",
+          "content": "réduction des plaques carotiennes",
+          "scientificRole": null,
+          "semanticKey": "QUESTION:OBJECTIVE:cand objective 1",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "réduction des plaques carotiennes",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceItemRefs": [
+            "cand_objective_1"
+          ],
+          "projection": {
+            "elementId": "cand_objective_1",
+            "semanticKey": "QUESTION:objective:cand objective",
+            "content": "réduction des plaques carotiennes",
+            "sourceItemIds": [
+              "cand_objective_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "OBJECTIVE",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          "objectVersionId": "cand_objective_1:version:1",
+          "version": 1,
+          "adoptionStatus": "ADOPTED_BY_HUMAN_DECISION",
+          "actuality": "CURRENT",
+          "coherence": "CONSISTENT",
+          "supersedesVersionRef": null,
+          "supersededByVersionRef": null,
+          "decisionRefs": [
+            "project-contribution-decision:ke1-dcbadf40c9de9ab4"
+          ],
+          "adoptedAt": "2026-08-24T10:57:42.777Z"
+        },
+        {
+          "objectId": "cand_intervention_1",
+          "objectType": "INTERVENTION_OR_EXPOSURE",
+          "sectionId": "INTERVENTION",
+          "content": "médicament",
+          "scientificRole": "INTERVENTION_ARM",
+          "semanticKey": "INTERVENTION:INTERVENTION_OR_EXPOSURE:cand intervention 1",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "médicament",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceItemRefs": [
+            "cand_intervention_1"
+          ],
+          "projection": {
+            "elementId": "cand_intervention_1",
+            "semanticKey": "INTERVENTION:intervention:cand intervention",
+            "content": "médicament",
+            "sourceItemIds": [
+              "cand_intervention_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "INTERVENTION",
+            "sourceStudyRole": "INTERVENTION_ARM",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          "objectVersionId": "cand_intervention_1:version:1",
+          "version": 1,
+          "adoptionStatus": "ADOPTED_BY_HUMAN_DECISION",
+          "actuality": "CURRENT",
+          "coherence": "CONSISTENT",
+          "supersedesVersionRef": null,
+          "supersededByVersionRef": null,
+          "decisionRefs": [
+            "project-contribution-decision:ke1-dcbadf40c9de9ab4"
+          ],
+          "adoptedAt": "2026-08-24T10:57:42.777Z"
+        },
+        {
+          "objectId": "cand_comparator_1",
+          "objectType": "GROUP",
+          "sectionId": "COMPARATOR",
+          "content": "placebo",
+          "scientificRole": "COMPARATOR_ARM",
+          "semanticKey": "COMPARATOR:GROUP:cand comparator 1",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "placebo",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceItemRefs": [
+            "cand_comparator_1"
+          ],
+          "projection": {
+            "elementId": "cand_comparator_1",
+            "semanticKey": "COMPARATOR:comparator:cand comparator",
+            "content": "placebo",
+            "sourceItemIds": [
+              "cand_comparator_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "COMPARATOR",
+            "sourceStudyRole": "COMPARATOR_ARM",
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          "objectVersionId": "cand_comparator_1:version:1",
+          "version": 1,
+          "adoptionStatus": "ADOPTED_BY_HUMAN_DECISION",
+          "actuality": "CURRENT",
+          "coherence": "CONSISTENT",
+          "supersedesVersionRef": null,
+          "supersededByVersionRef": null,
+          "decisionRefs": [
+            "project-contribution-decision:ke1-dcbadf40c9de9ab4"
+          ],
+          "adoptedAt": "2026-08-24T10:57:42.777Z"
+        },
+        {
+          "objectId": "cand_modality_1",
+          "objectType": "ACQUISITION",
+          "sectionId": "IMAGING",
+          "content": "IRM",
+          "scientificRole": null,
+          "semanticKey": "IMAGING:ACQUISITION:cand modality 1",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "IRM",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceItemRefs": [
+            "cand_modality_1"
+          ],
+          "projection": {
+            "elementId": "cand_modality_1",
+            "semanticKey": "IMAGING:acquisition:cand modality",
+            "content": "IRM",
+            "sourceItemIds": [
+              "cand_modality_1"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceProposedType": "ACQUISITION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          },
+          "objectVersionId": "cand_modality_1:version:1",
+          "version": 1,
+          "adoptionStatus": "ADOPTED_BY_HUMAN_DECISION",
+          "actuality": "CURRENT",
+          "coherence": "CONSISTENT",
+          "supersedesVersionRef": null,
+          "supersededByVersionRef": null,
+          "decisionRefs": [
+            "project-contribution-decision:ke1-dcbadf40c9de9ab4"
+          ],
+          "adoptedAt": "2026-08-24T10:57:42.777Z"
+        }
+      ],
+      "relations": [
+        {
+          "relationId": "rel_comp_1",
+          "relationType": "COMPARES_WITH",
+          "sourceObjectRef": "cand_intervention_1",
+          "targetObjectRef": "cand_comparator_1",
+          "polarity": "AFFIRMED",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "médicament contre placebo",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "relationVersionId": "rel_comp_1:version:1",
+          "version": 1,
+          "adoptionStatus": "ADOPTED_BY_HUMAN_DECISION",
+          "actuality": "CURRENT",
+          "coherence": "CONSISTENT",
+          "supersedesVersionRef": null,
+          "supersededByVersionRef": null,
+          "decisionRefs": [
+            "project-contribution-decision:ke1-dcbadf40c9de9ab4"
+          ],
+          "adoptedAt": "2026-08-24T10:57:42.777Z"
+        }
+      ],
+      "temporalQualifications": [
+        {
+          "qualificationId": "temp_qual_1",
+          "subjectProjectRef": "cand_modality_1",
+          "temporalRole": "ACQUISITION_TIME",
+          "anchor": {
+            "valueType": "TEMPORAL_ANCHOR_VALUE",
+            "kind": "TIMEPOINT",
+            "direction": "AT",
+            "unit": "month",
+            "offset": 3,
+            "lowerBound": 3,
+            "upperBound": 3,
+            "relativeEventLabel": "M3",
+            "tolerance": null,
+            "reference": {
+              "status": "UNKNOWN",
+              "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+            },
+            "provenance": {
+              "sourcePlan": "USER",
+              "assertionKind": "USER_STATED",
+              "sourceTurnRefs": [
+                "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+              ],
+              "sourceText": "M3",
+              "proposalSourceTurnRefs": [],
+              "adoptionSourceTurnRefs": [],
+              "evidenceRefs": [],
+              "evidenceQualification": "NOT_EVALUATED"
+            }
+          },
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+            ],
+            "sourceText": "M3",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "qualificationVersionId": "temp_qual_1:version:1",
+          "version": 1,
+          "adoptionStatus": "ADOPTED_BY_HUMAN_DECISION",
+          "actuality": "CURRENT",
+          "supersedesVersionRef": null,
+          "supersededByVersionRef": null,
+          "decisionRefs": [
+            "project-contribution-decision:ke1-dcbadf40c9de9ab4"
+          ],
+          "adoptedAt": "2026-08-24T10:57:42.777Z"
+        }
+      ],
+      "expectedVariableOccasions": [],
+      "legacyTemporalObjects": [],
+      "decisionLedger": [
+        {
+          "ledgerEntryId": "project-ledger:ke1-2003eadb25f494d7",
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "sourceTurnRefs": [
+            "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+          ],
+          "candidateChangeRefs": [
+            "contribution-project-change:ke1-753828eb2d4b87e7",
+            "contribution-project-change:ke1-8bfbcc0c8525d230",
+            "contribution-project-change:ke1-e6565f0620f5a29a",
+            "contribution-project-change:ke1-4195f7822d610966",
+            "relation-change:ke1-6f6f8b8d49615191",
+            "temporal-change:ke1-312ca84d5e7e7669"
+          ],
+          "operationSummary": [
+            "ADD"
+          ],
+          "objectRefs": [
+            "cand_objective_1",
+            "cand_intervention_1",
+            "cand_comparator_1",
+            "cand_modality_1"
+          ],
+          "relationRefs": [
+            "rel_comp_1"
+          ],
+          "temporalQualificationRefs": [
+            "temp_qual_1"
+          ],
+          "expectedVariableOccasionRefs": [],
+          "legacyTemporalRefs": [],
+          "previousRefs": [],
+          "temporalChanges": [
+            {
+              "changeRef": "temporal-change:ke1-312ca84d5e7e7669",
+              "subjectProjectRef": "cand_modality_1",
+              "temporalRole": "ACQUISITION_TIME",
+              "previousVersionRef": null,
+              "candidateAnchor": {
+                "valueType": "TEMPORAL_ANCHOR_VALUE",
+                "kind": "TIMEPOINT",
+                "direction": "AT",
+                "unit": "month",
+                "offset": 3,
+                "lowerBound": 3,
+                "upperBound": 3,
+                "relativeEventLabel": "M3",
+                "tolerance": null,
+                "reference": {
+                  "status": "UNKNOWN",
+                  "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+                },
+                "provenance": {
+                  "sourcePlan": "USER",
+                  "assertionKind": "USER_STATED",
+                  "sourceTurnRefs": [
+                    "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER"
+                  ],
+                  "sourceText": "M3",
+                  "proposalSourceTurnRefs": [],
+                  "adoptionSourceTurnRefs": [],
+                  "evidenceRefs": [],
+                  "evidenceQualification": "NOT_EVALUATED"
+                }
+              },
+              "resultingVersionRef": "temp_qual_1:version:1"
+            }
+          ],
+          "expectedOccasionChanges": [],
+          "humanDecisionRef": "project-contribution-decision:ke1-dcbadf40c9de9ab4",
+          "humanActorRef": "hands-on-02r3:diagnostic-researcher",
+          "humanMandateRef": "PROJECT_OWNER",
+          "resultingProjectVersion": "project:project-hands-on-02r3-live-gate:version:1",
+          "decidedAt": "2026-08-24T10:57:42.777Z"
+        }
+      ],
+      "versionHistory": [
+        {
+          "versionId": "project:project-hands-on-02r3-live-gate:version:1",
+          "previousVersionId": null,
+          "revision": 1,
+          "objectVersionRefs": [
+            "cand_comparator_1:version:1",
+            "cand_intervention_1:version:1",
+            "cand_modality_1:version:1",
+            "cand_objective_1:version:1"
+          ],
+          "relationVersionRefs": [
+            "rel_comp_1:version:1"
+          ],
+          "temporalQualificationVersionRefs": [
+            "temp_qual_1:version:1"
+          ],
+          "expectedVariableOccasionVersionRefs": [],
+          "legacyTemporalVersionRefs": [],
+          "decisionRefs": [
+            "project-contribution-decision:ke1-dcbadf40c9de9ab4"
+          ],
+          "sourceContributionRef": "persistent-project-contribution:ke1-e2e83c0f78090ecb",
+          "createdAt": "2026-08-24T10:57:42.777Z",
+          "stateDigest": "ke1-57480d7dff8a4059"
+        }
+      ],
+      "activeConflicts": []
+    }
+  },
+  "conversation": {
+    "conversationId": "project-hands-on-02r3:live-gate",
+    "language": "fr",
+    "turns": [
+      {
+        "turnId": "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER",
+        "role": "USER",
+        "content": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+        "createdAt": "2026-08-24T10:55:25.249Z"
+      },
+      {
+        "turnId": "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:NOXIA",
+        "role": "NOXIA",
+        "content": "Je comprends que vous envisagez d'évaluer l'effet d'un médicament par rapport à un placebo sur la réduction des plaques carotidiennes, avec une mesure par IRM à trois mois. \n\nEst-ce que l'objectif principal est de mesurer une variation du volume de la plaque, ou s'intéresse-t-on plutôt à sa composition tissulaire ?",
+        "createdAt": "2026-08-24T10:55:27.977Z"
+      }
+    ]
+  }
+}

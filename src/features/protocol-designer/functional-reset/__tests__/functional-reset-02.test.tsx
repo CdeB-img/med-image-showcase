@@ -19,7 +19,7 @@ import {
   COLCHICINE_INITIAL,
   COLCHICINE_LATER_MODIFICATION,
   COLCHICINE_MODIFICATION,
-  makeFunctionalResetBridgeResponse,
+  makeFunctionalResetBridgeResponseForRequest,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
@@ -62,7 +62,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(conversation.turns));
+    runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request));
   });
   afterEach(cleanup);
 

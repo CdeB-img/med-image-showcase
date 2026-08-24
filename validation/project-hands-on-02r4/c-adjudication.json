@@ -1,0 +1,687 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R4_ADJUDICATION",
+  "contractVersion": "1.0.0",
+  "sourceEvidence": "/Users/charles/Documents/Projets/NOXIA/noxia-dev/validation/project-hands-on-02r4/c-provider-exact.json",
+  "exactArgsDigest": "ke1-cebcc64a41fdab26",
+  "providerContract": {
+    "valid": true,
+    "blocks": []
+  },
+  "wireCandidate": {
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "35 à 75 ans",
+        "content": "35 à 75 ans",
+        "candidateRef": "cand_pop_age",
+        "proposedType": "POPULATION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "sans antécédent",
+        "content": "sans antécédent",
+        "candidateRef": "cand_cond_antecedent",
+        "proposedType": "ELIGIBILITY_CRITERION",
+        "polarity": "NEGATED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "plaque carotidienne",
+        "content": "plaque carotidienne",
+        "candidateRef": "cand_cond_plaque",
+        "proposedType": "CONDITION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "sténose supérieure à 40 %",
+        "content": "sténose supérieure à 40 %",
+        "candidateRef": "cand_crit_stenose",
+        "proposedType": "ELIGIBILITY_CRITERION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [],
+    "temporalQualifications": [],
+    "expectedVariableOccasions": []
+  },
+  "normalizedCandidate": {
+    "contract": "PERSISTENT_PROJECT_DELTA_CANDIDATE",
+    "contractVersion": "0.4.0",
+    "projectWriteAuthorized": false,
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "35 à 75 ans",
+        "content": "35 à 75 ans",
+        "candidateRef": "cand_pop_age",
+        "proposedType": "POPULATION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "sans antécédent",
+        "content": "sans antécédent",
+        "candidateRef": "cand_cond_antecedent",
+        "proposedType": "ELIGIBILITY_CRITERION",
+        "polarity": "NEGATED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "plaque carotidienne",
+        "content": "plaque carotidienne",
+        "candidateRef": "cand_cond_plaque",
+        "proposedType": "CONDITION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "sténose supérieure à 40 %",
+        "content": "sténose supérieure à 40 %",
+        "candidateRef": "cand_crit_stenose",
+        "proposedType": "ELIGIBILITY_CRITERION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [],
+    "temporalQualifications": [],
+    "expectedVariableOccasions": []
+  },
+  "validation": {
+    "valid": true,
+    "acceptedChanges": [
+      {
+        "operation": "ADD",
+        "sourceText": "35 à 75 ans",
+        "content": "35 à 75 ans",
+        "candidateRef": "cand_pop_age",
+        "proposedType": "POPULATION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "sans antécédent",
+        "content": "sans antécédent",
+        "candidateRef": "cand_cond_antecedent",
+        "proposedType": "ELIGIBILITY_CRITERION",
+        "polarity": "NEGATED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "UNKNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "plaque carotidienne",
+        "content": "plaque carotidienne",
+        "candidateRef": "cand_cond_plaque",
+        "proposedType": "CONDITION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "sténose supérieure à 40 %",
+        "content": "sténose supérieure à 40 %",
+        "candidateRef": "cand_crit_stenose",
+        "proposedType": "ELIGIBILITY_CRITERION",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "epistemicState": "KNOWN",
+        "assertionKind": "USER_STATED",
+        "evidenceRefs": []
+      }
+    ],
+    "acceptedRelations": [],
+    "acceptedTemporalQualifications": [],
+    "acceptedExpectedVariableOccasions": [],
+    "blocks": [],
+    "noOps": [],
+    "normalizations": []
+  },
+  "contribution": {
+    "contract": "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE",
+    "contractNature": "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
+    "identity": {
+      "contributionId": "persistent-project-contribution:ke1-d2e3e5b11b0be925",
+      "previousContributionId": "persistent-project-contribution:ke1-14bf0efe1809ac5a",
+      "contractVersion": "1.0.0",
+      "runtimeId": "MINIMAL_PRODUCT_BRIDGE_PERSISTENT_DELTA",
+      "runtimeVersion": "0.4.0",
+      "createdAt": "2026-08-24T12:08:37.802Z",
+      "contributionDigest": "ke1-cb03b3da8afc9226"
+    },
+    "source": {
+      "conversationId": "project-hands-on-02r3:live-gate",
+      "originalRequest": "Population 35 à 75 ans, sans antécédent, avec plaque carotidienne et sténose supérieure à 40 %.",
+      "turns": [
+        {
+          "turnId": "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:USER",
+          "role": "USER",
+          "content": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+          "createdAt": "2026-08-24T10:55:25.249Z"
+        },
+        {
+          "turnId": "PROJECT-HANDS-ON-02R3-POST-FIX-001:A:NOXIA",
+          "role": "NOXIA",
+          "content": "Je comprends que vous envisagez d'évaluer l'effet d'un médicament par rapport à un placebo sur la réduction des plaques carotidiennes, avec une mesure par IRM à trois mois. \n\nEst-ce que l'objectif principal est de mesurer une variation du volume de la plaque, ou s'intéresse-t-on plutôt à sa composition tissulaire ?",
+          "createdAt": "2026-08-24T10:55:27.977Z"
+        },
+        {
+          "turnId": "PROJECT-HANDS-ON-02R4-POST-FIX-001:B:USER",
+          "role": "USER",
+          "content": "Oui, je veux démontrer l'efficacité du traitement sur la disparition totale de la plaque.",
+          "createdAt": "2026-08-24T12:06:44.118Z"
+        },
+        {
+          "turnId": "PROJECT-HANDS-ON-02R4-POST-FIX-001:B:NOXIA",
+          "role": "NOXIA",
+          "content": "Je comprends que vous orientez le critère principal vers la disparition totale de la plaque carotidienne sous traitement. \n\nPour préciser la définition de ce critère, est-ce que cette disparition totale fait référence à une absence complète de lésion détectable en IRM à trois mois, ou s'agit-il d'un seuil spécifique de régression par rapport à l'imagerie initiale ?",
+          "createdAt": "2026-08-24T12:06:58.354Z"
+        },
+        {
+          "turnId": "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER",
+          "role": "USER",
+          "content": "Population 35 à 75 ans, sans antécédent, avec plaque carotidienne et sténose supérieure à 40 %.",
+          "createdAt": "2026-08-24T12:08:01.507Z"
+        }
+      ],
+      "sourceRefs": [
+        "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+      ],
+      "rawOutputRef": "gemini-structured-args:ke1-cebcc64a41fdab26",
+      "rawOutputDigest": "ke1-cebcc64a41fdab26"
+    },
+    "runtimeEvidence": {
+      "provider": "GOOGLE_GEMINI",
+      "model": "gemini-3.5-flash-lite",
+      "promptDigest": "ke1-a150fd940c544a00",
+      "schemaDigest": "ke1-06426627773c34eb",
+      "configurationDigest": "ke1-19e4c9756e112a01",
+      "technicalStatus": "STRUCTURED_CONTRACT_VALID",
+      "parseStatus": "PARSED",
+      "validationErrors": []
+    },
+    "scientificContent": {
+      "normalizedUnderstanding": null,
+      "routeProposal": null,
+      "explicitStatements": [],
+      "candidateObjects": [
+        {
+          "itemId": "cand_pop_age",
+          "semanticIdentity": "cand_pop_age",
+          "proposedType": "POPULATION",
+          "content": "35 à 75 ans",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "KNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceText": "35 à 75 ans"
+          }
+        },
+        {
+          "itemId": "cand_cond_antecedent",
+          "semanticIdentity": "cand_cond_antecedent",
+          "proposedType": "ELIGIBILITY_CRITERION",
+          "content": "sans antécédent",
+          "polarity": "NEGATED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "UNKNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceText": "sans antécédent"
+          }
+        },
+        {
+          "itemId": "cand_cond_plaque",
+          "semanticIdentity": "cand_cond_plaque",
+          "proposedType": "CONDITION",
+          "content": "plaque carotidienne",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "KNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceText": "plaque carotidienne"
+          }
+        },
+        {
+          "itemId": "cand_crit_stenose",
+          "semanticIdentity": "cand_crit_stenose",
+          "proposedType": "ELIGIBILITY_CRITERION",
+          "content": "sténose supérieure à 40 %",
+          "polarity": "AFFIRMED",
+          "studyRole": null,
+          "confidence": 1,
+          "previousItemIds": [],
+          "evidenceRefs": [],
+          "epistemicBoundary": {
+            "ownership": "USER",
+            "epistemicState": "KNOWN",
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "adoptionStatus": "CANDIDATE",
+            "originType": "USER_STATED",
+            "originStatus": "PERSISTENT_EXTRACTION_CANDIDATE",
+            "activeState": true,
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceText": "sténose supérieure à 40 %"
+          }
+        }
+      ],
+      "candidateRelations": [],
+      "inferredContext": [],
+      "contextualCandidates": [],
+      "negationsAndConstraints": [],
+      "temporalElements": [],
+      "ambiguities": [],
+      "unknowns": [],
+      "missingInformation": [],
+      "correctionsAndSupersessions": [],
+      "openDecisions": [],
+      "clarificationNeeds": [],
+      "temporalQualifications": [],
+      "expectedVariableOccasions": []
+    },
+    "epistemicBoundary": {
+      "candidateIsAdopted": false,
+      "knowledgeSupportIsProjectDecision": false,
+      "projectOwnershipTransferred": false,
+      "humanDecisionEnvelopeRef": null
+    },
+    "mapping": [
+      {
+        "sourceItemId": "cand_pop_age",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "POPULATION"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      },
+      {
+        "sourceItemId": "cand_cond_antecedent",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "ELIGIBILITY_CRITERION"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      },
+      {
+        "sourceItemId": "cand_cond_plaque",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "CONDITION"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      },
+      {
+        "sourceItemId": "cand_crit_stenose",
+        "proposedTargetDomain": "RESEARCH_PROJECT",
+        "proposedTargetTypes": [
+          "ELIGIBILITY_CRITERION"
+        ],
+        "mappingStatus": "EXACT_CONTRIBUTION",
+        "qualificationOwnerRequired": null,
+        "mappingLimitations": []
+      }
+    ],
+    "audit": {
+      "deterministicFindings": [],
+      "semanticAuditFindings": [],
+      "unresolvedFindings": []
+    },
+    "decisionBoundary": {
+      "decisionRequired": true,
+      "decisionEnvelopeRef": null,
+      "permittedHumanDispositions": [
+        "ACCEPT_WORKING_BASIS",
+        "REJECT",
+        "DEFER",
+        "REOPEN",
+        "PARTIAL_SELECTION",
+        "ROUTE_TO_SPECIALIST"
+      ],
+      "projectWriteAuthorized": false
+    }
+  },
+  "canonicalProjectChangeSet": {
+    "contract": "PRJ001_CANONICAL_PROJECT_CHANGESET",
+    "contractVersion": "0.2.0",
+    "sourceContributionRef": "persistent-project-contribution:ke1-d2e3e5b11b0be925",
+    "baseProjectVersion": "project:project-hands-on-02r3-live-gate:version:2",
+    "status": "READY_FOR_HUMAN_DECISION",
+    "objectChanges": [
+      {
+        "changeRef": "contribution-project-change:ke1-56d593f1aa886615",
+        "operation": "ADD",
+        "objectId": "cand_pop_age",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "cand_pop_age",
+          "objectType": "POPULATION",
+          "sectionId": "POPULATION",
+          "content": "35 à 75 ans",
+          "scientificRole": null,
+          "semanticKey": "POPULATION:POPULATION:cand pop age",
+          "epistemicState": "KNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceText": "35 à 75 ans",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-d2e3e5b11b0be925",
+          "sourceItemRefs": [
+            "cand_pop_age"
+          ],
+          "projection": {
+            "elementId": "cand_pop_age",
+            "semanticKey": "POPULATION:population:cand pop age",
+            "content": "35 à 75 ans",
+            "sourceItemIds": [
+              "cand_pop_age"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceProposedType": "POPULATION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      },
+      {
+        "changeRef": "contribution-project-change:ke1-f356b8a820d79d7c",
+        "operation": "ADD",
+        "objectId": "cand_cond_plaque",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "cand_cond_plaque",
+          "objectType": "CONDITION",
+          "sectionId": "POPULATION",
+          "content": "plaque carotidienne",
+          "scientificRole": null,
+          "semanticKey": "POPULATION:CONDITION:cand cond plaque",
+          "epistemicState": "KNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceText": "plaque carotidienne",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-d2e3e5b11b0be925",
+          "sourceItemRefs": [
+            "cand_cond_plaque"
+          ],
+          "projection": {
+            "elementId": "cand_cond_plaque",
+            "semanticKey": "POPULATION:condition:cand cond plaque",
+            "content": "plaque carotidienne",
+            "sourceItemIds": [
+              "cand_cond_plaque"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceProposedType": "CONDITION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      },
+      {
+        "changeRef": "contribution-project-change:ke1-834354c4a38b6c40",
+        "operation": "ADD",
+        "objectId": "cand_crit_stenose",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "cand_crit_stenose",
+          "objectType": "ELIGIBILITY_CRITERION",
+          "sectionId": "POPULATION",
+          "content": "sténose supérieure à 40 %",
+          "scientificRole": null,
+          "semanticKey": "POPULATION:ELIGIBILITY_CRITERION:cand crit stenose",
+          "epistemicState": "KNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceText": "sténose supérieure à 40 %",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-d2e3e5b11b0be925",
+          "sourceItemRefs": [
+            "cand_crit_stenose"
+          ],
+          "projection": {
+            "elementId": "cand_crit_stenose",
+            "semanticKey": "POPULATION:eligibility criterion:cand crit stenose",
+            "content": "sténose supérieure à 40 %",
+            "sourceItemIds": [
+              "cand_crit_stenose"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceProposedType": "ELIGIBILITY_CRITERION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "AFFIRMED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      },
+      {
+        "changeRef": "canonical-object-change:ke1-1364243a569177de",
+        "operation": "ADD",
+        "objectId": "cand_cond_antecedent",
+        "previousVersionRef": null,
+        "candidate": {
+          "objectId": "cand_cond_antecedent",
+          "objectType": "ELIGIBILITY_CRITERION",
+          "sectionId": "POPULATION",
+          "content": "sans antécédent",
+          "scientificRole": null,
+          "semanticKey": "POPULATION:ELIGIBILITY_CRITERION:cand cond antecedent",
+          "epistemicState": "UNKNOWN",
+          "provenance": {
+            "sourcePlan": "USER",
+            "assertionKind": "USER_STATED",
+            "sourceTurnRefs": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceText": "sans antécédent",
+            "proposalSourceTurnRefs": [],
+            "adoptionSourceTurnRefs": [],
+            "evidenceRefs": [],
+            "evidenceQualification": "NOT_EVALUATED"
+          },
+          "sourceContributionRef": "persistent-project-contribution:ke1-d2e3e5b11b0be925",
+          "sourceItemRefs": [
+            "cand_cond_antecedent"
+          ],
+          "projection": {
+            "elementId": "cand_cond_antecedent",
+            "semanticKey": "POPULATION:ELIGIBILITY_CRITERION:cand cond antecedent",
+            "content": "sans antécédent",
+            "sourceItemIds": [
+              "cand_cond_antecedent"
+            ],
+            "sourceTurnIds": [
+              "PROJECT-HANDS-ON-02R4-POST-FIX-001:C:USER"
+            ],
+            "sourceProposedType": "ELIGIBILITY_CRITERION",
+            "sourceStudyRole": null,
+            "sourcePolarity": "NEGATED",
+            "disposition": "USER_CONFIRMED_PROJECT_INFORMATION",
+            "canonicalPromotion": "NOT_PERFORMED"
+          }
+        }
+      }
+    ],
+    "relationChanges": [],
+    "temporalQualificationChanges": [],
+    "expectedVariableOccasionChanges": [],
+    "legacyTemporalChanges": [],
+    "conflicts": []
+  },
+  "humanReviewProjection": {
+    "contract": "PRJ001_HUMAN_REVIEW_PROJECTION",
+    "contractVersion": "1.0.0",
+    "sourceChangeSetRef": "persistent-project-contribution:ke1-d2e3e5b11b0be925",
+    "sections": [
+      {
+        "sectionRef": "review-section:population",
+        "label": "Population",
+        "items": [
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-56d593f1aa886615",
+            "changeRef": "contribution-project-change:ke1-56d593f1aa886615",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "+ 35 à 75 ans"
+          },
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-f356b8a820d79d7c",
+            "changeRef": "contribution-project-change:ke1-f356b8a820d79d7c",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "+ Plaque carotidienne"
+          },
+          {
+            "reviewItemRef": "review:contribution-project-change:ke1-834354c4a38b6c40",
+            "changeRef": "contribution-project-change:ke1-834354c4a38b6c40",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "+ Sténose supérieure à 40 %"
+          },
+          {
+            "reviewItemRef": "review:canonical-object-change:ke1-1364243a569177de",
+            "changeRef": "canonical-object-change:ke1-1364243a569177de",
+            "changeKind": "OBJECT",
+            "operation": "ADD",
+            "content": "+ Sans antécédent — précision encore requise"
+          }
+        ]
+      }
+    ],
+    "status": "COMPLETE",
+    "expectedChangeRefs": [
+      "contribution-project-change:ke1-56d593f1aa886615",
+      "contribution-project-change:ke1-f356b8a820d79d7c",
+      "contribution-project-change:ke1-834354c4a38b6c40",
+      "canonical-object-change:ke1-1364243a569177de"
+    ],
+    "coveredChangeRefs": [
+      "contribution-project-change:ke1-56d593f1aa886615",
+      "contribution-project-change:ke1-f356b8a820d79d7c",
+      "contribution-project-change:ke1-834354c4a38b6c40",
+      "canonical-object-change:ke1-1364243a569177de"
+    ],
+    "missingChangeRefs": [],
+    "unexpectedChangeRefs": [],
+    "duplicateChangeRefs": []
+  }
+}

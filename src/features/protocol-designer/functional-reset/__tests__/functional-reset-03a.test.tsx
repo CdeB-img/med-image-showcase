@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   COLCHICINE_03A_INITIAL,
   COLCHICINE_03A_MODIFICATION,
   makeFunctionalResetBridgeResponse,
+  makeFunctionalResetBridgeResponseForRequest,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
@@ -33,7 +34,12 @@ const waitForProposal = () => screen.findByRole("heading", {
   name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude.",
 });
 
-const confirm = () => fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+const confirm = async () => {
+  const callsBefore = runtime.request.mock.calls.length;
+  fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+  await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThan(callsBefore));
+  await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
+};
 
 const storedSession = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as {
   pendingContribution: ScientificInterpretationContributionEnvelope | null;
@@ -66,7 +72,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
   beforeEach(() => {
     window.localStorage.clear();
     runtime.request.mockReset();
-    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(conversation.turns));
+    runtime.request.mockImplementation(async (request) => makeFunctionalResetBridgeResponseForRequest(request));
   });
   afterEach(cleanup);
 
@@ -107,7 +113,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
-    confirm();
+    await confirm();
 
     expect(await screen.findByText(/Projet créé\./)).toBeInTheDocument();
     expect(storedSession().project).toMatchObject({
@@ -123,12 +129,12 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
-    confirm();
+    await confirm();
     const versionOne = storedSession().project!.versionId;
 
     submit(COLCHICINE_03A_MODIFICATION);
     await screen.findByText("J’ai compris deux modifications :");
-    confirm();
+    await confirm();
 
     const project = storedSession().project!;
     expect(project).toMatchObject({ revision: 2, previousVersionId: versionOne });
@@ -141,7 +147,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
-    confirm();
+    await confirm();
 
     submit(COLCHICINE_03A_MODIFICATION);
     const heading = await screen.findByText("J’ai compris deux modifications :");
@@ -156,7 +162,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
-    confirm();
+    await confirm();
 
     runtime.request.mockImplementationOnce(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(
       conversation.turns,
@@ -183,7 +189,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
-    confirm();
+    await confirm();
 
     const project = screen.getByTestId("functional-research-project");
     expect(project).toBeInTheDocument();
@@ -195,7 +201,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
-    confirm();
+    await confirm();
 
     const visibleProduct = screen.getByTestId("functional-reset-workspace").textContent ?? "";
     expect(visibleProduct).not.toMatch(/\b(?:enum|candidate state|owner|digest|handoff|gate|branch|pattern|DOC-\d+|TMP-\d+|Guided Intake|Actor|Mandate)\b/i);
@@ -205,7 +211,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await waitForProposal();
-    confirm();
+    await confirm();
     const project = screen.getByTestId("functional-research-project");
     fireEvent.click(within(project).getByRole("button", { name: "Créer l’aperçu" }));
 

@@ -37,14 +37,24 @@ export default function ResearchProjectPanel({ project, documents, onOpenProtoco
     </div>
 
     <div className="space-y-3 p-4">
-      {sections.map((section) => <section key={section.sectionId} className="rounded-2xl border px-4 py-3" aria-labelledby={`functional-project-${section.sectionId.toLocaleLowerCase("fr-FR")}`}>
-        <h3 id={`functional-project-${section.sectionId.toLocaleLowerCase("fr-FR")}`} className="text-sm font-semibold">{section.label}</h3>
-        {(section.sectionId === "QUESTION" && standardQuestion) || section.elements.length > 0
-          ? <ul className="mt-2 space-y-1.5 text-sm">{section.sectionId === "QUESTION" && standardQuestion
-            ? <li className="break-words leading-relaxed">{standardQuestion}</li>
-            : section.elements.map((element) => <li key={element.elementId} className="break-words leading-relaxed">{element.content}</li>)}</ul>
-          : <p className="mt-2 text-sm text-muted-foreground">À préciser dans la conversation.</p>}
-      </section>)}
+      {sections.map((section) => {
+        const questionDetails = section.sectionId === "QUESTION"
+          ? section.elements.filter((element) => /OBJECTIVE/i.test(element.sourceProposedType ?? ""))
+          : [];
+        return <section key={section.sectionId} className="rounded-2xl border px-4 py-3" aria-labelledby={`functional-project-${section.sectionId.toLocaleLowerCase("fr-FR")}`}>
+          <h3 id={`functional-project-${section.sectionId.toLocaleLowerCase("fr-FR")}`} className="text-sm font-semibold">{section.label}</h3>
+          {(section.sectionId === "QUESTION" && standardQuestion) || section.elements.length > 0
+            ? <ul className="mt-2 space-y-1.5 text-sm">
+              {section.sectionId === "QUESTION" && standardQuestion
+                ? <li className="break-words leading-relaxed">{standardQuestion}</li>
+                : null}
+              {section.sectionId === "QUESTION"
+                ? questionDetails.map((element) => <li key={element.elementId} className="break-words leading-relaxed"><span className="font-medium">Objectif :</span> {element.content}</li>)
+                : section.elements.map((element) => <li key={element.elementId} className="break-words leading-relaxed">{element.content}</li>)}
+            </ul>
+            : <p className="mt-2 text-sm text-muted-foreground">À préciser dans la conversation.</p>}
+        </section>;
+      })}
 
       <section className="rounded-2xl border px-4 py-3" aria-labelledby="functional-project-documents">
         <h3 id="functional-project-documents" className="text-sm font-semibold">Documents</h3>

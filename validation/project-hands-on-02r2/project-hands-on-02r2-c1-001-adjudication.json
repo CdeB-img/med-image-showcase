@@ -1,0 +1,134 @@
+{
+  "contract": "PROJECT_HANDS_ON_02R2_RECONSTRUCTED_ADJUDICATION",
+  "contractVersion": "1.0.0",
+  "diagnosticRunId": "PROJECT-HANDS-ON-02R2-C1-001",
+  "sourceExactEvidencePath": "project-hands-on-02r2-c1-001-provider-exact.json",
+  "sourceExactEvidenceDigest": "ke1-a5960cc22660cda6",
+  "reconstructedAfterPersistence": true,
+  "wireCandidate": {
+    "changes": [
+      {
+        "operation": "ADD",
+        "sourceText": "médicament",
+        "targetProjectRef": "null",
+        "content": "médicament",
+        "candidateRef": "cand_int_1",
+        "semanticIdentity": "intervention_medicament",
+        "proposedType": "INTERVENTION",
+        "polarity": "AFFIRMED",
+        "studyRole": "PRIMARY_INTERVENTION",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "placebo",
+        "targetProjectRef": "null",
+        "content": "placebo",
+        "candidateRef": "cand_comp_1",
+        "semanticIdentity": "comparator_placebo",
+        "proposedType": "COMPARATOR",
+        "polarity": "AFFIRMED",
+        "studyRole": "COMPARATOR",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "réduction des plaques carotiennes",
+        "targetProjectRef": "null",
+        "content": "réduction des plaques carotiennes",
+        "candidateRef": "cand_obj_1",
+        "semanticIdentity": "objective_reduction_plaques_carotiennes",
+        "proposedType": "OBJECTIVE",
+        "polarity": "AFFIRMED",
+        "studyRole": "PRIMARY_OBJECTIVE",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+        "evidenceRefs": []
+      },
+      {
+        "operation": "ADD",
+        "sourceText": "IRM",
+        "targetProjectRef": "null",
+        "content": "IRM",
+        "candidateRef": "cand_mod_1",
+        "semanticIdentity": "imaging_modality_irm",
+        "proposedType": "IMAGING_MODALITY",
+        "polarity": "AFFIRMED",
+        "studyRole": "null",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+        "evidenceRefs": []
+      }
+    ],
+    "relations": [
+      {
+        "relationRef": "rel_comp_1",
+        "sourceText": "médicament contre placebo",
+        "relationType": "COMPARES_WITH",
+        "sourceObjectRef": "cand_int_1",
+        "targetObjectRef": "cand_comp_1",
+        "polarity": "AFFIRMED",
+        "epistemicStatus": "EXPLICIT_USER_STATED",
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+        "evidenceRefs": []
+      }
+    ],
+    "temporalQualifications": [
+      {
+        "operation": "ADD",
+        "qualificationId": "temp_q_1",
+        "sourceText": "M3",
+        "subjectProjectRef": "cand_mod_1",
+        "temporalRole": "ACQUISITION_TIME",
+        "anchor": {
+          "kind": "TIMEPOINT",
+          "direction": "AT",
+          "unit": "MONTH",
+          "offset": 3,
+          "lowerBound": null,
+          "upperBound": null,
+          "relativeEventLabel": null,
+          "tolerance": null,
+          "reference": {
+            "status": "UNKNOWN",
+            "unresolvedReason": "REFERENCE_EVENT_NOT_SUPPLIED"
+          }
+        },
+        "assertionKind": "USER_STATED",
+        "proposalSourceText": "Projet médicament contre placebo réduction des plaques carotiennes avec évaluation IRM M3",
+        "evidenceRefs": []
+      }
+    ],
+    "expectedVariableOccasions": []
+  },
+  "normalizedCandidate": null,
+  "validation": {
+    "valid": false,
+    "acceptedChanges": [],
+    "acceptedRelations": [],
+    "acceptedTemporalQualifications": [],
+    "acceptedExpectedVariableOccasions": [],
+    "blocks": [
+      "change:0:ADD_MUST_NOT_TARGET_EXISTING_REF",
+      "change:1:ADD_MUST_NOT_TARGET_EXISTING_REF",
+      "change:2:ADD_MUST_NOT_TARGET_EXISTING_REF",
+      "change:3:ADD_MUST_NOT_TARGET_EXISTING_REF",
+      "relation:0:PROJECT_RELATION_ENDPOINT_INVALID",
+      "temporalQualification:0:PROJECT_REF_INVALID"
+    ],
+    "noOps": [],
+    "normalizations": []
+  },
+  "canonicalProjectChangeSet": null,
+  "humanReviewProjection": null,
+  "contribution": null
+}
