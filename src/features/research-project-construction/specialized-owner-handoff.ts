@@ -19,6 +19,7 @@ export const SPECIALIZED_OWNER_HANDOFF_VERSION = "0.1.0" as const;
 export type SpecializedOwnerId =
   | "KNOWLEDGE"
   | "SCIENTIFIC_THINKING"
+  | "STUDY_DESIGN"
   | "IMAGING"
   | "OBSERVABILITY_MEASUREMENT"
   | "REGULATORY_RESOLUTION"
@@ -82,6 +83,24 @@ export const SPECIALIZED_OWNER_CAPABILITIES = Object.freeze([
     canWriteProject: false,
     externalProvider: "NONE",
     limitations: ["Existing runtime is deterministic and expects its native context projection.", "Proposals are never adopted automatically."],
+  },
+  {
+    capabilityId: "STUDY_DESIGN_COHERENCE",
+    owner: "STUDY_DESIGN",
+    role: "SPECIALIZED_OWNER",
+    status: "UNAVAILABLE",
+    implementationVersion: null,
+    inputContract: "RDE-001/RDE-002 v1.1 normative contract only",
+    outputContract: "No standalone Study Design runtime result",
+    pd003V2Compatibility: "NOT_RUNTIME_AVAILABLE",
+    readsProjectSnapshot: false,
+    canProduceProjectContribution: false,
+    canWriteProject: false,
+    externalProvider: "NONE",
+    limitations: [
+      "Study Design is a normative owner of study-strategy coherence, but no standalone native runtime is implemented.",
+      "Research Project Construction remains PRJ-owned and is not reclassified as Study Design.",
+    ],
   },
   {
     capabilityId: "IMAGING_STUDY_DESIGN",
