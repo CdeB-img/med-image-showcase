@@ -138,7 +138,7 @@ export default function ProtocolDesignerWorkspace() {
       const receivedAt = new Date().toISOString();
       const contribution = response.persistentExtraction.contribution;
       const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
-      const effectiveCandidate = candidate?.changeSet.status === "PENDING_HUMAN_CONFIRMATION" ? candidate : null;
+      const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
       setSession((current) => ({
         ...current,
         queryNavigation,

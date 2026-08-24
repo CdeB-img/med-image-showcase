@@ -8,6 +8,14 @@ import type {
   ScientificContributionItem,
   ScientificInterpretationContributionEnvelope,
 } from "@/features/scientific-interpretation/contracts";
+import {
+  applyCanonicalProjectChangeSet,
+  buildCanonicalProjectChangeSet,
+  ensureCanonicalProjectState,
+  projectSectionsFromCanonicalState,
+  type CanonicalProjectChangeSet,
+  type CanonicalResearchProjectState,
+} from "./canonical-project-backbone";
 import { RESEARCH_PROJECT_CONSTRUCTION_VERSION } from "./types";
 
 export const RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY = "PRJ_001_CONTRIBUTION_INTAKE_ADAPTER" as const;
@@ -70,6 +78,7 @@ export type ResearchProjectContributionCandidate = {
   contributionRef: string;
   contributionDigest: string;
   changeSet: ContributionProjectChangeSet;
+  canonicalChangeSet: CanonicalProjectChangeSet;
   proposedSections: ResearchProjectSection[];
   specializedResponsibilities: SpecializedResponsibility[];
 };
@@ -120,6 +129,7 @@ export type ResearchProjectOwnerProjection = {
   boundary: typeof RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY;
   pd003V2Compatibility: "COMPATIBLE_IN_PRINCIPLE_ADAPTATION_REQUIRED";
   canonicalV2Status: "NO_SCIENTIFIC_OBJECT_PROMOTION_CLAIMED";
+  canonicalBackboneStatus?: "PRJ_OWNED_CANONICAL_PROJECT_BACKBONE_ACTIVE";
   contractAdaptation: typeof PRJ001_CONTRIBUTION_INTAKE_GAP;
   projectId: string;
   versionId: string;
@@ -135,6 +145,7 @@ export type ResearchProjectOwnerProjection = {
   sections: ResearchProjectSection[];
   specializedResponsibilities: SpecializedResponsibility[];
   appliedChangeSet?: ContributionProjectChangeSet;
+  canonicalState?: CanonicalResearchProjectState;
 };
 
 const SECTION_LABELS: Record<ResearchProjectSectionId, string> = {
@@ -201,12 +212,20 @@ export const sectionForContributionItem = (
   if (/TIMING|TEMPORAL|TIMEPOINT|WINDOW|VISIT/.test(type)) return "TEMPORALITY";
   if (/MODALITY|IMAGING_METHOD|ACQUISITION/.test(type)) return "IMAGING";
   if (/ANALYSIS|ESTIMAND|STATISTICAL/.test(type)) return "ANALYSIS";
+  if (/HYPOTHESIS|OBJECTIVE|SCIENTIFIC_QUESTION/.test(type)) return "ANALYSIS";
   if (/BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET|SCIENTIFIC_OBJECT/.test(type)) return "MEASUREMENTS";
   return null;
 };
 
 const itemLocalContext = (item: ScientificContributionItem) => [
   item.semanticIdentity,
+  item.content,
+  item.epistemicBoundary.sourceText,
+  item.proposedType,
+  item.studyRole,
+].filter((value): value is string => Boolean(value)).join(" ");
+
+const itemScientificValueContext = (item: ScientificContributionItem) => [
   item.content,
   item.epistemicBoundary.sourceText,
   item.proposedType,
@@ -227,7 +246,7 @@ const populationEventWindow = (
   sectionId: ResearchProjectSectionId,
 ): SpecializedProjectElement | null => {
   if (sectionId !== "POPULATION") return null;
-  const context = foldedWithSeparators(itemLocalContext(item));
+  const context = foldedWithSeparators(itemScientificValueContext(item));
   const bound = context.match(/\b(?:moins de|less than|under|within|dans les)\s*(\d+(?:[.,]\d+)?)\s*(jours?|days?|semaines?|weeks?|mois|months?|ans?|years?)\b/);
   if (!bound?.[1] || !bound[2]) return null;
   const unit = /^(?:jour|day)/.test(bound[2]) ? "DAY"
@@ -242,10 +261,10 @@ const populationEventWindow = (
 };
 
 const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope): SpecializedProjectElement[] => {
-  const localContext = folded(itemLocalContext(item));
+  const localContext = folded(itemScientificValueContext(item));
+  const identityAwareContext = folded(itemLocalContext(item));
   const fallbackContext = folded(itemContext(item, contribution));
-  const localWithSeparators = foldedWithSeparators(itemLocalContext(item));
-  const context = /\bage\b/.test(localContext) ? localContext : fallbackContext;
+  const localWithSeparators = foldedWithSeparators(itemScientificValueContext(item));
   const ageSignal = /\bage\b/.test(localContext)
     || /\b\d{1,3}(?:[.,]\d+)?\s*(?:ans?|years?)\b/.test(localWithSeparators);
   if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|LOWER_BOUND|UPPER_BOUND/.test(typeOf(item)) || !ageSignal) return [];
@@ -265,7 +284,7 @@ const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjec
   const fallbackValues = [...fallbackContext.matchAll(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/g)]
     .map((match) => match[1]?.replace(",", "."))
     .filter((value): value is string => Boolean(value));
-  const localDirection = directionIn(localContext);
+  const localDirection = directionIn(identityAwareContext);
   const roleDirection = directionIn(folded(typeOf(item)));
   const direction = localDirection ?? roleDirection ?? directionIn(fallbackContext) ?? "criterion";
   const values = localValues.length ? localValues : fallbackValues;
@@ -289,12 +308,12 @@ const temporalOccurrenceRole = (
     .join(" "));
   const bareTemporalAnswer = /^(?:(?:j|jour)\s*\d+\s*(?:et|a|au|to|-|–)\s*(?:(?:j|jour)\s*)?\d+|[jmw]\s*\d+|\d+(?:[.,]\d+)?\s*(?:mois|months?|semaines?|weeks?|jours?|days?|ans?|years?))$/.test(userSource);
   if (bareTemporalAnswer) return "WINDOW";
-  const localSource = foldedWithSeparators(`${item.epistemicBoundary.sourceText ?? ""} ${item.content}`);
+  const localSource = foldedWithSeparators(itemScientificValueContext(item));
   const temporalSignature = localSource.match(/(?:j|jour)\s*\d+\s*(?:et|a|au|to|-|–)\s*(?:(?:j|jour)\s*)?\d+|\b[jmw]\s*\d+\b|\d+(?:[.,]\d+)?\s*(?:mois|months?|semaines?|weeks?|jours?|days?|ans?|years?)/)?.[0] ?? null;
   const sourceClause = temporalSignature
     ? userSource.split(/\b(?:puis|ensuite|then|followed by)\b/).find((clause) => clause.includes(temporalSignature)) ?? ""
     : "";
-  const context = folded(`${itemLocalContext(item)} ${sourceClause}`);
+  const context = folded(`${itemScientificValueContext(item)} ${sourceClause}`);
   if (/\b(?:follow up|suivi|controle|control|subsequent|repeat)\b/.test(context)) return "FOLLOW_UP";
   if (/\b(?:initial(?:e|es|s)?|baseline|aigu|acute|depart|origine)\b/.test(context)) return "INITIAL";
   return "WINDOW";
@@ -311,8 +330,8 @@ const temporalModality = (context: string) => {
 const timingCriterion = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope) => {
   if (sectionId !== "TEMPORALITY") return null;
   const context = folded(itemContext(item, contribution));
-  const localContext = folded(itemLocalContext(item));
-  const localWithSeparators = foldedWithSeparators(itemLocalContext(item));
+  const localContext = folded(itemScientificValueContext(item));
+  const localWithSeparators = foldedWithSeparators(itemScientificValueContext(item));
   const contextWithSeparators = foldedWithSeparators(itemContext(item, contribution));
   const dayRange = (value: string) => value.match(/\b(?:j|jour)\s*(\d+)\s*(?:et|a|au|to|-|–)\s*(?:(?:j|jour)\s*)?(\d+)\b/);
   const localRange = dayRange(localWithSeparators);
@@ -448,7 +467,6 @@ const relationElements = (contribution: ScientificInterpretationContributionEnve
 
 const projectValueElements = (contribution: ScientificInterpretationContributionEnvelope) => [
   ...contributionItems(contribution).flatMap((item) => elementsFrom(item, contribution)),
-  ...relationElements(contribution),
 ];
 
 const sectionForElement = (element: ResearchProjectElement, contribution: ScientificInterpretationContributionEnvelope): ResearchProjectSectionId | null => {
@@ -578,12 +596,12 @@ const removalTargetMatchesProjectElement = (input: {
   sectionId: ResearchProjectSectionId;
   element: ResearchProjectElement;
 }) => {
-  if (input.targetSection !== null && input.targetSection !== input.sectionId) return false;
   const refs = [input.target.itemId, input.target.semanticIdentity, ...(input.target.previousItemIds ?? [])]
     .filter((value): value is string => Boolean(value))
     .map(folded);
   const directRefs = [input.element.elementId, ...input.element.sourceItemIds].map(folded);
   if (refs.some((ref) => directRefs.includes(ref))) return true;
+  if (input.targetSection !== null && input.targetSection !== input.sectionId) return false;
   if (!input.targetElement) return false;
 
   const targetSemanticKey = semanticKeyForElement(input.sectionId, input.targetElement);
@@ -630,7 +648,10 @@ const buildContributionProjectChangeSet = (
       changes.push(projectChange({ operation: "ADD", sectionId: proposed.sectionId, previous: null, proposed: proposed.element, contribution, rationale: "Nouvel objet structuré explicite absent du Project courant." }));
       continue;
     }
-    const unchanged = elementValueKey(proposed.sectionId, match.element) === elementValueKey(proposed.sectionId, proposed.element);
+    const unchanged = elementValueKey(proposed.sectionId, match.element) === elementValueKey(proposed.sectionId, proposed.element)
+      && folded(match.element.sourceStudyRole ?? "") === folded(proposed.element.sourceStudyRole ?? "")
+      && folded(match.element.sourceProposedType ?? "") === folded(proposed.element.sourceProposedType ?? "")
+      && folded(match.element.sourcePolarity ?? "") === folded(proposed.element.sourcePolarity ?? "");
     changes.push(projectChange({
       operation: unchanged ? "NO_CHANGE" : "REPLACE",
       sectionId: proposed.sectionId,
@@ -807,13 +828,19 @@ export const prepareResearchProjectContributionCandidate = (
   current: ResearchProjectOwnerProjection | null,
 ): ResearchProjectContributionCandidate => {
   const changeSet = buildContributionProjectChangeSet(contribution, current);
+  const canonicalChangeSet = buildCanonicalProjectChangeSet({
+    contribution,
+    sectionChangeSet: changeSet,
+    current: current ? ensureCanonicalProjectState(current) : null,
+  });
   return {
     boundary: RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY,
-    status: changeSet.status === "NO_NET_CHANGE" ? "NO_NET_CHANGE" : "CANDIDATE_PENDING_HUMAN_CONFIRMATION",
+    status: canonicalChangeSet.status === "NO_NET_CHANGE" ? "NO_NET_CHANGE" : "CANDIDATE_PENDING_HUMAN_CONFIRMATION",
     projectWriteAuthorized: false,
     contributionRef: contribution.identity.contributionId,
     contributionDigest: contribution.identity.contributionDigest,
     changeSet,
+    canonicalChangeSet,
     proposedSections: applyContributionProjectChangeSet(changeSet, contribution, current),
     specializedResponsibilities: specializedResponsibilities(contribution),
   };
@@ -827,9 +854,12 @@ export const confirmResearchProjectContribution = (input: {
   confirmedAt: string;
 }): ResearchProjectOwnerProjection => {
   const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
-  if (candidate.changeSet.effectiveChangeCount === 0) {
+  if (candidate.changeSet.effectiveChangeCount === 0 && candidate.canonicalChangeSet.status === "NO_NET_CHANGE") {
     if (input.current) return input.current;
     throw new Error("PRJ_CONTRIBUTION_NO_PROJECT_CHANGE");
+  }
+  if (candidate.canonicalChangeSet.status === "BLOCKED_BY_STRUCTURAL_CONFLICT") {
+    throw new Error("PRJ_CONFLICTING_ADOPTED_STATE_REQUIRES_EXPLICIT_REPLACEMENT");
   }
   const revision = (input.current?.revision ?? 0) + 1;
   const versionId = `${input.projectId}:version:${revision}`;
@@ -854,13 +884,26 @@ export const confirmResearchProjectContribution = (input: {
   });
   if (confirmationDecision.status !== "ADOPTED") throw new Error("PRJ_CONTRIBUTION_CONFIRMATION_AUTHORITY_REQUIRED");
 
+  const canonicalState = applyCanonicalProjectChangeSet({
+    current: input.current ? ensureCanonicalProjectState(input.current) : null,
+    changeSet: candidate.canonicalChangeSet,
+    projectId: input.projectId,
+    versionId,
+    revision,
+    contribution: input.contribution,
+    decision: confirmationDecision,
+    decidedAt: input.confirmedAt,
+  });
+  const projectedSections = projectSectionsFromCanonicalState(canonicalState, candidate.proposedSections);
+
   const projectDigest = logicalDigest({
     projectId: input.projectId,
     versionId,
     previousVersionId: input.current?.versionId ?? null,
     contributionDigest: candidate.contributionDigest,
     changeSet: candidate.changeSet,
-    sections: candidate.proposedSections,
+    canonicalState,
+    sections: projectedSections,
     decisionId: confirmationDecision.decisionId,
   });
   return {
@@ -870,6 +913,7 @@ export const confirmResearchProjectContribution = (input: {
     boundary: RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY,
     pd003V2Compatibility: "COMPATIBLE_IN_PRINCIPLE_ADAPTATION_REQUIRED",
     canonicalV2Status: "NO_SCIENTIFIC_OBJECT_PROMOTION_CLAIMED",
+    canonicalBackboneStatus: "PRJ_OWNED_CANONICAL_PROJECT_BACKBONE_ACTIVE",
     contractAdaptation: PRJ001_CONTRIBUTION_INTAKE_GAP,
     projectId: input.projectId,
     versionId,
@@ -882,9 +926,10 @@ export const confirmResearchProjectContribution = (input: {
     owner: "RESEARCH_PROJECT",
     confirmationDecision,
     llmProjectWrites: 0,
-    sections: candidate.proposedSections,
+    sections: projectedSections,
     specializedResponsibilities: candidate.specializedResponsibilities,
     appliedChangeSet: candidate.changeSet,
+    canonicalState,
   };
 };
 

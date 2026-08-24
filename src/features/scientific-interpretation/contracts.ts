@@ -98,7 +98,49 @@ export type ScientificContributionRelation = {
   targetItemId: string;
   polarity: string | null;
   confidence: number | null;
+  evidenceRefs?: string[];
   epistemicBoundary: ContributionEpistemicBoundary;
+};
+
+/**
+ * Scientific Contribution transport for PD-003 temporal meaning. These are
+ * candidates only: PRJ validates their Project references and owns adoption.
+ */
+export type ScientificTemporalAnchorCandidate = {
+  kind: "TIMEPOINT" | "RELATIVE_EVENT" | "WINDOW" | "INTERVAL";
+  direction: "BEFORE" | "AT" | "AFTER" | "UNKNOWN";
+  unit: string;
+  offset: number | null;
+  lowerBound: number | null;
+  upperBound: number | null;
+  relativeEventLabel: string | null;
+  tolerance: null | { lower: number | null; upper: number | null; unit: string };
+  reference:
+    | { status: "KNOWN"; referenceProjectRef: string }
+    | { status: "UNKNOWN"; unresolvedReason: "REFERENCE_EVENT_NOT_SUPPLIED" | "REFERENCE_EVENT_AMBIGUOUS" };
+};
+
+export type ScientificTemporalQualificationCandidate = {
+  operation: "ADD" | "REMOVE" | "REPLACE";
+  qualificationId: string;
+  subjectProjectRef: string;
+  temporalRole: "ACQUISITION_TIME" | "COLLECTION_TIME" | "PROCESSING_TIME" | "TRANSFORMATION_TIME" | "ANALYSIS_TIME";
+  anchor: ScientificTemporalAnchorCandidate | null;
+  sourceText: string;
+  assertionKind: "USER_STATED" | "USER_ADOPTED_PROPOSAL" | "OWNER_SUPPORTED";
+  evidenceRefs: string[];
+};
+
+export type ScientificExpectedVariableOccasionCandidate = {
+  operation: "ADD" | "REMOVE" | "REPLACE";
+  occasionId: string;
+  variableProjectRef: string;
+  anchor: ScientificTemporalAnchorCandidate | null;
+  studyUnitOrGroupRef: string | null;
+  applicableContext: string | null;
+  sourceText: string;
+  assertionKind: "USER_STATED" | "USER_ADOPTED_PROPOSAL" | "OWNER_SUPPORTED";
+  evidenceRefs: string[];
 };
 
 export type ContributionMapping = {
@@ -165,6 +207,8 @@ export type ScientificInterpretationContributionEnvelope = {
     correctionsAndSupersessions: ScientificContributionItem[];
     openDecisions: ScientificContributionItem[];
     clarificationNeeds: ScientificContributionItem[];
+    temporalQualifications?: ScientificTemporalQualificationCandidate[];
+    expectedVariableOccasions?: ScientificExpectedVariableOccasionCandidate[];
   };
   epistemicBoundary: {
     candidateIsAdopted: false;

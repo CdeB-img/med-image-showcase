@@ -15,6 +15,7 @@ import type { FunctionalResetQueryNavigation } from "@/features/query-navigation
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 import type { PersistentDeltaValidation, PersistentProjectDeltaCandidate } from "@/features/protocol-designer/product-bridge";
 import type { ContributionProjectChangeSet } from "@/features/research-project-construction";
+import { ensureCanonicalProjectState } from "@/features/research-project-construction";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.\nVous pouvez partir d’une idée simple ou donner tous les détails que vous connaissez déjà.";
@@ -134,7 +135,16 @@ export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSes
     const raw = storage.getItem(FUNCTIONAL_RESET_STORAGE_KEY);
     if (!raw) return createFunctionalResetSession();
     const parsed: unknown = JSON.parse(raw);
-    return looksLikeSession(parsed) ? parsed : migrateLegacySession(parsed) ?? createFunctionalResetSession();
+    const session = looksLikeSession(parsed) ? parsed : migrateLegacySession(parsed);
+    if (!session) return createFunctionalResetSession();
+    return session.project ? {
+      ...session,
+      project: {
+        ...session.project,
+        canonicalBackboneStatus: "PRJ_OWNED_CANONICAL_PROJECT_BACKBONE_ACTIVE",
+        canonicalState: ensureCanonicalProjectState(session.project),
+      },
+    } : session;
   } catch {
     return createFunctionalResetSession();
   }

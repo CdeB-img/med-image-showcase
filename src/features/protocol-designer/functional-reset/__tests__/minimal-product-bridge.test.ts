@@ -75,7 +75,7 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     expect(payload.systemInstruction.parts[0].text).not.toContain("NOTE DE CONTRÔLE EXPÉRIMENTALE");
   });
 
-  it("never provides assistant-generated content to persistent extraction", () => {
+  it("provides recent assistant proposals only as read-only adoption context", () => {
     const request = requestFor("Que proposes-tu ?");
     request.conversation.turns = [
       turn("assistant-suggestion", "Cette MVO pourrait devenir un critère principal", "NOXIA"),
@@ -84,9 +84,15 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     const payload = buildPersistentDeltaPayload(request);
     const serialized = JSON.stringify(payload);
     expect(serialized).toContain("Que proposes-tu ?");
-    expect(serialized).not.toContain("Cette MVO pourrait devenir un critère principal");
+    expect(serialized).toContain("Cette MVO pourrait devenir un critère principal");
+    expect(serialized).toContain("utilisables uniquement si le dernier message les adopte explicitement");
+    expect(serialized).toContain("MUST be null for ADD");
+    expect(serialized).toContain("Never use it only to provide context for a new object");
+    expect(serialized).toContain("null explicitly clears the old role");
+    expect(serialized).toContain("Existing canonical Project stable ID or candidateRef declared in this same output");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("Une mention dans une question");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("retourne une liste vide");
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("Un changement de rôle scientifique ne remplace pas l'identité scientifique");
 
     const checked = validatePersistentProjectDelta({ changes: [{
       operation: "ADD",
@@ -143,6 +149,83 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     expect(JSON.stringify(project)).toBe(before);
   });
 
+  it("carries an MRI AcquisitionTime value without targetSectionId or a temporal root object", () => {
+    const initial = currentProject();
+    const acquisitionRaw = "Le projet comporte une acquisition IRM.";
+    const acquisitionChecked = validatePersistentProjectDelta({ changes: [{
+      operation: "ADD",
+      sourceText: "acquisition IRM",
+      targetProjectRef: null,
+      candidateRef: "acquisition:irm",
+      semanticIdentity: "acquisition:irm",
+      proposedType: "ACQUISITION",
+      content: "Acquisition IRM",
+    }] }, acquisitionRaw, initial);
+    const acquisitionContribution = contributionFromPersistentDelta({
+      candidate: acquisitionChecked.candidate!,
+      conversation: { conversationId: "conversation:acquisition", language: "fr", turns: [turn("acquisition", acquisitionRaw)] },
+      currentProject: initial,
+    })!;
+    const project = confirmResearchProjectContribution({
+      contribution: acquisitionContribution,
+      current: initial,
+      projectId: initial.projectId,
+      authority,
+      confirmedAt: "2026-08-23T09:01:30.000Z",
+    });
+    const raw = "L’IRM sera réalisée entre J3 et J5.";
+    const checked = validatePersistentProjectDelta({
+      changes: [],
+      relations: [],
+      temporalQualifications: [{
+        operation: "ADD",
+        qualificationId: "temporal-qualification:irm-acquisition",
+        sourceText: raw,
+        subjectProjectRef: "acquisition:irm",
+        temporalRole: "ACQUISITION_TIME",
+        anchor: {
+          kind: "WINDOW",
+          direction: "AFTER",
+          unit: "DAY",
+          offset: null,
+          lowerBound: 3,
+          upperBound: 5,
+          relativeEventLabel: null,
+          tolerance: null,
+          reference: { status: "UNKNOWN", unresolvedReason: "REFERENCE_EVENT_NOT_SUPPLIED" },
+        },
+        assertionKind: "USER_STATED",
+        proposalSourceText: null,
+        evidenceRefs: [],
+      }],
+      expectedVariableOccasions: [],
+    }, raw, project);
+    expect(checked.validation).toMatchObject({ valid: true, blocks: [], acceptedTemporalQualifications: [expect.any(Object)] });
+    const contribution = contributionFromPersistentDelta({
+      candidate: checked.candidate!,
+      conversation: { conversationId: "conversation:timing", language: "fr", turns: [turn("timing", raw)] },
+      currentProject: project,
+    })!;
+    const candidate = prepareResearchProjectContributionCandidate(contribution, project);
+    expect(candidate.canonicalChangeSet).toMatchObject({
+      status: "READY_FOR_HUMAN_DECISION",
+      objectChanges: [],
+      legacyTemporalChanges: [],
+      temporalQualificationChanges: [expect.objectContaining({
+        candidate: expect.objectContaining({
+          subjectProjectRef: "acquisition:irm",
+          temporalRole: "ACQUISITION_TIME",
+          anchor: expect.objectContaining({ lowerBound: 3, upperBound: 5, reference: { status: "UNKNOWN", unresolvedReason: "REFERENCE_EVENT_NOT_SUPPLIED" } }),
+        }),
+      })],
+    });
+    const payload = buildPersistentDeltaPayload({ ...requestFor(raw), currentProject: project });
+    const declaration = payload.tools[0].functionDeclarations[0].parametersJsonSchema;
+    expect(declaration.required).toEqual(["changes", "relations", "temporalQualifications", "expectedVariableOccasions"]);
+    expect(declaration.properties.temporalQualifications).toBeDefined();
+    expect(JSON.stringify(declaration.properties.temporalQualifications)).not.toContain("targetSectionId");
+  });
+
   it("validates a stable ref and compiles 75 to 80 without mutating before Human Decision", () => {
     const project = currentProject();
     const projectBefore = JSON.stringify(project);
@@ -182,6 +265,16 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     }] }, "retirer", project);
     expect(invalid.validation.valid).toBe(false);
     expect(invalid.validation.blocks[0]).toContain("PROJECT_REF_INVALID");
+
+    const reusedIdentity = validatePersistentProjectDelta({ changes: [{
+      operation: "ADD",
+      sourceText: "nouvelle mesure",
+      targetSectionId: "MEASUREMENTS",
+      targetProjectRef: null,
+      candidateRef: project.canonicalState?.objects.find((object) => object.actuality === "CURRENT")?.objectId,
+      content: "Nouvelle mesure",
+    }] }, "nouvelle mesure", project);
+    expect(reusedIdentity.validation.blocks).toEqual(["change:0:ADD_MUST_USE_NEW_IDENTITY"]);
 
     const duplicate = validatePersistentProjectDelta({ changes: [{
       operation: "ADD",

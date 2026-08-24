@@ -39,6 +39,20 @@ type Props = {
 export default function ContributionReview({ contribution, candidate, status, onConfirm, onCorrect, onReject }: Props) {
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
   const changes = candidate.changeSet.changes.filter((change) => change.operation !== "NO_CHANGE");
+  const canonicalFallback = changes.length ? [] : [
+    ...candidate.canonicalChangeSet.objectChanges.map((change) => ({
+      id: change.changeRef,
+      label: REVIEW_LABELS[change.candidate?.sectionId ?? "ANALYSIS"] ?? "Projet",
+      content: change.candidate?.content ?? `Retrait de ${change.objectId}`,
+    })),
+    ...candidate.canonicalChangeSet.relationChanges.map((change) => ({
+      id: change.changeRef,
+      label: "Analyse",
+      content: change.candidate
+        ? `${change.candidate.relationType} : ${change.candidate.sourceObjectRef} → ${change.candidate.targetObjectRef}`
+        : `Retrait de la relation ${change.relationId}`,
+    })),
+  ];
   const initialSections = candidate.proposedSections
     .filter((section) => section.elements.length > 0 && REVIEW_LABELS[section.sectionId])
     .map((section) => ({
@@ -52,7 +66,13 @@ export default function ContributionReview({ contribution, candidate, status, on
     label: REVIEW_LABELS[id]!,
     items: changes.filter((change) => change.targetSectionId === id).map((change) => ({ itemId: change.changeId, content: change.presentation })),
   }));
-  const sections = isUpdate ? changeSections : initialSections;
+  const canonicalSections = [...new Set(canonicalFallback.map((change) => change.label))].map((label) => ({
+    id: `canonical:${label}`,
+    label,
+    items: canonicalFallback.filter((change) => change.label === label).map((change) => ({ itemId: change.id, content: change.content })),
+  }));
+  const sections = isUpdate ? (changeSections.length ? changeSections : canonicalSections) : (initialSections.length ? initialSections : canonicalSections);
+  const changeCount = changes.length || canonicalFallback.length;
   const openPoints = candidate.proposedSections
     .filter((section) => section.state !== "DEFINED" && OPEN_POINT_LABELS[section.sectionId])
     .map((section) => OPEN_POINT_LABELS[section.sectionId]!);
@@ -60,7 +80,7 @@ export default function ContributionReview({ contribution, candidate, status, on
   return <section className="rounded-3xl border border-primary/30 bg-card p-5 shadow-sm" aria-labelledby={`review-${contribution.identity.contributionId}`} data-testid="functional-contribution-review">
     <p className="text-xs font-semibold uppercase tracking-[.16em] text-primary">{isUpdate ? "Modifications proposées" : "Première structure proposée"}</p>
     <h3 id={`review-${contribution.identity.contributionId}`} className="mt-2 text-xl font-semibold">
-      {isUpdate ? `J’ai compris ${countInFrench(changes.length)} :` : "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude."}
+      {isUpdate ? `J’ai compris ${countInFrench(changeCount)} :` : "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude."}
     </h3>
     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{isUpdate
       ? "Voici les changements repérés dans votre dernier message. Ils ne seront appliqués qu’après votre confirmation."

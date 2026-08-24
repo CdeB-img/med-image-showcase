@@ -72,14 +72,17 @@ export const executeProtocolDesignerBridge = async (input: {
     try {
       const extracted = await executePersistentDelta(request, input.apiKey, input.fetchImpl);
       extractionLatencyMs = extracted.latencyMs;
-      const checked = validatePersistentProjectDelta(extracted.value, latestUser.content, request.currentProject);
+      const checked = validatePersistentProjectDelta(extracted.value, latestUser.content, request.currentProject, request.conversation);
       const contribution = checked.candidate && checked.validation.valid
         ? contributionFromPersistentDelta({ candidate: checked.candidate, conversation: request.conversation, currentProject: request.currentProject, createdAt })
         : null;
       persistentExtraction = {
         called: true,
         status: checked.validation.valid
-          ? checked.candidate?.changes.length ? "CANDIDATE" : "NO_CHANGE"
+          ? (checked.candidate?.changes.length
+            || checked.candidate?.relations.length
+            || checked.candidate?.temporalQualifications.length
+            || checked.candidate?.expectedVariableOccasions.length) ? "CANDIDATE" : "NO_CHANGE"
           : "BLOCKED",
         candidate: checked.candidate,
         validation: checked.validation,
