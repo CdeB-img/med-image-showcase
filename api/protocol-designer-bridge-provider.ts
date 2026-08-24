@@ -163,7 +163,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 },
                 sourceText: {
                   type: "string",
-                  description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this ADD or authorizes this REPLACE/REMOVE. Do not correct spelling, remove accents, normalize typography/capitalization, translate, summarize or paraphrase. Never copy Project or assistant text unless the latest user message literally repeats it.",
+                  description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this ADD or authorizes this REPLACE/REMOVE. Before output, verify the complete value is contained unchanged in that message, including determiners, prepositions and contractions; otherwise copy a larger exact contiguous clause. Do not correct spelling, remove accents, normalize typography/capitalization, translate, summarize or paraphrase. Never copy Project or assistant text unless the latest user message literally repeats it.",
                 },
                 targetProjectRef: {
                   type: "string",
@@ -203,7 +203,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               additionalProperties: false,
               properties: {
                 relationRef: { type: "string" },
-                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this relation. Do not normalize spelling, accents, typography or capitalization and do not paraphrase." },
+                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this relation. Before output, verify the complete value is contained unchanged in that message, including determiners, prepositions and contractions; otherwise copy a larger exact contiguous clause. Do not normalize spelling, accents, typography or capitalization and do not paraphrase." },
                 relationType: {
                   type: "string",
                   enum: PERSISTENT_PROJECT_RELATION_TYPES,
@@ -230,7 +230,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               properties: {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 qualificationId: { type: "string", description: "Stable qualification identity. Preserve it for REPLACE or REMOVE." },
-                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this temporal fact. No spelling, accent, typography or capitalization normalization and no paraphrase." },
+                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this temporal fact. Before output, verify the complete value is contained unchanged in that message, including determiners, prepositions and contractions; otherwise copy a larger exact contiguous clause. No spelling, accent, typography or capitalization normalization and no paraphrase." },
                 subjectProjectRef: { type: "string", description: "Exact stable ID of an existing Project object or candidateRef declared in changes of this same output and carrying the temporal role." },
                 temporalRole: { type: "string", enum: ["ACQUISITION_TIME", "COLLECTION_TIME", "PROCESSING_TIME", "TRANSFORMATION_TIME", "ANALYSIS_TIME"] },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
@@ -250,7 +250,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               properties: {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 occasionId: { type: "string", description: "Stable expected-occasion identity. Preserve it for REPLACE or REMOVE." },
-                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this expected occasion. No spelling, accent, typography or capitalization normalization and no paraphrase." },
+                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this expected occasion. Before output, verify the complete value is contained unchanged in that message, including determiners, prepositions and contractions; otherwise copy a larger exact contiguous clause. No spelling, accent, typography or capitalization normalization and no paraphrase." },
                 variableProjectRef: { type: "string", description: "Exact stable ID of an existing CANONICAL_VARIABLE or candidateRef for a CANONICAL_VARIABLE declared in changes of this same output." },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
                 studyUnitOrGroupRef: { type: "string", description: "Optional stable Project or candidate-local group reference." },

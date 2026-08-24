@@ -278,4 +278,29 @@ describe("PROJECT-HANDS-ON-03R1 — provider typing and literal provenance", () 
       .toMatchObject({ projectRef: project.projectId, projectVersion: project.versionId, projectDigest: project.projectDigest });
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("COPIE une sous-chaîne contiguë exacte");
   });
+
+  it("T19 requires a final literal-source audit without weakening fail-closed validation", () => {
+    const raw = "Nous suivrons des lésions en IRM.";
+    expect(validate({ raw, changes: [change("les lésions", "condition:lesions", "CONDITION", "Lésions")] }).validation.blocks)
+      .toContain("change:0:SOURCE_TEXT_NOT_IN_USER_TURN");
+    expect(validate({ raw, changes: [change("des lésions", "condition:lesions", "CONDITION", "Lésions")] }).validation.blocks)
+      .toEqual([]);
+
+    const request: ProductBridgeRequest = {
+      apiVersion: "1.0.0",
+      requestKind: "USER_TURN",
+      conversation: conversation(raw),
+      currentProject: null,
+      evaluatePersistentDelta: true,
+    };
+    const schema = buildPersistentDeltaPayload(request).tools[0]!.functionDeclarations[0]!.parametersJsonSchema;
+    const descriptions = [
+      schema.properties.changes.items.properties.sourceText.description,
+      schema.properties.relations.items.properties.sourceText.description,
+      schema.properties.temporalQualifications.items.properties.sourceText.description,
+      schema.properties.expectedVariableOccasions.items.properties.sourceText.description,
+    ];
+    descriptions.forEach((description) => expect(description).toContain("contained unchanged"));
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("contrôle littéral final sur CHAQUE sourceText");
+  });
 });
