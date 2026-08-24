@@ -114,7 +114,7 @@ export const PERSISTENT_DELTA_SYSTEM_INSTRUCTION = `Tu extrais uniquement les co
 
 Le DERNIER MESSAGE UTILISATEUR est la source de l'assertion ou de l'adoption. Le Project adopté sert seulement à résoudre une référence, une correction ou un doublon. Les propositions récentes de NOXIA ne peuvent devenir une source scientifique que si le dernier message utilisateur les accepte explicitement ; conserve alors séparément le texte de la proposition et le texte de l'adoption.
 
-Le Project Context Snapshot est une mémoire en lecture seule. Son tableau objects est l'inventaire exclusif des identifiants Project stables utilisables. Le contenu d'un objet Project antérieur n'est jamais une preuve du tour utilisateur courant et ne doit jamais être recopié dans sourceText, epistemicStatus ou proposalSourceText comme s'il venait du dernier message.
+Le Project Context Snapshot est une mémoire en lecture seule. Son tableau objects est l'inventaire exclusif des identifiants Project stables utilisables. Le contenu d'un objet Project antérieur n'est jamais une preuve du tour utilisateur courant et ne doit jamais être sélectionné comme sourceAnchorId, epistemicStatus ou proposalSourceText comme s'il venait du dernier message.
 
 Ignore la conversation, les demandes d'explication ou de reformulation, les méta-questions, le ton, les pistes plausibles et toute information non explicitement acceptée par l'utilisateur.
 
@@ -122,9 +122,9 @@ Une mention dans une question, une demande d'information, une hypothèse explora
 
 Pour chaque modification durable explicite, propose une opération minimale et un objet scientifique typé. Préserve les rôles, hypothèses, comparaisons, temporalités, négations et relations explicitement formulés.
 
-Pour chaque sourceText, COPIE une sous-chaîne contiguë exacte du DERNIER MESSAGE UTILISATEUR, caractère par caractère. Ne corrige pas l'orthographe, ne retire pas les accents, ne normalise pas la typographie ou la casse, ne traduis pas, ne résume pas et ne paraphrase pas. Si aucun fragment utilisateur courant ne porte littéralement l'assertion, ne la qualifie pas EXPLICIT_USER_STATED et n'invente aucun sourceText. Pour une réponse elliptique résolue par le contexte, sourceText reste le fragment utilisateur elliptique exact ; les mots du Project ou de NOXIA ne deviennent pas une fausse citation utilisateur.
+Pour chaque change, relation, temporalQualification et expectedVariableOccasion, sélectionne un sourceAnchorId EXACT dans le catalogue borné du DERNIER MESSAGE UTILISATEUR. Tu choisis quel passage soutient sémantiquement la contribution ; NOXIA matérialise ensuite déterministement les caractères exacts du RAW. N'invente aucun identifiant d'ancrage et n'utilise jamais un texte du Project ou de NOXIA comme preuve utilisateur courante.
 
-Avant de rendre la sortie, effectue un contrôle littéral final sur CHAQUE sourceText de changes, relations, temporalQualifications et expectedVariableOccasions : sa valeur complète doit être contenue telle quelle dans le DERNIER MESSAGE UTILISATEUR. Vérifie notamment les déterminants, prépositions et contractions ; ne remplace aucun mot par une forme grammaticalement plus pratique. Si le fragment minimal envisagé n'est pas une copie certaine, utilise une proposition ou phrase contiguë plus large copiée exactement du message, sans en changer un caractère.
+Le catalogue contient toujours un ancrage FULL_TURN valide. Utilise-le lorsqu'aucun fragment plus précis ne soutient fidèlement la contribution. Plusieurs contributions peuvent sélectionner le même ancrage. Pour une réponse elliptique résolue par le contexte, sélectionne l'ancrage du fragment utilisateur elliptique ; conserve séparément le référent contextuel et ne transforme jamais les mots du Project ou de NOXIA en fausse source utilisateur.
 
 Lis le message entier avant de produire la sortie. Un même tour peut contenir plusieurs faits persistants indépendants : produis toutes leurs modifications atomiques, leurs relations et leurs qualifications temporelles. Ne sélectionne jamais un seul changement principal au détriment des autres faits explicites.
 
@@ -142,7 +142,7 @@ Une comparaison peut porter sur des groupes ou interventions, mais aussi sur des
 
 Toute temporalité explicitement exprimée doit être conservée dans temporalQualifications ; ne la résume pas dans content et ne la supprime pas lorsque son référentiel manque. Une temporalité exprimée dans le même message qu'un nouvel objet référence le candidateRef de cet objet. Un repère relatif ou abrégé reste une information temporelle explicite : conserve le référentiel UNKNOWN lorsqu'il n'est pas fourni ou reste ambigu.
 
-Sépare toujours le temps explicite de son événement de référence. Lorsque reference.status = UNKNOWN, relativeEventLabel doit être null : n'invente aucun événement zéro, baseline ou événement d'étude conventionnel pour compléter le repère. Conserve intégralement offset, bornes, unité et rôle temporel. Utilise reference.status = KNOWN et un relativeEventLabel non nul uniquement lorsque l'événement est explicitement ancré dans le dernier message ou réellement reconstructible depuis une question temporelle récente, et qu'il est relié à un stableId Project exact ou à un candidateRef déclaré dans cette sortie. Pour une réponse elliptique à une question temporelle, sourceText reste le fragment utilisateur exact et le référent conversationnel ne devient jamais une fausse citation utilisateur.
+Sépare toujours le temps explicite de son événement de référence. Lorsque reference.status = UNKNOWN, relativeEventLabel doit être null : n'invente aucun événement zéro, baseline ou événement d'étude conventionnel pour compléter le repère. Conserve intégralement offset, bornes, unité et rôle temporel. Utilise reference.status = KNOWN et un relativeEventLabel non nul uniquement lorsque l'événement est explicitement ancré dans le dernier message ou réellement reconstructible depuis une question temporelle récente, et qu'il est relié à un stableId Project exact ou à un candidateRef déclaré dans cette sortie. Pour une réponse elliptique à une question temporelle, sourceAnchorId reste celui du fragment utilisateur exact et le référent conversationnel ne devient jamais une fausse source utilisateur.
 
 Pour la population, sépare les dimensions persistantes qui possèdent des identités différentes lorsque le contrat le permet : cohorte ou population, borne d'âge, condition d'inclusion, absence ou exclusion, seuil d'éligibilité. Utilise ELIGIBILITY_CRITERION pour une contrainte d'éligibilité et conserve AMBIGUOUS ou UNKNOWN lorsque la portée exacte d'une absence ou exclusion n'est pas fournie. Ne transforme pas plusieurs critères indépendants en une seule phrase POPULATION.
 
@@ -154,7 +154,7 @@ Une occasion attendue de mesure utilise expectedVariableOccasions et référence
 
 REPLACE et REMOVE modifient l'objet existant désigné par targetProjectRef, qui doit être l'identifiant stable exact fourni dans les objets canoniques du Project. Une section ou un libellé n'est qu'une projection et ne remplace jamais cet identifiant stable.
 
-N'émets REPLACE ou REMOVE que lorsque le DERNIER MESSAGE UTILISATEUR autorise réellement la correction, le remplacement ou le retrait de cette identité Project. sourceText doit alors être le fragment exact de ce dernier message qui autorise la mutation ; l'ancien contenu est retrouvé via targetProjectRef et ne devient jamais la source courante. Une précision, un enrichissement ou un fait plus spécifique n'autorise pas à lui seul le retrait, le remplacement ou la supersession d'un contenu antérieur. Conserve les deux candidats si leur articulation reste ouverte.
+N'émets REPLACE ou REMOVE que lorsque le DERNIER MESSAGE UTILISATEUR autorise réellement la correction, le remplacement ou le retrait de cette identité Project. sourceAnchorId doit alors désigner le passage courant qui autorise la mutation ; l'ancien contenu est retrouvé via targetProjectRef et ne devient jamais la source courante. Une précision, un enrichissement ou un fait plus spécifique n'autorise pas à lui seul le retrait, le remplacement ou la supersession d'un contenu antérieur. Conserve les deux candidats si leur articulation reste ouverte.
 
 Un changement de rôle scientifique ne remplace pas l'identité scientifique. studyRole est indépendant de proposedType. Omets studyRole lorsqu'aucun rôle n'est explicitement établi par le dernier message ou déjà adopté sur l'objet Project référencé. Ne remplis jamais ce champ seulement parce qu'il existe. N'attribue jamais PRIMARY_INTERVENTION ou PRIMARY_OBJECTIVE : ces rôles ne font pas partie du contrat Project courant. Si l'utilisateur désigne explicitement un nouveau critère principal, conserve les objets distincts : retire le rôle principal de l'ancien objet avec REPLACE et studyRole explicitement nul dans le contrat local, puis attribue PRIMARY_ENDPOINT au nouvel objet par REPLACE s'il existe déjà ou ADD s'il est réellement nouveau. Ne déduis aucun rôle secondaire non formulé.
 
@@ -265,6 +265,230 @@ export const persistentProjectDeltaSchema = z.object({
   expectedVariableOccasions: z.array(persistentExpectedVariableOccasionSchema).max(30).default([]),
 }).strict();
 
+const persistentSourceAnchoredChangeSchema = persistentProjectDeltaChangeSchema
+  .omit({ sourceText: true })
+  .extend({ sourceAnchorId: z.string().min(1).max(300) })
+  .strict();
+
+const persistentSourceAnchoredRelationSchema = persistentProjectRelationSchema
+  .omit({ sourceText: true })
+  .extend({ sourceAnchorId: z.string().min(1).max(300) })
+  .strict();
+
+const persistentSourceAnchoredTemporalQualificationSchema = persistentTemporalQualificationSchema
+  .omit({ sourceText: true })
+  .extend({ sourceAnchorId: z.string().min(1).max(300) })
+  .strict();
+
+const persistentSourceAnchoredExpectedVariableOccasionSchema = persistentExpectedVariableOccasionSchema
+  .omit({ sourceText: true })
+  .extend({ sourceAnchorId: z.string().min(1).max(300) })
+  .strict();
+
+/**
+ * Live provider/wire shape. sourceAnchorId is implementation metadata; it is
+ * not a PD-003 object and never becomes Project truth by itself.
+ */
+export const persistentSourceAnchoredDeltaSchema = z.object({
+  changes: z.array(persistentSourceAnchoredChangeSchema).max(20).default([]),
+  relations: z.array(persistentSourceAnchoredRelationSchema).max(30).default([]),
+  temporalQualifications: z.array(persistentSourceAnchoredTemporalQualificationSchema).max(20).default([]),
+  expectedVariableOccasions: z.array(persistentSourceAnchoredExpectedVariableOccasionSchema).max(30).default([]),
+}).strict();
+
+export type PersistentSourceAnchor = {
+  anchorId: string;
+  turnId: string;
+  sourceKind: "USER_TURN" | "ASSISTANT_TURN" | "PROJECT_CONTEXT";
+  fragmentKind: "FULL_TURN" | "PUNCTUATION_SEGMENT" | "PARENTHETICAL";
+  startOffset: number;
+  endOffset: number;
+  exactText: string;
+};
+
+export type PersistentSourceCatalog = {
+  contract: "PERSISTENT_SOURCE_CATALOG";
+  contractVersion: "1.0.0";
+  currentUserTurnId: string;
+  rawTextDigest: string;
+  anchors: PersistentSourceAnchor[];
+  catalogDigest: string;
+};
+
+const persistentSourceAnchorId = (input: Omit<PersistentSourceAnchor, "anchorId">) =>
+  `source-anchor:${logicalDigest(input)}`;
+
+const trimSourceBounds = (raw: string, start: number, end: number) => {
+  let boundedStart = start;
+  let boundedEnd = end;
+  while (boundedStart < boundedEnd && /\s/u.test(raw[boundedStart]!)) boundedStart += 1;
+  while (boundedEnd > boundedStart && /\s/u.test(raw[boundedEnd - 1]!)) boundedEnd -= 1;
+  return { start: boundedStart, end: boundedEnd };
+};
+
+/**
+ * Builds a bounded, syntax-only catalog. It never interprets the language:
+ * every exactText value is a direct slice of the current USER turn.
+ */
+export const buildPersistentSourceCatalog = (
+  conversation: ScientificInterpretationConversation,
+): PersistentSourceCatalog => {
+  const turn = [...conversation.turns].reverse().find((candidate) => candidate.role === "USER");
+  if (!turn) throw new Error("PERSISTENT_SOURCE_USER_TURN_MISSING");
+  const raw = turn.content;
+  const anchors: PersistentSourceAnchor[] = [];
+  const seen = new Set<string>();
+  const addAnchor = (
+    startOffset: number,
+    endOffset: number,
+    fragmentKind: PersistentSourceAnchor["fragmentKind"],
+  ) => {
+    if (anchors.length >= 64 || startOffset < 0 || endOffset > raw.length || startOffset >= endOffset) return;
+    const identity = `${startOffset}:${endOffset}`;
+    if (seen.has(identity)) return;
+    const exactText = raw.slice(startOffset, endOffset);
+    const withoutId = {
+      turnId: turn.turnId,
+      sourceKind: "USER_TURN" as const,
+      fragmentKind,
+      startOffset,
+      endOffset,
+      exactText,
+    };
+    anchors.push({ anchorId: persistentSourceAnchorId(withoutId), ...withoutId });
+    seen.add(identity);
+  };
+
+  addAnchor(0, raw.length, "FULL_TURN");
+
+  let segmentStart = 0;
+  for (let index = 0; index < raw.length; index += 1) {
+    if (![".", ",", ";", ":", "!", "?", "\n"].includes(raw[index]!)) continue;
+    const bounds = trimSourceBounds(raw, segmentStart, index + 1);
+    addAnchor(bounds.start, bounds.end, "PUNCTUATION_SEGMENT");
+    segmentStart = index + 1;
+  }
+  const trailingBounds = trimSourceBounds(raw, segmentStart, raw.length);
+  addAnchor(trailingBounds.start, trailingBounds.end, "PUNCTUATION_SEGMENT");
+
+  const parentheticalStarts: number[] = [];
+  for (let index = 0; index < raw.length; index += 1) {
+    if (raw[index] === "(") parentheticalStarts.push(index);
+    if (raw[index] !== ")" || !parentheticalStarts.length) continue;
+    const startOffset = parentheticalStarts.pop()!;
+    addAnchor(startOffset, index + 1, "PARENTHETICAL");
+  }
+
+  const catalogWithoutDigest = {
+    contract: "PERSISTENT_SOURCE_CATALOG" as const,
+    contractVersion: "1.0.0" as const,
+    currentUserTurnId: turn.turnId,
+    rawTextDigest: logicalDigest(raw),
+    anchors,
+  };
+  return { ...catalogWithoutDigest, catalogDigest: logicalDigest(catalogWithoutDigest) };
+};
+
+export type PersistentSourceMaterialization = {
+  valid: boolean;
+  value: PersistentProjectDeltaWireCandidate | null;
+  blocks: string[];
+  selections: Array<{ path: string; sourceAnchorId: string; sourceText: string }>;
+};
+
+export const materializePersistentSourceAnchors = (input: {
+  value: unknown;
+  catalog: PersistentSourceCatalog;
+  currentUserTurn: { turnId: string; content: string };
+}): PersistentSourceMaterialization => {
+  const parsed = persistentSourceAnchoredDeltaSchema.safeParse(input.value);
+  if (!parsed.success) return {
+    valid: false,
+    value: null,
+    blocks: parsed.error.issues.map((issue) => `SOURCE_ANCHOR_PROVIDER_SCHEMA:${issue.path.join(".")}:${issue.code}`),
+    selections: [],
+  };
+
+  const blocks: string[] = [];
+  const selections: PersistentSourceMaterialization["selections"] = [];
+  const anchorById = new Map<string, PersistentSourceAnchor>();
+  if (input.catalog.currentUserTurnId !== input.currentUserTurn.turnId) blocks.push("SOURCE_CATALOG_NOT_CURRENT_USER_TURN");
+  if (input.catalog.rawTextDigest !== logicalDigest(input.currentUserTurn.content)) blocks.push("SOURCE_CATALOG_RAW_DIGEST_MISMATCH");
+  if (input.catalog.catalogDigest !== logicalDigest({
+    contract: input.catalog.contract,
+    contractVersion: input.catalog.contractVersion,
+    currentUserTurnId: input.catalog.currentUserTurnId,
+    rawTextDigest: input.catalog.rawTextDigest,
+    anchors: input.catalog.anchors,
+  })) blocks.push("SOURCE_CATALOG_DIGEST_MISMATCH");
+
+  for (const anchor of input.catalog.anchors) {
+    if (anchorById.has(anchor.anchorId)) blocks.push(`SOURCE_ANCHOR_DUPLICATE:${anchor.anchorId}`);
+    anchorById.set(anchor.anchorId, anchor);
+    if (anchor.turnId !== input.currentUserTurn.turnId) blocks.push(`SOURCE_ANCHOR_NOT_CURRENT_USER_TURN:${anchor.anchorId}`);
+    if (anchor.sourceKind !== "USER_TURN") blocks.push(`SOURCE_ANCHOR_NOT_USER_EVIDENCE:${anchor.anchorId}`);
+    if (!Number.isInteger(anchor.startOffset) || !Number.isInteger(anchor.endOffset)
+      || anchor.startOffset < 0 || anchor.endOffset > input.currentUserTurn.content.length
+      || anchor.startOffset >= anchor.endOffset) {
+      blocks.push(`SOURCE_ANCHOR_OFFSETS_INVALID:${anchor.anchorId}`);
+      continue;
+    }
+    if (input.currentUserTurn.content.slice(anchor.startOffset, anchor.endOffset) !== anchor.exactText) {
+      blocks.push(`SOURCE_ANCHOR_EXACT_TEXT_MISMATCH:${anchor.anchorId}`);
+    }
+  }
+  if (!input.catalog.anchors.some((anchor) => anchor.fragmentKind === "FULL_TURN"
+    && anchor.startOffset === 0 && anchor.endOffset === input.currentUserTurn.content.length
+    && anchor.exactText === input.currentUserTurn.content)) {
+    blocks.push("SOURCE_CATALOG_FULL_TURN_MISSING");
+  }
+
+  const resolve = (path: string, sourceAnchorId: string) => {
+    const anchor = anchorById.get(sourceAnchorId);
+    if (!anchor) {
+      blocks.push(`${path}:SOURCE_ANCHOR_ID_INVALID`);
+      return null;
+    }
+    if (anchor.turnId !== input.currentUserTurn.turnId) {
+      blocks.push(`${path}:SOURCE_ANCHOR_NOT_CURRENT_USER_TURN`);
+      return null;
+    }
+    if (anchor.sourceKind !== "USER_TURN") {
+      blocks.push(`${path}:SOURCE_ANCHOR_NOT_USER_EVIDENCE`);
+      return null;
+    }
+    selections.push({ path, sourceAnchorId, sourceText: anchor.exactText });
+    return anchor.exactText;
+  };
+
+  const changes = parsed.data.changes.map(({ sourceAnchorId, ...change }, index) => ({
+    ...change,
+    sourceText: resolve(`change:${index}`, sourceAnchorId) ?? "",
+  }));
+  const relations = parsed.data.relations.map(({ sourceAnchorId, ...relation }, index) => ({
+    ...relation,
+    sourceText: resolve(`relation:${index}`, sourceAnchorId) ?? "",
+  }));
+  const temporalQualifications = parsed.data.temporalQualifications.map(({ sourceAnchorId, ...qualification }, index) => ({
+    ...qualification,
+    sourceText: resolve(`temporalQualification:${index}`, sourceAnchorId) ?? "",
+  }));
+  const expectedVariableOccasions = parsed.data.expectedVariableOccasions.map(({ sourceAnchorId, ...occasion }, index) => ({
+    ...occasion,
+    sourceText: resolve(`expectedVariableOccasion:${index}`, sourceAnchorId) ?? "",
+  }));
+  if (blocks.length) return { valid: false, value: null, blocks, selections };
+
+  const materialized = persistentProjectDeltaSchema.safeParse({ changes, relations, temporalQualifications, expectedVariableOccasions });
+  if (!materialized.success) return {
+    valid: false,
+    value: null,
+    blocks: materialized.error.issues.map((issue) => `SOURCE_ANCHOR_MATERIALIZATION:${issue.path.join(".")}:${issue.code}`),
+    selections,
+  };
+  return { valid: true, value: materialized.data, blocks: [], selections };
+};
+
 const TEXTUAL_NULL_SENTINELS = new Set(["null", "none", "n/a", "undefined"]);
 
 export type PersistentProviderContractValidation = {
@@ -279,14 +503,19 @@ export type PersistentProviderContractValidation = {
  * or scientific repair.
  */
 export const validatePersistentProviderContract = (value: unknown): PersistentProviderContractValidation => {
-  const parsed = persistentProjectDeltaSchema.safeParse(value);
-  if (!parsed.success) return {
+  const anchored = persistentSourceAnchoredDeltaSchema.safeParse(value);
+  const historical = persistentProjectDeltaSchema.safeParse(value);
+  if (!anchored.success && !historical.success) return {
     valid: false,
-    blocks: parsed.error.issues.map((issue) => `PROVIDER_SCHEMA:${issue.path.join(".")}:${issue.code}`),
+    blocks: anchored.error.issues.map((issue) => `PROVIDER_SCHEMA:${issue.path.join(".")}:${issue.code}`),
   };
 
+  // Historical Level-3 artifacts remain inspectable through sourceText. New
+  // live provider output uses the anchored shape and is materialized before
+  // entering the canonical validator.
+  const parsed = anchored.success ? anchored.data : historical.data!;
   const blocks: string[] = [];
-  parsed.data.changes.forEach((change, index) => {
+  parsed.changes.forEach((change, index) => {
     const target = typeof change.targetProjectRef === "string" ? change.targetProjectRef.trim().toLocaleLowerCase("en-US") : null;
     if (target && TEXTUAL_NULL_SENTINELS.has(target)) blocks.push(`change:${index}:TARGET_PROJECT_REF_SENTINEL_FORBIDDEN`);
     if (change.targetProjectRef === null) blocks.push(`change:${index}:TARGET_PROJECT_REF_NULL_MUST_BE_OMITTED`);
@@ -297,17 +526,17 @@ export const validatePersistentProviderContract = (value: unknown): PersistentPr
       blocks.push(`change:${index}:STUDY_ROLE_OUTSIDE_PROVIDER_VOCABULARY`);
     }
   });
-  parsed.data.relations.forEach((relation, index) => {
+  parsed.relations.forEach((relation, index) => {
     if (!PERSISTENT_PROJECT_RELATION_TYPES.includes(relation.relationType as (typeof PERSISTENT_PROJECT_RELATION_TYPES)[number])) {
       blocks.push(`relation:${index}:RELATION_TYPE_OUTSIDE_PROVIDER_VOCABULARY`);
     }
   });
-  parsed.data.temporalQualifications.forEach((qualification, index) => {
+  parsed.temporalQualifications.forEach((qualification, index) => {
     if (qualification.anchor?.reference.status === "UNKNOWN" && qualification.anchor.relativeEventLabel !== null) {
       blocks.push(`temporalQualification:${index}:UNKNOWN_TEMPORAL_REFERENCE_REQUIRES_NULL_LABEL`);
     }
   });
-  parsed.data.expectedVariableOccasions.forEach((occasion, index) => {
+  parsed.expectedVariableOccasions.forEach((occasion, index) => {
     if (occasion.anchor?.reference.status === "UNKNOWN" && occasion.anchor.relativeEventLabel !== null) {
       blocks.push(`expectedVariableOccasion:${index}:UNKNOWN_TEMPORAL_REFERENCE_REQUIRES_NULL_LABEL`);
     }
@@ -355,6 +584,8 @@ export type PersistentExtractionProviderArtifact = {
     input_tokens_details?: { cached_tokens?: number };
     output_tokens_details?: { reasoning_tokens?: number };
   } | null;
+  sourceCatalog?: PersistentSourceCatalog;
+  sourceCatalogDigest?: string;
   structuredArgsExact: unknown;
   structuredArgsSerialized: string;
   structuredArgsDigest: string;

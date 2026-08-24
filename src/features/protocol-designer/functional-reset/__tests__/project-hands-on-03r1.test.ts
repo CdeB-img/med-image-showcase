@@ -276,10 +276,10 @@ describe("PROJECT-HANDS-ON-03R1 — provider typing and literal provenance", () 
     const project = projectWithModalities();
     expect(buildFunctionalResetQueryNavigation({ project, recordedAt: "2026-08-24T14:02:00.000Z" }))
       .toMatchObject({ projectRef: project.projectId, projectVersion: project.versionId, projectDigest: project.projectDigest });
-    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("COPIE une sous-chaîne contiguë exacte");
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("sélectionne un sourceAnchorId EXACT");
   });
 
-  it("T19 requires a final literal-source audit without weakening fail-closed validation", () => {
+  it("T19 derives literal source from a selected anchor without weakening historical fail-closed validation", () => {
     const raw = "Nous suivrons des lésions en IRM.";
     expect(validate({ raw, changes: [change("les lésions", "condition:lesions", "CONDITION", "Lésions")] }).validation.blocks)
       .toContain("change:0:SOURCE_TEXT_NOT_IN_USER_TURN");
@@ -295,12 +295,12 @@ describe("PROJECT-HANDS-ON-03R1 — provider typing and literal provenance", () 
     };
     const schema = buildPersistentDeltaPayload(request).tools[0]!.functionDeclarations[0]!.parametersJsonSchema;
     const descriptions = [
-      schema.properties.changes.items.properties.sourceText.description,
-      schema.properties.relations.items.properties.sourceText.description,
-      schema.properties.temporalQualifications.items.properties.sourceText.description,
-      schema.properties.expectedVariableOccasions.items.properties.sourceText.description,
+      schema.properties.changes.items.properties.sourceAnchorId.description,
+      schema.properties.relations.items.properties.sourceAnchorId.description,
+      schema.properties.temporalQualifications.items.properties.sourceAnchorId.description,
+      schema.properties.expectedVariableOccasions.items.properties.sourceAnchorId.description,
     ];
-    descriptions.forEach((description) => expect(description).toContain("contained unchanged"));
-    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("contrôle littéral final sur CHAQUE sourceText");
+    descriptions.forEach((description) => expect(description).toContain("exact anchorId"));
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("NOXIA matérialise ensuite déterministement");
   });
 });

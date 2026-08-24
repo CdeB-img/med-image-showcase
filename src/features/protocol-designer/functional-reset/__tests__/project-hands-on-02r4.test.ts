@@ -306,7 +306,7 @@ describe("PROJECT-HANDS-ON-02R4 — source-grounded mutation and references", ()
     const payload = buildPersistentDeltaPayload(request);
     const schema = payload.tools[0].functionDeclarations[0].parametersJsonSchema;
     expect(schema.properties.relations.items.properties.relationType.enum).toEqual(PERSISTENT_PROJECT_RELATION_TYPES);
-    expect(schema.properties.changes.items.properties.sourceText.description).toContain("latest user message");
+    expect(schema.properties.changes.items.properties.sourceAnchorId.description).toContain("current-user source catalog");
     expect(schema.properties.changes.items.properties.targetProjectRef.description).toContain("Project Context Snapshot objects inventory");
     expect(schema.properties.relations.items.properties.sourceObjectRef.description).toContain("candidateRef");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("Project Context Snapshot est une mémoire en lecture seule");

@@ -2,6 +2,7 @@ import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
 import {
   DEFAULT_OPENAI_EXTRACTION_MODEL,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
+  buildPersistentSourceCatalog,
   resolveOpenAIExtractionModel,
   type PersistentExtractionProviderArtifact,
   type ProductBridgeRequest,
@@ -168,6 +169,7 @@ export const executeOpenAIPersistentDelta = async (
 
   const structuredArgsDigest = logicalDigest(structuredArgsSerialized);
   const requestTurnRef = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER")?.turnId ?? "UNKNOWN_USER_TURN";
+  const sourceCatalog = buildPersistentSourceCatalog(request.conversation);
   const modelReturned = body.model ?? null;
   const providerArtifact: PersistentExtractionProviderArtifact = {
     artifactRef: `openai-structured-args:${structuredArgsDigest}`,
@@ -188,6 +190,8 @@ export const executeOpenAIPersistentDelta = async (
     schemaDigest,
     configurationDigest,
     usage: body.usage ?? null,
+    sourceCatalog,
+    sourceCatalogDigest: sourceCatalog.catalogDigest,
     structuredArgsExact: structuredArgs,
     structuredArgsSerialized,
     structuredArgsDigest,

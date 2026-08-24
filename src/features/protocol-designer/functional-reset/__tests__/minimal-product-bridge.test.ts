@@ -6,6 +6,7 @@ import {
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import {
+  buildPersistentSourceCatalog,
   contributionFromPersistentDelta,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   validatePersistentProjectDelta,
@@ -330,13 +331,22 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     if (!age) throw new Error("AGE_MAX_FIXTURE_MISSING");
     const request = requestFor("Finalement jusqu'à 80 ans.");
     request.currentProject = project;
+    const sourceAnchorId = buildPersistentSourceCatalog(request.conversation).anchors
+      .find((anchor) => anchor.fragmentKind === "FULL_TURN")!.anchorId;
     const exactProviderArgs = { changes: [{
       operation: "REPLACE",
-      sourceText: "jusqu'à 80 ans",
+      sourceAnchorId,
       targetSectionId: "POPULATION",
       targetProjectRef: age.elementId,
       content: "Âge maximal : 80 ans",
     }] };
+    const expectedMaterializedChange = {
+      operation: "REPLACE",
+      sourceText: "Finalement jusqu'à 80 ans.",
+      targetSectionId: "POPULATION",
+      targetProjectRef: age.elementId,
+      content: "Âge maximal : 80 ans",
+    };
     const fetchImpl = vi.fn()
       .mockResolvedValueOnce(jsonResponse({
         candidates: [{ content: { parts: [{ text: "Je comprends que vous souhaitez porter la borne d'âge à 80 ans. Cette modification restera une proposition jusqu'à votre confirmation." }] } }],
@@ -363,8 +373,8 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
           structuredArgsSerialized: JSON.stringify(exactProviderArgs),
           structuredArgsDigest: expect.any(String),
         },
-        wireCandidate: expect.objectContaining({ changes: exactProviderArgs.changes, relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
-        candidate: expect.objectContaining({ changes: exactProviderArgs.changes }),
+        wireCandidate: expect.objectContaining({ changes: [expectedMaterializedChange], relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
+        candidate: expect.objectContaining({ changes: [expectedMaterializedChange] }),
         contribution: {
           source: { rawOutputRef: expect.stringMatching(/^openai-structured-args:/), rawOutputDigest: expect.any(String) },
           decisionBoundary: { projectWriteAuthorized: false },
@@ -384,8 +394,8 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     }).toEqual({
       raw: "Finalement jusqu'à 80 ans.",
       providerArgs: exactProviderArgs,
-      wire: exactProviderArgs.changes,
-      normalized: exactProviderArgs.changes,
+      wire: [expectedMaterializedChange],
+      normalized: [expectedMaterializedChange],
       canonical: prepared.humanReviewProjection.expectedChangeRefs,
       review: prepared.humanReviewProjection.expectedChangeRefs,
     });

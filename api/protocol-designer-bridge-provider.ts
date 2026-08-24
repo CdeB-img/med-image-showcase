@@ -7,6 +7,7 @@ import {
   PERSISTENT_PROJECT_STUDY_ROLES,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   PRODUCT_BRIDGE_MODEL,
+  buildPersistentSourceCatalog,
   resolveGeminiConversationModel,
   relevantProjectContext,
   type PersistentExtractionProviderArtifact,
@@ -138,6 +139,7 @@ const temporalAnchorJsonSchema = {
 
 export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
   const userTurn = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER");
+  const sourceCatalog = buildPersistentSourceCatalog(request.conversation);
   const proposalContext = request.conversation.turns
     .filter((turn) => turn.role === "NOXIA")
     .slice(-4)
@@ -146,6 +148,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
     systemInstruction: { parts: [{ text: PERSISTENT_DELTA_SYSTEM_INSTRUCTION }] },
     contents: [{ role: "user", parts: [{ text: [
       `DERNIER MESSAGE UTILISATEUR (source de l'assertion ou de l'adoption) :\n${userTurn?.content ?? ""}`,
+      `CATALOGUE D'ANCRAGES DU DERNIER MESSAGE UTILISATEUR (sélectionne uniquement un anchorId exact ; FULL_TURN est toujours valide) :\n${JSON.stringify(sourceCatalog, null, 2)}`,
       `PROPOSITIONS NOXIA RÉCENTES (lecture seule ; utilisables uniquement si le dernier message les adopte explicitement) :\n${JSON.stringify(proposalContext, null, 2)}`,
       `RESEARCH PROJECT ADOPTÉ (lecture seule) :\n${JSON.stringify(relevantProjectContext(request.currentProject), null, 2)}`,
     ].join("\n\n") }] }],
@@ -168,9 +171,9 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                   enum: ["ADD", "REMOVE", "REPLACE"],
                   description: "ADD creates a genuinely new scientific identity. REPLACE or REMOVE modifies one existing canonical Project object identified by targetProjectRef.",
                 },
-                sourceText: {
+                sourceAnchorId: {
                   type: "string",
-                  description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this ADD or authorizes this REPLACE/REMOVE. Before output, verify the complete value is contained unchanged in that message, including determiners, prepositions and contractions; otherwise copy a larger exact contiguous clause. Do not correct spelling, remove accents, normalize typography/capitalization, translate, summarize or paraphrase. Never copy Project or assistant text unless the latest user message literally repeats it.",
+                  description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this ADD or authorizes this REPLACE/REMOVE. Use the FULL_TURN anchor when no narrower catalog fragment is sufficient. Never invent an ID and never use Project or assistant context as current-user evidence.",
                 },
                 targetProjectRef: {
                   type: "string",
@@ -183,7 +186,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                   enum: PERSISTENT_PROJECT_OBJECT_TYPES,
                   description: "Choose the scientific identity explicitly referenced, not a plausible downstream Project consequence. IMAGING_MODALITY is a named imaging modality/method family; it is never a CANONICAL_VARIABLE and is not automatically an ACQUISITION. ACQUISITION is a planned performance/collection event only when execution is established by the source; preserve the separate modality identity when both are established. CANONICAL_VARIABLE is a defined data quantity/category/output, never the modality producing it. DATA_NEED is information the Project needs. ANALYSIS_SPECIFICATION is an autonomous analytical specification with a purpose/question, inputs and a sufficiently established procedure; a mere mention of processing, segmentation, quantification or a method still to be defined is not enough. When explicit methodological context is too incomplete for a MeasurementDefinition or ANALYSIS_SPECIFICATION, use PROJECT_INFORMATION with epistemicState UNKNOWN to preserve the stated context, its link to the concerned quantity in content and the unresolved method without inventing details. MeasurementDefinition is not a type in this Project contract and must not be invented. Keep OBJECTIVE distinct from ENDPOINT/CANONICAL_VARIABLE and INTERVENTION distinct from COMPARATOR.",
                 },
-                content: { type: "string", description: "Concise semantic content for this object. This may be a canonical label, but it never replaces the literal sourceText provenance." },
+                content: { type: "string", description: "Concise semantic content for this object. This may be a canonical label, but it never replaces the selected source-anchor provenance." },
                 polarity: { type: "string", enum: ["AFFIRMED", "NEGATED", "UNKNOWN"] },
                 studyRole: {
                   type: ["string", "null"],
@@ -200,7 +203,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
                 evidenceRefs: { type: "array", items: { type: "string" } },
               },
-              required: ["operation", "sourceText", "candidateRef", "proposedType", "content", "polarity", "epistemicStatus", "epistemicState", "assertionKind", "evidenceRefs"],
+              required: ["operation", "sourceAnchorId", "candidateRef", "proposedType", "content", "polarity", "epistemicStatus", "epistemicState", "assertionKind", "evidenceRefs"],
             },
           },
           relations: {
@@ -210,7 +213,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               additionalProperties: false,
               properties: {
                 relationRef: { type: "string" },
-                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this relation. Before output, verify the complete value is contained unchanged in that message, including determiners, prepositions and contractions; otherwise copy a larger exact contiguous clause. Do not normalize spelling, accents, typography or capitalization and do not paraphrase." },
+                sourceAnchorId: { type: "string", description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this relation. FULL_TURN is valid; never invent an ID." },
                 relationType: {
                   type: "string",
                   enum: PERSISTENT_PROJECT_RELATION_TYPES,
@@ -225,7 +228,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
                 evidenceRefs: { type: "array", items: { type: "string" } },
               },
-              required: ["relationRef", "sourceText", "relationType", "sourceObjectRef", "targetObjectRef", "polarity", "epistemicStatus", "epistemicState", "assertionKind", "evidenceRefs"],
+              required: ["relationRef", "sourceAnchorId", "relationType", "sourceObjectRef", "targetObjectRef", "polarity", "epistemicStatus", "epistemicState", "assertionKind", "evidenceRefs"],
             },
           },
           temporalQualifications: {
@@ -237,7 +240,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               properties: {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 qualificationId: { type: "string", description: "Stable qualification identity. Preserve it for REPLACE or REMOVE." },
-                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this temporal fact. Before output, verify the complete value is contained unchanged in that message, including determiners, prepositions and contractions; otherwise copy a larger exact contiguous clause. No spelling, accent, typography or capitalization normalization and no paraphrase." },
+                sourceAnchorId: { type: "string", description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this temporal fact. FULL_TURN is valid; never invent an ID." },
                 subjectProjectRef: { type: "string", description: "Exact stable ID of an existing Project object or candidateRef declared in changes of this same output and carrying the temporal role." },
                 temporalRole: { type: "string", enum: ["ACQUISITION_TIME", "COLLECTION_TIME", "PROCESSING_TIME", "TRANSFORMATION_TIME", "ANALYSIS_TIME"] },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
@@ -245,7 +248,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
                 evidenceRefs: { type: "array", items: { type: "string" } },
               },
-              required: ["operation", "qualificationId", "sourceText", "subjectProjectRef", "temporalRole", "anchor", "assertionKind", "evidenceRefs"],
+              required: ["operation", "qualificationId", "sourceAnchorId", "subjectProjectRef", "temporalRole", "anchor", "assertionKind", "evidenceRefs"],
             },
           },
           expectedVariableOccasions: {
@@ -257,7 +260,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               properties: {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 occasionId: { type: "string", description: "Stable expected-occasion identity. Preserve it for REPLACE or REMOVE." },
-                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this expected occasion. Before output, verify the complete value is contained unchanged in that message, including determiners, prepositions and contractions; otherwise copy a larger exact contiguous clause. No spelling, accent, typography or capitalization normalization and no paraphrase." },
+                sourceAnchorId: { type: "string", description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this expected occasion. FULL_TURN is valid; never invent an ID." },
                 variableProjectRef: { type: "string", description: "Exact stable ID of an existing CANONICAL_VARIABLE or candidateRef for a CANONICAL_VARIABLE declared in changes of this same output." },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
                 studyUnitOrGroupRef: { type: "string", description: "Optional stable Project or candidate-local group reference." },
@@ -266,7 +269,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 proposalSourceText: { type: "string", description: "Optional exact assistant proposal text; emit only for USER_ADOPTED_PROPOSAL." },
                 evidenceRefs: { type: "array", items: { type: "string" } },
               },
-              required: ["operation", "occasionId", "sourceText", "variableProjectRef", "anchor", "assertionKind", "evidenceRefs"],
+              required: ["operation", "occasionId", "sourceAnchorId", "variableProjectRef", "anchor", "assertionKind", "evidenceRefs"],
             },
           },
         },
@@ -361,6 +364,7 @@ export const executePersistentDelta = async (
   const structuredArgsSerialized = JSON.stringify(call.args);
   const structuredArgsDigest = logicalDigest(structuredArgsSerialized);
   const requestTurnRef = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER")?.turnId ?? "UNKNOWN_USER_TURN";
+  const sourceCatalog = buildPersistentSourceCatalog(request.conversation);
   return {
     ...result,
     value: {
@@ -373,6 +377,8 @@ export const executePersistentDelta = async (
         functionName: FUNCTION_NAME,
         receivedAt: new Date().toISOString(),
         providerResponseId: result.responseId,
+        sourceCatalog,
+        sourceCatalogDigest: sourceCatalog.catalogDigest,
         structuredArgsExact: call.args,
         structuredArgsSerialized,
         structuredArgsDigest,

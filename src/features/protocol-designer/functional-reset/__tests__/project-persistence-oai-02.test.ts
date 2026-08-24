@@ -9,6 +9,7 @@ import {
 import {
   DEFAULT_GEMINI_CONVERSATION_MODEL,
   DEFAULT_OPENAI_EXTRACTION_MODEL,
+  buildPersistentSourceCatalog,
   resolveGeminiConversationModel,
   resolveOpenAIExtractionModel,
   type PersistentProjectDeltaChange,
@@ -125,13 +126,31 @@ const successfulFetch = (args: unknown, conversationText = "Réponse méthodolog
     usage: { input_tokens: 100, output_tokens: 50, total_tokens: 150 },
   }, 200, { "x-request-id": "req_terra_extraction" })) as unknown as typeof fetch;
 
-const run = async (body: ProductBridgeRequest, args: unknown) => executeProtocolDesignerBridge({
+const anchoredArgs = (body: ProductBridgeRequest, args: typeof cArgs | typeof dArgs) => {
+  const sourceAnchorId = buildPersistentSourceCatalog(body.conversation).anchors
+    .find((anchor) => anchor.fragmentKind === "FULL_TURN")!.anchorId;
+  const anchored = <T extends { sourceText: string }>(item: T) => {
+    const { sourceText: _legacySourceText, ...rest } = item;
+    return { ...rest, sourceAnchorId };
+  };
+  return {
+    ...args,
+    changes: args.changes.map(anchored),
+    relations: args.relations.map(anchored),
+    temporalQualifications: args.temporalQualifications.map(anchored),
+    expectedVariableOccasions: args.expectedVariableOccasions.map(anchored),
+  };
+};
+
+const runExact = async (body: ProductBridgeRequest, args: unknown) => executeProtocolDesignerBridge({
   body,
   apiKey: "test-gemini-key",
   openAiApiKey: "test-openai-key",
   fetchImpl: successfulFetch(args),
   now: () => Date.parse("2026-08-24T16:00:00.000Z"),
 });
+
+const run = async (body: ProductBridgeRequest, args: typeof cArgs | typeof dArgs) => runExact(body, anchoredArgs(body, args));
 
 describe("PROJECT-PERSISTENCE-OAI-02 — specialized extraction routing", () => {
   it("O01/O02 resolves the configured Gemini conversation model and its Flash-Lite fallback", async () => {
@@ -189,8 +208,10 @@ describe("PROJECT-PERSISTENCE-OAI-02 — specialized extraction routing", () => 
 
   it("O09 an invalid Terra candidate is blocked and cannot write Project truth", async () => {
     const current: ResearchProjectOwnerProjection | null = null;
-    const invalid = { ...cArgs, changes: [{ ...cArgs.changes[0], sourceText: "texte absent du RAW" }] };
-    const result = await run(request(rawC), invalid);
+    const body = request(rawC);
+    const anchored = anchoredArgs(body, cArgs);
+    const invalid = { ...anchored, changes: [{ ...anchored.changes[0], sourceAnchorId: "source-anchor:invented" }] };
+    const result = await runExact(body, invalid);
     expect(result.body).toMatchObject({ persistentExtraction: { status: "BLOCKED", contribution: null } });
     expect(current).toBeNull();
   });

@@ -1,7 +1,9 @@
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
+  buildPersistentSourceCatalog,
   contributionFromPersistentDelta,
+  materializePersistentSourceAnchors,
   parseProductBridgeRequest,
   resolveGeminiConversationModel,
   resolveOpenAIExtractionModel,
@@ -97,12 +99,33 @@ export const executeProtocolDesignerBridge = async (input: {
       extractionUsage = extracted.usage;
       extractionModelReturned = extracted.modelReturned;
       input.onPersistentProviderArtifact?.(extracted.value.providerArtifact);
-      const checked = validatePersistentProjectDelta(extracted.value.structuredArgs, latestUser.content, request.currentProject, request.conversation);
       const providerContract = validatePersistentProviderContract(extracted.value.structuredArgs);
-      const validation = providerContract.valid ? checked.validation : {
+      const sourceCatalog = extracted.value.providerArtifact.sourceCatalog ?? buildPersistentSourceCatalog(request.conversation);
+      const materialized = materializePersistentSourceAnchors({
+        value: extracted.value.structuredArgs,
+        catalog: sourceCatalog,
+        currentUserTurn: { turnId: latestUser.turnId, content: latestUser.content },
+      });
+      const checked = materialized.value
+        ? validatePersistentProjectDelta(materialized.value, latestUser.content, request.currentProject, request.conversation)
+        : {
+          wireCandidate: null,
+          candidate: null,
+          validation: {
+            valid: false,
+            acceptedChanges: [],
+            acceptedRelations: [],
+            acceptedTemporalQualifications: [],
+            acceptedExpectedVariableOccasions: [],
+            blocks: [],
+            noOps: [],
+            normalizations: [],
+          },
+        };
+      const validation = providerContract.valid && materialized.valid ? checked.validation : {
         ...checked.validation,
         valid: false,
-        blocks: [...checked.validation.blocks, ...providerContract.blocks],
+        blocks: [...materialized.blocks, ...checked.validation.blocks, ...providerContract.blocks],
       };
       const contribution = checked.candidate && validation.valid
         ? contributionFromPersistentDelta({
