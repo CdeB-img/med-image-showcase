@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
-import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
+import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { FUNCTIONAL_RESET_STORAGE_KEY, shouldMediatePostAdoptionQuery } from "../session";
 import {
   COLCHICINE_03A_INITIAL,
@@ -23,6 +23,50 @@ const submit = (content: string) => {
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 };
 const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
+
+const singleObjectContribution = (
+  turns: ScientificInterpretationTurn[],
+  contributionId: string,
+  itemId: string,
+  proposedType: string,
+  content: string,
+  studyRole: string | null = null,
+): ScientificInterpretationContributionEnvelope => {
+  const userTurns = turns.filter((turn) => turn.role === "USER");
+  const source = userTurns.at(-1)!;
+  const base = makeFunctionalResetContribution(userTurns);
+  const object = {
+    itemId,
+    semanticIdentity: itemId,
+    proposedType,
+    content,
+    polarity: "AFFIRMED",
+    studyRole,
+    confidence: 1,
+    epistemicBoundary: {
+      ownership: "USER",
+      epistemicState: "KNOWN" as const,
+      epistemicStatus: "EXPLICIT_USER_STATED",
+      adoptionStatus: "CANDIDATE",
+      activeState: true,
+      sourceTurnIds: [source.turnId],
+      sourceText: source.content,
+    },
+  };
+  return {
+    ...base,
+    identity: { ...base.identity, contributionId, contributionDigest: `${contributionId}:digest` },
+    source: { ...base.source, originalRequest: source.content, turns: [...turns], sourceRefs: [source.turnId] },
+    scientificContent: {
+      ...base.scientificContent,
+      normalizedUnderstanding: content,
+      candidateObjects: [object],
+      candidateRelations: [],
+      temporalElements: [],
+      correctionsAndSupersessions: [],
+    },
+  };
+};
 
 const acceptInitialProject = async () => {
   submit(COLCHICINE_03A_INITIAL);
@@ -240,6 +284,65 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
       projectVersionAfter: before.project.versionId,
       qryNeedBefore: before.queryNavigation.currentAction.navigationNeedRefs[0],
       qryNeedAfter: before.queryNavigation.currentAction.navigationNeedRefs[0],
+    });
+  });
+
+  it("H03-P01/P02 stages successive pre-creation contributions into one canonical Human Review", async () => {
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
+      const latest = conversation.turns.at(-1)?.content ?? "";
+      const contribution = latest.includes("CT et IRM")
+        ? singleObjectContribution(conversation.turns, "contribution:ct-mri", "acquisition:ct", "ACQUISITION", "Acquisition CT")
+        : singleObjectContribution(conversation.turns, "contribution:reference", "analysis:ex-vivo", "ANALYSIS_SPECIFICATION", "Référence anatomique ex vivo", "REFERENCE_STANDARD");
+      return makeFunctionalResetBridgeResponse(conversation.turns, contribution, "Je vous présente cette contribution pour confirmation.");
+    });
+    renderDemo();
+
+    submit("Je comparerai le CT et IRM.");
+    expect(await screen.findByText("Acquisition CT")).toBeInTheDocument();
+    submit("La méthode anatomique ex vivo sera la référence.");
+
+    expect(await screen.findByText("Référence anatomique ex vivo")).toBeInTheDocument();
+    const reviews = await screen.findAllByTestId("functional-contribution-review");
+    expect(reviews).toHaveLength(1);
+    expect(within(reviews[0]!).getByText("Acquisition CT")).toBeInTheDocument();
+    expect(within(reviews[0]!).getByText("Référence anatomique ex vivo")).toBeInTheDocument();
+    expect(stored().pendingContribution.identity.runtimeId).toBe("MINIMAL_PRODUCT_BRIDGE_INITIAL_PROJECT_STAGING");
+
+    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    expect(await within(screen.getByTestId("functional-research-project")).findByText("Version 1")).toBeInTheDocument();
+    expect(JSON.stringify(stored().project)).toContain("Acquisition CT");
+    expect(JSON.stringify(stored().project)).toContain("Référence anatomique ex vivo");
+  });
+
+  it("H03-P07/P08 makes blocked persistence visible and preserves Project truth", async () => {
+    runtime.request.mockImplementationOnce(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
+      const response = makeFunctionalResetBridgeResponse(conversation.turns, null, "Je comprends la correction demandée.");
+      return {
+        ...response,
+        persistentExtraction: {
+          ...response.persistentExtraction,
+          called: true,
+          status: "BLOCKED" as const,
+          failure: {
+            code: "PERSISTENT_VALIDATION_BLOCKED" as const,
+            message: "La contribution persistante ne respecte pas le contrat canonique.",
+            details: ["change:0:PROJECT_REF_INVALID"],
+            provider: null,
+          },
+        },
+        observability: { ...response.observability, calls: 2 as const, extractionLatencyMs: 8 },
+      };
+    });
+    renderDemo();
+    submit("Je modifie cette référence.");
+    expect(await screen.findByText("Je comprends la correction demandée.")).toBeInTheDocument();
+    expect(await screen.findByText(/proposition persistante est bloquée/)).toHaveAttribute("role", "alert");
+    expect(stored().project).toBeNull();
+    expect(stored().bridgeTraces.at(-1)).toMatchObject({
+      persistentExtractionStatus: "BLOCKED",
+      persistentExtractionFailure: { code: "PERSISTENT_VALIDATION_BLOCKED", details: ["change:0:PROJECT_REF_INVALID"] },
+      projectVersionBefore: null,
+      projectVersionAfter: null,
     });
   });
 });

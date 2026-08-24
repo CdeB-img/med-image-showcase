@@ -90,7 +90,7 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     expect(serialized).toContain("Omit for ADD");
     expect(serialized).toContain("never use it only to provide context for a new object");
     expect(serialized).toContain("Null is allowed only on REPLACE to clear an existing role");
-    expect(serialized).toContain("Existing canonical Project stable ID or candidateRef declared in this same output");
+    expect(serialized).toContain("existing Project object or candidateRef declared in changes of this same output");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("Une mention dans une question");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("retourne une liste vide");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("Un changement de rôle scientifique ne remplace pas l'identité scientifique");
@@ -113,12 +113,15 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
         responseId: "question-conversation",
       }))
       .mockResolvedValueOnce(jsonResponse({
-        candidates: [{ content: { parts: [{ functionCall: { name: "propose_persistent_project_delta", args: { changes: [] } } }] } }],
-        responseId: "question-no-delta",
+        id: "question-no-delta",
+        model: "gpt-5.6-terra",
+        status: "completed",
+        output_text: JSON.stringify({ changes: [], relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
       })) as unknown as typeof fetch;
     const result = await executeProtocolDesignerBridge({
       body: requestFor("Combien de procédures sont prévues ?"),
       apiKey: "test-key",
+      openAiApiKey: "test-openai-key",
       fetchImpl,
     });
     expect(fetchImpl).toHaveBeenCalledTimes(2);
@@ -340,11 +343,13 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
         responseId: "conversation-change",
       }))
       .mockResolvedValueOnce(jsonResponse({
-        candidates: [{ content: { parts: [{ functionCall: { name: "propose_persistent_project_delta", args: exactProviderArgs } }] } }],
-        responseId: "delta-change",
+        id: "delta-change",
+        model: "gpt-5.6-terra",
+        status: "completed",
+        output_text: JSON.stringify(exactProviderArgs),
       })) as unknown as typeof fetch;
     const before = JSON.stringify(project);
-    const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", fetchImpl });
+    const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", openAiApiKey: "test-openai-key", fetchImpl });
     expect(result.status).toBe(200);
     expect(fetchImpl).toHaveBeenCalledTimes(2);
     expect(result.body).toMatchObject({
@@ -361,7 +366,7 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
         wireCandidate: expect.objectContaining({ changes: exactProviderArgs.changes, relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
         candidate: expect.objectContaining({ changes: exactProviderArgs.changes }),
         contribution: {
-          source: { rawOutputRef: expect.stringMatching(/^gemini-structured-args:/), rawOutputDigest: expect.any(String) },
+          source: { rawOutputRef: expect.stringMatching(/^openai-structured-args:/), rawOutputDigest: expect.any(String) },
           decisionBoundary: { projectWriteAuthorized: false },
         },
       },

@@ -209,6 +209,202 @@ export const contributionItems = (contribution: ScientificInterpretationContribu
     .map((item) => [item.itemId, item])).values()];
 };
 
+const scopedInitialContribution = (contribution: ScientificInterpretationContributionEnvelope) => {
+  const scope = logicalDigest({
+    contributionId: contribution.identity.contributionId,
+    contributionDigest: contribution.identity.contributionDigest,
+  });
+  const itemCollections = [
+    contribution.scientificContent.explicitStatements,
+    contribution.scientificContent.candidateObjects,
+    contribution.scientificContent.inferredContext,
+    contribution.scientificContent.contextualCandidates,
+    contribution.scientificContent.negationsAndConstraints,
+    contribution.scientificContent.temporalElements,
+    contribution.scientificContent.ambiguities,
+    contribution.scientificContent.unknowns,
+    contribution.scientificContent.missingInformation,
+    contribution.scientificContent.correctionsAndSupersessions,
+    contribution.scientificContent.openDecisions,
+    contribution.scientificContent.clarificationNeeds,
+  ];
+  const itemRefs = new Map(itemCollections
+    .flat()
+    .map((item) => [item.itemId, `initial-stage:${scope}:${item.itemId}`] as const));
+  const ref = (value: string) => itemRefs.get(value) ?? value;
+  const item = (value: ScientificContributionItem): ScientificContributionItem => ({
+    ...value,
+    itemId: ref(value.itemId),
+    semanticIdentity: value.semanticIdentity ? ref(value.semanticIdentity) : null,
+    previousItemIds: value.previousItemIds?.map(ref),
+    evidenceRefs: value.evidenceRefs ? [...value.evidenceRefs] : undefined,
+    epistemicBoundary: {
+      ...value.epistemicBoundary,
+      sourceTurnIds: [...value.epistemicBoundary.sourceTurnIds],
+    },
+  });
+  const temporalQualifications = contribution.scientificContent.temporalQualifications?.map((qualification) => ({
+    ...qualification,
+    qualificationId: `initial-stage:${scope}:${qualification.qualificationId}`,
+    subjectProjectRef: ref(qualification.subjectProjectRef),
+    evidenceRefs: [...qualification.evidenceRefs],
+    anchor: qualification.anchor?.reference.status === "KNOWN" ? {
+      ...qualification.anchor,
+      reference: {
+        ...qualification.anchor.reference,
+        referenceProjectRef: ref(qualification.anchor.reference.referenceProjectRef),
+      },
+    } : qualification.anchor ? structuredClone(qualification.anchor) : null,
+  }));
+  const expectedVariableOccasions = contribution.scientificContent.expectedVariableOccasions?.map((occasion) => ({
+    ...occasion,
+    occasionId: `initial-stage:${scope}:${occasion.occasionId}`,
+    variableProjectRef: ref(occasion.variableProjectRef),
+    studyUnitOrGroupRef: occasion.studyUnitOrGroupRef ? ref(occasion.studyUnitOrGroupRef) : null,
+    evidenceRefs: [...occasion.evidenceRefs],
+    anchor: occasion.anchor?.reference.status === "KNOWN" ? {
+      ...occasion.anchor,
+      reference: {
+        ...occasion.anchor.reference,
+        referenceProjectRef: ref(occasion.anchor.reference.referenceProjectRef),
+      },
+    } : occasion.anchor ? structuredClone(occasion.anchor) : null,
+  }));
+  return {
+    ...contribution,
+    scientificContent: {
+      ...contribution.scientificContent,
+      explicitStatements: contribution.scientificContent.explicitStatements.map(item),
+      candidateObjects: contribution.scientificContent.candidateObjects.map(item),
+      candidateRelations: contribution.scientificContent.candidateRelations.map((relation) => ({
+        ...relation,
+        relationId: `initial-stage:${scope}:${relation.relationId}`,
+        sourceItemId: ref(relation.sourceItemId),
+        targetItemId: ref(relation.targetItemId),
+        evidenceRefs: relation.evidenceRefs ? [...relation.evidenceRefs] : undefined,
+        epistemicBoundary: {
+          ...relation.epistemicBoundary,
+          sourceTurnIds: [...relation.epistemicBoundary.sourceTurnIds],
+        },
+      })),
+      inferredContext: contribution.scientificContent.inferredContext.map(item),
+      contextualCandidates: contribution.scientificContent.contextualCandidates.map(item),
+      negationsAndConstraints: contribution.scientificContent.negationsAndConstraints.map(item),
+      temporalElements: contribution.scientificContent.temporalElements.map(item),
+      ambiguities: contribution.scientificContent.ambiguities.map(item),
+      unknowns: contribution.scientificContent.unknowns.map(item),
+      missingInformation: contribution.scientificContent.missingInformation.map(item),
+      correctionsAndSupersessions: contribution.scientificContent.correctionsAndSupersessions.map(item),
+      openDecisions: contribution.scientificContent.openDecisions.map(item),
+      clarificationNeeds: contribution.scientificContent.clarificationNeeds.map(item),
+      temporalQualifications,
+      expectedVariableOccasions,
+    },
+    mapping: contribution.mapping.map((mapping) => ({ ...mapping, sourceItemId: ref(mapping.sourceItemId) })),
+  };
+};
+
+/**
+ * Combines successive, still-unadopted contributions while the first Project
+ * version is being described. It only composes already validated scientific
+ * payloads; it neither interprets text nor authorizes a Project write.
+ */
+export const mergeInitialResearchProjectContributions = (
+  previous: ScientificInterpretationContributionEnvelope,
+  latest: ScientificInterpretationContributionEnvelope,
+): ScientificInterpretationContributionEnvelope => {
+  if (previous.source.conversationId !== latest.source.conversationId) {
+    throw new Error("INITIAL_PROJECT_CONTRIBUTION_CONVERSATION_MISMATCH");
+  }
+  const earlier = scopedInitialContribution(previous);
+  const current = scopedInitialContribution(latest);
+  const mergedContributionId = `initial-project-contribution:${logicalDigest({
+    previous: previous.identity.contributionId,
+    latest: latest.identity.contributionId,
+  })}`;
+  const turns = [...new Map([...earlier.source.turns, ...current.source.turns]
+    .map((turn) => [turn.turnId, turn])).values()];
+  const sourceRefs = [...new Set([
+    ...earlier.source.sourceRefs,
+    ...current.source.sourceRefs,
+    earlier.source.rawOutputRef,
+    current.source.rawOutputRef,
+    earlier.source.rawOutputDigest ? `raw-output-digest:${earlier.source.rawOutputDigest}` : null,
+    current.source.rawOutputDigest ? `raw-output-digest:${current.source.rawOutputDigest}` : null,
+  ].filter((value): value is string => Boolean(value)))];
+  const mergeItems = (a: ScientificContributionItem[], b: ScientificContributionItem[]) => [...a, ...b];
+  const scientificContent = {
+    ...current.scientificContent,
+    normalizedUnderstanding: [earlier.scientificContent.normalizedUnderstanding, current.scientificContent.normalizedUnderstanding]
+      .filter((value): value is string => Boolean(value)).join("\n") || null,
+    routeProposal: null,
+    explicitStatements: mergeItems(earlier.scientificContent.explicitStatements, current.scientificContent.explicitStatements),
+    candidateObjects: mergeItems(earlier.scientificContent.candidateObjects, current.scientificContent.candidateObjects),
+    candidateRelations: [...earlier.scientificContent.candidateRelations, ...current.scientificContent.candidateRelations],
+    inferredContext: mergeItems(earlier.scientificContent.inferredContext, current.scientificContent.inferredContext),
+    contextualCandidates: mergeItems(earlier.scientificContent.contextualCandidates, current.scientificContent.contextualCandidates),
+    negationsAndConstraints: mergeItems(earlier.scientificContent.negationsAndConstraints, current.scientificContent.negationsAndConstraints),
+    temporalElements: mergeItems(earlier.scientificContent.temporalElements, current.scientificContent.temporalElements),
+    ambiguities: mergeItems(earlier.scientificContent.ambiguities, current.scientificContent.ambiguities),
+    unknowns: mergeItems(earlier.scientificContent.unknowns, current.scientificContent.unknowns),
+    missingInformation: mergeItems(earlier.scientificContent.missingInformation, current.scientificContent.missingInformation),
+    correctionsAndSupersessions: mergeItems(earlier.scientificContent.correctionsAndSupersessions, current.scientificContent.correctionsAndSupersessions),
+    openDecisions: mergeItems(earlier.scientificContent.openDecisions, current.scientificContent.openDecisions),
+    clarificationNeeds: mergeItems(earlier.scientificContent.clarificationNeeds, current.scientificContent.clarificationNeeds),
+    temporalQualifications: [...(earlier.scientificContent.temporalQualifications ?? []), ...(current.scientificContent.temporalQualifications ?? [])],
+    expectedVariableOccasions: [...(earlier.scientificContent.expectedVariableOccasions ?? []), ...(current.scientificContent.expectedVariableOccasions ?? [])],
+  };
+  const contributionDigest = logicalDigest({
+    mergedContributionId,
+    previousDigest: previous.identity.contributionDigest,
+    latestDigest: latest.identity.contributionDigest,
+    sourceRefs,
+    scientificContent,
+  });
+  return {
+    ...current,
+    identity: {
+      ...current.identity,
+      contributionId: mergedContributionId,
+      previousContributionId: previous.identity.contributionId,
+      runtimeId: "MINIMAL_PRODUCT_BRIDGE_INITIAL_PROJECT_STAGING",
+      runtimeVersion: "1.0.0",
+      contributionDigest,
+    },
+    source: {
+      ...current.source,
+      originalRequest: [earlier.source.originalRequest, current.source.originalRequest].filter(Boolean).join("\n"),
+      turns,
+      sourceRefs,
+      rawOutputRef: current.source.rawOutputRef,
+      rawOutputDigest: current.source.rawOutputDigest,
+    },
+    runtimeEvidence: {
+      ...current.runtimeEvidence,
+      validationErrors: [...earlier.runtimeEvidence.validationErrors, ...current.runtimeEvidence.validationErrors],
+    },
+    scientificContent,
+    mapping: [...earlier.mapping, ...current.mapping],
+    audit: {
+      deterministicFindings: [...earlier.audit.deterministicFindings, ...current.audit.deterministicFindings],
+      semanticAuditFindings: [...earlier.audit.semanticAuditFindings, ...current.audit.semanticAuditFindings],
+      unresolvedFindings: [...earlier.audit.unresolvedFindings, ...current.audit.unresolvedFindings],
+    },
+    epistemicBoundary: {
+      candidateIsAdopted: false,
+      knowledgeSupportIsProjectDecision: false,
+      projectOwnershipTransferred: false,
+      humanDecisionEnvelopeRef: null,
+    },
+    decisionBoundary: {
+      ...current.decisionBoundary,
+      decisionRequired: true,
+      decisionEnvelopeRef: null,
+      projectWriteAuthorized: false,
+    },
+  };
+};
+
 const typeOf = (item: ScientificContributionItem) => `${item.proposedType ?? ""} ${item.studyRole ?? ""}`.toLocaleUpperCase("fr-FR");
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 const folded = (value: string) => normalized(value).normalize("NFD").replace(/\p{Diacritic}/gu, "");

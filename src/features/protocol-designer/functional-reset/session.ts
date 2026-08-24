@@ -19,6 +19,7 @@ import type {
   PersistentProjectDeltaCandidate,
   PersistentProjectDeltaWireCandidate,
   ProductBridgeRequest,
+  ProductBridgeResponse,
 } from "@/features/protocol-designer/product-bridge";
 import type { CanonicalProjectChangeSet, ContributionProjectChangeSet, HumanReviewProjection } from "@/features/research-project-construction";
 import { ensureCanonicalProjectState } from "@/features/research-project-construction";
@@ -42,6 +43,7 @@ export type ProductBridgeTrace = {
   assistantReply: string;
   persistentExtractionCalled: boolean;
   persistentExtractionStatus: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
+  persistentExtractionFailure?: ProductBridgeResponse["persistentExtraction"]["failure"];
   providerArtifact: PersistentExtractionProviderArtifact | null;
   wireCandidate: PersistentProjectDeltaWireCandidate | null;
   persistentCandidate: PersistentProjectDeltaCandidate | null;

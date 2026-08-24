@@ -18,7 +18,12 @@ import {
 } from "../research-project-construction/canonical-project-backbone.js";
 
 export const PRODUCT_BRIDGE_API_VERSION = "1.0.0" as const;
-export const PRODUCT_BRIDGE_MODEL = "gemini-3.5-flash-lite" as const;
+export const DEFAULT_GEMINI_CONVERSATION_MODEL = "gemini-3.5-flash-lite" as const;
+export const DEFAULT_OPENAI_EXTRACTION_MODEL = "gpt-5.6-terra" as const;
+/** Historical alias retained for Level-3 diagnostics and fixtures. */
+export const PRODUCT_BRIDGE_MODEL = DEFAULT_GEMINI_CONVERSATION_MODEL;
+export const resolveGeminiConversationModel = (value?: string | null): string => value?.trim() || DEFAULT_GEMINI_CONVERSATION_MODEL;
+export const resolveOpenAIExtractionModel = (value?: string | null): string => value?.trim() || DEFAULT_OPENAI_EXTRACTION_MODEL;
 export const PERSISTENT_PROJECT_DELTA_CONTRACT = "PERSISTENT_PROJECT_DELTA_CANDIDATE" as const;
 
 export const PERSISTENT_PROJECT_OBJECT_TYPES = [
@@ -40,6 +45,7 @@ export const PERSISTENT_PROJECT_OBJECT_TYPES = [
   "ANALYSIS_SPECIFICATION",
   "DATA_NEED",
   "UNCERTAINTY",
+  "PROJECT_INFORMATION",
 ] as const;
 
 /**
@@ -116,6 +122,8 @@ Une mention dans une question, une demande d'information, une hypothèse explora
 
 Pour chaque modification durable explicite, propose une opération minimale et un objet scientifique typé. Préserve les rôles, hypothèses, comparaisons, temporalités, négations et relations explicitement formulés.
 
+Pour chaque sourceText, COPIE une sous-chaîne contiguë exacte du DERNIER MESSAGE UTILISATEUR, caractère par caractère. Ne corrige pas l'orthographe, ne retire pas les accents, ne normalise pas la typographie ou la casse, ne traduis pas, ne résume pas et ne paraphrase pas. Si aucun fragment utilisateur courant ne porte littéralement l'assertion, ne la qualifie pas EXPLICIT_USER_STATED et n'invente aucun sourceText. Pour une réponse elliptique résolue par le contexte, sourceText reste le fragment utilisateur elliptique exact ; les mots du Project ou de NOXIA ne deviennent pas une fausse citation utilisateur.
+
 Lis le message entier avant de produire la sortie. Un même tour peut contenir plusieurs faits persistants indépendants : produis toutes leurs modifications atomiques, leurs relations et leurs qualifications temporelles. Ne sélectionne jamais un seul changement principal au détriment des autres faits explicites.
 
 N'aplatis jamais plusieurs identités explicites dans un seul objet. Une comparaison entre une intervention et un comparateur produit deux objets distincts et une relation COMPARES_WITH. Une intervention dont l'identité exacte n'est pas fournie reste explicite comme catégorie et inconnue quant à son identité précise ; n'invente aucun nom, dose, phase, randomisation ou aveugle.
@@ -124,7 +132,11 @@ Traite séparément la provenance linguistique et l'état épistémique. EXPLICI
 
 Conserve un OBJECTIVE séparément d'une CONDITION, d'un ENDPOINT, d'une CANONICAL_VARIABLE et d'une ANALYSIS_SPECIFICATION. Lorsqu'une formulation exprime ce que le projet cherche à démontrer, évaluer, comparer, réduire, augmenter ou faire disparaître, représente ce but comme OBJECTIVE même si le mot « objectif » n'est pas écrit. Préserve séparément la cible ou condition concernée. Un objectif d'efficacité n'est pas une mesure. Un effet ou phénomène visé peut rester à préciser quant à sa définition opérationnelle.
 
-Pour l'imagerie, distingue IMAGING_MODALITY, ACQUISITION et DATA_NEED. Une modalité ou acquisition utilisée pour quantifier ou caractériser quelque chose peut OPERATIONALIZES un DATA_NEED, mais ne crée jamais à elle seule une MeasurementDefinition ni un rôle biomarqueur.
+Pour l'imagerie, distingue IMAGING_MODALITY, ACQUISITION, CANONICAL_VARIABLE, DATA_NEED et MeasurementDefinition. IMAGING_MODALITY identifie une modalité ou famille de méthode explicitement nommée. ACQUISITION représente une réalisation planifiée seulement lorsque l'utilisateur établit réellement qu'un examen, une collecte ou une acquisition aura lieu ; une modalité seulement envisagée ou comparée ne suffit pas. CANONICAL_VARIABLE représente une quantité, catégorie ou information de données définie pour le Project, jamais la modalité qui la produit. DATA_NEED représente l'information dont le Project a besoin. MeasurementDefinition reste une définition de méthode gouvernée hors de ce contrat Project et ne doit pas être inventée. Une modalité ou acquisition utilisée pour quantifier ou caractériser quelque chose peut OPERATIONALIZES un DATA_NEED, mais ne crée jamais à elle seule une MeasurementDefinition, une CANONICAL_VARIABLE ni un rôle biomarqueur. Lorsque le contexte établit une acquisition, conserve séparément l'identité de la modalité au lieu de la remplacer par l'acquisition.
+
+Une procédure de mesure ou une méthode de référence n'est jamais une INTERVENTION du seul fait qu'elle est appliquée à un tissu, un animal ou un participant. Utilise ACQUISITION pour une acquisition ou un prélèvement, CANONICAL_VARIABLE pour la grandeur produite et DATA_NEED pour le besoin mesuré. ANALYSIS_SPECIFICATION est une spécification analytique autonome : elle exige au minimum une finalité ou question analytique, des entrées et une procédure suffisamment établies pour former une identité de spécification. Une simple mention de traitement, segmentation, quantification ou d'une méthode restant à définir ne suffit pas à la créer. Lorsque ce contexte méthodologique est explicitement dit mais reste trop incomplet pour constituer une MeasurementDefinition ou une ANALYSIS_SPECIFICATION, conserve-le séparément comme PROJECT_INFORMATION avec son fragment source exact, le lien contextuel lisible vers la grandeur concernée dans content et epistemicState = UNKNOWN. PROJECT_INFORMATION préserve ici une information Project sous-spécifiée ; il ne devient ni une méthode qualifiée par son owner ni un substitut permanent à MeasurementDefinition. N'attribue REFERENCE_STANDARD que si l'utilisateur établit explicitement ce rôle ou s'il est déjà adopté dans le Project.
+
+Une comparaison peut porter sur des groupes ou interventions, mais aussi sur des modalités, acquisitions, procédures d'analyse ou grandeurs mesurées. Conserve les deux extrémités explicites et COMPARES_WITH sans transformer une comparaison méthodologique en comparaison de bras. Une affirmation utilisateur sur la précision ou la performance d'une méthode peut être conservée comme HYPOTHESIS ou rationale Project ; elle ne devient jamais une preuve Knowledge ni une hypothèse statistique formelle non formulée.
 
 Toute temporalité explicitement exprimée doit être conservée dans temporalQualifications ; ne la résume pas dans content et ne la supprime pas lorsque son référentiel manque. Une temporalité exprimée dans le même message qu'un nouvel objet référence le candidateRef de cet objet. Un repère relatif ou abrégé reste une information temporelle explicite : conserve le référentiel UNKNOWN lorsqu'il n'est pas fourni ou reste ambigu.
 
@@ -142,7 +154,12 @@ N'émets REPLACE ou REMOVE que lorsque le DERNIER MESSAGE UTILISATEUR autorise r
 
 Un changement de rôle scientifique ne remplace pas l'identité scientifique. studyRole est indépendant de proposedType. Omets studyRole lorsqu'aucun rôle n'est explicitement établi par le dernier message ou déjà adopté sur l'objet Project référencé. Ne remplis jamais ce champ seulement parce qu'il existe. N'attribue jamais PRIMARY_INTERVENTION ou PRIMARY_OBJECTIVE : ces rôles ne font pas partie du contrat Project courant. Si l'utilisateur désigne explicitement un nouveau critère principal, conserve les objets distincts : retire le rôle principal de l'ancien objet avec REPLACE et studyRole explicitement nul dans le contrat local, puis attribue PRIMARY_ENDPOINT au nouvel objet par REPLACE s'il existe déjà ou ADD s'il est réellement nouveau. Ne déduis aucun rôle secondaire non formulé.
 
-Une relation utilise uniquement un relationType admis par le contrat, un candidateRef déclaré dans changes de cette même sortie ou un stableId présent dans objects du Project Context Snapshot. N'invente jamais un identifiant, et n'utilise jamais un label, un contenu ou un sectionId comme référence. Si une relation optionnelle ne possède pas deux extrémités résolubles et compatibles, omets-la au lieu de fabriquer une extrémité. Une information inchangée déjà présente n'est pas une modification. Si aucune conséquence persistante explicite n'existe, retourne des listes vides.
+Une relation utilise uniquement un relationType admis par le contrat, un candidateRef déclaré dans changes de cette même sortie ou un stableId présent dans objects du Project Context Snapshot. Détermine d'abord le type scientifique de chaque extrémité, puis choisis seulement une signature compatible et conserve sa direction :
+- COMPARES_WITH / COMPARED_WITH : INTERVENTION ou COMPARATOR vers INTERVENTION ou COMPARATOR ; ou IMAGING_MODALITY, ACQUISITION, ANALYSIS_SPECIFICATION ou CANONICAL_VARIABLE vers un objet de cette même famille de comparaison ;
+- MOTIVATES_DATA_NEED : SCIENTIFIC_QUESTION, OBJECTIVE ou HYPOTHESIS vers DATA_NEED ;
+- COVERS_DATA_NEED : CANONICAL_VARIABLE vers DATA_NEED ;
+- OPERATIONALIZES : CANONICAL_VARIABLE, ACQUISITION ou ANALYSIS_SPECIFICATION vers DATA_NEED.
+CONSUMED_BY_ANALYSIS est une relation canonique mais n'est pas disponible dans ce contrat produit : ne l'émets pas et n'utilise jamais OPERATIONALIZES comme substitut. Une ANALYSIS_SPECIFICATION ne peut donc jamais OPERATIONALIZES une CANONICAL_VARIABLE. La simple co-présence de deux objets n'établit aucune relation. N'invente jamais un identifiant, et n'utilise jamais un label, un contenu ou un sectionId comme référence. Si aucune signature admise ne représente fidèlement une relation optionnelle, omets la relation tout en conservant les objets explicites ; ne fabrique ni extrémité ni relation de remplacement. Une information inchangée déjà présente n'est pas une modification. Si aucune conséquence persistante explicite n'existe, retourne des listes vides.
 
 Ne complète pas la science. Ne crée pas de rôle scientifique non formulé. Ne décide pas pour l'utilisateur. N'applique jamais le Project.`;
 
@@ -302,11 +319,28 @@ export type PersistentProjectDeltaCandidate = {
 export type PersistentExtractionProviderArtifact = {
   artifactRef: string;
   requestTurnRef: string;
-  provider: "GOOGLE_GEMINI";
-  model: typeof PRODUCT_BRIDGE_MODEL;
+  provider: "GOOGLE_GEMINI" | "OPENAI";
+  model: string;
+  modelRequested?: string | null;
+  modelReturned?: string | null;
   functionName: "propose_persistent_project_delta";
   receivedAt: string;
   providerResponseId: string | null;
+  providerRequestId?: string | null;
+  endpoint?: string;
+  sourceProjectId?: string | null;
+  sourceProjectVersion?: string | null;
+  sourceProjectDigest?: string | null;
+  promptDigest?: string;
+  schemaDigest?: string;
+  configurationDigest?: string;
+  usage?: {
+    input_tokens?: number;
+    output_tokens?: number;
+    total_tokens?: number;
+    input_tokens_details?: { cached_tokens?: number };
+    output_tokens_details?: { reasoning_tokens?: number };
+  } | null;
   structuredArgsExact: unknown;
   structuredArgsSerialized: string;
   structuredArgsDigest: string;
@@ -346,6 +380,20 @@ export type ProductBridgeResponse = {
   persistentExtraction: {
     called: boolean;
     status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
+    failure?: {
+      code: "PERSISTENT_VALIDATION_BLOCKED" | "PERSISTENT_PROVIDER_FAILURE";
+      message: string;
+      details: string[];
+      provider: {
+        stage: "PERSISTENT_DELTA";
+        provider?: "GOOGLE_GEMINI" | "OPENAI";
+        httpStatus: number | null;
+        providerStatus: string | null;
+        providerMessage: string;
+        responseId: string | null;
+        requestId?: string | null;
+      } | null;
+    } | null;
     providerArtifact: PersistentExtractionProviderArtifact | null;
     wireCandidate: PersistentProjectDeltaWireCandidate | null;
     candidate: PersistentProjectDeltaCandidate | null;
@@ -354,11 +402,27 @@ export type ProductBridgeResponse = {
   };
   observability: {
     provider: "GOOGLE_GEMINI";
-    model: typeof PRODUCT_BRIDGE_MODEL;
+    model: string;
+    conversationProvider?: "GOOGLE_GEMINI";
+    conversationModel?: string;
+    extractionProvider?: "OPENAI" | null;
+    extractionModelRequested?: string | null;
+    extractionModelReturned?: string | null;
     conversationLatencyMs: number;
     extractionLatencyMs: number | null;
     calls: 1 | 2;
     projectWrites: 0;
+    conversationUsage?: { promptTokenCount?: number; candidatesTokenCount?: number; totalTokenCount?: number } | null;
+    extractionUsage?: {
+      input_tokens?: number;
+      output_tokens?: number;
+      total_tokens?: number;
+      input_tokens_details?: { cached_tokens?: number };
+      output_tokens_details?: { reasoning_tokens?: number };
+      promptTokenCount?: number;
+      candidatesTokenCount?: number;
+      totalTokenCount?: number;
+    } | null;
   };
 };
 
@@ -467,6 +531,14 @@ export const validatePersistentProjectDelta = (
     const proposedRole = change.studyRole === undefined ? targetRole : change.studyRole;
     const targetType = target?.element.sourceProposedType ?? null;
     const proposedType = change.proposedType ?? targetType;
+    const canonicalType = canonicalProjectObjectType({
+      proposedType: proposedType ?? null,
+      studyRole: proposedRole ?? null,
+    });
+    if (proposedRole === "REFERENCE_STANDARD" && ["INTERVENTION_OR_EXPOSURE", "GROUP"].includes(canonicalType)) {
+      blocks.push(`${prefix}:REFERENCE_STANDARD_NOT_STUDY_INTERVENTION_OR_ARM`);
+      return;
+    }
     const targetPolarity = target?.element.sourcePolarity ?? "AFFIRMED";
     const proposedPolarity = change.polarity ?? targetPolarity;
     if (change.operation === "REPLACE" && target
@@ -540,15 +612,17 @@ export const validatePersistentProjectDelta = (
     const targetType = knownObjectType.get(targetRef);
     if (!sourceType || !targetType) return false;
     if (relationType === "COMPARES_WITH" || relationType === "COMPARED_WITH") {
-      const comparable = new Set(["INTERVENTION_OR_EXPOSURE", "GROUP"]);
-      return comparable.has(sourceType) && comparable.has(targetType);
+      const studyArms = new Set(["INTERVENTION_OR_EXPOSURE", "GROUP"]);
+      const measurementMethods = new Set(["IMAGING_MODALITY", "ACQUISITION", "ANALYSIS_SPECIFICATION", "CANONICAL_VARIABLE"]);
+      return (studyArms.has(sourceType) && studyArms.has(targetType))
+        || (measurementMethods.has(sourceType) && measurementMethods.has(targetType));
     }
     if (relationType === "MOTIVATES_DATA_NEED") {
       return ["SCIENTIFIC_QUESTION", "OBJECTIVE", "HYPOTHESIS"].includes(sourceType) && targetType === "DATA_NEED";
     }
     if (relationType === "COVERS_DATA_NEED") return sourceType === "CANONICAL_VARIABLE" && targetType === "DATA_NEED";
     if (relationType === "OPERATIONALIZES") {
-      return ["CANONICAL_VARIABLE", "ACQUISITION"].includes(sourceType) && targetType === "DATA_NEED";
+      return ["CANONICAL_VARIABLE", "ACQUISITION", "ANALYSIS_SPECIFICATION"].includes(sourceType) && targetType === "DATA_NEED";
     }
     return false;
   };
@@ -882,11 +956,12 @@ export const contributionFromPersistentDelta = (input: {
       rawOutputDigest: input.providerArtifact?.structuredArgsDigest ?? null,
     },
     runtimeEvidence: {
-      provider: "GOOGLE_GEMINI",
-      model: PRODUCT_BRIDGE_MODEL,
-      promptDigest: logicalDigest(PERSISTENT_DELTA_SYSTEM_INSTRUCTION),
-      schemaDigest: logicalDigest(persistentProjectDeltaSchema.toString()),
-      configurationDigest: logicalDigest({ model: PRODUCT_BRIDGE_MODEL, mode: "REQUIRED_FUNCTION_CALL", version: "0.3.0" }),
+      provider: input.providerArtifact?.provider ?? "GOOGLE_GEMINI",
+      model: input.providerArtifact?.modelReturned ?? input.providerArtifact?.model ?? PRODUCT_BRIDGE_MODEL,
+      promptDigest: input.providerArtifact?.promptDigest ?? logicalDigest(PERSISTENT_DELTA_SYSTEM_INSTRUCTION),
+      schemaDigest: input.providerArtifact?.schemaDigest ?? logicalDigest(persistentProjectDeltaSchema.toString()),
+      configurationDigest: input.providerArtifact?.configurationDigest
+        ?? logicalDigest({ model: PRODUCT_BRIDGE_MODEL, mode: "REQUIRED_FUNCTION_CALL", version: "0.3.0" }),
       technicalStatus: "STRUCTURED_CONTRACT_VALID",
       parseStatus: "PARSED",
       validationErrors: [],

@@ -1,9 +1,10 @@
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
-  PRODUCT_BRIDGE_MODEL,
   contributionFromPersistentDelta,
   parseProductBridgeRequest,
+  resolveGeminiConversationModel,
+  resolveOpenAIExtractionModel,
   validatePersistentProviderContract,
   validatePersistentProjectDelta,
   type ProductBridgeResponse,
@@ -11,8 +12,8 @@ import {
 import {
   ProductBridgeProviderError,
   executeNaturalConversation,
-  executePersistentDelta,
 } from "./protocol-designer-bridge-provider.js";
+import { executeOpenAIPersistentDelta } from "./protocol-designer-openai-extraction-provider.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
@@ -35,13 +36,19 @@ const safeProviderError = (error: ProductBridgeProviderError) => ({
   providerStatus: error.providerStatus,
   providerMessage: error.providerMessage,
   responseId: error.responseId,
+  provider: error.provider,
+  requestId: error.requestId,
 });
 
 export const executeProtocolDesignerBridge = async (input: {
   body: unknown;
   apiKey: string | null;
+  openAiApiKey?: string | null;
+  geminiModel?: string | null;
+  openAiExtractionModel?: string | null;
   fetchImpl?: typeof fetch;
   now?: () => number;
+  onPersistentProviderArtifact?: (artifact: NonNullable<ProductBridgeResponse["persistentExtraction"]["providerArtifact"]>) => void;
 }): Promise<{ status: number; body: ProductBridgeResponse | Record<string, unknown> }> => {
   const request = parseProductBridgeRequest(input.body);
   if (!request) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "Contrat du pont produit invalide." } } };
@@ -51,8 +58,10 @@ export const executeProtocolDesignerBridge = async (input: {
   if (!input.apiKey?.trim()) return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "GEMINI_API_KEY_MISSING", message: "Conversation momentanément indisponible." } } };
 
   let conversation;
+  const conversationModel = resolveGeminiConversationModel(input.geminiModel);
+  const extractionModel = resolveOpenAIExtractionModel(input.openAiExtractionModel);
   try {
-    conversation = await executeNaturalConversation(request, input.apiKey, input.fetchImpl);
+    conversation = await executeNaturalConversation(request, input.apiKey, input.fetchImpl, conversationModel);
   } catch (error) {
     const provider = error instanceof ProductBridgeProviderError ? safeProviderError(error) : null;
     return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "CONVERSATION_PROVIDER_FAILURE", message: "Conversation momentanément indisponible.", provider } } };
@@ -63,6 +72,7 @@ export const executeProtocolDesignerBridge = async (input: {
   let persistentExtraction: ProductBridgeResponse["persistentExtraction"] = {
     called: false,
     status: "NOT_REQUESTED",
+    failure: null,
     providerArtifact: null,
     wireCandidate: null,
     candidate: null,
@@ -70,11 +80,23 @@ export const executeProtocolDesignerBridge = async (input: {
     contribution: null,
   };
   let extractionLatencyMs: number | null = null;
+  let extractionUsage: ProductBridgeResponse["observability"]["extractionUsage"] = null;
+  let extractionModelReturned: string | null = null;
+  let providerStarts: 1 | 2 = 1;
 
   if (request.evaluatePersistentDelta) {
     try {
-      const extracted = await executePersistentDelta(request, input.apiKey, input.fetchImpl);
+      if (!input.openAiApiKey?.trim()) {
+        throw new ProductBridgeProviderError(
+          "PERSISTENT_DELTA", null, "OPENAI_API_KEY_MISSING", "Persistent extraction is unavailable.", null, "OPENAI",
+        );
+      }
+      providerStarts = 2;
+      const extracted = await executeOpenAIPersistentDelta(request, input.openAiApiKey, input.fetchImpl, extractionModel);
       extractionLatencyMs = extracted.latencyMs;
+      extractionUsage = extracted.usage;
+      extractionModelReturned = extracted.modelReturned;
+      input.onPersistentProviderArtifact?.(extracted.value.providerArtifact);
       const checked = validatePersistentProjectDelta(extracted.value.structuredArgs, latestUser.content, request.currentProject, request.conversation);
       const providerContract = validatePersistentProviderContract(extracted.value.structuredArgs);
       const validation = providerContract.valid ? checked.validation : {
@@ -99,14 +121,35 @@ export const executeProtocolDesignerBridge = async (input: {
             || checked.candidate?.temporalQualifications.length
             || checked.candidate?.expectedVariableOccasions.length) ? "CANDIDATE" : "NO_CHANGE"
           : "BLOCKED",
+        failure: validation.valid ? null : {
+          code: "PERSISTENT_VALIDATION_BLOCKED",
+          message: "La contribution persistante ne respecte pas le contrat canonique.",
+          details: [...validation.blocks],
+          provider: null,
+        },
         providerArtifact: extracted.value.providerArtifact,
         wireCandidate: checked.wireCandidate,
         candidate: checked.candidate,
         validation,
         contribution,
       };
-    } catch {
-      persistentExtraction = { called: true, status: "TECHNICAL_FAILURE", providerArtifact: null, wireCandidate: null, candidate: null, validation: null, contribution: null };
+    } catch (error) {
+      const provider = error instanceof ProductBridgeProviderError ? safeProviderError(error) : null;
+      persistentExtraction = {
+        called: true,
+        status: "TECHNICAL_FAILURE",
+        failure: {
+          code: "PERSISTENT_PROVIDER_FAILURE",
+          message: "L'extraction persistante n'a pas abouti.",
+          details: [],
+          provider: provider?.stage === "PERSISTENT_DELTA" ? { ...provider, stage: "PERSISTENT_DELTA" } : null,
+        },
+        providerArtifact: null,
+        wireCandidate: null,
+        candidate: null,
+        validation: null,
+        contribution: null,
+      };
     }
   }
 
@@ -119,11 +162,18 @@ export const executeProtocolDesignerBridge = async (input: {
       persistentExtraction,
       observability: {
         provider: "GOOGLE_GEMINI",
-        model: PRODUCT_BRIDGE_MODEL,
+        model: conversationModel,
+        conversationProvider: "GOOGLE_GEMINI",
+        conversationModel,
+        extractionProvider: request.evaluatePersistentDelta ? "OPENAI" : null,
+        extractionModelRequested: request.evaluatePersistentDelta ? extractionModel : null,
+        extractionModelReturned,
         conversationLatencyMs: conversation.latencyMs,
         extractionLatencyMs,
-        calls: request.evaluatePersistentDelta ? 2 : 1,
+        calls: providerStarts,
         projectWrites: 0,
+        conversationUsage: conversation.usage,
+        extractionUsage,
       },
     },
   };
@@ -144,7 +194,13 @@ export const handleProtocolDesignerBridge = async (request: ApiRequest, response
   if (new TextEncoder().encode(JSON.stringify(body)).byteLength > 300_000) {
     return response.status(413).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "PAYLOAD_TOO_LARGE", message: "Conversation trop volumineuse." } });
   }
-  const result = await executeProtocolDesignerBridge({ body, apiKey: process.env.GEMINI_API_KEY?.trim() || null });
+  const result = await executeProtocolDesignerBridge({
+    body,
+    apiKey: process.env.GEMINI_API_KEY?.trim() || null,
+    openAiApiKey: process.env.OPENAI_API_KEY?.trim() || null,
+    geminiModel: process.env.GEMINI_MODEL,
+    openAiExtractionModel: process.env.OPENAI_EXTRACTION_MODEL,
+  });
   response.status(result.status).json(result.body);
 };
 

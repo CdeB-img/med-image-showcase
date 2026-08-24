@@ -7,14 +7,15 @@ import {
   PERSISTENT_PROJECT_STUDY_ROLES,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   PRODUCT_BRIDGE_MODEL,
+  resolveGeminiConversationModel,
   relevantProjectContext,
   type PersistentExtractionProviderArtifact,
   type PersistentProjectDeltaCandidate,
   type ProductBridgeRequest,
 } from "../src/features/protocol-designer/product-bridge.js";
 
-const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(PRODUCT_BRIDGE_MODEL)}:generateContent`;
 const FUNCTION_NAME = "propose_persistent_project_delta";
+const geminiEndpoint = (model: string) => `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
 
 type GeminiUsage = {
   promptTokenCount?: number;
@@ -44,6 +45,8 @@ export class ProductBridgeProviderError extends Error {
     readonly providerStatus: string | null,
     readonly providerMessage: string,
     readonly responseId: string | null = null,
+    readonly provider: "GOOGLE_GEMINI" | "OPENAI" = "GOOGLE_GEMINI",
+    readonly requestId: string | null = null,
   ) {
     super(`${stage}:${providerStatus ?? "TRANSPORT_FAILURE"}`);
     this.name = "ProductBridgeProviderError";
@@ -160,7 +163,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 },
                 sourceText: {
                   type: "string",
-                  description: "Exact fragment of the latest user message that states this ADD or authorizes this REPLACE/REMOVE. Never copy previous Project content unless the latest user message literally repeats it.",
+                  description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this ADD or authorizes this REPLACE/REMOVE. Do not correct spelling, remove accents, normalize typography/capitalization, translate, summarize or paraphrase. Never copy Project or assistant text unless the latest user message literally repeats it.",
                 },
                 targetProjectRef: {
                   type: "string",
@@ -171,9 +174,9 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 proposedType: {
                   type: "string",
                   enum: PERSISTENT_PROJECT_OBJECT_TYPES,
-                  description: "Use one existing Project backbone type. Keep OBJECTIVE distinct from ENDPOINT/CANONICAL_VARIABLE; keep INTERVENTION distinct from COMPARATOR; use IMAGING_MODALITY, ACQUISITION and DATA_NEED without inventing a MeasurementDefinition.",
+                  description: "Choose the scientific identity explicitly referenced, not a plausible downstream Project consequence. IMAGING_MODALITY is a named imaging modality/method family; it is never a CANONICAL_VARIABLE and is not automatically an ACQUISITION. ACQUISITION is a planned performance/collection event only when execution is established by the source; preserve the separate modality identity when both are established. CANONICAL_VARIABLE is a defined data quantity/category/output, never the modality producing it. DATA_NEED is information the Project needs. ANALYSIS_SPECIFICATION is an autonomous analytical specification with a purpose/question, inputs and a sufficiently established procedure; a mere mention of processing, segmentation, quantification or a method still to be defined is not enough. When explicit methodological context is too incomplete for a MeasurementDefinition or ANALYSIS_SPECIFICATION, use PROJECT_INFORMATION with epistemicState UNKNOWN to preserve the stated context, its link to the concerned quantity in content and the unresolved method without inventing details. MeasurementDefinition is not a type in this Project contract and must not be invented. Keep OBJECTIVE distinct from ENDPOINT/CANONICAL_VARIABLE and INTERVENTION distinct from COMPARATOR.",
                 },
-                content: { type: "string" },
+                content: { type: "string", description: "Concise semantic content for this object. This may be a canonical label, but it never replaces the literal sourceText provenance." },
                 polarity: { type: "string", enum: ["AFFIRMED", "NEGATED", "UNKNOWN"] },
                 studyRole: {
                   type: ["string", "null"],
@@ -200,14 +203,14 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               additionalProperties: false,
               properties: {
                 relationRef: { type: "string" },
-                sourceText: { type: "string", description: "Exact fragment of the latest user message that states this relation." },
+                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this relation. Do not normalize spelling, accents, typography or capitalization and do not paraphrase." },
                 relationType: {
                   type: "string",
                   enum: PERSISTENT_PROJECT_RELATION_TYPES,
-                  description: "Use only a relation admitted by the current Project compiler. Do not invent a more convenient relation type.",
+                  description: "First identify both endpoint object types, then emit only one supported directed signature: COMPARES_WITH/COMPARED_WITH = INTERVENTION_OR_EXPOSURE or GROUP to the same comparison family, or IMAGING_MODALITY/ACQUISITION/ANALYSIS_SPECIFICATION/CANONICAL_VARIABLE to that same measurement-comparison family; MOTIVATES_DATA_NEED = SCIENTIFIC_QUESTION/OBJECTIVE/HYPOTHESIS -> DATA_NEED; COVERS_DATA_NEED = CANONICAL_VARIABLE -> DATA_NEED; OPERATIONALIZES = CANONICAL_VARIABLE/ACQUISITION/ANALYSIS_SPECIFICATION -> DATA_NEED. ANALYSIS_SPECIFICATION -> CANONICAL_VARIABLE is invalid. CONSUMED_BY_ANALYSIS is not supported by this product contract: never replace it with OPERATIONALIZES. Co-occurrence alone establishes no relation. Omit an optional relation when no supported signature faithfully applies; keep the explicit objects.",
                 },
-                sourceObjectRef: { type: "string", description: "Existing canonical Project stable ID or candidateRef declared in this same output: use the exact stableId from the Project Context Snapshot objects inventory or a candidateRef declared in changes. Never use a label, content, section ID or invented ID." },
-                targetObjectRef: { type: "string", description: "Existing canonical Project stable ID or candidateRef declared in this same output: use the exact stableId from the Project Context Snapshot objects inventory or a candidateRef declared in changes. Omit the optional relation when no compatible endpoint exists; never invent an ID." },
+                sourceObjectRef: { type: "string", description: "Directed source endpoint. Use an exact Project stableId or candidateRef declared in this output whose scientific object type matches the selected relation source signature. Never use a label, content, section ID or invented ID." },
+                targetObjectRef: { type: "string", description: "Directed target endpoint. Use an exact Project stableId or candidateRef declared in this output whose scientific object type matches the selected relation target signature. Omit the optional relation when no compatible target exists; never reverse a signature or invent an ID." },
                 polarity: { type: "string", enum: ["AFFIRMED", "NEGATED", "UNKNOWN"] },
                 epistemicStatus: { type: "string", enum: ["EXPLICIT_USER_STATED", "CONFIRMED_BY_USER", "SUPPORTED_CANDIDATE", "UNKNOWN", "AMBIGUOUS"] },
                 epistemicState: { type: "string", enum: ["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"] },
@@ -227,7 +230,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               properties: {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 qualificationId: { type: "string", description: "Stable qualification identity. Preserve it for REPLACE or REMOVE." },
-                sourceText: { type: "string" },
+                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this temporal fact. No spelling, accent, typography or capitalization normalization and no paraphrase." },
                 subjectProjectRef: { type: "string", description: "Exact stable ID of an existing Project object or candidateRef declared in changes of this same output and carrying the temporal role." },
                 temporalRole: { type: "string", enum: ["ACQUISITION_TIME", "COLLECTION_TIME", "PROCESSING_TIME", "TRANSFORMATION_TIME", "ANALYSIS_TIME"] },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
@@ -247,7 +250,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
               properties: {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 occasionId: { type: "string", description: "Stable expected-occasion identity. Preserve it for REPLACE or REMOVE." },
-                sourceText: { type: "string" },
+                sourceText: { type: "string", description: "COPY one exact contiguous substring from the latest USER message, character for character, that states this expected occasion. No spelling, accent, typography or capitalization normalization and no paraphrase." },
                 variableProjectRef: { type: "string", description: "Exact stable ID of an existing CANONICAL_VARIABLE or candidateRef for a CANONICAL_VARIABLE declared in changes of this same output." },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
                 studyUnitOrGroupRef: { type: "string", description: "Optional stable Project or candidate-local group reference." },
@@ -272,6 +275,7 @@ const callGemini = async (
   stage: ProductBridgeProviderError["stage"],
   payload: unknown,
   fetchImpl: typeof fetch = fetch,
+  model: string = PRODUCT_BRIDGE_MODEL,
 ): Promise<ProductBridgeProviderResult<GeminiBody>> => {
   const started = Date.now();
   let response: Response;
@@ -280,7 +284,7 @@ const callGemini = async (
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 45_000);
       try {
-        return await fetchImpl(endpoint, {
+        return await fetchImpl(geminiEndpoint(model), {
           method: "POST",
           headers: { "content-type": "application/json", "x-goog-api-key": apiKey },
           body: JSON.stringify(payload),
@@ -320,8 +324,9 @@ export const executeNaturalConversation = async (
   request: ProductBridgeRequest,
   apiKey: string,
   fetchImpl?: typeof fetch,
+  model: string = PRODUCT_BRIDGE_MODEL,
 ): Promise<ProductBridgeProviderResult<string>> => {
-  const result = await callGemini(apiKey, "CONVERSATION", buildNaturalConversationPayload(request), fetchImpl);
+  const result = await callGemini(apiKey, "CONVERSATION", buildNaturalConversationPayload(request), fetchImpl, resolveGeminiConversationModel(model));
   const reply = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
     .map((part) => part.text)
     .find((value): value is string => typeof value === "string" && value.trim().length > 0)?.trim();
@@ -333,11 +338,13 @@ export const executePersistentDelta = async (
   request: ProductBridgeRequest,
   apiKey: string,
   fetchImpl?: typeof fetch,
+  model: string = PRODUCT_BRIDGE_MODEL,
 ): Promise<ProductBridgeProviderResult<{
   structuredArgs: unknown;
   providerArtifact: PersistentExtractionProviderArtifact;
 }>> => {
-  const result = await callGemini(apiKey, "PERSISTENT_DELTA", buildPersistentDeltaPayload(request), fetchImpl);
+  const resolvedModel = resolveGeminiConversationModel(model);
+  const result = await callGemini(apiKey, "PERSISTENT_DELTA", buildPersistentDeltaPayload(request), fetchImpl, resolvedModel);
   const call = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
     .map((part) => part.functionCall)
     .find((candidate) => candidate?.name === FUNCTION_NAME);
@@ -355,7 +362,7 @@ export const executePersistentDelta = async (
         artifactRef: `gemini-structured-args:${structuredArgsDigest}`,
         requestTurnRef,
         provider: "GOOGLE_GEMINI",
-        model: PRODUCT_BRIDGE_MODEL,
+        model: resolvedModel,
         functionName: FUNCTION_NAME,
         receivedAt: new Date().toISOString(),
         providerResponseId: result.responseId,

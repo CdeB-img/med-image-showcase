@@ -7,6 +7,7 @@ import { requestProtocolDesignerBridge } from "@/features/protocol-designer/prod
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
+  mergeInitialResearchProjectContributions,
   prepareResearchProjectContributionCandidate,
   rejectResearchProjectContribution,
 } from "@/features/research-project-construction";
@@ -43,6 +44,25 @@ const documentBlockerSignals = (documents: FunctionalResetSession["documents"]) 
     dimension: group.dimension,
     items: [...group.items],
   })));
+
+const persistenceFailureMessage = (
+  status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE",
+  candidateStatus: ReturnType<typeof prepareResearchProjectContributionCandidate>["status"] | null,
+) => {
+  if (status === "TECHNICAL_FAILURE") {
+    return "Je vous ai répondu, mais NOXIA n’a pas pu préparer ces informations pour le Research Project. Le Project reste inchangé.";
+  }
+  if (status === "BLOCKED") {
+    return "Je vous ai répondu, mais la proposition persistante est bloquée et n’a pas été enregistrée. Le Research Project reste inchangé.";
+  }
+  if (candidateStatus === "BLOCKED_BY_STRUCTURAL_CONFLICT") {
+    return "Cette proposition entre en conflit avec l’état actuel du Research Project. Elle n’a pas été appliquée.";
+  }
+  if (candidateStatus === "REVIEW_PROJECTION_INCOMPLETE") {
+    return "NOXIA ne peut pas vous demander de confirmer cette proposition, car la revue ne montre pas encore tous les changements. Le Research Project reste inchangé.";
+  }
+  return null;
+};
 
 export default function ProtocolDesignerWorkspace() {
   const [session, setSession] = useState<FunctionalResetSession>(loadInitialSession);
@@ -138,16 +158,24 @@ export default function ProtocolDesignerWorkspace() {
         evaluatePersistentDelta: !asksForExplanationOrRephrase,
       });
       const receivedAt = new Date().toISOString();
-      const contribution = response.persistentExtraction.contribution;
+      const extractedContribution = response.persistentExtraction.contribution;
+      const contribution = extractedContribution && !session.project && session.pendingContribution
+        ? mergeInitialResearchProjectContributions(session.pendingContribution, extractedContribution)
+        : extractedContribution;
       const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
       const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
+      const failureMessage = persistenceFailureMessage(response.persistentExtraction.status, candidate?.status ?? null);
+      const replacedPendingContributionId = effectiveCandidate ? session.pendingContribution?.identity.contributionId ?? null : null;
       setSession((current) => ({
         ...current,
         queryNavigation,
         runtimeTurns: [...runtimeTurns, response.assistantTurn],
-        pendingContribution: effectiveCandidate ? contribution : null,
+        pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
         entries: [
-          ...current.entries,
+          ...current.entries.filter((entry) => !(replacedPendingContributionId
+            && entry.kind === "REVIEW"
+            && entry.status === "PENDING"
+            && entry.contribution.identity.contributionId === replacedPendingContributionId)),
           { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: response.assistantReply, createdAt: receivedAt },
           ...(effectiveCandidate && contribution ? [{
             entryId: createConversationEntryId(),
@@ -159,6 +187,13 @@ export default function ProtocolDesignerWorkspace() {
             decision: null,
             createdAt: receivedAt,
           }] : []),
+          ...(failureMessage ? [{
+            entryId: createConversationEntryId(),
+            kind: "ERROR" as const,
+            role: "NOXIA" as const,
+            content: failureMessage,
+            createdAt: receivedAt,
+          }] : []),
         ],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: userTurn.turnId,
@@ -167,6 +202,7 @@ export default function ProtocolDesignerWorkspace() {
           assistantReply: response.assistantReply,
           persistentExtractionCalled: response.persistentExtraction.called,
           persistentExtractionStatus: response.persistentExtraction.status,
+          persistentExtractionFailure: response.persistentExtraction.failure ?? null,
           providerArtifact: response.persistentExtraction.providerArtifact,
           wireCandidate: response.persistentExtraction.wireCandidate,
           persistentCandidate: response.persistentExtraction.candidate,
