@@ -113,6 +113,27 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     expect(within(screen.getByTestId("functional-research-project")).getByText("Version 1")).toBeInTheDocument();
   });
 
+  it("reloads a persisted pre-review-projection session without crashing the workspace", async () => {
+    runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(
+      conversation.turns,
+      makeFunctionalResetContribution(conversation.turns),
+      "Je comprends que vous souhaitez comparer la colchicine au placebo après infarctus.",
+    ));
+    const first = renderDemo();
+    submit(COLCHICINE_03A_INITIAL);
+    await screen.findByTestId("functional-contribution-review");
+    const legacy = stored();
+    const review = legacy.entries.find((entry: { kind: string }) => entry.kind === "REVIEW");
+    delete review.candidate.humanReviewProjection;
+    window.localStorage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify(legacy));
+
+    first.unmount();
+    renderDemo();
+    const reloadedReview = await screen.findByTestId("functional-contribution-review");
+    expect(within(reloadedReview).getByText(/COMPARES_WITH/)).toBeInTheDocument();
+    expect(screen.queryByText("L’espace Protocol Designer a rencontré une erreur d’affichage.")).toBeNull();
+  });
+
   it("passes the exact active QRY question as context while the natural explanation remains the visible reply", async () => {
     runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
       const latest = conversation.turns.at(-1)?.content;

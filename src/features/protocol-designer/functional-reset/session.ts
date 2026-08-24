@@ -152,14 +152,22 @@ export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSes
     const parsed: unknown = JSON.parse(raw);
     const session = looksLikeSession(parsed) ? parsed : migrateLegacySession(parsed);
     if (!session) return createFunctionalResetSession();
-    return session.project ? {
+    const reloadSafeSession: FunctionalResetSession = {
       ...session,
+      entries: session.entries.map((entry) => entry.kind === "REVIEW"
+        && entry.candidate
+        && !entry.candidate.humanReviewProjection
+        ? { ...entry, candidate: undefined }
+        : entry),
+    };
+    return reloadSafeSession.project ? {
+      ...reloadSafeSession,
       project: {
-        ...session.project,
+        ...reloadSafeSession.project,
         canonicalBackboneStatus: "PRJ_OWNED_CANONICAL_PROJECT_BACKBONE_ACTIVE",
-        canonicalState: ensureCanonicalProjectState(session.project),
+        canonicalState: ensureCanonicalProjectState(reloadSafeSession.project),
       },
-    } : session;
+    } : reloadSafeSession;
   } catch {
     return createFunctionalResetSession();
   }
