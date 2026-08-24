@@ -93,7 +93,10 @@ const temporalAnchorJsonSchema = {
     offset: { anyOf: [{ type: "number" }, { type: "null" }] },
     lowerBound: { anyOf: [{ type: "number" }, { type: "null" }] },
     upperBound: { anyOf: [{ type: "number" }, { type: "null" }] },
-    relativeEventLabel: { anyOf: [{ type: "string" }, { type: "null" }] },
+    relativeEventLabel: {
+      anyOf: [{ type: "string" }, { type: "null" }],
+      description: "Required nullable field. It MUST be null whenever reference.status is UNKNOWN. Use a non-null label only for an event that is explicitly source-grounded or reconstructible from the supplied conversation context and resolved through referenceProjectRef; never invent a conventional zero, baseline or study event.",
+    },
     tolerance: {
       anyOf: [{
         type: "object",
@@ -107,12 +110,16 @@ const temporalAnchorJsonSchema = {
       }, { type: "null" }],
     },
     reference: {
+      description: "Use KNOWN only when the event is source-grounded and bound to an exact Project or same-output candidate reference. Otherwise use UNKNOWN while preserving the explicit timepoint or window.",
       anyOf: [{
         type: "object",
         additionalProperties: false,
         properties: {
           status: { type: "string", enum: ["KNOWN"] },
-          referenceProjectRef: { type: "string" },
+          referenceProjectRef: {
+            type: "string",
+            description: "Exact stable Project object ID or same-output candidateRef for the source-grounded event that defines the temporal reference.",
+          },
         },
         required: ["status", "referenceProjectRef"],
       }, {

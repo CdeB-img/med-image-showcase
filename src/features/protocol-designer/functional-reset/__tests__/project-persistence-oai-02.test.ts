@@ -89,7 +89,7 @@ const dTemporal: PersistentTemporalQualification = {
     upperBound: 7,
     relativeEventLabel: "induction de l'ischémie",
     tolerance: null,
-    reference: { status: "UNKNOWN", unresolvedReason: "REFERENCE_EVENT_NOT_SUPPLIED" },
+    reference: { status: "KNOWN", referenceProjectRef: "intervention:ischemia-induction" },
   },
   assertionKind: "USER_STATED",
   evidenceRefs: [],
@@ -99,6 +99,7 @@ const dArgs = {
   changes: [
     change("chez le cochon", "population:pig", "POPULATION", "Cochon"),
     change("infarctus du myocarde", "condition:myocardial-infarction", "CONDITION", "Infarctus du myocarde"),
+    change("l'induction de l'ischémie", "intervention:ischemia-induction", "INTERVENTION", "Induction de l'ischémie"),
     change("des acquisitions entre J5 et J7", "acquisition:j5-j7", "ACQUISITION", "Acquisitions entre J5 et J7"),
   ],
   relations: [],
@@ -248,7 +249,7 @@ describe("PROJECT-PERSISTENCE-OAI-02 — specialized extraction routing", () => 
     });
     const canonical = ensureCanonicalProjectState(projectV2);
     expect(canonical.temporalQualifications).toEqual(expect.arrayContaining([
-      expect.objectContaining({ temporalRole: "ACQUISITION_TIME", anchor: expect.objectContaining({ lowerBound: 5, upperBound: 7, unit: "DAY", reference: { status: "UNKNOWN", unresolvedReason: "REFERENCE_EVENT_NOT_SUPPLIED" } }) }),
+      expect.objectContaining({ temporalRole: "ACQUISITION_TIME", anchor: expect.objectContaining({ lowerBound: 5, upperBound: 7, unit: "DAY", reference: expect.objectContaining({ status: "KNOWN", referenceProjectRef: expect.stringContaining("intervention:ischemia-induction") }) }) }),
     ]));
     expect(JSON.parse(JSON.stringify(projectV2))).toEqual(projectV2);
   });

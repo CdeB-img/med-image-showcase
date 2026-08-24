@@ -142,6 +142,8 @@ Une comparaison peut porter sur des groupes ou interventions, mais aussi sur des
 
 Toute temporalité explicitement exprimée doit être conservée dans temporalQualifications ; ne la résume pas dans content et ne la supprime pas lorsque son référentiel manque. Une temporalité exprimée dans le même message qu'un nouvel objet référence le candidateRef de cet objet. Un repère relatif ou abrégé reste une information temporelle explicite : conserve le référentiel UNKNOWN lorsqu'il n'est pas fourni ou reste ambigu.
 
+Sépare toujours le temps explicite de son événement de référence. Lorsque reference.status = UNKNOWN, relativeEventLabel doit être null : n'invente aucun événement zéro, baseline ou événement d'étude conventionnel pour compléter le repère. Conserve intégralement offset, bornes, unité et rôle temporel. Utilise reference.status = KNOWN et un relativeEventLabel non nul uniquement lorsque l'événement est explicitement ancré dans le dernier message ou réellement reconstructible depuis une question temporelle récente, et qu'il est relié à un stableId Project exact ou à un candidateRef déclaré dans cette sortie. Pour une réponse elliptique à une question temporelle, sourceText reste le fragment utilisateur exact et le référent conversationnel ne devient jamais une fausse citation utilisateur.
+
 Pour la population, sépare les dimensions persistantes qui possèdent des identités différentes lorsque le contrat le permet : cohorte ou population, borne d'âge, condition d'inclusion, absence ou exclusion, seuil d'éligibilité. Utilise ELIGIBILITY_CRITERION pour une contrainte d'éligibilité et conserve AMBIGUOUS ou UNKNOWN lorsque la portée exacte d'une absence ou exclusion n'est pas fournie. Ne transforme pas plusieurs critères indépendants en une seule phrase POPULATION.
 
 ADD crée une nouvelle identité scientifique : omets targetProjectRef. Un objet Project existant seulement utile comme contexte n'est jamais la cible de ADD ; référence-le dans une relation. REPLACE et REMOVE exigent au contraire targetProjectRef. N'émets jamais les chaînes sentinelles "null", "none", "N/A" ou "undefined".
@@ -298,6 +300,16 @@ export const validatePersistentProviderContract = (value: unknown): PersistentPr
   parsed.data.relations.forEach((relation, index) => {
     if (!PERSISTENT_PROJECT_RELATION_TYPES.includes(relation.relationType as (typeof PERSISTENT_PROJECT_RELATION_TYPES)[number])) {
       blocks.push(`relation:${index}:RELATION_TYPE_OUTSIDE_PROVIDER_VOCABULARY`);
+    }
+  });
+  parsed.data.temporalQualifications.forEach((qualification, index) => {
+    if (qualification.anchor?.reference.status === "UNKNOWN" && qualification.anchor.relativeEventLabel !== null) {
+      blocks.push(`temporalQualification:${index}:UNKNOWN_TEMPORAL_REFERENCE_REQUIRES_NULL_LABEL`);
+    }
+  });
+  parsed.data.expectedVariableOccasions.forEach((occasion, index) => {
+    if (occasion.anchor?.reference.status === "UNKNOWN" && occasion.anchor.relativeEventLabel !== null) {
+      blocks.push(`expectedVariableOccasion:${index}:UNKNOWN_TEMPORAL_REFERENCE_REQUIRES_NULL_LABEL`);
     }
   });
   return { valid: blocks.length === 0, blocks };
