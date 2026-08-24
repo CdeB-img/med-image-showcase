@@ -354,4 +354,37 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     });
     expect(within(screen.getByTestId("functional-research-project")).getByText("Version 1")).toBeInTheDocument();
   });
+
+  it("QRY-03 E01-E05 schedules mediation from the committed adoption event", async () => {
+    let adoptionCommittedBeforeRequest = false;
+    let continuationRequests = 0;
+    runtime.request.mockImplementation(async (request: {
+      requestKind?: ProductBridgeRequest["requestKind"];
+      conversation: { turns: ScientificInterpretationTurn[] };
+    }) => {
+      if (request.requestKind === "POST_ADOPTION_QRY_CONTINUATION") {
+        continuationRequests += 1;
+        const committed = stored();
+        adoptionCommittedBeforeRequest = Boolean(
+          committed.project?.revision === 1
+          && committed.entries.some((entry) => entry.kind === "TEXT" && entry.content === "Projet créé.")
+          && committed.entries.some((entry) => entry.kind === "REVIEW" && entry.status === "CONFIRMED"),
+        );
+        return responseWithoutPersistentDelta(request.conversation.turns, INITIAL_CONTINUATION);
+      }
+      return makeFunctionalResetBridgeResponse(
+        request.conversation.turns,
+        makeFunctionalResetContribution(request.conversation.turns.filter((turn) => turn.role === "USER")),
+        "Je vous présente cette première structure pour confirmation.",
+      );
+    });
+
+    renderDemo();
+    submit(COLCHICINE_03A_INITIAL);
+    await acceptPendingReview();
+    await screen.findByText(INITIAL_CONTINUATION);
+
+    expect(adoptionCommittedBeforeRequest).toBe(true);
+    expect(continuationRequests).toBe(1);
+  });
 });
