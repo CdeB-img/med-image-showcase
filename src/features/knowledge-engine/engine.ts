@@ -3,7 +3,7 @@ import { resolveAssertions } from "./assertion-resolver";
 import { analyzeConflicts, analyzeGaps, determineCoverage } from "./conflict-gap-analyzer";
 import { buildCoverageMap } from "./coverage-map";
 import { extractScientificObjectTerms, resolveConcepts } from "./concept-resolver";
-import { createKnowledgeRequest, type KnowledgeRequestInput } from "./knowledge-request";
+import { createKnowledgeRequest, parseKnowledgeRequest, type KnowledgeRequestInput } from "./knowledge-request";
 import { comparableScientificText } from "./canonical";
 import { createKnowledgeResult } from "./knowledge-result";
 import { minimizeKnowledgeContext } from "./privacy";
@@ -13,19 +13,18 @@ import { retrieveKnowledge } from "./retrieval";
 import { synthesizeKnowledge } from "./synthesizer";
 import { buildScientificQuestionSpecificity } from "./specificity";
 import { KnowledgeTraceBuilder } from "./trace";
-import type { KnowledgeResult } from "./types";
+import type { KnowledgeRequest, KnowledgeResult } from "./types";
 
 export type ExecuteKnowledgeInput = Omit<KnowledgeRequestInput, "scientificObjectTerms"> & {
   scientificObjectTerms?: KnowledgeRequestInput["scientificObjectTerms"];
 };
 
-export const executeKnowledgeEngine = (input: ExecuteKnowledgeInput): KnowledgeResult => {
+const executeValidatedKnowledgeRequest = (
+  request: KnowledgeRequest,
+  traceInput: unknown,
+): KnowledgeResult => {
   const trace = new KnowledgeTraceBuilder();
-  const declaredTerms = input.scientificObjectTerms ?? [];
-  const extractedTerms = extractScientificObjectTerms(input.originalQuestion);
-  const terms = [...declaredTerms, ...extractedTerms].filter((item, index, values) => values.findIndex((candidate) => comparableScientificText(candidate.term) === comparableScientificText(item.term)) === index);
-  const request = createKnowledgeRequest({ ...input, scientificObjectTerms: terms });
-  trace.add("BUILD_REQUEST", "Entrée validée et séparée du plan exécutable.", input, { requestId: request.requestId, contextId: request.context.contextId });
+  trace.add("BUILD_REQUEST", "Entrée validée et séparée du plan exécutable.", traceInput, { requestId: request.requestId, contextId: request.context.contextId });
   const minimized = minimizeKnowledgeContext(request);
   trace.add("MINIMIZE_CONTEXT", "Aucun texte libre ni identifiant transmis aux providers locaux.", request.context, minimized.payload);
   const resolution = resolveConcepts(request);
@@ -69,4 +68,21 @@ export const executeKnowledgeEngine = (input: ExecuteKnowledgeInput): KnowledgeR
     synthesis,
     trace: builtTrace,
   });
+};
+
+/**
+ * Native Knowledge corridor. The caller supplies the complete governed
+ * KnowledgeRequest and the Knowledge owner validates it before execution.
+ */
+export const executeKnowledgeRequest = (rawRequest: KnowledgeRequest): KnowledgeResult => {
+  const request = parseKnowledgeRequest(rawRequest);
+  return executeValidatedKnowledgeRequest(request, request);
+};
+
+export const executeKnowledgeEngine = (input: ExecuteKnowledgeInput): KnowledgeResult => {
+  const declaredTerms = input.scientificObjectTerms ?? [];
+  const extractedTerms = extractScientificObjectTerms(input.originalQuestion);
+  const terms = [...declaredTerms, ...extractedTerms].filter((item, index, values) => values.findIndex((candidate) => comparableScientificText(candidate.term) === comparableScientificText(item.term)) === index);
+  const request = createKnowledgeRequest({ ...input, scientificObjectTerms: terms });
+  return executeValidatedKnowledgeRequest(request, input);
 };

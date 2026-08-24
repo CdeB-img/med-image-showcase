@@ -38,7 +38,7 @@ export const knowledgeRequestSchema = z.object({
 
 export type KnowledgeRequestInput = {
   originalQuestion: string;
-  scientificObjectTerms: Array<{ term: string; role?: ScientificObjectRef["role"] }>;
+  scientificObjectTerms: Array<{ term: string; role?: ScientificObjectRef["role"]; objectId?: string }>;
   context?: KnowledgeContextInput;
   relations?: string[];
   exclusions?: string[];
@@ -67,9 +67,9 @@ export const createKnowledgeRequest = (input: KnowledgeRequestInput): KnowledgeR
     : classifySensitivity(originalQuestion);
   const classification = classifyPurpose(originalQuestion);
   const context = createKnowledgeContextPackage(originalQuestion, classification.purpose, input.context);
-  const scientificObjects = input.scientificObjectTerms.map(({ term, role = "UNKNOWN" }) => {
+  const scientificObjects = input.scientificObjectTerms.map(({ term, role = "UNKNOWN", objectId }) => {
     const originalTerm = normalizeScientificText(term);
-    return { objectId: `input-object:${logicalDigest(originalTerm)}`, originalTerm, role };
+    return { objectId: objectId ? normalizeScientificText(objectId) : `input-object:${logicalDigest(originalTerm)}`, originalTerm, role };
   }).filter((item) => item.originalTerm);
   if (!scientificObjects.length) scientificObjects.push({ objectId: `input-object:${logicalDigest("UNKNOWN_SCIENTIFIC_OBJECT")}`, originalTerm: "UNKNOWN_SCIENTIFIC_OBJECT", role: "UNKNOWN" });
   const material = {

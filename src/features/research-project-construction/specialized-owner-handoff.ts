@@ -414,7 +414,7 @@ export const recordSpecializedOwnerResult = <TNativePayload>(input: {
   resultVersion: string;
   completedAt: string;
   status: "COMPLETED" | "COMPLETED_WITH_LIMITATIONS";
-  resultKind: Exclude<SpecializedOwnerResultKind, "GAP">;
+  resultKind: SpecializedOwnerResultKind;
   nativePayloadType: string;
   nativePayloadVersion: string;
   nativePayload: TNativePayload;
@@ -431,6 +431,9 @@ export const recordSpecializedOwnerResult = <TNativePayload>(input: {
   if (input.request.missingContext.length) throw new Error("SPECIALIZED_OWNER_BLOCKED_BY_MISSING_CONTEXT");
   if (input.request.missingEvidence.length) throw new Error("SPECIALIZED_OWNER_BLOCKED_BY_MISSING_EVIDENCE");
   const carriesContribution = input.resultKind === "PROJECT_CONTRIBUTION_CANDIDATE";
+  if (input.resultKind === "GAP" && !(input.unknowns?.length || input.gaps?.length || input.limitations?.length)) {
+    throw new Error("SPECIALIZED_OWNER_NATIVE_GAP_REASON_REQUIRED");
+  }
   if (carriesContribution !== Boolean(input.projectContribution)) throw new Error("SPECIALIZED_OWNER_PROJECT_CONTRIBUTION_KIND_MISMATCH");
   if (input.projectContribution
     && (input.projectContribution.decisionBoundary.projectWriteAuthorized !== false

@@ -7,3 +7,4 @@ export * from "./session";
 export * from "./contribution-owner-boundary";
 export * from "./canonical-project-backbone";
 export * from "./specialized-owner-handoff";
+export * from "./native-specialized-owner-invocation";
