@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
-import { requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
+import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
@@ -31,6 +31,7 @@ import {
   createTurnId,
   loadFunctionalResetSession,
   persistFunctionalResetSession,
+  resolvePostAdoptionQueryContinuation,
   shouldMediatePostAdoptionQuery,
   type FunctionalResetSession,
 } from "./session";
@@ -302,47 +303,78 @@ export default function ProtocolDesignerWorkspace() {
 
       if (shouldMediatePostAdoptionQuery(queryNavigation)
         && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion) {
-        const continuation = await requestProtocolDesignerBridge({
-          requestKind: "POST_ADOPTION_QRY_CONTINUATION",
-          conversation: {
-            conversationId: session.conversationId,
-            language: "fr",
-            turns: runtimeTurns,
-            interactionContext: {
-              interactionRef: queryNavigation.currentPresentation.presentationId,
-              sourceActionRef: queryNavigation.currentAction.selectedActionId,
-              owner: "QUERY_NAVIGATION",
-              purpose: [
-                queryNavigation.currentPresentation.intent,
-                `Question à formuler naturellement : ${queryNavigation.standardQuestion.text}`,
-              ].join("\n"),
-              expectedResponseKind: "QRY_INFORMATION_RESPONSE",
-              targetRefs: [queryNavigation.currentAction.targetRef],
-              informationNeedRefs: [...queryNavigation.currentAction.navigationNeedRefs],
-              projectRef: queryNavigation.projectRef,
-              projectVersion: queryNavigation.projectVersion,
-              projectDigest: queryNavigation.projectDigest,
+        let continuationTurn: ScientificInterpretationTurn;
+        let continuationContent: string;
+        let continuationPresentationSource: "GEMINI_MEDIATED" | "QRY_STANDARD_FALLBACK";
+        let continuationMediationFailure: string | null = null;
+        let continuationProvider = "NONE";
+        let continuationModel = "NONE";
+        let continuationLatencyMs = 0;
+        let continuationCalls = 0;
+        try {
+          const continuation = await requestProtocolDesignerBridge({
+            requestKind: "POST_ADOPTION_QRY_CONTINUATION",
+            conversation: {
+              conversationId: session.conversationId,
+              language: "fr",
+              turns: runtimeTurns,
+              interactionContext: {
+                interactionRef: queryNavigation.currentPresentation.presentationId,
+                sourceActionRef: queryNavigation.currentAction.selectedActionId,
+                owner: "QUERY_NAVIGATION",
+                purpose: [
+                  queryNavigation.currentPresentation.intent,
+                  `Question à formuler naturellement : ${queryNavigation.standardQuestion.text}`,
+                ].join("\n"),
+                expectedResponseKind: "QRY_INFORMATION_RESPONSE",
+                targetRefs: [queryNavigation.currentAction.targetRef],
+                informationNeedRefs: [...queryNavigation.currentAction.navigationNeedRefs],
+                projectRef: queryNavigation.projectRef,
+                projectVersion: queryNavigation.projectVersion,
+                projectDigest: queryNavigation.projectDigest,
+              },
             },
-          },
-          currentProject: project,
-          evaluatePersistentDelta: false,
-        });
-        const continuedAt = new Date().toISOString();
+            currentProject: project,
+            evaluatePersistentDelta: false,
+          });
+          const visibleContinuation = resolvePostAdoptionQueryContinuation(queryNavigation, continuation.assistantReply);
+          if (!visibleContinuation) return;
+          continuationContent = visibleContinuation.content;
+          continuationPresentationSource = visibleContinuation.presentationSource;
+          continuationTurn = { ...continuation.assistantTurn, content: continuationContent };
+          continuationProvider = continuation.observability.provider;
+          continuationModel = continuation.observability.model;
+          continuationLatencyMs = continuation.observability.conversationLatencyMs;
+          continuationCalls = continuation.observability.calls;
+        } catch (error) {
+          const fallback = resolvePostAdoptionQueryContinuation(queryNavigation);
+          if (!fallback) throw error;
+          continuationContent = fallback.content;
+          continuationPresentationSource = fallback.presentationSource;
+          continuationMediationFailure = error instanceof ProductBridgeClientError ? error.code : "POST_ADOPTION_MEDIATION_FAILURE";
+          continuationTurn = {
+            turnId: createTurnId(),
+            role: "NOXIA",
+            content: continuationContent,
+            createdAt: new Date().toISOString(),
+          };
+        }
+        const continuedAt = continuationTurn.createdAt;
         setSession((current) => ({
           ...current,
-          runtimeTurns: [...runtimeTurns, continuation.assistantTurn],
+          runtimeTurns: [...runtimeTurns, continuationTurn],
           entries: [...current.entries, {
             entryId: createConversationEntryId(),
             kind: "TEXT",
             role: "NOXIA",
-            content: continuation.assistantReply,
+            content: continuationContent,
             createdAt: continuedAt,
           }],
           bridgeTraces: [...current.bridgeTraces, {
-            turnId: continuation.assistantTurn.turnId,
+            turnId: continuationTurn.turnId,
             requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
             raw: feedback,
-            assistantReply: continuation.assistantReply,
+            assistantReply: continuationContent,
             persistentExtractionCalled: false,
             persistentExtractionStatus: "NOT_REQUESTED" as const,
             providerArtifact: null,
@@ -357,11 +389,13 @@ export default function ProtocolDesignerWorkspace() {
             projectVersionAfter: project.versionId,
             qryNeedBefore: null,
             qryNeedAfter: queryNavigation.currentAction.navigationNeedRefs[0] ?? null,
-            provider: continuation.observability.provider,
-            model: continuation.observability.model,
-            conversationLatencyMs: continuation.observability.conversationLatencyMs,
+            provider: continuationProvider,
+            model: continuationModel,
+            conversationLatencyMs: continuationLatencyMs,
             extractionLatencyMs: null,
-            calls: continuation.observability.calls,
+            calls: continuationCalls,
+            continuationPresentationSource,
+            continuationMediationFailure,
           }].slice(-20),
           updatedAt: continuedAt,
         }));

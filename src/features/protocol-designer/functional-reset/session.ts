@@ -31,6 +31,22 @@ export const shouldMediatePostAdoptionQuery = (
   navigation: Pick<FunctionalResetQueryNavigation, "currentAction" | "currentPresentation" | "standardQuestion">,
 ) => Boolean(navigation.currentAction && navigation.currentPresentation && navigation.standardQuestion);
 
+export type PostAdoptionQueryContinuation = {
+  content: string;
+  presentationSource: "GEMINI_MEDIATED" | "QRY_STANDARD_FALLBACK";
+};
+
+export const resolvePostAdoptionQueryContinuation = (
+  navigation: Pick<FunctionalResetQueryNavigation, "currentAction" | "currentPresentation" | "standardQuestion">,
+  mediatedReply?: string | null,
+): PostAdoptionQueryContinuation | null => {
+  if (!shouldMediatePostAdoptionQuery(navigation) || !navigation.standardQuestion) return null;
+  const mediated = mediatedReply?.trim();
+  return mediated
+    ? { content: mediated, presentationSource: "GEMINI_MEDIATED" }
+    : { content: navigation.standardQuestion.text, presentationSource: "QRY_STANDARD_FALLBACK" };
+};
+
 export type ConversationEntry =
   | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; createdAt: string }
   | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; createdAt: string }
@@ -61,6 +77,8 @@ export type ProductBridgeTrace = {
   conversationLatencyMs: number;
   extractionLatencyMs: number | null;
   calls: number;
+  continuationPresentationSource?: PostAdoptionQueryContinuation["presentationSource"] | null;
+  continuationMediationFailure?: string | null;
 };
 
 export type FunctionalResetSession = {
