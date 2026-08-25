@@ -1,0 +1,26 @@
+{
+  "contract": "W1_QUAL_01R2_PRE_OWNER_REJECTION",
+  "version": "2.1.0",
+  "preauthoredField": "expectedExecutionMode",
+  "modes": [
+    "OWNER_EXECUTION_REQUIRED",
+    "PRE_OWNER_REJECTION_EXPECTED"
+  ],
+  "expectedPreOwnerRejection": {
+    "ownerResultExpected": false,
+    "requestRefExpected": null,
+    "resultRefExpected": null,
+    "failureClass": null,
+    "ownerRepairRequired": false,
+    "evidencePromotion": false,
+    "adjudicationEvidence": [
+      "rejection code",
+      "validation stage",
+      "Project/dependency evidence",
+      "zero owner invocation",
+      "zero OwnerResult",
+      "zero side effect"
+    ]
+  },
+  "knowledgeGateStatusForIntentionalStaleFixture": "INTENTIONALLY_INVALID_FOR_FAIL_CLOSED_TEST"
+}

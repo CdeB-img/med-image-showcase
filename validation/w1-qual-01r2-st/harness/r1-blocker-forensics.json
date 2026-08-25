@@ -1,0 +1,19 @@
+{
+  "contract": "W1_QUAL_01R2_R1_BLOCKER_FORENSICS",
+  "version": "1.0.0",
+  "sourceFailureId": "W1-QUAL-01R1-B-HARNESS-STALE-NULL-STATE-01",
+  "sourceCampaign": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "sourceHarnessVersion": "2.0.0",
+  "sourceHarnessDigest": "ke1-1634f9e75685558b",
+  "sourceClassification": "CHARACTERIZATION_HARNESS_DEFECT",
+  "sourceFirstDivergentStage": "CHARACTERIZATION_HARNESS",
+  "reproducedByR2MetaTest": true,
+  "reproducedR1Verdict": "CRITICAL_VIOLATION",
+  "reproducedR1OwnerStatus": "OWNER_REPAIR_REQUIRED",
+  "correctProspectiveDisposition": "EXPECTED_PRE_OWNER_REJECTION_WITHOUT_OWNER_RESULT_CAN_BE_SATISFIED",
+  "campaignAStatus": "INVALID_EXPOSED_HARNESS_DEVELOPMENT_EVIDENCE",
+  "campaignBStatus": "INVALID_BEFORE_ST_INVOCATION_EXPOSED_HARNESS_DEVELOPMENT_EVIDENCE",
+  "campaignAFilesModified": false,
+  "campaignBFilesModified": false,
+  "stDefectEstablishedByR1Blocker": false
+}

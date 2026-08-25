@@ -1,0 +1,54 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CHARACTERIZATION_HARNESS_FREEZE",
+  "version": "1.0.0",
+  "designation": "HARNESS_FREEZE_R2",
+  "frozenAt": "2026-08-26T08:30:00.000Z",
+  "gitHeadBeforeMission": "d85f790a0a70de9eadffc8f20ce4196e3c9a61ec",
+  "harnessVersion": "2.1.0",
+  "harnessDigest": "ke1-6fd7eafe0ff78052",
+  "evaluatorDigest": "ke1-b7b98a43e1f4e167",
+  "taxonomyDigest": "ke1-f82ac5f785a4eb93",
+  "executionOutcomeContractDigest": "ke1-9227d52b6ddf6337",
+  "traceContractDigest": "ke1-7c43ecb5bdc2fb01",
+  "sourceDigests": {
+    "contracts.ts": "sha256-89942a8b2470f288176be3cac362410cd27e33279ddfd687adde9fced9fccbf6",
+    "evaluator.ts": "sha256-4d369fc56de76030c62064ff0228133871be1442df8760fd4364726d2dd056c5",
+    "runner.ts": "sha256-5c7e3ef9f6bda1fb1b43091877e250a13b5f03fb1ff117908744197ca0cf2967",
+    "validator.ts": "sha256-ea112fc4acac702f376481c340d8d8e0a09da8534fb71de9a3acd57d8bb885fd",
+    "contracts.test.ts": "sha256-3c32bc373e79a7f04e14ae543b80f67ffd5e91726b47600859be1a9715a438fd",
+    "generate-phase-a.ts": "sha256-4a31bbc7420b82595f074824fe2b87b3545f594fbf9039acf27c823b534df51e"
+  },
+  "componentDigests": {
+    "evaluator": "ke1-b7b98a43e1f4e167",
+    "taxonomy": "ke1-f82ac5f785a4eb93",
+    "executionOutcomeContract": "ke1-9227d52b6ddf6337",
+    "traceContract": "ke1-7c43ecb5bdc2fb01",
+    "preOwnerRejectionContract": "ke1-2c205d5455b56c50",
+    "machineValidator": "ke1-07b9f489b1915e5d",
+    "runner": "sha256-5c7e3ef9f6bda1fb1b43091877e250a13b5f03fb1ff117908744197ca0cf2967",
+    "validator": "sha256-ea112fc4acac702f376481c340d8d8e0a09da8534fb71de9a3acd57d8bb885fd"
+  },
+  "executionOutcomeKinds": [
+    "OWNER_RESULT_PRODUCED",
+    "EXPECTED_PRE_OWNER_REJECTION",
+    "UNEXPECTED_PRE_OWNER_FAILURE",
+    "OWNER_EXECUTION_FAILURE",
+    "NON_ADJUDICABLE_TECHNICAL_FAILURE"
+  ],
+  "expectedExecutionModes": [
+    "OWNER_EXECUTION_REQUIRED",
+    "PRE_OWNER_REJECTION_EXPECTED"
+  ],
+  "machineValidation": {
+    "valid": true,
+    "findings": []
+  },
+  "unitTests": {
+    "passed": 18,
+    "total": 18
+  },
+  "statusPlanesIndependent": true,
+  "expectedPreOwnerRejectionWithoutOwnerResult": "SUPPORTED",
+  "status": "READY",
+  "mutableDuringCampaignC": false
+}

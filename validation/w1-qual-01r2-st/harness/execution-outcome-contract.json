@@ -1,0 +1,42 @@
+{
+  "contract": "W1_QUAL_01R2_CHARACTERIZATION_EXECUTION_OUTCOME",
+  "version": "2.1.0",
+  "expectedExecutionModes": [
+    "OWNER_EXECUTION_REQUIRED",
+    "PRE_OWNER_REJECTION_EXPECTED"
+  ],
+  "outcomeKinds": [
+    "OWNER_RESULT_PRODUCED",
+    "EXPECTED_PRE_OWNER_REJECTION",
+    "UNEXPECTED_PRE_OWNER_FAILURE",
+    "OWNER_EXECUTION_FAILURE",
+    "NON_ADJUDICABLE_TECHNICAL_FAILURE"
+  ],
+  "noOwnerResultAutomaticallyMeansOwnerFailure": false,
+  "expectedPreOwnerRejectionFailureClass": null,
+  "expectedPreOwnerRejectionOwnerRepairRequired": false,
+  "terminalPlanes": [
+    "OWNER_RESULT_TERMINAL",
+    "PRE_OWNER_TERMINAL"
+  ],
+  "terminalOutcomes": [
+    "OWNER_RESULT_PRODUCED",
+    "EXPECTED_PRE_OWNER_REJECTION",
+    "UNEXPECTED_PRE_OWNER_FAILURE",
+    "OWNER_EXECUTION_FAILURE",
+    "NON_ADJUDICABLE_TECHNICAL_FAILURE"
+  ],
+  "mutuallyExclusiveForOneExecution": true,
+  "sampleExpectedRejection": {
+    "kind": "EXPECTED_PRE_OWNER_REJECTION",
+    "terminalPlane": "PRE_OWNER_TERMINAL",
+    "caseStatus": "SATISFIED",
+    "ownerResult": "ABSENT_EXPECTED",
+    "failureClass": null,
+    "ownerRepairRequired": false,
+    "evidencePromotion": false,
+    "firstDivergentStage": null,
+    "sideEffectsSafe": true,
+    "reasons": []
+  }
+}

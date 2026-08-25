@@ -1,0 +1,45 @@
+{
+  "contract": "W1_QUAL_01R2_MACHINE_VALIDATOR_RESULTS",
+  "version": "1.0.0",
+  "executedBeforeHarnessFreeze": true,
+  "definition": {
+    "valid": true,
+    "findings": []
+  },
+  "negativeCases": [
+    {
+      "case": "EXPECTED_REJECTION_PLUS_OWNER_RESULT_REQUIRED",
+      "rejected": true,
+      "findings": [
+        {
+          "code": "EXPECTED_PRE_OWNER_REJECTION_CANNOT_REQUIRE_OWNER_RESULT",
+          "blocking": true,
+          "evidence": "PRE_OWNER_REJECTION_EXPECTED"
+        }
+      ]
+    },
+    {
+      "case": "NO_OWNER_RESULT_PLUS_AUTOMATIC_EVIDENCE_PROMOTION",
+      "rejected": true,
+      "findings": [
+        {
+          "code": "ABSENT_OWNER_RESULT_CANNOT_AUTOMATICALLY_SIGNAL_EVIDENCE_PROMOTION",
+          "blocking": true,
+          "evidence": "EXPECTED_PRE_OWNER_REJECTION"
+        }
+      ]
+    },
+    {
+      "case": "ZERO_OWNER_INVOCATION_PLUS_ST_ENGINE_STAGE",
+      "rejected": true,
+      "findings": [
+        {
+          "code": "ZERO_INVOCATION_CANNOT_DIVERGE_AT_ST_ENGINE",
+          "blocking": true,
+          "evidence": "ST_ENGINE"
+        }
+      ]
+    }
+  ],
+  "result": "PASS"
+}

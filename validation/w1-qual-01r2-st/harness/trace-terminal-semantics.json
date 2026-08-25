@@ -1,0 +1,31 @@
+{
+  "contract": "W1_QUAL_01R2_TRACE_TERMINAL_SEMANTICS",
+  "version": "2.1.0",
+  "validationBeforeOwnerSeparatedFromOwnerInvocation": true,
+  "fabricatedOwnerFailureEventPermitted": false,
+  "preOwnerRequestAndResultRefs": null,
+  "privateReasoningStored": false,
+  "terminalStages": [
+    "PROJECT_CONTEXT",
+    "OWNER_REQUEST_VALIDATION",
+    "KNOWLEDGE_TO_ST_HANDOFF",
+    "STALE_VALIDATION",
+    "SCIENTIFIC_THINKING_ENGINE",
+    "CHARACTERIZATION_HARNESS",
+    "UNKNOWN_STAGE"
+  ],
+  "expectedStaleEvents": [
+    "STALE_RESULT_REJECTED"
+  ],
+  "forbiddenStaleEvents": [
+    "OWNER_INVOCATION_STARTED",
+    "OWNER_INVOCATION_FAILED"
+  ],
+  "ownerExecutionFailureProof": [
+    "instrumented runtime invocation count > 0",
+    "OwnerResult count = 0",
+    "OWNER_INVOCATION_STARTED",
+    "OWNER_INVOCATION_FAILED",
+    "bounded owner failure code"
+  ]
+}
