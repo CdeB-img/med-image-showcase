@@ -404,29 +404,61 @@ export const invokeRegulatoryOwnerFromProject = (input: InvocationTiming & {
   runtime?: (request: RegulatoryResolutionInput) => RegulatoryResolutionResult;
 }): NativeOwnerInvocation<RegulatoryResolutionInput, RegulatoryResolutionResult> => {
   const question = input.question ?? "Peut-on prévoir un consentement d'urgence dans ce projet ?";
+  const projectSnapshot = buildProjectContextSnapshot({ project: input.project });
   const nativeInput = buildRegulatoryRequestFromProjectSnapshot({ project: input.project, resolutionAsOf: input.startedAt });
-  const handoffId = `regulatory-handoff:${logicalDigest({ project: input.project.projectDigest, question, asOf: input.startedAt })}`;
-  const request = createSpecializedOwnerHandoffRequest({
+  const before = stableStringify(input.project);
+  const invocation = invokeRegulatoryOwnerFromSnapshot({
+    projectSnapshot,
+    regulatoryRequest: nativeInput,
+    purpose: question,
+    runtime: input.runtime,
+    startedAt: input.startedAt,
+    completedAt: input.completedAt,
+    monotonicNow: input.monotonicNow,
+  });
+  if (stableStringify(input.project) !== before) throw new Error("REGULATORY_OWNER_MUTATED_PROJECT");
+  return invocation;
+};
+
+export const invokeRegulatoryOwnerFromSnapshot = (input: InvocationTiming & {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
+  regulatoryRequest: RegulatoryResolutionInput;
+  purpose: string;
+  runtime?: (request: RegulatoryResolutionInput) => RegulatoryResolutionResult;
+}): NativeOwnerInvocation<RegulatoryResolutionInput, RegulatoryResolutionResult> => {
+  const nativeInput = input.regulatoryRequest;
+  if (nativeInput.researchProjectId !== input.projectSnapshot.sourceProjectRef
+    || nativeInput.researchProjectVersion !== input.projectSnapshot.sourceProjectVersion
+    || nativeInput.researchProjectDigest !== input.projectSnapshot.sourceProjectDigest) {
+    throw new Error("REGULATORY_REQUEST_PROJECT_SNAPSHOT_MISMATCH");
+  }
+  const requestRef = `regulatory-request:${logicalDigest(nativeInput)}`;
+  const handoffId = `regulatory-handoff:${logicalDigest({
+    project: input.projectSnapshot.snapshotDigest,
+    requestRef,
+    purpose: input.purpose,
+  })}`;
+  const request = createSpecializedOwnerHandoffRequestFromSnapshot({
     handoffId,
     owner: "REGULATORY_RESOLUTION",
     capabilityId: "REGULATORY_REQUIREMENT_RESOLUTION",
-    purpose: question,
-    project: input.project,
+    purpose: input.purpose,
+    sourceProject: input.projectSnapshot,
     nativeInputType: "RegulatoryResolutionInput",
     nativeInputVersion: REGULATORY_RESOLUTION_VERSION,
     nativeInput,
   });
   const invocationId = `native-owner-invocation:${logicalDigest({ handoffId, startedAt: input.startedAt })}`;
-  const before = stableStringify(input.project);
+  const before = stableStringify(input.projectSnapshot);
   const started = measure(input.monotonicNow);
   try {
     const nativeResult = (input.runtime ?? resolveRegulatoryRequirements)(request.nativeInput);
     const latencyMs = elapsed(started, measure(input.monotonicNow));
-    if (!validRegulatoryResult(nativeResult, request) || stableStringify(input.project) !== before) {
+    if (!validRegulatoryResult(nativeResult, request) || stableStringify(input.projectSnapshot) !== before) {
       return {
         request,
         result: null,
-        observation: observation({ request, invocationId, ownerRuntimeVersion: REGULATORY_RESOLUTION_VERSION, requestRef: `${nativeInput.researchProjectId}@${nativeInput.researchProjectVersion}`, status: "INVALID_OWNER_RESULT", failureCode: "REG_RESULT_PROJECT_OR_AUTHORITY_MISMATCH", startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
+        observation: observation({ request, invocationId, ownerRuntimeVersion: REGULATORY_RESOLUTION_VERSION, requestRef, status: "INVALID_OWNER_RESULT", failureCode: "REG_RESULT_PROJECT_OR_AUTHORITY_MISMATCH", startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
       };
     }
     const evidenceRefs = [...new Set(nativeResult.provenance.sourceRefs)];
@@ -467,14 +499,14 @@ export const invokeRegulatoryOwnerFromProject = (input: InvocationTiming & {
     return {
       request,
       result,
-      observation: observation({ request, invocationId, ownerRuntimeVersion: REGULATORY_RESOLUTION_VERSION, requestRef: `${nativeInput.researchProjectId}@${nativeInput.researchProjectVersion}`, resultRef: `${result.resultId}@${result.resultVersion}`, status, provenance: [...result.provenance], evidenceRefs, unknowns, gaps, limitations: [...result.limitations], startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
+      observation: observation({ request, invocationId, ownerRuntimeVersion: REGULATORY_RESOLUTION_VERSION, requestRef, resultRef: `${result.resultId}@${result.resultVersion}`, status, provenance: [...result.provenance], evidenceRefs, unknowns, gaps, limitations: [...result.limitations], startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
     };
   } catch (error) {
     const latencyMs = elapsed(started, measure(input.monotonicNow));
     return {
       request,
       result: null,
-      observation: observation({ request, invocationId, ownerRuntimeVersion: REGULATORY_RESOLUTION_VERSION, requestRef: `${nativeInput.researchProjectId}@${nativeInput.researchProjectVersion}`, status: "OWNER_RUNTIME_FAILURE", failureCode: error instanceof Error ? error.message : "REG_RUNTIME_FAILURE", startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
+      observation: observation({ request, invocationId, ownerRuntimeVersion: REGULATORY_RESOLUTION_VERSION, requestRef, status: "OWNER_RUNTIME_FAILURE", failureCode: error instanceof Error ? error.message : "REG_RUNTIME_FAILURE", startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
     };
   }
 };

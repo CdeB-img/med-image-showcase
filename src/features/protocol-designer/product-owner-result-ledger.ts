@@ -15,7 +15,7 @@ export const PRODUCT_OWNER_RESULT_LEDGER_VERSION = "0.2.0" as const;
 const LEGACY_KNOWLEDGE_LEDGER_VERSION = "0.1.0" as const;
 
 export type ProductOwnerResultDependency = {
-  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "IMAGING";
+  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "IMAGING" | "REGULATORY_RESOLUTION";
   resultId: string;
   resultVersion: string;
   nativeResultDigest: string;
@@ -61,7 +61,9 @@ const isRecord = (value: unknown): value is Record<string, unknown> => Boolean(v
 
 const nativeResultDigest = (result: SpecializedOwnerResult | null) => {
   if (!result?.nativePayload || !isRecord(result.nativePayload)) return null;
-  const digest = result.nativePayload.resultDigest ?? result.nativePayload.outputDigest;
+  const digest = result.nativePayload.resultDigest
+    ?? result.nativePayload.outputDigest
+    ?? result.nativePayload.resolutionId;
   return typeof digest === "string" ? digest : null;
 };
 
@@ -126,6 +128,7 @@ const supportedOwnerCapability = (owner: unknown, capabilityId: unknown) => (
   (owner === "KNOWLEDGE" && capabilityId === "KNOWLEDGE_EVIDENCE")
   || (owner === "SCIENTIFIC_THINKING" && capabilityId === "SCIENTIFIC_THINKING_PROPOSAL")
   || (owner === "IMAGING" && capabilityId === "IMAGING_STUDY_DESIGN")
+  || (owner === "REGULATORY_RESOLUTION" && capabilityId === "REGULATORY_REQUIREMENT_RESOLUTION")
 );
 
 const validateKnowledgeBoundary = (entry: ProductOwnerResultLedgerEntry) => {
@@ -217,6 +220,33 @@ const validateImagingBoundary = (
   }
 };
 
+const validateRegulatoryBoundary = (entry: ProductOwnerResultLedgerEntry) => {
+  if (entry.request.owner !== "REGULATORY_RESOLUTION") return;
+  const nativeInput = entry.request.nativeInput;
+  const nativePayload = entry.result?.nativePayload;
+  if (!isRecord(nativeInput)
+    || nativeInput.contractVersion !== "1.0.0"
+    || nativeInput.researchProjectId !== entry.request.sourceProject.sourceProjectRef
+    || nativeInput.researchProjectVersion !== entry.request.sourceProject.sourceProjectVersion
+    || nativeInput.researchProjectDigest !== entry.request.sourceProject.sourceProjectDigest
+    || typeof nativeInput.regulatoryCorpusVersion !== "string"
+    || typeof nativeInput.regulatoryCorpusDigest !== "string"
+    || (entry.result !== null && (
+      entry.result.projectContribution !== null
+      || !isRecord(nativePayload)
+      || nativePayload.contractVersion !== "1.0.0"
+      || nativePayload.researchProjectId !== nativeInput.researchProjectId
+      || nativePayload.researchProjectVersion !== nativeInput.researchProjectVersion
+      || nativePayload.researchProjectDigest !== nativeInput.researchProjectDigest
+      || nativePayload.corpusVersion !== nativeInput.regulatoryCorpusVersion
+      || nativePayload.corpusDigest !== nativeInput.regulatoryCorpusDigest
+      || !isRecord(nativePayload.provenance)
+      || nativePayload.provenance.authorityBoundary !== "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+    ))) {
+    throw new Error("PRODUCT_OWNER_RESULT_LEDGER_REGULATORY_BOUNDARY_INVALID");
+  }
+};
+
 const validateEntryBoundary = (entry: ProductOwnerResultLedgerEntry, priorEntries: readonly ProductOwnerResultLedgerEntry[]) => {
   if (!supportedOwnerCapability(entry.request.owner, entry.request.capabilityId)
     || entry.observation.owner !== entry.request.owner
@@ -251,6 +281,7 @@ const validateEntryBoundary = (entry: ProductOwnerResultLedgerEntry, priorEntrie
   validateKnowledgeBoundary(entry);
   validateScientificThinkingBoundary(entry);
   validateImagingBoundary(entry, priorEntries);
+  validateRegulatoryBoundary(entry);
 };
 
 export const rehydrateProductOwnerResultLedger = (value: unknown): Readonly<ProductOwnerResultLedger> => {
@@ -394,7 +425,7 @@ export const readProductOwnerResult = (input: {
   ledger: Readonly<ProductOwnerResultLedger>;
   resultId: string;
   currentProjectSnapshot: Readonly<ProjectContextSnapshot>;
-  expectedOwner?: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "IMAGING";
+  expectedOwner?: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "IMAGING" | "REGULATORY_RESOLUTION";
 }) => {
   const ledger = rehydrateProductOwnerResultLedger(input.ledger);
   const entry = ledger.entries.find((candidate) => candidate.result?.resultId === input.resultId
