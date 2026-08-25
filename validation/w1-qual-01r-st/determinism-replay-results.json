@@ -1,0 +1,38 @@
+{
+  "contract": "W1_QUAL_01R_ST_DETERMINISM_REPLAY_RESULTS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "selectionMadeBeforeObservation": true,
+  "results": [
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "replayRole": "POSITIVE",
+      "originalOutputDigest": "ke1-145fbf73e0efeef7",
+      "replayOutputDigest": "ke1-145fbf73e0efeef7",
+      "originalStatus": "CANDIDATES_PROPOSED",
+      "replayStatus": "CANDIDATES_PROPOSED",
+      "deterministic": true,
+      "firstDivergentStage": null
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "replayRole": "CONTRADICTION",
+      "originalOutputDigest": "ke1-43a969dfa255a76b",
+      "replayOutputDigest": "ke1-43a969dfa255a76b",
+      "originalStatus": "CANDIDATES_PROPOSED",
+      "replayStatus": "CANDIDATES_PROPOSED",
+      "deterministic": true,
+      "firstDivergentStage": null
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "replayRole": "NO_CANDIDATE",
+      "originalOutputDigest": "ke1-cbee0a3fc1f8e583",
+      "replayOutputDigest": "ke1-cbee0a3fc1f8e583",
+      "originalStatus": "CLARIFICATION_REQUIRED",
+      "replayStatus": "CLARIFICATION_REQUIRED",
+      "deterministic": true,
+      "firstDivergentStage": null
+    }
+  ]
+}

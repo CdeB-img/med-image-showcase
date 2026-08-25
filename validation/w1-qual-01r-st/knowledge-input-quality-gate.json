@@ -1,0 +1,240 @@
+{
+  "contract": "W1_QUAL_01R_ST_KNOWLEDGE_INPUT_QUALITY_GATE",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "evaluatedBeforeExecution": true,
+  "frozenKnowledgeRecomputed": false,
+  "cases": [
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "staleExpected": false,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "staleExpected": true,
+      "checks": {
+        "ownerResultPresent": true,
+        "nativeKnowledgeResultPresent": true,
+        "typedAndVersioned": true,
+        "resultDigestPresent": true,
+        "exactOriginalProjectBinding": true,
+        "currentProjectBindingOrIntentionalStale": true,
+        "evidenceAvailableWhenPositive": true,
+        "limitationExplicit": true,
+        "provenanceExplicit": true,
+        "noExternalCall": true,
+        "immutableLedger": true
+      },
+      "eligible": true,
+      "missingComponents": []
+    }
+  ],
+  "eligibleCases": 12,
+  "ineligibleCases": 0,
+  "verdict": "PASS"
+}

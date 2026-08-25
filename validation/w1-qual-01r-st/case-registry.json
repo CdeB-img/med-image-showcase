@@ -1,0 +1,530 @@
+{
+  "contract": "W1_QUAL_01R_ST_CASE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "authoredAt": "2026-08-25T23:00:00.000Z",
+  "authoredBeforeObservation": true,
+  "cases": [
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "coverageClass": "C1_COMPARATIVE_REASONING",
+      "domain": "SPECTRAL_CT",
+      "purpose": "Examiner une comparaison architecturale bornée et conserver la dépendance à la tâche.",
+      "expectedProfile": "POSITIVE_CANDIDATES",
+      "positiveOpportunity": true,
+      "contradictionCase": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST-SPECTRAL-01"
+      ],
+      "distinctnessRationale": "Le cas historique portait sur VNC versus acquisition native; celui-ci porte sur la stabilité d'une quantification calcique entre architectures et sur le transfert de tâche.",
+      "referenceRefs": [
+        "RB-003@1.0:material-decomposition",
+        "RB-003@1.0:architecture-transfer-limit"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Transfert interarchitecture et performance sur petites structures restent dépendants de la tâche et de la plateforme."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "coverageClass": "C2_ASSOCIATIVE_QUESTION",
+      "domain": "CARDIAC_MRI",
+      "purpose": "Tester une question structurée associative nouvelle.",
+      "expectedProfile": "POSITIVE_CANDIDATES",
+      "positiveOpportunity": true,
+      "contradictionCase": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-CARDIAC-01",
+        "ST unit fixtures: Fabry/T1/ECV"
+      ],
+      "distinctnessRationale": "Nouvelle pathologie, nouveaux construits conjoints, nouvel horizon temporel et nouvel outcome; aucun couple MVO/IMH, Fabry/ECV ou MOLLI/SASHA.",
+      "referenceRefs": [
+        "RB-004@1.1:myocarditis-T1-T2",
+        "RB-004@1.1:method-site-field-dependencies"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "L'association avec le remodelage n'est pas établie par le corpus figé et doit rester une hypothèse candidate."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "coverageClass": "C3_MECHANISTIC_REASONING",
+      "domain": "NEURO_PERFUSION",
+      "purpose": "Tester l'explicitation mécanistique et ses limites.",
+      "expectedProfile": "POSITIVE_CANDIDATES",
+      "positiveOpportunity": true,
+      "contradictionCase": false,
+      "replayPredeclared": true,
+      "replayRole": "POSITIVE",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-NEURO-01"
+      ],
+      "distinctnessRationale": "Le cas historique portait sur l'interprétation CBF/CBV/transit entre modalités; ce cas interroge une compensation OEF-CMRO2 dans une maladie chronique.",
+      "referenceRefs": [
+        "RB-005@1.0:OEF-CMRO2-components",
+        "RB-005@1.0:construct-limitations"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Les relations entre construits ne suffisent pas à établir un mécanisme causal ni une mesure interchangeable."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "coverageClass": "C4_COMPETING_EXPLANATIONS",
+      "domain": "NEURO_ONCOLOGY",
+      "purpose": "Tester les alternatives et la non-sélection d'une cause.",
+      "expectedProfile": "CONTRADICTION_CANDIDATES",
+      "positiveOpportunity": true,
+      "contradictionCase": true,
+      "replayPredeclared": true,
+      "replayRole": "CONTRADICTION",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Repair Probe C"
+      ],
+      "distinctnessRationale": "Le probe exposé concernait échec thérapeutique et échappement immunitaire; ici la divergence oppose interprétation tumorale et artefacts de mesure DSC.",
+      "referenceRefs": [
+        "RB-005@1.0:rCBV-leakage-software"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Aucune explication ne peut être sélectionnée sans contexte et preuve supplémentaires."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "coverageClass": "C5_CONTRADICTION_PRESERVATION",
+      "domain": "SPECTRAL_CT",
+      "purpose": "Tester contradiction et certitude bornée.",
+      "expectedProfile": "CONTRADICTION_CANDIDATES",
+      "positiveOpportunity": true,
+      "contradictionCase": true,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-SPECTRAL-01"
+      ],
+      "distinctnessRationale": "Le cas historique évaluait VNC; celui-ci porte sur la distinction entre distribution d'iode et perfusion.",
+      "referenceRefs": [
+        "RB-003@1.0:iodine-not-direct-perfusion",
+        "RB-003@1.0:model-derived-maps"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Temporalité, injection, reconstruction et architecture limitent toute interprétation perfusionnelle."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "coverageClass": "C6_INSUFFICIENT_EVIDENCE",
+      "domain": "IMAGING_RESEARCH",
+      "purpose": "Conserver un manque de finalité et demander clarification sans hypothèse ni objectif.",
+      "expectedProfile": "NO_CANDIDATE_GAP",
+      "positiveOpportunity": false,
+      "contradictionCase": false,
+      "replayPredeclared": true,
+      "replayRole": "NO_CANDIDATE",
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST unit fixture: choses intéressantes en IRM"
+      ],
+      "distinctnessRationale": "Même frontière de testabilité, mais objet, modalité et formulation sont nouveaux; le cas est conservé comme contrôle négatif, pas comme preuve de nouveauté scientifique.",
+      "referenceRefs": [
+        "KE-001:honest-gap",
+        "RDE-001:negative-output-valid"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Absence de définition opérationnelle et de finalité scientifique."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "coverageClass": "C7_CRITICAL_PROJECT_UNKNOWN",
+      "domain": "CARDIAC_CT",
+      "purpose": "Détecter l'absence de question Project explicite sans inventer une relation.",
+      "expectedProfile": "NO_CANDIDATE_GAP",
+      "positiveOpportunity": false,
+      "contradictionCase": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Repair Probe E"
+      ],
+      "distinctnessRationale": "Le probe exposé omettait une relation causale en maladie rare; ce cas omet toute question adoptée et une temporalité de suivi dans un contexte valvulaire.",
+      "referenceRefs": [
+        "PD-003-V2:Research-Project-unknowns",
+        "RDE-002:project-context-boundary"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "La relation scientifique et la temporalité restent des inconnues Project."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "coverageClass": "C8_NARROW_APPLICABILITY",
+      "domain": "SPECTRAL_CT",
+      "purpose": "Tester la conservation d'une qualification d'applicabilité.",
+      "expectedProfile": "POSITIVE_CANDIDATES",
+      "positiveOpportunity": true,
+      "contradictionCase": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [],
+      "distinctnessRationale": "Nouvelle population, nouveau construit et nouvelle frontière de transfert clinique.",
+      "referenceRefs": [
+        "RB-003@1.0:PCCT-task-transfer-limit"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Transfert clinique, population pédiatrique, dose et bénéfice interprétatif restent non caractérisés."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "coverageClass": "C9_OUT_OF_OWNER",
+      "domain": "TECHNICAL_PIPELINE",
+      "purpose": "Refuser une demande de développement technique hors owner sans candidat scientifique.",
+      "expectedProfile": "OUT_OF_OWNER_REFUSAL",
+      "positiveOpportunity": false,
+      "contradictionCase": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Repair Probe G"
+      ],
+      "distinctnessRationale": "Le probe exposé visait le marketing; ce cas vise une frontière de développement logiciel explicitement distincte.",
+      "referenceRefs": [
+        "RDE-001:owner-boundary",
+        "PD-005:role-boundary"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [
+        "OUT_OF_DOMAIN"
+      ],
+      "expectedLimitations": [
+        "Hors périmètre Scientific Thinking."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "coverageClass": "C10_NO_EVIDENCE_PROMOTION",
+      "domain": "NEURO_TRAUMA",
+      "purpose": "Tester la non-promotion de preuve et la limite prédictive.",
+      "expectedProfile": "POSITIVE_CANDIDATES",
+      "positiveOpportunity": true,
+      "contradictionCase": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Repair Probe B"
+      ],
+      "distinctnessRationale": "Le probe exposé concernait cytokine et récupération métabolique; ce cas évalue une prétention prédictive de perfusion neurologique et sa non-promotion.",
+      "referenceRefs": [
+        "RB-005@1.0:perfusion-noninterchangeability",
+        "PD-011:evidence-strength"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Aucune performance prédictive, causalité ou généralisation clinique n'est établie."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "coverageClass": "C11_SCIENTIFIC_MODEL_BOUNDARY",
+      "domain": "CARDIAC_MRI",
+      "purpose": "Tester la frontière Scientific Model candidat.",
+      "expectedProfile": "POSITIVE_CANDIDATES",
+      "positiveOpportunity": true,
+      "contradictionCase": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST unit fixtures: T1/T2"
+      ],
+      "distinctnessRationale": "La cible est la frontière d'un modèle explicatif multi-construits, pas la préférence de méthode ni un biomarqueur isolé.",
+      "referenceRefs": [
+        "RB-004@1.1:myocarditis-T1-T2",
+        "Manifesto-V2:scientific-model-candidate"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Le modèle explicatif reste candidat; aucune adoption ni vérité Knowledge n'est autorisée."
+      ],
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "coverageClass": "C12_STALE_PROTECTION",
+      "domain": "CARDIAC_MRI",
+      "purpose": "Tester le fail-closed sur résultat Knowledge stale.",
+      "expectedProfile": "STALE_REJECTION",
+      "positiveOpportunity": false,
+      "contradictionCase": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [],
+      "distinctnessRationale": "Cas technique de dépendance stale, absent du numerator scientifique et distinct des thèmes exposés.",
+      "referenceRefs": [
+        "PD-003-V2:dependency-integrity",
+        "RDE-002:stale-protection"
+      ],
+      "expectedObligations": [
+        "Exact Project ID/version/digest and snapshot binding are preserved.",
+        "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+        "ST performs no Project write or automatic adoption.",
+        "No LLM or external evidence provider is called.",
+        "The qualifying invocation is bound to passive TRACE events.",
+        "Output or rejection matches the pre-authored case profile.",
+        "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+        "Expected limitations, gaps and contradictions remain inspectable."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Le résultat Knowledge est intentionnellement lié à Project vN et ne peut servir Project vN+1."
+      ],
+      "authoredBeforeObservation": true
+    }
+  ]
+}

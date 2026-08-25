@@ -1,0 +1,354 @@
+{
+  "contract": "W1_QUAL_01R_ST_TRACE_INDEX",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "privateChainOfThoughtRecorded": false,
+  "traceItems": [
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-ARCHITECTURE-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-ARCHITECTURE-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-ARCHITECTURE-01:version:1",
+        "projectDigest": "ke1-7d3556f47916d218",
+        "snapshotRef": "ke1-b8f12fa12bf0d1bd"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-21ec4f9e46b3f1ba",
+        "scientific-trace-event:ke1-b17091adeb82c1a9",
+        "scientific-trace-event:ke1-6c889ee8ad17656c",
+        "scientific-trace-event:ke1-bf215d7b6ec80abf",
+        "scientific-trace-event:ke1-3d31b8284323bc5c",
+        "scientific-trace-event:ke1-82efc8806125984c",
+        "scientific-trace-event:ke1-17a1d381af47ddfd"
+      ],
+      "ledgerDigest": "ke1-79a160c1c5c1c27d"
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MYOCARDITIS-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MYOCARDITIS-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MYOCARDITIS-01:version:1",
+        "projectDigest": "ke1-999576381ba64f34",
+        "snapshotRef": "ke1-de6df7a31299ef3f"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-b37e081ceb914c70",
+        "scientific-trace-event:ke1-87c44537cfc7aab3",
+        "scientific-trace-event:ke1-c26303542c2e0fb0",
+        "scientific-trace-event:ke1-dea9ae822e91c1d6",
+        "scientific-trace-event:ke1-e7c6ad72802d2986",
+        "scientific-trace-event:ke1-e0ae54eceece9648",
+        "scientific-trace-event:ke1-19f39bfc277ee698"
+      ],
+      "ledgerDigest": "ke1-3ce47d2b7c158a2f"
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01:version:1",
+        "projectDigest": "ke1-4b2ab70894f39c5c",
+        "snapshotRef": "ke1-e00ba19c6bd89648"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-7511e7a881581364",
+        "scientific-trace-event:ke1-040005d37f934757",
+        "scientific-trace-event:ke1-13e67fc5e98115a1",
+        "scientific-trace-event:ke1-22aaea6ce077a760",
+        "scientific-trace-event:ke1-be7c995d82617099",
+        "scientific-trace-event:ke1-3c56d31da8493c41",
+        "scientific-trace-event:ke1-4470038b6348e44f"
+      ],
+      "ledgerDigest": "ke1-9486122a43b25346"
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01:version:1",
+        "projectDigest": "ke1-16e5e74e3991a1aa",
+        "snapshotRef": "ke1-52ef93149b539508"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-0fa86ec66098c042",
+        "scientific-trace-event:ke1-9e32bd51c263d0b5",
+        "scientific-trace-event:ke1-6a125f1d0e464b59",
+        "scientific-trace-event:ke1-438e20b6bd68c0aa",
+        "scientific-trace-event:ke1-4c7f98578bfc9af3",
+        "scientific-trace-event:ke1-936a2fc7ec04514b",
+        "scientific-trace-event:ke1-5d00214623ad648a"
+      ],
+      "ledgerDigest": "ke1-5afd8509db707f15"
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-IODINE-CONSTRUCT-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-IODINE-CONSTRUCT-01:version:1",
+        "projectDigest": "ke1-6145c6e10c329265",
+        "snapshotRef": "ke1-571c7cd5ae267071"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-9416231290836666",
+        "scientific-trace-event:ke1-db7a04de116b2f8a",
+        "scientific-trace-event:ke1-b9b8f403c778e32f",
+        "scientific-trace-event:ke1-151b3d1b03f052cf",
+        "scientific-trace-event:ke1-b43980898390692d",
+        "scientific-trace-event:ke1-70e0ce1c11b50da0",
+        "scientific-trace-event:ke1-54b052dd57719a61"
+      ],
+      "ledgerDigest": "ke1-e0fbf3d079cdc57c"
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01:version:1",
+        "projectDigest": "ke1-5b89608a8b12074e",
+        "snapshotRef": "ke1-d31d929ec5c0a13a"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-f272a83234f2acf6",
+        "scientific-trace-event:ke1-99a3c7fdd3ddd861",
+        "scientific-trace-event:ke1-3aa78485dd417799",
+        "scientific-trace-event:ke1-1b6a55ffa4d0cd03",
+        "scientific-trace-event:ke1-d7ecfca81a76e43c",
+        "scientific-trace-event:ke1-3977994e436e2b8a",
+        "scientific-trace-event:ke1-0a58c8bfdc190bf3"
+      ],
+      "ledgerDigest": "ke1-a6ad8a79340c99e5"
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-PROJECT-QUESTION-MISSING-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-PROJECT-QUESTION-MISSING-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-PROJECT-QUESTION-MISSING-01:version:1",
+        "projectDigest": "ke1-32c74a35dc708719",
+        "snapshotRef": "ke1-1e2efc07584e157b"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-2d3bc438320c339c",
+        "scientific-trace-event:ke1-884a30efec2d47d3",
+        "scientific-trace-event:ke1-ed210cd5ad011aa1",
+        "scientific-trace-event:ke1-056fc7c7a54b0dab",
+        "scientific-trace-event:ke1-4053085b344befaf",
+        "scientific-trace-event:ke1-bb9affc408062018",
+        "scientific-trace-event:ke1-693f6421bfc3680d"
+      ],
+      "ledgerDigest": "ke1-ece16ff85babe84c"
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-NARROW-APPLICABILITY-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-NARROW-APPLICABILITY-01:version:1",
+        "projectDigest": "ke1-e5aa4599d37649cd",
+        "snapshotRef": "ke1-c7c63ae030ba0524"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-5a84f17ae82a262e",
+        "scientific-trace-event:ke1-c7a1f85cc495e3f8",
+        "scientific-trace-event:ke1-b2717bd86e894e0c",
+        "scientific-trace-event:ke1-d4e6d5d91ba446a5",
+        "scientific-trace-event:ke1-bf1493aee5391db2",
+        "scientific-trace-event:ke1-c1f0e79737ddeb63",
+        "scientific-trace-event:ke1-0494bc77d0fa321b"
+      ],
+      "ledgerDigest": "ke1-0532fff4f0b5f9a0"
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-OUT-OF-OWNER-DICOM-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-OUT-OF-OWNER-DICOM-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-OUT-OF-OWNER-DICOM-01:version:1",
+        "projectDigest": "ke1-f167ef811252d21d",
+        "snapshotRef": "ke1-bc72d643f9543987"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-810de95c9a2f7768",
+        "scientific-trace-event:ke1-0b5fdb8992eb28f5",
+        "scientific-trace-event:ke1-853d6363ea12d2ff",
+        "scientific-trace-event:ke1-43e14de1e581063d",
+        "scientific-trace-event:ke1-af78a2edd5245581",
+        "scientific-trace-event:ke1-e08b477dfb1467b1",
+        "scientific-trace-event:ke1-05b0445702e5c293"
+      ],
+      "ledgerDigest": "ke1-8682272bcdacfe5f"
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-PREDICTION-NONPROMOTION-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-PREDICTION-NONPROMOTION-01:version:1",
+        "projectDigest": "ke1-c11624dfaf7a73b3",
+        "snapshotRef": "ke1-75d015d5d37e4d31"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-c53301e36501a287",
+        "scientific-trace-event:ke1-f47e798e53b22eb2",
+        "scientific-trace-event:ke1-8f59cc7a41ae6e3e",
+        "scientific-trace-event:ke1-5dcb00b78114f3bb",
+        "scientific-trace-event:ke1-1187fc2c4520b5e8",
+        "scientific-trace-event:ke1-edc55eb8af3937bc",
+        "scientific-trace-event:ke1-d2c59a39e078c3ad"
+      ],
+      "ledgerDigest": "ke1-6ed0a88d1172f239"
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MODEL-CANDIDATE-01:primary",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MODEL-CANDIDATE-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MODEL-CANDIDATE-01:version:1",
+        "projectDigest": "ke1-579700143f53bac0",
+        "snapshotRef": "ke1-f0f5a6ad51f92531"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-c63230c87da8bdcc",
+        "scientific-trace-event:ke1-973680cdfad09799",
+        "scientific-trace-event:ke1-a4e6d9298477cfed",
+        "scientific-trace-event:ke1-05345dd366805fcf",
+        "scientific-trace-event:ke1-85e4b6edf2025bb1",
+        "scientific-trace-event:ke1-164b3adfef087d73",
+        "scientific-trace-event:ke1-38590170734d389c"
+      ],
+      "ledgerDigest": "ke1-344acbbb6e5aae8f"
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "executionKind": "QUALIFYING_PRIMARY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-STALE-KNOWLEDGE-01:primary",
+      "runStatus": "FAILED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-STALE-KNOWLEDGE-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-STALE-KNOWLEDGE-01:version:2",
+        "projectDigest": "ke1-b0bd16b8e09fa4a4",
+        "snapshotRef": "ke1-c19ba07dd0d9d1f1"
+      },
+      "eventCount": 5,
+      "eventRefs": [
+        "scientific-trace-event:ke1-832d3bd2b9353f4e",
+        "scientific-trace-event:ke1-b43d156251c48e1e",
+        "scientific-trace-event:ke1-59e5d1c52981f6f1",
+        "scientific-trace-event:ke1-1bf65825ffbc1aa1",
+        "scientific-trace-event:ke1-e33a035a9a2e2816"
+      ],
+      "ledgerDigest": "ke1-e7eb73501fb8b274"
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "executionKind": "PREDECLARED_REPLAY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01:replay",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01:version:1",
+        "projectDigest": "ke1-4b2ab70894f39c5c",
+        "snapshotRef": "ke1-e00ba19c6bd89648"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-6bee8e5d7633f831",
+        "scientific-trace-event:ke1-81d83ff86f9c1fdc",
+        "scientific-trace-event:ke1-bae5282a1f3e4106",
+        "scientific-trace-event:ke1-4c3ac487594248ab",
+        "scientific-trace-event:ke1-019ce2eca38922f8",
+        "scientific-trace-event:ke1-739d188278ee848e",
+        "scientific-trace-event:ke1-23b7f210fbd5683c"
+      ],
+      "ledgerDigest": "ke1-2639bd6cee7907d8"
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "executionKind": "PREDECLARED_REPLAY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01:replay",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01:version:1",
+        "projectDigest": "ke1-16e5e74e3991a1aa",
+        "snapshotRef": "ke1-52ef93149b539508"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-ea284a13faeb90d7",
+        "scientific-trace-event:ke1-5fed2c204193d4ec",
+        "scientific-trace-event:ke1-dd6529969dd1abf2",
+        "scientific-trace-event:ke1-eb70e049e7b0ec05",
+        "scientific-trace-event:ke1-37c1b45a4b84a396",
+        "scientific-trace-event:ke1-16a02cf9461d413d",
+        "scientific-trace-event:ke1-7f7fcce7a0daedb3"
+      ],
+      "ledgerDigest": "ke1-8dd5fece9345b4c2"
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "executionKind": "PREDECLARED_REPLAY",
+      "runId": "scientific-run:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01:replay",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01",
+        "projectVersion": "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01:version:1",
+        "projectDigest": "ke1-5b89608a8b12074e",
+        "snapshotRef": "ke1-d31d929ec5c0a13a"
+      },
+      "eventCount": 7,
+      "eventRefs": [
+        "scientific-trace-event:ke1-21073d2f7c655afb",
+        "scientific-trace-event:ke1-f9bc200c8fdc4f48",
+        "scientific-trace-event:ke1-23ee20f0205d6fdc",
+        "scientific-trace-event:ke1-dde856ae52b22f12",
+        "scientific-trace-event:ke1-cca1888a4751bf46",
+        "scientific-trace-event:ke1-ad574e053e51a7e9",
+        "scientific-trace-event:ke1-59066ec94dbfd215"
+      ],
+      "ledgerDigest": "ke1-39d858ed07a54ca1"
+    }
+  ],
+  "totalRuns": 15,
+  "primaryRuns": 12,
+  "replayRuns": 3
+}

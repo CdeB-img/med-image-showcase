@@ -1,0 +1,1557 @@
+{
+  "contract": "W1_QUAL_01R_ST_ACCEPTANCE_ENVELOPE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "authoredAt": "2026-08-25T23:00:00.000Z",
+  "mutableAfterObservation": false,
+  "envelopes": [
+    {
+      "envelopeId": "acceptance-envelope:ST01R-SPECTRAL-ARCHITECTURE-01",
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:material-decomposition",
+            "RB-003@1.0:architecture-transfer-limit"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:material-decomposition",
+            "RB-003@1.0:architecture-transfer-limit"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:material-decomposition",
+            "RB-003@1.0:architecture-transfer-limit"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RB-003@1.0:material-decomposition",
+            "RB-003@1.0:architecture-transfer-limit"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "POSITIVE_CANDIDATES",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Transfert interarchitecture et performance sur petites structures restent dépendants de la tâche et de la plateforme."
+      ],
+      "criticalObligationIds": [
+        "ST01R-SPECTRAL-ARCHITECTURE-01:PROJECT_IDENTITY",
+        "ST01R-SPECTRAL-ARCHITECTURE-01:KNOWLEDGE_LINEAGE",
+        "ST01R-SPECTRAL-ARCHITECTURE-01:ZERO_PROJECT_WRITE",
+        "ST01R-SPECTRAL-ARCHITECTURE-01:NO_PROVIDER_CALL",
+        "ST01R-SPECTRAL-ARCHITECTURE-01:TRACE_BOUND",
+        "ST01R-SPECTRAL-ARCHITECTURE-01:EXPECTED_PROFILE",
+        "ST01R-SPECTRAL-ARCHITECTURE-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:material-decomposition",
+        "RB-003@1.0:architecture-transfer-limit"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-CARDIAC-MYOCARDITIS-01",
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RB-004@1.1:myocarditis-T1-T2",
+            "RB-004@1.1:method-site-field-dependencies"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RB-004@1.1:myocarditis-T1-T2",
+            "RB-004@1.1:method-site-field-dependencies"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RB-004@1.1:myocarditis-T1-T2",
+            "RB-004@1.1:method-site-field-dependencies"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RB-004@1.1:myocarditis-T1-T2",
+            "RB-004@1.1:method-site-field-dependencies"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "POSITIVE_CANDIDATES",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "L'association avec le remodelage n'est pas établie par le corpus figé et doit rester une hypothèse candidate."
+      ],
+      "criticalObligationIds": [
+        "ST01R-CARDIAC-MYOCARDITIS-01:PROJECT_IDENTITY",
+        "ST01R-CARDIAC-MYOCARDITIS-01:KNOWLEDGE_LINEAGE",
+        "ST01R-CARDIAC-MYOCARDITIS-01:ZERO_PROJECT_WRITE",
+        "ST01R-CARDIAC-MYOCARDITIS-01:NO_PROVIDER_CALL",
+        "ST01R-CARDIAC-MYOCARDITIS-01:TRACE_BOUND",
+        "ST01R-CARDIAC-MYOCARDITIS-01:EXPECTED_PROFILE",
+        "ST01R-CARDIAC-MYOCARDITIS-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:myocarditis-T1-T2",
+        "RB-004@1.1:method-site-field-dependencies"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-NEURO-OEF-CMRO2-01",
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-NEURO-OEF-CMRO2-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:OEF-CMRO2-components",
+            "RB-005@1.0:construct-limitations"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-OEF-CMRO2-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:OEF-CMRO2-components",
+            "RB-005@1.0:construct-limitations"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-OEF-CMRO2-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-OEF-CMRO2-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-OEF-CMRO2-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-OEF-CMRO2-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:OEF-CMRO2-components",
+            "RB-005@1.0:construct-limitations"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-OEF-CMRO2-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-OEF-CMRO2-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RB-005@1.0:OEF-CMRO2-components",
+            "RB-005@1.0:construct-limitations"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "POSITIVE_CANDIDATES",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Les relations entre construits ne suffisent pas à établir un mécanisme causal ni une mesure interchangeable."
+      ],
+      "criticalObligationIds": [
+        "ST01R-NEURO-OEF-CMRO2-01:PROJECT_IDENTITY",
+        "ST01R-NEURO-OEF-CMRO2-01:KNOWLEDGE_LINEAGE",
+        "ST01R-NEURO-OEF-CMRO2-01:ZERO_PROJECT_WRITE",
+        "ST01R-NEURO-OEF-CMRO2-01:NO_PROVIDER_CALL",
+        "ST01R-NEURO-OEF-CMRO2-01:TRACE_BOUND",
+        "ST01R-NEURO-OEF-CMRO2-01:EXPECTED_PROFILE",
+        "ST01R-NEURO-OEF-CMRO2-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:OEF-CMRO2-components",
+        "RB-005@1.0:construct-limitations"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:rCBV-leakage-software"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:rCBV-leakage-software"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:rCBV-leakage-software"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RB-005@1.0:rCBV-leakage-software"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "CONTRADICTION_CANDIDATES",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Aucune explication ne peut être sélectionnée sans contexte et preuve supplémentaires."
+      ],
+      "criticalObligationIds": [
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01:PROJECT_IDENTITY",
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01:KNOWLEDGE_LINEAGE",
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01:ZERO_PROJECT_WRITE",
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01:NO_PROVIDER_CALL",
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01:TRACE_BOUND",
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01:EXPECTED_PROFILE",
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:rCBV-leakage-software"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:iodine-not-direct-perfusion",
+            "RB-003@1.0:model-derived-maps"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:iodine-not-direct-perfusion",
+            "RB-003@1.0:model-derived-maps"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:iodine-not-direct-perfusion",
+            "RB-003@1.0:model-derived-maps"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RB-003@1.0:iodine-not-direct-perfusion",
+            "RB-003@1.0:model-derived-maps"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "CONTRADICTION_CANDIDATES",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Temporalité, injection, reconstruction et architecture limitent toute interprétation perfusionnelle."
+      ],
+      "criticalObligationIds": [
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:PROJECT_IDENTITY",
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:KNOWLEDGE_LINEAGE",
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:ZERO_PROJECT_WRITE",
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:NO_PROVIDER_CALL",
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:TRACE_BOUND",
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:EXPECTED_PROFILE",
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:iodine-not-direct-perfusion",
+        "RB-003@1.0:model-derived-maps"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-INSUFFICIENT-FINALITY-01",
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "NO_CANDIDATE_GAP",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Absence de définition opérationnelle et de finalité scientifique."
+      ],
+      "criticalObligationIds": [
+        "ST01R-INSUFFICIENT-FINALITY-01:PROJECT_IDENTITY",
+        "ST01R-INSUFFICIENT-FINALITY-01:KNOWLEDGE_LINEAGE",
+        "ST01R-INSUFFICIENT-FINALITY-01:ZERO_PROJECT_WRITE",
+        "ST01R-INSUFFICIENT-FINALITY-01:NO_PROVIDER_CALL",
+        "ST01R-INSUFFICIENT-FINALITY-01:TRACE_BOUND",
+        "ST01R-INSUFFICIENT-FINALITY-01:EXPECTED_PROFILE",
+        "ST01R-INSUFFICIENT-FINALITY-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "KE-001:honest-gap",
+        "RDE-001:negative-output-valid"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-PROJECT-QUESTION-MISSING-01",
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "PD-003-V2:Research-Project-unknowns",
+            "RDE-002:project-context-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "PD-003-V2:Research-Project-unknowns",
+            "RDE-002:project-context-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "PD-003-V2:Research-Project-unknowns",
+            "RDE-002:project-context-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "PD-003-V2:Research-Project-unknowns",
+            "RDE-002:project-context-boundary"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "NO_CANDIDATE_GAP",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "La relation scientifique et la temporalité restent des inconnues Project."
+      ],
+      "criticalObligationIds": [
+        "ST01R-PROJECT-QUESTION-MISSING-01:PROJECT_IDENTITY",
+        "ST01R-PROJECT-QUESTION-MISSING-01:KNOWLEDGE_LINEAGE",
+        "ST01R-PROJECT-QUESTION-MISSING-01:ZERO_PROJECT_WRITE",
+        "ST01R-PROJECT-QUESTION-MISSING-01:NO_PROVIDER_CALL",
+        "ST01R-PROJECT-QUESTION-MISSING-01:TRACE_BOUND",
+        "ST01R-PROJECT-QUESTION-MISSING-01:EXPECTED_PROFILE",
+        "ST01R-PROJECT-QUESTION-MISSING-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "PD-003-V2:Research-Project-unknowns",
+        "RDE-002:project-context-boundary"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:PCCT-task-transfer-limit"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:PCCT-task-transfer-limit"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RB-003@1.0:PCCT-task-transfer-limit"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RB-003@1.0:PCCT-task-transfer-limit"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "POSITIVE_CANDIDATES",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Transfert clinique, population pédiatrique, dose et bénéfice interprétatif restent non caractérisés."
+      ],
+      "criticalObligationIds": [
+        "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:PROJECT_IDENTITY",
+        "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:KNOWLEDGE_LINEAGE",
+        "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:ZERO_PROJECT_WRITE",
+        "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:NO_PROVIDER_CALL",
+        "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:TRACE_BOUND",
+        "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:EXPECTED_PROFILE",
+        "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:PCCT-task-transfer-limit"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-OUT-OF-OWNER-DICOM-01",
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "OUT_OF_OWNER_REFUSAL",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [
+        "OUT_OF_DOMAIN"
+      ],
+      "expectedLimitations": [
+        "Hors périmètre Scientific Thinking."
+      ],
+      "criticalObligationIds": [
+        "ST01R-OUT-OF-OWNER-DICOM-01:PROJECT_IDENTITY",
+        "ST01R-OUT-OF-OWNER-DICOM-01:KNOWLEDGE_LINEAGE",
+        "ST01R-OUT-OF-OWNER-DICOM-01:ZERO_PROJECT_WRITE",
+        "ST01R-OUT-OF-OWNER-DICOM-01:NO_PROVIDER_CALL",
+        "ST01R-OUT-OF-OWNER-DICOM-01:TRACE_BOUND",
+        "ST01R-OUT-OF-OWNER-DICOM-01:EXPECTED_PROFILE",
+        "ST01R-OUT-OF-OWNER-DICOM-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RDE-001:owner-boundary",
+        "PD-005:role-boundary"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:perfusion-noninterchangeability",
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:perfusion-noninterchangeability",
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RB-005@1.0:perfusion-noninterchangeability",
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RB-005@1.0:perfusion-noninterchangeability",
+            "PD-011:evidence-strength"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "POSITIVE_CANDIDATES",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Aucune performance prédictive, causalité ou généralisation clinique n'est établie."
+      ],
+      "criticalObligationIds": [
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01:PROJECT_IDENTITY",
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01:KNOWLEDGE_LINEAGE",
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01:ZERO_PROJECT_WRITE",
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01:NO_PROVIDER_CALL",
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01:TRACE_BOUND",
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01:EXPECTED_PROFILE",
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:perfusion-noninterchangeability",
+        "PD-011:evidence-strength"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "RB-004@1.1:myocarditis-T1-T2",
+            "Manifesto-V2:scientific-model-candidate"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "RB-004@1.1:myocarditis-T1-T2",
+            "Manifesto-V2:scientific-model-candidate"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "RB-004@1.1:myocarditis-T1-T2",
+            "Manifesto-V2:scientific-model-candidate"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "RB-004@1.1:myocarditis-T1-T2",
+            "Manifesto-V2:scientific-model-candidate"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "POSITIVE_CANDIDATES",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Le modèle explicatif reste candidat; aucune adoption ni vérité Knowledge n'est autorisée."
+      ],
+      "criticalObligationIds": [
+        "ST01R-CARDIAC-MODEL-CANDIDATE-01:PROJECT_IDENTITY",
+        "ST01R-CARDIAC-MODEL-CANDIDATE-01:KNOWLEDGE_LINEAGE",
+        "ST01R-CARDIAC-MODEL-CANDIDATE-01:ZERO_PROJECT_WRITE",
+        "ST01R-CARDIAC-MODEL-CANDIDATE-01:NO_PROVIDER_CALL",
+        "ST01R-CARDIAC-MODEL-CANDIDATE-01:TRACE_BOUND",
+        "ST01R-CARDIAC-MODEL-CANDIDATE-01:EXPECTED_PROFILE",
+        "ST01R-CARDIAC-MODEL-CANDIDATE-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:myocarditis-T1-T2",
+        "Manifesto-V2:scientific-model-candidate"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R-STALE-KNOWLEDGE-01",
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligations": [
+        {
+          "obligationId": "ST01R-STALE-KNOWLEDGE-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Exact Project ID/version/digest and snapshot binding are preserved.",
+          "failureClass": "PROJECT_FIDELITY_FAILURE",
+          "referenceRefs": [
+            "PD-003-V2:dependency-integrity",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R-STALE-KNOWLEDGE-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge result and digest remain non-transferred dependencies.",
+          "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+          "referenceRefs": [
+            "PD-003-V2:dependency-integrity",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R-STALE-KNOWLEDGE-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "ST performs no Project write or automatic adoption.",
+          "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R-STALE-KNOWLEDGE-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No LLM or external evidence provider is called.",
+          "failureClass": "EXTERNAL_OR_LLM_CALL",
+          "referenceRefs": [
+            "W1-QUAL-01R:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R-STALE-KNOWLEDGE-01:TRACE_BOUND",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "The qualifying invocation is bound to passive TRACE events.",
+          "failureClass": "TRACE_BINDING_FAILURE",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST01R-STALE-KNOWLEDGE-01:EXPECTED_PROFILE",
+          "checkId": "EXPECTED_PROFILE",
+          "critical": true,
+          "statement": "Output or rejection matches the pre-authored case profile.",
+          "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+          "referenceRefs": [
+            "PD-003-V2:dependency-integrity",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R-STALE-KNOWLEDGE-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "No certainty, regulatory, clinical, Knowledge or Project promotion occurs.",
+          "failureClass": "EPISTEMIC_PROMOTION",
+          "referenceRefs": [
+            "PD-011:evidence-strength",
+            "Manifesto-V2:ownership"
+          ]
+        },
+        {
+          "obligationId": "ST01R-STALE-KNOWLEDGE-01:LIMITS_GAPS_CONTRADICTIONS",
+          "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+          "critical": false,
+          "statement": "Expected limitations, gaps and contradictions remain inspectable.",
+          "failureClass": "INCOMPLETENESS_SUPPRESSION",
+          "referenceRefs": [
+            "PD-003-V2:dependency-integrity",
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "requiredOutcomes": [
+        "STALE_REJECTION",
+        "CANDIDATE_NOT_ADOPTED",
+        "PROJECT_WRITES_0",
+        "TRACE_PRESENT"
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "OWNER_BOUNDARY_CROSSING",
+        "EVIDENCE_STRENGTH_PROMOTION",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different candidate wording",
+        "Additional explicit limitation",
+        "Additional explicit gap",
+        "Refusal when bounded contract requires it"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Le résultat Knowledge est intentionnellement lié à Project vN et ne peut servir Project vN+1."
+      ],
+      "criticalObligationIds": [
+        "ST01R-STALE-KNOWLEDGE-01:PROJECT_IDENTITY",
+        "ST01R-STALE-KNOWLEDGE-01:KNOWLEDGE_LINEAGE",
+        "ST01R-STALE-KNOWLEDGE-01:ZERO_PROJECT_WRITE",
+        "ST01R-STALE-KNOWLEDGE-01:NO_PROVIDER_CALL",
+        "ST01R-STALE-KNOWLEDGE-01:TRACE_BOUND",
+        "ST01R-STALE-KNOWLEDGE-01:EXPECTED_PROFILE",
+        "ST01R-STALE-KNOWLEDGE-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "PD-003-V2:dependency-integrity",
+        "RDE-002:stale-protection"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    }
+  ]
+}

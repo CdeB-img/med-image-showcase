@@ -1,0 +1,57 @@
+{
+  "contract": "W1_QUAL_01R_ST_CAMPAIGN_MANIFEST",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "headInitial": "ff568d3d49eab0e3b8e69caaf5d35a226147b742",
+    "originInitial": "ff568d3d49eab0e3b8e69caaf5d35a226147b742",
+    "main": "9be06edca1a7500ab7a43d065e94241e91d67bec"
+  },
+  "freezeRef": "ke1-f4e354aba8d74477",
+  "owner": "SCIENTIFIC_THINKING",
+  "engineVersion": "1.2.1",
+  "qualifyingPasses": 1,
+  "rerolls": 0,
+  "repairPerformed": false,
+  "artifacts": [
+    "characterization-freeze.json",
+    "case-registry.json",
+    "acceptance-envelope-registry.json",
+    "parentage-audit.json",
+    "frozen-input-registry.json",
+    "knowledge-input-quality-gate.json",
+    "independent-results.json",
+    "obligation-adjudication.json",
+    "failure-registry.json",
+    "determinism-replay-results.json",
+    "exposed-non-regression-results.json",
+    "trace-index.json",
+    "characterization-summary.json",
+    "campaign-manifest.json",
+    "post-campaign-governance-adjudication.json"
+  ],
+  "independentNumerator": {
+    "cases": 12,
+    "historicalCasesIncluded": 0,
+    "repairProbesIncluded": 0
+  },
+  "decisions": {
+    "ST_INDEPENDENT_RECHARACTERIZATION": "CHARACTERIZATION_FAILED",
+    "W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY": "NO",
+    "W1_CONTROLLED_LOOP_CHARACTERIZATION_READY": "NO",
+    "WAVE_1_COMPLETE": "NO"
+  },
+  "nextAuthorizedMission": "W1-QUAL-01R_ST_EVIDENCE_ARBITRATION_OR_BOUNDED_REPAIR",
+  "wave2Authorized": false,
+  "postCampaignGovernanceAdjudication": {
+    "ref": "post-campaign-governance-adjudication.json",
+    "campaignAdmissibility": "NO",
+    "blockingFailureClass": "CHARACTERIZATION_HARNESS_DEFECT",
+    "frozenEvaluatorFailureReclassifiedAs": "REFERENCE_ENVELOPE_DEFECT_NON_ADJUDICABLE",
+    "scientificThinkingCharacterization": "HUMAN_ARBITRATION_REQUIRED",
+    "globalDecision": "W1_QUAL_01R_BLOCKED_BY_CHARACTERIZATION_HARNESS",
+    "nextAuthorizedMission": "W1-QUAL-01R1_ST_CHARACTERIZATION_HARNESS_CORRECTION_AND_RESTART",
+    "ownerRepairAuthorized": false
+  }
+}

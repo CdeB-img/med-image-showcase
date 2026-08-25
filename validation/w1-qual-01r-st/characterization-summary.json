@@ -1,0 +1,160 @@
+{
+  "contract": "W1_QUAL_01R_ST_CHARACTERIZATION_SUMMARY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "qualifyingPasses": 1,
+  "rerolls": 0,
+  "runtimeRepairs": 0,
+  "cases": 12,
+  "positiveOpportunities": 8,
+  "caseVerdicts": {
+    "fullySatisfied": 11,
+    "partiallySatisfied": 0,
+    "criticalViolation": 1
+  },
+  "obligations": {
+    "total": 96,
+    "satisfied": 95,
+    "partiallySatisfied": 0,
+    "violated": 1,
+    "criticalViolations": 1
+  },
+  "candidateCoverage": {
+    "opportunities": 8,
+    "withQuestion": 8,
+    "withHypotheses": 8,
+    "withObjectives": 8,
+    "withMechanisms": 7,
+    "withAlternatives": 8,
+    "countsByCase": [
+      {
+        "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+        "questions": 2,
+        "hypotheses": 2,
+        "objectives": 2,
+        "mechanisms": 1,
+        "alternatives": 1
+      },
+      {
+        "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+        "questions": 1,
+        "hypotheses": 2,
+        "objectives": 1,
+        "mechanisms": 1,
+        "alternatives": 1
+      },
+      {
+        "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+        "questions": 1,
+        "hypotheses": 2,
+        "objectives": 1,
+        "mechanisms": 0,
+        "alternatives": 1
+      },
+      {
+        "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+        "questions": 1,
+        "hypotheses": 2,
+        "objectives": 1,
+        "mechanisms": 1,
+        "alternatives": 1
+      },
+      {
+        "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+        "questions": 1,
+        "hypotheses": 2,
+        "objectives": 1,
+        "mechanisms": 1,
+        "alternatives": 1
+      },
+      {
+        "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+        "questions": 1,
+        "hypotheses": 2,
+        "objectives": 1,
+        "mechanisms": 1,
+        "alternatives": 1
+      },
+      {
+        "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+        "questions": 1,
+        "hypotheses": 2,
+        "objectives": 1,
+        "mechanisms": 1,
+        "alternatives": 1
+      },
+      {
+        "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+        "questions": 1,
+        "hypotheses": 2,
+        "objectives": 1,
+        "mechanisms": 1,
+        "alternatives": 1
+      }
+    ]
+  },
+  "negativeCases": [
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "expectedProfile": "NO_CANDIDATE_GAP",
+      "observedStatus": "CLARIFICATION_REQUIRED",
+      "verdict": "FULLY_SATISFIED"
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "expectedProfile": "NO_CANDIDATE_GAP",
+      "observedStatus": "CANDIDATES_PROPOSED",
+      "verdict": "CRITICAL_VIOLATION"
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "expectedProfile": "OUT_OF_OWNER_REFUSAL",
+      "observedStatus": "REFUSED",
+      "verdict": "FULLY_SATISFIED"
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "expectedProfile": "STALE_REJECTION",
+      "observedStatus": "REJECTED_BEFORE_OWNER_RUNTIME",
+      "verdict": "FULLY_SATISFIED"
+    }
+  ],
+  "contradictionCases": [
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "contradictionsPreserved": true
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "contradictionsPreserved": true
+    }
+  ],
+  "replay": {
+    "predeclared": 3,
+    "deterministic": 3,
+    "divergent": 0
+  },
+  "safety": {
+    "projectWrites": 0,
+    "externalOrLlmCalls": 0,
+    "automaticAdoptions": 0,
+    "staleProtectionFailures": 0
+  },
+  "firstDivergentStage": [
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "stage": "PROJECT_CONTEXT"
+    }
+  ],
+  "characterizationVerdict": "CHARACTERIZATION_FAILED",
+  "scientificQualificationClaimed": false,
+  "pd011PassClaimed": false,
+  "universalValidityClaimed": false,
+  "postCampaignGovernanceAdjudication": {
+    "ref": "post-campaign-governance-adjudication.json",
+    "campaignAdmissibility": "NO",
+    "frozenCriticalVerdictRetainedAsObserved": true,
+    "caseReclassifiedForProgramDecision": "ST01R-PROJECT-QUESTION-MISSING-01:NON_ADJUDICABLE_REFERENCE_ENVELOPE_DEFECT",
+    "globalDecision": "W1_QUAL_01R_BLOCKED_BY_CHARACTERIZATION_HARNESS"
+  }
+}

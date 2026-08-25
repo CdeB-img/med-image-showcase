@@ -1,0 +1,59 @@
+{
+  "contract": "W1_QUAL_01R_ST_POST_CAMPAIGN_GOVERNANCE_ADJUDICATION",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "nature": "DERIVED_LEVEL_3_GOVERNANCE_EVIDENCE",
+  "modifiesFrozenInputsOrEnvelopes": false,
+  "rerunPerformed": false,
+  "runtimeRepairPerformed": false,
+  "campaignAdmissibility": "NO",
+  "blockingFailure": {
+    "failureClass": "CHARACTERIZATION_HARNESS_DEFECT",
+    "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+    "reasons": [
+      "The characterization freeze did not pre-register every minimum failure class required by W1-QUAL-01R section 20.",
+      "The Knowledge input gate recorded eligible=true rather than the mandatory explicit KNOWLEDGE_INPUT_USABLE_FOR_ST_CHARACTERIZATION=YES/NO field.",
+      "The trace index retained run and event references but did not persist the required per-run KnowledgeResult digest, candidate counts, gaps, limitations, duration and diagnostics as directly inspectable trace evidence.",
+      "The C3 mechanistic case produced zero mechanism candidates, but the frozen envelope contained no mechanism-specific obligation; the required mechanistic coverage therefore was not adjudicated.",
+      "The C7 Acceptance Envelope required zero hypotheses and zero objectives, although admitted authorities permit explicitly pending candidates while preserving Project unknowns; the exact zero-candidate expectation is not normatively compelled."
+    ],
+    "responsibleOwner": "W1_QUAL_01R_CHARACTERIZATION_HARNESS",
+    "evidenceRefs": [
+      "characterization-freeze.json#preRegisteredFailureTaxonomy",
+      "knowledge-input-quality-gate.json#cases",
+      "trace-index.json#traceItems",
+      "characterization-summary.json#candidateCoverage.countsByCase.ST01R-NEURO-OEF-CMRO2-01",
+      "acceptance-envelope-registry.json#ST01R-PROJECT-QUESTION-MISSING-01",
+      "independent-results.json#ST01R-PROJECT-QUESTION-MISSING-01",
+      "failure-registry.json#failure:ST01R-PROJECT-QUESTION-MISSING-01:EXPECTED_PROFILE"
+    ]
+  },
+  "observedDivergence": {
+    "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+    "campaignRecordedVerdict": "CRITICAL_VIOLATION",
+    "postCampaignAdjudication": "NON_ADJUDICABLE",
+    "failureClass": "REFERENCE_ENVELOPE_DEFECT",
+    "firstObservableStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+    "observedBehavior": "The ST request adapter used caller purpose as validatedReformulation because the Project contained no SCIENTIFIC_QUESTION; ST produced pending generic candidates while retaining PROJECT_SCIENTIFIC_QUESTION_NOT_EXPLICIT and all Project unknowns.",
+    "ownerDefectEstablished": false,
+    "ownerRepairAuthorizedByThisEvidence": false
+  },
+  "preservedObservations": {
+    "primaryCasesExecutedOnce": 12,
+    "fullySatisfiedUnderFrozenEvaluator": 11,
+    "nonAdjudicableAfterGovernanceReview": 1,
+    "replaysStable": 3,
+    "replaysTotal": 3,
+    "projectWrites": 0,
+    "externalOrLlmCalls": 0,
+    "automaticAdoptions": 0,
+    "staleProtectionFailures": 0
+  },
+  "scientificThinkingCharacterization": "HUMAN_ARBITRATION_REQUIRED",
+  "individualOwnerCharacterizationReady": false,
+  "controlledLoopCharacterizationReady": false,
+  "wave1Complete": false,
+  "wave2Authorized": false,
+  "nextAuthorizedMission": "W1-QUAL-01R1_ST_CHARACTERIZATION_HARNESS_CORRECTION_AND_RESTART",
+  "globalDecision": "W1_QUAL_01R_BLOCKED_BY_CHARACTERIZATION_HARNESS"
+}

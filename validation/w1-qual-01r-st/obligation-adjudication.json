@@ -1,0 +1,1356 @@
+{
+  "contract": "W1_QUAL_01R_ST_OBLIGATION_ADJUDICATION",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "adjudicationMode": "DETERMINISTIC_PREAUTHORED_ENVELOPE",
+  "obligations": [
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-ARCHITECTURE-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-ARCHITECTURE-01:version:1",
+        "ke1-7d3556f47916d218"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-ARCHITECTURE-01",
+        "ke1-559d1a941f6176e0"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-21ec4f9e46b3f1ba",
+        "scientific-trace-event:ke1-b17091adeb82c1a9",
+        "scientific-trace-event:ke1-6c889ee8ad17656c",
+        "scientific-trace-event:ke1-bf215d7b6ec80abf",
+        "scientific-trace-event:ke1-3d31b8284323bc5c",
+        "scientific-trace-event:ke1-82efc8806125984c",
+        "scientific-trace-event:ke1-17a1d381af47ddfd"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=2",
+        "error=none"
+      ],
+      "note": "Observed profile matches POSITIVE_CANDIDATES."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "obligationId": "ST01R-SPECTRAL-ARCHITECTURE-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=0",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MYOCARDITIS-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MYOCARDITIS-01:version:1",
+        "ke1-999576381ba64f34"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MYOCARDITIS-01",
+        "ke1-4725a62fc042d27b"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-b37e081ceb914c70",
+        "scientific-trace-event:ke1-87c44537cfc7aab3",
+        "scientific-trace-event:ke1-c26303542c2e0fb0",
+        "scientific-trace-event:ke1-dea9ae822e91c1d6",
+        "scientific-trace-event:ke1-e7c6ad72802d2986",
+        "scientific-trace-event:ke1-e0ae54eceece9648",
+        "scientific-trace-event:ke1-19f39bfc277ee698"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile matches POSITIVE_CANDIDATES."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "obligationId": "ST01R-CARDIAC-MYOCARDITIS-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=0",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligationId": "ST01R-NEURO-OEF-CMRO2-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01:version:1",
+        "ke1-4b2ab70894f39c5c"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligationId": "ST01R-NEURO-OEF-CMRO2-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-OEF-CMRO2-01",
+        "ke1-a2e0f1ff045c33cb"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligationId": "ST01R-NEURO-OEF-CMRO2-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligationId": "ST01R-NEURO-OEF-CMRO2-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligationId": "ST01R-NEURO-OEF-CMRO2-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-7511e7a881581364",
+        "scientific-trace-event:ke1-040005d37f934757",
+        "scientific-trace-event:ke1-13e67fc5e98115a1",
+        "scientific-trace-event:ke1-22aaea6ce077a760",
+        "scientific-trace-event:ke1-be7c995d82617099",
+        "scientific-trace-event:ke1-3c56d31da8493c41",
+        "scientific-trace-event:ke1-4470038b6348e44f"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligationId": "ST01R-NEURO-OEF-CMRO2-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile matches POSITIVE_CANDIDATES."
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligationId": "ST01R-NEURO-OEF-CMRO2-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "obligationId": "ST01R-NEURO-OEF-CMRO2-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=0",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01:version:1",
+        "ke1-16e5e74e3991a1aa"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-RCBV-ALTERNATIVES-01",
+        "ke1-71081d9923aed3d5"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-0fa86ec66098c042",
+        "scientific-trace-event:ke1-9e32bd51c263d0b5",
+        "scientific-trace-event:ke1-6a125f1d0e464b59",
+        "scientific-trace-event:ke1-438e20b6bd68c0aa",
+        "scientific-trace-event:ke1-4c7f98578bfc9af3",
+        "scientific-trace-event:ke1-936a2fc7ec04514b",
+        "scientific-trace-event:ke1-5d00214623ad648a"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile matches CONTRADICTION_CANDIDATES."
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "obligationId": "ST01R-NEURO-RCBV-ALTERNATIVES-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=0",
+        "contradictions=1"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-IODINE-CONSTRUCT-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-IODINE-CONSTRUCT-01:version:1",
+        "ke1-6145c6e10c329265"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+        "ke1-2728ee12b5fd296e"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-9416231290836666",
+        "scientific-trace-event:ke1-db7a04de116b2f8a",
+        "scientific-trace-event:ke1-b9b8f403c778e32f",
+        "scientific-trace-event:ke1-151b3d1b03f052cf",
+        "scientific-trace-event:ke1-b43980898390692d",
+        "scientific-trace-event:ke1-70e0ce1c11b50da0",
+        "scientific-trace-event:ke1-54b052dd57719a61"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile matches CONTRADICTION_CANDIDATES."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "obligationId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=0",
+        "contradictions=1"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01:version:1",
+        "ke1-5b89608a8b12074e"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-INSUFFICIENT-FINALITY-01",
+        "ke1-16ffc512a8c13876"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-f272a83234f2acf6",
+        "scientific-trace-event:ke1-99a3c7fdd3ddd861",
+        "scientific-trace-event:ke1-3aa78485dd417799",
+        "scientific-trace-event:ke1-1b6a55ffa4d0cd03",
+        "scientific-trace-event:ke1-d7ecfca81a76e43c",
+        "scientific-trace-event:ke1-3977994e436e2b8a",
+        "scientific-trace-event:ke1-0a58c8bfdc190bf3"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CLARIFICATION_REQUIRED",
+        "hypotheses=0",
+        "objectives=0",
+        "error=none"
+      ],
+      "note": "Observed profile matches NO_CANDIDATE_GAP."
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "obligationId": "ST01R-INSUFFICIENT-FINALITY-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=1",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-PROJECT-QUESTION-MISSING-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-PROJECT-QUESTION-MISSING-01:version:1",
+        "ke1-32c74a35dc708719"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-PROJECT-QUESTION-MISSING-01",
+        "ke1-d53bd854c196d660"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-2d3bc438320c339c",
+        "scientific-trace-event:ke1-884a30efec2d47d3",
+        "scientific-trace-event:ke1-ed210cd5ad011aa1",
+        "scientific-trace-event:ke1-056fc7c7a54b0dab",
+        "scientific-trace-event:ke1-4053085b344befaf",
+        "scientific-trace-event:ke1-bb9affc408062018",
+        "scientific-trace-event:ke1-693f6421bfc3680d"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "VIOLATED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile does not match NO_CANDIDATE_GAP."
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=1",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-NARROW-APPLICABILITY-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-NARROW-APPLICABILITY-01:version:1",
+        "ke1-e5aa4599d37649cd"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+        "ke1-b5752bc8d73264cc"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-5a84f17ae82a262e",
+        "scientific-trace-event:ke1-c7a1f85cc495e3f8",
+        "scientific-trace-event:ke1-b2717bd86e894e0c",
+        "scientific-trace-event:ke1-d4e6d5d91ba446a5",
+        "scientific-trace-event:ke1-bf1493aee5391db2",
+        "scientific-trace-event:ke1-c1f0e79737ddeb63",
+        "scientific-trace-event:ke1-0494bc77d0fa321b"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile matches POSITIVE_CANDIDATES."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "obligationId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=1",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-OUT-OF-OWNER-DICOM-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-OUT-OF-OWNER-DICOM-01:version:1",
+        "ke1-f167ef811252d21d"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-OUT-OF-OWNER-DICOM-01",
+        "ke1-873da2161bd66652"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-810de95c9a2f7768",
+        "scientific-trace-event:ke1-0b5fdb8992eb28f5",
+        "scientific-trace-event:ke1-853d6363ea12d2ff",
+        "scientific-trace-event:ke1-43e14de1e581063d",
+        "scientific-trace-event:ke1-af78a2edd5245581",
+        "scientific-trace-event:ke1-e08b477dfb1467b1",
+        "scientific-trace-event:ke1-05b0445702e5c293"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=REFUSED",
+        "hypotheses=0",
+        "objectives=0",
+        "error=none"
+      ],
+      "note": "Observed profile matches OUT_OF_OWNER_REFUSAL."
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "obligationId": "ST01R-OUT-OF-OWNER-DICOM-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=1",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-PREDICTION-NONPROMOTION-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-PREDICTION-NONPROMOTION-01:version:1",
+        "ke1-c11624dfaf7a73b3"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+        "ke1-c9f9d8a70985f7db"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-c53301e36501a287",
+        "scientific-trace-event:ke1-f47e798e53b22eb2",
+        "scientific-trace-event:ke1-8f59cc7a41ae6e3e",
+        "scientific-trace-event:ke1-5dcb00b78114f3bb",
+        "scientific-trace-event:ke1-1187fc2c4520b5e8",
+        "scientific-trace-event:ke1-edc55eb8af3937bc",
+        "scientific-trace-event:ke1-d2c59a39e078c3ad"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile matches POSITIVE_CANDIDATES."
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "obligationId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=1",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MODEL-CANDIDATE-01@project:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MODEL-CANDIDATE-01:version:1",
+        "ke1-579700143f53bac0"
+      ],
+      "note": "Request and OwnerResult retain exact canonical Project/snapshot identity."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "knowledge-result:W1-QUAL-01R-ST-2026-08-25-A:ST01R-CARDIAC-MODEL-CANDIDATE-01",
+        "ke1-b76ec660540aa054"
+      ],
+      "note": "Exact Knowledge ID/digest lineage retained without ownership transfer."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-c63230c87da8bdcc",
+        "scientific-trace-event:ke1-973680cdfad09799",
+        "scientific-trace-event:ke1-a4e6d9298477cfed",
+        "scientific-trace-event:ke1-05345dd366805fcf",
+        "scientific-trace-event:ke1-85e4b6edf2025bb1",
+        "scientific-trace-event:ke1-164b3adfef087d73",
+        "scientific-trace-event:ke1-38590170734d389c"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile matches POSITIVE_CANDIDATES."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "obligationId": "ST01R-CARDIAC-MODEL-CANDIDATE-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [
+        "limitations=4",
+        "gaps=0",
+        "contradictions=0"
+      ],
+      "note": "Expected incompleteness remains inspectable."
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligationId": "ST01R-STALE-KNOWLEDGE-01:PROJECT_IDENTITY",
+      "checkId": "PROJECT_IDENTITY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_FIDELITY_FAILURE",
+      "evidence": [
+        "STALE_KNOWLEDGE_RESULT"
+      ],
+      "note": "Current Project binding was accepted and stale upstream binding rejected before ST runtime."
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligationId": "ST01R-STALE-KNOWLEDGE-01:KNOWLEDGE_LINEAGE",
+      "checkId": "KNOWLEDGE_LINEAGE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "KNOWLEDGE_LINEAGE_FAILURE",
+      "evidence": [
+        "STALE_KNOWLEDGE_RESULT"
+      ],
+      "note": "Stale Knowledge dependency was fail-closed."
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligationId": "ST01R-STALE-KNOWLEDGE-01:ZERO_PROJECT_WRITE",
+      "checkId": "ZERO_PROJECT_WRITE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "PROJECT_WRITE_OR_PROMOTION",
+      "evidence": [
+        "projectWrites=0",
+        "projectWriteAuthorized=false"
+      ],
+      "note": "No Project write, adoption or simulated Human Decision occurred."
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligationId": "ST01R-STALE-KNOWLEDGE-01:NO_PROVIDER_CALL",
+      "checkId": "NO_PROVIDER_CALL",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EXTERNAL_OR_LLM_CALL",
+      "evidence": [
+        "externalEvidenceCalls=0",
+        "geminiCalls=0",
+        "terraCalls=0"
+      ],
+      "note": "No external or LLM provider call occurred."
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligationId": "ST01R-STALE-KNOWLEDGE-01:TRACE_BOUND",
+      "checkId": "TRACE_BOUND",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "TRACE_BINDING_FAILURE",
+      "evidence": [
+        "scientific-trace-event:ke1-832d3bd2b9353f4e",
+        "scientific-trace-event:ke1-b43d156251c48e1e",
+        "scientific-trace-event:ke1-59e5d1c52981f6f1",
+        "scientific-trace-event:ke1-1bf65825ffbc1aa1",
+        "scientific-trace-event:ke1-e33a035a9a2e2816"
+      ],
+      "note": "Passive TRACE events retain the invocation or rejection."
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligationId": "ST01R-STALE-KNOWLEDGE-01:EXPECTED_PROFILE",
+      "checkId": "EXPECTED_PROFILE",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "evidence": [
+        "status=PRE_RUNTIME_REJECTION",
+        "hypotheses=0",
+        "objectives=0",
+        "error=STALE_KNOWLEDGE_RESULT"
+      ],
+      "note": "Observed profile matches STALE_REJECTION."
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligationId": "ST01R-STALE-KNOWLEDGE-01:EPISTEMIC_SAFETY",
+      "checkId": "EPISTEMIC_SAFETY",
+      "critical": true,
+      "outcome": "SATISFIED",
+      "failureClass": "EPISTEMIC_PROMOTION",
+      "evidence": [
+        "candidateNotice=pre-runtime",
+        "selectedQuestionCandidate=null"
+      ],
+      "note": "Candidates remain pending/partial or unsupported; no certainty or Project promotion observed."
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "obligationId": "ST01R-STALE-KNOWLEDGE-01:LIMITS_GAPS_CONTRADICTIONS",
+      "checkId": "LIMITS_GAPS_CONTRADICTIONS",
+      "critical": false,
+      "outcome": "SATISFIED",
+      "failureClass": "INCOMPLETENESS_SUPPRESSION",
+      "evidence": [],
+      "note": "Stale condition is explicit in the rejection and trace."
+    }
+  ]
+}

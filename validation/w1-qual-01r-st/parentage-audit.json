@@ -1,0 +1,138 @@
+{
+  "contract": "W1_QUAL_01R_ST_PARENTAGE_AUDIT",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "completedBeforeExecution": true,
+  "excludedFromNumerator": {
+    "historicalW1QualCases": [
+      "ST-CARDIAC-01",
+      "ST-SPECTRAL-01",
+      "ST-NEURO-01",
+      "ST-UNSUPPORTED-01"
+    ],
+    "repairProbes": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H"
+    ],
+    "numeratorUseAuthorized": false
+  },
+  "cases": [
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST-SPECTRAL-01"
+      ],
+      "distinctnessRationale": "Le cas historique portait sur VNC versus acquisition native; celui-ci porte sur la stabilité d'une quantification calcique entre architectures et sur le transfert de tâche.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-CARDIAC-01",
+        "ST unit fixtures: Fabry/T1/ECV"
+      ],
+      "distinctnessRationale": "Nouvelle pathologie, nouveaux construits conjoints, nouvel horizon temporel et nouvel outcome; aucun couple MVO/IMH, Fabry/ECV ou MOLLI/SASHA.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-NEURO-01"
+      ],
+      "distinctnessRationale": "Le cas historique portait sur l'interprétation CBF/CBV/transit entre modalités; ce cas interroge une compensation OEF-CMRO2 dans une maladie chronique.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Repair Probe C"
+      ],
+      "distinctnessRationale": "Le probe exposé concernait échec thérapeutique et échappement immunitaire; ici la divergence oppose interprétation tumorale et artefacts de mesure DSC.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-SPECTRAL-01"
+      ],
+      "distinctnessRationale": "Le cas historique évaluait VNC; celui-ci porte sur la distinction entre distribution d'iode et perfusion.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST unit fixture: choses intéressantes en IRM"
+      ],
+      "distinctnessRationale": "Même frontière de testabilité, mais objet, modalité et formulation sont nouveaux; le cas est conservé comme contrôle négatif, pas comme preuve de nouveauté scientifique.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Repair Probe E"
+      ],
+      "distinctnessRationale": "Le probe exposé omettait une relation causale en maladie rare; ce cas omet toute question adoptée et une temporalité de suivi dans un contexte valvulaire.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [],
+      "distinctnessRationale": "Nouvelle population, nouveau construit et nouvelle frontière de transfert clinique.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Repair Probe G"
+      ],
+      "distinctnessRationale": "Le probe exposé visait le marketing; ce cas vise une frontière de développement logiciel explicitement distincte.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Repair Probe B"
+      ],
+      "distinctnessRationale": "Le probe exposé concernait cytokine et récupération métabolique; ce cas évalue une prétention prédictive de perfusion neurologique et sa non-promotion.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST unit fixtures: T1/T2"
+      ],
+      "distinctnessRationale": "La cible est la frontière d'un modèle explicatif multi-construits, pas la préférence de méthode ni un biomarqueur isolé.",
+      "numeratorEligible": true
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [],
+      "distinctnessRationale": "Cas technique de dépendance stale, absent du numerator scientifique et distinct des thèmes exposés.",
+      "numeratorEligible": true
+    }
+  ],
+  "counts": {
+    "novel": 8,
+    "relatedButDistinct": 4,
+    "excludedAsExposed": 0
+  },
+  "conclusion": "NO_EXPOSED_CASE_OR_REPAIR_PROBE_IS_USED_IN_THE_INDEPENDENT_NUMERATOR"
+}

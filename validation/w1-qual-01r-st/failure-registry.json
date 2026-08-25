@@ -1,0 +1,33 @@
+{
+  "contract": "W1_QUAL_01R_ST_FAILURE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "preRegisteredFailureClasses": [
+    "PROJECT_FIDELITY_FAILURE",
+    "KNOWLEDGE_LINEAGE_FAILURE",
+    "PROJECT_WRITE_OR_PROMOTION",
+    "EXTERNAL_OR_LLM_CALL",
+    "TRACE_BINDING_FAILURE",
+    "CANDIDATE_OR_REFUSAL_FAILURE",
+    "EPISTEMIC_PROMOTION",
+    "INCOMPLETENESS_SUPPRESSION"
+  ],
+  "failures": [
+    {
+      "failureId": "failure:ST01R-PROJECT-QUESTION-MISSING-01:EXPECTED_PROFILE",
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "obligationId": "ST01R-PROJECT-QUESTION-MISSING-01:EXPECTED_PROFILE",
+      "failureClass": "CANDIDATE_OR_REFUSAL_FAILURE",
+      "critical": true,
+      "firstDivergentStage": "PROJECT_CONTEXT",
+      "evidence": [
+        "status=CANDIDATES_PROPOSED",
+        "hypotheses=2",
+        "objectives=1",
+        "error=none"
+      ],
+      "note": "Observed profile does not match NO_CANDIDATE_GAP."
+    }
+  ],
+  "criticalFailures": 1
+}

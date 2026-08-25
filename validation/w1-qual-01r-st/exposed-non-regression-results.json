@@ -1,0 +1,42 @@
+{
+  "contract": "W1_QUAL_01R_ST_EXPOSED_NON_REGRESSION_RESULTS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "classification": "EXPOSED_DEVELOPMENT_OR_HISTORICAL_NON_REGRESSION_ONLY",
+  "includedInIndependentNumerator": false,
+  "historicalCases": [
+    {
+      "caseId": "ST-CARDIAC-01",
+      "status": "PASS_POST_REPAIR_NON_REGRESSION",
+      "executionInThisMission": "NOT_RERUN",
+      "evidenceRef": "validation/w1-scientific-thinking-repair-01/historical-non-regression-results.json",
+      "independentEvidence": false
+    },
+    {
+      "caseId": "ST-NEURO-01",
+      "status": "PASS_POST_REPAIR_NON_REGRESSION",
+      "executionInThisMission": "NOT_RERUN",
+      "evidenceRef": "validation/w1-scientific-thinking-repair-01/historical-non-regression-results.json",
+      "independentEvidence": false
+    }
+  ],
+  "repairProbes": [
+    { "probeId": "A", "status": "PASS_CURRENT_TECHNICAL_NON_REGRESSION", "independentEvidence": false },
+    { "probeId": "B", "status": "PASS_CURRENT_TECHNICAL_NON_REGRESSION", "independentEvidence": false },
+    { "probeId": "C", "status": "PASS_CURRENT_TECHNICAL_NON_REGRESSION", "independentEvidence": false },
+    { "probeId": "D", "status": "PASS_CURRENT_TECHNICAL_NON_REGRESSION", "independentEvidence": false },
+    { "probeId": "E", "status": "PASS_CURRENT_TECHNICAL_NON_REGRESSION", "independentEvidence": false },
+    { "probeId": "F", "status": "PASS_CURRENT_TECHNICAL_NON_REGRESSION", "independentEvidence": false },
+    { "probeId": "G", "status": "PASS_CURRENT_TECHNICAL_NON_REGRESSION", "independentEvidence": false },
+    { "probeId": "H", "status": "PASS_CURRENT_TECHNICAL_NON_REGRESSION", "independentEvidence": false }
+  ],
+  "testEvidence": {
+    "commandScope": "src/features/scientific-thinking/__tests__",
+    "filesPassed": 7,
+    "testsPassed": 42,
+    "testsFailed": 0,
+    "repairProbeFileTestsPassed": 9,
+    "repairProbeFileTestsFailed": 0
+  },
+  "conclusion": "EXPOSED_CASES_AND_PROBES_REMAIN_SEPARATE_FROM_THE_INDEPENDENT_CAMPAIGN"
+}

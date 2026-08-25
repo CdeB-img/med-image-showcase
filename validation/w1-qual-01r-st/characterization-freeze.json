@@ -1,0 +1,109 @@
+{
+  "contract": "W1_QUAL_01R_ST_CHARACTERIZATION_FREEZE",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "harnessVersion": "1.0.0",
+  "frozenAt": "2026-08-25T23:00:00.000Z",
+  "branch": "protocol-designer-canonical-ingestion",
+  "gitHead": "ff568d3d49eab0e3b8e69caaf5d35a226147b742",
+  "ownerUnderTest": {
+    "owner": "SCIENTIFIC_THINKING",
+    "engine": "ScientificThinkingEngine",
+    "engineVersion": "1.2.1",
+    "invocation": "PRODUCT_NATIVE_OWNER_RUNTIME"
+  },
+  "schemas": {
+    "canonicalProject": "PRJ001_CANONICAL_RESEARCH_PROJECT_STATE@0.2.0",
+    "projectContextSnapshot": "PROJECT_CONTEXT_SNAPSHOT@0.3.0",
+    "ownerResult": "PROJECT_SPINE_02_SPECIALIZED_OWNER_HANDOFF@0.1.0",
+    "ownerLedger": "PRODUCT_OWNER_RESULT_LEDGER@0.3.0",
+    "trace": "SCIENTIFIC_EXECUTION_TRACE_LEDGER@0.1.0"
+  },
+  "deterministicConfiguration": {
+    "externalProviderCalls": 0,
+    "llmCalls": 0,
+    "knowledgeRecomputationCalls": 0,
+    "qualifyingPasses": 1,
+    "replayCases": [
+      {
+        "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+        "role": "POSITIVE"
+      },
+      {
+        "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+        "role": "CONTRADICTION"
+      },
+      {
+        "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+        "role": "NO_CANDIDATE"
+      }
+    ]
+  },
+  "corpusRefs": [
+    "RB-003@1.0:material-decomposition",
+    "RB-003@1.0:architecture-transfer-limit",
+    "RB-004@1.1:myocarditis-T1-T2",
+    "RB-004@1.1:method-site-field-dependencies",
+    "RB-005@1.0:OEF-CMRO2-components",
+    "RB-005@1.0:construct-limitations",
+    "RB-005@1.0:rCBV-leakage-software",
+    "RB-003@1.0:iodine-not-direct-perfusion",
+    "RB-003@1.0:model-derived-maps",
+    "KE-001:honest-gap",
+    "RDE-001:negative-output-valid",
+    "PD-003-V2:Research-Project-unknowns",
+    "RDE-002:project-context-boundary",
+    "RB-003@1.0:PCCT-task-transfer-limit",
+    "RDE-001:owner-boundary",
+    "PD-005:role-boundary",
+    "RB-005@1.0:perfusion-noninterchangeability",
+    "PD-011:evidence-strength",
+    "Manifesto-V2:scientific-model-candidate",
+    "PD-003-V2:dependency-integrity",
+    "RDE-002:stale-protection"
+  ],
+  "preRegisteredFailureTaxonomy": [
+    "PROJECT_FIDELITY_FAILURE",
+    "KNOWLEDGE_LINEAGE_FAILURE",
+    "PROJECT_WRITE_OR_PROMOTION",
+    "EXTERNAL_OR_LLM_CALL",
+    "TRACE_BINDING_FAILURE",
+    "CANDIDATE_OR_REFUSAL_FAILURE",
+    "EPISTEMIC_PROMOTION",
+    "INCOMPLETENESS_SUPPRESSION"
+  ],
+  "registries": {
+    "caseRegistryDigest": "ke1-ab8939245fdbf818",
+    "envelopeRegistryDigest": "ke1-55f53209d06a246d",
+    "parentageAuditDigest": "ke1-5e8c4c4362c65d97",
+    "inputRegistryDigest": "ke1-413597c65889941a",
+    "knowledgeQualityGateDigest": "ke1-920bba884dba5584",
+    "cases": 12,
+    "envelopes": 12,
+    "packs": 12
+  },
+  "codeDigests": {
+    "validation/w1-qual-01r-st/harness/authoring.ts": "19715a4ad71032de0534bebcbfb2aad127f0021e0bf4cd280aa5fde370f0a1f1",
+    "validation/w1-qual-01r-st/harness/prepare.ts": "4899228173dde235a95957966031e0faf23b16e2107fad468bbf6cf41d67cfda",
+    "validation/w1-qual-01r-st/harness/execute.ts": "ad1cd3834a2fb41f2c322dd48cae204d060a514365da26e74e71e2141b19e2d7",
+    "validation/w1-qual-01r-st/harness/validate.ts": "3409247e8bfd70c2ac4324f9b1f4f0bd3ce359ca78acf802658a111960fbe027",
+    "validation/w1-qual-01r-st/harness/harness.test.ts": "0b99e628558ba9acaa1375073ab2e30f318dbfd3aea073cef40fb8aca58fbe65",
+    "src/features/scientific-thinking/engine.ts": "e87aa94e3e7f0542991f2d3bc748a9ba41f33fb0ff32511ea25f820feb9564dc",
+    "src/features/scientific-thinking/types.ts": "79f7ac776d92d4be9586385a94113d9d02a6dd500d1f8194eb523f6eaf9a00f6",
+    "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts": "bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7",
+    "src/features/protocol-designer/product-owner-result-ledger.ts": "8b71d08c5946075d8063820c9a05d3509e631835afc84fc673fc58deadbaef00",
+    "src/features/protocol-designer/scientific-execution-trace.ts": "21c126589e3eca36262655660eb9b5d2e232a182ed940876fdc91edb73484fd3",
+    "src/features/research-project-construction/scientific-reasoning-owner-chain.ts": "b8819769497078038f6ae02b35c5cf75ef1e22dfbcebc4334c71d81599cf4778"
+  },
+  "antiSem": {
+    "acceptanceEnvelopesFrozen": true,
+    "inputsFrozen": true,
+    "casesFrozen": true,
+    "parentageFrozen": true,
+    "ownerRuntimeRepairAuthorized": false,
+    "postObservationCaseEditsAuthorized": false,
+    "rerollAuthorized": false
+  },
+  "freezeDigest": "ke1-f4e354aba8d74477",
+  "immutableForCampaign": true
+}
