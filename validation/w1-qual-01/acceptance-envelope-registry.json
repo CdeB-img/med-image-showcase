@@ -1,0 +1,4104 @@
+{
+  "contract": "W1_QUAL_01_ACCEPTANCE_ENVELOPE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01-2026-08-25-G",
+  "authoredAt": "2026-08-25T22:00:00.000Z",
+  "mutableAfterObservation": false,
+  "envelopes": [
+    {
+      "envelopeId": "acceptance-envelope:K-CARDIAC-01",
+      "caseId": "K-CARDIAC-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "obligations": [
+        {
+          "obligationId": "K-CARDIAC-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O04",
+          "checkId": "K_RELEVANCE",
+          "critical": true,
+          "statement": "Returned material remains relevant to the declared scientific objects.",
+          "failureClass": "IRRELEVANT_ASSERTION",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O05",
+          "checkId": "K_CRITICAL_CONCEPT_COVERAGE",
+          "critical": true,
+          "statement": "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+          "failureClass": "CRITICAL_RELEVANT_ASSERTION_OMITTED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O06",
+          "checkId": "K_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Returned assertions remain reconstructible to source references.",
+          "failureClass": "SOURCE_GROUNDING_BROKEN",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O07",
+          "checkId": "K_APPLICABILITY",
+          "critical": true,
+          "statement": "Applicability remains explicit and qualified where the reference scope is bounded.",
+          "failureClass": "APPLICABILITY_LOST",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O08",
+          "checkId": "K_LIMITATIONS",
+          "critical": false,
+          "statement": "Applicability limitations remain visible.",
+          "failureClass": "LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O09",
+          "checkId": "K_CONTRADICTION_OR_ALTERNATIVES",
+          "critical": false,
+          "statement": "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+          "failureClass": "CONTRADICTION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-CARDIAC-01-O10",
+          "checkId": "K_NO_PROMOTION_OR_DECISION",
+          "critical": true,
+          "statement": "Knowledge neither promotes evidence strength nor creates a Project decision.",
+          "failureClass": "PROJECT_DECISION_LEAK",
+          "referenceRefs": [
+            "KE-001",
+            "PD-003 V2 Ownership Matrix"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Wording",
+        "assertion order",
+        "number of documentary statements"
+      ],
+      "forbiddenBehaviors": [
+        "adopted Project decision",
+        "fabricated source",
+        "silent certainty promotion"
+      ],
+      "unknownsToPreserve": [
+        "Définition opérationnelle multicentrique"
+      ],
+      "limitationsToExpose": [
+        "Corpus and applicability boundaries"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:K-SPECTRAL-01",
+      "caseId": "K-SPECTRAL-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "obligations": [
+        {
+          "obligationId": "K-SPECTRAL-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O04",
+          "checkId": "K_RELEVANCE",
+          "critical": true,
+          "statement": "Returned material remains relevant to the declared scientific objects.",
+          "failureClass": "IRRELEVANT_ASSERTION",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O05",
+          "checkId": "K_CRITICAL_CONCEPT_COVERAGE",
+          "critical": true,
+          "statement": "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+          "failureClass": "CRITICAL_RELEVANT_ASSERTION_OMITTED",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O06",
+          "checkId": "K_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Returned assertions remain reconstructible to source references.",
+          "failureClass": "SOURCE_GROUNDING_BROKEN",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O07",
+          "checkId": "K_APPLICABILITY",
+          "critical": true,
+          "statement": "Applicability remains explicit and qualified where the reference scope is bounded.",
+          "failureClass": "APPLICABILITY_LOST",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O08",
+          "checkId": "K_LIMITATIONS",
+          "critical": false,
+          "statement": "Applicability limitations remain visible.",
+          "failureClass": "LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O09",
+          "checkId": "K_CONTRADICTION_OR_ALTERNATIVES",
+          "critical": false,
+          "statement": "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+          "failureClass": "CONTRADICTION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O10",
+          "checkId": "K_NO_PROMOTION_OR_DECISION",
+          "critical": true,
+          "statement": "Knowledge neither promotes evidence strength nor creates a Project decision.",
+          "failureClass": "PROJECT_DECISION_LEAK",
+          "referenceRefs": [
+            "KE-001",
+            "PD-003 V2 Ownership Matrix"
+          ]
+        },
+        {
+          "obligationId": "K-SPECTRAL-01-O11",
+          "checkId": "K_VNC_NON_EQUIVALENCE",
+          "critical": true,
+          "statement": "VNC is not promoted to universal replacement of native noncontrast acquisition.",
+          "failureClass": "EVIDENCE_STRENGTH_PROMOTED",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Wording",
+        "assertion order",
+        "number of documentary statements"
+      ],
+      "forbiddenBehaviors": [
+        "adopted Project decision",
+        "fabricated source",
+        "silent certainty promotion"
+      ],
+      "unknownsToPreserve": [
+        "Comparabilité interconstructeur"
+      ],
+      "limitationsToExpose": [
+        "Corpus and applicability boundaries"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:K-NEURO-01",
+      "caseId": "K-NEURO-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "obligations": [
+        {
+          "obligationId": "K-NEURO-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O04",
+          "checkId": "K_RELEVANCE",
+          "critical": true,
+          "statement": "Returned material remains relevant to the declared scientific objects.",
+          "failureClass": "IRRELEVANT_ASSERTION",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O05",
+          "checkId": "K_CRITICAL_CONCEPT_COVERAGE",
+          "critical": true,
+          "statement": "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+          "failureClass": "CRITICAL_RELEVANT_ASSERTION_OMITTED",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O06",
+          "checkId": "K_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Returned assertions remain reconstructible to source references.",
+          "failureClass": "SOURCE_GROUNDING_BROKEN",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O07",
+          "checkId": "K_APPLICABILITY",
+          "critical": true,
+          "statement": "Applicability remains explicit and qualified where the reference scope is bounded.",
+          "failureClass": "APPLICABILITY_LOST",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O08",
+          "checkId": "K_LIMITATIONS",
+          "critical": false,
+          "statement": "Applicability limitations remain visible.",
+          "failureClass": "LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O09",
+          "checkId": "K_CONTRADICTION_OR_ALTERNATIVES",
+          "critical": false,
+          "statement": "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+          "failureClass": "CONTRADICTION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "K-NEURO-01-O10",
+          "checkId": "K_NO_PROMOTION_OR_DECISION",
+          "critical": true,
+          "statement": "Knowledge neither promotes evidence strength nor creates a Project decision.",
+          "failureClass": "PROJECT_DECISION_LEAK",
+          "referenceRefs": [
+            "KE-001",
+            "PD-003 V2 Ownership Matrix"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Wording",
+        "assertion order",
+        "number of documentary statements"
+      ],
+      "forbiddenBehaviors": [
+        "adopted Project decision",
+        "fabricated source",
+        "silent certainty promotion"
+      ],
+      "unknownsToPreserve": [
+        "Logiciel de post-traitement"
+      ],
+      "limitationsToExpose": [
+        "Corpus and applicability boundaries"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:K-UNSUPPORTED-01",
+      "caseId": "K-UNSUPPORTED-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "obligations": [
+        {
+          "obligationId": "K-UNSUPPORTED-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "K-UNSUPPORTED-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "K-UNSUPPORTED-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "K-UNSUPPORTED-01-O04",
+          "checkId": "K_HONEST_GAP",
+          "critical": true,
+          "statement": "Unsupported content returns an explicit gap without fabricated assertion.",
+          "failureClass": "UNSUPPORTED_CONTENT_GENERATED",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Wording",
+        "assertion order",
+        "number of documentary statements"
+      ],
+      "forbiddenBehaviors": [
+        "adopted Project decision",
+        "fabricated source",
+        "silent certainty promotion"
+      ],
+      "unknownsToPreserve": [
+        "Signal zéphyr quantique pulmonaire",
+        "Méthode de mesure non définie"
+      ],
+      "limitationsToExpose": [
+        "Corpus and applicability boundaries"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:K-REFERENCE-AMBIGUITY-01",
+      "caseId": "K-REFERENCE-AMBIGUITY-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "obligations": [
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O04",
+          "checkId": "K_RELEVANCE",
+          "critical": true,
+          "statement": "Returned material remains relevant to the declared scientific objects.",
+          "failureClass": "IRRELEVANT_ASSERTION",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O05",
+          "checkId": "K_CRITICAL_CONCEPT_COVERAGE",
+          "critical": true,
+          "statement": "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+          "failureClass": "CRITICAL_RELEVANT_ASSERTION_OMITTED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O06",
+          "checkId": "K_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Returned assertions remain reconstructible to source references.",
+          "failureClass": "SOURCE_GROUNDING_BROKEN",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O07",
+          "checkId": "K_APPLICABILITY",
+          "critical": true,
+          "statement": "Applicability remains explicit and qualified where the reference scope is bounded.",
+          "failureClass": "APPLICABILITY_LOST",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O08",
+          "checkId": "K_LIMITATIONS",
+          "critical": false,
+          "statement": "Applicability limitations remain visible.",
+          "failureClass": "LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O09",
+          "checkId": "K_CONTRADICTION_OR_ALTERNATIVES",
+          "critical": false,
+          "statement": "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+          "failureClass": "CONTRADICTION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O10",
+          "checkId": "K_NO_PROMOTION_OR_DECISION",
+          "critical": true,
+          "statement": "Knowledge neither promotes evidence strength nor creates a Project decision.",
+          "failureClass": "PROJECT_DECISION_LEAK",
+          "referenceRefs": [
+            "KE-001",
+            "PD-003 V2 Ownership Matrix"
+          ]
+        },
+        {
+          "obligationId": "K-REFERENCE-AMBIGUITY-01-O11",
+          "checkId": "K_REFERENCE_AMBIGUITY",
+          "critical": true,
+          "statement": "Related cardiac terms are not silently collapsed into strict equivalence.",
+          "failureClass": "REFERENCE_AMBIGUITY",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Wording",
+        "assertion order",
+        "number of documentary statements"
+      ],
+      "forbiddenBehaviors": [
+        "adopted Project decision",
+        "fabricated source",
+        "silent certainty promotion"
+      ],
+      "unknownsToPreserve": [
+        "Définition opérationnelle multicentrique"
+      ],
+      "limitationsToExpose": [
+        "Corpus and applicability boundaries"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:K-STALE-01",
+      "caseId": "K-STALE-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "obligations": [
+        {
+          "obligationId": "K-STALE-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O04",
+          "checkId": "K_RELEVANCE",
+          "critical": true,
+          "statement": "Returned material remains relevant to the declared scientific objects.",
+          "failureClass": "IRRELEVANT_ASSERTION",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O05",
+          "checkId": "K_CRITICAL_CONCEPT_COVERAGE",
+          "critical": true,
+          "statement": "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+          "failureClass": "CRITICAL_RELEVANT_ASSERTION_OMITTED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O06",
+          "checkId": "K_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Returned assertions remain reconstructible to source references.",
+          "failureClass": "SOURCE_GROUNDING_BROKEN",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O07",
+          "checkId": "K_APPLICABILITY",
+          "critical": true,
+          "statement": "Applicability remains explicit and qualified where the reference scope is bounded.",
+          "failureClass": "APPLICABILITY_LOST",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O08",
+          "checkId": "K_LIMITATIONS",
+          "critical": false,
+          "statement": "Applicability limitations remain visible.",
+          "failureClass": "LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O09",
+          "checkId": "K_CONTRADICTION_OR_ALTERNATIVES",
+          "critical": false,
+          "statement": "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+          "failureClass": "CONTRADICTION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O10",
+          "checkId": "K_NO_PROMOTION_OR_DECISION",
+          "critical": true,
+          "statement": "Knowledge neither promotes evidence strength nor creates a Project decision.",
+          "failureClass": "PROJECT_DECISION_LEAK",
+          "referenceRefs": [
+            "KE-001",
+            "PD-003 V2 Ownership Matrix"
+          ]
+        },
+        {
+          "obligationId": "K-STALE-01-O11",
+          "checkId": "K_STALE_READBACK",
+          "critical": true,
+          "statement": "A result bound to Project vN remains historically readable but is marked stale against vN+1.",
+          "failureClass": "STALE_RESULT",
+          "referenceRefs": [
+            "PD-003 V2 Research Object Model",
+            "W1-CLOSURE-01"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Wording",
+        "assertion order",
+        "number of documentary statements"
+      ],
+      "forbiddenBehaviors": [
+        "adopted Project decision",
+        "fabricated source",
+        "silent certainty promotion"
+      ],
+      "unknownsToPreserve": [
+        "Définition opérationnelle multicentrique"
+      ],
+      "limitationsToExpose": [
+        "Corpus and applicability boundaries"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST-CARDIAC-01",
+      "caseId": "ST-CARDIAC-01",
+      "ownerUnderTest": "SCIENTIFIC_THINKING",
+      "obligations": [
+        {
+          "obligationId": "ST-CARDIAC-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O04",
+          "checkId": "ST_PROJECT_FIDELITY",
+          "critical": true,
+          "statement": "The adopted Project question and context remain identifiable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O05",
+          "checkId": "ST_KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "The exact frozen Knowledge result identity and digest remain linked.",
+          "failureClass": "LINEAGE_BREAK",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O06",
+          "checkId": "ST_CANDIDATE_BOUNDARY",
+          "critical": true,
+          "statement": "Hypotheses and models remain candidates requiring human review.",
+          "failureClass": "PROJECT_ADOPTION_LEAK",
+          "referenceRefs": [
+            "RDE-002",
+            "PD-009"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O07",
+          "checkId": "ST_UNKNOWN_AND_GAP_PRESERVATION",
+          "critical": true,
+          "statement": "Frozen Knowledge gaps and Project unknowns remain visible.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O08",
+          "checkId": "ST_NO_EVIDENCE_PROMOTION",
+          "critical": true,
+          "statement": "Knowledge support is not converted into established Project truth.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "referenceRefs": [
+            "KE-001",
+            "RDE-002"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O09",
+          "checkId": "ST_CONTRADICTION_PRESERVATION",
+          "critical": true,
+          "statement": "Upstream Knowledge contradiction references remain explicit.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O10",
+          "checkId": "ST_REASONING_MINIMUM",
+          "critical": true,
+          "statement": "Supported inputs produce inspectable question, objective and hypothesis candidates.",
+          "failureClass": "CRITICAL_REASONING_OMISSION",
+          "referenceRefs": [
+            "RDE-001",
+            "RDE-002",
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O11",
+          "checkId": "ST_MODEL_KNOWLEDGE_BOUNDARY",
+          "critical": true,
+          "statement": "Scientific models and hypotheses remain candidate reasoning artifacts and never become Knowledge assertions.",
+          "failureClass": "MODEL_KNOWLEDGE_CONFUSION",
+          "referenceRefs": [
+            "KE-001",
+            "RDE-002"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Candidate wording",
+        "number of scientifically defensible alternatives",
+        "question ordering"
+      ],
+      "forbiddenBehaviors": [
+        "hypothesis presented as knowledge",
+        "automatic Project adoption",
+        "upstream gap suppression"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "Corpus coverage is bounded and gaps remain explicit.",
+        "External evidence remains candidate evidence.",
+        "CMR finding definitions and quantification depend on acquisition, timing and analysis choices."
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST-SPECTRAL-01",
+      "caseId": "ST-SPECTRAL-01",
+      "ownerUnderTest": "SCIENTIFIC_THINKING",
+      "obligations": [
+        {
+          "obligationId": "ST-SPECTRAL-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O04",
+          "checkId": "ST_PROJECT_FIDELITY",
+          "critical": true,
+          "statement": "The adopted Project question and context remain identifiable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O05",
+          "checkId": "ST_KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "The exact frozen Knowledge result identity and digest remain linked.",
+          "failureClass": "LINEAGE_BREAK",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O06",
+          "checkId": "ST_CANDIDATE_BOUNDARY",
+          "critical": true,
+          "statement": "Hypotheses and models remain candidates requiring human review.",
+          "failureClass": "PROJECT_ADOPTION_LEAK",
+          "referenceRefs": [
+            "RDE-002",
+            "PD-009"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O07",
+          "checkId": "ST_UNKNOWN_AND_GAP_PRESERVATION",
+          "critical": true,
+          "statement": "Frozen Knowledge gaps and Project unknowns remain visible.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O08",
+          "checkId": "ST_NO_EVIDENCE_PROMOTION",
+          "critical": true,
+          "statement": "Knowledge support is not converted into established Project truth.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "referenceRefs": [
+            "KE-001",
+            "RDE-002"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O09",
+          "checkId": "ST_CONTRADICTION_PRESERVATION",
+          "critical": true,
+          "statement": "Upstream Knowledge contradiction references remain explicit.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O10",
+          "checkId": "ST_REASONING_MINIMUM",
+          "critical": true,
+          "statement": "Supported inputs produce inspectable question, objective and hypothesis candidates.",
+          "failureClass": "CRITICAL_REASONING_OMISSION",
+          "referenceRefs": [
+            "RDE-001",
+            "RDE-002",
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O11",
+          "checkId": "ST_MODEL_KNOWLEDGE_BOUNDARY",
+          "critical": true,
+          "statement": "Scientific models and hypotheses remain candidate reasoning artifacts and never become Knowledge assertions.",
+          "failureClass": "MODEL_KNOWLEDGE_CONFUSION",
+          "referenceRefs": [
+            "KE-001",
+            "RDE-002"
+          ]
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O12",
+          "checkId": "ST_ALTERNATIVES",
+          "critical": false,
+          "statement": "Multiple defensible branches remain available for review.",
+          "failureClass": "ALTERNATIVE_SUPPRESSION",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Candidate wording",
+        "number of scientifically defensible alternatives",
+        "question ordering"
+      ],
+      "forbiddenBehaviors": [
+        "hypothesis presented as knowledge",
+        "automatic Project adoption",
+        "upstream gap suppression"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "Corpus coverage is bounded and gaps remain explicit.",
+        "External evidence remains candidate evidence.",
+        "Residual iodine, calcium handling and platform implementation limit substitution claims."
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST-NEURO-01",
+      "caseId": "ST-NEURO-01",
+      "ownerUnderTest": "SCIENTIFIC_THINKING",
+      "obligations": [
+        {
+          "obligationId": "ST-NEURO-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O04",
+          "checkId": "ST_PROJECT_FIDELITY",
+          "critical": true,
+          "statement": "The adopted Project question and context remain identifiable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O05",
+          "checkId": "ST_KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "The exact frozen Knowledge result identity and digest remain linked.",
+          "failureClass": "LINEAGE_BREAK",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O06",
+          "checkId": "ST_CANDIDATE_BOUNDARY",
+          "critical": true,
+          "statement": "Hypotheses and models remain candidates requiring human review.",
+          "failureClass": "PROJECT_ADOPTION_LEAK",
+          "referenceRefs": [
+            "RDE-002",
+            "PD-009"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O07",
+          "checkId": "ST_UNKNOWN_AND_GAP_PRESERVATION",
+          "critical": true,
+          "statement": "Frozen Knowledge gaps and Project unknowns remain visible.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O08",
+          "checkId": "ST_NO_EVIDENCE_PROMOTION",
+          "critical": true,
+          "statement": "Knowledge support is not converted into established Project truth.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "referenceRefs": [
+            "KE-001",
+            "RDE-002"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O09",
+          "checkId": "ST_CONTRADICTION_PRESERVATION",
+          "critical": true,
+          "statement": "Upstream Knowledge contradiction references remain explicit.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O10",
+          "checkId": "ST_REASONING_MINIMUM",
+          "critical": true,
+          "statement": "Supported inputs produce inspectable question, objective and hypothesis candidates.",
+          "failureClass": "CRITICAL_REASONING_OMISSION",
+          "referenceRefs": [
+            "RDE-001",
+            "RDE-002",
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "ST-NEURO-01-O11",
+          "checkId": "ST_MODEL_KNOWLEDGE_BOUNDARY",
+          "critical": true,
+          "statement": "Scientific models and hypotheses remain candidate reasoning artifacts and never become Knowledge assertions.",
+          "failureClass": "MODEL_KNOWLEDGE_CONFUSION",
+          "referenceRefs": [
+            "KE-001",
+            "RDE-002"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Candidate wording",
+        "number of scientifically defensible alternatives",
+        "question ordering"
+      ],
+      "forbiddenBehaviors": [
+        "hypothesis presented as knowledge",
+        "automatic Project adoption",
+        "upstream gap suppression"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "Corpus coverage is bounded and gaps remain explicit.",
+        "External evidence remains candidate evidence.",
+        "Software, deconvolution, delay sensitivity and modality assumptions constrain comparability."
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST-UNSUPPORTED-01",
+      "caseId": "ST-UNSUPPORTED-01",
+      "ownerUnderTest": "SCIENTIFIC_THINKING",
+      "obligations": [
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O04",
+          "checkId": "ST_PROJECT_FIDELITY",
+          "critical": true,
+          "statement": "The adopted Project question and context remain identifiable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O05",
+          "checkId": "ST_KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "The exact frozen Knowledge result identity and digest remain linked.",
+          "failureClass": "LINEAGE_BREAK",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O06",
+          "checkId": "ST_CANDIDATE_BOUNDARY",
+          "critical": true,
+          "statement": "Hypotheses and models remain candidates requiring human review.",
+          "failureClass": "PROJECT_ADOPTION_LEAK",
+          "referenceRefs": [
+            "RDE-002",
+            "PD-009"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O07",
+          "checkId": "ST_UNSUPPORTED_BOUNDARY",
+          "critical": true,
+          "statement": "Unsupported input is refused or remains clarification-required without solid hypothesis.",
+          "failureClass": "UNSUPPORTED_HYPOTHESIS",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O08",
+          "checkId": "ST_NO_EVIDENCE_PROMOTION",
+          "critical": true,
+          "statement": "Knowledge support is not converted into established Project truth.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "referenceRefs": [
+            "KE-001",
+            "RDE-002"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O09",
+          "checkId": "ST_CONTRADICTION_PRESERVATION",
+          "critical": true,
+          "statement": "Upstream Knowledge contradiction references remain explicit.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O10",
+          "checkId": "ST_REASONING_MINIMUM",
+          "critical": true,
+          "statement": "Supported inputs produce inspectable question, objective and hypothesis candidates.",
+          "failureClass": "CRITICAL_REASONING_OMISSION",
+          "referenceRefs": [
+            "RDE-001",
+            "RDE-002",
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O11",
+          "checkId": "ST_MODEL_KNOWLEDGE_BOUNDARY",
+          "critical": true,
+          "statement": "Scientific models and hypotheses remain candidate reasoning artifacts and never become Knowledge assertions.",
+          "failureClass": "MODEL_KNOWLEDGE_CONFUSION",
+          "referenceRefs": [
+            "KE-001",
+            "RDE-002"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Candidate wording",
+        "number of scientifically defensible alternatives",
+        "question ordering"
+      ],
+      "forbiddenBehaviors": [
+        "hypothesis presented as knowledge",
+        "automatic Project adoption",
+        "upstream gap suppression"
+      ],
+      "unknownsToPreserve": [
+        {
+          "label": "signal zéphyr quantique pulmonaire",
+          "objectType": "PHENOMENON"
+        }
+      ],
+      "limitationsToExpose": [
+        "Corpus coverage is bounded and gaps remain explicit.",
+        "External evidence remains candidate evidence.",
+        "The admitted corpus does not cover the declared object."
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:IMG-CARDIAC-01",
+      "caseId": "IMG-CARDIAC-01",
+      "ownerUnderTest": "IMAGING",
+      "obligations": [
+        {
+          "obligationId": "IMG-CARDIAC-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O04",
+          "checkId": "IMG_QUESTION_ALIGNMENT",
+          "critical": true,
+          "statement": "Imaging output stays aligned with the frozen Project/ST question.",
+          "failureClass": "SCIENTIFIC_NEED_DRIFT",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O05",
+          "checkId": "IMG_UPSTREAM_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge and ST result dependencies remain linked.",
+          "failureClass": "KNOWLEDGE_LINEAGE_LOST",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O06",
+          "checkId": "IMG_CANDIDATE_AND_NO_RANKING",
+          "critical": true,
+          "statement": "Modalities and acquisitions remain candidates with no automatic ranking or adoption.",
+          "failureClass": "METHOD_AUTO_SELECTION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O07",
+          "checkId": "IMG_QA_AND_EQUIPMENT",
+          "critical": false,
+          "statement": "QA needs and unknown equipment compatibility remain explicit.",
+          "failureClass": "EQUIPMENT_COMPATIBILITY_INVENTED",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O08",
+          "checkId": "IMG_OBS_BOUNDARY",
+          "critical": true,
+          "statement": "OBS absence remains explicit and no qualified OBS object is invented.",
+          "failureClass": "OBS_CAPABILITY_INVENTED",
+          "referenceRefs": [
+            "OBS-001",
+            "RDE-003"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O09",
+          "checkId": "IMG_LIMITATIONS",
+          "critical": true,
+          "statement": "Scientific and technical limitations remain visible.",
+          "failureClass": "LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O10",
+          "checkId": "IMG_MODALITY_ALIGNMENT",
+          "critical": true,
+          "statement": "Modality candidates remain aligned with the declared imaging domain.",
+          "failureClass": "MODALITY_MISMATCH",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O11",
+          "checkId": "IMG_CORELAB_CONTEXTUAL",
+          "critical": false,
+          "statement": "Core Lab options remain contextual and human-assessed without automatic optimum.",
+          "failureClass": "CORELAB_GENERALIZATION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        },
+        {
+          "obligationId": "IMG-CARDIAC-01-O12",
+          "checkId": "IMG_UNKNOWN_PRESERVATION",
+          "critical": true,
+          "statement": "Project and upstream unknowns remain visible downstream.",
+          "failureClass": "UNKNOWN_SUPPRESSION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+            "noxia:scientific-source:pubmed:23021401",
+            "noxia:scientific-source:pubmed:30231886"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Candidate ordering",
+        "QA wording",
+        "multiple defensible modality branches"
+      ],
+      "forbiddenBehaviors": [
+        "validated ObservableProperty",
+        "validated MeasurementDefinition",
+        "validated BiomarkerRole",
+        "adopted Project method"
+      ],
+      "unknownsToPreserve": [
+        "UNKNOWN_PROJECT_OBJECT:cardiac-unknown",
+        "PENDING_VERIFICATION:cardiac-question",
+        "PENDING_VERIFICATION:cardiac-pop",
+        "PENDING_VERIFICATION:cardiac-condition",
+        "PENDING_VERIFICATION:cardiac-mri",
+        "PENDING_VERIFICATION:cardiac-lge",
+        "PENDING_VERIFICATION:cardiac-mvo",
+        "PENDING_VERIFICATION:cardiac-imh",
+        "PENDING_VERIFICATION:cardiac-unknown"
+      ],
+      "limitationsToExpose": [
+        "OBS runtime absent",
+        "Existing runtime is deterministic and expects its native context projection.",
+        "Proposals are never adopted automatically.",
+        "CMR finding definitions and quantification depend on acquisition, timing and analysis choices.",
+        "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:IMG-SPECTRAL-01",
+      "caseId": "IMG-SPECTRAL-01",
+      "ownerUnderTest": "IMAGING",
+      "obligations": [
+        {
+          "obligationId": "IMG-SPECTRAL-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O04",
+          "checkId": "IMG_QUESTION_ALIGNMENT",
+          "critical": true,
+          "statement": "Imaging output stays aligned with the frozen Project/ST question.",
+          "failureClass": "SCIENTIFIC_NEED_DRIFT",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O05",
+          "checkId": "IMG_UPSTREAM_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge and ST result dependencies remain linked.",
+          "failureClass": "KNOWLEDGE_LINEAGE_LOST",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O06",
+          "checkId": "IMG_CANDIDATE_AND_NO_RANKING",
+          "critical": true,
+          "statement": "Modalities and acquisitions remain candidates with no automatic ranking or adoption.",
+          "failureClass": "METHOD_AUTO_SELECTION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O07",
+          "checkId": "IMG_QA_AND_EQUIPMENT",
+          "critical": false,
+          "statement": "QA needs and unknown equipment compatibility remain explicit.",
+          "failureClass": "EQUIPMENT_COMPATIBILITY_INVENTED",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O08",
+          "checkId": "IMG_OBS_BOUNDARY",
+          "critical": true,
+          "statement": "OBS absence remains explicit and no qualified OBS object is invented.",
+          "failureClass": "OBS_CAPABILITY_INVENTED",
+          "referenceRefs": [
+            "OBS-001",
+            "RDE-003"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O09",
+          "checkId": "IMG_LIMITATIONS",
+          "critical": true,
+          "statement": "Scientific and technical limitations remain visible.",
+          "failureClass": "LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O10",
+          "checkId": "IMG_MODALITY_ALIGNMENT",
+          "critical": true,
+          "statement": "Modality candidates remain aligned with the declared imaging domain.",
+          "failureClass": "MODALITY_MISMATCH",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O11",
+          "checkId": "IMG_CORELAB_CONTEXTUAL",
+          "critical": false,
+          "statement": "Core Lab options remain contextual and human-assessed without automatic optimum.",
+          "failureClass": "CORELAB_GENERALIZATION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        },
+        {
+          "obligationId": "IMG-SPECTRAL-01-O12",
+          "checkId": "IMG_UNKNOWN_PRESERVATION",
+          "critical": true,
+          "statement": "Project and upstream unknowns remain visible downstream.",
+          "failureClass": "UNKNOWN_SUPPRESSION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-003@1.0:VNC et comparabilité intersystème",
+            "noxia:scientific-source:pubmed:33411614",
+            "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Candidate ordering",
+        "QA wording",
+        "multiple defensible modality branches"
+      ],
+      "forbiddenBehaviors": [
+        "validated ObservableProperty",
+        "validated MeasurementDefinition",
+        "validated BiomarkerRole",
+        "adopted Project method"
+      ],
+      "unknownsToPreserve": [
+        "UNKNOWN_PROJECT_OBJECT:spectral-unknown",
+        "PENDING_VERIFICATION:spectral-question",
+        "PENDING_VERIFICATION:spectral-design",
+        "PENDING_VERIFICATION:spectral-modality",
+        "PENDING_VERIFICATION:spectral-acq",
+        "PENDING_VERIFICATION:spectral-vnc",
+        "PENDING_VERIFICATION:spectral-native",
+        "PENDING_VERIFICATION:spectral-unknown"
+      ],
+      "limitationsToExpose": [
+        "OBS runtime absent",
+        "Existing runtime is deterministic and expects its native context projection.",
+        "Proposals are never adopted automatically.",
+        "Residual iodine, calcium handling and platform implementation limit substitution claims.",
+        "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:IMG-NEURO-01",
+      "caseId": "IMG-NEURO-01",
+      "ownerUnderTest": "IMAGING",
+      "obligations": [
+        {
+          "obligationId": "IMG-NEURO-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O04",
+          "checkId": "IMG_QUESTION_ALIGNMENT",
+          "critical": true,
+          "statement": "Imaging output stays aligned with the frozen Project/ST question.",
+          "failureClass": "SCIENTIFIC_NEED_DRIFT",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O05",
+          "checkId": "IMG_UPSTREAM_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge and ST result dependencies remain linked.",
+          "failureClass": "KNOWLEDGE_LINEAGE_LOST",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O06",
+          "checkId": "IMG_CANDIDATE_AND_NO_RANKING",
+          "critical": true,
+          "statement": "Modalities and acquisitions remain candidates with no automatic ranking or adoption.",
+          "failureClass": "METHOD_AUTO_SELECTION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O07",
+          "checkId": "IMG_QA_AND_EQUIPMENT",
+          "critical": false,
+          "statement": "QA needs and unknown equipment compatibility remain explicit.",
+          "failureClass": "EQUIPMENT_COMPATIBILITY_INVENTED",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O08",
+          "checkId": "IMG_OBS_BOUNDARY",
+          "critical": true,
+          "statement": "OBS absence remains explicit and no qualified OBS object is invented.",
+          "failureClass": "OBS_CAPABILITY_INVENTED",
+          "referenceRefs": [
+            "OBS-001",
+            "RDE-003"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O09",
+          "checkId": "IMG_LIMITATIONS",
+          "critical": true,
+          "statement": "Scientific and technical limitations remain visible.",
+          "failureClass": "LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O10",
+          "checkId": "IMG_MODALITY_ALIGNMENT",
+          "critical": true,
+          "statement": "Modality candidates remain aligned with the declared imaging domain.",
+          "failureClass": "MODALITY_MISMATCH",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O11",
+          "checkId": "IMG_CORELAB_CONTEXTUAL",
+          "critical": false,
+          "statement": "Core Lab options remain contextual and human-assessed without automatic optimum.",
+          "failureClass": "CORELAB_GENERALIZATION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        },
+        {
+          "obligationId": "IMG-NEURO-01-O12",
+          "checkId": "IMG_UNKNOWN_PRESERVATION",
+          "critical": true,
+          "statement": "Project and upstream unknowns remain visible downstream.",
+          "failureClass": "UNKNOWN_SUPPRESSION",
+          "referenceRefs": [
+            "RDE-003",
+            "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+            "noxia:scientific-source:pubmed:30346227",
+            "noxia:scientific-source:pubmed:25907520"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Candidate ordering",
+        "QA wording",
+        "multiple defensible modality branches"
+      ],
+      "forbiddenBehaviors": [
+        "validated ObservableProperty",
+        "validated MeasurementDefinition",
+        "validated BiomarkerRole",
+        "adopted Project method"
+      ],
+      "unknownsToPreserve": [
+        "UNKNOWN_PROJECT_OBJECT:neuro-unknown",
+        "PENDING_VERIFICATION:neuro-question",
+        "PENDING_VERIFICATION:neuro-pop",
+        "PENDING_VERIFICATION:neuro-condition",
+        "PENDING_VERIFICATION:neuro-modality",
+        "PENDING_VERIFICATION:neuro-cbf",
+        "PENDING_VERIFICATION:neuro-cbv",
+        "PENDING_VERIFICATION:neuro-delay",
+        "PENDING_VERIFICATION:neuro-unknown"
+      ],
+      "limitationsToExpose": [
+        "OBS runtime absent",
+        "Existing runtime is deterministic and expects its native context projection.",
+        "Proposals are never adopted automatically.",
+        "Software, deconvolution, delay sensitivity and modality assumptions constrain comparability.",
+        "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:IMG-UNSUPPORTED-01",
+      "caseId": "IMG-UNSUPPORTED-01",
+      "ownerUnderTest": "IMAGING",
+      "obligations": [
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O04",
+          "checkId": "IMG_QUESTION_ALIGNMENT",
+          "critical": true,
+          "statement": "Imaging output stays aligned with the frozen Project/ST question.",
+          "failureClass": "SCIENTIFIC_NEED_DRIFT",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O05",
+          "checkId": "IMG_UPSTREAM_LINEAGE",
+          "critical": true,
+          "statement": "Exact frozen Knowledge and ST result dependencies remain linked.",
+          "failureClass": "KNOWLEDGE_LINEAGE_LOST",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O06",
+          "checkId": "IMG_CANDIDATE_AND_NO_RANKING",
+          "critical": true,
+          "statement": "Modalities and acquisitions remain candidates with no automatic ranking or adoption.",
+          "failureClass": "METHOD_AUTO_SELECTION",
+          "referenceRefs": [
+            "RDE-003",
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O07",
+          "checkId": "IMG_QA_AND_EQUIPMENT",
+          "critical": false,
+          "statement": "QA needs and unknown equipment compatibility remain explicit.",
+          "failureClass": "EQUIPMENT_COMPATIBILITY_INVENTED",
+          "referenceRefs": [
+            "RDE-003",
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O08",
+          "checkId": "IMG_OBS_BOUNDARY",
+          "critical": true,
+          "statement": "OBS absence remains explicit and no qualified OBS object is invented.",
+          "failureClass": "OBS_CAPABILITY_INVENTED",
+          "referenceRefs": [
+            "OBS-001",
+            "RDE-003"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O09",
+          "checkId": "IMG_RETURN_TO_ST",
+          "critical": true,
+          "statement": "Unsupported measurement chain returns to Scientific Thinking or requests clarification.",
+          "failureClass": "ACQUISITION_OVERCOMMITMENT",
+          "referenceRefs": [
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O10",
+          "checkId": "IMG_MODALITY_ALIGNMENT",
+          "critical": true,
+          "statement": "Modality candidates remain aligned with the declared imaging domain.",
+          "failureClass": "MODALITY_MISMATCH",
+          "referenceRefs": [
+            "RDE-003",
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O11",
+          "checkId": "IMG_CORELAB_CONTEXTUAL",
+          "critical": false,
+          "statement": "Core Lab options remain contextual and human-assessed without automatic optimum.",
+          "failureClass": "CORELAB_GENERALIZATION",
+          "referenceRefs": [
+            "RDE-003",
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        },
+        {
+          "obligationId": "IMG-UNSUPPORTED-01-O12",
+          "checkId": "IMG_UNKNOWN_PRESERVATION",
+          "critical": true,
+          "statement": "Project and upstream unknowns remain visible downstream.",
+          "failureClass": "UNKNOWN_SUPPRESSION",
+          "referenceRefs": [
+            "RDE-003",
+            "KE-001:explicit-gap-and-unsupported-domain-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Candidate ordering",
+        "QA wording",
+        "multiple defensible modality branches"
+      ],
+      "forbiddenBehaviors": [
+        "validated ObservableProperty",
+        "validated MeasurementDefinition",
+        "validated BiomarkerRole",
+        "adopted Project method"
+      ],
+      "unknownsToPreserve": [
+        "UNKNOWN_PROJECT_OBJECT:unsupported-object",
+        "UNKNOWN_PROJECT_OBJECT:unsupported-method",
+        "PENDING_VERIFICATION:unsupported-question",
+        "PENDING_VERIFICATION:unsupported-object",
+        "PENDING_VERIFICATION:unsupported-method",
+        "NO_ADMITTED_CORPUS_MATCH",
+        "SCIENTIFIC_OBJECT_UNSUPPORTED"
+      ],
+      "limitationsToExpose": [
+        "OBS runtime absent",
+        "Existing runtime is deterministic and expects its native context projection.",
+        "Proposals are never adopted automatically.",
+        "The admitted corpus does not cover the declared object.",
+        "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:REG-FR-01",
+      "caseId": "REG-FR-01",
+      "ownerUnderTest": "REG",
+      "obligations": [
+        {
+          "obligationId": "REG-FR-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-FR-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-FR-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "REG-FR-01-O04",
+          "checkId": "REG_JURISDICTION_FIDELITY",
+          "critical": true,
+          "statement": "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+          "failureClass": "JURISDICTION_MISMATCH",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-FR-01-O05",
+          "checkId": "REG_CORPUS_BOUNDARY",
+          "critical": true,
+          "statement": "Candidate corpus status and bounded coverage remain visible.",
+          "failureClass": "CORPUS_LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-FR-01-O06",
+          "checkId": "REG_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Resolved requirements retain encoded source references.",
+          "failureClass": "REQUIREMENT_SOURCE_LOST",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-FR-01-O07",
+          "checkId": "REG_NO_APPROVAL",
+          "critical": true,
+          "statement": "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+          "failureClass": "REGULATORY_APPROVAL_INVENTED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Requirement ordering",
+        "multiple conditional statuses"
+      ],
+      "forbiddenBehaviors": [
+        "approval claim",
+        "legal conclusion",
+        "corpus completeness claim"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "CANDIDATE_NOT_ADMITTED",
+        "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:REG-EU-01",
+      "caseId": "REG-EU-01",
+      "ownerUnderTest": "REG",
+      "obligations": [
+        {
+          "obligationId": "REG-EU-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-EU-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-EU-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "REG-EU-01-O04",
+          "checkId": "REG_JURISDICTION_FIDELITY",
+          "critical": true,
+          "statement": "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+          "failureClass": "JURISDICTION_MISMATCH",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-EU-01-O05",
+          "checkId": "REG_CORPUS_BOUNDARY",
+          "critical": true,
+          "statement": "Candidate corpus status and bounded coverage remain visible.",
+          "failureClass": "CORPUS_LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-EU-01-O06",
+          "checkId": "REG_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Resolved requirements retain encoded source references.",
+          "failureClass": "REQUIREMENT_SOURCE_LOST",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-EU-01-O07",
+          "checkId": "REG_NO_APPROVAL",
+          "critical": true,
+          "statement": "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+          "failureClass": "REGULATORY_APPROVAL_INVENTED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Requirement ordering",
+        "multiple conditional statuses"
+      ],
+      "forbiddenBehaviors": [
+        "approval claim",
+        "legal conclusion",
+        "corpus completeness claim"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "CANDIDATE_NOT_ADMITTED",
+        "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:REG-US-01",
+      "caseId": "REG-US-01",
+      "ownerUnderTest": "REG",
+      "obligations": [
+        {
+          "obligationId": "REG-US-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-US-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-US-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "REG-US-01-O04",
+          "checkId": "REG_JURISDICTION_FIDELITY",
+          "critical": true,
+          "statement": "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+          "failureClass": "JURISDICTION_MISMATCH",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-US-01-O05",
+          "checkId": "REG_CORPUS_BOUNDARY",
+          "critical": true,
+          "statement": "Candidate corpus status and bounded coverage remain visible.",
+          "failureClass": "CORPUS_LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-US-01-O06",
+          "checkId": "REG_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Resolved requirements retain encoded source references.",
+          "failureClass": "REQUIREMENT_SOURCE_LOST",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-US-01-O07",
+          "checkId": "REG_NO_APPROVAL",
+          "critical": true,
+          "statement": "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+          "failureClass": "REGULATORY_APPROVAL_INVENTED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Requirement ordering",
+        "multiple conditional statuses"
+      ],
+      "forbiddenBehaviors": [
+        "approval claim",
+        "legal conclusion",
+        "corpus completeness claim"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "CANDIDATE_NOT_ADMITTED",
+        "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:REG-INTL-01",
+      "caseId": "REG-INTL-01",
+      "ownerUnderTest": "REG",
+      "obligations": [
+        {
+          "obligationId": "REG-INTL-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-INTL-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-INTL-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "REG-INTL-01-O04",
+          "checkId": "REG_JURISDICTION_FIDELITY",
+          "critical": true,
+          "statement": "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+          "failureClass": "JURISDICTION_MISMATCH",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-INTL-01-O05",
+          "checkId": "REG_CORPUS_BOUNDARY",
+          "critical": true,
+          "statement": "Candidate corpus status and bounded coverage remain visible.",
+          "failureClass": "CORPUS_LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-INTL-01-O06",
+          "checkId": "REG_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Resolved requirements retain encoded source references.",
+          "failureClass": "REQUIREMENT_SOURCE_LOST",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-INTL-01-O07",
+          "checkId": "REG_NO_APPROVAL",
+          "critical": true,
+          "statement": "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+          "failureClass": "REGULATORY_APPROVAL_INVENTED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Requirement ordering",
+        "multiple conditional statuses"
+      ],
+      "forbiddenBehaviors": [
+        "approval claim",
+        "legal conclusion",
+        "corpus completeness claim"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "CANDIDATE_NOT_ADMITTED",
+        "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:REG-UNSUPPORTED-01",
+      "caseId": "REG-UNSUPPORTED-01",
+      "ownerUnderTest": "REG",
+      "obligations": [
+        {
+          "obligationId": "REG-UNSUPPORTED-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-UNSUPPORTED-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-UNSUPPORTED-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "REG-UNSUPPORTED-01-O04",
+          "checkId": "REG_UNSUPPORTED_FAIL_CLOSED",
+          "critical": true,
+          "statement": "Unsupported jurisdiction fails closed without extrapolation.",
+          "failureClass": "UNSUPPORTED_JURISDICTION_EXTRAPOLATION",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-UNSUPPORTED-01-O05",
+          "checkId": "REG_CORPUS_BOUNDARY",
+          "critical": true,
+          "statement": "Candidate corpus status and bounded coverage remain visible.",
+          "failureClass": "CORPUS_LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-UNSUPPORTED-01-O06",
+          "checkId": "REG_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Resolved requirements retain encoded source references.",
+          "failureClass": "REQUIREMENT_SOURCE_LOST",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-UNSUPPORTED-01-O07",
+          "checkId": "REG_NO_APPROVAL",
+          "critical": true,
+          "statement": "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+          "failureClass": "REGULATORY_APPROVAL_INVENTED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Requirement ordering",
+        "multiple conditional statuses"
+      ],
+      "forbiddenBehaviors": [
+        "approval claim",
+        "legal conclusion",
+        "corpus completeness claim"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "CANDIDATE_NOT_ADMITTED",
+        "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:REG-MISSING-JURISDICTION-01",
+      "caseId": "REG-MISSING-JURISDICTION-01",
+      "ownerUnderTest": "REG",
+      "obligations": [
+        {
+          "obligationId": "REG-MISSING-JURISDICTION-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-JURISDICTION-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-JURISDICTION-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-JURISDICTION-01-O04",
+          "checkId": "REG_JURISDICTION_FIDELITY",
+          "critical": true,
+          "statement": "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+          "failureClass": "JURISDICTION_MISMATCH",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-JURISDICTION-01-O05",
+          "checkId": "REG_CORPUS_BOUNDARY",
+          "critical": true,
+          "statement": "Candidate corpus status and bounded coverage remain visible.",
+          "failureClass": "CORPUS_LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-JURISDICTION-01-O06",
+          "checkId": "REG_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Resolved requirements retain encoded source references.",
+          "failureClass": "REQUIREMENT_SOURCE_LOST",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-JURISDICTION-01-O07",
+          "checkId": "REG_NO_APPROVAL",
+          "critical": true,
+          "statement": "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+          "failureClass": "REGULATORY_APPROVAL_INVENTED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-JURISDICTION-01-O08",
+          "checkId": "REG_MISSING_INFORMATION",
+          "critical": true,
+          "statement": "Missing jurisdiction or context remains explicit.",
+          "failureClass": "MISSING_CONTEXT_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Requirement ordering",
+        "multiple conditional statuses"
+      ],
+      "forbiddenBehaviors": [
+        "approval claim",
+        "legal conclusion",
+        "corpus completeness claim"
+      ],
+      "unknownsToPreserve": [
+        "jurisdiction"
+      ],
+      "limitationsToExpose": [
+        "CANDIDATE_NOT_ADMITTED",
+        "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:REG-MISSING-CONTEXT-01",
+      "caseId": "REG-MISSING-CONTEXT-01",
+      "ownerUnderTest": "REG",
+      "obligations": [
+        {
+          "obligationId": "REG-MISSING-CONTEXT-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-CONTEXT-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-CONTEXT-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-CONTEXT-01-O04",
+          "checkId": "REG_JURISDICTION_FIDELITY",
+          "critical": true,
+          "statement": "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+          "failureClass": "JURISDICTION_MISMATCH",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-CONTEXT-01-O05",
+          "checkId": "REG_CORPUS_BOUNDARY",
+          "critical": true,
+          "statement": "Candidate corpus status and bounded coverage remain visible.",
+          "failureClass": "CORPUS_LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-CONTEXT-01-O06",
+          "checkId": "REG_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Resolved requirements retain encoded source references.",
+          "failureClass": "REQUIREMENT_SOURCE_LOST",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-CONTEXT-01-O07",
+          "checkId": "REG_NO_APPROVAL",
+          "critical": true,
+          "statement": "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+          "failureClass": "REGULATORY_APPROVAL_INVENTED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-MISSING-CONTEXT-01-O08",
+          "checkId": "REG_MISSING_INFORMATION",
+          "critical": true,
+          "statement": "Missing jurisdiction or context remains explicit.",
+          "failureClass": "MISSING_CONTEXT_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Requirement ordering",
+        "multiple conditional statuses"
+      ],
+      "forbiddenBehaviors": [
+        "approval claim",
+        "legal conclusion",
+        "corpus completeness claim"
+      ],
+      "unknownsToPreserve": [
+        "humanHealthResearch",
+        "randomised",
+        "transferOutsideEea",
+        "centerCount"
+      ],
+      "limitationsToExpose": [
+        "CANDIDATE_NOT_ADMITTED",
+        "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:REG-STALE-REQUEST-01",
+      "caseId": "REG-STALE-REQUEST-01",
+      "ownerUnderTest": "REG",
+      "obligations": [
+        {
+          "obligationId": "REG-STALE-REQUEST-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-STALE-REQUEST-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-STALE-REQUEST-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "REG-STALE-REQUEST-01-O04",
+          "checkId": "REG_STALE_FAIL_CLOSED",
+          "critical": true,
+          "statement": "Stale Project/request binding fails closed.",
+          "failureClass": "STALE_REGULATORY_RESULT",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-STALE-REQUEST-01-O05",
+          "checkId": "REG_CORPUS_BOUNDARY",
+          "critical": true,
+          "statement": "Candidate corpus status and bounded coverage remain visible.",
+          "failureClass": "CORPUS_LIMITATION_SUPPRESSED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-STALE-REQUEST-01-O06",
+          "checkId": "REG_SOURCE_GROUNDING",
+          "critical": true,
+          "statement": "Resolved requirements retain encoded source references.",
+          "failureClass": "REQUIREMENT_SOURCE_LOST",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        },
+        {
+          "obligationId": "REG-STALE-REQUEST-01-O07",
+          "checkId": "REG_NO_APPROVAL",
+          "critical": true,
+          "statement": "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+          "failureClass": "REGULATORY_APPROVAL_INVENTED",
+          "referenceRefs": [
+            "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+            "REG-001@1.0.0:methodological-aid-boundary"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Requirement ordering",
+        "multiple conditional statuses"
+      ],
+      "forbiddenBehaviors": [
+        "approval claim",
+        "legal conclusion",
+        "corpus completeness claim"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "CANDIDATE_NOT_ADMITTED",
+        "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+      ],
+      "referenceSupport": "SUPPORTED_WITHIN_ADMITTED_CORPUS",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-CLEAN-01",
+      "caseId": "VAL-CLEAN-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-CLEAN-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-CLEAN-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-CLEAN-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-CLEAN-01-O04",
+          "checkId": "VAL_NO_FALSE_CRITICAL",
+          "critical": true,
+          "statement": "The valid structural chain has no artificial blocking finding.",
+          "failureClass": "FALSE_POSITIVE_ON_VALID_CHAIN",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-CLEAN-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-CLEAN-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-PROJECT-DIGEST-01",
+      "caseId": "VAL-PROJECT-DIGEST-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-PROJECT-DIGEST-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROJECT-DIGEST-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROJECT-DIGEST-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROJECT-DIGEST-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class STALE_.",
+          "failureClass": "STALE_",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROJECT-DIGEST-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROJECT-DIGEST-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-STALE-K-01",
+      "caseId": "VAL-STALE-K-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-STALE-K-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-K-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-K-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-K-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class STALE_KNOWLEDGE_RESULT.",
+          "failureClass": "STALE_KNOWLEDGE_RESULT",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-K-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-K-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-STALE-ST-01",
+      "caseId": "VAL-STALE-ST-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-STALE-ST-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-ST-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-ST-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-ST-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class STALE_SCIENTIFIC_THINKING_RESULT.",
+          "failureClass": "STALE_SCIENTIFIC_THINKING_RESULT",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-ST-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-STALE-ST-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-WRONG-OWNER-01",
+      "caseId": "VAL-WRONG-OWNER-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-WRONG-OWNER-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-WRONG-OWNER-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-WRONG-OWNER-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-WRONG-OWNER-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class OWNER_TRANSFER_VIOLATION.",
+          "failureClass": "OWNER_TRANSFER_VIOLATION",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-WRONG-OWNER-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-WRONG-OWNER-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-PROVENANCE-01",
+      "caseId": "VAL-PROVENANCE-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-PROVENANCE-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROVENANCE-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROVENANCE-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROVENANCE-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class KNOWLEDGE_EVIDENCE_LINEAGE_MISSING.",
+          "failureClass": "KNOWLEDGE_EVIDENCE_LINEAGE_MISSING",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROVENANCE-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-PROVENANCE-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-UNKNOWN-01",
+      "caseId": "VAL-UNKNOWN-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-UNKNOWN-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-UNKNOWN-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-UNKNOWN-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-UNKNOWN-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class UNKNOWN_LOST.",
+          "failureClass": "UNKNOWN_LOST",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-UNKNOWN-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-UNKNOWN-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-LIMITATION-01",
+      "caseId": "VAL-LIMITATION-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-LIMITATION-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-LIMITATION-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-LIMITATION-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-LIMITATION-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class LIMITATION_LOST.",
+          "failureClass": "LIMITATION_LOST",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-LIMITATION-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-LIMITATION-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-CONTRADICTION-01",
+      "caseId": "VAL-CONTRADICTION-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-CONTRADICTION-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-CONTRADICTION-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-CONTRADICTION-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-CONTRADICTION-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class CONTRADICTION_LOST.",
+          "failureClass": "CONTRADICTION_LOST",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-CONTRADICTION-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-CONTRADICTION-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-K-ST-LINEAGE-01",
+      "caseId": "VAL-K-ST-LINEAGE-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-K-ST-LINEAGE-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-K-ST-LINEAGE-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-K-ST-LINEAGE-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-K-ST-LINEAGE-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class KNOWLEDGE_TO_ST_LINEAGE_MISSING.",
+          "failureClass": "KNOWLEDGE_TO_ST_LINEAGE_MISSING",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-K-ST-LINEAGE-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-K-ST-LINEAGE-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-ST-IMG-LINEAGE-01",
+      "caseId": "VAL-ST-IMG-LINEAGE-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-ST-IMG-LINEAGE-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-ST-IMG-LINEAGE-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-ST-IMG-LINEAGE-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-ST-IMG-LINEAGE-01-O04",
+          "checkId": "VAL_EXPECTED_FINDING",
+          "critical": true,
+          "statement": "VAL detects the predeclared defect class ST_TO_IMAGING_LINEAGE_MISSING.",
+          "failureClass": "ST_TO_IMAGING_LINEAGE_MISSING",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-ST-IMG-LINEAGE-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-ST-IMG-LINEAGE-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-OBS-GAP-01",
+      "caseId": "VAL-OBS-GAP-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-OBS-GAP-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-OBS-GAP-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-OBS-GAP-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-OBS-GAP-01-O04",
+          "checkId": "VAL_NO_FALSE_CRITICAL",
+          "critical": true,
+          "statement": "The valid structural chain has no artificial blocking finding.",
+          "failureClass": "FALSE_POSITIVE_ON_VALID_CHAIN",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-OBS-GAP-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-OBS-GAP-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    },
+    {
+      "envelopeId": "acceptance-envelope:VAL-NO-SCIENTIFIC-PASS-01",
+      "caseId": "VAL-NO-SCIENTIFIC-PASS-01",
+      "ownerUnderTest": "VAL",
+      "obligations": [
+        {
+          "obligationId": "VAL-NO-SCIENTIFIC-PASS-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Owner and adapter perform zero Project writes.",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-NO-SCIENTIFIC-PASS-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "No external provider, web, LLM or external evidence call occurs.",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-NO-SCIENTIFIC-PASS-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "statement": "Execution is reconstructible through Scientific Execution Trace.",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "referenceRefs": [
+            "W1-TRACE-01"
+          ]
+        },
+        {
+          "obligationId": "VAL-NO-SCIENTIFIC-PASS-01-O04",
+          "checkId": "VAL_NO_FALSE_CRITICAL",
+          "critical": true,
+          "statement": "The valid structural chain has no artificial blocking finding.",
+          "failureClass": "FALSE_POSITIVE_ON_VALID_CHAIN",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-NO-SCIENTIFIC-PASS-01-O05",
+          "checkId": "VAL_OBSERVER_ONLY",
+          "critical": true,
+          "statement": "VAL performs no repair, Project write or human decision.",
+          "failureClass": "VAL_REPAIR_OR_WRITE",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        },
+        {
+          "obligationId": "VAL-NO-SCIENTIFIC-PASS-01-O06",
+          "checkId": "VAL_NO_SCIENTIFIC_PASS",
+          "critical": true,
+          "statement": "Structural fidelity is not promoted to scientific qualification.",
+          "failureClass": "SCIENTIFIC_PASS_INVENTED",
+          "referenceRefs": [
+            "VAL-001@1.0.0:structural-fidelity-only",
+            "PD-011:scientific-qualification-separate"
+          ]
+        }
+      ],
+      "allowedVariation": [
+        "Finding identifiers",
+        "observation ordering"
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "scientific judgment",
+        "automatic decision"
+      ],
+      "unknownsToPreserve": [],
+      "limitationsToExpose": [
+        "STRUCTURAL_FIDELITY_ONLY_NOT_SCIENTIFIC_QUALIFICATION"
+      ],
+      "referenceSupport": "CONTRACT_ONLY",
+      "authoredBeforeObservation": true
+    }
+  ]
+}

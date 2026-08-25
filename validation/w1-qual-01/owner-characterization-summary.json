@@ -1,0 +1,583 @@
+{
+  "contract": "W1_QUAL_01_OWNER_CHARACTERIZATION_SUMMARY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01-2026-08-25-G",
+  "boundedCharacterizationNotUniversalScientificValidation": true,
+  "summaries": [
+    {
+      "owner": "KNOWLEDGE",
+      "characterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "metrics": {
+        "casesExecuted": 6,
+        "casesFullySatisfied": 6,
+        "casesPartiallySatisfied": 0,
+        "casesWithCriticalViolation": 0,
+        "nonAdjudicableCases": 0,
+        "humanArbitrationCases": 0,
+        "criticalObligations": 47,
+        "criticalViolations": 0,
+        "unsupportedAdditions": 0,
+        "criticalOmissions": 0,
+        "contextLosses": 0,
+        "gapLosses": 0,
+        "limitationLosses": 0,
+        "contradictionLosses": 0,
+        "provenanceBreaks": 0,
+        "staleProtectionFailures": 0,
+        "ownershipViolations": 0,
+        "failureClassesObserved": [],
+        "failureClassesInScope": [
+          "APPLICABILITY_LOST",
+          "CONTRADICTION_SUPPRESSED",
+          "CRITICAL_RELEVANT_ASSERTION_OMITTED",
+          "EVIDENCE_STRENGTH_PROMOTED",
+          "EXTERNAL_PROVIDER_CALL",
+          "IRRELEVANT_ASSERTION",
+          "KNOWLEDGE_GAP_SUPPRESSED",
+          "LIMITATION_SUPPRESSED",
+          "PROJECT_DECISION_LEAK",
+          "PROJECT_WRITE_LEAK",
+          "REFERENCE_AMBIGUITY",
+          "SOURCE_GROUNDING_BROKEN",
+          "SOURCE_REFERENCE_MISSING",
+          "STALE_RESULT",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_CONTENT_GENERATED"
+        ],
+        "failureClassesExercised": [
+          "APPLICABILITY_LOST",
+          "CONTRADICTION_SUPPRESSED",
+          "CRITICAL_RELEVANT_ASSERTION_OMITTED",
+          "EVIDENCE_STRENGTH_PROMOTED",
+          "EXTERNAL_PROVIDER_CALL",
+          "IRRELEVANT_ASSERTION",
+          "LIMITATION_SUPPRESSED",
+          "PROJECT_DECISION_LEAK",
+          "PROJECT_WRITE_LEAK",
+          "REFERENCE_AMBIGUITY",
+          "SOURCE_GROUNDING_BROKEN",
+          "STALE_RESULT",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_CONTENT_GENERATED"
+        ],
+        "failureClassesExercisedNotObserved": [
+          "APPLICABILITY_LOST",
+          "CONTRADICTION_SUPPRESSED",
+          "CRITICAL_RELEVANT_ASSERTION_OMITTED",
+          "EVIDENCE_STRENGTH_PROMOTED",
+          "EXTERNAL_PROVIDER_CALL",
+          "IRRELEVANT_ASSERTION",
+          "LIMITATION_SUPPRESSED",
+          "PROJECT_DECISION_LEAK",
+          "PROJECT_WRITE_LEAK",
+          "REFERENCE_AMBIGUITY",
+          "SOURCE_GROUNDING_BROKEN",
+          "STALE_RESULT",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_CONTENT_GENERATED"
+        ],
+        "failureClassesNotDirectlyExercised": [
+          "KNOWLEDGE_GAP_SUPPRESSED",
+          "SOURCE_REFERENCE_MISSING"
+        ]
+      },
+      "replay": {
+        "cases": 2,
+        "stable": true,
+        "details": [
+          {
+            "caseId": "K-CARDIAC-01",
+            "owner": "KNOWLEDGE",
+            "primaryDigest": "ke1-303e5b318d2a1245",
+            "replayDigest": "ke1-303e5b318d2a1245",
+            "semanticPayloadStable": true,
+            "gapsStable": true,
+            "limitationsStable": true,
+            "sourcesStable": true,
+            "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:K-CARDIAC-01:replay"
+          },
+          {
+            "caseId": "K-SPECTRAL-01",
+            "owner": "KNOWLEDGE",
+            "primaryDigest": "ke1-5b4570787202f364",
+            "replayDigest": "ke1-5b4570787202f364",
+            "semanticPayloadStable": true,
+            "gapsStable": true,
+            "limitationsStable": true,
+            "sourcesStable": true,
+            "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:K-SPECTRAL-01:replay"
+          }
+        ]
+      },
+      "traceRunIds": [
+        "scientific-run:W1-QUAL-01-2026-08-25-G:K-CARDIAC-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:K-SPECTRAL-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:K-NEURO-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:K-UNSUPPORTED-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:K-REFERENCE-AMBIGUITY-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:K-STALE-01:primary"
+      ],
+      "coverage": [
+        "cardiac",
+        "spectral",
+        "neuro",
+        "unsupported"
+      ]
+    },
+    {
+      "owner": "SCIENTIFIC_THINKING",
+      "characterizationStatus": "OWNER_REPAIR_REQUIRED",
+      "metrics": {
+        "casesExecuted": 4,
+        "casesFullySatisfied": 2,
+        "casesPartiallySatisfied": 0,
+        "casesWithCriticalViolation": 2,
+        "nonAdjudicableCases": 0,
+        "humanArbitrationCases": 0,
+        "criticalObligations": 44,
+        "criticalViolations": 2,
+        "unsupportedAdditions": 0,
+        "criticalOmissions": 2,
+        "contextLosses": 0,
+        "gapLosses": 0,
+        "limitationLosses": 0,
+        "contradictionLosses": 0,
+        "provenanceBreaks": 0,
+        "staleProtectionFailures": 0,
+        "ownershipViolations": 0,
+        "failureClassesObserved": [
+          "CRITICAL_REASONING_OMISSION"
+        ],
+        "failureClassesInScope": [
+          "ALTERNATIVE_SUPPRESSION",
+          "CONTRADICTION_LOSS",
+          "CRITICAL_REASONING_OMISSION",
+          "EVIDENCE_PROMOTION",
+          "EXTERNAL_PROVIDER_CALL",
+          "FALSE_CERTAINTY",
+          "KNOWLEDGE_CONTEXT_LOSS",
+          "KNOWLEDGE_GAP_LOSS",
+          "LINEAGE_BREAK",
+          "MODEL_KNOWLEDGE_CONFUSION",
+          "PROJECT_ADOPTION_LEAK",
+          "PROJECT_QUESTION_DRIFT",
+          "PROJECT_WRITE_LEAK",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_HYPOTHESIS"
+        ],
+        "failureClassesExercised": [
+          "ALTERNATIVE_SUPPRESSION",
+          "CONTRADICTION_LOSS",
+          "CRITICAL_REASONING_OMISSION",
+          "EVIDENCE_PROMOTION",
+          "EXTERNAL_PROVIDER_CALL",
+          "KNOWLEDGE_GAP_LOSS",
+          "LINEAGE_BREAK",
+          "MODEL_KNOWLEDGE_CONFUSION",
+          "PROJECT_ADOPTION_LEAK",
+          "PROJECT_QUESTION_DRIFT",
+          "PROJECT_WRITE_LEAK",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_HYPOTHESIS"
+        ],
+        "failureClassesExercisedNotObserved": [
+          "ALTERNATIVE_SUPPRESSION",
+          "CONTRADICTION_LOSS",
+          "EVIDENCE_PROMOTION",
+          "EXTERNAL_PROVIDER_CALL",
+          "KNOWLEDGE_GAP_LOSS",
+          "LINEAGE_BREAK",
+          "MODEL_KNOWLEDGE_CONFUSION",
+          "PROJECT_ADOPTION_LEAK",
+          "PROJECT_QUESTION_DRIFT",
+          "PROJECT_WRITE_LEAK",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_HYPOTHESIS"
+        ],
+        "failureClassesNotDirectlyExercised": [
+          "FALSE_CERTAINTY",
+          "KNOWLEDGE_CONTEXT_LOSS"
+        ]
+      },
+      "replay": {
+        "cases": 1,
+        "stable": true,
+        "details": [
+          {
+            "caseId": "ST-CARDIAC-01",
+            "owner": "SCIENTIFIC_THINKING",
+            "primaryDigest": "ke1-36984137b66353c3",
+            "replayDigest": "ke1-36984137b66353c3",
+            "semanticPayloadStable": true,
+            "gapsStable": true,
+            "limitationsStable": true,
+            "sourcesStable": true,
+            "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:ST-CARDIAC-01:replay"
+          }
+        ]
+      },
+      "traceRunIds": [
+        "scientific-run:W1-QUAL-01-2026-08-25-G:ST-CARDIAC-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:ST-SPECTRAL-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:ST-NEURO-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:ST-UNSUPPORTED-01:primary"
+      ],
+      "coverage": [
+        "cardiac",
+        "spectral",
+        "neuro",
+        "unsupported"
+      ]
+    },
+    {
+      "owner": "IMAGING",
+      "characterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "metrics": {
+        "casesExecuted": 4,
+        "casesFullySatisfied": 4,
+        "casesPartiallySatisfied": 0,
+        "casesWithCriticalViolation": 0,
+        "nonAdjudicableCases": 0,
+        "humanArbitrationCases": 0,
+        "criticalObligations": 40,
+        "criticalViolations": 0,
+        "unsupportedAdditions": 0,
+        "criticalOmissions": 0,
+        "contextLosses": 0,
+        "gapLosses": 0,
+        "limitationLosses": 0,
+        "contradictionLosses": 0,
+        "provenanceBreaks": 0,
+        "staleProtectionFailures": 0,
+        "ownershipViolations": 0,
+        "failureClassesObserved": [],
+        "failureClassesInScope": [
+          "ACQUISITION_OVERCOMMITMENT",
+          "CORELAB_GENERALIZATION",
+          "EQUIPMENT_COMPATIBILITY_INVENTED",
+          "EXTERNAL_PROVIDER_CALL",
+          "KNOWLEDGE_LINEAGE_LOST",
+          "LIMITATION_SUPPRESSED",
+          "METHOD_AUTO_SELECTION",
+          "MODALITY_MISMATCH",
+          "OBS_CAPABILITY_INVENTED",
+          "OBS_GAP_LOST",
+          "PROJECT_ADOPTION_LEAK",
+          "PROJECT_WRITE_LEAK",
+          "QA_REQUIREMENT_LOSS",
+          "SCIENTIFIC_NEED_DRIFT",
+          "TRACE_BINDING_MISSING",
+          "UNKNOWN_SUPPRESSION"
+        ],
+        "failureClassesExercised": [
+          "ACQUISITION_OVERCOMMITMENT",
+          "CORELAB_GENERALIZATION",
+          "EQUIPMENT_COMPATIBILITY_INVENTED",
+          "EXTERNAL_PROVIDER_CALL",
+          "KNOWLEDGE_LINEAGE_LOST",
+          "LIMITATION_SUPPRESSED",
+          "METHOD_AUTO_SELECTION",
+          "MODALITY_MISMATCH",
+          "OBS_CAPABILITY_INVENTED",
+          "PROJECT_WRITE_LEAK",
+          "SCIENTIFIC_NEED_DRIFT",
+          "TRACE_BINDING_MISSING",
+          "UNKNOWN_SUPPRESSION"
+        ],
+        "failureClassesExercisedNotObserved": [
+          "ACQUISITION_OVERCOMMITMENT",
+          "CORELAB_GENERALIZATION",
+          "EQUIPMENT_COMPATIBILITY_INVENTED",
+          "EXTERNAL_PROVIDER_CALL",
+          "KNOWLEDGE_LINEAGE_LOST",
+          "LIMITATION_SUPPRESSED",
+          "METHOD_AUTO_SELECTION",
+          "MODALITY_MISMATCH",
+          "OBS_CAPABILITY_INVENTED",
+          "PROJECT_WRITE_LEAK",
+          "SCIENTIFIC_NEED_DRIFT",
+          "TRACE_BINDING_MISSING",
+          "UNKNOWN_SUPPRESSION"
+        ],
+        "failureClassesNotDirectlyExercised": [
+          "OBS_GAP_LOST",
+          "PROJECT_ADOPTION_LEAK",
+          "QA_REQUIREMENT_LOSS"
+        ]
+      },
+      "replay": {
+        "cases": 1,
+        "stable": true,
+        "details": [
+          {
+            "caseId": "IMG-CARDIAC-01",
+            "owner": "IMAGING",
+            "primaryDigest": "ke1-da49f8f5a577fec1",
+            "replayDigest": "ke1-da49f8f5a577fec1",
+            "semanticPayloadStable": true,
+            "gapsStable": true,
+            "limitationsStable": true,
+            "sourcesStable": true,
+            "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:IMG-CARDIAC-01:replay"
+          }
+        ]
+      },
+      "traceRunIds": [
+        "scientific-run:W1-QUAL-01-2026-08-25-G:IMG-CARDIAC-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:IMG-SPECTRAL-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:IMG-NEURO-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:IMG-UNSUPPORTED-01:primary"
+      ],
+      "coverage": [
+        "cardiac",
+        "spectral",
+        "neuro",
+        "unsupported"
+      ]
+    },
+    {
+      "owner": "REG",
+      "characterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "metrics": {
+        "casesExecuted": 8,
+        "casesFullySatisfied": 8,
+        "casesPartiallySatisfied": 0,
+        "casesWithCriticalViolation": 0,
+        "nonAdjudicableCases": 0,
+        "humanArbitrationCases": 0,
+        "criticalObligations": 58,
+        "criticalViolations": 0,
+        "unsupportedAdditions": 0,
+        "criticalOmissions": 0,
+        "contextLosses": 0,
+        "gapLosses": 0,
+        "limitationLosses": 0,
+        "contradictionLosses": 0,
+        "provenanceBreaks": 0,
+        "staleProtectionFailures": 0,
+        "ownershipViolations": 0,
+        "failureClassesObserved": [],
+        "failureClassesInScope": [
+          "CONTRADICTION_SUPPRESSED",
+          "CORPUS_LIMITATION_SUPPRESSED",
+          "CURRENT_LAW_COMPLETENESS_CLAIMED",
+          "EXTERNAL_PROVIDER_CALL",
+          "JURISDICTION_MISMATCH",
+          "LEGAL_CONCLUSION_INVENTED",
+          "MISSING_CONTEXT_SUPPRESSED",
+          "PROJECT_WRITE_LEAK",
+          "REGULATORY_APPROVAL_INVENTED",
+          "REQUIREMENT_SOURCE_LOST",
+          "STALE_REGULATORY_RESULT",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_JURISDICTION_EXTRAPOLATION"
+        ],
+        "failureClassesExercised": [
+          "CORPUS_LIMITATION_SUPPRESSED",
+          "EXTERNAL_PROVIDER_CALL",
+          "JURISDICTION_MISMATCH",
+          "MISSING_CONTEXT_SUPPRESSED",
+          "PROJECT_WRITE_LEAK",
+          "REGULATORY_APPROVAL_INVENTED",
+          "REQUIREMENT_SOURCE_LOST",
+          "STALE_REGULATORY_RESULT",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_JURISDICTION_EXTRAPOLATION"
+        ],
+        "failureClassesExercisedNotObserved": [
+          "CORPUS_LIMITATION_SUPPRESSED",
+          "EXTERNAL_PROVIDER_CALL",
+          "JURISDICTION_MISMATCH",
+          "MISSING_CONTEXT_SUPPRESSED",
+          "PROJECT_WRITE_LEAK",
+          "REGULATORY_APPROVAL_INVENTED",
+          "REQUIREMENT_SOURCE_LOST",
+          "STALE_REGULATORY_RESULT",
+          "TRACE_BINDING_MISSING",
+          "UNSUPPORTED_JURISDICTION_EXTRAPOLATION"
+        ],
+        "failureClassesNotDirectlyExercised": [
+          "CONTRADICTION_SUPPRESSED",
+          "CURRENT_LAW_COMPLETENESS_CLAIMED",
+          "LEGAL_CONCLUSION_INVENTED"
+        ]
+      },
+      "replay": {
+        "cases": 2,
+        "stable": true,
+        "details": [
+          {
+            "caseId": "REG-FR-01",
+            "owner": "REG",
+            "primaryDigest": "regulatory-resolution:ke1-e68585345ee6bb98",
+            "replayDigest": "regulatory-resolution:ke1-e68585345ee6bb98",
+            "semanticPayloadStable": true,
+            "gapsStable": true,
+            "limitationsStable": true,
+            "sourcesStable": true,
+            "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:REG-FR-01:replay"
+          },
+          {
+            "caseId": "REG-STALE-REQUEST-01",
+            "owner": "REG",
+            "primaryDigest": null,
+            "replayDigest": null,
+            "semanticPayloadStable": true,
+            "gapsStable": true,
+            "limitationsStable": true,
+            "sourcesStable": true,
+            "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:REG-STALE-REQUEST-01:replay"
+          }
+        ]
+      },
+      "traceRunIds": [
+        "scientific-run:W1-QUAL-01-2026-08-25-G:REG-FR-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:REG-EU-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:REG-US-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:REG-INTL-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:REG-UNSUPPORTED-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:REG-MISSING-JURISDICTION-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:REG-MISSING-CONTEXT-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:REG-STALE-REQUEST-01:primary"
+      ],
+      "coverage": [
+        "France",
+        "EU/EEA",
+        "United States",
+        "International methodological/reporting",
+        "Unsupported jurisdiction",
+        "Missing jurisdiction",
+        "Insufficient context",
+        "Stale Project/request"
+      ]
+    },
+    {
+      "owner": "VAL",
+      "characterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "metrics": {
+        "casesExecuted": 13,
+        "casesFullySatisfied": 13,
+        "casesPartiallySatisfied": 0,
+        "casesWithCriticalViolation": 0,
+        "nonAdjudicableCases": 0,
+        "humanArbitrationCases": 0,
+        "criticalObligations": 78,
+        "criticalViolations": 0,
+        "unsupportedAdditions": 0,
+        "criticalOmissions": 0,
+        "contextLosses": 0,
+        "gapLosses": 0,
+        "limitationLosses": 0,
+        "contradictionLosses": 0,
+        "provenanceBreaks": 0,
+        "staleProtectionFailures": 0,
+        "ownershipViolations": 0,
+        "failureClassesObserved": [],
+        "failureClassesInScope": [
+          "CONTRADICTION_LOST",
+          "EXTERNAL_PROVIDER_CALL",
+          "FALSE_POSITIVE_ON_VALID_CHAIN",
+          "KNOWLEDGE_EVIDENCE_LINEAGE_MISSING",
+          "KNOWLEDGE_TO_ST_LINEAGE_MISSING",
+          "LIMITATION_LOST",
+          "OWNER_TRANSFER_VIOLATION",
+          "PROJECT_DIGEST_MISMATCH",
+          "PROJECT_WRITE_LEAK",
+          "SCIENTIFIC_PASS_INVENTED",
+          "STALE_",
+          "STALE_KNOWLEDGE_RESULT",
+          "STALE_SCIENTIFIC_THINKING_RESULT",
+          "ST_TO_IMAGING_LINEAGE_MISSING",
+          "TRACE_BINDING_MISSING",
+          "UNKNOWN_LOST",
+          "VAL_REPAIR_OR_WRITE"
+        ],
+        "failureClassesExercised": [
+          "CONTRADICTION_LOST",
+          "EXTERNAL_PROVIDER_CALL",
+          "FALSE_POSITIVE_ON_VALID_CHAIN",
+          "KNOWLEDGE_EVIDENCE_LINEAGE_MISSING",
+          "KNOWLEDGE_TO_ST_LINEAGE_MISSING",
+          "LIMITATION_LOST",
+          "OWNER_TRANSFER_VIOLATION",
+          "PROJECT_WRITE_LEAK",
+          "SCIENTIFIC_PASS_INVENTED",
+          "STALE_",
+          "STALE_KNOWLEDGE_RESULT",
+          "STALE_SCIENTIFIC_THINKING_RESULT",
+          "ST_TO_IMAGING_LINEAGE_MISSING",
+          "TRACE_BINDING_MISSING",
+          "UNKNOWN_LOST",
+          "VAL_REPAIR_OR_WRITE"
+        ],
+        "failureClassesExercisedNotObserved": [
+          "CONTRADICTION_LOST",
+          "EXTERNAL_PROVIDER_CALL",
+          "FALSE_POSITIVE_ON_VALID_CHAIN",
+          "KNOWLEDGE_EVIDENCE_LINEAGE_MISSING",
+          "KNOWLEDGE_TO_ST_LINEAGE_MISSING",
+          "LIMITATION_LOST",
+          "OWNER_TRANSFER_VIOLATION",
+          "PROJECT_WRITE_LEAK",
+          "SCIENTIFIC_PASS_INVENTED",
+          "STALE_",
+          "STALE_KNOWLEDGE_RESULT",
+          "STALE_SCIENTIFIC_THINKING_RESULT",
+          "ST_TO_IMAGING_LINEAGE_MISSING",
+          "TRACE_BINDING_MISSING",
+          "UNKNOWN_LOST",
+          "VAL_REPAIR_OR_WRITE"
+        ],
+        "failureClassesNotDirectlyExercised": [
+          "PROJECT_DIGEST_MISMATCH"
+        ]
+      },
+      "replay": {
+        "cases": 2,
+        "stable": true,
+        "details": [
+          {
+            "caseId": "VAL-CLEAN-01",
+            "owner": "VAL",
+            "primaryDigest": "val1-1475de0f36849b5b",
+            "replayDigest": "val1-1475de0f36849b5b",
+            "semanticPayloadStable": true,
+            "gapsStable": true,
+            "limitationsStable": true,
+            "sourcesStable": true,
+            "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-CLEAN-01:replay"
+          },
+          {
+            "caseId": "VAL-NO-SCIENTIFIC-PASS-01",
+            "owner": "VAL",
+            "primaryDigest": "val1-e288f7d400e9a7e0",
+            "replayDigest": "val1-e288f7d400e9a7e0",
+            "semanticPayloadStable": true,
+            "gapsStable": true,
+            "limitationsStable": true,
+            "sourcesStable": true,
+            "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-NO-SCIENTIFIC-PASS-01:replay"
+          }
+        ]
+      },
+      "traceRunIds": [
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-CLEAN-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-PROJECT-DIGEST-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-STALE-K-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-STALE-ST-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-WRONG-OWNER-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-PROVENANCE-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-UNKNOWN-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-LIMITATION-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-CONTRADICTION-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-K-ST-LINEAGE-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-ST-IMG-LINEAGE-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-OBS-GAP-01:primary",
+        "scientific-run:W1-QUAL-01-2026-08-25-G:VAL-NO-SCIENTIFIC-PASS-01:primary"
+      ],
+      "coverage": [
+        "structural-fidelity"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "contract": "W1_QUAL_01_CHARACTERIZATION_FREEZE",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01-2026-08-25-G",
+  "harnessVersion": "1.1.3",
+  "frozenAt": "2026-08-25T22:00:00.000Z",
+  "branch": "protocol-designer-canonical-ingestion",
+  "gitHead": "772cacfd184daeb531eef6a7a866874a7863e228",
+  "schemas": {
+    "canonicalProject": "PRJ001_CANONICAL_RESEARCH_PROJECT_STATE@0.2.0",
+    "projectContextSnapshot": "PROJECT_CONTEXT_SNAPSHOT@0.3.0",
+    "ownerResult": "PROJECT_SPINE_02_SPECIALIZED_OWNER_HANDOFF@0.1.0",
+    "productOwnerLedger": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER@0.2.0",
+    "trace": "SCIENTIFIC_EXECUTION_TRACE_LEDGER@0.1.0"
+  },
+  "ownerVersions": {
+    "knowledge": "1.2.0",
+    "scientificThinking": "1.2.0",
+    "imaging": "1.2.1",
+    "reg": "1.0.0",
+    "val": "VAL-001-DETERMINISTIC-ENGINE@1.0.0 / product-profile@0.1.0"
+  },
+  "deterministicConfiguration": {
+    "knowledgeExternalSearchPolicy": "INTERNAL_ONLY",
+    "externalProviderCalls": 0,
+    "llmCalls": 0,
+    "regProvider": "LOCAL_DETERMINISTIC_RESOLVER",
+    "valSemanticReview": false
+  },
+  "corpora": {
+    "reg": {
+      "identifier": "REG-000",
+      "version": "1.0.0",
+      "digest": "ke1-40ba687c4aefa298",
+      "admissionStatus": "CANDIDATE_NOT_ADMITTED",
+      "authorityBoundary": "External official sources remain authoritative. REG-000 only references, structures, qualifies, versions, links and makes them queryable."
+    },
+    "knowledge": {
+      "registryId": "noxia-knowledge-provider-registry",
+      "registryVersion": "1.1.0",
+      "registryDigest": "ke1-b5727e470489eecb",
+      "providerVersions": {
+        "assertion-layer": "1.0.0",
+        "knowledge-graph": "1.0.0",
+        "p4-historical": "1.0.0-ecv-t1-pilot",
+        "p4r-ecv-t1": "1.1.0-ecv-t1-consolidated",
+        "p5-multidomain": "1.0.0-multidomain-wave-1",
+        "rb-003": "1.0",
+        "rb-004": "1.1",
+        "rb-005": "1.0"
+      },
+      "applicableCorpora": [
+        "P4R_CURRENT",
+        "P5_CURRENT",
+        "RB-003@1.0",
+        "RB-004@1.1",
+        "RB-005@1.0"
+      ]
+    }
+  },
+  "registries": {
+    "caseRegistryDigest": "ke1-62e633de99d0cde2",
+    "envelopeRegistryDigest": "ke1-f16b83aedf1054ca",
+    "inputRegistryDigest": "ke1-96b2c7a340d35687",
+    "cases": 35,
+    "envelopes": 35,
+    "packs": 35
+  },
+  "codeDigests": {
+    "validation/w1-qual-01/harness/authoring.ts": "3d9b5ad3d3982cfcb6df615bff598d09ab6d93d1a6f42e10533a5bc73e71b449",
+    "validation/w1-qual-01/harness/prepare.ts": "e675dc64acbfbbfdc54ad3662ae89cc24cc1a4119feddb2dae37d28366a616bb",
+    "validation/w1-qual-01/harness/execute.ts": "cdee256af449807eab0a8fe375d830e58c5862d22868aa24228d02c9dcf36e51",
+    "validation/w1-qual-01/harness/validate.ts": "9701489b75e2c4f91be311ce1289a4cae0853cc2bebb3323cf399e92d197d5f0",
+    "validation/w1-qual-01/harness/harness.test.ts": "fec499efd8fff31a9733c5ed7c6ecbb06f1f582a8030b2a2c65ae464b349923b",
+    "src/features/protocol-designer/product-knowledge-owner-runtime.ts": "100a5082481dbadaac709941166ce96e38efc95f15f5de1e8e4bf4f0faef40b8",
+    "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts": "bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7",
+    "src/features/protocol-designer/product-imaging-owner-runtime.ts": "b5a607fce17de74134c3440a4b9845e0fe77704466a356159f30067a776879ef",
+    "src/features/protocol-designer/product-regulatory-owner-runtime.ts": "f904242f71ceeb51f00df546b7fd9988597fac30b1b4fc49298a871b123acc52",
+    "src/features/protocol-designer/product-scientific-loop-validation-runtime.ts": "72391260a4eb65df1fbc6af72993261cd0d533e52f4b42a793baf54f91fd296e",
+    "src/features/protocol-designer/scientific-execution-trace.ts": "21c126589e3eca36262655660eb9b5d2e232a182ed940876fdc91edb73484fd3",
+    "src/features/research-project-construction/native-specialized-owner-invocation.ts": "538f4041e7deb72f7042dc30c69ab584f3d4f8dd0dedb4344dd6645f9411cd00",
+    "src/features/research-project-construction/scientific-reasoning-owner-chain.ts": "b8819769497078038f6ae02b35c5cf75ef1e22dfbcebc4334c71d81599cf4778",
+    "src/features/knowledge-engine/engine.ts": "7d1a003c454b08a102205963709ddd729b12d82094c7d4d54b1d485214ffeb18",
+    "src/features/scientific-thinking/engine.ts": "ab0b50d25a8cb2922b4c4cda1958d4fadcabebd7a098f14d2321b44c968ed1dd",
+    "src/features/imaging-study-designer/engine.ts": "5de7fe69cc61f711fd4c7a8a059e3b77885871d6ebfe298eb21232565bb7f98e",
+    "src/features/regulatory-resolution/resolver.ts": "91d0ed5cc873067f89c42ff571226b2b478d59e6ce78c3832d9e3b9037127c19"
+  },
+  "antiSem": {
+    "ownersFrozenAfterFirstObservedResult": true,
+    "envelopesMutableAfterObservation": false,
+    "repairDuringCampaign": false
+  },
+  "invalidatedPredecessorCampaigns": [
+    {
+      "campaignId": "W1-QUAL-01-2026-08-25-A",
+      "invalidationReason": "CHARACTERIZATION_HARNESS_VAL_REPLAY_CONFIGURATION_MISMATCH",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "ownerRuntimeChanges": 0,
+      "observedResultsRetained": false,
+      "correctionScope": "HARNESS_REPLAY_USES_IDENTICAL_FROZEN_VALIDATION_INPUT"
+    },
+    {
+      "campaignId": "W1-QUAL-01-2026-08-25-B",
+      "invalidationReason": "CHARACTERIZATION_HARNESS_ACCEPTANCE_EVALUATOR_FALSE_NEGATIVES",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "ownerRuntimeChanges": 0,
+      "observedResultsRetained": false,
+      "correctionScope": "DOCUMENTARY_GROUNDING_ACCEPTED; NON_INTERCHANGEABILITY_WORDING_ACCEPTED; PROJECT_QUESTION_INPUT_PRESERVATION_CHECKED"
+    },
+    {
+      "campaignId": "W1-QUAL-01-2026-08-25-C",
+      "invalidationReason": "CHARACTERIZATION_HARNESS_OWNER_COVERAGE_INSUFFICIENT",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "ownerRuntimeChanges": 0,
+      "observedResultsRetained": false,
+      "correctionScope": "KNOWLEDGE_CRITICAL_CONCEPT_COVERAGE_AND_TYPED_IMAGING_UPSTREAM_FIXTURES"
+    },
+    {
+      "campaignId": "W1-QUAL-01-2026-08-25-D",
+      "invalidationReason": "CHARACTERIZATION_HARNESS_INVALID_STALE_SUCCESSOR_SNAPSHOT",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "ownerRuntimeChanges": 0,
+      "observedResultsRetained": false,
+      "correctionScope": "CANONICAL_HUMAN_CONFIRMED_PROJECT_SUCCESSOR_AND_VALID_SNAPSHOT_FOR_STALE_READBACK"
+    },
+    {
+      "campaignId": "W1-QUAL-01-2026-08-25-E",
+      "invalidationReason": "CHARACTERIZATION_FREEZE_REG_CORPUS_METADATA_OMITTED",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "ownerRuntimeChanges": 0,
+      "observedResultsRetained": false,
+      "correctionScope": "FREEZE_EXPLICIT_REG_CORPUS_VERSION_DIGEST_ADMISSION_STATUS_AND_KNOWLEDGE_REGISTRY_DIGEST"
+    },
+    {
+      "campaignId": "W1-QUAL-01-2026-08-25-F",
+      "invalidationReason": "CHARACTERIZATION_HARNESS_TARGETED_LINT_FAILED",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "ownerRuntimeChanges": 0,
+      "observedResultsRetained": false,
+      "correctionScope": "LOCAL_EXPLICIT_NO_EXPLICIT_ANY_EXEMPTION_FOR_HETEROGENEOUS_FROZEN_CONTRACT_INSPECTION"
+    }
+  ],
+  "freezeDigest": "ke1-338176f77d9f11f3",
+  "immutableForCampaign": true
+}

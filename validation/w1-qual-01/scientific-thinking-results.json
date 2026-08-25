@@ -1,0 +1,4223 @@
+{
+  "contract": "W1_QUAL_01_SCIENTIFIC_THINKING_RESULTS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01-2026-08-25-G",
+  "freezeDigest": "ke1-338176f77d9f11f3",
+  "results": [
+    {
+      "caseId": "ST-CARDIAC-01",
+      "owner": "SCIENTIFIC_THINKING",
+      "inputPackDigest": "ke1-39f844d97d6aa0dd",
+      "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:ST-CARDIAC-01:primary",
+      "traceEventRefs": [
+        "scientific-trace-event:ke1-fa8b6fed952a3b91",
+        "scientific-trace-event:ke1-888ad3dd505936c1",
+        "scientific-trace-event:ke1-3bca830754010f13",
+        "scientific-trace-event:ke1-34d53ca9f1255ded",
+        "scientific-trace-event:ke1-02a8478e15a52f8a",
+        "scientific-trace-event:ke1-c664990ce01f62e8",
+        "scientific-trace-event:ke1-4dd15c134615f2df"
+      ],
+      "requestRef": "scientific-thinking-handoff:ke1-d11e3ef6b7be992a",
+      "requestDigest": "ke1-3621af491c3ff3bd",
+      "outputResultRef": "scientific-thinking-output:ke1-36984137b66353c3@1.2.0",
+      "outputDigest": "ke1-36984137b66353c3",
+      "status": "COMPLETED_WITH_LIMITATIONS",
+      "error": null,
+      "result": {
+        "contract": "PROJECT_SPINE_02_SPECIALIZED_OWNER_HANDOFF",
+        "contractVersion": "0.1.0",
+        "resultId": "scientific-thinking-output:ke1-36984137b66353c3",
+        "resultVersion": "1.2.0",
+        "handoffId": "scientific-thinking-handoff:ke1-d11e3ef6b7be992a",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "sourceProjectRef": "project:w1-qual-01:cardiac",
+        "sourceProjectVersion": "project:w1-qual-01:cardiac:version:1",
+        "sourceProjectDigest": "ke1-956d04590b3237bd",
+        "sourceSnapshotDigest": "ke1-4a2d12f93de0559d",
+        "projectWriteAuthorized": false,
+        "conversationalLlmExpertFallback": "FORBIDDEN",
+        "completedAt": "2026-08-25T16:36:01.000Z",
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "resultKind": "GAP",
+        "nativePayloadType": "ScientificThinkingOutput",
+        "nativePayloadVersion": "1.2.0",
+        "nativePayload": {
+          "contractVersion": "1.2.0",
+          "outputId": "scientific-thinking-output:ke1-36984137b66353c3",
+          "outputDigest": "ke1-36984137b66353c3",
+          "status": "CLARIFICATION_REQUIRED",
+          "candidateNotice": "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+          "originalIdea": "Comment distinguer obstruction microvasculaire et hémorragie intramyocardique après infarctus par IRM cardiaque ? Conserver deux phénomènes distincts, limites et alternatives candidates.",
+          "understoodProblem": "Quel phénomène relatif à Infarctus du myocarde souhaitez-vous étudier, indépendamment de la préférence déclarée pour IRM cardiaque ou Rehaussement tardif ?",
+          "centralScientificObject": "Obstruction microvasculaire",
+          "semanticElements": [
+            {
+              "elementId": "ST-I-001",
+              "type": "SCIENTIFIC_QUESTION",
+              "text": "Comment distinguer obstruction microvasculaire et hémorragie intramyocardique après infarctus par IRM cardiaque ? Conserver deux phénomènes distincts, limites et alternatives candidates.",
+              "source": "USER_EXPLICIT",
+              "confidence": "HIGH",
+              "support": "PARTIAL"
+            }
+          ],
+          "questions": [
+            {
+              "questionId": "ST-Q-001",
+              "text": "Quel phénomène relatif à Infarctus du myocarde souhaitez-vous étudier, indépendamment de la préférence déclarée pour IRM cardiaque ou Rehaussement tardif ?",
+              "kind": "PRIMARY",
+              "rationale": "La solution méthodologique mentionnée est conservée comme préférence, mais ne remplace pas la finalité scientifique.",
+              "testability": "NEEDS_CLARIFICATION",
+              "scope": "TOO_NARROW",
+              "support": "PARTIAL",
+              "reviewState": "PENDING",
+              "linkedAssumptionIds": [
+                "ST-A-001"
+              ],
+              "sourceTerms": [
+                "Infarctus du myocarde",
+                "IRM cardiaque",
+                "Rehaussement tardif"
+              ]
+            }
+          ],
+          "hypotheses": [],
+          "objectives": [],
+          "selectedQuestionCandidate": null,
+          "mechanisms": [],
+          "assumptions": [
+            {
+              "assumptionId": "ST-A-001",
+              "text": "La pertinence de IRM cardiaque et Rehaussement tardif est présumée avant confirmation de la finalité scientifique.",
+              "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+              "support": "PARTIAL",
+              "status": "CHALLENGED"
+            }
+          ],
+          "unknowns": [
+            "PENDING_VERIFICATION:cardiac-condition",
+            "PENDING_VERIFICATION:cardiac-imh",
+            "PENDING_VERIFICATION:cardiac-lge",
+            "PENDING_VERIFICATION:cardiac-mri",
+            "PENDING_VERIFICATION:cardiac-mvo",
+            "PENDING_VERIFICATION:cardiac-pop",
+            "PENDING_VERIFICATION:cardiac-question",
+            "PENDING_VERIFICATION:cardiac-unknown",
+            "Que cherchez-vous d'abord à comprendre à propos de Obstruction microvasculaire ?",
+            "Quelle relation souhaitez-vous examiner ?",
+            "UNKNOWN_PROJECT_OBJECT:cardiac-unknown"
+          ],
+          "ambiguities": [
+            "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+            "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+          ],
+          "contradictions": [
+            "frozen-conflict:cardiac:OPEN:Alternative operationalizations remain context dependent."
+          ],
+          "conceptualBiases": [
+            "SOLUTION_MÉTHODOLOGIQUE_POTENTIELLEMENT_PRÉMATURÉE"
+          ],
+          "methodPreferences": [
+            "IRM cardiaque",
+            "Rehaussement tardif"
+          ],
+          "alternatives": [],
+          "reasoningIssues": [
+            "QUESTION_SCOPE_TOO_NARROW"
+          ],
+          "operations": [
+            {
+              "operation": "CLARIFY_IDEA",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REFORMULATE_QUESTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "SPLIT_QUESTION",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "MERGE_QUESTIONS",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "REDUCE_SCOPE",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "EXPAND_SCOPE",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "IDENTIFY_ASSUMPTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "CHALLENGE_ASSUMPTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "GENERATE_ALTERNATIVE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REFINE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REJECT_NON_TESTABLE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "IDENTIFY_MECHANISM",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "IDENTIFY_MISSING_INFORMATION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_CONTRADICTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_CONCEPTUAL_BIAS",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PROPOSE_OBJECTIVES",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "PRIORITIZE_OBJECTIVES_FOR_REVIEW",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REQUEST_KNOWLEDGE",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REQUEST_HUMAN_DECISION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PREPARE_RESEARCH_DESIGN_HANDOFF",
+              "status": "BLOCKED",
+              "reason": "Les portes humaines ou les informations décisionnelles ne sont pas encore satisfaites."
+            }
+          ],
+          "adaptiveQuestions": [
+            {
+              "questionId": "ST-AQ-FINALITY",
+              "label": "Que cherchez-vous d’abord à comprendre à propos de Obstruction microvasculaire ?",
+              "whyAsked": "Une méthode ou un thème ne suffit pas à constituer une question scientifique testable.",
+              "decisionImpact": "Votre réponse déterminera la relation centrale et permettra, ou non, de proposer une question testable.",
+              "decisionBlock": "SCIENTIFIC_FINALITY",
+              "blocking": true,
+              "suggestedAnswers": [
+                {
+                  "value": "explain",
+                  "label": "Expliquer un mécanisme",
+                  "consequence": "La question sera orientée vers une relation mécanistique candidate."
+                },
+                {
+                  "value": "compare",
+                  "label": "Comparer",
+                  "consequence": "Les objets de comparaison devront être explicités."
+                },
+                {
+                  "value": "quantify",
+                  "label": "Quantifier ou suivre",
+                  "consequence": "La grandeur et la temporalité devront être explicitées."
+                }
+              ],
+              "acceptsFreeText": true,
+              "acceptsUnknown": true,
+              "answeredValue": null
+            },
+            {
+              "questionId": "ST-AQ-RELATION",
+              "label": "Quelle relation souhaitez-vous examiner ?",
+              "whyAsked": "La relation distingue une intuition thématique d’une question réfutable.",
+              "decisionImpact": "Elle structure la question principale et les hypothèses concurrentes.",
+              "decisionBlock": "RELATION",
+              "blocking": true,
+              "suggestedAnswers": [
+                {
+                  "value": "association",
+                  "label": "Une association",
+                  "consequence": "Aucune causalité ne sera présumée."
+                },
+                {
+                  "value": "difference",
+                  "label": "Une différence",
+                  "consequence": "Les deux objets devront être nommés."
+                },
+                {
+                  "value": "change",
+                  "label": "Une évolution",
+                  "consequence": "La temporalité devra rester visible."
+                }
+              ],
+              "acceptsFreeText": true,
+              "acceptsUnknown": true,
+              "answeredValue": null
+            }
+          ],
+          "humanGates": [
+            {
+              "gateId": "ST-G-QUESTION_CONFIRMATION",
+              "type": "QUESTION_CONFIRMATION",
+              "label": "Confirmer une question candidate",
+              "reason": "Une reformulation candidate ne devient jamais automatiquement la question du projet.",
+              "status": "PENDING",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-HYPOTHESIS_ADOPTION",
+              "type": "HYPOTHESIS_ADOPTION",
+              "label": "Adopter ou rejeter les hypothèses",
+              "reason": "Chaque hypothèse reste une proposition réfutable soumise à revue.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-OBJECTIVE_HIERARCHY",
+              "type": "OBJECTIVE_HIERARCHY",
+              "label": "Valider la hiérarchie des objectifs",
+              "reason": "Le moteur propose une hiérarchie mais ne décide pas de la priorité scientifique.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-MAJOR_SCOPE_CHANGE",
+              "type": "MAJOR_SCOPE_CHANGE",
+              "label": "Autoriser une modification majeure",
+              "reason": "Un changement majeur invalide explicitement les éléments dépendants.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-BRANCH_ABANDONMENT",
+              "type": "BRANCH_ABANDONMENT",
+              "label": "Confirmer l’abandon d’une branche",
+              "reason": "Une question ou hypothèse ne disparaît pas silencieusement.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-DESIGN_TRANSITION",
+              "type": "DESIGN_TRANSITION",
+              "label": "Autoriser le passage à la conception d’étude",
+              "reason": "Le handoff transmet uniquement le raisonnement confirmé et ses inconnues.",
+              "status": "PENDING",
+              "decidedAt": null
+            }
+          ],
+          "changes": [],
+          "refusal": null,
+          "knowledgeRequest": {
+            "status": "OPTIONAL",
+            "reason": "Les candidats restent visibles mais ne peuvent pas être présentés comme soutenus par le corpus exécutable courant.",
+            "unresolvedConcepts": [],
+            "gapCodes": []
+          },
+          "proposedNextAction": "CLARIFY",
+          "humanDecisionRequired": true,
+          "knowledgeDependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "ownershipTransferred": false,
+              "knowledgeOwnerResultRef": "frozen-knowledge-result:w1-qual-01:cardiac@1",
+              "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:cardiac",
+              "knowledgeResultRevision": 1,
+              "knowledgeResultDigest": "ke1-8ba35820b068437c",
+              "candidateRefs": [
+                "ST-Q-001"
+              ],
+              "assertionRefs": [
+                "frozen-assertion:w1-qual-01:cardiac"
+              ],
+              "documentaryStatementRefs": [],
+              "evidenceRefs": [
+                "frozen-evidence:w1-qual-01:cardiac"
+              ],
+              "sourceRefs": [
+                "noxia:scientific-source:pubmed:23021401"
+              ],
+              "applicability": [
+                {
+                  "assertionRef": "frozen-assertion:w1-qual-01:cardiac",
+                  "status": "APPLICABLE_WITH_LIMITATIONS"
+                }
+              ],
+              "contradictionRefs": [
+                "frozen-conflict:cardiac"
+              ],
+              "gapRefs": []
+            }
+          ],
+          "provenance": {
+            "engineVersion": "1.2.0",
+            "inputRef": "scientific-thinking-project-request:ke1-3cfd2fc79c9456bb",
+            "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:cardiac",
+            "sourceRefs": [
+              "frozen-assertion:w1-qual-01:cardiac",
+              "frozen-evidence:w1-qual-01:cardiac",
+              "frozen-knowledge-result:w1-qual-01:cardiac@1",
+              "noxia:scientific-source:pubmed:23021401",
+              "project-contribution-decision:ke1-bcd080aba193cba7"
+            ],
+            "policyRefs": [
+              "RDE-001",
+              "RDE-002",
+              "PD-003",
+              "PD-009",
+              "KE-001"
+            ],
+            "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+          },
+          "graph": {
+            "projectionVersion": "RUNTIME_PROJECTION_1.0",
+            "ontologyStatus": "NO_NEW_ONTOLOGY",
+            "nodes": [
+              {
+                "nodeId": "ST-N-SITUATION",
+                "type": "SITUATION",
+                "label": "Comment distinguer obstruction microvasculaire et hémorragie intramyocardique après infarctus par IRM cardiaque ? Conserver deux phénomènes distincts, limites et alternatives candidates.",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-3cfd2fc79c9456bb"
+              },
+              {
+                "nodeId": "ST-N-ST-I-001",
+                "type": "SCIENTIFIC_QUESTION",
+                "label": "Comment distinguer obstruction microvasculaire et hémorragie intramyocardique après infarctus par IRM cardiaque ? Conserver deux phénomènes distincts, limites et alternatives candidates.",
+                "status": "USER_STATED",
+                "sourceRef": "ST-I-001"
+              },
+              {
+                "nodeId": "ST-N-ST-Q-001",
+                "type": "SCIENTIFIC_QUESTION",
+                "label": "Quel phénomène relatif à Infarctus du myocarde souhaitez-vous étudier, indépendamment de la préférence déclarée pour IRM cardiaque ou Rehaussement tardif ?",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-Q-001"
+              },
+              {
+                "nodeId": "ST-N-ST-A-001",
+                "type": "ASSUMPTION",
+                "label": "La pertinence de IRM cardiaque et Rehaussement tardif est présumée avant confirmation de la finalité scientifique.",
+                "status": "OPEN",
+                "sourceRef": "ST-A-001"
+              },
+              {
+                "nodeId": "ST-N-GAP-1",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:cardiac-condition",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-2",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:cardiac-imh",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-3",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:cardiac-lge",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-4",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:cardiac-mri",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-5",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:cardiac-mvo",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-6",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:cardiac-pop",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-7",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:cardiac-question",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-8",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:cardiac-unknown",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-9",
+                "type": "KNOWLEDGE_GAP",
+                "label": "Que cherchez-vous d'abord à comprendre à propos de Obstruction microvasculaire ?",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-10",
+                "type": "KNOWLEDGE_GAP",
+                "label": "Quelle relation souhaitez-vous examiner ?",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-GAP-11",
+                "type": "KNOWLEDGE_GAP",
+                "label": "UNKNOWN_PROJECT_OBJECT:cardiac-unknown",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:cardiac"
+              },
+              {
+                "nodeId": "ST-N-METHOD-1",
+                "type": "METHOD_PREFERENCE",
+                "label": "IRM cardiaque",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-3cfd2fc79c9456bb"
+              },
+              {
+                "nodeId": "ST-N-METHOD-2",
+                "type": "METHOD_PREFERENCE",
+                "label": "Rehaussement tardif",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-3cfd2fc79c9456bb"
+              }
+            ],
+            "edges": [
+              {
+                "edgeId": "ST-E-Q-1",
+                "from": "ST-N-SITUATION",
+                "to": "ST-N-ST-Q-001",
+                "relation": "REFORMULATED_AS"
+              },
+              {
+                "edgeId": "ST-E-A-1",
+                "from": "ST-N-ST-A-001",
+                "to": "ST-N-ST-Q-001",
+                "relation": "DEPENDS_ON"
+              },
+              {
+                "edgeId": "ST-E-GAP-1",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-1",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-2",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-2",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-3",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-3",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-4",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-4",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-5",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-5",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-6",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-6",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-7",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-7",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-8",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-8",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-9",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-9",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-10",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-10",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-11",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-11",
+                "relation": "REQUIRES_INFORMATION"
+              }
+            ]
+          },
+          "handoff": {
+            "handoffVersion": "1.1",
+            "status": "NOT_READY",
+            "questionId": null,
+            "hypothesisIds": [],
+            "objectiveIds": [],
+            "mechanisms": [],
+            "knownInformation": [
+              "PROJECT_ADOPTED:cardiac-condition:Infarctus du myocarde",
+              "PROJECT_ADOPTED:cardiac-imh:Hémorragie intramyocardique",
+              "PROJECT_ADOPTED:cardiac-lge:Rehaussement tardif",
+              "PROJECT_ADOPTED:cardiac-mri:IRM cardiaque",
+              "PROJECT_ADOPTED:cardiac-mvo:Obstruction microvasculaire",
+              "PROJECT_ADOPTED:cardiac-pop:Adultes après infarctus du myocarde",
+              "PROJECT_ADOPTED:cardiac-question:Comment distinguer obstruction microvasculaire et hémorragie intramyocardique après infarctus par IRM cardiaque ?",
+              "PROJECT_ADOPTED:cardiac-unknown:Définition opérationnelle multicentrique"
+            ],
+            "acceptedUnknowns": [],
+            "unresolvedUnknowns": [
+              "PENDING_VERIFICATION:cardiac-condition",
+              "PENDING_VERIFICATION:cardiac-imh",
+              "PENDING_VERIFICATION:cardiac-lge",
+              "PENDING_VERIFICATION:cardiac-mri",
+              "PENDING_VERIFICATION:cardiac-mvo",
+              "PENDING_VERIFICATION:cardiac-pop",
+              "PENDING_VERIFICATION:cardiac-question",
+              "PENDING_VERIFICATION:cardiac-unknown",
+              "Que cherchez-vous d'abord à comprendre à propos de Obstruction microvasculaire ?",
+              "Quelle relation souhaitez-vous examiner ?",
+              "UNKNOWN_PROJECT_OBJECT:cardiac-unknown"
+            ],
+            "contradictions": [
+              "frozen-conflict:cardiac:OPEN:Alternative operationalizations remain context dependent."
+            ],
+            "decisionRecordIds": [],
+            "humanDecisions": [],
+            "alternativesNotSelected": [],
+            "limitations": [
+              "CMR finding definitions and quantification depend on acquisition, timing and analysis choices."
+            ],
+            "provenanceRefs": [
+              "frozen-assertion:w1-qual-01:cardiac",
+              "frozen-evidence:w1-qual-01:cardiac",
+              "frozen-knowledge-result:w1-qual-01:cardiac",
+              "frozen-knowledge-result:w1-qual-01:cardiac@1",
+              "noxia:scientific-source:pubmed:23021401",
+              "scientific-thinking-project-request:ke1-3cfd2fc79c9456bb"
+            ],
+            "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:cardiac",
+            "blockedBy": [
+              "QUESTION_CONFIRMATION_REQUIRED",
+              "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+              "OBJECTIVE_HIERARCHY_REQUIRED",
+              "UNANSWERED:ST-AQ-FINALITY",
+              "UNANSWERED:ST-AQ-RELATION"
+            ],
+            "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+          },
+          "trace": [
+            {
+              "sequence": 1,
+              "operation": "CLASSIFY_INPUT",
+              "mode": "DETERMINISTIC",
+              "decision": "Type sémantique initial : SCIENTIFIC_QUESTION.",
+              "inputDigest": "ke1-237c2fe1b8ca349d",
+              "outputDigest": "ke1-2494480902c330dd"
+            },
+            {
+              "sequence": 2,
+              "operation": "REFORMULATE_QUESTION",
+              "mode": "DETERMINISTIC",
+              "decision": "Construction candidate sans sélection scientifique autonome.",
+              "inputDigest": "ke1-cd9f37e0740023bc",
+              "outputDigest": "ke1-16dd393eff29e3d2"
+            },
+            {
+              "sequence": 3,
+              "operation": "IDENTIFY_ASSUMPTION",
+              "mode": "DETERMINISTIC",
+              "decision": "Suppositions et biais conservés comme éléments distincts.",
+              "inputDigest": "ke1-16dd393eff29e3d2",
+              "outputDigest": "ke1-9873567b12115fbf"
+            },
+            {
+              "sequence": 4,
+              "operation": "PROPOSE_OBJECTIVES",
+              "mode": "DETERMINISTIC",
+              "decision": "Hypothèses et objectifs proposés uniquement si la question est testable.",
+              "inputDigest": "ke1-9a6c8c7fadad65fb",
+              "outputDigest": "ke1-f2d9b623a8d455cf"
+            },
+            {
+              "sequence": 5,
+              "operation": "BUILD_GRAPH",
+              "mode": "DETERMINISTIC",
+              "decision": "Projection runtime du Scientific Reasoning Graph ; aucune ontologie créée.",
+              "inputDigest": "ke1-ec65ba0bca095e8f",
+              "outputDigest": "ke1-fbb821c3f3b5480f"
+            },
+            {
+              "sequence": 6,
+              "operation": "REQUEST_HUMAN_DECISION",
+              "mode": "HUMAN_REQUIRED",
+              "decision": "Les portes de confirmation restent sous contrôle humain.",
+              "inputDigest": "ke1-62f12e401deb9c9c",
+              "outputDigest": "ke1-9ec4e4a1cb403b75"
+            },
+            {
+              "sequence": 7,
+              "operation": "ASSESS_HANDOFF",
+              "mode": "DETERMINISTIC",
+              "decision": "Handoff : NOT_READY.",
+              "inputDigest": "ke1-fc53e3475d78f4cb",
+              "outputDigest": "ke1-36984137b66353c3"
+            }
+          ]
+        },
+        "stableProjectRefs": [
+          "cardiac-question",
+          "cardiac-pop",
+          "cardiac-condition",
+          "cardiac-mri",
+          "cardiac-lge",
+          "cardiac-mvo",
+          "cardiac-imh",
+          "cardiac-unknown"
+        ],
+        "evidenceRefs": [
+          "frozen-assertion:w1-qual-01:cardiac",
+          "frozen-evidence:w1-qual-01:cardiac",
+          "frozen-knowledge-result:w1-qual-01:cardiac@1",
+          "noxia:scientific-source:pubmed:23021401",
+          "project-contribution-decision:ke1-bcd080aba193cba7"
+        ],
+        "unknowns": [
+          "PENDING_VERIFICATION:cardiac-condition",
+          "PENDING_VERIFICATION:cardiac-imh",
+          "PENDING_VERIFICATION:cardiac-lge",
+          "PENDING_VERIFICATION:cardiac-mri",
+          "PENDING_VERIFICATION:cardiac-mvo",
+          "PENDING_VERIFICATION:cardiac-pop",
+          "PENDING_VERIFICATION:cardiac-question",
+          "PENDING_VERIFICATION:cardiac-unknown",
+          "Que cherchez-vous d'abord à comprendre à propos de Obstruction microvasculaire ?",
+          "Quelle relation souhaitez-vous examiner ?",
+          "UNKNOWN_PROJECT_OBJECT:cardiac-unknown",
+          "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+          "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+        ],
+        "gaps": [
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "Existing runtime is deterministic and expects its native context projection.",
+          "Proposals are never adopted automatically.",
+          "CMR finding definitions and quantification depend on acquisition, timing and analysis choices.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "provenance": [
+          "scientific-thinking-handoff:ke1-d11e3ef6b7be992a",
+          "ke1-4a2d12f93de0559d",
+          "scientific-thinking-output:ke1-36984137b66353c3",
+          "scientific-thinking-project-request:ke1-3cfd2fc79c9456bb",
+          "frozen-assertion:w1-qual-01:cardiac",
+          "frozen-evidence:w1-qual-01:cardiac",
+          "frozen-knowledge-result:w1-qual-01:cardiac",
+          "frozen-knowledge-result:w1-qual-01:cardiac@1",
+          "noxia:scientific-source:pubmed:23021401",
+          "scientific-thinking-project-request:ke1-3cfd2fc79c9456bb"
+        ],
+        "projectContribution": null,
+        "humanDecisionRequired": false
+      },
+      "observation": {
+        "contract": "PROJECT_SPINE_04_SCIENTIFIC_REASONING_OWNER_CHAIN",
+        "contractVersion": "0.1.0",
+        "invocationId": "scientific-owner-invocation:ke1-2e3becb48685f718",
+        "handoffId": "scientific-thinking-handoff:ke1-d11e3ef6b7be992a",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "ownerRuntimeVersion": "1.2.0",
+        "sourceProjectRef": "project:w1-qual-01:cardiac",
+        "sourceProjectVersion": "project:w1-qual-01:cardiac:version:1",
+        "sourceProjectDigest": "ke1-956d04590b3237bd",
+        "requestRef": "scientific-thinking-handoff:ke1-d11e3ef6b7be992a",
+        "resultRef": "scientific-thinking-output:ke1-36984137b66353c3@1.2.0",
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "failureCode": null,
+        "stableProjectRefs": [
+          "cardiac-question",
+          "cardiac-pop",
+          "cardiac-condition",
+          "cardiac-mri",
+          "cardiac-lge",
+          "cardiac-mvo",
+          "cardiac-imh",
+          "cardiac-unknown"
+        ],
+        "unknowns": [
+          "PENDING_VERIFICATION:cardiac-condition",
+          "PENDING_VERIFICATION:cardiac-imh",
+          "PENDING_VERIFICATION:cardiac-lge",
+          "PENDING_VERIFICATION:cardiac-mri",
+          "PENDING_VERIFICATION:cardiac-mvo",
+          "PENDING_VERIFICATION:cardiac-pop",
+          "PENDING_VERIFICATION:cardiac-question",
+          "PENDING_VERIFICATION:cardiac-unknown",
+          "Que cherchez-vous d'abord à comprendre à propos de Obstruction microvasculaire ?",
+          "Quelle relation souhaitez-vous examiner ?",
+          "UNKNOWN_PROJECT_OBJECT:cardiac-unknown",
+          "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+          "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+        ],
+        "gaps": [
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "CMR finding definitions and quantification depend on acquisition, timing and analysis choices.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "startedAt": "2026-08-25T16:36:00.000Z",
+        "completedAt": "2026-08-25T16:36:01.000Z",
+        "latencyMs": 1,
+        "runtimeStarts": 1,
+        "conversationalLlmCalls": 0,
+        "projectWrites": 0
+      },
+      "evaluations": [
+        {
+          "obligationId": "ST-CARDIAC-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "Zero Project writes observed."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "All external/LLM/provider counters are zero."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "Scientific Execution Trace events retained."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O04",
+          "checkId": "ST_PROJECT_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "Exact Project question is retained in the immutable ST original-idea input while candidate reformulations remain proposals."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O05",
+          "checkId": "ST_KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "Exact Knowledge result identity/digest lineage retained."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O06",
+          "checkId": "ST_CANDIDATE_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_ADOPTION_LEAK",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "All generated science remains candidate and human-reviewed."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O07",
+          "checkId": "ST_UNKNOWN_AND_GAP_PRESERVATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "Knowledge gaps and Project unknowns remain visible."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O08",
+          "checkId": "ST_NO_EVIDENCE_PROMOTION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "Evidence remains distinct from candidate hypotheses."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O09",
+          "checkId": "ST_CONTRADICTION_PRESERVATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "All upstream contradiction references remain explicit."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O10",
+          "checkId": "ST_REASONING_MINIMUM",
+          "critical": true,
+          "outcome": "VIOLATED",
+          "failureClass": "CRITICAL_REASONING_OMISSION",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "Critical reasoning candidates are missing or were silently adopted."
+        },
+        {
+          "obligationId": "ST-CARDIAC-01-O11",
+          "checkId": "ST_MODEL_KNOWLEDGE_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "MODEL_KNOWLEDGE_CONFUSION",
+          "evidence": [
+            "scientific-trace-event:ke1-fa8b6fed952a3b91",
+            "scientific-trace-event:ke1-888ad3dd505936c1",
+            "scientific-trace-event:ke1-3bca830754010f13",
+            "scientific-trace-event:ke1-34d53ca9f1255ded",
+            "scientific-trace-event:ke1-02a8478e15a52f8a",
+            "scientific-trace-event:ke1-c664990ce01f62e8",
+            "scientific-trace-event:ke1-4dd15c134615f2df"
+          ],
+          "note": "Knowledge ownership and candidate scientific-model boundary remain distinct."
+        }
+      ],
+      "verdict": "CRITICAL_VIOLATION",
+      "firstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+      "runtimeProviderCalls": 0
+    },
+    {
+      "caseId": "ST-SPECTRAL-01",
+      "owner": "SCIENTIFIC_THINKING",
+      "inputPackDigest": "ke1-0a744f72740b43a6",
+      "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:ST-SPECTRAL-01:primary",
+      "traceEventRefs": [
+        "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+        "scientific-trace-event:ke1-09c35616fe95ec0a",
+        "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+        "scientific-trace-event:ke1-d6a59149b1546d7d",
+        "scientific-trace-event:ke1-0af6ea7837ca1aec",
+        "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+        "scientific-trace-event:ke1-5c562d208081935c"
+      ],
+      "requestRef": "scientific-thinking-handoff:ke1-73ac88c59ee85091",
+      "requestDigest": "ke1-e83385a94d733a7d",
+      "outputResultRef": "scientific-thinking-output:ke1-b21e67568156ac9a@1.2.0",
+      "outputDigest": "ke1-b21e67568156ac9a",
+      "status": "COMPLETED_WITH_LIMITATIONS",
+      "error": null,
+      "result": {
+        "contract": "PROJECT_SPINE_02_SPECIALIZED_OWNER_HANDOFF",
+        "contractVersion": "0.1.0",
+        "resultId": "scientific-thinking-output:ke1-b21e67568156ac9a",
+        "resultVersion": "1.2.0",
+        "handoffId": "scientific-thinking-handoff:ke1-73ac88c59ee85091",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "sourceProjectRef": "project:w1-qual-01:spectral",
+        "sourceProjectVersion": "project:w1-qual-01:spectral:version:1",
+        "sourceProjectDigest": "ke1-decd01b17c0cf435",
+        "sourceSnapshotDigest": "ke1-beae2c43cb881807",
+        "projectWriteAuthorized": false,
+        "conversationalLlmExpertFallback": "FORBIDDEN",
+        "completedAt": "2026-08-25T16:37:01.000Z",
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "resultKind": "PROJECT_CONTRIBUTION_CANDIDATE",
+        "nativePayloadType": "ScientificThinkingOutput",
+        "nativePayloadVersion": "1.2.0",
+        "nativePayload": {
+          "contractVersion": "1.2.0",
+          "outputId": "scientific-thinking-output:ke1-b21e67568156ac9a",
+          "outputDigest": "ke1-b21e67568156ac9a",
+          "status": "CANDIDATES_PROPOSED",
+          "candidateNotice": "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+          "originalIdea": "Dans quelles conditions une image virtuelle sans contraste peut-elle être comparée à une acquisition native sans injection ? Conserver les alternatives de substitution et la non-comparabilité automatique.",
+          "understoodProblem": "Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser ?",
+          "centralScientificObject": "Image virtuelle sans contraste",
+          "semanticElements": [
+            {
+              "elementId": "ST-I-001",
+              "type": "OBSERVATION",
+              "text": "Dans quelles conditions une image virtuelle sans contraste peut-elle être comparée à une acquisition native sans injection ? Conserver les alternatives de substitution et la non-comparabilité automatique.",
+              "source": "USER_EXPLICIT",
+              "confidence": "HIGH",
+              "support": "PARTIAL"
+            },
+            {
+              "elementId": "ST-I-002",
+              "type": "ASSUMPTION",
+              "text": "La relation exprimée est traitée comme une supposition à examiner, non comme un résultat.",
+              "source": "NOXIA_CANDIDATE",
+              "confidence": "MEDIUM",
+              "support": "PARTIAL"
+            }
+          ],
+          "questions": [
+            {
+              "questionId": "ST-Q-001",
+              "text": "Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser ?",
+              "kind": "PRIMARY",
+              "rationale": "L’intuition relationnelle est reformulée comme une question réfutable, sans la considérer comme démontrée.",
+              "testability": "TESTABLE_CANDIDATE",
+              "scope": "BALANCED",
+              "support": "PARTIAL",
+              "reviewState": "PENDING",
+              "linkedAssumptionIds": [
+                "ST-A-001"
+              ],
+              "sourceTerms": [
+                "Acquisition double énergie ou comptage photonique",
+                "Acquisition native sans injection"
+              ]
+            },
+            {
+              "questionId": "ST-Q-002",
+              "text": "La comparaison entre Scanner spectral et Acquisition double énergie ou comptage photonique constitue-t-elle une question méthodologique distincte de la question scientifique principale ?",
+              "kind": "METHODOLOGICAL_BRANCH",
+              "rationale": "Le choix de méthode est séparé de la relation scientifique afin de ne pas faire passer une solution prématurée pour la question principale.",
+              "testability": "NEEDS_CLARIFICATION",
+              "scope": "TOO_NARROW",
+              "support": "PARTIAL",
+              "reviewState": "PENDING",
+              "linkedAssumptionIds": [
+                "ST-A-002"
+              ],
+              "sourceTerms": [
+                "Acquisition double énergie ou comptage photonique",
+                "Scanner spectral"
+              ]
+            }
+          ],
+          "hypotheses": [
+            {
+              "hypothesisId": "ST-H-001",
+              "text": "La relation formulée dans « Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser  » est observable dans le contexte précisé.",
+              "kind": "PRIMARY",
+              "falsifiability": "TESTABLE_CANDIDATE",
+              "observableCondition": "La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.",
+              "direction": null,
+              "limitations": [
+                "Residual iodine, calcium handling and platform implementation limit substitution claims."
+              ],
+              "unknowns": [
+                "UNKNOWN_PROJECT_OBJECT:spectral-unknown",
+                "PENDING_VERIFICATION:spectral-question",
+                "PENDING_VERIFICATION:spectral-design",
+                "PENDING_VERIFICATION:spectral-modality",
+                "PENDING_VERIFICATION:spectral-acq",
+                "PENDING_VERIFICATION:spectral-vnc",
+                "PENDING_VERIFICATION:spectral-native",
+                "PENDING_VERIFICATION:spectral-unknown"
+              ],
+              "support": "PARTIAL",
+              "reviewState": "PENDING",
+              "linkedQuestionIds": [
+                "ST-Q-001"
+              ]
+            },
+            {
+              "hypothesisId": "ST-H-002",
+              "text": "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues.",
+              "kind": "NULL_OR_COMPETING",
+              "falsifiability": "TESTABLE_CANDIDATE",
+              "observableCondition": "Une observation incompatible avec l’hypothèse principale doit rester possible.",
+              "direction": null,
+              "limitations": [
+                "Explication concurrente générique à préciser par décision humaine et Knowledge."
+              ],
+              "unknowns": [
+                "UNKNOWN_PROJECT_OBJECT:spectral-unknown",
+                "PENDING_VERIFICATION:spectral-question",
+                "PENDING_VERIFICATION:spectral-design",
+                "PENDING_VERIFICATION:spectral-modality",
+                "PENDING_VERIFICATION:spectral-acq",
+                "PENDING_VERIFICATION:spectral-vnc",
+                "PENDING_VERIFICATION:spectral-native",
+                "PENDING_VERIFICATION:spectral-unknown"
+              ],
+              "support": "UNSUPPORTED",
+              "reviewState": "PENDING",
+              "linkedQuestionIds": [
+                "ST-Q-001"
+              ]
+            }
+          ],
+          "objectives": [
+            {
+              "objectiveId": "ST-O-001",
+              "text": "Évaluer la question scientifique candidate : « Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser  ».",
+              "level": "PRIMARY",
+              "support": "PARTIAL",
+              "reviewState": "PENDING",
+              "linkedQuestionIds": [
+                "ST-Q-001"
+              ],
+              "linkedHypothesisIds": [
+                "ST-H-001"
+              ]
+            },
+            {
+              "objectiveId": "ST-O-002",
+              "text": "Examiner séparément l’influence de la branche méthodologique déclarée, sans sélectionner de méthode à ce stade.",
+              "level": "SECONDARY",
+              "support": "PARTIAL",
+              "reviewState": "PENDING",
+              "linkedQuestionIds": [
+                "ST-Q-002"
+              ],
+              "linkedHypothesisIds": []
+            }
+          ],
+          "selectedQuestionCandidate": null,
+          "mechanisms": [
+            {
+              "mechanismId": "ST-M-001",
+              "text": "Le mécanisme susceptible de relier Acquisition double énergie ou comptage photonique et Acquisition native sans injection reste à documenter.",
+              "status": "MECHANISM_TO_DOCUMENT",
+              "support": "PARTIAL",
+              "linkedHypothesisIds": [
+                "ST-H-001",
+                "ST-H-002"
+              ]
+            }
+          ],
+          "assumptions": [
+            {
+              "assumptionId": "ST-A-001",
+              "text": "La relation exprimée entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection est supposée avant d’être démontrée.",
+              "challenge": "Distinguer association, prédiction, temporalité et causalité ; rechercher une explication concurrente.",
+              "support": "PARTIAL",
+              "status": "CHALLENGED"
+            },
+            {
+              "assumptionId": "ST-A-002",
+              "text": "La pertinence de Scanner spectral et Acquisition double énergie ou comptage photonique est présumée avant confirmation de la finalité scientifique.",
+              "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+              "support": "PARTIAL",
+              "status": "CHALLENGED"
+            }
+          ],
+          "unknowns": [
+            "PENDING_VERIFICATION:spectral-acq",
+            "PENDING_VERIFICATION:spectral-design",
+            "PENDING_VERIFICATION:spectral-modality",
+            "PENDING_VERIFICATION:spectral-native",
+            "PENDING_VERIFICATION:spectral-question",
+            "PENDING_VERIFICATION:spectral-unknown",
+            "PENDING_VERIFICATION:spectral-vnc",
+            "UNKNOWN_PROJECT_OBJECT:spectral-unknown"
+          ],
+          "ambiguities": [
+            "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"
+          ],
+          "contradictions": [
+            "frozen-conflict:spectral:OPEN:Alternative operationalizations remain context dependent."
+          ],
+          "conceptualBiases": [
+            "SOLUTION_MÉTHODOLOGIQUE_POTENTIELLEMENT_PRÉMATURÉE"
+          ],
+          "methodPreferences": [
+            "Scanner spectral",
+            "Acquisition double énergie ou comptage photonique"
+          ],
+          "alternatives": [
+            "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues."
+          ],
+          "reasoningIssues": [
+            "COMPETING_BRANCH_NOT_ARBITRATED",
+            "QUESTION_SCOPE_TOO_NARROW"
+          ],
+          "operations": [
+            {
+              "operation": "CLARIFY_IDEA",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REFORMULATE_QUESTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "SPLIT_QUESTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "MERGE_QUESTIONS",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "REDUCE_SCOPE",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "EXPAND_SCOPE",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "IDENTIFY_ASSUMPTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "CHALLENGE_ASSUMPTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "GENERATE_ALTERNATIVE_HYPOTHESIS",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REFINE_HYPOTHESIS",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REJECT_NON_TESTABLE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "IDENTIFY_MECHANISM",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_MISSING_INFORMATION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_CONTRADICTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_CONCEPTUAL_BIAS",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PROPOSE_OBJECTIVES",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PRIORITIZE_OBJECTIVES_FOR_REVIEW",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REQUEST_KNOWLEDGE",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REQUEST_HUMAN_DECISION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PREPARE_RESEARCH_DESIGN_HANDOFF",
+              "status": "BLOCKED",
+              "reason": "Les portes humaines ou les informations décisionnelles ne sont pas encore satisfaites."
+            }
+          ],
+          "adaptiveQuestions": [],
+          "humanGates": [
+            {
+              "gateId": "ST-G-QUESTION_CONFIRMATION",
+              "type": "QUESTION_CONFIRMATION",
+              "label": "Confirmer une question candidate",
+              "reason": "Une reformulation candidate ne devient jamais automatiquement la question du projet.",
+              "status": "PENDING",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-HYPOTHESIS_ADOPTION",
+              "type": "HYPOTHESIS_ADOPTION",
+              "label": "Adopter ou rejeter les hypothèses",
+              "reason": "Chaque hypothèse reste une proposition réfutable soumise à revue.",
+              "status": "PENDING",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-OBJECTIVE_HIERARCHY",
+              "type": "OBJECTIVE_HIERARCHY",
+              "label": "Valider la hiérarchie des objectifs",
+              "reason": "Le moteur propose une hiérarchie mais ne décide pas de la priorité scientifique.",
+              "status": "PENDING",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-MAJOR_SCOPE_CHANGE",
+              "type": "MAJOR_SCOPE_CHANGE",
+              "label": "Autoriser une modification majeure",
+              "reason": "Un changement majeur invalide explicitement les éléments dépendants.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-BRANCH_ABANDONMENT",
+              "type": "BRANCH_ABANDONMENT",
+              "label": "Confirmer l’abandon d’une branche",
+              "reason": "Une question ou hypothèse ne disparaît pas silencieusement.",
+              "status": "PENDING",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-DESIGN_TRANSITION",
+              "type": "DESIGN_TRANSITION",
+              "label": "Autoriser le passage à la conception d’étude",
+              "reason": "Le handoff transmet uniquement le raisonnement confirmé et ses inconnues.",
+              "status": "PENDING",
+              "decidedAt": null
+            }
+          ],
+          "changes": [],
+          "refusal": null,
+          "knowledgeRequest": {
+            "status": "OPTIONAL",
+            "reason": "Les candidats restent visibles mais ne peuvent pas être présentés comme soutenus par le corpus exécutable courant.",
+            "unresolvedConcepts": [],
+            "gapCodes": []
+          },
+          "proposedNextAction": "REVIEW_CANDIDATES",
+          "humanDecisionRequired": true,
+          "knowledgeDependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "ownershipTransferred": false,
+              "knowledgeOwnerResultRef": "frozen-knowledge-result:w1-qual-01:spectral@1",
+              "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:spectral",
+              "knowledgeResultRevision": 1,
+              "knowledgeResultDigest": "ke1-41081f90ffe14dd4",
+              "candidateRefs": [
+                "ST-H-001",
+                "ST-H-002",
+                "ST-M-001",
+                "ST-O-001",
+                "ST-O-002",
+                "ST-Q-001",
+                "ST-Q-002"
+              ],
+              "assertionRefs": [
+                "frozen-assertion:w1-qual-01:spectral"
+              ],
+              "documentaryStatementRefs": [],
+              "evidenceRefs": [
+                "frozen-evidence:w1-qual-01:spectral"
+              ],
+              "sourceRefs": [
+                "noxia:scientific-source:pubmed:33411614"
+              ],
+              "applicability": [
+                {
+                  "assertionRef": "frozen-assertion:w1-qual-01:spectral",
+                  "status": "APPLICABLE_WITH_LIMITATIONS"
+                }
+              ],
+              "contradictionRefs": [
+                "frozen-conflict:spectral"
+              ],
+              "gapRefs": []
+            }
+          ],
+          "provenance": {
+            "engineVersion": "1.2.0",
+            "inputRef": "scientific-thinking-project-request:ke1-354d140c76889098",
+            "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:spectral",
+            "sourceRefs": [
+              "frozen-assertion:w1-qual-01:spectral",
+              "frozen-evidence:w1-qual-01:spectral",
+              "frozen-knowledge-result:w1-qual-01:spectral@1",
+              "noxia:scientific-source:pubmed:33411614",
+              "project-contribution-decision:ke1-d1b6001290a69a76"
+            ],
+            "policyRefs": [
+              "RDE-001",
+              "RDE-002",
+              "PD-003",
+              "PD-009",
+              "KE-001"
+            ],
+            "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+          },
+          "graph": {
+            "projectionVersion": "RUNTIME_PROJECTION_1.0",
+            "ontologyStatus": "NO_NEW_ONTOLOGY",
+            "nodes": [
+              {
+                "nodeId": "ST-N-SITUATION",
+                "type": "SITUATION",
+                "label": "Dans quelles conditions une image virtuelle sans contraste peut-elle être comparée à une acquisition native sans injection ? Conserver les alternatives de substitution et la non-comparabilité automatique.",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-354d140c76889098"
+              },
+              {
+                "nodeId": "ST-N-ST-I-001",
+                "type": "OBSERVATION",
+                "label": "Dans quelles conditions une image virtuelle sans contraste peut-elle être comparée à une acquisition native sans injection ? Conserver les alternatives de substitution et la non-comparabilité automatique.",
+                "status": "USER_STATED",
+                "sourceRef": "ST-I-001"
+              },
+              {
+                "nodeId": "ST-N-ST-I-002",
+                "type": "ASSUMPTION",
+                "label": "La relation exprimée est traitée comme une supposition à examiner, non comme un résultat.",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-I-002"
+              },
+              {
+                "nodeId": "ST-N-ST-Q-001",
+                "type": "SCIENTIFIC_QUESTION",
+                "label": "Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser ?",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-Q-001"
+              },
+              {
+                "nodeId": "ST-N-ST-Q-002",
+                "type": "SCIENTIFIC_QUESTION",
+                "label": "La comparaison entre Scanner spectral et Acquisition double énergie ou comptage photonique constitue-t-elle une question méthodologique distincte de la question scientifique principale ?",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-Q-002"
+              },
+              {
+                "nodeId": "ST-N-ST-A-001",
+                "type": "ASSUMPTION",
+                "label": "La relation exprimée entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection est supposée avant d’être démontrée.",
+                "status": "OPEN",
+                "sourceRef": "ST-A-001"
+              },
+              {
+                "nodeId": "ST-N-ST-A-002",
+                "type": "ASSUMPTION",
+                "label": "La pertinence de Scanner spectral et Acquisition double énergie ou comptage photonique est présumée avant confirmation de la finalité scientifique.",
+                "status": "OPEN",
+                "sourceRef": "ST-A-002"
+              },
+              {
+                "nodeId": "ST-N-ST-H-001",
+                "type": "HYPOTHESIS",
+                "label": "La relation formulée dans « Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser  » est observable dans le contexte précisé.",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-H-001"
+              },
+              {
+                "nodeId": "ST-N-ST-H-002",
+                "type": "HYPOTHESIS",
+                "label": "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues.",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-H-002"
+              },
+              {
+                "nodeId": "ST-N-ST-O-001",
+                "type": "OBJECTIVE",
+                "label": "Évaluer la question scientifique candidate : « Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser  ».",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-O-001"
+              },
+              {
+                "nodeId": "ST-N-ST-O-002",
+                "type": "OBJECTIVE",
+                "label": "Examiner séparément l’influence de la branche méthodologique déclarée, sans sélectionner de méthode à ce stade.",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-O-002"
+              },
+              {
+                "nodeId": "ST-N-ST-M-001",
+                "type": "MECHANISM",
+                "label": "Le mécanisme susceptible de relier Acquisition double énergie ou comptage photonique et Acquisition native sans injection reste à documenter.",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-M-001"
+              },
+              {
+                "nodeId": "ST-N-GAP-1",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:spectral-acq",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:spectral"
+              },
+              {
+                "nodeId": "ST-N-GAP-2",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:spectral-design",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:spectral"
+              },
+              {
+                "nodeId": "ST-N-GAP-3",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:spectral-modality",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:spectral"
+              },
+              {
+                "nodeId": "ST-N-GAP-4",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:spectral-native",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:spectral"
+              },
+              {
+                "nodeId": "ST-N-GAP-5",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:spectral-question",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:spectral"
+              },
+              {
+                "nodeId": "ST-N-GAP-6",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:spectral-unknown",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:spectral"
+              },
+              {
+                "nodeId": "ST-N-GAP-7",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:spectral-vnc",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:spectral"
+              },
+              {
+                "nodeId": "ST-N-GAP-8",
+                "type": "KNOWLEDGE_GAP",
+                "label": "UNKNOWN_PROJECT_OBJECT:spectral-unknown",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:spectral"
+              },
+              {
+                "nodeId": "ST-N-METHOD-1",
+                "type": "METHOD_PREFERENCE",
+                "label": "Scanner spectral",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-354d140c76889098"
+              },
+              {
+                "nodeId": "ST-N-METHOD-2",
+                "type": "METHOD_PREFERENCE",
+                "label": "Acquisition double énergie ou comptage photonique",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-354d140c76889098"
+              }
+            ],
+            "edges": [
+              {
+                "edgeId": "ST-E-Q-1",
+                "from": "ST-N-SITUATION",
+                "to": "ST-N-ST-Q-001",
+                "relation": "REFORMULATED_AS"
+              },
+              {
+                "edgeId": "ST-E-Q-2",
+                "from": "ST-N-SITUATION",
+                "to": "ST-N-ST-Q-002",
+                "relation": "REFORMULATED_AS"
+              },
+              {
+                "edgeId": "ST-E-A-1",
+                "from": "ST-N-ST-A-001",
+                "to": "ST-N-ST-Q-001",
+                "relation": "DEPENDS_ON"
+              },
+              {
+                "edgeId": "ST-E-A-2",
+                "from": "ST-N-ST-A-002",
+                "to": "ST-N-ST-Q-001",
+                "relation": "DEPENDS_ON"
+              },
+              {
+                "edgeId": "ST-E-H-1",
+                "from": "ST-N-ST-H-001",
+                "to": "ST-N-ST-Q-001",
+                "relation": "INFORMS"
+              },
+              {
+                "edgeId": "ST-E-H-2",
+                "from": "ST-N-ST-H-002",
+                "to": "ST-N-ST-Q-001",
+                "relation": "ALTERNATIVE_TO"
+              },
+              {
+                "edgeId": "ST-E-O-1",
+                "from": "ST-N-ST-O-001",
+                "to": "ST-N-ST-Q-001",
+                "relation": "ADDRESSES"
+              },
+              {
+                "edgeId": "ST-E-O-2",
+                "from": "ST-N-ST-O-002",
+                "to": "ST-N-ST-Q-002",
+                "relation": "ADDRESSES"
+              },
+              {
+                "edgeId": "ST-E-M-1",
+                "from": "ST-N-ST-M-001",
+                "to": "ST-N-ST-H-001",
+                "relation": "EXPLAINS"
+              },
+              {
+                "edgeId": "ST-E-GAP-1",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-1",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-2",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-2",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-3",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-3",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-4",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-4",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-5",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-5",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-6",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-6",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-7",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-7",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-8",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-8",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-CHALLENGE-1",
+                "from": "ST-N-ST-A-001",
+                "to": "ST-N-ST-H-001",
+                "relation": "CHALLENGES"
+              },
+              {
+                "edgeId": "ST-E-CHALLENGE-2",
+                "from": "ST-N-ST-A-002",
+                "to": "ST-N-ST-H-002",
+                "relation": "CHALLENGES"
+              }
+            ]
+          },
+          "handoff": {
+            "handoffVersion": "1.1",
+            "status": "NOT_READY",
+            "questionId": null,
+            "hypothesisIds": [],
+            "objectiveIds": [],
+            "mechanisms": [
+              {
+                "mechanismId": "ST-M-001",
+                "text": "Le mécanisme susceptible de relier Acquisition double énergie ou comptage photonique et Acquisition native sans injection reste à documenter.",
+                "status": "MECHANISM_TO_DOCUMENT",
+                "support": "PARTIAL",
+                "linkedHypothesisIds": [
+                  "ST-H-001",
+                  "ST-H-002"
+                ]
+              }
+            ],
+            "knownInformation": [
+              "PROJECT_ADOPTED:spectral-acq:Acquisition double énergie ou comptage photonique",
+              "PROJECT_ADOPTED:spectral-design:Étude multicentrique",
+              "PROJECT_ADOPTED:spectral-modality:Scanner spectral",
+              "PROJECT_ADOPTED:spectral-native:Acquisition native sans injection",
+              "PROJECT_ADOPTED:spectral-question:Dans quelles conditions une image virtuelle sans contraste peut-elle être comparée à une acquisition native sans injection ?",
+              "PROJECT_ADOPTED:spectral-unknown:Comparabilité interconstructeur",
+              "PROJECT_ADOPTED:spectral-vnc:Image virtuelle sans contraste"
+            ],
+            "acceptedUnknowns": [],
+            "unresolvedUnknowns": [
+              "PENDING_VERIFICATION:spectral-acq",
+              "PENDING_VERIFICATION:spectral-design",
+              "PENDING_VERIFICATION:spectral-modality",
+              "PENDING_VERIFICATION:spectral-native",
+              "PENDING_VERIFICATION:spectral-question",
+              "PENDING_VERIFICATION:spectral-unknown",
+              "PENDING_VERIFICATION:spectral-vnc",
+              "UNKNOWN_PROJECT_OBJECT:spectral-unknown"
+            ],
+            "contradictions": [
+              "frozen-conflict:spectral:OPEN:Alternative operationalizations remain context dependent."
+            ],
+            "decisionRecordIds": [],
+            "humanDecisions": [],
+            "alternativesNotSelected": [
+              "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues."
+            ],
+            "limitations": [
+              "Residual iodine, calcium handling and platform implementation limit substitution claims."
+            ],
+            "provenanceRefs": [
+              "frozen-assertion:w1-qual-01:spectral",
+              "frozen-evidence:w1-qual-01:spectral",
+              "frozen-knowledge-result:w1-qual-01:spectral",
+              "frozen-knowledge-result:w1-qual-01:spectral@1",
+              "noxia:scientific-source:pubmed:33411614",
+              "scientific-thinking-project-request:ke1-354d140c76889098"
+            ],
+            "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:spectral",
+            "blockedBy": [
+              "QUESTION_CONFIRMATION_REQUIRED",
+              "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+              "OBJECTIVE_HIERARCHY_REQUIRED"
+            ],
+            "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+          },
+          "trace": [
+            {
+              "sequence": 1,
+              "operation": "CLASSIFY_INPUT",
+              "mode": "DETERMINISTIC",
+              "decision": "Type sémantique initial : OBSERVATION.",
+              "inputDigest": "ke1-0226b148c57b0114",
+              "outputDigest": "ke1-ae5ad59841db199c"
+            },
+            {
+              "sequence": 2,
+              "operation": "REFORMULATE_QUESTION",
+              "mode": "DETERMINISTIC",
+              "decision": "Construction candidate sans sélection scientifique autonome.",
+              "inputDigest": "ke1-a0ebdc657dee7b41",
+              "outputDigest": "ke1-c38e9f9830563a0c"
+            },
+            {
+              "sequence": 3,
+              "operation": "IDENTIFY_ASSUMPTION",
+              "mode": "DETERMINISTIC",
+              "decision": "Suppositions et biais conservés comme éléments distincts.",
+              "inputDigest": "ke1-c38e9f9830563a0c",
+              "outputDigest": "ke1-c0c4bd5937d1779d"
+            },
+            {
+              "sequence": 4,
+              "operation": "PROPOSE_OBJECTIVES",
+              "mode": "DETERMINISTIC",
+              "decision": "Hypothèses et objectifs proposés uniquement si la question est testable.",
+              "inputDigest": "ke1-a643a6f57cffbc71",
+              "outputDigest": "ke1-c13f4209dc505fc5"
+            },
+            {
+              "sequence": 5,
+              "operation": "BUILD_GRAPH",
+              "mode": "DETERMINISTIC",
+              "decision": "Projection runtime du Scientific Reasoning Graph ; aucune ontologie créée.",
+              "inputDigest": "ke1-136f56352fbc2bc9",
+              "outputDigest": "ke1-0748ebb53c1611f9"
+            },
+            {
+              "sequence": 6,
+              "operation": "REQUEST_HUMAN_DECISION",
+              "mode": "HUMAN_REQUIRED",
+              "decision": "Les portes de confirmation restent sous contrôle humain.",
+              "inputDigest": "ke1-3f9d4604ac540660",
+              "outputDigest": "ke1-821b428fe86ee39b"
+            },
+            {
+              "sequence": 7,
+              "operation": "ASSESS_HANDOFF",
+              "mode": "DETERMINISTIC",
+              "decision": "Handoff : NOT_READY.",
+              "inputDigest": "ke1-7405412d7a8efaf1",
+              "outputDigest": "ke1-b21e67568156ac9a"
+            }
+          ]
+        },
+        "stableProjectRefs": [
+          "spectral-question",
+          "spectral-design",
+          "spectral-modality",
+          "spectral-acq",
+          "spectral-vnc",
+          "spectral-native",
+          "spectral-unknown"
+        ],
+        "evidenceRefs": [
+          "frozen-assertion:w1-qual-01:spectral",
+          "frozen-evidence:w1-qual-01:spectral",
+          "frozen-knowledge-result:w1-qual-01:spectral@1",
+          "noxia:scientific-source:pubmed:33411614",
+          "project-contribution-decision:ke1-d1b6001290a69a76"
+        ],
+        "unknowns": [
+          "PENDING_VERIFICATION:spectral-acq",
+          "PENDING_VERIFICATION:spectral-design",
+          "PENDING_VERIFICATION:spectral-modality",
+          "PENDING_VERIFICATION:spectral-native",
+          "PENDING_VERIFICATION:spectral-question",
+          "PENDING_VERIFICATION:spectral-unknown",
+          "PENDING_VERIFICATION:spectral-vnc",
+          "UNKNOWN_PROJECT_OBJECT:spectral-unknown",
+          "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"
+        ],
+        "gaps": [
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "Existing runtime is deterministic and expects its native context projection.",
+          "Proposals are never adopted automatically.",
+          "Residual iodine, calcium handling and platform implementation limit substitution claims.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "provenance": [
+          "scientific-thinking-handoff:ke1-73ac88c59ee85091",
+          "ke1-beae2c43cb881807",
+          "scientific-thinking-output:ke1-b21e67568156ac9a",
+          "scientific-thinking-project-request:ke1-354d140c76889098",
+          "frozen-assertion:w1-qual-01:spectral",
+          "frozen-evidence:w1-qual-01:spectral",
+          "frozen-knowledge-result:w1-qual-01:spectral",
+          "frozen-knowledge-result:w1-qual-01:spectral@1",
+          "noxia:scientific-source:pubmed:33411614",
+          "scientific-thinking-project-request:ke1-354d140c76889098"
+        ],
+        "projectContribution": {
+          "contract": "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE",
+          "contractNature": "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
+          "identity": {
+            "contributionId": "scientific-thinking-project-contribution:ke1-d8b1afb2f4c36b26",
+            "previousContributionId": null,
+            "contractVersion": "1.0.0",
+            "runtimeId": "SCIENTIFIC_THINKING_ENGINE",
+            "runtimeVersion": "1.2.0",
+            "createdAt": "2026-08-25T16:37:01.000Z",
+            "contributionDigest": "ke1-f526a1999e44cccd"
+          },
+          "source": {
+            "conversationId": "owner-result:scientific-thinking-output:ke1-b21e67568156ac9a",
+            "originalRequest": "Conserver les alternatives de substitution et la non-comparabilité automatique.",
+            "turns": [],
+            "sourceRefs": [
+              "scientific-thinking-output:ke1-b21e67568156ac9a",
+              "scientific-thinking-project-request:ke1-354d140c76889098",
+              "frozen-assertion:w1-qual-01:spectral",
+              "frozen-evidence:w1-qual-01:spectral",
+              "frozen-knowledge-result:w1-qual-01:spectral@1",
+              "noxia:scientific-source:pubmed:33411614",
+              "project-contribution-decision:ke1-d1b6001290a69a76"
+            ],
+            "rawOutputRef": "scientific-thinking-output:ke1-b21e67568156ac9a",
+            "rawOutputDigest": "ke1-b21e67568156ac9a"
+          },
+          "runtimeEvidence": {
+            "provider": null,
+            "model": null,
+            "promptDigest": null,
+            "schemaDigest": null,
+            "configurationDigest": "ke1-3dc6c745acc07d31",
+            "technicalStatus": "LOCAL_NATIVE_OWNER_RESULT",
+            "parseStatus": "NOT_REQUIRED",
+            "validationErrors": []
+          },
+          "scientificContent": {
+            "normalizedUnderstanding": "Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser ?",
+            "routeProposal": null,
+            "explicitStatements": [],
+            "candidateObjects": [
+              {
+                "itemId": "st-project-candidate:ST-H-001",
+                "semanticIdentity": "st-hypothesis-candidate:ST-H-001",
+                "proposedType": "HYPOTHESIS",
+                "content": "La relation formulée dans « Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser  » est observable dans le contexte précisé.",
+                "polarity": "AFFIRMED",
+                "studyRole": "PRIMARY_CANDIDATE",
+                "confidence": null,
+                "previousItemIds": [],
+                "evidenceRefs": [
+                  "frozen-assertion:w1-qual-01:spectral",
+                  "frozen-evidence:w1-qual-01:spectral",
+                  "frozen-knowledge-result:w1-qual-01:spectral@1",
+                  "noxia:scientific-source:pubmed:33411614",
+                  "project-contribution-decision:ke1-d1b6001290a69a76"
+                ],
+                "epistemicBoundary": {
+                  "ownership": "SCIENTIFIC_THINKING",
+                  "epistemicStatus": "SUPPORTED_CANDIDATE",
+                  "adoptionStatus": "CANDIDATE",
+                  "originType": "OWNER_RESULT",
+                  "originStatus": "NATIVE_SCIENTIFIC_THINKING_CANDIDATE",
+                  "activeState": true,
+                  "sourceTurnIds": [],
+                  "sourceText": "La relation formulée dans « Existe-t-il une association entre Acquisition double énergie ou comptage photonique et Acquisition native sans injection dans une population à préciser  » est observable dans le contexte précisé."
+                }
+              }
+            ],
+            "candidateRelations": [],
+            "inferredContext": [],
+            "contextualCandidates": [],
+            "negationsAndConstraints": [],
+            "temporalElements": [],
+            "ambiguities": [],
+            "unknowns": [],
+            "missingInformation": [],
+            "correctionsAndSupersessions": [],
+            "openDecisions": [],
+            "clarificationNeeds": [],
+            "temporalQualifications": [],
+            "expectedVariableOccasions": []
+          },
+          "epistemicBoundary": {
+            "candidateIsAdopted": false,
+            "knowledgeSupportIsProjectDecision": false,
+            "projectOwnershipTransferred": false,
+            "humanDecisionEnvelopeRef": null
+          },
+          "mapping": [
+            {
+              "sourceItemId": "st-project-candidate:ST-H-001",
+              "proposedTargetDomain": "RESEARCH_PROJECT",
+              "proposedTargetTypes": [
+                "HYPOTHESIS"
+              ],
+              "mappingStatus": "DOMAIN_REVIEW_REQUIRED",
+              "qualificationOwnerRequired": "RESEARCH_PROJECT",
+              "mappingLimitations": [
+                "Scientific Thinking candidate requires deterministic PRJ validation and Human Decision."
+              ]
+            }
+          ],
+          "audit": {
+            "deterministicFindings": [],
+            "semanticAuditFindings": [],
+            "unresolvedFindings": []
+          },
+          "decisionBoundary": {
+            "decisionRequired": true,
+            "decisionEnvelopeRef": null,
+            "permittedHumanDispositions": [
+              "ACCEPT_WORKING_BASIS",
+              "REJECT",
+              "DEFER",
+              "REOPEN"
+            ],
+            "projectWriteAuthorized": false
+          }
+        },
+        "humanDecisionRequired": true
+      },
+      "observation": {
+        "contract": "PROJECT_SPINE_04_SCIENTIFIC_REASONING_OWNER_CHAIN",
+        "contractVersion": "0.1.0",
+        "invocationId": "scientific-owner-invocation:ke1-f768fb3dc2b78289",
+        "handoffId": "scientific-thinking-handoff:ke1-73ac88c59ee85091",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "ownerRuntimeVersion": "1.2.0",
+        "sourceProjectRef": "project:w1-qual-01:spectral",
+        "sourceProjectVersion": "project:w1-qual-01:spectral:version:1",
+        "sourceProjectDigest": "ke1-decd01b17c0cf435",
+        "requestRef": "scientific-thinking-handoff:ke1-73ac88c59ee85091",
+        "resultRef": "scientific-thinking-output:ke1-b21e67568156ac9a@1.2.0",
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "failureCode": null,
+        "stableProjectRefs": [
+          "spectral-question",
+          "spectral-design",
+          "spectral-modality",
+          "spectral-acq",
+          "spectral-vnc",
+          "spectral-native",
+          "spectral-unknown"
+        ],
+        "unknowns": [
+          "PENDING_VERIFICATION:spectral-acq",
+          "PENDING_VERIFICATION:spectral-design",
+          "PENDING_VERIFICATION:spectral-modality",
+          "PENDING_VERIFICATION:spectral-native",
+          "PENDING_VERIFICATION:spectral-question",
+          "PENDING_VERIFICATION:spectral-unknown",
+          "PENDING_VERIFICATION:spectral-vnc",
+          "UNKNOWN_PROJECT_OBJECT:spectral-unknown",
+          "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"
+        ],
+        "gaps": [
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "Residual iodine, calcium handling and platform implementation limit substitution claims.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "startedAt": "2026-08-25T16:37:00.000Z",
+        "completedAt": "2026-08-25T16:37:01.000Z",
+        "latencyMs": 1,
+        "runtimeStarts": 1,
+        "conversationalLlmCalls": 0,
+        "projectWrites": 0
+      },
+      "evaluations": [
+        {
+          "obligationId": "ST-SPECTRAL-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Zero Project writes observed."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "All external/LLM/provider counters are zero."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Scientific Execution Trace events retained."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O04",
+          "checkId": "ST_PROJECT_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Exact Project question is retained in the immutable ST original-idea input while candidate reformulations remain proposals."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O05",
+          "checkId": "ST_KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Exact Knowledge result identity/digest lineage retained."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O06",
+          "checkId": "ST_CANDIDATE_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_ADOPTION_LEAK",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "All generated science remains candidate and human-reviewed."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O07",
+          "checkId": "ST_UNKNOWN_AND_GAP_PRESERVATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Knowledge gaps and Project unknowns remain visible."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O08",
+          "checkId": "ST_NO_EVIDENCE_PROMOTION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Evidence remains distinct from candidate hypotheses."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O09",
+          "checkId": "ST_CONTRADICTION_PRESERVATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "All upstream contradiction references remain explicit."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O10",
+          "checkId": "ST_REASONING_MINIMUM",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CRITICAL_REASONING_OMISSION",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Question, hypothesis and objective candidates are inspectable and pending review."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O11",
+          "checkId": "ST_MODEL_KNOWLEDGE_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "MODEL_KNOWLEDGE_CONFUSION",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Knowledge ownership and candidate scientific-model boundary remain distinct."
+        },
+        {
+          "obligationId": "ST-SPECTRAL-01-O12",
+          "checkId": "ST_ALTERNATIVES",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "ALTERNATIVE_SUPPRESSION",
+          "evidence": [
+            "scientific-trace-event:ke1-c2bd71362ddc6eb2",
+            "scientific-trace-event:ke1-09c35616fe95ec0a",
+            "scientific-trace-event:ke1-ef9e110dd8ebbc01",
+            "scientific-trace-event:ke1-d6a59149b1546d7d",
+            "scientific-trace-event:ke1-0af6ea7837ca1aec",
+            "scientific-trace-event:ke1-afcd6c6aef3f0f76",
+            "scientific-trace-event:ke1-5c562d208081935c"
+          ],
+          "note": "Plural candidate branches remain visible."
+        }
+      ],
+      "verdict": "FULLY_SATISFIED",
+      "firstDivergentStage": null,
+      "runtimeProviderCalls": 0
+    },
+    {
+      "caseId": "ST-NEURO-01",
+      "owner": "SCIENTIFIC_THINKING",
+      "inputPackDigest": "ke1-790b7a8373957cf7",
+      "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:ST-NEURO-01:primary",
+      "traceEventRefs": [
+        "scientific-trace-event:ke1-17bb6347326c6143",
+        "scientific-trace-event:ke1-8a298d844b30fea8",
+        "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+        "scientific-trace-event:ke1-e0ecce156324e931",
+        "scientific-trace-event:ke1-495a81a77d145d93",
+        "scientific-trace-event:ke1-bf506258c820b1d4",
+        "scientific-trace-event:ke1-153f72be633fb152"
+      ],
+      "requestRef": "scientific-thinking-handoff:ke1-86e6f1cb1e9efeaf",
+      "requestDigest": "ke1-bdd2282c3c8e0cc8",
+      "outputResultRef": "scientific-thinking-output:ke1-9afb20584525fafc@1.2.0",
+      "outputDigest": "ke1-9afb20584525fafc",
+      "status": "COMPLETED_WITH_LIMITATIONS",
+      "error": null,
+      "result": {
+        "contract": "PROJECT_SPINE_02_SPECIALIZED_OWNER_HANDOFF",
+        "contractVersion": "0.1.0",
+        "resultId": "scientific-thinking-output:ke1-9afb20584525fafc",
+        "resultVersion": "1.2.0",
+        "handoffId": "scientific-thinking-handoff:ke1-86e6f1cb1e9efeaf",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "sourceProjectRef": "project:w1-qual-01:neuro",
+        "sourceProjectVersion": "project:w1-qual-01:neuro:version:1",
+        "sourceProjectDigest": "ke1-d5817eb30c48687f",
+        "sourceSnapshotDigest": "ke1-9f11c08006e844c4",
+        "projectWriteAuthorized": false,
+        "conversationalLlmExpertFallback": "FORBIDDEN",
+        "completedAt": "2026-08-25T16:38:01.000Z",
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "resultKind": "GAP",
+        "nativePayloadType": "ScientificThinkingOutput",
+        "nativePayloadVersion": "1.2.0",
+        "nativePayload": {
+          "contractVersion": "1.2.0",
+          "outputId": "scientific-thinking-output:ke1-9afb20584525fafc",
+          "outputDigest": "ke1-9afb20584525fafc",
+          "status": "CLARIFICATION_REQUIRED",
+          "candidateNotice": "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+          "originalIdea": "Comment interpréter conjointement CBF, CBV et délai de transit selon ASL, DSC et scanner de perfusion ? Conserver les inconnues de logiciel et les hypothèses comme candidates.",
+          "understoodProblem": "Quel phénomène relatif à Ischémie cérébrale souhaitez-vous étudier, indépendamment de la préférence déclarée pour ASL, DSC et scanner de perfusion ?",
+          "centralScientificObject": "Débit sanguin cérébral CBF",
+          "semanticElements": [
+            {
+              "elementId": "ST-I-001",
+              "type": "SCIENTIFIC_QUESTION",
+              "text": "Comment interpréter conjointement CBF, CBV et délai de transit selon ASL, DSC et scanner de perfusion ? Conserver les inconnues de logiciel et les hypothèses comme candidates.",
+              "source": "USER_EXPLICIT",
+              "confidence": "HIGH",
+              "support": "PARTIAL"
+            }
+          ],
+          "questions": [
+            {
+              "questionId": "ST-Q-001",
+              "text": "Quel phénomène relatif à Ischémie cérébrale souhaitez-vous étudier, indépendamment de la préférence déclarée pour ASL, DSC et scanner de perfusion ?",
+              "kind": "PRIMARY",
+              "rationale": "La solution méthodologique mentionnée est conservée comme préférence, mais ne remplace pas la finalité scientifique.",
+              "testability": "NEEDS_CLARIFICATION",
+              "scope": "TOO_NARROW",
+              "support": "PARTIAL",
+              "reviewState": "PENDING",
+              "linkedAssumptionIds": [
+                "ST-A-001"
+              ],
+              "sourceTerms": [
+                "ASL, DSC et scanner de perfusion",
+                "Ischémie cérébrale"
+              ]
+            }
+          ],
+          "hypotheses": [],
+          "objectives": [],
+          "selectedQuestionCandidate": null,
+          "mechanisms": [],
+          "assumptions": [
+            {
+              "assumptionId": "ST-A-001",
+              "text": "La pertinence de ASL, DSC et scanner de perfusion est présumée avant confirmation de la finalité scientifique.",
+              "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+              "support": "PARTIAL",
+              "status": "CHALLENGED"
+            }
+          ],
+          "unknowns": [
+            "PENDING_VERIFICATION:neuro-cbf",
+            "PENDING_VERIFICATION:neuro-cbv",
+            "PENDING_VERIFICATION:neuro-condition",
+            "PENDING_VERIFICATION:neuro-delay",
+            "PENDING_VERIFICATION:neuro-modality",
+            "PENDING_VERIFICATION:neuro-pop",
+            "PENDING_VERIFICATION:neuro-question",
+            "PENDING_VERIFICATION:neuro-unknown",
+            "Que cherchez-vous d'abord à comprendre à propos de Débit sanguin cérébral CBF ?",
+            "Quelle relation souhaitez-vous examiner ?",
+            "UNKNOWN_PROJECT_OBJECT:neuro-unknown"
+          ],
+          "ambiguities": [
+            "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+            "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+          ],
+          "contradictions": [
+            "frozen-conflict:neuro:OPEN:Alternative operationalizations remain context dependent."
+          ],
+          "conceptualBiases": [
+            "SOLUTION_MÉTHODOLOGIQUE_POTENTIELLEMENT_PRÉMATURÉE"
+          ],
+          "methodPreferences": [
+            "ASL, DSC et scanner de perfusion"
+          ],
+          "alternatives": [],
+          "reasoningIssues": [
+            "QUESTION_SCOPE_TOO_NARROW"
+          ],
+          "operations": [
+            {
+              "operation": "CLARIFY_IDEA",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REFORMULATE_QUESTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "SPLIT_QUESTION",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "MERGE_QUESTIONS",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "REDUCE_SCOPE",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "EXPAND_SCOPE",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "IDENTIFY_ASSUMPTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "CHALLENGE_ASSUMPTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "GENERATE_ALTERNATIVE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REFINE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REJECT_NON_TESTABLE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "IDENTIFY_MECHANISM",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "IDENTIFY_MISSING_INFORMATION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_CONTRADICTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_CONCEPTUAL_BIAS",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PROPOSE_OBJECTIVES",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "PRIORITIZE_OBJECTIVES_FOR_REVIEW",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REQUEST_KNOWLEDGE",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REQUEST_HUMAN_DECISION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PREPARE_RESEARCH_DESIGN_HANDOFF",
+              "status": "BLOCKED",
+              "reason": "Les portes humaines ou les informations décisionnelles ne sont pas encore satisfaites."
+            }
+          ],
+          "adaptiveQuestions": [
+            {
+              "questionId": "ST-AQ-FINALITY",
+              "label": "Que cherchez-vous d’abord à comprendre à propos de Débit sanguin cérébral CBF ?",
+              "whyAsked": "Une méthode ou un thème ne suffit pas à constituer une question scientifique testable.",
+              "decisionImpact": "Votre réponse déterminera la relation centrale et permettra, ou non, de proposer une question testable.",
+              "decisionBlock": "SCIENTIFIC_FINALITY",
+              "blocking": true,
+              "suggestedAnswers": [
+                {
+                  "value": "explain",
+                  "label": "Expliquer un mécanisme",
+                  "consequence": "La question sera orientée vers une relation mécanistique candidate."
+                },
+                {
+                  "value": "compare",
+                  "label": "Comparer",
+                  "consequence": "Les objets de comparaison devront être explicités."
+                },
+                {
+                  "value": "quantify",
+                  "label": "Quantifier ou suivre",
+                  "consequence": "La grandeur et la temporalité devront être explicitées."
+                }
+              ],
+              "acceptsFreeText": true,
+              "acceptsUnknown": true,
+              "answeredValue": null
+            },
+            {
+              "questionId": "ST-AQ-RELATION",
+              "label": "Quelle relation souhaitez-vous examiner ?",
+              "whyAsked": "La relation distingue une intuition thématique d’une question réfutable.",
+              "decisionImpact": "Elle structure la question principale et les hypothèses concurrentes.",
+              "decisionBlock": "RELATION",
+              "blocking": true,
+              "suggestedAnswers": [
+                {
+                  "value": "association",
+                  "label": "Une association",
+                  "consequence": "Aucune causalité ne sera présumée."
+                },
+                {
+                  "value": "difference",
+                  "label": "Une différence",
+                  "consequence": "Les deux objets devront être nommés."
+                },
+                {
+                  "value": "change",
+                  "label": "Une évolution",
+                  "consequence": "La temporalité devra rester visible."
+                }
+              ],
+              "acceptsFreeText": true,
+              "acceptsUnknown": true,
+              "answeredValue": null
+            }
+          ],
+          "humanGates": [
+            {
+              "gateId": "ST-G-QUESTION_CONFIRMATION",
+              "type": "QUESTION_CONFIRMATION",
+              "label": "Confirmer une question candidate",
+              "reason": "Une reformulation candidate ne devient jamais automatiquement la question du projet.",
+              "status": "PENDING",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-HYPOTHESIS_ADOPTION",
+              "type": "HYPOTHESIS_ADOPTION",
+              "label": "Adopter ou rejeter les hypothèses",
+              "reason": "Chaque hypothèse reste une proposition réfutable soumise à revue.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-OBJECTIVE_HIERARCHY",
+              "type": "OBJECTIVE_HIERARCHY",
+              "label": "Valider la hiérarchie des objectifs",
+              "reason": "Le moteur propose une hiérarchie mais ne décide pas de la priorité scientifique.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-MAJOR_SCOPE_CHANGE",
+              "type": "MAJOR_SCOPE_CHANGE",
+              "label": "Autoriser une modification majeure",
+              "reason": "Un changement majeur invalide explicitement les éléments dépendants.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-BRANCH_ABANDONMENT",
+              "type": "BRANCH_ABANDONMENT",
+              "label": "Confirmer l’abandon d’une branche",
+              "reason": "Une question ou hypothèse ne disparaît pas silencieusement.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-DESIGN_TRANSITION",
+              "type": "DESIGN_TRANSITION",
+              "label": "Autoriser le passage à la conception d’étude",
+              "reason": "Le handoff transmet uniquement le raisonnement confirmé et ses inconnues.",
+              "status": "PENDING",
+              "decidedAt": null
+            }
+          ],
+          "changes": [],
+          "refusal": null,
+          "knowledgeRequest": {
+            "status": "OPTIONAL",
+            "reason": "Les candidats restent visibles mais ne peuvent pas être présentés comme soutenus par le corpus exécutable courant.",
+            "unresolvedConcepts": [],
+            "gapCodes": []
+          },
+          "proposedNextAction": "CLARIFY",
+          "humanDecisionRequired": true,
+          "knowledgeDependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "ownershipTransferred": false,
+              "knowledgeOwnerResultRef": "frozen-knowledge-result:w1-qual-01:neuro@1",
+              "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:neuro",
+              "knowledgeResultRevision": 1,
+              "knowledgeResultDigest": "ke1-18c6d609b952728d",
+              "candidateRefs": [
+                "ST-Q-001"
+              ],
+              "assertionRefs": [
+                "frozen-assertion:w1-qual-01:neuro"
+              ],
+              "documentaryStatementRefs": [],
+              "evidenceRefs": [
+                "frozen-evidence:w1-qual-01:neuro"
+              ],
+              "sourceRefs": [
+                "noxia:scientific-source:pubmed:30346227"
+              ],
+              "applicability": [
+                {
+                  "assertionRef": "frozen-assertion:w1-qual-01:neuro",
+                  "status": "APPLICABLE_WITH_LIMITATIONS"
+                }
+              ],
+              "contradictionRefs": [
+                "frozen-conflict:neuro"
+              ],
+              "gapRefs": []
+            }
+          ],
+          "provenance": {
+            "engineVersion": "1.2.0",
+            "inputRef": "scientific-thinking-project-request:ke1-409d7189338c277d",
+            "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:neuro",
+            "sourceRefs": [
+              "frozen-assertion:w1-qual-01:neuro",
+              "frozen-evidence:w1-qual-01:neuro",
+              "frozen-knowledge-result:w1-qual-01:neuro@1",
+              "noxia:scientific-source:pubmed:30346227",
+              "project-contribution-decision:ke1-661f61892668d43d"
+            ],
+            "policyRefs": [
+              "RDE-001",
+              "RDE-002",
+              "PD-003",
+              "PD-009",
+              "KE-001"
+            ],
+            "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+          },
+          "graph": {
+            "projectionVersion": "RUNTIME_PROJECTION_1.0",
+            "ontologyStatus": "NO_NEW_ONTOLOGY",
+            "nodes": [
+              {
+                "nodeId": "ST-N-SITUATION",
+                "type": "SITUATION",
+                "label": "Comment interpréter conjointement CBF, CBV et délai de transit selon ASL, DSC et scanner de perfusion ? Conserver les inconnues de logiciel et les hypothèses comme candidates.",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-409d7189338c277d"
+              },
+              {
+                "nodeId": "ST-N-ST-I-001",
+                "type": "SCIENTIFIC_QUESTION",
+                "label": "Comment interpréter conjointement CBF, CBV et délai de transit selon ASL, DSC et scanner de perfusion ? Conserver les inconnues de logiciel et les hypothèses comme candidates.",
+                "status": "USER_STATED",
+                "sourceRef": "ST-I-001"
+              },
+              {
+                "nodeId": "ST-N-ST-Q-001",
+                "type": "SCIENTIFIC_QUESTION",
+                "label": "Quel phénomène relatif à Ischémie cérébrale souhaitez-vous étudier, indépendamment de la préférence déclarée pour ASL, DSC et scanner de perfusion ?",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-Q-001"
+              },
+              {
+                "nodeId": "ST-N-ST-A-001",
+                "type": "ASSUMPTION",
+                "label": "La pertinence de ASL, DSC et scanner de perfusion est présumée avant confirmation de la finalité scientifique.",
+                "status": "OPEN",
+                "sourceRef": "ST-A-001"
+              },
+              {
+                "nodeId": "ST-N-GAP-1",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:neuro-cbf",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-2",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:neuro-cbv",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-3",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:neuro-condition",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-4",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:neuro-delay",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-5",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:neuro-modality",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-6",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:neuro-pop",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-7",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:neuro-question",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-8",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:neuro-unknown",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-9",
+                "type": "KNOWLEDGE_GAP",
+                "label": "Que cherchez-vous d'abord à comprendre à propos de Débit sanguin cérébral CBF ?",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-10",
+                "type": "KNOWLEDGE_GAP",
+                "label": "Quelle relation souhaitez-vous examiner ?",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-GAP-11",
+                "type": "KNOWLEDGE_GAP",
+                "label": "UNKNOWN_PROJECT_OBJECT:neuro-unknown",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:neuro"
+              },
+              {
+                "nodeId": "ST-N-METHOD-1",
+                "type": "METHOD_PREFERENCE",
+                "label": "ASL, DSC et scanner de perfusion",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-409d7189338c277d"
+              }
+            ],
+            "edges": [
+              {
+                "edgeId": "ST-E-Q-1",
+                "from": "ST-N-SITUATION",
+                "to": "ST-N-ST-Q-001",
+                "relation": "REFORMULATED_AS"
+              },
+              {
+                "edgeId": "ST-E-A-1",
+                "from": "ST-N-ST-A-001",
+                "to": "ST-N-ST-Q-001",
+                "relation": "DEPENDS_ON"
+              },
+              {
+                "edgeId": "ST-E-GAP-1",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-1",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-2",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-2",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-3",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-3",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-4",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-4",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-5",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-5",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-6",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-6",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-7",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-7",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-8",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-8",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-9",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-9",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-10",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-10",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-11",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-11",
+                "relation": "REQUIRES_INFORMATION"
+              }
+            ]
+          },
+          "handoff": {
+            "handoffVersion": "1.1",
+            "status": "NOT_READY",
+            "questionId": null,
+            "hypothesisIds": [],
+            "objectiveIds": [],
+            "mechanisms": [],
+            "knownInformation": [
+              "PROJECT_ADOPTED:neuro-cbf:Débit sanguin cérébral CBF",
+              "PROJECT_ADOPTED:neuro-cbv:Volume sanguin cérébral CBV",
+              "PROJECT_ADOPTED:neuro-condition:Ischémie cérébrale",
+              "PROJECT_ADOPTED:neuro-delay:Délai de transit",
+              "PROJECT_ADOPTED:neuro-modality:ASL, DSC et scanner de perfusion",
+              "PROJECT_ADOPTED:neuro-pop:Adultes avec ischémie cérébrale",
+              "PROJECT_ADOPTED:neuro-question:Comment interpréter conjointement CBF, CBV et délai de transit selon ASL, DSC et scanner de perfusion ?",
+              "PROJECT_ADOPTED:neuro-unknown:Logiciel de post-traitement"
+            ],
+            "acceptedUnknowns": [],
+            "unresolvedUnknowns": [
+              "PENDING_VERIFICATION:neuro-cbf",
+              "PENDING_VERIFICATION:neuro-cbv",
+              "PENDING_VERIFICATION:neuro-condition",
+              "PENDING_VERIFICATION:neuro-delay",
+              "PENDING_VERIFICATION:neuro-modality",
+              "PENDING_VERIFICATION:neuro-pop",
+              "PENDING_VERIFICATION:neuro-question",
+              "PENDING_VERIFICATION:neuro-unknown",
+              "Que cherchez-vous d'abord à comprendre à propos de Débit sanguin cérébral CBF ?",
+              "Quelle relation souhaitez-vous examiner ?",
+              "UNKNOWN_PROJECT_OBJECT:neuro-unknown"
+            ],
+            "contradictions": [
+              "frozen-conflict:neuro:OPEN:Alternative operationalizations remain context dependent."
+            ],
+            "decisionRecordIds": [],
+            "humanDecisions": [],
+            "alternativesNotSelected": [],
+            "limitations": [
+              "Software, deconvolution, delay sensitivity and modality assumptions constrain comparability."
+            ],
+            "provenanceRefs": [
+              "frozen-assertion:w1-qual-01:neuro",
+              "frozen-evidence:w1-qual-01:neuro",
+              "frozen-knowledge-result:w1-qual-01:neuro",
+              "frozen-knowledge-result:w1-qual-01:neuro@1",
+              "noxia:scientific-source:pubmed:30346227",
+              "scientific-thinking-project-request:ke1-409d7189338c277d"
+            ],
+            "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:neuro",
+            "blockedBy": [
+              "QUESTION_CONFIRMATION_REQUIRED",
+              "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+              "OBJECTIVE_HIERARCHY_REQUIRED",
+              "UNANSWERED:ST-AQ-FINALITY",
+              "UNANSWERED:ST-AQ-RELATION"
+            ],
+            "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+          },
+          "trace": [
+            {
+              "sequence": 1,
+              "operation": "CLASSIFY_INPUT",
+              "mode": "DETERMINISTIC",
+              "decision": "Type sémantique initial : SCIENTIFIC_QUESTION.",
+              "inputDigest": "ke1-73983e4743bbb963",
+              "outputDigest": "ke1-6b7b08e36dcd82c7"
+            },
+            {
+              "sequence": 2,
+              "operation": "REFORMULATE_QUESTION",
+              "mode": "DETERMINISTIC",
+              "decision": "Construction candidate sans sélection scientifique autonome.",
+              "inputDigest": "ke1-d00139e9a8c31bcd",
+              "outputDigest": "ke1-94bbe1fc05334290"
+            },
+            {
+              "sequence": 3,
+              "operation": "IDENTIFY_ASSUMPTION",
+              "mode": "DETERMINISTIC",
+              "decision": "Suppositions et biais conservés comme éléments distincts.",
+              "inputDigest": "ke1-94bbe1fc05334290",
+              "outputDigest": "ke1-58372886056c7a02"
+            },
+            {
+              "sequence": 4,
+              "operation": "PROPOSE_OBJECTIVES",
+              "mode": "DETERMINISTIC",
+              "decision": "Hypothèses et objectifs proposés uniquement si la question est testable.",
+              "inputDigest": "ke1-ea6d1754b6a04460",
+              "outputDigest": "ke1-f2d9b623a8d455cf"
+            },
+            {
+              "sequence": 5,
+              "operation": "BUILD_GRAPH",
+              "mode": "DETERMINISTIC",
+              "decision": "Projection runtime du Scientific Reasoning Graph ; aucune ontologie créée.",
+              "inputDigest": "ke1-9a793b1533e31e29",
+              "outputDigest": "ke1-549eefd1e5d0094d"
+            },
+            {
+              "sequence": 6,
+              "operation": "REQUEST_HUMAN_DECISION",
+              "mode": "HUMAN_REQUIRED",
+              "decision": "Les portes de confirmation restent sous contrôle humain.",
+              "inputDigest": "ke1-62f12e401deb9c9c",
+              "outputDigest": "ke1-9ec4e4a1cb403b75"
+            },
+            {
+              "sequence": 7,
+              "operation": "ASSESS_HANDOFF",
+              "mode": "DETERMINISTIC",
+              "decision": "Handoff : NOT_READY.",
+              "inputDigest": "ke1-c61ab00a0961286e",
+              "outputDigest": "ke1-9afb20584525fafc"
+            }
+          ]
+        },
+        "stableProjectRefs": [
+          "neuro-question",
+          "neuro-pop",
+          "neuro-condition",
+          "neuro-modality",
+          "neuro-cbf",
+          "neuro-cbv",
+          "neuro-delay",
+          "neuro-unknown"
+        ],
+        "evidenceRefs": [
+          "frozen-assertion:w1-qual-01:neuro",
+          "frozen-evidence:w1-qual-01:neuro",
+          "frozen-knowledge-result:w1-qual-01:neuro@1",
+          "noxia:scientific-source:pubmed:30346227",
+          "project-contribution-decision:ke1-661f61892668d43d"
+        ],
+        "unknowns": [
+          "PENDING_VERIFICATION:neuro-cbf",
+          "PENDING_VERIFICATION:neuro-cbv",
+          "PENDING_VERIFICATION:neuro-condition",
+          "PENDING_VERIFICATION:neuro-delay",
+          "PENDING_VERIFICATION:neuro-modality",
+          "PENDING_VERIFICATION:neuro-pop",
+          "PENDING_VERIFICATION:neuro-question",
+          "PENDING_VERIFICATION:neuro-unknown",
+          "Que cherchez-vous d'abord à comprendre à propos de Débit sanguin cérébral CBF ?",
+          "Quelle relation souhaitez-vous examiner ?",
+          "UNKNOWN_PROJECT_OBJECT:neuro-unknown",
+          "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+          "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+        ],
+        "gaps": [
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "Existing runtime is deterministic and expects its native context projection.",
+          "Proposals are never adopted automatically.",
+          "Software, deconvolution, delay sensitivity and modality assumptions constrain comparability.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "provenance": [
+          "scientific-thinking-handoff:ke1-86e6f1cb1e9efeaf",
+          "ke1-9f11c08006e844c4",
+          "scientific-thinking-output:ke1-9afb20584525fafc",
+          "scientific-thinking-project-request:ke1-409d7189338c277d",
+          "frozen-assertion:w1-qual-01:neuro",
+          "frozen-evidence:w1-qual-01:neuro",
+          "frozen-knowledge-result:w1-qual-01:neuro",
+          "frozen-knowledge-result:w1-qual-01:neuro@1",
+          "noxia:scientific-source:pubmed:30346227",
+          "scientific-thinking-project-request:ke1-409d7189338c277d"
+        ],
+        "projectContribution": null,
+        "humanDecisionRequired": false
+      },
+      "observation": {
+        "contract": "PROJECT_SPINE_04_SCIENTIFIC_REASONING_OWNER_CHAIN",
+        "contractVersion": "0.1.0",
+        "invocationId": "scientific-owner-invocation:ke1-52696f6b7c5d3f87",
+        "handoffId": "scientific-thinking-handoff:ke1-86e6f1cb1e9efeaf",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "ownerRuntimeVersion": "1.2.0",
+        "sourceProjectRef": "project:w1-qual-01:neuro",
+        "sourceProjectVersion": "project:w1-qual-01:neuro:version:1",
+        "sourceProjectDigest": "ke1-d5817eb30c48687f",
+        "requestRef": "scientific-thinking-handoff:ke1-86e6f1cb1e9efeaf",
+        "resultRef": "scientific-thinking-output:ke1-9afb20584525fafc@1.2.0",
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "failureCode": null,
+        "stableProjectRefs": [
+          "neuro-question",
+          "neuro-pop",
+          "neuro-condition",
+          "neuro-modality",
+          "neuro-cbf",
+          "neuro-cbv",
+          "neuro-delay",
+          "neuro-unknown"
+        ],
+        "unknowns": [
+          "PENDING_VERIFICATION:neuro-cbf",
+          "PENDING_VERIFICATION:neuro-cbv",
+          "PENDING_VERIFICATION:neuro-condition",
+          "PENDING_VERIFICATION:neuro-delay",
+          "PENDING_VERIFICATION:neuro-modality",
+          "PENDING_VERIFICATION:neuro-pop",
+          "PENDING_VERIFICATION:neuro-question",
+          "PENDING_VERIFICATION:neuro-unknown",
+          "Que cherchez-vous d'abord à comprendre à propos de Débit sanguin cérébral CBF ?",
+          "Quelle relation souhaitez-vous examiner ?",
+          "UNKNOWN_PROJECT_OBJECT:neuro-unknown",
+          "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+          "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+        ],
+        "gaps": [
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "Software, deconvolution, delay sensitivity and modality assumptions constrain comparability.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "startedAt": "2026-08-25T16:38:00.000Z",
+        "completedAt": "2026-08-25T16:38:01.000Z",
+        "latencyMs": 1,
+        "runtimeStarts": 1,
+        "conversationalLlmCalls": 0,
+        "projectWrites": 0
+      },
+      "evaluations": [
+        {
+          "obligationId": "ST-NEURO-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "Zero Project writes observed."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "All external/LLM/provider counters are zero."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "Scientific Execution Trace events retained."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O04",
+          "checkId": "ST_PROJECT_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "Exact Project question is retained in the immutable ST original-idea input while candidate reformulations remain proposals."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O05",
+          "checkId": "ST_KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "Exact Knowledge result identity/digest lineage retained."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O06",
+          "checkId": "ST_CANDIDATE_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_ADOPTION_LEAK",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "All generated science remains candidate and human-reviewed."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O07",
+          "checkId": "ST_UNKNOWN_AND_GAP_PRESERVATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "Knowledge gaps and Project unknowns remain visible."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O08",
+          "checkId": "ST_NO_EVIDENCE_PROMOTION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "Evidence remains distinct from candidate hypotheses."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O09",
+          "checkId": "ST_CONTRADICTION_PRESERVATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "All upstream contradiction references remain explicit."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O10",
+          "checkId": "ST_REASONING_MINIMUM",
+          "critical": true,
+          "outcome": "VIOLATED",
+          "failureClass": "CRITICAL_REASONING_OMISSION",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "Critical reasoning candidates are missing or were silently adopted."
+        },
+        {
+          "obligationId": "ST-NEURO-01-O11",
+          "checkId": "ST_MODEL_KNOWLEDGE_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "MODEL_KNOWLEDGE_CONFUSION",
+          "evidence": [
+            "scientific-trace-event:ke1-17bb6347326c6143",
+            "scientific-trace-event:ke1-8a298d844b30fea8",
+            "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+            "scientific-trace-event:ke1-e0ecce156324e931",
+            "scientific-trace-event:ke1-495a81a77d145d93",
+            "scientific-trace-event:ke1-bf506258c820b1d4",
+            "scientific-trace-event:ke1-153f72be633fb152"
+          ],
+          "note": "Knowledge ownership and candidate scientific-model boundary remain distinct."
+        }
+      ],
+      "verdict": "CRITICAL_VIOLATION",
+      "firstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+      "runtimeProviderCalls": 0
+    },
+    {
+      "caseId": "ST-UNSUPPORTED-01",
+      "owner": "SCIENTIFIC_THINKING",
+      "inputPackDigest": "ke1-ce38fbb664f9e6aa",
+      "traceRunId": "scientific-run:W1-QUAL-01-2026-08-25-G:ST-UNSUPPORTED-01:primary",
+      "traceEventRefs": [
+        "scientific-trace-event:ke1-0b9bbbdf1de40093",
+        "scientific-trace-event:ke1-c3217827958bcf83",
+        "scientific-trace-event:ke1-3d72b18abef2c656",
+        "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+        "scientific-trace-event:ke1-063a888f6ee97953",
+        "scientific-trace-event:ke1-8418dd185e03d93c",
+        "scientific-trace-event:ke1-47ca16dca50f4440"
+      ],
+      "requestRef": "scientific-thinking-handoff:ke1-7cc318b3ddccb467",
+      "requestDigest": "ke1-112bcfbab8c37dd6",
+      "outputResultRef": "scientific-thinking-output:ke1-3bed658a98c55a46@1.2.0",
+      "outputDigest": "ke1-3bed658a98c55a46",
+      "status": "COMPLETED_WITH_LIMITATIONS",
+      "error": null,
+      "result": {
+        "contract": "PROJECT_SPINE_02_SPECIALIZED_OWNER_HANDOFF",
+        "contractVersion": "0.1.0",
+        "resultId": "scientific-thinking-output:ke1-3bed658a98c55a46",
+        "resultVersion": "1.2.0",
+        "handoffId": "scientific-thinking-handoff:ke1-7cc318b3ddccb467",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "sourceProjectRef": "project:w1-qual-01:unsupported",
+        "sourceProjectVersion": "project:w1-qual-01:unsupported:version:1",
+        "sourceProjectDigest": "ke1-00643ca01fbe85e4",
+        "sourceSnapshotDigest": "ke1-3aaab99590761561",
+        "projectWriteAuthorized": false,
+        "conversationalLlmExpertFallback": "FORBIDDEN",
+        "completedAt": "2026-08-25T16:39:01.000Z",
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "resultKind": "GAP",
+        "nativePayloadType": "ScientificThinkingOutput",
+        "nativePayloadVersion": "1.2.0",
+        "nativePayload": {
+          "contractVersion": "1.2.0",
+          "outputId": "scientific-thinking-output:ke1-3bed658a98c55a46",
+          "outputDigest": "ke1-3bed658a98c55a46",
+          "status": "CLARIFICATION_REQUIRED",
+          "candidateNotice": "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+          "originalIdea": "Le signal zéphyr quantique pulmonaire peut-il être observé par imagerie ? Refuser ou clarifier sans hypothèse solide hors corpus.",
+          "understoodProblem": "Quel phénomène relatif à Signal zéphyr quantique pulmonaire souhaitez-vous expliquer, comparer, quantifier ou suivre ?",
+          "centralScientificObject": "Signal zéphyr quantique pulmonaire",
+          "semanticElements": [
+            {
+              "elementId": "ST-I-001",
+              "type": "OBSERVATION",
+              "text": "Le signal zéphyr quantique pulmonaire peut-il être observé par imagerie ? Refuser ou clarifier sans hypothèse solide hors corpus.",
+              "source": "USER_EXPLICIT",
+              "confidence": "HIGH",
+              "support": "UNSUPPORTED"
+            }
+          ],
+          "questions": [
+            {
+              "questionId": "ST-Q-001",
+              "text": "Quel phénomène relatif à Signal zéphyr quantique pulmonaire souhaitez-vous expliquer, comparer, quantifier ou suivre ?",
+              "kind": "PRIMARY",
+              "rationale": "L’idée ne précise pas encore la relation scientifique ou la finalité qui rendrait la question testable.",
+              "testability": "NEEDS_CLARIFICATION",
+              "scope": "BALANCED",
+              "support": "UNSUPPORTED",
+              "reviewState": "PENDING",
+              "linkedAssumptionIds": [],
+              "sourceTerms": [
+                "Signal zéphyr quantique pulmonaire"
+              ]
+            }
+          ],
+          "hypotheses": [],
+          "objectives": [],
+          "selectedQuestionCandidate": null,
+          "mechanisms": [],
+          "assumptions": [],
+          "unknowns": [
+            "Connaissance non résolue : signal zéphyr quantique pulmonaire",
+            "PENDING_VERIFICATION:unsupported-method",
+            "PENDING_VERIFICATION:unsupported-object",
+            "PENDING_VERIFICATION:unsupported-question",
+            "Que cherchez-vous d'abord à comprendre à propos de Signal zéphyr quantique pulmonaire ?",
+            "Quelle relation souhaitez-vous examiner ?",
+            "UNKNOWN_PROJECT_OBJECT:unsupported-method",
+            "UNKNOWN_PROJECT_OBJECT:unsupported-object"
+          ],
+          "ambiguities": [
+            "CONCEPT_NON_RÉSOLU:signal zéphyr quantique pulmonaire",
+            "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+            "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+          ],
+          "contradictions": [],
+          "conceptualBiases": [],
+          "methodPreferences": [],
+          "alternatives": [],
+          "reasoningIssues": [],
+          "operations": [
+            {
+              "operation": "CLARIFY_IDEA",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REFORMULATE_QUESTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "SPLIT_QUESTION",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "MERGE_QUESTIONS",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "REDUCE_SCOPE",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "EXPAND_SCOPE",
+              "status": "AVAILABLE",
+              "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+            },
+            {
+              "operation": "IDENTIFY_ASSUMPTION",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "CHALLENGE_ASSUMPTION",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "GENERATE_ALTERNATIVE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REFINE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REJECT_NON_TESTABLE_HYPOTHESIS",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "IDENTIFY_MECHANISM",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "IDENTIFY_MISSING_INFORMATION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_CONTRADICTION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "IDENTIFY_CONCEPTUAL_BIAS",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PROPOSE_OBJECTIVES",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "PRIORITIZE_OBJECTIVES_FOR_REVIEW",
+              "status": "NOT_APPLICABLE",
+              "reason": "Aucun élément actuel ne justifie cette opération."
+            },
+            {
+              "operation": "REQUEST_KNOWLEDGE",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "REQUEST_HUMAN_DECISION",
+              "status": "EXECUTED",
+              "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+            },
+            {
+              "operation": "PREPARE_RESEARCH_DESIGN_HANDOFF",
+              "status": "BLOCKED",
+              "reason": "Les portes humaines ou les informations décisionnelles ne sont pas encore satisfaites."
+            }
+          ],
+          "adaptiveQuestions": [
+            {
+              "questionId": "ST-AQ-FINALITY",
+              "label": "Que cherchez-vous d’abord à comprendre à propos de Signal zéphyr quantique pulmonaire ?",
+              "whyAsked": "Une méthode ou un thème ne suffit pas à constituer une question scientifique testable.",
+              "decisionImpact": "Votre réponse déterminera la relation centrale et permettra, ou non, de proposer une question testable.",
+              "decisionBlock": "SCIENTIFIC_FINALITY",
+              "blocking": true,
+              "suggestedAnswers": [
+                {
+                  "value": "explain",
+                  "label": "Expliquer un mécanisme",
+                  "consequence": "La question sera orientée vers une relation mécanistique candidate."
+                },
+                {
+                  "value": "compare",
+                  "label": "Comparer",
+                  "consequence": "Les objets de comparaison devront être explicités."
+                },
+                {
+                  "value": "quantify",
+                  "label": "Quantifier ou suivre",
+                  "consequence": "La grandeur et la temporalité devront être explicitées."
+                }
+              ],
+              "acceptsFreeText": true,
+              "acceptsUnknown": true,
+              "answeredValue": null
+            },
+            {
+              "questionId": "ST-AQ-RELATION",
+              "label": "Quelle relation souhaitez-vous examiner ?",
+              "whyAsked": "La relation distingue une intuition thématique d’une question réfutable.",
+              "decisionImpact": "Elle structure la question principale et les hypothèses concurrentes.",
+              "decisionBlock": "RELATION",
+              "blocking": true,
+              "suggestedAnswers": [
+                {
+                  "value": "association",
+                  "label": "Une association",
+                  "consequence": "Aucune causalité ne sera présumée."
+                },
+                {
+                  "value": "difference",
+                  "label": "Une différence",
+                  "consequence": "Les deux objets devront être nommés."
+                },
+                {
+                  "value": "change",
+                  "label": "Une évolution",
+                  "consequence": "La temporalité devra rester visible."
+                }
+              ],
+              "acceptsFreeText": true,
+              "acceptsUnknown": true,
+              "answeredValue": null
+            }
+          ],
+          "humanGates": [
+            {
+              "gateId": "ST-G-QUESTION_CONFIRMATION",
+              "type": "QUESTION_CONFIRMATION",
+              "label": "Confirmer une question candidate",
+              "reason": "Une reformulation candidate ne devient jamais automatiquement la question du projet.",
+              "status": "PENDING",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-HYPOTHESIS_ADOPTION",
+              "type": "HYPOTHESIS_ADOPTION",
+              "label": "Adopter ou rejeter les hypothèses",
+              "reason": "Chaque hypothèse reste une proposition réfutable soumise à revue.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-OBJECTIVE_HIERARCHY",
+              "type": "OBJECTIVE_HIERARCHY",
+              "label": "Valider la hiérarchie des objectifs",
+              "reason": "Le moteur propose une hiérarchie mais ne décide pas de la priorité scientifique.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-MAJOR_SCOPE_CHANGE",
+              "type": "MAJOR_SCOPE_CHANGE",
+              "label": "Autoriser une modification majeure",
+              "reason": "Un changement majeur invalide explicitement les éléments dépendants.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-BRANCH_ABANDONMENT",
+              "type": "BRANCH_ABANDONMENT",
+              "label": "Confirmer l’abandon d’une branche",
+              "reason": "Une question ou hypothèse ne disparaît pas silencieusement.",
+              "status": "NOT_REQUIRED",
+              "decidedAt": null
+            },
+            {
+              "gateId": "ST-G-DESIGN_TRANSITION",
+              "type": "DESIGN_TRANSITION",
+              "label": "Autoriser le passage à la conception d’étude",
+              "reason": "Le handoff transmet uniquement le raisonnement confirmé et ses inconnues.",
+              "status": "PENDING",
+              "decidedAt": null
+            }
+          ],
+          "changes": [],
+          "refusal": null,
+          "knowledgeRequest": {
+            "status": "REQUIRED",
+            "reason": "Les candidats restent visibles mais ne peuvent pas être présentés comme soutenus par le corpus exécutable courant.",
+            "unresolvedConcepts": [
+              "signal zéphyr quantique pulmonaire"
+            ],
+            "gapCodes": [
+              "NO_ADMITTED_CORPUS_MATCH"
+            ]
+          },
+          "proposedNextAction": "CLARIFY",
+          "humanDecisionRequired": true,
+          "knowledgeDependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "ownershipTransferred": false,
+              "knowledgeOwnerResultRef": "frozen-knowledge-result:w1-qual-01:unsupported@1",
+              "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:unsupported",
+              "knowledgeResultRevision": 1,
+              "knowledgeResultDigest": "ke1-97a63b61d3974a35",
+              "candidateRefs": [
+                "ST-Q-001"
+              ],
+              "assertionRefs": [],
+              "documentaryStatementRefs": [],
+              "evidenceRefs": [],
+              "sourceRefs": [],
+              "applicability": [],
+              "contradictionRefs": [],
+              "gapRefs": [
+                "frozen-gap:unsupported:NO_ADMITTED_CORPUS_MATCH"
+              ]
+            }
+          ],
+          "provenance": {
+            "engineVersion": "1.2.0",
+            "inputRef": "scientific-thinking-project-request:ke1-880a91ac4c26e8d0",
+            "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:unsupported",
+            "sourceRefs": [
+              "frozen-knowledge-result:w1-qual-01:unsupported@1",
+              "project-contribution-decision:ke1-75bab38aec8532b6"
+            ],
+            "policyRefs": [
+              "RDE-001",
+              "RDE-002",
+              "PD-003",
+              "PD-009",
+              "KE-001"
+            ],
+            "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+          },
+          "graph": {
+            "projectionVersion": "RUNTIME_PROJECTION_1.0",
+            "ontologyStatus": "NO_NEW_ONTOLOGY",
+            "nodes": [
+              {
+                "nodeId": "ST-N-SITUATION",
+                "type": "SITUATION",
+                "label": "Le signal zéphyr quantique pulmonaire peut-il être observé par imagerie ? Refuser ou clarifier sans hypothèse solide hors corpus.",
+                "status": "USER_STATED",
+                "sourceRef": "scientific-thinking-project-request:ke1-880a91ac4c26e8d0"
+              },
+              {
+                "nodeId": "ST-N-ST-I-001",
+                "type": "OBSERVATION",
+                "label": "Le signal zéphyr quantique pulmonaire peut-il être observé par imagerie ? Refuser ou clarifier sans hypothèse solide hors corpus.",
+                "status": "USER_STATED",
+                "sourceRef": "ST-I-001"
+              },
+              {
+                "nodeId": "ST-N-ST-Q-001",
+                "type": "SCIENTIFIC_QUESTION",
+                "label": "Quel phénomène relatif à Signal zéphyr quantique pulmonaire souhaitez-vous expliquer, comparer, quantifier ou suivre ?",
+                "status": "CANDIDATE",
+                "sourceRef": "ST-Q-001"
+              },
+              {
+                "nodeId": "ST-N-GAP-1",
+                "type": "KNOWLEDGE_GAP",
+                "label": "Connaissance non résolue : signal zéphyr quantique pulmonaire",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:unsupported"
+              },
+              {
+                "nodeId": "ST-N-GAP-2",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:unsupported-method",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:unsupported"
+              },
+              {
+                "nodeId": "ST-N-GAP-3",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:unsupported-object",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:unsupported"
+              },
+              {
+                "nodeId": "ST-N-GAP-4",
+                "type": "KNOWLEDGE_GAP",
+                "label": "PENDING_VERIFICATION:unsupported-question",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:unsupported"
+              },
+              {
+                "nodeId": "ST-N-GAP-5",
+                "type": "KNOWLEDGE_GAP",
+                "label": "Que cherchez-vous d'abord à comprendre à propos de Signal zéphyr quantique pulmonaire ?",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:unsupported"
+              },
+              {
+                "nodeId": "ST-N-GAP-6",
+                "type": "KNOWLEDGE_GAP",
+                "label": "Quelle relation souhaitez-vous examiner ?",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:unsupported"
+              },
+              {
+                "nodeId": "ST-N-GAP-7",
+                "type": "KNOWLEDGE_GAP",
+                "label": "UNKNOWN_PROJECT_OBJECT:unsupported-method",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:unsupported"
+              },
+              {
+                "nodeId": "ST-N-GAP-8",
+                "type": "KNOWLEDGE_GAP",
+                "label": "UNKNOWN_PROJECT_OBJECT:unsupported-object",
+                "status": "OPEN",
+                "sourceRef": "frozen-knowledge-result:w1-qual-01:unsupported"
+              }
+            ],
+            "edges": [
+              {
+                "edgeId": "ST-E-Q-1",
+                "from": "ST-N-SITUATION",
+                "to": "ST-N-ST-Q-001",
+                "relation": "REFORMULATED_AS"
+              },
+              {
+                "edgeId": "ST-E-GAP-1",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-1",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-2",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-2",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-3",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-3",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-4",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-4",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-5",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-5",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-6",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-6",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-7",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-7",
+                "relation": "REQUIRES_INFORMATION"
+              },
+              {
+                "edgeId": "ST-E-GAP-8",
+                "from": "ST-N-ST-Q-001",
+                "to": "ST-N-GAP-8",
+                "relation": "REQUIRES_INFORMATION"
+              }
+            ]
+          },
+          "handoff": {
+            "handoffVersion": "1.1",
+            "status": "NOT_READY",
+            "questionId": null,
+            "hypothesisIds": [],
+            "objectiveIds": [],
+            "mechanisms": [],
+            "knownInformation": [
+              "PROJECT_ADOPTED:unsupported-method:Méthode de mesure non définie",
+              "PROJECT_ADOPTED:unsupported-object:Signal zéphyr quantique pulmonaire",
+              "PROJECT_ADOPTED:unsupported-question:Le signal zéphyr quantique pulmonaire peut-il être observé par imagerie ?"
+            ],
+            "acceptedUnknowns": [],
+            "unresolvedUnknowns": [
+              "Connaissance non résolue : signal zéphyr quantique pulmonaire",
+              "PENDING_VERIFICATION:unsupported-method",
+              "PENDING_VERIFICATION:unsupported-object",
+              "PENDING_VERIFICATION:unsupported-question",
+              "Que cherchez-vous d'abord à comprendre à propos de Signal zéphyr quantique pulmonaire ?",
+              "Quelle relation souhaitez-vous examiner ?",
+              "UNKNOWN_PROJECT_OBJECT:unsupported-method",
+              "UNKNOWN_PROJECT_OBJECT:unsupported-object"
+            ],
+            "contradictions": [],
+            "decisionRecordIds": [],
+            "humanDecisions": [],
+            "alternativesNotSelected": [],
+            "limitations": [
+              "The admitted corpus does not cover the declared object."
+            ],
+            "provenanceRefs": [
+              "frozen-knowledge-result:w1-qual-01:unsupported",
+              "frozen-knowledge-result:w1-qual-01:unsupported@1",
+              "scientific-thinking-project-request:ke1-880a91ac4c26e8d0"
+            ],
+            "knowledgeResultRef": "frozen-knowledge-result:w1-qual-01:unsupported",
+            "blockedBy": [
+              "QUESTION_CONFIRMATION_REQUIRED",
+              "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+              "OBJECTIVE_HIERARCHY_REQUIRED",
+              "UNANSWERED:ST-AQ-FINALITY",
+              "UNANSWERED:ST-AQ-RELATION"
+            ],
+            "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+          },
+          "trace": [
+            {
+              "sequence": 1,
+              "operation": "CLASSIFY_INPUT",
+              "mode": "DETERMINISTIC",
+              "decision": "Type sémantique initial : OBSERVATION.",
+              "inputDigest": "ke1-6fca7c9792bab0eb",
+              "outputDigest": "ke1-47d47d45100b6a79"
+            },
+            {
+              "sequence": 2,
+              "operation": "REFORMULATE_QUESTION",
+              "mode": "DETERMINISTIC",
+              "decision": "Construction candidate sans sélection scientifique autonome.",
+              "inputDigest": "ke1-b2a85659a7bf1135",
+              "outputDigest": "ke1-cebc43aa19a615c6"
+            },
+            {
+              "sequence": 3,
+              "operation": "IDENTIFY_ASSUMPTION",
+              "mode": "DETERMINISTIC",
+              "decision": "Suppositions et biais conservés comme éléments distincts.",
+              "inputDigest": "ke1-cebc43aa19a615c6",
+              "outputDigest": "ke1-7c205f8c163b6728"
+            },
+            {
+              "sequence": 4,
+              "operation": "PROPOSE_OBJECTIVES",
+              "mode": "DETERMINISTIC",
+              "decision": "Hypothèses et objectifs proposés uniquement si la question est testable.",
+              "inputDigest": "ke1-741638a568efd6f9",
+              "outputDigest": "ke1-f2d9b623a8d455cf"
+            },
+            {
+              "sequence": 5,
+              "operation": "BUILD_GRAPH",
+              "mode": "DETERMINISTIC",
+              "decision": "Projection runtime du Scientific Reasoning Graph ; aucune ontologie créée.",
+              "inputDigest": "ke1-b56350ef32c3131b",
+              "outputDigest": "ke1-eca5ad52a1439f36"
+            },
+            {
+              "sequence": 6,
+              "operation": "REQUEST_HUMAN_DECISION",
+              "mode": "HUMAN_REQUIRED",
+              "decision": "Les portes de confirmation restent sous contrôle humain.",
+              "inputDigest": "ke1-62f12e401deb9c9c",
+              "outputDigest": "ke1-9ec4e4a1cb403b75"
+            },
+            {
+              "sequence": 7,
+              "operation": "ASSESS_HANDOFF",
+              "mode": "DETERMINISTIC",
+              "decision": "Handoff : NOT_READY.",
+              "inputDigest": "ke1-40c14d44039904a8",
+              "outputDigest": "ke1-3bed658a98c55a46"
+            }
+          ]
+        },
+        "stableProjectRefs": [
+          "unsupported-question",
+          "unsupported-object",
+          "unsupported-method"
+        ],
+        "evidenceRefs": [
+          "frozen-knowledge-result:w1-qual-01:unsupported@1",
+          "project-contribution-decision:ke1-75bab38aec8532b6"
+        ],
+        "unknowns": [
+          "Connaissance non résolue : signal zéphyr quantique pulmonaire",
+          "PENDING_VERIFICATION:unsupported-method",
+          "PENDING_VERIFICATION:unsupported-object",
+          "PENDING_VERIFICATION:unsupported-question",
+          "Que cherchez-vous d'abord à comprendre à propos de Signal zéphyr quantique pulmonaire ?",
+          "Quelle relation souhaitez-vous examiner ?",
+          "UNKNOWN_PROJECT_OBJECT:unsupported-method",
+          "UNKNOWN_PROJECT_OBJECT:unsupported-object",
+          "CONCEPT_NON_RÉSOLU:signal zéphyr quantique pulmonaire",
+          "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+          "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+        ],
+        "gaps": [
+          "NO_ADMITTED_CORPUS_MATCH",
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "Existing runtime is deterministic and expects its native context projection.",
+          "Proposals are never adopted automatically.",
+          "The admitted corpus does not cover the declared object.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "provenance": [
+          "scientific-thinking-handoff:ke1-7cc318b3ddccb467",
+          "ke1-3aaab99590761561",
+          "scientific-thinking-output:ke1-3bed658a98c55a46",
+          "scientific-thinking-project-request:ke1-880a91ac4c26e8d0",
+          "frozen-knowledge-result:w1-qual-01:unsupported",
+          "frozen-knowledge-result:w1-qual-01:unsupported@1",
+          "scientific-thinking-project-request:ke1-880a91ac4c26e8d0"
+        ],
+        "projectContribution": null,
+        "humanDecisionRequired": false
+      },
+      "observation": {
+        "contract": "PROJECT_SPINE_04_SCIENTIFIC_REASONING_OWNER_CHAIN",
+        "contractVersion": "0.1.0",
+        "invocationId": "scientific-owner-invocation:ke1-ab50daee94ed3592",
+        "handoffId": "scientific-thinking-handoff:ke1-7cc318b3ddccb467",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "ownerRuntimeVersion": "1.2.0",
+        "sourceProjectRef": "project:w1-qual-01:unsupported",
+        "sourceProjectVersion": "project:w1-qual-01:unsupported:version:1",
+        "sourceProjectDigest": "ke1-00643ca01fbe85e4",
+        "requestRef": "scientific-thinking-handoff:ke1-7cc318b3ddccb467",
+        "resultRef": "scientific-thinking-output:ke1-3bed658a98c55a46@1.2.0",
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "failureCode": null,
+        "stableProjectRefs": [
+          "unsupported-question",
+          "unsupported-object",
+          "unsupported-method"
+        ],
+        "unknowns": [
+          "Connaissance non résolue : signal zéphyr quantique pulmonaire",
+          "PENDING_VERIFICATION:unsupported-method",
+          "PENDING_VERIFICATION:unsupported-object",
+          "PENDING_VERIFICATION:unsupported-question",
+          "Que cherchez-vous d'abord à comprendre à propos de Signal zéphyr quantique pulmonaire ?",
+          "Quelle relation souhaitez-vous examiner ?",
+          "UNKNOWN_PROJECT_OBJECT:unsupported-method",
+          "UNKNOWN_PROJECT_OBJECT:unsupported-object",
+          "CONCEPT_NON_RÉSOLU:signal zéphyr quantique pulmonaire",
+          "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+          "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+        ],
+        "gaps": [
+          "NO_ADMITTED_CORPUS_MATCH",
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "The admitted corpus does not cover the declared object.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "startedAt": "2026-08-25T16:39:00.000Z",
+        "completedAt": "2026-08-25T16:39:01.000Z",
+        "latencyMs": 1,
+        "runtimeStarts": 1,
+        "conversationalLlmCalls": 0,
+        "projectWrites": 0
+      },
+      "evaluations": [
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O01",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_WRITE_LEAK",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "Zero Project writes observed."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O02",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EXTERNAL_PROVIDER_CALL",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "All external/LLM/provider counters are zero."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O03",
+          "checkId": "TRACE_BOUND",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "TRACE_BINDING_MISSING",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "Scientific Execution Trace events retained."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O04",
+          "checkId": "ST_PROJECT_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "Exact Project question is retained in the immutable ST original-idea input while candidate reformulations remain proposals."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O05",
+          "checkId": "ST_KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "Exact Knowledge result identity/digest lineage retained."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O06",
+          "checkId": "ST_CANDIDATE_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_ADOPTION_LEAK",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "All generated science remains candidate and human-reviewed."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O07",
+          "checkId": "ST_UNSUPPORTED_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNSUPPORTED_HYPOTHESIS",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "Unsupported input is refused/clarified without supported hypothesis."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O08",
+          "checkId": "ST_NO_EVIDENCE_PROMOTION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "Evidence remains distinct from candidate hypotheses."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O09",
+          "checkId": "ST_CONTRADICTION_PRESERVATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "All upstream contradiction references remain explicit."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O10",
+          "checkId": "ST_REASONING_MINIMUM",
+          "critical": true,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "CRITICAL_REASONING_OMISSION",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "Unsupported input is assessed by the refusal/clarification boundary, not by a minimum candidate count."
+        },
+        {
+          "obligationId": "ST-UNSUPPORTED-01-O11",
+          "checkId": "ST_MODEL_KNOWLEDGE_BOUNDARY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "MODEL_KNOWLEDGE_CONFUSION",
+          "evidence": [
+            "scientific-trace-event:ke1-0b9bbbdf1de40093",
+            "scientific-trace-event:ke1-c3217827958bcf83",
+            "scientific-trace-event:ke1-3d72b18abef2c656",
+            "scientific-trace-event:ke1-bb2a9a0eb5c7042a",
+            "scientific-trace-event:ke1-063a888f6ee97953",
+            "scientific-trace-event:ke1-8418dd185e03d93c",
+            "scientific-trace-event:ke1-47ca16dca50f4440"
+          ],
+          "note": "Knowledge ownership and candidate scientific-model boundary remain distinct."
+        }
+      ],
+      "verdict": "FULLY_SATISFIED",
+      "firstDivergentStage": null,
+      "runtimeProviderCalls": 0
+    }
+  ]
+}

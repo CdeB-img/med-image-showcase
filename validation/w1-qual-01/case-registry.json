@@ -1,0 +1,2050 @@
+{
+  "contract": "W1_QUAL_01_CHARACTERIZATION_CASE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01-2026-08-25-G",
+  "authoredAt": "2026-08-25T22:00:00.000Z",
+  "authoredBeforeObservation": true,
+  "cases": [
+    {
+      "caseId": "K-CARDIAC-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "domain": "cardiac",
+      "purpose": "Distinguer MVO et hémorragie intramyocardique, leurs limites et leur ambiguïté de référence.",
+      "inputArtifactRefs": [
+        "frozen-input:K-CARDIAC-01"
+      ],
+      "projectRef": "project:w1-qual-01:cardiac@project:w1-qual-01:cardiac:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Quelles connaissances distinguent obstruction microvasculaire et hémorragie intramyocardique après infarctus en IRM cardiaque ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "K_RELEVANCE",
+        "K_CRITICAL_CONCEPT_COVERAGE",
+        "K_SOURCE_GROUNDING",
+        "K_APPLICABILITY",
+        "K_LIMITATIONS",
+        "K_CONTRADICTION_OR_ALTERNATIVES",
+        "K_NO_PROMOTION_OR_DECISION"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Returned material remains relevant to the declared scientific objects.",
+        "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+        "Returned assertions remain reconstructible to source references.",
+        "Applicability remains explicit and qualified where the reference scope is bounded.",
+        "Applicability limitations remain visible.",
+        "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+        "Knowledge neither promotes evidence strength nor creates a Project decision."
+      ],
+      "forbiddenBehaviors": [
+        "Project decision",
+        "evidence inflation",
+        "external search",
+        "unsupported content generation"
+      ],
+      "allowedAlternatives": [
+        "Supported result",
+        "partial result",
+        "explicit gap",
+        "clarification"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Bounded corpus; applicability remains qualified."
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+        "noxia:scientific-source:pubmed:23021401",
+        "noxia:scientific-source:pubmed:30231886"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": true
+    },
+    {
+      "caseId": "K-SPECTRAL-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "domain": "spectral",
+      "purpose": "Tester VNC, non-substitution et comparabilité intersystème.",
+      "inputArtifactRefs": [
+        "frozen-input:K-SPECTRAL-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Une image virtuelle sans contraste peut-elle remplacer universellement une acquisition native sans injection en scanner spectral multicentrique ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "K_RELEVANCE",
+        "K_CRITICAL_CONCEPT_COVERAGE",
+        "K_SOURCE_GROUNDING",
+        "K_APPLICABILITY",
+        "K_LIMITATIONS",
+        "K_CONTRADICTION_OR_ALTERNATIVES",
+        "K_NO_PROMOTION_OR_DECISION",
+        "K_VNC_NON_EQUIVALENCE"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Returned material remains relevant to the declared scientific objects.",
+        "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+        "Returned assertions remain reconstructible to source references.",
+        "Applicability remains explicit and qualified where the reference scope is bounded.",
+        "Applicability limitations remain visible.",
+        "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+        "Knowledge neither promotes evidence strength nor creates a Project decision.",
+        "VNC is not promoted to universal replacement of native noncontrast acquisition."
+      ],
+      "forbiddenBehaviors": [
+        "Project decision",
+        "evidence inflation",
+        "external search",
+        "unsupported content generation"
+      ],
+      "allowedAlternatives": [
+        "Supported result",
+        "partial result",
+        "explicit gap",
+        "clarification"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Bounded corpus; applicability remains qualified."
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:VNC et comparabilité intersystème",
+        "noxia:scientific-source:pubmed:33411614",
+        "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": true
+    },
+    {
+      "caseId": "K-NEURO-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "domain": "neuro",
+      "purpose": "Tester dépendances de CBF/CBV/délai selon modalité et logiciel.",
+      "inputArtifactRefs": [
+        "frozen-input:K-NEURO-01"
+      ],
+      "projectRef": "project:w1-qual-01:neuro@project:w1-qual-01:neuro:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Comment préserver les dépendances de CBF, CBV et délai de transit entre ASL, DSC et scanner de perfusion ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "K_RELEVANCE",
+        "K_CRITICAL_CONCEPT_COVERAGE",
+        "K_SOURCE_GROUNDING",
+        "K_APPLICABILITY",
+        "K_LIMITATIONS",
+        "K_CONTRADICTION_OR_ALTERNATIVES",
+        "K_NO_PROMOTION_OR_DECISION"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Returned material remains relevant to the declared scientific objects.",
+        "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+        "Returned assertions remain reconstructible to source references.",
+        "Applicability remains explicit and qualified where the reference scope is bounded.",
+        "Applicability limitations remain visible.",
+        "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+        "Knowledge neither promotes evidence strength nor creates a Project decision."
+      ],
+      "forbiddenBehaviors": [
+        "Project decision",
+        "evidence inflation",
+        "external search",
+        "unsupported content generation"
+      ],
+      "allowedAlternatives": [
+        "Supported result",
+        "partial result",
+        "explicit gap",
+        "clarification"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Bounded corpus; applicability remains qualified."
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+        "noxia:scientific-source:pubmed:30346227",
+        "noxia:scientific-source:pubmed:25907520"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "K-UNSUPPORTED-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "domain": "unsupported",
+      "purpose": "Tester le gap honnête hors corpus.",
+      "inputArtifactRefs": [
+        "frozen-input:K-UNSUPPORTED-01"
+      ],
+      "projectRef": "project:w1-qual-01:unsupported@project:w1-qual-01:unsupported:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Que sait le corpus admis sur le signal zéphyr quantique pulmonaire ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "K_HONEST_GAP"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Unsupported content returns an explicit gap without fabricated assertion."
+      ],
+      "forbiddenBehaviors": [
+        "Project decision",
+        "evidence inflation",
+        "external search",
+        "unsupported content generation"
+      ],
+      "allowedAlternatives": [
+        "Supported result",
+        "partial result",
+        "explicit gap",
+        "clarification"
+      ],
+      "expectedGaps": [
+        "NO_MATCH_OR_OUT_OF_DOMAIN"
+      ],
+      "expectedLimitations": [
+        "Bounded corpus; applicability remains qualified."
+      ],
+      "referenceRefs": [
+        "KE-001:explicit-gap-and-unsupported-domain-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "K-REFERENCE-AMBIGUITY-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "domain": "cardiac",
+      "purpose": "Tester l'absence d'équivalence silencieuse entre no-reflow, MVO et hémorragie.",
+      "inputArtifactRefs": [
+        "frozen-input:K-REFERENCE-AMBIGUITY-01"
+      ],
+      "projectRef": "project:w1-qual-01:cardiac@project:w1-qual-01:cardiac:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "No-reflow, obstruction microvasculaire et hémorragie intramyocardique sont-ils strictement équivalents ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "K_RELEVANCE",
+        "K_CRITICAL_CONCEPT_COVERAGE",
+        "K_SOURCE_GROUNDING",
+        "K_APPLICABILITY",
+        "K_LIMITATIONS",
+        "K_CONTRADICTION_OR_ALTERNATIVES",
+        "K_NO_PROMOTION_OR_DECISION",
+        "K_REFERENCE_AMBIGUITY"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Returned material remains relevant to the declared scientific objects.",
+        "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+        "Returned assertions remain reconstructible to source references.",
+        "Applicability remains explicit and qualified where the reference scope is bounded.",
+        "Applicability limitations remain visible.",
+        "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+        "Knowledge neither promotes evidence strength nor creates a Project decision.",
+        "Related cardiac terms are not silently collapsed into strict equivalence."
+      ],
+      "forbiddenBehaviors": [
+        "Project decision",
+        "evidence inflation",
+        "external search",
+        "unsupported content generation"
+      ],
+      "allowedAlternatives": [
+        "Supported result",
+        "partial result",
+        "explicit gap",
+        "clarification"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Bounded corpus; applicability remains qualified."
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+        "noxia:scientific-source:pubmed:23021401",
+        "noxia:scientific-source:pubmed:30231886"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "K-STALE-01",
+      "ownerUnderTest": "KNOWLEDGE",
+      "domain": "cardiac",
+      "purpose": "Tester la conservation historique et le marquage stale face à un Project successeur.",
+      "inputArtifactRefs": [
+        "frozen-input:K-STALE-01"
+      ],
+      "projectRef": "project:w1-qual-01:cardiac@project:w1-qual-01:cardiac:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Quelles connaissances caractérisent l'obstruction microvasculaire après infarctus en IRM cardiaque ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "K_RELEVANCE",
+        "K_CRITICAL_CONCEPT_COVERAGE",
+        "K_SOURCE_GROUNDING",
+        "K_APPLICABILITY",
+        "K_LIMITATIONS",
+        "K_CONTRADICTION_OR_ALTERNATIVES",
+        "K_NO_PROMOTION_OR_DECISION",
+        "K_STALE_READBACK"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Returned material remains relevant to the declared scientific objects.",
+        "All case-defining scientific concepts remain represented or their omission is exposed as a gap.",
+        "Returned assertions remain reconstructible to source references.",
+        "Applicability remains explicit and qualified where the reference scope is bounded.",
+        "Applicability limitations remain visible.",
+        "Contradictions or alternative operationalizations remain visible when supported by the admitted references.",
+        "Knowledge neither promotes evidence strength nor creates a Project decision.",
+        "A result bound to Project vN remains historically readable but is marked stale against vN+1."
+      ],
+      "forbiddenBehaviors": [
+        "Project decision",
+        "evidence inflation",
+        "external search",
+        "unsupported content generation"
+      ],
+      "allowedAlternatives": [
+        "Supported result",
+        "partial result",
+        "explicit gap",
+        "clarification"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Bounded corpus; applicability remains qualified."
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+        "noxia:scientific-source:pubmed:23021401",
+        "noxia:scientific-source:pubmed:30231886"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "ST-CARDIAC-01",
+      "ownerUnderTest": "SCIENTIFIC_THINKING",
+      "domain": "cardiac",
+      "purpose": "Conserver deux phénomènes distincts, limites et alternatives candidates.",
+      "inputArtifactRefs": [
+        "frozen-input:ST-CARDIAC-01"
+      ],
+      "projectRef": "project:w1-qual-01:cardiac@project:w1-qual-01:cardiac:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:cardiac@1"
+      ],
+      "scientificContext": "Comment distinguer obstruction microvasculaire et hémorragie intramyocardique après infarctus par IRM cardiaque ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "ST_PROJECT_FIDELITY",
+        "ST_KNOWLEDGE_LINEAGE",
+        "ST_CANDIDATE_BOUNDARY",
+        "ST_UNKNOWN_AND_GAP_PRESERVATION",
+        "ST_NO_EVIDENCE_PROMOTION",
+        "ST_CONTRADICTION_PRESERVATION",
+        "ST_REASONING_MINIMUM",
+        "ST_MODEL_KNOWLEDGE_BOUNDARY"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "The adopted Project question and context remain identifiable.",
+        "The exact frozen Knowledge result identity and digest remain linked.",
+        "Hypotheses and models remain candidates requiring human review.",
+        "Frozen Knowledge gaps and Project unknowns remain visible.",
+        "Knowledge support is not converted into established Project truth.",
+        "Upstream Knowledge contradiction references remain explicit.",
+        "Supported inputs produce inspectable question, objective and hypothesis candidates.",
+        "Scientific models and hypotheses remain candidate reasoning artifacts and never become Knowledge assertions."
+      ],
+      "forbiddenBehaviors": [
+        "Knowledge ownership transfer",
+        "automatic adoption",
+        "false certainty"
+      ],
+      "allowedAlternatives": [
+        "Candidate hypotheses",
+        "clarification",
+        "refusal",
+        "request Knowledge"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Corpus coverage is bounded and gaps remain explicit.",
+        "External evidence remains candidate evidence.",
+        "CMR finding definitions and quantification depend on acquisition, timing and analysis choices."
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+        "noxia:scientific-source:pubmed:23021401",
+        "noxia:scientific-source:pubmed:30231886"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": true
+    },
+    {
+      "caseId": "ST-SPECTRAL-01",
+      "ownerUnderTest": "SCIENTIFIC_THINKING",
+      "domain": "spectral",
+      "purpose": "Conserver les alternatives de substitution et la non-comparabilité automatique.",
+      "inputArtifactRefs": [
+        "frozen-input:ST-SPECTRAL-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral@1"
+      ],
+      "scientificContext": "Dans quelles conditions une image virtuelle sans contraste peut-elle être comparée à une acquisition native sans injection ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "ST_PROJECT_FIDELITY",
+        "ST_KNOWLEDGE_LINEAGE",
+        "ST_CANDIDATE_BOUNDARY",
+        "ST_UNKNOWN_AND_GAP_PRESERVATION",
+        "ST_NO_EVIDENCE_PROMOTION",
+        "ST_CONTRADICTION_PRESERVATION",
+        "ST_REASONING_MINIMUM",
+        "ST_MODEL_KNOWLEDGE_BOUNDARY",
+        "ST_ALTERNATIVES"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "The adopted Project question and context remain identifiable.",
+        "The exact frozen Knowledge result identity and digest remain linked.",
+        "Hypotheses and models remain candidates requiring human review.",
+        "Frozen Knowledge gaps and Project unknowns remain visible.",
+        "Knowledge support is not converted into established Project truth.",
+        "Upstream Knowledge contradiction references remain explicit.",
+        "Supported inputs produce inspectable question, objective and hypothesis candidates.",
+        "Scientific models and hypotheses remain candidate reasoning artifacts and never become Knowledge assertions.",
+        "Multiple defensible branches remain available for review."
+      ],
+      "forbiddenBehaviors": [
+        "Knowledge ownership transfer",
+        "automatic adoption",
+        "false certainty"
+      ],
+      "allowedAlternatives": [
+        "Candidate hypotheses",
+        "clarification",
+        "refusal",
+        "request Knowledge"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Corpus coverage is bounded and gaps remain explicit.",
+        "External evidence remains candidate evidence.",
+        "Residual iodine, calcium handling and platform implementation limit substitution claims."
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:VNC et comparabilité intersystème",
+        "noxia:scientific-source:pubmed:33411614",
+        "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "ST-NEURO-01",
+      "ownerUnderTest": "SCIENTIFIC_THINKING",
+      "domain": "neuro",
+      "purpose": "Conserver les inconnues de logiciel et les hypothèses comme candidates.",
+      "inputArtifactRefs": [
+        "frozen-input:ST-NEURO-01"
+      ],
+      "projectRef": "project:w1-qual-01:neuro@project:w1-qual-01:neuro:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:neuro@1"
+      ],
+      "scientificContext": "Comment interpréter conjointement CBF, CBV et délai de transit selon ASL, DSC et scanner de perfusion ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "ST_PROJECT_FIDELITY",
+        "ST_KNOWLEDGE_LINEAGE",
+        "ST_CANDIDATE_BOUNDARY",
+        "ST_UNKNOWN_AND_GAP_PRESERVATION",
+        "ST_NO_EVIDENCE_PROMOTION",
+        "ST_CONTRADICTION_PRESERVATION",
+        "ST_REASONING_MINIMUM",
+        "ST_MODEL_KNOWLEDGE_BOUNDARY"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "The adopted Project question and context remain identifiable.",
+        "The exact frozen Knowledge result identity and digest remain linked.",
+        "Hypotheses and models remain candidates requiring human review.",
+        "Frozen Knowledge gaps and Project unknowns remain visible.",
+        "Knowledge support is not converted into established Project truth.",
+        "Upstream Knowledge contradiction references remain explicit.",
+        "Supported inputs produce inspectable question, objective and hypothesis candidates.",
+        "Scientific models and hypotheses remain candidate reasoning artifacts and never become Knowledge assertions."
+      ],
+      "forbiddenBehaviors": [
+        "Knowledge ownership transfer",
+        "automatic adoption",
+        "false certainty"
+      ],
+      "allowedAlternatives": [
+        "Candidate hypotheses",
+        "clarification",
+        "refusal",
+        "request Knowledge"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Corpus coverage is bounded and gaps remain explicit.",
+        "External evidence remains candidate evidence.",
+        "Software, deconvolution, delay sensitivity and modality assumptions constrain comparability."
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+        "noxia:scientific-source:pubmed:30346227",
+        "noxia:scientific-source:pubmed:25907520"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "ST-UNSUPPORTED-01",
+      "ownerUnderTest": "SCIENTIFIC_THINKING",
+      "domain": "unsupported",
+      "purpose": "Refuser ou clarifier sans hypothèse solide hors corpus.",
+      "inputArtifactRefs": [
+        "frozen-input:ST-UNSUPPORTED-01"
+      ],
+      "projectRef": "project:w1-qual-01:unsupported@project:w1-qual-01:unsupported:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:unsupported@1"
+      ],
+      "scientificContext": "Le signal zéphyr quantique pulmonaire peut-il être observé par imagerie ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "ST_PROJECT_FIDELITY",
+        "ST_KNOWLEDGE_LINEAGE",
+        "ST_CANDIDATE_BOUNDARY",
+        "ST_UNSUPPORTED_BOUNDARY",
+        "ST_NO_EVIDENCE_PROMOTION",
+        "ST_CONTRADICTION_PRESERVATION",
+        "ST_REASONING_MINIMUM",
+        "ST_MODEL_KNOWLEDGE_BOUNDARY"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "The adopted Project question and context remain identifiable.",
+        "The exact frozen Knowledge result identity and digest remain linked.",
+        "Hypotheses and models remain candidates requiring human review.",
+        "Unsupported input is refused or remains clarification-required without solid hypothesis.",
+        "Knowledge support is not converted into established Project truth.",
+        "Upstream Knowledge contradiction references remain explicit.",
+        "Supported inputs produce inspectable question, objective and hypothesis candidates.",
+        "Scientific models and hypotheses remain candidate reasoning artifacts and never become Knowledge assertions."
+      ],
+      "forbiddenBehaviors": [
+        "Knowledge ownership transfer",
+        "automatic adoption",
+        "false certainty"
+      ],
+      "allowedAlternatives": [
+        "Candidate hypotheses",
+        "clarification",
+        "refusal",
+        "request Knowledge"
+      ],
+      "expectedGaps": [
+        "frozen-gap:unsupported:NO_ADMITTED_CORPUS_MATCH:NO_ADMITTED_CORPUS_MATCH"
+      ],
+      "expectedLimitations": [
+        "Corpus coverage is bounded and gaps remain explicit.",
+        "External evidence remains candidate evidence.",
+        "The admitted corpus does not cover the declared object."
+      ],
+      "referenceRefs": [
+        "KE-001:explicit-gap-and-unsupported-domain-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "IMG-CARDIAC-01",
+      "ownerUnderTest": "IMAGING",
+      "domain": "cardiac",
+      "purpose": "Proposer des options Imaging candidates avec QA et équipement non inventé.",
+      "inputArtifactRefs": [
+        "frozen-input:IMG-CARDIAC-01"
+      ],
+      "projectRef": "project:w1-qual-01:cardiac@project:w1-qual-01:cardiac:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:cardiac@1",
+        "frozen-st-result:w1-qual-01:cardiac@1.2.0"
+      ],
+      "scientificContext": "Comment distinguer obstruction microvasculaire et hémorragie intramyocardique après infarctus par IRM cardiaque ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "IMG_QUESTION_ALIGNMENT",
+        "IMG_UPSTREAM_LINEAGE",
+        "IMG_CANDIDATE_AND_NO_RANKING",
+        "IMG_QA_AND_EQUIPMENT",
+        "IMG_OBS_BOUNDARY",
+        "IMG_LIMITATIONS",
+        "IMG_MODALITY_ALIGNMENT",
+        "IMG_CORELAB_CONTEXTUAL",
+        "IMG_UNKNOWN_PRESERVATION"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Imaging output stays aligned with the frozen Project/ST question.",
+        "Exact frozen Knowledge and ST result dependencies remain linked.",
+        "Modalities and acquisitions remain candidates with no automatic ranking or adoption.",
+        "QA needs and unknown equipment compatibility remain explicit.",
+        "OBS absence remains explicit and no qualified OBS object is invented.",
+        "Scientific and technical limitations remain visible.",
+        "Modality candidates remain aligned with the declared imaging domain.",
+        "Core Lab options remain contextual and human-assessed without automatic optimum.",
+        "Project and upstream unknowns remain visible downstream."
+      ],
+      "forbiddenBehaviors": [
+        "qualified OBS object invention",
+        "automatic method selection",
+        "equipment compatibility assumption"
+      ],
+      "allowedAlternatives": [
+        "Candidate modalities",
+        "candidate acquisitions",
+        "clarification",
+        "return to Scientific Thinking"
+      ],
+      "expectedGaps": [
+        "OBSERVABILITY_QUALIFICATION:NOT_IMPLEMENTED"
+      ],
+      "expectedLimitations": [
+        "OBS_RUNTIME_UNAVAILABLE_NO_AUTONOMOUS_QUALIFICATION",
+        "Existing runtime is deterministic and expects its native context projection.",
+        "Proposals are never adopted automatically.",
+        "CMR finding definitions and quantification depend on acquisition, timing and analysis choices.",
+        "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:Obstruction microvasculaire et hémorragie intramyocardique",
+        "noxia:scientific-source:pubmed:23021401",
+        "noxia:scientific-source:pubmed:30231886"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": true
+    },
+    {
+      "caseId": "IMG-SPECTRAL-01",
+      "ownerUnderTest": "IMAGING",
+      "domain": "spectral",
+      "purpose": "Préserver VNC/non-contraste et comparabilité sans classement automatique.",
+      "inputArtifactRefs": [
+        "frozen-input:IMG-SPECTRAL-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral@1",
+        "frozen-st-result:w1-qual-01:spectral@1.2.0"
+      ],
+      "scientificContext": "Dans quelles conditions une image virtuelle sans contraste peut-elle être comparée à une acquisition native sans injection ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "IMG_QUESTION_ALIGNMENT",
+        "IMG_UPSTREAM_LINEAGE",
+        "IMG_CANDIDATE_AND_NO_RANKING",
+        "IMG_QA_AND_EQUIPMENT",
+        "IMG_OBS_BOUNDARY",
+        "IMG_LIMITATIONS",
+        "IMG_MODALITY_ALIGNMENT",
+        "IMG_CORELAB_CONTEXTUAL",
+        "IMG_UNKNOWN_PRESERVATION"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Imaging output stays aligned with the frozen Project/ST question.",
+        "Exact frozen Knowledge and ST result dependencies remain linked.",
+        "Modalities and acquisitions remain candidates with no automatic ranking or adoption.",
+        "QA needs and unknown equipment compatibility remain explicit.",
+        "OBS absence remains explicit and no qualified OBS object is invented.",
+        "Scientific and technical limitations remain visible.",
+        "Modality candidates remain aligned with the declared imaging domain.",
+        "Core Lab options remain contextual and human-assessed without automatic optimum.",
+        "Project and upstream unknowns remain visible downstream."
+      ],
+      "forbiddenBehaviors": [
+        "qualified OBS object invention",
+        "automatic method selection",
+        "equipment compatibility assumption"
+      ],
+      "allowedAlternatives": [
+        "Candidate modalities",
+        "candidate acquisitions",
+        "clarification",
+        "return to Scientific Thinking"
+      ],
+      "expectedGaps": [
+        "OBSERVABILITY_QUALIFICATION:NOT_IMPLEMENTED"
+      ],
+      "expectedLimitations": [
+        "OBS_RUNTIME_UNAVAILABLE_NO_AUTONOMOUS_QUALIFICATION",
+        "Existing runtime is deterministic and expects its native context projection.",
+        "Proposals are never adopted automatically.",
+        "Residual iodine, calcium handling and platform implementation limit substitution claims.",
+        "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:VNC et comparabilité intersystème",
+        "noxia:scientific-source:pubmed:33411614",
+        "noxia:scientific-assertion:spectral-ct:vnc-not-true-noncontrast"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "IMG-NEURO-01",
+      "ownerUnderTest": "IMAGING",
+      "domain": "neuro",
+      "purpose": "Préserver les alternatives multimodales et dépendances de post-traitement.",
+      "inputArtifactRefs": [
+        "frozen-input:IMG-NEURO-01"
+      ],
+      "projectRef": "project:w1-qual-01:neuro@project:w1-qual-01:neuro:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:neuro@1",
+        "frozen-st-result:w1-qual-01:neuro@1.2.0"
+      ],
+      "scientificContext": "Comment interpréter conjointement CBF, CBV et délai de transit selon ASL, DSC et scanner de perfusion ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "IMG_QUESTION_ALIGNMENT",
+        "IMG_UPSTREAM_LINEAGE",
+        "IMG_CANDIDATE_AND_NO_RANKING",
+        "IMG_QA_AND_EQUIPMENT",
+        "IMG_OBS_BOUNDARY",
+        "IMG_LIMITATIONS",
+        "IMG_MODALITY_ALIGNMENT",
+        "IMG_CORELAB_CONTEXTUAL",
+        "IMG_UNKNOWN_PRESERVATION"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Imaging output stays aligned with the frozen Project/ST question.",
+        "Exact frozen Knowledge and ST result dependencies remain linked.",
+        "Modalities and acquisitions remain candidates with no automatic ranking or adoption.",
+        "QA needs and unknown equipment compatibility remain explicit.",
+        "OBS absence remains explicit and no qualified OBS object is invented.",
+        "Scientific and technical limitations remain visible.",
+        "Modality candidates remain aligned with the declared imaging domain.",
+        "Core Lab options remain contextual and human-assessed without automatic optimum.",
+        "Project and upstream unknowns remain visible downstream."
+      ],
+      "forbiddenBehaviors": [
+        "qualified OBS object invention",
+        "automatic method selection",
+        "equipment compatibility assumption"
+      ],
+      "allowedAlternatives": [
+        "Candidate modalities",
+        "candidate acquisitions",
+        "clarification",
+        "return to Scientific Thinking"
+      ],
+      "expectedGaps": [
+        "OBSERVABILITY_QUALIFICATION:NOT_IMPLEMENTED"
+      ],
+      "expectedLimitations": [
+        "OBS_RUNTIME_UNAVAILABLE_NO_AUTONOMOUS_QUALIFICATION",
+        "Existing runtime is deterministic and expects its native context projection.",
+        "Proposals are never adopted automatically.",
+        "Software, deconvolution, delay sensitivity and modality assumptions constrain comparability.",
+        "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:Perfusion cérébrale et dépendances méthodologiques",
+        "noxia:scientific-source:pubmed:30346227",
+        "noxia:scientific-source:pubmed:25907520"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "IMG-UNSUPPORTED-01",
+      "ownerUnderTest": "IMAGING",
+      "domain": "unsupported",
+      "purpose": "Retourner vers Scientific Thinking faute de chaîne de mesure défendable.",
+      "inputArtifactRefs": [
+        "frozen-input:IMG-UNSUPPORTED-01"
+      ],
+      "projectRef": "project:w1-qual-01:unsupported@project:w1-qual-01:unsupported:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:unsupported@1",
+        "frozen-st-result:w1-qual-01:unsupported@1.2.0"
+      ],
+      "scientificContext": "Le signal zéphyr quantique pulmonaire peut-il être observé par imagerie ?",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "IMG_QUESTION_ALIGNMENT",
+        "IMG_UPSTREAM_LINEAGE",
+        "IMG_CANDIDATE_AND_NO_RANKING",
+        "IMG_QA_AND_EQUIPMENT",
+        "IMG_OBS_BOUNDARY",
+        "IMG_RETURN_TO_ST",
+        "IMG_MODALITY_ALIGNMENT",
+        "IMG_CORELAB_CONTEXTUAL",
+        "IMG_UNKNOWN_PRESERVATION"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Imaging output stays aligned with the frozen Project/ST question.",
+        "Exact frozen Knowledge and ST result dependencies remain linked.",
+        "Modalities and acquisitions remain candidates with no automatic ranking or adoption.",
+        "QA needs and unknown equipment compatibility remain explicit.",
+        "OBS absence remains explicit and no qualified OBS object is invented.",
+        "Unsupported measurement chain returns to Scientific Thinking or requests clarification.",
+        "Modality candidates remain aligned with the declared imaging domain.",
+        "Core Lab options remain contextual and human-assessed without automatic optimum.",
+        "Project and upstream unknowns remain visible downstream."
+      ],
+      "forbiddenBehaviors": [
+        "qualified OBS object invention",
+        "automatic method selection",
+        "equipment compatibility assumption"
+      ],
+      "allowedAlternatives": [
+        "Candidate modalities",
+        "candidate acquisitions",
+        "clarification",
+        "return to Scientific Thinking"
+      ],
+      "expectedGaps": [
+        "OBSERVABILITY_QUALIFICATION:NOT_IMPLEMENTED"
+      ],
+      "expectedLimitations": [
+        "OBS_RUNTIME_UNAVAILABLE_NO_AUTONOMOUS_QUALIFICATION",
+        "Existing runtime is deterministic and expects its native context projection.",
+        "Proposals are never adopted automatically.",
+        "The admitted corpus does not cover the declared object.",
+        "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+      ],
+      "referenceRefs": [
+        "KE-001:explicit-gap-and-unsupported-domain-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "REG-FR-01",
+      "ownerUnderTest": "REG",
+      "domain": "France",
+      "purpose": "Characterize REG for France.",
+      "inputArtifactRefs": [
+        "frozen-input:REG-FR-01"
+      ],
+      "projectRef": "project:w1-qual-01:regulatory@project:w1-qual-01:regulatory:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Caller-supplied jurisdiction=FR; variant=FULL",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "REG_JURISDICTION_FIDELITY",
+        "REG_CORPUS_BOUNDARY",
+        "REG_SOURCE_GROUNDING",
+        "REG_NO_APPROVAL"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+        "Candidate corpus status and bounded coverage remain visible.",
+        "Resolved requirements retain encoded source references.",
+        "No regulatory approval, authorization, legal validation or current-law completeness is claimed."
+      ],
+      "forbiddenBehaviors": [
+        "legal advice",
+        "approval",
+        "unsupported jurisdiction extrapolation",
+        "current-law completeness claim"
+      ],
+      "allowedAlternatives": [
+        "applicable",
+        "potentially applicable",
+        "missing information",
+        "qualification required",
+        "fail-closed rejection"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "REG-000 candidate corpus",
+        "methodological aid only"
+      ],
+      "referenceRefs": [
+        "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+        "REG-001@1.0.0:methodological-aid-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": true
+    },
+    {
+      "caseId": "REG-EU-01",
+      "ownerUnderTest": "REG",
+      "domain": "EU/EEA",
+      "purpose": "Characterize REG for EU/EEA.",
+      "inputArtifactRefs": [
+        "frozen-input:REG-EU-01"
+      ],
+      "projectRef": "project:w1-qual-01:regulatory@project:w1-qual-01:regulatory:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Caller-supplied jurisdiction=EU_EEA; variant=FULL",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "REG_JURISDICTION_FIDELITY",
+        "REG_CORPUS_BOUNDARY",
+        "REG_SOURCE_GROUNDING",
+        "REG_NO_APPROVAL"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+        "Candidate corpus status and bounded coverage remain visible.",
+        "Resolved requirements retain encoded source references.",
+        "No regulatory approval, authorization, legal validation or current-law completeness is claimed."
+      ],
+      "forbiddenBehaviors": [
+        "legal advice",
+        "approval",
+        "unsupported jurisdiction extrapolation",
+        "current-law completeness claim"
+      ],
+      "allowedAlternatives": [
+        "applicable",
+        "potentially applicable",
+        "missing information",
+        "qualification required",
+        "fail-closed rejection"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "REG-000 candidate corpus",
+        "methodological aid only"
+      ],
+      "referenceRefs": [
+        "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+        "REG-001@1.0.0:methodological-aid-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "REG-US-01",
+      "ownerUnderTest": "REG",
+      "domain": "United States",
+      "purpose": "Characterize REG for United States.",
+      "inputArtifactRefs": [
+        "frozen-input:REG-US-01"
+      ],
+      "projectRef": "project:w1-qual-01:regulatory@project:w1-qual-01:regulatory:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Caller-supplied jurisdiction=US; variant=FULL",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "REG_JURISDICTION_FIDELITY",
+        "REG_CORPUS_BOUNDARY",
+        "REG_SOURCE_GROUNDING",
+        "REG_NO_APPROVAL"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+        "Candidate corpus status and bounded coverage remain visible.",
+        "Resolved requirements retain encoded source references.",
+        "No regulatory approval, authorization, legal validation or current-law completeness is claimed."
+      ],
+      "forbiddenBehaviors": [
+        "legal advice",
+        "approval",
+        "unsupported jurisdiction extrapolation",
+        "current-law completeness claim"
+      ],
+      "allowedAlternatives": [
+        "applicable",
+        "potentially applicable",
+        "missing information",
+        "qualification required",
+        "fail-closed rejection"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "REG-000 candidate corpus",
+        "methodological aid only"
+      ],
+      "referenceRefs": [
+        "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+        "REG-001@1.0.0:methodological-aid-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "REG-INTL-01",
+      "ownerUnderTest": "REG",
+      "domain": "International methodological/reporting",
+      "purpose": "Characterize REG for International methodological/reporting.",
+      "inputArtifactRefs": [
+        "frozen-input:REG-INTL-01"
+      ],
+      "projectRef": "project:w1-qual-01:regulatory@project:w1-qual-01:regulatory:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Caller-supplied jurisdiction=INTERNATIONAL; variant=FULL",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "REG_JURISDICTION_FIDELITY",
+        "REG_CORPUS_BOUNDARY",
+        "REG_SOURCE_GROUNDING",
+        "REG_NO_APPROVAL"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+        "Candidate corpus status and bounded coverage remain visible.",
+        "Resolved requirements retain encoded source references.",
+        "No regulatory approval, authorization, legal validation or current-law completeness is claimed."
+      ],
+      "forbiddenBehaviors": [
+        "legal advice",
+        "approval",
+        "unsupported jurisdiction extrapolation",
+        "current-law completeness claim"
+      ],
+      "allowedAlternatives": [
+        "applicable",
+        "potentially applicable",
+        "missing information",
+        "qualification required",
+        "fail-closed rejection"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "REG-000 candidate corpus",
+        "methodological aid only"
+      ],
+      "referenceRefs": [
+        "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+        "REG-001@1.0.0:methodological-aid-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "REG-UNSUPPORTED-01",
+      "ownerUnderTest": "REG",
+      "domain": "Unsupported jurisdiction",
+      "purpose": "Characterize REG for Unsupported jurisdiction.",
+      "inputArtifactRefs": [
+        "frozen-input:REG-UNSUPPORTED-01"
+      ],
+      "projectRef": "project:w1-qual-01:regulatory@project:w1-qual-01:regulatory:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Caller-supplied jurisdiction=CA; variant=FULL",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "REG_UNSUPPORTED_FAIL_CLOSED",
+        "REG_CORPUS_BOUNDARY",
+        "REG_SOURCE_GROUNDING",
+        "REG_NO_APPROVAL"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Unsupported jurisdiction fails closed without extrapolation.",
+        "Candidate corpus status and bounded coverage remain visible.",
+        "Resolved requirements retain encoded source references.",
+        "No regulatory approval, authorization, legal validation or current-law completeness is claimed."
+      ],
+      "forbiddenBehaviors": [
+        "legal advice",
+        "approval",
+        "unsupported jurisdiction extrapolation",
+        "current-law completeness claim"
+      ],
+      "allowedAlternatives": [
+        "applicable",
+        "potentially applicable",
+        "missing information",
+        "qualification required",
+        "fail-closed rejection"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "REG-000 candidate corpus",
+        "methodological aid only"
+      ],
+      "referenceRefs": [
+        "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+        "REG-001@1.0.0:methodological-aid-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "REG-MISSING-JURISDICTION-01",
+      "ownerUnderTest": "REG",
+      "domain": "Missing jurisdiction",
+      "purpose": "Characterize REG for Missing jurisdiction.",
+      "inputArtifactRefs": [
+        "frozen-input:REG-MISSING-JURISDICTION-01"
+      ],
+      "projectRef": "project:w1-qual-01:regulatory@project:w1-qual-01:regulatory:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Caller-supplied jurisdiction=UNKNOWN; variant=FULL",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "REG_JURISDICTION_FIDELITY",
+        "REG_CORPUS_BOUNDARY",
+        "REG_SOURCE_GROUNDING",
+        "REG_NO_APPROVAL",
+        "REG_MISSING_INFORMATION"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+        "Candidate corpus status and bounded coverage remain visible.",
+        "Resolved requirements retain encoded source references.",
+        "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+        "Missing jurisdiction or context remains explicit."
+      ],
+      "forbiddenBehaviors": [
+        "legal advice",
+        "approval",
+        "unsupported jurisdiction extrapolation",
+        "current-law completeness claim"
+      ],
+      "allowedAlternatives": [
+        "applicable",
+        "potentially applicable",
+        "missing information",
+        "qualification required",
+        "fail-closed rejection"
+      ],
+      "expectedGaps": [
+        "MISSING_REGULATORY_INFORMATION"
+      ],
+      "expectedLimitations": [
+        "REG-000 candidate corpus",
+        "methodological aid only"
+      ],
+      "referenceRefs": [
+        "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+        "REG-001@1.0.0:methodological-aid-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "REG-MISSING-CONTEXT-01",
+      "ownerUnderTest": "REG",
+      "domain": "Insufficient context",
+      "purpose": "Characterize REG for Insufficient context.",
+      "inputArtifactRefs": [
+        "frozen-input:REG-MISSING-CONTEXT-01"
+      ],
+      "projectRef": "project:w1-qual-01:regulatory@project:w1-qual-01:regulatory:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Caller-supplied jurisdiction=FR,EU_EEA; variant=MISSING_CONTEXT",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "REG_JURISDICTION_FIDELITY",
+        "REG_CORPUS_BOUNDARY",
+        "REG_SOURCE_GROUNDING",
+        "REG_NO_APPROVAL",
+        "REG_MISSING_INFORMATION"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Only caller-supplied jurisdictions are evaluated without France extrapolation.",
+        "Candidate corpus status and bounded coverage remain visible.",
+        "Resolved requirements retain encoded source references.",
+        "No regulatory approval, authorization, legal validation or current-law completeness is claimed.",
+        "Missing jurisdiction or context remains explicit."
+      ],
+      "forbiddenBehaviors": [
+        "legal advice",
+        "approval",
+        "unsupported jurisdiction extrapolation",
+        "current-law completeness claim"
+      ],
+      "allowedAlternatives": [
+        "applicable",
+        "potentially applicable",
+        "missing information",
+        "qualification required",
+        "fail-closed rejection"
+      ],
+      "expectedGaps": [
+        "MISSING_REGULATORY_INFORMATION"
+      ],
+      "expectedLimitations": [
+        "REG-000 candidate corpus",
+        "methodological aid only"
+      ],
+      "referenceRefs": [
+        "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+        "REG-001@1.0.0:methodological-aid-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "REG-STALE-REQUEST-01",
+      "ownerUnderTest": "REG",
+      "domain": "Stale Project/request",
+      "purpose": "Characterize REG for Stale Project/request.",
+      "inputArtifactRefs": [
+        "frozen-input:REG-STALE-REQUEST-01"
+      ],
+      "projectRef": "project:w1-qual-01:regulatory@project:w1-qual-01:regulatory:version:1",
+      "upstreamFrozenResultRefs": [],
+      "scientificContext": "Caller-supplied jurisdiction=FR; variant=FULL",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "REG_STALE_FAIL_CLOSED",
+        "REG_CORPUS_BOUNDARY",
+        "REG_SOURCE_GROUNDING",
+        "REG_NO_APPROVAL"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "Stale Project/request binding fails closed.",
+        "Candidate corpus status and bounded coverage remain visible.",
+        "Resolved requirements retain encoded source references.",
+        "No regulatory approval, authorization, legal validation or current-law completeness is claimed."
+      ],
+      "forbiddenBehaviors": [
+        "legal advice",
+        "approval",
+        "unsupported jurisdiction extrapolation",
+        "current-law completeness claim"
+      ],
+      "allowedAlternatives": [
+        "applicable",
+        "potentially applicable",
+        "missing information",
+        "qualification required",
+        "fail-closed rejection"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "REG-000 candidate corpus",
+        "methodological aid only"
+      ],
+      "referenceRefs": [
+        "REG-000@1.0.0:CANDIDATE_NOT_ADMITTED",
+        "REG-001@1.0.0:methodological-aid-boundary"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": true
+    },
+    {
+      "caseId": "VAL-CLEAN-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Valid frozen chain has no critical artificial finding.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-CLEAN-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: CLEAN",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_NO_FALSE_CRITICAL",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "The valid structural chain has no artificial blocking finding.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": true
+    },
+    {
+      "caseId": "VAL-PROJECT-DIGEST-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Project digest mismatch is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-PROJECT-DIGEST-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: PROJECT_DIGEST_MISMATCH",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class STALE_.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-STALE-K-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Stale Knowledge is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-STALE-K-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: STALE_KNOWLEDGE",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class STALE_KNOWLEDGE_RESULT.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-STALE-ST-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Stale Scientific Thinking is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-STALE-ST-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: STALE_ST",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class STALE_SCIENTIFIC_THINKING_RESULT.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-WRONG-OWNER-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Wrong owner metadata is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-WRONG-OWNER-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: WRONG_OWNER_METADATA",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class OWNER_TRANSFER_VIOLATION.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-PROVENANCE-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Missing evidence provenance is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-PROVENANCE-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: PROVENANCE_MISSING",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class KNOWLEDGE_EVIDENCE_LINEAGE_MISSING.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-UNKNOWN-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Dropped unknown is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-UNKNOWN-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: UNKNOWN_DROPPED",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class UNKNOWN_LOST.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-LIMITATION-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Dropped limitation is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-LIMITATION-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: LIMITATION_DROPPED",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class LIMITATION_LOST.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-CONTRADICTION-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Dropped contradiction is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-CONTRADICTION-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: CONTRADICTION_DROPPED",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class CONTRADICTION_LOST.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-K-ST-LINEAGE-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Broken Knowledge to ST lineage is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-K-ST-LINEAGE-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: KNOWLEDGE_TO_ST_LINEAGE_BROKEN",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class KNOWLEDGE_TO_ST_LINEAGE_MISSING.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-ST-IMG-LINEAGE-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Broken ST to Imaging lineage is detected.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-ST-IMG-LINEAGE-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: ST_TO_IMAGING_LINEAGE_BROKEN",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_EXPECTED_FINDING",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "VAL detects the predeclared defect class ST_TO_IMAGING_LINEAGE_MISSING.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-OBS-GAP-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Expected OBS gap produces no false critical finding.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-OBS-GAP-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: EXPECTED_OBS_GAP",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_NO_FALSE_CRITICAL",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "The valid structural chain has no artificial blocking finding.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [
+        "OBSERVABILITY_QUALIFICATION:NOT_IMPLEMENTED"
+      ],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": false
+    },
+    {
+      "caseId": "VAL-NO-SCIENTIFIC-PASS-01",
+      "ownerUnderTest": "VAL",
+      "domain": "structural-fidelity",
+      "purpose": "Structural pass never becomes scientific PASS.",
+      "inputArtifactRefs": [
+        "frozen-input:VAL-NO-SCIENTIFIC-PASS-01"
+      ],
+      "projectRef": "project:w1-qual-01:spectral@project:w1-qual-01:spectral:version:1",
+      "upstreamFrozenResultRefs": [
+        "frozen-knowledge-result:w1-qual-01:spectral",
+        "frozen-st-result:w1-qual-01:spectral",
+        "frozen-imaging-result:w1-qual-01:val-chain"
+      ],
+      "scientificContext": "Predeclared defect recipe: STRUCTURAL_NOT_SCIENTIFIC",
+      "testedCapabilities": [
+        "ZERO_PROJECT_WRITE",
+        "NO_PROVIDER_CALL",
+        "TRACE_BOUND",
+        "VAL_NO_FALSE_CRITICAL",
+        "VAL_OBSERVER_ONLY",
+        "VAL_NO_SCIENTIFIC_PASS"
+      ],
+      "expectedObligations": [
+        "Owner and adapter perform zero Project writes.",
+        "No external provider, web, LLM or external evidence call occurs.",
+        "Execution is reconstructible through Scientific Execution Trace.",
+        "The valid structural chain has no artificial blocking finding.",
+        "VAL performs no repair, Project write or human decision.",
+        "Structural fidelity is not promoted to scientific qualification."
+      ],
+      "forbiddenBehaviors": [
+        "repair",
+        "Project write",
+        "scientific PASS",
+        "automatic decision"
+      ],
+      "allowedAlternatives": [
+        "structural pass",
+        "structural findings"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Structural fidelity only; not PD-011 qualification."
+      ],
+      "referenceRefs": [
+        "VAL-001@1.0.0:structural-fidelity-only",
+        "PD-011:scientific-qualification-separate"
+      ],
+      "reviewStatus": "AUTHORED_PRE_OBSERVATION",
+      "exposureStatus": "UNEXPOSED",
+      "replayPredeclared": true
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "contract": "W1_QUAL_01_FAILURE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01-2026-08-25-G",
+  "failures": [
+    {
+      "failureId": "failure:ke1-e1907e04b05c3350",
+      "caseId": "ST-CARDIAC-01",
+      "owner": "SCIENTIFIC_THINKING",
+      "severity": "CRITICAL",
+      "firstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+      "failureClass": "CRITICAL_REASONING_OMISSION",
+      "evidence": [
+        "scientific-trace-event:ke1-fa8b6fed952a3b91",
+        "scientific-trace-event:ke1-888ad3dd505936c1",
+        "scientific-trace-event:ke1-3bca830754010f13",
+        "scientific-trace-event:ke1-34d53ca9f1255ded",
+        "scientific-trace-event:ke1-02a8478e15a52f8a",
+        "scientific-trace-event:ke1-c664990ce01f62e8",
+        "scientific-trace-event:ke1-4dd15c134615f2df"
+      ],
+      "note": "Critical reasoning candidates are missing or were silently adopted.",
+      "repairOwner": "SCIENTIFIC_THINKING",
+      "repairPerformed": false
+    },
+    {
+      "failureId": "failure:ke1-c0f755a4441ea750",
+      "caseId": "ST-NEURO-01",
+      "owner": "SCIENTIFIC_THINKING",
+      "severity": "CRITICAL",
+      "firstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+      "failureClass": "CRITICAL_REASONING_OMISSION",
+      "evidence": [
+        "scientific-trace-event:ke1-17bb6347326c6143",
+        "scientific-trace-event:ke1-8a298d844b30fea8",
+        "scientific-trace-event:ke1-f9797fbb27ce5ddf",
+        "scientific-trace-event:ke1-e0ecce156324e931",
+        "scientific-trace-event:ke1-495a81a77d145d93",
+        "scientific-trace-event:ke1-bf506258c820b1d4",
+        "scientific-trace-event:ke1-153f72be633fb152"
+      ],
+      "note": "Critical reasoning candidates are missing or were silently adopted.",
+      "repairOwner": "SCIENTIFIC_THINKING",
+      "repairPerformed": false
+    }
+  ],
+  "ownerRuntimeRepairPerformed": false
+}
