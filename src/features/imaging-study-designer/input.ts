@@ -38,6 +38,37 @@ const projectedDocumentaryStatement = (item: KnowledgeResult["documentaryStateme
   modality: null,
 });
 
+export const projectKnowledgeResultForImaging = (
+  knowledgeResult: KnowledgeResult | null,
+  additionalSourceRefs: readonly string[] = [],
+): ImagingDesignInput["knowledge"] => {
+  const governedConcepts = knowledgeResult ? [
+    ...knowledgeResult.resolvedConcepts,
+    ...resolveGovernedConceptsFromProviderReferences(knowledgeResult.applicableAssertions.map((item) => ({ providerId: item.providerId, conceptIds: item.conceptIds }))),
+  ].filter((item, index, all) => all.findIndex((candidate) => candidate.conceptId === item.conceptId) === index) : [];
+  const canonicalConceptIdsFor = (item: KnowledgeResult["applicableAssertions"][number]) => uniqueSorted([
+    ...item.conceptIds,
+    ...governedConcepts.filter((concept) => {
+      const providerIds = Object.values(concept.providerConcepts).flat();
+      return item.conceptIds.includes(concept.conceptId)
+        || providerIds.some((id) => item.conceptIds.includes(id))
+        || Boolean(item.modality && concept.preferredLabel.toLocaleLowerCase("fr-FR").includes(item.modality.toLocaleLowerCase("fr-FR")));
+    }).map((concept) => concept.conceptId),
+  ]);
+  return {
+    resultId: knowledgeResult?.resultId ?? null,
+    resultDigest: knowledgeResult?.resultDigest ?? null,
+    coverageStatus: knowledgeResult?.coverageStatus ?? "NOT_REQUESTED_OR_UNAVAILABLE",
+    concepts: governedConcepts.map((item) => ({ conceptId: item.conceptId, label: item.preferredLabel, objectType: item.objectType, resolutionKind: item.kind, originalTerms: uniqueSorted(item.originalTerms) })),
+    assertions: knowledgeResult?.applicableAssertions.map((item) => ({ ...projectedStatement(item), conceptIds: canonicalConceptIdsFor(item) })) ?? [],
+    documentaryStatements: knowledgeResult?.documentaryStatements.map(projectedDocumentaryStatement) ?? [],
+    gaps: knowledgeResult?.gaps.map((item) => ({ code: item.code, explanation: item.explanation, affectedConceptIds: uniqueSorted(item.affectedConceptIds), resumeCondition: item.resumeCondition })) ?? [],
+    limitations: uniqueSorted(knowledgeResult?.limitations ?? []),
+    sourceIds: uniqueSorted([...(knowledgeResult?.sources.map((item) => item.sourceId) ?? []), ...additionalSourceRefs]),
+    matchingSemantics: knowledgeResult ? "EXACT_FIRST_NO_IMPLICIT_FALLBACK" : "NO_RESULT",
+  };
+};
+
 const centerMode = (centers: string[], fieldStrengths: string[], manufacturers: string[], models: string[]): ImagingDesignInput["centerContext"]["mode"] => {
   const declared = centers.join(" ").toLocaleLowerCase("fr-FR");
   const multicentric = centers.length > 1 || /multi|plusieurs|\b[2-9]\d*\b/.test(declared);
@@ -128,31 +159,7 @@ export const buildImagingDesignInput = (
     ...(knowledgeResult?.sources.map((item) => item.sourceId) ?? []),
     ...(thinkingOutput?.handoff.provenanceRefs ?? []),
   ]);
-  const governedConcepts = knowledgeResult ? [
-    ...knowledgeResult.resolvedConcepts,
-    ...resolveGovernedConceptsFromProviderReferences(knowledgeResult.applicableAssertions.map((item) => ({ providerId: item.providerId, conceptIds: item.conceptIds }))),
-  ].filter((item, index, all) => all.findIndex((candidate) => candidate.conceptId === item.conceptId) === index) : [];
-  const canonicalConceptIdsFor = (item: KnowledgeResult["applicableAssertions"][number]) => uniqueSorted([
-    ...item.conceptIds,
-    ...governedConcepts.filter((concept) => {
-      const providerIds = Object.values(concept.providerConcepts).flat();
-      return item.conceptIds.includes(concept.conceptId)
-        || providerIds.some((id) => item.conceptIds.includes(id))
-        || Boolean(item.modality && concept.preferredLabel.toLocaleLowerCase("fr-FR").includes(item.modality.toLocaleLowerCase("fr-FR")));
-    }).map((concept) => concept.conceptId),
-  ]);
-  const knowledge = {
-    resultId: knowledgeResult?.resultId ?? null,
-    resultDigest: knowledgeResult?.resultDigest ?? null,
-    coverageStatus: knowledgeResult?.coverageStatus ?? "NOT_REQUESTED_OR_UNAVAILABLE",
-    concepts: governedConcepts.map((item) => ({ conceptId: item.conceptId, label: item.preferredLabel, objectType: item.objectType, resolutionKind: item.kind, originalTerms: uniqueSorted(item.originalTerms) })),
-    assertions: knowledgeResult?.applicableAssertions.map((item) => ({ ...projectedStatement(item), conceptIds: canonicalConceptIdsFor(item) })) ?? [],
-    documentaryStatements: knowledgeResult?.documentaryStatements.map(projectedDocumentaryStatement) ?? [],
-    gaps: knowledgeResult?.gaps.map((item) => ({ code: item.code, explanation: item.explanation, affectedConceptIds: uniqueSorted(item.affectedConceptIds), resumeCondition: item.resumeCondition })) ?? [],
-    limitations: uniqueSorted(knowledgeResult?.limitations ?? []),
-    sourceIds: sourceRefs,
-    matchingSemantics: knowledgeResult ? "EXACT_FIRST_NO_IMPLICIT_FALLBACK" as const : "NO_RESULT" as const,
-  };
+  const knowledge = projectKnowledgeResultForImaging(knowledgeResult, thinkingOutput?.handoff.provenanceRefs ?? []);
   const methodPreferences = preferencesFrom(intent, thinking, scientificObjectTerms, relations);
   const scientificRelationships = uniqueSorted(relations.map(normalizeScientificText).filter(Boolean));
   const material = {

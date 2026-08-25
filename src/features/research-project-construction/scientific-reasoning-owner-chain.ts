@@ -6,6 +6,7 @@ import {
 import {
   IMAGING_STUDY_DESIGNER_VERSION,
   executeImagingStudyDesigner,
+  projectKnowledgeResultForImaging,
   type ImagingDesignInput,
   type ImagingDesignResult,
 } from "@/features/imaging-study-designer";
@@ -609,15 +610,42 @@ export const buildScientificThinkingToImagingHandoff = (input: {
 export const buildImagingInputFromProjectAndScientificThinking = (input: {
   project: ResearchProjectOwnerProjection;
   scientificThinkingResult: SpecializedOwnerResult<ScientificThinkingOutput>;
+  knowledgeOwnerResult?: Readonly<SpecializedOwnerResult<KnowledgeResult>> | null;
 }): ImagingDesignInput => {
   const handoff = buildScientificThinkingToImagingHandoff({ result: input.scientificThinkingResult, currentProject: input.project });
   if (handoff.status === "STALE_OWNER_RESULT") throw new Error("STALE_OWNER_RESULT");
   const snapshot = buildProjectContextSnapshot({ project: input.project });
   const st = input.scientificThinkingResult.nativePayload;
   if (!st) throw new Error("SCIENTIFIC_THINKING_NATIVE_PAYLOAD_REQUIRED");
-  const question = objectsOf(snapshot, "SCIENTIFIC_QUESTION")[0];
-  const objectives = objectsOf(snapshot, "OBJECTIVE");
-  const hypotheses = objectsOf(snapshot, "HYPOTHESIS");
+  const knowledgeOwnerResult = input.knowledgeOwnerResult ?? null;
+  const knowledgeResult = knowledgeOwnerResult?.nativePayload ?? null;
+  if (knowledgeOwnerResult && (
+    knowledgeOwnerResult.owner !== "KNOWLEDGE"
+    || knowledgeOwnerResult.capabilityId !== "KNOWLEDGE_EVIDENCE"
+    || knowledgeOwnerResult.sourceProjectRef !== snapshot.sourceProjectRef
+    || knowledgeOwnerResult.sourceProjectVersion !== snapshot.sourceProjectVersion
+    || knowledgeOwnerResult.sourceProjectDigest !== snapshot.sourceProjectDigest
+    || knowledgeOwnerResult.sourceSnapshotDigest !== snapshot.snapshotDigest
+    || knowledgeOwnerResult.projectWriteAuthorized !== false
+    || !knowledgeResult
+    || knowledgeResult.resultId !== knowledgeOwnerResult.resultId
+    || String(knowledgeResult.resultRevision) !== knowledgeOwnerResult.resultVersion
+  )) throw new Error("KNOWLEDGE_RESULT_PROJECT_MISMATCH");
+  const stKnowledgeDependency = st.knowledgeDependencies[0] ?? null;
+  if (stKnowledgeDependency && !knowledgeOwnerResult) {
+    throw new Error("KNOWLEDGE_OWNER_RESULT_REQUIRED_FOR_ST_DEPENDENCY");
+  }
+  if (knowledgeOwnerResult && (!stKnowledgeDependency
+    || stKnowledgeDependency.knowledgeOwnerResultRef !== `${knowledgeOwnerResult.resultId}@${knowledgeOwnerResult.resultVersion}`
+    || stKnowledgeDependency.knowledgeResultRef !== knowledgeResult?.resultId
+    || stKnowledgeDependency.knowledgeResultRevision !== knowledgeResult?.resultRevision
+    || stKnowledgeDependency.knowledgeResultDigest !== knowledgeResult?.resultDigest)) {
+    throw new Error("KNOWLEDGE_RESULT_SCIENTIFIC_THINKING_DEPENDENCY_MISMATCH");
+  }
+  const projectQuestion = objectsOf(snapshot, "SCIENTIFIC_QUESTION")[0];
+  const projectObjectives = objectsOf(snapshot, "OBJECTIVE");
+  const projectHypotheses = objectsOf(snapshot, "HYPOTHESIS");
+  const stQuestion = st.selectedQuestionCandidate ?? st.questions[0] ?? null;
   const centralObject = objectsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE")[0];
   const modality = objectsOf(snapshot, "IMAGING_MODALITY")[0];
   const acquisitions = objectsOf(snapshot, "ACQUISITION");
@@ -634,38 +662,53 @@ export const buildImagingInputFromProjectAndScientificThinking = (input: {
   const material = {
     project: snapshot.sourceProjectDigest,
     handoff: handoff.handoffId,
-    question: question?.stableId,
-    objectives: objectives.map((item) => item.stableId),
-    hypotheses: hypotheses.map((item) => item.stableId),
+    question: projectQuestion?.stableId ?? stQuestion?.questionId,
+    objectives: st.objectives.map((item) => item.objectiveId),
+    hypotheses: st.hypotheses.map((item) => item.hypothesisId),
+    knowledgeResult: knowledgeResult?.resultDigest ?? null,
     timing,
   };
+  const projectedKnowledge = projectKnowledgeResultForImaging(knowledgeResult);
   return {
     contractVersion: IMAGING_STUDY_DESIGNER_VERSION,
     inputId: `imaging-project-input:${logicalDigest(material)}`,
     researchProjectId: snapshot.sourceProjectRef,
     strategyVersion: snapshot.sourceProjectVersion,
     sourceHandoff: {
-      kind: "VALIDATED_DESIGN_CONTEXT",
+      kind: st.handoff.status === "AUTHORIZED" ? "AUTHORIZED_ST_HANDOFF" : "VALIDATED_DESIGN_CONTEXT",
       stOutputRef: st.outputId,
-      status: "VALIDATED_WITHOUT_ST_HANDOFF",
+      status: st.handoff.status === "AUTHORIZED" ? "AUTHORIZED" : "VALIDATED_WITHOUT_ST_HANDOFF",
       boundary: "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN",
-      humanDecisions: [input.project.confirmationDecision],
+      humanDecisions: unique([
+        input.project.confirmationDecision.decisionId,
+        ...st.handoff.humanDecisions.map((decision) => decision.decisionId),
+      ]).map((decisionId) => decisionId === input.project.confirmationDecision.decisionId
+        ? input.project.confirmationDecision
+        : st.handoff.humanDecisions.find((decision) => decision.decisionId === decisionId)!),
     },
-    originalExpression: question?.content ?? st.originalIdea,
+    originalExpression: projectQuestion?.content ?? st.originalIdea,
     confirmedScientificQuestion: {
-      questionId: question?.stableId ?? `project-question:${logicalDigest(st.understoodProblem)}`,
-      text: question?.content ?? st.understoodProblem,
+      questionId: projectQuestion?.stableId ?? stQuestion?.questionId ?? `project-question:${logicalDigest(st.understoodProblem)}`,
+      text: projectQuestion?.content ?? stQuestion?.text ?? st.understoodProblem,
       confirmation: "VALIDATED_CONTEXT",
     },
-    objectives: objectives.map((item, index) => ({
-      objectiveId: item.stableId,
-      text: item.content,
+    objectives: st.objectives.length ? st.objectives.map((item) => ({
+      objectiveId: item.objectiveId,
+      text: item.text,
+      level: item.level,
+      reviewState: item.reviewState,
+    })) : projectObjectives.map((item, index) => ({
+      objectiveId: item.stableId, text: item.content,
       level: /PRIMARY/i.test(item.scientificRole ?? "") || index === 0 ? "PRIMARY" as const : "SECONDARY" as const,
       reviewState: "ADOPTED" as const,
     })),
-    hypotheses: hypotheses.map((item, index) => ({
-      hypothesisId: item.stableId,
-      text: item.content,
+    hypotheses: st.hypotheses.length ? st.hypotheses.map((item) => ({
+      hypothesisId: item.hypothesisId,
+      text: item.text,
+      kind: item.kind,
+      reviewState: item.reviewState,
+    })) : projectHypotheses.map((item, index) => ({
+      hypothesisId: item.stableId, text: item.content,
       kind: /ALTERNATIVE/i.test(item.scientificRole ?? "") || index > 0 ? "ALTERNATIVE" as const : "PRIMARY" as const,
       reviewState: "ADOPTED" as const,
     })),
@@ -694,13 +737,8 @@ export const buildImagingInputFromProjectAndScientificThinking = (input: {
       provenanceRef: modality.versionRef,
     }] : [],
     centerContext: { mode: "UNKNOWN", declarations: [] },
-    knowledge: {
-      resultId: null,
-      resultDigest: null,
-      coverageStatus: "NOT_REQUESTED_OR_UNAVAILABLE",
-      concepts: [],
-      assertions: [],
-      documentaryStatements: [],
+    knowledge: knowledgeResult ? projectedKnowledge : {
+      ...projectedKnowledge,
       gaps: [{
         code: "KNOWLEDGE_RESULT_REQUIRED_FOR_IMAGING_MEASUREMENT_PROPOSAL",
         explanation: "No applicable governed KnowledgeResult supports a phenomenon-to-measurement chain for this invocation.",
@@ -711,8 +749,6 @@ export const buildImagingInputFromProjectAndScientificThinking = (input: {
         "No Knowledge assertion was reconstructed from Project truth.",
         "OBSERVABILITY_QUALIFICATION runtime is unavailable; Imaging cannot claim complete OBS qualification.",
       ],
-      sourceIds: [],
-      matchingSemantics: "NO_RESULT",
     },
     decisions: [input.project.confirmationDecision.decisionId],
     uncertainties: unique([...st.unknowns, ...st.ambiguities, ...projectUnknowns(snapshot)]),
@@ -723,7 +759,7 @@ export const buildImagingInputFromProjectAndScientificThinking = (input: {
       sequence: 1,
       operation: "BUILD_IMAGING_INPUT_FROM_PROJECT_AND_ST_RESULT",
       decision: "PROJECT_ADOPTED_CONTEXT_AND_ST_CANDIDATE_REFS_PRESERVED_WITHOUT_OWNERSHIP_TRANSFER",
-      inputDigest: logicalDigest({ snapshot: snapshot.snapshotDigest, st: st.outputDigest }),
+      inputDigest: logicalDigest({ snapshot: snapshot.snapshotDigest, st: st.outputDigest, knowledge: knowledgeResult?.resultDigest ?? null }),
       outputDigest: logicalDigest(material),
     }],
   };
@@ -739,6 +775,7 @@ export type ImagingOwnerChainInvocation = {
 export const invokeImagingOwnerFromScientificThinking = (input: InvocationTiming & {
   project: ResearchProjectOwnerProjection;
   scientificThinkingResult: SpecializedOwnerResult<ScientificThinkingOutput>;
+  knowledgeOwnerResult?: Readonly<SpecializedOwnerResult<KnowledgeResult>> | null;
   purpose?: string;
   runtime?: (nativeInput: ImagingDesignInput) => ImagingDesignResult;
 }): ImagingOwnerChainInvocation => {
@@ -777,6 +814,7 @@ export const invokeImagingOwnerFromScientificThinking = (input: InvocationTiming
   const nativeInput = buildImagingInputFromProjectAndScientificThinking({
     project: input.project,
     scientificThinkingResult: input.scientificThinkingResult,
+    knowledgeOwnerResult: input.knowledgeOwnerResult,
   });
   const request = createSpecializedOwnerHandoffRequest({
     handoffId: handoff.handoffId,
