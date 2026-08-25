@@ -33,12 +33,19 @@ import {
   type ProductOwnerResultLedgerEntry,
 } from "./product-owner-result-ledger";
 import {
+  PRODUCT_VALIDATION_RUN_LEDGER_CONTRACT,
+  PRODUCT_VALIDATION_RUN_LEDGER_VERSION,
   appendProductValidationRun,
   type ProductScientificOwnerResultReference,
   type ProductValidationRunLedger,
   type ProductValidationRunLedgerEntry,
   type ProductValidationProfileReference,
 } from "./product-validation-run-ledger";
+import {
+  recordRejectedHandoffTrace,
+  recordValidationRunTrace,
+  type ScientificRunTraceRecorder,
+} from "./scientific-execution-trace";
 
 export const SCIENTIFIC_OWNER_CHAIN_VALIDATION_PROFILE = "SCIENTIFIC_OWNER_CHAIN_FIDELITY" as const;
 export const SCIENTIFIC_OWNER_CHAIN_VALIDATION_PROFILE_VERSION = "0.1.0" as const;
@@ -545,7 +552,7 @@ const entryFor = <T>(ledger: Readonly<ProductOwnerResultLedger>, resultId: strin
   return entry as Readonly<ProductOwnerResultLedgerEntry<unknown, T>>;
 };
 
-export const validateScientificOwnerChainForProject = (input: {
+type ProductScientificLoopValidationInput = {
   project: Readonly<ResearchProjectOwnerProjection>;
   projectSnapshot: Readonly<ProjectContextSnapshot>;
   ownerResultLedger: Readonly<ProductOwnerResultLedger>;
@@ -556,9 +563,12 @@ export const validateScientificOwnerChainForProject = (input: {
   validationInvocationId: string;
   callerRef: string;
   purpose: string;
+  startedAt?: string;
   completedAt: string;
   retainedAt?: string;
-}): ProductScientificLoopValidationInvocation => {
+};
+
+const executeScientificOwnerChainForProjectValidation = (input: ProductScientificLoopValidationInput): ProductScientificLoopValidationInvocation => {
   const projectBefore = stableStringify(input.project);
   if (input.project.projectId !== input.projectSnapshot.sourceProjectRef
     || input.project.versionId !== input.projectSnapshot.sourceProjectVersion
@@ -614,4 +624,40 @@ export const validateScientificOwnerChainForProject = (input: {
     externalEvidenceCalls: 0,
     obsRuntimeCalls: 0,
   }) as ProductScientificLoopValidationInvocation;
+};
+
+export const validateScientificOwnerChainForProject = (input: ProductScientificLoopValidationInput & {
+  trace?: ScientificRunTraceRecorder;
+}): ProductScientificLoopValidationInvocation => {
+  try {
+    const invocation = executeScientificOwnerChainForProjectValidation(input);
+    recordValidationRunTrace(input.trace, {
+      entry: invocation.validationEntry,
+      ledgerContract: PRODUCT_VALIDATION_RUN_LEDGER_CONTRACT,
+      ledgerVersion: PRODUCT_VALIDATION_RUN_LEDGER_VERSION,
+      startedAt: input.startedAt ?? input.completedAt,
+      completedAt: input.completedAt,
+    });
+    return invocation;
+  } catch (error) {
+    const code = error instanceof Error ? error.message : "VAL_PRODUCT_UNKNOWN_FAILURE";
+    recordRejectedHandoffTrace(input.trace, {
+      timestamp: input.completedAt,
+      owner: "VAL",
+      stage: code.includes("PROJECT_SNAPSHOT") || code.includes("PROJECT_BINDING") ? "PROJECT_CONTEXT"
+        : code.includes("STALE") || code.includes("MISMATCH") ? "STALE_VALIDATION"
+          : code.includes("LEDGER") ? "OWNER_RESULT_PERSISTENCE"
+            : "VAL_INPUT_ADAPTER",
+      code,
+      expectedProject: input.trace?.getRun().project ?? null,
+      receivedProject: {
+        projectId: input.projectSnapshot.sourceProjectRef,
+        projectVersion: input.projectSnapshot.sourceProjectVersion,
+        projectDigest: input.projectSnapshot.sourceProjectDigest,
+        snapshotRef: input.projectSnapshot.snapshotDigest,
+      },
+      stale: code.includes("STALE") || code.includes("MISMATCH"),
+    });
+    throw error;
+  }
 };

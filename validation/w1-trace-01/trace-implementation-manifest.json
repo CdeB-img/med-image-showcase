@@ -1,0 +1,511 @@
+{
+  "manifestId": "W1-TRACE-01-TRACE-IMPLEMENTATION-MANIFEST",
+  "schemaVersion": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "generatedAt": "2026-08-25T18:36:02+02:00",
+  "decision": "W1_TRACE_01_SCIENTIFIC_EXECUTION_TRACE_READY",
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "headInitial": "c6e47d7072144d27ccead68ed5924a20ce6747e6",
+    "headInitialSubject": "chore(protocol-designer): record wave 1 convergence checkpoint",
+    "originBranchInitial": "c6e47d7072144d27ccead68ed5924a20ce6747e6",
+    "mainInitial": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "originMainInitial": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "baselineDrift": false,
+    "historicalUntrackedArtifacts": "PRESENT_AND_PRESERVED"
+  },
+  "roadmapPreflight": {
+    "currentWave": "WAVE_1_SCIENTIFIC_LOOP",
+    "architecturalConvergenceReady": "YES",
+    "observabilityReady": "NO",
+    "individualOwnerCharacterizationReady": "NO",
+    "controlledLoopCharacterizationReady": "NO",
+    "wave1Complete": "NO",
+    "nextAuthorizedMission": "W1-TRACE-01_SCIENTIFIC_EXECUTION_TRACE",
+    "wave2Authorized": "NO",
+    "missionAuthorized": true
+  },
+  "authoritiesConsulted": [
+    {
+      "order": 1,
+      "path": "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+      "role": "authority router"
+    },
+    {
+      "order": 2,
+      "path": "output/documents/noxia-la-charte-fondatrice-edition-editoriale.docx",
+      "role": "founding authority"
+    },
+    {
+      "order": 3,
+      "path": "output/documents/noxia-protocol-designer-scientific-product-manifesto-v2.0.docx",
+      "role": "scientific product authority"
+    },
+    {
+      "order": 4,
+      "path": "../../editorial-engine/docs/architecture-manifesto.md",
+      "role": "editorial boundary authority"
+    },
+    {
+      "order": 5,
+      "path": "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md",
+      "role": "Level 3 program control"
+    },
+    {
+      "order": 6,
+      "paths": [
+        "docs/pd-003-v2-research-object-model.md",
+        "docs/pd-003-v2-ownership-matrix.md",
+        "docs/pd-003-v2-relationship-catalog.md",
+        "docs/pd-005-prompt-library-architecture.md",
+        "docs/pd-009-decision-engine-architecture.md",
+        "docs/pd-011-evaluation-framework.md",
+        "docs/rde-001-research-design-engine-architecture.md",
+        "docs/rde-002-research-design-workflow.md",
+        "docs/rde-003-imaging-engine-architecture.md",
+        "docs/ke-001-knowledge-engine-architecture.md",
+        "docs/reg-001-requirement-resolution-engine-report.md",
+        "docs/val-000-semantic-reasoning-validation-architecture-report.md",
+        "docs/val-001-semantic-reasoning-validation-layer-closure-report.md"
+      ],
+      "role": "applicable specialized authorities and bounded implementation references"
+    }
+  ],
+  "level3EvidenceConsulted": [
+    "W0-PROJECT-01",
+    "W1-KNOWLEDGE-01",
+    "W1-SCIENTIFIC-THINKING-01",
+    "W1-IMAGING-01",
+    "W1-VAL-01",
+    "W1-REG-01",
+    "W1-CLOSURE-01",
+    "validation/w1-closure-01/convergence-manifest.json"
+  ],
+  "normativeArbitrationRequired": false,
+  "architecture": {
+    "artifact": "Scientific Execution Trace",
+    "scientificRunIsBusinessObject": false,
+    "passive": true,
+    "readOnlyObservedArtifacts": true,
+    "appendOnly": true,
+    "derived": true,
+    "replayAware": true,
+    "replayExecutorImplemented": false,
+    "orchestrator": false,
+    "scientificOwner": false,
+    "repairEngine": false,
+    "projectTruth": false,
+    "privateReasoningStored": false
+  },
+  "scientificRunContract": {
+    "contract": "SCIENTIFIC_RUN",
+    "schemaVersion": "0.1.0",
+    "fields": [
+      "runId",
+      "startedAt",
+      "completedAt",
+      "status",
+      "project",
+      "initiatorContext",
+      "eventCount",
+      "firstEventId",
+      "lastEventId",
+      "logicalDigest",
+      "createdAt"
+    ],
+    "statuses": [
+      "RUNNING",
+      "COMPLETED",
+      "FAILED"
+    ],
+    "authoritative": false,
+    "immutableAfterFinalization": true
+  },
+  "eventContract": {
+    "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+    "schemaVersion": "0.1.0",
+    "eventTypes": [
+      "RUN_STARTED",
+      "OWNER_INVOCATION_STARTED",
+      "OWNER_INVOCATION_COMPLETED",
+      "OWNER_INVOCATION_FAILED",
+      "HANDOFF_STARTED",
+      "HANDOFF_ACCEPTED",
+      "HANDOFF_REJECTED",
+      "RESULT_PERSISTED",
+      "STALE_RESULT_REJECTED",
+      "VALIDATION_STARTED",
+      "VALIDATION_COMPLETED",
+      "RUN_COMPLETED",
+      "RUN_FAILED"
+    ],
+    "continuousSequence": true,
+    "previousEventLink": true,
+    "exactProjectBindingOnEveryEvent": true,
+    "technicalMetadataAllowlisted": true
+  },
+  "ledgerContract": {
+    "contract": "SCIENTIFIC_EXECUTION_TRACE_LEDGER",
+    "contractVersion": "0.1.0",
+    "dedicatedLedger": true,
+    "separateFromProjectLedger": true,
+    "separateFromOwnerResultLedger": true,
+    "separateFromValidationRunLedger": true,
+    "operations": [
+      "append_event",
+      "get_event_by_id",
+      "get_run_by_id",
+      "list_ordered_events",
+      "verify_event_digest",
+      "verify_run_logical_digest",
+      "find_runs_by_exact_project",
+      "find_events_by_exact_project",
+      "find_events_by_owner_result",
+      "find_events_by_validation_run",
+      "rehydrate"
+    ],
+    "productSessionVersion": "1.7.0",
+    "migrationFromSessionVersion": "1.6.0"
+  },
+  "digestContract": {
+    "eventIntegrityDigest": "COVERS_STORED_EVENT_MATERIAL",
+    "eventLogicalDigest": "EXCLUDES_EVENT_AND_RUN_ID_SEQUENCE_TIMESTAMPS_DURATION_AND_PREVIOUS_EVENT_ID",
+    "runLogicalDigest": "COVERS_PROJECT_BINDING_TERMINAL_STATUS_AND_ORDERED_EVENT_LOGICAL_DIGESTS",
+    "ledgerDigest": "COVERS_ORDERED_BINDINGS_AND_EVENTS",
+    "rehydrationTamperPolicy": "FAIL_CLOSED"
+  },
+  "instrumentedStages": [
+    {
+      "stage": "PROJECT_CONTEXT",
+      "instrumented": true,
+      "evidence": [
+        "exact Project ID",
+        "Project version",
+        "Project digest",
+        "snapshot ref"
+      ]
+    },
+    {
+      "stage": "PROJECT_TO_KNOWLEDGE",
+      "instrumented": true,
+      "requestRef": true,
+      "resultRef": true,
+      "duration": true,
+      "errors": true,
+      "stale": true
+    },
+    {
+      "stage": "KNOWLEDGE_TO_SCIENTIFIC_THINKING",
+      "instrumented": true,
+      "requestRef": true,
+      "resultRef": true,
+      "dependencyRefs": [
+        "KNOWLEDGE"
+      ],
+      "duration": true,
+      "errors": true,
+      "stale": true
+    },
+    {
+      "stage": "SCIENTIFIC_THINKING_TO_IMAGING",
+      "instrumented": true,
+      "requestRef": true,
+      "resultRef": true,
+      "dependencyRefs": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING"
+      ],
+      "duration": true,
+      "errors": true,
+      "stale": true
+    },
+    {
+      "stage": "SCIENTIFIC_LOOP_TO_VAL",
+      "instrumented": true,
+      "validationRunRef": true,
+      "validationRunLedgerEntryRef": true,
+      "duration": true,
+      "errors": true,
+      "observerBoundaryPreserved": true
+    },
+    {
+      "stage": "PROJECT_TO_REG",
+      "instrumented": true,
+      "conditional": true,
+      "requestRef": true,
+      "resultRef": true,
+      "duration": true,
+      "errors": true,
+      "stale": true
+    },
+    {
+      "stage": "OWNER_RESULT_PERSISTENCE",
+      "instrumented": true,
+      "entryRef": true,
+      "entryDigest": true
+    },
+    {
+      "stage": "STALE_VALIDATION",
+      "instrumented": true,
+      "expectedAndReceivedBindings": true,
+      "guardWeakened": false
+    }
+  ],
+  "nominalRunReconstruction": {
+    "fixtureRunId": "scientific-run:nominal-traced",
+    "eventCount": 22,
+    "orderedLogicalStages": [
+      "PROJECT_CONTEXT",
+      "KNOWLEDGE_REQUEST",
+      "KNOWLEDGE_RESULT",
+      "KNOWLEDGE_TO_ST_HANDOFF",
+      "SCIENTIFIC_THINKING_RESULT",
+      "ST_TO_IMAGING_HANDOFF",
+      "IMAGING_RESULT",
+      "VAL_RESULT"
+    ],
+    "privateChainOfThoughtStored": false
+  },
+  "firstDivergentStage": {
+    "readiness": "YES",
+    "supportedStages": [
+      "PROJECT_CONTEXT",
+      "OWNER_REQUEST_BUILDING",
+      "KNOWLEDGE_ENGINE",
+      "KNOWLEDGE_TO_ST_HANDOFF",
+      "SCIENTIFIC_THINKING_ENGINE",
+      "ST_TO_IMAGING_HANDOFF",
+      "IMAGING_ENGINE",
+      "VAL_INPUT_ADAPTER",
+      "VAL_ENGINE",
+      "REG_REQUEST_BUILDING",
+      "REG_ENGINE",
+      "OWNER_RESULT_PERSISTENCE",
+      "STALE_VALIDATION",
+      "UNKNOWN_STAGE"
+    ],
+    "inferenceBeyondObservedStage": false
+  },
+  "replayMatrix": [
+    {
+      "mode": "FULL_RUN",
+      "before": "NOT_AVAILABLE",
+      "after": "REPLAY_PLANNABLE",
+      "execution": "PLAN_ONLY",
+      "missing": [
+        "CROSS_OWNER_EXECUTOR",
+        "ARTIFACT_LOADER"
+      ]
+    },
+    {
+      "mode": "KNOWLEDGE_ONLY",
+      "before": "PARTIALLY_AVAILABLE",
+      "after": "REPLAY_PLANNABLE",
+      "execution": "NATIVE_CALL_EXISTS_TRACE_PLAN_ONLY",
+      "missing": [
+        "DEDICATED_REPLAY_COMMAND",
+        "EXECUTION_COMPARATOR_HARNESS"
+      ]
+    },
+    {
+      "mode": "FROZEN_KNOWLEDGE_RESULT_TO_ST",
+      "before": "PARTIALLY_AVAILABLE",
+      "after": "REPLAY_PLANNABLE",
+      "execution": "PLAN_ONLY",
+      "missing": [
+        "EXECUTION_COORDINATOR",
+        "ARTIFACT_LOADER"
+      ]
+    },
+    {
+      "mode": "FROZEN_ST_RESULT_TO_IMAGING",
+      "before": "PARTIALLY_AVAILABLE",
+      "after": "REPLAY_PLANNABLE",
+      "execution": "PLAN_ONLY",
+      "missing": [
+        "EXECUTION_COORDINATOR",
+        "ARTIFACT_LOADER"
+      ]
+    },
+    {
+      "mode": "FROZEN_CHAIN_TO_VAL",
+      "before": "AVAILABLE_NOW",
+      "after": "AVAILABLE_NOW_TRACE_CORRELATED",
+      "execution": "EXISTING_VAL_INPUT_REPLAYABLE",
+      "missing": [
+        "FULL_RUN_EXECUTOR"
+      ]
+    },
+    {
+      "mode": "FROZEN_PROJECT_AND_REQUEST_TO_REG",
+      "before": "PARTIALLY_AVAILABLE",
+      "after": "REPLAY_PLANNABLE",
+      "execution": "PLAN_ONLY",
+      "missing": [
+        "DEDICATED_REPLAY_EXECUTOR"
+      ]
+    },
+    {
+      "mode": "REPLAY_FROM_EVENT_N",
+      "before": "NOT_AVAILABLE",
+      "after": "REPLAY_PLANNABLE",
+      "execution": "PLAN_ONLY",
+      "missing": [
+        "REPLAY_EXECUTOR",
+        "STATE_AND_ARTIFACT_LOADER"
+      ]
+    }
+  ],
+  "replayFromEventN": "PLANNABLE",
+  "traceComparator": {
+    "implemented": true,
+    "boundedStructuralComparison": true,
+    "scientificJudgmentPerformed": false,
+    "firstObservableDivergence": true
+  },
+  "privacyAndMinimization": {
+    "requestAndResultPayloadsCopied": false,
+    "referencesAndDigestsOnly": true,
+    "gapUnknownLimitationContradictionTextStored": false,
+    "technicalMetadataAllowlist": true,
+    "recursiveExtractionBounded": true,
+    "rawExceptionMessageStored": false,
+    "stackTraceStored": false,
+    "privateChainOfThoughtStored": false,
+    "recognizableCredentialMaterialRejected": true,
+    "unboundedTextRejected": true
+  },
+  "boundaries": {
+    "projectWritesFromTrace": 0,
+    "ownerResultMutationsFromTrace": 0,
+    "validationResultMutationsFromTrace": 0,
+    "scientificOutputDifferenceTraceOnOff": 0,
+    "llmCalls": 0,
+    "ownerRoutingDecisions": 0,
+    "repairCalls": 0,
+    "humanDecisionsCreated": 0,
+    "regConditionalPreserved": true,
+    "regApprovalInvented": false,
+    "valObserverBoundaryPreserved": true,
+    "scientificPassInvented": false,
+    "obsRuntimeImplemented": false
+  },
+  "expectedCapabilityGaps": {
+    "OBS_RUNTIME": "ABSENT",
+    "AUTONOMOUS_STUDY_DESIGN_RUNTIME": "ABSENT",
+    "BIOSTATISTICS_CALCULATION": "ABSENT",
+    "DM_REALIZED_TIME": "ABSENT",
+    "OWNER_ORCHESTRATION": "OPEN",
+    "QRY_FULL_VALUE_OF_INFORMATION": "OPEN",
+    "EXTERNAL_EVIDENCE_AUTO_TRIGGER": "ABSENT",
+    "DECISION_BUNDLE_UI": "ABSENT"
+  },
+  "tests": {
+    "traceUnitAndCorridor": {
+      "filesPassed": 2,
+      "filesFailed": 0,
+      "testsPassed": 65,
+      "testsFailed": 0
+    },
+    "w0W1SpineValArchitectureIncludingTrace": {
+      "filesPassed": 13,
+      "filesFailed": 0,
+      "testsPassed": 359,
+      "testsFailed": 0
+    },
+    "nativeKnowledgeScientificThinkingRegVal": {
+      "filesPassed": 19,
+      "filesSkipped": 1,
+      "filesFailed": 0,
+      "testsPassed": 498,
+      "testsSkipped": 7,
+      "testsFailed": 0
+    },
+    "typecheck": "PASS",
+    "targetedLint": "PASS_0_FINDINGS",
+    "esmRuntime": "PASS",
+    "build": "PASS",
+    "gitDiffCheck": "PASS",
+    "credentialScan": "PASS",
+    "externalCalls": {
+      "gemini": 0,
+      "terraOrOpenAI": 0,
+      "otherLlm": 0,
+      "pubmed": 0,
+      "externalEvidence": 0,
+      "browser": 0,
+      "externalRegulatoryResearch": 0
+    }
+  },
+  "historicalDebts": [
+    {
+      "id": "PREEXISTING_HISTORICAL_FIXTURE_DEBT",
+      "status": "OPEN_NON_BLOCKING_DEBT",
+      "failures": 8,
+      "suites": {
+        "IMG": {
+          "filesPassed": 8,
+          "filesFailed": 1,
+          "testsPassed": 56,
+          "testsFailed": 4
+        },
+        "PRJ": {
+          "filesPassed": 7,
+          "filesFailed": 1,
+          "testsPassed": 72,
+          "testsFailed": 1
+        },
+        "SYS": {
+          "filesPassed": 8,
+          "filesFailed": 3,
+          "testsPassed": 31,
+          "testsFailed": 3
+        }
+      },
+      "classification": "EXACT_PREEXISTING_FIXTURE_EXPECTATIONS_REPRODUCED",
+      "modifiedByTrace": false
+    }
+  ],
+  "corrections": [],
+  "files": {
+    "created": [
+      "src/features/protocol-designer/scientific-execution-trace.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/w1-trace-01-scientific-execution-trace.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/w1-trace-01-product-corridors.test.ts",
+      "docs/implementation/w1-trace-01-scientific-execution-trace-report.md",
+      "validation/w1-trace-01/trace-implementation-manifest.json"
+    ],
+    "modified": [
+      "src/features/protocol-designer/product-knowledge-owner-runtime.ts",
+      "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts",
+      "src/features/protocol-designer/product-imaging-owner-runtime.ts",
+      "src/features/protocol-designer/product-regulatory-owner-runtime.ts",
+      "src/features/protocol-designer/product-scientific-loop-validation-runtime.ts",
+      "src/features/protocol-designer/functional-reset/session.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/w1-knowledge-01-product-canonical-owner-invocation.test.ts",
+      "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md"
+    ]
+  },
+  "finalDecisions": {
+    "W1_ARCHITECTURAL_CONVERGENCE_READY": "YES",
+    "W1_OBSERVABILITY_READY": "YES",
+    "W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY": "NO",
+    "W1_CONTROLLED_LOOP_CHARACTERIZATION_READY": "NO",
+    "WAVE_1_COMPLETE": "NO",
+    "WAVE_2_AUTHORIZED": "NO"
+  },
+  "roadmapTransition": {
+    "currentWave": "WAVE_1_SCIENTIFIC_LOOP",
+    "closedDebt": "SCIENTIFIC_EXECUTION_TRACE_GAP",
+    "openBlockers": [
+      "INDIVIDUAL_OWNER_CHARACTERIZATION_GAP",
+      "CONTROLLED_LOOP_CHARACTERIZATION_GAP"
+    ],
+    "nextAuthorizedMission": "W1-QUAL-01_INDIVIDUAL_OWNER_CHARACTERIZATION"
+  },
+  "commits": {
+    "checkpointCommit": "COMMIT_CONTAINING_THIS_MANIFEST"
+  },
+  "headFinal": "COMMIT_CONTAINING_THIS_MANIFEST"
+}

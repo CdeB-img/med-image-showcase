@@ -22,6 +22,11 @@ import {
   type ProductOwnerResultLedger,
   type ProductOwnerResultLedgerEntry,
 } from "./product-owner-result-ledger";
+import {
+  recordOwnerInvocationTrace,
+  recordRejectedHandoffTrace,
+  type ScientificRunTraceRecorder,
+} from "./scientific-execution-trace";
 
 /** Historical API aliases retained while the underlying W1 ledger is now owner-generic. */
 export const PRODUCT_KNOWLEDGE_OWNER_LEDGER_CONTRACT = PRODUCT_OWNER_RESULT_LEDGER_CONTRACT;
@@ -78,7 +83,7 @@ export const appendProductKnowledgeOwnerInvocation = (input: {
   return appendProductOwnerInvocation({ ...input, dependencies: [] });
 };
 
-export const invokeKnowledgeForProject = (input: {
+type ProductKnowledgeOwnerInvocationInput = {
   project: ResearchProjectOwnerProjection;
   projectSnapshot: Readonly<ProjectContextSnapshot>;
   knowledgeRequest: KnowledgeRequest;
@@ -90,7 +95,9 @@ export const invokeKnowledgeForProject = (input: {
   retainedAt?: string;
   runtime?: (request: KnowledgeRequest) => KnowledgeResult;
   monotonicNow?: () => number;
-}): ProductKnowledgeOwnerInvocation => {
+};
+
+const executeKnowledgeForProject = (input: ProductKnowledgeOwnerInvocationInput): ProductKnowledgeOwnerInvocation => {
   const projectBefore = stableStringify(input.project);
   if (!canPersistKnowledgeQuestion(input.knowledgeRequest.originalQuestion)
     || input.knowledgeRequest.sensitivityClassification === "RESTRICTED_PERSONAL") {
@@ -135,13 +142,66 @@ export const invokeKnowledgeForProject = (input: {
   }) as ProductKnowledgeOwnerInvocation;
 };
 
+export const invokeKnowledgeForProject = (input: ProductKnowledgeOwnerInvocationInput & {
+  trace?: ScientificRunTraceRecorder;
+}): ProductKnowledgeOwnerInvocation => {
+  try {
+    const invocation = executeKnowledgeForProject(input);
+    recordOwnerInvocationTrace(input.trace, {
+      entry: invocation.entry,
+      ledgerContract: PRODUCT_OWNER_RESULT_LEDGER_CONTRACT,
+      ledgerVersion: PRODUCT_OWNER_RESULT_LEDGER_VERSION,
+      handoffStage: "OWNER_REQUEST_BUILDING",
+    });
+    return invocation;
+  } catch (error) {
+    const code = error instanceof Error ? error.message : "KNOWLEDGE_PRODUCT_UNKNOWN_FAILURE";
+    recordRejectedHandoffTrace(input.trace, {
+      timestamp: input.completedAt,
+      owner: "KNOWLEDGE",
+      stage: code.includes("PROJECT_SNAPSHOT") || code.includes("PROJECT_BINDING") ? "PROJECT_CONTEXT"
+        : code.includes("LEDGER") ? "OWNER_RESULT_PERSISTENCE"
+          : "OWNER_REQUEST_BUILDING",
+      code,
+      expectedProject: input.trace?.getRun().project ?? null,
+      receivedProject: {
+        projectId: input.projectSnapshot.sourceProjectRef,
+        projectVersion: input.projectSnapshot.sourceProjectVersion,
+        projectDigest: input.projectSnapshot.sourceProjectDigest,
+        snapshotRef: input.projectSnapshot.snapshotDigest,
+      },
+      stale: code.includes("STALE"),
+    });
+    throw error;
+  }
+};
+
 export const readProductKnowledgeOwnerResult = (input: {
   ledger: Readonly<ProductKnowledgeOwnerLedger>;
   resultId: string;
   currentProjectSnapshot: Readonly<ProjectContextSnapshot>;
+  trace?: ScientificRunTraceRecorder;
+  observedAt?: string;
 }) => {
   try {
-    return readProductOwnerResult({ ...input, expectedOwner: "KNOWLEDGE" });
+    const readback = readProductOwnerResult({ ...input, expectedOwner: "KNOWLEDGE" });
+    if (readback.freshness.status === "STALE_OWNER_RESULT") {
+      recordRejectedHandoffTrace(input.trace, {
+        timestamp: input.observedAt ?? readback.entry.result?.completedAt ?? readback.entry.retainedAt,
+        owner: "KNOWLEDGE",
+        stage: "STALE_VALIDATION",
+        code: "STALE_OWNER_RESULT",
+        expectedProject: input.trace?.getRun().project ?? null,
+        receivedProject: {
+          projectId: input.currentProjectSnapshot.sourceProjectRef,
+          projectVersion: input.currentProjectSnapshot.sourceProjectVersion,
+          projectDigest: input.currentProjectSnapshot.sourceProjectDigest,
+          snapshotRef: input.currentProjectSnapshot.snapshotDigest,
+        },
+        stale: true,
+      });
+    }
+    return readback;
   } catch (error) {
     if (error instanceof Error && error.message === "PRODUCT_OWNER_RESULT_NOT_FOUND") {
       throw new Error("PRODUCT_KNOWLEDGE_OWNER_RESULT_NOT_FOUND");

@@ -8,7 +8,7 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 25 August 2026 |
-| Verified baseline | `f05308597d7ed04271aa0e8ad0c049144c47efa0` + W1-CLOSURE-01 targeted evidence; bounded Knowledge contract repair `09358e5724e08c5f9620124dd055cac2f090d829` |
+| Verified baseline | `c6e47d7072144d27ccead68ed5924a20ce6747e6` + W1-TRACE-01 targeted evidence |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
 | Portfolio diagnosis | `W1_ARCHITECTURAL_CONVERGENCE_READY_FURTHER_EVIDENCE_REQUIRED` |
@@ -23,31 +23,31 @@
 |---|---|
 | Portfolio state | One canonical Project snapshot now feeds native Knowledge, Scientific Thinking, Imaging and conditional REG through typed product entrypoints; native deterministic VAL observes the retained Knowledge/ST/Imaging chain through a separate append-only ValidationRun ledger; nominal owner selection remains outside this bounded product chain |
 | Active wave | `WAVE_1_SCIENTIFIC_LOOP` |
-| Current objective | Add passive, read-only, append-only scientific execution traceability before individual-owner and controlled-loop characterization. |
+| Current objective | Characterize each connected owner individually now that passive cross-owner observability and replay planning are available. |
 | Next wave | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` after Wave 1 completion |
 | Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge → Scientific Thinking → Imaging → deterministic VAL observation, plus an explicit conditional Project → REG branch, with immutable owner-result and ValidationRun retention |
 | Tested off-product corridor | Read-only adapter → CDM / DM / Biostatistics / TMP; historical SPINE and VAL fixture corridors |
 | Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
-| Main blocker | Architectural convergence is demonstrated after one bounded Knowledge version guard, but no unified execution trace currently supports reliable first-divergent-stage attribution across the assembled loop. |
+| Main blocker | Architectural convergence and passive technical observability are demonstrated; individual scientific performance and representative owner failure modes remain insufficiently characterized. |
 | Active engineering | One wave only; no engine development is authorized by this document itself. |
 
-### W1-CLOSURE-01 checkpoint decisions
+### Current Wave 1 checkpoint decisions after W1-TRACE-01
 
 | Decision | Result | Evidence boundary |
 |---|---|---|
 | `W1_ARCHITECTURAL_CONVERGENCE_READY` | `YES` | Same canonical Project identity/snapshot, typed ownership and dependencies, immutable ledgers, stale guards, non-promotion and zero silent Project writes are demonstrated after the bounded Knowledge engine-version guard. Initial convergence was `FAILED`; post-repair convergence is `PASS`. |
-| `W1_OBSERVABILITY_READY` | `NO` | Per-owner observations and ledgers are inspectable, but no cross-owner `runId`, unified sequence, event-N replay or reliable first-divergent-stage trace exists. |
+| `W1_OBSERVABILITY_READY` | `YES` | A separate append-only trace ledger binds one `ScientificRun` to the exact Project snapshot and records ordered owner, handoff, persistence, stale and VAL events with request/result/dependency/digest/error refs; replay from event N is plan-only. |
 | `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | Architectural contract suites exist; individual scientific performance and failure modes have not been sufficiently characterized. |
 | `W1_CONTROLLED_LOOP_CHARACTERIZATION_READY` | `NO` | No controlled representative chain campaign with frozen inputs, explicit expectations and first-stage error attribution has been performed. |
 | `WAVE_1_COMPLETE` | `NO` | Architectural convergence alone is necessary and insufficient. Wave 2 remains paused. |
 
-`FIRST_DIVERGENT_STAGE_DIAGNOSTIC_READINESS = PARTIAL`
+`FIRST_DIVERGENT_STAGE_DIAGNOSTIC_READINESS = YES`
 
 `CONTROLLED_LOOP_CHARACTERIZATION = NOT_PERFORMED`
 
 ### Top quick wins queued in Wave 1
 
-1. W1-TRACE-01 — specify and implement only a passive, read-only, append-only, replay-aware `Scientific Execution Trace`; it must reference, never replace, Project snapshots, OwnerResults and ValidationRuns.
+1. W1-QUAL-01 — characterize the connected owners individually with bounded, frozen and owner-specific evidence; do not treat architectural tests as scientific qualification.
 
 ### Top blockers
 
@@ -422,6 +422,7 @@ These are active implementation controls traced to superior authorities and curr
 | `IC-014` | Imaging consumes exact retained Knowledge and Scientific Thinking results and preserves both dependencies without claiming OBS qualification. | Imaging owns domain candidates; it does not acquire Knowledge/ST ownership, invent a measurement qualification, or authorize executable acquisition. | RDE-003 v1.1; OBS-001; W1IMG01-01–34 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
 | `IC-015` | Product VAL observes an exact retained owner-result chain through a separate immutable ValidationRun ledger and never repairs, mutates, auto-decides or makes a PD-011 qualification claim. | Validation fidelity must remain diagnostic and reconstructible without becoming a scientific owner or a second Project truth. | Charter; Manifesto V2; VAL-000/001; W1VAL01-01–35 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
 | `IC-016` | Product REG is an explicitly invoked, jurisdiction- and corpus-bounded owner; missing context remains missing, unsupported jurisdictions fail closed, and its result is never approval or legal advice. | Conditional applicability resolution must remain separate from Project truth, VAL fidelity and competent-authority decisions. | Charter; Manifesto V2; PD-005; REG-001 Level 3 evidence; W1REG01-01–35 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
+| `IC-017` | Scientific execution tracing is passive, derived, append-only and non-authoritative; it references exact Project snapshots, OwnerResults and ValidationRuns but never replaces or mutates them. | Cross-owner diagnosis and replay planning require ordered technical evidence without creating an orchestrator, scientific owner, repair path, decision authority, OBS runtime or private-reasoning store. | Charter; Manifesto V2; PD-003 V2; RDE-002; W1-TRACE-01 tests/report | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
 
 # Development waves
 
@@ -438,7 +439,7 @@ These are active implementation controls traced to superior authorities and curr
 
 `CURRENT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
 
-`CURRENT_OBJECTIVE = ESTABLISH_PASSIVE_SCIENTIFIC_EXECUTION_TRACE_BEFORE_WAVE_1_CHARACTERIZATION`
+`CURRENT_OBJECTIVE = CHARACTERIZE_CONNECTED_OWNERS_INDIVIDUALLY_BEFORE_CONTROLLED_LOOP_CHARACTERIZATION`
 
 `NEXT_WAVE = WAVE_2_STUDY_DESIGN_TIME_CHAIN_AFTER_WAVE_1_COMPLETION`
 
@@ -448,16 +449,16 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = W1-TRACE-01_SCIENTIFIC_EXECUTION_TRACE`
+`NEXT_AUTHORIZED_MISSION = W1-QUAL-01_INDIVIDUAL_OWNER_CHARACTERIZATION`
 
 | Field | Contract |
 |---|---|
-| Mission goal | Add the minimum passive execution trace needed to reconstruct a bounded scientific run and attribute the first observable divergent stage without creating a scientific owner or orchestrator. |
-| Input | Exact `ProjectContextSnapshot`; immutable Knowledge/ST/Imaging/REG OwnerRequests and OwnerResults; separate ValidationRuns; W1-CLOSURE-01 observability and replay gap matrices |
-| Output | A read-only, append-only, derived and replay-aware `Scientific Execution Trace` that references existing artifacts and records no private chain-of-thought |
-| Definition of done | One run has ordered owner/handoff events with engine/request/result/dependency/digest/status/timing/error refs; missing stages stay explicit; replay comparison can identify the first observable divergence; Project, OwnerResults and ValidationRuns remain unchanged |
-| Engines / connections affected | Passive observation of Project → Knowledge → ST → Imaging → VAL and conditional Project → REG; no owner-result or Project contract ownership transfer |
-| Do not touch | Scientific content; QRY/automatic orchestration; repair; provider prompts; private chain-of-thought; OBS runtime; Study Design runtime; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS; canonical Project ownership |
+| Mission goal | Characterize individual connected-owner performance and representative failure modes using frozen, owner-specific evidence without claiming universal scientific validation. |
+| Input | Exact frozen Project snapshots, owner requests/results, W1-TRACE-01 runs/events/replay plans, owner-specific expectations and applicable human/reference review |
+| Output | Bounded characterization evidence for Knowledge, Scientific Thinking, Imaging, REG and VAL, with limitations and first-divergent-stage attribution retained |
+| Definition of done | Each owner has explicit test population, frozen inputs, inspectable outputs, characterized failure modes, replay evidence and a bounded human/evidence interpretation; technical PASS remains distinct from scientific qualification |
+| Engines / connections affected | Individual owner characterization only; TRACE observes and references artifacts but does not execute, judge, repair or adopt |
+| Do not touch | Controlled full-loop qualification; Wave 2; QRY/automatic orchestration; Project truth; provider prompts unless separately authorized; OBS runtime; Study Design runtime; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
 
 # Engine completion queue
 
@@ -519,7 +520,7 @@ Portfolio totals retained from the audit:
 | `QRY_VALUE_OF_INFORMATION_PRODUCT_GAP` | `OPEN` | QRY is in the loop, but owner-aware value-of-information coverage is incomplete. | No | Wave 4 | QRY production checkpoint and hands-on observations |
 | `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge, Scientific Thinking, Imaging, REG and VAL are explicitly product-callable, but QRY/conversation does not select owners. | No | Wave 4 | W1K01/W1ST01/W1IMG01/W1REG01/W1VAL01 product entrypoints vs nominal conversation loop |
 | `REGULATORY_CORPUS_ADMISSION_AND_COVERAGE` | `OPEN_BOUNDED_DEBT` | REG-000 is candidate/non-admitted and locally covers only FR, EU/EEA, US and international methodological/reporting guidance; other jurisdictions fail closed and no current-law completeness is claimed. | No | Separate corpus governance authorization | REG-000 v1.0.0, verified 2026-08-10; W1REG01-10–23 |
-| `SCIENTIFIC_EXECUTION_TRACE_GAP` | `OPEN_WAVE_1_BLOCKER` | Owner ledgers and ValidationRuns retain rich local evidence, but no unified passive run identity/order connects the exact Project snapshot, handoffs, outputs, timings, failures and optional REG branch. First-divergent-stage diagnosis is only `PARTIAL`. | Yes | W1-TRACE-01 | W1-CLOSURE-01 observability taxonomy and replay matrix |
+| `SCIENTIFIC_EXECUTION_TRACE_GAP` | `CLOSED_W1_TRACE_01` | A distinct session-persisted ledger now retains exact run/Project binding, ordered owner/handoff/persistence/stale/VAL events, integrity and logical digests, bounded references, technical errors, comparator output and event-N replay plans. It remains optional, passive and non-authoritative; no replay executor was created. | No | Closed in W1-TRACE-01 | W1TRACE01 unit/corridor/diagnostic fixtures; implementation report and machine manifest |
 | `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `OPEN_WAVE_1_BLOCKER` | Contract evidence is sufficient for the connected owners, but individual scientific performance and representative failure modes are not sufficiently characterized. | Yes | W1-QUAL-01 candidate after TRACE | W1-CLOSURE-01 owner characterization matrix |
 | `CONTROLLED_LOOP_CHARACTERIZATION_GAP` | `OPEN_WAVE_1_BLOCKER` | The assembled Project → Knowledge → ST → Imaging → VAL loop has not undergone a controlled representative campaign with frozen inputs, explicit expectations, replay and first-stage attribution. | Yes | W1-LOOP-QUAL-01 candidate after individual characterization | `CONTROLLED_LOOP_CHARACTERIZATION = NOT_PERFORMED` |
 | `PREEXISTING_HISTORICAL_FIXTURE_DEBT` | `OPEN_NON_BLOCKING_DEBT` | Four IMG-001B freeze expectations, one downstream PRJ fixture and three SYS expectations (ST version, DOC decision propagation, Imaging freeze status) remain red; they concern historical interactive/freeze and SYS fixture contracts, not W1 owner convergence. | No | Historical fixture maintenance | W1-CLOSURE-01 fresh isolated runs reproduce 4/60 IMG failures, 1/73 PRJ failure and 3/34 SYS failures, matching the prior eight-failure baseline classification |
@@ -533,6 +534,7 @@ Portfolio totals retained from the audit:
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
+| W1-TRACE-01 | `W1_TRACE_01_SCIENTIFIC_EXECUTION_TRACE_READY` / checkpoint commit containing this roadmap | Passive cross-owner observability and replay planning | Exact run/Project binding, immutable ordered events, request/result/dependency/persistence correlation, stale and error visibility, conditional REG, separate VAL references, first-observable-stage localization, trace ON/OFF output equivalence and zero TRACE writes/LLM calls | Scientific answer quality, corpus completeness, individual owner characterization, controlled loop characterization, executable replay engine, orchestration, OBS, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-CLOSURE-01 | `W1_ARCHITECTURAL_CONVERGENCE_READY_FURTHER_EVIDENCE_REQUIRED` / repair `09358e5724e08c5f9620124dd055cac2f090d829` + checkpoint commit | Wave 1 architectural convergence, observability, replay and characterization gap checkpoint | Post-repair exact Project identity/snapshot propagation, owner separation, immutable OwnerResult/ValidationRun retention, dependency/stale guards, provenance/unknown/limitation/contradiction preservation, non-promotion and zero silent Project writes; identifies TRACE as the first remaining Wave 1 blocker | Scientific performance, corpus completeness, sufficient individual characterization, controlled loop characterization, PD-011 qualification, production readiness or Wave 2 authorization |
 | W1-REG-01 | `W1_REG_01_PRODUCT_CANONICAL_REGULATORY_OWNER_INVOCATION_READY` / this commit | Conditional product canonical Project → native REG | Exact snapshot and caller-supplied typed request invoke native local REG; requirements/applicability/source and corpus refs, missing context and limitations survive an immutable shared ledger; unsupported jurisdiction and stale Project fail closed; Project/provider/network writes are zero | Regulatory approval, legal advice, admitted/current-law corpus status, QRY/automatic orchestration, hands-on validation, VAL profile extension or Project adoption |
 | W1-VAL-01 | `W1_VAL_01_PRODUCT_SCIENTIFIC_LOOP_OBSERVATION_READY` / this commit | Product scientific owner loop → native deterministic VAL | Exact canonical Project and retained Knowledge/ST/Imaging results produce an immutable replayable `ValidationRun`; ownership, evidence lineage, unknowns, limitations, contradictions and expected OBS gap are observed; stale/mismatch cases fail closed; Project/provider/repair writes are zero | PD-011 scientific qualification, semantic reviewer, automatic orchestration, hands-on validation, OBS runtime, REG product wiring or Project adoption |

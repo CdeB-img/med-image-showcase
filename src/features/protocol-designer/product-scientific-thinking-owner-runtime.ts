@@ -13,11 +13,18 @@ import {
   type ProductKnowledgeOwnerLedger,
 } from "./product-knowledge-owner-runtime";
 import {
+  PRODUCT_OWNER_RESULT_LEDGER_CONTRACT,
+  PRODUCT_OWNER_RESULT_LEDGER_VERSION,
   appendProductOwnerInvocation,
   ownerResultNativeDigest,
   readProductOwnerResult,
   type ProductOwnerResultLedgerEntry,
 } from "./product-owner-result-ledger";
+import {
+  recordOwnerInvocationTrace,
+  recordRejectedHandoffTrace,
+  type ScientificRunTraceRecorder,
+} from "./scientific-execution-trace";
 
 export type ProductScientificThinkingOwnerInvocation = {
   ledger: Readonly<ProductKnowledgeOwnerLedger>;
@@ -41,7 +48,7 @@ const deepFreeze = <T>(value: T): Readonly<T> => {
   return value;
 };
 
-export const invokeScientificThinkingForProject = (input: {
+type ProductScientificThinkingOwnerInvocationInput = {
   project: ResearchProjectOwnerProjection;
   projectSnapshot: Readonly<ProjectContextSnapshot>;
   knowledgeResultId?: string | null;
@@ -53,7 +60,9 @@ export const invokeScientificThinkingForProject = (input: {
   retainedAt?: string;
   runtime?: (request: ScientificThinkingInput) => ScientificThinkingOutput;
   monotonicNow?: () => number;
-}): ProductScientificThinkingOwnerInvocation => {
+};
+
+const executeScientificThinkingForProject = (input: ProductScientificThinkingOwnerInvocationInput): ProductScientificThinkingOwnerInvocation => {
   const projectBefore = stableStringify(input.project);
   if (input.project.projectId !== input.projectSnapshot.sourceProjectRef
     || input.project.versionId !== input.projectSnapshot.sourceProjectVersion
@@ -116,6 +125,41 @@ export const invokeScientificThinkingForProject = (input: {
   }) as ProductScientificThinkingOwnerInvocation;
 };
 
+export const invokeScientificThinkingForProject = (input: ProductScientificThinkingOwnerInvocationInput & {
+  trace?: ScientificRunTraceRecorder;
+}): ProductScientificThinkingOwnerInvocation => {
+  try {
+    const invocation = executeScientificThinkingForProject(input);
+    recordOwnerInvocationTrace(input.trace, {
+      entry: invocation.entry,
+      ledgerContract: PRODUCT_OWNER_RESULT_LEDGER_CONTRACT,
+      ledgerVersion: PRODUCT_OWNER_RESULT_LEDGER_VERSION,
+      handoffStage: "KNOWLEDGE_TO_ST_HANDOFF",
+    });
+    return invocation;
+  } catch (error) {
+    const code = error instanceof Error ? error.message : "SCIENTIFIC_THINKING_PRODUCT_UNKNOWN_FAILURE";
+    recordRejectedHandoffTrace(input.trace, {
+      timestamp: input.completedAt,
+      owner: "SCIENTIFIC_THINKING",
+      stage: code.includes("PROJECT_SNAPSHOT") || code.includes("PROJECT_BINDING") ? "PROJECT_CONTEXT"
+        : code.includes("STALE") ? "STALE_VALIDATION"
+          : code.includes("LEDGER") ? "OWNER_RESULT_PERSISTENCE"
+            : "KNOWLEDGE_TO_ST_HANDOFF",
+      code,
+      expectedProject: input.trace?.getRun().project ?? null,
+      receivedProject: {
+        projectId: input.projectSnapshot.sourceProjectRef,
+        projectVersion: input.projectSnapshot.sourceProjectVersion,
+        projectDigest: input.projectSnapshot.sourceProjectDigest,
+        snapshotRef: input.projectSnapshot.snapshotDigest,
+      },
+      stale: code.includes("STALE"),
+    });
+    throw error;
+  }
+};
+
 export const readProductScientificThinkingOwnerResult = (input: {
   ledger: Readonly<ProductKnowledgeOwnerLedger>;
   resultId: string;
@@ -126,6 +170,8 @@ export const readProductScientificThinkingOwnerResult = (input: {
     resultVersion: string;
     nativeResultDigest: string;
   } | null;
+  trace?: ScientificRunTraceRecorder;
+  observedAt?: string;
 }) => {
   try {
     const readback = readProductOwnerResult({
@@ -145,10 +191,39 @@ export const readProductScientificThinkingOwnerResult = (input: {
         ? []
         : ["KNOWLEDGE_RESULT_DEPENDENCY_CHANGED"];
     const staleReasons = [...readback.freshness.staleReasons, ...dependencyReasons];
-    return deepFreeze({
+    const result = deepFreeze({
       entry: readback.entry,
       freshness: { status: staleReasons.length ? "STALE_OWNER_RESULT" as const : "CURRENT" as const, staleReasons },
     });
+    if (result.freshness.status === "STALE_OWNER_RESULT") {
+      recordRejectedHandoffTrace(input.trace, {
+        timestamp: input.observedAt ?? readback.entry.result?.completedAt ?? readback.entry.retainedAt,
+        owner: "SCIENTIFIC_THINKING",
+        stage: "STALE_VALIDATION",
+        code: "STALE_SCIENTIFIC_THINKING_RESULT",
+        expectedProject: input.trace?.getRun().project ?? null,
+        receivedProject: {
+          projectId: input.currentProjectSnapshot.sourceProjectRef,
+          projectVersion: input.currentProjectSnapshot.sourceProjectVersion,
+          projectDigest: input.currentProjectSnapshot.sourceProjectDigest,
+          snapshotRef: input.currentProjectSnapshot.snapshotDigest,
+        },
+        expectedDependencyRefs: input.currentKnowledgeResult ? [{
+          owner: "KNOWLEDGE",
+          resultId: input.currentKnowledgeResult.resultId,
+          resultVersion: input.currentKnowledgeResult.resultVersion,
+          resultDigest: input.currentKnowledgeResult.nativeResultDigest,
+        }] : [],
+        receivedDependencyRefs: readback.entry.dependencies.filter((dependency) => dependency.owner === "KNOWLEDGE").map((dependency) => ({
+          owner: dependency.owner,
+          resultId: dependency.resultId,
+          resultVersion: dependency.resultVersion,
+          resultDigest: dependency.nativeResultDigest,
+        })),
+        stale: true,
+      });
+    }
+    return result;
   } catch (error) {
     if (error instanceof Error && error.message === "PRODUCT_OWNER_RESULT_NOT_FOUND") {
       throw new Error("PRODUCT_SCIENTIFIC_THINKING_OWNER_RESULT_NOT_FOUND");

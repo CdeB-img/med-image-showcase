@@ -17,11 +17,18 @@ import {
   requireCurrentProductScientificThinkingOwnerResult,
 } from "./product-scientific-thinking-owner-runtime";
 import {
+  PRODUCT_OWNER_RESULT_LEDGER_CONTRACT,
+  PRODUCT_OWNER_RESULT_LEDGER_VERSION,
   appendProductOwnerInvocation,
   ownerResultNativeDigest,
   readProductOwnerResult,
   type ProductOwnerResultLedgerEntry,
 } from "./product-owner-result-ledger";
+import {
+  recordOwnerInvocationTrace,
+  recordRejectedHandoffTrace,
+  type ScientificRunTraceRecorder,
+} from "./scientific-execution-trace";
 
 export type ProductImagingOwnerInvocation = {
   ledger: Readonly<ProductKnowledgeOwnerLedger>;
@@ -54,7 +61,7 @@ const exactDependency = (result: SpecializedOwnerResult) => ({
   nativeResultDigest: ownerResultNativeDigest(result)!,
 });
 
-export const invokeImagingForProject = (input: {
+type ProductImagingOwnerInvocationInput = {
   project: ResearchProjectOwnerProjection;
   projectSnapshot: Readonly<ProjectContextSnapshot>;
   knowledgeResultId: string;
@@ -67,7 +74,9 @@ export const invokeImagingForProject = (input: {
   retainedAt?: string;
   runtime?: (request: ImagingDesignInput) => ImagingDesignResult;
   monotonicNow?: () => number;
-}): ProductImagingOwnerInvocation => {
+};
+
+const executeImagingForProject = (input: ProductImagingOwnerInvocationInput): ProductImagingOwnerInvocation => {
   const projectBefore = stableStringify(input.project);
   if (input.project.projectId !== input.projectSnapshot.sourceProjectRef
     || input.project.versionId !== input.projectSnapshot.sourceProjectVersion
@@ -130,12 +139,49 @@ export const invokeImagingForProject = (input: {
   }) as ProductImagingOwnerInvocation;
 };
 
+export const invokeImagingForProject = (input: ProductImagingOwnerInvocationInput & {
+  trace?: ScientificRunTraceRecorder;
+}): ProductImagingOwnerInvocation => {
+  try {
+    const invocation = executeImagingForProject(input);
+    recordOwnerInvocationTrace(input.trace, {
+      entry: invocation.entry,
+      ledgerContract: PRODUCT_OWNER_RESULT_LEDGER_CONTRACT,
+      ledgerVersion: PRODUCT_OWNER_RESULT_LEDGER_VERSION,
+      handoffStage: "ST_TO_IMAGING_HANDOFF",
+    });
+    return invocation;
+  } catch (error) {
+    const code = error instanceof Error ? error.message : "IMAGING_PRODUCT_UNKNOWN_FAILURE";
+    recordRejectedHandoffTrace(input.trace, {
+      timestamp: input.completedAt,
+      owner: "IMAGING",
+      stage: code.includes("PROJECT_SNAPSHOT") || code.includes("PROJECT_BINDING") ? "PROJECT_CONTEXT"
+        : code.includes("STALE") ? "STALE_VALIDATION"
+          : code.includes("LEDGER") ? "OWNER_RESULT_PERSISTENCE"
+            : "ST_TO_IMAGING_HANDOFF",
+      code,
+      expectedProject: input.trace?.getRun().project ?? null,
+      receivedProject: {
+        projectId: input.projectSnapshot.sourceProjectRef,
+        projectVersion: input.projectSnapshot.sourceProjectVersion,
+        projectDigest: input.projectSnapshot.sourceProjectDigest,
+        snapshotRef: input.projectSnapshot.snapshotDigest,
+      },
+      stale: code.includes("STALE"),
+    });
+    throw error;
+  }
+};
+
 export const readProductImagingOwnerResult = (input: {
   ledger: Readonly<ProductKnowledgeOwnerLedger>;
   resultId: string;
   currentProjectSnapshot: Readonly<ProjectContextSnapshot>;
   currentKnowledgeResult: { resultId: string; resultVersion: string; nativeResultDigest: string };
   currentScientificThinkingResult: { resultId: string; resultVersion: string; nativeResultDigest: string };
+  trace?: ScientificRunTraceRecorder;
+  observedAt?: string;
 }) => {
   try {
     const readback = readProductOwnerResult({
@@ -155,10 +201,37 @@ export const readProductImagingOwnerResult = (input: {
       && dependency.nativeResultDigest === current.nativeResultDigest
     )) ? [] : [`${current.owner}_RESULT_DEPENDENCY_CHANGED`]);
     const staleReasons = [...readback.freshness.staleReasons, ...dependencyReasons];
-    return deepFreeze({
+    const result = deepFreeze({
       entry: readback.entry,
       freshness: { status: staleReasons.length ? "STALE_OWNER_RESULT" as const : "CURRENT" as const, staleReasons },
     });
+    if (result.freshness.status === "STALE_OWNER_RESULT") {
+      recordRejectedHandoffTrace(input.trace, {
+        timestamp: input.observedAt ?? readback.entry.result?.completedAt ?? readback.entry.retainedAt,
+        owner: "IMAGING",
+        stage: "STALE_VALIDATION",
+        code: "STALE_IMAGING_RESULT",
+        expectedProject: input.trace?.getRun().project ?? null,
+        receivedProject: {
+          projectId: input.currentProjectSnapshot.sourceProjectRef,
+          projectVersion: input.currentProjectSnapshot.sourceProjectVersion,
+          projectDigest: input.currentProjectSnapshot.sourceProjectDigest,
+          snapshotRef: input.currentProjectSnapshot.snapshotDigest,
+        },
+        expectedDependencyRefs: [
+          { owner: "KNOWLEDGE", resultId: input.currentKnowledgeResult.resultId, resultVersion: input.currentKnowledgeResult.resultVersion, resultDigest: input.currentKnowledgeResult.nativeResultDigest },
+          { owner: "SCIENTIFIC_THINKING", resultId: input.currentScientificThinkingResult.resultId, resultVersion: input.currentScientificThinkingResult.resultVersion, resultDigest: input.currentScientificThinkingResult.nativeResultDigest },
+        ],
+        receivedDependencyRefs: readback.entry.dependencies.map((dependency) => ({
+          owner: dependency.owner,
+          resultId: dependency.resultId,
+          resultVersion: dependency.resultVersion,
+          resultDigest: dependency.nativeResultDigest,
+        })),
+        stale: true,
+      });
+    }
+    return result;
   } catch (error) {
     if (error instanceof Error && error.message === "PRODUCT_OWNER_RESULT_NOT_FOUND") {
       throw new Error("PRODUCT_IMAGING_OWNER_RESULT_NOT_FOUND");

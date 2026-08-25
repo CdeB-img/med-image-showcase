@@ -353,7 +353,7 @@ describe("W1-KNOWLEDGE-01 — product canonical Knowledge owner invocation", () 
     const retained = { ...sessionWithResult, knowledgeOwnerLedger: productInvocation.ledger };
     persistFunctionalResetSession(storage, retained);
     const loaded = loadFunctionalResetSession(storage);
-    expect(loaded.contractVersion).toBe("1.6.0");
+    expect(loaded.contractVersion).toBe("1.7.0");
     expect(loaded.knowledgeOwnerLedger).toEqual(productInvocation.ledger);
     expect(stableStringify(loaded.knowledgeOwnerLedger)).toBe(stableStringify(productInvocation.ledger));
 

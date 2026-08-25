@@ -13,11 +13,18 @@ import {
   type SpecializedOwnerResult,
 } from "@/features/research-project-construction";
 import {
+  PRODUCT_OWNER_RESULT_LEDGER_CONTRACT,
+  PRODUCT_OWNER_RESULT_LEDGER_VERSION,
   appendProductOwnerInvocation,
   readProductOwnerResult,
   type ProductOwnerResultLedger,
   type ProductOwnerResultLedgerEntry,
 } from "./product-owner-result-ledger";
+import {
+  recordOwnerInvocationTrace,
+  recordRejectedHandoffTrace,
+  type ScientificRunTraceRecorder,
+} from "./scientific-execution-trace";
 
 export type ProductRegulatoryOwnerInvocation = {
   ledger: Readonly<ProductOwnerResultLedger>;
@@ -56,7 +63,7 @@ const assertNoUnsupportedJurisdiction = (request: RegulatoryResolutionInput) => 
   if (unsupported.length) throw new Error(`UNSUPPORTED_JURISDICTION:${unsupported.sort().join(",")}`);
 };
 
-export const invokeRegulatoryForProject = (input: {
+type ProductRegulatoryOwnerInvocationInput = {
   project: ResearchProjectOwnerProjection;
   projectSnapshot: Readonly<ProjectContextSnapshot>;
   regulatoryRequest: RegulatoryResolutionInput;
@@ -68,7 +75,9 @@ export const invokeRegulatoryForProject = (input: {
   retainedAt?: string;
   runtime?: (request: RegulatoryResolutionInput) => RegulatoryResolutionResult;
   monotonicNow?: () => number;
-}): ProductRegulatoryOwnerInvocation => {
+};
+
+const executeRegulatoryForProject = (input: ProductRegulatoryOwnerInvocationInput): ProductRegulatoryOwnerInvocation => {
   const projectBefore = stableStringify(input.project);
   if (input.project.projectId !== input.projectSnapshot.sourceProjectRef
     || input.project.versionId !== input.projectSnapshot.sourceProjectVersion
@@ -115,6 +124,41 @@ export const invokeRegulatoryForProject = (input: {
     webCalls: 0,
     externalRegulatoryCalls: 0,
   }) as ProductRegulatoryOwnerInvocation;
+};
+
+export const invokeRegulatoryForProject = (input: ProductRegulatoryOwnerInvocationInput & {
+  trace?: ScientificRunTraceRecorder;
+}): ProductRegulatoryOwnerInvocation => {
+  try {
+    const invocation = executeRegulatoryForProject(input);
+    recordOwnerInvocationTrace(input.trace, {
+      entry: invocation.entry,
+      ledgerContract: PRODUCT_OWNER_RESULT_LEDGER_CONTRACT,
+      ledgerVersion: PRODUCT_OWNER_RESULT_LEDGER_VERSION,
+      handoffStage: "REG_REQUEST_BUILDING",
+      nextExpectedHandoff: null,
+    });
+    return invocation;
+  } catch (error) {
+    const code = error instanceof Error ? error.message : "REG_PRODUCT_UNKNOWN_FAILURE";
+    recordRejectedHandoffTrace(input.trace, {
+      timestamp: input.completedAt,
+      owner: "REGULATORY_RESOLUTION",
+      stage: code.includes("PROJECT_SNAPSHOT") || code.includes("PROJECT_BINDING") ? "PROJECT_CONTEXT"
+        : code.includes("LEDGER") ? "OWNER_RESULT_PERSISTENCE"
+          : "REG_REQUEST_BUILDING",
+      code,
+      expectedProject: input.trace?.getRun().project ?? null,
+      receivedProject: {
+        projectId: input.projectSnapshot.sourceProjectRef,
+        projectVersion: input.projectSnapshot.sourceProjectVersion,
+        projectDigest: input.projectSnapshot.sourceProjectDigest,
+        snapshotRef: input.projectSnapshot.snapshotDigest,
+      },
+      stale: code.includes("STALE"),
+    });
+    throw error;
+  }
 };
 
 export const readProductRegulatoryOwnerResult = (input: {
