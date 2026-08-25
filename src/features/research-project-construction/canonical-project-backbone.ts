@@ -10,6 +10,7 @@ import type {
   ResearchProjectOwnerProjection,
   ResearchProjectSection,
   ResearchProjectSectionId,
+  SpecializedResponsibility,
 } from "./contribution-owner-boundary";
 
 export const CANONICAL_RESEARCH_PROJECT_STATE_CONTRACT = "PRJ001_CANONICAL_RESEARCH_PROJECT_STATE" as const;
@@ -1587,18 +1588,29 @@ export const ensureCanonicalProjectState = (project: ResearchProjectOwnerProject
 
 export type ProjectContextSnapshot = {
   contract: "PROJECT_CONTEXT_SNAPSHOT";
-  contractVersion: "0.2.0";
+  contractVersion: "0.3.0";
+  owner: "RESEARCH_PROJECT";
   sourceProjectRef: string;
   sourceProjectVersion: string;
   sourceProjectDigest: string;
+  sourceProjectRevision: number;
+  previousProjectVersion: string | null;
+  sourceContributionRef: string;
+  sourceContributionDigest: string;
   objects: Array<{
     stableId: string;
     versionRef: string;
+    version: number;
     type: CanonicalProjectObjectType;
     content: string;
     scientificRole: string | null;
+    semanticKey: string;
     epistemicState: CanonicalProjectEpistemicState;
     provenanceKind: CanonicalProjectProvenance["assertionKind"];
+    provenance: CanonicalProjectProvenance;
+    decisionRefs: string[];
+    sourceContributionRef: string;
+    sourceItemRefs: string[];
   }>;
   relations: Array<{
     stableId: string;
@@ -1606,7 +1618,11 @@ export type ProjectContextSnapshot = {
     type: string;
     sourceProjectRef: string;
     targetProjectRef: string;
+    polarity: string | null;
     epistemicState: CanonicalProjectEpistemicState;
+    provenance: CanonicalProjectProvenance;
+    decisionRefs: string[];
+    sourceContributionRef: string;
   }>;
   temporalQualifications: Array<{
     stableId: string;
@@ -1615,6 +1631,9 @@ export type ProjectContextSnapshot = {
     temporalRole: CanonicalProjectTemporalRole;
     anchor: CanonicalTemporalAnchorValue;
     provenanceKind: CanonicalProjectProvenance["assertionKind"];
+    provenance: CanonicalProjectProvenance;
+    decisionRefs: string[];
+    sourceContributionRef: string;
   }>;
   expectedVariableOccasions: Array<{
     stableId: string;
@@ -1625,6 +1644,52 @@ export type ProjectContextSnapshot = {
     studyUnitOrGroupRef: string | null;
     applicableContext: string | null;
     provenanceKind: CanonicalProjectProvenance["assertionKind"];
+    provenance: CanonicalProjectProvenance;
+    decisionRefs: string[];
+    sourceContributionRef: string;
+  }>;
+  historicalObjectVersions: Array<{
+    stableId: string;
+    versionRef: string;
+    version: number;
+    type: CanonicalProjectObjectType;
+    content: string;
+    scientificRole: string | null;
+    supersededByVersionRef: string | null;
+    provenance: CanonicalProjectProvenance;
+    decisionRefs: string[];
+  }>;
+  historicalRelationVersions: Array<{
+    stableId: string;
+    versionRef: string;
+    version: number;
+    type: string;
+    sourceProjectRef: string;
+    targetProjectRef: string;
+    supersededByVersionRef: string | null;
+    provenance: CanonicalProjectProvenance;
+    decisionRefs: string[];
+  }>;
+  historicalTemporalQualificationVersions: Array<{
+    stableId: string;
+    versionRef: string;
+    version: number;
+    subjectProjectRef: string;
+    temporalRole: CanonicalProjectTemporalRole;
+    anchor: CanonicalTemporalAnchorValue;
+    supersededByVersionRef: string | null;
+    provenance: CanonicalProjectProvenance;
+    decisionRefs: string[];
+  }>;
+  historicalExpectedVariableOccasionVersions: Array<{
+    stableId: string;
+    versionRef: string;
+    version: number;
+    variableProjectRef: string;
+    anchor: CanonicalTemporalAnchorValue;
+    supersededByVersionRef: string | null;
+    provenance: CanonicalProjectProvenance;
+    decisionRefs: string[];
   }>;
   legacyTemporalMappings: Array<{
     legacyObjectRef: string;
@@ -1632,10 +1697,28 @@ export type ProjectContextSnapshot = {
     mappingStatus: "NEW_MAPPING_REQUIRED";
   }>;
   openConflicts: CanonicalProjectConflict[];
+  openIssues: Array<{
+    issueRef: string;
+    kind: "UNKNOWN" | "AMBIGUITY" | "LIMITATION" | "CONTRADICTION";
+    reason: string;
+    sourceRefs: string[];
+  }>;
+  humanDecisions: HumanDecisionEnvelope[];
+  decisionLedger: CanonicalProjectDecisionLedgerEntry[];
+  versionHistory: CanonicalProjectVersionRecord[];
+  specializedResponsibilities: SpecializedResponsibility[];
   pendingVerificationRefs: string[];
   activeQryNeed: null | { id: string; purpose: string; targetRefs: string[] };
   snapshotDigest: string;
   readOnly: true;
+};
+
+const deepFreezeProjectContext = <T>(value: T): Readonly<T> => {
+  if (value && typeof value === "object" && !Object.isFrozen(value)) {
+    Object.values(value as Record<string, unknown>).forEach((nested) => deepFreezeProjectContext(nested));
+    Object.freeze(value);
+  }
+  return value;
 };
 
 export const buildProjectContextSnapshot = (input: {
@@ -1646,11 +1729,23 @@ export const buildProjectContextSnapshot = (input: {
   const objects = state.objects.filter((object) => object.actuality === "CURRENT").map((object) => ({
     stableId: object.objectId,
     versionRef: object.objectVersionId,
+    version: object.version,
     type: object.objectType,
     content: object.content,
     scientificRole: object.scientificRole,
+    semanticKey: object.semanticKey,
     epistemicState: object.epistemicState,
     provenanceKind: object.provenance.assertionKind,
+    provenance: {
+      ...object.provenance,
+      sourceTurnRefs: [...object.provenance.sourceTurnRefs],
+      proposalSourceTurnRefs: [...object.provenance.proposalSourceTurnRefs],
+      adoptionSourceTurnRefs: [...object.provenance.adoptionSourceTurnRefs],
+      evidenceRefs: [...object.provenance.evidenceRefs],
+    },
+    decisionRefs: [...object.decisionRefs],
+    sourceContributionRef: object.sourceContributionRef,
+    sourceItemRefs: [...object.sourceItemRefs],
   }));
   const relations = state.relations.filter((relation) => relation.actuality === "CURRENT").map((relation) => ({
     stableId: relation.relationId,
@@ -1658,7 +1753,15 @@ export const buildProjectContextSnapshot = (input: {
     type: relation.relationType,
     sourceProjectRef: relation.sourceObjectRef,
     targetProjectRef: relation.targetObjectRef,
+    polarity: relation.polarity,
     epistemicState: relation.epistemicState,
+    provenance: { ...relation.provenance,
+      sourceTurnRefs: [...relation.provenance.sourceTurnRefs],
+      proposalSourceTurnRefs: [...relation.provenance.proposalSourceTurnRefs],
+      adoptionSourceTurnRefs: [...relation.provenance.adoptionSourceTurnRefs],
+      evidenceRefs: [...relation.provenance.evidenceRefs] },
+    decisionRefs: [...relation.decisionRefs],
+    sourceContributionRef: relation.sourceContributionRef,
   }));
   const temporalQualifications = state.temporalQualifications
     .filter((qualification) => qualification.actuality === "CURRENT")
@@ -1669,6 +1772,13 @@ export const buildProjectContextSnapshot = (input: {
       temporalRole: qualification.temporalRole,
       anchor: qualification.anchor,
       provenanceKind: qualification.provenance.assertionKind,
+      provenance: { ...qualification.provenance,
+        sourceTurnRefs: [...qualification.provenance.sourceTurnRefs],
+        proposalSourceTurnRefs: [...qualification.provenance.proposalSourceTurnRefs],
+        adoptionSourceTurnRefs: [...qualification.provenance.adoptionSourceTurnRefs],
+        evidenceRefs: [...qualification.provenance.evidenceRefs] },
+      decisionRefs: [...qualification.decisionRefs],
+      sourceContributionRef: qualification.sourceContributionRef,
     }));
   const expectedVariableOccasions = state.expectedVariableOccasions
     .filter((occasion) => occasion.actuality === "CURRENT")
@@ -1681,24 +1791,166 @@ export const buildProjectContextSnapshot = (input: {
       studyUnitOrGroupRef: occasion.studyUnitOrGroupRef,
       applicableContext: occasion.applicableContext,
       provenanceKind: occasion.provenance.assertionKind,
+      provenance: { ...occasion.provenance,
+        sourceTurnRefs: [...occasion.provenance.sourceTurnRefs],
+        proposalSourceTurnRefs: [...occasion.provenance.proposalSourceTurnRefs],
+        adoptionSourceTurnRefs: [...occasion.provenance.adoptionSourceTurnRefs],
+        evidenceRefs: [...occasion.provenance.evidenceRefs] },
+      decisionRefs: [...occasion.decisionRefs],
+      sourceContributionRef: occasion.sourceContributionRef,
     }));
+  const historicalObjectVersions = state.objects.filter((object) => object.actuality === "SUPERSEDED").map((object) => ({
+    stableId: object.objectId,
+    versionRef: object.objectVersionId,
+    version: object.version,
+    type: object.objectType,
+    content: object.content,
+    scientificRole: object.scientificRole,
+    supersededByVersionRef: object.supersededByVersionRef,
+    provenance: { ...object.provenance,
+      sourceTurnRefs: [...object.provenance.sourceTurnRefs],
+      proposalSourceTurnRefs: [...object.provenance.proposalSourceTurnRefs],
+      adoptionSourceTurnRefs: [...object.provenance.adoptionSourceTurnRefs],
+      evidenceRefs: [...object.provenance.evidenceRefs] },
+    decisionRefs: [...object.decisionRefs],
+  }));
+  const historicalRelationVersions = state.relations.filter((relation) => relation.actuality === "SUPERSEDED").map((relation) => ({
+    stableId: relation.relationId,
+    versionRef: relation.relationVersionId,
+    version: relation.version,
+    type: relation.relationType,
+    sourceProjectRef: relation.sourceObjectRef,
+    targetProjectRef: relation.targetObjectRef,
+    supersededByVersionRef: relation.supersededByVersionRef,
+    provenance: { ...relation.provenance,
+      sourceTurnRefs: [...relation.provenance.sourceTurnRefs],
+      proposalSourceTurnRefs: [...relation.provenance.proposalSourceTurnRefs],
+      adoptionSourceTurnRefs: [...relation.provenance.adoptionSourceTurnRefs],
+      evidenceRefs: [...relation.provenance.evidenceRefs] },
+    decisionRefs: [...relation.decisionRefs],
+  }));
+  const historicalTemporalQualificationVersions = state.temporalQualifications.filter((qualification) => qualification.actuality === "SUPERSEDED").map((qualification) => ({
+    stableId: qualification.qualificationId,
+    versionRef: qualification.qualificationVersionId,
+    version: qualification.version,
+    subjectProjectRef: qualification.subjectProjectRef,
+    temporalRole: qualification.temporalRole,
+    anchor: qualification.anchor,
+    supersededByVersionRef: qualification.supersededByVersionRef,
+    provenance: { ...qualification.provenance,
+      sourceTurnRefs: [...qualification.provenance.sourceTurnRefs],
+      proposalSourceTurnRefs: [...qualification.provenance.proposalSourceTurnRefs],
+      adoptionSourceTurnRefs: [...qualification.provenance.adoptionSourceTurnRefs],
+      evidenceRefs: [...qualification.provenance.evidenceRefs] },
+    decisionRefs: [...qualification.decisionRefs],
+  }));
+  const historicalExpectedVariableOccasionVersions = state.expectedVariableOccasions.filter((occasion) => occasion.actuality === "SUPERSEDED").map((occasion) => ({
+    stableId: occasion.occasionId,
+    versionRef: occasion.occasionVersionId,
+    version: occasion.version,
+    variableProjectRef: occasion.variableProjectRef,
+    anchor: occasion.anchor,
+    supersededByVersionRef: occasion.supersededByVersionRef,
+    provenance: { ...occasion.provenance,
+      sourceTurnRefs: [...occasion.provenance.sourceTurnRefs],
+      proposalSourceTurnRefs: [...occasion.provenance.proposalSourceTurnRefs],
+      adoptionSourceTurnRefs: [...occasion.provenance.adoptionSourceTurnRefs],
+      evidenceRefs: [...occasion.provenance.evidenceRefs] },
+    decisionRefs: [...occasion.decisionRefs],
+  }));
   const legacyTemporalMappings = state.legacyTemporalObjects.map((entry) => ({
     legacyObjectRef: entry.legacyObject.objectId,
     legacyVersionRef: entry.legacyObject.objectVersionId,
     mappingStatus: entry.mappingStatus,
   }));
+  const openIssues: ProjectContextSnapshot["openIssues"] = [
+    ...objects.filter((object) => object.epistemicState === "UNKNOWN").map((object) => ({
+      issueRef: object.stableId,
+      kind: object.type === "UNCERTAINTY" && object.scientificRole?.toLocaleUpperCase("en-US").includes("AMBIGU") ? "AMBIGUITY" as const : "UNKNOWN" as const,
+      reason: object.content,
+      sourceRefs: [object.versionRef, object.sourceContributionRef, ...object.sourceItemRefs],
+    })),
+    ...objects.filter((object) => object.type === "CONSTRAINT" && object.scientificRole?.toLocaleUpperCase("en-US").includes("LIMITATION")).map((object) => ({
+      issueRef: object.stableId,
+      kind: "LIMITATION" as const,
+      reason: object.content,
+      sourceRefs: [object.versionRef, object.sourceContributionRef, ...object.sourceItemRefs],
+    })),
+    ...objects.filter((object) => object.type === "CONTRADICTION").map((object) => ({
+      issueRef: object.stableId,
+      kind: "CONTRADICTION" as const,
+      reason: object.content,
+      sourceRefs: [object.versionRef, object.sourceContributionRef, ...object.sourceItemRefs],
+    })),
+    ...temporalQualifications.flatMap((qualification) => qualification.anchor.reference.status === "UNKNOWN" ? [{
+      issueRef: `${qualification.stableId}:reference`,
+      kind: "UNKNOWN" as const,
+      reason: qualification.anchor.reference.unresolvedReason,
+      sourceRefs: [qualification.versionRef, qualification.sourceContributionRef],
+    }] : []),
+    ...expectedVariableOccasions.flatMap((occasion) => occasion.anchor.reference.status === "UNKNOWN" ? [{
+      issueRef: `${occasion.stableId}:reference`,
+      kind: "UNKNOWN" as const,
+      reason: occasion.anchor.reference.unresolvedReason,
+      sourceRefs: [occasion.versionRef, occasion.sourceContributionRef],
+    }] : []),
+    ...state.activeConflicts.map((conflict) => ({
+      issueRef: conflict.conflictId,
+      kind: "CONTRADICTION" as const,
+      reason: conflict.message,
+      sourceRefs: [...conflict.existingRefs, ...conflict.candidateRefs],
+    })),
+  ];
   const base = {
     contract: "PROJECT_CONTEXT_SNAPSHOT" as const,
-    contractVersion: "0.2.0" as const,
+    contractVersion: "0.3.0" as const,
+    owner: "RESEARCH_PROJECT" as const,
     sourceProjectRef: input.project.projectId,
     sourceProjectVersion: input.project.versionId,
     sourceProjectDigest: input.project.projectDigest,
+    sourceProjectRevision: input.project.revision,
+    previousProjectVersion: input.project.previousVersionId,
+    sourceContributionRef: input.project.contributionRef,
+    sourceContributionDigest: input.project.contributionDigest,
     objects,
     relations,
     temporalQualifications,
     expectedVariableOccasions,
+    historicalObjectVersions,
+    historicalRelationVersions,
+    historicalTemporalQualificationVersions,
+    historicalExpectedVariableOccasionVersions,
     legacyTemporalMappings,
     openConflicts: [...state.activeConflicts],
+    openIssues,
+    humanDecisions: [{ ...input.project.confirmationDecision, provenance: [...input.project.confirmationDecision.provenance] }],
+    decisionLedger: state.decisionLedger.map((entry) => ({
+      ...entry,
+      sourceTurnRefs: [...entry.sourceTurnRefs],
+      candidateChangeRefs: [...entry.candidateChangeRefs],
+      operationSummary: [...entry.operationSummary],
+      objectRefs: [...entry.objectRefs],
+      relationRefs: [...entry.relationRefs],
+      temporalQualificationRefs: [...entry.temporalQualificationRefs],
+      expectedVariableOccasionRefs: [...entry.expectedVariableOccasionRefs],
+      legacyTemporalRefs: [...entry.legacyTemporalRefs],
+      previousRefs: [...entry.previousRefs],
+      temporalChanges: entry.temporalChanges.map((change) => ({ ...change })),
+      expectedOccasionChanges: entry.expectedOccasionChanges.map((change) => ({ ...change })),
+    })),
+    versionHistory: state.versionHistory.map((version) => ({
+      ...version,
+      objectVersionRefs: [...version.objectVersionRefs],
+      relationVersionRefs: [...version.relationVersionRefs],
+      temporalQualificationVersionRefs: [...version.temporalQualificationVersionRefs],
+      expectedVariableOccasionVersionRefs: [...version.expectedVariableOccasionVersionRefs],
+      legacyTemporalVersionRefs: [...version.legacyTemporalVersionRefs],
+      decisionRefs: [...version.decisionRefs],
+    })),
+    specializedResponsibilities: input.project.specializedResponsibilities.map((responsibility) => ({
+      ...responsibility,
+      sourceItemIds: [...responsibility.sourceItemIds],
+    })),
     pendingVerificationRefs: [
       ...state.objects.filter((object) => object.actuality === "CURRENT" && object.provenance.evidenceQualification === "NOT_EVALUATED").map((object) => object.objectId),
       ...state.temporalQualifications.filter((qualification) => qualification.actuality === "CURRENT" && qualification.provenance.evidenceQualification === "NOT_EVALUATED").map((qualification) => qualification.qualificationId),
@@ -1707,5 +1959,6 @@ export const buildProjectContextSnapshot = (input: {
     activeQryNeed: input.activeQryNeed ?? null,
     readOnly: true as const,
   };
-  return { ...base, snapshotDigest: logicalDigest(base) };
+  const detached = JSON.parse(JSON.stringify(base)) as typeof base;
+  return deepFreezeProjectContext({ ...detached, snapshotDigest: logicalDigest(detached) }) as ProjectContextSnapshot;
 };

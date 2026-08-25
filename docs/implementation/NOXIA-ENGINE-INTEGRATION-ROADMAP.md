@@ -8,10 +8,10 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 25 August 2026 |
-| Verified baseline | `9be06edca1a7500ab7a43d065e94241e91d67bec` |
+| Verified baseline | `b3ad0cb6cb0349e8b82be41e60bf9c43efb9a00f` |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
-| Portfolio diagnosis | `MULTIPLE_CALLABLE_ENGINES_WITH_CANONICAL_CONVERGENCE_GAP` |
+| Portfolio diagnosis | `CANONICAL_CONSUMER_ADAPTER_READY_PRODUCT_OWNER_LOOP_NOT_WIRED` |
 | Superior authorities | NOXIA Founding Charter; Scientific Product Manifesto V2; applicable Level 1 specialized references |
 | Documentary authority | None. This file does not amend, replace, or extend any authority. |
 
@@ -21,14 +21,14 @@
 
 | Control | Current value |
 |---|---|
-| Portfolio state | Multiple callable engines; canonical convergence missing |
+| Portfolio state | One canonical Project snapshot feeds current owners and tested legacy consumer projections; product owner loop remains unwired |
 | Active wave | `WAVE_0_CANONICAL_CONVERGENCE` |
-| Current objective | Make one existing canonical Project snapshot consumable by current and legacy engine consumers without transferring ownership or creating a third Project contract. |
+| Current objective | Record Wave-0 canonical convergence as ready for controlled transition; do not product-wire a new wave in this checkpoint. |
 | Next wave | `WAVE_1_SCIENTIFIC_LOOP` |
 | Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview |
-| Tested off-product corridor | Canonical Project Snapshot + Knowledge + REG + Scientific Thinking + Imaging |
-| Design-time island | `ResearchProjectDesignResult` + CDM/DM/Biostatistics planning + TMP/DOC + VAL/SYS fixtures |
-| Main blocker | Current product Project contracts and legacy `ResearchProjectDesignResult` consumer contracts have not converged. |
+| Tested off-product corridor | Canonical Project Snapshot → Knowledge / REG / Scientific Thinking / Imaging and read-only adapter → CDM / DM / Biostatistics / TMP |
+| Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
+| Main blocker | Available specialized owners are not invoked by the nominal product Project loop. |
 | Active engineering | One wave only; no engine development is authorized by this document itself. |
 
 ### Top quick wins queued after Wave 0
@@ -41,11 +41,10 @@
 
 ### Top blockers
 
-1. Project contract generations have not converged.
+1. The nominal product loop does not invoke specialized owners.
 2. No standalone Study Design runtime exists.
 3. No OBS runtime exists.
-4. The nominal product loop does not invoke specialized owners.
-5. Biostatistics calculation and realized-time Data Management are absent.
+4. Biostatistics calculation and realized-time Data Management are absent.
 
 ### Do not start now
 
@@ -120,9 +119,11 @@ flowchart TB
     REG["REG"]:::tested
     ST["Scientific Thinking"]:::tested
     IMG["Imaging"]:::tested
+    ADAPTER["W0 read-only legacy consumer adapter"]:::tested
     SNAP --> KE
     SNAP --> REG
     SNAP --> ST --> IMG
+    SNAP --> ADAPTER
   end
 
   subgraph ISLAND["DESIGN_TIME — legacy consumer island"]
@@ -149,6 +150,8 @@ flowchart TB
     VAL -. observes .-> DOC
   end
 
+  ADAPTER --> RPD
+
   OBS["OBS runtime absent"]:::normative
   SD["Study Design runtime absent"]:::normative
 ```
@@ -157,7 +160,7 @@ Current-map qualification:
 
 - The product Project is canonical and versioned, but the document path uses a compatibility projection before TMP/DOC.
 - Knowledge, REG, Scientific Thinking, and Imaging are callable from a canonical Project snapshot in SPINE tests; they are not invoked by the nominal conversation product loop.
-- CDM, DM, and Biostatistics are real deterministic planning runtimes around `ResearchProjectDesignResult`; they do not implement realized-time Data Management or statistical calculation.
+- CDM, DM, Biostatistics and TMP remain consumers of `ResearchProjectDesignResult`, but W0 now proves that this shape can be derived read-only from the same canonical snapshot; no product orchestration or realized-time capability follows from that proof.
 - Study Design and OBS remain normative owners without standalone runtime.
 - VAL has real deterministic runners and adapters, but no persisted transverse ValidationRun is part of the nominal current product corridor.
 
@@ -229,7 +232,7 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Interaction / Conversation | Conversational mediation | Charter; Manifesto V2; PD-004; PD-005 | `READY` | `HANDS_ON_VALIDATED` | `executeProtocolDesignerBridge` / Protocol Designer workspace | One-turn natural response; concise post-adoption continuation; topic freedom | Not a scientific owner; no expert fallback authority | Product bridge context projection from adopted Project |
 | Persistent extraction | Bounded compiler from free language to candidate Project contribution | Manifesto V2; PD-003 V2; SEM-002; PD-004 | `AVAILABLE_WITH_LIMITATIONS` | `HANDS_ON_VALIDATED` | `executeOpenAIPersistentDelta` then product bridge validation | Multi-object source-anchored changes, relations, temporal qualifications, Human Review candidate | OpenAI strict-schema hardening debt; provider output remains fallible and fail-closed | `PersistentProjectDeltaCandidate` → Project contribution against `ResearchProjectOwnerProjection` |
 | QRY | Deterministic information-value navigator | PD-009; PD-004 | `AVAILABLE_WITH_LIMITATIONS` | `HANDS_ON_VALIDATED` | query-navigation engine and functional-reset progression | Recompute after adoption; select useful unresolved need; feed short Gemini continuation | Value-of-information product behavior still incomplete across all domains | Canonical adopted Project projection; legacy `ResearchProjectDesignResult` remains in older QRY adapters |
-| Research Project | Canonical owner of adopted contextual truth | Manifesto V2; PD-003 V2; PRJ contracts | `READY` | `HANDS_ON_VALIDATED` | canonical backbone and contribution owner boundary | Typed objects, relations, roles, time, provenance, decisions, versions, supersession, reload | Two consumer contract generations still coexist | `ResearchProjectOwnerProjection` + `CanonicalResearchProjectState`; legacy consumers expect `ResearchProjectDesignResult` |
+| Research Project | Canonical owner of adopted contextual truth | Manifesto V2; PD-003 V2; PRJ contracts | `READY` | `HANDS_ON_VALIDATED` | canonical backbone and contribution owner boundary | Typed objects, relations, roles, time, provenance, decisions, versions, supersession, reload | Legacy consumer shapes still exist as read projections | `ResearchProjectOwnerProjection` + `CanonicalResearchProjectState` → one `ProjectContextSnapshot`; selected legacy consumers use the W0 adapter |
 | Knowledge | Global epistemic owner | KE-001; PD-003 V2 | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | `invokeKnowledgeOwnerFromProject` / Knowledge engine | Bounded assertions, evidence, applicability, contradictions, gaps, native `KnowledgeResult` | Bounded corpus; external evidence remains candidate; not in nominal Project loop | `ProjectContextSnapshot` adapter |
 | External Evidence | Governed evidence acquisition capability | KE-001; external-evidence contracts | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | Knowledge external-evidence pipeline | Search observations, source status, provenance, partial/unavailable states | Does not admit Knowledge; source availability and coverage are external | Knowledge request context; no direct Project contract |
 | Scientific Thinking | Specialized reasoning owner | RDE-001/002; PD-003 V2; ST implementation proof | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | `invokeScientificThinkingOwnerFromProject` | Questions, objectives, hypotheses, alternatives, unknowns, typed result and candidate contribution | Deterministic native context; no automatic adoption; Knowledge result chain incomplete | `ProjectContextSnapshot` adapter |
@@ -237,9 +240,9 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Imaging | Specialized measurement-domain owner | RDE-003 v1.1; OBS-001; PD-003 V2 | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | `invokeImagingOwnerFromScientificThinking` | Imaging design options, feasibility, limitations, quality/harmonization proposals, typed result | No executable acquisition protocol; OBS qualification absent; Knowledge chain not wired | `ProjectContextSnapshot` + Scientific Thinking result |
 | OBS | Owner of general observability and measurement qualification | OBS-001; PD-003 V2 | `NORMATIVE_ONLY` | `NOT_WIRED` | capability inventory rejection | None beyond explicit absence | No standalone runtime or governed measurement catalogue | No runtime Project contract |
 | REG | Specialized regulatory-resolution aid | REG-001; applicable corpus contracts | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | `invokeRegulatoryOwnerFromProject` | Typed applicability resolution, unknown jurisdiction/context gaps, provenance and corpus version | Methodological aid only; not approval; corpus limitations | `ProjectContextSnapshot` adapter; legacy resolver also consumes `ResearchProjectDesignResult` projection |
-| CDM | Study-data representation and planning owner | CDM-001; PD-003 V2; OBS-001 | `PARTIAL` | `TESTED_OFF_PRODUCT` | data-analysis planning study-data contribution | Design-time DataNeeds, CanonicalVariables, ExpectedVariableOccasions | No realized occurrence runtime, storage, ingestion, or dataset execution | `ResearchProjectDesignResult` / `DataAnalysisPlanningContext` |
-| Data Management | Operational data lifecycle owner | DM-001; CDM-001 | `PARTIAL` | `TESTED_OFF_PRODUCT` | data-management planning contribution | Logical design-time CRF, dictionary, schedule, governance plans | No ingestion, query, correction, reconciliation, freeze, lock, or release execution | `ResearchProjectDesignResult` / `DataAnalysisPlanningContext` |
-| Biostatistics | Analytic specification and inference owner | BIOSTATISTICS-001; CDM-001; DM-001 | `PARTIAL` | `TESTED_OFF_PRODUCT` | biostatistics planning contribution | Design-time specifications, estimand/population/method needs, explicit numerical gaps | No calculation, sample-size result, `AnalysisExecution`, or `AnalysisResult` runtime | `ResearchProjectDesignResult` / `DataAnalysisPlanningContext` |
+| CDM | Study-data representation and planning owner | CDM-001; PD-003 V2; OBS-001 | `PARTIAL` | `TESTED_OFF_PRODUCT` | W0 snapshot adapter then data-analysis planning study-data contribution | Design-time DataNeeds, CanonicalVariables, ExpectedVariableOccasions | No realized occurrence runtime, storage, ingestion, or dataset execution | `ProjectContextSnapshot` → read-only `ResearchProjectDesignResult` projection → `DataAnalysisPlanningContext` |
+| Data Management | Operational data lifecycle owner | DM-001; CDM-001 | `PARTIAL` | `TESTED_OFF_PRODUCT` | W0 snapshot adapter then data-management planning contribution | Logical design-time CRF, dictionary, schedule, governance plans | No ingestion, query, correction, reconciliation, freeze, lock, or release execution | Same canonical snapshot projection and planning context as CDM |
+| Biostatistics | Analytic specification and inference owner | BIOSTATISTICS-001; CDM-001; DM-001 | `PARTIAL` | `TESTED_OFF_PRODUCT` | W0 snapshot adapter then biostatistics planning contribution | Design-time specifications, estimand/population/method needs, explicit numerical gaps | No calculation, sample-size result, `AnalysisExecution`, or `AnalysisResult` runtime | Same canonical snapshot projection and planning context as CDM/DM |
 | TMP | Deterministic template composition consumer | TMP-001; PD-003 V2 | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | functional-reset document boundary / `composeStudyTemplateInstance` | Template graph, requirements, unknowns, REG and documentary pattern integration | Current product path crosses a legacy Project projection; consumer only | `ResearchProjectDesignResult` compatibility projection |
 | DOC-002 | Documentary knowledge pattern engine | DOC-002 implementation contract | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | documentary pattern catalogue | Deterministic, versioned documentary patterns and provenance | Candidate/historical corpus limits; not a scientific or regulatory authority | No direct Project contract; consumed by TMP mappings |
 | DOC | Read-only document projection engine | Manifesto V2; DOC-001/DOC-001B | `AVAILABLE_WITH_LIMITATIONS` | `HANDS_ON_VALIDATED` | functional-reset document portfolio / document projection | Project-derived preview, unknowns and gaps preserved, immutable projections | Protocol is the primary active definition; current adapter is not canonical-native | `ResearchProjectDesignResult` derived from canonical product Project |
@@ -253,7 +256,7 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Interaction / Conversation | No | No direct contribution | Carries grounded context only | Project version supplied in context | Yes for any engaging mutation | Gemini server route; Product bridge | None for Wave 0 | Consume QRY/OwnerResult without ownership | Wave 4 | Hands-on owner-mediated dialogue with no hidden mutation | `be929dc2`, `9be06edc` |
 | Persistent extraction | No; typed candidate instead | Yes, candidate only | Exact source anchors and provider artifact metadata | Validated against current Project refs | Yes | Terra server route; Project compiler | Strict schema debt | Remain the free-language compiler only | Wave 0 non-regression | Source-grounded candidate, complete review, fail-closed invalid output | `cae56c51`, `9ae7dba2`, `8fb7a999`, `9be06edc` |
 | QRY | No; typed navigation result | No | Uses Project unknowns/gaps | Recomputed after adoption | No for navigation; yes for Project change | Canonical Project; Gemini mediation | Value-of-information gap | Route useful owner request, not only a question | Wave 4 | Real Project → appropriate owner request → short continuation | `f87006dc`, `be929dc2` |
-| Research Project | No; owns canonical state | Sole adoption boundary | Preserves provenance and decisions | Version, digest, ledger, supersession | Always for engaging change | Contribution boundary; persistence | Contract convergence | One canonical source for all consumers | `W0-PROJECT-01_CANONICAL_PROJECT_CONSUMER_ADAPTER` | All selected consumers read identical identity/version/digest without Project mutation | `ee6102fa`, `9be06edc` |
+| Research Project | No; owns canonical state | Sole adoption boundary | Preserves provenance and decisions | Version, digest, ledger, supersession | Always for engaging change | Contribution boundary; persistence | Product owner orchestration | Product-callable specialized-owner loop | `W1-KNOWLEDGE-01_PRODUCT_CANONICAL_OWNER_INVOCATION` | One adopted product Project invokes Knowledge without fallback or hidden mutation | `ee6102fa`; W0-PROJECT-01 tests at current HEAD |
 | Knowledge | Yes, `KnowledgeResult` | Yes when legitimate; not automatic | Native assertions, sources, applicability, gaps | Yes in SPINE handoff | Yes for Project adoption | Canonical snapshot; governed corpus | Product orchestration and contract convergence | Product-callable from current Project | Wave 1 | Real product request/result with evidence/gap and no fallback | `7c9f012e`; Knowledge tests at current HEAD |
 | External Evidence | Typed evidence result, not owner result | No | Native source/evidence status | Provider/request identity; not Project stale guard | Knowledge admission remains governed | Network/source adapters; Knowledge | No direct Project use | Feed Knowledge only with governed admission | Wave 1 | Source → KnowledgeResult trace with applicability and limits | Current external-evidence tests |
 | Scientific Thinking | Yes, `ScientificThinkingOutput` | Yes, candidate | Preserves project refs; requests Knowledge when needed | Yes | Yes | Canonical snapshot; Knowledge; Study Design/Imaging | Product orchestration; Knowledge chain | Interconnected in scientific loop | Wave 1 | Product Project → ST result → downstream typed handoff | `5413683d` |
@@ -261,10 +264,10 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Imaging | Yes, `ImagingDesignResult` | Yes, candidate | Native provenance, limitations, Knowledge gaps | Yes | Yes | ST result; Knowledge; future OBS | Knowledge/OBS chain; product orchestration | Interconnected domain owner | Wave 1 | Real Project/ST/Knowledge → Imaging result → governed contribution | `5413683d` |
 | OBS | No runtime result | No runtime contribution | None | None | Would be required | PD-003 V2; Knowledge; domain owners | Runtime absent | Minimal observability qualification | Wave 3 | Phenomenon/need → property → measurement definition with limits | OBS-001 normative admission only |
 | REG | Yes, `RegulatoryResolutionResult` | Yes when legitimate; usually informational | Corpus refs, version/date, applicability, gaps | Yes in SPINE handoff | Yes for any Project strategy adoption | Canonical snapshot; REG corpus | Product orchestration and corpus limits | Product-callable conditional owner | Wave 1 | Real Project → REG result/gap; never approval | `7c9f012e` |
-| CDM | Yes, planning contribution | Yes on legacy Project | Project refs and planning provenance | Yes on legacy version/digest | Yes | Canonical convergence; Project DataNeeds | Legacy Project contract | Canonical design-time planning | Wave 2 | Current canonical Project → typed CDM plan → governed adoption | DAI commits `c345bfc2`–`7501f66b` |
-| Data Management | Yes, planning contribution | Yes on legacy Project | Planning provenance and gaps | Yes on legacy version/digest | Yes | CDM plan; canonical convergence | No execution runtime | Canonical design-time planning | Wave 2 | CDM → DM plan → gaps/contribution with no execution claim | DAI commits `d3bd969f`–`7501f66b` |
-| Biostatistics | Yes, planning contribution | Yes on legacy Project | Explicit inputs, unknowns, provenance | Yes on legacy version/digest | Yes | Project endpoints; CDM/DM; canonical convergence | Calculation absent | Canonical planning only | Wave 2 | Plan reconstructible; every numeric value absent or sourced/adopted | DAI commits `aef67c80`–`7501f66b` |
-| TMP | No; typed projection instance | No | Preserves Project/REG/pattern references | Input refs and digests | Project decisions must already exist | Canonical adapter; REG; DOC-002; planning results | Legacy Project input | Canonical-native template input | Wave 2 | Canonical Project + owner refs → stable TemplateInstance | TMP-001 tests; product document canaries |
+| CDM | Yes, planning contribution | Yes through the existing legacy adoption boundary | Project refs and planning provenance | Yes on source version/digest | Yes | Canonical snapshot adapter; Project DataNeeds | Wave-2 orchestration only | Canonical design-time planning | Wave 2 | Current canonical Project → typed CDM plan → governed adoption | DAI commits `c345bfc2`–`7501f66b`; W0P01-18 |
+| Data Management | Yes, planning contribution | Yes through the existing legacy adoption boundary | Planning provenance and gaps | Yes on source version/digest | Yes | CDM plan; canonical snapshot adapter | No execution runtime | Canonical design-time planning | Wave 2 | CDM → DM plan → gaps/contribution with no execution claim | DAI commits `d3bd969f`–`7501f66b`; W0P01-19 |
+| Biostatistics | Yes, planning contribution | Yes through the existing legacy adoption boundary | Explicit inputs, unknowns, provenance | Yes on source version/digest | Yes | Project endpoints; CDM/DM; canonical snapshot adapter | Calculation absent | Canonical planning only | Wave 2 | Plan reconstructible; every numeric value absent or sourced/adopted | DAI commits `aef67c80`–`7501f66b`; W0P01-20 |
+| TMP | No; typed projection instance | No | Preserves Project/REG/pattern references | Input refs and digests | Project decisions must already exist | Canonical adapter; REG; DOC-002; planning results | Wave-2 orchestration only | Canonical-native template input | Wave 2 | Canonical Project + owner refs → stable TemplateInstance | TMP-001 tests; product document canaries; W0P01-21 |
 | DOC-002 | No; typed pattern catalog | No | Native pattern evidence and provenance | Catalogue version/digest | No Project adoption | Documentary corpus | Corpus limitations | Remain passive evidence for TMP | Wave 2 | TMP mapping preserves status/source without making requirement mandatory | DOC-002 report/tests |
 | DOC | No; typed projection | No | References authorized Project/owner facts | Source refs/digests; stale preview handling | No new decision; consumes adopted truth | TMP; canonical adapter | Projection coverage only | Canonical Project + governed owner refs | Wave 2 | Document facts remain subset of adopted Project and authorized owner facts | `deb79d53`; current DOC canaries |
 | VAL | Yes, `ValidationResult` diagnostic | No | Typed findings/evidence/provenance | Run configuration and result digests | Human arbitration when required | All typed handoffs; domain validators | Not product-wired across owner loop | Observe Wave 1 loop | Wave 1 | Owner chain observed without repair or ownership transfer | `f69c8727`, `6f1fe1a0`, `103783e8`, `01d1d22e` |
@@ -294,15 +297,16 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Imaging | `SpecializedOwnerResult<ImagingDesignResult>` | Project | SPINE-02 contribution boundary | `TESTED_OFF_PRODUCT` | Current canonical snapshot | Yes | No | Yes | Yes | Yes |
 | Scientific Thinking | `SpecializedOwnerResult<ScientificThinkingOutput>` | Project | SPINE-02 contribution boundary | `TESTED_OFF_PRODUCT` | Current canonical snapshot | Yes | No | Yes | Yes | Yes |
 | REG | `SpecializedOwnerResult<RegulatoryResolutionResult>` | Project | SPINE-02 contribution boundary | `TESTED_OFF_PRODUCT` | Current canonical snapshot | Yes | No | Yes | Yes | Yes |
-| Project | study-data planning context | CDM | DAI planning adapter | `PARTIAL` | Legacy `ResearchProjectDesignResult` | Yes | No | Yes | Yes | Yes |
-| Project | DM planning context | Data Management | DAI planning adapter | `PARTIAL` | Legacy `ResearchProjectDesignResult` | Yes | No | Yes | Yes | Yes |
-| Project | Biostatistics planning context | Biostatistics | DAI planning adapter | `PARTIAL` | Legacy `ResearchProjectDesignResult` | Yes | No | Yes | Yes | Yes |
+| Project | canonical snapshot → legacy read projection → study-data planning context | CDM | W0 adapter + DAI planning adapter | `TESTED_OFF_PRODUCT` | Current canonical source; legacy read projection | Yes | No | Yes | Yes | Yes |
+| Project | canonical snapshot → legacy read projection → DM planning context | Data Management | W0 adapter + DAI planning adapter | `TESTED_OFF_PRODUCT` | Current canonical source; legacy read projection | Yes | No | Yes | Yes | Yes |
+| Project | canonical snapshot → legacy read projection → Biostatistics planning context | Biostatistics | W0 adapter + DAI planning adapter | `TESTED_OFF_PRODUCT` | Current canonical source; legacy read projection | Yes | No | Yes | Yes | Yes |
 | OBS | qualified measurement refs | CDM | OBS/CDM target contract | `NORMATIVE_TARGET` | Target canonical | No | No | Required by target | Required by target | Required by target |
 | OBS | qualified measurement refs | Biostatistics | OBS/Biostatistics target contract | `NORMATIVE_TARGET` | Target canonical | No | No | Required by target | Required by target | Required by target |
 | CDM | study-data planning result | Data Management | DAI native planning context | `TESTED_OFF_PRODUCT` | Legacy `ResearchProjectDesignResult` | Yes | No | Yes | Yes | Yes |
 | CDM | study-data planning result | Biostatistics | DAI native planning context | `TESTED_OFF_PRODUCT` | Legacy `ResearchProjectDesignResult` | Yes | No | Yes | Yes | Yes |
 | Data Management | planning contribution | Project | DAI Human Decision boundary | `TESTED_OFF_PRODUCT` | Legacy `ResearchProjectDesignResult` | Yes | No | Yes | Yes | Yes |
 | Biostatistics | planning contribution | Project | DAI Human Decision boundary | `TESTED_OFF_PRODUCT` | Legacy `ResearchProjectDesignResult` | Yes | No | Yes | Yes | Yes |
+| Project | canonical snapshot → legacy read projection | TMP | W0 adapter + `composeStudyTemplateInstance` | `TESTED_OFF_PRODUCT` | Current canonical source; legacy read projection | Yes | No | Yes | Input version/digest checks | Unknowns, decisions, limitations and provenance preserved |
 | Project | Project facts/unknowns | TMP | functional-reset compatibility adapter | `PRODUCT_WIRED` | Current → legacy projection | Yes | Yes | Yes | Preview freshness only | Yes |
 | REG | applicable requirement set | TMP | TMP regulatory mapping | `TESTED_OFF_PRODUCT` | Legacy design-time | Yes | Indirectly | Yes | Input version check | Yes |
 | DOC-002 | pattern mappings | TMP | TMP documentary pattern mapping | `TESTED_OFF_PRODUCT` | No direct Project generation | Yes | Indirectly | Catalogue version/digest | N/A | Yes |
@@ -331,11 +335,11 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Scientific Thinking → Study Design | Owner absent; gap path only | `INTERCONNECTED` when runtime exists | Replan after Wave 1 | Standalone Study Design result and no PRJ ownership transfer |
 | Imaging → OBS | OBS absent | `INTERCONNECTED` | Wave 3 | Domain proposal qualified by OBS, not auto-adopted |
 | Imaging / ST / REG → Project | Off-product only | Governed product contribution path | Wave 1 | Complete review, stale rejection, Human Decision |
-| Project → CDM / DM / Biostatistics | Legacy Project contract | Canonical-callable planning owners | Waves 0 and 2 | One canonical snapshot adapter; no duplicated Project truth |
+| Project → CDM / DM / Biostatistics | Adapter proven off-product; Wave-2 orchestration absent | Canonical-callable planning owners | Wave 2 | Same tested adapter plus governed owner-result/contribution corridor |
 | OBS → CDM / Biostatistics | OBS absent | Typed canonical handoff | Wave 3 | Stable observable/measurement refs and limitations |
 | CDM → DM / Biostatistics | Legacy design-time island | Canonical interconnected design-time chain | Wave 2 | Same Project version/digest and native payload preservation |
 | DM / Biostatistics → Project | Legacy Project adoption only | Current canonical contribution boundary | Wave 2 | Stale-safe Human Decision creates Project vN+1 |
-| Project / REG / DM / Biostatistics → TMP | Mixed generations | Canonical owner-result references | Wave 2 | Stable template instance without copying owner truth |
+| Project / REG / DM / Biostatistics → TMP | Project adapter proven; planning-result orchestration absent | Canonical owner-result references | Wave 2 | Stable template instance with governed planning-owner references |
 | TMP → DOC | Product wired through compatibility projection | Canonical-native document corridor | Wave 2 | Document facts subset of authorized upstream facts |
 | VAL → handoffs | Not nominally persisted in owner product loop | `INTERCONNECTED` observer | Wave 1 | Findings/gates without repair, mutation, or false PASS |
 | External Evidence → Knowledge | Not connected to Project owner loop | Governed evidence input to product Knowledge request | Wave 1 | Source/version/applicability preserved; Knowledge admission explicit |
@@ -396,7 +400,7 @@ These are active implementation controls traced to superior authorities and curr
 
 | Wave | Status | Objective | In scope | Definition of done | Explicitly not in scope |
 |---|---|---|---|---|---|
-| `WAVE_0_CANONICAL_CONVERGENCE` | `ACTIVE` | One existing canonical Project snapshot consumable by the engines and legacy consumers. | Canonical owner snapshot reuse; old-generation consumer adapter; minimal OwnerRequest/OwnerResult references; consumer convergence | Same Project ID/version/digest, stable refs, unknowns, time, provenance and decisions survive every selected adapter; no duplicate Project truth; no direct owner write | New OBS; Biostatistics calculation; DM realized-time; Decision Bundle UI; PACS |
+| `WAVE_0_CANONICAL_CONVERGENCE` | `READY_FOR_CONTROLLED_TRANSITION` | One existing canonical Project snapshot consumable by the engines and legacy consumers. | Canonical owner snapshot reuse; old-generation consumer adapter; minimal OwnerRequest/OwnerResult references; consumer convergence | Same Project ID/version/digest, stable refs, unknowns, time, provenance and decisions survive every selected adapter; no duplicate Project truth; no direct owner write | New OBS; Biostatistics calculation; DM realized-time; Decision Bundle UI; PACS |
 | `WAVE_1_SCIENTIFIC_LOOP` | `NEXT` | Project → Knowledge → Scientific Thinking → Imaging → VAL → Project/QRY, with REG when applicable. | Product-callable native owners, owner-result references, validation observation, Human Review | A real Project produces versioned Knowledge/ST/Imaging/REG results and VAL observations without Gemini reconstruction or automatic adoption | Study Design reinvention; OBS runtime; statistical calculation |
 | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` | `PAUSED` | Project → CDM planning → DM planning → Biostatistics planning → TMP → DOC with gaps returned. | Canonicalize the existing design-time island | Current canonical Project drives native planning payloads and documents with governed return contributions | Realized-time DM; calculation/execution; full Study Design runtime unless separately authorized |
 | `WAVE_3_OBS_MINIMAL` | `PAUSED` | Phenomenon/need → ObservableProperty → MeasurementDefinition → limitations. | Minimal OBS runtime and handoffs to Imaging/CDM/Biostatistics | Typed, evidence-bounded OBS result; no automatic BiomarkerRole adoption | Broad method catalogue; automatic biomarker qualification |
@@ -407,7 +411,7 @@ These are active implementation controls traced to superior authorities and curr
 
 `CURRENT_WAVE = WAVE_0_CANONICAL_CONVERGENCE`
 
-`CURRENT_OBJECTIVE = REUSE_ONE_CANONICAL_PROJECT_SNAPSHOT_ACROSS_CURRENT_AND_LEGACY_CONSUMERS`
+`CURRENT_OBJECTIVE = WAVE_0_CANONICAL_CONVERGENCE_PROVEN_READY_FOR_CONTROLLED_TRANSITION`
 
 `NEXT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
 
@@ -417,31 +421,31 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = W0-PROJECT-01_CANONICAL_PROJECT_CONSUMER_ADAPTER`
+`NEXT_AUTHORIZED_MISSION = W1-KNOWLEDGE-01_PRODUCT_CANONICAL_OWNER_INVOCATION`
 
 | Field | Contract |
 |---|---|
-| Mission goal | Reuse the existing SPINE canonical Project snapshot and implement one governed, read-only compatibility adapter for selected `ResearchProjectDesignResult` consumers, without creating a new Project type or invoking specialized owners. |
-| Input | `ResearchProjectOwnerProjection` / `CanonicalResearchProjectState`, existing `ProjectContextSnapshot`, current consumer contracts, current Project version and digest |
-| Output | A deterministic compatibility projection carrying Project ID/version/digest, stable object and relation refs, roles, temporal qualifications, unknowns, provenance, Human Decisions, and explicit unsupported fields |
-| Definition of done | Byte-stable replay; no Project mutation; no semantic invention; current and legacy contract fields traced; stale mismatch rejected; at least one representative consumer reads the adapter; existing product path and SPINE tests remain green |
-| Engines / connections affected | Research Project; Project → CDM/DM/Biostatistics/TMP/DOC/VAL consumer boundaries |
-| Do not touch | QRY policy; Gemini/Terra prompts or providers; Knowledge/REG/ST/Imaging invocation; OBS; Study Design runtime; calculation; realized-time DM; UI; deployment |
+| Mission goal | Invoke the existing native Knowledge owner from one adopted canonical Project in a bounded product corridor, without fallback, automatic adoption, or QRY ownership transfer. |
+| Input | Current adopted Project, W0 canonical snapshot, existing `invokeKnowledgeOwnerFromProject` contract and governed Knowledge corpus |
+| Output | Versioned Knowledge request/result or explicit evidence gap referenced by the exact Project version/digest |
+| Definition of done | One product Project invokes Knowledge once; evidence/gaps and source applicability remain typed; no Gemini reconstruction; no Project mutation without Human Decision; existing W0 adapter remains green |
+| Engines / connections affected | Research Project → Knowledge; bounded observation toward VAL/Project/QRY |
+| Do not touch | OBS; Study Design runtime; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS; canonical Project ownership |
 
 # Engine completion queue
 
 | Order | Engine | From state | To state | Effort | Dependency | Wave | Blocked by | Notes |
 |---:|---|---|---|---|---|---|---|---|
-| 1 | Research Project consumer contracts | Mixed canonical + legacy | One canonical source with governed adapters | `M` | None | Wave 0 | None | Active work; do not create a third Project ontology. |
-| 2 | Knowledge | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Product-callable canonical owner | `M` | Wave 0 | Wave 1 | Project convergence | First quick win after Wave 0. |
-| 3 | REG | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Product-callable conditional owner | `M` | Wave 0 | Wave 1 | Project convergence | Preserve gaps and non-approval boundary. |
+| 1 | Research Project consumer contracts | Mixed canonical + legacy | One canonical source with governed adapters | `M` | None | Wave 0 | None | Adapter ready off-product; legacy shapes remain projections, not truth. |
+| 2 | Knowledge | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Product-callable canonical owner | `M` | Wave 0 | Wave 1 | Product owner orchestration | First quick win after Wave 0. |
+| 3 | REG | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Product-callable conditional owner | `M` | Wave 0 | Wave 1 | Product owner orchestration | Preserve gaps and non-approval boundary. |
 | 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Interconnected owner | `M` | Knowledge + Wave 0 | Wave 1 | Knowledge result chain | No automatic adoption. |
 | 5 | VAL | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Observer in scientific loop | `M` | Typed Wave 1 handoffs | Wave 1 | Product owner loop | Observe/block only. |
 | 6 | Imaging | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Interconnected owner | `M` | Knowledge + ST | Wave 1 | OBS remains an explicit limitation | Quick win does not mean executable protocol. |
-| 7 | CDM | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | Wave 0 | Wave 2 | Legacy Project contract | Planning only. |
-| 8 | Data Management | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | CDM | Wave 2 | Legacy Project contract | Realized-time execution remains later/XL. |
-| 9 | Biostatistics | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable planning owner | `L` | CDM + DM | Wave 2 | Legacy Project contract; calculation absent | No invented effect size or sample size. |
-| 10 | TMP / DOC | Mixed product adapter | Canonical-native projection chain | `M` | Wave 0 + planning owner refs | Wave 2 | Legacy Project projection | Projection remains read-only. |
+| 7 | CDM | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | Wave 0 | Wave 2 | Owner-result/contribution orchestration | Planning only. |
+| 8 | Data Management | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | CDM | Wave 2 | Owner-result/contribution orchestration | Realized-time execution remains later/XL. |
+| 9 | Biostatistics | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable planning owner | `L` | CDM + DM | Wave 2 | Calculation absent; orchestration pending | No invented effect size or sample size. |
+| 10 | TMP / DOC | Mixed product adapter | Canonical-native projection chain | `M` | Wave 0 + planning owner refs | Wave 2 | Planning-result orchestration | Projection remains read-only. |
 | 11 | Study Design | `NORMATIVE_ONLY / NOT_WIRED` | Native specialized owner | `L` | Wave 1 evidence and explicit authorization | Replan | Runtime absent | Do not conflate with PRJ ownership. |
 | 12 | OBS | `NORMATIVE_ONLY / NOT_WIRED` | Minimal callable owner | `XL` | Knowledge/ST/Imaging handoffs | Wave 3 | Runtime absent | BiomarkerRole may remain a later slice. |
 
@@ -491,12 +495,13 @@ Portfolio totals retained from the audit:
 | OBS runtime | `ABSENT` | Imaging cannot obtain complete general measurement qualification. | No | Wave 3 | OBS-001; capability inventory |
 | Biostatistics calculation | `ABSENT` | No sample-size calculation or analytic execution. | No | Later explicit wave | Capability inventory; DAI tests keep values null |
 | DM realized-time | `ABSENT` | No ingestion, queries, corrections, reconciliation, freeze/lock/release execution. | No | Later explicit wave | DM-001 vs planning runtime |
-| Project contract generations | `CONVERGENCE_REQUIRED` | Current product/SPINE and design-time consumers do not share one native Project input contract. | **Yes** | Wave 0 | Current code imports and ENGINE-PORTFOLIO-01 |
+| Project contract generations | `CONVERGENCE_ADAPTER_READY` | Current and selected legacy consumers derive from one canonical owner snapshot; legacy shapes remain bounded read projections. | No | Wave 2 orchestration only | W0P01-01–25; W0 implementation report |
 
 # Latest implementation proofs
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
+| W0-PROJECT-01 | `W0_PROJECT_01_CANONICAL_PROJECT_CONSUMER_ADAPTER_READY` / current commit | Canonical Project consumer convergence | One immutable snapshot supplies Knowledge/REG/ST/Imaging and read-only CDM/DM/Biostatistics/TMP projections with identical ID/version/digest and explicit gaps | Product owner orchestration, Wave-2 planning-result chain, calculation, realized-time execution |
 | SPINE-01 | `ee6102fab386d916ac815f4f190dc583d25048f2` | Canonical Research Project backbone | Project identity, versions, temporal model, provenance, decisions, supersession, reload | Product owner orchestration or specialized engine availability |
 | SPINE-02 | `8fc27d80fc3927813cb6614e2c47e8ac509d7128` | Specialized owner handoff backbone | Capability inventory, typed metadata, owner-result/contribution split, stale guard, no fallback | Real owner invocation or product wiring |
 | SPINE-03 | `7c9f012e` | Native Knowledge/REG invocation and unavailable Biostatistics path | Real native owner calls from snapshot; absent calculation remains absent | Conversation product integration or broad scientific validity |
@@ -544,4 +549,4 @@ If real implementation state changed and `ROADMAP_UPDATED = NO`, the mission is 
 | Exactly one next mission is authorized | `PASS` |
 | No new philosophy, owner, scientific relation, or normative target is introduced | `PASS` |
 | SOURCE-OF-TRUTH-INDEX modified | `NO` |
-| Product code modified | `NO` |
+| Product code modified | `YES — canonical snapshot and read-only Level-3 adapter only; no product behavior path changed` |
