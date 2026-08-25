@@ -1,0 +1,18 @@
+{
+  "contract": "W1_QUAL_01R1_MECHANISTIC_OR_EXPLANATORY_OBLIGATION",
+  "version": "2.0.0",
+  "obligation": "REASONING_CANDIDATE_MECHANISTIC_OR_EXPLANATORY",
+  "acceptableRepresentations": [
+    "linked mechanism candidate",
+    "candidate Scientific Model with explicit explanatory relation"
+  ],
+  "exactWordingRequired": false,
+  "exactMechanismRequired": false,
+  "exactCountRequired": false,
+  "c3DevelopmentOutcome": {
+    "outcome": "VIOLATED",
+    "evidenceKind": null,
+    "note": "Hypotheses exist, but no inspectable explanatory relation is represented as a mechanism or candidate Scientific Model."
+  },
+  "campaignANumeratorAuthorized": false
+}

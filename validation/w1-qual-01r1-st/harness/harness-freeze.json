@@ -1,0 +1,79 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CHARACTERIZATION_HARNESS_FREEZE",
+  "version": "1.0.0",
+  "frozenAt": "2026-08-25T23:20:00.000Z",
+  "gitHeadBeforeMission": "efc11c98b3310dc77c90e7357a83f96dc9d82820",
+  "harnessVersion": "2.0.0",
+  "harnessDigest": "ke1-1634f9e75685558b",
+  "sourceDigests": {
+    "contracts.ts": "sha256-b4e6ceb7a0caa119be758f1a4466e700032d667e0b3700b674f363257ef45e64",
+    "evaluator.ts": "sha256-3ff499e8907f96b6461d99faac5162b408f57734637aa134a6d4b2c9ad9dc7d0",
+    "runner.ts": "sha256-586cb545b576851a5f28e1349a8d8a6e4bf1969661143ded0c5599710dfb262a",
+    "validator.ts": "sha256-5c798b4cc86d52d18f2922b83e8388fb552bfd66846728f0dc83a22d81d75cc9",
+    "contracts.test.ts": "sha256-bddf05ea14e5883e132f0db20a3ad2d90833469a31e018998ec4df6a6163d279",
+    "generate-phase-a.ts": "sha256-4ed7d632f1dda7fe1d9e9e3b00ef1e511b7709504e9063e6e296d85dbc9ead5a"
+  },
+  "componentDigests": {
+    "evaluator": "ke1-33c2e6ae542bb022",
+    "taxonomy": "ke1-67f0e454e4815860",
+    "knowledgeGate": "ke1-28cb033243d2c0fe",
+    "traceCompletenessContract": "ke1-41fd470df44dccb9",
+    "acceptanceEnvelopeSchema": "ke1-c5c80e31937471ad",
+    "adjudicationRules": "ke1-71086a8be69c6bf7",
+    "negativeExpectationContract": "ke1-6f0d76e014ee72ac",
+    "mechanisticObligationContract": "ke1-394a229f23746d6b",
+    "runner": "sha256-586cb545b576851a5f28e1349a8d8a6e4bf1969661143ded0c5599710dfb262a",
+    "validator": "sha256-5c798b4cc86d52d18f2922b83e8388fb552bfd66846728f0dc83a22d81d75cc9"
+  },
+  "acceptanceEnvelopeSchema": {
+    "requiredFields": [
+      "caseId",
+      "negativeExpectationMode",
+      "requiredObligations",
+      "forbiddenBehaviors",
+      "allowedAlternatives",
+      "expectedGaps",
+      "expectedLimitations",
+      "criticalObligations",
+      "referenceRefs",
+      "authoredBeforeObservation",
+      "mutableAfterObservation"
+    ],
+    "negativeExpectationModes": [
+      "STRICT_NO_CANDIDATE_EXPECTED",
+      "CONDITIONAL_CANDIDATE_ALLOWED",
+      "CLARIFICATION_OR_GAP_EXPECTED",
+      "CANDIDATE_REQUIRED"
+    ],
+    "ownerVerdictPreconditions": [
+      "HARNESS_READY",
+      "REFERENCE_VALID",
+      "FROZEN_INPUT_VALID",
+      "TRACE_COMPLETE"
+    ]
+  },
+  "adjudicationRules": {
+    "precedence": [
+      "HARNESS",
+      "REFERENCE",
+      "FROZEN_INPUT",
+      "TRACE",
+      "SCIENTIFIC_HUMAN_CONFLICT",
+      "OWNER"
+    ],
+    "harnessDefectMapsToHumanArbitration": false,
+    "referenceDefectMapsToOwnerRepair": false,
+    "traceIncompleteMapsToOwnerVerdict": false,
+    "privateChainOfThoughtRecorded": false
+  },
+  "machineValidation": {
+    "valid": true,
+    "findings": []
+  },
+  "unitTests": {
+    "passed": 11,
+    "total": 11
+  },
+  "status": "READY",
+  "mutableDuringCampaignB": false
+}

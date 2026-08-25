@@ -1,0 +1,24 @@
+{
+  "contract": "W1_QUAL_01R1_TRACE_COMPLETENESS",
+  "version": "2.0.0",
+  "requiredFields": [
+    "caseId",
+    "Project tuple",
+    "KnowledgeResult ref/digest",
+    "ST request ref/digest",
+    "ST version",
+    "ST result ref/digest",
+    "status",
+    "candidate structure/counts",
+    "gaps",
+    "limitations",
+    "contradictions",
+    "first divergent stage on failure",
+    "duration",
+    "replay refs"
+  ],
+  "completeField": "TRACE_QUALIFICATION_COMPLETE",
+  "incompleteDisposition": "NON_ADJUDICABLE",
+  "ownerVerdictPermittedWhenIncomplete": false,
+  "privateChainOfThoughtRecorded": false
+}

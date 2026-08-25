@@ -1,0 +1,12 @@
+{
+  "contract": "W1_QUAL_01R1_HARNESS_UNIT_TEST_RESULTS",
+  "version": "1.0.0",
+  "executedBeforeHarnessFreeze": true,
+  "testFile": "src/features/protocol-designer/functional-reset/__tests__/w1-qual-01r1-characterization-harness.test.ts",
+  "tests": 11,
+  "passed": 11,
+  "failed": 0,
+  "requiredSyntheticBehaviorsCovered": 10,
+  "machineValidatorTests": 1,
+  "result": "PASS"
+}

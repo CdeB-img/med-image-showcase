@@ -1,0 +1,52 @@
+{
+  "contract": "W1_QUAL_01R1_CAMPAIGN_A_HARNESS_FORENSICS",
+  "version": "1.0.0",
+  "campaignAId": "W1-QUAL-01R-ST-2026-08-25-A",
+  "campaignAClassification": "EXPOSED_HARNESS_DEVELOPMENT_EVIDENCE",
+  "validForIndependentStCharacterization": false,
+  "campaignARuntimeStDefectEstablished": false,
+  "campaignAFilesModified": false,
+  "defectsConfirmed": [
+    "R1-HARNESS-01",
+    "R1-HARNESS-02",
+    "R1-HARNESS-03",
+    "R1-HARNESS-04",
+    "R1-HARNESS-05",
+    "R1-HARNESS-06"
+  ],
+  "c3DevelopmentReadback": {
+    "use": "HARNESS_DEVELOPMENT_EVIDENCE_ONLY",
+    "obligationNowAdjudicable": true,
+    "observedMechanisms": 0,
+    "observedScientificModels": 0,
+    "developmentOutcome": "VIOLATED",
+    "note": "The corrected obligation can now distinguish explanatory representation from mere candidate counts; this exposed result is excluded from the independent numerator."
+  },
+  "c7DevelopmentReadback": {
+    "use": "HARNESS_DEVELOPMENT_EVIDENCE_ONLY",
+    "formerStrictZeroExpectationRemoved": true,
+    "correctedMode": "CONDITIONAL_CANDIDATE_ALLOWED",
+    "developmentOutcome": "SATISFIED",
+    "projectUnknownPreserved": true,
+    "note": "An absent explicit Project question does not itself compel zero hypotheses/objectives."
+  },
+  "oldTraceCompleteness": {
+    "traceQualificationComplete": "NO",
+    "missingFields": [
+      "knowledgeResultRef",
+      "knowledgeResultDigest",
+      "stRequestRef",
+      "stRequestDigest",
+      "stVersion",
+      "stResultRef",
+      "stResultDigest",
+      "candidateStructure",
+      "gaps",
+      "limitations",
+      "contradictions",
+      "durationMs"
+    ],
+    "caseAdjudicable": false
+  },
+  "conclusion": "CAMPAIGN_A_INVALID_AND_PRESERVED_NEW_HARNESS_DEVELOPED_WITHOUT_RETROACTIVE_READJUDICATION"
+}

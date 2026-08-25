@@ -1,0 +1,99 @@
+{
+  "contract": "W1_QUAL_01R1_KNOWLEDGE_INPUT_QUALITY_GATE",
+  "version": "2.0.0",
+  "statuses": [
+    "USABLE",
+    "NOT_USABLE",
+    "NON_ADJUDICABLE"
+  ],
+  "explicitField": "KNOWLEDGE_INPUT_USABLE_FOR_ST_CHARACTERIZATION",
+  "decisionExcluded": "WHETHER_ST_SHOULD_GENERATE_A_HYPOTHESIS",
+  "gapsAndContradictionsPermittedWhenPreserved": true,
+  "requiredChecks": [
+    "Project tuple",
+    "provenance",
+    "applicability",
+    "conditional source/evidence refs",
+    "gap preservation",
+    "limitation preservation",
+    "contradiction preservation",
+    "no pre-encoded ST decision",
+    "not stale",
+    "purpose coherence",
+    "frozen digest"
+  ],
+  "campaignADevelopmentReadback": [
+    {
+      "caseId": "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MYOCARDITIS-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-NEURO-OEF-CMRO2-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-INSUFFICIENT-FINALITY-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-PROJECT-QUESTION-MISSING-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-OUT-OF-OWNER-DICOM-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    },
+    {
+      "caseId": "ST01R-STALE-KNOWLEDGE-01",
+      "formerEligible": true,
+      "developmentStatus": "USABLE",
+      "numeratorAuthorized": false
+    }
+  ]
+}

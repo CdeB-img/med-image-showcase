@@ -1,0 +1,19 @@
+{
+  "contract": "W1_QUAL_01R1_NEGATIVE_EXPECTATION_SEMANTICS",
+  "version": "2.0.0",
+  "modes": [
+    "STRICT_NO_CANDIDATE_EXPECTED",
+    "CONDITIONAL_CANDIDATE_ALLOWED",
+    "CLARIFICATION_OR_GAP_EXPECTED",
+    "CANDIDATE_REQUIRED"
+  ],
+  "strictModeConstraint": "ONLY_WHEN_THE_CONTRACT_COMPELS_NO_SCIENTIFIC_CANDIDATE",
+  "absentProjectQuestionImpliesStrictZero": false,
+  "conditionalCandidateChecks": [
+    "pending",
+    "conditions explicit",
+    "unknowns preserved",
+    "not adopted",
+    "no evidence promotion"
+  ]
+}

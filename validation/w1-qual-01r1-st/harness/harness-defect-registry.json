@@ -1,0 +1,57 @@
+{
+  "contract": "W1_QUAL_01R1_HARNESS_DEFECT_REGISTRY",
+  "version": "1.0.0",
+  "defects": [
+    {
+      "defectId": "R1-HARNESS-01",
+      "defect": "INCOMPLETE_FAILURE_TAXONOMY",
+      "classification": "CHARACTERIZATION_HARNESS_DEFECT",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "correctedBy": "taxonomy-repair.json"
+    },
+    {
+      "defectId": "R1-HARNESS-02",
+      "defect": "NON_CONFORMANT_KNOWLEDGE_INPUT_GATE",
+      "classification": "CHARACTERIZATION_HARNESS_DEFECT",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "correctedBy": "knowledge-gate-repair.json"
+    },
+    {
+      "defectId": "R1-HARNESS-03",
+      "defect": "QUALIFICATION_TRACE_INCOMPLETE",
+      "classification": "TRACE_INCOMPLETE",
+      "firstDivergentStage": "TRACE_INSTRUMENTATION",
+      "correctedBy": "trace-completeness-contract.json"
+    },
+    {
+      "defectId": "R1-HARNESS-04",
+      "defect": "MECHANISTIC_CASE_WITHOUT_MECHANISTIC_OBLIGATION",
+      "classification": "REFERENCE_ENVELOPE_DEFECT",
+      "firstDivergentStage": "CHARACTERIZATION_REFERENCE",
+      "correctedBy": "mechanistic-obligation-contract.json"
+    },
+    {
+      "defectId": "R1-HARNESS-05",
+      "defect": "UNJUSTIFIED_ZERO_CANDIDATE_EXPECTATION",
+      "classification": "REFERENCE_ENVELOPE_DEFECT",
+      "firstDivergentStage": "CHARACTERIZATION_REFERENCE",
+      "correctedBy": "negative-expectation-contract.json"
+    },
+    {
+      "defectId": "R1-HARNESS-06",
+      "defect": "HARNESS_DEFECT_MAPPED_TO_HUMAN_ARBITRATION",
+      "classification": "CHARACTERIZATION_HARNESS_DEFECT",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "correctedBy": "status-model and adjudication precedence"
+    }
+  ],
+  "counts": {
+    "total": 6,
+    "harness": 4,
+    "reference": 2,
+    "owner": 0
+  },
+  "historicalStatusInconsistencyCorrectedProspectively": true,
+  "harnessDefectMappedToHumanArbitration": false,
+  "referenceDefectMappedToOwnerRepair": false
+}
