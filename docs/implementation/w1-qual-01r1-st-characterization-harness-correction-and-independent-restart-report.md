@@ -1,8 +1,11 @@
 # W1-QUAL-01R1 — ST Characterization Harness Correction & Independent Restart
 
-**Classification:** `LEVEL_3_IMPLEMENTATION_EVIDENCE`  
-**Normative status:** non-normative; this report records implementation and characterization-process evidence only.  
-**Date:** 25 August 2026  
+**Classification:** `LEVEL_3_IMPLEMENTATION_EVIDENCE`
+
+**Normative status:** non-normative; this report records implementation and characterization-process evidence only.
+
+**Date:** 25 August 2026
+
 **Branch:** `protocol-designer-canonical-ingestion`
 
 ## 1. Decision
