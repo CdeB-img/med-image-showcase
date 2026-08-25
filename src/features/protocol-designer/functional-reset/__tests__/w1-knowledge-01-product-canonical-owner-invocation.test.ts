@@ -396,4 +396,41 @@ describe("W1-KNOWLEDGE-01 — product canonical Knowledge owner invocation", () 
     expect(sessionWithResult.queryNavigation).toBeNull();
     expect(sessionWithResult.bridgeTraces).toEqual([]);
   });
+
+  it("W1K01-26 fails closed when the Knowledge result engine version mismatches the request contract", () => {
+    const versionMismatchRequest = createKnowledgeRequest({
+      originalQuestion: "Quelle version du moteur produit ce résultat Knowledge ?",
+      scientificObjectTerms: [{ term: "ECV", role: "SUBJECT" }],
+      researchProjectId: snapshot.sourceProjectRef,
+      strategyVersion: snapshot.sourceProjectVersion,
+      consumer: "RESEARCH_PROJECT_CONSTRUCTION",
+      externalSearchPolicy: "INTERNAL_ONLY",
+      createdAt: "2026-08-25T10:13:00.000Z",
+    });
+    const invocation = invokeKnowledgeForProject({
+      project,
+      projectSnapshot: snapshot,
+      knowledgeRequest: versionMismatchRequest,
+      ledger: productInvocation.ledger,
+      callerRef: "W1-CLOSURE-01:CONFIGURATION_MISMATCH",
+      purpose: "Démontrer le rejet fail-closed d'une version de moteur incohérente.",
+      startedAt: "2026-08-25T10:13:00.000Z",
+      completedAt: "2026-08-25T10:13:01.000Z",
+      runtime: (nativeRequest) => {
+        const result = executeKnowledgeRequest(nativeRequest);
+        return {
+          ...result,
+          trace: { ...result.trace, engineVersion: "9.9.9" },
+        } as unknown as KnowledgeResult;
+      },
+    });
+
+    expect(invocation.observation).toMatchObject({
+      status: "INVALID_OWNER_RESULT",
+      failureCode: "KNOWLEDGE_RESULT_PROJECT_OR_REQUEST_MISMATCH",
+      runtimeStarts: 1,
+      projectWrites: 0,
+    });
+    expect(invocation.result).toBeNull();
+  });
 });

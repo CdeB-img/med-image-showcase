@@ -210,7 +210,11 @@ export const buildKnowledgeRequestFromProjectSnapshot = (input: {
 const validKnowledgeResult = (
   result: KnowledgeResult,
   request: SpecializedOwnerHandoffRequest<KnowledgeRequest>,
-) => result.request.requestId === request.nativeInput.requestId
+) => request.nativeInputVersion === KNOWLEDGE_ENGINE_VERSION
+  && request.nativeInput.contractVersion === KNOWLEDGE_ENGINE_VERSION
+  && result.request.contractVersion === KNOWLEDGE_ENGINE_VERSION
+  && result.trace.engineVersion === KNOWLEDGE_ENGINE_VERSION
+  && result.request.requestId === request.nativeInput.requestId
   && result.request.researchProjectId === request.sourceProject.sourceProjectRef
   && result.request.strategyVersion === request.sourceProject.sourceProjectVersion
   && result.request.externalSearchPolicy === "INTERNAL_ONLY"
