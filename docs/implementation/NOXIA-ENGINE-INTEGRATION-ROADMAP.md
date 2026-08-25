@@ -8,10 +8,10 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 25 August 2026 |
-| Verified baseline | `c6e47d7072144d27ccead68ed5924a20ce6747e6` + W1-TRACE-01 targeted evidence |
+| Verified baseline | `772cacfd184daeb531eef6a7a866874a7863e228` + W1-QUAL-01 campaign `W1-QUAL-01-2026-08-25-G` evidence |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
-| Portfolio diagnosis | `W1_ARCHITECTURAL_CONVERGENCE_READY_FURTHER_EVIDENCE_REQUIRED` |
+| Portfolio diagnosis | `W1_QUAL_01_OWNER_REPAIR_REQUIRED` |
 | Superior authorities | NOXIA Founding Charter; Scientific Product Manifesto V2; applicable Level 1 specialized references |
 | Documentary authority | None. This file does not amend, replace, or extend any authority. |
 
@@ -23,31 +23,41 @@
 |---|---|
 | Portfolio state | One canonical Project snapshot now feeds native Knowledge, Scientific Thinking, Imaging and conditional REG through typed product entrypoints; native deterministic VAL observes the retained Knowledge/ST/Imaging chain through a separate append-only ValidationRun ledger; nominal owner selection remains outside this bounded product chain |
 | Active wave | `WAVE_1_SCIENTIFIC_LOOP` |
-| Current objective | Characterize each connected owner individually now that passive cross-owner observability and replay planning are available. |
+| Current objective | Repair the bounded Scientific Thinking critical-candidate omission demonstrated by W1-QUAL-01 before any controlled-loop characterization. |
 | Next wave | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` after Wave 1 completion |
 | Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge → Scientific Thinking → Imaging → deterministic VAL observation, plus an explicit conditional Project → REG branch, with immutable owner-result and ValidationRun retention |
 | Tested off-product corridor | Read-only adapter → CDM / DM / Biostatistics / TMP; historical SPINE and VAL fixture corridors |
 | Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
-| Main blocker | Architectural convergence and passive technical observability are demonstrated; individual scientific performance and representative owner failure modes remain insufficiently characterized. |
+| Main blocker | W1-QUAL-01 characterized all five owners in a bounded campaign, but Scientific Thinking produced zero hypothesis and zero objective candidates for supported cardiac and neuro inputs; first divergence is `SCIENTIFIC_THINKING_ENGINE`. |
 | Active engineering | One wave only; no engine development is authorized by this document itself. |
 
-### Current Wave 1 checkpoint decisions after W1-TRACE-01
+### Current Wave 1 checkpoint decisions after W1-QUAL-01
 
 | Decision | Result | Evidence boundary |
 |---|---|---|
 | `W1_ARCHITECTURAL_CONVERGENCE_READY` | `YES` | Same canonical Project identity/snapshot, typed ownership and dependencies, immutable ledgers, stale guards, non-promotion and zero silent Project writes are demonstrated after the bounded Knowledge engine-version guard. Initial convergence was `FAILED`; post-repair convergence is `PASS`. |
 | `W1_OBSERVABILITY_READY` | `YES` | A separate append-only trace ledger binds one `ScientificRun` to the exact Project snapshot and records ordered owner, handoff, persistence, stale and VAL events with request/result/dependency/digest/error refs; replay from event N is plan-only. |
-| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | Architectural contract suites exist; individual scientific performance and failure modes have not been sufficiently characterized. |
+| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | The frozen 35-case campaign is complete and reconstructible, but Scientific Thinking has two critical `CRITICAL_REASONING_OMISSION` findings on supported inputs; no owner repair was performed. |
 | `W1_CONTROLLED_LOOP_CHARACTERIZATION_READY` | `NO` | No controlled representative chain campaign with frozen inputs, explicit expectations and first-stage error attribution has been performed. |
 | `WAVE_1_COMPLETE` | `NO` | Architectural convergence alone is necessary and insufficient. Wave 2 remains paused. |
+
+`WAVE_2_AUTHORIZED = NO`
 
 `FIRST_DIVERGENT_STAGE_DIAGNOSTIC_READINESS = YES`
 
 `CONTROLLED_LOOP_CHARACTERIZATION = NOT_PERFORMED`
 
+| Owner | W1-QUAL-01 characterization | Bounded evidence |
+|---|---|---|
+| Knowledge | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 6/6 cases fully satisfied; honest gap, ambiguity and stale readback exercised; no critical violation observed. |
+| Scientific Thinking | `OWNER_REPAIR_REQUIRED` | 2/4 cases fully satisfied; cardiac and neuro each retain the question but return zero hypothesis/objective candidates; two critical omissions. |
+| Imaging | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 4/4 cases fully satisfied; candidate modality/acquisition, QA, Core Lab, unknown and OBS boundaries preserved. |
+| REG | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 8/8 cases fully satisfied within REG-000 candidate corpus; unsupported jurisdiction and stale request fail closed; no approval claim. |
+| VAL | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 13/13 structural cases fully satisfied, including clean-chain false-positive control; no repair or scientific qualification claim. |
+
 ### Top quick wins queued in Wave 1
 
-1. W1-QUAL-01 — characterize the connected owners individually with bounded, frozen and owner-specific evidence; do not treat architectural tests as scientific qualification.
+1. W1-SCIENTIFIC-THINKING-REPAIR-01 — correct only the demonstrated omission of hypothesis/objective candidates for supported, typed Knowledge inputs; preserve all ownership, uncertainty and non-promotion boundaries.
 
 ### Top blockers
 
@@ -439,7 +449,7 @@ These are active implementation controls traced to superior authorities and curr
 
 `CURRENT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
 
-`CURRENT_OBJECTIVE = CHARACTERIZE_CONNECTED_OWNERS_INDIVIDUALLY_BEFORE_CONTROLLED_LOOP_CHARACTERIZATION`
+`CURRENT_OBJECTIVE = REPAIR_SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_OMISSION_BEFORE_LOOP_CHARACTERIZATION`
 
 `NEXT_WAVE = WAVE_2_STUDY_DESIGN_TIME_CHAIN_AFTER_WAVE_1_COMPLETION`
 
@@ -449,16 +459,16 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = W1-QUAL-01_INDIVIDUAL_OWNER_CHARACTERIZATION`
+`NEXT_AUTHORIZED_MISSION = W1-SCIENTIFIC-THINKING-REPAIR-01_CRITICAL_REASONING_CANDIDATE_COVERAGE`
 
 | Field | Contract |
 |---|---|
-| Mission goal | Characterize individual connected-owner performance and representative failure modes using frozen, owner-specific evidence without claiming universal scientific validation. |
-| Input | Exact frozen Project snapshots, owner requests/results, W1-TRACE-01 runs/events/replay plans, owner-specific expectations and applicable human/reference review |
-| Output | Bounded characterization evidence for Knowledge, Scientific Thinking, Imaging, REG and VAL, with limitations and first-divergent-stage attribution retained |
-| Definition of done | Each owner has explicit test population, frozen inputs, inspectable outputs, characterized failure modes, replay evidence and a bounded human/evidence interpretation; technical PASS remains distinct from scientific qualification |
-| Engines / connections affected | Individual owner characterization only; TRACE observes and references artifacts but does not execute, judge, repair or adopt |
-| Do not touch | Controlled full-loop qualification; Wave 2; QRY/automatic orchestration; Project truth; provider prompts unless separately authorized; OBS runtime; Study Design runtime; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
+| Mission goal | Repair the generic Scientific Thinking failure that returns no hypothesis or objective candidates for supported cardiac and neuro inputs, without strengthening evidence or adopting Project truth. |
+| Input | W1-QUAL-01 frozen ST cardiac/neuro packs, exact typed Knowledge dependencies, two `CRITICAL_REASONING_OMISSION` records and their TRACE runs |
+| Output | Minimal deterministic ST-owned correction plus focused non-regression evidence; a new characterization campaign is required before advancing to loop qualification |
+| Definition of done | Supported typed inputs produce inspectable pending question/hypothesis/objective candidates or an explicitly contract-justified fail-closed state; lineage, gaps, contradictions, candidate status and zero Project write remain intact |
+| Engines / connections affected | Scientific Thinking owner only; no Knowledge, Imaging, REG, VAL, Project, TRACE or corpus behavior change |
+| Do not touch | Controlled full-loop qualification; Wave 2; QRY/automatic orchestration; Project truth; corpus enrichment; OBS runtime; Study Design runtime; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
 
 # Engine completion queue
 
@@ -467,7 +477,7 @@ These are active implementation controls traced to superior authorities and curr
 | 1 | Research Project consumer contracts | Mixed canonical + legacy | One canonical source with governed adapters | `M` | None | Wave 0 | None | Adapter ready off-product; legacy shapes remain projections, not truth. |
 | 2 | Knowledge | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 complete | Wave 1 / 4 | Nominal owner selection | Product Knowledge → ST handoff and immutable dependency readback are complete; hands-on remains later. |
 | 3 | REG | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 | Wave 1 / 4 | Nominal owner selection | Explicit conditional invocation and immutable result retention are complete; corpus admission/coverage and hands-on remain bounded gaps. |
-| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Knowledge + Wave 0 | Wave 1 / 4 | Nominal owner selection | Knowledge lineage is retained through Imaging and observed by VAL; no automatic adoption. |
+| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE / OWNER_REPAIR_REQUIRED` | Bounded repair, then repeat individual characterization | `M` | Knowledge + Wave 0 | Wave 1 | `CRITICAL_REASONING_OMISSION` on supported cardiac/neuro cases | Knowledge lineage and non-adoption remain intact, but candidate reasoning coverage is insufficient in two representative domains. |
 | 5 | VAL | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Typed retained K/ST/Imaging handoffs | Wave 1 / 4 | Automatic owner-loop trigger | Explicit read-only observation and immutable run retention are complete; observe/block only. |
 | 6 | Imaging | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Knowledge + ST | Wave 1 / 4 | Nominal owner selection; OBS remains an explicit limitation | Product-callable and VAL-observed do not mean executable protocol or hands-on validation. |
 | 7 | CDM | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | Wave 0 | Wave 2 | Owner-result/contribution orchestration | Planning only. |
@@ -521,7 +531,8 @@ Portfolio totals retained from the audit:
 | `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge, Scientific Thinking, Imaging, REG and VAL are explicitly product-callable, but QRY/conversation does not select owners. | No | Wave 4 | W1K01/W1ST01/W1IMG01/W1REG01/W1VAL01 product entrypoints vs nominal conversation loop |
 | `REGULATORY_CORPUS_ADMISSION_AND_COVERAGE` | `OPEN_BOUNDED_DEBT` | REG-000 is candidate/non-admitted and locally covers only FR, EU/EEA, US and international methodological/reporting guidance; other jurisdictions fail closed and no current-law completeness is claimed. | No | Separate corpus governance authorization | REG-000 v1.0.0, verified 2026-08-10; W1REG01-10–23 |
 | `SCIENTIFIC_EXECUTION_TRACE_GAP` | `CLOSED_W1_TRACE_01` | A distinct session-persisted ledger now retains exact run/Project binding, ordered owner/handoff/persistence/stale/VAL events, integrity and logical digests, bounded references, technical errors, comparator output and event-N replay plans. It remains optional, passive and non-authoritative; no replay executor was created. | No | Closed in W1-TRACE-01 | W1TRACE01 unit/corridor/diagnostic fixtures; implementation report and machine manifest |
-| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `OPEN_WAVE_1_BLOCKER` | Contract evidence is sufficient for the connected owners, but individual scientific performance and representative failure modes are not sufficiently characterized. | Yes | W1-QUAL-01 candidate after TRACE | W1-CLOSURE-01 owner characterization matrix |
+| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `PARTIALLY_CHARACTERIZED_WAVE_1_BLOCKER` | A frozen 35-case campaign now characterizes all five owners; Knowledge, Imaging, REG and VAL are bounded-characterized, while Scientific Thinking remains `OWNER_REPAIR_REQUIRED`. | Yes | Re-characterize after the bounded ST repair | W1-QUAL-01 campaign G, freeze `ke1-338176f77d9f11f3`, manifest `ke1-e87cad99f91d14d5` |
+| `SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_COVERAGE` | `OPEN_WAVE_1_BLOCKER` | On supported cardiac and neuro frozen KnowledgeResults, ST preserves the Project question but returns zero hypotheses and zero objectives, yielding two reproducible critical `CRITICAL_REASONING_OMISSION` findings. | Yes | W1-SCIENTIFIC-THINKING-REPAIR-01 | `ST-CARDIAC-01`, `ST-NEURO-01`; first divergence `SCIENTIFIC_THINKING_ENGINE`; no repair performed in W1-QUAL-01 |
 | `CONTROLLED_LOOP_CHARACTERIZATION_GAP` | `OPEN_WAVE_1_BLOCKER` | The assembled Project → Knowledge → ST → Imaging → VAL loop has not undergone a controlled representative campaign with frozen inputs, explicit expectations, replay and first-stage attribution. | Yes | W1-LOOP-QUAL-01 candidate after individual characterization | `CONTROLLED_LOOP_CHARACTERIZATION = NOT_PERFORMED` |
 | `PREEXISTING_HISTORICAL_FIXTURE_DEBT` | `OPEN_NON_BLOCKING_DEBT` | Four IMG-001B freeze expectations, one downstream PRJ fixture and three SYS expectations (ST version, DOC decision propagation, Imaging freeze status) remain red; they concern historical interactive/freeze and SYS fixture contracts, not W1 owner convergence. | No | Historical fixture maintenance | W1-CLOSURE-01 fresh isolated runs reproduce 4/60 IMG failures, 1/73 PRJ failure and 3/34 SYS failures, matching the prior eight-failure baseline classification |
 | Study Design runtime | `ABSENT` | No standalone owner for study-strategy coherence. | No | Explicit replan after Wave 1 | Capability inventory; RDE-001/002 normative only |
@@ -534,6 +545,7 @@ Portfolio totals retained from the audit:
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
+| W1-QUAL-01 | `W1_QUAL_01_OWNER_REPAIR_REQUIRED` / checkpoint commit containing this roadmap | Independent bounded characterization of Knowledge, Scientific Thinking, Imaging, REG and VAL | 35 frozen owner-isolated cases, 35 acceptance envelopes, 43 passive trace runs and 8 stable replays; Knowledge 6/6, Imaging 4/4, REG 8/8 and VAL 13/13 fully satisfy the bounded envelopes; ST demonstrates two critical reasoning omissions at `SCIENTIFIC_THINKING_ENGINE` | Universal scientific validity, corpus completeness, repaired ST behavior, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-TRACE-01 | `W1_TRACE_01_SCIENTIFIC_EXECUTION_TRACE_READY` / checkpoint commit containing this roadmap | Passive cross-owner observability and replay planning | Exact run/Project binding, immutable ordered events, request/result/dependency/persistence correlation, stale and error visibility, conditional REG, separate VAL references, first-observable-stage localization, trace ON/OFF output equivalence and zero TRACE writes/LLM calls | Scientific answer quality, corpus completeness, individual owner characterization, controlled loop characterization, executable replay engine, orchestration, OBS, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-CLOSURE-01 | `W1_ARCHITECTURAL_CONVERGENCE_READY_FURTHER_EVIDENCE_REQUIRED` / repair `09358e5724e08c5f9620124dd055cac2f090d829` + checkpoint commit | Wave 1 architectural convergence, observability, replay and characterization gap checkpoint | Post-repair exact Project identity/snapshot propagation, owner separation, immutable OwnerResult/ValidationRun retention, dependency/stale guards, provenance/unknown/limitation/contradiction preservation, non-promotion and zero silent Project writes; identifies TRACE as the first remaining Wave 1 blocker | Scientific performance, corpus completeness, sufficient individual characterization, controlled loop characterization, PD-011 qualification, production readiness or Wave 2 authorization |
 | W1-REG-01 | `W1_REG_01_PRODUCT_CANONICAL_REGULATORY_OWNER_INVOCATION_READY` / this commit | Conditional product canonical Project → native REG | Exact snapshot and caller-supplied typed request invoke native local REG; requirements/applicability/source and corpus refs, missing context and limitations survive an immutable shared ledger; unsupported jurisdiction and stale Project fail closed; Project/provider/network writes are zero | Regulatory approval, legal advice, admitted/current-law corpus status, QRY/automatic orchestration, hands-on validation, VAL profile extension or Project adoption |
