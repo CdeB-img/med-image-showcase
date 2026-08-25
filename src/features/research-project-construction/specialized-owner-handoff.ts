@@ -74,7 +74,7 @@ export const SPECIALIZED_OWNER_CAPABILITIES = Object.freeze([
     owner: "SCIENTIFIC_THINKING",
     role: "SPECIALIZED_OWNER",
     status: "AVAILABLE_WITH_LIMITATIONS",
-    implementationVersion: "1.1.0",
+    implementationVersion: "1.2.0",
     inputContract: "ScientificThinkingInput",
     outputContract: "ScientificThinkingOutput / ResearchDesignHandoff",
     pd003V2Compatibility: "COMPATIBLE_THROUGH_ADAPTER",

@@ -447,12 +447,20 @@ const buildHandoff = (
     knownInformation: unique([...input.information.explicit, ...input.information.interpreted]),
     acceptedUnknowns: accepted,
     unresolvedUnknowns,
-    contradictions: input.contradictions,
+    contradictions: unique([...input.contradictions, ...input.knowledge.contradictions]),
     decisionRecordIds: unique(controls.decisionRecordIds ?? []),
     humanDecisions: controls.decisionRecords ?? [],
     alternativesNotSelected: alternatives,
     limitations: input.knowledge.limitations,
-    provenanceRefs: unique([input.requestId, ...(input.knowledge.resultId ? [input.knowledge.resultId] : []), ...input.knowledge.sourceIds]),
+    provenanceRefs: unique([
+      input.requestId,
+      ...(input.knowledge.ownerResultRef ? [input.knowledge.ownerResultRef] : []),
+      ...(input.knowledge.resultId ? [input.knowledge.resultId] : []),
+      ...input.knowledge.assertionRefs,
+      ...input.knowledge.documentaryStatementRefs,
+      ...input.knowledge.evidenceRefs,
+      ...input.knowledge.sourceIds,
+    ]),
     knowledgeResultRef: input.knowledge.resultId,
     blockedBy,
     boundary: "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN",
@@ -553,6 +561,33 @@ export const executeScientificThinkingEngine = (
   const outputStatus: ScientificThinkingOutput["status"] = refusal
     ? refusal.code === "NON_TESTABLE" ? "CLARIFICATION_REQUIRED" : "REFUSED"
     : adaptiveQuestions.some((item) => item.blocking && !item.answeredValue) ? "CLARIFICATION_REQUIRED" : "CANDIDATES_PROPOSED";
+  const candidateRefs = unique([
+    ...questions.map((item) => item.questionId),
+    ...hypotheses.map((item) => item.hypothesisId),
+    ...objectives.map((item) => item.objectiveId),
+    ...mechanisms.map((item) => item.mechanismId),
+  ]);
+  const knowledgeDependencies: ScientificThinkingOutput["knowledgeDependencies"] = input.knowledge.ownerResultRef
+    && input.knowledge.resultId
+    && input.knowledge.resultRevision
+    && input.knowledge.resultDigest
+    ? [{
+      owner: "KNOWLEDGE",
+      ownershipTransferred: false,
+      knowledgeOwnerResultRef: input.knowledge.ownerResultRef,
+      knowledgeResultRef: input.knowledge.resultId,
+      knowledgeResultRevision: input.knowledge.resultRevision,
+      knowledgeResultDigest: input.knowledge.resultDigest,
+      candidateRefs,
+      assertionRefs: input.knowledge.assertionRefs,
+      documentaryStatementRefs: input.knowledge.documentaryStatementRefs,
+      evidenceRefs: input.knowledge.evidenceRefs,
+      sourceRefs: input.knowledge.sourceIds,
+      applicability: input.knowledge.applicability,
+      contradictionRefs: input.knowledge.contradictionRefs,
+      gapRefs: input.knowledge.gapRefs,
+    }]
+    : [];
   const core = {
     input: input.requestId, status: outputStatus,
     originalIdea: input.originalExpression,
@@ -560,9 +595,9 @@ export const executeScientificThinkingEngine = (
     centralScientificObject: objectLabel(input),
     semanticElements, questions, hypotheses, objectives, mechanisms, assumptions, unknowns, ambiguities,
     selectedQuestionCandidate: questions.find((item) => item.reviewState === "ADOPTED") ?? null,
-    contradictions: input.contradictions, conceptualBiases, reasoningIssues, methodPreferences: input.methodsMentioned, alternatives,
+    contradictions: unique([...input.contradictions, ...input.knowledge.contradictions]), conceptualBiases, reasoningIssues, methodPreferences: input.methodsMentioned, alternatives,
     operations, adaptiveQuestions, humanGates, changes: controls.changes ?? [], refusal, knowledgeRequest,
-    graph: { projectionVersion: "RUNTIME_PROJECTION_1.0" as const, ontologyStatus: "NO_NEW_ONTOLOGY" as const, ...graphParts }, handoff,
+    graph: { projectionVersion: "RUNTIME_PROJECTION_1.0" as const, ontologyStatus: "NO_NEW_ONTOLOGY" as const, ...graphParts }, handoff, knowledgeDependencies,
   };
   const outputDigest = logicalDigest(core);
   const proposedNextAction: ScientificThinkingOutput["proposedNextAction"] = refusal && refusal.code !== "NON_TESTABLE" ? "STOP"
@@ -592,15 +627,23 @@ export const executeScientificThinkingEngine = (
     centralScientificObject: core.centralScientificObject,
     semanticElements, questions, hypotheses, objectives, mechanisms, assumptions, unknowns, ambiguities,
     selectedQuestionCandidate: core.selectedQuestionCandidate,
-    contradictions: input.contradictions, conceptualBiases, reasoningIssues, methodPreferences: input.methodsMentioned, alternatives,
+    contradictions: core.contradictions, conceptualBiases, reasoningIssues, methodPreferences: input.methodsMentioned, alternatives,
     operations, adaptiveQuestions, humanGates, changes: controls.changes ?? [], refusal, knowledgeRequest,
     proposedNextAction,
     humanDecisionRequired: humanGates.some((item) => item.status === "PENDING"),
+    knowledgeDependencies,
     provenance: {
       engineVersion: SCIENTIFIC_THINKING_ENGINE_VERSION,
       inputRef: input.requestId,
       knowledgeResultRef: input.knowledge.resultId,
-      sourceRefs: unique([...input.knowledge.sourceIds, ...input.researchContext.previousDecisionIds]),
+      sourceRefs: unique([
+        ...(input.knowledge.ownerResultRef ? [input.knowledge.ownerResultRef] : []),
+        ...input.knowledge.assertionRefs,
+        ...input.knowledge.documentaryStatementRefs,
+        ...input.knowledge.evidenceRefs,
+        ...input.knowledge.sourceIds,
+        ...input.researchContext.previousDecisionIds,
+      ]),
       policyRefs: ["RDE-001", "RDE-002", "PD-003", "PD-009", "KE-001"],
       llmContributionStatus: "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY",
     },

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 
-export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.1.0" as const;
+export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.2.0" as const;
 
 export const SEMANTIC_TYPES = [
   "OBSERVATION",
@@ -91,11 +91,20 @@ export type ScientificThinkingInput = {
     interpreted: string[];
   };
   knowledge: {
+    ownerResultRef: string | null;
     resultId: string | null;
+    resultRevision: number | null;
     resultDigest: string | null;
     coverageStatus: string;
     support: KnowledgeSupport;
     sourceIds: string[];
+    assertionRefs: string[];
+    documentaryStatementRefs: string[];
+    evidenceRefs: string[];
+    applicability: Array<{ assertionRef: string; status: string }>;
+    contradictionRefs: string[];
+    contradictions: string[];
+    gapRefs: string[];
     gapCodes: string[];
     unresolvedConcepts: string[];
     limitations: string[];
@@ -278,6 +287,22 @@ export type ScientificThinkingOutput = {
   knowledgeRequest: null | { status: "REQUIRED" | "OPTIONAL"; reason: string; unresolvedConcepts: string[]; gapCodes: string[] };
   proposedNextAction: "CLARIFY" | "REVIEW_CANDIDATES" | "REQUEST_KNOWLEDGE" | "REQUEST_HUMAN_DECISION" | "HANDOFF_TO_RESEARCH_DESIGN" | "STOP";
   humanDecisionRequired: boolean;
+  knowledgeDependencies: Array<{
+    owner: "KNOWLEDGE";
+    ownershipTransferred: false;
+    knowledgeOwnerResultRef: string;
+    knowledgeResultRef: string;
+    knowledgeResultRevision: number;
+    knowledgeResultDigest: string;
+    candidateRefs: string[];
+    assertionRefs: string[];
+    documentaryStatementRefs: string[];
+    evidenceRefs: string[];
+    sourceRefs: string[];
+    applicability: Array<{ assertionRef: string; status: string }>;
+    contradictionRefs: string[];
+    gapRefs: string[];
+  }>;
   provenance: {
     engineVersion: typeof SCIENTIFIC_THINKING_ENGINE_VERSION;
     inputRef: string;
@@ -306,6 +331,10 @@ export type ScientificThinkingSession = {
 };
 
 const stringArray = z.array(z.string().min(1).max(500)).max(100);
+// Knowledge lineage can legitimately contain more than 100 governed references.
+// It is intentionally kept distinct from small scientific-content collections so
+// the ST boundary preserves native evidence instead of truncating or flattening it.
+const referenceArray = z.array(z.string().min(1).max(500)).max(10_000);
 export const scientificThinkingInputSchema = z.object({
   contractVersion: z.literal(SCIENTIFIC_THINKING_ENGINE_VERSION),
   requestId: z.string().min(1).max(200),
@@ -329,9 +358,12 @@ export const scientificThinkingInputSchema = z.object({
   safetyFlags: stringArray,
   information: z.object({ explicit: stringArray, interpreted: stringArray }).strict(),
   knowledge: z.object({
-    resultId: z.string().nullable(), resultDigest: z.string().nullable(), coverageStatus: z.string(),
+    ownerResultRef: z.string().nullable(), resultId: z.string().nullable(), resultRevision: z.number().int().positive().nullable(), resultDigest: z.string().nullable(), coverageStatus: z.string(),
     support: z.enum(["SUPPORTED", "PARTIAL", "UNSUPPORTED", "CONFLICTING", "UNAVAILABLE"]),
-    sourceIds: stringArray, gapCodes: stringArray, unresolvedConcepts: stringArray, limitations: stringArray,
+    sourceIds: referenceArray, assertionRefs: referenceArray, documentaryStatementRefs: referenceArray, evidenceRefs: referenceArray,
+    applicability: z.array(z.object({ assertionRef: z.string(), status: z.string() }).strict()),
+    contradictionRefs: referenceArray, contradictions: stringArray, gapRefs: referenceArray, gapCodes: stringArray,
+    unresolvedConcepts: stringArray, limitations: stringArray,
   }).strict(),
 }).strict();
 
@@ -374,9 +406,15 @@ export const scientificThinkingOutputSchema = z.object({
   refusal: z.object({ code: z.enum(["PATIENT_LEVEL", "OUT_OF_DOMAIN", "NON_TESTABLE", "INSUFFICIENT_INPUT"]), reason: z.string(), resumeCondition: z.string() }).strict().nullable(),
   knowledgeRequest: z.object({ status: z.enum(["REQUIRED", "OPTIONAL"]), reason: z.string(), unresolvedConcepts: stringArray, gapCodes: stringArray }).strict().nullable(),
   proposedNextAction: z.enum(["CLARIFY", "REVIEW_CANDIDATES", "REQUEST_KNOWLEDGE", "REQUEST_HUMAN_DECISION", "HANDOFF_TO_RESEARCH_DESIGN", "STOP"]), humanDecisionRequired: z.boolean(),
-  provenance: z.object({ engineVersion: z.literal(SCIENTIFIC_THINKING_ENGINE_VERSION), inputRef: z.string(), knowledgeResultRef: z.string().nullable(), sourceRefs: stringArray, policyRefs: z.tuple([z.literal("RDE-001"), z.literal("RDE-002"), z.literal("PD-003"), z.literal("PD-009"), z.literal("KE-001")]), llmContributionStatus: z.literal("UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY") }).strict(),
+  knowledgeDependencies: z.array(z.object({
+    owner: z.literal("KNOWLEDGE"), ownershipTransferred: z.literal(false), knowledgeOwnerResultRef: z.string(), knowledgeResultRef: z.string(),
+    knowledgeResultRevision: z.number().int().positive(), knowledgeResultDigest: z.string(), candidateRefs: stringArray,
+    assertionRefs: referenceArray, documentaryStatementRefs: referenceArray, evidenceRefs: referenceArray, sourceRefs: referenceArray,
+    applicability: z.array(z.object({ assertionRef: z.string(), status: z.string() }).strict()), contradictionRefs: referenceArray, gapRefs: referenceArray,
+  }).strict()),
+  provenance: z.object({ engineVersion: z.literal(SCIENTIFIC_THINKING_ENGINE_VERSION), inputRef: z.string(), knowledgeResultRef: z.string().nullable(), sourceRefs: referenceArray, policyRefs: z.tuple([z.literal("RDE-001"), z.literal("RDE-002"), z.literal("PD-003"), z.literal("PD-009"), z.literal("KE-001")]), llmContributionStatus: z.literal("UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY") }).strict(),
   graph: z.object({ projectionVersion: z.literal("RUNTIME_PROJECTION_1.0"), ontologyStatus: z.literal("NO_NEW_ONTOLOGY"), nodes: z.array(z.unknown()), edges: z.array(z.unknown()) }).strict(),
-  handoff: z.object({ handoffVersion: z.literal("1.1"), status: z.enum(["NOT_READY", "READY_FOR_HUMAN_AUTHORIZATION", "AUTHORIZED"]), questionId: z.string().nullable(), hypothesisIds: stringArray, objectiveIds: stringArray, mechanisms: z.array(mechanismCandidateSchema), knownInformation: stringArray, acceptedUnknowns: stringArray, unresolvedUnknowns: stringArray, contradictions: stringArray, decisionRecordIds: stringArray, humanDecisions: z.array(humanDecisionEnvelopeSchema), alternativesNotSelected: stringArray, limitations: stringArray, provenanceRefs: stringArray, knowledgeResultRef: z.string().nullable(), blockedBy: stringArray, boundary: z.literal("NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN") }).strict(),
+  handoff: z.object({ handoffVersion: z.literal("1.1"), status: z.enum(["NOT_READY", "READY_FOR_HUMAN_AUTHORIZATION", "AUTHORIZED"]), questionId: z.string().nullable(), hypothesisIds: stringArray, objectiveIds: stringArray, mechanisms: z.array(mechanismCandidateSchema), knownInformation: stringArray, acceptedUnknowns: stringArray, unresolvedUnknowns: stringArray, contradictions: stringArray, decisionRecordIds: stringArray, humanDecisions: z.array(humanDecisionEnvelopeSchema), alternativesNotSelected: stringArray, limitations: stringArray, provenanceRefs: referenceArray, knowledgeResultRef: z.string().nullable(), blockedBy: stringArray, boundary: z.literal("NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN") }).strict(),
   trace: z.array(z.object({ sequence: z.number().int(), operation: z.union([z.enum(SCIENTIFIC_THINKING_OPERATIONS), z.enum(["CLASSIFY_INPUT", "BUILD_GRAPH", "ASSESS_HANDOFF"])]), mode: z.enum(["DETERMINISTIC", "HUMAN_REQUIRED"]), decision: z.string(), inputDigest: z.string(), outputDigest: z.string() }).strict()),
 }).strict();
 

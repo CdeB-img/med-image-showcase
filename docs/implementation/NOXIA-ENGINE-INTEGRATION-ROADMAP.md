@@ -8,10 +8,10 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 25 August 2026 |
-| Verified baseline | `905de75d2223e10c3ce0da75c666dceba413fef2` + W1K01-01–25 |
+| Verified baseline | `6fb7921c73a279bad7aa5e5ead473d793c6916c6` + W1ST01-01–28 |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
-| Portfolio diagnosis | `KNOWLEDGE_PRODUCT_CALLABLE_SCIENTIFIC_LOOP_NOT_INTERCONNECTED` |
+| Portfolio diagnosis | `KNOWLEDGE_TO_SCIENTIFIC_THINKING_PRODUCT_WIRED_IMAGING_NOT_CONNECTED` |
 | Superior authorities | NOXIA Founding Charter; Scientific Product Manifesto V2; applicable Level 1 specialized references |
 | Documentary authority | None. This file does not amend, replace, or extend any authority. |
 
@@ -21,27 +21,26 @@
 
 | Control | Current value |
 |---|---|
-| Portfolio state | One canonical Project snapshot feeds current owners and tested legacy consumers; Knowledge is now explicitly product-callable with an immutable session result ledger, while the multi-owner scientific loop remains unwired |
+| Portfolio state | One canonical Project snapshot now feeds native Knowledge then native Scientific Thinking through typed product entrypoints and one immutable owner-generic session ledger; Imaging, VAL, REG and nominal owner selection remain outside this bounded product chain |
 | Active wave | `WAVE_1_SCIENTIFIC_LOOP` |
-| Current objective | Connect the retained, same-version Knowledge result to Scientific Thinking without copying Knowledge truth or transferring ownership. |
+| Current objective | Connect the retained Scientific Thinking result to Imaging while preserving the exact Project and Knowledge dependency chain. |
 | Next wave | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` after Wave 1 completion |
-| Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge invocation and immutable result retention |
-| Tested off-product corridor | Canonical Project Snapshot → REG / Scientific Thinking / Imaging and read-only adapter → CDM / DM / Biostatistics / TMP |
+| Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge → Scientific Thinking invocation with immutable owner-result retention |
+| Tested off-product corridor | Canonical Project Snapshot → REG; Scientific Thinking → Imaging; read-only adapter → CDM / DM / Biostatistics / TMP |
 | Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
-| Main blocker | The product-callable Knowledge result is not yet consumed by Scientific Thinking; broader owner selection remains absent from the nominal conversation loop. |
+| Main blocker | The product-callable Scientific Thinking result is not yet consumed by Imaging; broader owner selection remains absent from the nominal conversation loop. |
 | Active engineering | One wave only; no engine development is authorized by this document itself. |
 
 ### Top quick wins queued in Wave 1
 
-1. Scientific Thinking — consume the canonical Project and applicable retained Knowledge result in the scientific loop.
+1. Imaging — consume the retained Scientific Thinking result while preserving the Knowledge lineage and OBS gap.
 2. VAL — observe the typed scientific loop without repair or mutation.
-3. Imaging — connect the existing native result after Scientific Thinking while retaining Knowledge/OBS gaps.
-4. REG — expose the existing contextual resolution or explicit gap as a conditional branch, without approval language.
+3. REG — expose the existing contextual resolution or explicit gap as a conditional branch, without approval language.
 
 ### Top blockers
 
-1. The nominal conversation loop does not yet select or invoke specialized owners automatically; only the explicit Knowledge product entrypoint is available.
-2. Knowledge → Scientific Thinking does not yet consume the retained applicable result.
+1. The nominal conversation loop does not yet select or invoke specialized owners automatically; Knowledge and Scientific Thinking require explicit product calls.
+2. Scientific Thinking → Imaging remains tested only in the SPINE corridor and does not yet consume the retained product ST result.
 3. No standalone Study Design runtime exists.
 4. No OBS runtime exists.
 5. Biostatistics calculation and realized-time Data Management are absent.
@@ -109,24 +108,27 @@ flowchart TB
     DOCVIEW["DOC preview"]:::product
     KREQ["Explicit typed Knowledge request"]:::product
     KOWNER["Native Knowledge owner"]:::product
-    KLEDGER["Immutable OwnerRequest / OwnerResult session ledger"]:::product
+    OLEDGER["Immutable owner-generic OwnerRequest / OwnerResult session ledger"]:::product
+    STREQ["Explicit typed Scientific Thinking request"]:::product
+    STOWNER["Native Scientific Thinking owner"]:::product
     RAW --> GEM --> CONT
     RAW --> TERRA --> CAND --> HR --> HD --> CP
     CP --> QRY --> CONT
     CP -->|"product adapter crosses legacy projection contract"| DOCVIEW
-    CP -->|"explicit product call; not auto-orchestrated"| KREQ --> KOWNER --> KLEDGER
+    CP -->|"explicit product call; not auto-orchestrated"| KREQ --> KOWNER --> OLEDGER
+    OLEDGER -->|"current same-Project Knowledge result"| STREQ --> STOWNER --> OLEDGER
   end
 
   subgraph OFFPRODUCT["TESTED_OFF_PRODUCT — SPINE corridor"]
     SNAP["Canonical Project Context Snapshot"]:::tested
     REG["REG"]:::tested
-    ST["Scientific Thinking"]:::tested
     IMG["Imaging"]:::tested
     ADAPTER["W0 read-only legacy consumer adapter"]:::tested
     SNAP --> REG
-    SNAP --> ST --> IMG
     SNAP --> ADAPTER
   end
+
+  STOWNER -. "SPINE handoff only; not product-wired" .-> IMG
 
   subgraph ISLAND["DESIGN_TIME — legacy consumer island"]
     RPD["ResearchProjectDesignResult"]:::design
@@ -161,8 +163,8 @@ flowchart TB
 Current-map qualification:
 
 - The product Project is canonical and versioned, but the document path uses a compatibility projection before TMP/DOC.
-- Knowledge is product-callable from the exact canonical Project snapshot through an explicit typed request; its immutable result is retained outside Project truth and has not been hands-on validated or auto-triggered by QRY/conversation.
-- REG, Scientific Thinking, and Imaging remain callable from a canonical Project snapshot only in SPINE tests; they are not invoked by the nominal conversation product loop.
+- Knowledge and Scientific Thinking are product-callable through explicit typed requests from the exact same canonical Project snapshot. Their separate native results share one append-only owner-generic ledger, and the ST result retains references to the Knowledge result, assertions, evidence and sources without ownership transfer.
+- REG and Imaging remain callable only in SPINE tests. The product Knowledge → Scientific Thinking chain is neither auto-triggered by QRY/conversation nor hands-on validated.
 - CDM, DM, Biostatistics and TMP remain consumers of `ResearchProjectDesignResult`, but W0 now proves that this shape can be derived read-only from the same canonical snapshot; no product orchestration or realized-time capability follows from that proof.
 - Study Design and OBS remain normative owners without standalone runtime.
 - VAL has real deterministic runners and adapters, but no persisted transverse ValidationRun is part of the nominal current product corridor.
@@ -238,7 +240,7 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Research Project | Canonical owner of adopted contextual truth | Manifesto V2; PD-003 V2; PRJ contracts | `READY` | `HANDS_ON_VALIDATED` | canonical backbone and contribution owner boundary | Typed objects, relations, roles, time, provenance, decisions, versions, supersession, reload | Legacy consumer shapes still exist as read projections | `ResearchProjectOwnerProjection` + `CanonicalResearchProjectState` → one `ProjectContextSnapshot`; selected legacy consumers use the W0 adapter |
 | Knowledge | Global epistemic owner | KE-001; PD-003 V2 | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | `invokeKnowledgeForProject` → `invokeKnowledgeOwnerFromSnapshot` → native Knowledge engine | Bounded assertions, sources, evidence, applicability, contradictions, gaps and native `KnowledgeResult`; immutable request/result retention and stale readback | Bounded local corpus; no automatic External Evidence; explicit product call only, not QRY/conversation orchestration or hands-on validation | Exact `ProjectContextSnapshot v0.3.0` + typed `KnowledgeRequest`; append-only product-session owner ledger outside Project truth |
 | External Evidence | Governed evidence acquisition capability | KE-001; external-evidence contracts | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | Knowledge external-evidence pipeline | Search observations, source status, provenance, partial/unavailable states | Does not admit Knowledge; source availability and coverage are external | Knowledge request context; no direct Project contract |
-| Scientific Thinking | Specialized reasoning owner | RDE-001/002; PD-003 V2; ST implementation proof | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | `invokeScientificThinkingOwnerFromProject` | Questions, objectives, hypotheses, alternatives, unknowns, typed result and candidate contribution | Deterministic native context; no automatic adoption; Knowledge result chain incomplete | `ProjectContextSnapshot` adapter |
+| Scientific Thinking | Specialized reasoning owner | RDE-001/002; PD-003 V2; ST implementation proof | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | `invokeScientificThinkingForProject` → `invokeScientificThinkingOwnerFromSnapshot` → native ST engine | Questions, objectives, hypotheses, alternatives, unknowns, typed result and candidate contribution; native Knowledge dependencies retained without ownership transfer | Explicit product call only; no automatic adoption, Imaging handoff, QRY trigger or hands-on validation | Exact `ProjectContextSnapshot v0.3.0` + retained same-version Knowledge OwnerResult or explicit absence; shared append-only owner ledger |
 | Study Design | Normative owner of study-strategy coherence | RDE-001/002; PD-003 V2 | `NORMATIVE_ONLY` | `NOT_WIRED` | explicit unavailable-owner path only | Honest `CALL_NONEXISTENT_ENGINE`/gap result | No standalone runtime | No runtime Project contract |
 | Imaging | Specialized measurement-domain owner | RDE-003 v1.1; OBS-001; PD-003 V2 | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | `invokeImagingOwnerFromScientificThinking` | Imaging design options, feasibility, limitations, quality/harmonization proposals, typed result | No executable acquisition protocol; OBS qualification absent; Knowledge chain not wired | `ProjectContextSnapshot` + Scientific Thinking result |
 | OBS | Owner of general observability and measurement qualification | OBS-001; PD-003 V2 | `NORMATIVE_ONLY` | `NOT_WIRED` | capability inventory rejection | None beyond explicit absence | No standalone runtime or governed measurement catalogue | No runtime Project contract |
@@ -250,7 +252,7 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | DOC-002 | Documentary knowledge pattern engine | DOC-002 implementation contract | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | documentary pattern catalogue | Deterministic, versioned documentary patterns and provenance | Candidate/historical corpus limits; not a scientific or regulatory authority | No direct Project contract; consumed by TMP mappings |
 | DOC | Read-only document projection engine | Manifesto V2; DOC-001/DOC-001B | `AVAILABLE_WITH_LIMITATIONS` | `HANDS_ON_VALIDATED` | functional-reset document portfolio / document projection | Project-derived preview, unknowns and gaps preserved, immutable projections | Protocol is the primary active definition; current adapter is not canonical-native | `ResearchProjectDesignResult` derived from canonical product Project |
 | VAL | Read-only validation and diagnostic engine | VAL-000/VAL-001; PD-011 for qualification | `AVAILABLE_WITH_LIMITATIONS` | `TESTED_OFF_PRODUCT` | validation runners and product adapters | Deterministic invariant checks, findings, gates, human-review boundary | Live semantic reviewer disabled; no nominal persisted transverse run in product | Multiple typed adapters, including legacy Project and owner outputs |
-| Cross-engine orchestration / SYS | Coordination and integration controls | RDE-001/002; PD-005; PD-009; SYS proofs | `PARTIAL` | `TESTED_OFF_PRODUCT` | SPINE chain, SYS fixtures, explicit product Knowledge invocation | Typed off-product owner chains plus one bounded product-callable Knowledge corridor | No interconnected product scientific loop or owner selection; no universal router is desired | Canonical snapshot for Knowledge/current owners; bounded legacy design-result projections for older consumers |
+| Cross-engine orchestration / SYS | Coordination and integration controls | RDE-001/002; PD-005; PD-009; SYS proofs | `PARTIAL` | `TESTED_OFF_PRODUCT` | SPINE chain, SYS fixtures, explicit product Knowledge and Scientific Thinking invocations | Typed off-product owner chains plus one bounded product Project → Knowledge → ST chain | No nominal scientific loop, Imaging/VAL product continuation or owner selection; no universal router is desired | Canonical snapshot and owner-generic ledger for Knowledge/ST; bounded legacy design-result projections for older consumers |
 
 ## Engine matrix B — ownership and completion control
 
@@ -259,10 +261,10 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Interaction / Conversation | No | No direct contribution | Carries grounded context only | Project version supplied in context | Yes for any engaging mutation | Gemini server route; Product bridge | None for Wave 0 | Consume QRY/OwnerResult without ownership | Wave 4 | Hands-on owner-mediated dialogue with no hidden mutation | `be929dc2`, `9be06edc` |
 | Persistent extraction | No; typed candidate instead | Yes, candidate only | Exact source anchors and provider artifact metadata | Validated against current Project refs | Yes | Terra server route; Project compiler | Strict schema debt | Remain the free-language compiler only | Wave 0 non-regression | Source-grounded candidate, complete review, fail-closed invalid output | `cae56c51`, `9ae7dba2`, `8fb7a999`, `9be06edc` |
 | QRY | No; typed navigation result | No | Uses Project unknowns/gaps | Recomputed after adoption | No for navigation; yes for Project change | Canonical Project; Gemini mediation | Value-of-information gap | Route useful owner request, not only a question | Wave 4 | Real Project → appropriate owner request → short continuation | `f87006dc`, `be929dc2` |
-| Research Project | No; owns canonical state | Sole adoption boundary | Preserves provenance and decisions | Version, digest, ledger, supersession | Always for engaging change | Contribution boundary; persistence | Multi-owner product orchestration | Supply the same Project/Knowledge tuple to Scientific Thinking | `W1-SCIENTIFIC-THINKING-01_PRODUCT_KNOWLEDGE_RESULT_HANDOFF` | Retained same-version Knowledge result enters ST without Project mutation or Knowledge copying | `ee6102fa`; W0-PROJECT-01; W1K01-01–25 |
-| Knowledge | Yes, native `KnowledgeResult` inside existing `SpecializedOwnerResult` | None in this bounded invocation; no automatic contribution | Native assertions, sources, applicability, contradictions, gaps | Product readback checks exact Project ID/version/digest; stale history retained | Yes for any later engaging Project adoption | Canonical snapshot; governed local corpus; SPINE handoff | Knowledge → ST consumption and nominal owner orchestration | Interconnected with Scientific Thinking | `W1-SCIENTIFIC-THINKING-01_PRODUCT_KNOWLEDGE_RESULT_HANDOFF` | Same-version retained result/gap consumed by ST without copying truth or fallback | `7c9f012e`; W1K01-01–25 / this commit |
+| Research Project | No; owns canonical state | Sole adoption boundary | Preserves provenance and decisions | Version, digest, ledger, supersession | Always for engaging change | Contribution boundary; persistence | Multi-owner product orchestration | Supply the same Project/Knowledge/ST chain to Imaging | `W1-IMAGING-01_PRODUCT_SCIENTIFIC_THINKING_RESULT_HANDOFF` | Retained same-version ST result enters Imaging with its Knowledge dependencies and no Project mutation | `ee6102fa`; W0-PROJECT-01; W1K01-01–25; W1ST01-01–28 |
+| Knowledge | Yes, native `KnowledgeResult` inside existing `SpecializedOwnerResult` | None in this bounded invocation; no automatic contribution | Native assertions, sources, applicability, contradictions, gaps | Product readback checks exact Project ID/version/digest; stale history retained | Yes for any later engaging Project adoption | Canonical snapshot; governed local corpus; product ST handoff | Nominal owner orchestration and downstream Imaging lineage | Preserve through Imaging | `W1-IMAGING-01_PRODUCT_SCIENTIFIC_THINKING_RESULT_HANDOFF` | Exact Knowledge result/assertion/evidence/source refs remain reconstructible through Imaging | `6fb7921c`; W1K01-01–25; W1ST01-01–28 / this commit |
 | External Evidence | Typed evidence result, not owner result | No | Native source/evidence status | Provider/request identity; not Project stale guard | Knowledge admission remains governed | Network/source adapters; Knowledge | No direct Project use | Feed Knowledge only with governed admission | Wave 1 | Source → KnowledgeResult trace with applicability and limits | Current external-evidence tests |
-| Scientific Thinking | Yes, `ScientificThinkingOutput` | Yes, candidate | Preserves project refs; requests Knowledge when needed | Yes | Yes | Canonical snapshot; Knowledge; Study Design/Imaging | Product orchestration; Knowledge chain | Interconnected in scientific loop | Wave 1 | Product Project → ST result → downstream typed handoff | `5413683d` |
+| Scientific Thinking | Yes, native `ScientificThinkingOutput` inside existing `SpecializedOwnerResult` | Yes, candidate; never adopted here | Preserves Knowledge result/assertion/evidence/source refs and Project provenance | Project and exact Knowledge dependency stale checks; historical results retained | Yes for every engaging candidate | Canonical snapshot; retained Knowledge result or explicit gap | Imaging product handoff and nominal orchestration | Product-callable input to Imaging | `W1-IMAGING-01_PRODUCT_SCIENTIFIC_THINKING_RESULT_HANDOFF` | Retained ST result drives native Imaging while Knowledge/ST ownership and stale chain remain separate | `5413683d`; W1ST01-01–28 / this commit |
 | Study Design | No runtime result | No runtime contribution | None | None | Would be required | RDE contracts; canonical Project; other owners | Runtime absent | Standalone coherent design owner | Later Wave 1 or explicit replan | Native result and contribution contract with no PRJ ownership transfer | Normative RDE-001/002 only |
 | Imaging | Yes, `ImagingDesignResult` | Yes, candidate | Native provenance, limitations, Knowledge gaps | Yes | Yes | ST result; Knowledge; future OBS | Knowledge/OBS chain; product orchestration | Interconnected domain owner | Wave 1 | Real Project/ST/Knowledge → Imaging result → governed contribution | `5413683d` |
 | OBS | No runtime result | No runtime contribution | None | None | Would be required | PD-003 V2; Knowledge; domain owners | Runtime absent | Minimal observability qualification | Wave 3 | Phenomenon/need → property → measurement definition with limits | OBS-001 normative admission only |
@@ -290,9 +292,9 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Project | document source projection | DOC preview | functional-reset document boundary | `HANDS_ON_VALIDATED` | Current → legacy compatibility projection | Yes | Yes | Project and projection digests | Stale preview handling | Adopted facts only |
 | Project | explicit typed `KnowledgeRequest` + exact snapshot | Knowledge | product `invokeKnowledgeForProject` + SPINE-03 native invocation | `PRODUCT_WIRED` | Current canonical `ProjectContextSnapshot v0.3.0` | Yes | Yes | Project ID/version/digest, request version and result identity | Yes; stale history remains readable | Native sources, evidence, applicability, contradictions, gaps and limitations |
 | Project | `RegulatoryResolutionInput` | REG | SPINE-03 native invocation | `TESTED_OFF_PRODUCT` | Current canonical snapshot | Yes | No | Yes | Yes | Yes |
-| Project | `ScientificThinkingInput` | Scientific Thinking | SPINE-04 owner invocation | `TESTED_OFF_PRODUCT` | Current canonical snapshot | Yes | No | Yes | Yes | Yes |
+| Project | exact snapshot + typed ST request + optional retained Knowledge result | Scientific Thinking | product `invokeScientificThinkingForProject` + SPINE native invocation | `PRODUCT_WIRED` | Current canonical `ProjectContextSnapshot v0.3.0` | Yes | Yes | Project ID/version/digest and ST request/result versions | Yes; stale ST history remains readable | Native candidates, unknowns, limitations and Knowledge lineage |
 | Scientific Thinking | typed ST-to-Imaging handoff | Imaging | `PROJECT_SPINE_04_ST_TO_IMAGING_HANDOFF` | `TESTED_OFF_PRODUCT` | Current canonical snapshot | Yes | No | Yes | Yes | Yes |
-| Knowledge | applicable result/gap | Scientific Thinking | Knowledge escalation/gap contract | `PARTIAL` | Current canonical snapshot | Gap path only | No | Project refs preserved | Partial | Gap preserved; actual result consumption missing |
+| Knowledge | retained `SpecializedOwnerResult<KnowledgeResult>` or explicit absence | Scientific Thinking | product owner-result dependency + native ST input `1.2.0` | `PRODUCT_WIRED` | Current canonical snapshot | Yes | Yes | Knowledge result identity/revision/digest and Project tuple | Fail closed on Project mismatch; dependent ST stale on Project or Knowledge change | Assertions remain Knowledge-owned; source/evidence refs, applicability, contradictions, gaps and limitations preserved |
 | Knowledge | applicable `KnowledgeResult` | Imaging | Target owner-result reference | `NOT_PRESENT` | Target canonical | No | No | No runtime handoff | No | Current Imaging input preserves an explicit Knowledge gap only |
 | Knowledge | evidence and measurement assertions | OBS | OBS-001 target handoff | `NORMATIVE_TARGET` | Target canonical | No | No | Required by target | Required by target | Required by target |
 | Scientific Thinking | candidate design reasoning | Study Design | unavailable-owner handoff | `PARTIAL` | Current canonical snapshot | Unavailable path | No | Yes | Yes | Gap only; no Study Design result |
@@ -330,9 +332,9 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Project → DOC | Compatibility projection crosses old Project generation | Canonical Project + governed owner refs → TMP → DOC | Waves 0 and 2 | Byte-stable facts/unknowns/refs; no transcript fallback |
 | Project → Knowledge | Explicit product call is wired; no QRY/conversation auto-trigger and no hands-on proof | `HANDS_ON_VALIDATED` after later orchestration | Wave 1 / Wave 4 | User-visible bounded owner invocation preserves the same typed result and never mutates Project automatically |
 | Project → REG | Not product invoked | `PRODUCT_WIRED` then `HANDS_ON_VALIDATED` | Wave 1 | Context/gap preserved; never approval |
-| Project → Scientific Thinking | Not product invoked | `PRODUCT_WIRED` then `HANDS_ON_VALIDATED` | Wave 1 | Native result and candidate contribution remain separate |
+| Project → Scientific Thinking | Explicit product call is wired; no QRY/conversation auto-trigger, Imaging continuation or hands-on proof | `HANDS_ON_VALIDATED` after later orchestration | Wave 1 / Wave 4 | Native ST result and candidate contribution remain separate and Project writes remain zero |
 | Scientific Thinking → Imaging | Tested only off-product | `INTERCONNECTED` then hands-on | Wave 1 | ST result ref, Project version/digest, stale protection |
-| Knowledge → Scientific Thinking | Actual applicable result is not consumed | `INTERCONNECTED` | Wave 1 | Same-version KnowledgeResult influences ST without copying truth |
+| Knowledge → Scientific Thinking | Explicit product handoff is wired; no Imaging continuation, nominal orchestration or hands-on proof | `HANDS_ON_VALIDATED` after later orchestration | Wave 1 / Wave 4 | Same-version KnowledgeResult influences ST without copying truth; exact dependency and stale chain remain reconstructible |
 | Knowledge → Imaging | Current path supplies a gap, not a result | `INTERCONNECTED` | Wave 1 | Imaging input references applicable KnowledgeResult and limitations |
 | Knowledge → OBS | OBS absent | `INTERCONNECTED` | Wave 3 | Typed evidence-to-measurement handoff |
 | Scientific Thinking → Study Design | Owner absent; gap path only | `INTERCONNECTED` when runtime exists | Replan after Wave 1 | Standalone Study Design result and no PRJ ownership transfer |
@@ -399,6 +401,7 @@ These are active implementation controls traced to superior authorities and curr
 | `IC-010` | Only one integration wave is active at a time. | Keep dependencies, evidence, and stop conditions attributable. | `ENGINE-PORTFOLIO-01`; this Level 3 control | `ACTIVE_CONTROL` | 2026-08-25 |
 | `IC-011` | Existing canonical Project contracts are reused; Wave 0 must not create a third Project ontology. | The demonstrated gap is consumer convergence, not absence of a canonical Project. | SPINE-01/02; current code audit | `ACTIVE_CONTROL` | 2026-08-25 / `9be06edc` |
 | `IC-012` | Product owner requests/results are retained append-only outside Project truth. | Preserve immutable owner history and stale status without transferring scientific ownership or authorizing Project writes. | SPINE-02/03; W1K01-01–25 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
+| `IC-013` | Scientific Thinking references the exact retained Knowledge result and governed evidence lineage; it never becomes owner of Knowledge assertions. | A typed dependency preserves explanations and stale detection without copying epistemic ownership or reconstructing sources from language. | RDE-001/002; KE-001; W1ST01-01–28 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
 
 # Development waves
 
@@ -415,7 +418,7 @@ These are active implementation controls traced to superior authorities and curr
 
 `CURRENT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
 
-`CURRENT_OBJECTIVE = CONNECT_PRODUCT_KNOWLEDGE_RESULT_TO_SCIENTIFIC_THINKING_WITHOUT_OWNERSHIP_TRANSFER`
+`CURRENT_OBJECTIVE = CONNECT_PRODUCT_SCIENTIFIC_THINKING_RESULT_TO_IMAGING_WITH_PRESERVED_KNOWLEDGE_LINEAGE`
 
 `NEXT_WAVE = WAVE_2_STUDY_DESIGN_TIME_CHAIN_AFTER_WAVE_1_COMPLETION`
 
@@ -425,15 +428,15 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = W1-SCIENTIFIC-THINKING-01_PRODUCT_KNOWLEDGE_RESULT_HANDOFF`
+`NEXT_AUTHORIZED_MISSION = W1-IMAGING-01_PRODUCT_SCIENTIFIC_THINKING_RESULT_HANDOFF`
 
 | Field | Contract |
 |---|---|
-| Mission goal | Feed one retained, current and applicable native `KnowledgeResult` or explicit Knowledge gap into the existing Scientific Thinking owner without copying Knowledge truth, reconstructing it with Gemini, or mutating Project. |
-| Input | Current canonical Project snapshot; retained W1 Knowledge OwnerResult tied to the same Project ID/version/digest; existing native Scientific Thinking input/result contract |
-| Output | Typed Scientific Thinking request/result that references the Knowledge result/gap and preserves both owners' identities, limitations, provenance and stale guards |
-| Definition of done | Same-version Project + Knowledge result invokes native Scientific Thinking; evidence/gaps influence only the bounded native payload; both immutable results remain readable; stale/mismatched Knowledge is rejected; Project writes remain zero |
-| Engines / connections affected | Knowledge → Scientific Thinking; Project → Scientific Thinking; retained owner-result ledger |
+| Mission goal | Feed one retained, current native Scientific Thinking result into the existing Imaging owner while preserving the exact Project tuple, Knowledge dependencies, owner boundaries and explicit OBS/Knowledge gaps. |
+| Input | Current canonical Project snapshot; retained Knowledge and Scientific Thinking OwnerResults from the same Project ID/version/digest; existing native ST → Imaging handoff contract |
+| Output | Typed native Imaging request/result retained in the shared owner ledger, with reconstructible ST and Knowledge dependencies and no automatic Project mutation |
+| Definition of done | Same-version Project + Knowledge + ST chain invokes native Imaging; lineage, limitations and gaps survive; stale/mismatched ST or Knowledge fails closed; all historical results remain readable; Project writes remain zero |
+| Engines / connections affected | Scientific Thinking → Imaging; Knowledge → Imaging lineage; Project → Imaging; owner-generic result ledger |
 | Do not touch | OBS; Study Design runtime; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS; canonical Project ownership |
 
 # Engine completion queue
@@ -441,9 +444,9 @@ These are active implementation controls traced to superior authorities and curr
 | Order | Engine | From state | To state | Effort | Dependency | Wave | Blocked by | Notes |
 |---:|---|---|---|---|---|---|---|---|
 | 1 | Research Project consumer contracts | Mixed canonical + legacy | One canonical source with governed adapters | `M` | None | Wave 0 | None | Adapter ready off-product; legacy shapes remain projections, not truth. |
-| 2 | Knowledge | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Interconnected with Scientific Thinking | `M` | Wave 0 complete | Wave 1 | Knowledge result consumption by ST | Explicit product invocation and immutable readback are complete; hands-on remains later. |
+| 2 | Knowledge | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 complete | Wave 1 / 4 | Nominal owner selection | Product Knowledge → ST handoff and immutable dependency readback are complete; hands-on remains later. |
 | 3 | REG | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Product-callable conditional owner | `M` | Wave 0 | Wave 1 | Product owner orchestration | Preserve gaps and non-approval boundary. |
-| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Interconnected owner | `M` | Knowledge + Wave 0 | Wave 1 | Knowledge result chain | No automatic adoption. |
+| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Interconnected with Imaging | `M` | Knowledge + Wave 0 | Wave 1 | Product ST → Imaging handoff | Knowledge lineage is retained; no automatic adoption. |
 | 5 | VAL | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Observer in scientific loop | `M` | Typed Wave 1 handoffs | Wave 1 | Product owner loop | Observe/block only. |
 | 6 | Imaging | `AVAILABLE_WITH_LIMITATIONS / TESTED_OFF_PRODUCT` | Interconnected owner | `M` | Knowledge + ST | Wave 1 | OBS remains an explicit limitation | Quick win does not mean executable protocol. |
 | 7 | CDM | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | Wave 0 | Wave 2 | Owner-result/contribution orchestration | Planning only. |
@@ -494,7 +497,7 @@ Portfolio totals retained from the audit:
 | `VERCEL_SERVERLESS_TYPECHECK_GATE` | `OPEN_NON_BLOCKING_DEBT` | Deployment logs can surface serverless-only TypeScript gaps not covered by the local gate. | No | Operational hardening | Production/Preview deployment observations; intentionally deferred in 04R3 |
 | `OPENAI_STRICT_SCHEMA_HARDENING_DEBT` | `OPEN` | Persistent extraction may require more provider-contract hardening while remaining fail-closed. | No | Product hardening | `api/protocol-designer-openai-extraction-provider.ts` |
 | `QRY_VALUE_OF_INFORMATION_PRODUCT_GAP` | `OPEN` | QRY is in the loop, but owner-aware value-of-information coverage is incomplete. | No | Wave 4 | QRY production checkpoint and hands-on observations |
-| `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge is explicitly product-callable, but QRY/conversation does not yet select owners and the multi-owner loop is not interconnected. | No | Waves 1 and 4 | W1K01 product entrypoint vs nominal conversation loop |
+| `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge and Scientific Thinking are explicitly product-callable, but QRY/conversation does not select owners and Imaging/VAL/REG are not in the nominal product loop. | No | Waves 1 and 4 | W1K01/W1ST01 product entrypoints vs nominal conversation loop |
 | Study Design runtime | `ABSENT` | No standalone owner for study-strategy coherence. | No | Explicit replan after Wave 1 | Capability inventory; RDE-001/002 normative only |
 | OBS runtime | `ABSENT` | Imaging cannot obtain complete general measurement qualification. | No | Wave 3 | OBS-001; capability inventory |
 | Biostatistics calculation | `ABSENT` | No sample-size calculation or analytic execution. | No | Later explicit wave | Capability inventory; DAI tests keep values null |
@@ -505,7 +508,8 @@ Portfolio totals retained from the audit:
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
-| W1-KNOWLEDGE-01 | `W1_KNOWLEDGE_01_PRODUCT_CANONICAL_OWNER_INVOCATION_READY` / this commit | Product canonical Knowledge invocation | Exact `ProjectContextSnapshot v0.3.0` invokes native local Knowledge; native result/gap, sources, applicability, contradictions and limitations survive an immutable session ledger; stale history is retained; Project writes and LLM/external calls are zero | QRY/automatic orchestration, Knowledge → ST/Imaging use, External Evidence execution, hands-on validity or broad corpus coverage |
+| W1-SCIENTIFIC-THINKING-01 | `W1_SCIENTIFIC_THINKING_01_PRODUCT_KNOWLEDGE_RESULT_HANDOFF_READY` / this commit | Product Knowledge → Scientific Thinking handoff | Same canonical Project and retained native Knowledge result invoke native ST; ownership, complete source/evidence lineage, applicability, gaps, contradictions and limitations survive a shared immutable ledger; stale dependencies fail closed; Project/provider writes are zero | Imaging/VAL/REG product wiring, QRY/automatic orchestration, hands-on scientific validity or Project adoption |
+| W1-KNOWLEDGE-01 | `W1_KNOWLEDGE_01_PRODUCT_CANONICAL_OWNER_INVOCATION_READY` / `6fb7921c73a279bad7aa5e5ead473d793c6916c6` | Product canonical Knowledge invocation | Exact `ProjectContextSnapshot v0.3.0` invokes native local Knowledge; native result/gap, sources, applicability, contradictions and limitations survive an immutable session ledger; stale history is retained; Project writes and LLM/external calls are zero | QRY/automatic orchestration, downstream Imaging use, External Evidence execution, hands-on validity or broad corpus coverage |
 | W0-PROJECT-01 | `W0_PROJECT_01_CANONICAL_PROJECT_CONSUMER_ADAPTER_READY` / `905de75d2223e10c3ce0da75c666dceba413fef2` | Canonical Project consumer convergence | One immutable snapshot supplies Knowledge/REG/ST/Imaging and read-only CDM/DM/Biostatistics/TMP projections with identical ID/version/digest and explicit gaps | Product owner orchestration, Wave-2 planning-result chain, calculation, realized-time execution |
 | SPINE-01 | `ee6102fab386d916ac815f4f190dc583d25048f2` | Canonical Research Project backbone | Project identity, versions, temporal model, provenance, decisions, supersession, reload | Product owner orchestration or specialized engine availability |
 | SPINE-02 | `8fc27d80fc3927813cb6614e2c47e8ac509d7128` | Specialized owner handoff backbone | Capability inventory, typed metadata, owner-result/contribution split, stale guard, no fallback | Real owner invocation or product wiring |

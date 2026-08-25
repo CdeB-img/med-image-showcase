@@ -1,6 +1,7 @@
 import {
   logicalDigest,
   stableStringify,
+  type KnowledgeResult,
 } from "@/features/knowledge-engine";
 import {
   IMAGING_STUDY_DESIGNER_VERSION,
@@ -27,6 +28,7 @@ import {
   assessSpecializedOwnerResultFreshness,
   createSpecializedOwnerGapResult,
   createSpecializedOwnerHandoffRequest,
+  createSpecializedOwnerHandoffRequestFromSnapshot,
   recordSpecializedOwnerResult,
   type SpecializedOwnerHandoffRequest,
   type SpecializedOwnerResult,
@@ -47,6 +49,7 @@ export type ScientificReasoningOwnerObservation = {
   contract: typeof SCIENTIFIC_REASONING_OWNER_CHAIN_CONTRACT;
   contractVersion: typeof SCIENTIFIC_REASONING_OWNER_CHAIN_VERSION;
   invocationId: string;
+  handoffId: string;
   owner: "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "IMAGING";
   capabilityId: "SCIENTIFIC_THINKING_PROPOSAL" | "STUDY_DESIGN_COHERENCE" | "IMAGING_STUDY_DESIGN";
   ownerRuntimeVersion: string | null;
@@ -134,10 +137,32 @@ const occasionLabel = (item: ProjectContextSnapshot["expectedVariableOccasions"]
 };
 
 export const buildScientificThinkingInputFromProjectSnapshot = (input: {
-  project: ResearchProjectOwnerProjection;
+  project?: ResearchProjectOwnerProjection;
+  projectSnapshot?: Readonly<ProjectContextSnapshot>;
+  projectRevision?: number;
+  knowledgeOwnerResult?: Readonly<SpecializedOwnerResult<KnowledgeResult>> | null;
   purpose?: string;
 }): ScientificThinkingInput => {
-  const snapshot = buildProjectContextSnapshot({ project: input.project });
+  const snapshot = input.projectSnapshot ?? (input.project ? buildProjectContextSnapshot({ project: input.project }) : null);
+  if (!snapshot) throw new Error("SCIENTIFIC_THINKING_PROJECT_SNAPSHOT_REQUIRED");
+  const knowledgeOwnerResult = input.knowledgeOwnerResult ?? null;
+  const knowledgeResult = knowledgeOwnerResult?.nativePayload ?? null;
+  if (knowledgeOwnerResult && (
+    knowledgeOwnerResult.owner !== "KNOWLEDGE"
+    || knowledgeOwnerResult.capabilityId !== "KNOWLEDGE_EVIDENCE"
+    || knowledgeOwnerResult.sourceProjectRef !== snapshot.sourceProjectRef
+    || knowledgeOwnerResult.sourceProjectVersion !== snapshot.sourceProjectVersion
+    || knowledgeOwnerResult.sourceProjectDigest !== snapshot.sourceProjectDigest
+    || knowledgeOwnerResult.sourceSnapshotDigest !== snapshot.snapshotDigest
+    || knowledgeOwnerResult.projectWriteAuthorized !== false
+    || !knowledgeResult
+    || knowledgeResult.resultId !== knowledgeOwnerResult.resultId
+    || String(knowledgeResult.resultRevision) !== knowledgeOwnerResult.resultVersion
+    || knowledgeResult.request.researchProjectId !== snapshot.sourceProjectRef
+    || knowledgeResult.request.strategyVersion !== snapshot.sourceProjectVersion
+  )) {
+    throw new Error("KNOWLEDGE_RESULT_PROJECT_MISMATCH");
+  }
   const question = objectsOf(snapshot, "SCIENTIFIC_QUESTION")[0];
   const purpose = input.purpose ?? "Examiner la cohérence scientifique de cette question et les hypothèses encore à expliciter.";
   const comparison = snapshot.relations.find((item) => /COMPARE/i.test(item.type));
@@ -180,9 +205,9 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     },
     researchContext: {
       sessionId: `owner-chain:${snapshot.sourceProjectRef}`,
-      contextVersion: input.project.revision,
+      contextVersion: input.project?.revision ?? input.projectRevision ?? snapshot.sourceProjectRevision,
       researchProjectId: snapshot.sourceProjectRef,
-      previousDecisionIds: [input.project.confirmationDecision.decisionId],
+      previousDecisionIds: unique(snapshot.humanDecisions.map((decision) => decision.decisionId)),
     },
     scientificObjectTerms,
     resolvedConcepts: snapshot.objects.map((item) => ({
@@ -206,14 +231,26 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
       interpreted: [],
     },
     knowledge: {
-      resultId: null,
-      resultDigest: null,
-      coverageStatus: "NOT_REQUESTED_OR_UNAVAILABLE",
-      support: "UNAVAILABLE",
-      sourceIds: [],
-      gapCodes: ["PROJECT_SPINE_04_KNOWLEDGE_NOT_INVOKED"],
-      unresolvedConcepts: snapshot.objects.map((item) => item.stableId),
-      limitations: ["No KnowledgeResult was supplied; Scientific Thinking candidates cannot claim corpus support."],
+      ownerResultRef: knowledgeOwnerResult ? `${knowledgeOwnerResult.resultId}@${knowledgeOwnerResult.resultVersion}` : null,
+      resultId: knowledgeResult?.resultId ?? null,
+      resultRevision: knowledgeResult?.resultRevision ?? null,
+      resultDigest: knowledgeResult?.resultDigest ?? null,
+      coverageStatus: knowledgeResult?.coverageStatus ?? "NOT_REQUESTED_OR_UNAVAILABLE",
+      support: knowledgeResult?.coverageStatus === "SUPPORTED" ? "SUPPORTED"
+        : knowledgeResult?.coverageStatus === "PARTIAL" ? "PARTIAL"
+          : knowledgeResult?.coverageStatus === "CONFLICTING" ? "CONFLICTING"
+            : knowledgeResult ? "UNSUPPORTED" : "UNAVAILABLE",
+      sourceIds: unique(knowledgeResult?.sources.map((item) => item.sourceId) ?? []),
+      assertionRefs: unique(knowledgeResult?.applicableAssertions.map((item) => item.stableId) ?? []),
+      documentaryStatementRefs: unique(knowledgeResult?.documentaryStatements.map((item) => item.statementId) ?? []),
+      evidenceRefs: unique(knowledgeResult?.evidence.map((item) => item.evidenceId) ?? []),
+      applicability: (knowledgeResult?.applicableAssertions ?? []).map((item) => ({ assertionRef: item.stableId, status: item.applicability })),
+      contradictionRefs: unique(knowledgeResult?.controversies.map((item) => item.conflictId) ?? []),
+      contradictions: unique(knowledgeResult?.controversies.map((item) => `${item.conflictId}:${item.state}:${item.explanation}`) ?? []),
+      gapRefs: unique(knowledgeResult?.gaps.map((item) => item.gapId) ?? []),
+      gapCodes: unique(knowledgeResult?.gaps.map((item) => item.code) ?? ["PROJECT_SPINE_04_KNOWLEDGE_NOT_INVOKED"]),
+      unresolvedConcepts: unique(knowledgeResult?.unresolvedConcepts ?? snapshot.objects.map((item) => item.stableId)),
+      limitations: unique(knowledgeResult?.limitations ?? ["No KnowledgeResult was supplied; Scientific Thinking candidates cannot claim corpus support."]),
     },
   };
 };
@@ -347,6 +384,7 @@ const observation = (input: {
   contract: SCIENTIFIC_REASONING_OWNER_CHAIN_CONTRACT,
   contractVersion: SCIENTIFIC_REASONING_OWNER_CHAIN_VERSION,
   invocationId: input.invocationId,
+  handoffId: input.request.handoffId,
   owner: input.request.owner as ScientificReasoningOwnerObservation["owner"],
   capabilityId: input.request.capabilityId as ScientificReasoningOwnerObservation["capabilityId"],
   ownerRuntimeVersion: input.ownerRuntimeVersion,
@@ -369,32 +407,39 @@ const observation = (input: {
   projectWrites: 0,
 });
 
-export const invokeScientificThinkingOwnerFromProject = (input: InvocationTiming & {
-  project: ResearchProjectOwnerProjection;
+export const invokeScientificThinkingOwnerFromSnapshot = (input: InvocationTiming & {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
+  projectRevision?: number;
+  knowledgeOwnerResult?: Readonly<SpecializedOwnerResult<KnowledgeResult>> | null;
   purpose?: string;
   runtime?: (nativeInput: ScientificThinkingInput) => ScientificThinkingOutput;
 }): ScientificReasoningOwnerInvocation<ScientificThinkingInput, ScientificThinkingOutput> => {
-  const nativeInput = buildScientificThinkingInputFromProjectSnapshot({ project: input.project, purpose: input.purpose });
-  const handoffId = `scientific-thinking-handoff:${logicalDigest({ project: input.project.projectDigest, request: nativeInput.requestId })}`;
-  const request = createSpecializedOwnerHandoffRequest({
+  const nativeInput = buildScientificThinkingInputFromProjectSnapshot({
+    projectSnapshot: input.projectSnapshot,
+    projectRevision: input.projectRevision,
+    knowledgeOwnerResult: input.knowledgeOwnerResult,
+    purpose: input.purpose,
+  });
+  const handoffId = `scientific-thinking-handoff:${logicalDigest({ project: input.projectSnapshot.sourceProjectDigest, request: nativeInput.requestId })}`;
+  const request = createSpecializedOwnerHandoffRequestFromSnapshot({
     handoffId,
     owner: "SCIENTIFIC_THINKING",
     capabilityId: "SCIENTIFIC_THINKING_PROPOSAL",
     purpose: input.purpose ?? "Examiner la cohérence scientifique de cette question et les hypothèses encore à expliciter.",
-    project: input.project,
+    sourceProject: input.projectSnapshot,
     nativeInputType: "ScientificThinkingInput",
     nativeInputVersion: SCIENTIFIC_THINKING_ENGINE_VERSION,
     nativeInput,
   });
   const invocationId = `scientific-owner-invocation:${logicalDigest({ handoffId, startedAt: input.startedAt })}`;
-  const projectBefore = stableStringify(input.project);
+  const projectBefore = stableStringify(input.projectSnapshot);
   const started = now(input.monotonicNow);
   try {
     const nativeOutput = (input.runtime ?? executeScientificThinkingEngine)(request.nativeInput);
     const latencyMs = elapsed(started, now(input.monotonicNow));
     if (nativeOutput.contractVersion !== SCIENTIFIC_THINKING_ENGINE_VERSION
       || nativeOutput.provenance.inputRef !== nativeInput.requestId
-      || stableStringify(input.project) !== projectBefore) {
+      || stableStringify(input.projectSnapshot) !== projectBefore) {
       return {
         request,
         result: null,
@@ -460,6 +505,20 @@ export const invokeScientificThinkingOwnerFromProject = (input: InvocationTiming
     };
   }
 };
+
+export const invokeScientificThinkingOwnerFromProject = (input: InvocationTiming & {
+  project: ResearchProjectOwnerProjection;
+  purpose?: string;
+  runtime?: (nativeInput: ScientificThinkingInput) => ScientificThinkingOutput;
+}): ScientificReasoningOwnerInvocation<ScientificThinkingInput, ScientificThinkingOutput> => invokeScientificThinkingOwnerFromSnapshot({
+  projectSnapshot: buildProjectContextSnapshot({ project: input.project }),
+  projectRevision: input.project.revision,
+  purpose: input.purpose,
+  runtime: input.runtime,
+  startedAt: input.startedAt,
+  completedAt: input.completedAt,
+  monotonicNow: input.monotonicNow,
+});
 
 export type StudyDesignUnavailableRequest = {
   requestedOperation: "ASSESS_STUDY_STRATEGY_COHERENCE";

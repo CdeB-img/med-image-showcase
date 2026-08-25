@@ -80,7 +80,11 @@ describe("ST-001 — huit cas produit obligatoires", () => {
     const output = executeScientificThinkingEngine(makeThinkingInput({
       originalExpression: "La mesure zéphyrienne est-elle associée à la fibrose myocardique chez des adultes ?", validatedReformulation: "La mesure zéphyrienne est-elle associée à la fibrose myocardique chez des adultes ?",
       scientificObjectTerms: ["mesure zéphyrienne", "fibrose myocardique"], phenomena: ["mesure zéphyrienne", "fibrose myocardique"], population: ["adultes"], scientificPurpose: ["examiner une association"],
-      knowledge: { resultId: "knowledge-result:no-match", resultDigest: "digest", coverageStatus: "NO_MATCH", support: "UNSUPPORTED", sourceIds: [], gapCodes: ["NO_ASSERTION_MATCH"], unresolvedConcepts: ["mesure zéphyrienne"], limitations: [] },
+      knowledge: {
+        ownerResultRef: "knowledge-result:no-match@1", resultId: "knowledge-result:no-match", resultRevision: 1, resultDigest: "digest",
+        coverageStatus: "NO_MATCH", support: "UNSUPPORTED", sourceIds: [], assertionRefs: [], documentaryStatementRefs: [], evidenceRefs: [], applicability: [],
+        contradictionRefs: [], contradictions: [], gapRefs: ["knowledge-gap:no-match"], gapCodes: ["NO_ASSERTION_MATCH"], unresolvedConcepts: ["mesure zéphyrienne"], limitations: [],
+      },
     }));
     expect(output.questions[0]).toMatchObject({ support: "UNSUPPORTED", testability: "TESTABLE_CANDIDATE" });
     expect(output.knowledgeRequest).toMatchObject({ status: "REQUIRED" });

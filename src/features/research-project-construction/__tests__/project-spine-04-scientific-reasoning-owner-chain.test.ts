@@ -243,7 +243,7 @@ describe("PROJECT-SPINE-04 — scientific reasoning and study design owner chain
     expect(stInvocation.observation).toMatchObject({
       owner: "SCIENTIFIC_THINKING",
       capabilityId: "SCIENTIFIC_THINKING_PROPOSAL",
-      ownerRuntimeVersion: "1.1.0",
+      ownerRuntimeVersion: "1.2.0",
       sourceProjectRef: project.projectId,
       sourceProjectVersion: project.versionId,
       sourceProjectDigest: project.projectDigest,
@@ -258,7 +258,7 @@ describe("PROJECT-SPINE-04 — scientific reasoning and study design owner chain
       readOnly: true,
     });
     expect(stInvocation.request.nativeInput).toMatchObject({
-      contractVersion: "1.1.0",
+      contractVersion: "1.2.0",
       researchContext: { researchProjectId: project.projectId, contextVersion: project.revision },
       knowledge: { support: "UNAVAILABLE", gapCodes: ["PROJECT_SPINE_04_KNOWLEDGE_NOT_INVOKED"] },
     });
