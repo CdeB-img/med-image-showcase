@@ -281,11 +281,12 @@ describe("W1-VAL-01 — product scientific owner loop observation", () => {
   });
 
   it("W1VAL01-25 diagnoses ownership violation without rewriting owner", () => {
-    const broken = structuredClone(knowledgeInvocation.entry) as typeof knowledgeInvocation.entry;
-    (broken.result as { owner: string }).owner = "SCIENTIFIC_THINKING";
-    const result = executeScientificOwnerChainValidationProfile({ ...observationInput, validationInvocationId: "w1-val-01:owner-violation", knowledgeEntry: broken });
+    const broken = structuredClone(stInvocation.entry) as typeof stInvocation.entry;
+    const dependency = broken.result?.nativePayload?.knowledgeDependencies[0] as unknown as { ownershipTransferred: boolean };
+    dependency.ownershipTransferred = true;
+    const result = executeScientificOwnerChainValidationProfile({ ...observationInput, validationInvocationId: "w1-val-01:owner-violation", scientificThinkingEntry: broken });
     expect(result.run.findings.some((item) => item.findingClass === "OWNERSHIP_VIOLATION")).toBe(true);
-    expect(broken.result?.owner).toBe("SCIENTIFIC_THINKING");
+    expect(dependency.ownershipTransferred).toBe(true);
   });
 
   it("W1VAL01-26 performs no repair", () => {

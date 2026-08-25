@@ -398,7 +398,18 @@ const createProfileProvider = (input: Readonly<ScientificOwnerChainValidationInp
         const observedTuple = [result.sourceProjectRef, result.sourceProjectVersion, result.sourceProjectDigest].join("|");
         observe({ passed: observedTuple === projectTuple, plane: "IDENTITY_VERSION", sourceRef: projectTuple, targetRef: `${result.owner}:${observedTuple}`, note: `${result.owner} must reference the exact current Project ID/version/digest.`, failureClass: `STALE_${result.owner}_RESULT`, owner: result.owner, digest: result.sourceProjectDigest });
       }
-      observe({ passed: knowledge.owner === "KNOWLEDGE", plane: "OWNERSHIP", sourceRef: knowledge.resultId, targetRef: knowledge.owner, note: "Knowledge-owned content must remain Knowledge-owned.", failureClass: "OWNER_TRANSFER_VIOLATION", owner: "KNOWLEDGE" });
+      const stKnowledgeOwnership = st.nativePayload?.knowledgeDependencies ?? [];
+      observe({
+        passed: knowledge.owner === "KNOWLEDGE"
+          && stKnowledgeOwnership.length > 0
+          && stKnowledgeOwnership.every((dependency) => dependency.owner === "KNOWLEDGE" && dependency.ownershipTransferred === false),
+        plane: "OWNERSHIP",
+        sourceRef: knowledge.resultId,
+        targetRef: knowledge.owner,
+        note: "Knowledge-owned content must remain Knowledge-owned and ST dependencies must forbid ownership transfer.",
+        failureClass: "OWNER_TRANSFER_VIOLATION",
+        owner: "KNOWLEDGE",
+      });
       observe({ passed: st.owner === "SCIENTIFIC_THINKING", plane: "OWNERSHIP", sourceRef: st.resultId, targetRef: st.owner, note: "Scientific Thinking candidates must remain Scientific Thinking-owned.", failureClass: "OWNER_TRANSFER_VIOLATION", owner: "SCIENTIFIC_THINKING" });
       observe({ passed: imaging.owner === "IMAGING", plane: "OWNERSHIP", sourceRef: imaging.resultId, targetRef: imaging.owner, note: "Imaging candidates must remain Imaging-owned.", failureClass: "OWNER_TRANSFER_VIOLATION", owner: "IMAGING" });
       const knowledgeDigest = ownerResultNativeDigest(knowledge) ?? "MISSING";
