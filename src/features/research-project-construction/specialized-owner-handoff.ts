@@ -334,6 +334,55 @@ const deepFreeze = <T>(value: T): Readonly<T> => {
   return value;
 };
 
+const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
+
+const validatedProjectSnapshot = (snapshot: Readonly<ProjectContextSnapshot>): Readonly<ProjectContextSnapshot> => {
+  const detached = clone(snapshot);
+  const { snapshotDigest, ...material } = detached;
+  if (detached.contract !== "PROJECT_CONTEXT_SNAPSHOT"
+    || detached.contractVersion !== "0.3.0"
+    || detached.owner !== "RESEARCH_PROJECT"
+    || detached.readOnly !== true
+    || logicalDigest(material) !== snapshotDigest) {
+    throw new Error("SPECIALIZED_OWNER_PROJECT_SNAPSHOT_INVALID");
+  }
+  return deepFreeze(detached) as Readonly<ProjectContextSnapshot>;
+};
+
+const handoffRequestFromSnapshot = <TNativeInput>(input: {
+  handoffId: string;
+  owner: SpecializedOwnerId;
+  capabilityId: string;
+  purpose: string;
+  sourceProject: Readonly<ProjectContextSnapshot>;
+  nativeInputType: string;
+  nativeInputVersion: string;
+  nativeInput: TNativeInput;
+  missingContext?: string[];
+  missingEvidence?: string[];
+}): SpecializedOwnerHandoffRequest<TNativeInput> => {
+  const definition = capabilityById(input.capabilityId);
+  if (!definition) throw new Error("SPECIALIZED_OWNER_CAPABILITY_UNKNOWN");
+  if (definition.owner !== input.owner) throw new Error("SPECIALIZED_OWNER_CAPABILITY_OWNER_MISMATCH");
+  const sourceProject = validatedProjectSnapshot(input.sourceProject);
+  return deepFreeze({
+    contract: SPECIALIZED_OWNER_HANDOFF_CONTRACT,
+    contractVersion: SPECIALIZED_OWNER_HANDOFF_VERSION,
+    handoffId: input.handoffId,
+    owner: input.owner,
+    capabilityId: input.capabilityId,
+    purpose: input.purpose,
+    sourceProject,
+    nativeInputType: input.nativeInputType,
+    nativeInputVersion: input.nativeInputVersion,
+    nativeInput: clone(input.nativeInput),
+    missingContext: [...(input.missingContext ?? [])],
+    missingEvidence: [...(input.missingEvidence ?? [])],
+    projectWriteAuthorized: false,
+    conversationalLlmExpertFallback: "FORBIDDEN",
+  });
+};
+
 export const listSpecializedOwnerCapabilities = () => ({
   contract: SPECIALIZED_OWNER_HANDOFF_CONTRACT,
   contractVersion: SPECIALIZED_OWNER_HANDOFF_VERSION,
@@ -353,27 +402,29 @@ export const createSpecializedOwnerHandoffRequest = <TNativeInput>(input: {
   missingContext?: string[];
   missingEvidence?: string[];
 }): SpecializedOwnerHandoffRequest<TNativeInput> => {
-  const definition = capabilityById(input.capabilityId);
-  if (!definition) throw new Error("SPECIALIZED_OWNER_CAPABILITY_UNKNOWN");
-  if (definition.owner !== input.owner) throw new Error("SPECIALIZED_OWNER_CAPABILITY_OWNER_MISMATCH");
-  const sourceProject = deepFreeze(buildProjectContextSnapshot({ project: input.project, activeQryNeed: input.activeQryNeed }));
-  return deepFreeze({
-    contract: SPECIALIZED_OWNER_HANDOFF_CONTRACT,
-    contractVersion: SPECIALIZED_OWNER_HANDOFF_VERSION,
-    handoffId: input.handoffId,
-    owner: input.owner,
-    capabilityId: input.capabilityId,
-    purpose: input.purpose,
-    sourceProject,
-    nativeInputType: input.nativeInputType,
-    nativeInputVersion: input.nativeInputVersion,
-    nativeInput: input.nativeInput,
-    missingContext: [...(input.missingContext ?? [])],
-    missingEvidence: [...(input.missingEvidence ?? [])],
-    projectWriteAuthorized: false,
-    conversationalLlmExpertFallback: "FORBIDDEN",
+  return handoffRequestFromSnapshot({
+    ...input,
+    sourceProject: buildProjectContextSnapshot({ project: input.project, activeQryNeed: input.activeQryNeed }),
   });
 };
+
+/**
+ * Reuses the SPINE handoff contract when the product already owns the exact
+ * canonical snapshot. No Project reconstruction or alternate Project shape is
+ * introduced at this boundary.
+ */
+export const createSpecializedOwnerHandoffRequestFromSnapshot = <TNativeInput>(input: {
+  handoffId: string;
+  owner: SpecializedOwnerId;
+  capabilityId: string;
+  purpose: string;
+  sourceProject: Readonly<ProjectContextSnapshot>;
+  nativeInputType: string;
+  nativeInputVersion: string;
+  nativeInput: TNativeInput;
+  missingContext?: string[];
+  missingEvidence?: string[];
+}): SpecializedOwnerHandoffRequest<TNativeInput> => handoffRequestFromSnapshot(input);
 
 const resultBase = (request: SpecializedOwnerHandoffRequest, input: { resultId: string; resultVersion: string; completedAt: string }) => ({
   contract: SPECIALIZED_OWNER_HANDOFF_CONTRACT,
@@ -486,6 +537,19 @@ export const assessSpecializedOwnerResultFreshness = (
     ...(result.sourceProjectRef === project.projectId ? [] : ["PROJECT_ID_CHANGED"]),
     ...(result.sourceProjectVersion === project.versionId ? [] : ["PROJECT_VERSION_CHANGED"]),
     ...(result.sourceProjectDigest === project.projectDigest ? [] : ["PROJECT_DIGEST_CHANGED"]),
+  ];
+  return { status: staleReasons.length ? "STALE_OWNER_RESULT" as const : "CURRENT" as const, staleReasons };
+};
+
+export const assessSpecializedOwnerResultFreshnessAgainstSnapshot = (
+  result: SpecializedOwnerResult,
+  snapshot: Readonly<ProjectContextSnapshot>,
+) => {
+  const sourceProject = validatedProjectSnapshot(snapshot);
+  const staleReasons = [
+    ...(result.sourceProjectRef === sourceProject.sourceProjectRef ? [] : ["PROJECT_ID_CHANGED"]),
+    ...(result.sourceProjectVersion === sourceProject.sourceProjectVersion ? [] : ["PROJECT_VERSION_CHANGED"]),
+    ...(result.sourceProjectDigest === sourceProject.sourceProjectDigest ? [] : ["PROJECT_DIGEST_CHANGED"]),
   ];
   return { status: staleReasons.length ? "STALE_OWNER_RESULT" as const : "CURRENT" as const, staleReasons };
 };

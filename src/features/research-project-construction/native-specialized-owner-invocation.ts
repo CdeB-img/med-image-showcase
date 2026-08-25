@@ -23,6 +23,7 @@ import type { ResearchProjectOwnerProjection } from "./contribution-owner-bounda
 import {
   createSpecializedOwnerGapResult,
   createSpecializedOwnerHandoffRequest,
+  createSpecializedOwnerHandoffRequestFromSnapshot,
   recordSpecializedOwnerResult,
   type SpecializedOwnerHandoffRequest,
   type SpecializedOwnerResult,
@@ -170,12 +171,12 @@ const knowledgeContextFromSnapshot = (snapshot: ProjectContextSnapshot): Knowled
   return dimensions;
 };
 
-export const buildKnowledgeRequestFromProjectSnapshot = (input: {
-  project: ResearchProjectOwnerProjection;
+export const buildKnowledgeRequestFromCanonicalSnapshot = (input: {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
   question: string;
   createdAt: string;
 }): KnowledgeRequest => {
-  const snapshot = buildProjectContextSnapshot({ project: input.project });
+  const snapshot = input.projectSnapshot;
   const scientificObjects = snapshot.objects.slice(0, 30).map((item) => ({
     objectId: item.stableId,
     originalTerm: item.content,
@@ -196,43 +197,59 @@ export const buildKnowledgeRequestFromProjectSnapshot = (input: {
   return request;
 };
 
+export const buildKnowledgeRequestFromProjectSnapshot = (input: {
+  project: ResearchProjectOwnerProjection;
+  question: string;
+  createdAt: string;
+}): KnowledgeRequest => buildKnowledgeRequestFromCanonicalSnapshot({
+  projectSnapshot: buildProjectContextSnapshot({ project: input.project }),
+  question: input.question,
+  createdAt: input.createdAt,
+});
+
 const validKnowledgeResult = (
   result: KnowledgeResult,
   request: SpecializedOwnerHandoffRequest<KnowledgeRequest>,
 ) => result.request.requestId === request.nativeInput.requestId
   && result.request.researchProjectId === request.sourceProject.sourceProjectRef
   && result.request.strategyVersion === request.sourceProject.sourceProjectVersion
-  && result.trace.privacy.externalCallMade === false;
+  && result.request.externalSearchPolicy === "INTERNAL_ONLY"
+  && result.trace.privacy.externalCallMade === false
+  && result.externalEvidence === null;
 
-export const invokeKnowledgeOwnerFromProject = (input: InvocationTiming & {
-  project: ResearchProjectOwnerProjection;
-  question?: string;
+export const invokeKnowledgeOwnerFromSnapshot = (input: InvocationTiming & {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
+  knowledgeRequest: KnowledgeRequest;
+  purpose: string;
   runtime?: (request: KnowledgeRequest) => KnowledgeResult;
 }): NativeOwnerInvocation<KnowledgeRequest, KnowledgeResult> => {
-  const question = input.question ?? "Quelles données disponibles permettent d'étayer une hypothèse sur la MVO dans ce contexte ?";
-  const nativeInput = buildKnowledgeRequestFromProjectSnapshot({ project: input.project, question, createdAt: input.startedAt });
-  const handoffId = `knowledge-handoff:${logicalDigest({ project: input.project.projectDigest, request: nativeInput.requestId })}`;
-  const request = createSpecializedOwnerHandoffRequest({
+  if (input.knowledgeRequest.researchProjectId !== input.projectSnapshot.sourceProjectRef
+    || input.knowledgeRequest.strategyVersion !== input.projectSnapshot.sourceProjectVersion
+    || input.knowledgeRequest.externalSearchPolicy !== "INTERNAL_ONLY") {
+    throw new Error("KNOWLEDGE_REQUEST_PROJECT_SNAPSHOT_MISMATCH");
+  }
+  const handoffId = `knowledge-handoff:${logicalDigest({ project: input.projectSnapshot.sourceProjectDigest, request: input.knowledgeRequest.requestId })}`;
+  const request = createSpecializedOwnerHandoffRequestFromSnapshot({
     handoffId,
     owner: "KNOWLEDGE",
     capabilityId: "KNOWLEDGE_EVIDENCE",
-    purpose: question,
-    project: input.project,
+    purpose: input.purpose,
+    sourceProject: input.projectSnapshot,
     nativeInputType: "KnowledgeRequest",
     nativeInputVersion: KNOWLEDGE_ENGINE_VERSION,
-    nativeInput,
+    nativeInput: input.knowledgeRequest,
   });
   const invocationId = `native-owner-invocation:${logicalDigest({ handoffId, startedAt: input.startedAt })}`;
-  const before = stableStringify(input.project);
+  const before = stableStringify(input.projectSnapshot);
   const started = measure(input.monotonicNow);
   try {
     const nativeResult = (input.runtime ?? executeKnowledgeRequest)(request.nativeInput);
     const latencyMs = elapsed(started, measure(input.monotonicNow));
-    if (!validKnowledgeResult(nativeResult, request) || stableStringify(input.project) !== before) {
+    if (!validKnowledgeResult(nativeResult, request) || stableStringify(input.projectSnapshot) !== before) {
       return {
         request,
         result: null,
-        observation: observation({ request, invocationId, ownerRuntimeVersion: KNOWLEDGE_ENGINE_VERSION, requestRef: nativeInput.requestId, status: "INVALID_OWNER_RESULT", failureCode: "KNOWLEDGE_RESULT_PROJECT_OR_REQUEST_MISMATCH", startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
+        observation: observation({ request, invocationId, ownerRuntimeVersion: KNOWLEDGE_ENGINE_VERSION, requestRef: input.knowledgeRequest.requestId, status: "INVALID_OWNER_RESULT", failureCode: "KNOWLEDGE_RESULT_PROJECT_OR_REQUEST_MISMATCH", startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
       };
     }
     const evidenceRefs = [...new Set([
@@ -270,16 +287,30 @@ export const invokeKnowledgeOwnerFromProject = (input: InvocationTiming & {
     return {
       request,
       result,
-      observation: observation({ request, invocationId, ownerRuntimeVersion: KNOWLEDGE_ENGINE_VERSION, requestRef: nativeInput.requestId, resultRef: `${result.resultId}@${result.resultVersion}`, status, provenance: [...result.provenance], evidenceRefs, unknowns, gaps, limitations: [...result.limitations], startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
+      observation: observation({ request, invocationId, ownerRuntimeVersion: KNOWLEDGE_ENGINE_VERSION, requestRef: input.knowledgeRequest.requestId, resultRef: `${result.resultId}@${result.resultVersion}`, status, provenance: [...result.provenance], evidenceRefs, unknowns, gaps, limitations: [...result.limitations], startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
     };
   } catch (error) {
     const latencyMs = elapsed(started, measure(input.monotonicNow));
     return {
       request,
       result: null,
-      observation: observation({ request, invocationId, ownerRuntimeVersion: KNOWLEDGE_ENGINE_VERSION, requestRef: nativeInput.requestId, status: "OWNER_RUNTIME_FAILURE", failureCode: error instanceof Error ? error.message : "KNOWLEDGE_RUNTIME_FAILURE", startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
+      observation: observation({ request, invocationId, ownerRuntimeVersion: KNOWLEDGE_ENGINE_VERSION, requestRef: input.knowledgeRequest.requestId, status: "OWNER_RUNTIME_FAILURE", failureCode: error instanceof Error ? error.message : "KNOWLEDGE_RUNTIME_FAILURE", startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1 }),
     };
   }
+};
+
+export const invokeKnowledgeOwnerFromProject = (input: InvocationTiming & {
+  project: ResearchProjectOwnerProjection;
+  question?: string;
+  runtime?: (request: KnowledgeRequest) => KnowledgeResult;
+}): NativeOwnerInvocation<KnowledgeRequest, KnowledgeResult> => {
+  const question = input.question ?? "Quelles données disponibles permettent d'étayer une hypothèse sur la MVO dans ce contexte ?";
+  const projectSnapshot = buildProjectContextSnapshot({ project: input.project });
+  const nativeInput = buildKnowledgeRequestFromCanonicalSnapshot({ projectSnapshot, question, createdAt: input.startedAt });
+  const before = stableStringify(input.project);
+  const invocation = invokeKnowledgeOwnerFromSnapshot({ projectSnapshot, knowledgeRequest: nativeInput, purpose: question, runtime: input.runtime, startedAt: input.startedAt, completedAt: input.completedAt, monotonicNow: input.monotonicNow });
+  if (stableStringify(input.project) !== before) throw new Error("KNOWLEDGE_OWNER_MUTATED_PROJECT");
+  return invocation;
 };
 
 const regulatoryUnknown = <T>(field: string, snapshot: ProjectContextSnapshot) => unknownFact<T>(
