@@ -29,6 +29,12 @@ import {
   rehydrateProductKnowledgeOwnerLedger,
   type ProductKnowledgeOwnerLedger,
 } from "@/features/protocol-designer/product-knowledge-owner-runtime";
+import {
+  PRODUCT_VALIDATION_RUN_LEDGER_CONTRACT,
+  createProductValidationRunLedger,
+  rehydrateProductValidationRunLedger,
+  type ProductValidationRunLedger,
+} from "@/features/protocol-designer/product-validation-run-ledger";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.\nVous pouvez partir d’une idée simple ou donner tous les détails que vous connaissez déjà.";
@@ -89,7 +95,7 @@ export type ProductBridgeTrace = {
 
 export type FunctionalResetSession = {
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
-  contractVersion: "1.5.0";
+  contractVersion: "1.6.0";
   sessionId: string;
   conversationId: string;
   projectId: string;
@@ -106,6 +112,7 @@ export type FunctionalResetSession = {
   openDocumentProjectionId: string | null;
   bridgeTraces: ProductBridgeTrace[];
   knowledgeOwnerLedger: Readonly<ProductKnowledgeOwnerLedger>;
+  validationRunLedger: Readonly<ProductValidationRunLedger>;
 };
 
 const id = (prefix: string) => {
@@ -117,7 +124,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
   const sessionId = id("protocol-designer-session");
   return {
     contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION",
-    contractVersion: "1.5.0",
+    contractVersion: "1.6.0",
     sessionId,
     conversationId: id("scientific-conversation"),
     projectId: `${sessionId}:research-project`,
@@ -139,6 +146,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     openDocumentProjectionId: null,
     bridgeTraces: [],
     knowledgeOwnerLedger: createProductKnowledgeOwnerLedger(sessionId),
+    validationRunLedger: createProductValidationRunLedger(sessionId),
   };
 };
 
@@ -146,7 +154,7 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
   if (!value || typeof value !== "object") return false;
   const record = value as Partial<FunctionalResetSession>;
   return record.contract === "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION"
-    && record.contractVersion === "1.5.0"
+    && record.contractVersion === "1.6.0"
     && typeof record.sessionId === "string"
     && typeof record.conversationId === "string"
     && Array.isArray(record.entries)
@@ -159,20 +167,25 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
     && (record.openDocumentProjectionId === null || typeof record.openDocumentProjectionId === "string")
     && Array.isArray(record.bridgeTraces)
     && record.knowledgeOwnerLedger?.contract === PRODUCT_KNOWLEDGE_OWNER_LEDGER_CONTRACT
-    && record.knowledgeOwnerLedger.sessionId === record.sessionId;
+    && record.knowledgeOwnerLedger.sessionId === record.sessionId
+    && record.validationRunLedger?.contract === PRODUCT_VALIDATION_RUN_LEDGER_CONTRACT
+    && record.validationRunLedger.sessionId === record.sessionId;
 };
 
 const migrateLegacySession = (value: unknown): FunctionalResetSession | null => {
   if (!value || typeof value !== "object") return null;
   const record = value as Record<string, unknown>;
-  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0", "1.4.0"].includes(String(record.contractVersion))) return null;
+  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0", "1.4.0", "1.5.0"].includes(String(record.contractVersion))) return null;
   if (typeof record.sessionId !== "string") return null;
   const migrated = {
     ...record,
-    contractVersion: "1.5.0",
+    contractVersion: "1.6.0",
     queryNavigation: record.contractVersion === "1.2.0" ? null : record.queryNavigation,
     bridgeTraces: Array.isArray(record.bridgeTraces) ? record.bridgeTraces : [],
-    knowledgeOwnerLedger: createProductKnowledgeOwnerLedger(record.sessionId),
+    knowledgeOwnerLedger: record.contractVersion === "1.5.0" && record.knowledgeOwnerLedger
+      ? record.knowledgeOwnerLedger
+      : createProductKnowledgeOwnerLedger(record.sessionId),
+    validationRunLedger: createProductValidationRunLedger(record.sessionId),
   };
   return looksLikeSession(migrated) ? migrated : null;
 };
@@ -187,6 +200,7 @@ export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSes
     const reloadSafeSession: FunctionalResetSession = {
       ...session,
       knowledgeOwnerLedger: rehydrateProductKnowledgeOwnerLedger(session.knowledgeOwnerLedger),
+      validationRunLedger: rehydrateProductValidationRunLedger(session.validationRunLedger),
       entries: session.entries.map((entry) => entry.kind === "REVIEW"
         && entry.candidate
         && !entry.candidate.humanReviewProjection
