@@ -1,0 +1,245 @@
+{
+  "contract": "W1_QUAL_01H1_ST_CAMPAIGN_FREEZE",
+  "version": "1.0.0",
+  "frozenAt": "2026-08-26T12:30:00.000Z",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "gitHead": "1a77e5d5001b2108f43a52a82bebecff350c4296",
+  "stVersion": "1.2.1",
+  "stRuntime": {
+    "engine": {
+      "path": "src/features/scientific-thinking/engine.ts",
+      "sha256": "sha256-e87aa94e3e7f0542991f2d3bc748a9ba41f33fb0ff32511ea25f820feb9564dc"
+    },
+    "types": {
+      "path": "src/features/scientific-thinking/types.ts",
+      "sha256": "sha256-79f7ac776d92d4be9586385a94113d9d02a6dd500d1f8194eb523f6eaf9a00f6"
+    },
+    "productRuntime": {
+      "path": "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts",
+      "sha256": "sha256-bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7"
+    }
+  },
+  "registryDigests": {
+    "caseRegistry": "ke1-a71c840521dad471",
+    "humanReviewEnvelopeRegistry": "ke1-a2e79901fbaa197d",
+    "frozenInputRegistry": "ke1-3070ff81ac8d1105",
+    "parentageAudit": "ke1-ff96cf6c8c75a468",
+    "humanAdjudicationTemplate": "ke1-fd8036ed88e73169"
+  },
+  "traceVersion": {
+    "ledger": "0.1.0",
+    "eventSchema": "0.1.0"
+  },
+  "deterministicChecker": {
+    "version": "1.0.0",
+    "digest": "sha256-ad9b7790428f40e45230ed1d1774bfa02a623f5a82e9d3f14df8249c0a269a5c"
+  },
+  "authoringDigest": "sha256-667aefb4fe3743a37810a7783d3fbe1e02edc98c297de8748810e20d53def7ae",
+  "replaySelection": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "role": "POSITIVE"
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "role": "CONTRADICTION_OR_ALTERNATIVES"
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "role": "FAIL_CLOSED"
+    }
+  ],
+  "freezeDigest": "ke1-f8f6b4620ab40c36",
+  "registries": {
+    "cases": 12,
+    "envelopes": 12,
+    "packs": 12
+  },
+  "parentageCompleted": true,
+  "inputsValidated": true,
+  "observationOccurred": false,
+  "mutableAfterObservation": false,
+  "status": "H1_CAMPAIGN_FREEZE_READY",
+  "inputChecks": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": "INTENTIONALLY_STALE_FOR_FAIL_CLOSED_TEST",
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    },
+    {
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "packDigestValid": true,
+      "frozen": true,
+      "knowledgeResultPresent": true,
+      "knowledgeResultDigestValid": true,
+      "knowledgeOwnerResultRefValid": true,
+      "exactProjectBindingForExecution": true,
+      "provenancePresent": true,
+      "sourceRefsDeclared": true,
+      "evidenceRefsDeclared": true,
+      "gapsDeclared": true,
+      "limitationsDeclared": true,
+      "contradictionsDeclared": true
+    }
+  ]
+}

@@ -1,0 +1,443 @@
+{
+  "contract": "W1_QUAL_01H1_ST_TRACE_INDEX",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "traceLedgerVersion": "0.1.0",
+  "traceEventSchemaVersion": "0.1.0",
+  "primaryRuns": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01:primary",
+      "ledgerDigest": "ke1-f0ff22939c0fb40f",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-825bb9ba2468cbde",
+        "scientific-trace-event:ke1-4b0af961a2972925",
+        "scientific-trace-event:ke1-f8a5cc238f0793f7",
+        "scientific-trace-event:ke1-2c1e63ce5c39fb8a",
+        "scientific-trace-event:ke1-46a96fa8ddfadc8c",
+        "scientific-trace-event:ke1-339c55ad4d931941",
+        "scientific-trace-event:ke1-0c279325685e4e31"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-bee696cd2e01b0d1",
+      "ownerResultRef": "scientific-thinking-output:ke1-982acedff199e803@1.2.1",
+      "resultDigest": "ke1-982acedff199e803",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01:primary",
+      "ledgerDigest": "ke1-2b052b61329ac1b5",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-47670362c1a79986",
+        "scientific-trace-event:ke1-105140dfb55ac6e3",
+        "scientific-trace-event:ke1-de2971fcb3b2ad50",
+        "scientific-trace-event:ke1-2967faa76d8451ab",
+        "scientific-trace-event:ke1-262e3b9789f0d2b3",
+        "scientific-trace-event:ke1-532c989b91337aa7",
+        "scientific-trace-event:ke1-d1c143f8fc16906c"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-88328a3f5c81ff13",
+      "ownerResultRef": "scientific-thinking-output:ke1-d79dee4242b16996@1.2.1",
+      "resultDigest": "ke1-d79dee4242b16996",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01:primary",
+      "ledgerDigest": "ke1-fd7e6eae00c767da",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-a65e2fec7c28c3d8",
+        "scientific-trace-event:ke1-e6b016e0272c6ab4",
+        "scientific-trace-event:ke1-73e73a27868648c3",
+        "scientific-trace-event:ke1-8f510af57e18de61",
+        "scientific-trace-event:ke1-55cac9ef979d10f3",
+        "scientific-trace-event:ke1-7c74db2a336f6996",
+        "scientific-trace-event:ke1-c3bc65fd19c02521"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-4ca271a0803f674c",
+      "ownerResultRef": "scientific-thinking-output:ke1-b881066b027f22bf@1.2.1",
+      "resultDigest": "ke1-b881066b027f22bf",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:primary",
+      "ledgerDigest": "ke1-b57f33082cfb5b2c",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-4ba6331901ded515",
+        "scientific-trace-event:ke1-fce1e9b8b23af71c",
+        "scientific-trace-event:ke1-39670a6544653931",
+        "scientific-trace-event:ke1-e020288bdb0bb9b7",
+        "scientific-trace-event:ke1-6868bdd71faa7d9b",
+        "scientific-trace-event:ke1-d3730990fa1b82f4",
+        "scientific-trace-event:ke1-c21808eb332ec37f"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-5f64f8fe01ab30ea",
+      "ownerResultRef": "scientific-thinking-output:ke1-9a78858eeb4ab082@1.2.1",
+      "resultDigest": "ke1-9a78858eeb4ab082",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:primary",
+      "ledgerDigest": "ke1-78d5c05270d5f41e",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-b94ed5e10dc6f7a5",
+        "scientific-trace-event:ke1-01d778477a0dc1db",
+        "scientific-trace-event:ke1-5def7dc482ef0658",
+        "scientific-trace-event:ke1-4e0aa6eb06c2349f",
+        "scientific-trace-event:ke1-a7e1a1592da031fd",
+        "scientific-trace-event:ke1-cd4e0e872050e503",
+        "scientific-trace-event:ke1-0ea88252d696902e"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-dcec13d970ca72f5",
+      "ownerResultRef": "scientific-thinking-output:ke1-a7c0d2d03734a074@1.2.1",
+      "resultDigest": "ke1-a7c0d2d03734a074",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01:primary",
+      "ledgerDigest": "ke1-82172b04eb225c18",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-de4e3314803399d0",
+        "scientific-trace-event:ke1-6bb176c71629bf73",
+        "scientific-trace-event:ke1-7d7217999b471a25",
+        "scientific-trace-event:ke1-9a17b9720fe2e46e",
+        "scientific-trace-event:ke1-0f5b12242b63c8b0",
+        "scientific-trace-event:ke1-f569ea0913dfef1d",
+        "scientific-trace-event:ke1-17c457bee9e23f02"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-9562715f48b967bb",
+      "ownerResultRef": "scientific-thinking-output:ke1-10749129861c9bd5@1.2.1",
+      "resultDigest": "ke1-10749129861c9bd5",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01:primary",
+      "ledgerDigest": "ke1-e89be09820bb02b4",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-7f39dfc1e6cacebd",
+        "scientific-trace-event:ke1-ef62df5600530b1a",
+        "scientific-trace-event:ke1-17a2c56462fc2550",
+        "scientific-trace-event:ke1-94e3d8fbcad73d8f",
+        "scientific-trace-event:ke1-f8cf0fb2db7133de",
+        "scientific-trace-event:ke1-f7aafb59a63bf9a5",
+        "scientific-trace-event:ke1-fde639e2110adeee"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-68afc9d72ce41423",
+      "ownerResultRef": "scientific-thinking-output:ke1-af2e273e52bf890a@1.2.1",
+      "resultDigest": "ke1-af2e273e52bf890a",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01:primary",
+      "ledgerDigest": "ke1-56c441892a9751f5",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-7bb5776ed3a80e62",
+        "scientific-trace-event:ke1-8e2a06e5ee6d8db9",
+        "scientific-trace-event:ke1-064e40d29d63ba36",
+        "scientific-trace-event:ke1-340919ccf5c43758",
+        "scientific-trace-event:ke1-8deccaa1e5afdf35",
+        "scientific-trace-event:ke1-e1e025312856b365",
+        "scientific-trace-event:ke1-07cfb52cfd36c358"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-b4c4589d68540bd1",
+      "ownerResultRef": "scientific-thinking-output:ke1-8f5b060d1236f211@1.2.1",
+      "resultDigest": "ke1-8f5b060d1236f211",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01:primary",
+      "ledgerDigest": "ke1-02261127c450c82b",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-32266bf8d2c9c5b4",
+        "scientific-trace-event:ke1-5b9254bfca270dd3",
+        "scientific-trace-event:ke1-cf93076564eb6b51",
+        "scientific-trace-event:ke1-3fe4ab6168befb5d",
+        "scientific-trace-event:ke1-b75c64b88d03df84",
+        "scientific-trace-event:ke1-e140a57764d3b28b",
+        "scientific-trace-event:ke1-6b982fce19f1565a"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-4afc9b9bf0f2c4ff",
+      "ownerResultRef": "scientific-thinking-output:ke1-c090aa2d45089229@1.2.1",
+      "resultDigest": "ke1-c090aa2d45089229",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01:primary",
+      "ledgerDigest": "ke1-9ffc05164ebb29c2",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-6800a84784539c1b",
+        "scientific-trace-event:ke1-512c880e3ed34fa2",
+        "scientific-trace-event:ke1-36d0cd44ada55958",
+        "scientific-trace-event:ke1-c54afa8eb2f21632",
+        "scientific-trace-event:ke1-32ac821ffe0fd5a3",
+        "scientific-trace-event:ke1-5156c7d28801f96e",
+        "scientific-trace-event:ke1-f258ab0ca92a5098"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-a003bd361e36ddb2",
+      "ownerResultRef": "scientific-thinking-output:ke1-01cd7271b50bd23d@1.2.1",
+      "resultDigest": "ke1-01cd7271b50bd23d",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-CT-BMD-STALE-01:primary",
+      "ledgerDigest": "ke1-88f201e3e6c583e7",
+      "eventCount": 5,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "STALE_RESULT_REJECTED",
+        "HANDOFF_REJECTED",
+        "RUN_FAILED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-e492cf84479ea748",
+        "scientific-trace-event:ke1-30e4ce174fc9822b",
+        "scientific-trace-event:ke1-a5635f048f409f38",
+        "scientific-trace-event:ke1-a356052b0466e407",
+        "scientific-trace-event:ke1-732ffc9c79582aa0"
+      ],
+      "complete": true,
+      "requestRef": null,
+      "ownerResultRef": null,
+      "resultDigest": null,
+      "terminalOutcome": "EXPECTED_PRE_OWNER_REJECTION",
+      "durationMs": 1000,
+      "error": "STALE_KNOWLEDGE_RESULT",
+      "firstDivergentTechnicalStage": null
+    },
+    {
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01:primary",
+      "ledgerDigest": "ke1-70f9105b686d7d27",
+      "eventCount": 7,
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "eventRefs": [
+        "scientific-trace-event:ke1-c252b74870c72914",
+        "scientific-trace-event:ke1-1cf757407f58f1f4",
+        "scientific-trace-event:ke1-6d9e0f74f39daca8",
+        "scientific-trace-event:ke1-458cb49c9037b048",
+        "scientific-trace-event:ke1-20f08a05351ecaf1",
+        "scientific-trace-event:ke1-e66ca5383b592c94",
+        "scientific-trace-event:ke1-e4201efbdff53e4f"
+      ],
+      "complete": false,
+      "requestRef": "scientific-thinking-project-request:ke1-ef6af5b1848a26f5",
+      "ownerResultRef": "scientific-thinking-output:ke1-21eec350a278ff9c@1.2.1",
+      "resultDigest": "ke1-21eec350a278ff9c",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "durationMs": 1000,
+      "error": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    }
+  ],
+  "replayRuns": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "role": "POSITIVE",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01:replay",
+      "deterministic": true,
+      "ledgerDigest": "ke1-875d4c1ba434a52f",
+      "eventRefs": [
+        "scientific-trace-event:ke1-2b53e237e45a4983",
+        "scientific-trace-event:ke1-8ed6251186264335",
+        "scientific-trace-event:ke1-5243a139a486c1a5",
+        "scientific-trace-event:ke1-1181ef252a75d189",
+        "scientific-trace-event:ke1-7b9a6c248f8f5a30",
+        "scientific-trace-event:ke1-bed6773eb66ad85a",
+        "scientific-trace-event:ke1-54ed2a349badd118"
+      ]
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "role": "CONTRADICTION_OR_ALTERNATIVES",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:replay",
+      "deterministic": true,
+      "ledgerDigest": "ke1-71bfff28b317501c",
+      "eventRefs": [
+        "scientific-trace-event:ke1-51c8254efe0685ba",
+        "scientific-trace-event:ke1-833ab5ad737aa769",
+        "scientific-trace-event:ke1-a6ad640668ce9f22",
+        "scientific-trace-event:ke1-713d3bdca6c66dd8",
+        "scientific-trace-event:ke1-62a7cdb2acd6267e",
+        "scientific-trace-event:ke1-a9dcd015994bd569",
+        "scientific-trace-event:ke1-d261347848625eec"
+      ]
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "role": "FAIL_CLOSED",
+      "runId": "scientific-run:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-CT-BMD-STALE-01:replay",
+      "deterministic": true,
+      "ledgerDigest": "ke1-c6cd1dca835c9dbe",
+      "eventRefs": [
+        "scientific-trace-event:ke1-31db79896f1bb4e5",
+        "scientific-trace-event:ke1-833bbd3483e02718",
+        "scientific-trace-event:ke1-3637da707538d1bc",
+        "scientific-trace-event:ke1-e6067d1ac3e7a5fe",
+        "scientific-trace-event:ke1-e67d045c9d20d0e0"
+      ]
+    }
+  ],
+  "counts": {
+    "primaryRuns": 12,
+    "completePrimaryRuns": 1,
+    "replayRuns": 3
+  },
+  "privateChainOfThoughtRecorded": false
+}

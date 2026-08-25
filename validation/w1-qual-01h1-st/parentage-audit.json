@@ -1,0 +1,187 @@
+{
+  "contract": "W1_QUAL_01H1_ST_PARENTAGE_AUDIT",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "completedBeforeFirstStExecution": true,
+  "comparisonSources": {
+    "w1Qual01": [
+      "ST-CARDIAC-01",
+      "ST-SPECTRAL-01",
+      "ST-NEURO-01",
+      "ST-UNSUPPORTED-01"
+    ],
+    "campaignA": [
+      "12 cases in validation/w1-qual-01r-st/case-registry.json"
+    ],
+    "campaignB": [
+      "13 cases in validation/w1-qual-01r1-st/campaign-b/case-registry.json"
+    ],
+    "campaignC": [
+      "13 cases in validation/w1-qual-01r2-st/campaign-c/case-registry.json"
+    ],
+    "repairProbes": [
+      "ST-REPAIR-A",
+      "ST-REPAIR-B",
+      "ST-REPAIR-C",
+      "ST-REPAIR-D",
+      "ST-REPAIR-E",
+      "ST-REPAIR-F",
+      "ST-REPAIR-G",
+      "ST-REPAIR-H"
+    ],
+    "harnessMetaTests": [
+      "Campaign A/B/C harness meta-tests",
+      "R1/R2 stale and terminal controls"
+    ],
+    "existingStTests": [
+      "src/features/scientific-thinking/__tests__/contracts.test.ts",
+      "src/features/scientific-thinking/__tests__/methodological-cases.test.ts",
+      "src/features/scientific-thinking/__tests__/reasoning.test.ts",
+      "src/features/scientific-thinking/__tests__/mandatory-cases.test.ts",
+      "src/features/scientific-thinking/__tests__/handoff.test.ts",
+      "src/features/scientific-thinking/__tests__/w1-scientific-thinking-repair-01-fresh-probes.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/w1-scientific-thinking-01-product-knowledge-handoff.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/w1-imaging-01-product-scientific-thinking-handoff.test.ts"
+    ]
+  },
+  "cases": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R-CARDIAC-MYOCARDITIS-01",
+        "ST01R2-C-FOURD-FLOW-ALIASING-01",
+        "tests T1/ECV"
+      ],
+      "distinctnessRationale": "Nouveaux construits de réserve, nouvelle paire CMR/PET et population INOCA; aucun T1/ECV, flux valvulaire, myocardite ou no-reflow.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01",
+        "ST01R2-C-STRAIN-ALGORITHMS-01"
+      ],
+      "distinctnessRationale": "Nouvelle anatomie valvulaire, nouvel outcome rythmique et nouveau lien longitudinal; aucune surcharge en fer, strain logiciel ou récidive post-ablation.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R2-C-FOURD-FLOW-ALIASING-01",
+        "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP"
+      ],
+      "distinctnessRationale": "Nouvelle physiologie d'effort et relation ventriculo-artérielle; aucune mesure valvulaire de vitesse, flux 4D ou suivi de pression pulmonaire du cas SEM.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01",
+        "ST01R2-C-CAPILLARY-HETEROGENEITY-01"
+      ],
+      "distinctnessRationale": "Nouveau noyau cérébral, nouveau contraste neuromélanine et nouvelles alternatives pigment/eau/fer; aucune BBB, Ktrans, perfusion ou extraction d'oxygène.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01"
+      ],
+      "distinctnessRationale": "Même famille générale d'alternatives en neuro-oncologie, mais nouveau métabolite, nouvelle méthode MRS, nouveau contexte post-thérapeutique et contradiction activité/nécrose.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-UNSUPPORTED-01",
+        "ST01R-INSUFFICIENT-FINALITY-01",
+        "repair probe D"
+      ],
+      "distinctnessRationale": "Nouveau construit métabolique réel et question scientifique structurée; contrairement aux cas zéphyr/vagues, l'insuffisance vient du corpus, non d'un terme fictif ou d'une finalité absente.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01",
+        "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01"
+      ],
+      "distinctnessRationale": "Même famille d'inconnue Project, mais nouveau territoire pulmonaire, nouvelle distinction aigu/chronique et nouveau construit perfusé; aucun endpoint carotidien ni référence hépatique.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01"
+      ],
+      "distinctnessRationale": "Nouveau territoire pancréatique, phase artérielle explicite et relation quantitative intrachaîne; aucun rein, négativité d'iode, tumeur hépatique ou construit générique.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R-OUT-OF-OWNER-DICOM-01",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01",
+        "repair probe G"
+      ],
+      "distinctnessRationale": "Nouvelle frontière Safety/éthique/recrutement et décision humaine; aucun logiciel, DICOM, marketing, comptabilité ou tarification.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01",
+        "ST01R2-C-STRAIN-ALGORITHMS-01"
+      ],
+      "distinctnessRationale": "Nouveau contexte multicentrique radiomique et dépendance conjointe reconstruction/segmentation; aucun accord entre références imparfaites ni feature-tracking cardiaque.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R-STALE-KNOWLEDGE-01",
+        "ST01R1-B-STALE-ZEFF-01",
+        "ST01R2-C-STALE-DIFFUSION-01",
+        "stale meta-tests"
+      ],
+      "distinctnessRationale": "Le garde contractuel est nécessairement apparenté, mais le Project, le KnowledgeResult, l'ostéoporose opportuniste, l'outcome fracture et toutes les identités sont nouveaux.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+        "ST01R1-B-NEURO-GHOST-CORE-01"
+      ],
+      "distinctnessRationale": "Même frontière de non-promotion, mais nouveau cancer, nouvelle signature radiomique, nouvelle faiblesse monocentrique et nouvelle dette de validation externe; aucun neurotrauma ni core d'AVC.",
+      "admissible": true
+    }
+  ],
+  "exclusions": {
+    "tooClose": [],
+    "exactOrNearDuplicate": [],
+    "reusedAsIndependentEvidence": []
+  },
+  "counts": {
+    "total": 12,
+    "novel": 7,
+    "relatedButDistinct": 5,
+    "tooClose": 0,
+    "exactOrNearDuplicate": 0
+  },
+  "conclusion": "ADMISSIBLE_NO_TOO_CLOSE_OR_DUPLICATE_CASE"
+}

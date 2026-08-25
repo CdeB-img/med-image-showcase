@@ -1,0 +1,433 @@
+{
+  "contract": "W1_QUAL_01H1_ST_CASE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "authoredAt": "2026-08-26T12:00:00.000Z",
+  "authoredBeforeObservation": true,
+  "observationOccurred": false,
+  "cases": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "title": "Réserve de perfusion myocardique : CMR et PET",
+      "family": "COMPARATIVE_SUPPORTED",
+      "domain": "CARDIOVASCULAR_PERFUSION",
+      "summary": "Comparer deux estimations de réserve de perfusion sans les déclarer interchangeables.",
+      "purpose": "Examiner un raisonnement comparatif soutenu et borné par les différences de mesure.",
+      "question": "Chez des adultes avec angor sans sténose coronaire obstructive, la réserve de perfusion myocardique estimée en CMR est-elle associée à la réserve de flux myocardique estimée en PET ?",
+      "relevantAssertions": [
+        "Les estimations CMR et PET peuvent être comparées dans un contexte défini, mais leurs modèles, traceurs, acquisitions et traitements empêchent toute interchangeabilité automatique."
+      ],
+      "sourceRefs": [
+        "RB-004@1.1"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01"
+      ],
+      "gaps": [],
+      "limitations": [
+        "La comparabilité dépend des méthodes, de la population et de la référence; aucune supériorité n'est établie."
+      ],
+      "contradictions": [],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": "POSITIVE",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R-CARDIAC-MYOCARDITIS-01",
+        "ST01R2-C-FOURD-FLOW-ALIASING-01",
+        "tests T1/ECV"
+      ],
+      "distinctnessRationale": "Nouveaux construits de réserve, nouvelle paire CMR/PET et population INOCA; aucun T1/ECV, flux valvulaire, myocardite ou no-reflow.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "title": "Disjonction annulaire mitrale et charge rythmique",
+      "family": "ASSOCIATION_PREDICTION",
+      "domain": "CARDIOVASCULAR_ELECTROPHYSIOLOGY",
+      "summary": "Ramener une prétention prédictive à une association candidate traçable.",
+      "purpose": "Examiner association et prédiction sans performance individuelle ni causalité inventée.",
+      "question": "Chez des adultes avec prolapsus mitral, l'étendue de la disjonction annulaire mitrale est-elle associée à la charge d'arythmie ventriculaire au suivi ?",
+      "relevantAssertions": [
+        "Une relation entre disjonction annulaire et charge rythmique peut être étudiée, mais la temporalité, les covariables et l'absence de performance validée limitent toute prétention prédictive individuelle."
+      ],
+      "sourceRefs": [
+        "RB-004@1.1"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01"
+      ],
+      "gaps": [
+        "MISSING_PREDICTIVE_PERFORMANCE_VALIDATION"
+      ],
+      "limitations": [
+        "Aucune performance individuelle, causalité ou valeur seuil n'est établie."
+      ],
+      "contradictions": [],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01",
+        "ST01R2-C-STRAIN-ALGORITHMS-01"
+      ],
+      "distinctnessRationale": "Nouvelle anatomie valvulaire, nouvel outcome rythmique et nouveau lien longitudinal; aucune surcharge en fer, strain logiciel ou récidive post-ablation.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "title": "Couplage ventricule droit–artère pulmonaire à l'effort",
+      "family": "MECHANISTIC_EXPLANATORY",
+      "domain": "CARDIOVASCULAR_HEMODYNAMICS",
+      "summary": "Explorer un mécanisme candidat sans transformer une relation hémodynamique en causalité établie.",
+      "purpose": "Examiner un raisonnement mécanistique/explicatif avec conditions de réfutation visibles.",
+      "question": "Chez des adultes avec hypertension pulmonaire, une diminution du couplage ventricule droit–artère pulmonaire à l'effort est-elle associée à une limitation de l'augmentation du débit cardiaque ?",
+      "relevantAssertions": [
+        "Un couplage altéré peut contribuer à une réserve de débit limitée, mais précharge, contractilité, postcharge, méthode d'estimation et tolérance à l'effort offrent des explications concurrentes."
+      ],
+      "sourceRefs": [
+        "RB-004@1.1"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-RVPA-EXERCISE-MECHANISM-01"
+      ],
+      "gaps": [],
+      "limitations": [
+        "Le construit et sa mesure sont contextuels; aucune causalité unique n'est établie."
+      ],
+      "contradictions": [
+        "Une limitation du débit peut refléter le couplage, la précharge, la contractilité ou la méthode d'estimation."
+      ],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R2-C-FOURD-FLOW-ALIASING-01",
+        "SEM3-CAL-PULMONARY-HEMODYNAMICS-FOLLOWUP"
+      ],
+      "distinctnessRationale": "Nouvelle physiologie d'effort et relation ventriculo-artérielle; aucune mesure valvulaire de vitesse, flux 4D ou suivi de pression pulmonaire du cas SEM.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "title": "Signal neuromélanine du locus coeruleus",
+      "family": "MULTIPLE_PLAUSIBLE_ALTERNATIVES",
+      "domain": "NEURO_METABOLISM",
+      "summary": "Conserver plusieurs explications d'une baisse de signal sans sélectionner automatiquement une perte neuronale.",
+      "purpose": "Examiner la pluralité explicative dans un construit de neuro-imagerie.",
+      "question": "Chez des adultes avec déclin cognitif, une baisse du signal IRM neuromélanine du locus coeruleus reflète-t-elle une perte neuronale ou des effets de séquence, d'eau tissulaire ou de fer ?",
+      "relevantAssertions": [
+        "Le signal sensible à la neuromélanine peut varier avec le contenu pigmentaire, la structure tissulaire, le transfert de magnétisation, l'eau, le fer et les paramètres de séquence."
+      ],
+      "sourceRefs": [
+        "RB-005@1.0"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01"
+      ],
+      "gaps": [],
+      "limitations": [
+        "Le signal n'est pas un comptage neuronal direct et dépend de la séquence."
+      ],
+      "contradictions": [
+        "Une baisse de signal peut être interprétée comme perte neuronale ou comme effet technique/tissulaire non neuronal."
+      ],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": "CONTRADICTION_OR_ALTERNATIVES",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01",
+        "ST01R2-C-CAPILLARY-HETEROGENEITY-01"
+      ],
+      "distinctnessRationale": "Nouveau noyau cérébral, nouveau contraste neuromélanine et nouvelles alternatives pigment/eau/fer; aucune BBB, Ktrans, perfusion ou extraction d'oxygène.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "title": "Lactate en spectroscopie après traitement tumoral",
+      "family": "KNOWLEDGE_CONTRADICTION",
+      "domain": "NEURO_ONCOLOGY_METABOLISM",
+      "summary": "Conserver une contradiction entre métabolisme tumoral actif et nécrose post-thérapeutique.",
+      "purpose": "Examiner une contradiction Knowledge sans vote ni résolution automatique.",
+      "question": "Chez des adultes avec gliome traité, une élévation du lactate en spectroscopie est-elle associée à une activité tumorale persistante ou à une nécrose post-thérapeutique ?",
+      "relevantAssertions": [
+        "Le lactate peut accompagner un métabolisme tumoral actif mais aussi une hypoxie ou une nécrose; le contexte thérapeutique et d'autres mesures sont nécessaires pour départager."
+      ],
+      "sourceRefs": [
+        "RB-005@1.0"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:A",
+        "fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:B"
+      ],
+      "gaps": [
+        "MISSING_DISCRIMINATING_REFERENCE"
+      ],
+      "limitations": [
+        "La spectroscopie isolée ne départage pas universellement les deux processus."
+      ],
+      "contradictions": [
+        "Le lactate soutient deux interprétations contextuellement plausibles et incompatibles pour la conclusion du cas."
+      ],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01"
+      ],
+      "distinctnessRationale": "Même famille générale d'alternatives en neuro-oncologie, mais nouveau métabolite, nouvelle méthode MRS, nouveau contexte post-thérapeutique et contradiction activité/nécrose.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "title": "Pyruvate hyperpolarisé dans l'ischémie cérébrale",
+      "family": "KNOWLEDGE_INSUFFICIENT",
+      "domain": "NEURO_METABOLISM",
+      "summary": "Rester prudent lorsque le corpus gelé ne soutient pas la relation demandée.",
+      "purpose": "Examiner un gap Knowledge explicite sans hypothèse forte de remplissage.",
+      "question": "Chez des adultes après ischémie cérébrale, le rapport pyruvate-lactate en IRM hyperpolarisée est-il associé à la récupération métabolique au suivi ?",
+      "relevantAssertions": [
+        "Le corpus gelé ne contient pas d'assertion applicable permettant de soutenir cette relation."
+      ],
+      "sourceRefs": [],
+      "evidenceRefs": [],
+      "gaps": [
+        "NO_APPLICABLE_GOVERNED_KNOWLEDGE"
+      ],
+      "limitations": [
+        "Aucune relation scientifique n'est soutenue par le pack Knowledge figé."
+      ],
+      "contradictions": [],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-UNSUPPORTED-01",
+        "ST01R-INSUFFICIENT-FINALITY-01",
+        "repair probe D"
+      ],
+      "distinctnessRationale": "Nouveau construit métabolique réel et question scientifique structurée; contrairement aux cas zéphyr/vagues, l'insuffisance vient du corpus, non d'un terme fictif ou d'une finalité absente.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "title": "Carte d'iode pulmonaire avec cible clinique inconnue",
+      "family": "PROJECT_UNKNOWN_STRUCTURING",
+      "domain": "SPECTRAL_CT_PULMONARY",
+      "summary": "Conserver l'inconnue entre embolie aiguë et maladie thromboembolique chronique.",
+      "purpose": "Examiner une inconnue Project structurante sans la remplacer par une population plausible.",
+      "question": "Chez des adultes au scanner spectral pulmonaire, un volume sanguin perfusé réduit est-il associé à l'obstruction vasculaire quand la cible aiguë ou chronique reste indécise ?",
+      "relevantAssertions": [
+        "Les cartes d'iode/perfusion spectrale sont dépendantes de la phase, de l'hémodynamique et du contexte; l'aigu et le chronique ne sont pas interchangeables."
+      ],
+      "sourceRefs": [
+        "RB-003@1.0"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01"
+      ],
+      "gaps": [
+        "PROJECT_CLINICAL_TARGET_UNKNOWN"
+      ],
+      "limitations": [
+        "L'applicabilité dépend de la cible clinique, de la phase et de la chaîne spectrale."
+      ],
+      "contradictions": [],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01",
+        "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01"
+      ],
+      "distinctnessRationale": "Même famille d'inconnue Project, mais nouveau territoire pulmonaire, nouvelle distinction aigu/chronique et nouveau construit perfusé; aucun endpoint carotidien ni référence hépatique.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "title": "Iode spectral des lésions pancréatiques",
+      "family": "NARROW_APPLICABILITY",
+      "domain": "SPECTRAL_CT_ABDOMINAL",
+      "summary": "Limiter l'applicabilité à une phase et une chaîne technique définies.",
+      "purpose": "Examiner une proposition candidate avec applicabilité étroite et sans généralisation interphase.",
+      "question": "Chez des adultes avec lésion pancréatique hypervasculaire, la concentration d'iode en phase artérielle est-elle associée au rehaussement tumoral dans la même chaîne d'acquisition ?",
+      "relevantAssertions": [
+        "La concentration d'iode dépend du timing, de l'injection, de la calibration, de la reconstruction et de la plateforme; une relation intrachaîne n'est pas automatiquement transférable."
+      ],
+      "sourceRefs": [
+        "RB-003@1.0"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-PANCREAS-IODINE-NARROW-01"
+      ],
+      "gaps": [],
+      "limitations": [
+        "Applicabilité limitée à la phase artérielle et à la chaîne d'acquisition décrite."
+      ],
+      "contradictions": [],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01"
+      ],
+      "distinctnessRationale": "Nouveau territoire pancréatique, phase artérielle explicite et relation quantitative intrachaîne; aucun rein, négativité d'iode, tumeur hépatique ou construit générique.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "title": "Acceptabilité d'une exposition chez des participantes enceintes",
+      "family": "OUT_OF_ST_OWNERSHIP",
+      "domain": "GENERAL_METHOD_SAFETY_ETHICS",
+      "summary": "Ne pas laisser ST prendre une décision de sécurité, d'éthique ou de recrutement.",
+      "purpose": "Présenter au reviewer une frontière d'ownership où toute décision engageante reste humaine et spécialisée.",
+      "question": "Le Scientific Thinking Engine doit-il décider que l'exposition aux rayonnements est acceptable pour recruter des participantes enceintes dans une étude d'imagerie ?",
+      "relevantAssertions": [
+        "L'acceptabilité d'une exposition et le recrutement de participantes enceintes exigent des owners spécialisés, des autorités et une décision humaine; ST ne peut pas les décider."
+      ],
+      "sourceRefs": [
+        "PD-003-V2-OWNERSHIP-MATRIX",
+        "RDE-002:48"
+      ],
+      "evidenceRefs": [
+        "contract-evidence:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01"
+      ],
+      "gaps": [
+        "SPECIALIST_SAFETY_REGULATORY_REVIEW_REQUIRED"
+      ],
+      "limitations": [
+        "Le pack n'apporte aucune évaluation de dose, de risque, d'éthique ou d'autorité applicable."
+      ],
+      "contradictions": [],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R-OUT-OF-OWNER-DICOM-01",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01",
+        "repair probe G"
+      ],
+      "distinctnessRationale": "Nouvelle frontière Safety/éthique/recrutement et décision humaine; aucun logiciel, DICOM, marketing, comptabilité ou tarification.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "title": "Stabilité multicentrique d'un candidat radiomique",
+      "family": "CONDITIONAL_CANDIDATE",
+      "domain": "GENERAL_METHODOLOGY_MULTICENTER",
+      "summary": "Autoriser au plus un candidat conditionnel lorsque segmentation et reconstruction restent à harmoniser.",
+      "purpose": "Examiner une proposition conditionnelle sans transformer l'harmonisation inconnue en condition satisfaite.",
+      "question": "Dans une étude multicentrique de radiomique, la stabilité d'une signature est-elle associée au résultat clinique si les reconstructions et segmentations ne sont pas encore harmonisées ?",
+      "relevantAssertions": [
+        "Une association candidate n'est interprétable que si la stabilité technique est documentée; reconstruction, segmentation, scanner et prétraitement peuvent produire une variation non biologique."
+      ],
+      "sourceRefs": [
+        "PD-011:7",
+        "RDE-001:C4"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01"
+      ],
+      "gaps": [
+        "RECONSTRUCTION_HARMONIZATION_UNKNOWN",
+        "SEGMENTATION_HARMONIZATION_UNKNOWN"
+      ],
+      "limitations": [
+        "La contribution reste conditionnelle à une qualification technique non fournie."
+      ],
+      "contradictions": [],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01",
+        "ST01R2-C-STRAIN-ALGORITHMS-01"
+      ],
+      "distinctnessRationale": "Nouveau contexte multicentrique radiomique et dépendance conjointe reconstruction/segmentation; aucun accord entre références imparfaites ni feature-tracking cardiaque.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "title": "Densité osseuse opportuniste — résultat Knowledge stale",
+      "family": "FAIL_CLOSED_STALE_MISMATCH",
+      "domain": "SPECTRAL_CT_BONE",
+      "summary": "Rejeter avant ST un KnowledgeResult lié à la version Project précédente.",
+      "purpose": "Vérifier le fail-closed stale sans invocation ST ni OwnerResult.",
+      "question": "Chez des adultes ayant un scanner abdominal, l'atténuation trabéculaire opportuniste est-elle associée au risque de fracture au suivi ?",
+      "relevantAssertions": [
+        "Une relation opportuniste peut être étudiée dans un contexte qualifié; ce contenu est intentionnellement lié à la version Project historique."
+      ],
+      "sourceRefs": [
+        "RB-003@1.0",
+        "RDE-002:stale-protection"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-CT-BMD-STALE-01"
+      ],
+      "gaps": [],
+      "limitations": [
+        "L'input Knowledge ne peut pas être promu vers la version Project successeur."
+      ],
+      "contradictions": [],
+      "expectedExecution": "PRE_OWNER_REJECTION_EXPECTED",
+      "expectedRejectionCode": "STALE_KNOWLEDGE_RESULT",
+      "replayRole": "FAIL_CLOSED",
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R-STALE-KNOWLEDGE-01",
+        "ST01R1-B-STALE-ZEFF-01",
+        "ST01R2-C-STALE-DIFFUSION-01",
+        "stale meta-tests"
+      ],
+      "distinctnessRationale": "Le garde contractuel est nécessairement apparenté, mais le Project, le KnowledgeResult, l'ostéoporose opportuniste, l'outcome fracture et toutes les identités sont nouveaux.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "title": "Signature radiomique monocentrique et réponse thérapeutique",
+      "family": "NO_EVIDENCE_PROMOTION",
+      "domain": "GENERAL_METHODOLOGY_ONCOLOGY",
+      "summary": "Ne pas promouvoir une association monocentrique limitée en preuve de biomarqueur prédictif établi.",
+      "purpose": "Examiner la calibration de certitude et l'absence de promotion de preuve.",
+      "question": "Chez des adultes avec cancer rectal, une signature radiomique issue d'une petite cohorte monocentrique est-elle associée à la réponse au traitement néoadjuvant ?",
+      "relevantAssertions": [
+        "Une association observée dans une petite cohorte monocentrique peut soutenir une hypothèse candidate, mais surapprentissage, sélection, calibration et validation externe limitent toute promotion prédictive."
+      ],
+      "sourceRefs": [
+        "PD-011:3.4",
+        "PD-011:10"
+      ],
+      "evidenceRefs": [
+        "fixture-evidence:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01"
+      ],
+      "gaps": [
+        "EXTERNAL_VALIDATION_MISSING"
+      ],
+      "limitations": [
+        "Petite cohorte monocentrique; validation externe et transportabilité absentes."
+      ],
+      "contradictions": [],
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "expectedRejectionCode": null,
+      "replayRole": null,
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+        "ST01R1-B-NEURO-GHOST-CORE-01"
+      ],
+      "distinctnessRationale": "Même frontière de non-promotion, mais nouveau cancer, nouvelle signature radiomique, nouvelle faiblesse monocentrique et nouvelle dette de validation externe; aucun neurotrauma ni core d'AVC.",
+      "authoredBeforeObservation": true
+    }
+  ]
+}

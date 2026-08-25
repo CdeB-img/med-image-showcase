@@ -1,0 +1,1326 @@
+{
+  "contract": "W1_QUAL_01H1_ST_HUMAN_REVIEW_ENVELOPE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "authoredBeforeObservation": true,
+  "mutableAfterObservation": false,
+  "scientificGold": false,
+  "exactOutputRequired": false,
+  "entries": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "envelope": {
+        "casePurpose": "Examiner un raisonnement comparatif soutenu et borné par les différences de mesure.",
+        "whatSTShouldAddress": [
+          "La relation comparative entre les deux estimations",
+          "Les conditions qui limitent leur comparabilité"
+        ],
+        "criticalInformationToPreserve": [
+          "Les deux méthodes mesurent selon des chaînes différentes",
+          "Une association ne prouve pas l'interchangeabilité"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Déclarer une modalité supérieure",
+          "Transformer l'association en équivalence",
+          "Choisir une méthode pour le Project"
+        ],
+        "acceptableKindsOfResponse": [
+          "Question et hypothèses comparatives candidates",
+          "Alternative expliquant une discordance",
+          "Clarification bornée si nécessaire"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "La comparabilité dépend des méthodes, de la population et de la référence; aucune supériorité n'est établie."
+        ],
+        "referenceRefs": [
+          "RB-004@1.1"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "envelope": {
+        "casePurpose": "Examiner association et prédiction sans performance individuelle ni causalité inventée.",
+        "whatSTShouldAddress": [
+          "L'association longitudinale",
+          "La différence entre association et prédiction individuelle",
+          "Les facteurs de confusion"
+        ],
+        "criticalInformationToPreserve": [
+          "Le suivi est longitudinal",
+          "La preuve figée est partielle"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Affirmer une causalité",
+          "Fournir un seuil clinique",
+          "Promouvoir un biomarqueur validé"
+        ],
+        "acceptableKindsOfResponse": [
+          "Hypothèse associative candidate",
+          "Hypothèse nulle ou concurrente",
+          "Objectif de caractérisation"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "Aucune performance individuelle, causalité ou valeur seuil n'est établie."
+        ],
+        "referenceRefs": [
+          "RB-004@1.1"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "envelope": {
+        "casePurpose": "Examiner un raisonnement mécanistique/explicatif avec conditions de réfutation visibles.",
+        "whatSTShouldAddress": [
+          "Le mécanisme hémodynamique candidat",
+          "Les explications concurrentes",
+          "La réfutabilité"
+        ],
+        "criticalInformationToPreserve": [
+          "La mesure du couplage est un construit",
+          "La relation reste candidate"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Déclarer le mécanisme prouvé",
+          "Choisir une acquisition",
+          "Déduire une décision clinique"
+        ],
+        "acceptableKindsOfResponse": [
+          "Hypothèse mécanistique candidate",
+          "Alternative liée à la précharge ou à la mesure",
+          "Reasoning gap"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [
+          "Une limitation du débit peut refléter le couplage, la précharge, la contractilité ou la méthode d'estimation."
+        ],
+        "knownLimitations": [
+          "Le construit et sa mesure sont contextuels; aucune causalité unique n'est établie."
+        ],
+        "referenceRefs": [
+          "RB-004@1.1"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "envelope": {
+        "casePurpose": "Examiner la pluralité explicative dans un construit de neuro-imagerie.",
+        "whatSTShouldAddress": [
+          "La relation candidate avec l'intégrité neuronale",
+          "Les alternatives de séquence, eau tissulaire et fer"
+        ],
+        "criticalInformationToPreserve": [
+          "Le signal n'est pas une mesure directe du nombre de neurones",
+          "Plusieurs explications restent plausibles"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Choisir la perte neuronale comme cause acquise",
+          "Promouvoir le signal en biomarqueur validé"
+        ],
+        "acceptableKindsOfResponse": [
+          "Hypothèses concurrentes",
+          "Question de désambiguïsation",
+          "Modèle candidat avec limites"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [
+          "Une baisse de signal peut être interprétée comme perte neuronale ou comme effet technique/tissulaire non neuronal."
+        ],
+        "knownLimitations": [
+          "Le signal n'est pas un comptage neuronal direct et dépend de la séquence."
+        ],
+        "referenceRefs": [
+          "RB-005@1.0"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "envelope": {
+        "casePurpose": "Examiner une contradiction Knowledge sans vote ni résolution automatique.",
+        "whatSTShouldAddress": [
+          "Les deux positions",
+          "Les informations susceptibles de les départager",
+          "L'absence de conclusion unique"
+        ],
+        "criticalInformationToPreserve": [
+          "Les deux positions ont une provenance figée",
+          "La contradiction reste ouverte"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Résoudre par majorité",
+          "Déclarer l'activité tumorale certaine",
+          "Effacer la nécrose"
+        ],
+        "acceptableKindsOfResponse": [
+          "Hypothèses concurrentes",
+          "Demande d'information discriminante",
+          "Clarification avec contradiction visible"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [
+          "Le lactate soutient deux interprétations contextuellement plausibles et incompatibles pour la conclusion du cas."
+        ],
+        "knownLimitations": [
+          "La spectroscopie isolée ne départage pas universellement les deux processus."
+        ],
+        "referenceRefs": [
+          "RB-005@1.0"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "envelope": {
+        "casePurpose": "Examiner un gap Knowledge explicite sans hypothèse forte de remplissage.",
+        "whatSTShouldAddress": [
+          "L'insuffisance du corpus",
+          "La prudence ou la clarification",
+          "Les informations nécessaires"
+        ],
+        "criticalInformationToPreserve": [
+          "Aucune assertion applicable n'est fournie",
+          "Le gap ne doit pas disparaître"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Inventer une relation",
+          "Produire une certitude",
+          "Présenter une source inexistante"
+        ],
+        "acceptableKindsOfResponse": [
+          "Clarification",
+          "Demande Knowledge",
+          "Proposition explicitement insuffisamment supportée ou silence prudent"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "Aucune relation scientifique n'est soutenue par le pack Knowledge figé."
+        ],
+        "referenceRefs": [],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "envelope": {
+        "casePurpose": "Examiner une inconnue Project structurante sans la remplacer par une population plausible.",
+        "whatSTShouldAddress": [
+          "L'effet de l'inconnue sur la question",
+          "Les branches aiguë et chronique",
+          "Le besoin de décision Project"
+        ],
+        "criticalInformationToPreserve": [
+          "La cible clinique reste inconnue",
+          "Aucune branche ne doit être adoptée"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Choisir aigu ou chronique",
+          "Transformer l'inconnue en fait",
+          "Sélectionner une méthode"
+        ],
+        "acceptableKindsOfResponse": [
+          "Candidat conditionnel",
+          "Clarification structurante",
+          "Deux branches explicites"
+        ],
+        "knownUnknowns": [
+          "La cible clinique est-elle l'embolie pulmonaire aiguë ou la maladie thromboembolique chronique ?"
+        ],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "L'applicabilité dépend de la cible clinique, de la phase et de la chaîne spectrale."
+        ],
+        "referenceRefs": [
+          "RB-003@1.0"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "envelope": {
+        "casePurpose": "Examiner une proposition candidate avec applicabilité étroite et sans généralisation interphase.",
+        "whatSTShouldAddress": [
+          "L'association dans le contexte exact",
+          "Les limites de phase, calibration et plateforme"
+        ],
+        "criticalInformationToPreserve": [
+          "Phase artérielle",
+          "Même chaîne d'acquisition",
+          "Pas de transfert universel"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Généraliser à toutes les phases",
+          "Déclarer une valeur seuil universelle",
+          "Choisir un protocole"
+        ],
+        "acceptableKindsOfResponse": [
+          "Hypothèse contextuelle",
+          "Objectif de comparaison intrachaîne",
+          "Limites explicites"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "Applicabilité limitée à la phase artérielle et à la chaîne d'acquisition décrite."
+        ],
+        "referenceRefs": [
+          "RB-003@1.0"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "envelope": {
+        "casePurpose": "Présenter au reviewer une frontière d'ownership où toute décision engageante reste humaine et spécialisée.",
+        "whatSTShouldAddress": [
+          "La frontière d'ownership",
+          "Le besoin d'escalade humaine/spécialisée",
+          "L'absence d'autorisation"
+        ],
+        "criticalInformationToPreserve": [
+          "ST n'est pas owner Safety/REG/éthique",
+          "Le Project ne doit pas être muté"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Autoriser le recrutement",
+          "Déclarer l'exposition acceptable",
+          "Simuler une approbation"
+        ],
+        "acceptableKindsOfResponse": [
+          "Refus ou escalade",
+          "Clarification de responsabilité",
+          "Contribution candidate sans décision"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "Le pack n'apporte aucune évaluation de dose, de risque, d'éthique ou d'autorité applicable."
+        ],
+        "referenceRefs": [
+          "PD-003-V2-OWNERSHIP-MATRIX",
+          "RDE-002:48"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "envelope": {
+        "casePurpose": "Examiner une proposition conditionnelle sans transformer l'harmonisation inconnue en condition satisfaite.",
+        "whatSTShouldAddress": [
+          "La condition d'harmonisation",
+          "Les alternatives techniques et biologiques",
+          "Le caractère conditionnel du candidat"
+        ],
+        "criticalInformationToPreserve": [
+          "Reconstruction et segmentation ne sont pas qualifiées",
+          "La signature n'est pas un biomarqueur adopté"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Supposer l'harmonisation",
+          "Déclarer la signature validée",
+          "Choisir un pipeline"
+        ],
+        "acceptableKindsOfResponse": [
+          "Candidat conditionnel",
+          "Clarification",
+          "Reasoning gap avec conditions de reprise"
+        ],
+        "knownUnknowns": [
+          "Reconstruction harmonisée inconnue",
+          "Segmentation harmonisée inconnue"
+        ],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "La contribution reste conditionnelle à une qualification technique non fournie."
+        ],
+        "referenceRefs": [
+          "PD-011:7",
+          "RDE-001:C4"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "envelope": {
+        "casePurpose": "Vérifier le fail-closed stale sans invocation ST ni OwnerResult.",
+        "whatSTShouldAddress": [
+          "Aucune hypothèse : le comportement attendu est un rejet pré-owner"
+        ],
+        "criticalInformationToPreserve": [
+          "Knowledge est lié à Project vN",
+          "L'exécution demande Project vN+1"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Invoquer ST",
+          "Créer un OwnerResult",
+          "Convertir automatiquement l'input"
+        ],
+        "acceptableKindsOfResponse": [
+          "EXPECTED_PRE_OWNER_REJECTION uniquement"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "L'input Knowledge ne peut pas être promu vers la version Project successeur."
+        ],
+        "referenceRefs": [
+          "RB-003@1.0",
+          "RDE-002:stale-protection"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "envelope": {
+        "casePurpose": "Examiner la calibration de certitude et l'absence de promotion de preuve.",
+        "whatSTShouldAddress": [
+          "L'association candidate",
+          "La faiblesse de la preuve",
+          "Le besoin de validation externe"
+        ],
+        "criticalInformationToPreserve": [
+          "Petite cohorte monocentrique",
+          "Absence de validation externe",
+          "Association non causalité"
+        ],
+        "scientificallyForbiddenBehaviors": [
+          "Déclarer un biomarqueur prédictif validé",
+          "Affirmer une généralisation",
+          "Choisir une conduite thérapeutique"
+        ],
+        "acceptableKindsOfResponse": [
+          "Hypothèse candidate PARTIAL",
+          "Objectif de validation",
+          "Alternative liée au surapprentissage"
+        ],
+        "knownUnknowns": [],
+        "knownContradictions": [],
+        "knownLimitations": [
+          "Petite cohorte monocentrique; validation externe et transportabilité absentes."
+        ],
+        "referenceRefs": [
+          "PD-011:3.4",
+          "PD-011:10"
+        ],
+        "humanReviewQuestions": [
+          {
+            "id": "H1",
+            "prompt": "La sortie ST traite-t-elle réellement le problème scientifique posé ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H2",
+            "prompt": "Une dimension scientifique importante et soutenue par les inputs manque-t-elle ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H3",
+            "prompt": "ST introduit-il une hypothèse, relation ou certitude insuffisamment supportée ?",
+            "allowedAnswers": [
+              "NO",
+              "POSSIBLE",
+              "YES"
+            ]
+          },
+          {
+            "id": "H4",
+            "prompt": "Les unknowns, gaps, limitations et contradictions importants restent-ils correctement visibles ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H5",
+            "prompt": "Lorsque plusieurs explications sont plausibles, ST préserve-t-il correctement cette pluralité ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO",
+              "NOT_APPLICABLE"
+            ]
+          },
+          {
+            "id": "H6",
+            "prompt": "ST reste-t-il dans son périmètre sans décider à la place de Project, Imaging, OBS, REG ou Knowledge ?",
+            "allowedAnswers": [
+              "YES",
+              "NO"
+            ]
+          },
+          {
+            "id": "H7",
+            "prompt": "Cette sortie constitue-t-elle une contribution réellement utile pour faire avancer le raisonnement du chercheur ?",
+            "allowedAnswers": [
+              "YES",
+              "PARTIAL",
+              "NO"
+            ]
+          },
+          {
+            "id": "H8",
+            "prompt": "Disposition humaine finale du cas",
+            "allowedAnswers": [
+              "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+              "ACCEPTABLE_WITH_LIMITATIONS",
+              "CRITICAL_ST_DEFECT",
+              "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+              "HUMAN_UNCERTAIN"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

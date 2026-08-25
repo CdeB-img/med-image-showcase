@@ -1,0 +1,1871 @@
+{
+  "contract": "W1_QUAL_01H1_ST_DETERMINISTIC_CHECKS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "scientificPassProduced": false,
+  "scientificJudgmentPerformed": false,
+  "cases": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-f5dfcf51183c9345\",\"result\":\"ke1-f5dfcf51183c9345\"}",
+          "expected": "ke1-f5dfcf51183c9345",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-c531431fcf6c1533",
+          "expected": "ke1-c531431fcf6c1533",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-18d4a9fd6feb68a1\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-O-002\",\"ST-Q-001\",\"ST-Q-002\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\"],\"sourceRefs\":[\"RB-004@1.1\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-18d4a9fd6feb68a1\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-18d4a9fd6feb68a1\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-bee696cd2e01b0d1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01@1\",\"project-contribution-decision:ke1-ef2fdede30b0972a\",\"RB-004@1.1\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-18d4a9fd6feb68a1\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01@1\",\"project-contribution-decision:ke1-ef2fdede30b0972a\",\"RB-004@1.1\",\"RB-004@1.1\",\"fixture-evidence:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01@1\",\"project-contribution-decision:ke1-ef2fdede30b0972a\",\"RB-004@1.1\",\"scientific-thinking-handoff:ke1-a20c5d4c30a89a08\",\"ke1-c531431fcf6c1533\",\"scientific-thinking-output:ke1-982acedff199e803\",\"scientific-thinking-project-request:ke1-bee696cd2e01b0d1\",\"fixture-evidence:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01@1\",\"RB-004@1.1\",\"scientific-thinking-project-request:ke1-bee696cd2e01b0d1\"]",
+          "expected": "[\"RB-004@1.1\",\"fixture-evidence:ST01H1-D-MPR-CMR-PET-COMPARATIVE-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"La comparabilité dépend des méthodes, de la population et de la référence; aucune supériorité n'est établie.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"La comparabilité dépend des méthodes, de la population et de la référence; aucune supériorité n'est établie.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-982acedff199e803 / ke1-982acedff199e803",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes avec angor sans sténose coronaire obstructive, la réserve de perfusion myocardique estimée en CMR est-elle associée à la réserve de flux myocardique estimée en PET ? Examiner un raisonnement comparatif soutenu et borné par les différences de mesure.\",\"validatedReformulation\":\"Chez des adultes avec angor sans sténose coronaire obstructive, la réserve de perfusion myocardique estimée en CMR est-elle associée à la réserve de flux myocardique estimée en PET ?\"}",
+          "expected": "Chez des adultes avec angor sans sténose coronaire obstructive, la réserve de perfusion myocardique estimée en CMR est-elle associée à la réserve de flux myocardique estimée en PET ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "PASS",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-248f95c61a72ed42\",\"result\":\"ke1-248f95c61a72ed42\"}",
+          "expected": "ke1-248f95c61a72ed42",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-2b4127dafbfcdf2e",
+          "expected": "ke1-2b4127dafbfcdf2e",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-f99cb40308a7b4df\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\"],\"sourceRefs\":[\"RB-004@1.1\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[\"gap:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01:1\"]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-f99cb40308a7b4df\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-f99cb40308a7b4df\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-88328a3f5c81ff13\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01@1\",\"project-contribution-decision:ke1-df5ad62b3f4d466f\",\"RB-004@1.1\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-f99cb40308a7b4df\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01@1\",\"project-contribution-decision:ke1-df5ad62b3f4d466f\",\"RB-004@1.1\",\"RB-004@1.1\",\"fixture-evidence:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01@1\",\"project-contribution-decision:ke1-df5ad62b3f4d466f\",\"RB-004@1.1\",\"scientific-thinking-handoff:ke1-768d9540f722b074\",\"ke1-2b4127dafbfcdf2e\",\"scientific-thinking-output:ke1-d79dee4242b16996\",\"scientific-thinking-project-request:ke1-88328a3f5c81ff13\",\"fixture-evidence:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01@1\",\"RB-004@1.1\",\"scientific-thinking-project-request:ke1-88328a3f5c81ff13\"]",
+          "expected": "[\"RB-004@1.1\",\"fixture-evidence:ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"MISSING_PREDICTIVE_PERFORMANCE_VALIDATION\",\"MISSING_PREDICTIVE_PERFORMANCE_VALIDATION\",\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[\"MISSING_PREDICTIVE_PERFORMANCE_VALIDATION\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Aucune performance individuelle, causalité ou valeur seuil n'est établie.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"Aucune performance individuelle, causalité ou valeur seuil n'est établie.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-d79dee4242b16996 / ke1-d79dee4242b16996",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes avec prolapsus mitral, l'étendue de la disjonction annulaire mitrale est-elle associée à la charge d'arythmie ventriculaire au suivi ? Examiner association et prédiction sans performance individuelle ni causalité inventée.\",\"validatedReformulation\":\"Chez des adultes avec prolapsus mitral, l'étendue de la disjonction annulaire mitrale est-elle associée à la charge d'arythmie ventriculaire au suivi ?\"}",
+          "expected": "Chez des adultes avec prolapsus mitral, l'étendue de la disjonction annulaire mitrale est-elle associée à la charge d'arythmie ventriculaire au suivi ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "PASS",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-74b6a99020fb9ed4\",\"result\":\"ke1-74b6a99020fb9ed4\"}",
+          "expected": "ke1-74b6a99020fb9ed4",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-2cc05668f1a7ca44",
+          "expected": "ke1-2cc05668f1a7ca44",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-9cc85f15f91dacf9\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\"],\"sourceRefs\":[\"RB-004@1.1\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"status\":\"CONTRADICTORY_CONTEXT\"}],\"contradictionRefs\":[\"conflict:ST01H1-D-RVPA-EXERCISE-MECHANISM-01:1\"],\"gapRefs\":[]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-9cc85f15f91dacf9\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-9cc85f15f91dacf9\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-4ca271a0803f674c\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01@1\",\"project-contribution-decision:ke1-f3ac11085174f1cc\",\"RB-004@1.1\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-9cc85f15f91dacf9\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01@1\",\"project-contribution-decision:ke1-f3ac11085174f1cc\",\"RB-004@1.1\",\"RB-004@1.1\",\"fixture-evidence:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01@1\",\"project-contribution-decision:ke1-f3ac11085174f1cc\",\"RB-004@1.1\",\"scientific-thinking-handoff:ke1-95c8d3b128369695\",\"ke1-2cc05668f1a7ca44\",\"scientific-thinking-output:ke1-b881066b027f22bf\",\"scientific-thinking-project-request:ke1-4ca271a0803f674c\",\"fixture-evidence:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RVPA-EXERCISE-MECHANISM-01@1\",\"RB-004@1.1\",\"scientific-thinking-project-request:ke1-4ca271a0803f674c\"]",
+          "expected": "[\"RB-004@1.1\",\"fixture-evidence:ST01H1-D-RVPA-EXERCISE-MECHANISM-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Le construit et sa mesure sont contextuels; aucune causalité unique n'est établie.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"Le construit et sa mesure sont contextuels; aucune causalité unique n'est établie.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "FAIL",
+          "observed": "[\"conflict:ST01H1-D-RVPA-EXERCISE-MECHANISM-01:1:OPEN:Une limitation du débit peut refléter le couplage, la précharge, la contractilité ou la méthode d'estimation.\"]",
+          "expected": "[\"Une limitation du débit peut refléter le couplage, la précharge, la contractilité ou la méthode d'estimation.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-b881066b027f22bf / ke1-b881066b027f22bf",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes avec hypertension pulmonaire, une diminution du couplage ventricule droit–artère pulmonaire à l'effort est-elle associée à une limitation de l'augmentation du débit cardiaque ? Examiner un raisonnement mécanistique/explicatif avec conditions de réfutation visibles.\",\"validatedReformulation\":\"Chez des adultes avec hypertension pulmonaire, une diminution du couplage ventricule droit–artère pulmonaire à l'effort est-elle associée à une limitation de l'augmentation du débit cardiaque ?\"}",
+          "expected": "Chez des adultes avec hypertension pulmonaire, une diminution du couplage ventricule droit–artère pulmonaire à l'effort est-elle associée à une limitation de l'augmentation du débit cardiaque ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "FAIL",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-9c652b3deffeb0d1\",\"result\":\"ke1-9c652b3deffeb0d1\"}",
+          "expected": "ke1-9c652b3deffeb0d1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-778107a29670d6a6",
+          "expected": "ke1-778107a29670d6a6",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-917c8ce3565daaef\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\"],\"sourceRefs\":[\"RB-005@1.0\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"status\":\"CONTRADICTORY_CONTEXT\"}],\"contradictionRefs\":[\"conflict:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:1\"],\"gapRefs\":[]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-917c8ce3565daaef\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-917c8ce3565daaef\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-5f64f8fe01ab30ea\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01@1\",\"project-contribution-decision:ke1-a03be132818d926e\",\"RB-005@1.0\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-917c8ce3565daaef\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01@1\",\"project-contribution-decision:ke1-a03be132818d926e\",\"RB-005@1.0\",\"RB-005@1.0\",\"fixture-evidence:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01@1\",\"project-contribution-decision:ke1-a03be132818d926e\",\"RB-005@1.0\",\"scientific-thinking-handoff:ke1-e3a3aaa11e2a899d\",\"ke1-778107a29670d6a6\",\"scientific-thinking-output:ke1-9a78858eeb4ab082\",\"scientific-thinking-project-request:ke1-5f64f8fe01ab30ea\",\"fixture-evidence:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01@1\",\"RB-005@1.0\",\"scientific-thinking-project-request:ke1-5f64f8fe01ab30ea\"]",
+          "expected": "[\"RB-005@1.0\",\"fixture-evidence:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Le signal n'est pas un comptage neuronal direct et dépend de la séquence.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"Le signal n'est pas un comptage neuronal direct et dépend de la séquence.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "FAIL",
+          "observed": "[\"conflict:ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:1:OPEN:Une baisse de signal peut être interprétée comme perte neuronale ou comme effet technique/tissulaire non neuronal.\"]",
+          "expected": "[\"Une baisse de signal peut être interprétée comme perte neuronale ou comme effet technique/tissulaire non neuronal.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-9a78858eeb4ab082 / ke1-9a78858eeb4ab082",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes avec déclin cognitif, une baisse du signal IRM neuromélanine du locus coeruleus reflète-t-elle une perte neuronale ou des effets de séquence, d'eau tissulaire ou de fer ? Examiner la pluralité explicative dans un construit de neuro-imagerie.\",\"validatedReformulation\":\"Chez des adultes avec déclin cognitif, une baisse du signal IRM neuromélanine du locus coeruleus reflète-t-elle une perte neuronale ou des effets de séquence, d'eau tissulaire ou de fer ?\"}",
+          "expected": "Chez des adultes avec déclin cognitif, une baisse du signal IRM neuromélanine du locus coeruleus reflète-t-elle une perte neuronale ou des effets de séquence, d'eau tissulaire ou de fer ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "FAIL",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-d30786191809df7d\",\"result\":\"ke1-d30786191809df7d\"}",
+          "expected": "ke1-d30786191809df7d",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-44daf48e6cdfc98a",
+          "expected": "ke1-44daf48e6cdfc98a",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-0a7a143fb837ac33\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:A\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:B\"],\"sourceRefs\":[\"RB-005@1.0\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"status\":\"CONTRADICTORY_CONTEXT\"}],\"contradictionRefs\":[\"conflict:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:1\"],\"gapRefs\":[\"gap:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:1\"]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-0a7a143fb837ac33\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-0a7a143fb837ac33\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-dcec13d970ca72f5\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:A\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:B\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01@1\",\"project-contribution-decision:ke1-256a6f467ac391d2\",\"RB-005@1.0\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-0a7a143fb837ac33\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:A\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:B\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01@1\",\"project-contribution-decision:ke1-256a6f467ac391d2\",\"RB-005@1.0\",\"RB-005@1.0\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:A\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:B\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01@1\",\"project-contribution-decision:ke1-256a6f467ac391d2\",\"RB-005@1.0\",\"scientific-thinking-handoff:ke1-52e492c1937f2ea5\",\"ke1-44daf48e6cdfc98a\",\"scientific-thinking-output:ke1-a7c0d2d03734a074\",\"scientific-thinking-project-request:ke1-dcec13d970ca72f5\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:A\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:B\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01@1\",\"RB-005@1.0\",\"scientific-thinking-project-request:ke1-dcec13d970ca72f5\"]",
+          "expected": "[\"RB-005@1.0\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:A\",\"fixture-evidence:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:B\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"MISSING_DISCRIMINATING_REFERENCE\",\"MISSING_DISCRIMINATING_REFERENCE\",\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[\"MISSING_DISCRIMINATING_REFERENCE\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"La spectroscopie isolée ne départage pas universellement les deux processus.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"La spectroscopie isolée ne départage pas universellement les deux processus.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "FAIL",
+          "observed": "[\"conflict:ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:1:OPEN:Le lactate soutient deux interprétations contextuellement plausibles et incompatibles pour la conclusion du cas.\"]",
+          "expected": "[\"Le lactate soutient deux interprétations contextuellement plausibles et incompatibles pour la conclusion du cas.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-a7c0d2d03734a074 / ke1-a7c0d2d03734a074",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes avec gliome traité, une élévation du lactate en spectroscopie est-elle associée à une activité tumorale persistante ou à une nécrose post-thérapeutique ? Examiner une contradiction Knowledge sans vote ni résolution automatique.\",\"validatedReformulation\":\"Chez des adultes avec gliome traité, une élévation du lactate en spectroscopie est-elle associée à une activité tumorale persistante ou à une nécrose post-thérapeutique ?\"}",
+          "expected": "Chez des adultes avec gliome traité, une élévation du lactate en spectroscopie est-elle associée à une activité tumorale persistante ou à une nécrose post-thérapeutique ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "FAIL",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-ea8fc1fde54ed541\",\"result\":\"ke1-ea8fc1fde54ed541\"}",
+          "expected": "ke1-ea8fc1fde54ed541",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-564fb72fef89b61b",
+          "expected": "ke1-564fb72fef89b61b",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-5dbdfd435206abff\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[],\"documentaryStatementRefs\":[],\"evidenceRefs\":[],\"sourceRefs\":[],\"applicability\":[],\"contradictionRefs\":[],\"gapRefs\":[\"gap:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01:1\"]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-5dbdfd435206abff\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-5dbdfd435206abff\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-9562715f48b967bb\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01\",\"sourceRefs\":[\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01@1\",\"project-contribution-decision:ke1-a10b8d41d2784885\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-5dbdfd435206abff\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01@1\",\"project-contribution-decision:ke1-a10b8d41d2784885\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01@1\",\"project-contribution-decision:ke1-a10b8d41d2784885\",\"scientific-thinking-handoff:ke1-2f1759730ce84e3f\",\"ke1-564fb72fef89b61b\",\"scientific-thinking-output:ke1-10749129861c9bd5\",\"scientific-thinking-project-request:ke1-9562715f48b967bb\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01@1\",\"scientific-thinking-project-request:ke1-9562715f48b967bb\"]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"NO_APPLICABLE_GOVERNED_KNOWLEDGE\",\"NO_APPLICABLE_GOVERNED_KNOWLEDGE\",\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[\"NO_APPLICABLE_GOVERNED_KNOWLEDGE\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Aucune relation scientifique n'est soutenue par le pack Knowledge figé.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"Aucune relation scientifique n'est soutenue par le pack Knowledge figé.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-10749129861c9bd5 / ke1-10749129861c9bd5",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes après ischémie cérébrale, le rapport pyruvate-lactate en IRM hyperpolarisée est-il associé à la récupération métabolique au suivi ? Examiner un gap Knowledge explicite sans hypothèse forte de remplissage.\",\"validatedReformulation\":\"Chez des adultes après ischémie cérébrale, le rapport pyruvate-lactate en IRM hyperpolarisée est-il associé à la récupération métabolique au suivi ?\"}",
+          "expected": "Chez des adultes après ischémie cérébrale, le rapport pyruvate-lactate en IRM hyperpolarisée est-il associé à la récupération métabolique au suivi ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "PASS",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-b8da30b3326ce7c7\",\"result\":\"ke1-b8da30b3326ce7c7\"}",
+          "expected": "ke1-b8da30b3326ce7c7",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-3cfaaea13256c965",
+          "expected": "ke1-3cfaaea13256c965",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-dc4e2f57d70e89e3\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\"],\"sourceRefs\":[\"RB-003@1.0\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[\"gap:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01:1\"]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-dc4e2f57d70e89e3\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-dc4e2f57d70e89e3\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-68afc9d72ce41423\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01@1\",\"project-contribution-decision:ke1-c847eb65366ede71\",\"RB-003@1.0\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-dc4e2f57d70e89e3\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01@1\",\"project-contribution-decision:ke1-c847eb65366ede71\",\"RB-003@1.0\",\"RB-003@1.0\",\"fixture-evidence:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01@1\",\"project-contribution-decision:ke1-c847eb65366ede71\",\"RB-003@1.0\",\"scientific-thinking-handoff:ke1-58ddd82e83ba3bda\",\"ke1-3cfaaea13256c965\",\"scientific-thinking-output:ke1-af2e273e52bf890a\",\"scientific-thinking-project-request:ke1-68afc9d72ce41423\",\"fixture-evidence:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01@1\",\"RB-003@1.0\",\"scientific-thinking-project-request:ke1-68afc9d72ce41423\"]",
+          "expected": "[\"RB-003@1.0\",\"fixture-evidence:ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"PROJECT_CLINICAL_TARGET_UNKNOWN\",\"PROJECT_CLINICAL_TARGET_UNKNOWN\",\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[\"PROJECT_CLINICAL_TARGET_UNKNOWN\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"L'applicabilité dépend de la cible clinique, de la phase et de la chaîne spectrale.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"L'applicabilité dépend de la cible clinique, de la phase et de la chaîne spectrale.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-af2e273e52bf890a / ke1-af2e273e52bf890a",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes au scanner spectral pulmonaire, un volume sanguin perfusé réduit est-il associé à l'obstruction vasculaire quand la cible aiguë ou chronique reste indécise ? Examiner une inconnue Project structurante sans la remplacer par une population plausible.\",\"validatedReformulation\":\"Chez des adultes au scanner spectral pulmonaire, un volume sanguin perfusé réduit est-il associé à l'obstruction vasculaire quand la cible aiguë ou chronique reste indécise ?\"}",
+          "expected": "Chez des adultes au scanner spectral pulmonaire, un volume sanguin perfusé réduit est-il associé à l'obstruction vasculaire quand la cible aiguë ou chronique reste indécise ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "PASS",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-24cb1007f9b3b793\",\"result\":\"ke1-24cb1007f9b3b793\"}",
+          "expected": "ke1-24cb1007f9b3b793",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-7f04b900a5553784",
+          "expected": "ke1-7f04b900a5553784",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-09496e01da38a6a5\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-PANCREAS-IODINE-NARROW-01\"],\"sourceRefs\":[\"RB-003@1.0\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-09496e01da38a6a5\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-09496e01da38a6a5\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-b4c4589d68540bd1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01@1\",\"project-contribution-decision:ke1-efbdec2eac187b8a\",\"RB-003@1.0\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-09496e01da38a6a5\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01@1\",\"project-contribution-decision:ke1-efbdec2eac187b8a\",\"RB-003@1.0\",\"RB-003@1.0\",\"fixture-evidence:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01@1\",\"project-contribution-decision:ke1-efbdec2eac187b8a\",\"RB-003@1.0\",\"scientific-thinking-handoff:ke1-f0fa92d89c51c8a4\",\"ke1-7f04b900a5553784\",\"scientific-thinking-output:ke1-8f5b060d1236f211\",\"scientific-thinking-project-request:ke1-b4c4589d68540bd1\",\"fixture-evidence:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PANCREAS-IODINE-NARROW-01@1\",\"RB-003@1.0\",\"scientific-thinking-project-request:ke1-b4c4589d68540bd1\"]",
+          "expected": "[\"RB-003@1.0\",\"fixture-evidence:ST01H1-D-PANCREAS-IODINE-NARROW-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Applicabilité limitée à la phase artérielle et à la chaîne d'acquisition décrite.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"Applicabilité limitée à la phase artérielle et à la chaîne d'acquisition décrite.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-8f5b060d1236f211 / ke1-8f5b060d1236f211",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes avec lésion pancréatique hypervasculaire, la concentration d'iode en phase artérielle est-elle associée au rehaussement tumoral dans la même chaîne d'acquisition ? Examiner une proposition candidate avec applicabilité étroite et sans généralisation interphase.\",\"validatedReformulation\":\"Chez des adultes avec lésion pancréatique hypervasculaire, la concentration d'iode en phase artérielle est-elle associée au rehaussement tumoral dans la même chaîne d'acquisition ?\"}",
+          "expected": "Chez des adultes avec lésion pancréatique hypervasculaire, la concentration d'iode en phase artérielle est-elle associée au rehaussement tumoral dans la même chaîne d'acquisition ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "PASS",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-8cf69077d5855313\",\"result\":\"ke1-8cf69077d5855313\"}",
+          "expected": "ke1-8cf69077d5855313",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-3aaa2b354c759791",
+          "expected": "ke1-3aaa2b354c759791",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-3755ebb4af4ee028\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"contract-evidence:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\"],\"sourceRefs\":[\"PD-003-V2-OWNERSHIP-MATRIX\",\"RDE-002:48\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[\"gap:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01:1\"]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-3755ebb4af4ee028\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-3755ebb4af4ee028\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-4afc9b9bf0f2c4ff\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"sourceRefs\":[\"contract-evidence:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01@1\",\"PD-003-V2-OWNERSHIP-MATRIX\",\"project-contribution-decision:ke1-89ac3db920c795f5\",\"RDE-002:48\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-3755ebb4af4ee028\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"contract-evidence:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01@1\",\"PD-003-V2-OWNERSHIP-MATRIX\",\"project-contribution-decision:ke1-89ac3db920c795f5\",\"RDE-002:48\",\"PD-003-V2-OWNERSHIP-MATRIX\",\"RDE-002:48\",\"contract-evidence:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01@1\",\"PD-003-V2-OWNERSHIP-MATRIX\",\"project-contribution-decision:ke1-89ac3db920c795f5\",\"RDE-002:48\",\"scientific-thinking-handoff:ke1-0bb46cce16ff9292\",\"ke1-3aaa2b354c759791\",\"scientific-thinking-output:ke1-c090aa2d45089229\",\"scientific-thinking-project-request:ke1-4afc9b9bf0f2c4ff\",\"contract-evidence:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01@1\",\"PD-003-V2-OWNERSHIP-MATRIX\",\"RDE-002:48\",\"scientific-thinking-project-request:ke1-4afc9b9bf0f2c4ff\"]",
+          "expected": "[\"PD-003-V2-OWNERSHIP-MATRIX\",\"RDE-002:48\",\"contract-evidence:ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"SPECIALIST_SAFETY_REGULATORY_REVIEW_REQUIRED\",\"SPECIALIST_SAFETY_REGULATORY_REVIEW_REQUIRED\",\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[\"SPECIALIST_SAFETY_REGULATORY_REVIEW_REQUIRED\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Le pack n'apporte aucune évaluation de dose, de risque, d'éthique ou d'autorité applicable.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"Le pack n'apporte aucune évaluation de dose, de risque, d'éthique ou d'autorité applicable.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-c090aa2d45089229 / ke1-c090aa2d45089229",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Le Scientific Thinking Engine doit-il décider que l'exposition aux rayonnements est acceptable pour recruter des participantes enceintes dans une étude d'imagerie ? Présenter au reviewer une frontière d'ownership où toute décision engageante reste humaine et spécialisée.\",\"validatedReformulation\":\"Le Scientific Thinking Engine doit-il décider que l'exposition aux rayonnements est acceptable pour recruter des participantes enceintes dans une étude d'imagerie ?\"}",
+          "expected": "Le Scientific Thinking Engine doit-il décider que l'exposition aux rayonnements est acceptable pour recruter des participantes enceintes dans une étude d'imagerie ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "PASS",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-c39ba551f871a1f5\",\"result\":\"ke1-c39ba551f871a1f5\"}",
+          "expected": "ke1-c39ba551f871a1f5",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-7e8131b88c81124c",
+          "expected": "ke1-7e8131b88c81124c",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-2bf66c0a793681ce\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\"],\"sourceRefs\":[\"PD-011:7\",\"RDE-001:C4\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[\"gap:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01:1\",\"gap:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01:2\"]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-2bf66c0a793681ce\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-2bf66c0a793681ce\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-a003bd361e36ddb2\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01@1\",\"PD-011:7\",\"project-contribution-decision:ke1-8e3416dcf12ce5c0\",\"RDE-001:C4\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-2bf66c0a793681ce\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01@1\",\"PD-011:7\",\"project-contribution-decision:ke1-8e3416dcf12ce5c0\",\"RDE-001:C4\",\"PD-011:7\",\"RDE-001:C4\",\"fixture-evidence:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01@1\",\"PD-011:7\",\"project-contribution-decision:ke1-8e3416dcf12ce5c0\",\"RDE-001:C4\",\"scientific-thinking-handoff:ke1-e9e9e6416b6c641d\",\"ke1-7e8131b88c81124c\",\"scientific-thinking-output:ke1-01cd7271b50bd23d\",\"scientific-thinking-project-request:ke1-a003bd361e36ddb2\",\"fixture-evidence:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01@1\",\"PD-011:7\",\"RDE-001:C4\",\"scientific-thinking-project-request:ke1-a003bd361e36ddb2\"]",
+          "expected": "[\"PD-011:7\",\"RDE-001:C4\",\"fixture-evidence:ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"RECONSTRUCTION_HARMONIZATION_UNKNOWN\",\"SEGMENTATION_HARMONIZATION_UNKNOWN\",\"RECONSTRUCTION_HARMONIZATION_UNKNOWN\",\"SEGMENTATION_HARMONIZATION_UNKNOWN\",\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[\"RECONSTRUCTION_HARMONIZATION_UNKNOWN\",\"SEGMENTATION_HARMONIZATION_UNKNOWN\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"La contribution reste conditionnelle à une qualification technique non fournie.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"La contribution reste conditionnelle à une qualification technique non fournie.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-01cd7271b50bd23d / ke1-01cd7271b50bd23d",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Dans une étude multicentrique de radiomique, la stabilité d'une signature est-elle associée au résultat clinique si les reconstructions et segmentations ne sont pas encore harmonisées ? Examiner une proposition conditionnelle sans transformer l'harmonisation inconnue en condition satisfaite.\",\"validatedReformulation\":\"Dans une étude multicentrique de radiomique, la stabilité d'une signature est-elle associée au résultat clinique si les reconstructions et segmentations ne sont pas encore harmonisées ?\"}",
+          "expected": "Dans une étude multicentrique de radiomique, la stabilité d'une signature est-elle associée au résultat clinique si les reconstructions et segmentations ne sont pas encore harmonisées ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "PASS",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "technicalFailure": false,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"request\":null,\"result\":null}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-CT-BMD-STALE-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"request\":null,\"result\":null}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-CT-BMD-STALE-01:version:2",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"request\":null,\"result\":null}",
+          "expected": "ke1-9e3e4e6e6f5e7fca",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "NONE",
+          "expected": "ke1-c27d01b579f7b279",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"output\":null,\"ledger\":null}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-CT-BMD-STALE-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-f1b627b5b3b78b79\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-CT-BMD-STALE-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "null",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "[]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-CT-BMD-STALE-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "[]",
+          "expected": "[\"RB-003@1.0\",\"RDE-002:stale-protection\",\"fixture-evidence:ST01H1-D-CT-BMD-STALE-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "[]",
+          "expected": "[\"L'input Knowledge ne peut pas être promu vers la version Project successeur.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "NONE",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"owner\":null,\"projectWriteAuthorized\":null}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"originalExpression\":null,\"validatedReformulation\":null}",
+          "expected": "Chez des adultes ayant un scanner abdominal, l'atténuation trabéculaire opportuniste est-elle associée au risque de fracture au suivi ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "PASS",
+          "observed": "{\"error\":\"STALE_KNOWLEDGE_RESULT\",\"ownerInvocationCount\":0,\"ownerResultCount\":0}",
+          "expected": "STALE_KNOWLEDGE_RESULT",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "PASS",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"STALE_RESULT_REJECTED\",\"HANDOFF_REJECTED\",\"RUN_FAILED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"STALE_RESULT_REJECTED\",\"HANDOFF_REJECTED\",\"RUN_FAILED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "NOT_APPLICABLE",
+        "KNOWLEDGE_GAP_LOSS": "NOT_APPLICABLE",
+        "CONTRADICTION_LOSS": "NOT_APPLICABLE",
+        "PROJECT_QUESTION_DRIFT": "NOT_APPLICABLE",
+        "LINEAGE_BREAK": "NOT_APPLICABLE",
+        "OWNERSHIP_LEAK": "NOT_APPLICABLE",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "PASS",
+        "TRACE_INCOMPLETE": "PASS"
+      }
+    },
+    {
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01:version:1\",\"result\":\"project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01:version:1\"}",
+          "expected": "project:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-6e8c05ffa0c55e7b\",\"result\":\"ke1-6e8c05ffa0c55e7b\"}",
+          "expected": "ke1-6e8c05ffa0c55e7b",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "ke1-b0ff238eae656272",
+          "expected": "ke1-b0ff238eae656272",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-1af49cb8e458e764\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-002\",\"ST-M-001\",\"ST-O-001\",\"ST-Q-001\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"fixture-evidence:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\"],\"sourceRefs\":[\"PD-011:3.4\",\"PD-011:10\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[\"gap:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01:1\"]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-1af49cb8e458e764\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-1af49cb8e458e764\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROVENANCE",
+          "outcome": "PASS",
+          "observed": "{\"engineVersion\":\"1.2.1\",\"inputRef\":\"scientific-thinking-project-request:ke1-ef6af5b1848a26f5\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"sourceRefs\":[\"fixture-evidence:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01@1\",\"PD-011:10\",\"PD-011:3.4\",\"project-contribution-decision:ke1-08ba859034651efc\"],\"policyRefs\":[\"RDE-001\",\"RDE-002\",\"PD-003\",\"PD-009\",\"KE-001\"],\"llmContributionStatus\":\"UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY\"}",
+          "expected": "Exact Knowledge result and source refs retained",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "DEPENDENCY_REFS",
+          "outcome": "PASS",
+          "observed": "[{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-1af49cb8e458e764\"}]",
+          "expected": "knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01@1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "PASS",
+          "observed": "[\"fixture-evidence:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01@1\",\"PD-011:10\",\"PD-011:3.4\",\"project-contribution-decision:ke1-08ba859034651efc\",\"PD-011:3.4\",\"PD-011:10\",\"fixture-evidence:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01@1\",\"PD-011:10\",\"PD-011:3.4\",\"project-contribution-decision:ke1-08ba859034651efc\",\"scientific-thinking-handoff:ke1-e1298d1a0dc262ee\",\"ke1-b0ff238eae656272\",\"scientific-thinking-output:ke1-21eec350a278ff9c\",\"scientific-thinking-project-request:ke1-ef6af5b1848a26f5\",\"fixture-evidence:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-assertion:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\",\"knowledge-result:W1-QUAL-01H-ST-2026-08-26-D:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01@1\",\"PD-011:10\",\"PD-011:3.4\",\"scientific-thinking-project-request:ke1-ef6af5b1848a26f5\"]",
+          "expected": "[\"PD-011:3.4\",\"PD-011:10\",\"fixture-evidence:ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"EXTERNAL_VALIDATION_MISSING\",\"EXTERNAL_VALIDATION_MISSING\",\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]",
+          "expected": "[\"EXTERNAL_VALIDATION_MISSING\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Petite cohorte monocentrique; validation externe et transportabilité absentes.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"]",
+          "expected": "[\"Petite cohorte monocentrique; validation externe et transportabilité absentes.\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "ke1-21eec350a278ff9c / ke1-21eec350a278ff9c",
+          "expected": "Native digest matches output digest",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false}",
+          "expected": "SCIENTIFIC_THINKING, no ownership transfer, projectWriteAuthorized=false",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "FAIL",
+          "observed": "{\"originalExpression\":\"Chez des adultes avec cancer rectal, une signature radiomique issue d'une petite cohorte monocentrique est-elle associée à la réponse au traitement néoadjuvant ? Examiner la calibration de certitude et l'absence de promotion de preuve.\",\"validatedReformulation\":\"Chez des adultes avec cancer rectal, une signature radiomique issue d'une petite cohorte monocentrique est-elle associée à la réponse au traitement néoadjuvant ?\"}",
+          "expected": "Chez des adultes avec cancer rectal, une signature radiomique issue d'une petite cohorte monocentrique est-elle associée à la réponse au traitement néoadjuvant ?",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "{\"error\":null,\"ownerInvocationCount\":1,\"ownerResultCount\":1}",
+          "expected": "N/A",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "FAIL",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"OWNER_RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "UNSUPPORTED_STRUCTURAL_PROMOTION": "PASS",
+        "KNOWLEDGE_GAP_LOSS": "PASS",
+        "CONTRADICTION_LOSS": "PASS",
+        "PROJECT_QUESTION_DRIFT": "FAIL",
+        "LINEAGE_BREAK": "PASS",
+        "OWNERSHIP_LEAK": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "STALE_PROTECTION_FAILURE": "NOT_APPLICABLE",
+        "TRACE_INCOMPLETE": "FAIL"
+      }
+    }
+  ],
+  "globalSummary": {
+    "UNSUPPORTED_STRUCTURAL_PROMOTION": {
+      "pass": 11,
+      "fail": 0,
+      "notApplicable": 1,
+      "verdict": "PASS"
+    },
+    "KNOWLEDGE_GAP_LOSS": {
+      "pass": 11,
+      "fail": 0,
+      "notApplicable": 1,
+      "verdict": "PASS"
+    },
+    "CONTRADICTION_LOSS": {
+      "pass": 8,
+      "fail": 3,
+      "notApplicable": 1,
+      "verdict": "FAIL"
+    },
+    "PROJECT_QUESTION_DRIFT": {
+      "pass": 0,
+      "fail": 11,
+      "notApplicable": 1,
+      "verdict": "FAIL"
+    },
+    "LINEAGE_BREAK": {
+      "pass": 11,
+      "fail": 0,
+      "notApplicable": 1,
+      "verdict": "PASS"
+    },
+    "OWNERSHIP_LEAK": {
+      "pass": 11,
+      "fail": 0,
+      "notApplicable": 1,
+      "verdict": "PASS"
+    },
+    "PROJECT_WRITES": {
+      "pass": 12,
+      "fail": 0,
+      "notApplicable": 0,
+      "verdict": "PASS"
+    },
+    "STALE_PROTECTION_FAILURE": {
+      "pass": 1,
+      "fail": 0,
+      "notApplicable": 11,
+      "verdict": "PASS"
+    },
+    "TRACE_INCOMPLETE": {
+      "pass": 1,
+      "fail": 11,
+      "notApplicable": 0,
+      "verdict": "FAIL"
+    }
+  },
+  "counts": {
+    "checks": 228,
+    "pass": 178,
+    "fail": 25,
+    "notApplicable": 25
+  }
+}

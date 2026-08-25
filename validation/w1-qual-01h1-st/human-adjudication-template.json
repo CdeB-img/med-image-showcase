@@ -1,0 +1,164 @@
+{
+  "contract": "W1_QUAL_01H1_ST_HUMAN_ADJUDICATION_TEMPLATE",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "scientificAdjudicationCompleted": false,
+  "reviewer": {
+    "reviewerId": "PENDING",
+    "role": "PENDING",
+    "competence": "PENDING",
+    "conflictDeclaration": "PENDING",
+    "reviewedAt": "PENDING"
+  },
+  "cases": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    },
+    {
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING",
+      "reviewerRationale": "PENDING"
+    }
+  ],
+  "counts": {
+    "cases": 12,
+    "completed": 0,
+    "pending": 12
+  }
+}

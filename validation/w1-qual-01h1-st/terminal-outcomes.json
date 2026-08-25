@@ -1,0 +1,120 @@
+{
+  "contract": "W1_QUAL_01H1_ST_TERMINAL_OUTCOMES",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "cases": [
+    {
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    },
+    {
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "expectedExecution": "PRE_OWNER_REJECTION_EXPECTED",
+      "terminalOutcome": "EXPECTED_PRE_OWNER_REJECTION",
+      "error": "STALE_KNOWLEDGE_RESULT",
+      "stInvoked": false,
+      "ownerResultProduced": false,
+      "firstDivergentTechnicalStage": null
+    },
+    {
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "error": null,
+      "stInvoked": true,
+      "ownerResultProduced": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER"
+    }
+  ],
+  "counts": {
+    "ownerResultsProduced": 11,
+    "expectedPreOwnerRejections": 1,
+    "unexpectedFailures": 11
+  }
+}
