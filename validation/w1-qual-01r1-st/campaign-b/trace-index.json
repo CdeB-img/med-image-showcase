@@ -1,0 +1,11 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_TRACE_INDEX",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "qualifyingRuns": 0,
+  "traceCompleteRuns": 0,
+  "replayRuns": 0,
+  "traceItems": [],
+  "privateChainOfThoughtRecorded": false,
+  "status": "NO_OWNER_RUNS_CAMPAIGN_BLOCKED_BY_FROZEN_HARNESS"
+}

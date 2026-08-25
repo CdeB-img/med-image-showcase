@@ -1,0 +1,11 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_INDEPENDENT_RESULTS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "campaignValid": false,
+  "qualifyingPasses": 0,
+  "stRuntimeInvocations": 0,
+  "results": [],
+  "blockedBy": "W1-QUAL-01R1-B-HARNESS-STALE-NULL-STATE-01",
+  "note": "No ST output was observed; no owner result can be adjudicated."
+}

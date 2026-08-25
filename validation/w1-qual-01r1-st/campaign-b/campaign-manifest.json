@@ -1,0 +1,34 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_MANIFEST",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "campaignFreezeDigest": "ke1-f0e48d02e41ece46",
+  "frozenArtifacts": {
+    "cases": "ke1-30610b6311d42eaf",
+    "envelopes": "ke1-f004c97f41750f0b",
+    "inputs": "ke1-cd7d82d7dba7017b",
+    "parentage": "ke1-191c64c918e33455",
+    "knowledgeGate": "ke1-aae65281782267a5"
+  },
+  "outputs": {
+    "results": "ke1-40ccd44e20e9ed9a",
+    "adjudication": "ke1-0fb6b45db46044d9",
+    "failures": "ke1-520facdcb7e309f8",
+    "replay": "ke1-4f23e6e05b0eab3c",
+    "trace": "ke1-3485e39537daaec1",
+    "summary": "ke1-e2513b04732630a8"
+  },
+  "blockerDigest": "ke1-3bc5bac2552acc46",
+  "manifestDigest": "ke1-b32add19aa9fe845",
+  "campaignNature": "EXPOSED_PREEXECUTION_HARNESS_FAILURE_EVIDENCE",
+  "independentStCharacterizationEvidence": false,
+  "qualifyingPasses": 0,
+  "rerolls": 0,
+  "stRuntimeRepairs": 0,
+  "postFreezeHarnessRepairs": 0,
+  "llmCalls": 0,
+  "externalNetworkCalls": 0,
+  "pubmedCalls": 0,
+  "regulatoryNetworkCalls": 0,
+  "finalDecision": "W1_QUAL_01R1_BLOCKED_BY_CHARACTERIZATION_HARNESS"
+}

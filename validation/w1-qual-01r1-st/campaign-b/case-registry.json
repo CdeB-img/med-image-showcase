@@ -1,0 +1,1045 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_CASE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "authoredAt": "2026-08-25T23:30:00.000Z",
+  "observationOccurred": false,
+  "cases": [
+    {
+      "caseId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01",
+      "coverageClass": "B01_CANDIDATE_GENERATION",
+      "domain": "SPECTRAL_CT_RENAL",
+      "purpose": "Tester une génération candidate soutenue et l'interprétation négative bornée.",
+      "scientificContext": "Chez des adultes avec masse rénale, une carte d'iode négative est-elle associée à l'absence de rehaussement sur une référence indépendante ?",
+      "testedCapabilities": [
+        "candidate generation",
+        "negative interpretation",
+        "evidence non-promotion"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:version:1#ke1-03dd87b53e603101",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01@1#ke1-20c30e8d99bbffd1",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:version:1#ke1-03dd87b53e603101",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01@1#ke1-20c30e8d99bbffd1",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Chez des adultes avec masse rénale, une carte d'iode négative est-elle associée à l'absence de rehaussement sur une référence indépendante ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "La sensibilité et la référence doivent être appariées à la tâche; aucune exclusion clinique universelle n'est établie."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": false,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:PROJECT_IDENTITY",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:NO_PROVIDER_CALL",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:GAPS_PRESERVED",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:negative-iodine-map-interpretation"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A iodine/perfusion case"
+      ],
+      "distinctnessRationale": "Le cas B teste une inférence négative et une référence indépendante; A testait l'identité de construit entre distribution d'iode et perfusion.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01",
+      "coverageClass": "B02_COMPETING_ALTERNATIVES",
+      "domain": "SPECTRAL_CT_METAL",
+      "purpose": "Tester des alternatives concurrentes liées à un compromis de tâche.",
+      "scientificContext": "Chez des adultes porteurs de matériel métallique, l'augmentation de l'énergie VMI est-elle associée à une réduction des artefacts mais à une perte de contraste de la lésion ?",
+      "testedCapabilities": [
+        "alternatives",
+        "task-dependent reasoning",
+        "no method selection"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-VMI-TRADEOFF-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:version:1#ke1-82aa93f8cd9679f4",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-VMI-TRADEOFF-01@1#ke1-be484056610a32ea",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-VMI-TRADEOFF-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:version:1#ke1-82aa93f8cd9679f4",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-VMI-TRADEOFF-01@1#ke1-be484056610a32ea",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Chez des adultes porteurs de matériel métallique, l'augmentation de l'énergie VMI est-elle associée à une réduction des artefacts mais à une perte de contraste de la lésion ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Aucune énergie universelle ni sélection de méthode n'est autorisée."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": true,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:PROJECT_IDENTITY",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:NO_PROVIDER_CALL",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:ALTERNATIVES_PRESERVED",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:GAPS_PRESERVED",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:VMI-task-tradeoff"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A spectral architecture case"
+      ],
+      "distinctnessRationale": "La structure causale porte sur un compromis intra-sortie VMI artefact/contraste, non sur un transfert entre architectures.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01",
+      "coverageClass": "B03_MECHANISTIC_EXPLANATION",
+      "domain": "PHOTON_COUNTING_METROLOGY",
+      "purpose": "Tester l'obligation mécanistique générique sur une chaîne physique distincte.",
+      "scientificContext": "Dans des phantoms multi-matériaux, le partage de charge est-il associé à un biais de classement énergétique pouvant altérer la décomposition ?",
+      "testedCapabilities": [
+        "mechanistic reasoning",
+        "falsifiability",
+        "derived-measure boundary"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-CHARGE-SHARING-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-CHARGE-SHARING-01:version:1#ke1-a1bb1539af99873d",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-CHARGE-SHARING-01@1#ke1-98510f0630fec342",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-CHARGE-SHARING-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-CHARGE-SHARING-01:version:1#ke1-a1bb1539af99873d",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-SPECTRAL-CHARGE-SHARING-01@1#ke1-98510f0630fec342",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Dans des phantoms multi-matériaux, le partage de charge est-il associé à un biais de classement énergétique pouvant altérer la décomposition ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "L'importance du biais dépend du détecteur, du flux, des seuils et des corrections; aucun effet universel n'est établi."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": true,
+      "alternativesObligation": false,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:PROJECT_IDENTITY",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:NO_PROVIDER_CALL",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:MECHANISTIC_OR_EXPLANATORY",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:GAPS_PRESERVED",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:charge-sharing-and-energy-binning"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": true,
+      "replayRole": "POSITIVE",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A OEF/CMRO2 mechanistic case"
+      ],
+      "distinctnessRationale": "Nouveau domaine physique, nouveaux objets et nouvelle chaîne explicative détecteur-vers-décomposition; aucun construit physiologique OEF/CMRO2.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01",
+      "coverageClass": "B04_ASSOCIATION_PREDICTION",
+      "domain": "CARDIAC_MRI_IRON",
+      "purpose": "Tester association/prédiction dans un construit cardiaque non exposé.",
+      "scientificContext": "Chez des adultes avec surcharge en fer, le T2 étoile myocardique est-il associé à l'évolution de la fonction ventriculaire lors du suivi ?",
+      "testedCapabilities": [
+        "association",
+        "longitudinal candidate",
+        "non-promotion"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-IRON-ASSOCIATION-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:version:1#ke1-8ef4e6bcc34c3110",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-IRON-ASSOCIATION-01@1#ke1-f1a6423cd0206638",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-IRON-ASSOCIATION-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:version:1#ke1-8ef4e6bcc34c3110",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-IRON-ASSOCIATION-01@1#ke1-f1a6423cd0206638",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Chez des adultes avec surcharge en fer, le T2 étoile myocardique est-il associé à l'évolution de la fonction ventriculaire lors du suivi ?",
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Le corpus figé ne démontre ni causalité ni performance pronostique pour cette formulation."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": false,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:PROJECT_IDENTITY",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:NO_PROVIDER_CALL",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:GAPS_PRESERVED",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:T2star-iron-quantification-boundary"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A myocarditis T1/T2 cases"
+      ],
+      "distinctnessRationale": "Nouvelle pathologie, nouveau contraste physique T2*, nouvelle temporalité et nouvel outcome; aucun couple myocardite T1/T2.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01",
+      "coverageClass": "B05_NARROW_APPLICABILITY",
+      "domain": "CARDIAC_MRI_METROLOGY",
+      "purpose": "Tester une qualification d'applicabilité métrologique distincte.",
+      "scientificContext": "Chez des adultes sans pathologie cardiaque connue, les valeurs de T1 natif sont-elles comparables entre champs magnétiques sans harmonisation spécifique ?",
+      "testedCapabilities": [
+        "narrow applicability",
+        "comparison",
+        "no universal threshold"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-FIELD-TRANSFER-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-FIELD-TRANSFER-01:version:1#ke1-84519eada20d49c1",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-FIELD-TRANSFER-01@1#ke1-9da3ceef9f66d2f3",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-FIELD-TRANSFER-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-FIELD-TRANSFER-01:version:1#ke1-84519eada20d49c1",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CARDIAC-FIELD-TRANSFER-01@1#ke1-9da3ceef9f66d2f3",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Chez des adultes sans pathologie cardiaque connue, les valeurs de T1 natif sont-elles comparables entre champs magnétiques sans harmonisation spécifique ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "La comparabilité doit être démontrée pour chaque chaîne; aucun seuil universel n'est transféré."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": false,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:PROJECT_IDENTITY",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:NO_PROVIDER_CALL",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:GAPS_PRESERVED",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:T1-field-site-dependency"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST unit Fabry/T1 fixtures"
+      ],
+      "distinctnessRationale": "Le cas B porte sur transférabilité métrologique chez témoins et non sur une préférence MOLLI/SASHA, Fabry ou une interprétation pathologique.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-NEURO-ASL-TRANSIT-01",
+      "coverageClass": "B06_MECHANISTIC_EXPLANATION",
+      "domain": "NEURO_ASL",
+      "purpose": "Tester mécanisme, alternative et incertitude sur une chaîne ASL non exposée.",
+      "scientificContext": "Chez des adultes avec sténose intracrânienne, un délai de transit artériel prolongé est-il associé à une sous-estimation apparente du CBF en ASL single-delay ?",
+      "testedCapabilities": [
+        "mechanistic reasoning",
+        "measurement bias",
+        "alternative explanation"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-ASL-TRANSIT-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-ASL-TRANSIT-01:version:1#ke1-a9b3d983d7ea7e27",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-ASL-TRANSIT-01@1#ke1-4d3ef81220a0f27e",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-ASL-TRANSIT-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-ASL-TRANSIT-01:version:1#ke1-a9b3d983d7ea7e27",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-ASL-TRANSIT-01@1#ke1-4d3ef81220a0f27e",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Chez des adultes avec sténose intracrânienne, un délai de transit artériel prolongé est-il associé à une sous-estimation apparente du CBF en ASL single-delay ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "La causalité apparente dépend du modèle, du territoire et de l'acquisition; la correction peut aussi retirer une information collatérale."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": true,
+      "alternativesObligation": false,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:PROJECT_IDENTITY",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:NO_PROVIDER_CALL",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:MECHANISTIC_OR_EXPLANATORY",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:GAPS_PRESERVED",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:ASL-PLD-ATT-bias"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-NEURO-01",
+        "Campaign A OEF/CMRO2"
+      ],
+      "distinctnessRationale": "La question cible une erreur de mesure ASL single-delay causée par ATT/PLD, pas une comparaison ASL/DSC/CTP ni une compensation métabolique.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-NEURO-GHOST-CORE-01",
+      "coverageClass": "B07_EVIDENCE_NON_PROMOTION",
+      "domain": "NEURO_CTP_STROKE",
+      "purpose": "Tester la non-promotion d'un estimateur précoce en vérité histologique ou pronostique.",
+      "scientificContext": "Chez des adultes avec AVC ischémique reperfusé rapidement, un volume de core estimé élevé prédit-il nécessairement un infarctus final irréversible ?",
+      "testedCapabilities": [
+        "prediction",
+        "evidence non-promotion",
+        "alternative explanation"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-GHOST-CORE-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-GHOST-CORE-01:version:1#ke1-273bc4ba3171498e",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-GHOST-CORE-01@1#ke1-7e5e401228c17816",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-GHOST-CORE-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-GHOST-CORE-01:version:1#ke1-273bc4ba3171498e",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-GHOST-CORE-01@1#ke1-7e5e401228c17816",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Chez des adultes avec AVC ischémique reperfusé rapidement, un volume de core estimé élevé prédit-il nécessairement un infarctus final irréversible ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Les seuils sont propres à une chaîne validée et ne constituent ni histologie future ni certitude individuelle."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": true,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-NEURO-GHOST-CORE-01:PROJECT_IDENTITY",
+        "ST01R1-B-NEURO-GHOST-CORE-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-NEURO-GHOST-CORE-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-NEURO-GHOST-CORE-01:NO_PROVIDER_CALL",
+        "ST01R1-B-NEURO-GHOST-CORE-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-NEURO-GHOST-CORE-01:ALTERNATIVES_PRESERVED",
+        "ST01R1-B-NEURO-GHOST-CORE-01:GAPS_PRESERVED",
+        "ST01R1-B-NEURO-GHOST-CORE-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-NEURO-GHOST-CORE-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-NEURO-GHOST-CORE-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:CTP-ghost-core"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A TBI prediction case"
+      ],
+      "distinctnessRationale": "Nouveau contexte AVC/reperfusion, nouvel estimateur core et frontière irréversibilité; A concernait une réserve de perfusion et récupération fonctionnelle après traumatisme.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-NEURO-BBB-CAUSALITY-01",
+      "coverageClass": "B08_KNOWLEDGE_CONTRADICTION",
+      "domain": "NEURO_DCE_BBB",
+      "purpose": "Tester contradiction Knowledge, alternatives et non-sélection causale.",
+      "scientificContext": "Chez des adultes avec maladie cérébrale inflammatoire, une augmentation de Ktrans est-elle associée à une altération de barrière primaire plutôt qu'à un effet de flux, surface vasculaire ou modèle ?",
+      "testedCapabilities": [
+        "contradiction",
+        "competing explanations",
+        "causal restraint"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-BBB-CAUSALITY-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-BBB-CAUSALITY-01:version:1#ke1-cc680b8a26823cf6",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-BBB-CAUSALITY-01@1#ke1-76d7eab8f589472c",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-BBB-CAUSALITY-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-BBB-CAUSALITY-01:version:1#ke1-cc680b8a26823cf6",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-NEURO-BBB-CAUSALITY-01@1#ke1-76d7eab8f589472c",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Chez des adultes avec maladie cérébrale inflammatoire, une augmentation de Ktrans est-elle associée à une altération de barrière primaire plutôt qu'à un effet de flux, surface vasculaire ou modèle ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Une association à la maladie ne prouve ni cause primaire ni rupture franche de la barrière."
+      ],
+      "expectedContradictions": [
+        "Ktrans peut représenter des régimes et mécanismes distincts; plusieurs interprétations restent défendables."
+      ],
+      "mechanisticObligation": false,
+      "alternativesObligation": true,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:PROJECT_IDENTITY",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:NO_PROVIDER_CALL",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:ALTERNATIVES_PRESERVED",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:GAPS_PRESERVED",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:Ktrans-regime-and-causality"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": true,
+      "replayRole": "CONTRADICTION_OR_ALTERNATIVES",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A rCBV leakage case"
+      ],
+      "distinctnessRationale": "Nouveau paramètre DCE, nouveau compartiment BBB et opposition flow-limited/permeability-limited; A portait sur rCBV tumoral DSC et post-traitement.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01",
+      "coverageClass": "B09_METHOD_REFERENCE",
+      "domain": "IMAGING_BIOMARKER_METHODOLOGY",
+      "purpose": "Tester la généricité dans un contexte méthodologique non pathologique.",
+      "scientificContext": "Dans une étude de biomarqueur d'imagerie, l'accord entre deux mesures imparfaites est-il associé à l'exactitude du construit biologique cible ?",
+      "testedCapabilities": [
+        "methodological reasoning",
+        "reference mismatch",
+        "alternative explanation"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-METHOD-REFERENCE-MISMATCH-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-METHOD-REFERENCE-MISMATCH-01:version:1#ke1-6b60b7f0b0f0ebd4",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-METHOD-REFERENCE-MISMATCH-01@1#ke1-12ef6b150352c421",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-METHOD-REFERENCE-MISMATCH-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-METHOD-REFERENCE-MISMATCH-01:version:1#ke1-6b60b7f0b0f0ebd4",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-METHOD-REFERENCE-MISMATCH-01@1#ke1-12ef6b150352c421",
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "explicitProjectQuestion": "Dans une étude de biomarqueur d'imagerie, l'accord entre deux mesures imparfaites est-il associé à l'exactitude du construit biologique cible ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Aucun gold standard universel n'est présumé et la validité reste propre au couple mesurande-chaîne-domaine."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": true,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:PROJECT_IDENTITY",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:NO_PROVIDER_CALL",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:ALTERNATIVES_PRESERVED",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:GAPS_PRESERVED",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:no-universal-gold-standard",
+        "PD-011:reference-evidence"
+      ],
+      "positiveOpportunity": true,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [],
+      "distinctnessRationale": "Cas méthodologique transversal nouveau, sans reprise d'une pathologie, modalité ou structure causale de Campaign A ou des probes.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-INSUFFICIENT-TARGET-01",
+      "coverageClass": "B10_INSUFFICIENT_EVIDENCE",
+      "domain": "IMAGING_METROLOGY",
+      "purpose": "Conserver une finalité absente comme clarification/gap sans forcer un candidat.",
+      "scientificContext": "Explorer sans objectif une valeur de densité électronique en imagerie.",
+      "testedCapabilities": [
+        "clarification",
+        "reasoning gap",
+        "no forced candidate"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-INSUFFICIENT-TARGET-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-INSUFFICIENT-TARGET-01:version:1#ke1-3bb423fc710a98a8",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-INSUFFICIENT-TARGET-01@1#ke1-2c1cb67e33b4059a",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-INSUFFICIENT-TARGET-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-INSUFFICIENT-TARGET-01:version:1#ke1-3bb423fc710a98a8",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-INSUFFICIENT-TARGET-01@1#ke1-2c1cb67e33b4059a",
+      "negativeExpectationMode": "CLARIFICATION_OR_GAP_EXPECTED",
+      "explicitProjectQuestion": "Explorer sans objectif une valeur de densité électronique en imagerie.",
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "La valeur dérivée ne possède aucune finalité scientifique adoptée dans ce Project."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": false,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CLARIFICATION_OR_GAP_EXPECTED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Clarification required",
+        "Explicit gap",
+        "Pending candidate only if explicitly bounded"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-INSUFFICIENT-TARGET-01:PROJECT_IDENTITY",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:NO_PROVIDER_CALL",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:GAPS_PRESERVED",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "KE-001:honest-gap",
+        "RDE-001:negative-output-valid"
+      ],
+      "positiveOpportunity": false,
+      "replayPredeclared": true,
+      "replayRole": "CONDITIONAL_OR_NO_CANDIDATE",
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign A radiomics no-finality",
+        "ST unit vague imaging fixture"
+      ],
+      "distinctnessRationale": "Contrôle de sécurité nécessaire mais nouveau construit de métrologie; il est exclu du numérateur de candidate coverage et ne réutilise aucune conclusion scientifique exposée.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-CONDITIONAL-ENDPOINT-01",
+      "coverageClass": "B11_PROJECT_UNKNOWN_CONDITIONAL",
+      "domain": "SPECTRAL_CT_VASCULAR",
+      "purpose": "Tester un Project unknown structurant sans imposer zéro candidat ni remplir le gap.",
+      "scientificContext": "Chez des adultes avec plaque carotidienne, la composition spectrale est-elle associée à un résultat clinique restant à définir ?",
+      "testedCapabilities": [
+        "conditional candidate",
+        "Project unknown",
+        "non-promotion"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CONDITIONAL-ENDPOINT-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CONDITIONAL-ENDPOINT-01:version:1#ke1-30a773b84e373f84",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CONDITIONAL-ENDPOINT-01@1#ke1-de99fb3a0ed465fe",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CONDITIONAL-ENDPOINT-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CONDITIONAL-ENDPOINT-01:version:1#ke1-30a773b84e373f84",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-CONDITIONAL-ENDPOINT-01@1#ke1-de99fb3a0ed465fe",
+      "negativeExpectationMode": "CONDITIONAL_CANDIDATE_ALLOWED",
+      "explicitProjectQuestion": "Chez des adultes avec plaque carotidienne, la composition spectrale est-elle associée à un résultat clinique restant à définir ?",
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Outcome et temporalité restent des unknowns Project qui conditionnent toute proposition."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": false,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CONDITIONAL_CANDIDATE_ALLOWED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Pending conditional candidate with explicit unknowns",
+        "Clarification without candidate",
+        "Explicit gap without candidate"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:PROJECT_IDENTITY",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:NO_PROVIDER_CALL",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:GAPS_PRESERVED",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:derived-output-needs-construct",
+        "PD-003-V2:Project-unknowns"
+      ],
+      "positiveOpportunity": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign A missing Project question",
+        "Repair Probe E"
+      ],
+      "distinctnessRationale": "Ici la question relationnelle existe mais l'outcome et la temporalité restent inconnus; A/E omettaient la question ou la relation centrale. L'obligation scientifique est donc distincte.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01",
+      "coverageClass": "B12_OUT_OF_OWNER",
+      "domain": "ADMINISTRATIVE_ACCOUNTING",
+      "purpose": "Refuser une demande administrative hors ownership scientifique sans pseudo-candidat.",
+      "scientificContext": "Comment automatiser la comptabilité analytique d'un centre d'imagerie ?",
+      "testedCapabilities": [
+        "owner boundary",
+        "strict no-candidate",
+        "refusal"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:version:1#ke1-2f9e41fc2ecb4ed8",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01@1#ke1-24d726f6846b92e2",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:version:1#ke1-2f9e41fc2ecb4ed8",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01@1#ke1-24d726f6846b92e2",
+      "negativeExpectationMode": "STRICT_NO_CANDIDATE_EXPECTED",
+      "explicitProjectQuestion": "Comment automatiser la comptabilité analytique d'un centre d'imagerie ?",
+      "expectedGaps": [
+        "OUT_OF_DOMAIN"
+      ],
+      "expectedLimitations": [
+        "Hors périmètre Scientific Thinking."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": false,
+      "staleExpected": false,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect STRICT_NO_CANDIDATE_EXPECTED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Explicit owner refusal",
+        "Pre-runtime stale rejection"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:PROJECT_IDENTITY",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:NO_PROVIDER_CALL",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:GAPS_PRESERVED",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RDE-001:owner-boundary",
+        "PD-005:role-boundary"
+      ],
+      "positiveOpportunity": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Repair Probe G marketing",
+        "Campaign A JavaScript/DICOM"
+      ],
+      "distinctnessRationale": "Troisième frontière hors owner entièrement distincte: gestion comptable, sans marketing ni développement logiciel DICOM.",
+      "authoredBeforeObservation": true
+    },
+    {
+      "caseId": "ST01R1-B-STALE-ZEFF-01",
+      "coverageClass": "B13_STALE_KNOWLEDGE",
+      "domain": "SPECTRAL_CT_ZEFF",
+      "purpose": "Tester le fail-closed stale sur un contenu et un Project entièrement nouveaux.",
+      "scientificContext": "Chez des adultes avec lésion hépatique, le Zeff est-il associé à une classification tissulaire reproductible ?",
+      "testedCapabilities": [
+        "stale protection",
+        "historical readability",
+        "no automatic recomputation"
+      ],
+      "FrozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-STALE-ZEFF-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-STALE-ZEFF-01:version:2#ke1-be024692a1df9c86",
+      "FrozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-STALE-ZEFF-01@1#ke1-75d7d4840119ac28",
+      "frozenProjectRef": "project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-STALE-ZEFF-01@project:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-STALE-ZEFF-01:version:2#ke1-be024692a1df9c86",
+      "frozenKnowledgeResultRef": "knowledge-result:W1-QUAL-01R1-ST-2026-08-25-B:ST01R1-B-STALE-ZEFF-01@1#ke1-75d7d4840119ac28",
+      "negativeExpectationMode": "STRICT_NO_CANDIDATE_EXPECTED",
+      "explicitProjectQuestion": "Chez des adultes avec lésion hépatique, le Zeff est-il associé à une classification tissulaire reproductible ?",
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Le résultat Knowledge est volontairement lié au Project vN; le runtime reçoit vN+1 et doit refuser sans conversion."
+      ],
+      "expectedContradictions": [],
+      "mechanisticObligation": false,
+      "alternativesObligation": false,
+      "staleExpected": true,
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect STRICT_NO_CANDIDATE_EXPECTED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Explicit owner refusal",
+        "Pre-runtime stale rejection"
+      ],
+      "criticalObligations": [
+        "ST01R1-B-STALE-ZEFF-01:PROJECT_IDENTITY",
+        "ST01R1-B-STALE-ZEFF-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-STALE-ZEFF-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-STALE-ZEFF-01:NO_PROVIDER_CALL",
+        "ST01R1-B-STALE-ZEFF-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-STALE-ZEFF-01:GAPS_PRESERVED",
+        "ST01R1-B-STALE-ZEFF-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-STALE-ZEFF-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-STALE-ZEFF-01:EPISTEMIC_SAFETY",
+        "ST01R1-B-STALE-ZEFF-01:STALE_PROTECTION"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:Zeff-model-boundary",
+        "RDE-002:stale-protection"
+      ],
+      "positiveOpportunity": false,
+      "replayPredeclared": false,
+      "replayRole": null,
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A stale myocarditis case"
+      ],
+      "distinctnessRationale": "Le contenu scientifique, le Project et le KnowledgeResult sont nouveaux; seule l'obligation technique de stale protection, requise par le prompt, est commune.",
+      "authoredBeforeObservation": true
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_CHARACTERIZATION_SUMMARY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "campaignStatus": "BLOCKED_BY_CHARACTERIZATION_HARNESS",
+  "harnessStatus": "NOT_READY",
+  "referenceStatus": "VALID",
+  "ownerCharacterizationStatus": "NOT_ADJUDICATED",
+  "campaignValid": false,
+  "qualifyingPasses": 0,
+  "rerolls": 0,
+  "runtimeRepairs": 0,
+  "harnessRepairsAfterFreeze": 0,
+  "stRuntimeInvocations": 0,
+  "casesAuthoredAndFrozen": 13,
+  "casesAdjudicated": 0,
+  "candidateCoverage": {
+    "supportedCandidateOpportunities": null,
+    "supportedCandidateOpportunitiesCovered": null,
+    "status": "NOT_MEASURED"
+  },
+  "negativeSafety": {
+    "strictNoCandidateCases": 2,
+    "strictNoCandidateCasesCorrect": null,
+    "conditionalCandidateAllowedCases": 1,
+    "conditionalCandidateAllowedCasesValid": null,
+    "clarificationOrGapCases": 1,
+    "clarificationOrGapCasesCorrect": null,
+    "status": "NOT_MEASURED"
+  },
+  "epistemicSafety": {
+    "unsupportedHypothesis": null,
+    "evidencePromotion": null,
+    "knowledgeGapLoss": null,
+    "contradictionLoss": null,
+    "projectQuestionDrift": null,
+    "lineageBreak": null,
+    "ownershipLeak": null,
+    "projectWrites": null,
+    "staleProtectionFailure": null,
+    "status": "NOT_MEASURED_NO_QUALIFYING_RUN"
+  },
+  "trace": {
+    "qualifyingRuns": 0,
+    "traceCompleteRuns": 0
+  },
+  "determinism": {
+    "selected": 3,
+    "performed": 0,
+    "stable": 0,
+    "status": "NOT_PERFORMED"
+  },
+  "scientificThinkingCharacterization": "NOT_ADJUDICATED",
+  "w1IndividualOwnerCharacterizationReady": false,
+  "controlledLoopCharacterizationReady": false,
+  "wave1Complete": false,
+  "wave2Authorized": false,
+  "nextAuthorizedMission": "W1-QUAL-01R2_ST_CHARACTERIZATION_HARNESS_REPAIR",
+  "globalDecision": "W1_QUAL_01R1_BLOCKED_BY_CHARACTERIZATION_HARNESS"
+}

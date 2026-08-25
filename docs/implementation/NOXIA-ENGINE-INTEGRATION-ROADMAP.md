@@ -8,10 +8,10 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 25 August 2026 |
-| Verified baseline | `ff568d3d49eab0e3b8e69caaf5d35a226147b742` + W1-QUAL-01R observed evidence |
+| Verified baseline | `efc11c98b3310dc77c90e7357a83f96dc9d82820` + W1-QUAL-01R1 pre-execution harness evidence |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
-| Portfolio diagnosis | `W1_QUAL_01R_BLOCKED_BY_CHARACTERIZATION_HARNESS` |
+| Portfolio diagnosis | `W1_QUAL_01R1_BLOCKED_BY_CHARACTERIZATION_HARNESS` |
 | Superior authorities | NOXIA Founding Charter; Scientific Product Manifesto V2; applicable Level 1 specialized references |
 | Documentary authority | None. This file does not amend, replace, or extend any authority. |
 
@@ -23,21 +23,21 @@
 |---|---|
 | Portfolio state | One canonical Project snapshot now feeds native Knowledge, Scientific Thinking, Imaging and conditional REG through typed product entrypoints; native deterministic VAL observes the retained Knowledge/ST/Imaging chain through a separate append-only ValidationRun ledger; nominal owner selection remains outside this bounded product chain |
 | Active wave | `WAVE_1_SCIENTIFIC_LOOP` |
-| Current objective | Correct and refreeze the independent Scientific Thinking characterization harness before any new qualifying execution. |
+| Current objective | Repair and refreeze the stale pre-runtime null-state semantics of the Scientific Thinking characterization harness before any new independent campaign. |
 | Next wave | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` after Wave 1 completion |
 | Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge → Scientific Thinking → Imaging → deterministic VAL observation, plus an explicit conditional Project → REG branch, with immutable owner-result and ValidationRun retention |
 | Tested off-product corridor | Read-only adapter → CDM / DM / Biostatistics / TMP; historical SPINE and VAL fixture corridors |
 | Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
-| Main blocker | W1-QUAL-01R executed 12 fresh cases once, but its frozen harness is not admissible: the minimum failure taxonomy and explicit Knowledge usability field are incomplete, TRACE evidence is underspecified, the mechanistic class was not adjudicated, and the C7 zero-candidate envelope is not normatively compelled. |
+| Main blocker | W1-QUAL-01R1 corrected the known Campaign A defects and froze harness `2.0.0`, then froze 13 new Campaign B cases. A post-freeze static preflight found that the evaluator falsely maps a correct pre-runtime stale rejection with no OwnerResult to `EVIDENCE_PROMOTION` / `OWNER_REPAIR_REQUIRED`. Campaign B was invalidated before the first ST invocation; no owner characterization verdict exists. |
 | Active engineering | One wave only; no engine development is authorized by this document itself. |
 
-### Current Wave 1 checkpoint decisions after W1-QUAL-01R
+### Current Wave 1 checkpoint decisions after W1-QUAL-01R1
 
 | Decision | Result | Evidence boundary |
 |---|---|---|
 | `W1_ARCHITECTURAL_CONVERGENCE_READY` | `YES` | Same canonical Project identity/snapshot, typed ownership and dependencies, immutable ledgers, stale guards, non-promotion and zero silent Project writes are demonstrated after the bounded Knowledge engine-version guard. Initial convergence was `FAILED`; post-repair convergence is `PASS`. |
 | `W1_OBSERVABILITY_READY` | `YES` | A separate append-only trace ledger binds one `ScientificRun` to the exact Project snapshot and records ordered owner, handoff, persistence, stale and VAL events with request/result/dependency/digest/error refs; replay from event N is plan-only. |
-| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | The fresh campaign observations are retained, but the campaign is blocked by its characterization harness and cannot establish a new versioned ST characterization. |
+| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | Campaign A is invalid exposed evidence; Campaign B was frozen but stopped before its first ST invocation because the frozen evaluator would falsely attribute a pre-runtime stale null state to ST. No new versioned ST characterization exists. |
 | `W1_CONTROLLED_LOOP_CHARACTERIZATION_READY` | `NO` | No controlled representative chain campaign with frozen inputs, explicit expectations and first-stage error attribution has been performed. |
 | `WAVE_1_COMPLETE` | `NO` | Architectural convergence alone is necessary and insufficient. Wave 2 remains paused. |
 
@@ -50,14 +50,14 @@
 | Owner | Current characterization status | Bounded evidence |
 |---|---|---|
 | Knowledge | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 6/6 cases fully satisfied; honest gap, ambiguity and stale readback exercised; no critical violation observed. |
-| Scientific Thinking | `HUMAN_ARBITRATION_REQUIRED` | W1-QUAL-01R observed 11/12 frozen-evaluator full cases, 8/8 supported candidate opportunities, 3/3 stable replays and zero writes/promotions, but the remaining case is non-adjudicable because its zero-candidate envelope is not normatively compelled; additional harness defects invalidate closure. |
+| Scientific Thinking | `NOT_ADJUDICATED` | Campaign A remains invalid exposed evidence. R1 Campaign B froze 13 new cases with admissible parentage and Knowledge gates, but no ST call was authorized after a frozen-evaluator null-state defect was deterministically reproduced at pre-execution static preflight. |
 | Imaging | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 4/4 cases fully satisfied; candidate modality/acquisition, QA, Core Lab, unknown and OBS boundaries preserved. |
 | REG | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 8/8 cases fully satisfied within REG-000 candidate corpus; unsupported jurisdiction and stale request fail closed; no approval claim. |
 | VAL | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 13/13 structural cases fully satisfied, including clean-chain false-positive control; no repair or scientific qualification claim. |
 
 ### Top quick wins queued in Wave 1
 
-1. W1-QUAL-01R1 — correct the characterization harness, author a complete failure taxonomy and obligation coverage, then start a new campaign identity and freeze; do not reuse observed W1-QUAL-01R outputs as an independent numerator.
+1. W1-QUAL-01R2 — repair the bounded evaluator so correct pre-runtime stale rejection is epistemically safe without requiring a nonexistent OwnerResult; extend the synthetic harness tests, refreeze, and author a new independent campaign. Campaigns A and B are exposed and cannot become the new numerator.
 
 ### Top blockers
 
@@ -450,7 +450,7 @@ These are active implementation controls traced to superior authorities and curr
 
 `CURRENT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
 
-`CURRENT_OBJECTIVE = CORRECT_AND_REFREEZE_SCIENTIFIC_THINKING_CHARACTERIZATION_HARNESS`
+`CURRENT_OBJECTIVE = REPAIR_STALE_NULL_STATE_IN_SCIENTIFIC_THINKING_CHARACTERIZATION_HARNESS`
 
 `NEXT_WAVE = WAVE_2_STUDY_DESIGN_TIME_CHAIN_AFTER_WAVE_1_COMPLETION`
 
@@ -460,16 +460,16 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = W1-QUAL-01R1_ST_CHARACTERIZATION_HARNESS_CORRECTION_AND_RESTART`
+`NEXT_AUTHORIZED_MISSION = W1-QUAL-01R2_ST_CHARACTERIZATION_HARNESS_REPAIR`
 
 | Field | Contract |
 |---|---|
-| Mission goal | Correct the bounded W1-QUAL-01R characterization harness and restart under a new campaign identity without changing ST runtime. |
-| Input | ST engine `1.2.1`; W1-QUAL-01R observed outputs as exposed harness-development evidence only; superior authorities and complete required failure taxonomy |
-| Output | New pre-observation parentage audit, case/envelope/input registries, explicit Knowledge usability decisions, complete TRACE fields and a fresh characterization freeze |
-| Definition of done | Every mandatory scientific class has a specific adjudicable obligation; no envelope imposes a non-normative zero-candidate rule; the full failure taxonomy and TRACE evidence fields are frozen before one new qualifying pass |
+| Mission goal | Repair the frozen evaluator's pre-runtime stale null-state semantics and restart under a new independent campaign identity without changing ST runtime. |
+| Input | ST engine `1.2.1`; W1-QUAL-01R Campaign A and W1-QUAL-01R1 Campaign B as exposed harness-development evidence only; R1 frozen harness and deterministic stale null-state reproduction |
+| Output | Extended synthetic harness tests covering absent request/result after valid pre-runtime rejection; corrected adjudication precedence; new harness freeze; a newly authored independent campaign that does not reuse Campaign A or B cases |
+| Definition of done | A correct `STALE_KNOWLEDGE_RESULT` cannot produce evidence-promotion or owner-repair attribution merely because no OwnerResult exists; all technical gates remain fail-closed; the revised harness is frozen before any new qualifying execution |
 | Engines / connections affected | Characterization harness only; ST runtime and all other owner runtimes remain frozen |
-| Do not touch | Observed W1-QUAL-01R outputs as a new independent numerator; runtime repair; controlled full-loop qualification; Wave 2; QRY/orchestration; Project truth; corpus enrichment; OBS; Study Design; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
+| Do not touch | Campaign A or B as a new independent numerator; ST or other owner runtime repair; controlled full-loop qualification; Wave 2; QRY/orchestration; Project truth; corpus enrichment; OBS; Study Design; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
 
 # Engine completion queue
 
@@ -532,7 +532,7 @@ Portfolio totals retained from the audit:
 | `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge, Scientific Thinking, Imaging, REG and VAL are explicitly product-callable, but QRY/conversation does not select owners. | No | Wave 4 | W1K01/W1ST01/W1IMG01/W1REG01/W1VAL01 product entrypoints vs nominal conversation loop |
 | `REGULATORY_CORPUS_ADMISSION_AND_COVERAGE` | `OPEN_BOUNDED_DEBT` | REG-000 is candidate/non-admitted and locally covers only FR, EU/EEA, US and international methodological/reporting guidance; other jurisdictions fail closed and no current-law completeness is claimed. | No | Separate corpus governance authorization | REG-000 v1.0.0, verified 2026-08-10; W1REG01-10–23 |
 | `SCIENTIFIC_EXECUTION_TRACE_GAP` | `CLOSED_W1_TRACE_01` | A distinct session-persisted ledger now retains exact run/Project binding, ordered owner/handoff/persistence/stale/VAL events, integrity and logical digests, bounded references, technical errors, comparator output and event-N replay plans. It remains optional, passive and non-authoritative; no replay executor was created. | No | Closed in W1-TRACE-01 | W1TRACE01 unit/corridor/diagnostic fixtures; implementation report and machine manifest |
-| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `PARTIALLY_CHARACTERIZED_WAVE_1_BLOCKER` | Knowledge, Imaging, REG and VAL remain bounded-characterized. The first fresh ST recharacterization campaign is retained as observed Level 3 evidence but is non-admissible because of characterization-harness defects; it establishes neither owner repair nor owner characterization. | Yes | W1-QUAL-01R1 | W1-QUAL-01R report, freeze, observed results and post-campaign governance adjudication |
+| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `PARTIALLY_CHARACTERIZED_WAVE_1_BLOCKER` | Knowledge, Imaging, REG and VAL remain bounded-characterized. ST Campaign A is invalid exposed evidence. R1 corrected its known harness defects, but the frozen `2.0.0` evaluator mishandles the null OwnerResult state after a valid pre-runtime stale rejection; Campaign B was stopped with 0 ST invocations and no owner verdict. | Yes | W1-QUAL-01R2 | W1-QUAL-01R1 harness freeze, Campaign B freeze, deterministic pre-execution failure adjudication, report and machine manifest |
 | `SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_COVERAGE` | `CLOSED_BY_BOUNDED_REPAIR_RECHARACTERIZATION_REQUIRED` | Engine `1.2.1` accepts structurally supported current Project questions without depending exclusively on narrow legacy lexemes; independent probes demonstrate positive coverage, fail-closed negative paths, contradiction/gap preservation and zero Project write. | No | Closed in W1-ST-REPAIR-01; independently recharacterize next | Five independent probes reproduced the defect pre-repair; 9/9 post-repair checks pass; cardiac/neuro are non-regression only |
 | `CONTROLLED_LOOP_CHARACTERIZATION_GAP` | `OPEN_WAVE_1_BLOCKER` | The assembled Project → Knowledge → ST → Imaging → VAL loop has not undergone a controlled representative campaign with frozen inputs, explicit expectations, replay and first-stage attribution. | Yes | W1-LOOP-QUAL-01 candidate after individual characterization | `CONTROLLED_LOOP_CHARACTERIZATION = NOT_PERFORMED` |
 | `PREEXISTING_HISTORICAL_FIXTURE_DEBT` | `OPEN_NON_BLOCKING_DEBT` | Four IMG-001B freeze expectations, one downstream PRJ fixture and three SYS expectations (ST version, DOC decision propagation, Imaging freeze status) remain red; they concern historical interactive/freeze and SYS fixture contracts, not W1 owner convergence. | No | Historical fixture maintenance | W1-CLOSURE-01 fresh isolated runs reproduce 4/60 IMG failures, 1/73 PRJ failure and 3/34 SYS failures, matching the prior eight-failure baseline classification |
@@ -546,6 +546,7 @@ Portfolio totals retained from the audit:
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
+| W1-QUAL-01R1 | `W1_QUAL_01R1_BLOCKED_BY_CHARACTERIZATION_HARNESS` / checkpoint commit containing this roadmap | Campaign A harness forensics, revised harness freeze, Campaign B authoring and pre-execution fail-closed adjudication | The six known Campaign A harness defects are represented by distinct status/taxonomy/gate/TRACE/negative/mechanistic contracts; 11/11 synthetic tests passed; 13 new Campaign B cases, envelopes and inputs passed parentage and Knowledge gates and were frozen. A deterministic static preflight localized a new frozen evaluator defect before any ST call and prevented false owner attribution. | Independent ST characterization, any Campaign B owner observation, candidate/negative/epistemic-safety rates, replay, ST repair authorization, controlled-loop characterization, Wave 1 completion or Wave 2 authorization |
 | W1-QUAL-01R | `W1_QUAL_01R_BLOCKED_BY_CHARACTERIZATION_HARNESS` / checkpoint commit containing this roadmap | Fresh ST-only campaign plus post-campaign harness adjudication | 12 frozen fresh cases were executed once with 8/8 supported candidate opportunities, 3/3 stable preselected replays, preserved contradictions/gaps/lineage and zero Project writes/provider calls/adoptions; it identifies specific frozen-harness defects and retains the C7 observation as non-adjudicable | An admissible independent ST characterization, a generic ST owner defect, runtime-repair authorization, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-SCIENTIFIC-THINKING-REPAIR-01 | `W1_ST_REPAIR_01_CRITICAL_REASONING_CANDIDATE_COVERAGE_REPAIRED` / repair + checkpoint commits | Bounded ST owner repair | First internal divergence is `ST_CANDIDATE_ELIGIBILITY`; five independent probes reproduce the generic omission before repair; engine `1.2.1` restores supported candidate coverage while insufficient, unknown and out-of-owner paths remain fail-closed; contradictions, gaps, Knowledge lineage, pending state, determinism and zero Project write are preserved | Independent ST characterization, universal scientific validity, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-QUAL-01 | `W1_QUAL_01_OWNER_REPAIR_REQUIRED` / checkpoint commit containing this roadmap | Independent bounded characterization of Knowledge, Scientific Thinking, Imaging, REG and VAL | 35 frozen owner-isolated cases, 35 acceptance envelopes, 43 passive trace runs and 8 stable replays; Knowledge 6/6, Imaging 4/4, REG 8/8 and VAL 13/13 fully satisfy the bounded envelopes; ST demonstrates two critical reasoning omissions at `SCIENTIFIC_THINKING_ENGINE` | Universal scientific validity, corpus completeness, repaired ST behavior, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |

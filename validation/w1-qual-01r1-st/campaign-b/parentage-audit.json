@@ -1,0 +1,181 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_PARENTAGE_AUDIT",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "completedBeforeFirstStExecution": true,
+  "exclusions": {
+    "w1Qual": [
+      "ST-CARDIAC-01",
+      "ST-SPECTRAL-01",
+      "ST-NEURO-01",
+      "ST-UNSUPPORTED-01"
+    ],
+    "campaignA": [
+      "ST01R-SPECTRAL-ARCHITECTURE-01",
+      "ST01R-CARDIAC-MYOCARDITIS-01",
+      "ST01R-NEURO-OEF-CMRO2-01",
+      "ST01R-NEURO-RCBV-ALTERNATIVES-01",
+      "ST01R-SPECTRAL-IODINE-CONSTRUCT-01",
+      "ST01R-INSUFFICIENT-FINALITY-01",
+      "ST01R-PROJECT-QUESTION-MISSING-01",
+      "ST01R-SPECTRAL-NARROW-APPLICABILITY-01",
+      "ST01R-OUT-OF-OWNER-DICOM-01",
+      "ST01R-NEURO-PREDICTION-NONPROMOTION-01",
+      "ST01R-CARDIAC-MODEL-CANDIDATE-01",
+      "ST01R-STALE-KNOWLEDGE-01"
+    ],
+    "repairProbes": [
+      "ST-REPAIR-A",
+      "ST-REPAIR-B",
+      "ST-REPAIR-C",
+      "ST-REPAIR-D",
+      "ST-REPAIR-E",
+      "ST-REPAIR-F",
+      "ST-REPAIR-G",
+      "ST-REPAIR-H"
+    ],
+    "unitAndHistoricalThemes": [
+      "Fabry/T1/ECV/MOLLI/SASHA",
+      "fibrose myocardique vague",
+      "patient T2",
+      "zéphyr",
+      "no-reflow/MVO/IMH",
+      "VNC native substitution",
+      "CBF/CBV/transit cross-modal"
+    ],
+    "exactOrNearDuplicateAuthorized": false,
+    "campaignACaseReusedAsIndependentEvidence": false,
+    "repairProbeReusedAsIndependentEvidence": false
+  },
+  "cases": [
+    {
+      "caseId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A iodine/perfusion case"
+      ],
+      "distinctnessRationale": "Le cas B teste une inférence négative et une référence indépendante; A testait l'identité de construit entre distribution d'iode et perfusion.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A spectral architecture case"
+      ],
+      "distinctnessRationale": "La structure causale porte sur un compromis intra-sortie VMI artefact/contraste, non sur un transfert entre architectures.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A OEF/CMRO2 mechanistic case"
+      ],
+      "distinctnessRationale": "Nouveau domaine physique, nouveaux objets et nouvelle chaîne explicative détecteur-vers-décomposition; aucun construit physiologique OEF/CMRO2.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A myocarditis T1/T2 cases"
+      ],
+      "distinctnessRationale": "Nouvelle pathologie, nouveau contraste physique T2*, nouvelle temporalité et nouvel outcome; aucun couple myocardite T1/T2.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST unit Fabry/T1 fixtures"
+      ],
+      "distinctnessRationale": "Le cas B porte sur transférabilité métrologique chez témoins et non sur une préférence MOLLI/SASHA, Fabry ou une interprétation pathologique.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-NEURO-ASL-TRANSIT-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST-NEURO-01",
+        "Campaign A OEF/CMRO2"
+      ],
+      "distinctnessRationale": "La question cible une erreur de mesure ASL single-delay causée par ATT/PLD, pas une comparaison ASL/DSC/CTP ni une compensation métabolique.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-NEURO-GHOST-CORE-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A TBI prediction case"
+      ],
+      "distinctnessRationale": "Nouveau contexte AVC/reperfusion, nouvel estimateur core et frontière irréversibilité; A concernait une réserve de perfusion et récupération fonctionnelle après traumatisme.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-NEURO-BBB-CAUSALITY-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A rCBV leakage case"
+      ],
+      "distinctnessRationale": "Nouveau paramètre DCE, nouveau compartiment BBB et opposition flow-limited/permeability-limited; A portait sur rCBV tumoral DSC et post-traitement.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [],
+      "distinctnessRationale": "Cas méthodologique transversal nouveau, sans reprise d'une pathologie, modalité ou structure causale de Campaign A ou des probes.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-INSUFFICIENT-TARGET-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign A radiomics no-finality",
+        "ST unit vague imaging fixture"
+      ],
+      "distinctnessRationale": "Contrôle de sécurité nécessaire mais nouveau construit de métrologie; il est exclu du numérateur de candidate coverage et ne réutilise aucune conclusion scientifique exposée.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-CONDITIONAL-ENDPOINT-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign A missing Project question",
+        "Repair Probe E"
+      ],
+      "distinctnessRationale": "Ici la question relationnelle existe mais l'outcome et la temporalité restent inconnus; A/E omettaient la question ou la relation centrale. L'obligation scientifique est donc distincte.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Repair Probe G marketing",
+        "Campaign A JavaScript/DICOM"
+      ],
+      "distinctnessRationale": "Troisième frontière hors owner entièrement distincte: gestion comptable, sans marketing ni développement logiciel DICOM.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R1-B-STALE-ZEFF-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A stale myocarditis case"
+      ],
+      "distinctnessRationale": "Le contenu scientifique, le Project et le KnowledgeResult sont nouveaux; seule l'obligation technique de stale protection, requise par le prompt, est commune.",
+      "admissible": true
+    }
+  ],
+  "counts": {
+    "total": 13,
+    "novel": 11,
+    "relatedButDistinct": 2,
+    "tooClose": 0,
+    "exactOrNearDuplicate": 0
+  },
+  "campaignACasesReusedAsIndependentEvidence": false,
+  "repairProbesReusedAsIndependentEvidence": false,
+  "conclusion": "CAMPAIGN_B_PARENTAGE_ADMISSIBLE_NO_EXACT_OR_NEAR_DUPLICATE"
+}

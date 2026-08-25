@@ -1,0 +1,49 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_CHARACTERIZATION_FREEZE",
+  "version": "1.0.0",
+  "frozenAt": "2026-08-25T23:40:00.000Z",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "gitHead": "efc11c98b3310dc77c90e7357a83f96dc9d82820",
+  "stVersion": "1.2.1",
+  "harnessVersion": "2.0.0",
+  "harnessDigest": "ke1-1634f9e75685558b",
+  "registryDigests": {
+    "caseRegistry": "ke1-30610b6311d42eaf",
+    "acceptanceEnvelopeRegistry": "ke1-f004c97f41750f0b",
+    "frozenInputRegistry": "ke1-cd7d82d7dba7017b",
+    "parentageAudit": "ke1-191c64c918e33455",
+    "knowledgeInputQualityGate": "ke1-aae65281782267a5"
+  },
+  "traceLedgerVersion": "0.1.0",
+  "traceEventSchemaVersion": "0.1.0",
+  "evaluatorDigest": "ke1-33c2e6ae542bb022",
+  "replaySelection": [
+    {
+      "caseId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01",
+      "role": "POSITIVE"
+    },
+    {
+      "caseId": "ST01R1-B-NEURO-BBB-CAUSALITY-01",
+      "role": "CONTRADICTION_OR_ALTERNATIVES"
+    },
+    {
+      "caseId": "ST01R1-B-INSUFFICIENT-TARGET-01",
+      "role": "CONDITIONAL_OR_NO_CANDIDATE"
+    }
+  ],
+  "freezeDigest": "ke1-f0e48d02e41ece46",
+  "registries": {
+    "cases": 13,
+    "envelopes": 13,
+    "packs": 13
+  },
+  "parentageCompleted": true,
+  "knowledgeGatePassed": true,
+  "observationOccurred": false,
+  "mutableAfterObservation": false,
+  "status": "CHARACTERIZATION_FREEZE_READY",
+  "machineValidation": {
+    "valid": true,
+    "findings": []
+  }
+}

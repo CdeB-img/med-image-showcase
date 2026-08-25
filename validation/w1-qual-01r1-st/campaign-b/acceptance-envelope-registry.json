@@ -1,0 +1,2687 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_ACCEPTANCE_ENVELOPE_REGISTRY",
+  "version": "2.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "authoredBeforeObservation": true,
+  "mutableAfterObservation": false,
+  "envelopes": [
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01",
+      "caseId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:negative-iodine-map-interpretation"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "La sensibilité et la référence doivent être appariées à la tâche; aucune exclusion clinique universelle n'est établie."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:PROJECT_IDENTITY",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:NO_PROVIDER_CALL",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:GAPS_PRESERVED",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:negative-iodine-map-interpretation"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-SPECTRAL-VMI-TRADEOFF-01",
+      "caseId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": true,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:VMI-task-tradeoff"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Aucune énergie universelle ni sélection de méthode n'est autorisée."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:PROJECT_IDENTITY",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:NO_PROVIDER_CALL",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:ALTERNATIVES_PRESERVED",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:GAPS_PRESERVED",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-SPECTRAL-VMI-TRADEOFF-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:VMI-task-tradeoff"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-SPECTRAL-CHARGE-SHARING-01",
+      "caseId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": true,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:charge-sharing-and-energy-binning"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "L'importance du biais dépend du détecteur, du flux, des seuils et des corrections; aucun effet universel n'est établi."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:PROJECT_IDENTITY",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:NO_PROVIDER_CALL",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:MECHANISTIC_OR_EXPLANATORY",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:GAPS_PRESERVED",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:charge-sharing-and-energy-binning"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-CARDIAC-IRON-ASSOCIATION-01",
+      "caseId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-004@1.1:T2star-iron-quantification-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Le corpus figé ne démontre ni causalité ni performance pronostique pour cette formulation."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:PROJECT_IDENTITY",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:NO_PROVIDER_CALL",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:GAPS_PRESERVED",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-CARDIAC-IRON-ASSOCIATION-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:T2star-iron-quantification-boundary"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-CARDIAC-FIELD-TRANSFER-01",
+      "caseId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-004@1.1:T1-field-site-dependency"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "La comparabilité doit être démontrée pour chaque chaîne; aucun seuil universel n'est transféré."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:PROJECT_IDENTITY",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:NO_PROVIDER_CALL",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:GAPS_PRESERVED",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-004@1.1:T1-field-site-dependency"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-NEURO-ASL-TRANSIT-01",
+      "caseId": "ST01R1-B-NEURO-ASL-TRANSIT-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": true,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:ASL-PLD-ATT-bias"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-ASL-TRANSIT-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "La causalité apparente dépend du modèle, du territoire et de l'acquisition; la correction peut aussi retirer une information collatérale."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:PROJECT_IDENTITY",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:NO_PROVIDER_CALL",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:MECHANISTIC_OR_EXPLANATORY",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:GAPS_PRESERVED",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-NEURO-ASL-TRANSIT-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:ASL-PLD-ATT-bias"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-NEURO-GHOST-CORE-01",
+      "caseId": "ST01R1-B-NEURO-GHOST-CORE-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": true,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:CTP-ghost-core"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-GHOST-CORE-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Les seuils sont propres à une chaîne validée et ne constituent ni histologie future ni certitude individuelle."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-NEURO-GHOST-CORE-01:PROJECT_IDENTITY",
+        "ST01R1-B-NEURO-GHOST-CORE-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-NEURO-GHOST-CORE-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-NEURO-GHOST-CORE-01:NO_PROVIDER_CALL",
+        "ST01R1-B-NEURO-GHOST-CORE-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-NEURO-GHOST-CORE-01:ALTERNATIVES_PRESERVED",
+        "ST01R1-B-NEURO-GHOST-CORE-01:GAPS_PRESERVED",
+        "ST01R1-B-NEURO-GHOST-CORE-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-NEURO-GHOST-CORE-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-NEURO-GHOST-CORE-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:CTP-ghost-core"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-NEURO-BBB-CAUSALITY-01",
+      "caseId": "ST01R1-B-NEURO-BBB-CAUSALITY-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": true,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:Ktrans-regime-and-causality"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-NEURO-BBB-CAUSALITY-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Une association à la maladie ne prouve ni cause primaire ni rupture franche de la barrière."
+      ],
+      "expectedContradictions": [
+        "Ktrans peut représenter des régimes et mécanismes distincts; plusieurs interprétations restent défendables."
+      ],
+      "criticalObligations": [
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:PROJECT_IDENTITY",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:NO_PROVIDER_CALL",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:ALTERNATIVES_PRESERVED",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:GAPS_PRESERVED",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-NEURO-BBB-CAUSALITY-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:Ktrans-regime-and-causality"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-METHOD-REFERENCE-MISMATCH-01",
+      "caseId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": true,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-005@1.0:no-universal-gold-standard",
+            "PD-011:reference-evidence"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CANDIDATE_REQUIRED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CANDIDATE_REQUIRED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Different scientifically equivalent candidate wording",
+        "Additional explicit limitation",
+        "Additional competing alternative"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Aucun gold standard universel n'est présumé et la validité reste propre au couple mesurande-chaîne-domaine."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:PROJECT_IDENTITY",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:NO_PROVIDER_CALL",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:ALTERNATIVES_PRESERVED",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:GAPS_PRESERVED",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-005@1.0:no-universal-gold-standard",
+        "PD-011:reference-evidence"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-INSUFFICIENT-TARGET-01",
+      "caseId": "ST01R1-B-INSUFFICIENT-TARGET-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CLARIFICATION_OR_GAP_EXPECTED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "KE-001:honest-gap",
+            "RDE-001:negative-output-valid"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-INSUFFICIENT-TARGET-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CLARIFICATION_OR_GAP_EXPECTED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CLARIFICATION_OR_GAP_EXPECTED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Clarification required",
+        "Explicit gap",
+        "Pending candidate only if explicitly bounded"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "La valeur dérivée ne possède aucune finalité scientifique adoptée dans ce Project."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-INSUFFICIENT-TARGET-01:PROJECT_IDENTITY",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:NO_PROVIDER_CALL",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:GAPS_PRESERVED",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-INSUFFICIENT-TARGET-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "KE-001:honest-gap",
+        "RDE-001:negative-output-valid"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-CONDITIONAL-ENDPOINT-01",
+      "caseId": "ST01R1-B-CONDITIONAL-ENDPOINT-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect CONDITIONAL_CANDIDATE_ALLOWED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:derived-output-needs-construct",
+            "PD-003-V2:Project-unknowns"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-CONDITIONAL-ENDPOINT-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "CONDITIONAL_CANDIDATE_ALLOWED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect CONDITIONAL_CANDIDATE_ALLOWED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Pending conditional candidate with explicit unknowns",
+        "Clarification without candidate",
+        "Explicit gap without candidate"
+      ],
+      "expectedGaps": [
+        "MISSING_CRITICAL_CONTEXT"
+      ],
+      "expectedLimitations": [
+        "Outcome et temporalité restent des unknowns Project qui conditionnent toute proposition."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:PROJECT_IDENTITY",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:NO_PROVIDER_CALL",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:GAPS_PRESERVED",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-CONDITIONAL-ENDPOINT-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:derived-output-needs-construct",
+        "PD-003-V2:Project-unknowns"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01",
+      "caseId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect STRICT_NO_CANDIDATE_EXPECTED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RDE-001:owner-boundary",
+            "PD-005:role-boundary"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "STRICT_NO_CANDIDATE_EXPECTED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect STRICT_NO_CANDIDATE_EXPECTED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Explicit owner refusal",
+        "Pre-runtime stale rejection"
+      ],
+      "expectedGaps": [
+        "OUT_OF_DOMAIN"
+      ],
+      "expectedLimitations": [
+        "Hors périmètre Scientific Thinking."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:PROJECT_IDENTITY",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:NO_PROVIDER_CALL",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:GAPS_PRESERVED",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-OUT-OF-OWNER-ACCOUNTING-01:EPISTEMIC_SAFETY"
+      ],
+      "referenceRefs": [
+        "RDE-001:owner-boundary",
+        "PD-005:role-boundary"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    },
+    {
+      "envelopeId": "acceptance-envelope:ST01R1-B-STALE-ZEFF-01",
+      "caseId": "ST01R1-B-STALE-ZEFF-01",
+      "referenceStatus": "VALID",
+      "obligations": [
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "statement": "Preserve exact canonical Project tuple or reject intentional stale binding.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "statement": "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "statement": "Perform no Project write, adoption or simulated Human Decision.",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": "ST_OWNER_RESULT_PACKAGING",
+          "referenceRefs": [
+            "Manifesto-V2:candidate-not-adopted"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "statement": "Perform no LLM or external provider call.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_REQUEST_ACCEPTANCE",
+          "referenceRefs": [
+            "W1-QUAL-01R1:bounded-campaign"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "statement": "Respect STRICT_NO_CANDIDATE_EXPECTED without forced candidate or unjustified silence.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "statement": "Represent an inspectable explanatory candidate when pre-authored and supported.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_SCIENTIFIC_MODEL_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "statement": "Keep a competing explanation visible and unselected when required.",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": "ST_ALTERNATIVE_CONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve all pre-authored Knowledge gaps.",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "statement": "Keep bounded limitations inspectable.",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": "ST_OUTPUT_CANONICALIZATION",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "statement": "Preserve Knowledge contradictions without selection.",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "statement": "Preserve the explicit Project question without semantic drift when applicable.",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "referenceRefs": [
+            "RB-003@1.0:Zeff-model-boundary",
+            "RDE-002:stale-protection"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "statement": "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": "ST_EPISTEMIC_GUARD",
+          "referenceRefs": [
+            "PD-011:evidence-strength"
+          ]
+        },
+        {
+          "obligationId": "ST01R1-B-STALE-ZEFF-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": true,
+          "statement": "Reject intentional stale Knowledge before ST runtime without conversion.",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": "STALE_VALIDATION",
+          "referenceRefs": [
+            "RDE-002:stale-protection"
+          ]
+        }
+      ],
+      "negativeExpectationMode": "STRICT_NO_CANDIDATE_EXPECTED",
+      "requiredObligations": [
+        "Preserve exact canonical Project tuple or reject intentional stale binding.",
+        "Preserve exact frozen Knowledge ref/digest without ownership transfer.",
+        "Perform no Project write, adoption or simulated Human Decision.",
+        "Perform no LLM or external provider call.",
+        "Respect STRICT_NO_CANDIDATE_EXPECTED without forced candidate or unjustified silence.",
+        "Represent an inspectable explanatory candidate when pre-authored and supported.",
+        "Keep a competing explanation visible and unselected when required.",
+        "Preserve all pre-authored Knowledge gaps.",
+        "Keep bounded limitations inspectable.",
+        "Preserve Knowledge contradictions without selection.",
+        "Preserve the explicit Project question without semantic drift when applicable.",
+        "Do not emit unsupported primary certainty, evidence promotion or adoption.",
+        "Reject intentional stale Knowledge before ST runtime without conversion."
+      ],
+      "forbiddenBehaviors": [
+        "PROJECT_WRITE",
+        "AUTOMATIC_ADOPTION",
+        "KNOWLEDGE_OWNERSHIP_TRANSFER",
+        "CERTAINTY_PROMOTION",
+        "METHOD_SELECTION",
+        "LLM_OR_EXTERNAL_CALL",
+        "SILENT_GAP_OR_CONTRADICTION_SUPPRESSION"
+      ],
+      "allowedAlternatives": [
+        "Explicit owner refusal",
+        "Pre-runtime stale rejection"
+      ],
+      "expectedGaps": [],
+      "expectedLimitations": [
+        "Le résultat Knowledge est volontairement lié au Project vN; le runtime reçoit vN+1 et doit refuser sans conversion."
+      ],
+      "expectedContradictions": [],
+      "criticalObligations": [
+        "ST01R1-B-STALE-ZEFF-01:PROJECT_IDENTITY",
+        "ST01R1-B-STALE-ZEFF-01:KNOWLEDGE_LINEAGE",
+        "ST01R1-B-STALE-ZEFF-01:ZERO_PROJECT_WRITE",
+        "ST01R1-B-STALE-ZEFF-01:NO_PROVIDER_CALL",
+        "ST01R1-B-STALE-ZEFF-01:NEGATIVE_EXPECTATION",
+        "ST01R1-B-STALE-ZEFF-01:GAPS_PRESERVED",
+        "ST01R1-B-STALE-ZEFF-01:CONTRADICTIONS_PRESERVED",
+        "ST01R1-B-STALE-ZEFF-01:PROJECT_QUESTION_FIDELITY",
+        "ST01R1-B-STALE-ZEFF-01:EPISTEMIC_SAFETY",
+        "ST01R1-B-STALE-ZEFF-01:STALE_PROTECTION"
+      ],
+      "referenceRefs": [
+        "RB-003@1.0:Zeff-model-boundary",
+        "RDE-002:stale-protection"
+      ],
+      "authoredBeforeObservation": true,
+      "mutableAfterObservation": false
+    }
+  ]
+}

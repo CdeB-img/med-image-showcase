@@ -1,0 +1,24 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_DETERMINISM_REPLAY_RESULTS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "selectionMadeBeforeObservation": true,
+  "selected": [
+    {
+      "caseId": "ST01R1-B-SPECTRAL-CHARGE-SHARING-01",
+      "role": "POSITIVE"
+    },
+    {
+      "caseId": "ST01R1-B-NEURO-BBB-CAUSALITY-01",
+      "role": "CONTRADICTION_OR_ALTERNATIVES"
+    },
+    {
+      "caseId": "ST01R1-B-INSUFFICIENT-TARGET-01",
+      "role": "CONDITIONAL_OR_NO_CANDIDATE"
+    }
+  ],
+  "replaysPerformed": 0,
+  "stableReplays": 0,
+  "results": [],
+  "status": "NOT_PERFORMED_CAMPAIGN_BLOCKED_BEFORE_OWNER_INVOCATION"
+}

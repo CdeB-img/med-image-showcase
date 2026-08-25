@@ -1,0 +1,9 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_OBLIGATION_ADJUDICATION",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "ownerObligationsAdjudicated": 0,
+  "adjudications": [],
+  "ownerVerdict": "NOT_ADJUDICATED",
+  "blockedBy": "W1-QUAL-01R1-B-HARNESS-STALE-NULL-STATE-01"
+}

@@ -1,0 +1,45 @@
+{
+  "contract": "W1_QUAL_01R1_ST_CAMPAIGN_B_FAILURE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R1-ST-2026-08-25-B",
+  "failures": [
+    {
+      "failureId": "W1-QUAL-01R1-B-HARNESS-STALE-NULL-STATE-01",
+      "failureClass": "CHARACTERIZATION_HARNESS_DEFECT",
+      "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+      "responsibleOwner": "W1_QUAL_01R1_CHARACTERIZATION_HARNESS",
+      "detectedAt": "PRE_EXECUTION_STATIC_PREFLIGHT_AFTER_CAMPAIGN_FREEZE",
+      "affectedCaseClass": "B13_STALE_KNOWLEDGE",
+      "observedWithoutStRuntimeInvocation": true,
+      "defect": "The frozen EPISTEMIC_SAFETY evaluator treats an absent pre-runtime OwnerResult as projectWriteAuthorized!=false and undefined selectedQuestionCandidate as promoted, producing a false EVIDENCE_PROMOTION / OWNER_REPAIR_REQUIRED verdict after a correct STALE_KNOWLEDGE_RESULT rejection.",
+      "deterministicEvidence": {
+        "syntheticState": "invocation=null,error=STALE_KNOWLEDGE_RESULT,TRACE_COMPLETE=YES",
+        "observedCaseVerdict": "CRITICAL_VIOLATION",
+        "observedOwnerCharacterizationStatus": "OWNER_REPAIR_REQUIRED",
+        "observedEvaluation": {
+          "checkId": "EPISTEMIC_SAFETY",
+          "outcome": "VIOLATED",
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=true",
+            "projectWriteAuthorized=false"
+          ]
+        },
+        "correctDisposition": "HARNESS_DEFECT_OWNER_NOT_ADJUDICATED"
+      },
+      "stDefectEstablished": false,
+      "ownerRepairAuthorized": false,
+      "postFreezeHarnessRepairPerformed": false,
+      "campaignBExecutionAuthorized": false
+    }
+  ],
+  "counts": {
+    "harness": 1,
+    "reference": 0,
+    "frozenInput": 0,
+    "trace": 0,
+    "stOwner": 0,
+    "humanArbitration": 0
+  },
+  "initialArchitecturalOrOwnerFailureEstablished": false
+}
