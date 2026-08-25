@@ -1,0 +1,45 @@
+{
+  "contract": "REASONING_CANDIDATE_COVERAGE",
+  "version": "1.0.0",
+  "nature": "LEVEL_3_BOUNDED_REPAIR_CONTRACT_NOT_NORMATIVE",
+  "positiveEligibility": {
+    "allRequired": [
+      "current typed Project binding is explicit",
+      "an explicit Project scientific question is preserved as a question",
+      "typed scientific objects expose at least two decision-relevant reasoning terms",
+      "population or contextual scope is present",
+      "a typed Knowledge OwnerResult is bound to the request",
+      "Knowledge support is SUPPORTED, PARTIAL or CONFLICTING",
+      "Knowledge provides at least one assertion, evidence or source reference",
+      "no patient-level, out-of-domain, insufficient-input or non-testable refusal applies"
+    ],
+    "requiredCapability": "Scientific Thinking must remain capable of producing at least one ownership-valid reasoning contribution candidate; the exact candidate category is context-dependent."
+  },
+  "legitimateEmptyOrLimitedResult": [
+    "Project scientific question is absent or not explicit",
+    "typed scientific structure is insufficient",
+    "Knowledge is UNAVAILABLE or UNSUPPORTED and no existing explicit relation independently supports a limited candidate",
+    "a critical gap or unknown prevents the precise contribution",
+    "request is patient-level, out of domain or non-testable",
+    "requested content belongs to another owner"
+  ],
+  "nonInvariants": [
+    "every request produces a hypothesis",
+    "objective exists if and only if hypothesis exists",
+    "candidate is adopted",
+    "Knowledge support is promoted",
+    "a contradiction is resolved",
+    "a gap is filled"
+  ],
+  "epistemicGuards": {
+    "candidateReviewState": "PENDING_UNLESS_HUMAN_DECISION",
+    "supportedKnowledgeToCandidateMaximum": "PARTIAL",
+    "knowledgeOwnershipTransferred": false,
+    "projectWriteAuthorized": false,
+    "projectWrites": 0,
+    "unknownsPreserved": true,
+    "gapsPreserved": true,
+    "contradictionsPreserved": true
+  },
+  "historicalCaseDerived": false
+}

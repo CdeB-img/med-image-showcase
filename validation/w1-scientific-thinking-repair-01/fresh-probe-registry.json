@@ -1,0 +1,17 @@
+{
+  "contract": "W1_ST_REPAIR_01_FRESH_DEVELOPMENT_PROBE_REGISTRY",
+  "version": "1.0.0",
+  "writtenBeforeRuntimePatch": true,
+  "independentCharacterizationEvidence": false,
+  "historicalDomainsExcluded": ["cardiac", "neuro"],
+  "probes": [
+    { "probeId": "ST-REPAIR-A", "domain": "musculoskeletal rehabilitation", "purpose": "comparative question with bounded support", "expected": "at least one pending reasoning candidate" },
+    { "probeId": "ST-REPAIR-B", "domain": "metabolic recovery", "purpose": "factor/outcome predictive opportunity", "expected": "limited pending hypothesis candidate without truth claim" },
+    { "probeId": "ST-REPAIR-C", "domain": "oncology", "purpose": "multiple plausible explanations", "expected": "contradiction and at least one competing alternative preserved" },
+    { "probeId": "ST-REPAIR-D", "domain": "environmental exposure", "purpose": "insufficient evidence", "expected": "no forced strong candidate; explicit gap or unsupported/empty result" },
+    { "probeId": "ST-REPAIR-E", "domain": "rare disease", "purpose": "structuring Project unknown", "expected": "unknown preserved and no precise hypothesis invented" },
+    { "probeId": "ST-REPAIR-F", "domain": "infectious disease", "purpose": "Knowledge contradiction", "expected": "contradiction preserved and no silent winner" },
+    { "probeId": "ST-REPAIR-G", "domain": "marketing", "purpose": "out-of-owner input", "expected": "refusal with zero reasoning candidates" },
+    { "probeId": "ST-REPAIR-H", "domain": "immunology and sleep", "purpose": "current-contract structural eligibility without historical triggers", "expected": "pending reasoning candidate independent of legacy lexical trigger" }
+  ]
+}

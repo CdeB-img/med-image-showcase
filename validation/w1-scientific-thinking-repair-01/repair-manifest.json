@@ -1,0 +1,150 @@
+{
+  "manifestId": "W1-ST-REPAIR-01-REPAIR-MANIFEST",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE_NON_NORMATIVE",
+  "decision": "W1_ST_REPAIR_01_CRITICAL_REASONING_CANDIDATE_COVERAGE_REPAIRED",
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "headInitial": "3ef6c93d324586143b4f3759b47acbe1c02b202a",
+    "originBranchInitial": "3ef6c93d324586143b4f3759b47acbe1c02b202a",
+    "main": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "originMain": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "trackedStateInitial": "CLEAN",
+    "historicalUntrackedArtifacts": "PRESENT_AND_PRESERVED"
+  },
+  "authorities": {
+    "mandatoryOrderRespected": true,
+    "consulted": [
+      "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+      "NOXIA — Charte fondatrice",
+      "NOXIA Protocol Designer — Scientific Product Manifesto V2",
+      "Editorial Engine — Architecture Manifesto",
+      "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md",
+      "PD-003 V2 — Research Object Model",
+      "PD-003 V2 — Ownership Matrix",
+      "PD-003 V2 — Relationship Catalog",
+      "PD-003 V2 — Engine Impact Matrix",
+      "PD-005",
+      "PD-009",
+      "PD-011",
+      "RDE-001",
+      "RDE-002",
+      "KE-001",
+      "ST-001 Level 3 implementation report",
+      "W1-CLOSURE-01 Level 3 evidence",
+      "W1-TRACE-01 Level 3 evidence",
+      "W1-QUAL-01 Level 3 evidence"
+    ],
+    "normativeContradiction": false
+  },
+  "historicalEvidence": {
+    "campaign": "W1-QUAL-01-2026-08-25-G",
+    "freezeDigest": "ke1-338176f77d9f11f3",
+    "manifestDigest": "ke1-e87cad99f91d14d5",
+    "artifactsModified": false,
+    "directoryBytePreservation": "PASS",
+    "exposedCases": ["ST-CARDIAC-01", "ST-NEURO-01"],
+    "role": "POST_REPAIR_NON_REGRESSION"
+  },
+  "rootCause": {
+    "historicalFirstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+    "stInternalFirstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+    "upstreamOrHandoffDefect": false,
+    "summary": "A narrow lexical completeness gate overrode a structurally complete current Project question and exact typed Knowledge context, preventing candidate construction."
+  },
+  "genericRepairContract": "REASONING_CANDIDATE_COVERAGE",
+  "genericPreRepairReproduction": true,
+  "preRepairProbes": { "passed": 3, "failedExpected": 5, "total": 8 },
+  "repair": {
+    "owner": "SCIENTIFIC_THINKING",
+    "engineVersionBefore": "1.2.0",
+    "engineVersionAfter": "1.2.1",
+    "firstComponentChanged": "ST_CANDIDATE_ELIGIBILITY",
+    "generic": true,
+    "deterministic": true,
+    "fixtureVocabularyUsed": false,
+    "forcedCandidateFallback": false,
+    "otherOwnerRuntimeModified": false,
+    "corpusModified": false,
+    "normModified": false
+  },
+  "freshProbes": {
+    "probeTests": 8,
+    "determinismTests": 1,
+    "passed": 9,
+    "failed": 0,
+    "positiveCoverage": ["ST-REPAIR-A", "ST-REPAIR-B", "ST-REPAIR-C", "ST-REPAIR-F", "ST-REPAIR-H"],
+    "negativeOrBoundedCoverage": ["ST-REPAIR-D", "ST-REPAIR-E", "ST-REPAIR-G"],
+    "independentCharacterizationEvidence": false
+  },
+  "epistemicSafety": {
+    "unsupportedHypothesis": 0,
+    "evidencePromotion": 0,
+    "knowledgeGapLoss": 0,
+    "contradictionLoss": 0,
+    "projectAdoptionLeak": 0,
+    "projectWrites": 0,
+    "noForcedHypothesisGeneration": "PASS",
+    "verdict": "PASS"
+  },
+  "historicalReplay": {
+    "ST-CARDIAC-01": "PASS_POST_REPAIR_NON_REGRESSION",
+    "ST-NEURO-01": "PASS_POST_REPAIR_NON_REGRESSION",
+    "ST-SPECTRAL-01": "PASS_PREEXISTING_CASE_NON_REGRESSION",
+    "ST-UNSUPPORTED-01": "PASS_PREEXISTING_CASE_NON_REGRESSION"
+  },
+  "trace": {
+    "usedForHistoricalForensics": true,
+    "usedForFreshProductProbes": true,
+    "projectTupleRecorded": true,
+    "knowledgeDependencyRecorded": true,
+    "engineVersionRecorded": true,
+    "outputDigestRecorded": true,
+    "candidateCountsRecorded": true,
+    "privateReasoningStored": false,
+    "traceWritesToProject": 0
+  },
+  "tests": [
+    { "name": "FRESH_PROBES", "files": 1, "passed": 9, "failed": 0, "classification": "PASS" },
+    { "name": "ST_KNOWLEDGE_HANDOFF_TRACE", "files": 10, "passed": 135, "failed": 0, "classification": "PASS" },
+    { "name": "W0_W1_SPINE_TRACE_NON_REGRESSION", "files": 12, "passed": 297, "failed": 0, "classification": "PASS" },
+    { "name": "W1_QUAL_READBACK", "files": 1, "passed": 3, "failed": 0, "classification": "PASS" },
+    { "name": "IMAGING_HISTORICAL", "files": 9, "passed": 56, "failed": 4, "classification": "PREEXISTING_HISTORICAL_FIXTURE_DEBT" },
+    { "name": "RESEARCH_PROJECT_HISTORICAL", "files": 8, "passed": 72, "failed": 1, "classification": "PREEXISTING_HISTORICAL_FIXTURE_DEBT" },
+    { "name": "SYSTEM_INTEGRATION_HISTORICAL", "files": 11, "passed": 31, "failed": 3, "classification": "PREEXISTING_HISTORICAL_FIXTURE_DEBT" },
+    { "name": "TYPECHECK", "status": "PASS" },
+    { "name": "ESM_FORENSIC_REPLAY", "status": "PASS" },
+    { "name": "TARGETED_LINT", "status": "PASS" },
+    { "name": "BUILD", "status": "PASS_WITH_NON_BLOCKING_EXISTING_WARNINGS", "esmHandlerLoad": "PASS" },
+    { "name": "GIT_DIFF_CHECK", "status": "PASS" },
+    { "name": "SECRET_SCAN", "status": "PASS", "filesScanned": 14, "findings": 0 },
+    { "name": "JSON_VALIDATION", "status": "PASS", "filesParsed": 11 }
+  ],
+  "historicalDebts": {
+    "classification": "PREEXISTING_HISTORICAL_FIXTURE_DEBT",
+    "totalFailures": 8,
+    "distribution": { "IMG": 4, "PRJ": 1, "SYS": 3 },
+    "repaired": false,
+    "masked": false
+  },
+  "waveState": {
+    "w1ArchitecturalConvergenceReady": true,
+    "w1ObservabilityReady": true,
+    "w1IndividualOwnerCharacterizationReady": false,
+    "w1ControlledLoopCharacterizationReady": false,
+    "wave1Complete": false,
+    "nextAuthorizedMission": "W1-QUAL-01R_ST_INDEPENDENT_RECHARACTERIZATION",
+    "wave2Authorized": false
+  },
+  "git": {
+    "runtimeRepairCommit": "3b3ff643f22b80f41447ccd18e99a7876d19b2d9",
+    "checkpointCommit": "COMMIT_CONTAINING_THIS_MANIFEST",
+    "headFinal": "COMMIT_CONTAINING_THIS_MANIFEST",
+    "targetRemoteBranch": "origin/protocol-designer-canonical-ingestion",
+    "mainModified": false,
+    "merge": false,
+    "deployment": false
+  },
+  "providerCalls": 0,
+  "externalNetworkCalls": 0
+}

@@ -1,0 +1,39 @@
+{
+  "contract": "W1_ST_REPAIR_01_PRE_REPAIR_PROBE_RESULTS",
+  "version": "1.0.0",
+  "head": "3ef6c93d324586143b4f3759b47acbe1c02b202a",
+  "runtimePatched": false,
+  "testFile": "src/features/scientific-thinking/__tests__/w1-scientific-thinking-repair-01-fresh-probes.test.ts",
+  "testFiles": { "passed": 0, "failed": 1 },
+  "tests": { "passed": 3, "failed": 5, "total": 8 },
+  "genericPreRepairReproduction": true,
+  "firstDivergentInternalStage": "ST_CANDIDATE_ELIGIBILITY",
+  "results": [
+    { "probeId": "ST-REPAIR-A", "status": "FAIL_EXPECTED_PRE_REPAIR", "candidateCounts": { "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "failure": "supported comparative opportunity suppressed" },
+    { "probeId": "ST-REPAIR-B", "status": "FAIL_EXPECTED_PRE_REPAIR", "candidateCounts": { "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "failure": "supported factor/outcome opportunity suppressed" },
+    { "probeId": "ST-REPAIR-C", "status": "FAIL_EXPECTED_PRE_REPAIR", "candidateCounts": { "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "failure": "competing explanation opportunity suppressed" },
+    { "probeId": "ST-REPAIR-D", "status": "PASS", "candidateCounts": { "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "guard": "major evidence gap retained; no forced candidate" },
+    { "probeId": "ST-REPAIR-E", "status": "PASS", "candidateCounts": { "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "guard": "structuring Project unknown retained; no precise hypothesis invented" },
+    { "probeId": "ST-REPAIR-F", "status": "FAIL_EXPECTED_PRE_REPAIR", "candidateCounts": { "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "failure": "contradictory supported opportunity preserved only as contradiction, without candidate alternative" },
+    { "probeId": "ST-REPAIR-G", "status": "PASS", "candidateCounts": { "questions": 0, "hypotheses": 0, "objectives": 0 }, "guard": "out-of-owner request refused" },
+    { "probeId": "ST-REPAIR-H", "status": "FAIL_EXPECTED_PRE_REPAIR", "candidateCounts": { "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "failure": "current typed contract suppressed without legacy relation lexeme" }
+  ],
+  "trace": {
+    "usedForEveryProductProbe": true,
+    "runIds": [
+      "scientific-run:w1-st-repair-01:ST-REPAIR-A",
+      "scientific-run:w1-st-repair-01:ST-REPAIR-B",
+      "scientific-run:w1-st-repair-01:ST-REPAIR-C",
+      "scientific-run:w1-st-repair-01:ST-REPAIR-D",
+      "scientific-run:w1-st-repair-01:ST-REPAIR-E",
+      "scientific-run:w1-st-repair-01:ST-REPAIR-F",
+      "scientific-run:w1-st-repair-01:ST-REPAIR-G",
+      "scientific-run:w1-st-repair-01:ST-REPAIR-H"
+    ],
+    "privateReasoningStored": false,
+    "projectWriteAuthorized": false,
+    "repairAuthorized": false
+  },
+  "providerCalls": 0,
+  "externalNetworkCalls": 0
+}

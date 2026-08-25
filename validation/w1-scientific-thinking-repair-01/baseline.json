@@ -1,0 +1,42 @@
+{
+  "contract": "W1_ST_REPAIR_01_BASELINE",
+  "version": "1.0.0",
+  "branch": "protocol-designer-canonical-ingestion",
+  "headInitial": "3ef6c93d324586143b4f3759b47acbe1c02b202a",
+  "originBranchInitial": "3ef6c93d324586143b4f3759b47acbe1c02b202a",
+  "main": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+  "originMain": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+  "trackedState": "CLEAN",
+  "historicalUntrackedArtifacts": "PRESENT_AND_PRESERVED",
+  "roadmap": {
+    "currentWave": "WAVE_1_SCIENTIFIC_LOOP",
+    "currentObjective": "REPAIR_SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_OMISSION_BEFORE_LOOP_CHARACTERIZATION",
+    "nextAuthorizedMission": "W1-SCIENTIFIC-THINKING-REPAIR-01_CRITICAL_REASONING_CANDIDATE_COVERAGE",
+    "wave1Complete": false,
+    "wave2Authorized": false
+  },
+  "authoritiesConsultedInOrder": [
+    "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+    "NOXIA — Charte fondatrice",
+    "NOXIA Protocol Designer — Scientific Product Manifesto V2",
+    "Editorial Engine — Architecture Manifesto",
+    "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md",
+    "PD-003 V2 — Research Object Model",
+    "PD-003 V2 — Ownership Matrix",
+    "PD-003 V2 — Relationship Catalog",
+    "PD-003 V2 — Engine Impact Matrix",
+    "PD-005",
+    "PD-009",
+    "PD-011",
+    "RDE-001",
+    "RDE-002",
+    "KE-001",
+    "ST-001 Level 3 implementation report",
+    "W1-CLOSURE-01 Level 3 evidence",
+    "W1-TRACE-01 Level 3 evidence",
+    "W1-QUAL-01 Level 3 evidence"
+  ],
+  "normativeContradiction": false,
+  "providerCalls": 0,
+  "externalNetworkCalls": 0
+}

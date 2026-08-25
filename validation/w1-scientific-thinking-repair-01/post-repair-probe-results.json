@@ -1,0 +1,25 @@
+{
+  "contract": "W1_ST_REPAIR_01_POST_REPAIR_PROBE_RESULTS",
+  "version": "1.0.0",
+  "engineVersion": "1.2.1",
+  "testFile": "src/features/scientific-thinking/__tests__/w1-scientific-thinking-repair-01-fresh-probes.test.ts",
+  "testFiles": { "passed": 1, "failed": 0 },
+  "tests": { "passed": 9, "failed": 0, "total": 9, "probeTests": 8, "determinismTests": 1 },
+  "results": [
+    { "probeId": "ST-REPAIR-A", "status": "PASS", "candidateCounts": { "questions": 1, "hypotheses": 2, "objectives": 1, "alternatives": 1 }, "epistemicSafety": "PASS" },
+    { "probeId": "ST-REPAIR-B", "status": "PASS", "candidateCounts": { "questions": 1, "hypotheses": 2, "objectives": 1, "alternatives": 1 }, "epistemicSafety": "PASS" },
+    { "probeId": "ST-REPAIR-C", "status": "PASS", "candidateCounts": { "questions": 1, "hypotheses": 2, "objectives": 1, "alternatives": 1 }, "contradictionPreserved": true, "epistemicSafety": "PASS" },
+    { "probeId": "ST-REPAIR-D", "status": "PASS", "candidateCounts": { "questions": 1, "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "majorEvidenceGapPreserved": true, "forcedCandidate": false, "epistemicSafety": "PASS" },
+    { "probeId": "ST-REPAIR-E", "status": "PASS", "candidateCounts": { "questions": 1, "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "projectUnknownPreserved": true, "forcedCandidate": false, "epistemicSafety": "PASS" },
+    { "probeId": "ST-REPAIR-F", "status": "PASS", "candidateCounts": { "questions": 1, "hypotheses": 2, "objectives": 1, "alternatives": 1 }, "contradictionPreserved": true, "silentWinner": false, "epistemicSafety": "PASS" },
+    { "probeId": "ST-REPAIR-G", "status": "PASS", "candidateCounts": { "questions": 0, "hypotheses": 0, "objectives": 0, "alternatives": 0 }, "refusal": "OUT_OF_DOMAIN", "forcedCandidate": false, "epistemicSafety": "PASS" },
+    { "probeId": "ST-REPAIR-H", "status": "PASS", "candidateCounts": { "questions": 1, "hypotheses": 2, "objectives": 1, "alternatives": 1 }, "legacyTriggerRequired": false, "epistemicSafety": "PASS" }
+  ],
+  "determinism": {
+    "status": "PASS",
+    "replayedProbes": ["ST-REPAIR-A", "ST-REPAIR-B", "ST-REPAIR-C", "ST-REPAIR-H"],
+    "stableFields": ["outputDigest", "questions", "hypotheses", "objectives", "contradictions"]
+  },
+  "providerCalls": 0,
+  "externalNetworkCalls": 0
+}

@@ -1,0 +1,78 @@
+{
+  "contract": "W1_ST_REPAIR_01_FORENSIC_REPRODUCTION",
+  "version": "1.0.0",
+  "historicalCampaign": "W1-QUAL-01-2026-08-25-G",
+  "historicalFreezeDigest": "ke1-338176f77d9f11f3",
+  "historicalManifestDigest": "ke1-e87cad99f91d14d5",
+  "sourceArtifactsModified": false,
+  "cases": [
+    {
+      "caseId": "ST-CARDIAC-01",
+      "role": "HISTORICAL_DEFECT_REPRODUCTION",
+      "packDigest": "ke1-39f844d97d6aa0dd",
+      "packDigestValid": true,
+      "projectTuple": [
+        "project:w1-qual-01:cardiac",
+        "project:w1-qual-01:cardiac:version:1",
+        "ke1-956d04590b3237bd",
+        "ke1-4a2d12f93de0559d"
+      ],
+      "knowledgeResult": {
+        "resultId": "frozen-knowledge-result:w1-qual-01:cardiac",
+        "resultVersion": "1",
+        "resultDigest": "ke1-8ba35820b068437c",
+        "coverage": "PARTIAL",
+        "applicableAssertions": 1,
+        "contradictions": 1
+      },
+      "stRequestId": "scientific-thinking-project-request:ke1-3cfd2fc79c9456bb",
+      "questionFormPreserved": true,
+      "typedScientificContextAvailable": true,
+      "legacyRelationLexemeMatched": false,
+      "preRepairOutputDigest": "ke1-36984137b66353c3",
+      "status": "CLARIFICATION_REQUIRED",
+      "candidateCounts": { "questions": 1, "hypotheses": 0, "objectives": 0, "alternatives": 0 },
+      "ownerResultCreated": true,
+      "projectWriteAuthorized": false,
+      "projectWrites": 0,
+      "traceRunId": "scientific-run:W1-ST-REPAIR-01:ST-CARDIAC-01:forensic",
+      "traceEvents": 7,
+      "privateReasoningStored": false
+    },
+    {
+      "caseId": "ST-NEURO-01",
+      "role": "HISTORICAL_DEFECT_REPRODUCTION",
+      "packDigest": "ke1-790b7a8373957cf7",
+      "packDigestValid": true,
+      "projectTuple": [
+        "project:w1-qual-01:neuro",
+        "project:w1-qual-01:neuro:version:1",
+        "ke1-d5817eb30c48687f",
+        "ke1-9f11c08006e844c4"
+      ],
+      "knowledgeResult": {
+        "resultId": "frozen-knowledge-result:w1-qual-01:neuro",
+        "resultVersion": "1",
+        "resultDigest": "ke1-18c6d609b952728d",
+        "coverage": "PARTIAL",
+        "applicableAssertions": 1,
+        "contradictions": 1
+      },
+      "stRequestId": "scientific-thinking-project-request:ke1-409d7189338c277d",
+      "questionFormPreserved": true,
+      "typedScientificContextAvailable": true,
+      "legacyRelationLexemeMatched": false,
+      "preRepairOutputDigest": "ke1-9afb20584525fafc",
+      "status": "CLARIFICATION_REQUIRED",
+      "candidateCounts": { "questions": 1, "hypotheses": 0, "objectives": 0, "alternatives": 0 },
+      "ownerResultCreated": true,
+      "projectWriteAuthorized": false,
+      "projectWrites": 0,
+      "traceRunId": "scientific-run:W1-ST-REPAIR-01:ST-NEURO-01:forensic",
+      "traceEvents": 7,
+      "privateReasoningStored": false
+    }
+  ],
+  "reproduction": "PASS",
+  "historicalFirstDivergentStage": "SCIENTIFIC_THINKING_ENGINE"
+}

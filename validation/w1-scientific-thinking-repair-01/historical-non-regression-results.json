@@ -1,0 +1,52 @@
+{
+  "contract": "W1_ST_REPAIR_01_HISTORICAL_NON_REGRESSION_RESULTS",
+  "version": "1.0.0",
+  "historicalCampaign": "W1-QUAL-01-2026-08-25-G",
+  "historicalArtifactsModified": false,
+  "cases": [
+    {
+      "caseId": "ST-CARDIAC-01",
+      "role": "POST_REPAIR_NON_REGRESSION",
+      "before": { "status": "CLARIFICATION_REQUIRED", "outputDigest": "ke1-36984137b66353c3", "hypotheses": 0, "objectives": 0, "alternatives": 0 },
+      "after": { "status": "CANDIDATES_PROPOSED", "outputDigest": "ke1-373c66e237aed386", "hypotheses": 2, "objectives": 1, "alternatives": 1 },
+      "projectQuestionPreservedExactly": true,
+      "knowledgeLineagePreserved": true,
+      "candidateAdopted": false,
+      "projectWrites": 0,
+      "verdict": "PASS"
+    },
+    {
+      "caseId": "ST-NEURO-01",
+      "role": "POST_REPAIR_NON_REGRESSION",
+      "before": { "status": "CLARIFICATION_REQUIRED", "outputDigest": "ke1-9afb20584525fafc", "hypotheses": 0, "objectives": 0, "alternatives": 0 },
+      "after": { "status": "CANDIDATES_PROPOSED", "outputDigest": "ke1-91ab67672b39b9fb", "hypotheses": 2, "objectives": 1, "alternatives": 1 },
+      "projectQuestionPreservedExactly": true,
+      "knowledgeLineagePreserved": true,
+      "candidateAdopted": false,
+      "projectWrites": 0,
+      "verdict": "PASS"
+    },
+    {
+      "caseId": "ST-SPECTRAL-01",
+      "role": "PREEXISTING_PASS_NON_REGRESSION",
+      "before": { "status": "CANDIDATES_PROPOSED", "outputDigest": "ke1-b21e67568156ac9a", "hypotheses": 2, "objectives": 2, "alternatives": 1 },
+      "after": { "status": "CANDIDATES_PROPOSED", "outputDigest": "ke1-509cc9f8ff9f54ec", "hypotheses": 2, "objectives": 2, "alternatives": 1 },
+      "change": "The exact Project question is now preserved instead of a downstream lexical reconstruction; candidate counts and boundaries remain valid.",
+      "candidateAdopted": false,
+      "projectWrites": 0,
+      "verdict": "PASS"
+    },
+    {
+      "caseId": "ST-UNSUPPORTED-01",
+      "role": "PREEXISTING_PASS_NON_REGRESSION",
+      "before": { "status": "CLARIFICATION_REQUIRED", "outputDigest": "ke1-3bed658a98c55a46", "hypotheses": 0, "objectives": 0, "alternatives": 0 },
+      "after": { "status": "CLARIFICATION_REQUIRED", "outputDigest": "ke1-3bed658a98c55a46", "hypotheses": 0, "objectives": 0, "alternatives": 0 },
+      "gapPreserved": true,
+      "forcedCandidate": false,
+      "projectWrites": 0,
+      "verdict": "PASS"
+    }
+  ],
+  "w1QualDirectoryBytePreservation": "PASS",
+  "independentCharacterizationClaimed": false
+}

@@ -8,10 +8,10 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 25 August 2026 |
-| Verified baseline | `772cacfd184daeb531eef6a7a866874a7863e228` + W1-QUAL-01 campaign `W1-QUAL-01-2026-08-25-G` evidence |
+| Verified baseline | `3ef6c93d324586143b4f3759b47acbe1c02b202a` + W1-SCIENTIFIC-THINKING-REPAIR-01 evidence |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
-| Portfolio diagnosis | `W1_QUAL_01_OWNER_REPAIR_REQUIRED` |
+| Portfolio diagnosis | `W1_ST_REPAIR_01_REPAIRED_INDEPENDENT_RECHARACTERIZATION_REQUIRED` |
 | Superior authorities | NOXIA Founding Charter; Scientific Product Manifesto V2; applicable Level 1 specialized references |
 | Documentary authority | None. This file does not amend, replace, or extend any authority. |
 
@@ -23,21 +23,21 @@
 |---|---|
 | Portfolio state | One canonical Project snapshot now feeds native Knowledge, Scientific Thinking, Imaging and conditional REG through typed product entrypoints; native deterministic VAL observes the retained Knowledge/ST/Imaging chain through a separate append-only ValidationRun ledger; nominal owner selection remains outside this bounded product chain |
 | Active wave | `WAVE_1_SCIENTIFIC_LOOP` |
-| Current objective | Repair the bounded Scientific Thinking critical-candidate omission demonstrated by W1-QUAL-01 before any controlled-loop characterization. |
+| Current objective | Independently recharacterize Scientific Thinking after its bounded candidate-coverage repair, before any controlled-loop characterization. |
 | Next wave | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` after Wave 1 completion |
 | Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge → Scientific Thinking → Imaging → deterministic VAL observation, plus an explicit conditional Project → REG branch, with immutable owner-result and ValidationRun retention |
 | Tested off-product corridor | Read-only adapter → CDM / DM / Biostatistics / TMP; historical SPINE and VAL fixture corridors |
 | Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
-| Main blocker | W1-QUAL-01 characterized all five owners in a bounded campaign, but Scientific Thinking produced zero hypothesis and zero objective candidates for supported cardiac and neuro inputs; first divergence is `SCIENTIFIC_THINKING_ENGINE`. |
+| Main blocker | The bounded ST candidate-coverage defect is repaired and development probes pass, but exposed historical cases and repair probes cannot independently recharacterize Scientific Thinking. |
 | Active engineering | One wave only; no engine development is authorized by this document itself. |
 
-### Current Wave 1 checkpoint decisions after W1-QUAL-01
+### Current Wave 1 checkpoint decisions after W1-SCIENTIFIC-THINKING-REPAIR-01
 
 | Decision | Result | Evidence boundary |
 |---|---|---|
 | `W1_ARCHITECTURAL_CONVERGENCE_READY` | `YES` | Same canonical Project identity/snapshot, typed ownership and dependencies, immutable ledgers, stale guards, non-promotion and zero silent Project writes are demonstrated after the bounded Knowledge engine-version guard. Initial convergence was `FAILED`; post-repair convergence is `PASS`. |
 | `W1_OBSERVABILITY_READY` | `YES` | A separate append-only trace ledger binds one `ScientificRun` to the exact Project snapshot and records ordered owner, handoff, persistence, stale and VAL events with request/result/dependency/digest/error refs; replay from event N is plan-only. |
-| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | The frozen 35-case campaign is complete and reconstructible, but Scientific Thinking has two critical `CRITICAL_REASONING_OMISSION` findings on supported inputs; no owner repair was performed. |
+| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | The generic ST defect is repaired, but its two historical cases and eight development probes are exposed; a new frozen unseen ST characterization is required. |
 | `W1_CONTROLLED_LOOP_CHARACTERIZATION_READY` | `NO` | No controlled representative chain campaign with frozen inputs, explicit expectations and first-stage error attribution has been performed. |
 | `WAVE_1_COMPLETE` | `NO` | Architectural convergence alone is necessary and insufficient. Wave 2 remains paused. |
 
@@ -50,14 +50,14 @@
 | Owner | W1-QUAL-01 characterization | Bounded evidence |
 |---|---|---|
 | Knowledge | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 6/6 cases fully satisfied; honest gap, ambiguity and stale readback exercised; no critical violation observed. |
-| Scientific Thinking | `OWNER_REPAIR_REQUIRED` | 2/4 cases fully satisfied; cardiac and neuro each retain the question but return zero hypothesis/objective candidates; two critical omissions. |
+| Scientific Thinking | `REPAIRED_RECHARACTERIZATION_REQUIRED` | W1-QUAL-01 remains historically `OWNER_REPAIR_REQUIRED`; repair probes now demonstrate supported candidate coverage and fail-closed negative paths, but do not constitute independent characterization. |
 | Imaging | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 4/4 cases fully satisfied; candidate modality/acquisition, QA, Core Lab, unknown and OBS boundaries preserved. |
 | REG | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 8/8 cases fully satisfied within REG-000 candidate corpus; unsupported jurisdiction and stale request fail closed; no approval claim. |
 | VAL | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 13/13 structural cases fully satisfied, including clean-chain false-positive control; no repair or scientific qualification claim. |
 
 ### Top quick wins queued in Wave 1
 
-1. W1-SCIENTIFIC-THINKING-REPAIR-01 — correct only the demonstrated omission of hypothesis/objective candidates for supported, typed Knowledge inputs; preserve all ownership, uncertainty and non-promotion boundaries.
+1. W1-QUAL-01R — independently recharacterize repaired Scientific Thinking on unseen, precommitted frozen inputs; do not reuse repair probes as qualification evidence.
 
 ### Top blockers
 
@@ -433,6 +433,7 @@ These are active implementation controls traced to superior authorities and curr
 | `IC-015` | Product VAL observes an exact retained owner-result chain through a separate immutable ValidationRun ledger and never repairs, mutates, auto-decides or makes a PD-011 qualification claim. | Validation fidelity must remain diagnostic and reconstructible without becoming a scientific owner or a second Project truth. | Charter; Manifesto V2; VAL-000/001; W1VAL01-01–35 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
 | `IC-016` | Product REG is an explicitly invoked, jurisdiction- and corpus-bounded owner; missing context remains missing, unsupported jurisdictions fail closed, and its result is never approval or legal advice. | Conditional applicability resolution must remain separate from Project truth, VAL fidelity and competent-authority decisions. | Charter; Manifesto V2; PD-005; REG-001 Level 3 evidence; W1REG01-01–35 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
 | `IC-017` | Scientific execution tracing is passive, derived, append-only and non-authoritative; it references exact Project snapshots, OwnerResults and ValidationRuns but never replaces or mutates them. | Cross-owner diagnosis and replay planning require ordered technical evidence without creating an orchestrator, scientific owner, repair path, decision authority, OBS runtime or private-reasoning store. | Charter; Manifesto V2; PD-003 V2; RDE-002; W1-TRACE-01 tests/report | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
+| `IC-018` | Supported typed Project and Knowledge context may make a scientific question eligible for candidate reasoning without requiring legacy lexical triggers; insufficient, unknown or out-of-owner inputs remain allowed to produce no candidate. | Candidate coverage must not become forced generation, evidence promotion or Project adoption. | Charter; Manifesto V2; RDE-001/002; W1-ST-REPAIR-01 probes/report | `ACTIVE_CONTROL` | 2026-08-25 / checkpoint commit |
 
 # Development waves
 
@@ -449,7 +450,7 @@ These are active implementation controls traced to superior authorities and curr
 
 `CURRENT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
 
-`CURRENT_OBJECTIVE = REPAIR_SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_OMISSION_BEFORE_LOOP_CHARACTERIZATION`
+`CURRENT_OBJECTIVE = INDEPENDENTLY_RECHARACTERIZE_SCIENTIFIC_THINKING_AFTER_BOUNDED_OWNER_REPAIR`
 
 `NEXT_WAVE = WAVE_2_STUDY_DESIGN_TIME_CHAIN_AFTER_WAVE_1_COMPLETION`
 
@@ -459,16 +460,16 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = W1-SCIENTIFIC-THINKING-REPAIR-01_CRITICAL_REASONING_CANDIDATE_COVERAGE`
+`NEXT_AUTHORIZED_MISSION = W1-QUAL-01R_ST_INDEPENDENT_RECHARACTERIZATION`
 
 | Field | Contract |
 |---|---|
-| Mission goal | Repair the generic Scientific Thinking failure that returns no hypothesis or objective candidates for supported cardiac and neuro inputs, without strengthening evidence or adopting Project truth. |
-| Input | W1-QUAL-01 frozen ST cardiac/neuro packs, exact typed Knowledge dependencies, two `CRITICAL_REASONING_OMISSION` records and their TRACE runs |
-| Output | Minimal deterministic ST-owned correction plus focused non-regression evidence; a new characterization campaign is required before advancing to loop qualification |
-| Definition of done | Supported typed inputs produce inspectable pending question/hypothesis/objective candidates or an explicitly contract-justified fail-closed state; lineage, gaps, contradictions, candidate status and zero Project write remain intact |
-| Engines / connections affected | Scientific Thinking owner only; no Knowledge, Imaging, REG, VAL, Project, TRACE or corpus behavior change |
-| Do not touch | Controlled full-loop qualification; Wave 2; QRY/automatic orchestration; Project truth; corpus enrichment; OBS runtime; Study Design runtime; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
+| Mission goal | Independently characterize repaired Scientific Thinking candidate coverage and epistemic safety on unseen, precommitted cases. |
+| Input | ST engine `1.2.1`; repair contract and traces as development evidence only; new acceptance envelopes and frozen inputs authored before execution |
+| Output | A bounded independent ST characterization decision that preserves the historical W1-QUAL-01 and W1-ST-REPAIR-01 evidence levels |
+| Definition of done | Unseen positive and fail-closed cases demonstrate candidate coverage, uncertainty preservation, evidence ceilings, deterministic replay, exact lineage and zero Project write without reusing exposed cases as qualification proof |
+| Engines / connections affected | Scientific Thinking characterization only; no runtime repair unless a new separately attributed blocker is demonstrated |
+| Do not touch | Repair-probe reuse as qualification evidence; controlled full-loop qualification; Wave 2; QRY/orchestration; Project truth; corpus enrichment; OBS; Study Design; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
 
 # Engine completion queue
 
@@ -477,7 +478,7 @@ These are active implementation controls traced to superior authorities and curr
 | 1 | Research Project consumer contracts | Mixed canonical + legacy | One canonical source with governed adapters | `M` | None | Wave 0 | None | Adapter ready off-product; legacy shapes remain projections, not truth. |
 | 2 | Knowledge | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 complete | Wave 1 / 4 | Nominal owner selection | Product Knowledge → ST handoff and immutable dependency readback are complete; hands-on remains later. |
 | 3 | REG | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 | Wave 1 / 4 | Nominal owner selection | Explicit conditional invocation and immutable result retention are complete; corpus admission/coverage and hands-on remain bounded gaps. |
-| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE / OWNER_REPAIR_REQUIRED` | Bounded repair, then repeat individual characterization | `M` | Knowledge + Wave 0 | Wave 1 | `CRITICAL_REASONING_OMISSION` on supported cardiac/neuro cases | Knowledge lineage and non-adoption remain intact, but candidate reasoning coverage is insufficient in two representative domains. |
+| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE / REPAIRED_RECHARACTERIZATION_REQUIRED` | Repeat individual characterization on unseen cases | `M` | Knowledge + Wave 0 + bounded ST repair | Wave 1 | Independent evidence after repair | Engine `1.2.1` restores generic supported candidate coverage while preserving fail-closed paths; historical and development cases are exposed and cannot close characterization. |
 | 5 | VAL | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Typed retained K/ST/Imaging handoffs | Wave 1 / 4 | Automatic owner-loop trigger | Explicit read-only observation and immutable run retention are complete; observe/block only. |
 | 6 | Imaging | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Knowledge + ST | Wave 1 / 4 | Nominal owner selection; OBS remains an explicit limitation | Product-callable and VAL-observed do not mean executable protocol or hands-on validation. |
 | 7 | CDM | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | Wave 0 | Wave 2 | Owner-result/contribution orchestration | Planning only. |
@@ -531,8 +532,8 @@ Portfolio totals retained from the audit:
 | `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge, Scientific Thinking, Imaging, REG and VAL are explicitly product-callable, but QRY/conversation does not select owners. | No | Wave 4 | W1K01/W1ST01/W1IMG01/W1REG01/W1VAL01 product entrypoints vs nominal conversation loop |
 | `REGULATORY_CORPUS_ADMISSION_AND_COVERAGE` | `OPEN_BOUNDED_DEBT` | REG-000 is candidate/non-admitted and locally covers only FR, EU/EEA, US and international methodological/reporting guidance; other jurisdictions fail closed and no current-law completeness is claimed. | No | Separate corpus governance authorization | REG-000 v1.0.0, verified 2026-08-10; W1REG01-10–23 |
 | `SCIENTIFIC_EXECUTION_TRACE_GAP` | `CLOSED_W1_TRACE_01` | A distinct session-persisted ledger now retains exact run/Project binding, ordered owner/handoff/persistence/stale/VAL events, integrity and logical digests, bounded references, technical errors, comparator output and event-N replay plans. It remains optional, passive and non-authoritative; no replay executor was created. | No | Closed in W1-TRACE-01 | W1TRACE01 unit/corridor/diagnostic fixtures; implementation report and machine manifest |
-| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `PARTIALLY_CHARACTERIZED_WAVE_1_BLOCKER` | A frozen 35-case campaign now characterizes all five owners; Knowledge, Imaging, REG and VAL are bounded-characterized, while Scientific Thinking remains `OWNER_REPAIR_REQUIRED`. | Yes | Re-characterize after the bounded ST repair | W1-QUAL-01 campaign G, freeze `ke1-338176f77d9f11f3`, manifest `ke1-e87cad99f91d14d5` |
-| `SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_COVERAGE` | `OPEN_WAVE_1_BLOCKER` | On supported cardiac and neuro frozen KnowledgeResults, ST preserves the Project question but returns zero hypotheses and zero objectives, yielding two reproducible critical `CRITICAL_REASONING_OMISSION` findings. | Yes | W1-SCIENTIFIC-THINKING-REPAIR-01 | `ST-CARDIAC-01`, `ST-NEURO-01`; first divergence `SCIENTIFIC_THINKING_ENGINE`; no repair performed in W1-QUAL-01 |
+| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `PARTIALLY_CHARACTERIZED_WAVE_1_BLOCKER` | Knowledge, Imaging, REG and VAL remain bounded-characterized. Scientific Thinking has a demonstrated bounded repair, but exposed historical cases and development probes cannot independently characterize the repaired owner. | Yes | W1-QUAL-01R | W1-QUAL-01 campaign G plus W1-ST-REPAIR-01 report and manifest |
+| `SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_COVERAGE` | `CLOSED_BY_BOUNDED_REPAIR_RECHARACTERIZATION_REQUIRED` | Engine `1.2.1` accepts structurally supported current Project questions without depending exclusively on narrow legacy lexemes; independent probes demonstrate positive coverage, fail-closed negative paths, contradiction/gap preservation and zero Project write. | No | Closed in W1-ST-REPAIR-01; independently recharacterize next | Five independent probes reproduced the defect pre-repair; 9/9 post-repair checks pass; cardiac/neuro are non-regression only |
 | `CONTROLLED_LOOP_CHARACTERIZATION_GAP` | `OPEN_WAVE_1_BLOCKER` | The assembled Project → Knowledge → ST → Imaging → VAL loop has not undergone a controlled representative campaign with frozen inputs, explicit expectations, replay and first-stage attribution. | Yes | W1-LOOP-QUAL-01 candidate after individual characterization | `CONTROLLED_LOOP_CHARACTERIZATION = NOT_PERFORMED` |
 | `PREEXISTING_HISTORICAL_FIXTURE_DEBT` | `OPEN_NON_BLOCKING_DEBT` | Four IMG-001B freeze expectations, one downstream PRJ fixture and three SYS expectations (ST version, DOC decision propagation, Imaging freeze status) remain red; they concern historical interactive/freeze and SYS fixture contracts, not W1 owner convergence. | No | Historical fixture maintenance | W1-CLOSURE-01 fresh isolated runs reproduce 4/60 IMG failures, 1/73 PRJ failure and 3/34 SYS failures, matching the prior eight-failure baseline classification |
 | Study Design runtime | `ABSENT` | No standalone owner for study-strategy coherence. | No | Explicit replan after Wave 1 | Capability inventory; RDE-001/002 normative only |
@@ -545,6 +546,7 @@ Portfolio totals retained from the audit:
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
+| W1-SCIENTIFIC-THINKING-REPAIR-01 | `W1_ST_REPAIR_01_CRITICAL_REASONING_CANDIDATE_COVERAGE_REPAIRED` / repair + checkpoint commits | Bounded ST owner repair | First internal divergence is `ST_CANDIDATE_ELIGIBILITY`; five independent probes reproduce the generic omission before repair; engine `1.2.1` restores supported candidate coverage while insufficient, unknown and out-of-owner paths remain fail-closed; contradictions, gaps, Knowledge lineage, pending state, determinism and zero Project write are preserved | Independent ST characterization, universal scientific validity, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-QUAL-01 | `W1_QUAL_01_OWNER_REPAIR_REQUIRED` / checkpoint commit containing this roadmap | Independent bounded characterization of Knowledge, Scientific Thinking, Imaging, REG and VAL | 35 frozen owner-isolated cases, 35 acceptance envelopes, 43 passive trace runs and 8 stable replays; Knowledge 6/6, Imaging 4/4, REG 8/8 and VAL 13/13 fully satisfy the bounded envelopes; ST demonstrates two critical reasoning omissions at `SCIENTIFIC_THINKING_ENGINE` | Universal scientific validity, corpus completeness, repaired ST behavior, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-TRACE-01 | `W1_TRACE_01_SCIENTIFIC_EXECUTION_TRACE_READY` / checkpoint commit containing this roadmap | Passive cross-owner observability and replay planning | Exact run/Project binding, immutable ordered events, request/result/dependency/persistence correlation, stale and error visibility, conditional REG, separate VAL references, first-observable-stage localization, trace ON/OFF output equivalence and zero TRACE writes/LLM calls | Scientific answer quality, corpus completeness, individual owner characterization, controlled loop characterization, executable replay engine, orchestration, OBS, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-CLOSURE-01 | `W1_ARCHITECTURAL_CONVERGENCE_READY_FURTHER_EVIDENCE_REQUIRED` / repair `09358e5724e08c5f9620124dd055cac2f090d829` + checkpoint commit | Wave 1 architectural convergence, observability, replay and characterization gap checkpoint | Post-repair exact Project identity/snapshot propagation, owner separation, immutable OwnerResult/ValidationRun retention, dependency/stale guards, provenance/unknown/limitation/contradiction preservation, non-promotion and zero silent Project writes; identifies TRACE as the first remaining Wave 1 blocker | Scientific performance, corpus completeness, sufficient individual characterization, controlled loop characterization, PD-011 qualification, production readiness or Wave 2 authorization |

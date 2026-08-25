@@ -1,0 +1,41 @@
+{
+  "contract": "W1_ST_REPAIR_01_TRACE_INDEX",
+  "version": "1.0.0",
+  "traceContract": "SCIENTIFIC_EXECUTION_TRACE_LEDGER@0.1.0",
+  "historicalForensicRuns": [
+    { "runId": "scientific-run:W1-ST-REPAIR-01:ST-CARDIAC-01:forensic", "events": 7, "role": "HISTORICAL_DEFECT_REPRODUCTION_AND_POST_REPAIR_REPLAY" },
+    { "runId": "scientific-run:W1-ST-REPAIR-01:ST-NEURO-01:forensic", "events": 7, "role": "HISTORICAL_DEFECT_REPRODUCTION_AND_POST_REPAIR_REPLAY" },
+    { "runId": "scientific-run:W1-ST-REPAIR-01:ST-SPECTRAL-01:forensic", "events": 7, "role": "PREEXISTING_PASS_NON_REGRESSION" },
+    { "runId": "scientific-run:W1-ST-REPAIR-01:ST-UNSUPPORTED-01:forensic", "events": 7, "role": "PREEXISTING_PASS_NON_REGRESSION" }
+  ],
+  "freshProbeRuns": [
+    "scientific-run:w1-st-repair-01:ST-REPAIR-A:primary",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-B:primary",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-C:primary",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-D:primary",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-E:primary",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-F:primary",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-G:primary",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-H:primary"
+  ],
+  "determinismReplayRuns": [
+    "scientific-run:w1-st-repair-01:ST-REPAIR-A:determinism-1",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-A:determinism-2",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-B:determinism-1",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-B:determinism-2",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-C:determinism-1",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-C:determinism-2",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-H:determinism-1",
+    "scientific-run:w1-st-repair-01:ST-REPAIR-H:determinism-2"
+  ],
+  "projectTupleRecorded": true,
+  "knowledgeDependencyRecorded": true,
+  "engineVersionRecorded": "1.2.1",
+  "outputDigestRecorded": true,
+  "candidateCountsRecordedInMissionEvidence": true,
+  "gapsLimitationsContradictionsRecordedByReference": true,
+  "internalFirstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+  "privateReasoningStored": false,
+  "repairAuthorized": false,
+  "projectWriteAuthorized": false
+}

@@ -1,0 +1,35 @@
+{
+  "contract": "W1_ST_REPAIR_01_INTERNAL_STAGE_DIAGNOSTIC",
+  "version": "1.0.0",
+  "taxonomyApplied": [
+    "ST_REQUEST_ACCEPTANCE",
+    "ST_CONTEXT_NORMALIZATION",
+    "ST_PROJECT_QUESTION_RECONSTRUCTION",
+    "ST_KNOWLEDGE_EVIDENCE_SELECTION",
+    "ST_CANDIDATE_ELIGIBILITY",
+    "ST_HYPOTHESIS_CANDIDATE_CONSTRUCTION",
+    "ST_OBJECTIVE_CANDIDATE_CONSTRUCTION",
+    "ST_ALTERNATIVE_CONSTRUCTION",
+    "ST_CANDIDATE_FILTERING",
+    "ST_EPISTEMIC_GUARD",
+    "ST_OUTPUT_CANONICALIZATION",
+    "ST_OWNER_RESULT_PACKAGING"
+  ],
+  "checks": [
+    { "stage": "ST_REQUEST_ACCEPTANCE", "status": "PASS", "evidence": "Both current ScientificThinkingInput contracts parse and execute." },
+    { "stage": "ST_CONTEXT_NORMALIZATION", "status": "PASS", "evidence": "Project ID/version/digest/snapshot and typed objects are retained." },
+    { "stage": "ST_PROJECT_QUESTION_RECONSTRUCTION", "status": "PASS", "evidence": "The exact adopted Project question is present in validatedReformulation." },
+    { "stage": "ST_KNOWLEDGE_EVIDENCE_SELECTION", "status": "PASS", "evidence": "Exact Knowledge result, assertion, evidence, source and contradiction refs reach ST." },
+    { "stage": "ST_CANDIDATE_ELIGIBILITY", "status": "FAIL", "evidence": "Eligibility requires a narrow relation lexeme; both exact typed questions miss that lexeme and are downgraded to NEEDS_CLARIFICATION." },
+    { "stage": "ST_HYPOTHESIS_CANDIDATE_CONSTRUCTION", "status": "NOT_REACHED", "evidence": "Construction returns empty because the primary question was marked non-testable candidate." },
+    { "stage": "ST_OBJECTIVE_CANDIDATE_CONSTRUCTION", "status": "NOT_REACHED", "evidence": "Construction returns empty for the same eligibility outcome." },
+    { "stage": "ST_ALTERNATIVE_CONSTRUCTION", "status": "NOT_REACHED", "evidence": "No primary hypothesis exists from which to preserve an alternative." },
+    { "stage": "ST_CANDIDATE_FILTERING", "status": "PASS", "evidence": "No constructed candidate was filtered; the empty result originates earlier." },
+    { "stage": "ST_EPISTEMIC_GUARD", "status": "PASS", "evidence": "Partial support, gaps, limitations and contradictions remain visible; no evidence promotion occurs." },
+    { "stage": "ST_OUTPUT_CANONICALIZATION", "status": "PASS", "evidence": "Output digests are stable and schema-valid." },
+    { "stage": "ST_OWNER_RESULT_PACKAGING", "status": "PASS", "evidence": "Immutable OwnerResults retain the Knowledge dependency and authorize zero Project writes." }
+  ],
+  "stInternalFirstDivergentStage": "ST_CANDIDATE_ELIGIBILITY",
+  "rootCause": "A lexically narrow relation detector overrides the structurally complete current Project question and typed Knowledge context. When imaging-related objects are present, the next branch recasts the question as a premature method preference and suppresses hypothesis/objective construction.",
+  "upstreamOrHandoffDefect": false
+}

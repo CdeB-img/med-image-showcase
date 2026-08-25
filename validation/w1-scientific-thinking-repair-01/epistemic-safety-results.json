@@ -1,0 +1,27 @@
+{
+  "contract": "W1_ST_REPAIR_01_EPISTEMIC_SAFETY_RESULTS",
+  "version": "1.0.0",
+  "definition": "Counts are contract violations, not candidates explicitly labelled unsupported as alternatives.",
+  "unsupportedHypothesis": 0,
+  "evidencePromotion": 0,
+  "knowledgeGapLoss": 0,
+  "contradictionLoss": 0,
+  "projectAdoptionLeak": 0,
+  "projectWrites": 0,
+  "checks": {
+    "supportedKnowledgeCandidateCeiling": "PARTIAL",
+    "partialKnowledgeCandidateSupport": "PARTIAL",
+    "conflictingKnowledgeCandidateSupport": "CONFLICTING_OR_UNSUPPORTED_ALTERNATIVE",
+    "insufficientEvidenceForcedCandidate": false,
+    "outOfOwnerForcedCandidate": false,
+    "candidateNotice": "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+    "knowledgeOwnershipTransferred": false,
+    "projectWriteAuthorized": false,
+    "unknownsPreserved": true,
+    "gapsPreserved": true,
+    "contradictionsPreserved": true
+  },
+  "noForcedHypothesisGeneration": "PASS",
+  "noEvidencePromotion": "PASS",
+  "verdict": "PASS"
+}
