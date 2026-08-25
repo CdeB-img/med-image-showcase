@@ -1,7 +1,8 @@
 # W1-QUAL-01R — Scientific Thinking independent recharacterization
 
-**Classification:** `LEVEL_3_IMPLEMENTATION_EVIDENCE`  
-**Normative status:** non-normative  
+**Classification:** `LEVEL_3_IMPLEMENTATION_EVIDENCE`
+
+**Normative status:** non-normative
 **Campaign:** `W1-QUAL-01R-ST-2026-08-25-A`
 
 ## 1. Decision
