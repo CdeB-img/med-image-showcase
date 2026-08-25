@@ -1,0 +1,684 @@
+{
+  "manifestId": "W1-CLOSURE-01-CONVERGENCE-MANIFEST",
+  "schemaVersion": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "generatedAt": "2026-08-25T17:53:09+02:00",
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "headInitial": "f05308597d7ed04271aa0e8ad0c049144c47efa0",
+    "headInitialSubject": "feat(protocol-designer): connect canonical project to regulatory owner",
+    "originBranchInitial": "f05308597d7ed04271aa0e8ad0c049144c47efa0",
+    "mainInitial": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "originMainInitial": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "trackedWorktreeInitial": "CLEAN",
+    "historicalUntrackedArtifacts": "PRESENT_AND_PRESERVED",
+    "baselineDrift": false
+  },
+  "authoritiesConsulted": [
+    {
+      "order": 1,
+      "path": "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+      "role": "authority router"
+    },
+    {
+      "order": 2,
+      "path": "output/documents/noxia-la-charte-fondatrice-edition-editoriale.docx",
+      "role": "highest substantive authority"
+    },
+    {
+      "order": 3,
+      "path": "output/documents/noxia-protocol-designer-scientific-product-manifesto-v2.0.docx",
+      "role": "current scientific product constitution"
+    },
+    {
+      "order": 4,
+      "path": "../../editorial-engine/docs/architecture-manifesto.md",
+      "role": "external editorial boundary authority"
+    },
+    {
+      "order": 5,
+      "path": "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md",
+      "role": "Level 3 program control"
+    },
+    {
+      "order": 6,
+      "paths": [
+        "docs/pd-003-v2-research-object-model.md",
+        "docs/pd-003-v2-ownership-matrix.md",
+        "docs/pd-003-v2-relationship-catalog.md",
+        "docs/pd-003-v2-legacy-compatibility.md",
+        "docs/pd-003-v2-engine-impact-matrix.md",
+        "docs/pd-005-prompt-library-architecture.md",
+        "docs/pd-009-decision-engine-architecture.md",
+        "docs/pd-011-evaluation-framework.md",
+        "docs/rde-001-research-design-engine-architecture.md",
+        "docs/rde-002-research-design-workflow.md",
+        "docs/rde-003-imaging-engine-architecture.md",
+        "docs/ke-001-knowledge-engine-architecture.md",
+        "docs/obs-001-observability-measurement-architecture.md",
+        "docs/reg-000-regulatory-funding-corpus-report.md",
+        "docs/reg-001-requirement-resolution-engine-report.md",
+        "docs/val-000-semantic-reasoning-validation-architecture-report.md",
+        "docs/val-001-semantic-reasoning-validation-layer-closure-report.md"
+      ],
+      "role": "applicable specialized authorities and Level 3 implementation evidence"
+    }
+  ],
+  "normativeArbitrationRequired": false,
+  "roadmapPreflight": {
+    "currentWave": "WAVE_1_SCIENTIFIC_LOOP",
+    "currentObjective": "VERIFY_WAVE_1_PRODUCT_OWNER_CONVERGENCE_BEFORE_WAVE_2",
+    "nextAuthorizedMission": "W1-CLOSURE-01_SCIENTIFIC_LOOP_CONVERGENCE_CHECKPOINT",
+    "missionAuthorized": true,
+    "connections": {
+      "Project_to_Knowledge": "PRODUCT_WIRED",
+      "Knowledge_to_ScientificThinking": "PRODUCT_WIRED",
+      "ScientificThinking_to_Imaging": "PRODUCT_WIRED",
+      "ScientificLoop_to_VAL": "PRODUCT_WIRED",
+      "Project_to_REG": "PRODUCT_WIRED"
+    }
+  },
+  "projectContract": {
+    "adoptedTruthOwner": "CanonicalResearchProjectState",
+    "commonSnapshot": "ProjectContextSnapshot@0.3.0",
+    "projectProjection": "ResearchProjectOwnerProjection",
+    "legacyProjection": "ResearchProjectDesignResult",
+    "legacyProjectionMode": "READ_ONLY",
+    "thirdProjectTruthFound": false,
+    "candidateEqualsAdopted": false,
+    "explicitHumanDecisionRequiredForProjectMutation": true
+  },
+  "ownersAudited": [
+    {
+      "owner": "KNOWLEDGE",
+      "runtimeState": "AVAILABLE_WITH_LIMITATIONS",
+      "integrationMaturity": "PRODUCT_CALLABLE",
+      "architecturalContractStatus": "PASS_AFTER_BOUNDED_REPAIR"
+    },
+    {
+      "owner": "SCIENTIFIC_THINKING",
+      "runtimeState": "AVAILABLE_WITH_LIMITATIONS",
+      "integrationMaturity": "PRODUCT_CALLABLE",
+      "architecturalContractStatus": "PASS"
+    },
+    {
+      "owner": "IMAGING",
+      "runtimeState": "AVAILABLE_WITH_LIMITATIONS",
+      "integrationMaturity": "PRODUCT_CALLABLE",
+      "architecturalContractStatus": "PASS"
+    },
+    {
+      "owner": "REG",
+      "runtimeState": "AVAILABLE_WITH_LIMITATIONS",
+      "integrationMaturity": "PRODUCT_CALLABLE",
+      "architecturalContractStatus": "PASS"
+    },
+    {
+      "owner": "VAL",
+      "runtimeState": "AVAILABLE_WITH_LIMITATIONS",
+      "integrationMaturity": "PRODUCT_CALLABLE",
+      "architecturalContractStatus": "PASS_STRUCTURAL_FIDELITY_ONLY"
+    }
+  ],
+  "handoffsAudited": [
+    "Project_to_Knowledge",
+    "Knowledge_to_ScientificThinking",
+    "ScientificThinking_to_Imaging",
+    "ScientificLoop_to_VAL",
+    "Project_to_REG"
+  ],
+  "projectIdentityMatrix": [
+    {
+      "stage": "CANONICAL_PROJECT",
+      "projectId": "CANONICAL",
+      "projectVersion": "CANONICAL",
+      "projectDigest": "CANONICAL",
+      "snapshotRef": "SOURCE",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "PROJECT_CONTEXT_SNAPSHOT",
+      "projectId": "sourceProjectRef",
+      "projectVersion": "sourceProjectVersion",
+      "projectDigest": "sourceProjectDigest",
+      "snapshotRef": "snapshotDigest",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "KNOWLEDGE_REQUEST",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED_BY_HANDOFF",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS_AFTER_BOUNDED_REPAIR"
+    },
+    {
+      "stage": "KNOWLEDGE_RESULT",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS_AFTER_BOUNDED_REPAIR"
+    },
+    {
+      "stage": "SCIENTIFIC_THINKING_REQUEST",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "SCIENTIFIC_THINKING_RESULT",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "IMAGING_REQUEST",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "IMAGING_RESULT",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "VALIDATION_RUN_LEDGER_ENTRY",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "REGULATORY_REQUEST",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "REGULATORY_RESOLUTION_RESULT",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS"
+    },
+    {
+      "stage": "PERSISTED_OWNER_RESULTS",
+      "projectId": "PRESERVED",
+      "projectVersion": "PRESERVED",
+      "projectDigest": "PRESERVED",
+      "snapshotRef": "PRESERVED",
+      "verdict": "PASS"
+    }
+  ],
+  "snapshotChecks": {
+    "identity": "PASS",
+    "version": "PASS",
+    "digest": "PASS",
+    "detached": "PASS",
+    "deepFrozen": "PASS",
+    "objects": "PASS",
+    "relations": "PASS",
+    "temporality": "PASS",
+    "provenance": "PASS",
+    "unknowns": "PASS",
+    "limitations": "PASS",
+    "contradictions": "PASS",
+    "decisions": "PASS",
+    "supersession": "PASS",
+    "semanticReconstruction": "NONE",
+    "overall": "PASS"
+  },
+  "ownershipChecks": {
+    "KNOWLEDGE": "PASS",
+    "SCIENTIFIC_THINKING": "PASS",
+    "IMAGING": "PASS",
+    "REG": "PASS",
+    "VAL": "PASS_OBSERVER_ONLY",
+    "RESEARCH_PROJECT": "PASS_SOLE_ADOPTED_TRUTH_OWNER"
+  },
+  "ownerResultChecks": {
+    "supportedOwners": [
+      "KNOWLEDGE",
+      "SCIENTIFIC_THINKING",
+      "IMAGING",
+      "REGULATORY_RESOLUTION"
+    ],
+    "explicitTypeVersionOwner": "PASS",
+    "resultIdVersion": "PASS",
+    "immutable": "PASS",
+    "digest": "PASS_NATIVE_DIGEST_PLUS_ENTRY_DIGEST",
+    "digestVerifiable": true,
+    "projectIdentity": "PASS",
+    "snapshotBinding": "PASS",
+    "dependencyRefs": "PASS",
+    "engineConfiguration": "PASS_AFTER_BOUNDED_REPAIR",
+    "provenanceStatusLimitsGapsContradictions": "PASS",
+    "projectWriteAuthorized": false,
+    "historyRetained": true
+  },
+  "ledgerChecks": {
+    "projectLedgerDistinct": true,
+    "ownerResultLedgerDistinct": true,
+    "validationRunLedgerDistinct": true,
+    "ownerResultLedgerAppendOnly": true,
+    "validationRunLedgerAppendOnly": true,
+    "ownerResultLedgerDigest": "VERIFIED",
+    "validationRunLedgerDigest": "VERIFIED"
+  },
+  "dependencyChecks": {
+    "Knowledge_to_ST": "PASS_EXACT_ID_VERSION_DIGEST",
+    "Knowledge_to_Imaging": "PASS_EXACT_ID_VERSION_DIGEST",
+    "ST_to_Imaging": "PASS_EXACT_ID_VERSION_DIGEST",
+    "OwnerResults_to_VAL": "PASS_EXACT_REFS_AND_LEDGER_DIGEST"
+  },
+  "handoffFidelity": {
+    "Project_to_Knowledge": "PASS",
+    "Knowledge_to_ST": "PASS",
+    "ST_to_Imaging": "PASS",
+    "ScientificLoop_to_VAL": "PASS",
+    "Project_to_REG": "PASS",
+    "certaintyPromotion": "NONE",
+    "downstreamLlmReconstruction": "NONE"
+  },
+  "staleChecks": {
+    "A_project_vN_result_against_vN_plus_1": "PASS_FAIL_CLOSED",
+    "B_ST_S1_after_current_K2": "PASS_STALE_DETECTED",
+    "C_Imaging_I1_after_current_S2": "PASS_STALE_DETECTED",
+    "D_project_digest_mismatch": "PASS_FAIL_CLOSED",
+    "E_project_id_mismatch": "PASS_FAIL_CLOSED",
+    "F_request_result_configuration_mismatch": "PASS_AFTER_BOUNDED_REPAIR",
+    "historicalResultReadable": true,
+    "automaticRecalculation": false,
+    "silentMutation": false,
+    "overall": "PASS"
+  },
+  "projectWriteChecks": {
+    "Knowledge": 0,
+    "ScientificThinking": 0,
+    "Imaging": 0,
+    "REG": 0,
+    "VAL": 0,
+    "automaticAdoption": false,
+    "indirectLedgerWrite": false,
+    "indirectAdapterWrite": false,
+    "simulatedHumanDecision": false,
+    "overall": "PASS"
+  },
+  "nonPromotionChecks": {
+    "knowledgeAssertionToAdoptedScientificModel": false,
+    "scientificThinkingCandidateToProjectDecision": false,
+    "imagingCandidateToSelectedProjectMethod": false,
+    "regResultToRegulatoryApproval": false,
+    "valPassToScientificPass": false,
+    "ownerResultToProjectTruth": false,
+    "overall": "PASS"
+  },
+  "regBoundary": {
+    "entrypoint": "resolveRegulatoryRequirements",
+    "engine": "REG-001@1.0.0",
+    "provider": "LOCAL_DETERMINISTIC_RESOLVER",
+    "externalNetwork": "NONE",
+    "invocation": "CONDITIONAL_CALLER_SUPPLIED",
+    "corpus": "REG-000_CANDIDATE_BOUNDED",
+    "corpusCoverageDescription": [
+      "FRANCE",
+      "EU_EEA",
+      "UNITED_STATES",
+      "INTERNATIONAL_METHODOLOGICAL_REPORTING_GUIDANCE"
+    ],
+    "approvalInvented": false,
+    "legalAdviceClaimed": false,
+    "corpusDebt": "REGULATORY_CORPUS_ADMISSION_AND_COVERAGE_OPEN_BOUNDED_DEBT",
+    "overall": "PASS"
+  },
+  "valBoundary": {
+    "observerOnly": true,
+    "repairCalls": 0,
+    "projectWrites": 0,
+    "ownerResultWrites": 0,
+    "scientificPassClaimed": false,
+    "pd011QualificationClaimed": false,
+    "boundedMeaning": "STRUCTURAL_FIDELITY_ONLY",
+    "overall": "PASS"
+  },
+  "expectedCapabilityGaps": {
+    "OBS_runtime": "ABSENT",
+    "Study_Design_runtime": "ABSENT",
+    "Biostatistics_calculation": "ABSENT",
+    "DM_realized_time": "ABSENT",
+    "Owner_orchestration": "OPEN",
+    "QRY_full_value_of_information": "OPEN",
+    "External_Evidence_nominal_auto_trigger": "ABSENT",
+    "Decision_Bundle_UI": "ABSENT",
+    "imagingObsQualification": "NOT_IMPLEMENTED"
+  },
+  "observabilityGapAnalysis": {
+    "currentEvidence": [
+      "ORDERED_OWNER_LEDGER_ENTRIES",
+      "IMMUTABLE_REQUESTS_RESULTS_OBSERVATIONS",
+      "PROJECT_ID_VERSION_DIGEST_AND_SNAPSHOT_DIGEST",
+      "DEPENDENCY_REFS_AND_NATIVE_DIGESTS",
+      "ENGINE_VERSION_STATUS_FAILURE_TIMING",
+      "PROVENANCE_EVIDENCE_UNKNOWNS_GAPS_LIMITATIONS",
+      "SEPARATE_VALIDATION_RUN_WITH_EXACT_OWNER_REFS",
+      "KNOWLEDGE_STRUCTURED_TRACE"
+    ],
+    "missing": [
+      "CROSS_OWNER_RUN_ID",
+      "UNIFIED_EVENT_SEQUENCE",
+      "EXPLICIT_OPTIONAL_STAGE_RECORD",
+      "REQUEST_DIGEST_AT_EVERY_STAGE",
+      "CROSS_LEDGER_JOIN_CONTRACT",
+      "EVENT_N_REPLAY",
+      "REPLAY_COMPARATOR",
+      "FIRST_DIVERGENT_STAGE_CLASSIFIER",
+      "PERSISTED_PRE_APPEND_FAILURE_EVENT"
+    ],
+    "ready": false,
+    "traceGap": "CONFIRMED",
+    "recommendation": "W1-TRACE-01_SCIENTIFIC_EXECUTION_TRACE"
+  },
+  "firstDivergentStageReadiness": {
+    "overall": "PARTIAL",
+    "taxonomy": {
+      "PROJECT_CONTEXT": "STRONG_LOCAL_EVIDENCE",
+      "OWNER_REQUEST_BUILDING": "PARTIAL",
+      "KNOWLEDGE_ENGINE": "PARTIAL",
+      "KNOWLEDGE_TO_ST_HANDOFF": "STRONG_LOCAL_EVIDENCE",
+      "SCIENTIFIC_THINKING_ENGINE": "PARTIAL",
+      "ST_TO_IMAGING_HANDOFF": "STRONG_LOCAL_EVIDENCE",
+      "IMAGING_ENGINE": "PARTIAL",
+      "VAL_INPUT_ADAPTER": "PARTIAL",
+      "VAL_ENGINE": "STRONG_LOCAL_EVIDENCE",
+      "REG_REQUEST_BUILDING": "PARTIAL",
+      "REG_ENGINE": "PARTIAL",
+      "OWNER_RESULT_PERSISTENCE": "STRONG_LOCAL_EVIDENCE",
+      "STALE_VALIDATION": "STRONG_LOCAL_EVIDENCE",
+      "UNKNOWN_STAGE": "REQUIRED_FALLBACK"
+    }
+  },
+  "replayMatrix": [
+    {
+      "mode": "FULL_RUN",
+      "status": "NOT_AVAILABLE",
+      "missingComponents": [
+        "UNIFIED_RUN_IDENTITY",
+        "FROZEN_RUN_ENVELOPE",
+        "ORDERED_EVENTS",
+        "CROSS_STAGE_COMPARATOR"
+      ]
+    },
+    {
+      "mode": "KNOWLEDGE_ONLY",
+      "status": "PARTIALLY_AVAILABLE",
+      "missingComponents": [
+        "PRODUCT_REPLAY_ENVELOPE",
+        "RETAINED_RESULT_COMPARATOR"
+      ]
+    },
+    {
+      "mode": "FROZEN_KNOWLEDGE_TO_ST",
+      "status": "PARTIALLY_AVAILABLE",
+      "missingComponents": [
+        "REPLAY_ENVELOPE",
+        "COMPARATOR"
+      ]
+    },
+    {
+      "mode": "FROZEN_ST_TO_IMAGING",
+      "status": "PARTIALLY_AVAILABLE",
+      "missingComponents": [
+        "REPLAY_ENVELOPE",
+        "COMPARATOR"
+      ]
+    },
+    {
+      "mode": "FROZEN_CHAIN_TO_VAL",
+      "status": "AVAILABLE_NOW",
+      "missingComponents": [
+        "NON_STRUCTURAL_PROFILES"
+      ]
+    },
+    {
+      "mode": "FROZEN_SNAPSHOT_REQUEST_TO_REG",
+      "status": "PARTIALLY_AVAILABLE",
+      "missingComponents": [
+        "PERSISTED_REPLAY_ENVELOPE",
+        "COMPARATOR"
+      ]
+    },
+    {
+      "mode": "REPLAY_FROM_EVENT_N",
+      "status": "NOT_AVAILABLE",
+      "missingComponents": [
+        "UNIFIED_EVENT_SEQUENCE",
+        "CHECKPOINT_STATE",
+        "DOWNSTREAM_REPLAY_CONTRACT"
+      ]
+    }
+  ],
+  "individualOwnerCharacterizationMatrix": [
+    {
+      "owner": "KNOWLEDGE",
+      "architecturalContractEvidence": "SUFFICIENT",
+      "individualScientificCharacterization": "PARTIAL",
+      "failureModesCharacterized": "PARTIAL",
+      "replayability": "PARTIAL",
+      "observability": "PARTIAL"
+    },
+    {
+      "owner": "SCIENTIFIC_THINKING",
+      "architecturalContractEvidence": "SUFFICIENT",
+      "individualScientificCharacterization": "NOT_PERFORMED",
+      "failureModesCharacterized": "PARTIAL",
+      "replayability": "PARTIAL",
+      "observability": "PARTIAL"
+    },
+    {
+      "owner": "IMAGING",
+      "architecturalContractEvidence": "SUFFICIENT",
+      "individualScientificCharacterization": "NOT_PERFORMED",
+      "failureModesCharacterized": "PARTIAL",
+      "replayability": "PARTIAL",
+      "observability": "PARTIAL"
+    },
+    {
+      "owner": "REG",
+      "architecturalContractEvidence": "SUFFICIENT",
+      "individualScientificCharacterization": "NOT_PERFORMED",
+      "failureModesCharacterized": "PARTIAL",
+      "replayability": "PARTIAL",
+      "observability": "PARTIAL"
+    },
+    {
+      "owner": "VAL",
+      "architecturalContractEvidence": "SUFFICIENT",
+      "individualScientificCharacterization": "NOT_PERFORMED",
+      "failureModesCharacterized": "PARTIAL",
+      "replayability": "YES",
+      "observability": "PARTIAL"
+    }
+  ],
+  "controlledLoopCharacterization": {
+    "status": "NOT_PERFORMED",
+    "representativeProjects": false,
+    "frozenInputs": false,
+    "explicitExpectations": false,
+    "firstStageAttribution": false,
+    "fullReplay": false,
+    "humanOrReferenceInspection": false
+  },
+  "tests": [
+    {
+      "name": "PRE_REPAIR_KNOWLEDGE_NEGATIVE_CHARACTERIZATION",
+      "files": 1,
+      "passed": 25,
+      "failed": 1,
+      "skipped": 0,
+      "classification": "EXPECTED_DEFECT_REPRODUCTION"
+    },
+    {
+      "name": "POST_REPAIR_KNOWLEDGE",
+      "files": 1,
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "classification": "PASS_INCLUDED_IN_TARGETED_CONVERGENCE"
+    },
+    {
+      "name": "W0_W1_SPINE_TARGETED_CONVERGENCE",
+      "files": 10,
+      "passed": 232,
+      "failed": 0,
+      "skipped": 0,
+      "classification": "PASS"
+    },
+    {
+      "name": "NATIVE_KNOWLEDGE_ST_REG_VAL",
+      "filesPassed": 19,
+      "filesSkipped": 1,
+      "passed": 498,
+      "failed": 0,
+      "skipped": 7,
+      "classification": "PASS_WITH_EXPLICIT_SKIPS"
+    },
+    {
+      "name": "IMAGING_HISTORICAL",
+      "filesPassed": 8,
+      "filesFailed": 1,
+      "passed": 56,
+      "failed": 4,
+      "skipped": 0,
+      "classification": "PREEXISTING_HISTORICAL_FIXTURE_DEBT"
+    },
+    {
+      "name": "RESEARCH_PROJECT_HISTORICAL",
+      "filesPassed": 7,
+      "filesFailed": 1,
+      "passed": 72,
+      "failed": 1,
+      "skipped": 0,
+      "classification": "PREEXISTING_HISTORICAL_FIXTURE_DEBT"
+    },
+    {
+      "name": "SYSTEM_INTEGRATION_HISTORICAL",
+      "filesPassed": 8,
+      "filesFailed": 3,
+      "passed": 31,
+      "failed": 3,
+      "skipped": 0,
+      "classification": "PREEXISTING_HISTORICAL_FIXTURE_DEBT"
+    },
+    {
+      "name": "TYPECHECK",
+      "status": "PASS"
+    },
+    {
+      "name": "TARGETED_LINT",
+      "status": "PASS"
+    },
+    {
+      "name": "BUILD_AND_ESM_RUNTIME",
+      "status": "PASS_WITH_NON_BLOCKING_WARNINGS",
+      "nodeEsmHandlerLoad": "PASS"
+    }
+  ],
+  "historicalDebts": [
+    {
+      "debtId": "PREEXISTING_HISTORICAL_FIXTURE_DEBT",
+      "failures": 8,
+      "breakdown": {
+        "IMG_001B": 4,
+        "PRJ_DOWNSTREAM_IMG_001B": 1,
+        "SYS_EXPECTATIONS": 3
+      },
+      "blocksArchitecturalConvergence": false,
+      "preserved": true
+    },
+    {
+      "debtId": "REGULATORY_CORPUS_ADMISSION_AND_COVERAGE",
+      "state": "OPEN_BOUNDED_DEBT"
+    },
+    {
+      "debtId": "SCIENTIFIC_EXECUTION_TRACE_GAP",
+      "state": "OPEN_WAVE_1_BLOCKER"
+    },
+    {
+      "debtId": "INDIVIDUAL_OWNER_CHARACTERIZATION_GAP",
+      "state": "OPEN_WAVE_1_BLOCKER"
+    },
+    {
+      "debtId": "CONTROLLED_LOOP_CHARACTERIZATION_GAP",
+      "state": "OPEN_WAVE_1_BLOCKER"
+    }
+  ],
+  "corrections": [
+    {
+      "firstDivergentStage": "KNOWLEDGE_ENGINE",
+      "owner": "KNOWLEDGE",
+      "contractViolation": "RESULT_ENGINE_VERSION_NOT_CHECKED_AGAINST_REQUEST_CONTRACT",
+      "initialArchitecturalConvergence": "FAILED",
+      "repair": "ADD_EXISTING_CONTRACT_VERSION_EQUALITY_GUARDS",
+      "newScientificCapability": false,
+      "commit": "09358e5724e08c5f9620124dd055cac2f090d829",
+      "postRepairStatus": "PASS"
+    }
+  ],
+  "finalDecisions": {
+    "W1_ARCHITECTURAL_CONVERGENCE_READY": "YES",
+    "W1_OBSERVABILITY_READY": "NO",
+    "W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY": "NO",
+    "W1_CONTROLLED_LOOP_CHARACTERIZATION_READY": "NO",
+    "WAVE_1_COMPLETE": "NO",
+    "globalDecision": "W1_ARCHITECTURAL_CONVERGENCE_READY_FURTHER_EVIDENCE_REQUIRED"
+  },
+  "roadmapTransition": {
+    "roadmapUpdated": true,
+    "currentWave": "WAVE_1_SCIENTIFIC_LOOP",
+    "currentObjective": "ESTABLISH_PASSIVE_SCIENTIFIC_EXECUTION_TRACE_BEFORE_WAVE_1_CHARACTERIZATION",
+    "nextAuthorizedMission": "W1-TRACE-01_SCIENTIFIC_EXECUTION_TRACE",
+    "reason": "ARCHITECTURAL_CONVERGENCE_READY_OBSERVABILITY_NOT_READY",
+    "wave2Authorized": false,
+    "candidateFutureSequence": [
+      "W1-TRACE-01",
+      "W1-QUAL-01",
+      "W1-LOOP-QUAL-01",
+      "W1-CLOSURE-02",
+      "HUMAN_ARBITRATION",
+      "WAVE_2_QUESTION"
+    ]
+  },
+  "commits": [
+    {
+      "sha": "09358e5724e08c5f9620124dd055cac2f090d829",
+      "subject": "fix(knowledge): reject mismatched owner result version"
+    },
+    {
+      "sha": "CHECKPOINT_COMMIT_SELF",
+      "subject": "chore(protocol-designer): record wave 1 convergence checkpoint"
+    }
+  ],
+  "headFinal": "CHECKPOINT_COMMIT_SELF",
+  "headFinalResolution": "The immutable SHA is the commit containing this manifest and is reported by git rev-parse HEAD after commit.",
+  "mainModified": false,
+  "mergePerformed": false,
+  "deploymentPerformed": false,
+  "providersOrExternalNetworkUsed": false,
+  "historicalUntrackedArtifactsPreserved": true
+}
