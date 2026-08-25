@@ -609,12 +609,18 @@ export const buildScientificThinkingToImagingHandoff = (input: {
 
 export const buildImagingInputFromProjectAndScientificThinking = (input: {
   project: ResearchProjectOwnerProjection;
+  projectSnapshot?: Readonly<ProjectContextSnapshot>;
   scientificThinkingResult: SpecializedOwnerResult<ScientificThinkingOutput>;
   knowledgeOwnerResult?: Readonly<SpecializedOwnerResult<KnowledgeResult>> | null;
 }): ImagingDesignInput => {
   const handoff = buildScientificThinkingToImagingHandoff({ result: input.scientificThinkingResult, currentProject: input.project });
   if (handoff.status === "STALE_OWNER_RESULT") throw new Error("STALE_OWNER_RESULT");
-  const snapshot = buildProjectContextSnapshot({ project: input.project });
+  const snapshot = input.projectSnapshot ?? buildProjectContextSnapshot({ project: input.project });
+  if (snapshot.sourceProjectRef !== input.project.projectId
+    || snapshot.sourceProjectVersion !== input.project.versionId
+    || snapshot.sourceProjectDigest !== input.project.projectDigest) {
+    throw new Error("OWNER_CHAIN_PROJECT_CONTEXT_MISMATCH");
+  }
   const st = input.scientificThinkingResult.nativePayload;
   if (!st) throw new Error("SCIENTIFIC_THINKING_NATIVE_PAYLOAD_REQUIRED");
   const knowledgeOwnerResult = input.knowledgeOwnerResult ?? null;
@@ -774,6 +780,7 @@ export type ImagingOwnerChainInvocation = {
 
 export const invokeImagingOwnerFromScientificThinking = (input: InvocationTiming & {
   project: ResearchProjectOwnerProjection;
+  projectSnapshot?: Readonly<ProjectContextSnapshot>;
   scientificThinkingResult: SpecializedOwnerResult<ScientificThinkingOutput>;
   knowledgeOwnerResult?: Readonly<SpecializedOwnerResult<KnowledgeResult>> | null;
   purpose?: string;
@@ -813,19 +820,22 @@ export const invokeImagingOwnerFromScientificThinking = (input: InvocationTiming
   }
   const nativeInput = buildImagingInputFromProjectAndScientificThinking({
     project: input.project,
+    projectSnapshot: input.projectSnapshot,
     scientificThinkingResult: input.scientificThinkingResult,
     knowledgeOwnerResult: input.knowledgeOwnerResult,
   });
-  const request = createSpecializedOwnerHandoffRequest({
+  const requestMaterial = {
     handoffId: handoff.handoffId,
     owner: "IMAGING",
     capabilityId: "IMAGING_STUDY_DESIGN",
     purpose: input.purpose ?? "Quelles propositions Imaging permettent d'opérationnaliser correctement cette mesure ?",
-    project: input.project,
     nativeInputType: "ImagingDesignInput",
     nativeInputVersion: IMAGING_STUDY_DESIGNER_VERSION,
     nativeInput,
-  });
+  } as const;
+  const request = input.projectSnapshot
+    ? createSpecializedOwnerHandoffRequestFromSnapshot({ ...requestMaterial, sourceProject: input.projectSnapshot })
+    : createSpecializedOwnerHandoffRequest({ ...requestMaterial, project: input.project });
   const invocationId = `scientific-owner-invocation:${logicalDigest({ handoff: handoff.handoffId, startedAt: input.startedAt })}`;
   const projectBefore = stableStringify(input.project);
   const started = now(input.monotonicNow);

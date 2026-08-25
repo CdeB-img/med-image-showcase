@@ -91,6 +91,7 @@ export const invokeImagingForProject = (input: {
   });
   const invocation = invokeImagingOwnerFromScientificThinking({
     project: input.project,
+    projectSnapshot: input.projectSnapshot,
     scientificThinkingResult: scientificThinkingOwnerResult,
     knowledgeOwnerResult,
     purpose: input.purpose,

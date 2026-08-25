@@ -212,7 +212,10 @@ describe("W1-IMAGING-01 — product Scientific Thinking → Imaging handoff", ()
   it("W1IMG01-01 canonical Project reaches Knowledge", () => expect(knowledgeInvocation.request.sourceProject.snapshotDigest).toBe(snapshot.snapshotDigest));
   it("W1IMG01-02 real Knowledge result reaches ST", () => expect(stInvocation.knowledgeOwnerResult).toEqual(knowledgeInvocation.result));
   it("W1IMG01-03 real ST result reaches Imaging", () => expect(imagingInvocation.scientificThinkingOwnerResult).toEqual(stInvocation.result));
-  it("W1IMG01-04 preserves the same Project ID", () => expect(imagingInvocation.result?.sourceProjectRef).toBe(project.projectId));
+  it("W1IMG01-04 preserves the same canonical Project snapshot and ID", () => {
+    expect(imagingInvocation.request.sourceProject).toEqual(snapshot);
+    expect(imagingInvocation.result?.sourceProjectRef).toBe(project.projectId);
+  });
   it("W1IMG01-05 preserves the same Project version", () => expect(imagingInvocation.result?.sourceProjectVersion).toBe(project.versionId));
   it("W1IMG01-06 preserves the same Project digest", () => expect(imagingInvocation.result?.sourceProjectDigest).toBe(project.projectDigest));
   it("W1IMG01-07 preserves Knowledge identity", () => {
