@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 
-export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.2.0" as const;
+export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.2.1" as const;
 
 export const SEMANTIC_TYPES = [
   "OBSERVATION",

@@ -123,6 +123,36 @@ const scopeFor = (input: ScientificThinkingInput): QuestionCandidate["scope"] =>
   return "BALANCED";
 };
 
+const hasSupportedStructuredProjectQuestion = (input: ScientificThinkingInput, source: string) => {
+  const reasoningTerms = unique([
+    ...input.phenomena,
+    ...input.outcomes,
+    ...input.pathologyOrCondition,
+    ...input.context,
+  ]);
+  const currentProjectBinding = Boolean(
+    input.researchContext.researchProjectId
+    && input.scientificIntent.sourceJourney === "DESIGN_STUDY"
+    && input.scientificIntent.semanticModelRef === input.researchContext.researchProjectId
+    && input.scientificIntent.semanticModelDigest,
+  );
+  const knowledgeBinding = Boolean(
+    input.knowledge.ownerResultRef
+    && input.knowledge.resultId
+    && input.knowledge.resultRevision
+    && input.knowledge.resultDigest
+    && ["SUPPORTED", "PARTIAL", "CONFLICTING"].includes(input.knowledge.support)
+    && (input.knowledge.assertionRefs.length > 0
+      || input.knowledge.evidenceRefs.length > 0
+      || input.knowledge.sourceIds.length > 0),
+  );
+  return hasQuestionForm(source)
+    && currentProjectBinding
+    && knowledgeBinding
+    && reasoningTerms.length >= 2
+    && (input.population.length > 0 || input.context.length > 0);
+};
+
 const buildQuestionCandidates = (input: ScientificThinkingInput, controls: ScientificThinkingControls): QuestionCandidate[] => {
   const source = input.validatedReformulation || input.originalExpression;
   const support = input.knowledge.support;
@@ -135,7 +165,9 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
   const answeredComparisonCriterion = controls.answers?.["ST-AQ-COMPARISON-CRITERION"];
   const { first, second } = relationTerms(input);
   const methodOnlyComparison = isMethodOnlyComparison(input);
-  const completeExistingQuestion = hasQuestionForm(source) && hasRelation(source) && (hasPopulation(input) || hasTime(input) || hasOutcome(input)) && !hasMethodComparison(input);
+  const completeExistingQuestion = hasQuestionForm(source)
+    && ((hasRelation(source) && (hasPopulation(input) || hasTime(input) || hasOutcome(input)) && !hasMethodComparison(input))
+      || hasSupportedStructuredProjectQuestion(input, source));
   const candidates: Omit<QuestionCandidate, "reviewState">[] = [];
 
   if (methodOnlyComparison) {
