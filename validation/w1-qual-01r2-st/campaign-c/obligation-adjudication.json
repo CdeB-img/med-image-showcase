@@ -1,0 +1,2261 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_OBLIGATION_ADJUDICATION",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "results": [
+    {
+      "caseId": "ST01R2-C-VNCA-EDEMA-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-VNCA-EDEMA-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-VNCA-EDEMA-01:version:1",
+            "ke1-40b1b6bda97ca349"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-VNCA-EDEMA-01",
+            "ke1-1a83902db6a7a5d9"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CANDIDATE_REQUIRED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "A supported candidate opportunity was covered without adoption."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No competing-alternatives obligation was pre-authored."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "Une détection accrue ne transforme pas le VNCa en substitut universel de l'IRM.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Chez des adultes avec traumatisme vertébral occulte, un signal positif en Virtual Non-Calcium est-il associé à un œdème médullaire défini sur une référence IRM indépendante ?",
+            "Chez des adultes avec traumatisme vertébral occulte, un signal positif en Virtual Non-Calcium est-il associé à un œdème médullaire défini sur une référence IRM indépendante ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-VNCA-EDEMA-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-URATE-RECURRENCE-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-URATE-RECURRENCE-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-URATE-RECURRENCE-01:version:1",
+            "ke1-22297df5808c3011"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-URATE-RECURRENCE-01",
+            "ke1-c585b4e68aec705a"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CANDIDATE_REQUIRED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "A supported candidate opportunity was covered without adoption."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No competing-alternatives obligation was pre-authored."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "MISSING_OUTCOME_VALIDATION",
+            "MISSING_OUTCOME_VALIDATION",
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "Aucune performance prédictive individuelle ou règle thérapeutique n'est démontrée.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Chez des adultes avec goutte traitée, le volume de dépôts d'urate en dual-energy CT est-il associé à la récidive clinique au suivi ?",
+            "Chez des adultes avec goutte traitée, le volume de dépôts d'urate en dual-energy CT est-il associé à la récidive clinique au suivi ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-URATE-RECURRENCE-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-PCCT-CROSSTALK-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PCCT-CROSSTALK-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PCCT-CROSSTALK-01:version:1",
+            "ke1-12d531f9c86db0ed"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PCCT-CROSSTALK-01",
+            "ke1-c467403f6a16482b"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CANDIDATE_REQUIRED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "A supported candidate opportunity was covered without adoption."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mechanisms=1",
+            "scientificModels=0",
+            "evidenceKind=MECHANISM_CANDIDATE"
+          ],
+          "note": "A linked, explicitly explanatory mechanism candidate is inspectable; no exact wording or count was required."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No competing-alternatives obligation was pre-authored."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "L'effet dépend du détecteur, du flux et des corrections; aucune magnitude universelle n'est établie.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Dans des phantoms à petits inserts, le cross-talk spatio-énergétique est-il associé à une perte d'indépendance des bins et à un biais de détectabilité ?",
+            "Dans des phantoms à petits inserts, le cross-talk spatio-énergétique est-il associé à une perte d'indépendance des bins et à un biais de détectabilité ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-PCCT-CROSSTALK-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-STRAIN-ALGORITHMS-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-STRAIN-ALGORITHMS-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-STRAIN-ALGORITHMS-01:version:1",
+            "ke1-ed5eceef584b6b7b"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-STRAIN-ALGORITHMS-01",
+            "ke1-c3c3f7fc5598b300"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CANDIDATE_REQUIRED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "A supported candidate opportunity was covered without adoption."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "alternatives=1",
+            "hypotheses=2"
+          ],
+          "note": "A competing explanation remains visible and unselected."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "Aucune interchangeabilité logicielle ni causalité biologique automatique n'est établie.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "conflict:ST01R2-C-STRAIN-ALGORITHMS-01:OPEN:Une variation observée peut refléter un changement biologique, un algorithme ou leurs interactions."
+          ],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Chez des adultes avec cardiomyopathie, une différence de strain longitudinal entre logiciels est-elle associée à l'algorithme de feature tracking plutôt qu'à une évolution biologique ?",
+            "Chez des adultes avec cardiomyopathie, une différence de strain longitudinal entre logiciels est-elle associée à l'algorithme de feature tracking plutôt qu'à une évolution biologique ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-STRAIN-ALGORITHMS-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-FOURD-FLOW-ALIASING-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-FOURD-FLOW-ALIASING-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-FOURD-FLOW-ALIASING-01:version:1",
+            "ke1-13d33ffcb1ddc0e0"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-FOURD-FLOW-ALIASING-01",
+            "ke1-eedb1bd76a6e3d8b"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CANDIDATE_REQUIRED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "A supported candidate opportunity was covered without adoption."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "alternatives=1",
+            "hypotheses=2"
+          ],
+          "note": "A competing explanation remains visible and unselected."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "La valeur la plus élevée n'est pas automatiquement la mesure la plus exacte.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "conflict:ST01R2-C-FOURD-FLOW-ALIASING-01:OPEN:Meilleur échantillonnage du jet et biais de phase restent deux explications concurrentes à départager."
+          ],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Chez des adultes avec flux valvulaire complexe, une vitesse de pointe plus élevée en 4D Flow est-elle associée à un meilleur échantillonnage du jet ou à un biais d'aliasing et de correction de phase ?",
+            "Chez des adultes avec flux valvulaire complexe, une vitesse de pointe plus élevée en 4D Flow est-elle associée à un meilleur échantillonnage du jet ou à un biais d'aliasing et de correction de phase ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-FOURD-FLOW-ALIASING-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-CARDIAC-DTI-HELIX-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CARDIAC-DTI-HELIX-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CARDIAC-DTI-HELIX-01:version:1",
+            "ke1-46cf4ea954e78d2d"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CARDIAC-DTI-HELIX-01",
+            "ke1-d0983f6d6a20e919"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CANDIDATE_REQUIRED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "A supported candidate opportunity was covered without adoption."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No competing-alternatives obligation was pre-authored."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "La comparabilité doit être démontrée pour chaque chaîne; aucune plage universelle n'est transférée.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Chez des volontaires sains à fréquence cardiaque contrôlée, l'angle d'hélice estimé en diffusion cardiaque est-il comparable entre séquences et champs sans harmonisation spécifique ?",
+            "Chez des volontaires sains à fréquence cardiaque contrôlée, l'angle d'hélice estimé en diffusion cardiaque est-il comparable entre séquences et champs sans harmonisation spécifique ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CARDIAC-DTI-HELIX-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-CVR-CO2-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CVR-CO2-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CVR-CO2-01:version:1",
+            "ke1-3910b1b1b199f3c5"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CVR-CO2-01",
+            "ke1-aa4245374ee533b3"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CONDITIONAL_CANDIDATE_ALLOWED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "Conditional candidates or a bounded gap remain admissible without forced output."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No competing-alternatives obligation was pre-authored."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "MISSING_STIMULUS_CHARACTERIZATION",
+            "MISSING_STIMULUS_CHARACTERIZATION",
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "La concentration et la réponse au stimulus restent inconnues; aucune valeur n'est imputée.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Chez des adultes avec sténose carotidienne, une réactivité cérébrovasculaire réduite sous CO2 est-elle associée à une réserve hémodynamique altérée lorsque le stimulus exact est inconnu ?",
+            "Chez des adultes avec sténose carotidienne, une réactivité cérébrovasculaire réduite sous CO2 est-elle associée à une réserve hémodynamique altérée lorsque le stimulus exact est inconnu ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CVR-CO2-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-DECONVOLUTION-DELAY-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-DECONVOLUTION-DELAY-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-DECONVOLUTION-DELAY-01:version:1",
+            "ke1-1f67de681524a3e4"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-DECONVOLUTION-DELAY-01",
+            "ke1-35e7133f6880c2ab"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CANDIDATE_REQUIRED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "A supported candidate opportunity was covered without adoption."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "alternatives=1",
+            "hypotheses=2"
+          ],
+          "note": "A competing explanation remains visible and unselected."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "Aucune indépendance physiologique totale ni absence de biais n'est établie.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "conflict:ST01R2-C-DECONVOLUTION-DELAY-01:OPEN:La robustesse au décalage algorithmique ne supprime pas les effets physiologiques de délai et de dispersion."
+          ],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Chez des adultes avec occlusion chronique, une méthode de déconvolution dite delay-insensitive est-elle associée à une estimation du CBF indépendante de toute physiologie de délai ?",
+            "Chez des adultes avec occlusion chronique, une méthode de déconvolution dite delay-insensitive est-elle associée à une estimation du CBF indépendante de toute physiologie de délai ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-DECONVOLUTION-DELAY-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CAPILLARY-HETEROGENEITY-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CAPILLARY-HETEROGENEITY-01:version:1",
+            "ke1-ba2909148b54fe98"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CAPILLARY-HETEROGENEITY-01",
+            "ke1-a7652c05c704e291"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CANDIDATE_REQUIRED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "A supported candidate opportunity was covered without adoption."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mechanisms=1",
+            "scientificModels=0",
+            "evidenceKind=MECHANISM_CANDIDATE"
+          ],
+          "note": "A linked, explicitly explanatory mechanism candidate is inspectable; no exact wording or count was required."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "alternatives=1",
+            "hypotheses=2"
+          ],
+          "note": "A competing explanation remains visible and unselected."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "L'observation humaine in vivo de ces mécanismes reste partielle et dépend du modèle.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Dans des tissus ayant le même CBF moyen, une hétérogénéité accrue des temps de transit capillaire est-elle associée à une extraction d'oxygène différente ?",
+            "Dans des tissus ayant le même CBF moyen, une hétérogénéité accrue des temps de transit capillaire est-elle associée à une extraction d'oxygène différente ?"
+          ],
+          "note": "The adopted Project question is reconstructed without semantic drift."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-INSUFFICIENT-RELATION-01",
+      "caseVerdict": "CRITICAL_VIOLATION",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "OWNER_REPAIR_REQUIRED",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-INSUFFICIENT-RELATION-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-INSUFFICIENT-RELATION-01:version:1",
+            "ke1-bc2db47333f64437"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-INSUFFICIENT-RELATION-01",
+            "ke1-574289f54e9b27a1"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CLARIFICATION_OR_GAP_EXPECTED",
+            "status=CLARIFICATION_REQUIRED",
+            "hypotheses=0",
+            "objectives=0"
+          ],
+          "note": "The missing information remains primary and any candidate is explicitly bounded."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No competing-alternatives obligation was pre-authored."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "MISSING_TESTABLE_RELATION",
+            "MISSING_TESTABLE_RELATION",
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "Une sortie scientifique forte serait artificielle sans question testable.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "VIOLATED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "evidence": [
+            "Explorer sans objectif des trajectoires de flux intracardiaque.",
+            "Quel phénomène relatif à Trajectoires de flux intracardiaque souhaitez-vous expliquer, comparer, quantifier ou suivre ?"
+          ],
+          "note": "The primary ST question drifted from the explicit Project question."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-INSUFFICIENT-RELATION-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:version:1",
+            "ke1-e6266c56370b8312"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01",
+            "ke1-b8319c2ce24aa7e8"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=CONDITIONAL_CANDIDATE_ALLOWED",
+            "status=CANDIDATES_PROPOSED",
+            "hypotheses=2",
+            "objectives=1"
+          ],
+          "note": "Conditional candidates or a bounded gap remain admissible without forced output."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No competing-alternatives obligation was pre-authored."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "PROJECT_REFERENCE_COMPARATOR_UNKNOWN",
+            "PROJECT_REFERENCE_COMPARATOR_UNKNOWN",
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "Le comparateur reste inconnu; aucun diagnostic ou objectif Project n'est adopté automatiquement.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No explicit current Project question is available for an exact fidelity check."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01",
+      "caseVerdict": "CRITICAL_VIOLATION",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerCharacterizationStatus": "OWNER_REPAIR_REQUIRED",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01@project:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:version:1",
+            "ke1-1f49ef868b91cb5a"
+          ],
+          "note": "Exact canonical Project identity is preserved."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "LINEAGE_BREAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "knowledge-result:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01",
+            "ke1-bd631cabd73bedcf"
+          ],
+          "note": "Exact Knowledge ref/digest lineage is retained without ownership transfer."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "OWNERSHIP_LEAK",
+          "firstDivergentStage": null,
+          "evidence": [
+            "projectWrites=0",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No Project write, adoption or simulated Human Decision occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "externalEvidenceCalls=0",
+            "geminiCalls=0",
+            "terraCalls=0"
+          ],
+          "note": "No LLM or external provider call occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "mode=STRICT_NO_CANDIDATE_EXPECTED",
+            "status=REFUSED",
+            "hypotheses=0",
+            "objectives=0"
+          ],
+          "note": "No candidate escaped a contractually strict stop."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No mechanistic obligation was pre-authored for this case."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "ST_CRITICAL_REASONING_OMISSION",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "No competing-alternatives obligation was pre-authored."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "KNOWLEDGE_GAP_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [
+            "OUT_OF_SCIENTIFIC_THINKING_OWNER",
+            "OUT_OF_SCIENTIFIC_THINKING_OWNER",
+            "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+          ],
+          "note": "All pre-authored Knowledge gaps remain inspectable."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "SATISFIED",
+          "failureClass": "UNKNOWN_FAILURE",
+          "firstDivergentStage": null,
+          "evidence": [
+            "Existing runtime is deterministic and expects its native context projection.",
+            "Proposals are never adopted automatically.",
+            "Aucune décision financière, réglementaire ou Project ne peut être produite par ST.",
+            "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+          ],
+          "note": "Limitations remain explicit in ST/OwnerResult evidence."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "CONTRADICTION_LOSS",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "Expected contradictions remain explicit."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "VIOLATED",
+          "failureClass": "PROJECT_QUESTION_DRIFT",
+          "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+          "evidence": [
+            "La comptabilité doit-elle choisir automatiquement le tarif de remboursement d'un examen d'imagerie ?",
+            ""
+          ],
+          "note": "The primary ST question drifted from the explicit Project question."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": "EVIDENCE_PROMOTION",
+          "firstDivergentStage": null,
+          "evidence": [
+            "primaryUnsupported=false",
+            "promotion=false",
+            "projectWriteAuthorized=false"
+          ],
+          "note": "No unsupported primary hypothesis, evidence promotion or adoption occurred."
+        },
+        {
+          "obligationId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": "STALE_INPUT_ACCEPTED",
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This case does not predeclare a stale input."
+        }
+      ]
+    },
+    {
+      "caseId": "ST01R2-C-STALE-DIFFUSION-01",
+      "caseVerdict": "FULLY_SATISFIED",
+      "executionOutcome": "EXPECTED_PRE_OWNER_REJECTION",
+      "ownerCharacterizationStatus": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+      "evaluations": [
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:PROJECT_IDENTITY",
+          "checkId": "PROJECT_IDENTITY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [
+            "executionOutcome=EXPECTED_PRE_OWNER_REJECTION",
+            "rejectionCode=STALE_KNOWLEDGE_RESULT",
+            "ownerInvocations=0",
+            "ownerResults=0"
+          ],
+          "note": "The pre-authored fail-closed contract was satisfied without owner execution, OwnerResult, evidence promotion or side effect."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:KNOWLEDGE_LINEAGE",
+          "checkId": "KNOWLEDGE_LINEAGE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [
+            "executionOutcome=EXPECTED_PRE_OWNER_REJECTION",
+            "rejectionCode=STALE_KNOWLEDGE_RESULT",
+            "ownerInvocations=0",
+            "ownerResults=0"
+          ],
+          "note": "The pre-authored fail-closed contract was satisfied without owner execution, OwnerResult, evidence promotion or side effect."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:ZERO_PROJECT_WRITE",
+          "checkId": "ZERO_PROJECT_WRITE",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [
+            "executionOutcome=EXPECTED_PRE_OWNER_REJECTION",
+            "rejectionCode=STALE_KNOWLEDGE_RESULT",
+            "ownerInvocations=0",
+            "ownerResults=0"
+          ],
+          "note": "The pre-authored fail-closed contract was satisfied without owner execution, OwnerResult, evidence promotion or side effect."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:NO_PROVIDER_CALL",
+          "checkId": "NO_PROVIDER_CALL",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [
+            "executionOutcome=EXPECTED_PRE_OWNER_REJECTION",
+            "rejectionCode=STALE_KNOWLEDGE_RESULT",
+            "ownerInvocations=0",
+            "ownerResults=0"
+          ],
+          "note": "The pre-authored fail-closed contract was satisfied without owner execution, OwnerResult, evidence promotion or side effect."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:NEGATIVE_EXPECTATION",
+          "checkId": "NEGATIVE_EXPECTATION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [
+            "executionOutcome=EXPECTED_PRE_OWNER_REJECTION",
+            "rejectionCode=STALE_KNOWLEDGE_RESULT",
+            "ownerInvocations=0",
+            "ownerResults=0"
+          ],
+          "note": "The pre-authored fail-closed contract was satisfied without owner execution, OwnerResult, evidence promotion or side effect."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:MECHANISTIC_OR_EXPLANATORY",
+          "checkId": "MECHANISTIC_OR_EXPLANATORY",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This scientific-output obligation is not applicable because the contract required rejection before owner execution."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:ALTERNATIVES_PRESERVED",
+          "checkId": "ALTERNATIVES_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This scientific-output obligation is not applicable because the contract required rejection before owner execution."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:GAPS_PRESERVED",
+          "checkId": "GAPS_PRESERVED",
+          "critical": true,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This scientific-output obligation is not applicable because the contract required rejection before owner execution."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:LIMITATIONS_PRESERVED",
+          "checkId": "LIMITATIONS_PRESERVED",
+          "critical": false,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This scientific-output obligation is not applicable because the contract required rejection before owner execution."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:CONTRADICTIONS_PRESERVED",
+          "checkId": "CONTRADICTIONS_PRESERVED",
+          "critical": true,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This scientific-output obligation is not applicable because the contract required rejection before owner execution."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:PROJECT_QUESTION_FIDELITY",
+          "checkId": "PROJECT_QUESTION_FIDELITY",
+          "critical": true,
+          "outcome": "NOT_APPLICABLE",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [],
+          "note": "This scientific-output obligation is not applicable because the contract required rejection before owner execution."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:EPISTEMIC_SAFETY",
+          "checkId": "EPISTEMIC_SAFETY",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [
+            "executionOutcome=EXPECTED_PRE_OWNER_REJECTION",
+            "rejectionCode=STALE_KNOWLEDGE_RESULT",
+            "ownerInvocations=0",
+            "ownerResults=0"
+          ],
+          "note": "The pre-authored fail-closed contract was satisfied without owner execution, OwnerResult, evidence promotion or side effect."
+        },
+        {
+          "obligationId": "ST01R2-C-STALE-DIFFUSION-01:STALE_PROTECTION",
+          "checkId": "STALE_PROTECTION",
+          "critical": true,
+          "outcome": "SATISFIED",
+          "failureClass": null,
+          "firstDivergentStage": null,
+          "evidence": [
+            "executionOutcome=EXPECTED_PRE_OWNER_REJECTION",
+            "rejectionCode=STALE_KNOWLEDGE_RESULT",
+            "ownerInvocations=0",
+            "ownerResults=0"
+          ],
+          "note": "The pre-authored fail-closed contract was satisfied without owner execution, OwnerResult, evidence promotion or side effect."
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "obligations": 169,
+    "satisfied": 130,
+    "notApplicable": 37,
+    "violated": 2,
+    "nonAdjudicable": 0,
+    "criticalViolations": 2
+  }
+}

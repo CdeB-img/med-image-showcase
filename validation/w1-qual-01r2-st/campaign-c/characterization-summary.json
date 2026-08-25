@@ -1,0 +1,54 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_CHARACTERIZATION_SUMMARY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "campaignStatus": "COMPLETE",
+  "harnessStatus": "READY",
+  "referenceStatus": "VALID",
+  "ownerCharacterizationStatus": "OWNER_REPAIR_REQUIRED",
+  "campaignValid": true,
+  "terminalCounts": {
+    "ownerResultTerminations": 12,
+    "expectedPreOwnerRejections": 1,
+    "expectedPreOwnerRejectionsCorrect": 1,
+    "unexpectedPreOwnerFailures": 0,
+    "ownerExecutionFailures": 0,
+    "nonAdjudicableTechnicalFailures": 0
+  },
+  "candidateCoverage": {
+    "opportunities": 8,
+    "covered": 8
+  },
+  "negativeConditionalSafety": {
+    "cases": 5,
+    "correct": 5
+  },
+  "epistemicSafety": {
+    "unsupportedHypothesis": 0,
+    "evidencePromotion": 0,
+    "knowledgeGapLoss": 0,
+    "contradictionLoss": 0,
+    "projectQuestionDrift": 2,
+    "lineageBreak": 0,
+    "ownershipLeak": 0,
+    "projectWrites": 0,
+    "staleProtectionFailure": 0
+  },
+  "trace": {
+    "qualifyingCases": 13,
+    "traceCompleteCases": 13,
+    "ownerInvocationsExpected": 12,
+    "ownerInvocationsObserved": 12,
+    "preOwnerRejectionsExpected": 1,
+    "preOwnerRejectionsObserved": 1
+  },
+  "determinism": {
+    "replays": 3,
+    "stable": 3
+  },
+  "limitations": [
+    "Thirteen bounded synthetic cases do not establish universal scientific validity or PD-011 qualification.",
+    "Reasoning Books are contextual references; their corpus coverage is not asserted complete.",
+    "Controlled assembled-loop characterization remains not performed."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_CHARACTERIZATION_FREEZE",
+  "version": "1.0.0",
+  "frozenAt": "2026-08-26T09:30:00.000Z",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "gitHead": "d85f790a0a70de9eadffc8f20ce4196e3c9a61ec",
+  "stVersion": "1.2.1",
+  "harnessVersion": "2.1.0",
+  "harnessDigest": "ke1-6fd7eafe0ff78052",
+  "registryDigests": {
+    "caseRegistry": "ke1-8a37b34208af1dbe",
+    "acceptanceEnvelopeRegistry": "ke1-371deeea7eeb38ae",
+    "frozenInputRegistry": "ke1-23b4cc5cbba07728",
+    "parentageAudit": "ke1-5bb527a3deda26c7",
+    "knowledgeInputQualityGate": "ke1-cc127dce66565e6a"
+  },
+  "traceLedgerVersion": "0.1.0",
+  "traceEventSchemaVersion": "0.1.0",
+  "evaluatorDigest": "ke1-b7b98a43e1f4e167",
+  "authoringDigest": "sha256-453aeebaa9ce59524ca15d8ed6855d3001ca01076fcbef196b8eab790bb68757",
+  "replaySelection": [
+    {
+      "caseId": "ST01R2-C-PCCT-CROSSTALK-01",
+      "role": "POSITIVE"
+    },
+    {
+      "caseId": "ST01R2-C-FOURD-FLOW-ALIASING-01",
+      "role": "CONTRADICTION_OR_ALTERNATIVES"
+    },
+    {
+      "caseId": "ST01R2-C-STALE-DIFFUSION-01",
+      "role": "EXPECTED_PRE_OWNER_REJECTION"
+    }
+  ],
+  "freezeDigest": "ke1-8f713545558c1c29",
+  "registries": {
+    "cases": 13,
+    "envelopes": 13,
+    "packs": 13
+  },
+  "parentageCompleted": true,
+  "knowledgeGatePassed": true,
+  "observationOccurred": false,
+  "mutableAfterObservation": false,
+  "status": "CHARACTERIZATION_FREEZE_READY",
+  "machineValidation": {
+    "valid": true,
+    "findings": []
+  }
+}

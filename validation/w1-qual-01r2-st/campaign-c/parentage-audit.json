@@ -1,0 +1,175 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_PARENTAGE_AUDIT",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "completedBeforeFirstStExecution": true,
+  "exclusions": {
+    "w1Qual": [
+      "ST-CARDIAC-01",
+      "ST-SPECTRAL-01",
+      "ST-NEURO-01",
+      "ST-UNSUPPORTED-01"
+    ],
+    "campaignA": [
+      "all 12 W1-QUAL-01R Campaign A cases"
+    ],
+    "campaignB": [
+      "all 13 W1-QUAL-01R1 Campaign B cases"
+    ],
+    "repairProbes": [
+      "ST-REPAIR-A",
+      "ST-REPAIR-B",
+      "ST-REPAIR-C",
+      "ST-REPAIR-D",
+      "ST-REPAIR-E",
+      "ST-REPAIR-F",
+      "ST-REPAIR-G",
+      "ST-REPAIR-H"
+    ],
+    "metaFixtures": [
+      "R2 stale",
+      "R2 Project ID mismatch",
+      "R2 Project digest mismatch",
+      "R2 dependency mismatch",
+      "R2 owner-runtime failure"
+    ],
+    "exactOrNearDuplicateAuthorized": false,
+    "campaignACaseReusedAsIndependentEvidence": false,
+    "campaignBCaseReusedAsIndependentEvidence": false,
+    "repairProbeReusedAsIndependentEvidence": false,
+    "harnessMetaFixtureReusedAsIndependentEvidence": false
+  },
+  "cases": [
+    {
+      "caseId": "ST01R2-C-VNCA-EDEMA-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign B VMI and iodine cases"
+      ],
+      "distinctnessRationale": "Nouvel output VNCa, nouvelle population traumatique, nouveau tissu cible et nouvelle référence; aucune carte d'iode, VMI ou décomposition rénale.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-URATE-RECURRENCE-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A/B predictive controls"
+      ],
+      "distinctnessRationale": "Nouvelle maladie rhumatologique, nouveau matériau urate, temporalité post-traitement et outcome de récidive.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-PCCT-CROSSTALK-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign B charge-sharing mechanism"
+      ],
+      "distinctnessRationale": "Le voisin le plus proche porte sur le partage de charge et le classement énergétique; C cible le couplage spatio-énergétique interpixel et la détectabilité de petits objets.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-STRAIN-ALGORITHMS-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "No exposed strain case"
+      ],
+      "distinctnessRationale": "Nouveaux objets mécaniques, nouvelle classe logicielle et nouvelle distinction changement biologique/algorithme.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-FOURD-FLOW-ALIASING-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "No exposed flow case"
+      ],
+      "distinctnessRationale": "Nouveau domaine de vitesse, nouvelles erreurs de phase et aucun mapping tissulaire ou perfusion cérébrale.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-CARDIAC-DTI-HELIX-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign B T1 field transfer"
+      ],
+      "distinctnessRationale": "Nouvelle physique de diffusion, nouvelle géométrie microstructurale et nouveau mesurande; pas de T1 ni de relaxation.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-CVR-CO2-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A Project-unknown conditional case"
+      ],
+      "distinctnessRationale": "L'inconnue porte sur un stimulus physiologique mesurable dans un nouveau domaine CVR, non sur l'absence de question Project.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-DECONVOLUTION-DELAY-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign B ASL transit"
+      ],
+      "distinctnessRationale": "Nouveau problème inverse par bolus, nouvelle régularisation et nouvelle frontière algorithme/physiologie; pas de PLD ou traceur endogène.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign A OEF/CMRO2"
+      ],
+      "distinctnessRationale": "Le nouveau cas compare deux tissus à CBF égal via la distribution microvasculaire; A portait sur compensation OEF et dérivation CMRO2.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-INSUFFICIENT-RELATION-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign B insufficient density target"
+      ],
+      "distinctnessRationale": "La structure d'arrêt est un contrôle nécessaire, mais l'objet de flux, la méthode, le vocabulaire et la relation manquante sont nouveaux.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign A/B Project unknown controls"
+      ],
+      "distinctnessRationale": "L'inconnue Project est ici le comparateur de référence d'une sortie spectrale hépatique, non la question scientifique elle-même ou un outcome cardiaque.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "Campaign A DICOM pipeline",
+        "Campaign B software release",
+        "repair marketing probe"
+      ],
+      "distinctnessRationale": "Nouvelle frontière financière/comptable, sans pipeline, code, marketing, linguistique ou infrastructure.",
+      "admissible": true
+    },
+    {
+      "caseId": "ST01R2-C-STALE-DIFFUSION-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "Campaign A/B stale controls"
+      ],
+      "distinctnessRationale": "Le mécanisme de garde est nécessairement apparenté, mais l'identité, le Project, le KnowledgeResult, le domaine de diffusion et la relation scientifique sont entièrement nouveaux.",
+      "admissible": true
+    }
+  ],
+  "counts": {
+    "total": 13,
+    "novel": 8,
+    "relatedButDistinct": 5,
+    "tooClose": 0,
+    "exactOrNearDuplicate": 0
+  },
+  "campaignACasesReusedAsIndependentEvidence": false,
+  "campaignBCasesReusedAsIndependentEvidence": false,
+  "repairProbesReusedAsIndependentEvidence": false,
+  "harnessMetaFixturesReusedAsIndependentEvidence": false,
+  "conclusion": "CAMPAIGN_C_PARENTAGE_ADMISSIBLE_NO_TOO_CLOSE_OR_DUPLICATE_CASE"
+}

@@ -1,0 +1,32 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_MANIFEST",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "freezeDigest": "ke1-8f713545558c1c29",
+  "harnessVersion": "2.1.0",
+  "harnessDigest": "ke1-6fd7eafe0ff78052",
+  "stVersion": "1.2.1",
+  "outputDigests": {
+    "independent-results.json": "ke1-9d0bd4e149cf511d",
+    "obligation-adjudication.json": "ke1-080f4281594bc41d",
+    "terminal-outcome-results.json": "ke1-c8072c9f12ad949b",
+    "failure-registry.json": "ke1-20a2007ac202c096",
+    "determinism-replay-results.json": "ke1-0d9f49f69adc0c02",
+    "trace-index.json": "ke1-5ef57c254fc1a7d1",
+    "characterization-summary.json": "ke1-6a5530d3ce156587"
+  },
+  "validation": {
+    "valid": true,
+    "findings": []
+  },
+  "characterization": "OWNER_REPAIR_REQUIRED",
+  "manifestDigest": "ke1-f9efa522e402468e",
+  "level": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "llmCalls": 0,
+  "externalNetworkCalls": 0,
+  "pubmedCalls": 0,
+  "projectWrites": 0,
+  "privateChainOfThoughtRecorded": false,
+  "campaignValid": true
+}

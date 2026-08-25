@@ -1,0 +1,432 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_TRACE_INDEX",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "metrics": {
+    "qualifyingCases": 13,
+    "traceCompleteCases": 13,
+    "ownerInvocationsExpected": 12,
+    "ownerInvocationsObserved": 12,
+    "preOwnerRejectionsExpected": 1,
+    "preOwnerRejectionsObserved": 1
+  },
+  "primaryRuns": [
+    {
+      "caseId": "ST01R2-C-VNCA-EDEMA-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-VNCA-EDEMA-01:primary",
+      "ledgerDigest": "ke1-ce1c2d31e507eb8d",
+      "eventRefs": [
+        "scientific-trace-event:ke1-2c3821d3ae3dcbff",
+        "scientific-trace-event:ke1-85a1a3716d64d9d5",
+        "scientific-trace-event:ke1-23caf8a4e93abbd8",
+        "scientific-trace-event:ke1-c25c4ff69691efea",
+        "scientific-trace-event:ke1-39db403a6c03411e",
+        "scientific-trace-event:ke1-21d62a889b2ec31c",
+        "scientific-trace-event:ke1-8f8800a4990d1b10"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-3cef48e2022fd416",
+      "resultRef": "scientific-thinking-output:ke1-49e0fe5db1c14a99@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-URATE-RECURRENCE-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-URATE-RECURRENCE-01:primary",
+      "ledgerDigest": "ke1-5b8b51bcd644eb60",
+      "eventRefs": [
+        "scientific-trace-event:ke1-de5255d98a589105",
+        "scientific-trace-event:ke1-365797ee2eb23342",
+        "scientific-trace-event:ke1-e73190c49fa72d80",
+        "scientific-trace-event:ke1-52ed92c177ec8e6d",
+        "scientific-trace-event:ke1-bd9ef0128d393a06",
+        "scientific-trace-event:ke1-79e40ff2d4411916",
+        "scientific-trace-event:ke1-c910e6b79f9a097b"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-e66c8280543241cc",
+      "resultRef": "scientific-thinking-output:ke1-27e48315d7f53d31@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-PCCT-CROSSTALK-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PCCT-CROSSTALK-01:primary",
+      "ledgerDigest": "ke1-7e418b3fe62803a3",
+      "eventRefs": [
+        "scientific-trace-event:ke1-bb05db240a67b8e8",
+        "scientific-trace-event:ke1-af3a634ab34cdd06",
+        "scientific-trace-event:ke1-282fb8c302b6b20f",
+        "scientific-trace-event:ke1-0940c66197e24fc5",
+        "scientific-trace-event:ke1-c075cb0b9183cb7f",
+        "scientific-trace-event:ke1-da38028668a994b2",
+        "scientific-trace-event:ke1-5b66d4dafcc1ebb6"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-220a17ba3a15019e",
+      "resultRef": "scientific-thinking-output:ke1-db956b7b0700874f@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-STRAIN-ALGORITHMS-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-STRAIN-ALGORITHMS-01:primary",
+      "ledgerDigest": "ke1-b5455407bb791b1b",
+      "eventRefs": [
+        "scientific-trace-event:ke1-1ba4f01461531518",
+        "scientific-trace-event:ke1-6f3762e8f7afc1e4",
+        "scientific-trace-event:ke1-a5e75537978f4ec3",
+        "scientific-trace-event:ke1-1b97c0a52b44e951",
+        "scientific-trace-event:ke1-ad8d48c6dc7500c2",
+        "scientific-trace-event:ke1-89c70e33e0c53a57",
+        "scientific-trace-event:ke1-464e3bc8befb0aa4"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-361c557cbcfc4f00",
+      "resultRef": "scientific-thinking-output:ke1-a1e5e4f6042f2cba@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-FOURD-FLOW-ALIASING-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-FOURD-FLOW-ALIASING-01:primary",
+      "ledgerDigest": "ke1-5548a5a9b23c38ad",
+      "eventRefs": [
+        "scientific-trace-event:ke1-e413d64a6dc5132e",
+        "scientific-trace-event:ke1-ec68a2a6bd489c2a",
+        "scientific-trace-event:ke1-ea44cd4ba752f31f",
+        "scientific-trace-event:ke1-b086e16c8938f3e0",
+        "scientific-trace-event:ke1-865b1d5ee3b69302",
+        "scientific-trace-event:ke1-a5f7b96867168ab4",
+        "scientific-trace-event:ke1-6789a45069abf56c"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-607faf8935adf0f5",
+      "resultRef": "scientific-thinking-output:ke1-600b02fdf27201f1@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-CARDIAC-DTI-HELIX-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CARDIAC-DTI-HELIX-01:primary",
+      "ledgerDigest": "ke1-d20baf002e5b9c54",
+      "eventRefs": [
+        "scientific-trace-event:ke1-40d82d292c1b508d",
+        "scientific-trace-event:ke1-689862b31c106ea7",
+        "scientific-trace-event:ke1-069cf3c4fa278778",
+        "scientific-trace-event:ke1-b5626660eecad0e4",
+        "scientific-trace-event:ke1-7782cc04e12c6c30",
+        "scientific-trace-event:ke1-e6df2d66c2a8984a",
+        "scientific-trace-event:ke1-b70977af4f032e73"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-b565bd7b85f17887",
+      "resultRef": "scientific-thinking-output:ke1-38af58bef43b2b32@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-CVR-CO2-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CVR-CO2-01:primary",
+      "ledgerDigest": "ke1-a6ca47c74943e3b3",
+      "eventRefs": [
+        "scientific-trace-event:ke1-1f0cc94330d01d5f",
+        "scientific-trace-event:ke1-e77e10b24ea41806",
+        "scientific-trace-event:ke1-e09719b9112d1a65",
+        "scientific-trace-event:ke1-4058e2aa4358d90e",
+        "scientific-trace-event:ke1-2f24241fdf51eca3",
+        "scientific-trace-event:ke1-f0fdc1b1c28eb8ed",
+        "scientific-trace-event:ke1-a4885eaec587e722"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-2408214f7634e51b",
+      "resultRef": "scientific-thinking-output:ke1-f448043e5cdda16a@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-DECONVOLUTION-DELAY-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-DECONVOLUTION-DELAY-01:primary",
+      "ledgerDigest": "ke1-3242a72b31a33777",
+      "eventRefs": [
+        "scientific-trace-event:ke1-fb7bcd68e1c8d3fc",
+        "scientific-trace-event:ke1-e06d1b7dfc73c4b9",
+        "scientific-trace-event:ke1-08c291428a484f0e",
+        "scientific-trace-event:ke1-fab142d3e35bea27",
+        "scientific-trace-event:ke1-0a047baac1c09e96",
+        "scientific-trace-event:ke1-372affc97930248d",
+        "scientific-trace-event:ke1-6b2faeffd793c5f3"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-ea01baf920d5a375",
+      "resultRef": "scientific-thinking-output:ke1-3ecec691508c9655@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-CAPILLARY-HETEROGENEITY-01:primary",
+      "ledgerDigest": "ke1-8268f13919129c4d",
+      "eventRefs": [
+        "scientific-trace-event:ke1-307d554f729d83e3",
+        "scientific-trace-event:ke1-b880ff95bd902989",
+        "scientific-trace-event:ke1-b1b68f1fda0d479b",
+        "scientific-trace-event:ke1-a45d33de676c6e8a",
+        "scientific-trace-event:ke1-74dde33e993e4bd2",
+        "scientific-trace-event:ke1-6c275f4319adaa37",
+        "scientific-trace-event:ke1-cc28cb7d070f16c1"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-1c78595c388180f8",
+      "resultRef": "scientific-thinking-output:ke1-6c68025f38219d03@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-INSUFFICIENT-RELATION-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-INSUFFICIENT-RELATION-01:primary",
+      "ledgerDigest": "ke1-601b0277c1400f53",
+      "eventRefs": [
+        "scientific-trace-event:ke1-6ae5e6a6aa201d6a",
+        "scientific-trace-event:ke1-ea3acccb6f96adbf",
+        "scientific-trace-event:ke1-cac857c4b64641d0",
+        "scientific-trace-event:ke1-a403d57589175661",
+        "scientific-trace-event:ke1-c5b854d5c6ba5b19",
+        "scientific-trace-event:ke1-e70400e3898e6217",
+        "scientific-trace-event:ke1-1a0756154f369ef1"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-4d0fb126be998ca2",
+      "resultRef": "scientific-thinking-output:ke1-f009acc880ee1f0c@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01:primary",
+      "ledgerDigest": "ke1-4285fa1a0b5474d6",
+      "eventRefs": [
+        "scientific-trace-event:ke1-7b1ba7e52dd38009",
+        "scientific-trace-event:ke1-49091fca1ae670e6",
+        "scientific-trace-event:ke1-a7445461af2f833d",
+        "scientific-trace-event:ke1-93a14a43d60e0fe7",
+        "scientific-trace-event:ke1-9442e18448c024b8",
+        "scientific-trace-event:ke1-27ce16cb75a2bd37",
+        "scientific-trace-event:ke1-d477c262b177890e"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-069806bb2095d40f",
+      "resultRef": "scientific-thinking-output:ke1-99cdcab1e272289d@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01:primary",
+      "ledgerDigest": "ke1-d919c70c29d96f20",
+      "eventRefs": [
+        "scientific-trace-event:ke1-d7aeff2973488845",
+        "scientific-trace-event:ke1-67f4b7a12081375d",
+        "scientific-trace-event:ke1-0198d5d2e8619b36",
+        "scientific-trace-event:ke1-1b4f8565a6ae4b59",
+        "scientific-trace-event:ke1-94016cae60148212",
+        "scientific-trace-event:ke1-8c27f0f29bb8a20e",
+        "scientific-trace-event:ke1-64a319279d2dc253"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "HANDOFF_ACCEPTED",
+        "OWNER_INVOCATION_STARTED",
+        "OWNER_INVOCATION_COMPLETED",
+        "RESULT_PERSISTED",
+        "RUN_COMPLETED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "requestRef": "scientific-thinking-project-request:ke1-57f095b268430c2e",
+      "resultRef": "scientific-thinking-output:ke1-1708349b094d5f67@1.2.1",
+      "error": null,
+      "rejectionStage": null
+    },
+    {
+      "caseId": "ST01R2-C-STALE-DIFFUSION-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-STALE-DIFFUSION-01:primary",
+      "ledgerDigest": "ke1-55116d83bf6b3a67",
+      "eventRefs": [
+        "scientific-trace-event:ke1-4312348b3027ad67",
+        "scientific-trace-event:ke1-b7120473a9576d2f",
+        "scientific-trace-event:ke1-33d889afe79eb2b3",
+        "scientific-trace-event:ke1-5ff8f63d0ed0bad9",
+        "scientific-trace-event:ke1-70237c7e1d684382"
+      ],
+      "eventTypes": [
+        "RUN_STARTED",
+        "HANDOFF_STARTED",
+        "STALE_RESULT_REJECTED",
+        "HANDOFF_REJECTED",
+        "RUN_FAILED"
+      ],
+      "traceQualificationComplete": "YES",
+      "executionOutcome": "EXPECTED_PRE_OWNER_REJECTION",
+      "ownerInvocationCount": 0,
+      "ownerResultCount": 0,
+      "requestRef": null,
+      "resultRef": null,
+      "error": "STALE_KNOWLEDGE_RESULT",
+      "rejectionStage": "STALE_VALIDATION"
+    }
+  ],
+  "replayRuns": [
+    {
+      "caseId": "ST01R2-C-PCCT-CROSSTALK-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-PCCT-CROSSTALK-01:replay",
+      "deterministic": true
+    },
+    {
+      "caseId": "ST01R2-C-FOURD-FLOW-ALIASING-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-FOURD-FLOW-ALIASING-01:replay",
+      "deterministic": true
+    },
+    {
+      "caseId": "ST01R2-C-STALE-DIFFUSION-01",
+      "runId": "scientific-run:W1-QUAL-01R2-ST-2026-08-26-C:ST01R2-C-STALE-DIFFUSION-01:replay",
+      "deterministic": true
+    }
+  ],
+  "privateChainOfThoughtRecorded": false
+}

@@ -1,0 +1,24 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_FAILURE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "failures": [
+    {
+      "caseId": "ST01R2-C-INSUFFICIENT-RELATION-01",
+      "class": "PROJECT_QUESTION_DRIFT",
+      "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+      "owner": "SCIENTIFIC_THINKING"
+    },
+    {
+      "caseId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01",
+      "class": "PROJECT_QUESTION_DRIFT",
+      "firstDivergentStage": "ST_PROJECT_QUESTION_RECONSTRUCTION",
+      "owner": "SCIENTIFIC_THINKING"
+    }
+  ],
+  "counts": {
+    "technical": 0,
+    "ownerCritical": 2,
+    "humanArbitration": 0
+  }
+}

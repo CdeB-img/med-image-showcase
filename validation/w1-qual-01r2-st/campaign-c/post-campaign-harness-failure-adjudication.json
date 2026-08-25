@@ -1,0 +1,94 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_POST_CAMPAIGN_HARNESS_FAILURE_ADJUDICATION",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "recordedAt": "2026-08-26T12:00:00.000Z",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "campaignFreezeDigest": "ke1-8f713545558c1c29",
+  "harnessVersion": "2.1.0",
+  "harnessDigest": "ke1-6fd7eafe0ff78052",
+  "rawCampaignManifestDigest": "ke1-f9efa522e402468e",
+  "rawEvidenceSha256": {
+    "characterization-summary.json": "c846b4e03e01a78ce02a23807cc253edf75645d28bb28a0fa8d08d3e4ca04e1c",
+    "campaign-manifest.json": "6569248fe2e6bc1f080f08451e0f6781f655a6b0e5ac2ef79187eff5f3fee21d",
+    "obligation-adjudication.json": "a134e88b28d1d752f0325a3ff705566c316ff301f367151146cd4cdd56759704",
+    "independent-results.json": "f21bcbbcda3939f20c4f24e45ce933352a7f1b4508191ff003cc40637bffe1b5"
+  },
+  "statusPlanes": {
+    "campaignStatus": "BLOCKED_BY_CHARACTERIZATION_HARNESS",
+    "harnessStatus": "NOT_READY",
+    "referenceStatus": "VALID",
+    "ownerCharacterizationStatus": "NOT_ADJUDICATED"
+  },
+  "campaignDisposition": "INVALID_EXPOSED_EVIDENCE",
+  "decision": "W1_QUAL_01R2_BLOCKED_BY_CHARACTERIZATION_HARNESS",
+  "firstDivergentStage": "CHARACTERIZATION_HARNESS",
+  "blocker": {
+    "blockerId": "W1QUAL01R2-HARNESS-PROJECT-QUESTION-TERMINAL-SEMANTICS",
+    "component": "PROJECT_QUESTION_FIDELITY evaluator",
+    "description": "The frozen evaluator requires the first output candidate question to exactly reproduce the Project question for every produced OwnerResult. That rule is not terminal-aware and misclassifies legitimate CLARIFICATION_REQUIRED/NON_TESTABLE and REFUSED/OUT_OF_DOMAIN results.",
+    "affectedCases": [
+      {
+        "caseId": "ST01R2-C-INSUFFICIENT-RELATION-01",
+        "observedOwnerStatus": "CLARIFICATION_REQUIRED",
+        "observedRefusalCode": "NON_TESTABLE",
+        "observedCandidateQuestions": 1,
+        "observedProjectQuestionBinding": "PRESERVED_IN_REQUEST_AND_SOURCE_PROJECT",
+        "rawHarnessVerdict": "PROJECT_QUESTION_DRIFT",
+        "governedAttribution": "HARNESS_FALSE_POSITIVE"
+      },
+      {
+        "caseId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01",
+        "observedOwnerStatus": "REFUSED",
+        "observedRefusalCode": "OUT_OF_DOMAIN",
+        "observedCandidateQuestions": 0,
+        "observedProjectQuestionBinding": "PRESERVED_IN_REQUEST_AND_SOURCE_PROJECT",
+        "rawHarnessVerdict": "PROJECT_QUESTION_DRIFT",
+        "governedAttribution": "HARNESS_FALSE_POSITIVE"
+      }
+    ],
+    "causalFinding": "Requiring an exact output candidate on a strict refusal conflicts with the pre-authored zero-candidate expectation; requiring the clarification prompt to equal the non-testable Project expression conflicts with the pre-authored clarification terminal semantics. The exact Project question remains bound in the typed request and canonical source snapshot in both cases.",
+    "scientificThinkingDefectEstablished": false,
+    "scientificThinkingRepairAuthorized": false
+  },
+  "retainedRawObservations": {
+    "primaryExecutions": 13,
+    "ownerResultTerminations": 12,
+    "expectedPreOwnerRejections": 1,
+    "expectedPreOwnerRejectionsCorrect": 1,
+    "ownerInvocationsExpected": 12,
+    "ownerInvocationsObserved": 12,
+    "candidateCoverage": "8/8",
+    "negativeConditionalSafety": "5/5",
+    "determinism": "3/3",
+    "traceComplete": "13/13",
+    "projectWrites": 0,
+    "llmCalls": 0,
+    "externalNetworkCalls": 0,
+    "pubmedCalls": 0
+  },
+  "immutability": {
+    "campaignA": "INVALID_EXPOSED_UNCHANGED",
+    "campaignB": "INVALID_BEFORE_ST_INVOCATION_EXPOSED_UNCHANGED",
+    "campaignC": "INVALID_EXPOSED_RAW_EVIDENCE_UNCHANGED",
+    "postFreezeHarnessRepairPerformed": false,
+    "postFreezeScientificThinkingRepairPerformed": false,
+    "campaignRerunPerformed": false,
+    "rerollPerformed": false
+  },
+  "program": {
+    "w1ArchitecturalConvergenceReady": true,
+    "w1ObservabilityReady": true,
+    "w1IndividualOwnerCharacterizationReady": false,
+    "w1ControlledLoopCharacterizationReady": false,
+    "wave1Complete": false,
+    "wave2Authorized": false,
+    "nextAuthorizedMission": "W1-QUAL-01R3_ST_CHARACTERIZATION_HARNESS_REPAIR"
+  },
+  "limitations": [
+    "Campaign C cannot support any Scientific Thinking characterization status because its frozen harness failed after observation.",
+    "The retained raw technical metrics are diagnostic evidence only and cannot be promoted to a scientific or PD-011 qualification claim.",
+    "A future R3 mission must repair and refreeze terminal-aware Project-question fidelity before any new independent campaign."
+  ]
+}

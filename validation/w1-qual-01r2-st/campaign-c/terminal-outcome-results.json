@@ -1,0 +1,117 @@
+{
+  "contract": "W1_QUAL_01R2_ST_CAMPAIGN_C_TERMINAL_OUTCOMES",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01R2-ST-2026-08-26-C",
+  "ownerResultTerminations": 12,
+  "expectedPreOwnerRejections": 1,
+  "expectedPreOwnerRejectionsCorrect": 1,
+  "unexpectedPreOwnerFailures": 0,
+  "ownerExecutionFailures": 0,
+  "nonAdjudicableTechnicalFailures": 0,
+  "cases": [
+    {
+      "caseId": "ST01R2-C-VNCA-EDEMA-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-URATE-RECURRENCE-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-PCCT-CROSSTALK-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-STRAIN-ALGORITHMS-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-FOURD-FLOW-ALIASING-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-CARDIAC-DTI-HELIX-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-CVR-CO2-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-DECONVOLUTION-DELAY-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-CAPILLARY-HETEROGENEITY-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-INSUFFICIENT-RELATION-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01",
+      "kind": "OWNER_RESULT_PRODUCED",
+      "ownerInvocationCount": 1,
+      "ownerResultCount": 1,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    },
+    {
+      "caseId": "ST01R2-C-STALE-DIFFUSION-01",
+      "kind": "EXPECTED_PRE_OWNER_REJECTION",
+      "ownerInvocationCount": 0,
+      "ownerResultCount": 0,
+      "failureClass": null,
+      "ownerRepairRequired": false
+    }
+  ]
+}
