@@ -8,10 +8,10 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 26 August 2026 |
-| Verified baseline | `d866e492194e38ed262722b91456bc1a80fb9cf7` + W1-QUAL-01H1T post-hoc technical readback of immutable Campaign D evidence |
+| Verified baseline | `7d502c0a1b1ccb7ab4b8b213f80b650d34bdde21` + W1-QUAL-01H2 recording of Charles's completed human adjudication of immutable Campaign D evidence |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
-| Portfolio diagnosis | `AUTOMATED_ST_CHARACTERIZATION_HARNESS_NOT_MATURE_FOR_SCIENTIFIC_ADJUDICATION` |
+| Portfolio diagnosis | `SCIENTIFIC_THINKING_OWNER_REPAIR_REQUIRED_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE` |
 | Superior authorities | NOXIA Founding Charter; Scientific Product Manifesto V2; applicable Level 1 specialized references |
 | Documentary authority | None. This file does not amend, replace, or extend any authority. |
 
@@ -23,12 +23,12 @@
 |---|---|
 | Portfolio state | One canonical Project snapshot now feeds native Knowledge, Scientific Thinking, Imaging and conditional REG through typed product entrypoints; native deterministic VAL observes the retained Knowledge/ST/Imaging chain through a separate append-only ValidationRun ledger; nominal owner selection remains outside this bounded product chain |
 | Active wave | `WAVE_1_SCIENTIFIC_LOOP` |
-| Current objective | Preserve historical W1-QUAL-01H1 as failed closed while the byte-identical Campaign D packet awaits manual ST case adjudication after bounded H1T technical release. |
+| Current objective | Preserve historical H1/H1T decisions and the immutable Campaign D evidence while preparing the separately authorized bounded ST owner repair against five human-adjudicated generic defect classes. |
 | Next wave | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` after Wave 1 completion |
 | Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge → Scientific Thinking → Imaging → deterministic VAL observation, plus an explicit conditional Project → REG branch, with immutable owner-result and ValidationRun retention |
 | Tested off-product corridor | Read-only adapter → CDM / DM / Biostatistics / TMP; historical SPINE and VAL fixture corridors |
 | Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
-| Main blocker | H1T reconciled the 25 historical H1 failures as three checker-to-contract mismatches without rerunning ST and released the existing packet for manual adjudication. All 12 H1–H8 reviews remain pending; no ST characterization verdict or H2 authorization exists. Campaigns A, B and C remain invalid exposed evidence. |
+| Main blocker | Charles completed all 12 H1–H8 reviews: 5/11 scientific ST-output cases are `CRITICAL_ST_DEFECT`, 6/11 are `ACCEPTABLE_WITH_LIMITATIONS`, and one stale case is a technical N/A control. ST requires bounded owner repair before individual characterization can close; controlled-loop characterization remains unauthorized. |
 | Active engineering | One wave only; no engine development is authorized by this document itself. |
 
 ### Current Wave 1 checkpoint decisions after the bounded-human-review pivot
@@ -37,7 +37,7 @@
 |---|---|---|
 | `W1_ARCHITECTURAL_CONVERGENCE_READY` | `YES` | Same canonical Project identity/snapshot, typed ownership and dependencies, immutable ledgers, stale guards, non-promotion and zero silent Project writes are demonstrated after the bounded Knowledge engine-version guard. Initial convergence was `FAILED`; post-repair convergence is `PASS`. |
 | `W1_OBSERVABILITY_READY` | `YES` | A separate append-only trace ledger binds one `ScientificRun` to the exact Project snapshot and records ordered owner, handoff, persistence, stale and VAL events with request/result/dependency/digest/error refs; replay from event N is plan-only. |
-| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | Campaigns A, B and C remain invalid exposed evidence. H1T establishes that Campaign D's 25 historical failures were checker contract mismatches and makes the packet technically readable, but all 12 human H1–H8 adjudications remain pending. No admissible ST characterization verdict exists. |
+| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | The completed human adjudication identifies five bounded critical ST defects in mechanistic reasoning, named alternatives, contradiction branching, structuring unknowns and out-of-owner escalation. Six ST outputs are acceptable with limitations and the stale control is scientific N/A; they do not cancel the five critical defects. |
 | `W1_CONTROLLED_LOOP_CHARACTERIZATION_READY` | `NO` | No controlled representative chain campaign with frozen inputs, explicit expectations and first-stage error attribution has been performed. |
 | `WAVE_1_COMPLETE` | `NO` | Architectural convergence alone is necessary and insufficient. Wave 2 remains paused. |
 
@@ -54,14 +54,14 @@
 | Owner | Current characterization status | Bounded evidence |
 |---|---|---|
 | Knowledge | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 6/6 cases fully satisfied; honest gap, ambiguity and stale readback exercised; no critical violation observed. |
-| Scientific Thinking | `NOT_ADJUDICATED / H1_PACKET_TECHNICALLY_RELEASED / MANUAL_REVIEW_PENDING` | Campaigns A, B and C remain invalid exposed evidence. Historical H1 remains `NOT_READY`; distinct H1T readback reconciles all 25 checker mismatches as technical contract-alignment defects and releases the byte-identical Campaign D packet. All H1–H8 answers remain pending; no runtime ST defect or scientific verdict is inferred. |
+| Scientific Thinking | `OWNER_REPAIR_REQUIRED_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE` | Historical H1 remains `NOT_READY` and H1T remains the later technical packet release. Charles's distinct H2 human decision completes 12/12 adjudications: 5 critical ST defects, 6 acceptable-with-limitations outputs and one stale technical N/A control. No Scientific PASS, PD-011 qualification or successful characterization is claimed. |
 | Imaging | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 4/4 cases fully satisfied; candidate modality/acquisition, QA, Core Lab, unknown and OBS boundaries preserved. |
 | REG | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 8/8 cases fully satisfied within REG-000 candidate corpus; unsupported jurisdiction and stale request fail closed; no approval claim. |
 | VAL | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 13/13 structural cases fully satisfied, including clean-chain false-positive control; no repair or scientific qualification claim. |
 
 ### Top quick wins queued in Wave 1
 
-No engineering mission is authorized automatically. The next program step is Charles's manual review of the technically released, byte-identical Campaign D packet. H2 remains unauthorized until a later explicit human decision based on completed adjudication.
+The next explicitly authorized mission is the bounded ST owner repair `W1-ST-REPAIR-02_BOUNDED_HUMAN_ADJUDICATED_REASONING_REPAIR`. It must address the five generic human-adjudicated defect classes rather than the exposed Campaign D fixtures. Controlled-loop characterization remains unauthorized until that repair and its required evidence are complete.
 
 ### Top blockers
 
@@ -454,7 +454,7 @@ These are active implementation controls traced to superior authorities and curr
 
 `CURRENT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
 
-`CURRENT_OBJECTIVE = PRESERVE_HISTORICAL_H1_AND_AWAIT_MANUAL_ST_CASE_ADJUDICATION`
+`CURRENT_OBJECTIVE = REPAIR_FIVE_HUMAN_ADJUDICATED_ST_DEFECT_CLASSES_WITHOUT_FIXTURE_OVERFIT`
 
 `NEXT_WAVE = WAVE_2_STUDY_DESIGN_TIME_CHAIN_AFTER_WAVE_1_COMPLETION`
 
@@ -464,16 +464,16 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = NONE_PENDING_MANUAL_ST_CASE_ADJUDICATION`
+`NEXT_AUTHORIZED_MISSION = W1-ST-REPAIR-02_BOUNDED_HUMAN_ADJUDICATED_REASONING_REPAIR`
 
 | Field | Contract |
 |---|---|
-| Mission goal | No engineering mission: await Charles's manual scientific adjudication of the technically released Campaign D packet. |
-| Input | Byte-identical Campaign D packet and frozen evidence, plus distinct H1T technical readback; historical H1 remains `NOT_READY` |
-| Output | Twelve completed manual H1–H8 case reviews and a later explicit human program decision, if any |
-| Definition of done | The human reviewer completes the case adjudications without automated scientific scoring, reroll, owner repair, output mutation or silent H2 authorization |
-| Engines / connections affected | None |
-| Do not touch | Frozen Campaign D registries/historical checker/outputs; ST or any owner runtime; automated H2 transition; controlled full-loop qualification; Wave 2; QRY/orchestration; Project truth; corpus enrichment; OBS; Study Design; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
+| Mission goal | Perform a future bounded ST owner repair for the five generic human-adjudicated defect classes; do not repair individual Campaign D fixtures. |
+| Input | H2 human adjudication record, five generic defect classes, immutable Campaign D evidence as non-regression evidence only, and applicable existing ST owner contracts |
+| Output | Minimal generic ST owner correction and independent evidence required by that mission, without Project writes, promotion or ownership leakage |
+| Definition of done | The five generic classes are addressed without fixture overfit; fail-closed, non-promotion, provenance, stale and owner boundaries remain preserved; no claim exceeds the bounded evidence |
+| Engines / connections affected | Scientific Thinking owner only; existing typed Knowledge → ST and downstream dependency contracts must remain intact |
+| Do not touch | Frozen Campaign D registries/checkers/inputs/outputs/TRACE/replays; other owner science or corpus; controlled full-loop qualification; Wave 2; QRY/orchestration; Project truth; OBS; Study Design; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
 
 # Engine completion queue
 
@@ -482,7 +482,7 @@ These are active implementation controls traced to superior authorities and curr
 | 1 | Research Project consumer contracts | Mixed canonical + legacy | One canonical source with governed adapters | `M` | None | Wave 0 | None | Adapter ready off-product; legacy shapes remain projections, not truth. |
 | 2 | Knowledge | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 complete | Wave 1 / 4 | Nominal owner selection | Product Knowledge → ST handoff and immutable dependency readback are complete; hands-on remains later. |
 | 3 | REG | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 | Wave 1 / 4 | Nominal owner selection | Explicit conditional invocation and immutable result retention are complete; corpus admission/coverage and hands-on remain bounded gaps. |
-| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE / REPAIRED_RECHARACTERIZATION_REQUIRED` | Await a human program decision after the non-ready H1 packet | `M` | Knowledge + Wave 0 + bounded ST repair | Wave 1 | No admissible characterization packet | Engine `1.2.1` remains byte-identical; Campaign D does not establish a runtime defect or a scientific verdict because the frozen checker gate failed. |
+| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE / HUMAN_ADJUDICATED_OWNER_REPAIR_REQUIRED` | Bounded generic owner repair, then independent recharacterization | `M` | Knowledge + Wave 0 + H2 human adjudication | Wave 1 | Five human-adjudicated critical defect classes | Engine `1.2.1` remains byte-identical in H2; Campaign D is exposed human-review evidence and may later serve only as non-regression evidence. |
 | 5 | VAL | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Typed retained K/ST/Imaging handoffs | Wave 1 / 4 | Automatic owner-loop trigger | Explicit read-only observation and immutable run retention are complete; observe/block only. |
 | 6 | Imaging | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Knowledge + ST | Wave 1 / 4 | Nominal owner selection; OBS remains an explicit limitation | Product-callable and VAL-observed do not mean executable protocol or hands-on validation. |
 | 7 | CDM | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | Wave 0 | Wave 2 | Owner-result/contribution orchestration | Planning only. |
@@ -536,7 +536,7 @@ Portfolio totals retained from the audit:
 | `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge, Scientific Thinking, Imaging, REG and VAL are explicitly product-callable, but QRY/conversation does not select owners. | No | Wave 4 | W1K01/W1ST01/W1IMG01/W1REG01/W1VAL01 product entrypoints vs nominal conversation loop |
 | `REGULATORY_CORPUS_ADMISSION_AND_COVERAGE` | `OPEN_BOUNDED_DEBT` | REG-000 is candidate/non-admitted and locally covers only FR, EU/EEA, US and international methodological/reporting guidance; other jurisdictions fail closed and no current-law completeness is claimed. | No | Separate corpus governance authorization | REG-000 v1.0.0, verified 2026-08-10; W1REG01-10–23 |
 | `SCIENTIFIC_EXECUTION_TRACE_GAP` | `CLOSED_W1_TRACE_01` | A distinct session-persisted ledger now retains exact run/Project binding, ordered owner/handoff/persistence/stale/VAL events, integrity and logical digests, bounded references, technical errors, comparator output and event-N replay plans. It remains optional, passive and non-authoritative; no replay executor was created. | No | Closed in W1-TRACE-01 | W1TRACE01 unit/corridor/diagnostic fixtures; implementation report and machine manifest |
-| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `PARTIALLY_CHARACTERIZED_WAVE_1_BLOCKER` | Knowledge, Imaging, REG and VAL remain bounded-characterized. ST Campaigns A, B and C are invalid exposed evidence. Historical Campaign D/H1 stays `NOT_READY`; H1T reconciles its 25 failures as checker-to-contract mismatches and technically releases the unchanged packet, but all 12 human adjudications remain pending. No H2 transition is inferred. | Yes | Manual ST case adjudication, then explicit human program decision | H1 freeze/manifest/report; H1T readback/release evidence; Campaign D execution evidence; exposed A/B/C evidence |
+| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `OWNER_REPAIR_REQUIRED_WAVE_1_BLOCKER` | Knowledge, Imaging, REG and VAL remain bounded-characterized. Historical H1/H1T decisions remain unchanged. Charles completed the Campaign D human adjudication: five of eleven scientific ST-output cases are critical defects, six are acceptable with limitations, and one stale case is scientific N/A. | Yes | `W1-ST-REPAIR-02_BOUNDED_HUMAN_ADJUDICATED_REASONING_REPAIR`, then independent recharacterization | H2 human adjudication record/report; H1 freeze/manifest/report; H1T readback/release evidence; immutable Campaign D evidence |
 | `SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_COVERAGE` | `CLOSED_BY_BOUNDED_REPAIR_RECHARACTERIZATION_REQUIRED` | Engine `1.2.1` accepts structurally supported current Project questions without depending exclusively on narrow legacy lexemes; independent probes demonstrate positive coverage, fail-closed negative paths, contradiction/gap preservation and zero Project write. | No | Closed in W1-ST-REPAIR-01; independently recharacterize next | Five independent probes reproduced the defect pre-repair; 9/9 post-repair checks pass; cardiac/neuro are non-regression only |
 | `CONTROLLED_LOOP_CHARACTERIZATION_GAP` | `OPEN_WAVE_1_BLOCKER` | The assembled Project → Knowledge → ST → Imaging → VAL loop has not undergone a controlled representative campaign with frozen inputs, explicit expectations, replay and first-stage attribution. | Yes | W1-LOOP-QUAL-01 candidate after individual characterization | `CONTROLLED_LOOP_CHARACTERIZATION = NOT_PERFORMED` |
 | `PREEXISTING_HISTORICAL_FIXTURE_DEBT` | `OPEN_NON_BLOCKING_DEBT` | Four IMG-001B freeze expectations, one downstream PRJ fixture and three SYS expectations (ST version, DOC decision propagation, Imaging freeze status) remain red; they concern historical interactive/freeze and SYS fixture contracts, not W1 owner convergence. | No | Historical fixture maintenance | W1-CLOSURE-01 fresh isolated runs reproduce 4/60 IMG failures, 1/73 PRJ failure and 3/34 SYS failures, matching the prior eight-failure baseline classification |
@@ -550,6 +550,7 @@ Portfolio totals retained from the audit:
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
+| W1-QUAL-01H2 | `W1_QUAL_01H2_HUMAN_ADJUDICATION_RECORDED_ST_REPAIR_REQUIRED` / checkpoint commit containing this roadmap | Literal recording of Charles's completed human adjudication of immutable Campaign D evidence | 12/12 adjudications are complete; among 11 scientific ST outputs, 5 are critical defects and 6 acceptable with limitations; the stale case is a technical N/A control; five bounded generic defect classes require ST owner repair; all engine/provider/network/campaign/replay counters remain zero | Scientific PASS, PD-011 qualification, successful ST characterization, owner repair, controlled-loop characterization, Wave 1 completion or Wave 2 authorization |
 | W1-QUAL-01H1T | `W1_QUAL_01H1T_HUMAN_REVIEW_PACKET_RELEASED_FOR_MANUAL_ADJUDICATION` / checkpoint commit containing this roadmap | Post-hoc technical readback of immutable Campaign D evidence | A distinct checker `1.1.0` matches the current original-expression, TRACE persistence and typed-conflict contracts; 10/10 generic tests pass before readback; all 25 historical FAIL entries reconcile to PASS; corrected readback is 203 PASS, 0 FAIL, 25 N/A; ST and the H1 packet remain byte-identical with zero ST/provider/LLM/network calls | A rewritten H1 result, scientific adjudication, ST characterization verdict, H2 authorization, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-QUAL-01H1 | `W1_QUAL_01H1_REVIEW_PACKET_NOT_READY` / checkpoint commit containing this roadmap | Bounded human-review Campaign D preparation and one-pass execution | Twelve fresh cases, envelopes and frozen Project+Knowledge packs passed parentage and input gates; ST `1.2.1` remained byte-identical; 11 OwnerResults and one expected stale rejection were retained with zero Project/provider/LLM/network calls; three preselected replays were stable; the first divergence is the frozen deterministic checker, whose 25 failures are attributable to three contract-expectation mismatches | A ready human-review packet, a runtime ST defect, a scientific verdict, H2 authorization, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |
 | W1-QUAL-01R2 | `W1_QUAL_01R2_BLOCKED_BY_CHARACTERIZATION_HARNESS` / checkpoint commit containing this roadmap | Expected pre-owner rejection repair, R2 harness freeze and third independent ST restart | Harness `2.1.0` correctly represents valid pre-owner rejection without request, ST invocation or OwnerResult; 18/18 harness tests passed; 13 new Campaign C cases were frozen and executed once; the stale case and its replay rejected identically with zero ST invocation; the post-campaign audit localizes two terminal-unaware Project-question false positives to the frozen harness | An admissible ST characterization, an ST owner defect, owner-repair authorization, controlled-loop characterization, PD-011 qualification, Wave 1 completion or Wave 2 authorization |

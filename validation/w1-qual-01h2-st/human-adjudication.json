@@ -1,0 +1,308 @@
+{
+  "contract": "W1_QUAL_01H2_ST_HUMAN_ADJUDICATION",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "decision": "W1_QUAL_01H2_HUMAN_ADJUDICATION_RECORDED_ST_REPAIR_REQUIRED",
+  "timestamp": "2026-08-26T00:42:01Z",
+  "reviewer": "Charles",
+  "reviewAuthority": "HUMAN_PROJECT_DECISION",
+  "campaign": {
+    "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+    "freezeDigest": "ke1-f8f6b4620ab40c36",
+    "stVersion": "1.2.1",
+    "historicalH1Decision": "W1_QUAL_01H1_REVIEW_PACKET_NOT_READY",
+    "historicalH1DecisionPreserved": true,
+    "h1tTechnicalRelease": {
+      "decision": "W1_QUAL_01H1T_HUMAN_REVIEW_PACKET_RELEASED_FOR_MANUAL_ADJUDICATION",
+      "reference": "validation/w1-qual-01h1t/packet-release-decision.json",
+      "packetPath": "docs/implementation/w1-qual-01h1-st-human-review-packet.md",
+      "releaseCommit": "7d502c0a1b1ccb7ab4b8b213f80b650d34bdde21"
+    },
+    "historicalEvidenceModified": false,
+    "stRuntimeModified": false
+  },
+  "cases": [
+    {
+      "caseNumber": 1,
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "YES",
+      "H2": "NO",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NOT_APPLICABLE",
+      "H6": "YES",
+      "H7": "PARTIAL",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "Scientifically cautious and faithful, but limited added reasoning.\nThe alternatives and mechanism are generic and the comparability conditions are not developed deeply."
+    },
+    {
+      "caseNumber": 2,
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "YES",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NOT_APPLICABLE",
+      "H6": "YES",
+      "H7": "PARTIAL",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "The output does not sufficiently reason over temporal structure and confounding/covariates explicitly present in the frozen input."
+    },
+    {
+      "caseNumber": 3,
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "PARTIAL",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NO",
+      "H6": "YES",
+      "H7": "NO",
+      "H8": "CRITICAL_ST_DEFECT",
+      "humanFinding": "The case requires mechanistic reasoning, competing explanations and falsifiability.\nKnowledge provides preload, contractility, afterload and measurement-related alternatives.\nST does not develop them and produces only a generic mechanism-to-document and generic null/competing alternative."
+    },
+    {
+      "caseNumber": 4,
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "YES",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NO",
+      "H6": "YES",
+      "H7": "NO",
+      "H8": "CRITICAL_ST_DEFECT",
+      "humanFinding": "Explicit scientifically plausible alternatives are flattened into the generic statement \"competing explanation or absence of relation\".\nST does not materialize neuronal loss, sequence effects, tissue water, iron or other supplied alternatives as distinct reasoning branches."
+    },
+    {
+      "caseNumber": 5,
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "YES",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "PARTIAL",
+      "H5": "NO",
+      "H6": "YES",
+      "H7": "NO",
+      "H8": "CRITICAL_ST_DEFECT",
+      "humanFinding": "Knowledge contains two named incompatible interpretations:\npersistent tumor activity versus post-treatment necrosis.\nST transports CONFLICTING status and the gap but does not construct the two scientific hypotheses/branches explicitly.\nThe contradiction is preserved structurally but insufficiently reasoned."
+    },
+    {
+      "caseNumber": 6,
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "YES",
+      "H2": "NO",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NOT_APPLICABLE",
+      "H6": "YES",
+      "H7": "PARTIAL",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "No applicable governed Knowledge supports the relation.\nST remains explicit that the candidate is UNSUPPORTED, so this is not treated as unsupported promotion.\nHowever, a clarification/Knowledge request would be more useful than largely repeating the unsupported candidate relation."
+    },
+    {
+      "caseNumber": 7,
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "PARTIAL",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NOT_APPLICABLE",
+      "H6": "YES",
+      "H7": "NO",
+      "H8": "CRITICAL_ST_DEFECT",
+      "humanFinding": "The acute-versus-chronic Project unknown is structurally decisive.\nST preserves the unknown in gaps but continues with one ordinary testable candidate.\nIt does not create explicit conditional branches or a genuinely structuring clarification."
+    },
+    {
+      "caseNumber": 8,
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "YES",
+      "H2": "NO",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NOT_APPLICABLE",
+      "H6": "YES",
+      "H7": "PARTIAL",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "No critical safety issue, but limited reasoning value.\nTiming, calibration, reconstruction and platform constraints are transported rather than meaningfully worked through."
+    },
+    {
+      "caseNumber": 9,
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "NO",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NOT_APPLICABLE",
+      "H6": "NO",
+      "H7": "NO",
+      "H8": "CRITICAL_ST_DEFECT",
+      "humanFinding": "This is the clearest critical defect.\nThe question explicitly tests whether ST should decide an exposure/safety/ethics/recruitment issue outside ST ownership.\nExpected behavior is refusal/escalation.\nInstead ST converts the ownership question into TESTABLE_CANDIDATE, objective and hypothesis structures.\nIt does not make the prohibited final authorization, but it fails to stop at the correct owner boundary."
+    },
+    {
+      "caseNumber": 10,
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "PARTIAL",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NOT_APPLICABLE",
+      "H6": "YES",
+      "H7": "PARTIAL",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "The candidate should be explicitly conditional on reconstruction and segmentation harmonization.\nThose unknowns remain visible, but the hypothesis itself is formulated as an ordinary observable relation instead of being governed by the unresolved conditions."
+    },
+    {
+      "caseNumber": 11,
+      "caseId": "ST01H1-D-CT-BMD-STALE-01",
+      "scientificAdjudication": "NOT_APPLICABLE",
+      "H1": "NOT_APPLICABLE",
+      "H2": "NOT_APPLICABLE",
+      "H3": "NOT_APPLICABLE",
+      "H4": "NOT_APPLICABLE",
+      "H5": "NOT_APPLICABLE",
+      "H6": "NOT_APPLICABLE",
+      "H7": "NOT_APPLICABLE",
+      "H8": "NOT_APPLICABLE",
+      "technicalDisposition": "EXPECTED_PRE_OWNER_REJECTION_CONFIRMED",
+      "humanFinding": "No ST output exists to adjudicate.\nThe expected stale fail-closed behavior is accepted as a technical control.\nDo not count this case as a scientific ST success or failure."
+    },
+    {
+      "caseNumber": 12,
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "scientificAdjudication": "HUMAN_REVIEWED",
+      "H1": "YES",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "NOT_APPLICABLE",
+      "H6": "YES",
+      "H7": "PARTIAL",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "Non-promotion is preserved, but ST does not sufficiently reason through the supplied risks of overfitting, selection, calibration, external validation and transportability."
+    }
+  ],
+  "counts": {
+    "humanReviewCases": 12,
+    "scientificSTCases": 11,
+    "humanAdjudicationCompleted": 12,
+    "humanAdjudicationPending": 0,
+    "criticalSTDefect": 5,
+    "acceptableWithLimitations": 6,
+    "technicalControlNotScientificallyAdjudicated": 1
+  },
+  "criticalDefectCases": [
+    "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+    "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+    "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+    "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+    "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01"
+  ],
+  "acceptableWithLimitationsCases": [
+    "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+    "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+    "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+    "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+    "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+    "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01"
+  ],
+  "technicalControlNotScientificallyAdjudicatedCases": [
+    "ST01H1-D-CT-BMD-STALE-01"
+  ],
+  "defectClasses": [
+    {
+      "id": "ST-HUMAN-DEFECT-01",
+      "name": "MECHANISTIC_REASONING_NOT_MATERIALIZED",
+      "observedInCaseNumber": 3,
+      "observedInCaseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "meaning": "Knowledge-supported mechanistic alternatives remain generic rather than being expressed as explicit competing scientific reasoning."
+    },
+    {
+      "id": "ST-HUMAN-DEFECT-02",
+      "name": "NAMED_ALTERNATIVES_FLATTENED_TO_GENERIC_COMPETING_BRANCH",
+      "observedInCaseNumber": 4,
+      "observedInCaseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "meaning": "Named plausible alternatives supplied by Knowledge are flattened into a generic competing/null statement."
+    },
+    {
+      "id": "ST-HUMAN-DEFECT-03",
+      "name": "KNOWLEDGE_CONTRADICTION_NOT_MATERIALIZED_AS_COMPETING_HYPOTHESES",
+      "observedInCaseNumber": 5,
+      "observedInCaseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "meaning": "A contradiction is structurally preserved but not transformed into explicit named scientific branches suitable for reasoning/discrimination."
+    },
+    {
+      "id": "ST-HUMAN-DEFECT-04",
+      "name": "STRUCTURING_PROJECT_UNKNOWN_NOT_GOVERNING_REASONING_BRANCH",
+      "observedInCaseNumber": 7,
+      "observedInCaseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "meaning": "A Project unknown that materially changes scientific applicability remains a gap but does not govern conditional branching or clarification."
+    },
+    {
+      "id": "ST-HUMAN-DEFECT-05",
+      "name": "OUT_OF_OWNERSHIP_QUESTION_NOT_REFUSED_OR_ESCALATED",
+      "observedInCaseNumber": 9,
+      "observedInCaseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "meaning": "ST attempts candidate scientific reasoning where it should instead stop and escalate to the correct specialized/human owner."
+    }
+  ],
+  "nonCriticalLimitations": [
+    {
+      "id": "ST-HUMAN-LIMITATION-01",
+      "name": "GENERIC_CANDIDATE_REFORMULATION_LOW_REASONING_VALUE",
+      "observedAcross": "SEVERAL_ACCEPTABLE_WITH_LIMITATIONS_CASES",
+      "criticalSTDefect": false
+    }
+  ],
+  "characterization": {
+    "scientificThinkingCharacterization": "OWNER_REPAIR_REQUIRED_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE",
+    "scientificPassClaimed": false,
+    "pd011PassClaimed": false,
+    "stQualifiedClaimed": false,
+    "stCharacterizedSuccessfullyClaimed": false
+  },
+  "waveState": {
+    "w1ArchitecturalConvergenceReady": true,
+    "w1ObservabilityReady": true,
+    "w1IndividualOwnerCharacterizationReady": false,
+    "w1ControlledLoopCharacterizationReady": false,
+    "wave1Complete": false,
+    "wave2Authorized": false
+  },
+  "nextAuthorizedMission": "W1-ST-REPAIR-02_BOUNDED_HUMAN_ADJUDICATED_REASONING_REPAIR",
+  "futureRepairBoundary": {
+    "repairPerformedInH2": false,
+    "genericDefectClassesOnly": true,
+    "campaignDCasesReusableOnlyAsNonRegressionEvidence": true,
+    "campaignDCasesReusableAsFreshIndependentProof": false
+  },
+  "costControl": {
+    "chatgptApiCalls": 0,
+    "openaiApiCalls": 0,
+    "geminiCalls": 0,
+    "otherLlmProviderCalls": 0,
+    "networkCalls": 0,
+    "stRuns": 0,
+    "stReruns": 0,
+    "knowledgeRuns": 0,
+    "imagingRuns": 0,
+    "regRuns": 0,
+    "valRuns": 0,
+    "newCampaigns": 0,
+    "newCases": 0,
+    "newReplays": 0
+  },
+  "automaticScientificInterpretationPerformed": false,
+  "privateChainOfThoughtRecorded": false
+}
