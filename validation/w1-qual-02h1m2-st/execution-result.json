@@ -1,0 +1,2314 @@
+{
+  "contract": "W1_QUAL_02H1M2_FRESH_MECHANISTIC_EXECUTION_RESULT",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "campaignId": "W1-QUAL-02H1M2-ST-2026-08-26-F",
+  "caseId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+  "freeze": {
+    "freezeDigest": "ke1-ee0684314952ca9d",
+    "frozenInputDigest": "ke1-b6524cb2102e549e",
+    "fileSha256Before": "12f438d899a507887dad4d59a9be9fe09de69eaec20a28711207bf88a91ec8cf",
+    "fileSha256After": "12f438d899a507887dad4d59a9be9fe09de69eaec20a28711207bf88a91ec8cf",
+    "unchanged": true,
+    "inputDigestChecks": {
+      "case": true,
+      "parentage": true,
+      "envelope": true,
+      "project": true,
+      "projectSnapshot": true,
+      "knowledgeRequest": true,
+      "knowledgeResult": true,
+      "knowledgeOwnerResult": true,
+      "ledger": true,
+      "frozenInput": true
+    }
+  },
+  "stIdentity": {
+    "engine": "SCIENTIFIC_THINKING",
+    "version": "1.2.2",
+    "runtimeHashes": {
+      "engine": {
+        "path": "src/features/scientific-thinking/engine.ts",
+        "expectedSha256": "edb070f46c7c986ee6980cb955e3d5fc535413782b4e5bcd198f3ca0be59b427",
+        "observedSha256": "edb070f46c7c986ee6980cb955e3d5fc535413782b4e5bcd198f3ca0be59b427",
+        "unchanged": true
+      },
+      "types": {
+        "path": "src/features/scientific-thinking/types.ts",
+        "expectedSha256": "d07e089e2f6fb9c55fa4b9b4b50946727d7a7d9072a876e4d41d213ea3f63f81",
+        "observedSha256": "d07e089e2f6fb9c55fa4b9b4b50946727d7a7d9072a876e4d41d213ea3f63f81",
+        "unchanged": true
+      },
+      "input": {
+        "path": "src/features/scientific-thinking/input.ts",
+        "expectedSha256": "427176ba84dc2a4c10cf38cdd53390d2e96b40b08449aad6aca09b6f8ef60215",
+        "observedSha256": "427176ba84dc2a4c10cf38cdd53390d2e96b40b08449aad6aca09b6f8ef60215",
+        "unchanged": true
+      },
+      "projectChain": {
+        "path": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts",
+        "expectedSha256": "a73916e16557300767249a3309af635c6b9b5241276df0b0dd4d2e0bc72b85a3",
+        "observedSha256": "a73916e16557300767249a3309af635c6b9b5241276df0b0dd4d2e0bc72b85a3",
+        "unchanged": true
+      },
+      "productRuntime": {
+        "path": "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts",
+        "expectedSha256": "bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7",
+        "observedSha256": "bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7",
+        "unchanged": true
+      }
+    },
+    "runtimeModified": false
+  },
+  "execution": {
+    "startedAt": "2026-08-26T12:40:00.000Z",
+    "completedAt": "2026-08-26T12:40:01.000Z",
+    "invocationPolicy": "EXACTLY_ONE_LOCAL_ST_INVOCATION_NO_RERUN",
+    "stInvocations": 1,
+    "rerolls": 0,
+    "postObservationRepairs": 0,
+    "executionError": null,
+    "status": "CANDIDATES_PROPOSED"
+  },
+  "frozenInputReadback": {
+    "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+    "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+    "projectDigest": "ke1-21c69c91621b64d5",
+    "snapshotDigest": "ke1-287ac41c33374740",
+    "knowledgeResultId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+    "knowledgeResultVersion": "1",
+    "knowledgeResultDigest": "ke1-5bcced8e25ce551a",
+    "namedKnowledgeStatementCount": 3,
+    "knownGapCount": 1,
+    "limitationCount": 4,
+    "envelopeId": "human-review-envelope:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+    "humanReviewStatuses": {
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    }
+  },
+  "stRequest": {
+    "contractVersion": "1.2.2",
+    "requestId": "scientific-thinking-project-request:ke1-9445fa32e9aaf186",
+    "originalExpression": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ? Fournir une sortie fraîche permettant à l'humain d'examiner si ST matérialise et travaille avec plusieurs contributeurs mécanistiques tissulaires nommés sans en sélectionner un comme explication gagnante.",
+    "validatedReformulation": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ?",
+    "language": "fr",
+    "scientificIntent": {
+      "intentRef": "project-scientific-intent:project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+      "userExpertise": "UNKNOWN",
+      "sourceJourney": "DESIGN_STUDY",
+      "semanticModelRef": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+      "semanticModelDigest": "ke1-21c69c91621b64d5"
+    },
+    "researchContext": {
+      "sessionId": "owner-chain:project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+      "contextVersion": 1,
+      "researchProjectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+      "previousDecisionIds": [
+        "project-contribution-decision:ke1-1a33c6b6449ef73a"
+      ]
+    },
+    "scientificObjectTerms": [
+      "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ?",
+      "Examiner comment plusieurs compartiments tissulaires peuvent contribuer au phénotype sans sélectionner une explication unique.",
+      "Adultes atteints de maladie de Fabry présentant un épaississement myocardique",
+      "Cardiomyopathie de Fabry avec épaississement myocardique observé",
+      "IRM cardiaque",
+      "Épaisseur myocardique observée",
+      "Masse myocardique observée",
+      "Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+      "Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse."
+    ],
+    "resolvedConcepts": [
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+        "label": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ?",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+        "label": "Examiner comment plusieurs compartiments tissulaires peuvent contribuer au phénotype sans sélectionner une explication unique.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+        "label": "Adultes atteints de maladie de Fabry présentant un épaississement myocardique",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+        "label": "Cardiomyopathie de Fabry avec épaississement myocardique observé",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+        "label": "IRM cardiaque",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+        "label": "Épaisseur myocardique observée",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+        "label": "Masse myocardique observée",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+        "label": "Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+        "status": "UNRESOLVED"
+      },
+      {
+        "conceptId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+        "label": "Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse.",
+        "status": "UNRESOLVED"
+      }
+    ],
+    "relations": [],
+    "population": [
+      "Adultes atteints de maladie de Fabry présentant un épaississement myocardique"
+    ],
+    "pathologyOrCondition": [
+      "Cardiomyopathie de Fabry avec épaississement myocardique observé"
+    ],
+    "phenomena": [
+      "Épaisseur myocardique observée",
+      "Masse myocardique observée"
+    ],
+    "outcomes": [
+      "Épaisseur myocardique observée",
+      "Masse myocardique observée"
+    ],
+    "methodsMentioned": [
+      "IRM cardiaque"
+    ],
+    "scientificPurpose": [
+      "Examiner comment plusieurs compartiments tissulaires peuvent contribuer au phénotype sans sélectionner une explication unique."
+    ],
+    "context": [
+      "Cardiomyopathie de Fabry avec épaississement myocardique observé"
+    ],
+    "missingInformation": [
+      "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+      "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+    ],
+    "projectUnknowns": [
+      {
+        "objectRef": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+        "objectType": "UNCERTAINTY",
+        "text": "Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés."
+      },
+      {
+        "objectRef": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+        "objectType": "UNCERTAINTY",
+        "text": "Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse."
+      }
+    ],
+    "contradictions": [],
+    "safetyFlags": [],
+    "information": {
+      "explicit": [
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question:Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ?",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective:Examiner comment plusieurs compartiments tissulaires peuvent contribuer au phénotype sans sélectionner une explication unique.",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population:Adultes atteints de maladie de Fabry présentant un épaississement myocardique",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition:Cardiomyopathie de Fabry avec épaississement myocardique observé",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1:IRM cardiaque",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1:Épaisseur myocardique observée",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2:Masse myocardique observée",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1:Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2:Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse."
+      ],
+      "interpreted": []
+    },
+    "knowledge": {
+      "ownerResultRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+      "resultId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+      "resultRevision": 1,
+      "resultDigest": "ke1-5bcced8e25ce551a",
+      "coverageStatus": "PARTIAL",
+      "support": "PARTIAL",
+      "sourceIds": [
+        "PD-002@1.0"
+      ],
+      "assertionRefs": [
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION"
+      ],
+      "documentaryStatementRefs": [],
+      "evidenceRefs": [
+        "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+        "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+        "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION"
+      ],
+      "applicability": [
+        {
+          "assertionRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+          "status": "APPLICABLE_WITH_LIMITATIONS"
+        },
+        {
+          "assertionRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+          "status": "APPLICABLE_WITH_LIMITATIONS"
+        },
+        {
+          "assertionRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+          "status": "APPLICABLE_WITH_LIMITATIONS"
+        }
+      ],
+      "contradictionRefs": [],
+      "contradictions": [],
+      "gapRefs": [
+        "gap:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED"
+      ],
+      "gapCodes": [
+        "RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED"
+      ],
+      "reasoningStatements": [
+        {
+          "statementRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+          "text": "Le contenu sphingolipidique intracellulaire stocké constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "GOVERNED_DOCUMENTARY",
+          "applicability": "APPLICABLE_WITH_LIMITATIONS",
+          "limitations": [
+            "Le T1 natif est un signal composite indirect et non un dosage moléculaire du Gb3.",
+            "La part volumique du stockage ne peut pas être déduite de l'épaisseur seule."
+          ],
+          "evidenceRefs": [
+            "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE"
+          ],
+          "sourceRefs": [
+            "PD-002@1.0"
+          ],
+          "owner": "KNOWLEDGE",
+          "ownershipTransferred": false
+        },
+        {
+          "statementRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+          "text": "L'hypertrophie réelle des cardiomyocytes constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "GOVERNED_DOCUMENTARY",
+          "applicability": "APPLICABLE_WITH_LIMITATIONS",
+          "limitations": [
+            "L'hypertrophie observée est un phénotype et non un mécanisme unique.",
+            "La géométrie et les choix d'analyse de masse influencent l'observation."
+          ],
+          "evidenceRefs": [
+            "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY"
+          ],
+          "sourceRefs": [
+            "PD-002@1.0"
+          ],
+          "owner": "KNOWLEDGE",
+          "ownershipTransferred": false
+        },
+        {
+          "statementRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+          "text": "L'expansion extracellulaire régionale constitue un troisième contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "GOVERNED_DOCUMENTARY",
+          "applicability": "APPLICABLE_WITH_LIMITATIONS",
+          "limitations": [
+            "Une composante extracellulaire régionale ne peut pas être assimilée automatiquement à toute la masse myocardique.",
+            "La fibrose diffuse hors LGE reste moins bien établie que la cicatrice focale."
+          ],
+          "evidenceRefs": [
+            "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION"
+          ],
+          "sourceRefs": [
+            "PD-002@1.0"
+          ],
+          "owner": "KNOWLEDGE",
+          "ownershipTransferred": false
+        }
+      ],
+      "controversies": [],
+      "gaps": [
+        {
+          "gapRef": "gap:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED",
+          "code": "RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED",
+          "explanation": "Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+          "resumeCondition": "Apporter des observations régionales et longitudinales capables de discriminer les compartiments; aucune attribution automatique à partir de l'épaisseur seule."
+        }
+      ],
+      "unresolvedConcepts": [],
+      "limitations": [
+        "La proportion relative du stockage intracellulaire, de l'hypertrophie cardiomyocytaire et de l'expansion extracellulaire varie avec le stade et n'est pas résolue par l'épaisseur ou la masse seules.",
+        "Une augmentation de masse myocardique n'est équivalente ni à une augmentation du stockage ni à une augmentation de la fibrose.",
+        "La mesure de masse dépend notamment du traitement analytique des muscles papillaires et des trabéculations.",
+        "Le modèle de stades est une charpente issue surtout de données observationnelles; il ne constitue pas une horloge individuelle universelle."
+      ]
+    }
+  },
+  "stOutput": {
+    "contractVersion": "1.2.2",
+    "outputId": "scientific-thinking-output:ke1-7457a68566d4aba9",
+    "outputDigest": "ke1-7457a68566d4aba9",
+    "status": "CANDIDATES_PROPOSED",
+    "candidateNotice": "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+    "originalIdea": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ? Fournir une sortie fraîche permettant à l'humain d'examiner si ST matérialise et travaille avec plusieurs contributeurs mécanistiques tissulaires nommés sans en sélectionner un comme explication gagnante.",
+    "understoodProblem": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ?",
+    "centralScientificObject": "Épaisseur myocardique observée",
+    "semanticElements": [
+      {
+        "elementId": "ST-I-001",
+        "type": "OBSERVATION",
+        "text": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ? Fournir une sortie fraîche permettant à l'humain d'examiner si ST matérialise et travaille avec plusieurs contributeurs mécanistiques tissulaires nommés sans en sélectionner un comme explication gagnante.",
+        "source": "USER_EXPLICIT",
+        "confidence": "HIGH",
+        "support": "PARTIAL"
+      },
+      {
+        "elementId": "ST-I-002",
+        "type": "ASSUMPTION",
+        "text": "La relation exprimée est traitée comme une supposition à examiner, non comme un résultat.",
+        "source": "NOXIA_CANDIDATE",
+        "confidence": "MEDIUM",
+        "support": "PARTIAL"
+      }
+    ],
+    "questions": [
+      {
+        "questionId": "ST-Q-001",
+        "text": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ?",
+        "kind": "PRIMARY",
+        "rationale": "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
+        "testability": "TESTABLE_CANDIDATE",
+        "scope": "BALANCED",
+        "support": "PARTIAL",
+        "reviewState": "PENDING",
+        "linkedAssumptionIds": [
+          "ST-A-001"
+        ],
+        "sourceTerms": [
+          "Adultes atteints de maladie de Fabry présentant un épaississement myocardique",
+          "Cardiomyopathie de Fabry avec épaississement myocardique observé"
+        ]
+      }
+    ],
+    "hypotheses": [
+      {
+        "hypothesisId": "ST-H-001",
+        "text": "La relation formulée dans « Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique  » est observable dans le contexte précisé.",
+        "kind": "PRIMARY",
+        "falsifiability": "TESTABLE_CANDIDATE",
+        "observableCondition": "La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.",
+        "direction": null,
+        "limitations": [
+          "La proportion relative du stockage intracellulaire, de l'hypertrophie cardiomyocytaire et de l'expansion extracellulaire varie avec le stade et n'est pas résolue par l'épaisseur ou la masse seules.",
+          "Une augmentation de masse myocardique n'est équivalente ni à une augmentation du stockage ni à une augmentation de la fibrose.",
+          "La mesure de masse dépend notamment du traitement analytique des muscles papillaires et des trabéculations.",
+          "Le modèle de stades est une charpente issue surtout de données observationnelles; il ne constitue pas une horloge individuelle universelle."
+        ],
+        "unknowns": [
+          "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+        ],
+        "support": "PARTIAL",
+        "reviewState": "PENDING",
+        "linkedQuestionIds": [
+          "ST-Q-001"
+        ]
+      },
+      {
+        "hypothesisId": "ST-H-KNOWLEDGE-001",
+        "text": "L'expansion extracellulaire régionale constitue un troisième contributeur tissulaire distinct de l'épaississement myocardique observé.",
+        "kind": "ALTERNATIVE",
+        "falsifiability": "TESTABLE_CANDIDATE",
+        "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+        "direction": null,
+        "limitations": [
+          "La fibrose diffuse hors LGE reste moins bien établie que la cicatrice focale.",
+          "La mesure de masse dépend notamment du traitement analytique des muscles papillaires et des trabéculations.",
+          "La proportion relative du stockage intracellulaire, de l'hypertrophie cardiomyocytaire et de l'expansion extracellulaire varie avec le stade et n'est pas résolue par l'épaisseur ou la masse seules.",
+          "Le modèle de stades est une charpente issue surtout de données observationnelles; il ne constitue pas une horloge individuelle universelle.",
+          "Une augmentation de masse myocardique n'est équivalente ni à une augmentation du stockage ni à une augmentation de la fibrose.",
+          "Une composante extracellulaire régionale ne peut pas être assimilée automatiquement à toute la masse myocardique."
+        ],
+        "unknowns": [
+          "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+        ],
+        "support": "PARTIAL",
+        "reviewState": "PENDING",
+        "linkedQuestionIds": [
+          "ST-Q-001"
+        ]
+      },
+      {
+        "hypothesisId": "ST-H-KNOWLEDGE-002",
+        "text": "L'hypertrophie réelle des cardiomyocytes constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+        "kind": "ALTERNATIVE",
+        "falsifiability": "TESTABLE_CANDIDATE",
+        "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+        "direction": null,
+        "limitations": [
+          "L'hypertrophie observée est un phénotype et non un mécanisme unique.",
+          "La géométrie et les choix d'analyse de masse influencent l'observation.",
+          "La mesure de masse dépend notamment du traitement analytique des muscles papillaires et des trabéculations.",
+          "La proportion relative du stockage intracellulaire, de l'hypertrophie cardiomyocytaire et de l'expansion extracellulaire varie avec le stade et n'est pas résolue par l'épaisseur ou la masse seules.",
+          "Le modèle de stades est une charpente issue surtout de données observationnelles; il ne constitue pas une horloge individuelle universelle.",
+          "Une augmentation de masse myocardique n'est équivalente ni à une augmentation du stockage ni à une augmentation de la fibrose."
+        ],
+        "unknowns": [
+          "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+        ],
+        "support": "PARTIAL",
+        "reviewState": "PENDING",
+        "linkedQuestionIds": [
+          "ST-Q-001"
+        ]
+      },
+      {
+        "hypothesisId": "ST-H-KNOWLEDGE-003",
+        "text": "Le contenu sphingolipidique intracellulaire stocké constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+        "kind": "ALTERNATIVE",
+        "falsifiability": "TESTABLE_CANDIDATE",
+        "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+        "direction": null,
+        "limitations": [
+          "La mesure de masse dépend notamment du traitement analytique des muscles papillaires et des trabéculations.",
+          "La part volumique du stockage ne peut pas être déduite de l'épaisseur seule.",
+          "La proportion relative du stockage intracellulaire, de l'hypertrophie cardiomyocytaire et de l'expansion extracellulaire varie avec le stade et n'est pas résolue par l'épaisseur ou la masse seules.",
+          "Le modèle de stades est une charpente issue surtout de données observationnelles; il ne constitue pas une horloge individuelle universelle.",
+          "Le T1 natif est un signal composite indirect et non un dosage moléculaire du Gb3.",
+          "Une augmentation de masse myocardique n'est équivalente ni à une augmentation du stockage ni à une augmentation de la fibrose."
+        ],
+        "unknowns": [
+          "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+        ],
+        "support": "PARTIAL",
+        "reviewState": "PENDING",
+        "linkedQuestionIds": [
+          "ST-Q-001"
+        ]
+      }
+    ],
+    "objectives": [
+      {
+        "objectiveId": "ST-O-001",
+        "text": "Évaluer la question scientifique candidate : « Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique  ».",
+        "level": "PRIMARY",
+        "support": "PARTIAL",
+        "reviewState": "PENDING",
+        "linkedQuestionIds": [
+          "ST-Q-001"
+        ],
+        "linkedHypothesisIds": [
+          "ST-H-001"
+        ]
+      }
+    ],
+    "selectedQuestionCandidate": null,
+    "mechanisms": [
+      {
+        "mechanismId": "ST-M-KNOWLEDGE-001",
+        "text": "Le contenu sphingolipidique intracellulaire stocké constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+        "status": "MECHANISM_TO_DOCUMENT",
+        "support": "PARTIAL",
+        "linkedHypothesisIds": [
+          "ST-H-001",
+          "ST-H-KNOWLEDGE-001",
+          "ST-H-KNOWLEDGE-002",
+          "ST-H-KNOWLEDGE-003"
+        ]
+      },
+      {
+        "mechanismId": "ST-M-KNOWLEDGE-002",
+        "text": "L'hypertrophie réelle des cardiomyocytes constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+        "status": "MECHANISM_TO_DOCUMENT",
+        "support": "PARTIAL",
+        "linkedHypothesisIds": [
+          "ST-H-001",
+          "ST-H-KNOWLEDGE-001",
+          "ST-H-KNOWLEDGE-002",
+          "ST-H-KNOWLEDGE-003"
+        ]
+      },
+      {
+        "mechanismId": "ST-M-KNOWLEDGE-003",
+        "text": "L'expansion extracellulaire régionale constitue un troisième contributeur tissulaire distinct de l'épaississement myocardique observé.",
+        "status": "MECHANISM_TO_DOCUMENT",
+        "support": "PARTIAL",
+        "linkedHypothesisIds": [
+          "ST-H-001",
+          "ST-H-KNOWLEDGE-001",
+          "ST-H-KNOWLEDGE-002",
+          "ST-H-KNOWLEDGE-003"
+        ]
+      }
+    ],
+    "assumptions": [
+      {
+        "assumptionId": "ST-A-001",
+        "text": "La relation exprimée entre Adultes atteints de maladie de Fabry présentant un épaississement myocardique et Cardiomyopathie de Fabry avec épaississement myocardique observé est supposée avant d’être démontrée.",
+        "challenge": "Distinguer association, prédiction, temporalité et causalité ; rechercher une explication concurrente.",
+        "support": "PARTIAL",
+        "status": "CHALLENGED"
+      },
+      {
+        "assumptionId": "ST-A-002",
+        "text": "La pertinence de IRM cardiaque est présumée avant confirmation de la finalité scientifique.",
+        "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+        "support": "PARTIAL",
+        "status": "CHALLENGED"
+      }
+    ],
+    "unknowns": [
+      "Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+      "Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse.",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+      "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+      "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+    ],
+    "ambiguities": [],
+    "contradictions": [],
+    "conceptualBiases": [
+      "CAUSALITÉ_POTENTIELLEMENT_PRÉSUMÉE",
+      "SOLUTION_MÉTHODOLOGIQUE_POTENTIELLEMENT_PRÉMATURÉE"
+    ],
+    "methodPreferences": [
+      "IRM cardiaque"
+    ],
+    "alternatives": [
+      "L'expansion extracellulaire régionale constitue un troisième contributeur tissulaire distinct de l'épaississement myocardique observé.",
+      "L'hypertrophie réelle des cardiomyocytes constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+      "Le contenu sphingolipidique intracellulaire stocké constitue un contributeur tissulaire distinct de l'épaississement myocardique observé."
+    ],
+    "reasoningIssues": [],
+    "operations": [
+      {
+        "operation": "CLARIFY_IDEA",
+        "status": "NOT_APPLICABLE",
+        "reason": "Aucun élément actuel ne justifie cette opération."
+      },
+      {
+        "operation": "REFORMULATE_QUESTION",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "SPLIT_QUESTION",
+        "status": "NOT_APPLICABLE",
+        "reason": "Aucun élément actuel ne justifie cette opération."
+      },
+      {
+        "operation": "MERGE_QUESTIONS",
+        "status": "AVAILABLE",
+        "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+      },
+      {
+        "operation": "REDUCE_SCOPE",
+        "status": "AVAILABLE",
+        "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+      },
+      {
+        "operation": "EXPAND_SCOPE",
+        "status": "AVAILABLE",
+        "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+      },
+      {
+        "operation": "IDENTIFY_ASSUMPTION",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "CHALLENGE_ASSUMPTION",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "GENERATE_ALTERNATIVE_HYPOTHESIS",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "REFINE_HYPOTHESIS",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "REJECT_NON_TESTABLE_HYPOTHESIS",
+        "status": "NOT_APPLICABLE",
+        "reason": "Aucun élément actuel ne justifie cette opération."
+      },
+      {
+        "operation": "IDENTIFY_MECHANISM",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "IDENTIFY_MISSING_INFORMATION",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "IDENTIFY_CONTRADICTION",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "IDENTIFY_CONCEPTUAL_BIAS",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "PROPOSE_OBJECTIVES",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "PRIORITIZE_OBJECTIVES_FOR_REVIEW",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "REQUEST_KNOWLEDGE",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "REQUEST_HUMAN_DECISION",
+        "status": "EXECUTED",
+        "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+      },
+      {
+        "operation": "PREPARE_RESEARCH_DESIGN_HANDOFF",
+        "status": "BLOCKED",
+        "reason": "Les portes humaines ou les informations décisionnelles ne sont pas encore satisfaites."
+      }
+    ],
+    "adaptiveQuestions": [],
+    "humanGates": [
+      {
+        "gateId": "ST-G-QUESTION_CONFIRMATION",
+        "type": "QUESTION_CONFIRMATION",
+        "label": "Confirmer une question candidate",
+        "reason": "Une reformulation candidate ne devient jamais automatiquement la question du projet.",
+        "status": "PENDING",
+        "decidedAt": null
+      },
+      {
+        "gateId": "ST-G-HYPOTHESIS_ADOPTION",
+        "type": "HYPOTHESIS_ADOPTION",
+        "label": "Adopter ou rejeter les hypothèses",
+        "reason": "Chaque hypothèse reste une proposition réfutable soumise à revue.",
+        "status": "PENDING",
+        "decidedAt": null
+      },
+      {
+        "gateId": "ST-G-OBJECTIVE_HIERARCHY",
+        "type": "OBJECTIVE_HIERARCHY",
+        "label": "Valider la hiérarchie des objectifs",
+        "reason": "Le moteur propose une hiérarchie mais ne décide pas de la priorité scientifique.",
+        "status": "PENDING",
+        "decidedAt": null
+      },
+      {
+        "gateId": "ST-G-MAJOR_SCOPE_CHANGE",
+        "type": "MAJOR_SCOPE_CHANGE",
+        "label": "Autoriser une modification majeure",
+        "reason": "Un changement majeur invalide explicitement les éléments dépendants.",
+        "status": "NOT_REQUIRED",
+        "decidedAt": null
+      },
+      {
+        "gateId": "ST-G-BRANCH_ABANDONMENT",
+        "type": "BRANCH_ABANDONMENT",
+        "label": "Confirmer l’abandon d’une branche",
+        "reason": "Une question ou hypothèse ne disparaît pas silencieusement.",
+        "status": "NOT_REQUIRED",
+        "decidedAt": null
+      },
+      {
+        "gateId": "ST-G-DESIGN_TRANSITION",
+        "type": "DESIGN_TRANSITION",
+        "label": "Autoriser le passage à la conception d’étude",
+        "reason": "Le handoff transmet uniquement le raisonnement confirmé et ses inconnues.",
+        "status": "PENDING",
+        "decidedAt": null
+      }
+    ],
+    "changes": [],
+    "refusal": null,
+    "knowledgeRequest": {
+      "status": "OPTIONAL",
+      "reason": "Les candidats restent visibles mais ne peuvent pas être présentés comme soutenus par le corpus exécutable courant.",
+      "unresolvedConcepts": [],
+      "gapCodes": [
+        "RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED"
+      ]
+    },
+    "proposedNextAction": "REVIEW_CANDIDATES",
+    "humanDecisionRequired": true,
+    "knowledgeDependencies": [
+      {
+        "owner": "KNOWLEDGE",
+        "ownershipTransferred": false,
+        "knowledgeOwnerResultRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+        "knowledgeResultRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+        "knowledgeResultRevision": 1,
+        "knowledgeResultDigest": "ke1-5bcced8e25ce551a",
+        "candidateRefs": [
+          "ST-H-001",
+          "ST-H-KNOWLEDGE-001",
+          "ST-H-KNOWLEDGE-002",
+          "ST-H-KNOWLEDGE-003",
+          "ST-M-KNOWLEDGE-001",
+          "ST-M-KNOWLEDGE-002",
+          "ST-M-KNOWLEDGE-003",
+          "ST-O-001",
+          "ST-Q-001"
+        ],
+        "assertionRefs": [
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION"
+        ],
+        "documentaryStatementRefs": [],
+        "evidenceRefs": [
+          "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+          "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+          "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION"
+        ],
+        "sourceRefs": [
+          "PD-002@1.0"
+        ],
+        "applicability": [
+          {
+            "assertionRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+            "status": "APPLICABLE_WITH_LIMITATIONS"
+          },
+          {
+            "assertionRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+            "status": "APPLICABLE_WITH_LIMITATIONS"
+          },
+          {
+            "assertionRef": "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+            "status": "APPLICABLE_WITH_LIMITATIONS"
+          }
+        ],
+        "contradictionRefs": [],
+        "gapRefs": [
+          "gap:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED"
+        ]
+      }
+    ],
+    "provenance": {
+      "engineVersion": "1.2.2",
+      "inputRef": "scientific-thinking-project-request:ke1-9445fa32e9aaf186",
+      "knowledgeResultRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+      "sourceRefs": [
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+        "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+        "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+        "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+        "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+        "PD-002@1.0",
+        "project-contribution-decision:ke1-1a33c6b6449ef73a"
+      ],
+      "policyRefs": [
+        "RDE-001",
+        "RDE-002",
+        "PD-003",
+        "PD-009",
+        "KE-001"
+      ],
+      "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+    },
+    "graph": {
+      "projectionVersion": "RUNTIME_PROJECTION_1.0",
+      "ontologyStatus": "NO_NEW_ONTOLOGY",
+      "nodes": [
+        {
+          "nodeId": "ST-N-SITUATION",
+          "type": "SITUATION",
+          "label": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ? Fournir une sortie fraîche permettant à l'humain d'examiner si ST matérialise et travaille avec plusieurs contributeurs mécanistiques tissulaires nommés sans en sélectionner un comme explication gagnante.",
+          "status": "USER_STATED",
+          "sourceRef": "scientific-thinking-project-request:ke1-9445fa32e9aaf186"
+        },
+        {
+          "nodeId": "ST-N-ST-I-001",
+          "type": "OBSERVATION",
+          "label": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ? Fournir une sortie fraîche permettant à l'humain d'examiner si ST matérialise et travaille avec plusieurs contributeurs mécanistiques tissulaires nommés sans en sélectionner un comme explication gagnante.",
+          "status": "USER_STATED",
+          "sourceRef": "ST-I-001"
+        },
+        {
+          "nodeId": "ST-N-ST-I-002",
+          "type": "ASSUMPTION",
+          "label": "La relation exprimée est traitée comme une supposition à examiner, non comme un résultat.",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-I-002"
+        },
+        {
+          "nodeId": "ST-N-ST-Q-001",
+          "type": "SCIENTIFIC_QUESTION",
+          "label": "Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ?",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-Q-001"
+        },
+        {
+          "nodeId": "ST-N-ST-A-001",
+          "type": "ASSUMPTION",
+          "label": "La relation exprimée entre Adultes atteints de maladie de Fabry présentant un épaississement myocardique et Cardiomyopathie de Fabry avec épaississement myocardique observé est supposée avant d’être démontrée.",
+          "status": "OPEN",
+          "sourceRef": "ST-A-001"
+        },
+        {
+          "nodeId": "ST-N-ST-A-002",
+          "type": "ASSUMPTION",
+          "label": "La pertinence de IRM cardiaque est présumée avant confirmation de la finalité scientifique.",
+          "status": "OPEN",
+          "sourceRef": "ST-A-002"
+        },
+        {
+          "nodeId": "ST-N-ST-H-001",
+          "type": "HYPOTHESIS",
+          "label": "La relation formulée dans « Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique  » est observable dans le contexte précisé.",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-H-001"
+        },
+        {
+          "nodeId": "ST-N-ST-H-KNOWLEDGE-001",
+          "type": "HYPOTHESIS",
+          "label": "L'expansion extracellulaire régionale constitue un troisième contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-H-KNOWLEDGE-001"
+        },
+        {
+          "nodeId": "ST-N-ST-H-KNOWLEDGE-002",
+          "type": "HYPOTHESIS",
+          "label": "L'hypertrophie réelle des cardiomyocytes constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-H-KNOWLEDGE-002"
+        },
+        {
+          "nodeId": "ST-N-ST-H-KNOWLEDGE-003",
+          "type": "HYPOTHESIS",
+          "label": "Le contenu sphingolipidique intracellulaire stocké constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-H-KNOWLEDGE-003"
+        },
+        {
+          "nodeId": "ST-N-ST-O-001",
+          "type": "OBJECTIVE",
+          "label": "Évaluer la question scientifique candidate : « Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique  ».",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-O-001"
+        },
+        {
+          "nodeId": "ST-N-ST-M-KNOWLEDGE-001",
+          "type": "MECHANISM",
+          "label": "Le contenu sphingolipidique intracellulaire stocké constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-M-KNOWLEDGE-001"
+        },
+        {
+          "nodeId": "ST-N-ST-M-KNOWLEDGE-002",
+          "type": "MECHANISM",
+          "label": "L'hypertrophie réelle des cardiomyocytes constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-M-KNOWLEDGE-002"
+        },
+        {
+          "nodeId": "ST-N-ST-M-KNOWLEDGE-003",
+          "type": "MECHANISM",
+          "label": "L'expansion extracellulaire régionale constitue un troisième contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "CANDIDATE",
+          "sourceRef": "ST-M-KNOWLEDGE-003"
+        },
+        {
+          "nodeId": "ST-N-GAP-1",
+          "type": "KNOWLEDGE_GAP",
+          "label": "Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-2",
+          "type": "KNOWLEDGE_GAP",
+          "label": "Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse.",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-3",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-4",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-5",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-6",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-7",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-8",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-9",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-10",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-11",
+          "type": "KNOWLEDGE_GAP",
+          "label": "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-12",
+          "type": "KNOWLEDGE_GAP",
+          "label": "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-GAP-13",
+          "type": "KNOWLEDGE_GAP",
+          "label": "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+          "status": "OPEN",
+          "sourceRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01"
+        },
+        {
+          "nodeId": "ST-N-METHOD-1",
+          "type": "METHOD_PREFERENCE",
+          "label": "IRM cardiaque",
+          "status": "USER_STATED",
+          "sourceRef": "scientific-thinking-project-request:ke1-9445fa32e9aaf186"
+        }
+      ],
+      "edges": [
+        {
+          "edgeId": "ST-E-Q-1",
+          "from": "ST-N-SITUATION",
+          "to": "ST-N-ST-Q-001",
+          "relation": "REFORMULATED_AS"
+        },
+        {
+          "edgeId": "ST-E-A-1",
+          "from": "ST-N-ST-A-001",
+          "to": "ST-N-ST-Q-001",
+          "relation": "DEPENDS_ON"
+        },
+        {
+          "edgeId": "ST-E-A-2",
+          "from": "ST-N-ST-A-002",
+          "to": "ST-N-ST-Q-001",
+          "relation": "DEPENDS_ON"
+        },
+        {
+          "edgeId": "ST-E-H-1",
+          "from": "ST-N-ST-H-001",
+          "to": "ST-N-ST-Q-001",
+          "relation": "INFORMS"
+        },
+        {
+          "edgeId": "ST-E-H-2",
+          "from": "ST-N-ST-H-KNOWLEDGE-001",
+          "to": "ST-N-ST-Q-001",
+          "relation": "INFORMS"
+        },
+        {
+          "edgeId": "ST-E-H-3",
+          "from": "ST-N-ST-H-KNOWLEDGE-002",
+          "to": "ST-N-ST-Q-001",
+          "relation": "INFORMS"
+        },
+        {
+          "edgeId": "ST-E-H-4",
+          "from": "ST-N-ST-H-KNOWLEDGE-003",
+          "to": "ST-N-ST-Q-001",
+          "relation": "INFORMS"
+        },
+        {
+          "edgeId": "ST-E-O-1",
+          "from": "ST-N-ST-O-001",
+          "to": "ST-N-ST-Q-001",
+          "relation": "ADDRESSES"
+        },
+        {
+          "edgeId": "ST-E-M-1",
+          "from": "ST-N-ST-M-KNOWLEDGE-001",
+          "to": "ST-N-ST-H-001",
+          "relation": "EXPLAINS"
+        },
+        {
+          "edgeId": "ST-E-M-2",
+          "from": "ST-N-ST-M-KNOWLEDGE-002",
+          "to": "ST-N-ST-H-001",
+          "relation": "EXPLAINS"
+        },
+        {
+          "edgeId": "ST-E-M-3",
+          "from": "ST-N-ST-M-KNOWLEDGE-003",
+          "to": "ST-N-ST-H-001",
+          "relation": "EXPLAINS"
+        },
+        {
+          "edgeId": "ST-E-GAP-1",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-1",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-2",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-2",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-3",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-3",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-4",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-4",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-5",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-5",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-6",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-6",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-7",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-7",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-8",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-8",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-9",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-9",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-10",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-10",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-11",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-11",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-12",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-12",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-GAP-13",
+          "from": "ST-N-ST-Q-001",
+          "to": "ST-N-GAP-13",
+          "relation": "REQUIRES_INFORMATION"
+        },
+        {
+          "edgeId": "ST-E-CHALLENGE-1",
+          "from": "ST-N-ST-A-001",
+          "to": "ST-N-ST-H-001",
+          "relation": "CHALLENGES"
+        },
+        {
+          "edgeId": "ST-E-CHALLENGE-2",
+          "from": "ST-N-ST-A-002",
+          "to": "ST-N-ST-H-KNOWLEDGE-001",
+          "relation": "CHALLENGES"
+        }
+      ]
+    },
+    "handoff": {
+      "handoffVersion": "1.1",
+      "status": "NOT_READY",
+      "questionId": null,
+      "hypothesisIds": [],
+      "objectiveIds": [],
+      "mechanisms": [
+        {
+          "mechanismId": "ST-M-KNOWLEDGE-001",
+          "text": "Le contenu sphingolipidique intracellulaire stocké constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "MECHANISM_TO_DOCUMENT",
+          "support": "PARTIAL",
+          "linkedHypothesisIds": [
+            "ST-H-001",
+            "ST-H-KNOWLEDGE-001",
+            "ST-H-KNOWLEDGE-002",
+            "ST-H-KNOWLEDGE-003"
+          ]
+        },
+        {
+          "mechanismId": "ST-M-KNOWLEDGE-002",
+          "text": "L'hypertrophie réelle des cardiomyocytes constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "MECHANISM_TO_DOCUMENT",
+          "support": "PARTIAL",
+          "linkedHypothesisIds": [
+            "ST-H-001",
+            "ST-H-KNOWLEDGE-001",
+            "ST-H-KNOWLEDGE-002",
+            "ST-H-KNOWLEDGE-003"
+          ]
+        },
+        {
+          "mechanismId": "ST-M-KNOWLEDGE-003",
+          "text": "L'expansion extracellulaire régionale constitue un troisième contributeur tissulaire distinct de l'épaississement myocardique observé.",
+          "status": "MECHANISM_TO_DOCUMENT",
+          "support": "PARTIAL",
+          "linkedHypothesisIds": [
+            "ST-H-001",
+            "ST-H-KNOWLEDGE-001",
+            "ST-H-KNOWLEDGE-002",
+            "ST-H-KNOWLEDGE-003"
+          ]
+        }
+      ],
+      "knownInformation": [
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition:Cardiomyopathie de Fabry avec épaississement myocardique observé",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1:IRM cardiaque",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective:Examiner comment plusieurs compartiments tissulaires peuvent contribuer au phénotype sans sélectionner une explication unique.",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population:Adultes atteints de maladie de Fabry présentant un épaississement myocardique",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question:Chez des adultes avec cardiomyopathie de Fabry et épaississement myocardique, pourquoi l'épaisseur observée dépend-elle de plusieurs compartiments tissulaires plutôt que d'un mécanisme unique ?",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1:Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2:Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse.",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1:Épaisseur myocardique observée",
+        "PROJECT_ADOPTED:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2:Masse myocardique observée"
+      ],
+      "acceptedUnknowns": [],
+      "unresolvedUnknowns": [
+        "Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+        "Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse.",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+        "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+        "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+        "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+      ],
+      "contradictions": [],
+      "decisionRecordIds": [],
+      "humanDecisions": [],
+      "alternativesNotSelected": [
+        "L'expansion extracellulaire régionale constitue un troisième contributeur tissulaire distinct de l'épaississement myocardique observé.",
+        "L'hypertrophie réelle des cardiomyocytes constitue un contributeur tissulaire distinct de l'épaississement myocardique observé.",
+        "Le contenu sphingolipidique intracellulaire stocké constitue un contributeur tissulaire distinct de l'épaississement myocardique observé."
+      ],
+      "limitations": [
+        "La proportion relative du stockage intracellulaire, de l'hypertrophie cardiomyocytaire et de l'expansion extracellulaire varie avec le stade et n'est pas résolue par l'épaisseur ou la masse seules.",
+        "Une augmentation de masse myocardique n'est équivalente ni à une augmentation du stockage ni à une augmentation de la fibrose.",
+        "La mesure de masse dépend notamment du traitement analytique des muscles papillaires et des trabéculations.",
+        "Le modèle de stades est une charpente issue surtout de données observationnelles; il ne constitue pas une horloge individuelle universelle."
+      ],
+      "provenanceRefs": [
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+        "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+        "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+        "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+        "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+        "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+        "PD-002@1.0",
+        "scientific-thinking-project-request:ke1-9445fa32e9aaf186"
+      ],
+      "knowledgeResultRef": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+      "blockedBy": [
+        "QUESTION_CONFIRMATION_REQUIRED",
+        "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+        "OBJECTIVE_HIERARCHY_REQUIRED"
+      ],
+      "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+    },
+    "trace": [
+      {
+        "sequence": 1,
+        "operation": "CLASSIFY_INPUT",
+        "mode": "DETERMINISTIC",
+        "decision": "Type sémantique initial : OBSERVATION.",
+        "inputDigest": "ke1-5a96a466a966d852",
+        "outputDigest": "ke1-4f5b105e04d017f2"
+      },
+      {
+        "sequence": 2,
+        "operation": "REFORMULATE_QUESTION",
+        "mode": "DETERMINISTIC",
+        "decision": "Construction candidate sans sélection scientifique autonome.",
+        "inputDigest": "ke1-35e8235172a7360d",
+        "outputDigest": "ke1-2e09c11b22e16d4f"
+      },
+      {
+        "sequence": 3,
+        "operation": "IDENTIFY_ASSUMPTION",
+        "mode": "DETERMINISTIC",
+        "decision": "Suppositions et biais conservés comme éléments distincts.",
+        "inputDigest": "ke1-2e09c11b22e16d4f",
+        "outputDigest": "ke1-9dda937d071a7629"
+      },
+      {
+        "sequence": 4,
+        "operation": "PROPOSE_OBJECTIVES",
+        "mode": "DETERMINISTIC",
+        "decision": "Hypothèses et objectifs proposés uniquement si la question est testable.",
+        "inputDigest": "ke1-7ab12ffb7eae6117",
+        "outputDigest": "ke1-25701397e957d6db"
+      },
+      {
+        "sequence": 5,
+        "operation": "BUILD_GRAPH",
+        "mode": "DETERMINISTIC",
+        "decision": "Projection runtime du Scientific Reasoning Graph ; aucune ontologie créée.",
+        "inputDigest": "ke1-37576f52df3f35a6",
+        "outputDigest": "ke1-ab040f9a664fd09e"
+      },
+      {
+        "sequence": 6,
+        "operation": "REQUEST_HUMAN_DECISION",
+        "mode": "HUMAN_REQUIRED",
+        "decision": "Les portes de confirmation restent sous contrôle humain.",
+        "inputDigest": "ke1-38aad9a6192a33ba",
+        "outputDigest": "ke1-42513adbef26bac7"
+      },
+      {
+        "sequence": 7,
+        "operation": "ASSESS_HANDOFF",
+        "mode": "DETERMINISTIC",
+        "decision": "Handoff : NOT_READY.",
+        "inputDigest": "ke1-418645cbf93e0a67",
+        "outputDigest": "ke1-7457a68566d4aba9"
+      }
+    ]
+  },
+  "ownerResult": {
+    "resultId": "scientific-thinking-output:ke1-7457a68566d4aba9",
+    "resultVersion": "1.2.2",
+    "owner": "SCIENTIFIC_THINKING",
+    "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+    "status": "COMPLETED_WITH_LIMITATIONS",
+    "sourceProjectRef": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+    "sourceProjectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+    "sourceProjectDigest": "ke1-21c69c91621b64d5",
+    "sourceSnapshotDigest": "ke1-287ac41c33374740",
+    "projectWriteAuthorized": false,
+    "humanDecisionRequired": true,
+    "stableProjectRefs": [
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+      "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+    ],
+    "evidenceRefs": [
+      "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+      "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+      "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+      "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+      "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+      "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+      "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+      "PD-002@1.0",
+      "project-contribution-decision:ke1-1a33c6b6449ef73a"
+    ],
+    "unknowns": [
+      "Contribution relative de chaque compartiment au stade et dans la région myocardique étudiés.",
+      "Part de l'hétérogénéité régionale masquée par une mesure globale d'épaisseur ou de masse.",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:condition",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:method:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:objective",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:population",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:question",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:1",
+      "PENDING_VERIFICATION:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:variable:2",
+      "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:1",
+      "UNKNOWN_PROJECT_OBJECT:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:unknown:2"
+    ],
+    "gaps": [
+      "RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED",
+      "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+    ],
+    "limitations": [
+      "Existing runtime is deterministic and expects its native context projection.",
+      "Proposals are never adopted automatically.",
+      "La proportion relative du stockage intracellulaire, de l'hypertrophie cardiomyocytaire et de l'expansion extracellulaire varie avec le stade et n'est pas résolue par l'épaisseur ou la masse seules.",
+      "Une augmentation de masse myocardique n'est équivalente ni à une augmentation du stockage ni à une augmentation de la fibrose.",
+      "La mesure de masse dépend notamment du traitement analytique des muscles papillaires et des trabéculations.",
+      "Le modèle de stades est une charpente issue surtout de données observationnelles; il ne constitue pas une horloge individuelle universelle.",
+      "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+    ],
+    "provenance": [
+      "scientific-thinking-handoff:ke1-d392a624883415f0",
+      "ke1-287ac41c33374740",
+      "scientific-thinking-output:ke1-7457a68566d4aba9",
+      "scientific-thinking-project-request:ke1-9445fa32e9aaf186",
+      "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+      "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+      "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+      "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+      "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+      "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+      "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+      "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+      "PD-002@1.0",
+      "scientific-thinking-project-request:ke1-9445fa32e9aaf186"
+    ]
+  },
+  "persistence": {
+    "ledgerContract": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+    "ledgerVersion": "0.2.0",
+    "ledgerDigest": "ke1-2f2f79d64f28229a",
+    "entryId": "owner-result-ledger-entry:ke1-42ac8189953d5955",
+    "entryDigest": "ke1-0aee93077f8d3b3b",
+    "retainedAt": "2026-08-26T12:40:01.000Z",
+    "resultRef": "scientific-thinking-output:ke1-7457a68566d4aba9@1.2.2"
+  },
+  "trace": {
+    "run": {
+      "contract": "SCIENTIFIC_RUN",
+      "schemaVersion": "0.1.0",
+      "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+      "startedAt": "2026-08-26T12:40:00.000Z",
+      "completedAt": "2026-08-26T12:40:01.000Z",
+      "status": "COMPLETED",
+      "project": {
+        "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+        "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+        "projectDigest": "ke1-21c69c91621b64d5",
+        "snapshotRef": "ke1-287ac41c33374740"
+      },
+      "initiatorContext": {
+        "kind": "TEST_HARNESS",
+        "initiatorRef": "W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary"
+      },
+      "eventCount": 7,
+      "firstEventId": "scientific-trace-event:ke1-a95c28ec5a81f598",
+      "lastEventId": "scientific-trace-event:ke1-6b33d27b6a1c0cd7",
+      "logicalDigest": "ke1-5443efc0be49b0d4",
+      "createdAt": "2026-08-26T12:40:00.000Z",
+      "immutableAfterFinalization": true,
+      "appendOnly": true,
+      "derived": true,
+      "authoritative": false
+    },
+    "ledgerDigest": "ke1-9df69be5d7766169",
+    "eventCount": 7,
+    "eventTypes": [
+      "RUN_STARTED",
+      "HANDOFF_STARTED",
+      "HANDOFF_ACCEPTED",
+      "OWNER_INVOCATION_STARTED",
+      "OWNER_INVOCATION_COMPLETED",
+      "RESULT_PERSISTED",
+      "RUN_COMPLETED"
+    ],
+    "events": [
+      {
+        "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+        "schemaVersion": "0.1.0",
+        "eventId": "scientific-trace-event:ke1-a95c28ec5a81f598",
+        "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+        "sequence": 1,
+        "eventType": "RUN_STARTED",
+        "timestamp": "2026-08-26T12:40:00.000Z",
+        "owner": "TRACE",
+        "engine": "SCIENTIFIC_EXECUTION_TRACE",
+        "engineVersion": "0.1.0",
+        "project": {
+          "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+          "projectDigest": "ke1-21c69c91621b64d5",
+          "snapshotRef": "ke1-287ac41c33374740"
+        },
+        "requestRef": null,
+        "inputOwnerResultRefs": [],
+        "dependencyRefs": [],
+        "outputResultRef": null,
+        "status": "RUNNING",
+        "sourceRefs": [],
+        "sourceCount": 0,
+        "evidenceRefs": [],
+        "unknownRefs": [],
+        "gapRefs": [],
+        "limitationRefs": [],
+        "contradictionRefs": [],
+        "stale": {
+          "status": "NOT_EVALUATED",
+          "expectedProject": null,
+          "receivedProject": null,
+          "expectedDependencyRefs": [],
+          "receivedDependencyRefs": []
+        },
+        "durationMs": null,
+        "error": null,
+        "diagnostic": {
+          "stage": "PROJECT_CONTEXT",
+          "code": "PROJECT_SNAPSHOT_BOUND"
+        },
+        "previousEventId": null,
+        "nextExpectedHandoff": null,
+        "technicalMetadata": {},
+        "appendOnly": true,
+        "derived": true,
+        "projectWriteAuthorized": false,
+        "repairAuthorized": false,
+        "scientificDecisionAuthorized": false,
+        "privateReasoningStored": false,
+        "logicalDigest": "ke1-fccb680b684b092f",
+        "eventDigest": "ke1-3c634211eefb3efd"
+      },
+      {
+        "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+        "schemaVersion": "0.1.0",
+        "eventId": "scientific-trace-event:ke1-b6b0545d7d7b07d1",
+        "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+        "sequence": 2,
+        "eventType": "HANDOFF_STARTED",
+        "timestamp": "2026-08-26T12:40:00.000Z",
+        "owner": "SCIENTIFIC_THINKING",
+        "engine": null,
+        "engineVersion": null,
+        "project": {
+          "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+          "projectDigest": "ke1-21c69c91621b64d5",
+          "snapshotRef": "ke1-287ac41c33374740"
+        },
+        "requestRef": {
+          "requestId": "scientific-thinking-handoff:ke1-d392a624883415f0",
+          "requestSchemaVersion": "0.1.0:1.2.2",
+          "requestDigest": "ke1-e97eb797ef88dc03"
+        },
+        "inputOwnerResultRefs": [
+          {
+            "artifactType": "OWNER_RESULT",
+            "owner": "KNOWLEDGE",
+            "artifactId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+            "artifactVersion": "1",
+            "artifactDigest": "ke1-5bcced8e25ce551a"
+          }
+        ],
+        "dependencyRefs": [
+          {
+            "owner": "KNOWLEDGE",
+            "resultId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+            "resultVersion": "1",
+            "resultDigest": "ke1-5bcced8e25ce551a"
+          }
+        ],
+        "outputResultRef": null,
+        "status": "STARTED",
+        "sourceRefs": [],
+        "sourceCount": 0,
+        "evidenceRefs": [],
+        "unknownRefs": [],
+        "gapRefs": [],
+        "limitationRefs": [],
+        "contradictionRefs": [],
+        "stale": {
+          "status": "NOT_EVALUATED",
+          "expectedProject": null,
+          "receivedProject": null,
+          "expectedDependencyRefs": [],
+          "receivedDependencyRefs": []
+        },
+        "durationMs": null,
+        "error": null,
+        "diagnostic": {
+          "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+          "code": "HANDOFF_INPUT_BOUND"
+        },
+        "previousEventId": "scientific-trace-event:ke1-a95c28ec5a81f598",
+        "nextExpectedHandoff": null,
+        "technicalMetadata": {},
+        "appendOnly": true,
+        "derived": true,
+        "projectWriteAuthorized": false,
+        "repairAuthorized": false,
+        "scientificDecisionAuthorized": false,
+        "privateReasoningStored": false,
+        "logicalDigest": "ke1-f586da461da0ba9a",
+        "eventDigest": "ke1-1efa33a011259f0c"
+      },
+      {
+        "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+        "schemaVersion": "0.1.0",
+        "eventId": "scientific-trace-event:ke1-5a233f6b217bed47",
+        "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+        "sequence": 3,
+        "eventType": "HANDOFF_ACCEPTED",
+        "timestamp": "2026-08-26T12:40:00.000Z",
+        "owner": "SCIENTIFIC_THINKING",
+        "engine": null,
+        "engineVersion": null,
+        "project": {
+          "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+          "projectDigest": "ke1-21c69c91621b64d5",
+          "snapshotRef": "ke1-287ac41c33374740"
+        },
+        "requestRef": {
+          "requestId": "scientific-thinking-handoff:ke1-d392a624883415f0",
+          "requestSchemaVersion": "0.1.0:1.2.2",
+          "requestDigest": "ke1-e97eb797ef88dc03"
+        },
+        "inputOwnerResultRefs": [],
+        "dependencyRefs": [
+          {
+            "owner": "KNOWLEDGE",
+            "resultId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+            "resultVersion": "1",
+            "resultDigest": "ke1-5bcced8e25ce551a"
+          }
+        ],
+        "outputResultRef": null,
+        "status": "ACCEPTED",
+        "sourceRefs": [],
+        "sourceCount": 0,
+        "evidenceRefs": [],
+        "unknownRefs": [],
+        "gapRefs": [],
+        "limitationRefs": [],
+        "contradictionRefs": [],
+        "stale": {
+          "status": "NOT_EVALUATED",
+          "expectedProject": null,
+          "receivedProject": null,
+          "expectedDependencyRefs": [],
+          "receivedDependencyRefs": []
+        },
+        "durationMs": null,
+        "error": null,
+        "diagnostic": {
+          "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+          "code": "HANDOFF_CONTRACT_ACCEPTED"
+        },
+        "previousEventId": "scientific-trace-event:ke1-b6b0545d7d7b07d1",
+        "nextExpectedHandoff": null,
+        "technicalMetadata": {},
+        "appendOnly": true,
+        "derived": true,
+        "projectWriteAuthorized": false,
+        "repairAuthorized": false,
+        "scientificDecisionAuthorized": false,
+        "privateReasoningStored": false,
+        "logicalDigest": "ke1-d5ebebf8eea57b5c",
+        "eventDigest": "ke1-6b91eb7171526675"
+      },
+      {
+        "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+        "schemaVersion": "0.1.0",
+        "eventId": "scientific-trace-event:ke1-24e8134e48aab5e2",
+        "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+        "sequence": 4,
+        "eventType": "OWNER_INVOCATION_STARTED",
+        "timestamp": "2026-08-26T12:40:00.000Z",
+        "owner": "SCIENTIFIC_THINKING",
+        "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+        "engineVersion": "1.2.2",
+        "project": {
+          "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+          "projectDigest": "ke1-21c69c91621b64d5",
+          "snapshotRef": "ke1-287ac41c33374740"
+        },
+        "requestRef": {
+          "requestId": "scientific-thinking-handoff:ke1-d392a624883415f0",
+          "requestSchemaVersion": "0.1.0:1.2.2",
+          "requestDigest": "ke1-e97eb797ef88dc03"
+        },
+        "inputOwnerResultRefs": [],
+        "dependencyRefs": [
+          {
+            "owner": "KNOWLEDGE",
+            "resultId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+            "resultVersion": "1",
+            "resultDigest": "ke1-5bcced8e25ce551a"
+          }
+        ],
+        "outputResultRef": null,
+        "status": "STARTED",
+        "sourceRefs": [],
+        "sourceCount": 0,
+        "evidenceRefs": [],
+        "unknownRefs": [],
+        "gapRefs": [],
+        "limitationRefs": [],
+        "contradictionRefs": [],
+        "stale": {
+          "status": "NOT_EVALUATED",
+          "expectedProject": null,
+          "receivedProject": null,
+          "expectedDependencyRefs": [],
+          "receivedDependencyRefs": []
+        },
+        "durationMs": null,
+        "error": null,
+        "diagnostic": {
+          "stage": "SCIENTIFIC_THINKING_ENGINE",
+          "code": "OWNER_INVOCATION_STARTED"
+        },
+        "previousEventId": "scientific-trace-event:ke1-5a233f6b217bed47",
+        "nextExpectedHandoff": null,
+        "technicalMetadata": {
+          "invocationId": "scientific-owner-invocation:ke1-95e71c78be5a086c",
+          "observationContract": "PROJECT_SPINE_04_SCIENTIFIC_REASONING_OWNER_CHAIN",
+          "observationVersion": "0.1.0",
+          "runtimeStarts": 1,
+          "projectWrites": 0
+        },
+        "appendOnly": true,
+        "derived": true,
+        "projectWriteAuthorized": false,
+        "repairAuthorized": false,
+        "scientificDecisionAuthorized": false,
+        "privateReasoningStored": false,
+        "logicalDigest": "ke1-1df05f0a8385956e",
+        "eventDigest": "ke1-17e27b4816a1b9c4"
+      },
+      {
+        "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+        "schemaVersion": "0.1.0",
+        "eventId": "scientific-trace-event:ke1-53221385a4641319",
+        "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+        "sequence": 5,
+        "eventType": "OWNER_INVOCATION_COMPLETED",
+        "timestamp": "2026-08-26T12:40:01.000Z",
+        "owner": "SCIENTIFIC_THINKING",
+        "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+        "engineVersion": "1.2.2",
+        "project": {
+          "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+          "projectDigest": "ke1-21c69c91621b64d5",
+          "snapshotRef": "ke1-287ac41c33374740"
+        },
+        "requestRef": {
+          "requestId": "scientific-thinking-handoff:ke1-d392a624883415f0",
+          "requestSchemaVersion": "0.1.0:1.2.2",
+          "requestDigest": "ke1-e97eb797ef88dc03"
+        },
+        "inputOwnerResultRefs": [],
+        "dependencyRefs": [
+          {
+            "owner": "KNOWLEDGE",
+            "resultId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+            "resultVersion": "1",
+            "resultDigest": "ke1-5bcced8e25ce551a"
+          }
+        ],
+        "outputResultRef": {
+          "artifactType": "OWNER_RESULT",
+          "owner": "SCIENTIFIC_THINKING",
+          "artifactId": "scientific-thinking-output:ke1-7457a68566d4aba9",
+          "artifactVersion": "1.2.2",
+          "artifactDigest": "ke1-7457a68566d4aba9"
+        },
+        "status": "COMPLETED_WITH_LIMITATIONS",
+        "sourceRefs": [
+          "scientific-thinking-handoff:ke1-d392a624883415f0",
+          "ke1-287ac41c33374740",
+          "scientific-thinking-output:ke1-7457a68566d4aba9",
+          "scientific-thinking-project-request:ke1-9445fa32e9aaf186",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+          "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+          "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+          "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+          "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+          "PD-002@1.0",
+          "project-contribution-decision:ke1-1a33c6b6449ef73a"
+        ],
+        "sourceCount": 14,
+        "evidenceRefs": [
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+          "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+          "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+          "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+          "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+          "PD-002@1.0",
+          "project-contribution-decision:ke1-1a33c6b6449ef73a"
+        ],
+        "unknownRefs": [
+          "unknown:ke1-9d0a3dc12133e2c5",
+          "unknown:ke1-5f415d5989e9496d",
+          "unknown:ke1-419dd4d7ccc86fab",
+          "unknown:ke1-168e9e60c93717e4",
+          "unknown:ke1-a19c019dc21382b1",
+          "unknown:ke1-75eb8b750dd20829",
+          "unknown:ke1-9594f0c0282d25dc",
+          "unknown:ke1-cd84a7757e1c08d1",
+          "unknown:ke1-5b7d383a329eeea6",
+          "unknown:ke1-30060cff8bbaea9b",
+          "unknown:ke1-56088768752c8e14",
+          "unknown:ke1-c88266fc365a8438",
+          "unknown:ke1-a27fec93c7db7b7f"
+        ],
+        "gapRefs": [
+          "gap:ke1-a4b418ad22b47639",
+          "gap:ke1-93305474fe0d2af8",
+          "gap:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED"
+        ],
+        "limitationRefs": [
+          "limitation:ke1-4b31732ecaa52752",
+          "limitation:ke1-483d90ca2bf99cd6",
+          "limitation:ke1-861dad5484fa7618",
+          "limitation:ke1-27cdbbf2d44ca5b6",
+          "limitation:ke1-48006a487ee9e934",
+          "limitation:ke1-bab08a1e909f4542",
+          "limitation:ke1-d27072999fe02d0d",
+          "limitation:ke1-101a9abe40cfabd2",
+          "limitation:ke1-7c8b63431deb61cf",
+          "limitation:ke1-258820618225a645",
+          "limitation:ke1-26a9bd7700164253",
+          "limitation:ke1-fe025defa2bb3c9b",
+          "limitation:ke1-a2eaf18a714f2f26"
+        ],
+        "contradictionRefs": [],
+        "stale": {
+          "status": "NOT_EVALUATED",
+          "expectedProject": null,
+          "receivedProject": null,
+          "expectedDependencyRefs": [],
+          "receivedDependencyRefs": []
+        },
+        "durationMs": 0,
+        "error": null,
+        "diagnostic": {
+          "stage": "SCIENTIFIC_THINKING_ENGINE",
+          "code": "OWNER_RESULT_OBSERVED"
+        },
+        "previousEventId": "scientific-trace-event:ke1-24e8134e48aab5e2",
+        "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING",
+        "technicalMetadata": {},
+        "appendOnly": true,
+        "derived": true,
+        "projectWriteAuthorized": false,
+        "repairAuthorized": false,
+        "scientificDecisionAuthorized": false,
+        "privateReasoningStored": false,
+        "logicalDigest": "ke1-581c4e28f5cd32dc",
+        "eventDigest": "ke1-f8ae5a6578a47161"
+      },
+      {
+        "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+        "schemaVersion": "0.1.0",
+        "eventId": "scientific-trace-event:ke1-3516f680bdd28a1c",
+        "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+        "sequence": 6,
+        "eventType": "RESULT_PERSISTED",
+        "timestamp": "2026-08-26T12:40:01.000Z",
+        "owner": "SCIENTIFIC_THINKING",
+        "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+        "engineVersion": "0.2.0",
+        "project": {
+          "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+          "projectDigest": "ke1-21c69c91621b64d5",
+          "snapshotRef": "ke1-287ac41c33374740"
+        },
+        "requestRef": {
+          "requestId": "scientific-thinking-handoff:ke1-d392a624883415f0",
+          "requestSchemaVersion": "0.1.0:1.2.2",
+          "requestDigest": "ke1-e97eb797ef88dc03"
+        },
+        "inputOwnerResultRefs": [
+          {
+            "artifactType": "OWNER_RESULT",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "scientific-thinking-output:ke1-7457a68566d4aba9",
+            "artifactVersion": "1.2.2",
+            "artifactDigest": "ke1-7457a68566d4aba9"
+          }
+        ],
+        "dependencyRefs": [
+          {
+            "owner": "KNOWLEDGE",
+            "resultId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+            "resultVersion": "1",
+            "resultDigest": "ke1-5bcced8e25ce551a"
+          }
+        ],
+        "outputResultRef": {
+          "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+          "owner": "SCIENTIFIC_THINKING",
+          "artifactId": "owner-result-ledger-entry:ke1-42ac8189953d5955",
+          "artifactVersion": "0.2.0",
+          "artifactDigest": "ke1-0aee93077f8d3b3b"
+        },
+        "status": "OWNER_RESULT_RETAINED",
+        "sourceRefs": [
+          "scientific-thinking-handoff:ke1-d392a624883415f0",
+          "ke1-287ac41c33374740",
+          "scientific-thinking-output:ke1-7457a68566d4aba9",
+          "scientific-thinking-project-request:ke1-9445fa32e9aaf186",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+          "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+          "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+          "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+          "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+          "PD-002@1.0",
+          "project-contribution-decision:ke1-1a33c6b6449ef73a"
+        ],
+        "sourceCount": 14,
+        "evidenceRefs": [
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+          "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+          "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+          "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+          "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+          "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+          "PD-002@1.0",
+          "project-contribution-decision:ke1-1a33c6b6449ef73a"
+        ],
+        "unknownRefs": [
+          "unknown:ke1-9d0a3dc12133e2c5",
+          "unknown:ke1-5f415d5989e9496d",
+          "unknown:ke1-419dd4d7ccc86fab",
+          "unknown:ke1-168e9e60c93717e4",
+          "unknown:ke1-a19c019dc21382b1",
+          "unknown:ke1-75eb8b750dd20829",
+          "unknown:ke1-9594f0c0282d25dc",
+          "unknown:ke1-cd84a7757e1c08d1",
+          "unknown:ke1-5b7d383a329eeea6",
+          "unknown:ke1-30060cff8bbaea9b",
+          "unknown:ke1-56088768752c8e14",
+          "unknown:ke1-c88266fc365a8438",
+          "unknown:ke1-a27fec93c7db7b7f"
+        ],
+        "gapRefs": [
+          "gap:ke1-a4b418ad22b47639",
+          "gap:ke1-93305474fe0d2af8",
+          "gap:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED"
+        ],
+        "limitationRefs": [
+          "limitation:ke1-4b31732ecaa52752",
+          "limitation:ke1-483d90ca2bf99cd6",
+          "limitation:ke1-861dad5484fa7618",
+          "limitation:ke1-27cdbbf2d44ca5b6",
+          "limitation:ke1-48006a487ee9e934",
+          "limitation:ke1-bab08a1e909f4542",
+          "limitation:ke1-d27072999fe02d0d",
+          "limitation:ke1-101a9abe40cfabd2",
+          "limitation:ke1-7c8b63431deb61cf",
+          "limitation:ke1-258820618225a645",
+          "limitation:ke1-26a9bd7700164253",
+          "limitation:ke1-fe025defa2bb3c9b",
+          "limitation:ke1-a2eaf18a714f2f26"
+        ],
+        "contradictionRefs": [],
+        "stale": {
+          "status": "NOT_EVALUATED",
+          "expectedProject": null,
+          "receivedProject": null,
+          "expectedDependencyRefs": [],
+          "receivedDependencyRefs": []
+        },
+        "durationMs": null,
+        "error": null,
+        "diagnostic": {
+          "stage": "OWNER_RESULT_PERSISTENCE",
+          "code": "OWNER_LEDGER_ENTRY_APPENDED"
+        },
+        "previousEventId": "scientific-trace-event:ke1-53221385a4641319",
+        "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING",
+        "technicalMetadata": {
+          "ledgerContract": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "ledgerVersion": "0.2.0",
+          "entryId": "owner-result-ledger-entry:ke1-42ac8189953d5955",
+          "entryDigest": "ke1-0aee93077f8d3b3b",
+          "callerRef": "W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary"
+        },
+        "appendOnly": true,
+        "derived": true,
+        "projectWriteAuthorized": false,
+        "repairAuthorized": false,
+        "scientificDecisionAuthorized": false,
+        "privateReasoningStored": false,
+        "logicalDigest": "ke1-37d94881a1993c25",
+        "eventDigest": "ke1-6467a153efd05b87"
+      },
+      {
+        "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+        "schemaVersion": "0.1.0",
+        "eventId": "scientific-trace-event:ke1-6b33d27b6a1c0cd7",
+        "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+        "sequence": 7,
+        "eventType": "RUN_COMPLETED",
+        "timestamp": "2026-08-26T12:40:01.000Z",
+        "owner": "TRACE",
+        "engine": "SCIENTIFIC_EXECUTION_TRACE",
+        "engineVersion": "0.1.0",
+        "project": {
+          "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+          "projectDigest": "ke1-21c69c91621b64d5",
+          "snapshotRef": "ke1-287ac41c33374740"
+        },
+        "requestRef": null,
+        "inputOwnerResultRefs": [],
+        "dependencyRefs": [],
+        "outputResultRef": null,
+        "status": "COMPLETED",
+        "sourceRefs": [],
+        "sourceCount": 0,
+        "evidenceRefs": [],
+        "unknownRefs": [],
+        "gapRefs": [],
+        "limitationRefs": [],
+        "contradictionRefs": [],
+        "stale": {
+          "status": "NOT_EVALUATED",
+          "expectedProject": null,
+          "receivedProject": null,
+          "expectedDependencyRefs": [],
+          "receivedDependencyRefs": []
+        },
+        "durationMs": null,
+        "error": null,
+        "diagnostic": null,
+        "previousEventId": "scientific-trace-event:ke1-3516f680bdd28a1c",
+        "nextExpectedHandoff": null,
+        "technicalMetadata": {},
+        "appendOnly": true,
+        "derived": true,
+        "projectWriteAuthorized": false,
+        "repairAuthorized": false,
+        "scientificDecisionAuthorized": false,
+        "privateReasoningStored": false,
+        "logicalDigest": "ke1-092e05ffe20139bb",
+        "eventDigest": "ke1-64791ca623accff2"
+      }
+    ],
+    "resultPersistedEvent": {
+      "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+      "schemaVersion": "0.1.0",
+      "eventId": "scientific-trace-event:ke1-3516f680bdd28a1c",
+      "runId": "scientific-run:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary",
+      "sequence": 6,
+      "eventType": "RESULT_PERSISTED",
+      "timestamp": "2026-08-26T12:40:01.000Z",
+      "owner": "SCIENTIFIC_THINKING",
+      "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+      "engineVersion": "0.2.0",
+      "project": {
+        "projectId": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+        "projectVersion": "project:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:version:1",
+        "projectDigest": "ke1-21c69c91621b64d5",
+        "snapshotRef": "ke1-287ac41c33374740"
+      },
+      "requestRef": {
+        "requestId": "scientific-thinking-handoff:ke1-d392a624883415f0",
+        "requestSchemaVersion": "0.1.0:1.2.2",
+        "requestDigest": "ke1-e97eb797ef88dc03"
+      },
+      "inputOwnerResultRefs": [
+        {
+          "artifactType": "OWNER_RESULT",
+          "owner": "SCIENTIFIC_THINKING",
+          "artifactId": "scientific-thinking-output:ke1-7457a68566d4aba9",
+          "artifactVersion": "1.2.2",
+          "artifactDigest": "ke1-7457a68566d4aba9"
+        }
+      ],
+      "dependencyRefs": [
+        {
+          "owner": "KNOWLEDGE",
+          "resultId": "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+          "resultVersion": "1",
+          "resultDigest": "ke1-5bcced8e25ce551a"
+        }
+      ],
+      "outputResultRef": {
+        "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+        "owner": "SCIENTIFIC_THINKING",
+        "artifactId": "owner-result-ledger-entry:ke1-42ac8189953d5955",
+        "artifactVersion": "0.2.0",
+        "artifactDigest": "ke1-0aee93077f8d3b3b"
+      },
+      "status": "OWNER_RESULT_RETAINED",
+      "sourceRefs": [
+        "scientific-thinking-handoff:ke1-d392a624883415f0",
+        "ke1-287ac41c33374740",
+        "scientific-thinking-output:ke1-7457a68566d4aba9",
+        "scientific-thinking-project-request:ke1-9445fa32e9aaf186",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+        "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+        "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+        "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+        "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+        "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+        "PD-002@1.0",
+        "project-contribution-decision:ke1-1a33c6b6449ef73a"
+      ],
+      "sourceCount": 14,
+      "evidenceRefs": [
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:CARDIOMYOCYTE-HYPERTROPHY",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:EXTRACELLULAR-EXPANSION",
+        "knowledge-assertion:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:INTRACELLULAR-STORAGE",
+        "knowledge-result:W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01@1",
+        "PD-002:EVIDENCE:R06-R13-R15:EXTRACELLULAR-EXPANSION",
+        "PD-002:EVIDENCE:R08-R10:INTRACELLULAR-STORAGE",
+        "PD-002:EVIDENCE:SECTION-8.2:CARDIOMYOCYTE-HYPERTROPHY",
+        "PD-002@1.0",
+        "project-contribution-decision:ke1-1a33c6b6449ef73a"
+      ],
+      "unknownRefs": [
+        "unknown:ke1-9d0a3dc12133e2c5",
+        "unknown:ke1-5f415d5989e9496d",
+        "unknown:ke1-419dd4d7ccc86fab",
+        "unknown:ke1-168e9e60c93717e4",
+        "unknown:ke1-a19c019dc21382b1",
+        "unknown:ke1-75eb8b750dd20829",
+        "unknown:ke1-9594f0c0282d25dc",
+        "unknown:ke1-cd84a7757e1c08d1",
+        "unknown:ke1-5b7d383a329eeea6",
+        "unknown:ke1-30060cff8bbaea9b",
+        "unknown:ke1-56088768752c8e14",
+        "unknown:ke1-c88266fc365a8438",
+        "unknown:ke1-a27fec93c7db7b7f"
+      ],
+      "gapRefs": [
+        "gap:ke1-a4b418ad22b47639",
+        "gap:ke1-93305474fe0d2af8",
+        "gap:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:RELATIVE_COMPARTMENT_CONTRIBUTION_UNRESOLVED"
+      ],
+      "limitationRefs": [
+        "limitation:ke1-4b31732ecaa52752",
+        "limitation:ke1-483d90ca2bf99cd6",
+        "limitation:ke1-861dad5484fa7618",
+        "limitation:ke1-27cdbbf2d44ca5b6",
+        "limitation:ke1-48006a487ee9e934",
+        "limitation:ke1-bab08a1e909f4542",
+        "limitation:ke1-d27072999fe02d0d",
+        "limitation:ke1-101a9abe40cfabd2",
+        "limitation:ke1-7c8b63431deb61cf",
+        "limitation:ke1-258820618225a645",
+        "limitation:ke1-26a9bd7700164253",
+        "limitation:ke1-fe025defa2bb3c9b",
+        "limitation:ke1-a2eaf18a714f2f26"
+      ],
+      "contradictionRefs": [],
+      "stale": {
+        "status": "NOT_EVALUATED",
+        "expectedProject": null,
+        "receivedProject": null,
+        "expectedDependencyRefs": [],
+        "receivedDependencyRefs": []
+      },
+      "durationMs": null,
+      "error": null,
+      "diagnostic": {
+        "stage": "OWNER_RESULT_PERSISTENCE",
+        "code": "OWNER_LEDGER_ENTRY_APPENDED"
+      },
+      "previousEventId": "scientific-trace-event:ke1-53221385a4641319",
+      "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING",
+      "technicalMetadata": {
+        "ledgerContract": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+        "ledgerVersion": "0.2.0",
+        "entryId": "owner-result-ledger-entry:ke1-42ac8189953d5955",
+        "entryDigest": "ke1-0aee93077f8d3b3b",
+        "callerRef": "W1-QUAL-02H1M2-ST-2026-08-26-F:ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01:primary"
+      },
+      "appendOnly": true,
+      "derived": true,
+      "projectWriteAuthorized": false,
+      "repairAuthorized": false,
+      "scientificDecisionAuthorized": false,
+      "privateReasoningStored": false,
+      "logicalDigest": "ke1-37d94881a1993c25",
+      "eventDigest": "ke1-6467a153efd05b87"
+    }
+  },
+  "technicalChecks": {
+    "freezeFileUnchanged": true,
+    "freezeDigestValid": true,
+    "frozenInputDigestsUnchanged": true,
+    "stVersionUnchanged": true,
+    "stRuntimeHashesUnchanged": true,
+    "exactlyOneStInvocation": true,
+    "projectWritesZero": true,
+    "automaticAdoptionZero": true,
+    "ownerResultPresent": true,
+    "tracePresent": true,
+    "resultPersistedObservable": true,
+    "outputReadable": true,
+    "humanQuestionsRemainPending": true
+  },
+  "blockingTechnicalChecks": [
+    "freezeFileUnchanged",
+    "freezeDigestValid",
+    "frozenInputDigestsUnchanged",
+    "stVersionUnchanged",
+    "stRuntimeHashesUnchanged",
+    "exactlyOneStInvocation",
+    "projectWritesZero",
+    "automaticAdoptionZero",
+    "ownerResultPresent",
+    "tracePresent",
+    "resultPersistedObservable",
+    "outputReadable",
+    "humanQuestionsRemainPending"
+  ],
+  "technicalReady": true,
+  "technicalLimitations": [
+    "SOURCE_EVIDENCE_REFS et LINEAGE_INTEGRITY ne sont pas utilisés comme gate automatisé, conformément à la limitation historique Campaign E.",
+    "Les checks techniques n'évaluent ni la qualité scientifique des mécanismes, ni la pertinence, ni l'omission critique, ni l'utilité."
+  ],
+  "costControl": {
+    "externalLlmApiCalls": 0,
+    "openAiApiCalls": 0,
+    "chatGptApiCalls": 0,
+    "geminiCalls": 0,
+    "otherLlmProviderCalls": 0,
+    "networkCalls": 0
+  },
+  "humanReview": {
+    "required": true,
+    "reviewableCases": 1,
+    "adjudicationCompleted": 0,
+    "adjudicationPending": 1,
+    "scientificPass": false,
+    "postRepairMechanisticReasoning": "PENDING_FRESH_HUMAN_ADJUDICATION"
+  },
+  "scientificJudgmentPerformed": false
+}

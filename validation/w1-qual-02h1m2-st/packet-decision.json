@@ -1,0 +1,109 @@
+{
+  "contract": "W1_QUAL_02H1M2_PACKET_DECISION",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "missionId": "W1-QUAL-02H1M2",
+  "campaignId": "W1-QUAL-02H1M2-ST-2026-08-26-F",
+  "caseId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+  "decision": "W1_QUAL_02H1M2_FRESH_MECHANISTIC_CASE_READY_FOR_HUMAN_ADJUDICATION",
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "head": "0b2474c21f69c22f441c98cd386826e5ad7e0eab",
+    "originBranch": "0b2474c21f69c22f441c98cd386826e5ad7e0eab",
+    "main": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "originMain": "9be06edca1a7500ab7a43d065e94241e91d67bec"
+  },
+  "stIdentity": {
+    "engine": "SCIENTIFIC_THINKING",
+    "version": "1.2.2",
+    "runtimeModified": false,
+    "hashesUnchanged": true
+  },
+  "parentage": {
+    "status": "RELATED_BUT_DISTINCT",
+    "exactOrNearDuplicateFound": false,
+    "tooCloseFound": false
+  },
+  "freeze": {
+    "freezeDigest": "ke1-ee0684314952ca9d",
+    "frozenInputDigest": "ke1-b6524cb2102e549e",
+    "frozenBeforeStObservation": true,
+    "unchangedAfterExecution": true
+  },
+  "execution": {
+    "stInvocations": 1,
+    "rerolls": 0,
+    "postObservationRepairs": 0,
+    "executionError": null,
+    "outputId": "scientific-thinking-output:ke1-7457a68566d4aba9",
+    "outputDigest": "ke1-7457a68566d4aba9",
+    "outputReadable": true,
+    "mechanismCandidateCount": 3
+  },
+  "technicalChecks": {
+    "freezeFileUnchanged": true,
+    "freezeDigestValid": true,
+    "frozenInputDigestsUnchanged": true,
+    "stVersionUnchanged": true,
+    "stRuntimeHashesUnchanged": true,
+    "exactlyOneStInvocation": true,
+    "projectWritesZero": true,
+    "automaticAdoptionZero": true,
+    "ownerResultPresent": true,
+    "tracePresent": true,
+    "resultPersistedObservable": true,
+    "outputReadable": true,
+    "humanQuestionsRemainPending": true
+  },
+  "technicalReady": true,
+  "costControl": {
+    "externalLlmApiCalls": 0,
+    "openAiApiCalls": 0,
+    "chatGptApiCalls": 0,
+    "geminiCalls": 0,
+    "otherLlmProviderCalls": 0,
+    "networkCalls": 0
+  },
+  "humanReview": {
+    "humanScientificAdjudicationRequired": true,
+    "scientificPass": false,
+    "reviewableCases": 1,
+    "adjudicationCompleted": 0,
+    "adjudicationPending": 1,
+    "questionStatuses": {
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    }
+  },
+  "characterization": {
+    "postRepairMechanisticReasoning": "PENDING_FRESH_HUMAN_ADJUDICATION",
+    "scientificThinkingCharacterization": "PENDING_FINAL_POST_REPAIR_HUMAN_ADJUDICATION"
+  },
+  "wave": {
+    "w1ArchitecturalConvergenceReady": true,
+    "w1ObservabilityReady": true,
+    "w1IndividualOwnerCharacterizationReady": false,
+    "w1ControlledLoopCharacterizationReady": false,
+    "wave1Complete": false,
+    "wave2Authorized": false
+  },
+  "nextAuthorizedMission": "NONE_PENDING_MANUAL_MECHANISTIC_ADJUDICATION",
+  "runtimeCodeModified": false,
+  "checkerRepairPerformed": false,
+  "scientificJudgmentPerformed": false,
+  "pushAuthorized": false,
+  "outputs": {
+    "humanPacket": "docs/implementation/w1-qual-02h1m2-fresh-mechanistic-human-review.md",
+    "caseFreeze": "validation/w1-qual-02h1m2-st/case-freeze.json",
+    "executionResult": "validation/w1-qual-02h1m2-st/execution-result.json",
+    "packetDecision": "validation/w1-qual-02h1m2-st/packet-decision.json",
+    "roadmap": "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md"
+  }
+}

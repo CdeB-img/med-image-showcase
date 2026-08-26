@@ -8,10 +8,10 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 26 August 2026 |
-| Verified baseline | `6803ba7d5c73c1df8771dbd8e9748d6334adf436` + W1-QUAL-02H1 fail-closed technical-capture evidence recorded in the checkpoint commit containing this roadmap |
+| Verified baseline | `0b2474c21f69c22f441c98cd386826e5ad7e0eab` + W1-QUAL-02H1M2 fresh mechanistic human-review evidence recorded in the checkpoint commit containing this roadmap |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
-| Portfolio diagnosis | `SCIENTIFIC_THINKING_REPAIRED_RECHARACTERIZATION_PACKET_NOT_READY_TECHNICAL_CAPTURE_FAILURE` |
+| Portfolio diagnosis | `SCIENTIFIC_THINKING_POST_REPAIR_MECHANISTIC_HUMAN_ADJUDICATION_PENDING` |
 | Superior authorities | NOXIA Founding Charter; Scientific Product Manifesto V2; applicable Level 1 specialized references |
 | Documentary authority | None. This file does not amend, replace, or extend any authority. |
 
@@ -23,12 +23,12 @@
 |---|---|
 | Portfolio state | One canonical Project snapshot now feeds native Knowledge, Scientific Thinking, Imaging and conditional REG through typed product entrypoints; native deterministic VAL observes the retained Knowledge/ST/Imaging chain through a separate append-only ValidationRun ledger; nominal owner selection remains outside this bounded product chain |
 | Active wave | `WAVE_1_SCIENTIFIC_LOOP` |
-| Current objective | Preserve the failed W1-QUAL-02H1 Campaign E evidence without rerun and await an explicit human program decision on a bounded recorder correction and a separately authorized fresh replacement campaign. |
+| Current objective | Preserve the seven completed Campaign E human adjudications and expose one separately frozen, fresh mechanistic ST output for manual adjudication. |
 | Next wave | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` after Wave 1 completion |
 | Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge → Scientific Thinking → Imaging → deterministic VAL observation, plus an explicit conditional Project → REG branch, with immutable owner-result and ValidationRun retention |
 | Tested off-product corridor | Read-only adapter → CDM / DM / Biostatistics / TMP; historical SPINE and VAL fixture corridors |
 | Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
-| Main blocker | W1-QUAL-02H1 froze eight fresh cases, but its deterministic collector failed after the first unique ST invocation and before output/TRACE persistence. That case was not rerun and the seven remaining cases were stopped fail-closed. No human-review packet is ready; ST remains not adjudicated post-repair. |
+| Main blocker | Seven reviewable Campaign E outputs have been adjudicated by the human with no new critical ST defect; the lost original mechanistic case remains non-adjudicable. One fresh, related-but-distinct mechanistic case is now technically ready, but its H1–H8 scientific adjudication remains entirely pending. |
 | Active engineering | One wave only; no engine development is authorized by this document itself. |
 
 ### Current Wave 1 checkpoint decisions after the bounded-human-review pivot
@@ -37,7 +37,7 @@
 |---|---|---|
 | `W1_ARCHITECTURAL_CONVERGENCE_READY` | `YES` | Same canonical Project identity/snapshot, typed ownership and dependencies, immutable ledgers, stale guards, non-promotion and zero silent Project writes are demonstrated after the bounded Knowledge engine-version guard. Initial convergence was `FAILED`; post-repair convergence is `PASS`. |
 | `W1_OBSERVABILITY_READY` | `YES` | A separate append-only trace ledger binds one `ScientificRun` to the exact Project snapshot and records ordered owner, handoff, persistence, stale and VAL events with request/result/dependency/digest/error refs; replay from event N is plan-only. |
-| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | The bounded repair has technical evidence for the five generic H2 classes, but no fresh post-repair owner cases have been scientifically adjudicated by a human. Exposed Campaign D cases are non-regression only. |
+| `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `NO` | Seven fresh post-repair Campaign E outputs have human dispositions, but the remaining mechanistic evidence gap is represented only by one fresh output whose H1–H8 fields are still pending. |
 | `W1_CONTROLLED_LOOP_CHARACTERIZATION_READY` | `NO` | No controlled representative chain campaign with frozen inputs, explicit expectations and first-stage error attribution has been performed. |
 | `WAVE_1_COMPLETE` | `NO` | Architectural convergence alone is necessary and insufficient. Wave 2 remains paused. |
 
@@ -45,7 +45,9 @@
 
 `HUMAN_SCIENTIFIC_ADJUDICATION_REQUIRED = YES`
 
-`SCIENTIFIC_THINKING_CHARACTERIZATION = NOT_ADJUDICATED_POST_REPAIR`
+`SCIENTIFIC_THINKING_CHARACTERIZATION = PENDING_FINAL_POST_REPAIR_HUMAN_ADJUDICATION`
+
+`POST_REPAIR_MECHANISTIC_REASONING = PENDING_FRESH_HUMAN_ADJUDICATION`
 
 `AUTOMATED_ST_CHARACTERIZATION_HARNESS = NOT_MATURE_FOR_SCIENTIFIC_ADJUDICATION`
 
@@ -58,14 +60,14 @@
 | Owner | Current characterization status | Bounded evidence |
 |---|---|---|
 | Knowledge | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 6/6 cases fully satisfied; honest gap, ambiguity and stale readback exercised; no critical violation observed. |
-| Scientific Thinking | `REPAIRED_RECHARACTERIZATION_PACKET_NOT_READY` | Engine `1.2.2` remains byte-identical. Campaign E authored and froze eight fresh cases, but the external deterministic collector failed after one invocation because it read a non-contract top-level limitations field. No rerun occurred, seven cases were not invoked, no packet is reviewable, and no fresh human adjudication, Scientific PASS, PD-011 qualification or successful characterization is claimed. |
+| Scientific Thinking | `PENDING_FINAL_POST_REPAIR_HUMAN_ADJUDICATION` | Engine `1.2.2` remains byte-identical. Seven Campaign E outputs received human dispositions: zero new `CRITICAL_ST_DEFECT`, six `ACCEPTABLE_WITH_LIMITATIONS`, one `ACCEPTABLE_WITHIN_TESTED_SCOPE`; the original mechanistic case remains technically non-adjudicable. W1-QUAL-02H1M2 adds one separately frozen fresh mechanistic output with three named candidate contributors, but H1–H8 remain pending and no Scientific PASS, PD-011 qualification or successful characterization is claimed. |
 | Imaging | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 4/4 cases fully satisfied; candidate modality/acquisition, QA, Core Lab, unknown and OBS boundaries preserved. |
 | REG | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 8/8 cases fully satisfied within REG-000 candidate corpus; unsupported jurisdiction and stale request fail closed; no approval claim. |
 | VAL | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 13/13 structural cases fully satisfied, including clean-chain false-positive control; no repair or scientific qualification claim. |
 
 ### Top quick wins queued in Wave 1
 
-The bounded ST owner repair remains complete. The explicitly authorized W1-QUAL-02H1 Campaign E stopped fail-closed after a deterministic collector exception following its first unique ST invocation. The observed case was not rerun and the remaining seven were not started. A human program decision is required before any bounded collector correction or separately frozen replacement campaign. Controlled-loop characterization remains unauthorized.
+The bounded ST owner repair remains complete. Seven recoverable Campaign E outputs were collected once and adjudicated by the human under the recorded Campaign E checker limitation. The unrecoverable first mechanistic output was never rerun. A separately frozen fresh mechanistic output is now ready for manual H1–H8 adjudication; no additional campaign or automated evaluator is authorized. Controlled-loop characterization remains unauthorized.
 
 ### Top blockers
 
@@ -458,7 +460,7 @@ These are active implementation controls traced to superior authorities and curr
 
 `CURRENT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
 
-`CURRENT_OBJECTIVE = AWAIT_EXPLICIT_HUMAN_PROGRAM_DECISION_AFTER_W1_QUAL_02H1_TECHNICAL_CAPTURE_FAILURE`
+`CURRENT_OBJECTIVE = AWAIT_MANUAL_ADJUDICATION_OF_FRESH_POST_REPAIR_MECHANISTIC_CASE`
 
 `NEXT_WAVE = WAVE_2_STUDY_DESIGN_TIME_CHAIN_AFTER_WAVE_1_COMPLETION`
 
@@ -468,18 +470,18 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = NONE_PENDING_EXPLICIT_HUMAN_PROGRAM_DECISION`
+`NEXT_AUTHORIZED_MISSION = NONE_PENDING_MANUAL_MECHANISTIC_ADJUDICATION`
 
-`NEXT_RECOMMENDED_MISSION = NONE_PENDING_HUMAN_DECISION_ON_BOUNDED_RECORDER_CORRECTION_AND_FRESH_REPLACEMENT_CAMPAIGN`
+`NEXT_RECOMMENDED_MISSION = NONE_PENDING_MANUAL_MECHANISTIC_ADJUDICATION`
 
 | Field | Contract |
 |---|---|
-| Mission goal | None authorized until the human program owner explicitly decides whether to correct the bounded execution recorder and whether a separately frozen replacement campaign may be authored. |
-| Input | Immutable W1-QUAL-02H1 freeze and failure records; bounded `DETERMINISTIC_CHECKER` root cause; human program decision |
-| Output | If authorized later, first a non-ST recorder correction proof, then a separately authorized fresh campaign; Campaign E case 1 is never rerun as primary evidence |
-| Definition of done | Human authorization is explicit; recorder correction is demonstrated without ST rerun; any replacement campaign receives its own freshness, freeze and invocation budget |
-| Engines / connections affected | None while authorization is pending |
-| Do not touch | Frozen Campaign D or Campaign E evidence; Campaign E case rerun; controlled full-loop qualification; Wave 2; QRY/orchestration; Project truth; OBS; Study Design; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
+| Mission goal | None authorized while the human manually adjudicates the single W1-QUAL-02H1M2 mechanistic output. |
+| Input | Immutable W1-QUAL-02H1M2 freeze, ST output, pre-authored HumanReviewEnvelope and H1–H8 fields |
+| Output | A later explicit human disposition only; this roadmap does not authorize another automated mission |
+| Definition of done | The human records H1–H8 and a final disposition without mutating the frozen case, input, envelope or output |
+| Engines / connections affected | None while adjudication is pending |
+| Do not touch | Frozen Campaign D, E or M2 evidence; any rerun; ST runtime; controlled full-loop qualification; Wave 2; QRY/orchestration; Project truth; OBS; Study Design; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS |
 
 # Engine completion queue
 
@@ -542,7 +544,7 @@ Portfolio totals retained from the audit:
 | `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge, Scientific Thinking, Imaging, REG and VAL are explicitly product-callable, but QRY/conversation does not select owners. | No | Wave 4 | W1K01/W1ST01/W1IMG01/W1REG01/W1VAL01 product entrypoints vs nominal conversation loop |
 | `REGULATORY_CORPUS_ADMISSION_AND_COVERAGE` | `OPEN_BOUNDED_DEBT` | REG-000 is candidate/non-admitted and locally covers only FR, EU/EEA, US and international methodological/reporting guidance; other jurisdictions fail closed and no current-law completeness is claimed. | No | Separate corpus governance authorization | REG-000 v1.0.0, verified 2026-08-10; W1REG01-10–23 |
 | `SCIENTIFIC_EXECUTION_TRACE_GAP` | `CLOSED_W1_TRACE_01` | A distinct session-persisted ledger now retains exact run/Project binding, ordered owner/handoff/persistence/stale/VAL events, integrity and logical digests, bounded references, technical errors, comparator output and event-N replay plans. It remains optional, passive and non-authoritative; no replay executor was created. | No | Closed in W1-TRACE-01 | W1TRACE01 unit/corridor/diagnostic fixtures; implementation report and machine manifest |
-| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `POST_REPAIR_HUMAN_RECHARACTERIZATION_REQUIRED_WAVE_1_BLOCKER` | Knowledge, Imaging, REG and VAL remain bounded-characterized. ST `1.2.2` has bounded technical repair evidence, but Campaign E produced no reviewable packet: its collector failed after one invocation, no rerun occurred and seven cases were stopped. Scientific relevance, omissions, mechanisms, alternatives, contradictions, clarification value and usefulness remain unadjudicated. | Yes | None pending a human decision on bounded recorder correction and a separately authorized fresh replacement campaign | W1-QUAL-02H1 freeze/failure evidence; W1-ST-REPAIR-02 development probes/non-regression; preserved H1/H1T/H2 evidence |
+| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `POST_REPAIR_MECHANISTIC_HUMAN_ADJUDICATION_PENDING_WAVE_1_BLOCKER` | Knowledge, Imaging, REG and VAL remain bounded-characterized. Seven fresh Campaign E ST outputs have human dispositions with no new critical defect, while the original mechanistic output remains non-adjudicable. The separately frozen W1-QUAL-02H1M2 output closes the technical evidence-availability gap only; its scientific relevance, omissions, mechanistic plurality, epistemic discipline and utility remain pending human adjudication. | Yes | None pending manual mechanistic adjudication | W1-QUAL-02H1M human dispositions; W1-QUAL-02H1M2 freeze/output/envelope; W1-ST-REPAIR-02 development probes/non-regression; preserved H1/H1T/H2 evidence |
 | `SCIENTIFIC_THINKING_HUMAN_ADJUDICATED_REASONING_DEFECTS` | `BOUNDED_REPAIR_COMPLETE_RECHARACTERIZATION_REQUIRED` | The five H2 generic classes are addressed by exact read-only Knowledge/Project projections, explicit candidate branches/clarifications and generic owner-boundary refusal. This is technical repair evidence, not scientific characterization. | No | Repair closed in W1-ST-REPAIR-02; fresh human recharacterization remains a separate Wave 1 blocker | 12/12 development probes; 5/5 exposed-case non-regressions; ST `1.2.2`; zero provider/network/Project writes |
 | `SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_COVERAGE` | `CLOSED_BY_BOUNDED_REPAIR_RECHARACTERIZATION_REQUIRED` | Engine `1.2.1` accepts structurally supported current Project questions without depending exclusively on narrow legacy lexemes; independent probes demonstrate positive coverage, fail-closed negative paths, contradiction/gap preservation and zero Project write. | No | Closed in W1-ST-REPAIR-01; independently recharacterize next | Five independent probes reproduced the defect pre-repair; 9/9 post-repair checks pass; cardiac/neuro are non-regression only |
 | `CONTROLLED_LOOP_CHARACTERIZATION_GAP` | `OPEN_WAVE_1_BLOCKER` | The assembled Project → Knowledge → ST → Imaging → VAL loop has not undergone a controlled representative campaign with frozen inputs, explicit expectations, replay and first-stage attribution. | Yes | W1-LOOP-QUAL-01 candidate after individual characterization | `CONTROLLED_LOOP_CHARACTERIZATION = NOT_PERFORMED` |
@@ -557,6 +559,8 @@ Portfolio totals retained from the audit:
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
+| W1-QUAL-02H1M2 | `W1_QUAL_02H1M2_FRESH_MECHANISTIC_CASE_READY_FOR_HUMAN_ADJUDICATION` / checkpoint commit containing this roadmap | One fresh post-repair mechanistic gap-closure case | A related-but-distinct Fabry tissue-composition case, Project/Knowledge inputs and HumanReviewEnvelope were frozen before one local ST `1.2.2` invocation; three named mechanism candidates, an immutable OwnerResult and seven TRACE events are readable with unchanged runtime/freeze, zero Project writes, zero adoption and zero provider/network calls | Any H1–H8 scientific judgment, Scientific PASS, successful ST characterization, PD-011 qualification, controlled-loop authorization, Wave 1 completion or Wave 2 authorization |
+| W1-QUAL-02H1M | `W1_QUAL_02H1M_HUMAN_REVIEW_PACKET_READY_WITH_TECHNICAL_LIMITATIONS` / `0b2474c21f69c22f441c98cd386826e5ad7e0eab` | Campaign E manual evidence collection and human review | Seven frozen Campaign E outputs were made reviewable and subsequently received human dispositions: zero new critical defect, six acceptable with limitations and one acceptable within tested scope; the first lost mechanistic output remains non-adjudicable and was not rerun | Fresh human adjudication of mechanistic reasoning, Scientific PASS, successful ST characterization, checker repair, PD-011 qualification, controlled-loop characterization, Wave 1 completion or Wave 2 authorization |
 | W1-QUAL-02H1 | `W1_QUAL_02H1_HUMAN_REVIEW_PACKET_NOT_READY` / checkpoint commit containing this roadmap | Eight-case fresh post-repair packet attempt | Eight A–H cases, Project/Knowledge inputs, parentage and HumanReviewEnvelopes were frozen before observation; Campaign E stopped after one unique ST invocation when the deterministic collector read a non-contract top-level limitations field; the first divergence is `DETERMINISTIC_CHECKER`; no rerun, provider, network or scientific adjudication occurred | A reviewable ST output, complete deterministic/TRACE evidence, a runtime ST defect, scientific characterization, Scientific PASS, PD-011 qualification, controlled-loop authorization, Wave 1 completion or Wave 2 authorization |
 | W1-ST-REPAIR-02 | `W1_ST_REPAIR_02_COMPLETED_READY_FOR_FRESH_HUMAN_RECHARACTERIZATION` / checkpoint commit containing this roadmap | Bounded human-adjudicated ST owner repair | Five generic H2 defect classes reproduced on 12 fresh development probes; ST `1.2.2` makes exact Knowledge statements available read-only, materializes candidate mechanisms/alternatives/conflict branches, makes explicitly impact-qualified Project unknowns govern clarification, and refuses generic specialized-owner signals; 12/12 probes and 5/5 exposed-case non-regressions pass with zero Project/provider/network writes | Fresh human scientific adjudication, Scientific PASS, successful ST characterization, PD-011 qualification, controlled-loop characterization, Wave 1 completion or Wave 2 authorization |
 | W1-QUAL-01H2 | `W1_QUAL_01H2_HUMAN_ADJUDICATION_RECORDED_ST_REPAIR_REQUIRED` / checkpoint commit containing this roadmap | Literal recording of Charles's completed human adjudication of immutable Campaign D evidence | 12/12 adjudications are complete; among 11 scientific ST outputs, 5 are critical defects and 6 acceptable with limitations; the stale case is a technical N/A control; five bounded generic defect classes require ST owner repair; all engine/provider/network/campaign/replay counters remain zero | Scientific PASS, PD-011 qualification, successful ST characterization, owner repair, controlled-loop characterization, Wave 1 completion or Wave 2 authorization |
