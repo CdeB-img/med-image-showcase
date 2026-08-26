@@ -1,0 +1,285 @@
+{
+  "contract": "W1_QUAL_02H2_HUMAN_CHARACTERIZATION_DECISION",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "missionId": "W1-QUAL-02H2",
+  "decision": "W1_QUAL_02H2_BOUNDED_HUMAN_ST_CHARACTERIZATION_CLOSED",
+  "decisionAuthority": "HUMAN_PROGRAM_DECISION_SUPPLIED_FOR_W1_QUAL_02H2",
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "headInitial": "10ebde1af49d0495680cd506754d7e20faed627f",
+    "originBranchInitial": "10ebde1af49d0495680cd506754d7e20faed627f",
+    "main": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "originMain": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "trackedPreflightClean": true,
+    "historicalUntrackedArtifactsPreserved": 53
+  },
+  "authoritiesConsultedInOrder": [
+    "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+    "NOXIA — Charte fondatrice",
+    "NOXIA Protocol Designer — Scientific Product Manifesto V2",
+    "Editorial Engine — Architecture Manifesto"
+  ],
+  "implementationEvidenceRead": [
+    {
+      "path": "docs/implementation/w1-qual-01h2-st-human-adjudication-closure.md",
+      "sha256BeforeClosure": "a8257a30ff648f787cfa1715fcc00deba405606531496bb01931cf5bf5547076"
+    },
+    {
+      "path": "docs/implementation/w1-st-repair-02-bounded-human-adjudicated-reasoning-repair.md",
+      "sha256BeforeClosure": "d7d104d7d0c2619e3b265b35dc539dde3fe4a1ccc0eb53395604cc2e9c2c6d0e"
+    },
+    {
+      "path": "docs/implementation/w1-qual-02h1m-campaign-e-human-review-packet.md",
+      "sha256BeforeClosure": "74f3b11af72867d26a2b1f701ef71e3485b2642db8f54de8cbe80e840de120aa"
+    },
+    {
+      "path": "docs/implementation/w1-qual-02h1m2-fresh-mechanistic-human-review.md",
+      "sha256BeforeClosure": "7e1cb98248607355f8f14680fed5e62f6f10da80737f041bd78d3e4fa3425f16"
+    },
+    {
+      "path": "validation/w1-qual-01h2-st/human-adjudication.json",
+      "sha256BeforeClosure": "6084fc7d8e7c0aa6438dcbf7531001b3602ef490343dc920ec4aa25a48d06f7e"
+    },
+    {
+      "path": "validation/w1-st-repair-02/repair-decision.json",
+      "sha256BeforeClosure": "b78f9e5d9490a16676f231ea4e73ad0c3e66721197329846d08ead686ad49b6e"
+    },
+    {
+      "path": "validation/w1-qual-02h1m-st/execution-registry.json",
+      "sha256BeforeClosure": "3223bf1e51f9355150c781b0a7159d46865c040918eed22b45edfffa115bcb8d"
+    },
+    {
+      "path": "validation/w1-qual-02h1m-st/packet-decision.json",
+      "sha256BeforeClosure": "d08eca0f8731cc6d8de6158238ae792d0c460fac7704fea440c6ce44d82a8e41"
+    },
+    {
+      "path": "validation/w1-qual-02h1m2-st/case-freeze.json",
+      "sha256BeforeClosure": "12f438d899a507887dad4d59a9be9fe09de69eaec20a28711207bf88a91ec8cf"
+    },
+    {
+      "path": "validation/w1-qual-02h1m2-st/execution-result.json",
+      "sha256BeforeClosure": "60c7f1debb0c32c8ec6b67fbd77d69fc27ae556f228ab0e47468a0c90ab52ab3"
+    },
+    {
+      "path": "validation/w1-qual-02h1m2-st/packet-decision.json",
+      "sha256BeforeClosure": "1913b356d71ed9d3c7781015eb0fa6f7e7e34fdcb969a6619eef614c53f8e1bb"
+    }
+  ],
+  "stIdentity": {
+    "engine": "SCIENTIFIC_THINKING",
+    "version": "1.2.2",
+    "runtimeModified": false,
+    "hashesExpectedUnchanged": {
+      "engine": {
+        "path": "src/features/scientific-thinking/engine.ts",
+        "sha256": "edb070f46c7c986ee6980cb955e3d5fc535413782b4e5bcd198f3ca0be59b427"
+      },
+      "types": {
+        "path": "src/features/scientific-thinking/types.ts",
+        "sha256": "d07e089e2f6fb9c55fa4b9b4b50946727d7a7d9072a876e4d41d213ea3f63f81"
+      },
+      "input": {
+        "path": "src/features/scientific-thinking/input.ts",
+        "sha256": "427176ba84dc2a4c10cf38cdd53390d2e96b40b08449aad6aca09b6f8ef60215"
+      },
+      "projectChain": {
+        "path": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts",
+        "sha256": "a73916e16557300767249a3309af635c6b9b5241276df0b0dd4d2e0bc72b85a3"
+      },
+      "productRuntime": {
+        "path": "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts",
+        "sha256": "bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7"
+      }
+    }
+  },
+  "humanAdjudications": [
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "caseLabel": "K_EDGE_NAMED_ALTERNATIVES",
+      "H1": "NOT_SEPARATELY_ADJUDICATED",
+      "H2": "NOT_SEPARATELY_ADJUDICATED",
+      "H3": "NOT_SEPARATELY_ADJUDICATED",
+      "H4": "NOT_SEPARATELY_ADJUDICATED",
+      "H5": "NOT_SEPARATELY_ADJUDICATED",
+      "H6": "NOT_SEPARATELY_ADJUDICATED",
+      "H7": "NOT_SEPARATELY_ADJUDICATED",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "Alternatives are preserved distinctly, but ST does not sufficiently develop discriminating observations or questions."
+    },
+    {
+      "caseId": "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+      "caseLabel": "CMR_MOTION_CORRECTION_CONTRADICTION",
+      "H1": "NOT_SEPARATELY_ADJUDICATED",
+      "H2": "NOT_SEPARATELY_ADJUDICATED",
+      "H3": "NOT_SEPARATELY_ADJUDICATED",
+      "H4": "NOT_SEPARATELY_ADJUDICATED",
+      "H5": "NOT_SEPARATELY_ADJUDICATED",
+      "H6": "NOT_SEPARATELY_ADJUDICATED",
+      "H7": "NOT_SEPARATELY_ADJUDICATED",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "Competing positions and the contradiction are preserved, but discriminating reasoning remains relatively shallow."
+    },
+    {
+      "caseId": "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+      "caseLabel": "CARDIO_ONCOLOGY_TREATMENT_EXPOSURE_UNKNOWN",
+      "H1": "NOT_SEPARATELY_ADJUDICATED",
+      "H2": "NOT_SEPARATELY_ADJUDICATED",
+      "H3": "NOT_SEPARATELY_ADJUDICATED",
+      "H4": "NOT_SEPARATELY_ADJUDICATED",
+      "H5": "NOT_SEPARATELY_ADJUDICATED",
+      "H6": "NOT_SEPARATELY_ADJUDICATED",
+      "H7": "NOT_SEPARATELY_ADJUDICATED",
+      "H8": "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+      "finalDisposition": "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+      "humanFinding": "No material post-repair scientific defect was identified."
+    },
+    {
+      "caseId": "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+      "caseLabel": "SECONDARY_USE_IDENTIFIABLE_DATA_OWNERSHIP",
+      "H1": "NOT_SEPARATELY_ADJUDICATED",
+      "H2": "NOT_SEPARATELY_ADJUDICATED",
+      "H3": "NOT_SEPARATELY_ADJUDICATED",
+      "H4": "NOT_SEPARATELY_ADJUDICATED",
+      "H5": "NOT_SEPARATELY_ADJUDICATED",
+      "H6": "NOT_SEPARATELY_ADJUDICATED",
+      "H7": "NOT_SEPARATELY_ADJUDICATED",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "Refusal and escalation are correct; OUT_OF_DOMAIN is an imperfect semantic label for an out-of-ownership or authority boundary, and some generic gates remain noisy after STOP."
+    },
+    {
+      "caseId": "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+      "caseLabel": "QSM_CHOROID_PLEXUS_INSUFFICIENT_KNOWLEDGE",
+      "H1": "NOT_SEPARATELY_ADJUDICATED",
+      "H2": "NOT_SEPARATELY_ADJUDICATED",
+      "H3": "NOT_SEPARATELY_ADJUDICATED",
+      "H4": "NOT_SEPARATELY_ADJUDICATED",
+      "H5": "NOT_SEPARATELY_ADJUDICATED",
+      "H6": "NOT_SEPARATELY_ADJUDICATED",
+      "H7": "NOT_SEPARATELY_ADJUDICATED",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "Epistemic safety is preserved, but ST remains overly productive and creates low-value unsupported candidate or mechanism structures where clarification or Knowledge acquisition would be more useful."
+    },
+    {
+      "caseId": "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+      "caseLabel": "ASYMPTOMATIC_MYOCARDITIS_APPLICABILITY",
+      "H1": "NOT_SEPARATELY_ADJUDICATED",
+      "H2": "NOT_SEPARATELY_ADJUDICATED",
+      "H3": "NOT_SEPARATELY_ADJUDICATED",
+      "H4": "NOT_SEPARATELY_ADJUDICATED",
+      "H5": "NOT_SEPARATELY_ADJUDICATED",
+      "H6": "NOT_SEPARATELY_ADJUDICATED",
+      "H7": "NOT_SEPARATELY_ADJUDICATED",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "Applicability is preserved, but convergent Knowledge statements are represented as alternatives, reducing semantic precision."
+    },
+    {
+      "caseId": "ST02H1-E-GM-WM-CBF-ASSOCIATION-01",
+      "caseLabel": "SIMPLE_GM_WM_CBF_ASSOCIATION",
+      "H1": "NOT_SEPARATELY_ADJUDICATED",
+      "H2": "NOT_SEPARATELY_ADJUDICATED",
+      "H3": "NOT_SEPARATELY_ADJUDICATED",
+      "H4": "NOT_SEPARATELY_ADJUDICATED",
+      "H5": "NOT_SEPARATELY_ADJUDICATED",
+      "H6": "NOT_SEPARATELY_ADJUDICATED",
+      "H7": "NOT_SEPARATELY_ADJUDICATED",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "ST overcomplicates a simple supported association with generic competing branches and low-value reasoning warnings."
+    },
+    {
+      "caseId": "ST02H1M2-F-FABRY-WALL-THICKENING-MECHANISMS-01",
+      "caseLabel": "FABRY_WALL_THICKENING_MECHANISMS",
+      "H1": "YES",
+      "H2": "YES",
+      "H3": "NO",
+      "H4": "YES",
+      "H5": "PARTIAL",
+      "H6": "YES",
+      "H7": "PARTIAL",
+      "H8": "ACCEPTABLE_WITH_LIMITATIONS",
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "humanFinding": "The three named contributors are materialized and preserved, but represented as alternatives although they may coexist. ST reasons only shallowly about stage, myocardial region, discriminating observations and relative contribution."
+    }
+  ],
+  "nonAdjudicableCase": {
+    "caseId": "ST02H1-E-NVC-MECHANISM-01",
+    "status": "TECHNICALLY_NON_ADJUDICABLE",
+    "reason": "ORIGINAL_ST_OUTPUT_NOT_RECOVERABLE",
+    "excludedFromScientificCounts": true,
+    "rerunPerformed": false
+  },
+  "postRepairHumanSummary": {
+    "postRepairFreshHumanReviewCases": 8,
+    "criticalStDefect": 0,
+    "acceptableWithinTestedScope": 1,
+    "acceptableWithLimitations": 7,
+    "technicallyNonAdjudicableExcludedFromScientificCounts": 1,
+    "postRepairMechanisticReasoning": "ACCEPTABLE_WITH_LIMITATIONS",
+    "previouslyCriticalRepairClassesWithFreshHumanAdjudicatedCriticalRecurrence": 0,
+    "universalCorrectnessClaimed": false,
+    "nonRecurrenceGuaranteed": false
+  },
+  "characterization": {
+    "scientificThinkingCharacterization": "CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE",
+    "scientificPass": false,
+    "pd011Pass": false,
+    "stQualified": false,
+    "meaning": "SUFFICIENT_BOUNDED_HUMAN_REVIEWED_EVIDENCE_TO_CLOSE_WAVE_1_INDIVIDUAL_OWNER_CHARACTERIZATION_AND_PROCEED_TO_CONTROLLED_LOOP_CHARACTERIZATION",
+    "doesNotEstablish": [
+      "UNIVERSAL_SCIENTIFIC_CORRECTNESS",
+      "CLINICAL_VALIDITY",
+      "EXTERNAL_TRANSPORTABILITY",
+      "PD_011_QUALIFICATION",
+      "PUBLICATION_READINESS"
+    ]
+  },
+  "permanentHumanGate": {
+    "humanScientificAdjudicationRequired": true,
+    "automatedScientificCheckerAsHumanPacketGate": "ABANDONED_BY_HUMAN_PROGRAM_DECISION",
+    "automatedChecksMayPrepareAndSecureEvidence": true,
+    "automatedChecksMayReplaceFinalHumanScientificAdjudication": false,
+    "llmEvaluatorIsFinalScientificAuthority": false
+  },
+  "wave": {
+    "w1ArchitecturalConvergenceReady": true,
+    "w1ObservabilityReady": true,
+    "w1IndividualOwnerCharacterizationReady": true,
+    "w1ControlledLoopCharacterizationReady": false,
+    "wave1Complete": false,
+    "wave2Authorized": false
+  },
+  "nextAuthorizedMission": "W1-LOOP-QUAL-01_CONTROLLED_SCIENTIFIC_LOOP_CHARACTERIZATION",
+  "costControl": {
+    "externalLlmApiCalls": 0,
+    "openAiApiCalls": 0,
+    "chatGptApiCalls": 0,
+    "geminiCalls": 0,
+    "otherLlmProviderCalls": 0,
+    "networkCalls": 0,
+    "stInvocations": 0,
+    "ownerInvocations": 0,
+    "newCases": 0,
+    "newCampaigns": 0,
+    "newReplays": 0
+  },
+  "runtimeCodeModified": false,
+  "checkerModified": false,
+  "benchmarkCreated": false,
+  "dashboardCreated": false,
+  "controlledLoopMissionExecuted": false,
+  "pushAuthorized": false,
+  "mergePerformed": false,
+  "deploymentPerformed": false,
+  "outputs": {
+    "report": "docs/implementation/w1-qual-02h2-st-post-repair-human-characterization-closure.md",
+    "machineDecision": "validation/w1-qual-02h2-st/human-characterization-decision.json",
+    "roadmap": "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md"
+  }
+}
