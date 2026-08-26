@@ -42,11 +42,76 @@ export type ProductEntryRoutingDecision = {
 export type ProductUnderstandInteraction = {
   status: "SUCCESS" | "PARTIAL" | "FAILURE";
   assistantReply: string;
+  presentation: ProductUnderstandKnowledgePresentation | null;
   knowledgeResultRef: string | null;
   knowledgeResultDigest: string | null;
   projectWrites: 0;
   protocolProjections: 0;
   externalCalls: 0;
+};
+
+export type ProductUnderstandKnowledgePresentation = {
+  contract: "PRODUCT_UNDERSTAND_KNOWLEDGE_PRESENTATION";
+  contractVersion: "1.0.0";
+  resultRef: string;
+  resultDigest: string;
+  engineVersion: string;
+  projection: UnderstandProjection;
+  concepts: Array<{
+    conceptRef: string;
+    label: string;
+    kind: string;
+    objectType: string;
+    originalTerms: string[];
+  }>;
+  assertions: Array<{
+    assertionRef: string;
+    text: string;
+    status: string;
+    applicability: string;
+    applicabilityReasons: string[];
+    sourceRefs: string[];
+    locator: string | null;
+    limitations: string[];
+  }>;
+  sources: Array<{
+    sourceRef: string;
+    label: string;
+    revision: string;
+    locator: string | null;
+    contribution: string;
+  }>;
+  evidence: Array<{
+    assertionRef: string;
+    sourceRef: string;
+    relation: string;
+    locator: string;
+    limitations: string[];
+  }>;
+  contradictions: Array<{
+    contradictionRef: string;
+    state: string;
+    explanation: string;
+    positionRefs: string[];
+  }>;
+  gaps: Array<{
+    gapRef: string | null;
+    kind: "AMBIGUITY" | "UNRESOLVED_CONCEPT" | "KNOWLEDGE_GAP";
+    code: string | null;
+    scope: string | null;
+    explanation: string;
+    resumeCondition: string | null;
+  }>;
+  limitations: string[];
+  provenance: Array<{
+    provider: string;
+    version: string;
+    representationDigest: string;
+  }>;
+  freshness: {
+    requirement: string;
+    corpusStateDate: string;
+  };
 };
 
 const comparable = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR");
@@ -182,10 +247,10 @@ export const routeProductEntry = (input: {
 };
 
 const readableKnowledgeReply = (projection: UnderstandProjection) => [
-  projection.requestSummary,
   projection.answer,
+  projection.requestSummary,
   ...(projection.supportedItems.length ? [
-    "Éléments internes applicables :",
+    "Éléments documentés :",
     ...projection.supportedItems.slice(0, 4).map((item) => `• ${item.text}`),
   ] : []),
   ...(projection.gaps.length ? [
@@ -194,6 +259,81 @@ const readableKnowledgeReply = (projection: UnderstandProjection) => [
   ] : []),
   projection.boundedConclusion,
 ].join("\n");
+
+const knowledgePresentation = (
+  result: NonNullable<ReturnType<typeof executeKnowledgeEngineForPresentation>["result"]>,
+  projection: UnderstandProjection,
+): ProductUnderstandKnowledgePresentation => ({
+  contract: "PRODUCT_UNDERSTAND_KNOWLEDGE_PRESENTATION",
+  contractVersion: "1.0.0",
+  resultRef: result.resultId,
+  resultDigest: result.resultDigest,
+  engineVersion: result.trace.engineVersion,
+  projection,
+  concepts: result.resolvedConcepts.map((item) => ({
+    conceptRef: item.conceptId,
+    label: item.preferredLabel,
+    kind: item.kind,
+    objectType: item.objectType,
+    originalTerms: [...item.originalTerms],
+  })),
+  assertions: [
+    ...result.applicableAssertions.map((item) => ({
+      assertionRef: item.revision,
+      text: item.text,
+      status: item.status,
+      applicability: item.applicability,
+      applicabilityReasons: [...item.applicabilityReasons],
+      sourceRefs: result.evidence.filter((link) => link.assertionId === item.revision).map((link) => link.sourceId),
+      locator: item.locator || null,
+      limitations: [...item.limitations],
+    })),
+    ...result.documentaryStatements.map((item) => ({
+      assertionRef: item.statementId,
+      text: item.text,
+      status: item.status,
+      applicability: item.applicability,
+      applicabilityReasons: [...item.applicabilityReasons],
+      sourceRefs: [item.sourceId],
+      locator: item.locator || null,
+      limitations: [],
+    })),
+  ],
+  sources: result.sources.map((source) => ({
+    sourceRef: source.sourceId,
+    label: source.title,
+    revision: source.revision,
+    locator: source.locator || null,
+    contribution: result.evidence.some((link) => link.sourceId === source.sourceId)
+      ? "Soutient, nuance ou qualifie un élément affiché."
+      : "Source documentaire conservée dans le résultat Knowledge.",
+  })),
+  evidence: result.evidence.map((item) => ({
+    assertionRef: item.assertionId,
+    sourceRef: item.sourceId,
+    relation: item.relation,
+    locator: item.locator,
+    limitations: [...item.limitations],
+  })),
+  contradictions: result.controversies.map((item) => ({
+    contradictionRef: item.conflictId,
+    state: item.state,
+    explanation: item.explanation,
+    positionRefs: [...item.positionIds],
+  })),
+  gaps: [
+    ...result.ambiguities.map((explanation) => ({ gapRef: null, kind: "AMBIGUITY" as const, code: null, scope: null, explanation, resumeCondition: null })),
+    ...result.unresolvedConcepts.map((explanation) => ({ gapRef: null, kind: "UNRESOLVED_CONCEPT" as const, code: null, scope: null, explanation, resumeCondition: null })),
+    ...result.gaps.map((item) => ({ gapRef: item.gapId, kind: "KNOWLEDGE_GAP" as const, code: item.code, scope: item.scope, explanation: item.explanation, resumeCondition: item.resumeCondition })),
+  ],
+  limitations: [...result.limitations],
+  provenance: result.provenance.map((item) => ({
+    provider: item.providerId,
+    version: item.version,
+    representationDigest: item.representationDigest,
+  })),
+  freshness: { ...result.freshness },
+});
 
 export const executeProductUnderstandInteraction = (input: {
   raw: string;
@@ -217,6 +357,7 @@ export const executeProductUnderstandInteraction = (input: {
     return {
       status: "FAILURE",
       assistantReply: "La question et sa finalité sont conservées, mais les connaissances internes ne sont pas disponibles pour cette interaction. Aucun projet ni protocole n’a été créé.",
+      presentation: null,
       knowledgeResultRef: null,
       knowledgeResultDigest: null,
       projectWrites: 0,
@@ -228,6 +369,7 @@ export const executeProductUnderstandInteraction = (input: {
   return {
     status: execution.status,
     assistantReply: readableKnowledgeReply(projection),
+    presentation: knowledgePresentation(execution.result, projection),
     knowledgeResultRef: execution.result.resultId,
     knowledgeResultDigest: execution.result.resultDigest,
     projectWrites: 0,

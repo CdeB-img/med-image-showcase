@@ -18,10 +18,10 @@ import {
 } from "@/features/document-projection";
 import {
   buildFunctionalResetQueryNavigation,
-  clarifyFunctionalResetQueryAfterMisunderstanding,
   isFunctionalResetQueryMisunderstanding,
 } from "@/features/query-navigation";
 import ContributionReview from "./ContributionReview";
+import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
 import {
@@ -35,6 +35,7 @@ import {
   createTurnId,
   loadFunctionalResetSession,
   persistFunctionalResetSession,
+  productEntryPromptForIntent,
   resolvePostAdoptionQueryContinuation,
   shouldMediatePostAdoptionQuery,
   type FunctionalResetSession,
@@ -223,22 +224,21 @@ export default function ProtocolDesignerWorkspace() {
     const now = new Date().toISOString();
     const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
     const runtimeTurns = [...session.runtimeTurns, userTurn];
-    const responseId = createConversationEntryId();
     const asksForExplanationOrRephrase = isFunctionalResetQueryMisunderstanding(content);
-    const misunderstanding = Boolean(session.queryNavigation && asksForExplanationOrRephrase);
+    const previousContext = [...session.bridgeTraces]
+      .reverse()
+      .find((trace) => trace.entryRouting)?.entryRouting?.scientificContext;
+    const entryRouting = routeProductEntry({
+      raw: content,
+      sourceTurnRef: userTurn.turnId,
+      routedAt: now,
+      previousContext,
+      forceUnderstand: asksForExplanationOrRephrase,
+    });
     const qryNeedBefore = session.queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null;
-    const queryNavigation = session.queryNavigation
-      ? misunderstanding
-        ? clarifyFunctionalResetQueryAfterMisunderstanding({
-          navigation: session.queryNavigation,
-          rawResponse: content,
-          actorRef: session.projectAuthority.actorRef,
-          actorRole: "RESEARCHER",
-          receivedAt: now,
-          responseId,
-        })
-        : session.queryNavigation
-      : null;
+    // UNDERSTAND is transversal: a pending QRY remains byte-for-byte available,
+    // but it neither captures nor mutates the explanatory turn.
+    const queryNavigation = session.queryNavigation;
     const withUser: FunctionalResetSession = {
       ...session,
       queryNavigation,
@@ -254,16 +254,6 @@ export default function ProtocolDesignerWorkspace() {
     setCorrectionMode(false);
     setBusy(true);
     try {
-      const previousContext = [...session.bridgeTraces]
-        .reverse()
-        .find((trace) => trace.entryRouting)?.entryRouting?.scientificContext;
-      const entryRouting = routeProductEntry({
-        raw: content,
-        sourceTurnRef: userTurn.turnId,
-        routedAt: now,
-        previousContext,
-        forceUnderstand: asksForExplanationOrRephrase,
-      });
       const emptyTraceMaterial = {
         turnId: userTurn.turnId,
         requestKind: "USER_TURN" as const,
@@ -323,8 +313,7 @@ export default function ProtocolDesignerWorkspace() {
         return;
       }
 
-      const initialUnderstand = entryRouting.routeIntent === "UNDERSTAND" && !session.project && !queryNavigation;
-      if (initialUnderstand) {
+      if (entryRouting.routeIntent === "UNDERSTAND") {
         const knowledge = executeProductUnderstandInteraction({ raw: content, decision: entryRouting, createdAt: now });
         const answeredAt = new Date().toISOString();
         const assistantTurn: ScientificInterpretationTurn = {
@@ -342,6 +331,7 @@ export default function ProtocolDesignerWorkspace() {
             kind: knowledge.status === "FAILURE" ? "ERROR" : "TEXT",
             role: "NOXIA",
             content: knowledge.assistantReply,
+            knowledgePresentation: knowledge.presentation,
             createdAt: answeredAt,
           }],
           bridgeTraces: [...current.bridgeTraces, {
@@ -678,6 +668,9 @@ export default function ProtocolDesignerWorkspace() {
 
   const openProjection = functionalProtocolProjection(session.documents, session.openDocumentProjectionId);
   const protocolCard = session.documents.cards.find((card) => card.kind === "PROTOCOL");
+  const activeRouteIntent = [...session.bridgeTraces]
+    .reverse()
+    .find((trace) => trace.entryRouting)?.entryRouting?.routeIntent;
   const projectPanel = <ResearchProjectPanel
     project={session.project}
     documents={session.documents}
@@ -739,10 +732,12 @@ export default function ProtocolDesignerWorkspace() {
                 onReject={() => rejectContribution(entry.contribution.identity.contributionId)}
               />
               : <article key={entry.entryId} className={`flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
-                <div className={`max-w-[88%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed sm:max-w-[78%] ${
-                  entry.kind === "ERROR" ? "border border-destructive/40 bg-destructive/10 text-destructive"
-                    : entry.role === "USER" ? "bg-primary text-primary-foreground" : "bg-muted"
-                }`} role={entry.kind === "ERROR" ? "alert" : undefined}>{entry.content}</div>
+                {entry.kind === "TEXT" && entry.role === "NOXIA" && entry.knowledgePresentation
+                  ? <ProductUnderstandResponse presentation={entry.knowledgePresentation} />
+                  : <div className={`max-w-[88%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed sm:max-w-[78%] ${
+                    entry.kind === "ERROR" ? "border border-destructive/40 bg-destructive/10 text-destructive"
+                      : entry.role === "USER" ? "bg-primary text-primary-foreground" : "bg-muted"
+                  }`} role={entry.kind === "ERROR" ? "alert" : undefined}>{entry.content}</div>}
               </article>)}
             {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />NOXIA vous répond…</div></div>}
             <div ref={endRef} />
@@ -765,7 +760,7 @@ export default function ProtocolDesignerWorkspace() {
                 }}
                 rows={2}
                 maxLength={4_000}
-                placeholder={correctionMode ? "Ce que je souhaite corriger…" : session.project ? "Ajouter ou modifier un élément du projet…" : "Que souhaitez-vous comprendre, formaliser ou construire ?"}
+                placeholder={correctionMode ? "Ce que je souhaite corriger…" : productEntryPromptForIntent(activeRouteIntent)}
                 className="max-h-40 min-h-12 flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none"
               />
               <button type="submit" disabled={busy || !draft.trim()} aria-label="Envoyer" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button>

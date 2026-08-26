@@ -101,21 +101,18 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     expect(shouldMediatePostAdoptionQuery({ currentAction: null, currentPresentation: null, standardQuestion: null })).toBe(false);
   });
 
-  it("shows the natural reply and creates no Project candidate for a pure conversation turn", async () => {
-    runtime.request.mockImplementationOnce(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => makeFunctionalResetBridgeResponse(
-      conversation.turns,
-      null,
-      "Cette question sert à vérifier si le projet est monocentrique ou multicentrique, ce qui change sa faisabilité.",
-    ));
+  it("routes an explanatory turn through local Knowledge and creates no Project candidate", async () => {
     renderDemo();
     submit("Pourquoi tu me demandes le nombre de centres ?");
-    expect(await screen.findByText(/Cette question sert à vérifier/)).toBeInTheDocument();
+    expect(await screen.findByTestId("product-understand-knowledge-response")).toBeInTheDocument();
     expect(screen.queryByTestId("functional-contribution-review")).toBeNull();
+    expect(runtime.request).not.toHaveBeenCalled();
     expect(stored().project).toBeNull();
     expect(stored().bridgeTraces.at(-1)).toMatchObject({
+      provider: "KNOWLEDGE",
       persistentExtractionCalled: false,
       projectChangeSetCandidate: null,
-      calls: 1,
+      calls: 0,
       projectVersionBefore: null,
       projectVersionAfter: null,
     });
@@ -178,7 +175,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     expect(screen.queryByText("L’espace Protocol Designer a rencontré une erreur d’affichage.")).toBeNull();
   });
 
-  it("passes the exact active QRY question as context while the natural explanation remains the visible reply", async () => {
+  it("preserves the exact active QRY while an explanatory turn uses transversal Knowledge", async () => {
     runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
       const latest = conversation.turns.at(-1)?.content;
       return latest === COLCHICINE_03A_INITIAL
@@ -195,21 +192,21 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     const questionBefore = before.queryNavigation.standardQuestion.text;
     const needBefore = before.queryNavigation.currentAction.selectedActionId;
     const projectBefore = JSON.stringify(before.project);
+    const queryBefore = JSON.stringify(before.queryNavigation);
     const entriesBefore = before.entries.length;
+    runtime.request.mockClear();
 
     submit("je ne comprends pas");
-    expect(await screen.findByText(/Je reformule : je cherche à comprendre/)).toBeInTheDocument();
-    const request = runtime.request.mock.calls.at(-1)?.[0];
-    expect(request.conversation.interactionContext.purpose).toContain("Question actuellement présentée au chercheur");
+    expect(await screen.findByTestId("product-understand-knowledge-response")).toBeInTheDocument();
     const after = stored();
-    expect(request.conversation.interactionContext.purpose).toContain(after.queryNavigation.standardQuestion.text);
+    expect(runtime.request).not.toHaveBeenCalled();
     expect(after.entries).toHaveLength(entriesBefore + 2);
-    expect(after.entries.at(-1).content).toContain("Je reformule");
     expect(after.entries.filter((entry: { kind: string; content?: string }) => entry.kind === "TEXT" && entry.content === questionBefore)).toHaveLength(0);
     expect(after.queryNavigation.currentAction.selectedActionId).toBe(needBefore);
-    expect(after.queryNavigation.memory.responses.at(-1).disposition).toBe("REQUEST_CLARIFICATION");
+    expect(JSON.stringify(after.queryNavigation)).toBe(queryBefore);
     expect(JSON.stringify(after.project)).toBe(projectBefore);
-    expect(after.bridgeTraces.at(-1)).toMatchObject({ persistentExtractionCalled: false, projectVersionBefore: before.project.versionId, projectVersionAfter: before.project.versionId });
+    expect(after.bridgeTraces.at(-1)).toMatchObject({ provider: "KNOWLEDGE", calls: 0, persistentExtractionCalled: false, projectVersionBefore: before.project.versionId, projectVersionAfter: before.project.versionId });
+    expect(after.bridgeTraces.at(-1).knowledgeResultRef).toMatch(/^knowledge-result:/);
   });
 
   it("F11–F13 recomputes QRY after adoption and displays a mediated continuation below the confirmation", async () => {
@@ -297,9 +294,9 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     });
     renderDemo();
 
-    submit("Je comparerai le CT et IRM.");
+    submit("Je veux construire une étude : je comparerai le CT et IRM.");
     expect(await screen.findByText("Acquisition CT")).toBeInTheDocument();
-    submit("La méthode anatomique ex vivo sera la référence.");
+    submit("Dans cette étude, la méthode anatomique ex vivo sera la référence.");
 
     expect(await screen.findByText("Référence anatomique ex vivo")).toBeInTheDocument();
     const reviews = await screen.findAllByTestId("functional-contribution-review");
@@ -334,7 +331,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
       };
     });
     renderDemo();
-    submit("Je modifie cette référence.");
+    submit("Je modifie cette référence dans mon protocole d’étude.");
     expect(await screen.findByText("Je comprends la correction demandée.")).toBeInTheDocument();
     expect(await screen.findByText(/proposition persistante est bloquée/)).toHaveAttribute("role", "alert");
     expect(stored().project).toBeNull();

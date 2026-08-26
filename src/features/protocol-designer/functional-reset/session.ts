@@ -13,7 +13,10 @@ import {
 } from "@/features/document-projection";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
-import type { ProductEntryRoutingDecision } from "./product-entry-routing";
+import type {
+  ProductEntryRoutingDecision,
+  ProductUnderstandKnowledgePresentation,
+} from "./product-entry-routing";
 import type {
   PersistentDeltaValidation,
   PersistentExtractionProviderArtifact,
@@ -45,6 +48,17 @@ import {
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Dites-moi ce que vous souhaitez comprendre, formaliser ou construire.\nNOXIA préservera votre intention avant de proposer la suite.";
+export const LEGACY_PROJECT_FIRST_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.";
+
+export const productEntryPromptForIntent = (
+  routeIntent: ProductEntryRoutingDecision["routeIntent"] | undefined,
+) => routeIntent === "UNDERSTAND"
+  ? "Que souhaitez-vous comprendre ou comparer ?"
+  : routeIntent === "FORMALIZE_IDEA"
+    ? "Décrivez l’idée ou l’intuition scientifique que vous souhaitez travailler."
+    : routeIntent === "DESIGN_STUDY"
+      ? "Décrivez le projet de recherche que vous souhaitez construire."
+      : "Que souhaitez-vous comprendre, formaliser ou construire ?";
 
 export const shouldMediatePostAdoptionQuery = (
   navigation: Pick<FunctionalResetQueryNavigation, "currentAction" | "currentPresentation" | "standardQuestion">,
@@ -67,7 +81,7 @@ export const resolvePostAdoptionQueryContinuation = (
 };
 
 export type ConversationEntry =
-  | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; createdAt: string }
+  | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; knowledgePresentation?: ProductUnderstandKnowledgePresentation | null; createdAt: string }
   | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; createdAt: string }
   | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string };
 
@@ -209,6 +223,15 @@ const migrateLegacySession = (value: unknown): FunctionalResetSession | null => 
   return looksLikeSession(migrated) ? migrated : null;
 };
 
+export const repairPersistedProductPresentation = (
+  entries: FunctionalResetSession["entries"],
+): FunctionalResetSession["entries"] => entries.map((entry, index) => index === 0
+  && entry.kind === "TEXT"
+  && entry.role === "NOXIA"
+  && entry.content === LEGACY_PROJECT_FIRST_NOXIA_MESSAGE
+  ? { ...entry, content: INITIAL_NOXIA_MESSAGE }
+  : entry);
+
 export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSession => {
   try {
     const raw = storage.getItem(FUNCTIONAL_RESET_STORAGE_KEY);
@@ -221,7 +244,7 @@ export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSes
       knowledgeOwnerLedger: rehydrateProductKnowledgeOwnerLedger(session.knowledgeOwnerLedger),
       validationRunLedger: rehydrateProductValidationRunLedger(session.validationRunLedger),
       scientificExecutionTraceLedger: rehydrateScientificExecutionTraceLedger(session.scientificExecutionTraceLedger),
-      entries: session.entries.map((entry) => entry.kind === "REVIEW"
+      entries: repairPersistedProductPresentation(session.entries).map((entry) => entry.kind === "REVIEW"
         && entry.candidate
         && !entry.candidate.humanReviewProjection
         ? { ...entry, candidate: undefined }
