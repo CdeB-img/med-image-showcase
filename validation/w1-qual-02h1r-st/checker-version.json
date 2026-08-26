@@ -1,0 +1,46 @@
+{
+  "contract": "W1_QUAL_02H1R_TECHNICAL_CHECKER_SUCCESSOR_RECORD",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "campaignEScientificFreeze": "UNCHANGED",
+  "historicalFreezeDigest": "ke1-d1c4ff40aa84e28c",
+  "historicalChecker": {
+    "version": "1.1.0",
+    "path": "validation/w1-qual-01h1t/tools/deterministic-checker.ts",
+    "sha256": "ea0e4a3c83d6217bd55b73aa356c0c685edd6f0e5575d15f9ed50bb0019938f2"
+  },
+  "successorChecker": {
+    "version": "1.2.0",
+    "path": "validation/w1-qual-02h1r-st/tools/deterministic-checker.ts",
+    "sha256": "ec257020b87341065a4dd623e8976fdc24948d925acd7f7a8c347f4021e1cbaa",
+    "operation": "POST_FREEZE_TECHNICAL_CONTRACT_ALIGNMENT",
+    "limitationContractAlignment": "PROVEN_BY_4_OF_4_GENERIC_TESTS",
+    "knownUnreliableChecksAfterContinuation": [
+      "SOURCE_EVIDENCE_REFS",
+      "LINEAGE_INTEGRITY"
+    ],
+    "overallCampaignUseStatus": "STOPPED_AFTER_SECOND_CHECKER_DEFECT"
+  },
+  "transientContinuationHarness": {
+    "path": "_w1_qual_02h1r_workbench.ts",
+    "sha256BeforeRemoval": "34747cbcfe5899a73d5f186b59601bc54c69d92ad4968e23c0fd5c7f2bfdfdc9",
+    "retention": "NOT_RETAINED_AFTER_EVIDENCE_CAPTURE"
+  },
+  "genericTests": {
+    "testFile": "src/features/protocol-designer/functional-reset/__tests__/w1-qual-02h1r-deterministic-checker.test.ts",
+    "testFilesPassed": 1,
+    "testFilesFailed": 0,
+    "testsPassed": 4,
+    "testsFailed": 0,
+    "scientificJudgmentPerformed": false
+  },
+  "stRuntimeHashesUnchanged": {
+    "engine": "edb070f46c7c986ee6980cb955e3d5fc535413782b4e5bcd198f3ca0be59b427",
+    "types": "d07e089e2f6fb9c55fa4b9b4b50946727d7a7d9072a876e4d41d213ea3f63f81",
+    "input": "427176ba84dc2a4c10cf38cdd53390d2e96b40b08449aad6aca09b6f8ef60215",
+    "projectChain": "a73916e16557300767249a3309af635c6b9b5241276df0b0dd4d2e0bc72b85a3",
+    "productRuntime": "bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7"
+  },
+  "scientificJudgmentPerformed": false,
+  "stRuntimeModified": false
+}

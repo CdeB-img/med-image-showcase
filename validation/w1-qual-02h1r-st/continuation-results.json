@@ -1,0 +1,2194 @@
+{
+  "contract": "W1_QUAL_02H1R_CAMPAIGN_E_CONTINUATION_RESULTS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "historicalFreezeDigest": "ke1-d1c4ff40aa84e28c",
+  "historicalDecision": "W1_QUAL_02H1_HUMAN_REVIEW_PACKET_NOT_READY",
+  "executionPolicy": "ONLY_SEVEN_HISTORICALLY_UNEXECUTED_CASES_ONE_PASS_NO_REROLL",
+  "firstCaseReruns": 0,
+  "authorizedNewStInvocations": 7,
+  "newStInvocations": 1,
+  "rerolls": 0,
+  "postObservationRepairs": 0,
+  "stRuntimeModified": false,
+  "externalLlmApiCalls": 0,
+  "networkCalls": 0,
+  "continuationStoppedFailClosed": true,
+  "newCheckerOnlyDefect": "YES",
+  "stopDecision": "W1_QUAL_02H1R_STOPPED_AFTER_SECOND_CHECKER_DEFECT",
+  "stopReason": "SOURCE_EVIDENCE_REFS compared the deduplicated governed ST dependency projection against duplicate-bearing raw Knowledge evidence entries.",
+  "unreliableDeterministicChecks": [
+    "SOURCE_EVIDENCE_REFS",
+    "LINEAGE_INTEGRITY"
+  ],
+  "remainingNeverExecutedCaseIds": [
+    "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+    "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+    "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+    "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+    "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+    "ST02H1-E-GM-WM-CBF-ASSOCIATION-01"
+  ],
+  "results": [
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "family": "B_NAMED_ALTERNATIVES",
+      "domain": "SPECTRAL_CT_K_EDGE_METROLOGY",
+      "executionKind": "CAMPAIGN_E_H1R_CONTINUATION_ONE_PASS",
+      "inputPackDigest": "ke1-8204152e0ab27e52",
+      "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+      "startedAt": "2026-08-26T19:02:00.000Z",
+      "completedAt": "2026-08-26T19:02:01.000Z",
+      "durationMs": 1000,
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "stInvoked": true,
+      "stInvocationCount": 1,
+      "ownerResultProduced": true,
+      "ownerResultCount": 1,
+      "terminalOutcome": "OWNER_RESULT_PRODUCED",
+      "terminalStage": null,
+      "error": null,
+      "requestRef": "scientific-thinking-project-request:ke1-1b0903402a21521c",
+      "requestDigest": "ke1-db3d7f2688cabd62",
+      "stRequest": {
+        "contractVersion": "1.2.2",
+        "requestId": "scientific-thinking-project-request:ke1-1b0903402a21521c",
+        "originalExpression": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.",
+        "validatedReformulation": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+        "language": "fr",
+        "scientificIntent": {
+          "intentRef": "project-scientific-intent:project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+          "userExpertise": "UNKNOWN",
+          "sourceJourney": "DESIGN_STUDY",
+          "semanticModelRef": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+          "semanticModelDigest": "ke1-574870d7ab531263"
+        },
+        "researchContext": {
+          "sessionId": "owner-chain:project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+          "contextVersion": 1,
+          "researchProjectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+          "previousDecisionIds": [
+            "project-contribution-decision:ke1-341a965c76ba1590"
+          ]
+        },
+        "scientificObjectTerms": [
+          "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+          "Structurer les explications alternatives fournies et les informations qui permettraient de les distinguer.",
+          "Phantoms traçables contenant un matériau K-edge déclaré",
+          "Signal élémentaire K-edge non récupéré",
+          "Décomposition K-edge",
+          "Concentration élémentaire",
+          "Séparabilité spectrale",
+          "Volume partiel",
+          "Biais de reconstruction ou de modèle",
+          "Signal K-edge récupéré",
+          "Scanner à comptage photonique multi-bins"
+        ],
+        "resolvedConcepts": [
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+            "label": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+            "label": "Structurer les explications alternatives fournies et les informations qui permettraient de les distinguer.",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+            "label": "Phantoms traçables contenant un matériau K-edge déclaré",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+            "label": "Signal élémentaire K-edge non récupéré",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+            "label": "Décomposition K-edge",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+            "label": "Concentration élémentaire",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+            "label": "Séparabilité spectrale",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+            "label": "Volume partiel",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+            "label": "Biais de reconstruction ou de modèle",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5",
+            "label": "Signal K-edge récupéré",
+            "status": "UNRESOLVED"
+          },
+          {
+            "conceptId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1",
+            "label": "Scanner à comptage photonique multi-bins",
+            "status": "UNRESOLVED"
+          }
+        ],
+        "relations": [],
+        "population": [
+          "Phantoms traçables contenant un matériau K-edge déclaré"
+        ],
+        "pathologyOrCondition": [
+          "Signal élémentaire K-edge non récupéré"
+        ],
+        "phenomena": [
+          "Concentration élémentaire",
+          "Séparabilité spectrale",
+          "Volume partiel",
+          "Biais de reconstruction ou de modèle",
+          "Signal K-edge récupéré"
+        ],
+        "outcomes": [
+          "Concentration élémentaire",
+          "Séparabilité spectrale",
+          "Volume partiel",
+          "Biais de reconstruction ou de modèle",
+          "Signal K-edge récupéré"
+        ],
+        "methodsMentioned": [
+          "Décomposition K-edge",
+          "Scanner à comptage photonique multi-bins"
+        ],
+        "scientificPurpose": [
+          "Structurer les explications alternatives fournies et les informations qui permettraient de les distinguer."
+        ],
+        "context": [
+          "Signal élémentaire K-edge non récupéré"
+        ],
+        "missingInformation": [
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1"
+        ],
+        "projectUnknowns": [],
+        "contradictions": [],
+        "safetyFlags": [],
+        "information": {
+          "explicit": [
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question:Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective:Structurer les explications alternatives fournies et les informations qui permettraient de les distinguer.",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population:Phantoms traçables contenant un matériau K-edge déclaré",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition:Signal élémentaire K-edge non récupéré",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2:Décomposition K-edge",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1:Concentration élémentaire",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2:Séparabilité spectrale",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3:Volume partiel",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4:Biais de reconstruction ou de modèle",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5:Signal K-edge récupéré",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1:Scanner à comptage photonique multi-bins"
+          ],
+          "interpreted": []
+        },
+        "knowledge": {
+          "ownerResultRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+          "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+          "resultRevision": 1,
+          "resultDigest": "ke1-a094ab9399a0d037",
+          "coverageStatus": "PARTIAL",
+          "support": "PARTIAL",
+          "sourceIds": [
+            "RB-003@1.0#42-49"
+          ],
+          "assertionRefs": [
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS"
+          ],
+          "documentaryStatementRefs": [],
+          "evidenceRefs": [
+            "RB-003:R36:PMID-17634657",
+            "RB-003:R37:PMID-18612175",
+            "RB-003:R45:PMID-38306974",
+            "RB-003:R10:PMID-24801550",
+            "RB-003:R35:PMID-31984498"
+          ],
+          "applicability": [
+            {
+              "assertionRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+              "status": "APPLICABLE_WITH_LIMITATIONS"
+            },
+            {
+              "assertionRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+              "status": "APPLICABLE_WITH_LIMITATIONS"
+            },
+            {
+              "assertionRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+              "status": "APPLICABLE_WITH_LIMITATIONS"
+            },
+            {
+              "assertionRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+              "status": "APPLICABLE_WITH_LIMITATIONS"
+            }
+          ],
+          "contradictionRefs": [],
+          "contradictions": [],
+          "gapRefs": [],
+          "gapCodes": [],
+          "reasoningStatements": [
+            {
+              "statementRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+              "text": "Une non-détection peut refléter une concentration ou un nombre de photons insuffisant au regard d'une limite de détection propre à la tâche.",
+              "status": "GOVERNED_DOCUMENTARY",
+              "applicability": "APPLICABLE_WITH_LIMITATIONS",
+              "limitations": [
+                "La limite dépend de la géométrie, de la dose, de la taille et de la tâche."
+              ],
+              "evidenceRefs": [
+                "RB-003:R36:PMID-17634657",
+                "RB-003:R37:PMID-18612175"
+              ],
+              "sourceRefs": [
+                "RB-003@1.0#42-43,49"
+              ],
+              "owner": "KNOWLEDGE",
+              "ownershipTransferred": false
+            },
+            {
+              "statementRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+              "text": "Une séparabilité spectrale insuffisante peut résulter de la résolution énergétique finie, du spectre transmis, du bruit, des matériaux concurrents ou de la réponse des bins.",
+              "status": "GOVERNED_DOCUMENTARY",
+              "applicability": "APPLICABLE_WITH_LIMITATIONS",
+              "limitations": [
+                "La faisabilité en phantom ne garantit pas la séparabilité dans une autre géométrie."
+              ],
+              "evidenceRefs": [
+                "RB-003:R36:PMID-17634657",
+                "RB-003:R45:PMID-38306974"
+              ],
+              "sourceRefs": [
+                "RB-003@1.0#43"
+              ],
+              "owner": "KNOWLEDGE",
+              "ownershipTransferred": false
+            },
+            {
+              "statementRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+              "text": "Le volume partiel ou des matériaux non modélisés peuvent rendre une décomposition instable ou biaisée malgré un phantom simple.",
+              "status": "GOVERNED_DOCUMENTARY",
+              "applicability": "APPLICABLE_WITH_LIMITATIONS",
+              "limitations": [
+                "La taille de cible et la composition concurrente gouvernent cette explication."
+              ],
+              "evidenceRefs": [
+                "RB-003:R10:PMID-24801550"
+              ],
+              "sourceRefs": [
+                "RB-003@1.0#24"
+              ],
+              "owner": "KNOWLEDGE",
+              "ownershipTransferred": false
+            },
+            {
+              "statementRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+              "text": "La reconstruction statistique, la régularisation et les corrections du partage de charge peuvent modifier la récupération du signal ou introduire un biais dépendant du modèle.",
+              "status": "GOVERNED_DOCUMENTARY",
+              "applicability": "APPLICABLE_WITH_LIMITATIONS",
+              "limitations": [
+                "Les effets dépendent de l'algorithme, du détecteur et du flux."
+              ],
+              "evidenceRefs": [
+                "RB-003:R10:PMID-24801550",
+                "RB-003:R35:PMID-31984498"
+              ],
+              "sourceRefs": [
+                "RB-003@1.0#39,43"
+              ],
+              "owner": "KNOWLEDGE",
+              "ownershipTransferred": false
+            }
+          ],
+          "controversies": [],
+          "gaps": [],
+          "unresolvedConcepts": [],
+          "limitations": [
+            "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.",
+            "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction."
+          ]
+        }
+      },
+      "ownerResultRef": "scientific-thinking-output:ke1-e8b1eb3cc7f26720@1.2.2",
+      "resultDigest": "ke1-e8b1eb3cc7f26720",
+      "stOutput": {
+        "contractVersion": "1.2.2",
+        "outputId": "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+        "outputDigest": "ke1-e8b1eb3cc7f26720",
+        "status": "CANDIDATES_PROPOSED",
+        "candidateNotice": "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
+        "originalIdea": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.",
+        "understoodProblem": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+        "centralScientificObject": "Concentration élémentaire",
+        "semanticElements": [
+          {
+            "elementId": "ST-I-001",
+            "type": "OBSERVATION",
+            "text": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.",
+            "source": "USER_EXPLICIT",
+            "confidence": "HIGH",
+            "support": "PARTIAL"
+          }
+        ],
+        "questions": [
+          {
+            "questionId": "ST-Q-001",
+            "text": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+            "kind": "PRIMARY",
+            "rationale": "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
+            "testability": "TESTABLE_CANDIDATE",
+            "scope": "TOO_NARROW",
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedAssumptionIds": [],
+            "sourceTerms": [
+              "Biais de reconstruction ou de modèle",
+              "Concentration élémentaire"
+            ]
+          },
+          {
+            "questionId": "ST-Q-002",
+            "text": "La comparaison entre Décomposition K-edge et Scanner à comptage photonique multi-bins constitue-t-elle une question méthodologique distincte de la question scientifique principale ?",
+            "kind": "METHODOLOGICAL_BRANCH",
+            "rationale": "Le choix de méthode est séparé de la relation scientifique afin de ne pas faire passer une solution prématurée pour la question principale.",
+            "testability": "NEEDS_CLARIFICATION",
+            "scope": "TOO_NARROW",
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedAssumptionIds": [
+              "ST-A-002"
+            ],
+            "sourceTerms": [
+              "Décomposition K-edge",
+              "Scanner à comptage photonique multi-bins"
+            ]
+          }
+        ],
+        "hypotheses": [
+          {
+            "hypothesisId": "ST-H-001",
+            "text": "La relation formulée dans « Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction  » est observable dans le contexte précisé.",
+            "kind": "PRIMARY",
+            "falsifiability": "TESTABLE_CANDIDATE",
+            "observableCondition": "La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.",
+            "direction": null,
+            "limitations": [
+              "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.",
+              "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction."
+            ],
+            "unknowns": [
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1"
+            ],
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedQuestionIds": [
+              "ST-Q-001"
+            ]
+          },
+          {
+            "hypothesisId": "ST-H-KNOWLEDGE-001",
+            "text": "La reconstruction statistique, la régularisation et les corrections du partage de charge peuvent modifier la récupération du signal ou introduire un biais dépendant du modèle.",
+            "kind": "ALTERNATIVE",
+            "falsifiability": "TESTABLE_CANDIDATE",
+            "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+            "direction": null,
+            "limitations": [
+              "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.",
+              "Les effets dépendent de l'algorithme, du détecteur et du flux.",
+              "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection."
+            ],
+            "unknowns": [
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1"
+            ],
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedQuestionIds": [
+              "ST-Q-001"
+            ]
+          },
+          {
+            "hypothesisId": "ST-H-KNOWLEDGE-002",
+            "text": "Le volume partiel ou des matériaux non modélisés peuvent rendre une décomposition instable ou biaisée malgré un phantom simple.",
+            "kind": "ALTERNATIVE",
+            "falsifiability": "TESTABLE_CANDIDATE",
+            "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+            "direction": null,
+            "limitations": [
+              "La taille de cible et la composition concurrente gouvernent cette explication.",
+              "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.",
+              "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection."
+            ],
+            "unknowns": [
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1"
+            ],
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedQuestionIds": [
+              "ST-Q-001"
+            ]
+          },
+          {
+            "hypothesisId": "ST-H-KNOWLEDGE-003",
+            "text": "Une non-détection peut refléter une concentration ou un nombre de photons insuffisant au regard d'une limite de détection propre à la tâche.",
+            "kind": "ALTERNATIVE",
+            "falsifiability": "TESTABLE_CANDIDATE",
+            "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+            "direction": null,
+            "limitations": [
+              "La limite dépend de la géométrie, de la dose, de la taille et de la tâche.",
+              "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.",
+              "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection."
+            ],
+            "unknowns": [
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1"
+            ],
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedQuestionIds": [
+              "ST-Q-001"
+            ]
+          },
+          {
+            "hypothesisId": "ST-H-KNOWLEDGE-004",
+            "text": "Une séparabilité spectrale insuffisante peut résulter de la résolution énergétique finie, du spectre transmis, du bruit, des matériaux concurrents ou de la réponse des bins.",
+            "kind": "ALTERNATIVE",
+            "falsifiability": "TESTABLE_CANDIDATE",
+            "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+            "direction": null,
+            "limitations": [
+              "La faisabilité en phantom ne garantit pas la séparabilité dans une autre géométrie.",
+              "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.",
+              "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection."
+            ],
+            "unknowns": [
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5",
+              "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1"
+            ],
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedQuestionIds": [
+              "ST-Q-001"
+            ]
+          }
+        ],
+        "objectives": [
+          {
+            "objectiveId": "ST-O-001",
+            "text": "Évaluer la question scientifique candidate : « Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction  ».",
+            "level": "PRIMARY",
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedQuestionIds": [
+              "ST-Q-001"
+            ],
+            "linkedHypothesisIds": [
+              "ST-H-001"
+            ]
+          },
+          {
+            "objectiveId": "ST-O-002",
+            "text": "Examiner séparément l’influence de la branche méthodologique déclarée, sans sélectionner de méthode à ce stade.",
+            "level": "SECONDARY",
+            "support": "PARTIAL",
+            "reviewState": "PENDING",
+            "linkedQuestionIds": [
+              "ST-Q-002"
+            ],
+            "linkedHypothesisIds": []
+          }
+        ],
+        "selectedQuestionCandidate": null,
+        "mechanisms": [],
+        "assumptions": [
+          {
+            "assumptionId": "ST-A-001",
+            "text": "La pertinence de Décomposition K-edge et Scanner à comptage photonique multi-bins est présumée avant confirmation de la finalité scientifique.",
+            "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+            "support": "PARTIAL",
+            "status": "CHALLENGED"
+          }
+        ],
+        "unknowns": [
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+          "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5"
+        ],
+        "ambiguities": [
+          "RELATION_SCIENTIFIQUE_NON_PRÉCISÉE"
+        ],
+        "contradictions": [],
+        "conceptualBiases": [
+          "SOLUTION_MÉTHODOLOGIQUE_POTENTIELLEMENT_PRÉMATURÉE"
+        ],
+        "methodPreferences": [
+          "Décomposition K-edge",
+          "Scanner à comptage photonique multi-bins"
+        ],
+        "alternatives": [
+          "La reconstruction statistique, la régularisation et les corrections du partage de charge peuvent modifier la récupération du signal ou introduire un biais dépendant du modèle.",
+          "Le volume partiel ou des matériaux non modélisés peuvent rendre une décomposition instable ou biaisée malgré un phantom simple.",
+          "Une non-détection peut refléter une concentration ou un nombre de photons insuffisant au regard d'une limite de détection propre à la tâche.",
+          "Une séparabilité spectrale insuffisante peut résulter de la résolution énergétique finie, du spectre transmis, du bruit, des matériaux concurrents ou de la réponse des bins."
+        ],
+        "reasoningIssues": [
+          "COMPETING_BRANCH_NOT_ARBITRATED",
+          "HYPOTHESIS_WITHOUT_MECHANISM",
+          "QUESTION_SCOPE_TOO_NARROW"
+        ],
+        "operations": [
+          {
+            "operation": "CLARIFY_IDEA",
+            "status": "NOT_APPLICABLE",
+            "reason": "Aucun élément actuel ne justifie cette opération."
+          },
+          {
+            "operation": "REFORMULATE_QUESTION",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "SPLIT_QUESTION",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "MERGE_QUESTIONS",
+            "status": "AVAILABLE",
+            "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+          },
+          {
+            "operation": "REDUCE_SCOPE",
+            "status": "AVAILABLE",
+            "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+          },
+          {
+            "operation": "EXPAND_SCOPE",
+            "status": "AVAILABLE",
+            "reason": "Opération disponible uniquement sur demande ou après décision humaine ; aucun changement silencieux."
+          },
+          {
+            "operation": "IDENTIFY_ASSUMPTION",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "CHALLENGE_ASSUMPTION",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "GENERATE_ALTERNATIVE_HYPOTHESIS",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "REFINE_HYPOTHESIS",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "REJECT_NON_TESTABLE_HYPOTHESIS",
+            "status": "NOT_APPLICABLE",
+            "reason": "Aucun élément actuel ne justifie cette opération."
+          },
+          {
+            "operation": "IDENTIFY_MECHANISM",
+            "status": "NOT_APPLICABLE",
+            "reason": "Aucun élément actuel ne justifie cette opération."
+          },
+          {
+            "operation": "IDENTIFY_MISSING_INFORMATION",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "IDENTIFY_CONTRADICTION",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "IDENTIFY_CONCEPTUAL_BIAS",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "PROPOSE_OBJECTIVES",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "PRIORITIZE_OBJECTIVES_FOR_REVIEW",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "REQUEST_KNOWLEDGE",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "REQUEST_HUMAN_DECISION",
+            "status": "EXECUTED",
+            "reason": "Opération déterministe exécutée et tracée sur les éléments applicables."
+          },
+          {
+            "operation": "PREPARE_RESEARCH_DESIGN_HANDOFF",
+            "status": "BLOCKED",
+            "reason": "Les portes humaines ou les informations décisionnelles ne sont pas encore satisfaites."
+          }
+        ],
+        "adaptiveQuestions": [],
+        "humanGates": [
+          {
+            "gateId": "ST-G-QUESTION_CONFIRMATION",
+            "type": "QUESTION_CONFIRMATION",
+            "label": "Confirmer une question candidate",
+            "reason": "Une reformulation candidate ne devient jamais automatiquement la question du projet.",
+            "status": "PENDING",
+            "decidedAt": null
+          },
+          {
+            "gateId": "ST-G-HYPOTHESIS_ADOPTION",
+            "type": "HYPOTHESIS_ADOPTION",
+            "label": "Adopter ou rejeter les hypothèses",
+            "reason": "Chaque hypothèse reste une proposition réfutable soumise à revue.",
+            "status": "PENDING",
+            "decidedAt": null
+          },
+          {
+            "gateId": "ST-G-OBJECTIVE_HIERARCHY",
+            "type": "OBJECTIVE_HIERARCHY",
+            "label": "Valider la hiérarchie des objectifs",
+            "reason": "Le moteur propose une hiérarchie mais ne décide pas de la priorité scientifique.",
+            "status": "PENDING",
+            "decidedAt": null
+          },
+          {
+            "gateId": "ST-G-MAJOR_SCOPE_CHANGE",
+            "type": "MAJOR_SCOPE_CHANGE",
+            "label": "Autoriser une modification majeure",
+            "reason": "Un changement majeur invalide explicitement les éléments dépendants.",
+            "status": "NOT_REQUIRED",
+            "decidedAt": null
+          },
+          {
+            "gateId": "ST-G-BRANCH_ABANDONMENT",
+            "type": "BRANCH_ABANDONMENT",
+            "label": "Confirmer l’abandon d’une branche",
+            "reason": "Une question ou hypothèse ne disparaît pas silencieusement.",
+            "status": "PENDING",
+            "decidedAt": null
+          },
+          {
+            "gateId": "ST-G-DESIGN_TRANSITION",
+            "type": "DESIGN_TRANSITION",
+            "label": "Autoriser le passage à la conception d’étude",
+            "reason": "Le handoff transmet uniquement le raisonnement confirmé et ses inconnues.",
+            "status": "PENDING",
+            "decidedAt": null
+          }
+        ],
+        "changes": [],
+        "refusal": null,
+        "knowledgeRequest": {
+          "status": "OPTIONAL",
+          "reason": "Les candidats restent visibles mais ne peuvent pas être présentés comme soutenus par le corpus exécutable courant.",
+          "unresolvedConcepts": [],
+          "gapCodes": []
+        },
+        "proposedNextAction": "REVIEW_CANDIDATES",
+        "humanDecisionRequired": true,
+        "knowledgeDependencies": [
+          {
+            "owner": "KNOWLEDGE",
+            "ownershipTransferred": false,
+            "knowledgeOwnerResultRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+            "knowledgeResultRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+            "knowledgeResultRevision": 1,
+            "knowledgeResultDigest": "ke1-a094ab9399a0d037",
+            "candidateRefs": [
+              "ST-H-001",
+              "ST-H-KNOWLEDGE-001",
+              "ST-H-KNOWLEDGE-002",
+              "ST-H-KNOWLEDGE-003",
+              "ST-H-KNOWLEDGE-004",
+              "ST-O-001",
+              "ST-O-002",
+              "ST-Q-001",
+              "ST-Q-002"
+            ],
+            "assertionRefs": [
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS"
+            ],
+            "documentaryStatementRefs": [],
+            "evidenceRefs": [
+              "RB-003:R36:PMID-17634657",
+              "RB-003:R37:PMID-18612175",
+              "RB-003:R45:PMID-38306974",
+              "RB-003:R10:PMID-24801550",
+              "RB-003:R35:PMID-31984498"
+            ],
+            "sourceRefs": [
+              "RB-003@1.0#42-49"
+            ],
+            "applicability": [
+              {
+                "assertionRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+                "status": "APPLICABLE_WITH_LIMITATIONS"
+              },
+              {
+                "assertionRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+                "status": "APPLICABLE_WITH_LIMITATIONS"
+              },
+              {
+                "assertionRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+                "status": "APPLICABLE_WITH_LIMITATIONS"
+              },
+              {
+                "assertionRef": "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+                "status": "APPLICABLE_WITH_LIMITATIONS"
+              }
+            ],
+            "contradictionRefs": [],
+            "gapRefs": []
+          }
+        ],
+        "provenance": {
+          "engineVersion": "1.2.2",
+          "inputRef": "scientific-thinking-project-request:ke1-1b0903402a21521c",
+          "knowledgeResultRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+          "sourceRefs": [
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+            "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+            "project-contribution-decision:ke1-341a965c76ba1590",
+            "RB-003:R10:PMID-24801550",
+            "RB-003:R35:PMID-31984498",
+            "RB-003:R36:PMID-17634657",
+            "RB-003:R37:PMID-18612175",
+            "RB-003:R45:PMID-38306974",
+            "RB-003@1.0#42-49"
+          ],
+          "policyRefs": [
+            "RDE-001",
+            "RDE-002",
+            "PD-003",
+            "PD-009",
+            "KE-001"
+          ],
+          "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+        },
+        "graph": {
+          "projectionVersion": "RUNTIME_PROJECTION_1.0",
+          "ontologyStatus": "NO_NEW_ONTOLOGY",
+          "nodes": [
+            {
+              "nodeId": "ST-N-SITUATION",
+              "type": "SITUATION",
+              "label": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.",
+              "status": "USER_STATED",
+              "sourceRef": "scientific-thinking-project-request:ke1-1b0903402a21521c"
+            },
+            {
+              "nodeId": "ST-N-ST-I-001",
+              "type": "OBSERVATION",
+              "label": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.",
+              "status": "USER_STATED",
+              "sourceRef": "ST-I-001"
+            },
+            {
+              "nodeId": "ST-N-ST-Q-001",
+              "type": "SCIENTIFIC_QUESTION",
+              "label": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-Q-001"
+            },
+            {
+              "nodeId": "ST-N-ST-Q-002",
+              "type": "SCIENTIFIC_QUESTION",
+              "label": "La comparaison entre Décomposition K-edge et Scanner à comptage photonique multi-bins constitue-t-elle une question méthodologique distincte de la question scientifique principale ?",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-Q-002"
+            },
+            {
+              "nodeId": "ST-N-ST-A-001",
+              "type": "ASSUMPTION",
+              "label": "La pertinence de Décomposition K-edge et Scanner à comptage photonique multi-bins est présumée avant confirmation de la finalité scientifique.",
+              "status": "OPEN",
+              "sourceRef": "ST-A-001"
+            },
+            {
+              "nodeId": "ST-N-ST-H-001",
+              "type": "HYPOTHESIS",
+              "label": "La relation formulée dans « Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction  » est observable dans le contexte précisé.",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-H-001"
+            },
+            {
+              "nodeId": "ST-N-ST-H-KNOWLEDGE-001",
+              "type": "HYPOTHESIS",
+              "label": "La reconstruction statistique, la régularisation et les corrections du partage de charge peuvent modifier la récupération du signal ou introduire un biais dépendant du modèle.",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-H-KNOWLEDGE-001"
+            },
+            {
+              "nodeId": "ST-N-ST-H-KNOWLEDGE-002",
+              "type": "HYPOTHESIS",
+              "label": "Le volume partiel ou des matériaux non modélisés peuvent rendre une décomposition instable ou biaisée malgré un phantom simple.",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-H-KNOWLEDGE-002"
+            },
+            {
+              "nodeId": "ST-N-ST-H-KNOWLEDGE-003",
+              "type": "HYPOTHESIS",
+              "label": "Une non-détection peut refléter une concentration ou un nombre de photons insuffisant au regard d'une limite de détection propre à la tâche.",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-H-KNOWLEDGE-003"
+            },
+            {
+              "nodeId": "ST-N-ST-H-KNOWLEDGE-004",
+              "type": "HYPOTHESIS",
+              "label": "Une séparabilité spectrale insuffisante peut résulter de la résolution énergétique finie, du spectre transmis, du bruit, des matériaux concurrents ou de la réponse des bins.",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-H-KNOWLEDGE-004"
+            },
+            {
+              "nodeId": "ST-N-ST-O-001",
+              "type": "OBJECTIVE",
+              "label": "Évaluer la question scientifique candidate : « Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction  ».",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-O-001"
+            },
+            {
+              "nodeId": "ST-N-ST-O-002",
+              "type": "OBJECTIVE",
+              "label": "Examiner séparément l’influence de la branche méthodologique déclarée, sans sélectionner de méthode à ce stade.",
+              "status": "CANDIDATE",
+              "sourceRef": "ST-O-002"
+            },
+            {
+              "nodeId": "ST-N-GAP-1",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-2",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-3",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-4",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-5",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-6",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-7",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-8",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-9",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-10",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-GAP-11",
+              "type": "KNOWLEDGE_GAP",
+              "label": "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5",
+              "status": "OPEN",
+              "sourceRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01"
+            },
+            {
+              "nodeId": "ST-N-METHOD-1",
+              "type": "METHOD_PREFERENCE",
+              "label": "Décomposition K-edge",
+              "status": "USER_STATED",
+              "sourceRef": "scientific-thinking-project-request:ke1-1b0903402a21521c"
+            },
+            {
+              "nodeId": "ST-N-METHOD-2",
+              "type": "METHOD_PREFERENCE",
+              "label": "Scanner à comptage photonique multi-bins",
+              "status": "USER_STATED",
+              "sourceRef": "scientific-thinking-project-request:ke1-1b0903402a21521c"
+            }
+          ],
+          "edges": [
+            {
+              "edgeId": "ST-E-Q-1",
+              "from": "ST-N-SITUATION",
+              "to": "ST-N-ST-Q-001",
+              "relation": "REFORMULATED_AS"
+            },
+            {
+              "edgeId": "ST-E-Q-2",
+              "from": "ST-N-SITUATION",
+              "to": "ST-N-ST-Q-002",
+              "relation": "REFORMULATED_AS"
+            },
+            {
+              "edgeId": "ST-E-A-1",
+              "from": "ST-N-ST-A-001",
+              "to": "ST-N-ST-Q-001",
+              "relation": "DEPENDS_ON"
+            },
+            {
+              "edgeId": "ST-E-H-1",
+              "from": "ST-N-ST-H-001",
+              "to": "ST-N-ST-Q-001",
+              "relation": "INFORMS"
+            },
+            {
+              "edgeId": "ST-E-H-2",
+              "from": "ST-N-ST-H-KNOWLEDGE-001",
+              "to": "ST-N-ST-Q-001",
+              "relation": "INFORMS"
+            },
+            {
+              "edgeId": "ST-E-H-3",
+              "from": "ST-N-ST-H-KNOWLEDGE-002",
+              "to": "ST-N-ST-Q-001",
+              "relation": "INFORMS"
+            },
+            {
+              "edgeId": "ST-E-H-4",
+              "from": "ST-N-ST-H-KNOWLEDGE-003",
+              "to": "ST-N-ST-Q-001",
+              "relation": "INFORMS"
+            },
+            {
+              "edgeId": "ST-E-H-5",
+              "from": "ST-N-ST-H-KNOWLEDGE-004",
+              "to": "ST-N-ST-Q-001",
+              "relation": "INFORMS"
+            },
+            {
+              "edgeId": "ST-E-O-1",
+              "from": "ST-N-ST-O-001",
+              "to": "ST-N-ST-Q-001",
+              "relation": "ADDRESSES"
+            },
+            {
+              "edgeId": "ST-E-O-2",
+              "from": "ST-N-ST-O-002",
+              "to": "ST-N-ST-Q-002",
+              "relation": "ADDRESSES"
+            },
+            {
+              "edgeId": "ST-E-GAP-1",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-1",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-2",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-2",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-3",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-3",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-4",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-4",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-5",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-5",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-6",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-6",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-7",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-7",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-8",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-8",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-9",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-9",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-10",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-10",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-GAP-11",
+              "from": "ST-N-ST-Q-001",
+              "to": "ST-N-GAP-11",
+              "relation": "REQUIRES_INFORMATION"
+            },
+            {
+              "edgeId": "ST-E-CHALLENGE-1",
+              "from": "ST-N-ST-A-001",
+              "to": "ST-N-ST-H-001",
+              "relation": "CHALLENGES"
+            }
+          ]
+        },
+        "handoff": {
+          "handoffVersion": "1.1",
+          "status": "NOT_READY",
+          "questionId": null,
+          "hypothesisIds": [],
+          "objectiveIds": [],
+          "mechanisms": [],
+          "knownInformation": [
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition:Signal élémentaire K-edge non récupéré",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1:Scanner à comptage photonique multi-bins",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2:Décomposition K-edge",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective:Structurer les explications alternatives fournies et les informations qui permettraient de les distinguer.",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population:Phantoms traçables contenant un matériau K-edge déclaré",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question:Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1:Concentration élémentaire",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2:Séparabilité spectrale",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3:Volume partiel",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4:Biais de reconstruction ou de modèle",
+            "PROJECT_ADOPTED:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5:Signal K-edge récupéré"
+          ],
+          "acceptedUnknowns": [],
+          "unresolvedUnknowns": [
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:condition",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:1",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:method:2",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:objective",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:population",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:question",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:1",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:2",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:3",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:4",
+            "PENDING_VERIFICATION:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:variable:5"
+          ],
+          "contradictions": [],
+          "decisionRecordIds": [],
+          "humanDecisions": [],
+          "alternativesNotSelected": [
+            "La reconstruction statistique, la régularisation et les corrections du partage de charge peuvent modifier la récupération du signal ou introduire un biais dépendant du modèle.",
+            "Le volume partiel ou des matériaux non modélisés peuvent rendre une décomposition instable ou biaisée malgré un phantom simple.",
+            "Une non-détection peut refléter une concentration ou un nombre de photons insuffisant au regard d'une limite de détection propre à la tâche.",
+            "Une séparabilité spectrale insuffisante peut résulter de la résolution énergétique finie, du spectre transmis, du bruit, des matériaux concurrents ou de la réponse des bins."
+          ],
+          "limitations": [
+            "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.",
+            "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction."
+          ],
+          "provenanceRefs": [
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+            "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+            "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+            "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+            "RB-003:R10:PMID-24801550",
+            "RB-003:R35:PMID-31984498",
+            "RB-003:R36:PMID-17634657",
+            "RB-003:R37:PMID-18612175",
+            "RB-003:R45:PMID-38306974",
+            "RB-003@1.0#42-49",
+            "scientific-thinking-project-request:ke1-1b0903402a21521c"
+          ],
+          "knowledgeResultRef": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+          "blockedBy": [
+            "QUESTION_CONFIRMATION_REQUIRED",
+            "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+            "OBJECTIVE_HIERARCHY_REQUIRED"
+          ],
+          "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+        },
+        "trace": [
+          {
+            "sequence": 1,
+            "operation": "CLASSIFY_INPUT",
+            "mode": "DETERMINISTIC",
+            "decision": "Type sémantique initial : OBSERVATION.",
+            "inputDigest": "ke1-ad8bb09d60682301",
+            "outputDigest": "ke1-d62215ed9f330fa9"
+          },
+          {
+            "sequence": 2,
+            "operation": "REFORMULATE_QUESTION",
+            "mode": "DETERMINISTIC",
+            "decision": "Construction candidate sans sélection scientifique autonome.",
+            "inputDigest": "ke1-f113e0c6b8a9664a",
+            "outputDigest": "ke1-83a6dd54c1399a10"
+          },
+          {
+            "sequence": 3,
+            "operation": "IDENTIFY_ASSUMPTION",
+            "mode": "DETERMINISTIC",
+            "decision": "Suppositions et biais conservés comme éléments distincts.",
+            "inputDigest": "ke1-83a6dd54c1399a10",
+            "outputDigest": "ke1-694ee5bc7fef9ef0"
+          },
+          {
+            "sequence": 4,
+            "operation": "PROPOSE_OBJECTIVES",
+            "mode": "DETERMINISTIC",
+            "decision": "Hypothèses et objectifs proposés uniquement si la question est testable.",
+            "inputDigest": "ke1-3d1446e6c1b701ea",
+            "outputDigest": "ke1-d30451e903ae6e55"
+          },
+          {
+            "sequence": 5,
+            "operation": "BUILD_GRAPH",
+            "mode": "DETERMINISTIC",
+            "decision": "Projection runtime du Scientific Reasoning Graph ; aucune ontologie créée.",
+            "inputDigest": "ke1-13be4fefebd007cb",
+            "outputDigest": "ke1-91068910bd317b8c"
+          },
+          {
+            "sequence": 6,
+            "operation": "REQUEST_HUMAN_DECISION",
+            "mode": "HUMAN_REQUIRED",
+            "decision": "Les portes de confirmation restent sous contrôle humain.",
+            "inputDigest": "ke1-3f9d4604ac540660",
+            "outputDigest": "ke1-821b428fe86ee39b"
+          },
+          {
+            "sequence": 7,
+            "operation": "ASSESS_HANDOFF",
+            "mode": "DETERMINISTIC",
+            "decision": "Handoff : NOT_READY.",
+            "inputDigest": "ke1-9b7cbad5264655a9",
+            "outputDigest": "ke1-e8b1eb3cc7f26720"
+          }
+        ]
+      },
+      "ownerResultMetadata": {
+        "resultId": "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+        "resultVersion": "1.2.2",
+        "owner": "SCIENTIFIC_THINKING",
+        "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+        "sourceProjectRef": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+        "sourceProjectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+        "sourceProjectDigest": "ke1-574870d7ab531263",
+        "sourceSnapshotDigest": "ke1-83d4ab19510f4375",
+        "projectWriteAuthorized": false,
+        "evidenceRefs": [
+          "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+          "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+          "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+          "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+          "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+          "project-contribution-decision:ke1-341a965c76ba1590",
+          "RB-003:R10:PMID-24801550",
+          "RB-003:R35:PMID-31984498",
+          "RB-003:R36:PMID-17634657",
+          "RB-003:R37:PMID-18612175",
+          "RB-003:R45:PMID-38306974",
+          "RB-003@1.0#42-49"
+        ],
+        "gaps": [
+          "KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM"
+        ],
+        "limitations": [
+          "Existing runtime is deterministic and expects its native context projection.",
+          "Proposals are never adopted automatically.",
+          "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.",
+          "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.",
+          "SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+        ],
+        "provenance": [
+          "scientific-thinking-handoff:ke1-0918bf483c2d3ad4",
+          "ke1-83d4ab19510f4375",
+          "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+          "scientific-thinking-project-request:ke1-1b0903402a21521c",
+          "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+          "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+          "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+          "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+          "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+          "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+          "RB-003:R10:PMID-24801550",
+          "RB-003:R35:PMID-31984498",
+          "RB-003:R36:PMID-17634657",
+          "RB-003:R37:PMID-18612175",
+          "RB-003:R45:PMID-38306974",
+          "RB-003@1.0#42-49",
+          "scientific-thinking-project-request:ke1-1b0903402a21521c"
+        ],
+        "dependencies": [
+          {
+            "owner": "KNOWLEDGE",
+            "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+            "resultVersion": "1",
+            "nativeResultDigest": "ke1-a094ab9399a0d037"
+          }
+        ]
+      },
+      "resultReadback": {
+        "resultId": "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+        "resultVersion": "1.2.2",
+        "nativeResultDigest": "ke1-e8b1eb3cc7f26720",
+        "freshnessStatus": "CURRENT",
+        "staleReasons": [],
+        "dependencyRefs": [
+          {
+            "owner": "KNOWLEDGE",
+            "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+            "resultVersion": "1",
+            "nativeResultDigest": "ke1-a094ab9399a0d037"
+          }
+        ]
+      },
+      "projectWrites": 0,
+      "providerCalls": 0,
+      "llmCalls": 0,
+      "externalNetworkCalls": 0,
+      "privateReasoningStored": false,
+      "trace": {
+        "run": {
+          "contract": "SCIENTIFIC_RUN",
+          "schemaVersion": "0.1.0",
+          "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+          "startedAt": "2026-08-26T19:02:00.000Z",
+          "completedAt": "2026-08-26T19:02:01.000Z",
+          "status": "COMPLETED",
+          "project": {
+            "projectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+            "projectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+            "projectDigest": "ke1-574870d7ab531263",
+            "snapshotRef": "ke1-83d4ab19510f4375"
+          },
+          "initiatorContext": {
+            "kind": "TEST_HARNESS",
+            "initiatorRef": "W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation"
+          },
+          "eventCount": 7,
+          "firstEventId": "scientific-trace-event:ke1-c6400d259f2fe859",
+          "lastEventId": "scientific-trace-event:ke1-544b25a1b2bbcafd",
+          "logicalDigest": "ke1-b1b84797248f3623",
+          "createdAt": "2026-08-26T19:02:00.000Z",
+          "immutableAfterFinalization": true,
+          "appendOnly": true,
+          "derived": true,
+          "authoritative": false
+        },
+        "ledgerDigest": "ke1-139f40f7f6414373",
+        "eventCount": 7,
+        "eventTypes": [
+          "RUN_STARTED",
+          "HANDOFF_STARTED",
+          "HANDOFF_ACCEPTED",
+          "OWNER_INVOCATION_STARTED",
+          "OWNER_INVOCATION_COMPLETED",
+          "RESULT_PERSISTED",
+          "RUN_COMPLETED"
+        ],
+        "eventRefs": [
+          "scientific-trace-event:ke1-c6400d259f2fe859",
+          "scientific-trace-event:ke1-406947488baf3d5c",
+          "scientific-trace-event:ke1-d0799cf3d4646ccf",
+          "scientific-trace-event:ke1-34f2a2e3227ad597",
+          "scientific-trace-event:ke1-e071b8f5972fd349",
+          "scientific-trace-event:ke1-a9dbbafe62a69cca",
+          "scientific-trace-event:ke1-544b25a1b2bbcafd"
+        ],
+        "events": [
+          {
+            "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+            "schemaVersion": "0.1.0",
+            "eventId": "scientific-trace-event:ke1-c6400d259f2fe859",
+            "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+            "sequence": 1,
+            "eventType": "RUN_STARTED",
+            "timestamp": "2026-08-26T19:02:00.000Z",
+            "owner": "TRACE",
+            "engine": "SCIENTIFIC_EXECUTION_TRACE",
+            "engineVersion": "0.1.0",
+            "project": {
+              "projectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "projectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+              "projectDigest": "ke1-574870d7ab531263",
+              "snapshotRef": "ke1-83d4ab19510f4375"
+            },
+            "requestRef": null,
+            "inputOwnerResultRefs": [],
+            "dependencyRefs": [],
+            "outputResultRef": null,
+            "status": "RUNNING",
+            "sourceRefs": [],
+            "sourceCount": 0,
+            "evidenceRefs": [],
+            "unknownRefs": [],
+            "gapRefs": [],
+            "limitationRefs": [],
+            "contradictionRefs": [],
+            "stale": {
+              "status": "NOT_EVALUATED",
+              "expectedProject": null,
+              "receivedProject": null,
+              "expectedDependencyRefs": [],
+              "receivedDependencyRefs": []
+            },
+            "durationMs": null,
+            "error": null,
+            "diagnostic": {
+              "stage": "PROJECT_CONTEXT",
+              "code": "PROJECT_SNAPSHOT_BOUND"
+            },
+            "previousEventId": null,
+            "nextExpectedHandoff": null,
+            "technicalMetadata": {},
+            "appendOnly": true,
+            "derived": true,
+            "projectWriteAuthorized": false,
+            "repairAuthorized": false,
+            "scientificDecisionAuthorized": false,
+            "privateReasoningStored": false,
+            "logicalDigest": "ke1-2ceef6cf219fecdb",
+            "eventDigest": "ke1-c039b82de90f12d9"
+          },
+          {
+            "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+            "schemaVersion": "0.1.0",
+            "eventId": "scientific-trace-event:ke1-406947488baf3d5c",
+            "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+            "sequence": 2,
+            "eventType": "HANDOFF_STARTED",
+            "timestamp": "2026-08-26T19:02:00.000Z",
+            "owner": "SCIENTIFIC_THINKING",
+            "engine": null,
+            "engineVersion": null,
+            "project": {
+              "projectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "projectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+              "projectDigest": "ke1-574870d7ab531263",
+              "snapshotRef": "ke1-83d4ab19510f4375"
+            },
+            "requestRef": {
+              "requestId": "scientific-thinking-handoff:ke1-0918bf483c2d3ad4",
+              "requestSchemaVersion": "0.1.0:1.2.2",
+              "requestDigest": "ke1-ff3f592192bffe45"
+            },
+            "inputOwnerResultRefs": [
+              {
+                "artifactType": "OWNER_RESULT",
+                "owner": "KNOWLEDGE",
+                "artifactId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+                "artifactVersion": "1",
+                "artifactDigest": "ke1-a094ab9399a0d037"
+              }
+            ],
+            "dependencyRefs": [
+              {
+                "owner": "KNOWLEDGE",
+                "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+                "resultVersion": "1",
+                "resultDigest": "ke1-a094ab9399a0d037"
+              }
+            ],
+            "outputResultRef": null,
+            "status": "STARTED",
+            "sourceRefs": [],
+            "sourceCount": 0,
+            "evidenceRefs": [],
+            "unknownRefs": [],
+            "gapRefs": [],
+            "limitationRefs": [],
+            "contradictionRefs": [],
+            "stale": {
+              "status": "NOT_EVALUATED",
+              "expectedProject": null,
+              "receivedProject": null,
+              "expectedDependencyRefs": [],
+              "receivedDependencyRefs": []
+            },
+            "durationMs": null,
+            "error": null,
+            "diagnostic": {
+              "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+              "code": "HANDOFF_INPUT_BOUND"
+            },
+            "previousEventId": "scientific-trace-event:ke1-c6400d259f2fe859",
+            "nextExpectedHandoff": null,
+            "technicalMetadata": {},
+            "appendOnly": true,
+            "derived": true,
+            "projectWriteAuthorized": false,
+            "repairAuthorized": false,
+            "scientificDecisionAuthorized": false,
+            "privateReasoningStored": false,
+            "logicalDigest": "ke1-ae9c6519c8baf25d",
+            "eventDigest": "ke1-8e057ef98c7751dd"
+          },
+          {
+            "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+            "schemaVersion": "0.1.0",
+            "eventId": "scientific-trace-event:ke1-d0799cf3d4646ccf",
+            "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+            "sequence": 3,
+            "eventType": "HANDOFF_ACCEPTED",
+            "timestamp": "2026-08-26T19:02:00.000Z",
+            "owner": "SCIENTIFIC_THINKING",
+            "engine": null,
+            "engineVersion": null,
+            "project": {
+              "projectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "projectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+              "projectDigest": "ke1-574870d7ab531263",
+              "snapshotRef": "ke1-83d4ab19510f4375"
+            },
+            "requestRef": {
+              "requestId": "scientific-thinking-handoff:ke1-0918bf483c2d3ad4",
+              "requestSchemaVersion": "0.1.0:1.2.2",
+              "requestDigest": "ke1-ff3f592192bffe45"
+            },
+            "inputOwnerResultRefs": [],
+            "dependencyRefs": [
+              {
+                "owner": "KNOWLEDGE",
+                "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+                "resultVersion": "1",
+                "resultDigest": "ke1-a094ab9399a0d037"
+              }
+            ],
+            "outputResultRef": null,
+            "status": "ACCEPTED",
+            "sourceRefs": [],
+            "sourceCount": 0,
+            "evidenceRefs": [],
+            "unknownRefs": [],
+            "gapRefs": [],
+            "limitationRefs": [],
+            "contradictionRefs": [],
+            "stale": {
+              "status": "NOT_EVALUATED",
+              "expectedProject": null,
+              "receivedProject": null,
+              "expectedDependencyRefs": [],
+              "receivedDependencyRefs": []
+            },
+            "durationMs": null,
+            "error": null,
+            "diagnostic": {
+              "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+              "code": "HANDOFF_CONTRACT_ACCEPTED"
+            },
+            "previousEventId": "scientific-trace-event:ke1-406947488baf3d5c",
+            "nextExpectedHandoff": null,
+            "technicalMetadata": {},
+            "appendOnly": true,
+            "derived": true,
+            "projectWriteAuthorized": false,
+            "repairAuthorized": false,
+            "scientificDecisionAuthorized": false,
+            "privateReasoningStored": false,
+            "logicalDigest": "ke1-75ddcf131029b7b7",
+            "eventDigest": "ke1-ddfb7c3cb78df858"
+          },
+          {
+            "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+            "schemaVersion": "0.1.0",
+            "eventId": "scientific-trace-event:ke1-34f2a2e3227ad597",
+            "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+            "sequence": 4,
+            "eventType": "OWNER_INVOCATION_STARTED",
+            "timestamp": "2026-08-26T19:02:00.000Z",
+            "owner": "SCIENTIFIC_THINKING",
+            "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+            "engineVersion": "1.2.2",
+            "project": {
+              "projectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "projectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+              "projectDigest": "ke1-574870d7ab531263",
+              "snapshotRef": "ke1-83d4ab19510f4375"
+            },
+            "requestRef": {
+              "requestId": "scientific-thinking-handoff:ke1-0918bf483c2d3ad4",
+              "requestSchemaVersion": "0.1.0:1.2.2",
+              "requestDigest": "ke1-ff3f592192bffe45"
+            },
+            "inputOwnerResultRefs": [],
+            "dependencyRefs": [
+              {
+                "owner": "KNOWLEDGE",
+                "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+                "resultVersion": "1",
+                "resultDigest": "ke1-a094ab9399a0d037"
+              }
+            ],
+            "outputResultRef": null,
+            "status": "STARTED",
+            "sourceRefs": [],
+            "sourceCount": 0,
+            "evidenceRefs": [],
+            "unknownRefs": [],
+            "gapRefs": [],
+            "limitationRefs": [],
+            "contradictionRefs": [],
+            "stale": {
+              "status": "NOT_EVALUATED",
+              "expectedProject": null,
+              "receivedProject": null,
+              "expectedDependencyRefs": [],
+              "receivedDependencyRefs": []
+            },
+            "durationMs": null,
+            "error": null,
+            "diagnostic": {
+              "stage": "SCIENTIFIC_THINKING_ENGINE",
+              "code": "OWNER_INVOCATION_STARTED"
+            },
+            "previousEventId": "scientific-trace-event:ke1-d0799cf3d4646ccf",
+            "nextExpectedHandoff": null,
+            "technicalMetadata": {
+              "invocationId": "scientific-owner-invocation:ke1-3c0f8dbb37e724b7",
+              "observationContract": "PROJECT_SPINE_04_SCIENTIFIC_REASONING_OWNER_CHAIN",
+              "observationVersion": "0.1.0",
+              "runtimeStarts": 1,
+              "projectWrites": 0
+            },
+            "appendOnly": true,
+            "derived": true,
+            "projectWriteAuthorized": false,
+            "repairAuthorized": false,
+            "scientificDecisionAuthorized": false,
+            "privateReasoningStored": false,
+            "logicalDigest": "ke1-ac23146d52d6a0d9",
+            "eventDigest": "ke1-596f1678600053cc"
+          },
+          {
+            "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+            "schemaVersion": "0.1.0",
+            "eventId": "scientific-trace-event:ke1-e071b8f5972fd349",
+            "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+            "sequence": 5,
+            "eventType": "OWNER_INVOCATION_COMPLETED",
+            "timestamp": "2026-08-26T19:02:01.000Z",
+            "owner": "SCIENTIFIC_THINKING",
+            "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+            "engineVersion": "1.2.2",
+            "project": {
+              "projectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "projectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+              "projectDigest": "ke1-574870d7ab531263",
+              "snapshotRef": "ke1-83d4ab19510f4375"
+            },
+            "requestRef": {
+              "requestId": "scientific-thinking-handoff:ke1-0918bf483c2d3ad4",
+              "requestSchemaVersion": "0.1.0:1.2.2",
+              "requestDigest": "ke1-ff3f592192bffe45"
+            },
+            "inputOwnerResultRefs": [],
+            "dependencyRefs": [
+              {
+                "owner": "KNOWLEDGE",
+                "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+                "resultVersion": "1",
+                "resultDigest": "ke1-a094ab9399a0d037"
+              }
+            ],
+            "outputResultRef": {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-e8b1eb3cc7f26720"
+            },
+            "status": "COMPLETED_WITH_LIMITATIONS",
+            "sourceRefs": [
+              "scientific-thinking-handoff:ke1-0918bf483c2d3ad4",
+              "ke1-83d4ab19510f4375",
+              "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+              "scientific-thinking-project-request:ke1-1b0903402a21521c",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+              "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+              "RB-003:R10:PMID-24801550",
+              "RB-003:R35:PMID-31984498",
+              "RB-003:R36:PMID-17634657",
+              "RB-003:R37:PMID-18612175",
+              "RB-003:R45:PMID-38306974",
+              "RB-003@1.0#42-49",
+              "project-contribution-decision:ke1-341a965c76ba1590"
+            ],
+            "sourceCount": 17,
+            "evidenceRefs": [
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+              "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+              "project-contribution-decision:ke1-341a965c76ba1590",
+              "RB-003:R10:PMID-24801550",
+              "RB-003:R35:PMID-31984498",
+              "RB-003:R36:PMID-17634657",
+              "RB-003:R37:PMID-18612175",
+              "RB-003:R45:PMID-38306974",
+              "RB-003@1.0#42-49"
+            ],
+            "unknownRefs": [
+              "unknown:ke1-d80c494af783584e",
+              "unknown:ke1-a4599ad32fe8c35f",
+              "unknown:ke1-ca5c153c9e67cc18",
+              "unknown:ke1-035574bc5ed0b400",
+              "unknown:ke1-70dfdacaf29b2606",
+              "unknown:ke1-cbd4852755bc25cb",
+              "unknown:ke1-b267e3e09815e4c4",
+              "unknown:ke1-4c6504b7a48976cb",
+              "unknown:ke1-6a62f55a4db997be",
+              "unknown:ke1-44607af15332d4cd",
+              "unknown:ke1-da5d957ccd04a268",
+              "unknown:ke1-30aa5e56f6bdb342"
+            ],
+            "gapRefs": [
+              "gap:ke1-93305474fe0d2af8"
+            ],
+            "limitationRefs": [
+              "limitation:ke1-4b31732ecaa52752",
+              "limitation:ke1-483d90ca2bf99cd6",
+              "limitation:ke1-0bf8c12c8c8e0310",
+              "limitation:ke1-0618dc1ed0cc7d9a",
+              "limitation:ke1-d27072999fe02d0d",
+              "limitation:ke1-81c8f45e694a7692",
+              "limitation:ke1-9bc9a72b6e860797",
+              "limitation:ke1-12e3fe82057a1016",
+              "limitation:ke1-54a45c9a1cfa17b6"
+            ],
+            "contradictionRefs": [],
+            "stale": {
+              "status": "NOT_EVALUATED",
+              "expectedProject": null,
+              "receivedProject": null,
+              "expectedDependencyRefs": [],
+              "receivedDependencyRefs": []
+            },
+            "durationMs": 0,
+            "error": null,
+            "diagnostic": {
+              "stage": "SCIENTIFIC_THINKING_ENGINE",
+              "code": "OWNER_RESULT_OBSERVED"
+            },
+            "previousEventId": "scientific-trace-event:ke1-34f2a2e3227ad597",
+            "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING",
+            "technicalMetadata": {},
+            "appendOnly": true,
+            "derived": true,
+            "projectWriteAuthorized": false,
+            "repairAuthorized": false,
+            "scientificDecisionAuthorized": false,
+            "privateReasoningStored": false,
+            "logicalDigest": "ke1-9fbaa36a68af3c8e",
+            "eventDigest": "ke1-55fd1a83aeb431a7"
+          },
+          {
+            "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+            "schemaVersion": "0.1.0",
+            "eventId": "scientific-trace-event:ke1-a9dbbafe62a69cca",
+            "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+            "sequence": 6,
+            "eventType": "RESULT_PERSISTED",
+            "timestamp": "2026-08-26T19:02:01.000Z",
+            "owner": "SCIENTIFIC_THINKING",
+            "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+            "engineVersion": "0.2.0",
+            "project": {
+              "projectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "projectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+              "projectDigest": "ke1-574870d7ab531263",
+              "snapshotRef": "ke1-83d4ab19510f4375"
+            },
+            "requestRef": {
+              "requestId": "scientific-thinking-handoff:ke1-0918bf483c2d3ad4",
+              "requestSchemaVersion": "0.1.0:1.2.2",
+              "requestDigest": "ke1-ff3f592192bffe45"
+            },
+            "inputOwnerResultRefs": [
+              {
+                "artifactType": "OWNER_RESULT",
+                "owner": "SCIENTIFIC_THINKING",
+                "artifactId": "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+                "artifactVersion": "1.2.2",
+                "artifactDigest": "ke1-e8b1eb3cc7f26720"
+              }
+            ],
+            "dependencyRefs": [
+              {
+                "owner": "KNOWLEDGE",
+                "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+                "resultVersion": "1",
+                "resultDigest": "ke1-a094ab9399a0d037"
+              }
+            ],
+            "outputResultRef": {
+              "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "owner-result-ledger-entry:ke1-9c186aa5d3617b09",
+              "artifactVersion": "0.2.0",
+              "artifactDigest": "ke1-7da92017a8b593bb"
+            },
+            "status": "OWNER_RESULT_RETAINED",
+            "sourceRefs": [
+              "scientific-thinking-handoff:ke1-0918bf483c2d3ad4",
+              "ke1-83d4ab19510f4375",
+              "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+              "scientific-thinking-project-request:ke1-1b0903402a21521c",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+              "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+              "RB-003:R10:PMID-24801550",
+              "RB-003:R35:PMID-31984498",
+              "RB-003:R36:PMID-17634657",
+              "RB-003:R37:PMID-18612175",
+              "RB-003:R45:PMID-38306974",
+              "RB-003@1.0#42-49",
+              "project-contribution-decision:ke1-341a965c76ba1590"
+            ],
+            "sourceCount": 17,
+            "evidenceRefs": [
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS",
+              "knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY",
+              "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1",
+              "project-contribution-decision:ke1-341a965c76ba1590",
+              "RB-003:R10:PMID-24801550",
+              "RB-003:R35:PMID-31984498",
+              "RB-003:R36:PMID-17634657",
+              "RB-003:R37:PMID-18612175",
+              "RB-003:R45:PMID-38306974",
+              "RB-003@1.0#42-49"
+            ],
+            "unknownRefs": [
+              "unknown:ke1-d80c494af783584e",
+              "unknown:ke1-a4599ad32fe8c35f",
+              "unknown:ke1-ca5c153c9e67cc18",
+              "unknown:ke1-035574bc5ed0b400",
+              "unknown:ke1-70dfdacaf29b2606",
+              "unknown:ke1-cbd4852755bc25cb",
+              "unknown:ke1-b267e3e09815e4c4",
+              "unknown:ke1-4c6504b7a48976cb",
+              "unknown:ke1-6a62f55a4db997be",
+              "unknown:ke1-44607af15332d4cd",
+              "unknown:ke1-da5d957ccd04a268",
+              "unknown:ke1-30aa5e56f6bdb342"
+            ],
+            "gapRefs": [
+              "gap:ke1-93305474fe0d2af8"
+            ],
+            "limitationRefs": [
+              "limitation:ke1-4b31732ecaa52752",
+              "limitation:ke1-483d90ca2bf99cd6",
+              "limitation:ke1-0bf8c12c8c8e0310",
+              "limitation:ke1-0618dc1ed0cc7d9a",
+              "limitation:ke1-d27072999fe02d0d",
+              "limitation:ke1-81c8f45e694a7692",
+              "limitation:ke1-9bc9a72b6e860797",
+              "limitation:ke1-12e3fe82057a1016",
+              "limitation:ke1-54a45c9a1cfa17b6"
+            ],
+            "contradictionRefs": [],
+            "stale": {
+              "status": "NOT_EVALUATED",
+              "expectedProject": null,
+              "receivedProject": null,
+              "expectedDependencyRefs": [],
+              "receivedDependencyRefs": []
+            },
+            "durationMs": null,
+            "error": null,
+            "diagnostic": {
+              "stage": "OWNER_RESULT_PERSISTENCE",
+              "code": "OWNER_LEDGER_ENTRY_APPENDED"
+            },
+            "previousEventId": "scientific-trace-event:ke1-e071b8f5972fd349",
+            "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING",
+            "technicalMetadata": {
+              "ledgerContract": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+              "ledgerVersion": "0.2.0",
+              "entryId": "owner-result-ledger-entry:ke1-9c186aa5d3617b09",
+              "entryDigest": "ke1-7da92017a8b593bb",
+              "callerRef": "W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation"
+            },
+            "appendOnly": true,
+            "derived": true,
+            "projectWriteAuthorized": false,
+            "repairAuthorized": false,
+            "scientificDecisionAuthorized": false,
+            "privateReasoningStored": false,
+            "logicalDigest": "ke1-61bc21901c58964c",
+            "eventDigest": "ke1-984116abe3175e5f"
+          },
+          {
+            "contract": "SCIENTIFIC_EXECUTION_TRACE_EVENT",
+            "schemaVersion": "0.1.0",
+            "eventId": "scientific-trace-event:ke1-544b25a1b2bbcafd",
+            "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:h1r-continuation",
+            "sequence": 7,
+            "eventType": "RUN_COMPLETED",
+            "timestamp": "2026-08-26T19:02:01.000Z",
+            "owner": "TRACE",
+            "engine": "SCIENTIFIC_EXECUTION_TRACE",
+            "engineVersion": "0.1.0",
+            "project": {
+              "projectId": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+              "projectVersion": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+              "projectDigest": "ke1-574870d7ab531263",
+              "snapshotRef": "ke1-83d4ab19510f4375"
+            },
+            "requestRef": null,
+            "inputOwnerResultRefs": [],
+            "dependencyRefs": [],
+            "outputResultRef": null,
+            "status": "COMPLETED",
+            "sourceRefs": [],
+            "sourceCount": 0,
+            "evidenceRefs": [],
+            "unknownRefs": [],
+            "gapRefs": [],
+            "limitationRefs": [],
+            "contradictionRefs": [],
+            "stale": {
+              "status": "NOT_EVALUATED",
+              "expectedProject": null,
+              "receivedProject": null,
+              "expectedDependencyRefs": [],
+              "receivedDependencyRefs": []
+            },
+            "durationMs": null,
+            "error": null,
+            "diagnostic": null,
+            "previousEventId": "scientific-trace-event:ke1-a9dbbafe62a69cca",
+            "nextExpectedHandoff": null,
+            "technicalMetadata": {},
+            "appendOnly": true,
+            "derived": true,
+            "projectWriteAuthorized": false,
+            "repairAuthorized": false,
+            "scientificDecisionAuthorized": false,
+            "privateReasoningStored": false,
+            "logicalDigest": "ke1-b06fe823e2c70877",
+            "eventDigest": "ke1-d12d55075c194283"
+          }
+        ],
+        "complete": true
+      },
+      "deterministic": {
+        "checkerVersion": "1.2.0",
+        "checkerOperation": "POST_FREEZE_TECHNICAL_CONTRACT_ALIGNMENT",
+        "scientificJudgmentPerformed": false,
+        "inputDigest": "ke1-c181044b1f1e2acf",
+        "checks": [
+          {
+            "checkId": "PROJECT_ID",
+            "outcome": "PASS",
+            "observed": "{\"request\":\"project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"result\":\"project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\"}",
+            "expected": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "PROJECT_VERSION",
+            "outcome": "PASS",
+            "observed": "{\"request\":\"project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1\",\"result\":\"project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1\"}",
+            "expected": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "PROJECT_DIGEST",
+            "outcome": "PASS",
+            "observed": "{\"request\":\"ke1-574870d7ab531263\",\"result\":\"ke1-574870d7ab531263\"}",
+            "expected": "ke1-574870d7ab531263",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "SNAPSHOT_REF",
+            "outcome": "PASS",
+            "observed": "{\"request\":\"ke1-83d4ab19510f4375\",\"result\":\"ke1-83d4ab19510f4375\"}",
+            "expected": "ke1-83d4ab19510f4375",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "KNOWLEDGE_RESULT_BINDING",
+            "outcome": "PASS",
+            "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-a094ab9399a0d037\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-KNOWLEDGE-001\",\"ST-H-KNOWLEDGE-002\",\"ST-H-KNOWLEDGE-003\",\"ST-H-KNOWLEDGE-004\",\"ST-O-001\",\"ST-O-002\",\"ST-Q-001\",\"ST-Q-002\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"RB-003:R36:PMID-17634657\",\"RB-003:R37:PMID-18612175\",\"RB-003:R45:PMID-38306974\",\"RB-003:R10:PMID-24801550\",\"RB-003:R35:PMID-31984498\"],\"sourceRefs\":[\"RB-003@1.0#42-49\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-a094ab9399a0d037\"}}",
+            "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-a094ab9399a0d037\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1\"}",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "SOURCE_EVIDENCE_REFS",
+            "outcome": "FAIL",
+            "observed": "{\"dependency\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-a094ab9399a0d037\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-KNOWLEDGE-001\",\"ST-H-KNOWLEDGE-002\",\"ST-H-KNOWLEDGE-003\",\"ST-H-KNOWLEDGE-004\",\"ST-O-001\",\"ST-O-002\",\"ST-Q-001\",\"ST-Q-002\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"RB-003:R36:PMID-17634657\",\"RB-003:R37:PMID-18612175\",\"RB-003:R45:PMID-38306974\",\"RB-003:R10:PMID-24801550\",\"RB-003:R35:PMID-31984498\"],\"sourceRefs\":[\"RB-003@1.0#42-49\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[]},\"provenance\":[\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1\",\"project-contribution-decision:ke1-341a965c76ba1590\",\"RB-003:R10:PMID-24801550\",\"RB-003:R35:PMID-31984498\",\"RB-003:R36:PMID-17634657\",\"RB-003:R37:PMID-18612175\",\"RB-003:R45:PMID-38306974\",\"RB-003@1.0#42-49\"]}",
+            "expected": "{\"expectedAssertions\":[\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\"],\"expectedStatements\":[],\"expectedEvidence\":[\"RB-003:R36:PMID-17634657\",\"RB-003:R37:PMID-18612175\",\"RB-003:R36:PMID-17634657\",\"RB-003:R45:PMID-38306974\",\"RB-003:R10:PMID-24801550\",\"RB-003:R10:PMID-24801550\",\"RB-003:R35:PMID-31984498\"],\"expectedSources\":[\"RB-003@1.0#42-49\"]}",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "GAP_PRESERVATION",
+            "outcome": "PASS",
+            "observed": "{\"request\":[],\"outputCodes\":[\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]}",
+            "expected": "{\"expectedGaps\":[],\"expectedGapCodes\":[]}",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "LIMITATION_PRESERVATION",
+            "outcome": "PASS",
+            "observed": "{\"handoffLimitations\":[\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\"],\"hypothesisLimitations\":[{\"hypothesisId\":\"ST-H-001\",\"limitations\":[\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\"]},{\"hypothesisId\":\"ST-H-KNOWLEDGE-001\",\"limitations\":[\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"Les effets dépendent de l'algorithme, du détecteur et du flux.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\"]},{\"hypothesisId\":\"ST-H-KNOWLEDGE-002\",\"limitations\":[\"La taille de cible et la composition concurrente gouvernent cette explication.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\"]},{\"hypothesisId\":\"ST-H-KNOWLEDGE-003\",\"limitations\":[\"La limite dépend de la géométrie, de la dose, de la taille et de la tâche.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\"]},{\"hypothesisId\":\"ST-H-KNOWLEDGE-004\",\"limitations\":[\"La faisabilité en phantom ne garantit pas la séparabilité dans une autre géométrie.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\"]}],\"ownerResultLimitations\":[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"],\"missingFromHandoff\":[],\"missingFromOwnerResult\":[]}",
+            "expected": "{\"requiredLimitations\":[\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\"],\"contract\":{\"outputTopLevelLimitations\":\"ABSENT_BY_STRICT_SCHEMA\",\"requiredHandoffProjection\":\"ScientificThinkingOutput.handoff.limitations\",\"candidateScopedProjection\":\"ScientificThinkingOutput.hypotheses[*].limitations\",\"persistedOwnerProjection\":\"SpecializedOwnerResult.limitations\",\"scientificJudgmentPerformed\":false}}",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "KNOWLEDGE_CONTRADICTION_INPUT_BINDING",
+            "outcome": "PASS",
+            "observed": "[]",
+            "expected": "[]",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "CONTRADICTION_PRESERVATION",
+            "outcome": "PASS",
+            "observed": "[]",
+            "expected": "[]",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "EXPECTED_EXECUTION",
+            "outcome": "PASS",
+            "observed": "{\"ownerInvocationCount\":1,\"error\":null}",
+            "expected": "{\"ownerInvocationCount\":1,\"error\":null}",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "OWNER_RESULT_PRODUCTION",
+            "outcome": "PASS",
+            "observed": "1",
+            "expected": "1",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "OWNER_RESULT_DIGEST",
+            "outcome": "PASS",
+            "observed": "{\"native\":\"ke1-e8b1eb3cc7f26720\",\"output\":\"ke1-e8b1eb3cc7f26720\"}",
+            "expected": "MATCH",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "OWNER_RESULT_PERSISTENCE",
+            "outcome": "PASS",
+            "observed": "{\"entryResultId\":\"scientific-thinking-output:ke1-e8b1eb3cc7f26720\",\"eventTypes\":[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]}",
+            "expected": "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "OWNERSHIP_METADATA",
+            "outcome": "PASS",
+            "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false,\"engineVersion\":\"1.2.2\"}",
+            "expected": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false,\"engineVersion\":\"1.2.2\",\"ownershipTransferred\":false}",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "PROJECT_WRITES",
+            "outcome": "PASS",
+            "observed": "0",
+            "expected": "0",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+            "outcome": "PASS",
+            "observed": "{\"originalExpression\":\"Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.\",\"validatedReformulation\":\"Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?\"}",
+            "expected": "{\"originalExpression\":\"Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.\",\"validatedReformulation\":\"Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?\"}",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "STALE_MISMATCH",
+            "outcome": "NOT_APPLICABLE",
+            "observed": "NO_STALE_CASE_AUTHORIZED_IN_CAMPAIGN_E",
+            "expected": "NOT_APPLICABLE",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "TRACE_COMPLETENESS",
+            "outcome": "PASS",
+            "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+            "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+            "scientificJudgmentPerformed": false
+          },
+          {
+            "checkId": "NO_AUTOMATIC_ADOPTION",
+            "outcome": "PASS",
+            "observed": "{\"selectedQuestionCandidate\":null,\"handoffStatus\":\"NOT_READY\",\"reviewStates\":[\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\"]}",
+            "expected": "ALL_CANDIDATES_PENDING_AND_HANDOFF_NOT_AUTHORIZED",
+            "scientificJudgmentPerformed": false
+          }
+        ],
+        "globalControls": {
+          "IDENTITY_INTEGRITY": "PASS",
+          "LINEAGE_INTEGRITY": "FAIL",
+          "GAP_PRESERVATION": "PASS",
+          "LIMITATION_PRESERVATION": "PASS",
+          "CONTRADICTION_PRESERVATION": "PASS",
+          "OWNERSHIP_BOUNDARY": "PASS",
+          "PROJECT_WRITES": "PASS",
+          "RESULT_PERSISTENCE": "PASS",
+          "TRACE_COMPLETENESS": "PASS",
+          "NO_AUTOMATIC_ADOPTION": "PASS",
+          "STALE_PROTECTION": "NOT_APPLICABLE"
+        },
+        "technicalFailure": true
+      },
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER",
+      "scientificJudgmentPerformed": false,
+      "scientificPass": false,
+      "humanReviewStatus": "PENDING"
+    }
+  ]
+}

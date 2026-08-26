@@ -1,0 +1,211 @@
+{
+  "contract": "W1_QUAL_02H1R_CAMPAIGN_E_DETERMINISTIC_READBACK",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "historicalFreezeDigest": "ke1-d1c4ff40aa84e28c",
+  "checkerVersion": "1.2.0",
+  "scientificJudgmentPerformed": false,
+  "scientificPassProduced": false,
+  "cases": [
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "ownerResultRef": "scientific-thinking-output:ke1-e8b1eb3cc7f26720@1.2.2",
+      "resultDigest": "ke1-e8b1eb3cc7f26720",
+      "resultReadback": {
+        "resultId": "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+        "resultVersion": "1.2.2",
+        "nativeResultDigest": "ke1-e8b1eb3cc7f26720",
+        "freshnessStatus": "CURRENT",
+        "staleReasons": [],
+        "dependencyRefs": [
+          {
+            "owner": "KNOWLEDGE",
+            "resultId": "knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+            "resultVersion": "1",
+            "nativeResultDigest": "ke1-a094ab9399a0d037"
+          }
+        ]
+      },
+      "technicalFailure": true,
+      "checks": [
+        {
+          "checkId": "PROJECT_ID",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"result\":\"project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\"}",
+          "expected": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_VERSION",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1\",\"result\":\"project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1\"}",
+          "expected": "project:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:version:1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-574870d7ab531263\",\"result\":\"ke1-574870d7ab531263\"}",
+          "expected": "ke1-574870d7ab531263",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SNAPSHOT_REF",
+          "outcome": "PASS",
+          "observed": "{\"request\":\"ke1-83d4ab19510f4375\",\"result\":\"ke1-83d4ab19510f4375\"}",
+          "expected": "ke1-83d4ab19510f4375",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_RESULT_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"output\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-a094ab9399a0d037\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-KNOWLEDGE-001\",\"ST-H-KNOWLEDGE-002\",\"ST-H-KNOWLEDGE-003\",\"ST-H-KNOWLEDGE-004\",\"ST-O-001\",\"ST-O-002\",\"ST-Q-001\",\"ST-Q-002\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"RB-003:R36:PMID-17634657\",\"RB-003:R37:PMID-18612175\",\"RB-003:R45:PMID-38306974\",\"RB-003:R10:PMID-24801550\",\"RB-003:R35:PMID-31984498\"],\"sourceRefs\":[\"RB-003@1.0#42-49\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[]},\"ledger\":{\"owner\":\"KNOWLEDGE\",\"resultId\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"resultVersion\":\"1\",\"nativeResultDigest\":\"ke1-a094ab9399a0d037\"}}",
+          "expected": "{\"resultId\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"resultVersion\":\"1\",\"resultDigest\":\"ke1-a094ab9399a0d037\",\"ownerResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "SOURCE_EVIDENCE_REFS",
+          "outcome": "FAIL",
+          "observed": "{\"dependency\":{\"owner\":\"KNOWLEDGE\",\"ownershipTransferred\":false,\"knowledgeOwnerResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1\",\"knowledgeResultRef\":\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01\",\"knowledgeResultRevision\":1,\"knowledgeResultDigest\":\"ke1-a094ab9399a0d037\",\"candidateRefs\":[\"ST-H-001\",\"ST-H-KNOWLEDGE-001\",\"ST-H-KNOWLEDGE-002\",\"ST-H-KNOWLEDGE-003\",\"ST-H-KNOWLEDGE-004\",\"ST-O-001\",\"ST-O-002\",\"ST-Q-001\",\"ST-Q-002\"],\"assertionRefs\":[\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\"],\"documentaryStatementRefs\":[],\"evidenceRefs\":[\"RB-003:R36:PMID-17634657\",\"RB-003:R37:PMID-18612175\",\"RB-003:R45:PMID-38306974\",\"RB-003:R10:PMID-24801550\",\"RB-003:R35:PMID-31984498\"],\"sourceRefs\":[\"RB-003@1.0#42-49\"],\"applicability\":[{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"},{\"assertionRef\":\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\",\"status\":\"APPLICABLE_WITH_LIMITATIONS\"}],\"contradictionRefs\":[],\"gapRefs\":[]},\"provenance\":[\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"knowledge-result:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01@1\",\"project-contribution-decision:ke1-341a965c76ba1590\",\"RB-003:R10:PMID-24801550\",\"RB-003:R35:PMID-31984498\",\"RB-003:R36:PMID-17634657\",\"RB-003:R37:PMID-18612175\",\"RB-003:R45:PMID-38306974\",\"RB-003@1.0#42-49\"]}",
+          "expected": "{\"expectedAssertions\":[\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-DETECTION-LIMIT\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-SEPARABILITY\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-PARTIAL-VOLUME\",\"knowledge-assertion:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01:KEDGE-RECONSTRUCTION-BIAS\"],\"expectedStatements\":[],\"expectedEvidence\":[\"RB-003:R36:PMID-17634657\",\"RB-003:R37:PMID-18612175\",\"RB-003:R36:PMID-17634657\",\"RB-003:R45:PMID-38306974\",\"RB-003:R10:PMID-24801550\",\"RB-003:R10:PMID-24801550\",\"RB-003:R35:PMID-31984498\"],\"expectedSources\":[\"RB-003@1.0#42-49\"]}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "GAP_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "{\"request\":[],\"outputCodes\":[\"KNOWLEDGE_RESULT_REQUIRED_BEFORE_EVIDENCE_CLAIM\"]}",
+          "expected": "{\"expectedGaps\":[],\"expectedGapCodes\":[]}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "LIMITATION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "{\"handoffLimitations\":[\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\"],\"hypothesisLimitations\":[{\"hypothesisId\":\"ST-H-001\",\"limitations\":[\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\"]},{\"hypothesisId\":\"ST-H-KNOWLEDGE-001\",\"limitations\":[\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"Les effets dépendent de l'algorithme, du détecteur et du flux.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\"]},{\"hypothesisId\":\"ST-H-KNOWLEDGE-002\",\"limitations\":[\"La taille de cible et la composition concurrente gouvernent cette explication.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\"]},{\"hypothesisId\":\"ST-H-KNOWLEDGE-003\",\"limitations\":[\"La limite dépend de la géométrie, de la dose, de la taille et de la tâche.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\"]},{\"hypothesisId\":\"ST-H-KNOWLEDGE-004\",\"limitations\":[\"La faisabilité en phantom ne garantit pas la séparabilité dans une autre géométrie.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\"]}],\"ownerResultLimitations\":[\"Existing runtime is deterministic and expects its native context projection.\",\"Proposals are never adopted automatically.\",\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\",\"SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS\"],\"missingFromHandoff\":[],\"missingFromOwnerResult\":[]}",
+          "expected": "{\"requiredLimitations\":[\"Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.\",\"Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction.\"],\"contract\":{\"outputTopLevelLimitations\":\"ABSENT_BY_STRICT_SCHEMA\",\"requiredHandoffProjection\":\"ScientificThinkingOutput.handoff.limitations\",\"candidateScopedProjection\":\"ScientificThinkingOutput.hypotheses[*].limitations\",\"persistedOwnerProjection\":\"SpecializedOwnerResult.limitations\",\"scientificJudgmentPerformed\":false}}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "KNOWLEDGE_CONTRADICTION_INPUT_BINDING",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "CONTRADICTION_PRESERVATION",
+          "outcome": "PASS",
+          "observed": "[]",
+          "expected": "[]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "EXPECTED_EXECUTION",
+          "outcome": "PASS",
+          "observed": "{\"ownerInvocationCount\":1,\"error\":null}",
+          "expected": "{\"ownerInvocationCount\":1,\"error\":null}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PRODUCTION",
+          "outcome": "PASS",
+          "observed": "1",
+          "expected": "1",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_DIGEST",
+          "outcome": "PASS",
+          "observed": "{\"native\":\"ke1-e8b1eb3cc7f26720\",\"output\":\"ke1-e8b1eb3cc7f26720\"}",
+          "expected": "MATCH",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNER_RESULT_PERSISTENCE",
+          "outcome": "PASS",
+          "observed": "{\"entryResultId\":\"scientific-thinking-output:ke1-e8b1eb3cc7f26720\",\"eventTypes\":[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]}",
+          "expected": "scientific-thinking-output:ke1-e8b1eb3cc7f26720",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "OWNERSHIP_METADATA",
+          "outcome": "PASS",
+          "observed": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false,\"engineVersion\":\"1.2.2\"}",
+          "expected": "{\"owner\":\"SCIENTIFIC_THINKING\",\"projectWriteAuthorized\":false,\"engineVersion\":\"1.2.2\",\"ownershipTransferred\":false}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_WRITES",
+          "outcome": "PASS",
+          "observed": "0",
+          "expected": "0",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "PROJECT_QUESTION_SOURCE_BINDING",
+          "outcome": "PASS",
+          "observed": "{\"originalExpression\":\"Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.\",\"validatedReformulation\":\"Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?\"}",
+          "expected": "{\"originalExpression\":\"Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ? Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.\",\"validatedReformulation\":\"Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?\"}",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "STALE_MISMATCH",
+          "outcome": "NOT_APPLICABLE",
+          "observed": "NO_STALE_CASE_AUTHORIZED_IN_CAMPAIGN_E",
+          "expected": "NOT_APPLICABLE",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "TRACE_COMPLETENESS",
+          "outcome": "PASS",
+          "observed": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "expected": "[\"RUN_STARTED\",\"HANDOFF_STARTED\",\"HANDOFF_ACCEPTED\",\"OWNER_INVOCATION_STARTED\",\"OWNER_INVOCATION_COMPLETED\",\"RESULT_PERSISTED\",\"RUN_COMPLETED\"]",
+          "scientificJudgmentPerformed": false
+        },
+        {
+          "checkId": "NO_AUTOMATIC_ADOPTION",
+          "outcome": "PASS",
+          "observed": "{\"selectedQuestionCandidate\":null,\"handoffStatus\":\"NOT_READY\",\"reviewStates\":[\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\",\"PENDING\"]}",
+          "expected": "ALL_CANDIDATES_PENDING_AND_HANDOFF_NOT_AUTHORIZED",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "globalControls": {
+        "IDENTITY_INTEGRITY": "PASS",
+        "LINEAGE_INTEGRITY": "FAIL",
+        "GAP_PRESERVATION": "PASS",
+        "LIMITATION_PRESERVATION": "PASS",
+        "CONTRADICTION_PRESERVATION": "PASS",
+        "OWNERSHIP_BOUNDARY": "PASS",
+        "PROJECT_WRITES": "PASS",
+        "RESULT_PERSISTENCE": "PASS",
+        "TRACE_COMPLETENESS": "PASS",
+        "NO_AUTOMATIC_ADOPTION": "PASS",
+        "STALE_PROTECTION": "NOT_APPLICABLE"
+      }
+    }
+  ],
+  "counts": {
+    "casesExecuted": 1,
+    "checks": 20,
+    "pass": 18,
+    "fail": 1,
+    "notApplicable": 1,
+    "completeTraceRuns": 1,
+    "currentReadbacks": 1,
+    "technicalFailures": 1
+  },
+  "newCheckerOnlyDefect": "YES",
+  "secondCheckerDefect": {
+    "checkId": "SOURCE_EVIDENCE_REFS",
+    "derivedGlobalControl": "LINEAGE_INTEGRITY",
+    "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER",
+    "classification": "CHECKER_EXPECTED_RAW_DUPLICATES_WHILE_CURRENT_TYPED_PROJECTION_DEDUPLICATES_EXACT_REFERENCE_IDENTITIES",
+    "stDefectEstablished": false,
+    "automaticRepairPerformed": false,
+    "unreliableChecks": [
+      "SOURCE_EVIDENCE_REFS",
+      "LINEAGE_INTEGRITY"
+    ],
+    "decision": "W1_QUAL_02H1R_STOPPED_AFTER_SECOND_CHECKER_DEFECT"
+  }
+}

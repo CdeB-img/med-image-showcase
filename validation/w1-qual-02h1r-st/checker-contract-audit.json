@@ -1,0 +1,55 @@
+{
+  "contract": "W1_QUAL_02H1R_CHECKER_CONTRACT_AUDIT",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "historicalFreezeDigest": "ke1-d1c4ff40aa84e28c",
+  "authoritiesConsultedInRequiredOrder": [
+    "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+    "NOXIA — Charte fondatrice",
+    "NOXIA Protocol Designer — Scientific Product Manifesto V2",
+    "Editorial Engine — Architecture Manifesto"
+  ],
+  "implementationEvidenceConsulted": [
+    "docs/implementation/w1-st-repair-02-bounded-human-adjudicated-reasoning-repair.md",
+    "docs/implementation/w1-qual-02h1-st-post-repair-human-review-packet.md",
+    "validation/w1-qual-02h1-st/campaign-freeze.json",
+    "validation/w1-qual-02h1-st/execution-results.json",
+    "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md"
+  ],
+  "contractSources": [
+    "src/features/scientific-thinking/types.ts",
+    "src/features/scientific-thinking/engine.ts",
+    "src/features/research-project-construction/scientific-reasoning-owner-chain.ts",
+    "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts"
+  ],
+  "currentStLimitationContract": {
+    "topLevelOutputLimitations": "ABSENT_BY_SCIENTIFIC_THINKING_OUTPUT_1_2_2_STRICT_SCHEMA",
+    "knowledgeLimitationsForwardedAt": "ScientificThinkingOutput.handoff.limitations",
+    "candidateScopedLimitationsAt": "ScientificThinkingOutput.hypotheses[*].limitations",
+    "persistedOwnerLimitationsAt": "SpecializedOwnerResult.limitations",
+    "persistedProjectionRule": "nativeOutput.handoff.limitations plus SCIENTIFIC_THINKING_CANDIDATES_ARE_NOT_ADOPTED_PROJECT_FACTS"
+  },
+  "historicalCheckerExpectation": "output.limitations",
+  "checkerDefectConfirmed": true,
+  "technicalContractAmbiguity": false,
+  "repairDirection": "CHECKER_TO_CURRENT_CONTRACT",
+  "operation": "POST_FREEZE_TECHNICAL_CONTRACT_ALIGNMENT",
+  "scientificFreezeChanged": false,
+  "scientificContentChanged": false,
+  "scientificJudgmentPerformed": false,
+  "stRuntimeModified": false,
+  "secondCheckerDefect": {
+    "observedAfterRepair": true,
+    "checkId": "SOURCE_EVIDENCE_REFS",
+    "derivedGlobalControl": "LINEAGE_INTEGRITY",
+    "cause": "The successor checker formed its expected evidence list from duplicate-bearing raw Knowledge evidence entries, while the governed ST dependency projection preserves the exact unique reference identities through canonical deduplication.",
+    "stOutputLostUniqueEvidenceReference": false,
+    "stDefectEstablished": false,
+    "automaticRepairForbiddenByAntiLoopRule": true,
+    "automaticRepairPerformed": false,
+    "unreliableChecks": [
+      "SOURCE_EVIDENCE_REFS",
+      "LINEAGE_INTEGRITY"
+    ]
+  }
+}

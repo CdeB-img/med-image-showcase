@@ -1,0 +1,30 @@
+{
+  "contract": "W1_QUAL_02H1R_FIRST_CASE_RECOVERY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "caseId": "ST02H1-E-NVC-MECHANISM-01",
+  "historicalInvocationCount": 1,
+  "historicalEvidence": {
+    "ownerResultProducedInMemory": true,
+    "traceRecorderCompletedInMemory": true,
+    "resultEvidencePersisted": false,
+    "resultDigest": null,
+    "stOutput": null,
+    "terminalOutcome": "TECHNICAL_CAPTURE_FAILURE_AFTER_OWNER_INVOCATION"
+  },
+  "recoverySearch": {
+    "repositoryEvidenceInspected": true,
+    "temporaryLocationsInspected": [
+      "/tmp",
+      "/private/tmp"
+    ],
+    "historicalTransientHarnessRetained": false,
+    "exactCompleteOutputFound": false
+  },
+  "firstCaseResultRecovery": "NOT_RECOVERABLE",
+  "firstCaseHumanAdjudication": "TECHNICALLY_NON_ADJUDICABLE",
+  "firstCaseStReruns": 0,
+  "fabricatedOutput": false,
+  "replacementCaseCreated": false,
+  "scientificJudgmentPerformed": false
+}
