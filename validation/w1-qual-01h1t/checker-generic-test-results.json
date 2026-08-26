@@ -1,0 +1,16 @@
+{
+  "contract": "W1_QUAL_01H1T_CHECKER_GENERIC_TEST_RESULTS",
+  "version": "1.0.0",
+  "nature": "SYNTHETIC_TECHNICAL_TESTS_NOT_SCIENTIFIC_EVIDENCE",
+  "command": "npx vitest run src/features/protocol-designer/functional-reset/__tests__/w1-qual-01h1t-deterministic-checker.test.ts --reporter=json",
+  "testSuites": 2,
+  "tests": 10,
+  "passed": 10,
+  "failed": 0,
+  "pending": 0,
+  "success": true,
+  "executedBeforeCampaignReadback": true,
+  "stInvocations": 0,
+  "providerCalls": 0,
+  "llmCalls": 0
+}

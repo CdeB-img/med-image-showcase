@@ -1,0 +1,117 @@
+{
+  "contract": "W1_QUAL_01H1T_CAMPAIGN_D_IMMUTABLE_EVIDENCE_DIGESTS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "freezeDigest": "ke1-f8f6b4620ab40c36",
+  "stVersion": "1.2.1",
+  "evidenceSetDigest": "sha256-c5bf65861ee028f3369d7c92deaa51790ff3bae35de12bdac78652b98eba0c31",
+  "files": [
+    {
+      "path": "validation/w1-qual-01h1-st/campaign-freeze.json",
+      "sha256": "sha256-8f63f6d2cd9ec0bccc90a165d8319c6e2ed6020e318076c87fb2e57b8d2d9cc1"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/campaign-manifest.json",
+      "sha256": "sha256-20ae9d93e91fc9676d8d7fc66943679af21eac578f0b295880fd0f5a979f4434"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/case-registry.json",
+      "sha256": "sha256-41c536f3b26b0b3ae555e320af715ee50cce8b44dfea3b21af17bc4d6bb31647"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/determinism-replays.json",
+      "sha256": "sha256-37af8ebbdb0f40dd004df2375c44ad919f014e4acc56ea4a7e73e2c56b18d074"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/deterministic-checks.json",
+      "sha256": "sha256-fa9f57621cd6f7db0f4a2c16e366af355ea7feba56f658373a4363bfc3c83149"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/execution-results.json",
+      "sha256": "sha256-27f40fbf77c7c7d5fd8e3bede28c01751eb9a6bc2198a2e11f9551bb3fcc4a35"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/frozen-input-registry.json",
+      "sha256": "sha256-b7aa8b30da9b121f1b0eafd586c5b2e04294055f63aa60554a90bd1f9f107649"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/human-adjudication-template.json",
+      "sha256": "sha256-5f638906281a50cc251d509adec4c7c5c6df91fe19ca26e851c2743257e85ed6"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/human-review-envelope-registry.json",
+      "sha256": "sha256-126027bd51f5a327bd9e7d2b40d47ccf6b34d0fe291a54c53f4f4700d4f9126d"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/parentage-audit.json",
+      "sha256": "sha256-bd81dc40c386b9346b98dcd436c7074d86591d3b94aa22e95de5e441427a93f1"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/terminal-outcomes.json",
+      "sha256": "sha256-7090c29531d50549c61a4d7f795b7e2acb72c8448b47a65968ca99fc8cc08e74"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/tools/authoring.ts",
+      "sha256": "sha256-667aefb4fe3743a37810a7783d3fbe1e02edc98c297de8748810e20d53def7ae"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/tools/deterministic-checker.ts",
+      "sha256": "sha256-ad9b7790428f40e45230ed1d1774bfa02a623f5a82e9d3f14df8249c0a269a5c"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/tools/execute.ts",
+      "sha256": "sha256-71559436a779924f572ad260cdb2f0a52e8eb1563cdc029ac29fb2d915b96a17"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/tools/prepare.ts",
+      "sha256": "sha256-d39796715f5d2b14195e0e654d21e7b3930127c62daf308e7145838669360db6"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/tools/render.ts",
+      "sha256": "sha256-b9e929babd07deedb54acade04d6001933b0f120fff01db561e5596b3c92abd2"
+    },
+    {
+      "path": "validation/w1-qual-01h1-st/trace-index.json",
+      "sha256": "sha256-35f8ac135adac17303c7c5fcd0d547e5bdb5579d2f591df464d05aaeeefd3d80"
+    },
+    {
+      "path": "docs/implementation/w1-qual-01h1-st-human-review-packet.md",
+      "sha256": "sha256-246c870c05c3f2867c09e13ec3ed6274953d89cbbdffe1de992ad6a14587a377"
+    },
+    {
+      "path": "src/features/scientific-thinking/engine.ts",
+      "sha256": "sha256-e87aa94e3e7f0542991f2d3bc748a9ba41f33fb0ff32511ea25f820feb9564dc"
+    },
+    {
+      "path": "src/features/scientific-thinking/types.ts",
+      "sha256": "sha256-79f7ac776d92d4be9586385a94113d9d02a6dd500d1f8194eb523f6eaf9a00f6"
+    },
+    {
+      "path": "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts",
+      "sha256": "sha256-bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7"
+    }
+  ],
+  "stRuntimeDigestChecks": [
+    {
+      "path": "src/features/scientific-thinking/engine.ts",
+      "expected": "sha256-e87aa94e3e7f0542991f2d3bc748a9ba41f33fb0ff32511ea25f820feb9564dc",
+      "observed": "sha256-e87aa94e3e7f0542991f2d3bc748a9ba41f33fb0ff32511ea25f820feb9564dc"
+    },
+    {
+      "path": "src/features/scientific-thinking/types.ts",
+      "expected": "sha256-79f7ac776d92d4be9586385a94113d9d02a6dd500d1f8194eb523f6eaf9a00f6",
+      "observed": "sha256-79f7ac776d92d4be9586385a94113d9d02a6dd500d1f8194eb523f6eaf9a00f6"
+    },
+    {
+      "path": "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts",
+      "expected": "sha256-bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7",
+      "observed": "sha256-bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7"
+    }
+  ],
+  "historicalTrackedDiffAgainstBaseline": [],
+  "baselineGitTreeMatch": true,
+  "historicalEvidenceModified": false,
+  "stRuntimeModified": false,
+  "campaignOutputsModified": false,
+  "humanReviewEnvelopesModified": false
+}

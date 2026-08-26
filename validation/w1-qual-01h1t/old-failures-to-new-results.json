@@ -1,0 +1,264 @@
+{
+  "contract": "W1_QUAL_01H1T_OLD_FAILURE_RECONCILIATION",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "historicalCounts": {
+    "checks": 228,
+    "pass": 178,
+    "fail": 25,
+    "notApplicable": 25
+  },
+  "oldFailures": 25,
+  "reconciliations": [
+    {
+      "oldFailureId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-MPR-CMR-PET-COMPARATIVE-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-MAD-ARRHYTHMIA-PREDICTION-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01:CONTRADICTION_PRESERVATION",
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "oldFailureClass": "KNOWLEDGE_CONFLICT_PROJECTION_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "Each Knowledge controversy is projected exactly as conflictId:state:explanation and all three fields remain significant.",
+      "newResult": "PASS",
+      "reason": "The historical checker searched for explanation-only strings; frozen ST outputs retain the complete typed Knowledge conflict projection.",
+      "governingContractReference": "src/features/knowledge-engine/types.ts:315-320; src/features/scientific-thinking/input.ts:117-131"
+    },
+    {
+      "oldFailureId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:CONTRADICTION_PRESERVATION",
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "oldFailureClass": "KNOWLEDGE_CONFLICT_PROJECTION_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "Each Knowledge controversy is projected exactly as conflictId:state:explanation and all three fields remain significant.",
+      "newResult": "PASS",
+      "reason": "The historical checker searched for explanation-only strings; frozen ST outputs retain the complete typed Knowledge conflict projection.",
+      "governingContractReference": "src/features/knowledge-engine/types.ts:315-320; src/features/scientific-thinking/input.ts:117-131"
+    },
+    {
+      "oldFailureId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:CONTRADICTION_PRESERVATION",
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "oldFailureClass": "KNOWLEDGE_CONFLICT_PROJECTION_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "Each Knowledge controversy is projected exactly as conflictId:state:explanation and all three fields remain significant.",
+      "newResult": "PASS",
+      "reason": "The historical checker searched for explanation-only strings; frozen ST outputs retain the complete typed Knowledge conflict projection.",
+      "governingContractReference": "src/features/knowledge-engine/types.ts:315-320; src/features/scientific-thinking/input.ts:117-131"
+    },
+    {
+      "oldFailureId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-PANCREAS-IODINE-NARROW-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-PANCREAS-IODINE-NARROW-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-PANCREAS-IODINE-NARROW-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-RADIOMICS-HARMONIZATION-CONDITIONAL-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "oldFailureId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01:PROJECT_QUESTION_SOURCE_BINDING",
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "oldFailureClass": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "newResult": "PASS",
+      "reason": "The historical checker compared originalExpression to the question alone; the frozen request exactly matches the current product builder projection.",
+      "governingContractReference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "oldFailureId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01:TRACE_COMPLETENESS",
+      "caseId": "ST01H1-D-SINGLE-CENTER-RADIOMICS-NONPROMOTION-01",
+      "oldFailureClass": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "oldResult": "FAIL",
+      "correctedContractInterpretation": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "newResult": "PASS",
+      "reason": "The historical checker required OWNER_RESULT_PERSISTED, which is absent from the current TRACE event union; the frozen nominal traces contain the canonical event in order.",
+      "governingContractReference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    }
+  ]
+}

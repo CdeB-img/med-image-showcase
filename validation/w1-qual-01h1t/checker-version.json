@@ -1,0 +1,11 @@
+{
+  "contract": "W1_QUAL_01H1T_DETERMINISTIC_CHECKER_IDENTITY",
+  "version": "1.0.0",
+  "checkerVersion": "1.1.0",
+  "checkerDigest": "sha256-ea0e4a3c83d6217bd55b73aa356c0c685edd6f0e5575d15f9ed50bb0019938f2",
+  "path": "validation/w1-qual-01h1t/tools/deterministic-checker.ts",
+  "historicalCheckerVersion": "1.0.0",
+  "historicalCheckerDigest": "sha256-ad9b7790428f40e45230ed1d1774bfa02a623f5a82e9d3f14df8249c0a269a5c",
+  "historicalFreezeDigest": "ke1-f8f6b4620ab40c36",
+  "historicalIdentityOverwritten": false
+}

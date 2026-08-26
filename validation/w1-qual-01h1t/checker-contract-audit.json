@@ -1,0 +1,37 @@
+{
+  "contract": "W1_QUAL_01H1T_CHECKER_CONTRACT_AUDIT",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "baseline": "d866e492194e38ed262722b91456bc1a80fb9cf7",
+  "historicalCampaignId": "W1-QUAL-01H-ST-2026-08-26-D",
+  "historicalDecision": "W1_QUAL_01H1_REVIEW_PACKET_NOT_READY",
+  "contractAmbiguity": false,
+  "defects": [
+    {
+      "id": "A",
+      "class": "ORIGINAL_EXPRESSION_CONTRACT_MISMATCH",
+      "expectedCurrentContract": "validatedReformulation must preserve the case question; originalExpression must equal validatedReformulation plus one space plus caller purpose.",
+      "historicalCheckerContract": "originalExpression equals question only",
+      "verdict": "HISTORICAL_CHECKER_DEFECT_CONFIRMED",
+      "reference": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts:167-179"
+    },
+    {
+      "id": "B",
+      "class": "TRACE_EVENT_TAXONOMY_MISMATCH",
+      "expectedCurrentContract": "The canonical owner-result persistence event is RESULT_PERSISTED.",
+      "historicalCheckerContract": "OWNER_RESULT_PERSISTED",
+      "verdict": "HISTORICAL_CHECKER_DEFECT_CONFIRMED",
+      "reference": "src/features/protocol-designer/scientific-execution-trace.ts:26-39,408-422,1112-1124"
+    },
+    {
+      "id": "C",
+      "class": "KNOWLEDGE_CONFLICT_PROJECTION_MISMATCH",
+      "expectedCurrentContract": "Each Knowledge controversy is projected exactly as conflictId:state:explanation and all three fields remain significant.",
+      "historicalCheckerContract": "explanation-only containment",
+      "verdict": "HISTORICAL_CHECKER_DEFECT_CONFIRMED",
+      "reference": "src/features/knowledge-engine/types.ts:315-320; src/features/scientific-thinking/input.ts:117-131"
+    }
+  ],
+  "productRuntimeModified": false,
+  "scientificJudgmentPerformed": false
+}

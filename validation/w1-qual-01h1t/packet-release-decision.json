@@ -1,0 +1,22 @@
+{
+  "contract": "W1_QUAL_01H1T_PACKET_RELEASE_DECISION",
+  "version": "1.0.0",
+  "decision": "W1_QUAL_01H1T_HUMAN_REVIEW_PACKET_RELEASED_FOR_MANUAL_ADJUDICATION",
+  "historicalH1Decision": "W1_QUAL_01H1_REVIEW_PACKET_NOT_READY",
+  "historicalH1DecisionPreserved": true,
+  "packetTechnicalRelease": "READY",
+  "packetPath": "docs/implementation/w1-qual-01h1-st-human-review-packet.md",
+  "packetScientificContentModified": false,
+  "campaignEvidenceComplete": true,
+  "traceSufficientForBoundedManualPacketRelease": true,
+  "outputsImmutable": true,
+  "humanReviewCases": 12,
+  "humanAdjudicationCompleted": 0,
+  "humanAdjudicationPending": 12,
+  "allH1ToH8Pending": true,
+  "scientificVerdictProduced": false,
+  "h2Authorized": false,
+  "nextAuthorizedMission": "NONE_PENDING_MANUAL_ST_CASE_ADJUDICATION",
+  "wave1Complete": false,
+  "wave2Authorized": false
+}
