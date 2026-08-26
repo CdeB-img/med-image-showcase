@@ -1,0 +1,68 @@
+{
+  "contract": "W1_ST_REPAIR_02_DEVELOPMENT_RESULTS",
+  "version": "1.0.0",
+  "classification": "DEVELOPMENT_ONLY_NON_QUALIFYING",
+  "normative": false,
+  "scientificCharacterizationEvidence": false,
+  "providerCalls": 0,
+  "networkCalls": 0,
+  "preRepair": {
+    "stVersion": "1.2.1",
+    "probes": 12,
+    "passed": 2,
+    "failed": 10,
+    "resultByProbe": [
+      { "probeId": "W1STR02-MECH-MARINE-01", "status": "FAIL" },
+      { "probeId": "W1STR02-MECH-PLANT-02", "status": "FAIL" },
+      { "probeId": "W1STR02-ALT-MATERIAL-01", "status": "FAIL" },
+      { "probeId": "W1STR02-ALT-FERMENT-02", "status": "FAIL" },
+      { "probeId": "W1STR02-CONFLICT-AIR-01", "status": "FAIL" },
+      { "probeId": "W1STR02-CONFLICT-SOIL-02", "status": "FAIL" },
+      { "probeId": "W1STR02-UNKNOWN-HYDRO-01", "status": "FAIL" },
+      { "probeId": "W1STR02-UNKNOWN-BATTERY-02", "status": "FAIL" },
+      { "probeId": "W1STR02-OWNER-ETHICS-01", "status": "FAIL" },
+      { "probeId": "W1STR02-OWNER-CONTAINMENT-02", "status": "FAIL" },
+      { "probeId": "W1STR02-CONTROL-ASSOCIATION-01", "status": "PASS" },
+      { "probeId": "W1STR02-CONTROL-GAP-02", "status": "PASS" }
+    ]
+  },
+  "postRepair": {
+    "stVersion": "1.2.2",
+    "probes": 12,
+    "passed": 12,
+    "failed": 0,
+    "resultByProbe": [
+      { "probeId": "W1STR02-MECH-MARINE-01", "status": "PASS" },
+      { "probeId": "W1STR02-MECH-PLANT-02", "status": "PASS" },
+      { "probeId": "W1STR02-ALT-MATERIAL-01", "status": "PASS" },
+      { "probeId": "W1STR02-ALT-FERMENT-02", "status": "PASS" },
+      { "probeId": "W1STR02-CONFLICT-AIR-01", "status": "PASS" },
+      { "probeId": "W1STR02-CONFLICT-SOIL-02", "status": "PASS" },
+      { "probeId": "W1STR02-UNKNOWN-HYDRO-01", "status": "PASS" },
+      { "probeId": "W1STR02-UNKNOWN-BATTERY-02", "status": "PASS" },
+      { "probeId": "W1STR02-OWNER-ETHICS-01", "status": "PASS" },
+      { "probeId": "W1STR02-OWNER-CONTAINMENT-02", "status": "PASS" },
+      { "probeId": "W1STR02-CONTROL-ASSOCIATION-01", "status": "PASS" },
+      { "probeId": "W1STR02-CONTROL-GAP-02", "status": "PASS" }
+    ],
+    "representativeDeterministicReplays": {
+      "classes": 5,
+      "passed": 5,
+      "failed": 0
+    }
+  },
+  "testExecution": {
+    "file": "src/features/scientific-thinking/__tests__/w1-st-repair-02-development-probes.test.ts",
+    "tests": 13,
+    "passed": 13,
+    "failed": 0
+  },
+  "targetedImpactedSuite": {
+    "exposedCampaignDReplayExcluded": true,
+    "testFiles": 10,
+    "tests": 87,
+    "passed": 87,
+    "failed": 0
+  },
+  "interpretation": "The bounded deterministic repair obligations pass on fresh development probes. This is technical development evidence only and is not human scientific adjudication, individual owner characterization or Scientific PASS."
+}

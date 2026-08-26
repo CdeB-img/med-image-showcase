@@ -1,0 +1,43 @@
+{
+  "contract": "W1_ST_REPAIR_02_RUNTIME_HASHES",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "algorithm": "SHA-256",
+  "before": {
+    "stVersion": "1.2.1",
+    "files": {
+      "src/features/scientific-thinking/engine.ts": "sha256-e87aa94e3e7f0542991f2d3bc748a9ba41f33fb0ff32511ea25f820feb9564dc",
+      "src/features/scientific-thinking/types.ts": "sha256-79f7ac776d92d4be9586385a94113d9d02a6dd500d1f8194eb523f6eaf9a00f6",
+      "src/features/scientific-thinking/input.ts": "sha256-e90ae7a3879b6432593c3e5ca7f174c526f0107c19b99fe612de75f25d46f993",
+      "src/features/research-project-construction/scientific-reasoning-owner-chain.ts": "sha256-b8819769497078038f6ae02b35c5cf75ef1e22dfbcebc4334c71d81599cf4778",
+      "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts": "sha256-bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7"
+    }
+  },
+  "after": {
+    "stVersion": "1.2.2",
+    "files": {
+      "src/features/scientific-thinking/engine.ts": "sha256-edb070f46c7c986ee6980cb955e3d5fc535413782b4e5bcd198f3ca0be59b427",
+      "src/features/scientific-thinking/types.ts": "sha256-d07e089e2f6fb9c55fa4b9b4b50946727d7a7d9072a876e4d41d213ea3f63f81",
+      "src/features/scientific-thinking/input.ts": "sha256-427176ba84dc2a4c10cf38cdd53390d2e96b40b08449aad6aca09b6f8ef60215",
+      "src/features/research-project-construction/scientific-reasoning-owner-chain.ts": "sha256-a73916e16557300767249a3309af635c6b9b5241276df0b0dd4d2e0bc72b85a3",
+      "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts": "sha256-bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7",
+      "src/features/research-project-construction/specialized-owner-handoff.ts": "sha256-861c452b7108baa9c0c833c8b5a1f5ea4a5afb7c88f1af96300d13b29275a4a7",
+      "src/features/scientific-thinking/__tests__/w1-st-repair-02-development-probes.test.ts": "sha256-f833c965ad46ef7409c45f1f19070aa73dce654f254e9366d763633e4a727e09",
+      "src/features/scientific-thinking/__tests__/w1-st-repair-02-exposed-non-regression.test.ts": "sha256-ef728f5d120526d12a15a7d85a986480ae6b3b1be1941fc0584cf9a720a92a0b"
+    }
+  },
+  "campaignDEvidenceAudit": {
+    "digestEntriesChecked": 21,
+    "historicalEvidenceFilesUnchanged": 19,
+    "expectedRuntimeHashChanges": 2,
+    "expectedChangedEntries": [
+      "src/features/scientific-thinking/engine.ts",
+      "src/features/scientific-thinking/types.ts"
+    ],
+    "frozenCampaignDEvidenceMutated": false,
+    "interpretation": "Only the two deliberately repaired runtime entries differ from the historical H1T runtime freeze; the other nineteen frozen evidence digests remain byte-identical."
+  },
+  "runtimeFrozenBeforeExposedObservation": true,
+  "runtimeModifiedAfterExposedObservation": false
+}

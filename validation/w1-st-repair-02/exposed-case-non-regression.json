@@ -1,0 +1,65 @@
+{
+  "contract": "W1_ST_REPAIR_02_EXPOSED_CASE_NON_REGRESSION",
+  "version": "1.0.0",
+  "classification": "EXPOSED_HUMAN_CASE_NON_REGRESSION",
+  "normative": false,
+  "independentCharacterizationEvidence": false,
+  "freshHumanAdjudication": false,
+  "scientificPass": false,
+  "runtimeFrozenBeforeExecution": true,
+  "runtimeModifiedAfterExecution": false,
+  "executionPolicy": {
+    "selectedCases": 5,
+    "invocationsPerCase": 1,
+    "rerolls": 0,
+    "additionalStReruns": 0,
+    "providerCalls": 0,
+    "networkCalls": 0
+  },
+  "cases": [
+    {
+      "ordinal": 3,
+      "caseId": "ST01H1-D-RVPA-EXERCISE-MECHANISM-01",
+      "defectClass": "MECHANISTIC_REASONING_NOT_MATERIALIZED",
+      "status": "PASS",
+      "ownerInvocations": 1
+    },
+    {
+      "ordinal": 4,
+      "caseId": "ST01H1-D-NEUROMELANIN-ALTERNATIVES-01",
+      "defectClass": "NAMED_ALTERNATIVES_FLATTENED_TO_GENERIC_COMPETING_BRANCH",
+      "status": "PASS",
+      "ownerInvocations": 1
+    },
+    {
+      "ordinal": 5,
+      "caseId": "ST01H1-D-LACTATE-TUMOR-CONTRADICTION-01",
+      "defectClass": "KNOWLEDGE_CONTRADICTION_NOT_MATERIALIZED_AS_COMPETING_HYPOTHESES",
+      "status": "PASS",
+      "ownerInvocations": 1
+    },
+    {
+      "ordinal": 7,
+      "caseId": "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+      "defectClass": "STRUCTURING_PROJECT_UNKNOWN_NOT_GOVERNING_REASONING_BRANCH",
+      "status": "PASS",
+      "ownerInvocations": 1
+    },
+    {
+      "ordinal": 9,
+      "caseId": "ST01H1-D-PREGNANCY-RADIATION-OWNERSHIP-01",
+      "defectClass": "OUT_OF_OWNERSHIP_QUESTION_NOT_REFUSED_OR_ESCALATED",
+      "status": "PASS",
+      "ownerInvocations": 1
+    }
+  ],
+  "summary": {
+    "tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "projectWrites": 0,
+    "knowledgeOwnershipTransfers": 0
+  },
+  "sourceEvidenceMutated": false,
+  "interpretation": "The five previously exposed Campaign D cases pass one bounded non-regression observation after the generic repair. They are not fresh cases and cannot establish post-repair scientific characterization."
+}

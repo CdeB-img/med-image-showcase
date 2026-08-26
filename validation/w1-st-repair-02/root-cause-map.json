@@ -1,0 +1,93 @@
+{
+  "contract": "W1_ST_REPAIR_02_ROOT_CAUSE_MAP",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "createdBeforeRuntimeRepair": true,
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "head": "62eff65ec8880772c6ced61db910f2e1dbc381f8",
+    "stVersion": "1.2.1"
+  },
+  "runtimeHashesBefore": {
+    "src/features/scientific-thinking/engine.ts": "sha256-e87aa94e3e7f0542991f2d3bc748a9ba41f33fb0ff32511ea25f820feb9564dc",
+    "src/features/scientific-thinking/types.ts": "sha256-79f7ac776d92d4be9586385a94113d9d02a6dd500d1f8194eb523f6eaf9a00f6",
+    "src/features/scientific-thinking/input.ts": "sha256-e90ae7a3879b6432593c3e5ca7f174c526f0107c19b99fe612de75f25d46f993",
+    "src/features/research-project-construction/scientific-reasoning-owner-chain.ts": "sha256-b8819769497078038f6ae02b35c5cf75ef1e22dfbcebc4334c71d81599cf4778",
+    "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts": "sha256-bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7"
+  },
+  "defects": [
+    {
+      "id": "ST-HUMAN-DEFECT-01",
+      "class": "MECHANISTIC_REASONING_NOT_MATERIALIZED",
+      "firstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+      "owner": "SCIENTIFIC_THINKING",
+      "observedCause": "The engine always emits one generic mechanism-to-document and does not materialize exact Knowledge reasoning statements even when the input preserves a named controversy.",
+      "contributingBoundaryGap": "The Knowledge-to-ST request projects assertion identities, evidence and sources but omits the assertion text and its applicability/limitations as a structured read-only reasoning input.",
+      "violatedEstablishedContract": [
+        "RDE-001 Scientific Thinking produces mechanisms and competing hypotheses",
+        "RDE-002 Knowledge to Scientific Thinking produces mechanisms, concurrent hypotheses and falsifiability",
+        "PD-003 V2 ScientificModel candidates retain mechanisms, alternatives, limitations and Knowledge references"
+      ]
+    },
+    {
+      "id": "ST-HUMAN-DEFECT-02",
+      "class": "NAMED_ALTERNATIVES_FLATTENED_TO_GENERIC_COMPETING_BRANCH",
+      "firstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+      "owner": "SCIENTIFIC_THINKING",
+      "observedCause": "The engine unconditionally emits the same generic null-or-competing sentence and does not construct branches from exact named Knowledge statements or explicit alternatives.",
+      "contributingBoundaryGap": "Exact Knowledge statement text is not available as a structured read-only input even though assertion, evidence and source refs are retained.",
+      "violatedEstablishedContract": [
+        "RDE-001 alternatives remain visible",
+        "RDE-002 competing hypotheses are explicit",
+        "PD-003 V2 ScientificModel candidates retain alternatives without increasing evidence"
+      ]
+    },
+    {
+      "id": "ST-HUMAN-DEFECT-03",
+      "class": "KNOWLEDGE_CONTRADICTION_NOT_MATERIALIZED_AS_COMPETING_HYPOTHESES",
+      "firstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+      "owner": "SCIENTIFIC_THINKING",
+      "observedCause": "The typed Knowledge contradiction survives in output metadata, but hypothesis construction ignores it and therefore does not expose the incompatible positions as candidate reasoning branches.",
+      "contributingBoundaryGap": "Conflict identity/state/explanation is projected, while its supporting qualified assertion text is not projected as a reasoning input.",
+      "violatedEstablishedContract": [
+        "KE-001 Knowledge never selects a conflict winner",
+        "RDE-002 contradictions remain visible and competing hypotheses are explicit",
+        "PD-003 V2 unknowns and contradictions survive every boundary"
+      ]
+    },
+    {
+      "id": "ST-HUMAN-DEFECT-04",
+      "class": "STRUCTURING_PROJECT_UNKNOWN_NOT_GOVERNING_REASONING_BRANCH",
+      "firstDivergentStage": "OWNER_REQUEST_BUILDING",
+      "owner": "SCIENTIFIC_THINKING",
+      "observedCause": "The Project snapshot contains the exact UNKNOWN object content, but the ST request reduces it to an UNKNOWN_PROJECT_OBJECT stable-id marker. The engine can preserve the marker only as a gap and cannot ask the structuring question or block dependent hypotheses.",
+      "contributingBoundaryGap": "Project UNKNOWN content/type/ref are not projected together into the ST request.",
+      "violatedEstablishedContract": [
+        "PD-003 V2 handoffs retain identity, context, unknowns and status",
+        "SEM-002 blocking unknowns govern clarification",
+        "RDE-002 an unknown decisive context blocks dependent reasoning"
+      ]
+    },
+    {
+      "id": "ST-HUMAN-DEFECT-05",
+      "class": "OUT_OF_OWNERSHIP_QUESTION_NOT_REFUSED_OR_ESCALATED",
+      "firstDivergentStage": "SCIENTIFIC_THINKING_ENGINE",
+      "owner": "SCIENTIFIC_THINKING",
+      "observedCause": "A structured Knowledge gap explicitly requires a specialist review, but ST treats the question as an ordinary testable candidate because refusal classification does not consume owner-boundary signals.",
+      "contributingBoundaryGap": "The request retains the gap code but not the gap explanation/resume condition as a structured read-only signal.",
+      "violatedEstablishedContract": [
+        "RDE-001 C9 requires honest refusal or escalation when responsibility is insufficient",
+        "RDE-002 requires refusal for out-of-scope responsibility and preserves restart conditions",
+        "SEM-002 OWNER_ESCALATION_REQUIRED suspends the branch and addresses the owner"
+      ]
+    }
+  ],
+  "normativeAmbiguity": false,
+  "schemaFinding": {
+    "existingRepresentationAvailable": true,
+    "representation": "ScientificThinkingOutput status REFUSED with existing refusal code OUT_OF_DOMAIN, explicit owner-boundary reason, resume condition and proposedNextAction STOP",
+    "newRefusalStatusRequired": false
+  },
+  "repairBoundary": "Generic deterministic projection and candidate-branch construction only; no new scientific capacity, corpus, owner, Project write, adoption, LLM or provider call."
+}

@@ -83,7 +83,9 @@ describe("ST-001 — huit cas produit obligatoires", () => {
       knowledge: {
         ownerResultRef: "knowledge-result:no-match@1", resultId: "knowledge-result:no-match", resultRevision: 1, resultDigest: "digest",
         coverageStatus: "NO_MATCH", support: "UNSUPPORTED", sourceIds: [], assertionRefs: [], documentaryStatementRefs: [], evidenceRefs: [], applicability: [],
-        contradictionRefs: [], contradictions: [], gapRefs: ["knowledge-gap:no-match"], gapCodes: ["NO_ASSERTION_MATCH"], unresolvedConcepts: ["mesure zéphyrienne"], limitations: [],
+        contradictionRefs: [], contradictions: [], gapRefs: ["knowledge-gap:no-match"], gapCodes: ["NO_ASSERTION_MATCH"],
+        reasoningStatements: [], controversies: [], gaps: [{ gapRef: "knowledge-gap:no-match", code: "NO_ASSERTION_MATCH", explanation: "No match.", resumeCondition: "Provide governed evidence." }],
+        unresolvedConcepts: ["mesure zéphyrienne"], limitations: [],
       },
     }));
     expect(output.questions[0]).toMatchObject({ support: "UNSUPPORTED", testability: "TESTABLE_CANDIDATE" });

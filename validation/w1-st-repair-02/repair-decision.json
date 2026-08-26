@@ -1,0 +1,60 @@
+{
+  "contract": "W1_ST_REPAIR_02_DECISION",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "headInitial": "62eff65ec8880772c6ced61db910f2e1dbc381f8",
+    "main": "9be06edca1a7500ab7a43d065e94241e91d67bec"
+  },
+  "repair": {
+    "owner": "SCIENTIFIC_THINKING",
+    "versionBefore": "1.2.1",
+    "versionAfter": "1.2.2",
+    "bounded": true,
+    "deterministic": true,
+    "newScientificCapacity": false,
+    "projectWrites": 0,
+    "automaticAdoptions": 0,
+    "knowledgeOwnershipTransfers": 0,
+    "providerCalls": 0,
+    "networkCalls": 0
+  },
+  "defectClasses": {
+    "addressed": 5,
+    "classes": [
+      "MECHANISTIC_REASONING_NOT_MATERIALIZED",
+      "NAMED_ALTERNATIVES_FLATTENED_TO_GENERIC_COMPETING_BRANCH",
+      "KNOWLEDGE_CONTRADICTION_NOT_MATERIALIZED_AS_COMPETING_HYPOTHESES",
+      "STRUCTURING_PROJECT_UNKNOWN_NOT_GOVERNING_REASONING_BRANCH",
+      "OUT_OF_OWNERSHIP_QUESTION_NOT_REFUSED_OR_ESCALATED"
+    ]
+  },
+  "evidence": {
+    "freshDevelopmentProbes": "12/12 PASS",
+    "representativeDeterministicReplays": "5/5 PASS",
+    "exposedHumanCaseNonRegression": "5/5 PASS",
+    "freshHumanScientificAdjudication": "NOT_PERFORMED"
+  },
+  "decisions": {
+    "global": "W1_ST_REPAIR_02_COMPLETED_READY_FOR_FRESH_HUMAN_RECHARACTERIZATION",
+    "humanScientificAdjudicationRequired": "YES",
+    "scientificThinkingCharacterization": "NOT_ADJUDICATED_POST_REPAIR",
+    "scientificPass": "NO",
+    "w1IndividualOwnerCharacterizationReady": "NO",
+    "w1ControlledLoopCharacterizationReady": "NO",
+    "wave1Complete": "NO",
+    "wave2Authorized": "NO"
+  },
+  "program": {
+    "nextAuthorizedMission": "NONE_PENDING_EXPLICIT_HUMAN_PROGRAM_DECISION",
+    "nextRecommendedMission": "W1-QUAL-02H1_ST_POST_REPAIR_FRESH_HUMAN_RECHARACTERIZATION"
+  },
+  "git": {
+    "commitPolicy": "ONE_LOCAL_ATOMIC_COMMIT",
+    "pushAuthorized": false,
+    "mergeMain": false,
+    "deployment": false
+  }
+}

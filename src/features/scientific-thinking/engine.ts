@@ -117,6 +117,36 @@ const relationTerms = (input: ScientificThinkingInput) => {
 
 const reviewFor = (id: string, reviews?: Record<string, CandidateReviewState>) => reviews?.[id] ?? "PENDING";
 const candidateSupport = (support: KnowledgeSupport): KnowledgeSupport => support === "SUPPORTED" ? "PARTIAL" : support;
+const structuringProjectUnknowns = (input: ScientificThinkingInput) => {
+  const impactExplicit = input.knowledge.gaps.some((gap) => {
+    const code = gap.code.toLocaleUpperCase("en-US");
+    return /PROJECT.*(UNKNOWN|UNRESOLVED)/.test(code) || code === "MISSING_CRITICAL_CONTEXT";
+  });
+  return impactExplicit ? input.projectUnknowns.filter((item) => item.objectType === "UNCERTAINTY") : [];
+};
+const projectUnknownQuestionId = (objectRef: string) => `ST-AQ-PROJECT-UNKNOWN-${logicalDigest(objectRef)}`;
+const unresolvedStructuringProjectUnknowns = (input: ScientificThinkingInput, answers: Record<string, string> = {}) =>
+  structuringProjectUnknowns(input).filter((item) => {
+    const answer = answers[projectUnknownQuestionId(item.objectRef)];
+    return !answer || answer === "unknown";
+  });
+const ownerBoundaryEscalationGap = (input: ScientificThinkingInput) => input.knowledge.gaps.find((gap) => {
+  const code = gap.code.toLocaleUpperCase("en-US");
+  const namesExternalOwner = /(^|_)(OWNER|SPECIALIST|AUTHORITY|AUTHORIZATION)(_|$)/.test(code);
+  const requiresDisposition = /(^|_)(REQUIRED|REVIEW|ESCALATION|AUTHORIZATION)(_|$)/.test(code);
+  return namesExternalOwner && requiresDisposition;
+}) ?? null;
+const isMechanisticReasoning = (input: ScientificThinkingInput) => has(
+  `${input.originalExpression} ${input.validatedReformulation} ${input.scientificPurpose.join(" ")}`,
+  /\b(m[ée]cani|explicat|pourquoi|why|causal)/,
+);
+const explicitAlternativeClauses = (input: ScientificThinkingInput) => {
+  const parts = sentence(input.validatedReformulation || input.originalExpression)
+    .split(/\s+(?:ou|or)\s+/i)
+    .map((item) => item.trim())
+    .filter((item) => item.length >= 4);
+  return parts.length >= 2 ? unique(parts) : [];
+};
 const scopeFor = (input: ScientificThinkingInput): QuestionCandidate["scope"] => {
   if (!input.scientificObjectTerms.length || has(input.originalExpression, /\b(tout|tous|general|imagerie medicale|plusieurs maladies|choses)\b/)) return "TOO_BROAD";
   if (input.methodsMentioned.length > 0 && !hasRelation(input.originalExpression)) return "TOO_NARROW";
@@ -249,7 +279,15 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
     });
   }
 
-  return candidates.map((item) => ({ ...item, reviewState: controls.selectedQuestionId === item.questionId ? "ADOPTED" : "PENDING" }));
+  const structuringUnknown = unresolvedStructuringProjectUnknowns(input, controls.answers).length > 0;
+  return candidates.map((item) => ({
+    ...item,
+    testability: structuringUnknown && item.kind === "PRIMARY" ? "NEEDS_CLARIFICATION" as const : item.testability,
+    rationale: structuringUnknown && item.kind === "PRIMARY"
+      ? `${item.rationale} Une inconnue Project structurante interdit de traiter la branche dépendante comme testable avant clarification.`
+      : item.rationale,
+    reviewState: controls.selectedQuestionId === item.questionId ? "ADOPTED" : "PENDING",
+  }));
 };
 
 const buildAssumptions = (input: ScientificThinkingInput): AssumptionCandidate[] => {
@@ -284,13 +322,36 @@ const buildHypotheses = (input: ScientificThinkingInput, questions: QuestionCand
     kind: "PRIMARY", falsifiability: primary.testability, observableCondition: "La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.", direction: null,
     limitations: input.knowledge.limitations, unknowns: input.missingInformation,
     support: candidateSupport(input.knowledge.support), linkedQuestionIds: [primary.questionId],
-  }, {
+  }];
+  const exactStatements = unique(input.knowledge.reasoningStatements.map((item) => item.text));
+  const explicitClauses = input.knowledge.support === "CONFLICTING" ? explicitAlternativeClauses(input) : [];
+  const branchTexts = exactStatements.length >= 2
+    ? exactStatements
+    : explicitClauses.length >= 2
+      ? explicitClauses.map((item) => `Interprétation candidate explicitement ouverte : ${item}`)
+      : input.knowledge.support === "CONFLICTING" ? exactStatements : [];
+  branchTexts.forEach((text, index) => {
+    const statement = input.knowledge.reasoningStatements.find((item) => item.text === text);
+    hypotheses.push({
+      hypothesisId: `ST-H-KNOWLEDGE-${String(index + 1).padStart(3, "0")}`,
+      text,
+      kind: "ALTERNATIVE",
+      falsifiability: "TESTABLE_CANDIDATE",
+      observableCondition: "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      direction: null,
+      limitations: unique([...(statement?.limitations ?? []), ...input.knowledge.limitations]),
+      unknowns: input.missingInformation,
+      support: candidateSupport(input.knowledge.support),
+      linkedQuestionIds: [primary.questionId],
+    });
+  });
+  if (!branchTexts.length) hypotheses.push({
     hypothesisId: "ST-H-002",
     text: "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues.",
     kind: "NULL_OR_COMPETING", falsifiability: "TESTABLE_CANDIDATE", observableCondition: "Une observation incompatible avec l’hypothèse principale doit rester possible.", direction: null,
     limitations: ["Explication concurrente générique à préciser par décision humaine et Knowledge."], unknowns: input.missingInformation,
     support: "UNSUPPORTED", linkedQuestionIds: [primary.questionId],
-  }];
+  });
   return hypotheses.map((item) => ({ ...item, reviewState: reviewFor(item.hypothesisId, controls.hypothesisReviews) }));
 };
 
@@ -311,6 +372,14 @@ const buildObjectives = (input: ScientificThinkingInput, questions: QuestionCand
 
 const buildMechanisms = (input: ScientificThinkingInput, hypotheses: HypothesisCandidate[]): MechanismCandidate[] => {
   if (isMethodOnlyComparison(input) || !hasRelation(input.originalExpression) || !hypotheses.length) return [];
+  const knowledgeStatements = isMechanisticReasoning(input) ? input.knowledge.reasoningStatements : [];
+  if (knowledgeStatements.length) return knowledgeStatements.map((statement, index) => ({
+    mechanismId: `ST-M-KNOWLEDGE-${String(index + 1).padStart(3, "0")}`,
+    text: statement.text,
+    status: input.knowledge.support === "SUPPORTED" ? "KNOWLEDGE_SUPPORTED_MECHANISM" : "MECHANISM_TO_DOCUMENT",
+    support: candidateSupport(input.knowledge.support),
+    linkedHypothesisIds: hypotheses.map((item) => item.hypothesisId),
+  }));
   const { first, second } = relationTerms(input);
   return [{
     mechanismId: "ST-M-001",
@@ -322,9 +391,20 @@ const buildMechanisms = (input: ScientificThinkingInput, hypotheses: HypothesisC
 };
 
 const buildAdaptiveQuestions = (input: ScientificThinkingInput, questions: QuestionCandidate[], answers: Record<string, string>): ScientificThinkingAdaptiveQuestion[] => {
+  const proposed: ScientificThinkingAdaptiveQuestion[] = unresolvedStructuringProjectUnknowns(input, answers).map((unknown) => ({
+    questionId: projectUnknownQuestionId(unknown.objectRef),
+    label: unknown.text,
+    whyAsked: "Cette inconnue appartient au Project et modifie la portée ou l’applicabilité du raisonnement dépendant.",
+    decisionImpact: "La réponse détermine quelle branche scientifique peut être instruite ; aucune complétion n’est choisie automatiquement.",
+    decisionBlock: "SCOPE",
+    blocking: true,
+    suggestedAnswers: [],
+    acceptsFreeText: true,
+    acceptsUnknown: true,
+    answeredValue: answers[projectUnknownQuestionId(unknown.objectRef)] ?? null,
+  }));
   const complete = questions[0]?.testability === "TESTABLE_CANDIDATE" && hasPopulation(input) && (hasOutcome(input) || hasTime(input) || input.relations.length > 0);
-  if (complete) return [];
-  const proposed: ScientificThinkingAdaptiveQuestion[] = [];
+  if (complete) return proposed;
   const methodOnlyComparison = isMethodOnlyComparison(input);
   const methods = methodComparisonLabels(input);
   if (methodOnlyComparison && !resolvedComparisonTarget(answers["ST-AQ-COMPARISON-TARGET"])) proposed.push({
@@ -510,10 +590,15 @@ export const executeScientificThinkingEngine = (
   const outOfDomain = isOutOfDomain(source);
   const nonTestable = isNonTestable(source);
   const insufficient = source.trim().length < 12;
+  const ownerEscalation = ownerBoundaryEscalationGap(input);
   const refusal: ScientificThinkingOutput["refusal"] = patientLevel ? {
     code: "PATIENT_LEVEL", reason: "La demande concerne une situation individuelle ; le moteur de raisonnement de recherche ne l’interprète pas.", resumeCondition: "Reformuler une question générale de recherche sans donnée patient.",
   } : outOfDomain ? {
     code: "OUT_OF_DOMAIN", reason: "La demande ne relève pas du périmètre de conception scientifique en imagerie médicale.", resumeCondition: "Formuler une question de recherche en imagerie médicale.",
+  } : ownerEscalation ? {
+    code: "OUT_OF_DOMAIN",
+    reason: `La décision dépasse l’ownership de Scientific Thinking et exige une escalade vers un owner spécialisé : ${ownerEscalation.explanation}`,
+    resumeCondition: ownerEscalation.resumeCondition,
   } : insufficient ? {
     code: "INSUFFICIENT_INPUT", reason: "L’expression ne contient pas assez d’éléments pour construire une question candidate traçable.", resumeCondition: "Ajouter l’objet ou le phénomène scientifique concerné.",
   } : nonTestable ? {
@@ -552,6 +637,7 @@ export const executeScientificThinkingEngine = (
   ]);
   const unknowns = unique([
     ...input.missingInformation,
+    ...input.projectUnknowns.map((item) => item.text),
     ...adaptiveQuestions.filter((item) => item.blocking && !item.answeredValue).map((item) => item.label),
     ...adaptiveQuestions.filter((item) => item.answeredValue === "unknown").map((item) => `Réponse explicitement inconnue : ${item.label}`),
     ...input.knowledge.unresolvedConcepts.map((item) => `Connaissance non résolue : ${item}`),

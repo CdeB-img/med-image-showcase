@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 
-export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.2.1" as const;
+export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.2.2" as const;
 
 export const SEMANTIC_TYPES = [
   "OBSERVATION",
@@ -54,6 +54,38 @@ export type KnowledgeSupport = "SUPPORTED" | "PARTIAL" | "UNSUPPORTED" | "CONFLI
 export type CandidateReviewState = "PENDING" | "ADOPTED" | "REJECTED";
 export type TestabilityState = "TESTABLE_CANDIDATE" | "NEEDS_CLARIFICATION" | "NON_TESTABLE";
 
+export type ScientificThinkingProjectUnknown = {
+  objectRef: string;
+  objectType: string;
+  text: string;
+};
+
+export type KnowledgeReasoningStatement = {
+  statementRef: string;
+  text: string;
+  status: string;
+  applicability: string;
+  limitations: string[];
+  evidenceRefs: string[];
+  sourceRefs: string[];
+  owner: "KNOWLEDGE";
+  ownershipTransferred: false;
+};
+
+export type KnowledgeReasoningControversy = {
+  conflictRef: string;
+  state: string;
+  explanation: string;
+  positionRefs: string[];
+};
+
+export type KnowledgeReasoningGap = {
+  gapRef: string;
+  code: string;
+  explanation: string;
+  resumeCondition: string;
+};
+
 export type ScientificThinkingInput = {
   contractVersion: typeof SCIENTIFIC_THINKING_ENGINE_VERSION;
   requestId: string;
@@ -84,6 +116,7 @@ export type ScientificThinkingInput = {
   scientificPurpose: string[];
   context: string[];
   missingInformation: string[];
+  projectUnknowns: ScientificThinkingProjectUnknown[];
   contradictions: string[];
   safetyFlags: string[];
   information: {
@@ -106,6 +139,9 @@ export type ScientificThinkingInput = {
     contradictions: string[];
     gapRefs: string[];
     gapCodes: string[];
+    reasoningStatements: KnowledgeReasoningStatement[];
+    controversies: KnowledgeReasoningControversy[];
+    gaps: KnowledgeReasoningGap[];
     unresolvedConcepts: string[];
     limitations: string[];
   };
@@ -354,6 +390,7 @@ export const scientificThinkingInputSchema = z.object({
   scientificPurpose: stringArray,
   context: stringArray,
   missingInformation: stringArray,
+  projectUnknowns: z.array(z.object({ objectRef: z.string(), objectType: z.string(), text: z.string() }).strict()).max(100),
   contradictions: stringArray,
   safetyFlags: stringArray,
   information: z.object({ explicit: stringArray, interpreted: stringArray }).strict(),
@@ -363,6 +400,12 @@ export const scientificThinkingInputSchema = z.object({
     sourceIds: referenceArray, assertionRefs: referenceArray, documentaryStatementRefs: referenceArray, evidenceRefs: referenceArray,
     applicability: z.array(z.object({ assertionRef: z.string(), status: z.string() }).strict()),
     contradictionRefs: referenceArray, contradictions: stringArray, gapRefs: referenceArray, gapCodes: stringArray,
+    reasoningStatements: z.array(z.object({
+      statementRef: z.string(), text: z.string(), status: z.string(), applicability: z.string(), limitations: stringArray,
+      evidenceRefs: referenceArray, sourceRefs: referenceArray, owner: z.literal("KNOWLEDGE"), ownershipTransferred: z.literal(false),
+    }).strict()).max(100),
+    controversies: z.array(z.object({ conflictRef: z.string(), state: z.string(), explanation: z.string(), positionRefs: referenceArray }).strict()).max(100),
+    gaps: z.array(z.object({ gapRef: z.string(), code: z.string(), explanation: z.string(), resumeCondition: z.string() }).strict()).max(100),
     unresolvedConcepts: stringArray, limitations: stringArray,
   }).strict(),
 }).strict();

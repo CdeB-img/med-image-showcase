@@ -106,6 +106,7 @@ export const buildScientificThinkingInput = (
     scientificPurpose: uniqueSorted(asValues(intent, "scientificPurpose")),
     context: uniqueSorted(asValues(intent, "clinicalContext")),
     missingInformation: uniqueSorted(intent.interpretation.missingInformation.map(normalizeScientificText).filter(Boolean)),
+    projectUnknowns: [],
     contradictions: uniqueSorted(intent.interpretation.contradictions
       .filter((item) => intent.contradictionResolutions[item] !== "RESOLVED")
       .map(normalizeScientificText).filter(Boolean)),
@@ -130,6 +131,45 @@ export const buildScientificThinkingInput = (
       contradictions: uniqueSorted(knowledgeResult?.controversies.map((item) => `${item.conflictId}:${item.state}:${item.explanation}`) ?? []),
       gapRefs: uniqueSorted(knowledgeResult?.gaps.map((item) => item.gapId) ?? []),
       gapCodes: uniqueSorted(knowledgeResult?.gaps.map((item) => item.code) ?? []),
+      reasoningStatements: [
+        ...(knowledgeResult?.applicableAssertions.map((item) => {
+          const evidence = knowledgeResult.evidence.filter((link) => link.assertionId === item.stableId);
+          return {
+            statementRef: item.stableId,
+            text: item.text,
+            status: item.status,
+            applicability: item.applicability,
+            limitations: uniqueSorted(item.limitations),
+            evidenceRefs: uniqueSorted(evidence.map((link) => link.evidenceId)),
+            sourceRefs: uniqueSorted(evidence.map((link) => link.sourceId)),
+            owner: "KNOWLEDGE" as const,
+            ownershipTransferred: false as const,
+          };
+        }) ?? []),
+        ...(knowledgeResult?.documentaryStatements.map((item) => ({
+          statementRef: item.statementId,
+          text: item.text,
+          status: item.status,
+          applicability: item.applicability,
+          limitations: [] as string[],
+          evidenceRefs: [] as string[],
+          sourceRefs: [item.sourceId],
+          owner: "KNOWLEDGE" as const,
+          ownershipTransferred: false as const,
+        })) ?? []),
+      ],
+      controversies: (knowledgeResult?.controversies ?? []).map((item) => ({
+        conflictRef: item.conflictId,
+        state: item.state,
+        explanation: item.explanation,
+        positionRefs: uniqueSorted(item.positionIds ?? []),
+      })),
+      gaps: (knowledgeResult?.gaps ?? []).map((item) => ({
+        gapRef: item.gapId,
+        code: item.code,
+        explanation: item.explanation,
+        resumeCondition: item.resumeCondition,
+      })),
       unresolvedConcepts: uniqueSorted(knowledgeResult?.unresolvedConcepts ?? []),
       limitations: uniqueSorted(knowledgeResult?.limitations ?? []),
     },

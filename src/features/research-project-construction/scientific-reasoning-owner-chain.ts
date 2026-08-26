@@ -225,6 +225,9 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     scientificPurpose: contentsOf(snapshot, "OBJECTIVE"),
     context: contentsOf(snapshot, "CONDITION", "STUDY_DESIGN", "INTERVENTION_OR_EXPOSURE", "CONSTRAINT"),
     missingInformation: unknowns,
+    projectUnknowns: snapshot.objects
+      .filter((item) => item.epistemicState === "UNKNOWN")
+      .map((item) => ({ objectRef: item.stableId, objectType: item.type, text: item.content })),
     contradictions: snapshot.openConflicts.map((item) => item.message),
     safetyFlags: [],
     information: {
@@ -250,6 +253,45 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
       contradictions: unique(knowledgeResult?.controversies.map((item) => `${item.conflictId}:${item.state}:${item.explanation}`) ?? []),
       gapRefs: unique(knowledgeResult?.gaps.map((item) => item.gapId) ?? []),
       gapCodes: unique(knowledgeResult?.gaps.map((item) => item.code) ?? ["PROJECT_SPINE_04_KNOWLEDGE_NOT_INVOKED"]),
+      reasoningStatements: [
+        ...(knowledgeResult?.applicableAssertions.map((item) => {
+          const evidence = knowledgeResult.evidence.filter((link) => link.assertionId === item.stableId);
+          return {
+            statementRef: item.stableId,
+            text: item.text,
+            status: item.status,
+            applicability: item.applicability,
+            limitations: unique(item.limitations),
+            evidenceRefs: unique(evidence.map((link) => link.evidenceId)),
+            sourceRefs: unique(evidence.map((link) => link.sourceId)),
+            owner: "KNOWLEDGE" as const,
+            ownershipTransferred: false as const,
+          };
+        }) ?? []),
+        ...(knowledgeResult?.documentaryStatements.map((item) => ({
+          statementRef: item.statementId,
+          text: item.text,
+          status: item.status,
+          applicability: item.applicability,
+          limitations: [] as string[],
+          evidenceRefs: [] as string[],
+          sourceRefs: [item.sourceId],
+          owner: "KNOWLEDGE" as const,
+          ownershipTransferred: false as const,
+        })) ?? []),
+      ],
+      controversies: (knowledgeResult?.controversies ?? []).map((item) => ({
+        conflictRef: item.conflictId,
+        state: item.state,
+        explanation: item.explanation,
+        positionRefs: unique(item.positionIds ?? []),
+      })),
+      gaps: (knowledgeResult?.gaps ?? []).map((item) => ({
+        gapRef: item.gapId,
+        code: item.code,
+        explanation: item.explanation,
+        resumeCondition: item.resumeCondition,
+      })),
       unresolvedConcepts: unique(knowledgeResult?.unresolvedConcepts ?? snapshot.objects.map((item) => item.stableId)),
       limitations: unique(knowledgeResult?.limitations ?? ["No KnowledgeResult was supplied; Scientific Thinking candidates cannot claim corpus support."]),
     },
