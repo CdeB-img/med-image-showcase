@@ -1,0 +1,384 @@
+{
+  "contract": "W1_CLOSURE_02_WAVE_1_EVIDENCE_CLOSURE_DECISION",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "missionId": "W1-CLOSURE-02",
+  "decision": "W1_CLOSURE_02_WAVE_1_COMPLETE",
+  "decisionMeaning": "The bounded Wave 1 objective of productizing, observing, individually characterizing and controlled-loop characterizing the current scientific owner loop is complete with all recorded limitations preserved.",
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "headInitial": "4df155b148945cc73343eff7dab622e492464598",
+    "originBranchInitial": "4df155b148945cc73343eff7dab622e492464598",
+    "main": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "originMain": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "trackedChangesInitial": 0,
+    "historicalUntrackedFilesPreserved": 53,
+    "baselineDrift": false
+  },
+  "authoritiesConsultedInOrder": [
+    "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+    "output/documents/noxia-la-charte-fondatrice-edition-editoriale.docx",
+    "output/documents/noxia-protocol-designer-scientific-product-manifesto-v2.0.docx",
+    "../../editorial-engine/docs/architecture-manifesto.md"
+  ],
+  "specializedAuthoritiesConsulted": [
+    "docs/pd-003-v2-research-object-model.md",
+    "docs/pd-003-v2-ownership-matrix.md",
+    "docs/pd-003-v2-relationship-catalog.md",
+    "docs/rde-002-research-design-workflow.md",
+    "docs/pd-011-evaluation-framework.md",
+    "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md"
+  ],
+  "documentaryOrNormativeArbitrationRequired": false,
+  "evidenceGates": [
+    {
+      "gate": "W1_ARCHITECTURAL_CONVERGENCE_READY",
+      "result": true,
+      "evidenceType": "TECHNICAL",
+      "decision": "W1_ARCHITECTURAL_CONVERGENCE_READY_FURTHER_EVIDENCE_REQUIRED",
+      "documents": [
+        "docs/implementation/w1-closure-01-scientific-loop-architectural-convergence-report.md",
+        "validation/w1-closure-01/convergence-manifest.json"
+      ],
+      "commits": [
+        "09358e5724e08c5f9620124dd055cac2f090d829",
+        "c6e47d7072144d27ccead68ed5924a20ce6747e6"
+      ],
+      "verified": [
+        "CANONICAL_PROJECT_IDENTITY",
+        "EXACT_PROJECT_CONTEXT_SNAPSHOT",
+        "OWNER_SEPARATION",
+        "IMMUTABLE_OWNER_RESULTS",
+        "SEPARATE_VALIDATION_RUN_LEDGER",
+        "DEPENDENCY_AND_STALE_PROTECTION",
+        "NON_PROMOTION",
+        "ZERO_SILENT_PROJECT_WRITE"
+      ],
+      "limitations": [
+        "INITIAL_CONVERGENCE_FAILED_BEFORE_BOUNDED_KNOWLEDGE_VERSION_GUARD_REPAIR",
+        "PREEXISTING_HISTORICAL_FIXTURE_DEBT_REMAINS_OPEN",
+        "NO_SCIENTIFIC_PERFORMANCE_CLAIM"
+      ]
+    },
+    {
+      "gate": "W1_OBSERVABILITY_READY",
+      "result": true,
+      "evidenceType": "TECHNICAL",
+      "decision": "W1_TRACE_01_SCIENTIFIC_EXECUTION_TRACE_READY",
+      "documents": [
+        "docs/implementation/w1-trace-01-scientific-execution-trace-report.md",
+        "validation/w1-trace-01/trace-implementation-manifest.json"
+      ],
+      "commits": [
+        "772cacfd184daeb531eef6a7a866874a7863e228"
+      ],
+      "verified": [
+        "PASSIVE_SCIENTIFIC_EXECUTION_TRACE",
+        "ORDERED_OWNER_HANDOFF_AND_PERSISTENCE_EVENTS",
+        "EXACT_PROJECT_RESULT_AND_DEPENDENCY_REFS",
+        "FIRST_OBSERVABLE_DIVERGENT_STAGE_LOCALIZATION",
+        "TRACE_ON_OFF_OUTPUT_EQUIVALENCE"
+      ],
+      "limitations": [
+        "GENERIC_REPLAY_EXECUTOR_ABSENT",
+        "REPLAY_FROM_EVENT_N_PLANNABLE_ONLY",
+        "TECHNICAL_ATTRIBUTION_NOT_SCIENTIFIC_JUDGMENT"
+      ]
+    },
+    {
+      "gate": "W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY",
+      "result": true,
+      "evidenceType": "TECHNICAL_AND_HUMAN_SCIENTIFIC",
+      "decision": "W1_QUAL_02H2_BOUNDED_HUMAN_ST_CHARACTERIZATION_CLOSED",
+      "documents": [
+        "docs/implementation/w1-qual-01-individual-owner-characterization-report.md",
+        "validation/w1-qual-01/owner-characterization-summary.json",
+        "docs/implementation/w1-qual-02h2-st-post-repair-human-characterization-closure.md",
+        "validation/w1-qual-02h2-st/human-characterization-decision.json"
+      ],
+      "commits": [
+        "5ceddce6104a87cf128c17ae29629f8677724822",
+        "3ef6c93d324586143b4f3759b47acbe1c02b202a",
+        "4ce78debd82e78725753bc7fbb9223822994789a"
+      ],
+      "ownerStatuses": {
+        "KNOWLEDGE": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+        "SCIENTIFIC_THINKING": "CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE",
+        "IMAGING": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+        "REG": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE",
+        "VAL": "CHARACTERIZED_WITHIN_BOUNDED_SCOPE"
+      },
+      "scientificThinkingHumanSummary": {
+        "freshPostRepairHumanReviewCases": 8,
+        "criticalStDefect": 0,
+        "acceptableWithinTestedScope": 1,
+        "acceptableWithLimitations": 7,
+        "technicallyNonAdjudicableExcluded": 1
+      },
+      "limitations": [
+        "BOUNDED_SMALL_NON_STATISTICAL_SCOPE",
+        "NO_UNIVERSAL_CORRECTNESS_OR_NON_RECURRENCE_GUARANTEE",
+        "NO_CORPUS_COMPLETENESS_CLAIM",
+        "NO_CLINICAL_VALIDITY",
+        "NO_PD_011_QUALIFICATION",
+        "NO_SCIENTIFIC_PASS"
+      ]
+    },
+    {
+      "gate": "W1_CONTROLLED_LOOP_CHARACTERIZATION_READY",
+      "result": true,
+      "evidenceType": "TECHNICAL_AND_HUMAN_SCIENTIFIC",
+      "decision": "W1_LOOP_QUAL_01H2_BOUNDED_HUMAN_CONTROLLED_LOOP_CHARACTERIZATION_CLOSED",
+      "documents": [
+        "docs/implementation/w1-loop-qual-01h1-controlled-scientific-loop-human-review-packet.md",
+        "validation/w1-loop-qual-01h1/packet-decision.json",
+        "docs/implementation/w1-loop-qual-01h2-controlled-loop-human-characterization-closure.md",
+        "validation/w1-loop-qual-01h2/human-loop-characterization-decision.json"
+      ],
+      "commits": [
+        "f6606511a9e1b64b4e3d43f70df42ea9171a5140",
+        "4df155b148945cc73343eff7dab622e492464598"
+      ],
+      "humanDispositions": {
+        "A": "ACCEPTABLE_WITH_LIMITATIONS",
+        "B": "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+        "C": "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+        "D": "ACCEPTABLE_WITH_LIMITATIONS",
+        "E": "ACCEPTABLE_WITH_LIMITATIONS"
+      },
+      "criticalLoopDefect": 0,
+      "limitations": [
+        "TRUE_CONTRADICTION_REFERENCE_UNAVAILABLE",
+        "TRUE_CONTRADICTION_PRESERVATION_NOT_CHARACTERIZED",
+        "FOUR_SCIENTIFICALLY_ADJUDICABLE_SCENARIOS_ONLY",
+        "CONTROLLED_HARNESS_NOT_PRODUCT_OWNER_ORCHESTRATION",
+        "NO_UNIVERSAL_LOOP_CORRECTNESS",
+        "NO_PD_011_QUALIFICATION",
+        "NO_SCIENTIFIC_PASS"
+      ]
+    }
+  ],
+  "architecturalConvergence": {
+    "owners": [
+      "KNOWLEDGE",
+      "SCIENTIFIC_THINKING",
+      "IMAGING",
+      "VAL"
+    ],
+    "conditionalSiblingOwner": "REG",
+    "canonicalProjectIdentityPreserved": true,
+    "secondProjectTruthFound": false,
+    "ownerResultsImmutableAndSpecialized": true,
+    "staleProtectionPreserved": true,
+    "zeroSilentProjectWrite": true
+  },
+  "observability": {
+    "passiveScientificExecutionTrace": true,
+    "orderedEvents": true,
+    "firstDivergentStageDiagnosticReadiness": "YES",
+    "immutableResultReferences": true,
+    "replayFromEventN": "PLANNABLE",
+    "genericReplayExecutor": "ABSENT"
+  },
+  "characterization": {
+    "scientificThinking": "CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE",
+    "controlledLoop": "CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE",
+    "scientificPass": false,
+    "stQualified": false,
+    "pd011Pass": false
+  },
+  "trueContradictionCoverage": {
+    "referenceAvailableInAdmittedLocalCorpus": false,
+    "preservationAcrossLoop": "NOT_CHARACTERIZED_DUE_TO_REFERENCE_UNAVAILABILITY",
+    "passClaimed": false,
+    "failClaimed": false,
+    "classification": "HUMAN_PROGRAM_DECISION_REQUIRED"
+  },
+  "permanentHumanEvaluationGate": {
+    "humanScientificAdjudicationRequired": true,
+    "referenceCaseHumanValidationRequired": true,
+    "automatedScientificCheckerAsHumanPacketGate": "ABANDONED_BY_HUMAN_PROGRAM_DECISION",
+    "llmEvaluatorMayBeFinalScientificAuthority": false,
+    "sequence": [
+      "REFERENCE_SCIENTIFIC_VALIDITY",
+      "HUMAN_VALIDATION",
+      "FREEZE",
+      "EXECUTION",
+      "HUMAN_SCIENTIFIC_ADJUDICATION"
+    ]
+  },
+  "openDebts": [
+    {
+      "id": "PRODUCT_OWNER_ORCHESTRATION",
+      "state": "OPEN",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "QRY_VALUE_OF_INFORMATION_PRODUCT_GAP",
+      "state": "OPEN",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "REGULATORY_CORPUS_ADMISSION_AND_COVERAGE",
+      "state": "OPEN_BOUNDED_DEBT",
+      "classification": "NON_BLOCKING_DEBT"
+    },
+    {
+      "id": "TRUE_CONTRADICTION_PRESERVATION",
+      "state": "UNTESTED_REFERENCE_UNAVAILABLE",
+      "classification": "HUMAN_PROGRAM_DECISION_REQUIRED"
+    },
+    {
+      "id": "KNOWLEDGE_IRRELEVANT_APPLICABILITY_GAPS",
+      "state": "MAY_OCCUR",
+      "classification": "NON_BLOCKING_DEBT"
+    },
+    {
+      "id": "ST_OVER_PRODUCTIVITY_UNDER_WEAK_KNOWLEDGE",
+      "state": "MAY_OCCUR",
+      "classification": "NON_BLOCKING_DEBT"
+    },
+    {
+      "id": "IMAGING_WITHOUT_OBS_MEASUREMENT_RUNTIME",
+      "state": "LIMITED",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "REG_JURISDICTIONAL_SCOPE_NOISE",
+      "state": "MAY_OCCUR",
+      "classification": "NON_BLOCKING_DEBT"
+    },
+    {
+      "id": "PREEXISTING_HISTORICAL_FIXTURE_DEBT",
+      "state": "OPEN_NON_BLOCKING_DEBT",
+      "classification": "NON_BLOCKING_DEBT"
+    },
+    {
+      "id": "GENERIC_TRACE_REPLAY_EXECUTOR",
+      "state": "ABSENT",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "OBS_RUNTIME",
+      "state": "ABSENT_NORMATIVE_ONLY",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "CDM_PRODUCT_RUNTIME",
+      "state": "ABSENT_WITH_PARTIAL_TESTED_OFF_PRODUCT_DESIGN_TIME_PLANNING",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "DM_REALIZED_TIME_RUNTIME",
+      "state": "ABSENT_WITH_PARTIAL_TESTED_OFF_PRODUCT_DESIGN_TIME_PLANNING",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "BIOSTATISTICS_CALCULATION_RUNTIME",
+      "state": "ABSENT_WITH_PARTIAL_TESTED_OFF_PRODUCT_DESIGN_TIME_PLANNING",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "AUTONOMOUS_STUDY_DESIGN_OWNER",
+      "state": "ABSENT_NORMATIVE_ONLY_DESIGN_DECISION_OPEN",
+      "classification": "HUMAN_PROGRAM_DECISION_REQUIRED"
+    },
+    {
+      "id": "EXTERNAL_EVIDENCE_AUTOMATIC_TRIGGER",
+      "state": "ABSENT",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "DECISION_BUNDLE_UI",
+      "state": "ABSENT",
+      "classification": "FUTURE_WAVE_SCOPE"
+    },
+    {
+      "id": "VERCEL_SERVERLESS_TYPECHECK_GATE",
+      "state": "OPEN_NON_BLOCKING_DEBT",
+      "classification": "NON_BLOCKING_DEBT"
+    },
+    {
+      "id": "OPENAI_STRICT_SCHEMA_HARDENING_DEBT",
+      "state": "OPEN",
+      "classification": "NON_BLOCKING_DEBT"
+    }
+  ],
+  "remainingWave1Blockers": [],
+  "wave": {
+    "w1ArchitecturalConvergenceReady": true,
+    "w1ObservabilityReady": true,
+    "w1IndividualOwnerCharacterizationReady": true,
+    "w1ControlledLoopCharacterizationReady": true,
+    "wave1Complete": true,
+    "wave2Authorized": false,
+    "scientificPass": false,
+    "pd011Pass": false
+  },
+  "roadmapTransition": {
+    "previousCurrentWave": "WAVE_1_SCIENTIFIC_LOOP",
+    "wave1State": "COMPLETE",
+    "currentWave": "NONE_PENDING_HUMAN_PROGRAM_DECISION",
+    "wave2State": "PAUSED_NOT_AUTHORIZED",
+    "nextAuthorizedMission": "NONE_PENDING_HUMAN_PROGRAM_DECISION",
+    "naturalHumanDecisionOptions": [
+      "PRODUCT_INTEGRATION_OR_HANDS_ON_CHECKPOINT",
+      "EXPLICIT_WAVE_2_AUTHORIZATION",
+      "ANOTHER_EXPLICITLY_JUSTIFIED_PROGRAM_PRIORITY"
+    ],
+    "optionSelectedAutomatically": false
+  },
+  "costControl": {
+    "externalLlmApiCalls": 0,
+    "openAiApiCalls": 0,
+    "chatGptApiCalls": 0,
+    "geminiCalls": 0,
+    "otherProviderCalls": 0,
+    "networkCalls": 0,
+    "webCalls": 0,
+    "ownerInvocations": 0,
+    "knowledgeInvocations": 0,
+    "stInvocations": 0,
+    "imagingInvocations": 0,
+    "valInvocations": 0,
+    "regInvocations": 0,
+    "newCases": 0,
+    "newCampaigns": 0,
+    "newReplays": 0
+  },
+  "changeBoundary": {
+    "runtimeCodeModified": false,
+    "ownerModified": false,
+    "projectTruthModified": false,
+    "scientificCaseCreated": false,
+    "benchmarkExecuted": false,
+    "replayExecuted": false,
+    "orchestrationCreated": false,
+    "wave2Started": false,
+    "mainModified": false,
+    "mergePerformed": false,
+    "deploymentPerformed": false
+  },
+  "validation": {
+    "referencedDecisionsExist": true,
+    "allEvidenceCommitsReachableFromBaseline": true,
+    "fourWave1GatesVerified": true,
+    "limitationsPreserved": true,
+    "runtimeChangesExpected": 0,
+    "jsonValidation": "PASS",
+    "gitDiffCheck": "PASS",
+    "targetedSecretScan": "PASS"
+  },
+  "commits": {
+    "checkpointCommit": "COMMIT_CONTAINING_THIS_DECISION",
+    "headFinal": "COMMIT_CONTAINING_THIS_DECISION",
+    "pushAuthorized": false,
+    "pushPerformed": false
+  },
+  "outputs": {
+    "report": "docs/implementation/w1-closure-02-wave-1-evidence-closure.md",
+    "machineDecision": "validation/w1-closure-02/wave-1-evidence-closure-decision.json",
+    "roadmap": "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md"
+  }
+}

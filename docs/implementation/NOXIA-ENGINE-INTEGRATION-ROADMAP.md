@@ -8,10 +8,10 @@
 | Classification | `LEVEL_3 — IMPLEMENTATION_CONTROL — NON_NORMATIVE` |
 | Status | `CONTROLLED_LIVING_SNAPSHOT` |
 | Snapshot date | 26 August 2026 |
-| Verified baseline | `f6606511a9e1b64b4e3d43f70df42ea9171a5140` + W1-LOOP-QUAL-01H2 bounded human controlled-loop characterization closure recorded in the checkpoint commit containing this roadmap |
+| Verified baseline | `4df155b148945cc73343eff7dab622e492464598` + W1-CLOSURE-02 formal Wave 1 evidence/program closure recorded in the checkpoint commit containing this roadmap |
 | Working branch | `protocol-designer-canonical-ingestion` |
 | Primary implementation input | `ENGINE-PORTFOLIO-01` |
-| Portfolio diagnosis | `SCIENTIFIC_THINKING_CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE` |
+| Portfolio diagnosis | `WAVE_1_BOUNDED_EVIDENCE_PROGRAM_COMPLETE_WITH_PRESERVED_LIMITATIONS` |
 | Superior authorities | NOXIA Founding Charter; Scientific Product Manifesto V2; applicable Level 1 specialized references |
 | Documentary authority | None. This file does not amend, replace, or extend any authority. |
 
@@ -22,16 +22,16 @@
 | Control | Current value |
 |---|---|
 | Portfolio state | One canonical Project snapshot now feeds native Knowledge, Scientific Thinking, Imaging and conditional REG through typed product entrypoints; native deterministic VAL observes the retained Knowledge/ST/Imaging chain through a separate append-only ValidationRun ledger; nominal owner selection remains outside this bounded product chain |
-| Active wave | `WAVE_1_SCIENTIFIC_LOOP` |
-| Current objective | Perform the formal Wave 1 evidence/program closure checkpoint now that all four bounded evidence-readiness decisions are `YES`, while preserving the true-contradiction coverage limitation and keeping Wave 2 unauthorized. |
-| Next wave | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` after Wave 1 completion |
+| Active wave | none; `WAVE_1_SCIENTIFIC_LOOP` is `COMPLETE`, and all later waves remain paused pending a human program decision |
+| Current objective | Preserve the completed bounded Wave 1 evidence state and await an explicit human choice of the next program direction. |
+| Next wave | none authorized; `WAVE_2_STUDY_DESIGN_TIME_CHAIN` remains a candidate direction only |
 | Product corridor | Conversation + Terra extraction + Human Decision + Canonical Project + QRY + DOC preview; explicit canonical Project → Knowledge → Scientific Thinking → Imaging → deterministic VAL observation, plus an explicit conditional Project → REG branch, with immutable owner-result and ValidationRun retention |
 | Tested off-product corridor | Read-only adapter → CDM / DM / Biostatistics / TMP; historical SPINE and VAL fixture corridors |
 | Design-time island | Legacy `ResearchProjectDesignResult` consumers remain, but their tested input now derives from the same canonical owner snapshot through one fail-closed adapter |
-| Main blocker | No remaining functional Wave 1 evidence-readiness blocker is demonstrated. Formal Wave 1 evidence/program closure remains required; true-contradiction preservation is untested because no valid admitted local reference was found. |
-| Active engineering | One wave only; no engine development is authorized by this document itself. |
+| Main blocker | No Wave 1 blocker remains. Starting any next mission, including Wave 2, requires a separate human program decision. |
+| Active engineering | None authorized. This roadmap is at a human program decision point. |
 
-### Current Wave 1 checkpoint decisions after the bounded-human-review pivot
+### Final Wave 1 checkpoint decisions after W1-CLOSURE-02
 
 | Decision | Result | Evidence boundary |
 |---|---|---|
@@ -39,13 +39,19 @@
 | `W1_OBSERVABILITY_READY` | `YES` | A separate append-only trace ledger binds one `ScientificRun` to the exact Project snapshot and records ordered owner, handoff, persistence, stale and VAL events with request/result/dependency/digest/error refs; replay from event N is plan-only. |
 | `W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY` | `YES` | Eight fresh post-repair outputs have human dispositions: zero `CRITICAL_ST_DEFECT`, one `ACCEPTABLE_WITHIN_TESTED_SCOPE` and seven `ACCEPTABLE_WITH_LIMITATIONS`. This closes the individual-owner gate only within the bounded human-review scope. |
 | `W1_CONTROLLED_LOOP_CHARACTERIZATION_READY` | `YES` | Four scientifically adjudicable Campaign G scenarios received bounded human dispositions: one acceptable within tested scope, three acceptable with limitations and zero critical loop defect. Scenario B is excluded as a non-adjudicable reference problem; true-contradiction preservation remains untested rather than passed or failed. |
-| `WAVE_1_COMPLETE` | `NO` | Architectural convergence alone is necessary and insufficient. Wave 2 remains paused. |
+| `WAVE_1_COMPLETE` | `YES` | W1-CLOSURE-02 verified all four bounded readiness gates and found zero remaining blocker under the current Wave 1 scope. This is not Scientific PASS or PD-011 qualification. |
 
 `WAVE_2_AUTHORIZED = NO`
 
+`W1_CLOSURE_02_DECISION = W1_CLOSURE_02_WAVE_1_COMPLETE`
+
 `HUMAN_SCIENTIFIC_ADJUDICATION_REQUIRED = YES`
 
+`REFERENCE_CASE_HUMAN_VALIDATION_REQUIRED = YES`
+
 `AUTOMATED_SCIENTIFIC_CHECKER_AS_HUMAN_PACKET_GATE = ABANDONED_BY_HUMAN_PROGRAM_DECISION`
+
+`QUALITATIVE_SCIENTIFIC_EVALUATION_SEQUENCE = HUMAN_REFERENCE_VALIDATION_THEN_FREEZE_THEN_EXECUTION_THEN_HUMAN_ADJUDICATION`
 
 `SCIENTIFIC_THINKING_CHARACTERIZATION = CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE`
 
@@ -91,16 +97,17 @@
 | REG | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 8/8 cases fully satisfied within REG-000 candidate corpus; unsupported jurisdiction and stale request fail closed; no approval claim. |
 | VAL | `CHARACTERIZED_WITHIN_BOUNDED_SCOPE` | 13/13 structural cases fully satisfied, including clean-chain false-positive control; no repair or scientific qualification claim. |
 
-### Top quick wins queued in Wave 1
+### Wave 1 closure state
 
-The bounded ST owner repair, individual-owner characterization and bounded controlled-loop human characterization are complete. W1-LOOP-QUAL-01H2 records five human dispositions from unchanged Campaign G evidence: four scenarios are scientifically adjudicable, with one `ACCEPTABLE_WITHIN_TESTED_SCOPE`, three `ACCEPTABLE_WITH_LIMITATIONS` and zero `CRITICAL_LOOP_DEFECT`; Scenario B is `NON_ADJUDICABLE_REFERENCE_PROBLEM`. The subsequent read-only R0 audit found zero valid true-contradiction candidates in the admitted local corpus, so true-contradiction preservation remains untested rather than passed or failed. No Scientific PASS, PD-011 qualification, Wave 1 completion or Wave 2 authorization follows from this bounded characterization closure.
+The bounded ST owner repair, individual-owner characterization and bounded controlled-loop human characterization are complete. W1-CLOSURE-02 statically verified the four source decisions, their machine evidence, their commits and their limitations, then found no remaining blocker under the current Wave 1 definition. `WAVE_1_COMPLETE = YES` therefore means only that the current productized scientific owner loop has completed its bounded convergence, observability and characterization program. `SCIENTIFIC_PASS = NO`, `PD011_PASS = NO` and `WAVE_2_AUTHORIZED = NO` remain unchanged.
 
-### Top blockers
+### Current program decision point
 
-1. Formal Wave 1 evidence/program closure remains required before any `WAVE_1_COMPLETE` decision.
-2. True-contradiction preservation remains untested because the admitted local corpus supplied no human-validatable true-contradiction reference.
-3. Product owner orchestration remains open and deferred to Wave 4; it is not silently promoted into the tested controlled-loop evidence.
-4. Standalone Study Design, OBS runtime, Biostatistics calculation and realized-time Data Management remain absent future capabilities rather than newly authorized Wave 1 repairs.
+1. No Wave 1 blocker remains.
+2. True-contradiction preservation remains untested because the admitted local corpus supplied no human-validatable true-contradiction reference; this requires a future human reference decision and is not rewritten as PASS or FAIL.
+3. Product owner orchestration and QRY value-of-information coverage remain future Wave 4 scope.
+4. Standalone Study Design, OBS runtime, Biostatistics calculation and realized-time Data Management remain absent future capabilities.
+5. The next direction — product hands-on checkpoint, explicit Wave 2 authorization or another justified priority — requires a separate human program decision.
 
 ### Do not start now
 
@@ -302,7 +309,7 @@ The two tables below are one synchronized matrix split for readability. `A` desc
 | Research Project | Canonical owner of adopted contextual truth | Manifesto V2; PD-003 V2; PRJ contracts | `READY` | `HANDS_ON_VALIDATED` | canonical backbone and contribution owner boundary | Typed objects, relations, roles, time, provenance, decisions, versions, supersession, reload | Legacy consumer shapes still exist as read projections | `ResearchProjectOwnerProjection` + `CanonicalResearchProjectState` → one `ProjectContextSnapshot`; selected legacy consumers use the W0 adapter |
 | Knowledge | Global epistemic owner | KE-001; PD-003 V2 | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | `invokeKnowledgeForProject` → `invokeKnowledgeOwnerFromSnapshot` → native Knowledge engine | Bounded assertions, sources, evidence, applicability, contradictions, gaps and native `KnowledgeResult`; immutable request/result retention and stale readback | Bounded local corpus; no automatic External Evidence; explicit product call only, not QRY/conversation orchestration or hands-on validation | Exact `ProjectContextSnapshot v0.3.0` + typed `KnowledgeRequest`; append-only product-session owner ledger outside Project truth |
 | External Evidence | Governed evidence acquisition capability | KE-001; external-evidence contracts | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | Knowledge external-evidence pipeline | Search observations, source status, provenance, partial/unavailable states | Does not admit Knowledge; source availability and coverage are external | Knowledge request context; no direct Project contract |
-| Scientific Thinking | Specialized reasoning owner | RDE-001/002; PD-003 V2; ST implementation proof | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | `invokeScientificThinkingForProject` → `invokeScientificThinkingOwnerFromSnapshot` → native ST engine `1.2.2` | Questions, objectives, hypotheses, exact Knowledge-derived candidate alternatives/mechanisms, structuring Project clarifications, owner-boundary refusals, typed result and candidate contribution; native Knowledge dependencies retained without ownership transfer | Explicit product call only; post-repair scientific characterization is not adjudicated; no automatic adoption, QRY trigger or hands-on validation | Exact `ProjectContextSnapshot v0.3.0` + retained same-version Knowledge OwnerResult or explicit absence; shared append-only owner ledger consumed by Imaging |
+| Scientific Thinking | Specialized reasoning owner | RDE-001/002; PD-003 V2; ST implementation proof | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | `invokeScientificThinkingForProject` → `invokeScientificThinkingOwnerFromSnapshot` → native ST engine `1.2.2` | Questions, objectives, hypotheses, exact Knowledge-derived candidate alternatives/mechanisms, structuring Project clarifications, owner-boundary refusals, typed result and candidate contribution; native Knowledge dependencies retained without ownership transfer | Explicit product call only; post-repair characterization is human-adjudicated with limitations within bounded scope; no automatic adoption, QRY trigger, universal correctness, Scientific PASS, PD-011 qualification or hands-on validation | Exact `ProjectContextSnapshot v0.3.0` + retained same-version Knowledge OwnerResult or explicit absence; shared append-only owner ledger consumed by Imaging |
 | Study Design | Normative owner of study-strategy coherence | RDE-001/002; PD-003 V2 | `NORMATIVE_ONLY` | `NOT_WIRED` | explicit unavailable-owner path only | Honest `CALL_NONEXISTENT_ENGINE`/gap result | No standalone runtime | No runtime Project contract |
 | Imaging | Specialized measurement-domain owner | RDE-003 v1.1; OBS-001; PD-003 V2 | `AVAILABLE_WITH_LIMITATIONS` | `PRODUCT_CALLABLE` | `invokeImagingForProject` → `invokeImagingOwnerFromScientificThinking` → native Imaging engine | Imaging design options, alternatives, feasibility, limitations, quality/reading/Core Lab candidates and typed native result; exact Knowledge/ST dependencies retained | Explicit product call only; no executable acquisition protocol; OBS qualification absent; no automatic Project adoption or hands-on validation | Exact `ProjectContextSnapshot v0.3.0` + retained same-version Knowledge and ST OwnerResults; shared append-only owner ledger |
 | OBS | Owner of general observability and measurement qualification | OBS-001; PD-003 V2 | `NORMATIVE_ONLY` | `NOT_WIRED` | capability inventory rejection | None beyond explicit absence | No standalone runtime or governed measurement catalogue | No runtime Project contract |
@@ -461,7 +468,7 @@ These are active implementation controls traced to superior authorities and curr
 | `IC-007` | Gemini is conversational mediation, not governed scientific source. | Natural expression must not replace an owner result. | Charter; Manifesto V2; product bridge | `ACTIVE` | 2026-08-25 / `be929dc2` |
 | `IC-008` | Terra compiles free user language into a source-grounded candidate. | Separate linguistic compilation from Project adoption. | Manifesto V2; SEM-002; persistence evidence | `ACTIVE` | 2026-08-25 / `cae56c51`, `9be06edc` |
 | `IC-009` | Selecting an existing typed option does not require Terra. | Avoid converting already governed state back through free-language extraction. | Charter ch. 6; typed handoff principle | `ACTIVE` | 2026-08-25 |
-| `IC-010` | Only one integration wave is active at a time. | Keep dependencies, evidence, and stop conditions attributable. | `ENGINE-PORTFOLIO-01`; this Level 3 control | `ACTIVE_CONTROL` | 2026-08-25 |
+| `IC-010` | At most one integration wave is active at a time; zero is valid at an explicit human program decision point. | Keep dependencies, evidence, stop conditions and authorization attributable. | `ENGINE-PORTFOLIO-01`; this Level 3 control; W1-CLOSURE-02 | `ACTIVE_CONTROL` | 2026-08-26 / checkpoint commit |
 | `IC-011` | Existing canonical Project contracts are reused; Wave 0 must not create a third Project ontology. | The demonstrated gap is consumer convergence, not absence of a canonical Project. | SPINE-01/02; current code audit | `ACTIVE_CONTROL` | 2026-08-25 / `9be06edc` |
 | `IC-012` | Product owner requests/results are retained append-only outside Project truth. | Preserve immutable owner history and stale status without transferring scientific ownership or authorizing Project writes. | SPINE-02/03; W1K01-01–25 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
 | `IC-013` | Scientific Thinking references the exact retained Knowledge result and governed evidence lineage; it never becomes owner of Knowledge assertions. | A typed dependency preserves explanations and stale detection without copying epistemic ownership or reconstructing sources from language. | RDE-001/002; KE-001; W1ST01-01–28 | `ACTIVE_CONTROL` | 2026-08-25 / this commit |
@@ -476,7 +483,7 @@ These are active implementation controls traced to superior authorities and curr
 | Wave | Status | Objective | In scope | Definition of done | Explicitly not in scope |
 |---|---|---|---|---|---|
 | `WAVE_0_CANONICAL_CONVERGENCE` | `COMPLETE` | One existing canonical Project snapshot consumable by the engines and legacy consumers. | Canonical owner snapshot reuse; old-generation consumer adapter; minimal OwnerRequest/OwnerResult references; consumer convergence | Same Project ID/version/digest, stable refs, unknowns, time, provenance and decisions survive every selected adapter; no duplicate Project truth; no direct owner write | New OBS; Biostatistics calculation; DM realized-time; Decision Bundle UI; PACS |
-| `WAVE_1_SCIENTIFIC_LOOP` | `ACTIVE` | Project → Knowledge → Scientific Thinking → Imaging → VAL → Project/QRY, with REG when applicable. | Product-callable native owners, owner-result references, validation observation, Human Review | A real Project produces versioned Knowledge/ST/Imaging/REG results and VAL observations without Gemini reconstruction or automatic adoption | Study Design reinvention; OBS runtime; statistical calculation |
+| `WAVE_1_SCIENTIFIC_LOOP` | `COMPLETE` | Project → Knowledge → Scientific Thinking → Imaging → VAL → Project/QRY, with REG when applicable. | Product-callable native owners, owner-result references, passive trace, bounded individual and controlled-loop human characterization | W1-CLOSURE-02 verifies the four bounded readiness gates and zero remaining Wave 1 blocker, without Scientific PASS, PD-011 qualification or automatic adoption | Study Design reinvention; OBS runtime; statistical calculation |
 | `WAVE_2_STUDY_DESIGN_TIME_CHAIN` | `PAUSED` | Project → CDM planning → DM planning → Biostatistics planning → TMP → DOC with gaps returned. | Canonicalize the existing design-time island | Current canonical Project drives native planning payloads and documents with governed return contributions | Realized-time DM; calculation/execution; full Study Design runtime unless separately authorized |
 | `WAVE_3_OBS_MINIMAL` | `PAUSED` | Phenomenon/need → ObservableProperty → MeasurementDefinition → limitations. | Minimal OBS runtime and handoffs to Imaging/CDM/Biostatistics | Typed, evidence-bounded OBS result; no automatic BiomarkerRole adoption | Broad method catalogue; automatic biomarker qualification |
 | `WAVE_4_CROSS_ENGINE_PRODUCT_ORCHESTRATION` | `PAUSED` | QRY → important decision → relevant owners → governed options/sources → Human Decision. | Product owner routing without a universal router | Correct owner invoked; absent capability remains absent; QRY owns next need | Decision Bundle UI |
@@ -484,9 +491,11 @@ These are active implementation controls traced to superior authorities and curr
 
 ## Wave control
 
-`CURRENT_WAVE = WAVE_1_SCIENTIFIC_LOOP`
+`CURRENT_WAVE = NONE_PENDING_HUMAN_PROGRAM_DECISION`
 
-`CURRENT_OBJECTIVE = PERFORM_FORMAL_WAVE_1_EVIDENCE_CLOSURE_WITHOUT_AUTOMATIC_WAVE_2_AUTHORIZATION`
+`LAST_COMPLETED_WAVE = WAVE_1_SCIENTIFIC_LOOP`
+
+`CURRENT_OBJECTIVE = AWAIT_EXPLICIT_HUMAN_PROGRAM_DIRECTION_AFTER_BOUNDED_WAVE_1_COMPLETION`
 
 `NEXT_WAVE = WAVE_2_STUDY_DESIGN_TIME_CHAIN_AFTER_WAVE_1_COMPLETION`
 
@@ -496,18 +505,18 @@ These are active implementation controls traced to superior authorities and curr
 
 # Next authorized mission
 
-`NEXT_AUTHORIZED_MISSION = W1-CLOSURE-02_WAVE_1_EVIDENCE_CLOSURE`
+`NEXT_AUTHORIZED_MISSION = NONE_PENDING_HUMAN_PROGRAM_DECISION`
 
-`NEXT_RECOMMENDED_MISSION = W1-CLOSURE-02_WAVE_1_EVIDENCE_CLOSURE`
+`NEXT_RECOMMENDED_MISSION = NONE_PENDING_HUMAN_PROGRAM_DECISION`
 
 | Field | Contract |
 |---|---|
-| Mission goal | Review the accumulated Wave 1 evidence, limitations, open debts and program gates; decide formal Wave 1 completion without treating bounded characterization as Scientific PASS or automatically authorizing Wave 2. |
-| Input | W1-CLOSURE-01, W1-TRACE-01, bounded individual-owner characterization, W1-LOOP-QUAL-01H2, current roadmap and their immutable machine evidence |
-| Output | One explicit Wave 1 evidence-closure decision, reconciled roadmap state and exact next program authorization |
-| Definition of done | The four readiness decisions, preserved limitations and remaining debts are reviewed together; `WAVE_1_COMPLETE` and any later authorization are stated explicitly by the closure checkpoint rather than inferred. |
-| Engines / connections affected | None unless a separately proven bounded defect requires a separately authorized repair; closure is evidence/program work first. |
-| Do not touch | Frozen W1 evidence; owner runtimes; Project truth; QRY/orchestration; OBS; Study Design; Biostatistics calculation; realized-time DM; Decision Bundle UI; PACS; Wave 2 implementation |
+| Program state | Wave 1 is complete within its bounded evidence meaning; Wave 2 and every other new mission remain unauthorized. |
+| Decision owner | Human program authority. No roadmap inference or implementation artifact may select the next mission. |
+| Natural options, not authorizations | Product integration/hands-on checkpoint; explicit Wave 2 authorization; another explicitly justified program priority. |
+| Required next action | Record a separate human program decision before starting any new mission. |
+| Engines / connections affected | None. |
+| Do not touch | Frozen W1 evidence; owner runtimes; Project truth; QRY/orchestration; OBS; Study Design; CDM/DM/Biostatistics/TMP/DOC extensions; Decision Bundle UI; PACS; Wave 2 implementation. |
 
 # Engine completion queue
 
@@ -516,14 +525,14 @@ These are active implementation controls traced to superior authorities and curr
 | 1 | Research Project consumer contracts | Mixed canonical + legacy | One canonical source with governed adapters | `M` | None | Wave 0 | None | Adapter ready off-product; legacy shapes remain projections, not truth. |
 | 2 | Knowledge | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 complete | Wave 1 / 4 | Nominal owner selection | Product Knowledge → ST handoff and immutable dependency readback are complete; hands-on remains later. |
 | 3 | REG | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Wave 0 | Wave 1 / 4 | Nominal owner selection | Explicit conditional invocation and immutable result retention are complete; corpus admission/coverage and hands-on remain bounded gaps. |
-| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE / CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE` | Formal Wave 1 evidence closure under preserved owner limitations | `M` | W1-ST-REPAIR-02 + W1-QUAL-02H2 + W1-LOOP-QUAL-01H2 human program decisions | Wave 1 | Formal W1-CLOSURE-02 checkpoint | Engine `1.2.2`; individual-owner and bounded controlled-loop human characterization gates are ready. No Scientific PASS, PD-011 qualification or universal correctness is claimed. |
+| 4 | Scientific Thinking | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE / CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE` | Preserve bounded characterization and owner limitations after Wave 1 closure | `M` | W1-ST-REPAIR-02 + W1-QUAL-02H2 + W1-LOOP-QUAL-01H2 + W1-CLOSURE-02 | Complete in Wave 1 scope | Human program decision before any later expansion | Engine `1.2.2`; bounded individual-owner and controlled-loop characterization gates are closed. No Scientific PASS, PD-011 qualification or universal correctness is claimed. |
 | 5 | VAL | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Typed retained K/ST/Imaging handoffs | Wave 1 / 4 | Automatic owner-loop trigger | Explicit read-only observation and immutable run retention are complete; observe/block only. |
 | 6 | Imaging | `AVAILABLE_WITH_LIMITATIONS / PRODUCT_CALLABLE` | Hands-on through later orchestration | `M` | Knowledge + ST | Wave 1 / 4 | Nominal owner selection; OBS remains an explicit limitation | Product-callable and VAL-observed do not mean executable protocol or hands-on validation. |
 | 7 | CDM | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | Wave 0 | Wave 2 | Owner-result/contribution orchestration | Planning only. |
 | 8 | Data Management | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable design-time owner | `M` | CDM | Wave 2 | Owner-result/contribution orchestration | Realized-time execution remains later/XL. |
 | 9 | Biostatistics | `PARTIAL / TESTED_OFF_PRODUCT` | Canonical-callable planning owner | `L` | CDM + DM | Wave 2 | Calculation absent; orchestration pending | No invented effect size or sample size. |
 | 10 | TMP / DOC | Mixed product adapter | Canonical-native projection chain | `M` | Wave 0 + planning owner refs | Wave 2 | Planning-result orchestration | Projection remains read-only. |
-| 11 | Study Design | `NORMATIVE_ONLY / NOT_WIRED` | Native specialized owner | `L` | Wave 1 evidence and explicit authorization | Replan | Runtime absent | Do not conflate with PRJ ownership. |
+| 11 | Study Design | `NORMATIVE_ONLY / NOT_WIRED` | Native specialized owner | `L` | Explicit human replan and authorization | Replan | `HUMAN_PROGRAM_DECISION_REQUIRED` | Runtime absent; do not conflate with PRJ ownership or infer authorization from Wave 1 closure. |
 | 12 | OBS | `NORMATIVE_ONLY / NOT_WIRED` | Minimal callable owner | `XL` | Knowledge/ST/Imaging handoffs | Wave 3 | Runtime absent | BiomarkerRole may remain a later slice. |
 
 # Engineering estimates
@@ -560,6 +569,34 @@ Portfolio totals retained from the audit:
 - De-duplicated program estimate: `44 / 74 / 121` prompts.
 - De-duplicated active engineering estimate: `22 / 38 / 65` engineer-days.
 
+# W1-CLOSURE-02 debt classification
+
+This classification applies the current bounded Wave 1 scope. `OPEN` does not imply `WAVE_1_BLOCKER`; W1-CLOSURE-02 found zero remaining Wave 1 blocker.
+
+| Item | Current state | Closure classification | Boundary |
+|---|---|---|---|
+| Product owner orchestration | `OPEN` | `FUTURE_WAVE_SCOPE` | Wave 4 |
+| QRY value-of-information product coverage | `OPEN` | `FUTURE_WAVE_SCOPE` | Wave 4 |
+| REG corpus admission and coverage | `OPEN_BOUNDED_DEBT` | `NON_BLOCKING_DEBT` | Separate corpus-governance authorization |
+| True-contradiction preservation | `UNTESTED_REFERENCE_UNAVAILABLE` | `HUMAN_PROGRAM_DECISION_REQUIRED` | Human-valid reference decision before any future execution |
+| Knowledge irrelevant applicability gaps | `MAY_OCCUR` | `NON_BLOCKING_DEBT` | Bounded owner limitation |
+| ST over-productivity under weak Knowledge | `MAY_OCCUR` | `NON_BLOCKING_DEBT` | Bounded human-reviewed owner limitation |
+| Imaging value without OBS/Measurement runtime | `LIMITED` | `FUTURE_WAVE_SCOPE` | OBS is separate future scope |
+| REG jurisdictional scope noise | `MAY_OCCUR` | `NON_BLOCKING_DEBT` | Bounded human-reviewed owner limitation |
+| Historical IMG/PRJ/SYS fixture debt | `OPEN_NON_BLOCKING_DEBT` | `NON_BLOCKING_DEBT` | Historical fixture maintenance |
+| Generic TRACE replay executor | `ABSENT` | `FUTURE_WAVE_SCOPE` | Replay is plan-only today |
+| OBS runtime | `ABSENT / NORMATIVE_ONLY` | `FUTURE_WAVE_SCOPE` | Wave 3 candidate |
+| CDM product runtime | `ABSENT`; design-time planning `PARTIAL / TESTED_OFF_PRODUCT` | `FUTURE_WAVE_SCOPE` | Wave 2 candidate, not authorized |
+| DM realized-time runtime | `ABSENT`; design-time planning `PARTIAL / TESTED_OFF_PRODUCT` | `FUTURE_WAVE_SCOPE` | No execution lifecycle runtime |
+| Biostatistics calculation/runtime | `ABSENT`; design-time planning `PARTIAL / TESTED_OFF_PRODUCT` | `FUTURE_WAVE_SCOPE` | No calculation or analysis execution runtime |
+| Autonomous Study Design owner | `ABSENT / NORMATIVE_ONLY`; design decision open | `HUMAN_PROGRAM_DECISION_REQUIRED` | Explicit replan/authorization required |
+| External Evidence automatic trigger | `ABSENT` | `FUTURE_WAVE_SCOPE` | No nominal trigger is inferred |
+| Decision Bundle UI | `ABSENT` | `FUTURE_WAVE_SCOPE` | Wave 5 candidate |
+| Vercel serverless typecheck gate | `OPEN_NON_BLOCKING_DEBT` | `NON_BLOCKING_DEBT` | Operational hardening |
+| OpenAI strict-schema hardening | `OPEN` | `NON_BLOCKING_DEBT` | Product hardening; extraction remains fail-closed |
+
+`REMAINING_WAVE_1_BLOCKERS = 0`
+
 # Open implementation debts
 
 | Debt | State | Impact | Blocks current wave | Target wave | Evidence |
@@ -570,10 +607,10 @@ Portfolio totals retained from the audit:
 | `OWNER_ORCHESTRATION_PRODUCT_GAP` | `OPEN` | Knowledge, Scientific Thinking, Imaging, REG and VAL are explicitly product-callable, but QRY/conversation does not select owners. | No | Wave 4 | W1K01/W1ST01/W1IMG01/W1REG01/W1VAL01 product entrypoints vs nominal conversation loop |
 | `REGULATORY_CORPUS_ADMISSION_AND_COVERAGE` | `OPEN_BOUNDED_DEBT` | REG-000 is candidate/non-admitted and locally covers only FR, EU/EEA, US and international methodological/reporting guidance; other jurisdictions fail closed and no current-law completeness is claimed. | No | Separate corpus governance authorization | REG-000 v1.0.0, verified 2026-08-10; W1REG01-10–23 |
 | `SCIENTIFIC_EXECUTION_TRACE_GAP` | `CLOSED_W1_TRACE_01` | A distinct session-persisted ledger now retains exact run/Project binding, ordered owner/handoff/persistence/stale/VAL events, integrity and logical digests, bounded references, technical errors, comparator output and event-N replay plans. It remains optional, passive and non-authoritative; no replay executor was created. | No | Closed in W1-TRACE-01 | W1TRACE01 unit/corridor/diagnostic fixtures; implementation report and machine manifest |
-| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `CLOSED_W1_QUAL_02H2_BOUNDED_HUMAN_REVIEW` | Knowledge, Imaging, REG and VAL remain bounded-characterized. Eight fresh post-repair ST outputs have human dispositions: zero critical defect, one acceptable within tested scope and seven acceptable with limitations. The original Campaign E mechanism output remains technically non-adjudicable and excluded. This closure is bounded and does not establish Scientific PASS, PD-011 qualification or universal correctness. | No | Closed in W1-QUAL-02H2; proceed to controlled-loop characterization | W1-QUAL-02H1M human dispositions; W1-QUAL-02H1M2 output and explicit H1–H8 human decision; W1-QUAL-02H2 closure; preserved H1/H1T/H2 evidence |
+| `INDIVIDUAL_OWNER_CHARACTERIZATION_GAP` | `CLOSED_W1_QUAL_02H2_BOUNDED_HUMAN_REVIEW` | Knowledge, Imaging, REG and VAL remain bounded-characterized. Eight fresh post-repair ST outputs have human dispositions: zero critical defect, one acceptable within tested scope and seven acceptable with limitations. The original Campaign E mechanism output remains technically non-adjudicable and excluded. This closure is bounded and does not establish Scientific PASS, PD-011 qualification or universal correctness. | No | Closed in W1-QUAL-02H2; controlled-loop and formal Wave 1 closures recorded | W1-QUAL-02H1M human dispositions; W1-QUAL-02H1M2 output and explicit H1–H8 human decision; W1-QUAL-02H2 closure; W1-LOOP-QUAL-01H2; W1-CLOSURE-02 |
 | `SCIENTIFIC_THINKING_HUMAN_ADJUDICATED_REASONING_DEFECTS` | `BOUNDED_REPAIR_AND_RECHARACTERIZATION_CLOSED_WITH_LIMITATIONS` | The five H2 generic classes were repaired through exact read-only Knowledge/Project projections, explicit candidate branches/clarifications and generic owner-boundary refusal. No fresh human-adjudicated critical recurrence appears across the bounded post-repair evidence; material limitations remain and recurrence is not ruled out. | No | Repair closed in W1-ST-REPAIR-02; bounded recharacterization closed in W1-QUAL-02H2 | ST `1.2.2`; 12/12 development probes; 5/5 exposed-case non-regressions; eight fresh human dispositions; zero Scientific PASS or PD-011 claim |
 | `SCIENTIFIC_THINKING_CRITICAL_REASONING_CANDIDATE_COVERAGE` | `CLOSED_BY_BOUNDED_REPAIR_AND_RECHARACTERIZATION` | ST `1.2.2` accepts structurally supported current Project questions without depending exclusively on narrow legacy lexemes; bounded probes demonstrate positive coverage, fail-closed negative paths, contradiction/gap preservation and zero Project write, and the subsequent bounded human review records no critical recurrence without guaranteeing non-recurrence. | No | Closed through W1-ST-REPAIR-01/02 and W1-QUAL-02H2 | Five independent probes reproduced the defect pre-repair; post-repair technical probes and eight fresh human dispositions; cardiac/neuro remain non-regression only |
-| `CONTROLLED_LOOP_CHARACTERIZATION_GAP` | `CLOSED_W1_LOOP_QUAL_01H2_BOUNDED_HUMAN_REVIEW` | Four scientifically adjudicable frozen chains have human dispositions: one acceptable within tested scope, three acceptable with limitations and zero critical loop defect. The fifth scenario is excluded as a non-adjudicable reference problem. Closure is bounded and does not establish Scientific PASS, PD-011 qualification or universal loop correctness. | No | Closed in W1-LOOP-QUAL-01H2; proceed to formal Wave 1 evidence closure | W1-LOOP-QUAL-01H1 immutable packet and machine evidence; W1-LOOP-QUAL-01H2 human decision |
+| `CONTROLLED_LOOP_CHARACTERIZATION_GAP` | `CLOSED_W1_LOOP_QUAL_01H2_BOUNDED_HUMAN_REVIEW` | Four scientifically adjudicable frozen chains have human dispositions: one acceptable within tested scope, three acceptable with limitations and zero critical loop defect. The fifth scenario is excluded as a non-adjudicable reference problem. Closure is bounded and does not establish Scientific PASS, PD-011 qualification or universal loop correctness. | No | Closed in W1-LOOP-QUAL-01H2; formal Wave 1 evidence closure recorded by W1-CLOSURE-02 | W1-LOOP-QUAL-01H1 immutable packet and machine evidence; W1-LOOP-QUAL-01H2 human decision; W1-CLOSURE-02 decision |
 | `TRUE_CONTRADICTION_REFERENCE_GAP` | `OPEN_BOUNDED_COVERAGE_LIMITATION` | The read-only R0 audit found zero valid true-contradiction candidates in the admitted local corpus. Preservation across the loop is therefore untested, not passed or failed. | No | Human-valid reference decision before any future contradiction-preservation owner execution | `W1_LOOP_QUAL_01R0_NO_VALID_TRUE_CONTRADICTION_FOUND`; W1-LOOP-QUAL-01H2 closure |
 | `PREEXISTING_HISTORICAL_FIXTURE_DEBT` | `OPEN_NON_BLOCKING_DEBT` | Four IMG-001B freeze expectations, one downstream PRJ fixture and three SYS expectations (ST version, DOC decision propagation, Imaging freeze status) remain red; they concern historical interactive/freeze and SYS fixture contracts, not W1 owner convergence. | No | Historical fixture maintenance | W1-CLOSURE-01 fresh isolated runs reproduce 4/60 IMG failures, 1/73 PRJ failure and 3/34 SYS failures, matching the prior eight-failure baseline classification |
 | Study Design runtime | `ABSENT` | No standalone owner for study-strategy coherence. | No | Explicit replan after Wave 1 | Capability inventory; RDE-001/002 normative only |
@@ -586,6 +623,7 @@ Portfolio totals retained from the audit:
 
 | Checkpoint | Decision / SHA | Scope | What it proves | What it does not prove |
 |---|---|---|---|---|
+| W1-CLOSURE-02 | `W1_CLOSURE_02_WAVE_1_COMPLETE` / checkpoint commit containing this roadmap | Static formal evidence and program closure | The four bounded Wave 1 readiness gates are traceable to their decisions, machine evidence and ancestor commits; every remaining open item is classified outside `WAVE_1_BLOCKER`; permanent human scientific and reference-case gates remain active | Scientific PASS, PD-011 qualification, universal correctness, true-contradiction preservation, corpus completeness, product orchestration quality, clinical/regulatory validity, Wave 2 authorization or any new runtime |
 | W1-LOOP-QUAL-01H2 | `W1_LOOP_QUAL_01H2_BOUNDED_HUMAN_CONTROLLED_LOOP_CHARACTERIZATION_CLOSED` / checkpoint commit containing this roadmap | Human recording of five Campaign G dispositions plus the R0 local-reference gap | Four scientifically adjudicable scenarios yield one acceptable within tested scope, three acceptable with limitations and zero critical loop defect; Scenario B remains a non-adjudicable reference problem; all four Wave 1 evidence-readiness decisions are now `YES` within their bounded meanings | Scientific PASS, PD-011 qualification, universal loop correctness, true-contradiction preservation, production orchestration quality, Wave 1 completion, Wave 2 authorization or a new runtime |
 | W1-LOOP-QUAL-01H1 | `W1_LOOP_QUAL_01H1_HUMAN_REVIEW_PACKET_READY` / checkpoint commit containing this roadmap | Five fresh controlled-loop cases with one conditional REG sibling | Inputs, expected paths and HumanLoopReviewEnvelopes were frozen before observation. An initial pre-owner harness-context rejection made zero owner calls; a label-only `CHARACTERIZATION_HARNESS_COMPATIBILITY_CORRECTION` to `TEST_HARNESS` changed no frozen case/input/path/envelope/runtime/expectation. K/ST/Imaging/VAL then ran once per case, REG once only on E; exact Project tuples, zero Project writes/adoption/external calls, separate REG and completed passive TRACE are directly readable. The original completed E capture was recovered byte-exact from this task's local append-only log after output-channel truncation, with no owner rerun. | Any L1–L8 human disposition, Scientific PASS, controlled-loop characterization closure, PD-011 qualification, Wave 1 completion, Wave 2 authorization or product orchestration |
 | W1-QUAL-02H2 | `W1_QUAL_02H2_BOUNDED_HUMAN_ST_CHARACTERIZATION_CLOSED` / checkpoint commit containing this roadmap | Literal closure of bounded post-repair human ST characterization | Eight fresh post-repair outputs have human dispositions: zero `CRITICAL_ST_DEFECT`, one `ACCEPTABLE_WITHIN_TESTED_SCOPE` and seven `ACCEPTABLE_WITH_LIMITATIONS`; the fresh Fabry case records explicit H1–H8, the seven Campaign E H1–H7 fields remain `NOT_SEPARATELY_ADJUDICATED`, and the lost original mechanism output remains excluded. This closes the Wave 1 individual-owner gate within bounded human-review scope. | Scientific PASS, universal correctness, clinical validity, external transportability, PD-011 qualification, publication readiness, controlled-loop characterization, Wave 1 completion or Wave 2 authorization |
@@ -650,10 +688,11 @@ If real implementation state changed and `ROADMAP_UPDATED = NO`, the mission is 
 | Normative architecture and current runtime are separate | `PASS` |
 | All 19 engines are accounted for | `PASS` |
 | All critical current and target connections are accounted for | `PASS` |
-| Quick wins and blockers are present | `PASS` |
+| Wave 1 closure state and current decision point are present | `PASS` |
 | Important open debts are present | `PASS` |
-| Exactly one wave is active | `PASS` |
-| Exactly one next mission is authorized | `PASS` |
+| Active-wave control | `PASS — zero active waves while awaiting an explicit human program decision` |
+| Next-mission control | `PASS — NONE_PENDING_HUMAN_PROGRAM_DECISION` |
 | No new philosophy, owner, scientific relation, or normative target is introduced | `PASS` |
 | SOURCE-OF-TRUTH-INDEX modified | `NO` |
 | Product code modified | `YES — explicit canonical Knowledge/ST/Imaging/REG invocation, deterministic VAL observation and append-only result retention; no automatic conversation/QRY trigger or Project write` |
+| Runtime code modified by W1-CLOSURE-02 | `NO` |
