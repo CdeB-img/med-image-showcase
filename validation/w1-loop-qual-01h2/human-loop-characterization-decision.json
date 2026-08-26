@@ -1,0 +1,287 @@
+{
+  "contract": "W1_LOOP_QUAL_01H2_HUMAN_LOOP_CHARACTERIZATION_DECISION",
+  "version": "1.0.0",
+  "classification": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "missionId": "W1-LOOP-QUAL-01H2",
+  "decision": "W1_LOOP_QUAL_01H2_BOUNDED_HUMAN_CONTROLLED_LOOP_CHARACTERIZATION_CLOSED",
+  "decisionAuthority": "HUMAN_PROGRAM_DECISION_SUPPLIED_FOR_W1_LOOP_QUAL_01H2",
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "headInitial": "f6606511a9e1b64b4e3d43f70df42ea9171a5140",
+    "originBranchInitial": "f6606511a9e1b64b4e3d43f70df42ea9171a5140",
+    "main": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "originMain": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "trackedPreflightClean": true,
+    "historicalUntrackedArtifactsPreserved": 53
+  },
+  "authoritiesConsultedInOrder": [
+    "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+    "NOXIA — Charte fondatrice",
+    "NOXIA Protocol Designer — Scientific Product Manifesto V2",
+    "Editorial Engine — Architecture Manifesto"
+  ],
+  "implementationEvidenceRead": [
+    {
+      "path": "docs/implementation/w1-loop-qual-01h1-controlled-scientific-loop-human-review-packet.md",
+      "sha256BeforeClosure": "049a699655accff8bd80d775949c2e480f934d2ec2d2cfa3303b012c9493a0d1"
+    },
+    {
+      "path": "validation/w1-loop-qual-01h1/campaign-freeze.json",
+      "sha256BeforeClosure": "5d97b2180fe4ecd01676fb246bc9ff6c2b5bdf341e514975533499461eb0fab3"
+    },
+    {
+      "path": "validation/w1-loop-qual-01h1/packet-decision.json",
+      "sha256BeforeClosure": "78b9af7267c67a7139eb97e3ad4d77061bd6c63d61bc00cfbee36589b51a129d"
+    },
+    {
+      "path": "validation/w1-loop-qual-01h1/direct-invariants.json",
+      "sha256BeforeClosure": "4ffbcac3e0c7373d63e2677546ac3fde6fc9bfded6c5653255c2714ca742150b"
+    },
+    {
+      "sourceType": "READ_ONLY_HUMAN_REFERENCE_AUDIT_RESULT",
+      "missionId": "W1-LOOP-QUAL-01R0",
+      "result": "W1_LOOP_QUAL_01R0_NO_VALID_TRUE_CONTRADICTION_FOUND",
+      "repositoryArtifact": null,
+      "noRepositoryArtifactExpected": true
+    },
+    {
+      "path": "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md",
+      "role": "CURRENT_PROGRAM_CONTROL_READBACK"
+    }
+  ],
+  "campaign": {
+    "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+    "freezeDigest": "ke1-2b05b42597b23f61",
+    "historicalPacketDecision": "W1_LOOP_QUAL_01H1_HUMAN_REVIEW_PACKET_READY",
+    "initialExecutionAttempt": "PRE_OWNER_CHARACTERIZATION_HARNESS_REJECTION",
+    "ownerInvocationsInitialAttempt": 0,
+    "harnessCorrectionClassification": "CHARACTERIZATION_HARNESS_COMPATIBILITY_CORRECTION",
+    "historicalEvidenceRewritten": false,
+    "h1PerQuestionFieldsModified": false
+  },
+  "runtimeIdentity": {
+    "unchangedFromH1Freeze": true,
+    "hashes": {
+      "knowledge": {
+        "path": "src/features/knowledge-engine/engine.ts",
+        "version": "1.2.0",
+        "sha256": "7d1a003c454b08a102205963709ddd729b12d82094c7d4d54b1d485214ffeb18"
+      },
+      "scientificThinking": {
+        "path": "src/features/scientific-thinking/engine.ts",
+        "version": "1.2.2",
+        "sha256": "edb070f46c7c986ee6980cb955e3d5fc535413782b4e5bcd198f3ca0be59b427"
+      },
+      "imaging": {
+        "path": "src/features/imaging-study-designer/engine.ts",
+        "version": "1.2.1",
+        "sha256": "5de7fe69cc61f711fd4c7a8a059e3b77885871d6ebfe298eb21232565bb7f98e"
+      },
+      "validation": {
+        "path": "src/features/protocol-designer/product-scientific-loop-validation-runtime.ts",
+        "version": "0.1.0",
+        "sha256": "72391260a4eb65df1fbc6af72993261cd0d533e52f4b42a793baf54f91fd296e"
+      },
+      "regulatory": {
+        "path": "src/features/regulatory-resolution/resolver.ts",
+        "version": "1.0.0",
+        "sha256": "91d0ed5cc873067f89c42ff571226b2b478d59e6ce78c3832d9e3b9037127c19"
+      },
+      "trace": {
+        "path": "src/features/protocol-designer/scientific-execution-trace.ts",
+        "version": "0.1.0",
+        "sha256": "21c126589e3eca36262655660eb9b5d2e232a182ed940876fdc91edb73484fd3"
+      }
+    }
+  },
+  "frozenEvidenceIntegrity": {
+    "unchanged": true,
+    "bindings": {
+      "caseRegistry": "7e477c344df0fcdd0ffb7e163d1820e2fb60582d4124542bbe494b10bc62919a",
+      "parentageAudit": "ac26cc61587925556e575477459d45b7460287846b343690b655b07dd9484e60",
+      "frozenInputRegistry": "cc8013b8fc5337e565a37cae63ff3ba3e98621b573d796ea440c1779c4d389f7",
+      "expectedOwnerPathRegistry": "9217ce9e65288e443cbd33ec9365f2f8880d9f4cf52cf21a7c63ff8302189d2f",
+      "humanLoopReviewEnvelopeRegistry": "b0742ec966035b1b7f8ddff9842124cc025bdf04b8bf23e669452e1890794e92"
+    }
+  },
+  "humanDispositions": [
+    {
+      "scenario": "A",
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "scientificallyAdjudicable": true,
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "limitations": [
+        "KNOWLEDGE_UNRELATED_APPLICABILITY_GAP_INTERVENTION_STENTING_PROPAGATED",
+        "ST_REPRESENTED_MOST_DOCUMENTARY_BLOCKS_AS_ALTERNATIVES",
+        "IMAGING_LIMITED_SPECIALIZED_VALUE_NO_ACQUISITION_VARIABLE_OR_BIOMARKER_STRATEGY"
+      ],
+      "criticalLoopDefect": false,
+      "silentScientificPromotionObserved": false
+    },
+    {
+      "scenario": "B",
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "scientificallyAdjudicable": false,
+      "finalDisposition": "NON_ADJUDICABLE_REFERENCE_PROBLEM",
+      "referenceTrueContradiction": false,
+      "notClassifiedAs": [
+        "CONTRADICTION_LOSS",
+        "ST_DEFECT",
+        "IMAGING_DEFECT",
+        "LOOP_DEFECT"
+      ],
+      "secondaryAmbiguity": "BASELINE_CTP_AND_FOLLOWUP_ASL_TIMEPOINTS_NOT_STRUCTURALLY_ENCODED_IN_FROZEN_PROJECT",
+      "downstreamAttributionClean": false
+    },
+    {
+      "scenario": "C",
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "scientificallyAdjudicable": true,
+      "finalDisposition": "ACCEPTABLE_WITHIN_TESTED_SCOPE",
+      "structuringUnknownRemainedGoverning": true,
+      "stTermination": "CLARIFICATION_REQUIRED_NOT_READY",
+      "imagingContinuationContractuallyAllowed": true,
+      "projectTruthBypassed": false,
+      "criticalLoopDefect": false
+    },
+    {
+      "scenario": "D",
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "scientificallyAdjudicable": true,
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "limitations": [
+        "ST_OVERLY_PRODUCTIVE_UNDER_INSUFFICIENT_KNOWLEDGE",
+        "LOW_VALUE_UNSUPPORTED_CANDIDATE_OR_MECHANISTIC_STRUCTURES"
+      ],
+      "unsupportedStatusRemainedExplicit": true,
+      "knowledgeGapRemainedVisible": true,
+      "downstreamScientificPromotionObserved": false,
+      "projectAdoptionObserved": false,
+      "criticalLoopDefect": false
+    },
+    {
+      "scenario": "E",
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "scientificallyAdjudicable": true,
+      "finalDisposition": "ACCEPTABLE_WITH_LIMITATIONS",
+      "limitations": [
+        "LIKELY_REGULATORY_JURISDICTION_SCOPE_NOISE_US_NIH_FOR_FRENCH_PROJECT"
+      ],
+      "regRemainedSiblingOwner": true,
+      "regPromotedIntoKnowledge": false,
+      "regUsedAsScientificEvidence": false,
+      "regulatoryApprovalCreated": false,
+      "corpusLimitationsVisible": true,
+      "criticalLoopDefect": false
+    }
+  ],
+  "humanSummary": {
+    "controlledLoopFrozenScenarios": 5,
+    "humanScientificallyAdjudicableScenarios": 4,
+    "acceptableWithinTestedScope": 1,
+    "acceptableWithLimitations": 3,
+    "criticalLoopDefect": 0,
+    "nonAdjudicableReferenceProblem": 1,
+    "trueContradictionReferenceGap": 1
+  },
+  "trueContradictionCoverage": {
+    "r0Decision": "W1_LOOP_QUAL_01R0_NO_VALID_TRUE_CONTRADICTION_FOUND",
+    "validTrueContradictionCandidates": 0,
+    "referenceAvailableInAdmittedLocalCorpus": false,
+    "preservationAcrossLoop": "NOT_CHARACTERIZED_DUE_TO_REFERENCE_UNAVAILABILITY",
+    "classification": "BOUNDED_COVERAGE_LIMITATION",
+    "loopFailure": false,
+    "knowledgeFailure": false,
+    "scientificThinkingFailure": false,
+    "imagingFailure": false
+  },
+  "characterization": {
+    "controlledLoopCharacterization": "CHARACTERIZED_WITH_LIMITATIONS_WITHIN_BOUNDED_HUMAN_REVIEW_SCOPE",
+    "w1ControlledLoopCharacterizationReady": true,
+    "scientificPass": false,
+    "pd011Pass": false,
+    "meaning": "SUFFICIENT_BOUNDED_HUMAN_REVIEWED_EVIDENCE_FOR_WAVE_1_CONTROLLED_LOOP_CHARACTERIZATION_READINESS_WITHOUT_A_DEMONSTRATED_CRITICAL_CROSS_OWNER_DEFECT_IN_TESTED_SCOPE",
+    "doesNotEstablish": [
+      "UNIVERSAL_LOOP_CORRECTNESS",
+      "UNIVERSAL_TRUE_CONTRADICTION_PRESERVATION",
+      "FULL_DOMAIN_COVERAGE",
+      "CLINICAL_VALIDITY",
+      "REGULATORY_VALIDITY",
+      "PD_011_QUALIFICATION",
+      "PRODUCTION_ORCHESTRATION_QUALITY"
+    ]
+  },
+  "preservedLimitations": [
+    "TRUE_CONTRADICTION_PRESERVATION_UNTESTED_REFERENCE_UNAVAILABLE",
+    "KNOWLEDGE_MAY_EMIT_IRRELEVANT_APPLICABILITY_GAPS",
+    "ST_MAY_REMAIN_OVERLY_PRODUCTIVE_UNDER_WEAK_KNOWLEDGE",
+    "IMAGING_VALUE_LIMITED_WHILE_OBS_MEASUREMENT_RUNTIME_ABSENT",
+    "REG_MAY_EMIT_OUT_OF_PRIMARY_JURISDICTION_QUALIFICATION_NOISE",
+    "CONTROLLED_TEST_ORCHESTRATION_NOT_PRODUCTION_OWNER_ORCHESTRATION",
+    "PRODUCT_OWNER_ORCHESTRATION_OPEN"
+  ],
+  "humanGate": {
+    "humanScientificAdjudicationRequired": true,
+    "referenceCaseHumanValidationRequired": true,
+    "referenceValidationMustPrecedeOwnerExecutionWhenScientificMeaningIsNotDeterministicallyEstablished": true,
+    "automatedScientificCheckerMayActAsFinalAuthority": false
+  },
+  "wave": {
+    "w1ArchitecturalConvergenceReady": true,
+    "w1ObservabilityReady": true,
+    "w1IndividualOwnerCharacterizationReady": true,
+    "w1ControlledLoopCharacterizationReady": true,
+    "wave1Complete": false,
+    "wave2Authorized": false
+  },
+  "remainingWave1Gates": [
+    {
+      "gate": "FORMAL_WAVE_1_EVIDENCE_AND_PROGRAM_CLOSURE",
+      "status": "REQUIRED",
+      "blocksWave1CompletionDecision": true,
+      "authorizedMission": "W1-CLOSURE-02_WAVE_1_EVIDENCE_CLOSURE"
+    },
+    {
+      "gate": "TRUE_CONTRADICTION_REFERENCE_COVERAGE",
+      "status": "OPEN_BOUNDED_COVERAGE_LIMITATION",
+      "blocksBoundedControlledLoopCharacterizationReadiness": false
+    },
+    {
+      "gate": "PRODUCT_OWNER_ORCHESTRATION",
+      "status": "OPEN_DEFERRED_TO_WAVE_4",
+      "blocksCurrentFormalEvidenceClosureMission": false
+    },
+    {
+      "gate": "EXPECTED_FUTURE_CAPABILITIES",
+      "status": "OBS_STUDY_DESIGN_BIOSTATISTICS_CALCULATION_DM_REALIZED_TIME_ABSENT",
+      "blocksCurrentFormalEvidenceClosureMission": false
+    }
+  ],
+  "nextAuthorizedMission": "W1-CLOSURE-02_WAVE_1_EVIDENCE_CLOSURE",
+  "costControl": {
+    "externalLlmApiCalls": 0,
+    "networkCalls": 0,
+    "ownerInvocations": 0,
+    "knowledgeInvocations": 0,
+    "stInvocations": 0,
+    "imagingInvocations": 0,
+    "valInvocations": 0,
+    "regInvocations": 0,
+    "newCases": 0,
+    "newCampaigns": 0,
+    "newReplays": 0
+  },
+  "runtimeCodeModified": false,
+  "checkerModified": false,
+  "benchmarkCreated": false,
+  "dashboardCreated": false,
+  "pushAuthorized": false,
+  "mergePerformed": false,
+  "deploymentPerformed": false,
+  "outputs": {
+    "report": "docs/implementation/w1-loop-qual-01h2-controlled-loop-human-characterization-closure.md",
+    "machineDecision": "validation/w1-loop-qual-01h2/human-loop-characterization-decision.json",
+    "roadmap": "docs/implementation/NOXIA-ENGINE-INTEGRATION-ROADMAP.md"
+  }
+}
