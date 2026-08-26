@@ -319,16 +319,17 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation).not.toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Recommencer" }));
     await waitFor(() => expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation).toBeNull());
-    expect(screen.getByText(/Décrivez-moi le projet de recherche/)).toBeInTheDocument();
+    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
   });
 
-  it("FR03B-C14 — nominal progression imports no ST, IMG or Knowledge capability", () => {
+  it("FR03B-C14 — nominal progression reconnects Knowledge but imports no ST or IMG capability", () => {
     const sources = [
       "src/features/query-navigation/functional-reset-progression.ts",
       "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
     ].map((path) => readFileSync(resolve(process.cwd(), path), "utf8")).join("\n");
-    expect(sources).not.toMatch(/features\/(?:scientific-thinking|imaging-study-designer|knowledge-engine)/);
-    expect(sources).not.toMatch(/trigger(?:ScientificThinking|Imaging|Knowledge)|build(?:ScientificThinking|Imaging|Knowledge)/);
+    expect(sources).toMatch(/product-entry-routing/);
+    expect(sources).not.toMatch(/features\/(?:scientific-thinking|imaging-study-designer)/);
+    expect(sources).not.toMatch(/trigger(?:ScientificThinking|Imaging)|build(?:ScientificThinking|Imaging)/);
   });
 
   it("FR03B-C15 — existing 03A1 and 03A2 Project changesets remain valid", () => {

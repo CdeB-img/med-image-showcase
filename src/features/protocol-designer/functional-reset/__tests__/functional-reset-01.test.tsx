@@ -31,7 +31,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
   it("starts with one conversation, one Project panel and honest document states", () => {
     renderDemo();
     expect(screen.getByTestId("functional-reset-workspace")).toBeInTheDocument();
-    expect(screen.getByText(/Décrivez-moi le projet de recherche/)).toHaveTextContent(/Vous pouvez partir d’une idée simple/);
+    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toHaveTextContent(/préservera votre intention/);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
     const project = screen.getByTestId("functional-research-project");
     for (const label of ["Question", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Mesures / biomarqueurs", "Temporalité", "Analyse", "Documents"]) {
@@ -101,7 +101,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Recommencer" }));
     await waitFor(() => expect(within(screen.getByTestId("functional-research-project")).queryByText("Version 2")).toBeNull());
-    expect(screen.getByText(/Décrivez-moi le projet de recherche/)).toBeInTheDocument();
+    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
     expect(within(screen.getByTestId("functional-research-project")).queryByText("colchicine")).toBeNull();
   });
 

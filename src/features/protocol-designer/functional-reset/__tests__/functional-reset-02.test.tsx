@@ -201,7 +201,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(reset.project).toBeNull();
     expect(reset.documents.projections).toEqual([]);
     expect(reset.runtimeTurns).toEqual([]);
-    expect(screen.getByText(/Décrivez-moi le projet de recherche/)).toBeInTheDocument();
+    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
   });
 
   it("FR02 error recovery — preserves Project and the prior preview when DOC fails", () => {

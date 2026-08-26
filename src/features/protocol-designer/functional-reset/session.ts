@@ -13,6 +13,7 @@ import {
 } from "@/features/document-projection";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import type { ProductEntryRoutingDecision } from "./product-entry-routing";
 import type {
   PersistentDeltaValidation,
   PersistentExtractionProviderArtifact,
@@ -43,7 +44,7 @@ import {
 } from "@/features/protocol-designer/scientific-execution-trace";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
-export const INITIAL_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.\nVous pouvez partir d’une idée simple ou donner tous les détails que vous connaissez déjà.";
+export const INITIAL_NOXIA_MESSAGE = "Dites-moi ce que vous souhaitez comprendre, formaliser ou construire.\nNOXIA préservera votre intention avant de proposer la suite.";
 
 export const shouldMediatePostAdoptionQuery = (
   navigation: Pick<FunctionalResetQueryNavigation, "currentAction" | "currentPresentation" | "standardQuestion">,
@@ -95,6 +96,11 @@ export type ProductBridgeTrace = {
   conversationLatencyMs: number;
   extractionLatencyMs: number | null;
   calls: number;
+  entryRouting?: ProductEntryRoutingDecision | null;
+  knowledgeResultRef?: string | null;
+  knowledgeResultDigest?: string | null;
+  projectWriteCount?: number;
+  protocolProjectionCount?: number;
   continuationPresentationSource?: PostAdoptionQueryContinuation["presentationSource"] | null;
   continuationMediationFailure?: string | null;
 };

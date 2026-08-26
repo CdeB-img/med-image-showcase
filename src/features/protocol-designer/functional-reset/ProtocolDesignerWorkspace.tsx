@@ -25,6 +25,10 @@ import ContributionReview from "./ContributionReview";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
 import {
+  executeProductUnderstandInteraction,
+  routeProductEntry,
+} from "./product-entry-routing";
+import {
   clearFunctionalResetSession,
   createConversationEntryId,
   createFunctionalResetSession,
@@ -250,6 +254,111 @@ export default function ProtocolDesignerWorkspace() {
     setCorrectionMode(false);
     setBusy(true);
     try {
+      const previousContext = [...session.bridgeTraces]
+        .reverse()
+        .find((trace) => trace.entryRouting)?.entryRouting?.scientificContext;
+      const entryRouting = routeProductEntry({
+        raw: content,
+        sourceTurnRef: userTurn.turnId,
+        routedAt: now,
+        previousContext,
+        forceUnderstand: asksForExplanationOrRephrase,
+      });
+      const emptyTraceMaterial = {
+        turnId: userTurn.turnId,
+        requestKind: "USER_TURN" as const,
+        raw: content,
+        persistentExtractionCalled: false,
+        persistentExtractionStatus: "NOT_REQUESTED" as const,
+        providerArtifact: null,
+        wireCandidate: null,
+        persistentCandidate: null,
+        deterministicValidation: null,
+        projectChangeSetCandidate: null,
+        canonicalProjectChangeSetCandidate: null,
+        humanReviewProjection: null,
+        humanDecision: null,
+        projectVersionBefore: session.project?.versionId ?? null,
+        projectVersionAfter: session.project?.versionId ?? null,
+        qryNeedBefore,
+        qryNeedAfter: queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null,
+        extractionLatencyMs: null,
+        entryRouting,
+        projectWriteCount: 0,
+        protocolProjectionCount: 0,
+      };
+
+      if (entryRouting.domainGate !== "IN_SCOPE") {
+        const rejectedAt = new Date().toISOString();
+        const assistantReply = "Cette entrée ne peut pas être transmise à un owner scientifique. Reformulez-la comme une question scientifique générale, sans donnée personnelle ni identifiante. Aucun projet ni protocole n’a été créé.";
+        const assistantTurn: ScientificInterpretationTurn = {
+          turnId: createTurnId(),
+          role: "NOXIA",
+          content: assistantReply,
+          createdAt: rejectedAt,
+        };
+        setSession((current) => ({
+          ...current,
+          queryNavigation,
+          runtimeTurns: [...runtimeTurns, assistantTurn],
+          entries: [...current.entries, {
+            entryId: createConversationEntryId(),
+            kind: "ERROR",
+            role: "NOXIA",
+            content: assistantReply,
+            createdAt: rejectedAt,
+          }],
+          bridgeTraces: [...current.bridgeTraces, {
+            ...emptyTraceMaterial,
+            assistantReply,
+            provider: "DOMAIN_GATE",
+            model: "DETERMINISTIC_LOCAL",
+            conversationLatencyMs: 0,
+            calls: 0,
+            knowledgeResultRef: null,
+            knowledgeResultDigest: null,
+          }].slice(-20),
+          updatedAt: rejectedAt,
+        }));
+        return;
+      }
+
+      const initialUnderstand = entryRouting.routeIntent === "UNDERSTAND" && !session.project && !queryNavigation;
+      if (initialUnderstand) {
+        const knowledge = executeProductUnderstandInteraction({ raw: content, decision: entryRouting, createdAt: now });
+        const answeredAt = new Date().toISOString();
+        const assistantTurn: ScientificInterpretationTurn = {
+          turnId: createTurnId(),
+          role: "NOXIA",
+          content: knowledge.assistantReply,
+          createdAt: answeredAt,
+        };
+        setSession((current) => ({
+          ...current,
+          queryNavigation,
+          runtimeTurns: [...runtimeTurns, assistantTurn],
+          entries: [...current.entries, {
+            entryId: createConversationEntryId(),
+            kind: knowledge.status === "FAILURE" ? "ERROR" : "TEXT",
+            role: "NOXIA",
+            content: knowledge.assistantReply,
+            createdAt: answeredAt,
+          }],
+          bridgeTraces: [...current.bridgeTraces, {
+            ...emptyTraceMaterial,
+            assistantReply: knowledge.assistantReply,
+            provider: "KNOWLEDGE",
+            model: "KE-001@1.2.0",
+            conversationLatencyMs: 0,
+            calls: 0,
+            knowledgeResultRef: knowledge.knowledgeResultRef,
+            knowledgeResultDigest: knowledge.knowledgeResultDigest,
+          }].slice(-20),
+          updatedAt: answeredAt,
+        }));
+        return;
+      }
+
       const response = await requestProtocolDesignerBridge({
         requestKind: "USER_TURN",
         conversation: {
@@ -277,18 +386,23 @@ export default function ProtocolDesignerWorkspace() {
           } : {}),
         },
         currentProject: session.project,
-        // QRY clarification/explanation requests are already identified by the
-        // existing product contract and must remain one-call conversation turns.
-        evaluatePersistentDelta: !asksForExplanationOrRephrase,
+        // Routing governs Project eligibility. Conversation-only turns remain
+        // usable, but cannot trigger persistent extraction.
+        evaluatePersistentDelta: entryRouting.projectConstructionEligible && !asksForExplanationOrRephrase,
       });
       const receivedAt = new Date().toISOString();
-      const extractedContribution = response.persistentExtraction.contribution;
+      const extractedContribution = entryRouting.projectConstructionEligible
+        ? response.persistentExtraction.contribution
+        : null;
       const contribution = extractedContribution && !session.project && session.pendingContribution
         ? mergeInitialResearchProjectContributions(session.pendingContribution, extractedContribution)
         : extractedContribution;
       const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
       const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
-      const failureMessage = persistenceFailureMessage(response.persistentExtraction.status, candidate?.status ?? null);
+      const effectiveExtractionStatus = entryRouting.projectConstructionEligible
+        ? response.persistentExtraction.status
+        : "NOT_REQUESTED" as const;
+      const failureMessage = persistenceFailureMessage(effectiveExtractionStatus, candidate?.status ?? null);
       const replacedPendingContributionId = effectiveCandidate ? session.pendingContribution?.identity.contributionId ?? null : null;
       setSession((current) => ({
         ...current,
@@ -324,13 +438,13 @@ export default function ProtocolDesignerWorkspace() {
           requestKind: "USER_TURN" as const,
           raw: content,
           assistantReply: response.assistantReply,
-          persistentExtractionCalled: response.persistentExtraction.called,
-          persistentExtractionStatus: response.persistentExtraction.status,
-          persistentExtractionFailure: response.persistentExtraction.failure ?? null,
-          providerArtifact: response.persistentExtraction.providerArtifact,
-          wireCandidate: response.persistentExtraction.wireCandidate,
-          persistentCandidate: response.persistentExtraction.candidate,
-          deterministicValidation: response.persistentExtraction.validation,
+          persistentExtractionCalled: entryRouting.projectConstructionEligible && response.persistentExtraction.called,
+          persistentExtractionStatus: effectiveExtractionStatus,
+          persistentExtractionFailure: entryRouting.projectConstructionEligible ? response.persistentExtraction.failure ?? null : null,
+          providerArtifact: entryRouting.projectConstructionEligible ? response.persistentExtraction.providerArtifact : null,
+          wireCandidate: entryRouting.projectConstructionEligible ? response.persistentExtraction.wireCandidate : null,
+          persistentCandidate: entryRouting.projectConstructionEligible ? response.persistentExtraction.candidate : null,
+          deterministicValidation: entryRouting.projectConstructionEligible ? response.persistentExtraction.validation : null,
           projectChangeSetCandidate: candidate?.changeSet ?? null,
           canonicalProjectChangeSetCandidate: candidate?.canonicalChangeSet ?? null,
           humanReviewProjection: candidate?.humanReviewProjection ?? null,
@@ -344,6 +458,11 @@ export default function ProtocolDesignerWorkspace() {
           conversationLatencyMs: response.observability.conversationLatencyMs,
           extractionLatencyMs: response.observability.extractionLatencyMs,
           calls: response.observability.calls,
+          entryRouting,
+          knowledgeResultRef: null,
+          knowledgeResultDigest: null,
+          projectWriteCount: response.observability.projectWrites,
+          protocolProjectionCount: 0,
         }].slice(-20),
         updatedAt: receivedAt,
       }));
@@ -569,7 +688,7 @@ export default function ProtocolDesignerWorkspace() {
   return <main id="demo-main" className="min-h-screen bg-muted/30 text-foreground" data-testid="functional-reset-workspace">
     <Helmet>
       <title>Protocol Designer — NOXIA</title>
-      <meta name="description" content="Construisez votre Research Project dans une conversation continue avec NOXIA." />
+      <meta name="description" content="Comprenez, formalisez ou construisez un Research Project dans une conversation continue avec NOXIA." />
       <meta name="robots" content="noindex, follow" />
     </Helmet>
 
@@ -602,7 +721,7 @@ export default function ProtocolDesignerWorkspace() {
         /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm">
           <div className="border-b px-5 py-4">
             <h2 className="font-semibold">Conversation</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Décrivez votre idée, confirmez la structure proposée, puis faites évoluer le projet dans le même échange.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Décrivez votre question ou votre objectif. NOXIA oriente d’abord l’échange, puis n’ouvre un Research Project que si vous demandez de construire une étude.</p>
           </div>
 
           <div className="flex-1 space-y-5 px-4 py-5 sm:px-6" aria-live="polite">
@@ -646,7 +765,7 @@ export default function ProtocolDesignerWorkspace() {
                 }}
                 rows={2}
                 maxLength={4_000}
-                placeholder={correctionMode ? "Ce que je souhaite corriger…" : session.project ? "Ajouter ou modifier un élément du projet…" : "Décrivez votre projet de recherche…"}
+                placeholder={correctionMode ? "Ce que je souhaite corriger…" : session.project ? "Ajouter ou modifier un élément du projet…" : "Que souhaitez-vous comprendre, formaliser ou construire ?"}
                 className="max-h-40 min-h-12 flex-1 resize-none bg-transparent px-3 py-2 text-sm outline-none"
               />
               <button type="submit" disabled={busy || !draft.trim()} aria-label="Envoyer" className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-40"><ArrowUp className="h-5 w-5" /></button>
