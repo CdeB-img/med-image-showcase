@@ -158,7 +158,7 @@ L’extracteur global n’a pas été modifié: aucun défaut indépendant n’a
 - assertions couvertes: routing A/B, termes, négations, zéro extraction/write/protocole, absence de génération non supportée, `FORMALIZE_IDEA`, `DESIGN_STUDY`, transition avec contexte, fail-closed hors périmètre;
 - lint ciblé: 0 erreur;
 - `git diff --check`: PASS;
-- typecheck global: non vert à cause de 2 erreurs TS2698 dans deux fichiers historiques non suivis et non modifiés, `w1-qual-02h1r-deterministic-checker.test.ts` lignes 37 et 50;
+- typecheck global: non vert à cause de 2 erreurs TS2698 dans un fichier historique non suivi et non modifié, `w1-qual-02h1r-deterministic-checker.test.ts` lignes 37 et 50;
 - appel provider pendant les tests: 0.
 
 Le typecheck global n’est pas présenté comme vert. Les deux erreurs sont extérieures au diff 01B et appartiennent aux artefacts historiques que la mission doit préserver.
