@@ -1,0 +1,51 @@
+{
+  "contract": "W1_QUAL_02H1M_PACKET_DECISION",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "freezeDigest": "ke1-d1c4ff40aa84e28c",
+  "decision": "W1_QUAL_02H1M_HUMAN_REVIEW_PACKET_READY_WITH_TECHNICAL_LIMITATIONS",
+  "historicalDecisionsPreserved": [
+    "W1_QUAL_02H1_HUMAN_REVIEW_PACKET_NOT_READY",
+    "W1_QUAL_02H1R_STOPPED_AFTER_SECOND_CHECKER_DEFECT"
+  ],
+  "automatedScientificCheckerAsHumanPacketGate": "ABANDONED_BY_HUMAN_PROGRAM_DECISION",
+  "checkerLimitation": "SOURCE_EVIDENCE_REFS_AND_LINEAGE_INTEGRITY_NOT_RELIABLE_FOR_CAMPAIGN_E",
+  "counts": {
+    "totalFrozenCases": 8,
+    "technicallyNonAdjudicableCases": 1,
+    "humanReviewableCases": 7,
+    "newStInvocations": 6,
+    "humanAdjudicationCompleted": 0,
+    "humanAdjudicationPending": 7
+  },
+  "executionControls": {
+    "stVersion": "1.2.2",
+    "stRuntimeModified": false,
+    "firstCaseReruns": 0,
+    "kEdgeReruns": 0,
+    "oneInvocationPerSixNeverExecutedCases": true,
+    "rerolls": 0,
+    "postObservationRepairs": 0,
+    "newCheckerRepair": false
+  },
+  "costControl": {
+    "externalLlmApiCalls": 0,
+    "openAiApiCalls": 0,
+    "chatGptApiCalls": 0,
+    "geminiCalls": 0,
+    "otherLlmProviderCalls": 0,
+    "networkCalls": 0
+  },
+  "humanScientificAdjudicationRequired": true,
+  "scientificPass": false,
+  "scientificThinkingCharacterization": "PENDING_HUMAN_ADJUDICATION_POST_REPAIR",
+  "wave": {
+    "w1ArchitecturalConvergenceReady": true,
+    "w1ObservabilityReady": true,
+    "w1IndividualOwnerCharacterizationReady": false,
+    "w1ControlledLoopCharacterizationReady": false,
+    "wave1Complete": false,
+    "wave2Authorized": false
+  },
+  "nextAuthorizedMission": "NONE_PENDING_MANUAL_ST_CASE_ADJUDICATION"
+}

@@ -1,0 +1,121 @@
+{
+  "contract": "W1_QUAL_02H1M_TECHNICAL_LIMITATIONS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "freezeDigest": "ke1-d1c4ff40aa84e28c",
+  "evidenceNature": "LEVEL_3_IMPLEMENTATION_EVIDENCE_NON_NORMATIVE",
+  "automatedScientificCheckerAsHumanPacketGate": "ABANDONED_BY_HUMAN_PROGRAM_DECISION",
+  "reason": "Two successive checker-only contract defects blocked fresh scientific evidence without demonstrating an ST scientific defect.",
+  "checkerLimitation": "SOURCE_EVIDENCE_REFS_AND_LINEAGE_INTEGRITY_NOT_RELIABLE_FOR_CAMPAIGN_E",
+  "unreliableForCampaignE": {
+    "SOURCE_EVIDENCE_REFS": "TECHNICALLY_UNRELIABLE_FOR_CAMPAIGN_E",
+    "LINEAGE_INTEGRITY": "TECHNICALLY_UNRELIABLE_FOR_CAMPAIGN_E"
+  },
+  "aggregateCheckerVerdictAllowedToGateHumanReview": false,
+  "otherDeterministicObservationsStatus": "DIAGNOSTIC_ONLY",
+  "newCheckerRepair": false,
+  "trustedDirectObservations": [
+    "ST_VERSION_UNCHANGED",
+    "PROJECT_WRITES_ZERO",
+    "AUTOMATIC_ADOPTION_ZERO",
+    "FROZEN_CASE_INPUT_ENVELOPE_DIGESTS_UNCHANGED",
+    "EXPECTED_OWNER_RESULT_PRESENCE",
+    "TRACE_AVAILABILITY_WHERE_DIRECTLY_OBSERVABLE",
+    "STALE_REJECTION_WHERE_APPLICABLE"
+  ],
+  "directChecks": [
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "evidenceOrigin": "EXISTING_FROZEN_OUTPUT_FOR_HUMAN_REVIEW",
+      "resultDigest": "ke1-e8b1eb3cc7f26720",
+      "stVersionUnchanged": true,
+      "projectWritesZero": true,
+      "automaticAdoptionZero": true,
+      "expectedOwnerResultPresent": true,
+      "traceAvailable": true,
+      "traceResultPersistenceObservable": true,
+      "ownerInvocationCount": 1,
+      "staleRejection": "NOT_APPLICABLE_NO_STALE_CASE_IN_CAMPAIGN_E"
+    },
+    {
+      "caseId": "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+      "evidenceOrigin": "H1M_SINGLE_LOCAL_EXECUTION",
+      "resultDigest": "ke1-bffb3f6ff40a6c5b",
+      "stVersionUnchanged": true,
+      "projectWritesZero": true,
+      "automaticAdoptionZero": true,
+      "expectedOwnerResultPresent": true,
+      "traceAvailable": true,
+      "traceResultPersistenceObservable": true,
+      "ownerInvocationCount": 1,
+      "staleRejection": "NOT_APPLICABLE_NO_STALE_CASE_IN_CAMPAIGN_E"
+    },
+    {
+      "caseId": "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+      "evidenceOrigin": "H1M_SINGLE_LOCAL_EXECUTION",
+      "resultDigest": "ke1-5928ccff0a0f79d3",
+      "stVersionUnchanged": true,
+      "projectWritesZero": true,
+      "automaticAdoptionZero": true,
+      "expectedOwnerResultPresent": true,
+      "traceAvailable": true,
+      "traceResultPersistenceObservable": true,
+      "ownerInvocationCount": 1,
+      "staleRejection": "NOT_APPLICABLE_NO_STALE_CASE_IN_CAMPAIGN_E"
+    },
+    {
+      "caseId": "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+      "evidenceOrigin": "H1M_SINGLE_LOCAL_EXECUTION",
+      "resultDigest": "ke1-eb4439319e05c35d",
+      "stVersionUnchanged": true,
+      "projectWritesZero": true,
+      "automaticAdoptionZero": true,
+      "expectedOwnerResultPresent": true,
+      "traceAvailable": true,
+      "traceResultPersistenceObservable": true,
+      "ownerInvocationCount": 1,
+      "staleRejection": "NOT_APPLICABLE_NO_STALE_CASE_IN_CAMPAIGN_E"
+    },
+    {
+      "caseId": "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+      "evidenceOrigin": "H1M_SINGLE_LOCAL_EXECUTION",
+      "resultDigest": "ke1-1228b0c5beca52b9",
+      "stVersionUnchanged": true,
+      "projectWritesZero": true,
+      "automaticAdoptionZero": true,
+      "expectedOwnerResultPresent": true,
+      "traceAvailable": true,
+      "traceResultPersistenceObservable": true,
+      "ownerInvocationCount": 1,
+      "staleRejection": "NOT_APPLICABLE_NO_STALE_CASE_IN_CAMPAIGN_E"
+    },
+    {
+      "caseId": "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+      "evidenceOrigin": "H1M_SINGLE_LOCAL_EXECUTION",
+      "resultDigest": "ke1-76016753ef5723c7",
+      "stVersionUnchanged": true,
+      "projectWritesZero": true,
+      "automaticAdoptionZero": true,
+      "expectedOwnerResultPresent": true,
+      "traceAvailable": true,
+      "traceResultPersistenceObservable": true,
+      "ownerInvocationCount": 1,
+      "staleRejection": "NOT_APPLICABLE_NO_STALE_CASE_IN_CAMPAIGN_E"
+    },
+    {
+      "caseId": "ST02H1-E-GM-WM-CBF-ASSOCIATION-01",
+      "evidenceOrigin": "H1M_SINGLE_LOCAL_EXECUTION",
+      "resultDigest": "ke1-b154ccf0e922caec",
+      "stVersionUnchanged": true,
+      "projectWritesZero": true,
+      "automaticAdoptionZero": true,
+      "expectedOwnerResultPresent": true,
+      "traceAvailable": true,
+      "traceResultPersistenceObservable": true,
+      "ownerInvocationCount": 1,
+      "staleRejection": "NOT_APPLICABLE_NO_STALE_CASE_IN_CAMPAIGN_E"
+    }
+  ],
+  "scientificJudgmentPerformed": false,
+  "scientificPass": false
+}
