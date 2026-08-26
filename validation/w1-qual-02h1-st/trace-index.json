@@ -1,0 +1,35 @@
+{
+  "contract": "W1_QUAL_02H1_ST_TRACE_INDEX",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "primaryRuns": [
+    {
+      "caseId": "ST02H1-E-NVC-MECHANISM-01",
+      "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-NVC-MECHANISM-01:primary",
+      "traceRecorderCompletedInMemory": true,
+      "traceEvidencePersisted": false,
+      "eventCount": null,
+      "eventTypes": null,
+      "eventRefs": null,
+      "ledgerDigest": null,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER",
+      "diagnostic": "The recorder completed before the collector exception, but the process terminated before trace evidence was persisted; no event sequence is reconstructed or invented."
+    }
+  ],
+  "notExecutedCases": [
+    "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+    "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+    "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+    "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+    "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+    "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+    "ST02H1-E-GM-WM-CBF-ASSOCIATION-01"
+  ],
+  "counts": {
+    "plannedPrimaryRuns": 8,
+    "startedPrimaryRuns": 1,
+    "persistedCompletePrimaryTraces": 0,
+    "notExecuted": 7
+  },
+  "privateChainOfThoughtRecorded": false
+}

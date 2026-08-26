@@ -1,0 +1,128 @@
+{
+  "contract": "W1_QUAL_02H1_ST_CAMPAIGN_FREEZE",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "frozenAt": "2026-08-26T17:30:00.000Z",
+  "gitHead": "6803ba7d5c73c1df8771dbd8e9748d6334adf436",
+  "branch": "protocol-designer-canonical-ingestion",
+  "stVersion": "1.2.2",
+  "knowledgeContractVersion": "1.2.0",
+  "runtimeHashes": {
+    "engine": {
+      "path": "src/features/scientific-thinking/engine.ts",
+      "sha256": "edb070f46c7c986ee6980cb955e3d5fc535413782b4e5bcd198f3ca0be59b427"
+    },
+    "types": {
+      "path": "src/features/scientific-thinking/types.ts",
+      "sha256": "d07e089e2f6fb9c55fa4b9b4b50946727d7a7d9072a876e4d41d213ea3f63f81"
+    },
+    "input": {
+      "path": "src/features/scientific-thinking/input.ts",
+      "sha256": "427176ba84dc2a4c10cf38cdd53390d2e96b40b08449aad6aca09b6f8ef60215"
+    },
+    "projectChain": {
+      "path": "src/features/research-project-construction/scientific-reasoning-owner-chain.ts",
+      "sha256": "a73916e16557300767249a3309af635c6b9b5241276df0b0dd4d2e0bc72b85a3"
+    },
+    "productRuntime": {
+      "path": "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts",
+      "sha256": "bef0aa5ede4daafa9eae9b5cab158e7c36bfa899bfd4d460a4ac7773f5fa0fe7"
+    }
+  },
+  "checkerIdentity": {
+    "version": "1.1.0",
+    "path": "validation/w1-qual-01h1t/tools/deterministic-checker.ts",
+    "sha256": "ea0e4a3c83d6217bd55b73aa356c0c685edd6f0e5575d15f9ed50bb0019938f2"
+  },
+  "executionHarnessIdentity": {
+    "path": "_w1_qual_02h1_workbench.ts",
+    "sha256": "5f1d493cca33beb09c7a398ef18d67ebdc886559a56e1133e7a52fe623e1bb5e"
+  },
+  "fileBindings": {
+    "case-registry.json": {
+      "sha256": "8f26052d15814ab3692871e99dd805f60aa1e59bc083ab13690aff823f009b33",
+      "logicalDigest": "ke1-f784e50a859706ce"
+    },
+    "parentage-audit.json": {
+      "sha256": "a8a96837c26bbad15ce8263e72b0a1256f4c5417171598dbbdca333e334a52a0",
+      "logicalDigest": "ke1-13cb58c598c384a1"
+    },
+    "frozen-input-registry.json": {
+      "sha256": "1b38d86b7f1393f5274cb6300f3e3fc18bb0d1f4a2399ef563a60b76d8b46fe5",
+      "logicalDigest": "ke1-bd12bc48afc0cc1c"
+    },
+    "human-review-envelope-registry.json": {
+      "sha256": "1770c7020b56bc56dc8046d3720e54df4901bd7dd1db6bf0f98d9f2f755a11b6",
+      "logicalDigest": "ke1-19582811ceef3de5"
+    }
+  },
+  "casePackDigests": [
+    {
+      "caseId": "ST02H1-E-NVC-MECHANISM-01",
+      "packDigest": "ke1-e5eb82ec1e1c18d0"
+    },
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "packDigest": "ke1-8204152e0ab27e52"
+    },
+    {
+      "caseId": "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+      "packDigest": "ke1-4994241f176b75ab"
+    },
+    {
+      "caseId": "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+      "packDigest": "ke1-32f31a20f600585c"
+    },
+    {
+      "caseId": "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+      "packDigest": "ke1-af897b43c75d9abf"
+    },
+    {
+      "caseId": "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+      "packDigest": "ke1-bb2c62e87e79d9e4"
+    },
+    {
+      "caseId": "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+      "packDigest": "ke1-3fd70aa00f7f0f94"
+    },
+    {
+      "caseId": "ST02H1-E-GM-WM-CBF-ASSOCIATION-01",
+      "packDigest": "ke1-3ad221a9c00506c5"
+    }
+  ],
+  "sourceRefs": [
+    "NOXIA-SCIENTIFIC-PRODUCT-MANIFESTO-V2:HUMAN-DECISION",
+    "PD-003-V2:OWNERSHIP-MATRIX",
+    "PD-008@1.0#10.4",
+    "PD-008@1.0#21",
+    "PD-008@1.0#38",
+    "PD-008@1.0#42.4",
+    "RB-003@1.0#42-49",
+    "RB-004@1.1#20",
+    "RB-004@1.1#71.5",
+    "RB-005@1.0#20",
+    "RB-005@1.0#33-34",
+    "RB-005@1.0#82"
+  ],
+  "policy": {
+    "exactScientificCases": 8,
+    "maxScientificCases": 8,
+    "primaryRuns": 8,
+    "stInvocations": 8,
+    "rerolls": 0,
+    "repairsAfterObservation": 0,
+    "externalLlmApiCalls": 0,
+    "networkCalls": 0,
+    "humanFields": "PENDING"
+  },
+  "freezeDigest": "ke1-d1c4ff40aa84e28c",
+  "frozenBeforeFirstStInvocation": true,
+  "observationOccurredAtFreeze": false,
+  "postFreezeMutationForbidden": [
+    "CASE",
+    "ENVELOPE",
+    "PROJECT_INPUT",
+    "KNOWLEDGE_INPUT",
+    "SCIENTIFIC_THINKING_RUNTIME"
+  ]
+}

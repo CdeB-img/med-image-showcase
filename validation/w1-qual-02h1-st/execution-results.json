@@ -1,0 +1,101 @@
+{
+  "contract": "W1_QUAL_02H1_ST_EXECUTION_RESULTS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "campaignFreezeDigest": "ke1-d1c4ff40aa84e28c",
+  "primaryExecutionPolicy": "EXACTLY_ONE_PER_FRESH_SCIENTIFIC_CASE_NO_REROLL_NO_REPAIR_FAIL_CLOSED",
+  "plannedPrimaryRuns": 8,
+  "primaryRunsStarted": 1,
+  "primaryRunsWithPersistedEvidence": 0,
+  "stInvocations": 1,
+  "rerolls": 0,
+  "repairsAfterObservation": 0,
+  "stRuntimeModified": false,
+  "externalLlmApiCalls": 0,
+  "networkCalls": 0,
+  "results": [
+    {
+      "caseId": "ST02H1-E-NVC-MECHANISM-01",
+      "executionKind": "FRESH_PRIMARY_ONE_PASS",
+      "runId": "scientific-run:W1-QUAL-02H-ST-2026-08-26-E:ST02H1-E-NVC-MECHANISM-01:primary",
+      "startedAt": "2026-08-26T18:01:00.000Z",
+      "completedAt": "2026-08-26T18:01:01.000Z",
+      "stInvoked": true,
+      "stInvocationCount": 1,
+      "ownerResultProducedInMemory": true,
+      "traceRecorderCompletedInMemory": true,
+      "resultEvidencePersisted": false,
+      "resultDigest": null,
+      "stOutput": null,
+      "terminalOutcome": "TECHNICAL_CAPTURE_FAILURE_AFTER_OWNER_INVOCATION",
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER",
+      "error": {
+        "name": "TypeError",
+        "message": "Cannot read properties of undefined (reading 'includes')",
+        "collectorLocation": "_w1_qual_02h1_workbench.ts:557",
+        "failedCheck": "LIMITATION_PRESERVATION",
+        "cause": "The frozen collector read output.limitations, but ScientificThinkingOutput exposes the retained limitations through governed nested projections rather than a top-level limitations collection."
+      },
+      "rerunPerformed": false,
+      "scientificJudgmentPerformed": false,
+      "scientificPass": false,
+      "humanReviewStatus": "PENDING_PACKET_NOT_READY"
+    },
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "stInvoked": false,
+      "stInvocationCount": 0,
+      "terminalOutcome": "NOT_EXECUTED_FAIL_CLOSED_AFTER_PRIOR_TECHNICAL_FAILURE",
+      "scientificJudgmentPerformed": false,
+      "humanReviewStatus": "PENDING_PACKET_NOT_READY"
+    },
+    {
+      "caseId": "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+      "stInvoked": false,
+      "stInvocationCount": 0,
+      "terminalOutcome": "NOT_EXECUTED_FAIL_CLOSED_AFTER_PRIOR_TECHNICAL_FAILURE",
+      "scientificJudgmentPerformed": false,
+      "humanReviewStatus": "PENDING_PACKET_NOT_READY"
+    },
+    {
+      "caseId": "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+      "stInvoked": false,
+      "stInvocationCount": 0,
+      "terminalOutcome": "NOT_EXECUTED_FAIL_CLOSED_AFTER_PRIOR_TECHNICAL_FAILURE",
+      "scientificJudgmentPerformed": false,
+      "humanReviewStatus": "PENDING_PACKET_NOT_READY"
+    },
+    {
+      "caseId": "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+      "stInvoked": false,
+      "stInvocationCount": 0,
+      "terminalOutcome": "NOT_EXECUTED_FAIL_CLOSED_AFTER_PRIOR_TECHNICAL_FAILURE",
+      "scientificJudgmentPerformed": false,
+      "humanReviewStatus": "PENDING_PACKET_NOT_READY"
+    },
+    {
+      "caseId": "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+      "stInvoked": false,
+      "stInvocationCount": 0,
+      "terminalOutcome": "NOT_EXECUTED_FAIL_CLOSED_AFTER_PRIOR_TECHNICAL_FAILURE",
+      "scientificJudgmentPerformed": false,
+      "humanReviewStatus": "PENDING_PACKET_NOT_READY"
+    },
+    {
+      "caseId": "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+      "stInvoked": false,
+      "stInvocationCount": 0,
+      "terminalOutcome": "NOT_EXECUTED_FAIL_CLOSED_AFTER_PRIOR_TECHNICAL_FAILURE",
+      "scientificJudgmentPerformed": false,
+      "humanReviewStatus": "PENDING_PACKET_NOT_READY"
+    },
+    {
+      "caseId": "ST02H1-E-GM-WM-CBF-ASSOCIATION-01",
+      "stInvoked": false,
+      "stInvocationCount": 0,
+      "terminalOutcome": "NOT_EXECUTED_FAIL_CLOSED_AFTER_PRIOR_TECHNICAL_FAILURE",
+      "scientificJudgmentPerformed": false,
+      "humanReviewStatus": "PENDING_PACKET_NOT_READY"
+    }
+  ]
+}

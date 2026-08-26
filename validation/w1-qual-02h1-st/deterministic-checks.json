@@ -1,0 +1,92 @@
+{
+  "contract": "W1_QUAL_02H1_ST_DETERMINISTIC_CHECKS",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "checkerIdentity": {
+    "version": "1.1.0",
+    "path": "validation/w1-qual-01h1t/tools/deterministic-checker.ts"
+  },
+  "scientificPassProduced": false,
+  "scientificJudgmentPerformed": false,
+  "cases": [
+    {
+      "caseId": "ST02H1-E-NVC-MECHANISM-01",
+      "technicalFailure": true,
+      "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER",
+      "checks": [
+        {
+          "checkId": "DETERMINISTIC_COLLECTOR_EXECUTION",
+          "outcome": "FAIL",
+          "observed": "TypeError at limitation-preservation collection after one completed owner invocation",
+          "expected": "All structural checks persist without reading a non-contract top-level field",
+          "scientificJudgmentPerformed": false
+        }
+      ],
+      "remainingStructuralChecks": "NOT_EVALUATED_AFTER_COLLECTOR_EXCEPTION",
+      "scientificJudgmentPerformed": false
+    },
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "technicalFailure": false,
+      "checks": [],
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "scientificJudgmentPerformed": false
+    },
+    {
+      "caseId": "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+      "technicalFailure": false,
+      "checks": [],
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "scientificJudgmentPerformed": false
+    },
+    {
+      "caseId": "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+      "technicalFailure": false,
+      "checks": [],
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "scientificJudgmentPerformed": false
+    },
+    {
+      "caseId": "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+      "technicalFailure": false,
+      "checks": [],
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "scientificJudgmentPerformed": false
+    },
+    {
+      "caseId": "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+      "technicalFailure": false,
+      "checks": [],
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "scientificJudgmentPerformed": false
+    },
+    {
+      "caseId": "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+      "technicalFailure": false,
+      "checks": [],
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "scientificJudgmentPerformed": false
+    },
+    {
+      "caseId": "ST02H1-E-GM-WM-CBF-ASSOCIATION-01",
+      "technicalFailure": false,
+      "checks": [],
+      "status": "NOT_EXECUTED_FAIL_CLOSED",
+      "scientificJudgmentPerformed": false
+    }
+  ],
+  "counts": {
+    "checksPersisted": 1,
+    "pass": 0,
+    "fail": 1,
+    "notApplicable": 0,
+    "casesNotExecuted": 7
+  },
+  "blockingTechnicalFailures": [
+    {
+      "caseId": "ST02H1-E-NVC-MECHANISM-01",
+      "stage": "DETERMINISTIC_CHECKER",
+      "code": "LIMITATION_COLLECTION_FIELD_MISMATCH"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "contract": "W1_QUAL_02H1_ST_PARENTAGE_AUDIT",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "auditedAt": "2026-08-26T17:00:00.000Z",
+  "comparisonScope": {
+    "campaigns": [
+      "validation/w1-qual-01/case-registry.json",
+      "validation/w1-qual-01r-st/case-registry.json",
+      "validation/w1-qual-01r1-st/campaign-b/case-registry.json",
+      "validation/w1-qual-01r2-st/campaign-c/case-registry.json",
+      "validation/w1-qual-01h1-st/case-registry.json"
+    ],
+    "repairMaterial": [
+      "src/features/scientific-thinking/__tests__/w1-scientific-thinking-repair-01-fresh-probes.test.ts",
+      "validation/w1-st-repair-02/root-cause-map.json",
+      "validation/w1-st-repair-02/repair-decision.json"
+    ],
+    "unitFixtures": [
+      "src/features/scientific-thinking/__tests__",
+      "src/features/protocol-designer/functional-reset/__tests__/w1-scientific-thinking-01-product-knowledge-handoff.test.ts",
+      "src/features/protocol-designer/functional-reset/__tests__/w1-imaging-01-product-scientific-thinking-handoff.test.ts"
+    ],
+    "exclusions": [
+      "Campaign A/B/C/D cases",
+      "W1-QUAL-01 cases",
+      "ST-CARDIAC-01",
+      "ST-NEURO-01",
+      "repair probes A-H",
+      "W1-ST-REPAIR-02 development probes",
+      "existing ST unit-test fixtures"
+    ]
+  },
+  "methodology": "Static exact-ID, question, domain, object, relation and logical-fixture comparison against exposed local material before freeze; no Campaign D answer used as a reference answer.",
+  "cases": [
+    {
+      "caseId": "ST02H1-E-NVC-MECHANISM-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R2-C-CVR-CO2-01",
+        "ST01R2-C-CAPILLARY-HETEROGENEITY-01",
+        "src/features/protocol-designer/fixtures.ts"
+      ],
+      "distinctnessRationale": "Le terme couplage neurovasculaire apparaît dans le corpus exposé, mais aucun cas antérieur ne demande de préserver conjointement recrutement neuronal, astrocytes, péricytes et endothélium pendant une tâche fonctionnelle; les cas CVR et capillaires portent sur d'autres construits et d'autres relations."
+    },
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01",
+        "ST01R2-C-PCCT-CROSSTALK-01"
+      ],
+      "distinctnessRationale": "Les cas antérieurs testaient une inférence négative clinique, un mécanisme détecteur isolé ou un cross-talk; ce cas demande de maintenir quatre causes métrologiques non contradictoires d'une non-détection K-edge dans un phantom déclaré."
+    },
+    {
+      "caseId": "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01",
+        "ST01R2-C-STRAIN-ALGORITHMS-01",
+        "RB-004@1.1#71.5"
+      ],
+      "distinctnessRationale": "Aucun cas exposé ne traite la correction de mouvement en perfusion de premier passage ni l'opposition entre hypoperfusion persistante et biais d'alignement; les cas méthode/référence et strain portent sur d'autres chaînes de mesure."
+    },
+    {
+      "caseId": "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+        "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01",
+        "ST-REPAIR-E"
+      ],
+      "distinctnessRationale": "L'inconnue porte sur une exposition étiologique qui active ou ferme un corpus cardio-oncologique spécialisé; les cas précédents portaient sur phase aiguë/chronique, comparateur, finalité ou relation non définie."
+    },
+    {
+      "caseId": "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01H1-D-OUT-OF-OWNER-PREGNANCY-RADIATION-01",
+        "ST01R-OUT-OF-OWNER-DICOM-01",
+        "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01"
+      ],
+      "distinctnessRationale": "Le cas ne concerne ni grossesse/radiation, ni sélection de standard DICOM, ni décision comptable; il demande une autorisation de gouvernance sur des données identifiables, déclenchée par le contrat typé et non par un mot-clé thématique."
+    },
+    {
+      "caseId": "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+        "ST-UNSUPPORTED-01",
+        "ST-REPAIR-D"
+      ],
+      "distinctnessRationale": "Nouveau compartiment anatomique, nouvelle modalité QSM, population pédiatrique neuro-immune et outcome longitudinal; les anciens contrôles insuffisants portaient sur pyruvate hyperpolarisé, terme fictif ou finalité absente."
+    },
+    {
+      "caseId": "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+      "status": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R-CARDIAC-MYOCARDITIS-01",
+        "ST-CARDIAC-01",
+        "tests Fabry/T1/ECV et myocardite"
+      ],
+      "distinctnessRationale": "Le domaine myocardite a été exposé, mais aucun cas antérieur ne teste la transportabilité depuis une suspicion aiguë vers une cohorte de sportifs asymptomatiques après infection ancienne; la population et l'estimand changent le problème logique."
+    },
+    {
+      "caseId": "ST02H1-E-GM-WM-CBF-ASSOCIATION-01",
+      "status": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R2-C-CVR-CO2-01",
+        "ST01R2-C-DECONVOLUTION-DELAY-01",
+        "ST01R-NEURO-OEF-CMRO2-01"
+      ],
+      "distinctnessRationale": "Aucun cas exposé ne compare simplement les compartiments matière grise/matière blanche sous conditions fixées; les cas précédents portent sur CVR, délai de déconvolution, OEF/CMRO2, ASL transit ou hétérogénéité capillaire."
+    }
+  ],
+  "counts": {
+    "NOVEL": 5,
+    "RELATED_BUT_DISTINCT": 3,
+    "TOO_CLOSE": 0,
+    "EXACT_OR_NEAR_DUPLICATE": 0
+  },
+  "verdict": "PASS"
+}

@@ -1,0 +1,83 @@
+{
+  "contract": "W1_QUAL_02H1_ST_CAMPAIGN_MANIFEST",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "level": "LEVEL_3_IMPLEMENTATION_EVIDENCE",
+  "normative": false,
+  "baseline": {
+    "branch": "protocol-designer-canonical-ingestion",
+    "head": "6803ba7d5c73c1df8771dbd8e9748d6334adf436",
+    "originBranch": "6803ba7d5c73c1df8771dbd8e9748d6334adf436",
+    "main": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+    "originMain": "9be06edca1a7500ab7a43d065e94241e91d67bec"
+  },
+  "freezeDigest": "ke1-d1c4ff40aa84e28c",
+  "stVersion": "1.2.2",
+  "stRuntimeModified": false,
+  "freshCasesAuthored": 8,
+  "parentage": {
+    "NOVEL": 5,
+    "RELATED_BUT_DISTINCT": 3,
+    "TOO_CLOSE": 0,
+    "EXACT_OR_NEAR_DUPLICATE": 0
+  },
+  "plannedPrimaryRuns": 8,
+  "startedPrimaryRuns": 1,
+  "stInvocations": 1,
+  "rerolls": 0,
+  "repairsAfterObservation": 0,
+  "externalLlmApiCalls": 0,
+  "networkCalls": 0,
+  "projectWritesObserved": null,
+  "projectWritesContractValueBeforeCollectorFailure": 0,
+  "humanAdjudicationCompleted": 0,
+  "humanAdjudicationPending": 8,
+  "automatedScientificAdjudication": false,
+  "scientificPassClaimed": false,
+  "pd011QualificationClaimed": false,
+  "controlledLoopCharacterizationStarted": false,
+  "humanReviewPacketReady": false,
+  "blockingTechnicalFailure": {
+    "caseId": "ST02H1-E-NVC-MECHANISM-01",
+    "firstDivergentTechnicalStage": "DETERMINISTIC_CHECKER",
+    "code": "LIMITATION_COLLECTION_FIELD_MISMATCH",
+    "rerunForbiddenAndNotPerformed": true,
+    "remainingCasesStoppedFailClosed": 7
+  },
+  "transientExecutionHarness": {
+    "identityFrozenInCampaignFreeze": true,
+    "retainedAsDeliverable": false,
+    "reason": "Mission deliverables are limited to the declared packet, roadmap and nine machine-evidence files; the failure identity and location remain recorded without adding a new persistent harness architecture."
+  },
+  "tests": {
+    "deterministicCheckerUnitTests": {
+      "files": 1,
+      "tests": 10,
+      "passed": 10,
+      "failed": 0
+    },
+    "campaignJsonValidation": {
+      "files": 9,
+      "assertions": 17,
+      "passed": 17,
+      "failed": 0
+    },
+    "gitDiffCheck": "PASS",
+    "targetedSecretScan": {
+      "hits": 0,
+      "status": "PASS"
+    }
+  },
+  "scientificThinkingCharacterization": "NOT_ADJUDICATED_POST_REPAIR",
+  "wave": {
+    "W1_ARCHITECTURAL_CONVERGENCE_READY": "YES",
+    "W1_OBSERVABILITY_READY": "YES",
+    "W1_INDIVIDUAL_OWNER_CHARACTERIZATION_READY": "NO",
+    "W1_CONTROLLED_LOOP_CHARACTERIZATION_READY": "NO",
+    "WAVE_1_COMPLETE": "NO",
+    "WAVE_2_AUTHORIZED": "NO"
+  },
+  "nextAuthorizedMission": "NONE_PENDING_EXPLICIT_HUMAN_PROGRAM_DECISION",
+  "finalDecision": "W1_QUAL_02H1_HUMAN_REVIEW_PACKET_NOT_READY",
+  "privateChainOfThoughtRecorded": false
+}

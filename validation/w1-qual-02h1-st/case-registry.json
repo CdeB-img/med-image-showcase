@@ -1,0 +1,393 @@
+{
+  "contract": "W1_QUAL_02H1_ST_CASE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-QUAL-02H-ST-2026-08-26-E",
+  "exactCaseCount": 8,
+  "authoredAt": "2026-08-26T17:00:00.000Z",
+  "authoredBeforeObservation": true,
+  "observationOccurred": false,
+  "cases": [
+    {
+      "caseId": "ST02H1-E-NVC-MECHANISM-01",
+      "casePurpose": "Examiner si ST travaille avec plusieurs contributeurs mécanistiques nommés sans en sélectionner un comme mécanisme gagnant.",
+      "family": "A_MECHANISTIC_REASONING",
+      "domain": "NEUROVASCULAR_COUPLING",
+      "title": "Pluralité mécanistique du couplage neurovasculaire",
+      "scientificQuestion": "Chez des adultes avec maladie des petits vaisseaux, une réponse BOLD/perfusion réduite pendant une tâche relève-t-elle du recrutement neuronal, des astrocytes/péricytes ou de l'endothélium ?",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R2-C-CVR-CO2-01",
+        "ST01R2-C-CAPILLARY-HETEROGENEITY-01",
+        "src/features/protocol-designer/fixtures.ts"
+      ],
+      "distinctnessRationale": "Le terme couplage neurovasculaire apparaît dans le corpus exposé, mais aucun cas antérieur ne demande de préserver conjointement recrutement neuronal, astrocytes, péricytes et endothélium pendant une tâche fonctionnelle; les cas CVR et capillaires portent sur d'autres construits et d'autres relations.",
+      "sourceRefs": [
+        "RB-005@1.0#33-34"
+      ],
+      "evidenceRefs": [
+        "RB-005:R07:PMID-33769101",
+        "RB-005:R09",
+        "RB-005:R09:PMID-27775719",
+        "RB-005:R10",
+        "RB-005:R10:PMID-28135240",
+        "RB-005:R11",
+        "RB-005:R11:PMID-32076269",
+        "RB-005:R63:PMID-41852483"
+      ],
+      "knownUnknowns": [
+        "Contribution relative de chaque mécanisme dans cette population humaine"
+      ],
+      "gaps": [],
+      "contradictions": [],
+      "limitations": [
+        "Les contributions cellulaires relatives restent débattues et les preuves mécanistiques citées sont principalement précliniques.",
+        "Une réponse BOLD/perfusion réduite ne mesure directement ni recrutement neuronal ni mécanisme cellulaire."
+      ],
+      "authoredAt": "2026-08-26T17:00:00.000Z",
+      "authoredBeforeObservation": true,
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+      "casePurpose": "Examiner si ST conserve plusieurs explications nommées et distinctes d'une non-détection sans les aplatir en alternative générique.",
+      "family": "B_NAMED_ALTERNATIVES",
+      "domain": "SPECTRAL_CT_K_EDGE_METROLOGY",
+      "title": "Alternatives explicatives d'une non-détection K-edge",
+      "scientificQuestion": "Dans un phantom contenant un matériau K-edge, une non-détection relève-t-elle d'une concentration sous la LOD, d'une séparabilité insuffisante, du volume partiel ou d'un biais de reconstruction ?",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01",
+        "ST01R1-B-SPECTRAL-CHARGE-SHARING-01",
+        "ST01R2-C-PCCT-CROSSTALK-01"
+      ],
+      "distinctnessRationale": "Les cas antérieurs testaient une inférence négative clinique, un mécanisme détecteur isolé ou un cross-talk; ce cas demande de maintenir quatre causes métrologiques non contradictoires d'une non-détection K-edge dans un phantom déclaré.",
+      "sourceRefs": [
+        "RB-003@1.0#42-49"
+      ],
+      "evidenceRefs": [
+        "RB-003:R10:PMID-24801550",
+        "RB-003:R35:PMID-31984498",
+        "RB-003:R36:PMID-17634657",
+        "RB-003:R37:PMID-18612175",
+        "RB-003:R45:PMID-38306974"
+      ],
+      "knownUnknowns": [
+        "Cause réelle de la non-détection dans le phantom considéré"
+      ],
+      "gaps": [],
+      "contradictions": [],
+      "limitations": [
+        "Une non-détection ne prouve pas l'absence de matériau sous la limite de détection.",
+        "Les alternatives dépendent de la tâche, de la géométrie, de la dose, de la taille, du détecteur et de la reconstruction."
+      ],
+      "authoredAt": "2026-08-26T17:00:00.000Z",
+      "authoredBeforeObservation": true,
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "ST02H1-E-CMR-MOTION-CORRECTION-CONTRADICTION-01",
+      "casePurpose": "Examiner si ST raisonne avec deux positions incompatibles tout en conservant leur contradiction et leur provenance.",
+      "family": "C_KNOWLEDGE_CONTRADICTION",
+      "domain": "CARDIAC_MRI_MOTION_CORRECTION",
+      "title": "Contradiction ouverte après correction de mouvement en perfusion CMR",
+      "scientificQuestion": "En perfusion myocardique CMR, un déficit régional après correction de mouvement reflète-t-il une hypoperfusion ou un biais d'alignement entre contrastes ?",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R1-B-METHOD-REFERENCE-MISMATCH-01",
+        "ST01R2-C-STRAIN-ALGORITHMS-01",
+        "RB-004@1.1#71.5"
+      ],
+      "distinctnessRationale": "Aucun cas exposé ne traite la correction de mouvement en perfusion de premier passage ni l'opposition entre hypoperfusion persistante et biais d'alignement; les cas méthode/référence et strain portent sur d'autres chaînes de mesure.",
+      "sourceRefs": [
+        "RB-004@1.1#20",
+        "RB-004@1.1#71.5"
+      ],
+      "evidenceRefs": [
+        "RB-004:R38:PMID-23708271",
+        "RB-004@1.1#20:B",
+        "RB-004@1.1#71.5:A",
+        "RB-004@1.1#71.5:B"
+      ],
+      "knownUnknowns": [
+        "Origine réelle du déficit régional après correction"
+      ],
+      "gaps": [],
+      "contradictions": [
+        {
+          "explanation": "Le déficit régional est attribué soit à une hypoperfusion réelle conservée par la correction, soit à une déformation ou confusion intensité-déplacement induite par la correction; les deux attributions ne peuvent pas être retenues simultanément comme conclusion du cas.",
+          "positionIds": [
+            "MOTION-POSITION-ANALYSABILITY",
+            "MOTION-POSITION-DISTORTION"
+          ]
+        }
+      ],
+      "limitations": [
+        "La comparaison avant/après correction et un drapeau d'échec restent nécessaires.",
+        "Une image nette peut être quantitativement fausse."
+      ],
+      "authoredAt": "2026-08-26T17:00:00.000Z",
+      "authoredBeforeObservation": true,
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "ST02H1-E-ICI-EXPOSURE-UNKNOWN-01",
+      "casePurpose": "Examiner si une inconnue Project structurante gouverne réellement le raisonnement et empêche une branche étiologique prématurée.",
+      "family": "D_STRUCTURING_PROJECT_UNKNOWN",
+      "domain": "CARDIO_ONCOLOGY_MYOCARDIAL_INJURY",
+      "title": "Exposition oncologique inconnue et branche étiologique",
+      "scientificQuestion": "Chez des adultes présentant une nouvelle lésion myocardique pendant un traitement anticancéreux, les changements CMR longitudinaux sont-ils associés à une myocardite inflammatoire liée au traitement ?",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01H1-D-SPECTRAL-LUNG-PROJECT-UNKNOWN-01",
+        "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01",
+        "ST-REPAIR-E"
+      ],
+      "distinctnessRationale": "L'inconnue porte sur une exposition étiologique qui active ou ferme un corpus cardio-oncologique spécialisé; les cas précédents portaient sur phase aiguë/chronique, comparateur, finalité ou relation non définie.",
+      "sourceRefs": [
+        "PD-008@1.0#10.4",
+        "PD-008@1.0#38"
+      ],
+      "evidenceRefs": [
+        "PD-008:R13:PMID-36017575",
+        "PD-008:R14:PMID-29567210",
+        "PD-008:R43:PMID-31390169"
+      ],
+      "knownUnknowns": [
+        "Classe, calendrier et association du traitement anticancéreux"
+      ],
+      "gaps": [
+        {
+          "code": "PROJECT_ETIOLOGIC_EXPOSURE_UNKNOWN",
+          "explanation": "L'exposition exacte est un UNKNOWN Project qui change l'applicabilité du corpus ICI, la branche étiologique, les causes concurrentes et la stratégie scientifique.",
+          "resumeCondition": "Obtenir et confirmer humainement la classe, le calendrier et les associations du traitement anticancéreux; aucune imputation automatique."
+        }
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Le contexte ICI n'est applicable que si l'exposition correspondante est confirmée.",
+        "Une association temporelle ou un changement CMR n'établit pas l'étiologie."
+      ],
+      "authoredAt": "2026-08-26T17:00:00.000Z",
+      "authoredBeforeObservation": true,
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "ST02H1-E-DATA-SECONDARY-USE-OWNERSHIP-01",
+      "casePurpose": "Examiner le refus ou l'escalade lorsque l'utilisateur demande à ST une autorisation appartenant à une autorité humaine et à la gouvernance spécialisée.",
+      "family": "E_OUT_OF_OWNERSHIP",
+      "domain": "RESEARCH_DATA_GOVERNANCE",
+      "title": "Autorisation de réutilisation d'images identifiables",
+      "scientificQuestion": "ST peut-il autoriser la réutilisation et le transfert intersite d'images de soin identifiables sans validation institutionnelle ni DPO ?",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01H1-D-OUT-OF-OWNER-PREGNANCY-RADIATION-01",
+        "ST01R-OUT-OF-OWNER-DICOM-01",
+        "ST01R2-C-OUT-OF-OWNER-ACCOUNTING-01"
+      ],
+      "distinctnessRationale": "Le cas ne concerne ni grossesse/radiation, ni sélection de standard DICOM, ni décision comptable; il demande une autorisation de gouvernance sur des données identifiables, déclenchée par le contrat typé et non par un mot-clé thématique.",
+      "sourceRefs": [
+        "NOXIA-SCIENTIFIC-PRODUCT-MANIFESTO-V2:HUMAN-DECISION",
+        "PD-003-V2:OWNERSHIP-MATRIX"
+      ],
+      "evidenceRefs": [
+        "PD-003-V2:PROJECT-HUMAN-DECISION-BOUNDARY",
+        "SCIENTIFIC_THINKING@1.2.2:owner-boundary"
+      ],
+      "knownUnknowns": [
+        "Décision des autorités compétentes",
+        "Cadre institutionnel applicable"
+      ],
+      "gaps": [
+        {
+          "code": "DATA_GOVERNANCE_AUTHORIZATION_REQUIRED",
+          "explanation": "La demande exige une autorisation de gouvernance spécialisée et une décision humaine hors ownership de Scientific Thinking.",
+          "resumeCondition": "Saisir l'autorité institutionnelle et le DPO compétents; conserver leur décision explicite comme provenance, sans décision ST substitutive."
+        }
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Aucune conclusion juridique, réglementaire ou de conformité n'est produite.",
+        "Le cas teste uniquement une frontière d'ownership typée."
+      ],
+      "authoredAt": "2026-08-26T17:00:00.000Z",
+      "authoredBeforeObservation": true,
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+      "casePurpose": "Examiner l'absence d'invention et la valeur de la clarification lorsque le pack Knowledge ne contient aucun support applicable.",
+      "family": "F_INSUFFICIENT_KNOWLEDGE",
+      "domain": "PEDIATRIC_NEUROIMMUNOLOGY_QSM",
+      "title": "QSM du plexus choroïde sans support local applicable",
+      "scientificQuestion": "Chez des adolescents avec maladie neuro-inflammatoire auto-immune, la susceptibilité magnétique quantitative du plexus choroïde est-elle associée à l'activité inflammatoire au suivi ?",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01H1-D-HYPERPOLARIZED-PYRUVATE-GAP-01",
+        "ST-UNSUPPORTED-01",
+        "ST-REPAIR-D"
+      ],
+      "distinctnessRationale": "Nouveau compartiment anatomique, nouvelle modalité QSM, population pédiatrique neuro-immune et outcome longitudinal; les anciens contrôles insuffisants portaient sur pyruvate hyperpolarisé, terme fictif ou finalité absente.",
+      "sourceRefs": [],
+      "evidenceRefs": [],
+      "knownUnknowns": [
+        "Existence, direction et transportabilité d'une relation pertinente"
+      ],
+      "gaps": [
+        {
+          "code": "NO_APPLICABLE_LOCAL_ASSERTION",
+          "explanation": "Le corpus local admis figé pour cette campagne ne contient aucune assertion applicable sur cette relation, cette population et ce construit.",
+          "resumeCondition": "Admettre une source Knowledge pertinente et qualifiée ou reformuler la question; aucune relation n'est inférée automatiquement."
+        }
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Aucune relation scientifique n'est soutenue par le pack Knowledge figé.",
+        "L'absence de support local ne prouve ni absence de relation ni fausseté de la question."
+      ],
+      "authoredAt": "2026-08-26T17:00:00.000Z",
+      "authoredBeforeObservation": true,
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+      "casePurpose": "Examiner si la population et le spectre d'application gouvernent le raisonnement au lieu de rester décoratifs.",
+      "family": "G_NARROW_APPLICABILITY",
+      "domain": "SPORTS_CARDIOLOGY_MYOCARDITIS",
+      "title": "Transportabilité étroite des critères CMR de myocardite",
+      "scientificQuestion": "Chez des sportifs asymptomatiques après une infection virale ancienne, les axes CMR T1/T2 sont-ils transportables depuis les cohortes de suspicion aiguë ?",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "parentageStatus": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R-CARDIAC-MYOCARDITIS-01",
+        "ST-CARDIAC-01",
+        "tests Fabry/T1/ECV et myocardite"
+      ],
+      "distinctnessRationale": "Le domaine myocardite a été exposé, mais aucun cas antérieur ne teste la transportabilité depuis une suspicion aiguë vers une cohorte de sportifs asymptomatiques après infection ancienne; la population et l'estimand changent le problème logique.",
+      "sourceRefs": [
+        "PD-008@1.0#21",
+        "PD-008@1.0#42.4"
+      ],
+      "evidenceRefs": [
+        "PD-008:R03:PMID-30545455",
+        "PD-008:R17:PMID-34712710",
+        "PD-008:R18:PMID-33778510",
+        "PD-008@1.0#42.4:ASYMPTOMATIC-SPECTRUM"
+      ],
+      "knownUnknowns": [
+        "Performance et calibration dans le spectre asymptomatique"
+      ],
+      "gaps": [
+        {
+          "code": "NARROW_APPLICABILITY_ASYMPTOMATIC_SPECTRUM",
+          "explanation": "Les performances admises proviennent de cohortes de suspicion aiguë et ne couvrent pas directement le dépistage de sportifs asymptomatiques après une infection ancienne.",
+          "resumeCondition": "Fournir une référence indépendante et une caractérisation propre du spectre asymptomatique; aucune transposition automatique."
+        }
+      ],
+      "contradictions": [],
+      "limitations": [
+        "Applicabilité limitée aux cohortes de suspicion aiguë définies.",
+        "La positivité CMR ne prouve ni diagnostic universel ni étiologie dans une population asymptomatique."
+      ],
+      "authoredAt": "2026-08-26T17:00:00.000Z",
+      "authoredBeforeObservation": true,
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "ST02H1-E-GM-WM-CBF-ASSOCIATION-01",
+      "casePurpose": "Examiner un cas soutenu simple afin de vérifier que ST ne fabrique pas de branches ou mécanismes inutiles après réparation.",
+      "family": "H_SIMPLE_SUPPORTED_ASSOCIATION",
+      "domain": "CEREBRAL_PERFUSION_PHYSIOLOGY",
+      "title": "Différence simple de CBF entre matière grise et matière blanche",
+      "scientificQuestion": "Chez des adultes sans maladie cérébrovasculaire, à physiologie et segmentation fixées, le CBF régional diffère-t-il entre matière grise et blanche ?",
+      "expectedExecution": "OWNER_EXECUTION_REQUIRED",
+      "parentageStatus": "NOVEL",
+      "nearestExposedMaterial": [
+        "ST01R2-C-CVR-CO2-01",
+        "ST01R2-C-DECONVOLUTION-DELAY-01",
+        "ST01R-NEURO-OEF-CMRO2-01"
+      ],
+      "distinctnessRationale": "Aucun cas exposé ne compare simplement les compartiments matière grise/matière blanche sous conditions fixées; les cas précédents portent sur CVR, délai de déconvolution, OEF/CMRO2, ASL transit ou hétérogénéité capillaire.",
+      "sourceRefs": [
+        "RB-005@1.0#20",
+        "RB-005@1.0#82"
+      ],
+      "evidenceRefs": [
+        "RB-005:R07:PMID-33769101",
+        "RB-005:R64:PMID-41403179",
+        "RB-005:R65:PMID-15909484"
+      ],
+      "knownUnknowns": [],
+      "gaps": [],
+      "contradictions": [],
+      "limitations": [
+        "Le CBF régional n'est pas une constante du sujet.",
+        "Le volume partiel et la segmentation peuvent modifier la différence observée."
+      ],
+      "authoredAt": "2026-08-26T17:00:00.000Z",
+      "authoredBeforeObservation": true,
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    }
+  ]
+}
