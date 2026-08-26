@@ -1,0 +1,1787 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_FROZEN_INPUT_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "frozenAt": "2026-08-26T17:00:00.000Z",
+  "cases": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "projectAuthoringInput": {
+        "raw": "Construire une étude de contrôle qualité en CT spectral sur l’association entre dérive de calibration et variation de concentration d’iode reconstruite, à dose et reconstruction fixées.",
+        "changes": [
+          {
+            "operation": "ADD",
+            "targetSectionId": "ANALYSIS",
+            "targetProjectRef": null,
+            "semanticIdentity": "question:spectral-calibration",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "question:spectral-calibration",
+            "proposedType": "SCIENTIFIC_QUESTION",
+            "content": "Une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite à dose et reconstruction fixées ?",
+            "sourceText": "Construire une étude de contrôle qualité en CT spectral sur l’association entre dérive de calibration et variation de concentration d’iode reconstruite, à dose et reconstruction fixées."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "POPULATION",
+            "targetProjectRef": null,
+            "semanticIdentity": "population:iodine-phantom",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "population:iodine-phantom",
+            "proposedType": "POPULATION",
+            "content": "Phantom de contrôle qualité avec concentrations d’iode stables",
+            "sourceText": "Construire une étude de contrôle qualité en CT spectral sur l’association entre dérive de calibration et variation de concentration d’iode reconstruite, à dose et reconstruction fixées."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "modality:spectral-ct",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "modality:spectral-ct",
+            "proposedType": "IMAGING_MODALITY",
+            "content": "CT spectral",
+            "sourceText": "Construire une étude de contrôle qualité en CT spectral sur l’association entre dérive de calibration et variation de concentration d’iode reconstruite, à dose et reconstruction fixées."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "acquisition:repeat-qc",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "acquisition:repeat-qc",
+            "proposedType": "ACQUISITION",
+            "content": "Acquisitions répétées à dose et reconstruction fixées",
+            "sourceText": "Construire une étude de contrôle qualité en CT spectral sur l’association entre dérive de calibration et variation de concentration d’iode reconstruite, à dose et reconstruction fixées."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "MEASUREMENTS",
+            "targetProjectRef": null,
+            "semanticIdentity": "variable:iodine-concentration",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "variable:iodine-concentration",
+            "proposedType": "CANONICAL_VARIABLE",
+            "content": "Concentration d’iode reconstruite",
+            "sourceText": "Construire une étude de contrôle qualité en CT spectral sur l’association entre dérive de calibration et variation de concentration d’iode reconstruite, à dose et reconstruction fixées."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "MEASUREMENTS",
+            "targetProjectRef": null,
+            "semanticIdentity": "variable:calibration-drift",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "variable:calibration-drift",
+            "proposedType": "CANONICAL_VARIABLE",
+            "content": "Dérive de calibration",
+            "sourceText": "Construire une étude de contrôle qualité en CT spectral sur l’association entre dérive de calibration et variation de concentration d’iode reconstruite, à dose et reconstruction fixées."
+          }
+        ]
+      },
+      "canonicalProjectBinding": {
+        "projectId": "project:loop-g-a-spectral-calibration-01",
+        "projectVersion": "project:loop-g-a-spectral-calibration-01:version:1",
+        "projectDigest": "ke1-16e5ee00304442e4",
+        "snapshotDigest": "ke1-66bc20a31cf511df",
+        "decisionId": "project-contribution-decision:ke1-66a183a8b4c498bc"
+      },
+      "snapshotFacts": {
+        "objectRefs": [
+          "question:spectral-calibration",
+          "population:iodine-phantom",
+          "modality:spectral-ct",
+          "acquisition:repeat-qc",
+          "variable:iodine-concentration",
+          "variable:calibration-drift"
+        ],
+        "unknownObjectRefs": [],
+        "contradictions": []
+      },
+      "knowledgeRequest": {
+        "contractVersion": "1.2.0",
+        "requestId": "knowledge-request:ke1-cc9ad1035ae5f49f",
+        "requestRevision": 1,
+        "researchProjectId": "project:loop-g-a-spectral-calibration-01",
+        "strategyVersion": "project:loop-g-a-spectral-calibration-01:version:1",
+        "originalQuestion": "Dans un phantom de contrôle qualité au CT spectral, une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite lorsque dose et reconstruction restent fixées ?",
+        "normalizedQuestion": "Dans un phantom de contrôle qualité au CT spectral, une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite lorsque dose et reconstruction restent fixées ?",
+        "requestType": "EXPLAIN",
+        "knowledgePurpose": "UNDERSTAND",
+        "consumer": "RESEARCH_PROJECT_CONSTRUCTION",
+        "scientificObjects": [
+          {
+            "objectId": "question:spectral-calibration",
+            "originalTerm": "Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "population:iodine-phantom",
+            "originalTerm": "Phantom de contrôle qualité avec concentrations d'iode stables",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "modality:spectral-ct",
+            "originalTerm": "CT spectral",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "acquisition:repeat-qc",
+            "originalTerm": "Acquisitions répétées à dose et reconstruction fixées",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "variable:iodine-concentration",
+            "originalTerm": "Concentration d'iode reconstruite",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "variable:calibration-drift",
+            "originalTerm": "Dérive de calibration",
+            "role": "SUBJECT"
+          }
+        ],
+        "relations": [],
+        "requestedClaimType": "DEFINITION",
+        "context": {
+          "contextId": "knowledge-context:ke1-f9095c764482ab5a",
+          "version": "1.2.0",
+          "dimensions": [
+            {
+              "name": "domain",
+              "values": [
+                "SPECTRAL_CT"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "EXPLICIT_USER_STATEMENT",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "pathology",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "population",
+              "values": [
+                "Phantom de contrôle qualité avec concentrations d'iode stables"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "phenomenon",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "biomarker",
+              "values": [
+                "Concentration d'iode reconstruite",
+                "Dérive de calibration"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "modality",
+              "values": [
+                "CT spectral"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "technique",
+              "values": [
+                "Acquisitions répétées à dose et reconstruction fixées"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "equipment",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "timing",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "objective",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "criterion",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "intervention",
+              "values": [
+                "STENTING"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "EXPLICIT_USER_STATEMENT",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "usage",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            }
+          ],
+          "unknowns": [
+            "MISSING_PHENOMENON",
+            "MISSING_USAGE",
+            "PENDING_VERIFICATION:acquisition:repeat-qc",
+            "PENDING_VERIFICATION:modality:spectral-ct",
+            "PENDING_VERIFICATION:population:iodine-phantom",
+            "PENDING_VERIFICATION:question:spectral-calibration",
+            "PENDING_VERIFICATION:variable:calibration-drift",
+            "PENDING_VERIFICATION:variable:iodine-concentration"
+          ],
+          "contradictions": [],
+          "explicitExclusions": [],
+          "relaxation": null,
+          "status": "UNKNOWN",
+          "digest": "ke1-f9095c764482ab5a"
+        },
+        "exclusions": [],
+        "unknowns": [
+          "MISSING_PHENOMENON",
+          "MISSING_USAGE",
+          "PENDING_VERIFICATION:acquisition:repeat-qc",
+          "PENDING_VERIFICATION:modality:spectral-ct",
+          "PENDING_VERIFICATION:population:iodine-phantom",
+          "PENDING_VERIFICATION:question:spectral-calibration",
+          "PENDING_VERIFICATION:variable:calibration-drift",
+          "PENDING_VERIFICATION:variable:iodine-concentration"
+        ],
+        "expectedUse": "GENERAL_SCIENTIFIC_UNDERSTANDING",
+        "freshnessRequirement": "AS_OF_2026_08_09",
+        "sensitivityClassification": "CONFIDENTIAL_PROJECT",
+        "externalSearchPolicy": "INTERNAL_ONLY",
+        "traceId": "knowledge-trace:ke1-cc9ad1035ae5f49f",
+        "createdAt": "2026-08-26T12:01:00.000Z"
+      },
+      "sourceRefs": [
+        "RB-003:v1.0",
+        "src/features/protocol-designer/fixtures.ts#spectral"
+      ],
+      "knownUnknowns": [],
+      "knownContradictions": [],
+      "knownLimitations": [
+        "Les sorties portant le même nom ne sont pas nécessairement interchangeables.",
+        "Le corpus local ne fournit ni seuil d’acceptation ni paramètres exécutables."
+      ],
+      "inputPackDigest": "ke1-293748d0fc0c629c"
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "projectAuthoringInput": {
+        "raw": "Étudier une variation longitudinale de CBF entre une perfusion CT initiale et une ASL IRM de suivi, sans présumer que les deux mesures sont substituables.",
+        "changes": [
+          {
+            "operation": "ADD",
+            "targetSectionId": "ANALYSIS",
+            "targetProjectRef": null,
+            "semanticIdentity": "question:cbf-cross-modality",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "question:cbf-cross-modality",
+            "proposedType": "SCIENTIFIC_QUESTION",
+            "content": "Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle ?",
+            "sourceText": "Étudier une variation longitudinale de CBF entre une perfusion CT initiale et une ASL IRM de suivi, sans présumer que les deux mesures sont substituables."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "POPULATION",
+            "targetProjectRef": null,
+            "semanticIdentity": "population:cerebrovascular-adults",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "population:cerebrovascular-adults",
+            "proposedType": "POPULATION",
+            "content": "Adultes suivis pour maladie cérébrovasculaire",
+            "sourceText": "Étudier une variation longitudinale de CBF entre une perfusion CT initiale et une ASL IRM de suivi, sans présumer que les deux mesures sont substituables."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "POPULATION",
+            "targetProjectRef": null,
+            "semanticIdentity": "condition:cerebrovascular-disease",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "condition:cerebrovascular-disease",
+            "proposedType": "CONDITION",
+            "content": "Maladie cérébrovasculaire",
+            "sourceText": "Étudier une variation longitudinale de CBF entre une perfusion CT initiale et une ASL IRM de suivi, sans présumer que les deux mesures sont substituables."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "modality:ctp",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "modality:ctp",
+            "proposedType": "IMAGING_MODALITY",
+            "content": "Perfusion CT",
+            "sourceText": "Étudier une variation longitudinale de CBF entre une perfusion CT initiale et une ASL IRM de suivi, sans présumer que les deux mesures sont substituables."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "modality:asl-mri",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "modality:asl-mri",
+            "proposedType": "IMAGING_MODALITY",
+            "content": "ASL IRM",
+            "sourceText": "Étudier une variation longitudinale de CBF entre une perfusion CT initiale et une ASL IRM de suivi, sans présumer que les deux mesures sont substituables."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "MEASUREMENTS",
+            "targetProjectRef": null,
+            "semanticIdentity": "variable:cbf",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "variable:cbf",
+            "proposedType": "CANONICAL_VARIABLE",
+            "content": "CBF",
+            "sourceText": "Étudier une variation longitudinale de CBF entre une perfusion CT initiale et une ASL IRM de suivi, sans présumer que les deux mesures sont substituables."
+          }
+        ]
+      },
+      "canonicalProjectBinding": {
+        "projectId": "project:loop-g-b-cbf-cross-modality-contradiction-01",
+        "projectVersion": "project:loop-g-b-cbf-cross-modality-contradiction-01:version:1",
+        "projectDigest": "ke1-00a170e2f3e04be6",
+        "snapshotDigest": "ke1-d3942cbaf97af8ce",
+        "decisionId": "project-contribution-decision:ke1-2dd36b76f600272a"
+      },
+      "snapshotFacts": {
+        "objectRefs": [
+          "question:cbf-cross-modality",
+          "population:cerebrovascular-adults",
+          "condition:cerebrovascular-disease",
+          "modality:ctp",
+          "modality:asl-mri",
+          "variable:cbf"
+        ],
+        "unknownObjectRefs": [],
+        "contradictions": []
+      },
+      "knowledgeRequest": {
+        "contractVersion": "1.2.0",
+        "requestId": "knowledge-request:ke1-2c254f33b733737f",
+        "requestRevision": 1,
+        "researchProjectId": "project:loop-g-b-cbf-cross-modality-contradiction-01",
+        "strategyVersion": "project:loop-g-b-cbf-cross-modality-contradiction-01:version:1",
+        "originalQuestion": "Chez des adultes suivis pour maladie cérébrovasculaire, une baisse du CBF entre une perfusion CT initiale et une ASL IRM de suivi peut-elle être interprétée comme une progression biologique malgré le changement de modalité et de modèle ?",
+        "normalizedQuestion": "Chez des adultes suivis pour maladie cérébrovasculaire, une baisse du CBF entre une perfusion CT initiale et une ASL IRM de suivi peut-elle être interprétée comme une progression biologique malgré le changement de modalité et de modèle ?",
+        "requestType": "CHECK_APPLICABILITY",
+        "knowledgePurpose": "CHECK_APPLICABILITY",
+        "consumer": "RESEARCH_PROJECT_CONSTRUCTION",
+        "scientificObjects": [
+          {
+            "objectId": "question:cbf-cross-modality",
+            "originalTerm": "Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle ?",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "population:cerebrovascular-adults",
+            "originalTerm": "Adultes suivis pour maladie cérébrovasculaire",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "condition:cerebrovascular-disease",
+            "originalTerm": "Maladie cérébrovasculaire",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "modality:ctp",
+            "originalTerm": "Perfusion CT",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "modality:asl-mri",
+            "originalTerm": "ASL IRM",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "variable:cbf",
+            "originalTerm": "CBF",
+            "role": "SUBJECT"
+          }
+        ],
+        "relations": [],
+        "requestedClaimType": "APPLICABILITY",
+        "context": {
+          "contextId": "knowledge-context:ke1-e5bfcfbb870bf317",
+          "version": "1.2.0",
+          "dimensions": [
+            {
+              "name": "domain",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "pathology",
+              "values": [
+                "Maladie cérébrovasculaire"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "population",
+              "values": [
+                "Adultes suivis pour maladie cérébrovasculaire"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "phenomenon",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "biomarker",
+              "values": [
+                "CBF"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "modality",
+              "values": [
+                "ASL IRM",
+                "Perfusion CT"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "technique",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "equipment",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "timing",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "objective",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "criterion",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "intervention",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "usage",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            }
+          ],
+          "unknowns": [
+            "MISSING_TECHNIQUE",
+            "MISSING_TIMING",
+            "MISSING_USAGE",
+            "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+            "PENDING_VERIFICATION:modality:asl-mri",
+            "PENDING_VERIFICATION:modality:ctp",
+            "PENDING_VERIFICATION:population:cerebrovascular-adults",
+            "PENDING_VERIFICATION:question:cbf-cross-modality",
+            "PENDING_VERIFICATION:variable:cbf"
+          ],
+          "contradictions": [],
+          "explicitExclusions": [],
+          "relaxation": null,
+          "status": "UNKNOWN",
+          "digest": "ke1-e5bfcfbb870bf317"
+        },
+        "exclusions": [],
+        "unknowns": [
+          "MISSING_TECHNIQUE",
+          "MISSING_TIMING",
+          "MISSING_USAGE",
+          "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+          "PENDING_VERIFICATION:modality:asl-mri",
+          "PENDING_VERIFICATION:modality:ctp",
+          "PENDING_VERIFICATION:population:cerebrovascular-adults",
+          "PENDING_VERIFICATION:question:cbf-cross-modality",
+          "PENDING_VERIFICATION:variable:cbf"
+        ],
+        "expectedUse": "METHODOLOGICAL_REASONING",
+        "freshnessRequirement": "AS_OF_2026_08_09",
+        "sensitivityClassification": "CONFIDENTIAL_PROJECT",
+        "externalSearchPolicy": "INTERNAL_ONLY",
+        "traceId": "knowledge-trace:ke1-2c254f33b733737f",
+        "createdAt": "2026-08-26T13:01:00.000Z"
+      },
+      "sourceRefs": [
+        "RB-005:v1.0",
+        "src/features/protocol-designer/fixtures.ts#neuro"
+      ],
+      "knownUnknowns": [
+        "Part de la variation attribuable à la biologie plutôt qu’à la modalité ou au modèle"
+      ],
+      "knownContradictions": [
+        "Position A: des profils de perfusion peuvent éclairer un construit si le modèle est explicite.",
+        "Position B: CBF et autres grandeurs ne sont pas directement commutables entre modalités."
+      ],
+      "knownLimitations": [
+        "CTP et ASL reposent sur des hypothèses et chaînes d’estimation différentes.",
+        "Aucune progression biologique ne peut être conclue du seul changement numérique."
+      ],
+      "inputPackDigest": "ke1-cc67dc33757ba067"
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "projectAuthoringInput": {
+        "raw": "Étudier la relation Tmax–CBF après revascularisation cérébrale; le projet n’a pas encore décidé entre une évaluation aiguë avant 24 heures et un suivi chronique à trois mois.",
+        "changes": [
+          {
+            "operation": "ADD",
+            "targetSectionId": "ANALYSIS",
+            "targetProjectRef": null,
+            "semanticIdentity": "question:tmax-cbf-timing",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "question:tmax-cbf-timing",
+            "proposedType": "SCIENTIFIC_QUESTION",
+            "content": "La relation entre Tmax et CBF après revascularisation doit-elle être étudiée en phase aiguë ou au suivi chronique ?",
+            "sourceText": "Étudier la relation Tmax–CBF après revascularisation cérébrale; le projet n’a pas encore décidé entre une évaluation aiguë avant 24 heures et un suivi chronique à trois mois."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "POPULATION",
+            "targetProjectRef": null,
+            "semanticIdentity": "population:post-revascularization",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "population:post-revascularization",
+            "proposedType": "POPULATION",
+            "content": "Adultes après revascularisation cérébrale",
+            "sourceText": "Étudier la relation Tmax–CBF après revascularisation cérébrale; le projet n’a pas encore décidé entre une évaluation aiguë avant 24 heures et un suivi chronique à trois mois."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "POPULATION",
+            "targetProjectRef": null,
+            "semanticIdentity": "condition:cerebral-revascularization",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "condition:cerebral-revascularization",
+            "proposedType": "CONDITION",
+            "content": "État post-revascularisation cérébrale",
+            "sourceText": "Étudier la relation Tmax–CBF après revascularisation cérébrale; le projet n’a pas encore décidé entre une évaluation aiguë avant 24 heures et un suivi chronique à trois mois."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "modality:perfusion-mri",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "modality:perfusion-mri",
+            "proposedType": "IMAGING_MODALITY",
+            "content": "IRM de perfusion cérébrale",
+            "sourceText": "Étudier la relation Tmax–CBF après revascularisation cérébrale; le projet n’a pas encore décidé entre une évaluation aiguë avant 24 heures et un suivi chronique à trois mois."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "MEASUREMENTS",
+            "targetProjectRef": null,
+            "semanticIdentity": "variable:tmax",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "variable:tmax",
+            "proposedType": "CANONICAL_VARIABLE",
+            "content": "Tmax",
+            "sourceText": "Étudier la relation Tmax–CBF après revascularisation cérébrale; le projet n’a pas encore décidé entre une évaluation aiguë avant 24 heures et un suivi chronique à trois mois."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "MEASUREMENTS",
+            "targetProjectRef": null,
+            "semanticIdentity": "variable:cbf",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "variable:cbf",
+            "proposedType": "CANONICAL_VARIABLE",
+            "content": "CBF",
+            "sourceText": "Étudier la relation Tmax–CBF après revascularisation cérébrale; le projet n’a pas encore décidé entre une évaluation aiguë avant 24 heures et un suivi chronique à trois mois."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "ANALYSIS",
+            "targetProjectRef": null,
+            "semanticIdentity": "unknown:assessment-timing",
+            "polarity": "UNKNOWN",
+            "studyRole": null,
+            "epistemicStatus": "UNKNOWN",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "unknown:assessment-timing",
+            "proposedType": "UNCERTAINTY",
+            "content": "Moment d’évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+            "sourceText": "Étudier la relation Tmax–CBF après revascularisation cérébrale; le projet n’a pas encore décidé entre une évaluation aiguë avant 24 heures et un suivi chronique à trois mois."
+          }
+        ]
+      },
+      "canonicalProjectBinding": {
+        "projectId": "project:loop-g-c-post-revasc-timing-unknown-01",
+        "projectVersion": "project:loop-g-c-post-revasc-timing-unknown-01:version:1",
+        "projectDigest": "ke1-e4c28baa11ab8a3e",
+        "snapshotDigest": "ke1-4448e9438ea2426f",
+        "decisionId": "project-contribution-decision:ke1-279abe46c9ba360a"
+      },
+      "snapshotFacts": {
+        "objectRefs": [
+          "question:tmax-cbf-timing",
+          "population:post-revascularization",
+          "condition:cerebral-revascularization",
+          "modality:perfusion-mri",
+          "variable:tmax",
+          "variable:cbf",
+          "unknown:assessment-timing"
+        ],
+        "unknownObjectRefs": [
+          "unknown:assessment-timing"
+        ],
+        "contradictions": []
+      },
+      "knowledgeRequest": {
+        "contractVersion": "1.2.0",
+        "requestId": "knowledge-request:ke1-9fdcd21781ee2e1b",
+        "requestRevision": 1,
+        "researchProjectId": "project:loop-g-c-post-revasc-timing-unknown-01",
+        "strategyVersion": "project:loop-g-c-post-revasc-timing-unknown-01:version:1",
+        "originalQuestion": "Chez des adultes après revascularisation cérébrale, la relation entre Tmax et CBF doit-elle être étudiée en phase aiguë ou au suivi chronique lorsque le moment d'évaluation n'est pas encore décidé ?",
+        "normalizedQuestion": "Chez des adultes après revascularisation cérébrale, la relation entre Tmax et CBF doit-elle être étudiée en phase aiguë ou au suivi chronique lorsque le moment d'évaluation n'est pas encore décidé ?",
+        "requestType": "CHECK_APPLICABILITY",
+        "knowledgePurpose": "CHECK_APPLICABILITY",
+        "consumer": "RESEARCH_PROJECT_CONSTRUCTION",
+        "scientificObjects": [
+          {
+            "objectId": "question:tmax-cbf-timing",
+            "originalTerm": "La relation entre Tmax et CBF après revascularisation doit-elle être étudiée en phase aiguë ou au suivi chronique ?",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "population:post-revascularization",
+            "originalTerm": "Adultes après revascularisation cérébrale",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "condition:cerebral-revascularization",
+            "originalTerm": "État post-revascularisation cérébrale",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "modality:perfusion-mri",
+            "originalTerm": "IRM de perfusion cérébrale",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "variable:tmax",
+            "originalTerm": "Tmax",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "variable:cbf",
+            "originalTerm": "CBF",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "unknown:assessment-timing",
+            "originalTerm": "Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+            "role": "UNKNOWN"
+          }
+        ],
+        "relations": [],
+        "requestedClaimType": "APPLICABILITY",
+        "context": {
+          "contextId": "knowledge-context:ke1-decf04dc56680f98",
+          "version": "1.2.0",
+          "dimensions": [
+            {
+              "name": "domain",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "pathology",
+              "values": [
+                "État post-revascularisation cérébrale"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "population",
+              "values": [
+                "Adultes après revascularisation cérébrale"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "phenomenon",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "biomarker",
+              "values": [
+                "CBF",
+                "Tmax"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "modality",
+              "values": [
+                "IRM de perfusion cérébrale"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "technique",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "equipment",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "timing",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "objective",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "criterion",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "intervention",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "usage",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            }
+          ],
+          "unknowns": [
+            "MISSING_TECHNIQUE",
+            "MISSING_TIMING",
+            "MISSING_USAGE",
+            "PENDING_VERIFICATION:condition:cerebral-revascularization",
+            "PENDING_VERIFICATION:modality:perfusion-mri",
+            "PENDING_VERIFICATION:population:post-revascularization",
+            "PENDING_VERIFICATION:question:tmax-cbf-timing",
+            "PENDING_VERIFICATION:unknown:assessment-timing",
+            "PENDING_VERIFICATION:variable:cbf",
+            "PENDING_VERIFICATION:variable:tmax",
+            "UNKNOWN_PROJECT_OBJECT:unknown:assessment-timing"
+          ],
+          "contradictions": [],
+          "explicitExclusions": [],
+          "relaxation": null,
+          "status": "UNKNOWN",
+          "digest": "ke1-decf04dc56680f98"
+        },
+        "exclusions": [],
+        "unknowns": [
+          "MISSING_TECHNIQUE",
+          "MISSING_TIMING",
+          "MISSING_USAGE",
+          "PENDING_VERIFICATION:condition:cerebral-revascularization",
+          "PENDING_VERIFICATION:modality:perfusion-mri",
+          "PENDING_VERIFICATION:population:post-revascularization",
+          "PENDING_VERIFICATION:question:tmax-cbf-timing",
+          "PENDING_VERIFICATION:unknown:assessment-timing",
+          "PENDING_VERIFICATION:variable:cbf",
+          "PENDING_VERIFICATION:variable:tmax",
+          "UNKNOWN_PROJECT_OBJECT:unknown:assessment-timing"
+        ],
+        "expectedUse": "METHODOLOGICAL_REASONING",
+        "freshnessRequirement": "AS_OF_2026_08_09",
+        "sensitivityClassification": "CONFIDENTIAL_PROJECT",
+        "externalSearchPolicy": "INTERNAL_ONLY",
+        "traceId": "knowledge-trace:ke1-9fdcd21781ee2e1b",
+        "createdAt": "2026-08-26T14:01:00.000Z"
+      },
+      "sourceRefs": [
+        "RB-005:v1.0",
+        "src/features/protocol-designer/fixtures.ts#neuro",
+        "PD-003-V2:PROJECT_UNKNOWNS"
+      ],
+      "knownUnknowns": [
+        "Moment d’évaluation: phase aiguë avant 24 heures ou suivi chronique à trois mois"
+      ],
+      "knownContradictions": [],
+      "knownLimitations": [
+        "Tmax n’est pas un synonyme de débit cérébral.",
+        "L’interprétation dépend du délai collatéral, du modèle et de la temporalité."
+      ],
+      "inputPackDigest": "ke1-6b651a64aa928340"
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "projectAuthoringInput": {
+        "raw": "Étudier l’association entre ADC médullaire en IRM de diffusion et fibrose interstitielle rénale chez des adultes avec maladie rénale chronique.",
+        "changes": [
+          {
+            "operation": "ADD",
+            "targetSectionId": "ANALYSIS",
+            "targetProjectRef": null,
+            "semanticIdentity": "question:renal-adc-fibrosis",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "question:renal-adc-fibrosis",
+            "proposedType": "SCIENTIFIC_QUESTION",
+            "content": "L’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?",
+            "sourceText": "Étudier l’association entre ADC médullaire en IRM de diffusion et fibrose interstitielle rénale chez des adultes avec maladie rénale chronique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "POPULATION",
+            "targetProjectRef": null,
+            "semanticIdentity": "population:ckd-adults",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "population:ckd-adults",
+            "proposedType": "POPULATION",
+            "content": "Adultes avec maladie rénale chronique",
+            "sourceText": "Étudier l’association entre ADC médullaire en IRM de diffusion et fibrose interstitielle rénale chez des adultes avec maladie rénale chronique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "POPULATION",
+            "targetProjectRef": null,
+            "semanticIdentity": "condition:renal-fibrosis",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "condition:renal-fibrosis",
+            "proposedType": "CONDITION",
+            "content": "Fibrose interstitielle rénale",
+            "sourceText": "Étudier l’association entre ADC médullaire en IRM de diffusion et fibrose interstitielle rénale chez des adultes avec maladie rénale chronique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "modality:renal-mri",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "modality:renal-mri",
+            "proposedType": "IMAGING_MODALITY",
+            "content": "IRM rénale",
+            "sourceText": "Étudier l’association entre ADC médullaire en IRM de diffusion et fibrose interstitielle rénale chez des adultes avec maladie rénale chronique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "acquisition:renal-dwi",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "acquisition:renal-dwi",
+            "proposedType": "ACQUISITION",
+            "content": "IRM de diffusion rénale",
+            "sourceText": "Étudier l’association entre ADC médullaire en IRM de diffusion et fibrose interstitielle rénale chez des adultes avec maladie rénale chronique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "MEASUREMENTS",
+            "targetProjectRef": null,
+            "semanticIdentity": "variable:medullary-adc",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "variable:medullary-adc",
+            "proposedType": "CANONICAL_VARIABLE",
+            "content": "ADC médullaire",
+            "sourceText": "Étudier l’association entre ADC médullaire en IRM de diffusion et fibrose interstitielle rénale chez des adultes avec maladie rénale chronique."
+          }
+        ]
+      },
+      "canonicalProjectBinding": {
+        "projectId": "project:loop-g-d-renal-dwi-knowledge-gap-01",
+        "projectVersion": "project:loop-g-d-renal-dwi-knowledge-gap-01:version:1",
+        "projectDigest": "ke1-568dce5c3419d450",
+        "snapshotDigest": "ke1-e11c690dd24e97e1",
+        "decisionId": "project-contribution-decision:ke1-0d02170f94681f83"
+      },
+      "snapshotFacts": {
+        "objectRefs": [
+          "question:renal-adc-fibrosis",
+          "population:ckd-adults",
+          "condition:renal-fibrosis",
+          "modality:renal-mri",
+          "acquisition:renal-dwi",
+          "variable:medullary-adc"
+        ],
+        "unknownObjectRefs": [],
+        "contradictions": []
+      },
+      "knowledgeRequest": {
+        "contractVersion": "1.2.0",
+        "requestId": "knowledge-request:ke1-135d6f099aea072d",
+        "requestRevision": 1,
+        "researchProjectId": "project:loop-g-d-renal-dwi-knowledge-gap-01",
+        "strategyVersion": "project:loop-g-d-renal-dwi-knowledge-gap-01:version:1",
+        "originalQuestion": "Chez des adultes avec maladie rénale chronique, l'ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?",
+        "normalizedQuestion": "Chez des adultes avec maladie rénale chronique, l'ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?",
+        "requestType": "CHECK_APPLICABILITY",
+        "knowledgePurpose": "CHECK_APPLICABILITY",
+        "consumer": "RESEARCH_PROJECT_CONSTRUCTION",
+        "scientificObjects": [
+          {
+            "objectId": "question:renal-adc-fibrosis",
+            "originalTerm": "L'ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "population:ckd-adults",
+            "originalTerm": "Adultes avec maladie rénale chronique",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "condition:renal-fibrosis",
+            "originalTerm": "Fibrose interstitielle rénale",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "modality:renal-mri",
+            "originalTerm": "IRM rénale",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "acquisition:renal-dwi",
+            "originalTerm": "IRM de diffusion rénale",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "variable:medullary-adc",
+            "originalTerm": "ADC médullaire",
+            "role": "SUBJECT"
+          }
+        ],
+        "relations": [],
+        "requestedClaimType": "APPLICABILITY",
+        "context": {
+          "contextId": "knowledge-context:ke1-ea8263eda4fcb579",
+          "version": "1.2.0",
+          "dimensions": [
+            {
+              "name": "domain",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "pathology",
+              "values": [
+                "Fibrose interstitielle rénale"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "population",
+              "values": [
+                "Adultes avec maladie rénale chronique"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "phenomenon",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "biomarker",
+              "values": [
+                "ADC médullaire"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "modality",
+              "values": [
+                "IRM rénale"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "technique",
+              "values": [
+                "IRM de diffusion rénale"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "equipment",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "timing",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "objective",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "criterion",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "intervention",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "usage",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            }
+          ],
+          "unknowns": [
+            "MISSING_TIMING",
+            "MISSING_USAGE",
+            "PENDING_VERIFICATION:acquisition:renal-dwi",
+            "PENDING_VERIFICATION:condition:renal-fibrosis",
+            "PENDING_VERIFICATION:modality:renal-mri",
+            "PENDING_VERIFICATION:population:ckd-adults",
+            "PENDING_VERIFICATION:question:renal-adc-fibrosis",
+            "PENDING_VERIFICATION:variable:medullary-adc"
+          ],
+          "contradictions": [],
+          "explicitExclusions": [],
+          "relaxation": null,
+          "status": "UNKNOWN",
+          "digest": "ke1-ea8263eda4fcb579"
+        },
+        "exclusions": [],
+        "unknowns": [
+          "MISSING_TIMING",
+          "MISSING_USAGE",
+          "PENDING_VERIFICATION:acquisition:renal-dwi",
+          "PENDING_VERIFICATION:condition:renal-fibrosis",
+          "PENDING_VERIFICATION:modality:renal-mri",
+          "PENDING_VERIFICATION:population:ckd-adults",
+          "PENDING_VERIFICATION:question:renal-adc-fibrosis",
+          "PENDING_VERIFICATION:variable:medullary-adc"
+        ],
+        "expectedUse": "METHODOLOGICAL_REASONING",
+        "freshnessRequirement": "AS_OF_2026_08_09",
+        "sensitivityClassification": "CONFIDENTIAL_PROJECT",
+        "externalSearchPolicy": "INTERNAL_ONLY",
+        "traceId": "knowledge-trace:ke1-135d6f099aea072d",
+        "createdAt": "2026-08-26T15:01:00.000Z"
+      },
+      "sourceRefs": [
+        "KE-001:EXACT_FIRST_NO_IMPLICIT_FALLBACK",
+        "src/features/knowledge-engine/provider-registry.ts"
+      ],
+      "knownUnknowns": [
+        "Aucune preuve applicable admise localement pour la relation ADC médullaire–fibrose rénale"
+      ],
+      "knownContradictions": [],
+      "knownLimitations": [
+        "Les corpus locaux admis ne couvrent pas ce domaine.",
+        "L’absence de correspondance interne ne décrit pas la littérature externe."
+      ],
+      "inputPackDigest": "ke1-102eb33c24efdb10"
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "projectAuthoringInput": {
+        "raw": "Construire une étude prospective multicentrique française en IRM cardiaque sur l’association entre harmonisation des séquences et de l’analyse et répétabilité du T2 mapping myocardique.",
+        "changes": [
+          {
+            "operation": "ADD",
+            "targetSectionId": "ANALYSIS",
+            "targetProjectRef": null,
+            "semanticIdentity": "question:cmr-t2-repeatability",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "question:cmr-t2-repeatability",
+            "proposedType": "SCIENTIFIC_QUESTION",
+            "content": "L’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?",
+            "sourceText": "Construire une étude prospective multicentrique française en IRM cardiaque sur l’association entre harmonisation des séquences et de l’analyse et répétabilité du T2 mapping myocardique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "POPULATION",
+            "targetProjectRef": null,
+            "semanticIdentity": "population:cmr-adults",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "population:cmr-adults",
+            "proposedType": "POPULATION",
+            "content": "Adultes inclus dans une étude française multicentrique",
+            "sourceText": "Construire une étude prospective multicentrique française en IRM cardiaque sur l’association entre harmonisation des séquences et de l’analyse et répétabilité du T2 mapping myocardique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "modality:cardiac-mri",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "modality:cardiac-mri",
+            "proposedType": "IMAGING_MODALITY",
+            "content": "IRM cardiaque",
+            "sourceText": "Construire une étude prospective multicentrique française en IRM cardiaque sur l’association entre harmonisation des séquences et de l’analyse et répétabilité du T2 mapping myocardique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "IMAGING",
+            "targetProjectRef": null,
+            "semanticIdentity": "acquisition:t2-mapping",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "acquisition:t2-mapping",
+            "proposedType": "ACQUISITION",
+            "content": "T2 mapping myocardique",
+            "sourceText": "Construire une étude prospective multicentrique française en IRM cardiaque sur l’association entre harmonisation des séquences et de l’analyse et répétabilité du T2 mapping myocardique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "MEASUREMENTS",
+            "targetProjectRef": null,
+            "semanticIdentity": "variable:t2-repeatability",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "variable:t2-repeatability",
+            "proposedType": "CANONICAL_VARIABLE",
+            "content": "Répétabilité du T2 mapping myocardique",
+            "sourceText": "Construire une étude prospective multicentrique française en IRM cardiaque sur l’association entre harmonisation des séquences et de l’analyse et répétabilité du T2 mapping myocardique."
+          },
+          {
+            "operation": "ADD",
+            "targetSectionId": "DESIGN",
+            "targetProjectRef": null,
+            "semanticIdentity": "design:prospective-multicenter",
+            "polarity": "AFFIRMED",
+            "studyRole": null,
+            "epistemicStatus": "EXPLICIT_USER_STATED",
+            "assertionKind": "USER_STATED",
+            "proposalSourceText": null,
+            "evidenceRefs": [],
+            "candidateRef": "design:prospective-multicenter",
+            "proposedType": "STUDY_DESIGN",
+            "content": "Étude observationnelle prospective multicentrique en France",
+            "sourceText": "Construire une étude prospective multicentrique française en IRM cardiaque sur l’association entre harmonisation des séquences et de l’analyse et répétabilité du T2 mapping myocardique."
+          }
+        ]
+      },
+      "canonicalProjectBinding": {
+        "projectId": "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+        "projectVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1",
+        "projectDigest": "ke1-a05af6e1f0dd75d5",
+        "snapshotDigest": "ke1-d36035fec61a0c7a",
+        "decisionId": "project-contribution-decision:ke1-90b603714a08e265"
+      },
+      "snapshotFacts": {
+        "objectRefs": [
+          "question:cmr-t2-repeatability",
+          "population:cmr-adults",
+          "design:prospective-multicenter",
+          "modality:cardiac-mri",
+          "acquisition:t2-mapping",
+          "variable:t2-repeatability"
+        ],
+        "unknownObjectRefs": [],
+        "contradictions": []
+      },
+      "knowledgeRequest": {
+        "contractVersion": "1.2.0",
+        "requestId": "knowledge-request:ke1-695d28536a06862f",
+        "requestRevision": 1,
+        "researchProjectId": "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+        "strategyVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1",
+        "originalQuestion": "Dans une étude prospective multicentrique française en IRM cardiaque, l'harmonisation des séquences et de l'analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?",
+        "normalizedQuestion": "Dans une étude prospective multicentrique française en IRM cardiaque, l'harmonisation des séquences et de l'analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?",
+        "requestType": "IDENTIFY_GAP",
+        "knowledgePurpose": "CLARIFY_SELECTION",
+        "consumer": "RESEARCH_PROJECT_CONSTRUCTION",
+        "scientificObjects": [
+          {
+            "objectId": "question:cmr-t2-repeatability",
+            "originalTerm": "L'harmonisation des séquences et de l'analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?",
+            "role": "SUBJECT"
+          },
+          {
+            "objectId": "population:cmr-adults",
+            "originalTerm": "Adultes inclus dans une étude française multicentrique",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "design:prospective-multicenter",
+            "originalTerm": "Étude observationnelle prospective multicentrique en France",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "modality:cardiac-mri",
+            "originalTerm": "IRM cardiaque",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "acquisition:t2-mapping",
+            "originalTerm": "T2 mapping myocardique",
+            "role": "CONTEXT"
+          },
+          {
+            "objectId": "variable:t2-repeatability",
+            "originalTerm": "Répétabilité du T2 mapping myocardique",
+            "role": "SUBJECT"
+          }
+        ],
+        "relations": [],
+        "requestedClaimType": "BEST_OPTION",
+        "context": {
+          "contextId": "knowledge-context:ke1-7e2b36a1475762c5",
+          "version": "1.2.0",
+          "dimensions": [
+            {
+              "name": "domain",
+              "values": [
+                "CARDIAC_IMAGING"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "EXPLICIT_USER_STATEMENT",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "pathology",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "population",
+              "values": [
+                "Adultes inclus dans une étude française multicentrique"
+              ],
+              "state": "KNOWN",
+              "force": "HARD",
+              "source": "VALIDATED_SESSION",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "phenomenon",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "biomarker",
+              "values": [
+                "Répétabilité du T2 mapping myocardique"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "modality",
+              "values": [
+                "IRM cardiaque"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "technique",
+              "values": [
+                "T2 mapping myocardique"
+              ],
+              "state": "KNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "equipment",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "timing",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "VALIDATED_SESSION",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "objective",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            },
+            {
+              "name": "criterion",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "intervention",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "SOFT",
+              "source": "NOT_PROVIDED",
+              "critical": false,
+              "exclusions": []
+            },
+            {
+              "name": "usage",
+              "values": [],
+              "state": "UNKNOWN",
+              "force": "HARD",
+              "source": "NOT_PROVIDED",
+              "critical": true,
+              "exclusions": []
+            }
+          ],
+          "unknowns": [
+            "MISSING_OBJECTIVE",
+            "MISSING_PATHOLOGY",
+            "MISSING_PHENOMENON",
+            "MISSING_USAGE",
+            "PENDING_VERIFICATION:acquisition:t2-mapping",
+            "PENDING_VERIFICATION:design:prospective-multicenter",
+            "PENDING_VERIFICATION:modality:cardiac-mri",
+            "PENDING_VERIFICATION:population:cmr-adults",
+            "PENDING_VERIFICATION:question:cmr-t2-repeatability",
+            "PENDING_VERIFICATION:variable:t2-repeatability"
+          ],
+          "contradictions": [],
+          "explicitExclusions": [],
+          "relaxation": null,
+          "status": "UNKNOWN",
+          "digest": "ke1-7e2b36a1475762c5"
+        },
+        "exclusions": [],
+        "unknowns": [
+          "MISSING_OBJECTIVE",
+          "MISSING_PATHOLOGY",
+          "MISSING_PHENOMENON",
+          "MISSING_USAGE",
+          "PENDING_VERIFICATION:acquisition:t2-mapping",
+          "PENDING_VERIFICATION:design:prospective-multicenter",
+          "PENDING_VERIFICATION:modality:cardiac-mri",
+          "PENDING_VERIFICATION:population:cmr-adults",
+          "PENDING_VERIFICATION:question:cmr-t2-repeatability",
+          "PENDING_VERIFICATION:variable:t2-repeatability"
+        ],
+        "expectedUse": "METHODOLOGICAL_REASONING",
+        "freshnessRequirement": "AS_OF_2026_08_09",
+        "sensitivityClassification": "CONFIDENTIAL_PROJECT",
+        "externalSearchPolicy": "INTERNAL_ONLY",
+        "traceId": "knowledge-trace:ke1-695d28536a06862f",
+        "createdAt": "2026-08-26T16:01:00.000Z"
+      },
+      "sourceRefs": [
+        "RB-004:v1.1",
+        "src/features/protocol-designer/fixtures.ts#cardiac",
+        "REG-001@1.0.0",
+        "REG-000:CANDIDATE_CORPUS"
+      ],
+      "knownUnknowns": [
+        "Nombre final de centres et versions exactes des séquences et logiciels"
+      ],
+      "knownContradictions": [
+        "L’usage multicentrique peut être défendable sous harmonisation, mais aucune valeur ne devient universelle du seul fait qu’elle est mesurable dans plusieurs centres."
+      ],
+      "knownLimitations": [
+        "Aucun seuil clinique ni ordre de séquences n’est produit.",
+        "REG décrit seulement l’applicabilité encodée du corpus local et ne vaut ni avis juridique ni autorisation."
+      ],
+      "inputPackDigest": "ke1-bfd3a7011f4b8585"
+    }
+  ],
+  "noPostFreezeMutationAuthorized": true
+}

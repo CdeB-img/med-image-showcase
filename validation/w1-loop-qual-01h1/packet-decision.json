@@ -1,0 +1,61 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_PACKET_DECISION",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "decision": "W1_LOOP_QUAL_01H1_HUMAN_REVIEW_PACKET_READY",
+  "decisionMeaning": "Five fresh frozen controlled-loop executions are technically readable for Charles; no scientific disposition has been assigned.",
+  "controlledLoopCases": 5,
+  "humanAdjudicationCompleted": 0,
+  "humanAdjudicationPending": 5,
+  "humanScientificAdjudicationRequired": true,
+  "scientificPass": false,
+  "controlledLoopCharacterization": "PENDING_HUMAN_ADJUDICATION",
+  "initialExecutionAttempt": "PRE_OWNER_CHARACTERIZATION_HARNESS_REJECTION",
+  "ownerInvocationsInitialAttempt": 0,
+  "harnessCorrectionClassification": "CHARACTERIZATION_HARNESS_COMPATIBILITY_CORRECTION",
+  "cleanFirstAttemptClaimed": false,
+  "w1ControlledLoopCharacterizationReady": false,
+  "wave1Complete": false,
+  "wave2Authorized": false,
+  "nextAuthorizedMission": "NONE_PENDING_MANUAL_CONTROLLED_LOOP_ADJUDICATION",
+  "technicalGate": "PASS_FOR_HUMAN_PACKET_PREPARATION_ONLY",
+  "traceRuns": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "runId": "scientific-run:LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "status": "COMPLETED"
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "runId": "scientific-run:LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "status": "COMPLETED"
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "runId": "scientific-run:LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "status": "COMPLETED"
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "runId": "scientific-run:LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "status": "COMPLETED"
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "runId": "scientific-run:LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "status": "COMPLETED"
+    }
+  ],
+  "costControl": {
+    "externalLlmApiCalls": 0,
+    "openAiApiCalls": 0,
+    "chatGptApiCalls": 0,
+    "geminiCalls": 0,
+    "otherLlmProviderCalls": 0,
+    "networkCalls": 0,
+    "rerolls": 0,
+    "postObservationRepairs": 0
+  },
+  "stRuntimeModified": false,
+  "productOrchestratorCreated": false
+}

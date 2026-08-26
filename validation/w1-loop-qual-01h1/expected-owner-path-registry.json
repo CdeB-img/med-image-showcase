@@ -1,0 +1,154 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_EXPECTED_OWNER_PATH_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "authoredBeforeObservation": true,
+  "paths": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "primaryPath": [
+        "PROJECT_CONTEXT",
+        "KNOWLEDGE",
+        "KNOWLEDGE_TO_ST_HANDOFF",
+        "SCIENTIFIC_THINKING",
+        "ST_TO_IMAGING_HANDOFF",
+        "IMAGING",
+        "VAL_INPUT_ADAPTER",
+        "VAL"
+      ],
+      "ownerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "imagingPolicy": "EXPECTED",
+      "regBranch": null,
+      "forbidden": [
+        "PRODUCT_ORCHESTRATOR",
+        "AUTOMATIC_RERUN",
+        "AUTOMATIC_REPAIR",
+        "OWNER_RESULT_PROMOTION",
+        "PROJECT_WRITE"
+      ]
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "primaryPath": [
+        "PROJECT_CONTEXT",
+        "KNOWLEDGE",
+        "KNOWLEDGE_TO_ST_HANDOFF",
+        "SCIENTIFIC_THINKING",
+        "ST_TO_IMAGING_HANDOFF",
+        "IMAGING",
+        "VAL_INPUT_ADAPTER",
+        "VAL"
+      ],
+      "ownerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "imagingPolicy": "EXPECTED",
+      "regBranch": null,
+      "forbidden": [
+        "PRODUCT_ORCHESTRATOR",
+        "AUTOMATIC_RERUN",
+        "AUTOMATIC_REPAIR",
+        "OWNER_RESULT_PROMOTION",
+        "PROJECT_WRITE"
+      ]
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "primaryPath": [
+        "PROJECT_CONTEXT",
+        "KNOWLEDGE",
+        "KNOWLEDGE_TO_ST_HANDOFF",
+        "SCIENTIFIC_THINKING",
+        "ST_TO_IMAGING_HANDOFF",
+        "IMAGING",
+        "VAL_INPUT_ADAPTER",
+        "VAL"
+      ],
+      "ownerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "imagingPolicy": "EXPECTED_UNDER_CURRENT_VALIDATED_DESIGN_CONTEXT_ADAPTER_EVEN_IF_ST_HANDOFF_NOT_READY;_NO_AUTHORIZATION_INFERRED",
+      "regBranch": null,
+      "forbidden": [
+        "PRODUCT_ORCHESTRATOR",
+        "AUTOMATIC_RERUN",
+        "AUTOMATIC_REPAIR",
+        "OWNER_RESULT_PROMOTION",
+        "PROJECT_WRITE"
+      ]
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "primaryPath": [
+        "PROJECT_CONTEXT",
+        "KNOWLEDGE",
+        "KNOWLEDGE_TO_ST_HANDOFF",
+        "SCIENTIFIC_THINKING",
+        "ST_TO_IMAGING_HANDOFF",
+        "IMAGING",
+        "VAL_INPUT_ADAPTER",
+        "VAL"
+      ],
+      "ownerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "imagingPolicy": "EXPECTED",
+      "regBranch": null,
+      "forbidden": [
+        "PRODUCT_ORCHESTRATOR",
+        "AUTOMATIC_RERUN",
+        "AUTOMATIC_REPAIR",
+        "OWNER_RESULT_PROMOTION",
+        "PROJECT_WRITE"
+      ]
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "primaryPath": [
+        "PROJECT_CONTEXT",
+        "KNOWLEDGE",
+        "KNOWLEDGE_TO_ST_HANDOFF",
+        "SCIENTIFIC_THINKING",
+        "ST_TO_IMAGING_HANDOFF",
+        "IMAGING",
+        "VAL_INPUT_ADAPTER",
+        "VAL"
+      ],
+      "ownerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL",
+        "REGULATORY_RESOLUTION"
+      ],
+      "imagingPolicy": "EXPECTED",
+      "regBranch": {
+        "invocation": "CONDITIONAL_CALLER_SUPPLIED",
+        "relationToScience": "SIBLING_NOT_UPSTREAM",
+        "valScope": "SCIENTIFIC_CHAIN_ONLY",
+        "approvalClaimAuthorized": false
+      },
+      "forbidden": [
+        "PRODUCT_ORCHESTRATOR",
+        "AUTOMATIC_RERUN",
+        "AUTOMATIC_REPAIR",
+        "OWNER_RESULT_PROMOTION",
+        "PROJECT_WRITE"
+      ]
+    }
+  ]
+}

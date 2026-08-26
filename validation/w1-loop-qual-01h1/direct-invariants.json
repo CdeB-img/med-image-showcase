@@ -1,0 +1,436 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_DIRECT_INVARIANTS",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "checkerPolicy": "DIRECT_TRUSTWORTHY_TECHNICAL_INVARIANTS_ONLY;_NOT_A_SCIENTIFIC_PACKET_GATE",
+  "initialExecutionAttempt": {
+    "status": "PRE_OWNER_CHARACTERIZATION_HARNESS_REJECTION",
+    "ownerInvocations": 0,
+    "failureCode": "SCIENTIFIC_TRACE_RUN_BINDING_INVALID",
+    "invalidHarnessContext": "CHARACTERIZATION_HARNESS",
+    "admittedHarnessContext": "TEST_HARNESS",
+    "correctionClassification": "CHARACTERIZATION_HARNESS_COMPATIBILITY_CORRECTION",
+    "cleanFirstAttemptClaimed": false,
+    "ownerRepair": false,
+    "scientificRepair": false,
+    "caseRepair": false,
+    "inputRepair": false,
+    "postObservationScientificTuning": false,
+    "unchangedByCorrection": {
+      "frozenScientificCases": true,
+      "projectInputs": true,
+      "knowledgeInputs": true,
+      "expectedOwnerPaths": true,
+      "humanLoopReviewEnvelopes": true,
+      "ownerRuntimes": true,
+      "scientificExpectations": true
+    },
+    "proof": {
+      "freezeBindingsReverifiedAfterCorrection": true,
+      "runtimeHashesReverifiedAfterCorrection": true,
+      "correctionScope": "TEMPORARY_CHARACTERIZATION_HARNESS_INITIATOR_CONTEXT_LABEL_ONLY"
+    }
+  },
+  "aggregate": {
+    "exactCases": 5,
+    "invocationTotals": {
+      "KNOWLEDGE": 5,
+      "SCIENTIFIC_THINKING": 5,
+      "IMAGING": 5,
+      "VAL": 5,
+      "REGULATORY_RESOLUTION": 1
+    },
+    "ownerInvocationsMatchExpectedPaths": true,
+    "projectTupleExact": true,
+    "totalProjectWrites": 0,
+    "totalAutomaticAdoptions": 0,
+    "totalExternalCalls": 0,
+    "totalObsRuntimeCalls": 0,
+    "totalValRepairCalls": 0,
+    "scientificQualificationClaims": 0,
+    "completedTraces": 5,
+    "runtimeFailures": 0,
+    "technicalGate": "PASS_FOR_HUMAN_PACKET_PREPARATION_ONLY"
+  },
+  "cases": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "projectTupleExact": true,
+      "projectUnchanged": true,
+      "projectWrites": 0,
+      "automaticAdoption": 0,
+      "humanDecisionBypassed": false,
+      "externalCalls": 0,
+      "obsRuntimeCalls": 0,
+      "valRepairCalls": 0,
+      "valScientificQualificationClaimed": false,
+      "traceCompleted": true,
+      "traceEventCount": 22,
+      "expectedOwnerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "observedOwnerInvocations": {
+        "KNOWLEDGE": 1,
+        "SCIENTIFIC_THINKING": 1,
+        "IMAGING": 1,
+        "VAL": 1
+      },
+      "ownerResultPresence": [
+        {
+          "owner": "KNOWLEDGE",
+          "resultId": "knowledge-result:ke1-265946db6c68e4af",
+          "digest": "ke1-265946db6c68e4af",
+          "dependencies": []
+        },
+        {
+          "owner": "SCIENTIFIC_THINKING",
+          "resultId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+          "digest": "ke1-6e21a1be7d879e5a",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-265946db6c68e4af"
+            }
+          ]
+        },
+        {
+          "owner": "IMAGING",
+          "resultId": "imaging-design-result:ke1-90b7a092216ec486",
+          "digest": "ke1-90b7a092216ec486",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "resultVersion": "1.2.2",
+              "nativeResultDigest": "ke1-6e21a1be7d879e5a"
+            }
+          ]
+        }
+      ],
+      "validationBoundedStatus": "STRUCTURAL_FIDELITY_PASS"
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "projectTupleExact": true,
+      "projectUnchanged": true,
+      "projectWrites": 0,
+      "automaticAdoption": 0,
+      "humanDecisionBypassed": false,
+      "externalCalls": 0,
+      "obsRuntimeCalls": 0,
+      "valRepairCalls": 0,
+      "valScientificQualificationClaimed": false,
+      "traceCompleted": true,
+      "traceEventCount": 22,
+      "expectedOwnerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "observedOwnerInvocations": {
+        "KNOWLEDGE": 1,
+        "SCIENTIFIC_THINKING": 1,
+        "IMAGING": 1,
+        "VAL": 1
+      },
+      "ownerResultPresence": [
+        {
+          "owner": "KNOWLEDGE",
+          "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+          "digest": "ke1-64fdb4acd1427118",
+          "dependencies": []
+        },
+        {
+          "owner": "SCIENTIFIC_THINKING",
+          "resultId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+          "digest": "ke1-4e2f474028dffca4",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-64fdb4acd1427118"
+            }
+          ]
+        },
+        {
+          "owner": "IMAGING",
+          "resultId": "imaging-design-result:ke1-1965d9a529af5939",
+          "digest": "ke1-1965d9a529af5939",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "resultVersion": "1.2.2",
+              "nativeResultDigest": "ke1-4e2f474028dffca4"
+            }
+          ]
+        }
+      ],
+      "validationBoundedStatus": "STRUCTURAL_FIDELITY_PASS"
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "projectTupleExact": true,
+      "projectUnchanged": true,
+      "projectWrites": 0,
+      "automaticAdoption": 0,
+      "humanDecisionBypassed": false,
+      "externalCalls": 0,
+      "obsRuntimeCalls": 0,
+      "valRepairCalls": 0,
+      "valScientificQualificationClaimed": false,
+      "traceCompleted": true,
+      "traceEventCount": 22,
+      "expectedOwnerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "observedOwnerInvocations": {
+        "KNOWLEDGE": 1,
+        "SCIENTIFIC_THINKING": 1,
+        "IMAGING": 1,
+        "VAL": 1
+      },
+      "ownerResultPresence": [
+        {
+          "owner": "KNOWLEDGE",
+          "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+          "digest": "ke1-bc7120cb1cbb2ddf",
+          "dependencies": []
+        },
+        {
+          "owner": "SCIENTIFIC_THINKING",
+          "resultId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+          "digest": "ke1-5922b19ba761ac6f",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-bc7120cb1cbb2ddf"
+            }
+          ]
+        },
+        {
+          "owner": "IMAGING",
+          "resultId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+          "digest": "ke1-b72b2ed0483d4b74",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "resultVersion": "1.2.2",
+              "nativeResultDigest": "ke1-5922b19ba761ac6f"
+            }
+          ]
+        }
+      ],
+      "validationBoundedStatus": "STRUCTURAL_FIDELITY_PASS"
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "projectTupleExact": true,
+      "projectUnchanged": true,
+      "projectWrites": 0,
+      "automaticAdoption": 0,
+      "humanDecisionBypassed": false,
+      "externalCalls": 0,
+      "obsRuntimeCalls": 0,
+      "valRepairCalls": 0,
+      "valScientificQualificationClaimed": false,
+      "traceCompleted": true,
+      "traceEventCount": 22,
+      "expectedOwnerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "observedOwnerInvocations": {
+        "KNOWLEDGE": 1,
+        "SCIENTIFIC_THINKING": 1,
+        "IMAGING": 1,
+        "VAL": 1
+      },
+      "ownerResultPresence": [
+        {
+          "owner": "KNOWLEDGE",
+          "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+          "digest": "ke1-b85daecc6a251de8",
+          "dependencies": []
+        },
+        {
+          "owner": "SCIENTIFIC_THINKING",
+          "resultId": "scientific-thinking-output:ke1-746f27094aef71a5",
+          "digest": "ke1-746f27094aef71a5",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-b85daecc6a251de8"
+            }
+          ]
+        },
+        {
+          "owner": "IMAGING",
+          "resultId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+          "digest": "ke1-a0ccbd9b53fe157f",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "resultVersion": "1.2.2",
+              "nativeResultDigest": "ke1-746f27094aef71a5"
+            }
+          ]
+        }
+      ],
+      "validationBoundedStatus": "STRUCTURAL_FIDELITY_PASS"
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "projectTupleExact": true,
+      "projectUnchanged": true,
+      "projectWrites": 0,
+      "automaticAdoption": 0,
+      "humanDecisionBypassed": false,
+      "externalCalls": 0,
+      "obsRuntimeCalls": 0,
+      "valRepairCalls": 0,
+      "valScientificQualificationClaimed": false,
+      "traceCompleted": true,
+      "traceEventCount": 27,
+      "expectedOwnerInvocations": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL",
+        "REGULATORY_RESOLUTION"
+      ],
+      "observedOwnerInvocations": {
+        "KNOWLEDGE": 1,
+        "SCIENTIFIC_THINKING": 1,
+        "IMAGING": 1,
+        "VAL": 1,
+        "REGULATORY_RESOLUTION": 1
+      },
+      "ownerResultPresence": [
+        {
+          "owner": "KNOWLEDGE",
+          "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+          "digest": "ke1-46d6f35039ef1c3c",
+          "dependencies": []
+        },
+        {
+          "owner": "SCIENTIFIC_THINKING",
+          "resultId": "scientific-thinking-output:ke1-858715dc9c432618",
+          "digest": "ke1-858715dc9c432618",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-46d6f35039ef1c3c"
+            }
+          ]
+        },
+        {
+          "owner": "IMAGING",
+          "resultId": "imaging-design-result:ke1-1cbe6865af0765e9",
+          "digest": "ke1-1cbe6865af0765e9",
+          "dependencies": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "nativeResultDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "resultVersion": "1.2.2",
+              "nativeResultDigest": "ke1-858715dc9c432618"
+            }
+          ]
+        },
+        {
+          "owner": "REGULATORY_RESOLUTION",
+          "resultId": "regulatory-resolution:ke1-1a89aab7ace3d6a3",
+          "digest": "regulatory-resolution:ke1-1a89aab7ace3d6a3",
+          "dependencies": []
+        }
+      ],
+      "validationBoundedStatus": "STRUCTURAL_FIDELITY_PASS"
+    }
+  ],
+  "directlyObservedReviewCaveats": [
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "observation": "The three RB-005 CONTROVERSY documentary statements, including Position A and Position B, are present in Knowledge and in the ST request reasoningStatements. The typed ST knowledge.contradictions, ST output contradictions and Imaging input contradictions arrays are empty.",
+      "classification": "HUMAN_REVIEW_POINT",
+      "automaticDisposition": "NONE",
+      "notAutomaticallyClassifiedAs": [
+        "PASS",
+        "FAIL",
+        "CONTRADICTION_LOSS",
+        "ST_DEFECT",
+        "HANDOFF_DEFECT"
+      ],
+      "firstObservableStageCandidate": null
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "observation": "The exact Project UNKNOWN reaches Knowledge context, produces a blocking ST adaptive question and remains in Imaging uncertainties; ST is CLARIFICATION_REQUIRED and its handoff is NOT_READY while the current adapter invokes Imaging as VALIDATED_DESIGN_CONTEXT.",
+      "classification": "PRESERVATION_OBSERVED;_SCIENTIFIC_UTILITY_PENDING_HUMAN_REVIEW",
+      "firstObservableStageCandidate": null
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "observation": "Knowledge returns NO_PROVIDER; ST requests Knowledge and Imaging retains NO_REGISTERED_PROVIDER plus EXTERNAL_RESEARCH_REQUIRED without acquisition or imaging-variable candidates.",
+      "classification": "FAIL_CLOSED_DEGRADATION_OBSERVED;_SCIENTIFIC_UTILITY_PENDING_HUMAN_REVIEW",
+      "firstObservableStageCandidate": null
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "observation": "The Knowledge gap remains present. REG is recorded after VAL as a sibling owner invocation from the exact canonical Project; the ValidationRun references only Knowledge, Scientific Thinking and Imaging. REG is not promoted into Knowledge, is not used as scientific evidence for ST or Imaging, and no regulatory approval is inferred.",
+      "classification": "REG_SIBLING_BOUNDARY_OBSERVED;_SCIENTIFIC_INTERPRETATION_PENDING_HUMAN_REVIEW",
+      "firstObservableStageCandidate": null
+    }
+  ],
+  "automatedScientificVerdict": "FORBIDDEN",
+  "scientificPass": false
+}

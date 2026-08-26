@@ -1,0 +1,4389 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_TRACE_INDEX",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "traceContract": "SCIENTIFIC_EXECUTION_TRACE_LEDGER@0.1.0",
+  "passive": true,
+  "appendOnly": true,
+  "derived": true,
+  "replayAware": true,
+  "runs": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "runId": "scientific-run:LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:loop-g-a-spectral-calibration-01",
+        "projectVersion": "project:loop-g-a-spectral-calibration-01:version:1",
+        "projectDigest": "ke1-16e5ee00304442e4",
+        "snapshotRef": "ke1-66bc20a31cf511df"
+      },
+      "eventCount": 22,
+      "firstDivergentStage": "PENDING_HUMAN_REVIEW",
+      "events": [
+        {
+          "sequence": 1,
+          "eventId": "scientific-trace-event:ke1-53e04006cbf6f18a",
+          "eventDigest": "ke1-e06647c3d005d0cf",
+          "eventType": "RUN_STARTED",
+          "timestamp": "2026-08-26T18:00:30.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "RUNNING",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "PROJECT_CONTEXT",
+            "code": "PROJECT_SNAPSHOT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 2,
+          "eventId": "scientific-trace-event:ke1-3e224bce7a29ed8a",
+          "eventDigest": "ke1-2667d020a752a80c",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T18:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-6cdd504b397d759f",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-265b515916ab4035"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 3,
+          "eventId": "scientific-trace-event:ke1-573bfb53f40b325f",
+          "eventDigest": "ke1-75ea361028e2a83c",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T18:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-6cdd504b397d759f",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-265b515916ab4035"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 4,
+          "eventId": "scientific-trace-event:ke1-3cf9057d21c65501",
+          "eventDigest": "ke1-eb8efff0368e0a84",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T18:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-6cdd504b397d759f",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-265b515916ab4035"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 5,
+          "eventId": "scientific-trace-event:ke1-90e4e992f1bf67d6",
+          "eventDigest": "ke1-843e3fc3e13cb607",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T18:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "COMPLETED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-6cdd504b397d759f",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-265b515916ab4035"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "KNOWLEDGE",
+            "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+            "artifactVersion": "1",
+            "artifactDigest": "ke1-265946db6c68e4af"
+          },
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 6,
+          "eventId": "scientific-trace-event:ke1-ef02088cc4fc52d8",
+          "eventDigest": "ke1-10268da6dfb8a3a2",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T18:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-6cdd504b397d759f",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-265b515916ab4035"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-265946db6c68e4af"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "KNOWLEDGE",
+            "artifactId": "owner-result-ledger-entry:ke1-d5250ed540ba5989",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-ba338697fdf09613"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 7,
+          "eventId": "scientific-trace-event:ke1-b9a2286a92ceee76",
+          "eventDigest": "ke1-d211406762d906fb",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T18:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-30b15519c0b13f75",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-052a60ab76716bf7"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-265946db6c68e4af"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 8,
+          "eventId": "scientific-trace-event:ke1-06e2d4f03b820e5c",
+          "eventDigest": "ke1-11472015aceaf331",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T18:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-30b15519c0b13f75",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-052a60ab76716bf7"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 9,
+          "eventId": "scientific-trace-event:ke1-5c74de1abc0d9c26",
+          "eventDigest": "ke1-720b5eb8a5b9180c",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T18:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-30b15519c0b13f75",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-052a60ab76716bf7"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 10,
+          "eventId": "scientific-trace-event:ke1-d2bf9bd13c67faa5",
+          "eventDigest": "ke1-ff925bac6de9cd80",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T18:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-30b15519c0b13f75",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-052a60ab76716bf7"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+            "artifactVersion": "1.2.2",
+            "artifactDigest": "ke1-6e21a1be7d879e5a"
+          },
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 11,
+          "eventId": "scientific-trace-event:ke1-b2d239d7a10d66bb",
+          "eventDigest": "ke1-567928dd83ad7851",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T18:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-30b15519c0b13f75",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-052a60ab76716bf7"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-6e21a1be7d879e5a"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "owner-result-ledger-entry:ke1-11ec9050ba1a56bc",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-36bd35fa3f2bdf2e"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 12,
+          "eventId": "scientific-trace-event:ke1-c2788451a1ff2365",
+          "eventDigest": "ke1-07f6ec23275252b7",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T18:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-6d14564502b7d951",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e629249ded2a9be9"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-6e21a1be7d879e5a"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-6e21a1be7d879e5a"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 13,
+          "eventId": "scientific-trace-event:ke1-dc2a1d861e30c362",
+          "eventDigest": "ke1-c19821a20cd10f56",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T18:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-6d14564502b7d951",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e629249ded2a9be9"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-6e21a1be7d879e5a"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 14,
+          "eventId": "scientific-trace-event:ke1-bb520fafc98f0f93",
+          "eventDigest": "ke1-eefcd2d383ef8be7",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T18:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-6d14564502b7d951",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e629249ded2a9be9"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-6e21a1be7d879e5a"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 15,
+          "eventId": "scientific-trace-event:ke1-2fc7850c5b0aa638",
+          "eventDigest": "ke1-4a1218af7e8476a3",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T18:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-6d14564502b7d951",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e629249ded2a9be9"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-6e21a1be7d879e5a"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "IMAGING",
+            "artifactId": "imaging-design-result:ke1-90b7a092216ec486",
+            "artifactVersion": "1.2.1",
+            "artifactDigest": "ke1-90b7a092216ec486"
+          },
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 16,
+          "eventId": "scientific-trace-event:ke1-8c19ad8c9d6ff848",
+          "eventDigest": "ke1-8a0dbd14d7aa9540",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T18:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-6d14564502b7d951",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e629249ded2a9be9"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-90b7a092216ec486",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-90b7a092216ec486"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-265946db6c68e4af",
+              "resultVersion": "1",
+              "resultDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-6e21a1be7d879e5a"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "IMAGING",
+            "artifactId": "owner-result-ledger-entry:ke1-054c4934ab9dd7e0",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-494fcd86f1c37842"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 17,
+          "eventId": "scientific-trace-event:ke1-8a6286f61e31e502",
+          "eventDigest": "ke1-e3f3c66311ad47d7",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T18:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-6e21a1be7d879e5a"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-90b7a092216ec486",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-90b7a092216ec486"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 18,
+          "eventId": "scientific-trace-event:ke1-83d5e3cf9c0a941b",
+          "eventDigest": "ke1-0b8741736741a167",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T18:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-6e21a1be7d879e5a"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-90b7a092216ec486",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-90b7a092216ec486"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 19,
+          "eventId": "scientific-trace-event:ke1-4b36784828787f74",
+          "eventDigest": "ke1-27a856ee6cd49fa2",
+          "eventType": "VALIDATION_STARTED",
+          "timestamp": "2026-08-26T18:04:00.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-6e21a1be7d879e5a"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-90b7a092216ec486",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-90b7a092216ec486"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "VALIDATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 20,
+          "eventId": "scientific-trace-event:ke1-57bfbe67e838655b",
+          "eventDigest": "ke1-c404c42e2cf68ffa",
+          "eventType": "VALIDATION_COMPLETED",
+          "timestamp": "2026-08-26T18:04:01.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STRUCTURAL_FIDELITY_PASS",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-6e21a1be7d879e5a"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-90b7a092216ec486",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-90b7a092216ec486"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN",
+            "owner": "VAL",
+            "artifactId": "val-run:val1-47be2f9cc58b2960",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "val1-31afafdccb8df388"
+          },
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "STRUCTURAL_FIDELITY_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 21,
+          "eventId": "scientific-trace-event:ke1-0f07606113b83135",
+          "eventDigest": "ke1-a65b7800a6087ccc",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T18:04:01.000Z",
+          "owner": "VAL",
+          "engine": "PROTOCOL_DESIGNER_VALIDATION_RUN_LEDGER",
+          "engineVersion": "0.1.0",
+          "status": "VALIDATION_RUN_RETAINED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-265946db6c68e4af",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-265946db6c68e4af"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-6e21a1be7d879e5a"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-90b7a092216ec486",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-90b7a092216ec486"
+            },
+            {
+              "artifactType": "VALIDATION_RUN",
+              "owner": "VAL",
+              "artifactId": "val-run:val1-47be2f9cc58b2960",
+              "artifactVersion": "0.1.0",
+              "artifactDigest": "val1-31afafdccb8df388"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN_LEDGER_ENTRY",
+            "owner": "VAL",
+            "artifactId": "validation-run-ledger-entry:ke1-93e4d3b2809ab7a6",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "ke1-606b736a21c8a7be"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "VALIDATION_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 22,
+          "eventId": "scientific-trace-event:ke1-76b5ee565fa0008a",
+          "eventDigest": "ke1-3fa28f9cc4b4bf08",
+          "eventType": "RUN_COMPLETED",
+          "timestamp": "2026-08-26T18:06:00.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "COMPLETED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": null,
+          "error": null,
+          "nextExpectedHandoff": null
+        }
+      ]
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "runId": "scientific-run:LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:loop-g-b-cbf-cross-modality-contradiction-01",
+        "projectVersion": "project:loop-g-b-cbf-cross-modality-contradiction-01:version:1",
+        "projectDigest": "ke1-00a170e2f3e04be6",
+        "snapshotRef": "ke1-d3942cbaf97af8ce"
+      },
+      "eventCount": 22,
+      "firstDivergentStage": "PENDING_HUMAN_REVIEW",
+      "events": [
+        {
+          "sequence": 1,
+          "eventId": "scientific-trace-event:ke1-c4504909ea0350fd",
+          "eventDigest": "ke1-a755fd57c3bf53d3",
+          "eventType": "RUN_STARTED",
+          "timestamp": "2026-08-26T19:00:30.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "RUNNING",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "PROJECT_CONTEXT",
+            "code": "PROJECT_SNAPSHOT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 2,
+          "eventId": "scientific-trace-event:ke1-8030be424c9f190e",
+          "eventDigest": "ke1-fd72493bf12e03e7",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T19:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-87c0159656ff7372",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-bbf359dbe10909bf"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 3,
+          "eventId": "scientific-trace-event:ke1-4de57ecfb1a92253",
+          "eventDigest": "ke1-09f2da8d8b950371",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T19:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-87c0159656ff7372",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-bbf359dbe10909bf"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 4,
+          "eventId": "scientific-trace-event:ke1-b5613feb93f8fd4f",
+          "eventDigest": "ke1-9f5cac8aaea923be",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T19:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-87c0159656ff7372",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-bbf359dbe10909bf"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 5,
+          "eventId": "scientific-trace-event:ke1-9ba0e235164e03c1",
+          "eventDigest": "ke1-0031cb34db73e710",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T19:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "COMPLETED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-87c0159656ff7372",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-bbf359dbe10909bf"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "KNOWLEDGE",
+            "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+            "artifactVersion": "1",
+            "artifactDigest": "ke1-64fdb4acd1427118"
+          },
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 6,
+          "eventId": "scientific-trace-event:ke1-1a94d4e0e1872514",
+          "eventDigest": "ke1-7e81fcf35e5348ff",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T19:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-87c0159656ff7372",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-bbf359dbe10909bf"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-64fdb4acd1427118"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "KNOWLEDGE",
+            "artifactId": "owner-result-ledger-entry:ke1-ff3db6665215bc7a",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-9085f5e2bd0e5cee"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 7,
+          "eventId": "scientific-trace-event:ke1-157f64825e434916",
+          "eventDigest": "ke1-6a78de48eda8bb4c",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T19:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-e13609f0c2b2e9f4",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-9545d6c47c823438"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-64fdb4acd1427118"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 8,
+          "eventId": "scientific-trace-event:ke1-42cc07cff827d9e3",
+          "eventDigest": "ke1-f2774443c78bce5f",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T19:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-e13609f0c2b2e9f4",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-9545d6c47c823438"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 9,
+          "eventId": "scientific-trace-event:ke1-3a8604a61dc5193a",
+          "eventDigest": "ke1-2a3d817862210ecc",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T19:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-e13609f0c2b2e9f4",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-9545d6c47c823438"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 10,
+          "eventId": "scientific-trace-event:ke1-7f5350fb91f83037",
+          "eventDigest": "ke1-b014ad6eeaad5982",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T19:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-e13609f0c2b2e9f4",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-9545d6c47c823438"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+            "artifactVersion": "1.2.2",
+            "artifactDigest": "ke1-4e2f474028dffca4"
+          },
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 11,
+          "eventId": "scientific-trace-event:ke1-63afe8a7c78a38ab",
+          "eventDigest": "ke1-2135600f2795290b",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T19:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-e13609f0c2b2e9f4",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-9545d6c47c823438"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-4e2f474028dffca4"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "owner-result-ledger-entry:ke1-7323c3fed9214e22",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-54d8e1c3d5a78f3f"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 12,
+          "eventId": "scientific-trace-event:ke1-646a9995056996c1",
+          "eventDigest": "ke1-41e22ca0d7f11574",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T19:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-2e97f9ca010d1afe",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7bd4dfdc6d66eb40"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-4e2f474028dffca4"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-4e2f474028dffca4"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 13,
+          "eventId": "scientific-trace-event:ke1-e3cf0c0bf95cd977",
+          "eventDigest": "ke1-58d1c7911f897ba5",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T19:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-2e97f9ca010d1afe",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7bd4dfdc6d66eb40"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-4e2f474028dffca4"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 14,
+          "eventId": "scientific-trace-event:ke1-d9e742c82a36fd84",
+          "eventDigest": "ke1-1436b6885960a38c",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T19:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-2e97f9ca010d1afe",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7bd4dfdc6d66eb40"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-4e2f474028dffca4"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 15,
+          "eventId": "scientific-trace-event:ke1-7906234dc542a311",
+          "eventDigest": "ke1-aef7df523969b21e",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T19:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-2e97f9ca010d1afe",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7bd4dfdc6d66eb40"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-4e2f474028dffca4"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "IMAGING",
+            "artifactId": "imaging-design-result:ke1-1965d9a529af5939",
+            "artifactVersion": "1.2.1",
+            "artifactDigest": "ke1-1965d9a529af5939"
+          },
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 16,
+          "eventId": "scientific-trace-event:ke1-115d740c7e4fe4e8",
+          "eventDigest": "ke1-1b7d4a25a523b711",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T19:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-2e97f9ca010d1afe",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7bd4dfdc6d66eb40"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1965d9a529af5939",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1965d9a529af5939"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-64fdb4acd1427118",
+              "resultVersion": "1",
+              "resultDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-4e2f474028dffca4"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "IMAGING",
+            "artifactId": "owner-result-ledger-entry:ke1-a562ff46ebdb565a",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-1d8673a3b9742907"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 17,
+          "eventId": "scientific-trace-event:ke1-0fc4693e1fe31432",
+          "eventDigest": "ke1-a5a1783be3c1fe3f",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T19:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-4e2f474028dffca4"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1965d9a529af5939",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1965d9a529af5939"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 18,
+          "eventId": "scientific-trace-event:ke1-105d3956c5599202",
+          "eventDigest": "ke1-dd7a1136af5e4b12",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T19:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-4e2f474028dffca4"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1965d9a529af5939",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1965d9a529af5939"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 19,
+          "eventId": "scientific-trace-event:ke1-8d1512e3f7615a6f",
+          "eventDigest": "ke1-7a0bc5ef7e6aef7b",
+          "eventType": "VALIDATION_STARTED",
+          "timestamp": "2026-08-26T19:04:00.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-4e2f474028dffca4"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1965d9a529af5939",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1965d9a529af5939"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "VALIDATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 20,
+          "eventId": "scientific-trace-event:ke1-321d34d4acd93518",
+          "eventDigest": "ke1-764a9c1e24451cca",
+          "eventType": "VALIDATION_COMPLETED",
+          "timestamp": "2026-08-26T19:04:01.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STRUCTURAL_FIDELITY_PASS",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-4e2f474028dffca4"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1965d9a529af5939",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1965d9a529af5939"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN",
+            "owner": "VAL",
+            "artifactId": "val-run:val1-d2fc11e4b6a27b10",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "val1-402328f584ea3529"
+          },
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "STRUCTURAL_FIDELITY_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 21,
+          "eventId": "scientific-trace-event:ke1-699ff68d2b847bd9",
+          "eventDigest": "ke1-c717aeec1e298158",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T19:04:01.000Z",
+          "owner": "VAL",
+          "engine": "PROTOCOL_DESIGNER_VALIDATION_RUN_LEDGER",
+          "engineVersion": "0.1.0",
+          "status": "VALIDATION_RUN_RETAINED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-64fdb4acd1427118",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-64fdb4acd1427118"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-4e2f474028dffca4"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1965d9a529af5939",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1965d9a529af5939"
+            },
+            {
+              "artifactType": "VALIDATION_RUN",
+              "owner": "VAL",
+              "artifactId": "val-run:val1-d2fc11e4b6a27b10",
+              "artifactVersion": "0.1.0",
+              "artifactDigest": "val1-402328f584ea3529"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN_LEDGER_ENTRY",
+            "owner": "VAL",
+            "artifactId": "validation-run-ledger-entry:ke1-838c83707062fb54",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "ke1-bd4aed720d91fb9e"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "VALIDATION_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 22,
+          "eventId": "scientific-trace-event:ke1-f21ee28301a800b7",
+          "eventDigest": "ke1-2964f70db0eebe71",
+          "eventType": "RUN_COMPLETED",
+          "timestamp": "2026-08-26T19:06:00.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "COMPLETED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": null,
+          "error": null,
+          "nextExpectedHandoff": null
+        }
+      ]
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "runId": "scientific-run:LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:loop-g-c-post-revasc-timing-unknown-01",
+        "projectVersion": "project:loop-g-c-post-revasc-timing-unknown-01:version:1",
+        "projectDigest": "ke1-e4c28baa11ab8a3e",
+        "snapshotRef": "ke1-4448e9438ea2426f"
+      },
+      "eventCount": 22,
+      "firstDivergentStage": "PENDING_HUMAN_REVIEW",
+      "events": [
+        {
+          "sequence": 1,
+          "eventId": "scientific-trace-event:ke1-f032f222fbcd78e6",
+          "eventDigest": "ke1-af35474765b37973",
+          "eventType": "RUN_STARTED",
+          "timestamp": "2026-08-26T20:00:30.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "RUNNING",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "PROJECT_CONTEXT",
+            "code": "PROJECT_SNAPSHOT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 2,
+          "eventId": "scientific-trace-event:ke1-dd942b8502cf0a19",
+          "eventDigest": "ke1-dbac2f5dea487371",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T20:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-c4ec8c4451577ea0",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-c827a9cc5e707a20"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 3,
+          "eventId": "scientific-trace-event:ke1-7dda9595ed3f4d09",
+          "eventDigest": "ke1-44a0460675eaea22",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T20:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-c4ec8c4451577ea0",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-c827a9cc5e707a20"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 4,
+          "eventId": "scientific-trace-event:ke1-d8785a1a5a312f56",
+          "eventDigest": "ke1-87faac5c327a00a0",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T20:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-c4ec8c4451577ea0",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-c827a9cc5e707a20"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 5,
+          "eventId": "scientific-trace-event:ke1-59543599785a5925",
+          "eventDigest": "ke1-0baa0e917d7be55d",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T20:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "COMPLETED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-c4ec8c4451577ea0",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-c827a9cc5e707a20"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "KNOWLEDGE",
+            "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+            "artifactVersion": "1",
+            "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+          },
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 6,
+          "eventId": "scientific-trace-event:ke1-2b5eed65b9e3f9b9",
+          "eventDigest": "ke1-9c339641581aabcd",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T20:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-c4ec8c4451577ea0",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-c827a9cc5e707a20"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "KNOWLEDGE",
+            "artifactId": "owner-result-ledger-entry:ke1-3bf85f874fc2580b",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-3d33a3da9f0ea53e"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 7,
+          "eventId": "scientific-trace-event:ke1-4a22df463ca14f42",
+          "eventDigest": "ke1-ee1f3f9167336df5",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T20:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-8e9228a2e706ca76",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-f152d3c8fc312e64"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 8,
+          "eventId": "scientific-trace-event:ke1-3f96f038641ab7e4",
+          "eventDigest": "ke1-fd8ff36aacccd58e",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T20:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-8e9228a2e706ca76",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-f152d3c8fc312e64"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 9,
+          "eventId": "scientific-trace-event:ke1-ee5d9228379caee4",
+          "eventDigest": "ke1-d776964397f8df17",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T20:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-8e9228a2e706ca76",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-f152d3c8fc312e64"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 10,
+          "eventId": "scientific-trace-event:ke1-54fdbbb5da7f3e71",
+          "eventDigest": "ke1-1ecd466f0d9df37b",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T20:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-8e9228a2e706ca76",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-f152d3c8fc312e64"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+            "artifactVersion": "1.2.2",
+            "artifactDigest": "ke1-5922b19ba761ac6f"
+          },
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 11,
+          "eventId": "scientific-trace-event:ke1-252c8dd529d019a1",
+          "eventDigest": "ke1-eda55e1fe06be573",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T20:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-8e9228a2e706ca76",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-f152d3c8fc312e64"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-5922b19ba761ac6f"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "owner-result-ledger-entry:ke1-86b3b24f07662c13",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-7b7803f38934413f"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 12,
+          "eventId": "scientific-trace-event:ke1-532967570f1f886b",
+          "eventDigest": "ke1-28f83fd668c4a82a",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T20:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-74e0743ade1e978e",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7c7b0be540a29f51"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-5922b19ba761ac6f"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-5922b19ba761ac6f"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 13,
+          "eventId": "scientific-trace-event:ke1-c9dc4056cf1152ea",
+          "eventDigest": "ke1-b75bcfa2d0700c46",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T20:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-74e0743ade1e978e",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7c7b0be540a29f51"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-5922b19ba761ac6f"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 14,
+          "eventId": "scientific-trace-event:ke1-1c28e4052cf43cb1",
+          "eventDigest": "ke1-f935f2a2e7a2039e",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T20:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-74e0743ade1e978e",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7c7b0be540a29f51"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-5922b19ba761ac6f"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 15,
+          "eventId": "scientific-trace-event:ke1-015e25aed75dcffa",
+          "eventDigest": "ke1-7d8a88dc1a48e420",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T20:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-74e0743ade1e978e",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7c7b0be540a29f51"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-5922b19ba761ac6f"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "IMAGING",
+            "artifactId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+            "artifactVersion": "1.2.1",
+            "artifactDigest": "ke1-b72b2ed0483d4b74"
+          },
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 16,
+          "eventId": "scientific-trace-event:ke1-c03c492ac0385c5e",
+          "eventDigest": "ke1-a2ed4252321fc4e6",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T20:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-74e0743ade1e978e",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-7c7b0be540a29f51"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-b72b2ed0483d4b74"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "resultVersion": "1",
+              "resultDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-5922b19ba761ac6f"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "IMAGING",
+            "artifactId": "owner-result-ledger-entry:ke1-3bd631b8c6d44114",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-7cfb8388c8acc18c"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 17,
+          "eventId": "scientific-trace-event:ke1-38709dd54e70db49",
+          "eventDigest": "ke1-299c048db7208e09",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T20:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-5922b19ba761ac6f"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-b72b2ed0483d4b74"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 18,
+          "eventId": "scientific-trace-event:ke1-6a0a305dc52f2769",
+          "eventDigest": "ke1-126bd9a8ddf9ad6c",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T20:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-5922b19ba761ac6f"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-b72b2ed0483d4b74"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 19,
+          "eventId": "scientific-trace-event:ke1-4096ec7a7e7d1f0e",
+          "eventDigest": "ke1-11525e9b11c92e07",
+          "eventType": "VALIDATION_STARTED",
+          "timestamp": "2026-08-26T20:04:00.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-5922b19ba761ac6f"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-b72b2ed0483d4b74"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "VALIDATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 20,
+          "eventId": "scientific-trace-event:ke1-beda525db394f779",
+          "eventDigest": "ke1-9dc7e204fea7bef0",
+          "eventType": "VALIDATION_COMPLETED",
+          "timestamp": "2026-08-26T20:04:01.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STRUCTURAL_FIDELITY_PASS",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-5922b19ba761ac6f"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-b72b2ed0483d4b74"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN",
+            "owner": "VAL",
+            "artifactId": "val-run:val1-ad45098525b54981",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "val1-4876f5ed3194cf99"
+          },
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "STRUCTURAL_FIDELITY_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 21,
+          "eventId": "scientific-trace-event:ke1-018a2eafa8272db3",
+          "eventDigest": "ke1-d2261bce615eb942",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T20:04:01.000Z",
+          "owner": "VAL",
+          "engine": "PROTOCOL_DESIGNER_VALIDATION_RUN_LEDGER",
+          "engineVersion": "0.1.0",
+          "status": "VALIDATION_RUN_RETAINED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-bc7120cb1cbb2ddf"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-5922b19ba761ac6f"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-b72b2ed0483d4b74"
+            },
+            {
+              "artifactType": "VALIDATION_RUN",
+              "owner": "VAL",
+              "artifactId": "val-run:val1-ad45098525b54981",
+              "artifactVersion": "0.1.0",
+              "artifactDigest": "val1-4876f5ed3194cf99"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN_LEDGER_ENTRY",
+            "owner": "VAL",
+            "artifactId": "validation-run-ledger-entry:ke1-1a676427d1c4349b",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "ke1-9bf32b0d9ddf9cc9"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "VALIDATION_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 22,
+          "eventId": "scientific-trace-event:ke1-75e23bc5c7356d31",
+          "eventDigest": "ke1-70a564b9fe2f620d",
+          "eventType": "RUN_COMPLETED",
+          "timestamp": "2026-08-26T20:06:00.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "COMPLETED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": null,
+          "error": null,
+          "nextExpectedHandoff": null
+        }
+      ]
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "runId": "scientific-run:LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:loop-g-d-renal-dwi-knowledge-gap-01",
+        "projectVersion": "project:loop-g-d-renal-dwi-knowledge-gap-01:version:1",
+        "projectDigest": "ke1-568dce5c3419d450",
+        "snapshotRef": "ke1-e11c690dd24e97e1"
+      },
+      "eventCount": 22,
+      "firstDivergentStage": "PENDING_HUMAN_REVIEW",
+      "events": [
+        {
+          "sequence": 1,
+          "eventId": "scientific-trace-event:ke1-dfda1f378a2e5623",
+          "eventDigest": "ke1-c695c3f34be24faf",
+          "eventType": "RUN_STARTED",
+          "timestamp": "2026-08-26T21:00:30.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "RUNNING",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "PROJECT_CONTEXT",
+            "code": "PROJECT_SNAPSHOT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 2,
+          "eventId": "scientific-trace-event:ke1-5962e8200e36dbec",
+          "eventDigest": "ke1-9b2d824ac6c9ea9e",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T21:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-99f2288d60e807e9",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-1891b48094cef1c4"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 3,
+          "eventId": "scientific-trace-event:ke1-c52192f950188b7d",
+          "eventDigest": "ke1-33abc1b5095d7749",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T21:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-99f2288d60e807e9",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-1891b48094cef1c4"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 4,
+          "eventId": "scientific-trace-event:ke1-ac8d959fe1a68123",
+          "eventDigest": "ke1-9a1bb41d85674181",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T21:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-99f2288d60e807e9",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-1891b48094cef1c4"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 5,
+          "eventId": "scientific-trace-event:ke1-10a20ab731f4fdb3",
+          "eventDigest": "ke1-01694419a48cf1b5",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T21:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "OWNER_EVIDENCE_GAP",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-99f2288d60e807e9",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-1891b48094cef1c4"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "KNOWLEDGE",
+            "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+            "artifactVersion": "1",
+            "artifactDigest": "ke1-b85daecc6a251de8"
+          },
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 6,
+          "eventId": "scientific-trace-event:ke1-cf263e9e361b74ea",
+          "eventDigest": "ke1-cf3b061ca5751ca8",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T21:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-99f2288d60e807e9",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-1891b48094cef1c4"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-b85daecc6a251de8"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "KNOWLEDGE",
+            "artifactId": "owner-result-ledger-entry:ke1-000c0bc49a487508",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-d33ee5d90568ac0d"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 7,
+          "eventId": "scientific-trace-event:ke1-732668ae3ee118e2",
+          "eventDigest": "ke1-de685b6719a044db",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T21:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-473290e83d080c24",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-d84fa4461c43483a"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-b85daecc6a251de8"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 8,
+          "eventId": "scientific-trace-event:ke1-43f74b4a6a5af7c6",
+          "eventDigest": "ke1-61ae1509f89b0355",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T21:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-473290e83d080c24",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-d84fa4461c43483a"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 9,
+          "eventId": "scientific-trace-event:ke1-4d7b3ae70badfc3b",
+          "eventDigest": "ke1-2d42ff5e5adaf3f2",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T21:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-473290e83d080c24",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-d84fa4461c43483a"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 10,
+          "eventId": "scientific-trace-event:ke1-9aeb16e154b3fd0d",
+          "eventDigest": "ke1-1dadb086915548ea",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T21:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-473290e83d080c24",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-d84fa4461c43483a"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+            "artifactVersion": "1.2.2",
+            "artifactDigest": "ke1-746f27094aef71a5"
+          },
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 11,
+          "eventId": "scientific-trace-event:ke1-09fe0ec87bffdba4",
+          "eventDigest": "ke1-44ec46ea5785d1a6",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T21:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-473290e83d080c24",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-d84fa4461c43483a"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-746f27094aef71a5"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "owner-result-ledger-entry:ke1-a9eef4ce4a5bf462",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-5f841b51f0a1212d"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 12,
+          "eventId": "scientific-trace-event:ke1-bc81c72fdc03e29b",
+          "eventDigest": "ke1-913678d9a2002bb5",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T21:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-ea0546895d0b0ab5",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-0c358d033ac1839f"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-746f27094aef71a5"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-746f27094aef71a5"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 13,
+          "eventId": "scientific-trace-event:ke1-675303b56f0c9271",
+          "eventDigest": "ke1-01c62606d15cb9e2",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T21:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-ea0546895d0b0ab5",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-0c358d033ac1839f"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-746f27094aef71a5"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 14,
+          "eventId": "scientific-trace-event:ke1-887cc57b3f9b6467",
+          "eventDigest": "ke1-ac30f41e156ec53a",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T21:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-ea0546895d0b0ab5",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-0c358d033ac1839f"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-746f27094aef71a5"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 15,
+          "eventId": "scientific-trace-event:ke1-7fc6c4996599499d",
+          "eventDigest": "ke1-71005d1be624143f",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T21:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-ea0546895d0b0ab5",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-0c358d033ac1839f"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-746f27094aef71a5"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "IMAGING",
+            "artifactId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+            "artifactVersion": "1.2.1",
+            "artifactDigest": "ke1-a0ccbd9b53fe157f"
+          },
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 16,
+          "eventId": "scientific-trace-event:ke1-3cab0d9b51f16687",
+          "eventDigest": "ke1-efa9c212016eed26",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T21:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-ea0546895d0b0ab5",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-0c358d033ac1839f"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-a0ccbd9b53fe157f"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-b85daecc6a251de8",
+              "resultVersion": "1",
+              "resultDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-746f27094aef71a5"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "IMAGING",
+            "artifactId": "owner-result-ledger-entry:ke1-6b2eb2e77cba81b3",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-ef981190358ad1dc"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 17,
+          "eventId": "scientific-trace-event:ke1-38adbf4300720f5f",
+          "eventDigest": "ke1-1b78214626993cea",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T21:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-746f27094aef71a5"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-a0ccbd9b53fe157f"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 18,
+          "eventId": "scientific-trace-event:ke1-49eae91ead8b2a6a",
+          "eventDigest": "ke1-c0042521b7360ded",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T21:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-746f27094aef71a5"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-a0ccbd9b53fe157f"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 19,
+          "eventId": "scientific-trace-event:ke1-47d7783d13a46161",
+          "eventDigest": "ke1-b9d27a8db0d8c539",
+          "eventType": "VALIDATION_STARTED",
+          "timestamp": "2026-08-26T21:04:00.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-746f27094aef71a5"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-a0ccbd9b53fe157f"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "VALIDATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 20,
+          "eventId": "scientific-trace-event:ke1-ce7d68a08e0a04f4",
+          "eventDigest": "ke1-a6046bc3fc3f247f",
+          "eventType": "VALIDATION_COMPLETED",
+          "timestamp": "2026-08-26T21:04:01.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STRUCTURAL_FIDELITY_PASS",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-746f27094aef71a5"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-a0ccbd9b53fe157f"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN",
+            "owner": "VAL",
+            "artifactId": "val-run:val1-f2547a69e1c7b015",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "val1-e45aa01a21d0ccbe"
+          },
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "STRUCTURAL_FIDELITY_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 21,
+          "eventId": "scientific-trace-event:ke1-d0ac4fd69b55f852",
+          "eventDigest": "ke1-9845fd13412a2e67",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T21:04:01.000Z",
+          "owner": "VAL",
+          "engine": "PROTOCOL_DESIGNER_VALIDATION_RUN_LEDGER",
+          "engineVersion": "0.1.0",
+          "status": "VALIDATION_RUN_RETAINED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-b85daecc6a251de8",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-b85daecc6a251de8"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-746f27094aef71a5"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-a0ccbd9b53fe157f"
+            },
+            {
+              "artifactType": "VALIDATION_RUN",
+              "owner": "VAL",
+              "artifactId": "val-run:val1-f2547a69e1c7b015",
+              "artifactVersion": "0.1.0",
+              "artifactDigest": "val1-e45aa01a21d0ccbe"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN_LEDGER_ENTRY",
+            "owner": "VAL",
+            "artifactId": "validation-run-ledger-entry:ke1-88c127929db03406",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "ke1-a2908345c1284e49"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "VALIDATION_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 22,
+          "eventId": "scientific-trace-event:ke1-3458aa2da90e37a1",
+          "eventDigest": "ke1-daf737a67e58400a",
+          "eventType": "RUN_COMPLETED",
+          "timestamp": "2026-08-26T21:06:00.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "COMPLETED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": null,
+          "error": null,
+          "nextExpectedHandoff": null
+        }
+      ]
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "runId": "scientific-run:LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "runStatus": "COMPLETED",
+      "project": {
+        "projectId": "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+        "projectVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1",
+        "projectDigest": "ke1-a05af6e1f0dd75d5",
+        "snapshotRef": "ke1-d36035fec61a0c7a"
+      },
+      "eventCount": 27,
+      "firstDivergentStage": "PENDING_HUMAN_REVIEW",
+      "events": [
+        {
+          "sequence": 1,
+          "eventId": "scientific-trace-event:ke1-58696336de74a9ba",
+          "eventDigest": "ke1-44624f4d14438319",
+          "eventType": "RUN_STARTED",
+          "timestamp": "2026-08-26T22:00:30.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "RUNNING",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "PROJECT_CONTEXT",
+            "code": "PROJECT_SNAPSHOT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 2,
+          "eventId": "scientific-trace-event:ke1-2673a0a6f619c6ba",
+          "eventDigest": "ke1-418e299a2c8dfb46",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T22:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-42fef4b60b46472a",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-f33f6bed03dd1509"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 3,
+          "eventId": "scientific-trace-event:ke1-5efb91515e6d40bd",
+          "eventDigest": "ke1-cc26b56b8c48922f",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T22:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-42fef4b60b46472a",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-f33f6bed03dd1509"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "OWNER_REQUEST_BUILDING",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 4,
+          "eventId": "scientific-trace-event:ke1-9a18043d95d268b1",
+          "eventDigest": "ke1-080d0ef77749458b",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T22:01:00.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-42fef4b60b46472a",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-f33f6bed03dd1509"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 5,
+          "eventId": "scientific-trace-event:ke1-ef3b9a62f8a1770e",
+          "eventDigest": "ke1-0877b69392c006df",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T22:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "KNOWLEDGE_EVIDENCE",
+          "engineVersion": "1.2.0",
+          "status": "OWNER_EVIDENCE_GAP",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-42fef4b60b46472a",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-f33f6bed03dd1509"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "KNOWLEDGE",
+            "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+            "artifactVersion": "1",
+            "artifactDigest": "ke1-46d6f35039ef1c3c"
+          },
+          "diagnostic": {
+            "stage": "KNOWLEDGE_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 6,
+          "eventId": "scientific-trace-event:ke1-53f6046e94e6a152",
+          "eventDigest": "ke1-dc6b93ee44f3c7ba",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T22:01:01.000Z",
+          "owner": "KNOWLEDGE",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "knowledge-handoff:ke1-42fef4b60b46472a",
+            "requestSchemaVersion": "0.1.0:1.2.0",
+            "requestDigest": "ke1-f33f6bed03dd1509"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-46d6f35039ef1c3c"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "KNOWLEDGE",
+            "artifactId": "owner-result-ledger-entry:ke1-bf6521388c86196c",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-9c4ac269422b6d3d"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "KNOWLEDGE_TO_SCIENTIFIC_THINKING"
+        },
+        {
+          "sequence": 7,
+          "eventId": "scientific-trace-event:ke1-de31edec5d61bb58",
+          "eventDigest": "ke1-8a2dcb4ff77ba80b",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T22:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-28af1e9ea3539242",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-0be3213ae9ae4fb6"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-46d6f35039ef1c3c"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 8,
+          "eventId": "scientific-trace-event:ke1-b23fcb0b188a9f9f",
+          "eventDigest": "ke1-c3d6f691a2ac29d5",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T22:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-28af1e9ea3539242",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-0be3213ae9ae4fb6"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "KNOWLEDGE_TO_ST_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 9,
+          "eventId": "scientific-trace-event:ke1-b5189e5daa388a79",
+          "eventDigest": "ke1-04cb4f8e21ff5fea",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T22:02:00.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-28af1e9ea3539242",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-0be3213ae9ae4fb6"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 10,
+          "eventId": "scientific-trace-event:ke1-0247ba7627e25efa",
+          "eventDigest": "ke1-2ae6f632e660c8c6",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T22:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "SCIENTIFIC_THINKING_PROPOSAL",
+          "engineVersion": "1.2.2",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-28af1e9ea3539242",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-0be3213ae9ae4fb6"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+            "artifactVersion": "1.2.2",
+            "artifactDigest": "ke1-858715dc9c432618"
+          },
+          "diagnostic": {
+            "stage": "SCIENTIFIC_THINKING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 11,
+          "eventId": "scientific-trace-event:ke1-086eea10d23aa694",
+          "eventDigest": "ke1-01a7343c8196fa08",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T22:02:01.000Z",
+          "owner": "SCIENTIFIC_THINKING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "scientific-thinking-handoff:ke1-28af1e9ea3539242",
+            "requestSchemaVersion": "0.1.0:1.2.2",
+            "requestDigest": "ke1-0be3213ae9ae4fb6"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-858715dc9c432618"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "SCIENTIFIC_THINKING",
+            "artifactId": "owner-result-ledger-entry:ke1-b031f48e43038d3a",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-eaed2bab1788c6c7"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_THINKING_TO_IMAGING"
+        },
+        {
+          "sequence": 12,
+          "eventId": "scientific-trace-event:ke1-012d53adbcf72ab1",
+          "eventDigest": "ke1-fd4344f734842bbb",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T22:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-3526ad38db480cac",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e1c577354f2778b9"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-858715dc9c432618"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-858715dc9c432618"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 13,
+          "eventId": "scientific-trace-event:ke1-2735631313dc6f57",
+          "eventDigest": "ke1-c3a0719bc62f813f",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T22:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-3526ad38db480cac",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e1c577354f2778b9"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-858715dc9c432618"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "ST_TO_IMAGING_HANDOFF",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 14,
+          "eventId": "scientific-trace-event:ke1-8c786fba9a7cd8ce",
+          "eventDigest": "ke1-1da14e73d996314f",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T22:03:00.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-3526ad38db480cac",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e1c577354f2778b9"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-858715dc9c432618"
+            }
+          ],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 15,
+          "eventId": "scientific-trace-event:ke1-4d41ada368ebdbaf",
+          "eventDigest": "ke1-e9eddf623602ba66",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T22:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "IMAGING_STUDY_DESIGN",
+          "engineVersion": "1.2.1",
+          "status": "COMPLETED_WITH_LIMITATIONS",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-3526ad38db480cac",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e1c577354f2778b9"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-858715dc9c432618"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "IMAGING",
+            "artifactId": "imaging-design-result:ke1-1cbe6865af0765e9",
+            "artifactVersion": "1.2.1",
+            "artifactDigest": "ke1-1cbe6865af0765e9"
+          },
+          "diagnostic": {
+            "stage": "IMAGING_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 16,
+          "eventId": "scientific-trace-event:ke1-678e68a20dbe160e",
+          "eventDigest": "ke1-3004c4ac3f4d3410",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T22:03:01.000Z",
+          "owner": "IMAGING",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "st-to-imaging:ke1-3526ad38db480cac",
+            "requestSchemaVersion": "0.1.0:1.2.1",
+            "requestDigest": "ke1-e1c577354f2778b9"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1cbe6865af0765e9",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1cbe6865af0765e9"
+            }
+          ],
+          "dependencyRefs": [
+            {
+              "owner": "KNOWLEDGE",
+              "resultId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "resultVersion": "1",
+              "resultDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "owner": "SCIENTIFIC_THINKING",
+              "resultId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "resultVersion": "1.2.2",
+              "resultDigest": "ke1-858715dc9c432618"
+            }
+          ],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "IMAGING",
+            "artifactId": "owner-result-ledger-entry:ke1-bec93545a5fb8f51",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-503789b6fa1f005a"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": "SCIENTIFIC_LOOP_TO_VAL"
+        },
+        {
+          "sequence": 17,
+          "eventId": "scientific-trace-event:ke1-f7ee86a692e21eda",
+          "eventDigest": "ke1-2fd84b95aafb4e31",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T22:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-858715dc9c432618"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1cbe6865af0765e9",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1cbe6865af0765e9"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 18,
+          "eventId": "scientific-trace-event:ke1-2c6925ab514abd6f",
+          "eventDigest": "ke1-50374d67c4bfe733",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T22:04:00.000Z",
+          "owner": "VAL",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-858715dc9c432618"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1cbe6865af0765e9",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1cbe6865af0765e9"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_INPUT_ADAPTER",
+            "code": "VAL_INPUT_CHAIN_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 19,
+          "eventId": "scientific-trace-event:ke1-ab2ff2a17210162d",
+          "eventDigest": "ke1-dc94d98af5c15606",
+          "eventType": "VALIDATION_STARTED",
+          "timestamp": "2026-08-26T22:04:00.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STARTED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-858715dc9c432618"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1cbe6865af0765e9",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1cbe6865af0765e9"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "VALIDATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 20,
+          "eventId": "scientific-trace-event:ke1-c350ab6983a4856d",
+          "eventDigest": "ke1-48ebe9ad7e5c4b61",
+          "eventType": "VALIDATION_COMPLETED",
+          "timestamp": "2026-08-26T22:04:01.000Z",
+          "owner": "VAL",
+          "engine": "VAL-001-DETERMINISTIC-ENGINE",
+          "engineVersion": "1.0.0",
+          "status": "STRUCTURAL_FIDELITY_PASS",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-858715dc9c432618"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1cbe6865af0765e9",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1cbe6865af0765e9"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN",
+            "owner": "VAL",
+            "artifactId": "val-run:val1-6bcc64eb2b6e5117",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "val1-05d32cec93f04c50"
+          },
+          "diagnostic": {
+            "stage": "VAL_ENGINE",
+            "code": "STRUCTURAL_FIDELITY_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 21,
+          "eventId": "scientific-trace-event:ke1-a2cc642454fe5448",
+          "eventDigest": "ke1-ebb92dab80e7b3c7",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T22:04:01.000Z",
+          "owner": "VAL",
+          "engine": "PROTOCOL_DESIGNER_VALIDATION_RUN_LEDGER",
+          "engineVersion": "0.1.0",
+          "status": "VALIDATION_RUN_RETAINED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "KNOWLEDGE",
+              "artifactId": "knowledge-result:ke1-46d6f35039ef1c3c",
+              "artifactVersion": "1",
+              "artifactDigest": "ke1-46d6f35039ef1c3c"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "SCIENTIFIC_THINKING",
+              "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+              "artifactVersion": "1.2.2",
+              "artifactDigest": "ke1-858715dc9c432618"
+            },
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "IMAGING",
+              "artifactId": "imaging-design-result:ke1-1cbe6865af0765e9",
+              "artifactVersion": "1.2.1",
+              "artifactDigest": "ke1-1cbe6865af0765e9"
+            },
+            {
+              "artifactType": "VALIDATION_RUN",
+              "owner": "VAL",
+              "artifactId": "val-run:val1-6bcc64eb2b6e5117",
+              "artifactVersion": "0.1.0",
+              "artifactDigest": "val1-05d32cec93f04c50"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "VALIDATION_RUN_LEDGER_ENTRY",
+            "owner": "VAL",
+            "artifactId": "validation-run-ledger-entry:ke1-56f186a48a1b9ad8",
+            "artifactVersion": "0.1.0",
+            "artifactDigest": "ke1-d6a2dd9e43e2e0ca"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "VALIDATION_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 22,
+          "eventId": "scientific-trace-event:ke1-e1e78f1db4239451",
+          "eventDigest": "ke1-32033e1c473079e0",
+          "eventType": "HANDOFF_STARTED",
+          "timestamp": "2026-08-26T22:05:00.000Z",
+          "owner": "REGULATORY_RESOLUTION",
+          "engine": null,
+          "engineVersion": null,
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "regulatory-handoff:ke1-0596e8dd45f6d0d1",
+            "requestSchemaVersion": "0.1.0:1.0.0",
+            "requestDigest": "ke1-c158ae5f40f510cb"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "REG_REQUEST_BUILDING",
+            "code": "HANDOFF_INPUT_BOUND"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 23,
+          "eventId": "scientific-trace-event:ke1-0c7641b681c52532",
+          "eventDigest": "ke1-3570d81d3f987ef1",
+          "eventType": "HANDOFF_ACCEPTED",
+          "timestamp": "2026-08-26T22:05:00.000Z",
+          "owner": "REGULATORY_RESOLUTION",
+          "engine": null,
+          "engineVersion": null,
+          "status": "ACCEPTED",
+          "requestRef": {
+            "requestId": "regulatory-handoff:ke1-0596e8dd45f6d0d1",
+            "requestSchemaVersion": "0.1.0:1.0.0",
+            "requestDigest": "ke1-c158ae5f40f510cb"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "REG_REQUEST_BUILDING",
+            "code": "HANDOFF_CONTRACT_ACCEPTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 24,
+          "eventId": "scientific-trace-event:ke1-b76fda40d70aedfc",
+          "eventDigest": "ke1-d7ac154f272d34b3",
+          "eventType": "OWNER_INVOCATION_STARTED",
+          "timestamp": "2026-08-26T22:05:00.000Z",
+          "owner": "REGULATORY_RESOLUTION",
+          "engine": "REGULATORY_REQUIREMENT_RESOLUTION",
+          "engineVersion": "1.0.0",
+          "status": "STARTED",
+          "requestRef": {
+            "requestId": "regulatory-handoff:ke1-0596e8dd45f6d0d1",
+            "requestSchemaVersion": "0.1.0:1.0.0",
+            "requestDigest": "ke1-c158ae5f40f510cb"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": {
+            "stage": "REG_ENGINE",
+            "code": "OWNER_INVOCATION_STARTED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 25,
+          "eventId": "scientific-trace-event:ke1-dc089c960dcc3132",
+          "eventDigest": "ke1-e26acc600ad2862c",
+          "eventType": "OWNER_INVOCATION_COMPLETED",
+          "timestamp": "2026-08-26T22:05:01.000Z",
+          "owner": "REGULATORY_RESOLUTION",
+          "engine": "REGULATORY_REQUIREMENT_RESOLUTION",
+          "engineVersion": "1.0.0",
+          "status": "OWNER_CONTEXT_INCOMPLETE",
+          "requestRef": {
+            "requestId": "regulatory-handoff:ke1-0596e8dd45f6d0d1",
+            "requestSchemaVersion": "0.1.0:1.0.0",
+            "requestDigest": "ke1-c158ae5f40f510cb"
+          },
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT",
+            "owner": "REGULATORY_RESOLUTION",
+            "artifactId": "regulatory-resolution:ke1-1a89aab7ace3d6a3",
+            "artifactVersion": "1.0.0",
+            "artifactDigest": "regulatory-resolution:ke1-1a89aab7ace3d6a3"
+          },
+          "diagnostic": {
+            "stage": "REG_ENGINE",
+            "code": "OWNER_RESULT_OBSERVED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 26,
+          "eventId": "scientific-trace-event:ke1-04541199b54c780d",
+          "eventDigest": "ke1-49756275a7fffca1",
+          "eventType": "RESULT_PERSISTED",
+          "timestamp": "2026-08-26T22:05:01.000Z",
+          "owner": "REGULATORY_RESOLUTION",
+          "engine": "PROTOCOL_DESIGNER_KNOWLEDGE_OWNER_LEDGER",
+          "engineVersion": "0.2.0",
+          "status": "OWNER_RESULT_RETAINED",
+          "requestRef": {
+            "requestId": "regulatory-handoff:ke1-0596e8dd45f6d0d1",
+            "requestSchemaVersion": "0.1.0:1.0.0",
+            "requestDigest": "ke1-c158ae5f40f510cb"
+          },
+          "inputOwnerResultRefs": [
+            {
+              "artifactType": "OWNER_RESULT",
+              "owner": "REGULATORY_RESOLUTION",
+              "artifactId": "regulatory-resolution:ke1-1a89aab7ace3d6a3",
+              "artifactVersion": "1.0.0",
+              "artifactDigest": "regulatory-resolution:ke1-1a89aab7ace3d6a3"
+            }
+          ],
+          "dependencyRefs": [],
+          "outputResultRef": {
+            "artifactType": "OWNER_RESULT_LEDGER_ENTRY",
+            "owner": "REGULATORY_RESOLUTION",
+            "artifactId": "owner-result-ledger-entry:ke1-7011e8ba7b25c416",
+            "artifactVersion": "0.2.0",
+            "artifactDigest": "ke1-0ff9b8b0116a944c"
+          },
+          "diagnostic": {
+            "stage": "OWNER_RESULT_PERSISTENCE",
+            "code": "OWNER_LEDGER_ENTRY_APPENDED"
+          },
+          "error": null,
+          "nextExpectedHandoff": null
+        },
+        {
+          "sequence": 27,
+          "eventId": "scientific-trace-event:ke1-4b68751b6bb9285f",
+          "eventDigest": "ke1-d3eb84f9f0ff5fb5",
+          "eventType": "RUN_COMPLETED",
+          "timestamp": "2026-08-26T22:06:00.000Z",
+          "owner": "TRACE",
+          "engine": "SCIENTIFIC_EXECUTION_TRACE",
+          "engineVersion": "0.1.0",
+          "status": "COMPLETED",
+          "requestRef": null,
+          "inputOwnerResultRefs": [],
+          "dependencyRefs": [],
+          "outputResultRef": null,
+          "diagnostic": null,
+          "error": null,
+          "nextExpectedHandoff": null
+        }
+      ]
+    }
+  ],
+  "firstDivergentStageDiagnosticReadiness": "YES_TECHNICALLY;_NO_STAGE_ASSIGNED_WITHOUT_HUMAN_SCIENTIFIC_REVIEW",
+  "privateReasoningStored": false
+}

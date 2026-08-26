@@ -1,0 +1,8432 @@
+# W1-LOOP-QUAL-01H1 — Controlled Scientific Loop Human Review Packet
+
+`LEVEL_3_IMPLEMENTATION_EVIDENCE — NON_NORMATIVE`
+
+Campaign: `W1-LOOP-QUAL-01H1-2026-08-26-G`
+
+This packet presents five fresh, frozen, single-run owner chains for human scientific adjudication. It does not claim Scientific PASS, PD-011 qualification, Wave 1 completion or Wave 2 authorization.
+
+Decision: `W1_LOOP_QUAL_01H1_HUMAN_REVIEW_PACKET_READY`
+
+- `HUMAN_SCIENTIFIC_ADJUDICATION_REQUIRED = YES`
+- `SCIENTIFIC_PASS = NO`
+- `HUMAN_ADJUDICATION_COMPLETED = 0`
+- `HUMAN_ADJUDICATION_PENDING = 5`
+- `CONTROLLED_LOOP_CHARACTERIZATION = PENDING_HUMAN_ADJUDICATION`
+
+## Historical pre-owner harness attempt
+
+`INITIAL_EXECUTION_ATTEMPT = PRE_OWNER_CHARACTERIZATION_HARNESS_REJECTION`
+
+`OWNER_INVOCATIONS_INITIAL_ATTEMPT = 0`
+
+Before any owner invocation, TRACE rejected the temporary harness context label `CHARACTERIZATION_HARNESS` with `SCIENTIFIC_TRACE_RUN_BINDING_INVALID`. The only correction changed that temporary initiator-context label to the contractually admitted `TEST_HARNESS`.
+
+`CORRECTION_CLASSIFICATION = CHARACTERIZATION_HARNESS_COMPATIBILITY_CORRECTION`
+
+This was not an owner repair, scientific repair, case repair, input repair or post-observation scientific tuning. Reverified freeze bindings and runtime hashes demonstrate that the correction changed none of the frozen scientific cases, Project inputs, Knowledge inputs, ExpectedOwnerPaths, HumanLoopReviewEnvelopes, owner runtimes or scientific expectations.
+
+`CLEAN_FIRST_ATTEMPT = NO`
+
+`SUBSEQUENT_OWNER_INVOCATIONS = ONE_PER_EXPECTED_OWNER_PATH`
+
+## Technical overview
+
+| Case | Path | K coverage | ST | Imaging | VAL | TRACE | REG |
+|---|---|---|---|---|---|---|---|
+| LOOP-G-A-SPECTRAL-CALIBRATION-01 | KNOWLEDGE → SCIENTIFIC_THINKING → IMAGING → VAL | SUPPORTED | CANDIDATES_PROPOSED / NOT_READY | RETURN_TO_SCIENTIFIC_THINKING | STRUCTURAL_FIDELITY_PASS | 22 events / COMPLETED | not invoked |
+| LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01 | KNOWLEDGE → SCIENTIFIC_THINKING → IMAGING → VAL | SUPPORTED | CANDIDATES_PROPOSED / NOT_READY | RETURN_TO_SCIENTIFIC_THINKING | STRUCTURAL_FIDELITY_PASS | 22 events / COMPLETED | not invoked |
+| LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01 | KNOWLEDGE → SCIENTIFIC_THINKING → IMAGING → VAL | SUPPORTED | CLARIFICATION_REQUIRED / NOT_READY | RETURN_TO_SCIENTIFIC_THINKING | STRUCTURAL_FIDELITY_PASS | 22 events / COMPLETED | not invoked |
+| LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01 | KNOWLEDGE → SCIENTIFIC_THINKING → IMAGING → VAL | NO_PROVIDER | CANDIDATES_PROPOSED / NOT_READY | RETURN_TO_SCIENTIFIC_THINKING | STRUCTURAL_FIDELITY_PASS | 22 events / COMPLETED | not invoked |
+| LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01 | KNOWLEDGE → SCIENTIFIC_THINKING → IMAGING → VAL → REGULATORY_RESOLUTION | PROVIDER_NOT_APPLICABLE | CANDIDATES_PROPOSED / NOT_READY | RETURN_TO_SCIENTIFIC_THINKING | STRUCTURAL_FIDELITY_PASS | 27 events / COMPLETED | conditional sibling observed |
+
+Directly verified after the pre-owner compatibility correction: exact Project tuple on every OwnerResult, zero Project writes, zero automatic adoption, zero external calls, zero OBS runtime calls, zero VAL repair, and one invocation per expected owner path.
+
+These facts prove technical execution only. They do not establish a loop PASS or any scientific characterization disposition.
+
+`STRUCTURAL_FIDELITY_PASS ≠ SCIENTIFIC_PASS`
+
+## Cross-case review caveats
+
+- **LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01 — HUMAN_REVIEW_POINT** — The two documentary scientific positions are present in Knowledge and preserved in the ST input `reasoningStatements`, but they are not represented in the typed `contradictions` channel at that boundary; the ST output and Imaging input contradiction arrays are also empty. This is not automatically classified as PASS, FAIL, contradiction loss, ST defect or handoff defect. Human scientific and contractual interpretation must decide whether the contradiction's meaning survived adequately across the full loop.
+- **LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01** — The exact Project UNKNOWN reaches Knowledge context, produces a blocking ST adaptive question and remains in Imaging uncertainties; ST is CLARIFICATION_REQUIRED and its handoff is NOT_READY while the current adapter invokes Imaging as VALIDATED_DESIGN_CONTEXT. Classification: `PRESERVATION_OBSERVED;_SCIENTIFIC_UTILITY_PENDING_HUMAN_REVIEW`.
+- **LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01** — Knowledge returns NO_PROVIDER; ST requests Knowledge and Imaging retains NO_REGISTERED_PROVIDER plus EXTERNAL_RESEARCH_REQUIRED without acquisition or imaging-variable candidates. Classification: `FAIL_CLOSED_DEGRADATION_OBSERVED;_SCIENTIFIC_UTILITY_PENDING_HUMAN_REVIEW`.
+- **LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01 — HUMAN_REVIEW_POINT** — The Knowledge gap remains present. REG is invoked only as a sibling owner from the exact canonical Project, after the scientific VAL observation. REG is not promoted into Knowledge, is not used as scientific evidence for ST or Imaging, and implies no regulatory approval. No automatic scientific verdict is assigned.
+
+## 1. Dérive de calibration et concentration d’iode reconstruite
+
+- Case: `LOOP-G-A-SPECTRAL-CALIBRATION-01`
+- Family: `A_SIMPLE_SUPPORTED_CHAIN`
+- Domain: `SPECTRAL_CT_METROLOGY`
+- Purpose: Observer une chaîne nominale simple sans contradiction structurante ni décision d’owner concurrent.
+
+### Scientific question
+
+Dans un phantom de contrôle qualité au CT spectral, une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite lorsque dose et reconstruction restent fixées ?
+
+### Frozen Project context
+
+Project tuple: `project:loop-g-a-spectral-calibration-01` / `project:loop-g-a-spectral-calibration-01:version:1` / `ke1-16e5ee00304442e4` / snapshot `ke1-66bc20a31cf511df`
+
+| Type | Epistemic state | Content |
+|---|---|---|
+| SCIENTIFIC_QUESTION | EXPLICIT_USER_STATED | Une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite à dose et reconstruction fixées ? |
+| POPULATION | EXPLICIT_USER_STATED | Phantom de contrôle qualité avec concentrations d’iode stables |
+| IMAGING_MODALITY | EXPLICIT_USER_STATED | CT spectral |
+| ACQUISITION | EXPLICIT_USER_STATED | Acquisitions répétées à dose et reconstruction fixées |
+| CANONICAL_VARIABLE | EXPLICIT_USER_STATED | Concentration d’iode reconstruite |
+| CANONICAL_VARIABLE | EXPLICIT_USER_STATED | Dérive de calibration |
+
+### Knowledge output
+
+Coverage: `SUPPORTED` — Result: `knowledge-result:ke1-265946db6c68e4af` — Digest: `ke1-265946db6c68e4af`
+
+- Source `RB-003:v1.0`: Reasoning Book 03 — Spectral Imaging (output/documents/noxia-protocol-designer-reasoning-book-rb-003-spectral-imaging.docx)
+
+Governed documentary statements:
+
+- [CONTEXT] La question porte sur la comparabilité d’une mesure reconstruite, pas sur la seule disponibilité d’une image ou d’une carte. — RB-003 v1.0, §7–14 ; RB-003 v1.0, §51–57 — `APPLICABLE_WITH_LIMITATIONS`
+- [EVIDENCE_MAP] Distinction mesure / grandeur dérivée — Qualifie le construit et sa dépendance au modèle. — RB-003 v1.0, §7–14 — `APPLICABLE_WITH_LIMITATIONS`
+- [EVIDENCE_MAP] Métrologie et reproductibilité — Borne les conditions de calibration et de comparabilité. — RB-003 v1.0, §51–57 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Les sorties portant le même nom ne sont pas nécessairement interchangeables. — RB-003 v1.0, §7–14 ; RB-003 v1.0, §51–57 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Une carte d’iode ne constitue pas à elle seule une mesure directe de perfusion. — RB-003 v1.0, §7–14 ; RB-003 v1.0, §51–57 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Le démonstrateur n’évalue ni données ni paramètres réels. — RB-003 v1.0, §7–14 ; RB-003 v1.0, §51–57 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] La transférabilité des mesures entre architectures et constructeurs ne peut pas être présumée universelle. — RB-003 v1.0, §7–14 ; RB-003 v1.0, §51–57 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] Position A — comparabilité conditionnelle — Une comparaison quantitative peut être défendable lorsque le construit, la calibration et la reconstruction sont explicitement qualifiés. — RB-003 v1.0, §51–57 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] Position B — non-interchangeabilité — Deux sorties portant le même nom peuvent rester non interchangeables entre architectures ou chaînes de reconstruction. — RB-003 v1.0, §7–14 — `APPLICABLE_WITH_LIMITATIONS`
+- [OPEN_QUESTION] Quel niveau de calibration externe rendrait la comparaison suffisamment robuste pour l’objectif déclaré ? — RB-003 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] Mesure directement observée ou grandeur dérivée — RB-003 v1.0, §7–14 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] Dépendance à l’architecture d’acquisition et de reconstruction — RB-003 v1.0, §51–57 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] Calibration, identifiabilité et répétabilité — RB-003 v1.0, §7–14 — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] La grandeur étudiée est définie de façon identique entre les systèmes comparés. — RB-003 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] La chaîne de calibration permet une comparaison quantitative défendable. — RB-003 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] Les paramètres de reconstruction sont suffisamment documentés pour qualifier la mesure. — RB-003 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [DECISION_CANDIDATE] Comparaison interne contrôlée — bénéfice documenté : Réduit l’hétérogénéité technique et facilite la traçabilité. Limite : Portée externe limitée. Condition : Même chaîne et mêmes contrôles documentés. — RB-003 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [DECISION_CANDIDATE] Comparaison multi-systèmes qualifiée — bénéfice documenté : Explore la transférabilité entre architectures. Limite : Charge de calibration et risque de non-identifiabilité plus élevés. Condition : Phantoms, versions et transformations explicitement harmonisés. — RB-003 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+
+Knowledge gaps and limitations:
+
+```json
+{
+  "gaps": [
+    {
+      "gapId": "knowledge-gap:ke1-d7f2f2b0db118d64",
+      "code": "MISSING_CRITICAL_CONTEXT",
+      "scope": "INTERVENTION",
+      "explanation": "L’applicabilité au contexte d’intervention explicite n’est pas documentée.",
+      "affectedConceptIds": [
+        "modality:ct",
+        "technology:spectral-ct",
+        "intervention:stenting"
+      ],
+      "resumeCondition": "Fournir une connaissance couvrant exactement l’intervention et le timing."
+    }
+  ],
+  "limitations": [
+    "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+    "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+    "FOUR_DECLARED_DOMAINS_ONLY",
+    "NARRATIVE_CORPUS",
+    "NO_PATIENT_LEVEL_INTERPRETATION",
+    "NOT_ATOMIC_ASSERTIONS",
+    "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+  ]
+}
+```
+
+### Scientific Thinking output
+
+Status: `CANDIDATES_PROPOSED` — Next: `REVIEW_CANDIDATES` — Handoff: `NOT_READY`
+
+Understood problem: Une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite à dose et reconstruction fixées ?
+
+```json
+{
+  "questions": [
+    {
+      "questionId": "ST-Q-001",
+      "text": "Une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite à dose et reconstruction fixées ?",
+      "kind": "PRIMARY",
+      "rationale": "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
+      "testability": "TESTABLE_CANDIDATE",
+      "scope": "BALANCED",
+      "support": "SUPPORTED",
+      "reviewState": "PENDING",
+      "linkedAssumptionIds": [
+        "ST-A-001"
+      ],
+      "sourceTerms": [
+        "Acquisitions répétées à dose et reconstruction fixées",
+        "Concentration d'iode reconstruite"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesisId": "ST-H-001",
+      "text": "La relation formulée dans « Une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite à dose et reconstruction fixées  » est observable dans le contexte précisé.",
+      "kind": "PRIMARY",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-001",
+      "text": "Calibration, identifiabilité et répétabilité",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-002",
+      "text": "Comparaison interne contrôlée — bénéfice documenté : Réduit l'hétérogénéité technique et facilite la traçabilité. Limite : Portée externe limitée. Condition : Même chaîne et mêmes contrôles documentés.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-003",
+      "text": "Comparaison multi-systèmes qualifiée — bénéfice documenté : Explore la transférabilité entre architectures. Limite : Charge de calibration et risque de non-identifiabilité plus élevés. Condition : Phantoms, versions et transformations explicitement harmonisés.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-004",
+      "text": "Dépendance à l'architecture d'acquisition et de reconstruction",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-005",
+      "text": "Distinction mesure / grandeur dérivée — Qualifie le construit et sa dépendance au modèle.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-006",
+      "text": "La chaîne de calibration permet une comparaison quantitative défendable.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-007",
+      "text": "La grandeur étudiée est définie de façon identique entre les systèmes comparés.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-008",
+      "text": "La question porte sur la comparabilité d'une mesure reconstruite, pas sur la seule disponibilité d'une image ou d'une carte.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-009",
+      "text": "La transférabilité des mesures entre architectures et constructeurs ne peut pas être présumée universelle.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-010",
+      "text": "Le démonstrateur n'évalue ni données ni paramètres réels.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-011",
+      "text": "Les paramètres de reconstruction sont suffisamment documentés pour qualifier la mesure.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-012",
+      "text": "Les sorties portant le même nom ne sont pas nécessairement interchangeables.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-013",
+      "text": "Mesure directement observée ou grandeur dérivée",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-014",
+      "text": "Métrologie et reproductibilité — Borne les conditions de calibration et de comparabilité.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-015",
+      "text": "Position A — comparabilité conditionnelle — Une comparaison quantitative peut être défendable lorsque le construit, la calibration et la reconstruction sont explicitement qualifiés.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-016",
+      "text": "Position B — non-interchangeabilité — Deux sorties portant le même nom peuvent rester non interchangeables entre architectures ou chaînes de reconstruction.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-017",
+      "text": "Quel niveau de calibration externe rendrait la comparaison suffisamment robuste pour l'objectif déclaré ?",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-018",
+      "text": "Une carte d'iode ne constitue pas à elle seule une mesure directe de perfusion.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:spectral-calibration",
+        "PENDING_VERIFICATION:population:iodine-phantom",
+        "PENDING_VERIFICATION:modality:spectral-ct",
+        "PENDING_VERIFICATION:acquisition:repeat-qc",
+        "PENDING_VERIFICATION:variable:iodine-concentration",
+        "PENDING_VERIFICATION:variable:calibration-drift"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "objectiveId": "ST-O-001",
+      "text": "Évaluer la question scientifique candidate : « Une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite à dose et reconstruction fixées  ».",
+      "level": "PRIMARY",
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ],
+      "linkedHypothesisIds": [
+        "ST-H-001"
+      ]
+    }
+  ],
+  "mechanisms": [
+    {
+      "mechanismId": "ST-M-001",
+      "text": "Le mécanisme susceptible de relier Acquisitions répétées à dose et reconstruction fixées et Concentration d'iode reconstruite reste à documenter.",
+      "status": "MECHANISM_TO_DOCUMENT",
+      "support": "PARTIAL",
+      "linkedHypothesisIds": [
+        "ST-H-001",
+        "ST-H-KNOWLEDGE-001",
+        "ST-H-KNOWLEDGE-002",
+        "ST-H-KNOWLEDGE-003",
+        "ST-H-KNOWLEDGE-004",
+        "ST-H-KNOWLEDGE-005",
+        "ST-H-KNOWLEDGE-006",
+        "ST-H-KNOWLEDGE-007",
+        "ST-H-KNOWLEDGE-008",
+        "ST-H-KNOWLEDGE-009",
+        "ST-H-KNOWLEDGE-010",
+        "ST-H-KNOWLEDGE-011",
+        "ST-H-KNOWLEDGE-012",
+        "ST-H-KNOWLEDGE-013",
+        "ST-H-KNOWLEDGE-014",
+        "ST-H-KNOWLEDGE-015",
+        "ST-H-KNOWLEDGE-016",
+        "ST-H-KNOWLEDGE-017",
+        "ST-H-KNOWLEDGE-018"
+      ]
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptionId": "ST-A-001",
+      "text": "La relation exprimée entre Acquisitions répétées à dose et reconstruction fixées et Concentration d'iode reconstruite est supposée avant d’être démontrée.",
+      "challenge": "Distinguer association, prédiction, temporalité et causalité ; rechercher une explication concurrente.",
+      "support": "SUPPORTED",
+      "status": "CHALLENGED"
+    },
+    {
+      "assumptionId": "ST-A-002",
+      "text": "La pertinence de CT spectral et Acquisitions répétées à dose et reconstruction fixées est présumée avant confirmation de la finalité scientifique.",
+      "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+      "support": "SUPPORTED",
+      "status": "CHALLENGED"
+    }
+  ],
+  "alternatives": [
+    "Calibration, identifiabilité et répétabilité",
+    "Comparaison interne contrôlée — bénéfice documenté : Réduit l'hétérogénéité technique et facilite la traçabilité. Limite : Portée externe limitée. Condition : Même chaîne et mêmes contrôles documentés.",
+    "Comparaison multi-systèmes qualifiée — bénéfice documenté : Explore la transférabilité entre architectures. Limite : Charge de calibration et risque de non-identifiabilité plus élevés. Condition : Phantoms, versions et transformations explicitement harmonisés.",
+    "Dépendance à l'architecture d'acquisition et de reconstruction",
+    "Distinction mesure / grandeur dérivée — Qualifie le construit et sa dépendance au modèle.",
+    "La chaîne de calibration permet une comparaison quantitative défendable.",
+    "La grandeur étudiée est définie de façon identique entre les systèmes comparés.",
+    "La question porte sur la comparabilité d'une mesure reconstruite, pas sur la seule disponibilité d'une image ou d'une carte.",
+    "La transférabilité des mesures entre architectures et constructeurs ne peut pas être présumée universelle.",
+    "Le démonstrateur n'évalue ni données ni paramètres réels.",
+    "Les paramètres de reconstruction sont suffisamment documentés pour qualifier la mesure.",
+    "Les sorties portant le même nom ne sont pas nécessairement interchangeables.",
+    "Mesure directement observée ou grandeur dérivée",
+    "Métrologie et reproductibilité — Borne les conditions de calibration et de comparabilité.",
+    "Position A — comparabilité conditionnelle — Une comparaison quantitative peut être défendable lorsque le construit, la calibration et la reconstruction sont explicitement qualifiés.",
+    "Position B — non-interchangeabilité — Deux sorties portant le même nom peuvent rester non interchangeables entre architectures ou chaînes de reconstruction.",
+    "Quel niveau de calibration externe rendrait la comparaison suffisamment robuste pour l'objectif déclaré ?",
+    "Une carte d'iode ne constitue pas à elle seule une mesure directe de perfusion."
+  ],
+  "unknowns": [
+    "Connaissance non résolue : Acquisitions répétées à dose et reconstruction fixées",
+    "Connaissance non résolue : Concentration d'iode reconstruite",
+    "Connaissance non résolue : Dérive de calibration",
+    "Connaissance non résolue : Phantom de contrôle qualité avec concentrations d'iode stables",
+    "Connaissance non résolue : Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+    "PENDING_VERIFICATION:acquisition:repeat-qc",
+    "PENDING_VERIFICATION:modality:spectral-ct",
+    "PENDING_VERIFICATION:population:iodine-phantom",
+    "PENDING_VERIFICATION:question:spectral-calibration",
+    "PENDING_VERIFICATION:variable:calibration-drift",
+    "PENDING_VERIFICATION:variable:iodine-concentration"
+  ],
+  "ambiguities": [
+    "CONCEPT_NON_RÉSOLU:Acquisitions répétées à dose et reconstruction fixées",
+    "CONCEPT_NON_RÉSOLU:Concentration d'iode reconstruite",
+    "CONCEPT_NON_RÉSOLU:Dérive de calibration",
+    "CONCEPT_NON_RÉSOLU:Phantom de contrôle qualité avec concentrations d'iode stables",
+    "CONCEPT_NON_RÉSOLU:Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"
+  ],
+  "contradictions": [],
+  "adaptiveQuestions": [],
+  "knowledgeRequest": null,
+  "handoff": {
+    "handoffVersion": "1.1",
+    "status": "NOT_READY",
+    "questionId": null,
+    "hypothesisIds": [],
+    "objectiveIds": [],
+    "mechanisms": [
+      {
+        "mechanismId": "ST-M-001",
+        "text": "Le mécanisme susceptible de relier Acquisitions répétées à dose et reconstruction fixées et Concentration d'iode reconstruite reste à documenter.",
+        "status": "MECHANISM_TO_DOCUMENT",
+        "support": "PARTIAL",
+        "linkedHypothesisIds": [
+          "ST-H-001",
+          "ST-H-KNOWLEDGE-001",
+          "ST-H-KNOWLEDGE-002",
+          "ST-H-KNOWLEDGE-003",
+          "ST-H-KNOWLEDGE-004",
+          "ST-H-KNOWLEDGE-005",
+          "ST-H-KNOWLEDGE-006",
+          "ST-H-KNOWLEDGE-007",
+          "ST-H-KNOWLEDGE-008",
+          "ST-H-KNOWLEDGE-009",
+          "ST-H-KNOWLEDGE-010",
+          "ST-H-KNOWLEDGE-011",
+          "ST-H-KNOWLEDGE-012",
+          "ST-H-KNOWLEDGE-013",
+          "ST-H-KNOWLEDGE-014",
+          "ST-H-KNOWLEDGE-015",
+          "ST-H-KNOWLEDGE-016",
+          "ST-H-KNOWLEDGE-017",
+          "ST-H-KNOWLEDGE-018"
+        ]
+      }
+    ],
+    "knownInformation": [
+      "PROJECT_ADOPTED:acquisition:repeat-qc:Acquisitions répétées à dose et reconstruction fixées",
+      "PROJECT_ADOPTED:modality:spectral-ct:CT spectral",
+      "PROJECT_ADOPTED:population:iodine-phantom:Phantom de contrôle qualité avec concentrations d'iode stables",
+      "PROJECT_ADOPTED:question:spectral-calibration:Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+      "PROJECT_ADOPTED:variable:calibration-drift:Dérive de calibration",
+      "PROJECT_ADOPTED:variable:iodine-concentration:Concentration d'iode reconstruite"
+    ],
+    "acceptedUnknowns": [],
+    "unresolvedUnknowns": [
+      "Connaissance non résolue : Acquisitions répétées à dose et reconstruction fixées",
+      "Connaissance non résolue : Concentration d'iode reconstruite",
+      "Connaissance non résolue : Dérive de calibration",
+      "Connaissance non résolue : Phantom de contrôle qualité avec concentrations d'iode stables",
+      "Connaissance non résolue : Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+      "PENDING_VERIFICATION:acquisition:repeat-qc",
+      "PENDING_VERIFICATION:modality:spectral-ct",
+      "PENDING_VERIFICATION:population:iodine-phantom",
+      "PENDING_VERIFICATION:question:spectral-calibration",
+      "PENDING_VERIFICATION:variable:calibration-drift",
+      "PENDING_VERIFICATION:variable:iodine-concentration"
+    ],
+    "contradictions": [],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "alternativesNotSelected": [
+      "Calibration, identifiabilité et répétabilité",
+      "Comparaison interne contrôlée — bénéfice documenté : Réduit l'hétérogénéité technique et facilite la traçabilité. Limite : Portée externe limitée. Condition : Même chaîne et mêmes contrôles documentés.",
+      "Comparaison multi-systèmes qualifiée — bénéfice documenté : Explore la transférabilité entre architectures. Limite : Charge de calibration et risque de non-identifiabilité plus élevés. Condition : Phantoms, versions et transformations explicitement harmonisés.",
+      "Dépendance à l'architecture d'acquisition et de reconstruction",
+      "Distinction mesure / grandeur dérivée — Qualifie le construit et sa dépendance au modèle.",
+      "La chaîne de calibration permet une comparaison quantitative défendable.",
+      "La grandeur étudiée est définie de façon identique entre les systèmes comparés.",
+      "La question porte sur la comparabilité d'une mesure reconstruite, pas sur la seule disponibilité d'une image ou d'une carte.",
+      "La transférabilité des mesures entre architectures et constructeurs ne peut pas être présumée universelle.",
+      "Le démonstrateur n'évalue ni données ni paramètres réels.",
+      "Les paramètres de reconstruction sont suffisamment documentés pour qualifier la mesure.",
+      "Les sorties portant le même nom ne sont pas nécessairement interchangeables.",
+      "Mesure directement observée ou grandeur dérivée",
+      "Métrologie et reproductibilité — Borne les conditions de calibration et de comparabilité.",
+      "Position A — comparabilité conditionnelle — Une comparaison quantitative peut être défendable lorsque le construit, la calibration et la reconstruction sont explicitement qualifiés.",
+      "Position B — non-interchangeabilité — Deux sorties portant le même nom peuvent rester non interchangeables entre architectures ou chaînes de reconstruction.",
+      "Quel niveau de calibration externe rendrait la comparaison suffisamment robuste pour l'objectif déclaré ?",
+      "Une carte d'iode ne constitue pas à elle seule une mesure directe de perfusion."
+    ],
+    "limitations": [
+      "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+      "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+      "FOUR_DECLARED_DOMAINS_ONLY",
+      "NARRATIVE_CORPUS",
+      "NO_PATIENT_LEVEL_INTERPRETATION",
+      "NOT_ATOMIC_ASSERTIONS",
+      "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+    ],
+    "provenanceRefs": [
+      "knowledge-result:ke1-265946db6c68e4af",
+      "knowledge-result:ke1-265946db6c68e4af@1",
+      "RB-003:v1.0",
+      "RB-003:v1.0:block:1:ke1-8e6282960d5d2ee2",
+      "RB-003:v1.0:block:10:ke1-673032375116be53",
+      "RB-003:v1.0:block:11:ke1-7e654d371cfcbdcb",
+      "RB-003:v1.0:block:12:ke1-1b7e4f390f5bffcd",
+      "RB-003:v1.0:block:13:ke1-47e91fb128602bfd",
+      "RB-003:v1.0:block:14:ke1-89bcd275dd51c1f9",
+      "RB-003:v1.0:block:15:ke1-b3142c99b8ab2ead",
+      "RB-003:v1.0:block:16:ke1-1e7ae8df7370ac43",
+      "RB-003:v1.0:block:17:ke1-05f20f55ae08b4a9",
+      "RB-003:v1.0:block:18:ke1-678b3686101a2542",
+      "RB-003:v1.0:block:2:ke1-bc90b57d87e0e379",
+      "RB-003:v1.0:block:3:ke1-b5387d5870430a7c",
+      "RB-003:v1.0:block:4:ke1-9349773e2de2094a",
+      "RB-003:v1.0:block:5:ke1-479fa08a2197ea5e",
+      "RB-003:v1.0:block:6:ke1-b10e64cb416f780f",
+      "RB-003:v1.0:block:7:ke1-c99a189744633e4b",
+      "RB-003:v1.0:block:8:ke1-18283bef2c57c5e3",
+      "RB-003:v1.0:block:9:ke1-8796a2a82eaeb02c",
+      "scientific-thinking-project-request:ke1-48b5abf82a66a2fc"
+    ],
+    "knowledgeResultRef": "knowledge-result:ke1-265946db6c68e4af",
+    "blockedBy": [
+      "QUESTION_CONFIRMATION_REQUIRED",
+      "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+      "OBJECTIVE_HIERARCHY_REQUIRED"
+    ],
+    "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+  },
+  "knowledgeDependencies": [
+    {
+      "owner": "KNOWLEDGE",
+      "ownershipTransferred": false,
+      "knowledgeOwnerResultRef": "knowledge-result:ke1-265946db6c68e4af@1",
+      "knowledgeResultRef": "knowledge-result:ke1-265946db6c68e4af",
+      "knowledgeResultRevision": 1,
+      "knowledgeResultDigest": "ke1-265946db6c68e4af",
+      "candidateRefs": [
+        "ST-H-001",
+        "ST-H-KNOWLEDGE-001",
+        "ST-H-KNOWLEDGE-002",
+        "ST-H-KNOWLEDGE-003",
+        "ST-H-KNOWLEDGE-004",
+        "ST-H-KNOWLEDGE-005",
+        "ST-H-KNOWLEDGE-006",
+        "ST-H-KNOWLEDGE-007",
+        "ST-H-KNOWLEDGE-008",
+        "ST-H-KNOWLEDGE-009",
+        "ST-H-KNOWLEDGE-010",
+        "ST-H-KNOWLEDGE-011",
+        "ST-H-KNOWLEDGE-012",
+        "ST-H-KNOWLEDGE-013",
+        "ST-H-KNOWLEDGE-014",
+        "ST-H-KNOWLEDGE-015",
+        "ST-H-KNOWLEDGE-016",
+        "ST-H-KNOWLEDGE-017",
+        "ST-H-KNOWLEDGE-018",
+        "ST-M-001",
+        "ST-O-001",
+        "ST-Q-001"
+      ],
+      "assertionRefs": [],
+      "documentaryStatementRefs": [
+        "RB-003:v1.0:block:1:ke1-8e6282960d5d2ee2",
+        "RB-003:v1.0:block:10:ke1-673032375116be53",
+        "RB-003:v1.0:block:11:ke1-7e654d371cfcbdcb",
+        "RB-003:v1.0:block:12:ke1-1b7e4f390f5bffcd",
+        "RB-003:v1.0:block:13:ke1-47e91fb128602bfd",
+        "RB-003:v1.0:block:14:ke1-89bcd275dd51c1f9",
+        "RB-003:v1.0:block:15:ke1-b3142c99b8ab2ead",
+        "RB-003:v1.0:block:16:ke1-1e7ae8df7370ac43",
+        "RB-003:v1.0:block:17:ke1-05f20f55ae08b4a9",
+        "RB-003:v1.0:block:18:ke1-678b3686101a2542",
+        "RB-003:v1.0:block:2:ke1-bc90b57d87e0e379",
+        "RB-003:v1.0:block:3:ke1-b5387d5870430a7c",
+        "RB-003:v1.0:block:4:ke1-9349773e2de2094a",
+        "RB-003:v1.0:block:5:ke1-479fa08a2197ea5e",
+        "RB-003:v1.0:block:6:ke1-b10e64cb416f780f",
+        "RB-003:v1.0:block:7:ke1-c99a189744633e4b",
+        "RB-003:v1.0:block:8:ke1-18283bef2c57c5e3",
+        "RB-003:v1.0:block:9:ke1-8796a2a82eaeb02c"
+      ],
+      "evidenceRefs": [],
+      "sourceRefs": [
+        "RB-003:v1.0"
+      ],
+      "applicability": [],
+      "contradictionRefs": [],
+      "gapRefs": [
+        "knowledge-gap:ke1-d7f2f2b0db118d64"
+      ]
+    }
+  ],
+  "provenance": {
+    "engineVersion": "1.2.2",
+    "inputRef": "scientific-thinking-project-request:ke1-48b5abf82a66a2fc",
+    "knowledgeResultRef": "knowledge-result:ke1-265946db6c68e4af",
+    "sourceRefs": [
+      "knowledge-result:ke1-265946db6c68e4af@1",
+      "project-contribution-decision:ke1-66a183a8b4c498bc",
+      "RB-003:v1.0",
+      "RB-003:v1.0:block:1:ke1-8e6282960d5d2ee2",
+      "RB-003:v1.0:block:10:ke1-673032375116be53",
+      "RB-003:v1.0:block:11:ke1-7e654d371cfcbdcb",
+      "RB-003:v1.0:block:12:ke1-1b7e4f390f5bffcd",
+      "RB-003:v1.0:block:13:ke1-47e91fb128602bfd",
+      "RB-003:v1.0:block:14:ke1-89bcd275dd51c1f9",
+      "RB-003:v1.0:block:15:ke1-b3142c99b8ab2ead",
+      "RB-003:v1.0:block:16:ke1-1e7ae8df7370ac43",
+      "RB-003:v1.0:block:17:ke1-05f20f55ae08b4a9",
+      "RB-003:v1.0:block:18:ke1-678b3686101a2542",
+      "RB-003:v1.0:block:2:ke1-bc90b57d87e0e379",
+      "RB-003:v1.0:block:3:ke1-b5387d5870430a7c",
+      "RB-003:v1.0:block:4:ke1-9349773e2de2094a",
+      "RB-003:v1.0:block:5:ke1-479fa08a2197ea5e",
+      "RB-003:v1.0:block:6:ke1-b10e64cb416f780f",
+      "RB-003:v1.0:block:7:ke1-c99a189744633e4b",
+      "RB-003:v1.0:block:8:ke1-18283bef2c57c5e3",
+      "RB-003:v1.0:block:9:ke1-8796a2a82eaeb02c"
+    ],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "PD-003",
+      "PD-009",
+      "KE-001"
+    ],
+    "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+  }
+}
+```
+
+### Imaging output
+
+Status: `RETURN_TO_SCIENTIFIC_THINKING` — Result: `imaging-design-result:ke1-90b7a092216ec486` — Digest: `ke1-90b7a092216ec486`
+
+```json
+{
+  "scientificQuestion": {
+    "questionId": "question:spectral-calibration",
+    "text": "Une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite à dose et reconstruction fixées ?",
+    "confirmation": "VALIDATED_CONTEXT"
+  },
+  "modalityCandidates": [
+    {
+      "modalityId": "IMG-MODALITY:modality:ct",
+      "label": "CT",
+      "conceptId": "modality:ct",
+      "biomarkerIds": [],
+      "phenomenonIds": [],
+      "role": "CANDIDATE",
+      "support": "UNKNOWN",
+      "dimensions": {
+        "resolution": "UNKNOWN",
+        "repeatability": "UNKNOWN",
+        "reproducibility": "UNKNOWN",
+        "invasiveness": "UNKNOWN",
+        "irradiation": "UNKNOWN",
+        "contrast": "UNKNOWN",
+        "accessibility": "UNKNOWN",
+        "duration": "UNKNOWN",
+        "artefacts": "UNKNOWN",
+        "equipment": "UNKNOWN",
+        "multicenter": "UNKNOWN",
+        "quality": "UNKNOWN",
+        "analysis": "UNKNOWN",
+        "scientificCoverage": "UNKNOWN"
+      },
+      "dependencies": [
+        "technology:spectral-ct"
+      ],
+      "limitations": [
+        "BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER",
+        "NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"
+      ],
+      "risks": [],
+      "evidenceRefs": [
+        "RB-003:v1.0#RB-003 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé",
+        "RB-003:v1.0#RB-003 v1.0, §51–57",
+        "RB-003:v1.0#RB-003 v1.0, §7–14",
+        "RB-003:v1.0#RB-003 v1.0, §7–14 ; RB-003 v1.0, §51–57"
+      ],
+      "reviewState": "PENDING"
+    },
+    {
+      "modalityId": "IMG-MODALITY:technology:spectral-ct",
+      "label": "CT spectral",
+      "conceptId": "technology:spectral-ct",
+      "biomarkerIds": [],
+      "phenomenonIds": [],
+      "role": "CANDIDATE",
+      "support": "UNKNOWN",
+      "dimensions": {
+        "resolution": "UNKNOWN",
+        "repeatability": "UNKNOWN",
+        "reproducibility": "UNKNOWN",
+        "invasiveness": "UNKNOWN",
+        "irradiation": "UNKNOWN",
+        "contrast": "UNKNOWN",
+        "accessibility": "UNKNOWN",
+        "duration": "UNKNOWN",
+        "artefacts": "UNKNOWN",
+        "equipment": "UNKNOWN",
+        "multicenter": "UNKNOWN",
+        "quality": "UNKNOWN",
+        "analysis": "UNKNOWN",
+        "scientificCoverage": "UNKNOWN"
+      },
+      "dependencies": [
+        "modality:ct"
+      ],
+      "limitations": [
+        "BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER",
+        "NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"
+      ],
+      "risks": [],
+      "evidenceRefs": [
+        "RB-003:v1.0#RB-003 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé",
+        "RB-003:v1.0#RB-003 v1.0, §51–57",
+        "RB-003:v1.0#RB-003 v1.0, §7–14",
+        "RB-003:v1.0#RB-003 v1.0, §7–14 ; RB-003 v1.0, §51–57"
+      ],
+      "reviewState": "PENDING"
+    }
+  ],
+  "acquisitionStrategies": [],
+  "imagingVariables": [],
+  "biomarkerCandidates": [],
+  "missingInformation": [
+    "CONCEPT_NON_RÉSOLU:Acquisitions répétées à dose et reconstruction fixées",
+    "CONCEPT_NON_RÉSOLU:Concentration d'iode reconstruite",
+    "CONCEPT_NON_RÉSOLU:Dérive de calibration",
+    "CONCEPT_NON_RÉSOLU:Phantom de contrôle qualité avec concentrations d'iode stables",
+    "CONCEPT_NON_RÉSOLU:Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+    "Connaissance non résolue : Acquisitions répétées à dose et reconstruction fixées",
+    "Connaissance non résolue : Concentration d'iode reconstruite",
+    "Connaissance non résolue : Dérive de calibration",
+    "Connaissance non résolue : Phantom de contrôle qualité avec concentrations d'iode stables",
+    "Connaissance non résolue : Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+    "L’applicabilité au contexte d’intervention explicite n’est pas documentée.",
+    "PENDING_VERIFICATION:acquisition:repeat-qc",
+    "PENDING_VERIFICATION:modality:spectral-ct",
+    "PENDING_VERIFICATION:population:iodine-phantom",
+    "PENDING_VERIFICATION:question:spectral-calibration",
+    "PENDING_VERIFICATION:variable:calibration-drift",
+    "PENDING_VERIFICATION:variable:iodine-concentration",
+    "Quel observable d’imagerie permettrait d’approcher ce phénomène ?"
+  ],
+  "adaptiveQuestions": [
+    {
+      "questionId": "IMG-AQ-MEASUREMENT",
+      "label": "Quel observable d’imagerie permettrait d’approcher ce phénomène ?",
+      "whyAsked": "Knowledge ne soutient actuellement aucun biomarqueur contextualisé.",
+      "decisionImpact": "Détermine si Imaging peut continuer ou doit retourner vers Scientific Thinking.",
+      "decisionBlock": "BIOMARKERS",
+      "suggestedAnswers": [
+        {
+          "value": "unknown",
+          "label": "Je ne sais pas",
+          "consequence": "L’inconnue reste explicite et la décision dépendante demeure ouverte."
+        }
+      ],
+      "acceptsFreeText": true,
+      "acceptsUnknown": true,
+      "answeredValue": null
+    }
+  ],
+  "limitations": [
+    "AUTHORIZED_ST_HANDOFF_NOT_AVAILABLE_FOR_THIS_DIRECT_DESIGN_CONTEXT",
+    "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+    "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+    "FOUR_DECLARED_DOMAINS_ONLY",
+    "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE",
+    "NARRATIVE_CORPUS",
+    "NO_PATIENT_LEVEL_INTERPRETATION",
+    "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION",
+    "NOT_ATOMIC_ASSERTIONS",
+    "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+  ],
+  "decisionsRequired": [
+    {
+      "gateId": "IMG-GATE-MODALITY",
+      "type": "NON_DOMINATED_MODALITY",
+      "label": "Choisir entre les modalités non dominées",
+      "reason": "Aucun optimum automatique n’est autorisé.",
+      "status": "PENDING",
+      "targetIds": [
+        "IMG-MODALITY:modality:ct",
+        "IMG-MODALITY:technology:spectral-ct"
+      ]
+    },
+    {
+      "gateId": "IMG-GATE-HANDOFF-FREEZE",
+      "type": "HANDOFF_FREEZE",
+      "label": "Geler le handoff Imaging",
+      "reason": "Project Construction ne reçoit que les décisions explicitement autorisées.",
+      "status": "PENDING",
+      "targetIds": [
+        "imaging-project-input:ke1-ff58f9ee007e31aa"
+      ]
+    }
+  ],
+  "knowledgeHandoff": {
+    "requestRef": "request-of:knowledge-result:ke1-265946db6c68e4af",
+    "resultRef": "knowledge-result:ke1-265946db6c68e4af",
+    "resultDigest": "ke1-265946db6c68e4af",
+    "coverageStatus": "SUPPORTED",
+    "gapCodes": [
+      "MISSING_CRITICAL_CONTEXT"
+    ],
+    "noClosestCorpusFallback": true
+  },
+  "projectConstructionHandoff": {
+    "handoffVersion": "1.2",
+    "status": "NOT_READY",
+    "imagingStrategyVersion": "project:loop-g-a-spectral-calibration-01:version:1:IMG-ke1-0d9748cd",
+    "humanDecision": {
+      "status": "PENDING",
+      "decisionRecordId": null
+    },
+    "scientificStrategyStatus": "SCIENTIFIC_STRATEGY_BLOCKED",
+    "projectHandoffReadiness": "PROJECT_HANDOFF_BLOCKED",
+    "equipmentCompatibilityStatus": "NOT_APPLICABLE",
+    "executableProtocolReadiness": "EXECUTABLE_PROTOCOL_NOT_READY",
+    "resultRef": "imaging-design-result:ke1-90b7a092216ec486",
+    "includedSections": [
+      "Question",
+      "Objectives",
+      "Hypotheses",
+      "Phenomena",
+      "Biomarkers",
+      "Modalities",
+      "AcquisitionStrategy",
+      "Timing",
+      "Equipment",
+      "Harmonization",
+      "Quality",
+      "ImageAnalysis",
+      "Variables",
+      "EndpointContributions",
+      "CoreLabAssessment",
+      "NonEvaluability",
+      "Risks",
+      "Limitations",
+      "KnowledgeGaps",
+      "Alternatives",
+      "HumanDecisions",
+      "Provenance"
+    ],
+    "excludedSections": [
+      "STATISTICAL_SIZING",
+      "COMPLETE_BUDGET",
+      "FINAL_CRF",
+      "REGULATORY_PLAN",
+      "COMPLETE_OPERATIONAL_PLAN",
+      "FINAL_SUBMISSION_PROTOCOL"
+    ],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "blockedBy": [
+      "HUMAN_HANDOFF_FREEZE_DECISION_PENDING",
+      "IMG-AQ-MEASUREMENT",
+      "IMG-GATE-MODALITY",
+      "MODALITY_WITHOUT_BIOMARKER",
+      "NO_DEFENSIBLE_IMAGING_CHAIN"
+    ],
+    "unknowns": [
+      "CONCEPT_NON_RÉSOLU:Acquisitions répétées à dose et reconstruction fixées",
+      "CONCEPT_NON_RÉSOLU:Concentration d'iode reconstruite",
+      "CONCEPT_NON_RÉSOLU:Dérive de calibration",
+      "CONCEPT_NON_RÉSOLU:Phantom de contrôle qualité avec concentrations d'iode stables",
+      "CONCEPT_NON_RÉSOLU:Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+      "Connaissance non résolue : Acquisitions répétées à dose et reconstruction fixées",
+      "Connaissance non résolue : Concentration d'iode reconstruite",
+      "Connaissance non résolue : Dérive de calibration",
+      "Connaissance non résolue : Phantom de contrôle qualité avec concentrations d'iode stables",
+      "Connaissance non résolue : Une dérive de calibration est-elle associée à une variation de la concentration d'iode reconstruite à dose et reconstruction fixées ?",
+      "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+      "PENDING_VERIFICATION:acquisition:repeat-qc",
+      "PENDING_VERIFICATION:modality:spectral-ct",
+      "PENDING_VERIFICATION:population:iodine-phantom",
+      "PENDING_VERIFICATION:question:spectral-calibration",
+      "PENDING_VERIFICATION:variable:calibration-drift",
+      "PENDING_VERIFICATION:variable:iodine-concentration"
+    ],
+    "limitations": [
+      "PROJECT_HANDOFF_DOES_NOT_AUTHORIZE_EXECUTABLE_ACQUISITION",
+      "PROJECT_HANDOFF_DOES_NOT_CONFIRM_TECHNICAL_COMPATIBILITY"
+    ],
+    "contradictions": [],
+    "requiredFutureReviews": [
+      "BIOSTATISTICS_REVIEW",
+      "DATA_MANAGEMENT_REVIEW",
+      "EXECUTABLE_PROTOCOL_REVIEW_WITH_GOVERNED_EQUIPMENT_KNOWLEDGE"
+    ],
+    "provenance": [
+      "acquisition:repeat-qc",
+      "imaging-project-input:ke1-ff58f9ee007e31aa",
+      "ke1-16e5ee00304442e4",
+      "modality:spectral-ct",
+      "population:iodine-phantom",
+      "project:loop-g-a-spectral-calibration-01:version:1",
+      "question:spectral-calibration",
+      "RB-003:v1.0",
+      "scientific-thinking-output:ke1-6e21a1be7d879e5a@1.2.2",
+      "variable:calibration-drift",
+      "variable:iodine-concentration"
+    ],
+    "trace": [
+      {
+        "sequence": 1,
+        "decision": "SCIENTIFIC_STRATEGY_BLOCKED",
+        "rationale": "Question, phénomènes et biomarqueurs sont évalués indépendamment de la qualification technique locale."
+      },
+      {
+        "sequence": 2,
+        "decision": "NOT_APPLICABLE",
+        "rationale": "La disponibilité, sa vérification et la compatibilité restent distinctes."
+      },
+      {
+        "sequence": 3,
+        "decision": "PROJECT_HANDOFF_BLOCKED",
+        "rationale": "Une porte scientifique, structurelle ou humaine reste ouverte."
+      },
+      {
+        "sequence": 4,
+        "decision": "EXECUTABLE_PROTOCOL_NOT_READY",
+        "rationale": "Aucune connaissance exécutable gouvernée ne permet de produire des paramètres exacts."
+      }
+    ]
+  },
+  "provenance": {
+    "engineVersion": "1.2.1",
+    "inputRef": "imaging-project-input:ke1-ff58f9ee007e31aa",
+    "knowledgeResultRef": "knowledge-result:ke1-265946db6c68e4af",
+    "sourceRefs": [
+      "RB-003:v1.0"
+    ],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "RDE-003",
+      "KE-001",
+      "ST-001"
+    ],
+    "llmContributionStatus": "NO_LLM_SCIENTIFIC_DECISION"
+  }
+}
+```
+
+### VAL observation
+
+Bounded status: `STRUCTURAL_FIDELITY_PASS` — Run: `undefined` — Digest: `undefined`
+
+```json
+{
+  "observationCount": 73,
+  "observationSummary": [
+    {
+      "observationId": "val-observation:val1-05773ac3f6969a07"
+    },
+    {
+      "observationId": "val-observation:val1-0919af8312fc77b7"
+    },
+    {
+      "observationId": "val-observation:val1-0b80f9fa37bba61e"
+    },
+    {
+      "observationId": "val-observation:val1-0c2713278abbf48b"
+    },
+    {
+      "observationId": "val-observation:val1-0cd37cd3061255d7"
+    },
+    {
+      "observationId": "val-observation:val1-13ddcdc7a93c5033"
+    },
+    {
+      "observationId": "val-observation:val1-1431389f1006799b"
+    },
+    {
+      "observationId": "val-observation:val1-1548cb2f2d022deb"
+    },
+    {
+      "observationId": "val-observation:val1-16e7d20fa6fb51cb"
+    },
+    {
+      "observationId": "val-observation:val1-1895872986e13f6d"
+    },
+    {
+      "observationId": "val-observation:val1-1afa0c7c91c209a0"
+    },
+    {
+      "observationId": "val-observation:val1-1b9c16598a15a25d"
+    },
+    {
+      "observationId": "val-observation:val1-1bb943ca93e5cc36"
+    },
+    {
+      "observationId": "val-observation:val1-1c11b515e7492ea1"
+    },
+    {
+      "observationId": "val-observation:val1-1daa5a4fd10f67c3"
+    },
+    {
+      "observationId": "val-observation:val1-220788a93062c81d"
+    },
+    {
+      "observationId": "val-observation:val1-246b5c446772ceb8"
+    },
+    {
+      "observationId": "val-observation:val1-2944e3ca349422d6"
+    },
+    {
+      "observationId": "val-observation:val1-309a69fb9220c50f"
+    },
+    {
+      "observationId": "val-observation:val1-331520df8ef02aab"
+    },
+    {
+      "observationId": "val-observation:val1-331736fc82976798"
+    },
+    {
+      "observationId": "val-observation:val1-35f8f02549d109c9"
+    },
+    {
+      "observationId": "val-observation:val1-36b6848d2f44d469"
+    },
+    {
+      "observationId": "val-observation:val1-3abf99262487c032"
+    },
+    {
+      "observationId": "val-observation:val1-3ec645dbd70da7bf"
+    },
+    {
+      "observationId": "val-observation:val1-4101cbc14406f485"
+    },
+    {
+      "observationId": "val-observation:val1-4617db97f9dc58f3"
+    },
+    {
+      "observationId": "val-observation:val1-4a09992d899a9301"
+    },
+    {
+      "observationId": "val-observation:val1-4d3b1b67a6e5215b"
+    },
+    {
+      "observationId": "val-observation:val1-4fce2bf6191ad042"
+    },
+    {
+      "observationId": "val-observation:val1-53cabfeaa5c0f7be"
+    },
+    {
+      "observationId": "val-observation:val1-56185b850599ac89"
+    },
+    {
+      "observationId": "val-observation:val1-58ec183175eeacb5"
+    },
+    {
+      "observationId": "val-observation:val1-5e85c3fd0737b299"
+    },
+    {
+      "observationId": "val-observation:val1-69c98cbef9a19882"
+    },
+    {
+      "observationId": "val-observation:val1-6c9ac2c335cee997"
+    },
+    {
+      "observationId": "val-observation:val1-6ccc6532f6942c36"
+    },
+    {
+      "observationId": "val-observation:val1-7183fa450005bd71"
+    },
+    {
+      "observationId": "val-observation:val1-76cdd5b156ac221d"
+    },
+    {
+      "observationId": "val-observation:val1-78e279d24fb4bca6"
+    },
+    {
+      "observationId": "val-observation:val1-7fdb9dbfbc54cd1b"
+    },
+    {
+      "observationId": "val-observation:val1-831d399495386e78"
+    },
+    {
+      "observationId": "val-observation:val1-8f4265f66abdd492"
+    },
+    {
+      "observationId": "val-observation:val1-9428dd66ed75acd2"
+    },
+    {
+      "observationId": "val-observation:val1-97d82fa76a32f5d3"
+    },
+    {
+      "observationId": "val-observation:val1-9e159e86317b1a52"
+    },
+    {
+      "observationId": "val-observation:val1-9fb90169dd69b2e5"
+    },
+    {
+      "observationId": "val-observation:val1-a04cdf2a9115753e"
+    },
+    {
+      "observationId": "val-observation:val1-a97143fdb3ce1639"
+    },
+    {
+      "observationId": "val-observation:val1-abe1493a7203d53e"
+    },
+    {
+      "observationId": "val-observation:val1-aca92bd1f0f6af5d"
+    },
+    {
+      "observationId": "val-observation:val1-ad3d27c2d9c1d1ce"
+    },
+    {
+      "observationId": "val-observation:val1-ad61eb43659c19ff"
+    },
+    {
+      "observationId": "val-observation:val1-b01ca2e8b2f9bc84"
+    },
+    {
+      "observationId": "val-observation:val1-b22c0c7c5891d5c0"
+    },
+    {
+      "observationId": "val-observation:val1-b51a2ca5f2159909"
+    },
+    {
+      "observationId": "val-observation:val1-b7f80e2193b22ecd"
+    },
+    {
+      "observationId": "val-observation:val1-b950582d74352849"
+    },
+    {
+      "observationId": "val-observation:val1-be068cf2556c6b5e"
+    },
+    {
+      "observationId": "val-observation:val1-c3bd4295a83d7ad1"
+    },
+    {
+      "observationId": "val-observation:val1-c57e111527629499"
+    },
+    {
+      "observationId": "val-observation:val1-ce3d0abdcb9a3819"
+    },
+    {
+      "observationId": "val-observation:val1-ce99b0a72182fc03"
+    },
+    {
+      "observationId": "val-observation:val1-d34f742fcd1f52cb"
+    },
+    {
+      "observationId": "val-observation:val1-da88efa6dc1d4a9a"
+    },
+    {
+      "observationId": "val-observation:val1-deaa26348631f550"
+    },
+    {
+      "observationId": "val-observation:val1-e5da0bd103d03e8d"
+    },
+    {
+      "observationId": "val-observation:val1-f059b4a6ec08a08a"
+    },
+    {
+      "observationId": "val-observation:val1-f33509ac9be71bd8"
+    },
+    {
+      "observationId": "val-observation:val1-f4f69a6e709585f2"
+    },
+    {
+      "observationId": "val-observation:val1-f7813feff2c14d5b"
+    },
+    {
+      "observationId": "val-observation:val1-f7f210bdf41472e9"
+    },
+    {
+      "observationId": "val-observation:val1-f837521bce9e24a7"
+    }
+  ],
+  "sourceSnapshotRef": {
+    "artifactId": "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+    "artifactType": "SCIENTIFIC_THINKING_RESULT",
+    "contentDigest": "ke1-6e21a1be7d879e5a",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "SCIENTIFIC_THINKING",
+    "projectId": "project:loop-g-a-spectral-calibration-01",
+    "projectVersion": "project:loop-g-a-spectral-calibration-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "RB-003:v1.0",
+      "RB-003:v1.0:block:10:ke1-673032375116be53",
+      "RB-003:v1.0:block:11:ke1-7e654d371cfcbdcb",
+      "RB-003:v1.0:block:12:ke1-1b7e4f390f5bffcd",
+      "RB-003:v1.0:block:13:ke1-47e91fb128602bfd",
+      "RB-003:v1.0:block:14:ke1-89bcd275dd51c1f9",
+      "RB-003:v1.0:block:15:ke1-b3142c99b8ab2ead",
+      "RB-003:v1.0:block:16:ke1-1e7ae8df7370ac43",
+      "RB-003:v1.0:block:17:ke1-05f20f55ae08b4a9",
+      "RB-003:v1.0:block:18:ke1-678b3686101a2542",
+      "RB-003:v1.0:block:1:ke1-8e6282960d5d2ee2",
+      "RB-003:v1.0:block:2:ke1-bc90b57d87e0e379",
+      "RB-003:v1.0:block:3:ke1-b5387d5870430a7c",
+      "RB-003:v1.0:block:4:ke1-9349773e2de2094a",
+      "RB-003:v1.0:block:5:ke1-479fa08a2197ea5e",
+      "RB-003:v1.0:block:6:ke1-b10e64cb416f780f",
+      "RB-003:v1.0:block:7:ke1-c99a189744633e4b",
+      "RB-003:v1.0:block:8:ke1-18283bef2c57c5e3",
+      "RB-003:v1.0:block:9:ke1-8796a2a82eaeb02c",
+      "ke1-66bc20a31cf511df",
+      "knowledge-result:ke1-265946db6c68e4af",
+      "knowledge-result:ke1-265946db6c68e4af@1",
+      "scientific-thinking-handoff:ke1-30b15519c0b13f75",
+      "scientific-thinking-output:ke1-6e21a1be7d879e5a",
+      "scientific-thinking-project-request:ke1-48b5abf82a66a2fc"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.2"
+  },
+  "targetSnapshotRef": {
+    "artifactId": "imaging-design-result:ke1-90b7a092216ec486",
+    "artifactType": "IMAGING_CONTRIBUTION",
+    "contentDigest": "ke1-90b7a092216ec486",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "IMAGING",
+    "projectId": "project:loop-g-a-spectral-calibration-01",
+    "projectVersion": "project:loop-g-a-spectral-calibration-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "RB-003:v1.0",
+      "imaging-design-result:ke1-90b7a092216ec486",
+      "imaging-project-input:ke1-ff58f9ee007e31aa",
+      "ke1-66bc20a31cf511df",
+      "scientific-thinking-output:ke1-6e21a1be7d879e5a@1.2.2",
+      "st-to-imaging:ke1-6d14564502b7d951"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.1"
+  }
+}
+```
+
+### Ordered TRACE
+
+| Seq | Event | Owner | Status | Diagnostic stage |
+|---:|---|---|---|---|
+| 1 | RUN_STARTED | TRACE | RUNNING | PROJECT_CONTEXT |
+| 2 | HANDOFF_STARTED | KNOWLEDGE | STARTED | OWNER_REQUEST_BUILDING |
+| 3 | HANDOFF_ACCEPTED | KNOWLEDGE | ACCEPTED | OWNER_REQUEST_BUILDING |
+| 4 | OWNER_INVOCATION_STARTED | KNOWLEDGE | STARTED | KNOWLEDGE_ENGINE |
+| 5 | OWNER_INVOCATION_COMPLETED | KNOWLEDGE | COMPLETED | KNOWLEDGE_ENGINE |
+| 6 | RESULT_PERSISTED | KNOWLEDGE | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 7 | HANDOFF_STARTED | SCIENTIFIC_THINKING | STARTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 8 | HANDOFF_ACCEPTED | SCIENTIFIC_THINKING | ACCEPTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 9 | OWNER_INVOCATION_STARTED | SCIENTIFIC_THINKING | STARTED | SCIENTIFIC_THINKING_ENGINE |
+| 10 | OWNER_INVOCATION_COMPLETED | SCIENTIFIC_THINKING | COMPLETED_WITH_LIMITATIONS | SCIENTIFIC_THINKING_ENGINE |
+| 11 | RESULT_PERSISTED | SCIENTIFIC_THINKING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 12 | HANDOFF_STARTED | IMAGING | STARTED | ST_TO_IMAGING_HANDOFF |
+| 13 | HANDOFF_ACCEPTED | IMAGING | ACCEPTED | ST_TO_IMAGING_HANDOFF |
+| 14 | OWNER_INVOCATION_STARTED | IMAGING | STARTED | IMAGING_ENGINE |
+| 15 | OWNER_INVOCATION_COMPLETED | IMAGING | COMPLETED_WITH_LIMITATIONS | IMAGING_ENGINE |
+| 16 | RESULT_PERSISTED | IMAGING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 17 | HANDOFF_STARTED | VAL | STARTED | VAL_INPUT_ADAPTER |
+| 18 | HANDOFF_ACCEPTED | VAL | ACCEPTED | VAL_INPUT_ADAPTER |
+| 19 | VALIDATION_STARTED | VAL | STARTED | VAL_ENGINE |
+| 20 | VALIDATION_COMPLETED | VAL | STRUCTURAL_FIDELITY_PASS | VAL_ENGINE |
+| 21 | RESULT_PERSISTED | VAL | VALIDATION_RUN_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 22 | RUN_COMPLETED | TRACE | COMPLETED |  |
+
+### Direct technical summary
+
+```json
+{
+  "projectTupleExact": true,
+  "projectUnchanged": true,
+  "projectWrites": 0,
+  "humanDecisionBypassed": false,
+  "automaticAdoption": 0,
+  "externalCalls": 0,
+  "obsRuntimeCalls": 0,
+  "valRepairCalls": 0,
+  "valScientificQualificationClaimed": false,
+  "traceEventCount": 22,
+  "traceCompleted": true,
+  "frozenInputDigest": "ke1-293748d0fc0c629c"
+}
+```
+
+### Pre-authored HumanLoopReviewEnvelope
+
+```json
+{
+  "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+  "casePurpose": "Observer une chaîne nominale simple sans contradiction structurante ni décision d’owner concurrent.",
+  "whatEachOwnerShouldContribute": {
+    "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+    "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+    "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+    "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+    "REGULATORY_RESOLUTION": "NOT_INVOKED"
+  },
+  "criticalInformationToPreserve": {
+    "unknowns": [],
+    "contradictions": [],
+    "limitations": [
+      "Les sorties portant le même nom ne sont pas nécessairement interchangeables.",
+      "Le corpus local ne fournit ni seuil d’acceptation ni paramètres exécutables."
+    ],
+    "sourceRefs": [
+      "RB-003:v1.0",
+      "src/features/protocol-designer/fixtures.ts#spectral"
+    ]
+  },
+  "expectedStopOrRefusalBehavior": "Aucun arrêt prédéterminé; toute limitation produite reste visible.",
+  "scientificallyForbiddenBehaviors": [
+    "Transformer un OwnerResult en Project truth",
+    "Promouvoir une contradiction en conclusion résolue",
+    "Inventer une source ou une preuve",
+    "Sélectionner automatiquement une méthode Imaging",
+    "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+    "Créer une approbation réglementaire"
+  ],
+  "acceptableKindsOfResponse": [
+    "Candidats explicitement non adoptés",
+    "Clarification ou gap traçable",
+    "Alternatives conservées",
+    "Stratégies Imaging candidates avec limites",
+    "Diagnostic VAL structurel"
+  ],
+  "humanReviewQuestions": {
+    "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+    "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+    "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+    "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+    "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+    "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+    "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+    "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+  },
+  "L1": "PENDING",
+  "L2": "PENDING",
+  "L3": "PENDING",
+  "L4": "PENDING",
+  "L5": "PENDING",
+  "L6": "PENDING",
+  "L7": "PENDING",
+  "L8": "PENDING"
+}
+```
+
+### Human adjudication
+
+| Question | State |
+|---|---|
+| L1 | PENDING |
+| L2 | PENDING |
+| L3 | PENDING |
+| L4 | PENDING |
+| L5 | PENDING |
+| L6 | PENDING |
+| L7 | PENDING |
+| L8 | PENDING |
+
+## 2. Changement longitudinal de CBF entre CTP et ASL
+
+- Case: `LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01`
+- Family: `B_CONTRADICTION_FULL_CHAIN`
+- Domain: `NEURO_PERFUSION_CROSS_MODALITY`
+- Purpose: Observer si une contradiction documentaire de substituabilité reste visible jusqu’à Imaging et VAL sans sélection automatique d’une position.
+
+### Scientific question
+
+Chez des adultes suivis pour maladie cérébrovasculaire, une baisse du CBF entre une perfusion CT initiale et une ASL IRM de suivi peut-elle être interprétée comme une progression biologique malgré le changement de modalité et de modèle ?
+
+### Frozen Project context
+
+Project tuple: `project:loop-g-b-cbf-cross-modality-contradiction-01` / `project:loop-g-b-cbf-cross-modality-contradiction-01:version:1` / `ke1-00a170e2f3e04be6` / snapshot `ke1-d3942cbaf97af8ce`
+
+| Type | Epistemic state | Content |
+|---|---|---|
+| SCIENTIFIC_QUESTION | EXPLICIT_USER_STATED | Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle ? |
+| POPULATION | EXPLICIT_USER_STATED | Adultes suivis pour maladie cérébrovasculaire |
+| CONDITION | EXPLICIT_USER_STATED | Maladie cérébrovasculaire |
+| IMAGING_MODALITY | EXPLICIT_USER_STATED | Perfusion CT |
+| IMAGING_MODALITY | EXPLICIT_USER_STATED | ASL IRM |
+| CANONICAL_VARIABLE | EXPLICIT_USER_STATED | CBF |
+
+### Knowledge output
+
+Coverage: `SUPPORTED` — Result: `knowledge-result:ke1-64fdb4acd1427118` — Digest: `ke1-64fdb4acd1427118`
+
+- Source `RB-005:v1.0`: Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations (output/documents/noxia-protocol-designer-reasoning-book-rb-005-neuro-perfusion-metabolism-foundations.docx)
+
+Governed documentary statements:
+
+- [CONTEXT] La question distingue les grandeurs hémodynamiques, l’oxygénation et le métabolisme, ainsi que les hypothèses propres à chaque modalité. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [EVIDENCE_MAP] Grandeurs hémodynamiques et modèles — Qualifie les distinctions entre débit, volume et délais. — RB-005 v1.0, §7–27 — `APPLICABLE_WITH_LIMITATIONS`
+- [EVIDENCE_MAP] OEF, CMRO₂ et différences de modalité — Borne l’interprétation physiologique et la commutabilité entre modalités. — RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Tmax et TTP ne sont pas des synonymes de débit cérébral. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Les seuils de pénombre ou de core dépendent du contexte, du logiciel et de la population. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Le démonstrateur ne formule aucune recommandation clinique ou de thrombectomie. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] La robustesse des seuils et des cartes dépend des méthodes, des délais collatéraux et de la transférabilité entre populations. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] Position A — information physiologique utile — Les profils de perfusion, d’oxygénation et de métabolisme peuvent éclairer des construits distincts lorsque le modèle est explicite. — RB-005 v1.0, §7–31 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] Position B — non-substituabilité — CBF, CBV, délais, OEF et CMRO₂ ne sont ni synonymes ni directement commutables entre modalités. — RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [OPEN_QUESTION] Comment séparer une altération métabolique d’un effet de délai, de modèle ou de condition systémique ? — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] CBF, CBV, MTT, TTP et Tmax : grandeurs distinctes — RB-005 v1.0, §7–27 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] OEF et CMRO₂ : extraction d’oxygène et métabolisme — RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] Délai collatéral, état systémique et couplage neurovasculaire — RB-005 v1.0, §7–27 — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] Le biomarqueur sélectionné représente le construit physiologique visé. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] Le délai et la dispersion sont séparés d’une véritable altération du débit. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] La modalité et le modèle permettent la comparaison envisagée. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [DECISION_CANDIDATE] Lecture hémodynamique ciblée — bénéfice documenté : Clarifie débit, volume et délai avec un modèle explicite. Limite : Ne décrit pas directement l’extraction d’oxygène ni le métabolisme. Condition : Modèle, AIF et effets de délai qualifiés. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [DECISION_CANDIDATE] Lecture physiologique intégrée — bénéfice documenté : Met en relation perfusion, oxygénation et métabolisme. Limite : Plus de modèles, de modalités et d’incertitudes cumulées. Condition : Temporalité, recalage et hypothèses intermodalités documentés. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+
+Knowledge gaps and limitations:
+
+```json
+{
+  "gaps": [
+    {
+      "gapId": "knowledge-gap:ke1-7ba51890589c5c9c",
+      "code": "MISSING_CRITICAL_CONTEXT",
+      "scope": "CONTEXT",
+      "explanation": "Dimensions critiques absentes : MISSING_TECHNIQUE, MISSING_TIMING, MISSING_USAGE, PENDING_VERIFICATION:condition:cerebrovascular-disease, PENDING_VERIFICATION:modality:asl-mri, PENDING_VERIFICATION:modality:ctp, PENDING_VERIFICATION:population:cerebrovascular-adults, PENDING_VERIFICATION:question:cbf-cross-modality, PENDING_VERIFICATION:variable:cbf.",
+      "affectedConceptIds": [
+        "modality:mri",
+        "modality:ct",
+        "biomarker:cerebral-perfusion"
+      ],
+      "resumeCondition": "Obtenir une clarification humaine."
+    }
+  ],
+  "limitations": [
+    "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+    "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+    "FOUR_DECLARED_DOMAINS_ONLY",
+    "NARRATIVE_CORPUS",
+    "NO_PATIENT_LEVEL_INTERPRETATION",
+    "NOT_ATOMIC_ASSERTIONS",
+    "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+  ]
+}
+```
+
+### Scientific Thinking output
+
+Status: `CANDIDATES_PROPOSED` — Next: `REVIEW_CANDIDATES` — Handoff: `NOT_READY`
+
+Understood problem: Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle ?
+
+```json
+{
+  "questions": [
+    {
+      "questionId": "ST-Q-001",
+      "text": "Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle ?",
+      "kind": "PRIMARY",
+      "rationale": "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
+      "testability": "TESTABLE_CANDIDATE",
+      "scope": "BALANCED",
+      "support": "SUPPORTED",
+      "reviewState": "PENDING",
+      "linkedAssumptionIds": [
+        "ST-A-001"
+      ],
+      "sourceTerms": [
+        "Adultes suivis pour maladie cérébrovasculaire",
+        "ASL IRM"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesisId": "ST-H-001",
+      "text": "La relation formulée dans « Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle  » est observable dans le contexte précisé.",
+      "kind": "PRIMARY",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-001",
+      "text": "CBF, CBV, MTT, TTP et Tmax : grandeurs distinctes",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-002",
+      "text": "Comment séparer une altération métabolique d'un effet de délai, de modèle ou de condition systémique ?",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-003",
+      "text": "Délai collatéral, état systémique et couplage neurovasculaire",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-004",
+      "text": "Grandeurs hémodynamiques et modèles — Qualifie les distinctions entre débit, volume et délais.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-005",
+      "text": "La modalité et le modèle permettent la comparaison envisagée.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-006",
+      "text": "La question distingue les grandeurs hémodynamiques, l'oxygénation et le métabolisme, ainsi que les hypothèses propres à chaque modalité.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-007",
+      "text": "La robustesse des seuils et des cartes dépend des méthodes, des délais collatéraux et de la transférabilité entre populations.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-008",
+      "text": "Le biomarqueur sélectionné représente le construit physiologique visé.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-009",
+      "text": "Le délai et la dispersion sont séparés d'une véritable altération du débit.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-010",
+      "text": "Le démonstrateur ne formule aucune recommandation clinique ou de thrombectomie.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-011",
+      "text": "Lecture hémodynamique ciblée — bénéfice documenté : Clarifie débit, volume et délai avec un modèle explicite. Limite : Ne décrit pas directement l'extraction d'oxygène ni le métabolisme. Condition : Modèle, AIF et effets de délai qualifiés.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-012",
+      "text": "Lecture physiologique intégrée — bénéfice documenté : Met en relation perfusion, oxygénation et métabolisme. Limite : Plus de modèles, de modalités et d'incertitudes cumulées. Condition : Temporalité, recalage et hypothèses intermodalités documentés.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-013",
+      "text": "Les seuils de pénombre ou de core dépendent du contexte, du logiciel et de la population.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-014",
+      "text": "OEF et CMRO2 : extraction d'oxygène et métabolisme",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-015",
+      "text": "OEF, CMRO2 et différences de modalité — Borne l'interprétation physiologique et la commutabilité entre modalités.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-016",
+      "text": "Position A — information physiologique utile — Les profils de perfusion, d'oxygénation et de métabolisme peuvent éclairer des construits distincts lorsque le modèle est explicite.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-017",
+      "text": "Position B — non-substituabilité — CBF, CBV, délais, OEF et CMRO2 ne sont ni synonymes ni directement commutables entre modalités.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-KNOWLEDGE-018",
+      "text": "Tmax et TTP ne sont pas des synonymes de débit cérébral.",
+      "kind": "ALTERNATIVE",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Cette branche candidate doit rester distincte et être confrontée à une information discriminante ; aucun gagnant n’est sélectionné.",
+      "direction": null,
+      "limitations": [
+        "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+        "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+        "FOUR_DECLARED_DOMAINS_ONLY",
+        "NARRATIVE_CORPUS",
+        "NO_PATIENT_LEVEL_INTERPRETATION",
+        "NOT_ATOMIC_ASSERTIONS",
+        "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cbf-cross-modality",
+        "PENDING_VERIFICATION:population:cerebrovascular-adults",
+        "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+        "PENDING_VERIFICATION:modality:ctp",
+        "PENDING_VERIFICATION:modality:asl-mri",
+        "PENDING_VERIFICATION:variable:cbf"
+      ],
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "objectiveId": "ST-O-001",
+      "text": "Évaluer la question scientifique candidate : « Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle  ».",
+      "level": "PRIMARY",
+      "support": "PARTIAL",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ],
+      "linkedHypothesisIds": [
+        "ST-H-001"
+      ]
+    }
+  ],
+  "mechanisms": [
+    {
+      "mechanismId": "ST-M-001",
+      "text": "Le mécanisme susceptible de relier Adultes suivis pour maladie cérébrovasculaire et ASL IRM reste à documenter.",
+      "status": "MECHANISM_TO_DOCUMENT",
+      "support": "PARTIAL",
+      "linkedHypothesisIds": [
+        "ST-H-001",
+        "ST-H-KNOWLEDGE-001",
+        "ST-H-KNOWLEDGE-002",
+        "ST-H-KNOWLEDGE-003",
+        "ST-H-KNOWLEDGE-004",
+        "ST-H-KNOWLEDGE-005",
+        "ST-H-KNOWLEDGE-006",
+        "ST-H-KNOWLEDGE-007",
+        "ST-H-KNOWLEDGE-008",
+        "ST-H-KNOWLEDGE-009",
+        "ST-H-KNOWLEDGE-010",
+        "ST-H-KNOWLEDGE-011",
+        "ST-H-KNOWLEDGE-012",
+        "ST-H-KNOWLEDGE-013",
+        "ST-H-KNOWLEDGE-014",
+        "ST-H-KNOWLEDGE-015",
+        "ST-H-KNOWLEDGE-016",
+        "ST-H-KNOWLEDGE-017",
+        "ST-H-KNOWLEDGE-018"
+      ]
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptionId": "ST-A-001",
+      "text": "La relation exprimée entre Adultes suivis pour maladie cérébrovasculaire et ASL IRM est supposée avant d’être démontrée.",
+      "challenge": "Distinguer association, prédiction, temporalité et causalité ; rechercher une explication concurrente.",
+      "support": "SUPPORTED",
+      "status": "CHALLENGED"
+    },
+    {
+      "assumptionId": "ST-A-002",
+      "text": "La pertinence de Perfusion CT et ASL IRM est présumée avant confirmation de la finalité scientifique.",
+      "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+      "support": "SUPPORTED",
+      "status": "CHALLENGED"
+    }
+  ],
+  "alternatives": [
+    "CBF, CBV, MTT, TTP et Tmax : grandeurs distinctes",
+    "Comment séparer une altération métabolique d'un effet de délai, de modèle ou de condition systémique ?",
+    "Délai collatéral, état systémique et couplage neurovasculaire",
+    "Grandeurs hémodynamiques et modèles — Qualifie les distinctions entre débit, volume et délais.",
+    "La modalité et le modèle permettent la comparaison envisagée.",
+    "La question distingue les grandeurs hémodynamiques, l'oxygénation et le métabolisme, ainsi que les hypothèses propres à chaque modalité.",
+    "La robustesse des seuils et des cartes dépend des méthodes, des délais collatéraux et de la transférabilité entre populations.",
+    "Le biomarqueur sélectionné représente le construit physiologique visé.",
+    "Le délai et la dispersion sont séparés d'une véritable altération du débit.",
+    "Le démonstrateur ne formule aucune recommandation clinique ou de thrombectomie.",
+    "Lecture hémodynamique ciblée — bénéfice documenté : Clarifie débit, volume et délai avec un modèle explicite. Limite : Ne décrit pas directement l'extraction d'oxygène ni le métabolisme. Condition : Modèle, AIF et effets de délai qualifiés.",
+    "Lecture physiologique intégrée — bénéfice documenté : Met en relation perfusion, oxygénation et métabolisme. Limite : Plus de modèles, de modalités et d'incertitudes cumulées. Condition : Temporalité, recalage et hypothèses intermodalités documentés.",
+    "Les seuils de pénombre ou de core dépendent du contexte, du logiciel et de la population.",
+    "OEF et CMRO2 : extraction d'oxygène et métabolisme",
+    "OEF, CMRO2 et différences de modalité — Borne l'interprétation physiologique et la commutabilité entre modalités.",
+    "Position A — information physiologique utile — Les profils de perfusion, d'oxygénation et de métabolisme peuvent éclairer des construits distincts lorsque le modèle est explicite.",
+    "Position B — non-substituabilité — CBF, CBV, délais, OEF et CMRO2 ne sont ni synonymes ni directement commutables entre modalités.",
+    "Tmax et TTP ne sont pas des synonymes de débit cérébral."
+  ],
+  "unknowns": [
+    "Connaissance non résolue : Adultes suivis pour maladie cérébrovasculaire",
+    "Connaissance non résolue : Maladie cérébrovasculaire",
+    "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+    "PENDING_VERIFICATION:modality:asl-mri",
+    "PENDING_VERIFICATION:modality:ctp",
+    "PENDING_VERIFICATION:population:cerebrovascular-adults",
+    "PENDING_VERIFICATION:question:cbf-cross-modality",
+    "PENDING_VERIFICATION:variable:cbf"
+  ],
+  "ambiguities": [
+    "CONCEPT_NON_RÉSOLU:Adultes suivis pour maladie cérébrovasculaire",
+    "CONCEPT_NON_RÉSOLU:Maladie cérébrovasculaire",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"
+  ],
+  "contradictions": [],
+  "adaptiveQuestions": [],
+  "knowledgeRequest": null,
+  "handoff": {
+    "handoffVersion": "1.1",
+    "status": "NOT_READY",
+    "questionId": null,
+    "hypothesisIds": [],
+    "objectiveIds": [],
+    "mechanisms": [
+      {
+        "mechanismId": "ST-M-001",
+        "text": "Le mécanisme susceptible de relier Adultes suivis pour maladie cérébrovasculaire et ASL IRM reste à documenter.",
+        "status": "MECHANISM_TO_DOCUMENT",
+        "support": "PARTIAL",
+        "linkedHypothesisIds": [
+          "ST-H-001",
+          "ST-H-KNOWLEDGE-001",
+          "ST-H-KNOWLEDGE-002",
+          "ST-H-KNOWLEDGE-003",
+          "ST-H-KNOWLEDGE-004",
+          "ST-H-KNOWLEDGE-005",
+          "ST-H-KNOWLEDGE-006",
+          "ST-H-KNOWLEDGE-007",
+          "ST-H-KNOWLEDGE-008",
+          "ST-H-KNOWLEDGE-009",
+          "ST-H-KNOWLEDGE-010",
+          "ST-H-KNOWLEDGE-011",
+          "ST-H-KNOWLEDGE-012",
+          "ST-H-KNOWLEDGE-013",
+          "ST-H-KNOWLEDGE-014",
+          "ST-H-KNOWLEDGE-015",
+          "ST-H-KNOWLEDGE-016",
+          "ST-H-KNOWLEDGE-017",
+          "ST-H-KNOWLEDGE-018"
+        ]
+      }
+    ],
+    "knownInformation": [
+      "PROJECT_ADOPTED:condition:cerebrovascular-disease:Maladie cérébrovasculaire",
+      "PROJECT_ADOPTED:modality:asl-mri:ASL IRM",
+      "PROJECT_ADOPTED:modality:ctp:Perfusion CT",
+      "PROJECT_ADOPTED:population:cerebrovascular-adults:Adultes suivis pour maladie cérébrovasculaire",
+      "PROJECT_ADOPTED:question:cbf-cross-modality:Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle ?",
+      "PROJECT_ADOPTED:variable:cbf:CBF"
+    ],
+    "acceptedUnknowns": [],
+    "unresolvedUnknowns": [
+      "Connaissance non résolue : Adultes suivis pour maladie cérébrovasculaire",
+      "Connaissance non résolue : Maladie cérébrovasculaire",
+      "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+      "PENDING_VERIFICATION:modality:asl-mri",
+      "PENDING_VERIFICATION:modality:ctp",
+      "PENDING_VERIFICATION:population:cerebrovascular-adults",
+      "PENDING_VERIFICATION:question:cbf-cross-modality",
+      "PENDING_VERIFICATION:variable:cbf"
+    ],
+    "contradictions": [],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "alternativesNotSelected": [
+      "CBF, CBV, MTT, TTP et Tmax : grandeurs distinctes",
+      "Comment séparer une altération métabolique d'un effet de délai, de modèle ou de condition systémique ?",
+      "Délai collatéral, état systémique et couplage neurovasculaire",
+      "Grandeurs hémodynamiques et modèles — Qualifie les distinctions entre débit, volume et délais.",
+      "La modalité et le modèle permettent la comparaison envisagée.",
+      "La question distingue les grandeurs hémodynamiques, l'oxygénation et le métabolisme, ainsi que les hypothèses propres à chaque modalité.",
+      "La robustesse des seuils et des cartes dépend des méthodes, des délais collatéraux et de la transférabilité entre populations.",
+      "Le biomarqueur sélectionné représente le construit physiologique visé.",
+      "Le délai et la dispersion sont séparés d'une véritable altération du débit.",
+      "Le démonstrateur ne formule aucune recommandation clinique ou de thrombectomie.",
+      "Lecture hémodynamique ciblée — bénéfice documenté : Clarifie débit, volume et délai avec un modèle explicite. Limite : Ne décrit pas directement l'extraction d'oxygène ni le métabolisme. Condition : Modèle, AIF et effets de délai qualifiés.",
+      "Lecture physiologique intégrée — bénéfice documenté : Met en relation perfusion, oxygénation et métabolisme. Limite : Plus de modèles, de modalités et d'incertitudes cumulées. Condition : Temporalité, recalage et hypothèses intermodalités documentés.",
+      "Les seuils de pénombre ou de core dépendent du contexte, du logiciel et de la population.",
+      "OEF et CMRO2 : extraction d'oxygène et métabolisme",
+      "OEF, CMRO2 et différences de modalité — Borne l'interprétation physiologique et la commutabilité entre modalités.",
+      "Position A — information physiologique utile — Les profils de perfusion, d'oxygénation et de métabolisme peuvent éclairer des construits distincts lorsque le modèle est explicite.",
+      "Position B — non-substituabilité — CBF, CBV, délais, OEF et CMRO2 ne sont ni synonymes ni directement commutables entre modalités.",
+      "Tmax et TTP ne sont pas des synonymes de débit cérébral."
+    ],
+    "limitations": [
+      "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+      "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+      "FOUR_DECLARED_DOMAINS_ONLY",
+      "NARRATIVE_CORPUS",
+      "NO_PATIENT_LEVEL_INTERPRETATION",
+      "NOT_ATOMIC_ASSERTIONS",
+      "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+    ],
+    "provenanceRefs": [
+      "knowledge-result:ke1-64fdb4acd1427118",
+      "knowledge-result:ke1-64fdb4acd1427118@1",
+      "RB-005:v1.0",
+      "RB-005:v1.0:block:1:ke1-760b194cf72bf7d8",
+      "RB-005:v1.0:block:10:ke1-4534dc5d0dc6e091",
+      "RB-005:v1.0:block:11:ke1-e02cb20f17158f4b",
+      "RB-005:v1.0:block:12:ke1-d7f920f3015df07f",
+      "RB-005:v1.0:block:13:ke1-e31eb35ae551a18e",
+      "RB-005:v1.0:block:14:ke1-9ac55e7d921ce911",
+      "RB-005:v1.0:block:15:ke1-dde30d9ce6836490",
+      "RB-005:v1.0:block:16:ke1-69f6e34e3246884a",
+      "RB-005:v1.0:block:17:ke1-7dd4783bc1a5bc67",
+      "RB-005:v1.0:block:18:ke1-c91e7ab58a396719",
+      "RB-005:v1.0:block:2:ke1-b91e1fa20fc7465e",
+      "RB-005:v1.0:block:3:ke1-3c4e1c21788ce095",
+      "RB-005:v1.0:block:4:ke1-5f8e2ae715688083",
+      "RB-005:v1.0:block:5:ke1-f1b833841593ca10",
+      "RB-005:v1.0:block:6:ke1-598190c674bec0e2",
+      "RB-005:v1.0:block:7:ke1-ef197f67101fed0b",
+      "RB-005:v1.0:block:8:ke1-8289e7fa88ca32c6",
+      "RB-005:v1.0:block:9:ke1-216cafbc5c2d35c8",
+      "scientific-thinking-project-request:ke1-c74586ffe8b1c04b"
+    ],
+    "knowledgeResultRef": "knowledge-result:ke1-64fdb4acd1427118",
+    "blockedBy": [
+      "QUESTION_CONFIRMATION_REQUIRED",
+      "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+      "OBJECTIVE_HIERARCHY_REQUIRED"
+    ],
+    "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+  },
+  "knowledgeDependencies": [
+    {
+      "owner": "KNOWLEDGE",
+      "ownershipTransferred": false,
+      "knowledgeOwnerResultRef": "knowledge-result:ke1-64fdb4acd1427118@1",
+      "knowledgeResultRef": "knowledge-result:ke1-64fdb4acd1427118",
+      "knowledgeResultRevision": 1,
+      "knowledgeResultDigest": "ke1-64fdb4acd1427118",
+      "candidateRefs": [
+        "ST-H-001",
+        "ST-H-KNOWLEDGE-001",
+        "ST-H-KNOWLEDGE-002",
+        "ST-H-KNOWLEDGE-003",
+        "ST-H-KNOWLEDGE-004",
+        "ST-H-KNOWLEDGE-005",
+        "ST-H-KNOWLEDGE-006",
+        "ST-H-KNOWLEDGE-007",
+        "ST-H-KNOWLEDGE-008",
+        "ST-H-KNOWLEDGE-009",
+        "ST-H-KNOWLEDGE-010",
+        "ST-H-KNOWLEDGE-011",
+        "ST-H-KNOWLEDGE-012",
+        "ST-H-KNOWLEDGE-013",
+        "ST-H-KNOWLEDGE-014",
+        "ST-H-KNOWLEDGE-015",
+        "ST-H-KNOWLEDGE-016",
+        "ST-H-KNOWLEDGE-017",
+        "ST-H-KNOWLEDGE-018",
+        "ST-M-001",
+        "ST-O-001",
+        "ST-Q-001"
+      ],
+      "assertionRefs": [],
+      "documentaryStatementRefs": [
+        "RB-005:v1.0:block:1:ke1-760b194cf72bf7d8",
+        "RB-005:v1.0:block:10:ke1-4534dc5d0dc6e091",
+        "RB-005:v1.0:block:11:ke1-e02cb20f17158f4b",
+        "RB-005:v1.0:block:12:ke1-d7f920f3015df07f",
+        "RB-005:v1.0:block:13:ke1-e31eb35ae551a18e",
+        "RB-005:v1.0:block:14:ke1-9ac55e7d921ce911",
+        "RB-005:v1.0:block:15:ke1-dde30d9ce6836490",
+        "RB-005:v1.0:block:16:ke1-69f6e34e3246884a",
+        "RB-005:v1.0:block:17:ke1-7dd4783bc1a5bc67",
+        "RB-005:v1.0:block:18:ke1-c91e7ab58a396719",
+        "RB-005:v1.0:block:2:ke1-b91e1fa20fc7465e",
+        "RB-005:v1.0:block:3:ke1-3c4e1c21788ce095",
+        "RB-005:v1.0:block:4:ke1-5f8e2ae715688083",
+        "RB-005:v1.0:block:5:ke1-f1b833841593ca10",
+        "RB-005:v1.0:block:6:ke1-598190c674bec0e2",
+        "RB-005:v1.0:block:7:ke1-ef197f67101fed0b",
+        "RB-005:v1.0:block:8:ke1-8289e7fa88ca32c6",
+        "RB-005:v1.0:block:9:ke1-216cafbc5c2d35c8"
+      ],
+      "evidenceRefs": [],
+      "sourceRefs": [
+        "RB-005:v1.0"
+      ],
+      "applicability": [],
+      "contradictionRefs": [],
+      "gapRefs": [
+        "knowledge-gap:ke1-7ba51890589c5c9c"
+      ]
+    }
+  ],
+  "provenance": {
+    "engineVersion": "1.2.2",
+    "inputRef": "scientific-thinking-project-request:ke1-c74586ffe8b1c04b",
+    "knowledgeResultRef": "knowledge-result:ke1-64fdb4acd1427118",
+    "sourceRefs": [
+      "knowledge-result:ke1-64fdb4acd1427118@1",
+      "project-contribution-decision:ke1-2dd36b76f600272a",
+      "RB-005:v1.0",
+      "RB-005:v1.0:block:1:ke1-760b194cf72bf7d8",
+      "RB-005:v1.0:block:10:ke1-4534dc5d0dc6e091",
+      "RB-005:v1.0:block:11:ke1-e02cb20f17158f4b",
+      "RB-005:v1.0:block:12:ke1-d7f920f3015df07f",
+      "RB-005:v1.0:block:13:ke1-e31eb35ae551a18e",
+      "RB-005:v1.0:block:14:ke1-9ac55e7d921ce911",
+      "RB-005:v1.0:block:15:ke1-dde30d9ce6836490",
+      "RB-005:v1.0:block:16:ke1-69f6e34e3246884a",
+      "RB-005:v1.0:block:17:ke1-7dd4783bc1a5bc67",
+      "RB-005:v1.0:block:18:ke1-c91e7ab58a396719",
+      "RB-005:v1.0:block:2:ke1-b91e1fa20fc7465e",
+      "RB-005:v1.0:block:3:ke1-3c4e1c21788ce095",
+      "RB-005:v1.0:block:4:ke1-5f8e2ae715688083",
+      "RB-005:v1.0:block:5:ke1-f1b833841593ca10",
+      "RB-005:v1.0:block:6:ke1-598190c674bec0e2",
+      "RB-005:v1.0:block:7:ke1-ef197f67101fed0b",
+      "RB-005:v1.0:block:8:ke1-8289e7fa88ca32c6",
+      "RB-005:v1.0:block:9:ke1-216cafbc5c2d35c8"
+    ],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "PD-003",
+      "PD-009",
+      "KE-001"
+    ],
+    "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+  }
+}
+```
+
+### Imaging output
+
+Status: `RETURN_TO_SCIENTIFIC_THINKING` — Result: `imaging-design-result:ke1-1965d9a529af5939` — Digest: `ke1-1965d9a529af5939`
+
+```json
+{
+  "scientificQuestion": {
+    "questionId": "question:cbf-cross-modality",
+    "text": "Une baisse du CBF entre perfusion CT initiale et ASL IRM de suivi reflète-t-elle une progression biologique malgré le changement de modalité et de modèle ?",
+    "confirmation": "VALIDATED_CONTEXT"
+  },
+  "modalityCandidates": [
+    {
+      "modalityId": "IMG-MODALITY:modality:mri",
+      "label": "IRM",
+      "conceptId": "modality:mri",
+      "biomarkerIds": [],
+      "phenomenonIds": [],
+      "role": "CANDIDATE",
+      "support": "UNKNOWN",
+      "dimensions": {
+        "resolution": "UNKNOWN",
+        "repeatability": "UNKNOWN",
+        "reproducibility": "UNKNOWN",
+        "invasiveness": "UNKNOWN",
+        "irradiation": "UNKNOWN",
+        "contrast": "UNKNOWN",
+        "accessibility": "UNKNOWN",
+        "duration": "UNKNOWN",
+        "artefacts": "UNKNOWN",
+        "equipment": "UNKNOWN",
+        "multicenter": "UNKNOWN",
+        "quality": "UNKNOWN",
+        "analysis": "UNKNOWN",
+        "scientificCoverage": "UNKNOWN"
+      },
+      "dependencies": [
+        "biomarker:cerebral-perfusion",
+        "modality:ct"
+      ],
+      "limitations": [
+        "BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER",
+        "NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"
+      ],
+      "risks": [],
+      "evidenceRefs": [
+        "RB-005:v1.0#RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé",
+        "RB-005:v1.0#RB-005 v1.0, §28–31 et §39–64",
+        "RB-005:v1.0#RB-005 v1.0, §7–27",
+        "RB-005:v1.0#RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64",
+        "RB-005:v1.0#RB-005 v1.0, §7–31"
+      ],
+      "reviewState": "PENDING"
+    },
+    {
+      "modalityId": "IMG-MODALITY:modality:ct",
+      "label": "CT",
+      "conceptId": "modality:ct",
+      "biomarkerIds": [],
+      "phenomenonIds": [],
+      "role": "CANDIDATE",
+      "support": "UNKNOWN",
+      "dimensions": {
+        "resolution": "UNKNOWN",
+        "repeatability": "UNKNOWN",
+        "reproducibility": "UNKNOWN",
+        "invasiveness": "UNKNOWN",
+        "irradiation": "UNKNOWN",
+        "contrast": "UNKNOWN",
+        "accessibility": "UNKNOWN",
+        "duration": "UNKNOWN",
+        "artefacts": "UNKNOWN",
+        "equipment": "UNKNOWN",
+        "multicenter": "UNKNOWN",
+        "quality": "UNKNOWN",
+        "analysis": "UNKNOWN",
+        "scientificCoverage": "UNKNOWN"
+      },
+      "dependencies": [
+        "biomarker:cerebral-perfusion",
+        "modality:mri"
+      ],
+      "limitations": [
+        "BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER",
+        "NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"
+      ],
+      "risks": [],
+      "evidenceRefs": [
+        "RB-005:v1.0#RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé",
+        "RB-005:v1.0#RB-005 v1.0, §28–31 et §39–64",
+        "RB-005:v1.0#RB-005 v1.0, §7–27",
+        "RB-005:v1.0#RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64",
+        "RB-005:v1.0#RB-005 v1.0, §7–31"
+      ],
+      "reviewState": "PENDING"
+    }
+  ],
+  "acquisitionStrategies": [],
+  "imagingVariables": [],
+  "biomarkerCandidates": [],
+  "missingInformation": [
+    "CONCEPT_NON_RÉSOLU:Adultes suivis pour maladie cérébrovasculaire",
+    "CONCEPT_NON_RÉSOLU:Maladie cérébrovasculaire",
+    "Connaissance non résolue : Adultes suivis pour maladie cérébrovasculaire",
+    "Connaissance non résolue : Maladie cérébrovasculaire",
+    "Dimensions critiques absentes : MISSING_TECHNIQUE, MISSING_TIMING, MISSING_USAGE, PENDING_VERIFICATION:condition:cerebrovascular-disease, PENDING_VERIFICATION:modality:asl-mri, PENDING_VERIFICATION:modality:ctp, PENDING_VERIFICATION:population:cerebrovascular-adults, PENDING_VERIFICATION:question:cbf-cross-modality, PENDING_VERIFICATION:variable:cbf.",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+    "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+    "PENDING_VERIFICATION:modality:asl-mri",
+    "PENDING_VERIFICATION:modality:ctp",
+    "PENDING_VERIFICATION:population:cerebrovascular-adults",
+    "PENDING_VERIFICATION:question:cbf-cross-modality",
+    "PENDING_VERIFICATION:variable:cbf",
+    "Quel observable d’imagerie permettrait d’approcher ce phénomène ?",
+    "Quel phénomène doit rester principal ?"
+  ],
+  "adaptiveQuestions": [
+    {
+      "questionId": "IMG-AQ-PRIMARY-PHENOMENON",
+      "label": "Quel phénomène doit rester principal ?",
+      "whyAsked": "Plusieurs phénomènes défendables sont conservés.",
+      "decisionImpact": "Change la hiérarchie des biomarqueurs et des acquisitions.",
+      "decisionBlock": "PHENOMENA",
+      "suggestedAnswers": [
+        {
+          "value": "IMG-PHENOMENON:biomarker:cerebral-perfusion",
+          "label": "perfusion cérébrale",
+          "consequence": "La branche est priorisée sous réserve d’une décision humaine."
+        },
+        {
+          "value": "IMG-PHENOMENON:declared:ke1-8cd43ae0a2f8531c",
+          "label": "CBF",
+          "consequence": "La branche est priorisée sous réserve d’une décision humaine."
+        },
+        {
+          "value": "unknown",
+          "label": "Je ne sais pas",
+          "consequence": "L’inconnue reste explicite et la décision dépendante demeure ouverte."
+        }
+      ],
+      "acceptsFreeText": true,
+      "acceptsUnknown": true,
+      "answeredValue": null
+    },
+    {
+      "questionId": "IMG-AQ-MEASUREMENT",
+      "label": "Quel observable d’imagerie permettrait d’approcher ce phénomène ?",
+      "whyAsked": "Knowledge ne soutient actuellement aucun biomarqueur contextualisé.",
+      "decisionImpact": "Détermine si Imaging peut continuer ou doit retourner vers Scientific Thinking.",
+      "decisionBlock": "BIOMARKERS",
+      "suggestedAnswers": [
+        {
+          "value": "unknown",
+          "label": "Je ne sais pas",
+          "consequence": "L’inconnue reste explicite et la décision dépendante demeure ouverte."
+        }
+      ],
+      "acceptsFreeText": true,
+      "acceptsUnknown": true,
+      "answeredValue": null
+    }
+  ],
+  "limitations": [
+    "AUTHORIZED_ST_HANDOFF_NOT_AVAILABLE_FOR_THIS_DIRECT_DESIGN_CONTEXT",
+    "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+    "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+    "FOUR_DECLARED_DOMAINS_ONLY",
+    "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE",
+    "NARRATIVE_CORPUS",
+    "NO_PATIENT_LEVEL_INTERPRETATION",
+    "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION",
+    "NOT_ATOMIC_ASSERTIONS",
+    "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+  ],
+  "decisionsRequired": [
+    {
+      "gateId": "IMG-GATE-PRIMARY-PHENOMENON",
+      "type": "PRIMARY_PHENOMENON",
+      "label": "Choisir le phénomène principal",
+      "reason": "Plusieurs branches sont conservées sans classement automatique.",
+      "status": "PENDING",
+      "targetIds": [
+        "IMG-PHENOMENON:biomarker:cerebral-perfusion",
+        "IMG-PHENOMENON:declared:ke1-8cd43ae0a2f8531c"
+      ]
+    },
+    {
+      "gateId": "IMG-GATE-MODALITY",
+      "type": "NON_DOMINATED_MODALITY",
+      "label": "Choisir entre les modalités non dominées",
+      "reason": "Aucun optimum automatique n’est autorisé.",
+      "status": "PENDING",
+      "targetIds": [
+        "IMG-MODALITY:modality:mri",
+        "IMG-MODALITY:modality:ct"
+      ]
+    },
+    {
+      "gateId": "IMG-GATE-HANDOFF-FREEZE",
+      "type": "HANDOFF_FREEZE",
+      "label": "Geler le handoff Imaging",
+      "reason": "Project Construction ne reçoit que les décisions explicitement autorisées.",
+      "status": "PENDING",
+      "targetIds": [
+        "imaging-project-input:ke1-358d8217aa005a73"
+      ]
+    }
+  ],
+  "knowledgeHandoff": {
+    "requestRef": "request-of:knowledge-result:ke1-64fdb4acd1427118",
+    "resultRef": "knowledge-result:ke1-64fdb4acd1427118",
+    "resultDigest": "ke1-64fdb4acd1427118",
+    "coverageStatus": "SUPPORTED",
+    "gapCodes": [
+      "MISSING_CRITICAL_CONTEXT"
+    ],
+    "noClosestCorpusFallback": true
+  },
+  "projectConstructionHandoff": {
+    "handoffVersion": "1.2",
+    "status": "NOT_READY",
+    "imagingStrategyVersion": "project:loop-g-b-cbf-cross-modality-contradiction-01:version:1:IMG-ke1-780f4648",
+    "humanDecision": {
+      "status": "PENDING",
+      "decisionRecordId": null
+    },
+    "scientificStrategyStatus": "SCIENTIFIC_STRATEGY_BLOCKED",
+    "projectHandoffReadiness": "PROJECT_HANDOFF_BLOCKED",
+    "equipmentCompatibilityStatus": "NOT_APPLICABLE",
+    "executableProtocolReadiness": "EXECUTABLE_PROTOCOL_NOT_READY",
+    "resultRef": "imaging-design-result:ke1-1965d9a529af5939",
+    "includedSections": [
+      "Question",
+      "Objectives",
+      "Hypotheses",
+      "Phenomena",
+      "Biomarkers",
+      "Modalities",
+      "AcquisitionStrategy",
+      "Timing",
+      "Equipment",
+      "Harmonization",
+      "Quality",
+      "ImageAnalysis",
+      "Variables",
+      "EndpointContributions",
+      "CoreLabAssessment",
+      "NonEvaluability",
+      "Risks",
+      "Limitations",
+      "KnowledgeGaps",
+      "Alternatives",
+      "HumanDecisions",
+      "Provenance"
+    ],
+    "excludedSections": [
+      "STATISTICAL_SIZING",
+      "COMPLETE_BUDGET",
+      "FINAL_CRF",
+      "REGULATORY_PLAN",
+      "COMPLETE_OPERATIONAL_PLAN",
+      "FINAL_SUBMISSION_PROTOCOL"
+    ],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "blockedBy": [
+      "HUMAN_HANDOFF_FREEZE_DECISION_PENDING",
+      "IMG-AQ-MEASUREMENT",
+      "IMG-AQ-PRIMARY-PHENOMENON",
+      "IMG-GATE-MODALITY",
+      "IMG-GATE-PRIMARY-PHENOMENON",
+      "MODALITY_WITHOUT_BIOMARKER",
+      "NO_DEFENSIBLE_IMAGING_CHAIN"
+    ],
+    "unknowns": [
+      "CONCEPT_NON_RÉSOLU:Adultes suivis pour maladie cérébrovasculaire",
+      "CONCEPT_NON_RÉSOLU:Maladie cérébrovasculaire",
+      "Connaissance non résolue : Adultes suivis pour maladie cérébrovasculaire",
+      "Connaissance non résolue : Maladie cérébrovasculaire",
+      "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+      "PENDING_VERIFICATION:condition:cerebrovascular-disease",
+      "PENDING_VERIFICATION:modality:asl-mri",
+      "PENDING_VERIFICATION:modality:ctp",
+      "PENDING_VERIFICATION:population:cerebrovascular-adults",
+      "PENDING_VERIFICATION:question:cbf-cross-modality",
+      "PENDING_VERIFICATION:variable:cbf"
+    ],
+    "limitations": [
+      "PROJECT_HANDOFF_DOES_NOT_AUTHORIZE_EXECUTABLE_ACQUISITION",
+      "PROJECT_HANDOFF_DOES_NOT_CONFIRM_TECHNICAL_COMPATIBILITY"
+    ],
+    "contradictions": [],
+    "requiredFutureReviews": [
+      "BIOSTATISTICS_REVIEW",
+      "DATA_MANAGEMENT_REVIEW",
+      "EXECUTABLE_PROTOCOL_REVIEW_WITH_GOVERNED_EQUIPMENT_KNOWLEDGE"
+    ],
+    "provenance": [
+      "condition:cerebrovascular-disease",
+      "imaging-project-input:ke1-358d8217aa005a73",
+      "ke1-00a170e2f3e04be6",
+      "modality:asl-mri",
+      "modality:ctp",
+      "population:cerebrovascular-adults",
+      "project:loop-g-b-cbf-cross-modality-contradiction-01:version:1",
+      "question:cbf-cross-modality",
+      "RB-005:v1.0",
+      "scientific-thinking-output:ke1-4e2f474028dffca4@1.2.2",
+      "variable:cbf"
+    ],
+    "trace": [
+      {
+        "sequence": 1,
+        "decision": "SCIENTIFIC_STRATEGY_BLOCKED",
+        "rationale": "Question, phénomènes et biomarqueurs sont évalués indépendamment de la qualification technique locale."
+      },
+      {
+        "sequence": 2,
+        "decision": "NOT_APPLICABLE",
+        "rationale": "La disponibilité, sa vérification et la compatibilité restent distinctes."
+      },
+      {
+        "sequence": 3,
+        "decision": "PROJECT_HANDOFF_BLOCKED",
+        "rationale": "Une porte scientifique, structurelle ou humaine reste ouverte."
+      },
+      {
+        "sequence": 4,
+        "decision": "EXECUTABLE_PROTOCOL_NOT_READY",
+        "rationale": "Aucune connaissance exécutable gouvernée ne permet de produire des paramètres exacts."
+      }
+    ]
+  },
+  "provenance": {
+    "engineVersion": "1.2.1",
+    "inputRef": "imaging-project-input:ke1-358d8217aa005a73",
+    "knowledgeResultRef": "knowledge-result:ke1-64fdb4acd1427118",
+    "sourceRefs": [
+      "RB-005:v1.0"
+    ],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "RDE-003",
+      "KE-001",
+      "ST-001"
+    ],
+    "llmContributionStatus": "NO_LLM_SCIENTIFIC_DECISION"
+  }
+}
+```
+
+### VAL observation
+
+Bounded status: `STRUCTURAL_FIDELITY_PASS` — Run: `undefined` — Digest: `undefined`
+
+```json
+{
+  "observationCount": 65,
+  "observationSummary": [
+    {
+      "observationId": "val-observation:val1-00f51c63983c8e4f"
+    },
+    {
+      "observationId": "val-observation:val1-0879adb071145ff4"
+    },
+    {
+      "observationId": "val-observation:val1-08aebc2581bd20c1"
+    },
+    {
+      "observationId": "val-observation:val1-09ba82b427fbf3e0"
+    },
+    {
+      "observationId": "val-observation:val1-0c5a15373e7f4cdb"
+    },
+    {
+      "observationId": "val-observation:val1-0f48ea17f5e0fb0b"
+    },
+    {
+      "observationId": "val-observation:val1-0f7967e3706c3b97"
+    },
+    {
+      "observationId": "val-observation:val1-10b77447fa432cfb"
+    },
+    {
+      "observationId": "val-observation:val1-1789493e5f570b12"
+    },
+    {
+      "observationId": "val-observation:val1-18176119f4af10cd"
+    },
+    {
+      "observationId": "val-observation:val1-1df004c8dda0a67c"
+    },
+    {
+      "observationId": "val-observation:val1-226ae781a0815425"
+    },
+    {
+      "observationId": "val-observation:val1-255c059ffd0c0dc3"
+    },
+    {
+      "observationId": "val-observation:val1-2a41f20396cba607"
+    },
+    {
+      "observationId": "val-observation:val1-2f6512ae8778a57a"
+    },
+    {
+      "observationId": "val-observation:val1-36a57bbb4eadd5c7"
+    },
+    {
+      "observationId": "val-observation:val1-36e0ddcb4ed8ad07"
+    },
+    {
+      "observationId": "val-observation:val1-39017f96ea11d852"
+    },
+    {
+      "observationId": "val-observation:val1-3b75e66c11934ae8"
+    },
+    {
+      "observationId": "val-observation:val1-3d0c3c1999692215"
+    },
+    {
+      "observationId": "val-observation:val1-3d3240162d9da212"
+    },
+    {
+      "observationId": "val-observation:val1-400025bc1c5fc2e8"
+    },
+    {
+      "observationId": "val-observation:val1-40573d8f1620e243"
+    },
+    {
+      "observationId": "val-observation:val1-41a854a79ac1511b"
+    },
+    {
+      "observationId": "val-observation:val1-4fa36c51a9f07795"
+    },
+    {
+      "observationId": "val-observation:val1-53ba9600569d0524"
+    },
+    {
+      "observationId": "val-observation:val1-5fb97c4ee53da7d2"
+    },
+    {
+      "observationId": "val-observation:val1-69933361f635a30d"
+    },
+    {
+      "observationId": "val-observation:val1-6e7ddf909d4d97d4"
+    },
+    {
+      "observationId": "val-observation:val1-6e9310835efe97df"
+    },
+    {
+      "observationId": "val-observation:val1-71bc3ef1d71b527d"
+    },
+    {
+      "observationId": "val-observation:val1-76bac6c4322caca0"
+    },
+    {
+      "observationId": "val-observation:val1-795a655ad8265d8e"
+    },
+    {
+      "observationId": "val-observation:val1-7f6f89a9115b1c25"
+    },
+    {
+      "observationId": "val-observation:val1-80506bcf2b3b8343"
+    },
+    {
+      "observationId": "val-observation:val1-80701b08f2389bf4"
+    },
+    {
+      "observationId": "val-observation:val1-80a8b1c70b4fc343"
+    },
+    {
+      "observationId": "val-observation:val1-8157357d838f7c89"
+    },
+    {
+      "observationId": "val-observation:val1-817bee49ec87b155"
+    },
+    {
+      "observationId": "val-observation:val1-8278f1db3c48adc7"
+    },
+    {
+      "observationId": "val-observation:val1-82dc4fa50b0aefb9"
+    },
+    {
+      "observationId": "val-observation:val1-89c7567b0be2336f"
+    },
+    {
+      "observationId": "val-observation:val1-8cb0739a4fd4d2c6"
+    },
+    {
+      "observationId": "val-observation:val1-8cb48c74819de338"
+    },
+    {
+      "observationId": "val-observation:val1-99a8ac9447790488"
+    },
+    {
+      "observationId": "val-observation:val1-9c718a3a13711dd6"
+    },
+    {
+      "observationId": "val-observation:val1-a6144af9c17fb1ad"
+    },
+    {
+      "observationId": "val-observation:val1-ae16cbf44eb88870"
+    },
+    {
+      "observationId": "val-observation:val1-b02817ce44cc8e02"
+    },
+    {
+      "observationId": "val-observation:val1-b870db6cf6936228"
+    },
+    {
+      "observationId": "val-observation:val1-bafae5c6b1399bc2"
+    },
+    {
+      "observationId": "val-observation:val1-bbd833d479ad7d88"
+    },
+    {
+      "observationId": "val-observation:val1-bd861572e3b2365e"
+    },
+    {
+      "observationId": "val-observation:val1-bec0bc19ff3495bd"
+    },
+    {
+      "observationId": "val-observation:val1-c13eef21381d4c4d"
+    },
+    {
+      "observationId": "val-observation:val1-c1ee6596b59d0ffa"
+    },
+    {
+      "observationId": "val-observation:val1-ce3d25409d76bcbc"
+    },
+    {
+      "observationId": "val-observation:val1-cfee63ef7d227b8b"
+    },
+    {
+      "observationId": "val-observation:val1-e9047371bf7966ad"
+    },
+    {
+      "observationId": "val-observation:val1-edbd5cd1db705ac5"
+    },
+    {
+      "observationId": "val-observation:val1-f56ff90b376e969f"
+    },
+    {
+      "observationId": "val-observation:val1-f7a2cc839e3c39d7"
+    },
+    {
+      "observationId": "val-observation:val1-fa8be66b4e547517"
+    },
+    {
+      "observationId": "val-observation:val1-fcbf9d395420b5b5"
+    },
+    {
+      "observationId": "val-observation:val1-fe9a0b596bdef175"
+    }
+  ],
+  "sourceSnapshotRef": {
+    "artifactId": "scientific-thinking-output:ke1-4e2f474028dffca4",
+    "artifactType": "SCIENTIFIC_THINKING_RESULT",
+    "contentDigest": "ke1-4e2f474028dffca4",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "SCIENTIFIC_THINKING",
+    "projectId": "project:loop-g-b-cbf-cross-modality-contradiction-01",
+    "projectVersion": "project:loop-g-b-cbf-cross-modality-contradiction-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "RB-005:v1.0",
+      "RB-005:v1.0:block:10:ke1-4534dc5d0dc6e091",
+      "RB-005:v1.0:block:11:ke1-e02cb20f17158f4b",
+      "RB-005:v1.0:block:12:ke1-d7f920f3015df07f",
+      "RB-005:v1.0:block:13:ke1-e31eb35ae551a18e",
+      "RB-005:v1.0:block:14:ke1-9ac55e7d921ce911",
+      "RB-005:v1.0:block:15:ke1-dde30d9ce6836490",
+      "RB-005:v1.0:block:16:ke1-69f6e34e3246884a",
+      "RB-005:v1.0:block:17:ke1-7dd4783bc1a5bc67",
+      "RB-005:v1.0:block:18:ke1-c91e7ab58a396719",
+      "RB-005:v1.0:block:1:ke1-760b194cf72bf7d8",
+      "RB-005:v1.0:block:2:ke1-b91e1fa20fc7465e",
+      "RB-005:v1.0:block:3:ke1-3c4e1c21788ce095",
+      "RB-005:v1.0:block:4:ke1-5f8e2ae715688083",
+      "RB-005:v1.0:block:5:ke1-f1b833841593ca10",
+      "RB-005:v1.0:block:6:ke1-598190c674bec0e2",
+      "RB-005:v1.0:block:7:ke1-ef197f67101fed0b",
+      "RB-005:v1.0:block:8:ke1-8289e7fa88ca32c6",
+      "RB-005:v1.0:block:9:ke1-216cafbc5c2d35c8",
+      "ke1-d3942cbaf97af8ce",
+      "knowledge-result:ke1-64fdb4acd1427118",
+      "knowledge-result:ke1-64fdb4acd1427118@1",
+      "scientific-thinking-handoff:ke1-e13609f0c2b2e9f4",
+      "scientific-thinking-output:ke1-4e2f474028dffca4",
+      "scientific-thinking-project-request:ke1-c74586ffe8b1c04b"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.2"
+  },
+  "targetSnapshotRef": {
+    "artifactId": "imaging-design-result:ke1-1965d9a529af5939",
+    "artifactType": "IMAGING_CONTRIBUTION",
+    "contentDigest": "ke1-1965d9a529af5939",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "IMAGING",
+    "projectId": "project:loop-g-b-cbf-cross-modality-contradiction-01",
+    "projectVersion": "project:loop-g-b-cbf-cross-modality-contradiction-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "RB-005:v1.0",
+      "imaging-design-result:ke1-1965d9a529af5939",
+      "imaging-project-input:ke1-358d8217aa005a73",
+      "ke1-d3942cbaf97af8ce",
+      "scientific-thinking-output:ke1-4e2f474028dffca4@1.2.2",
+      "st-to-imaging:ke1-2e97f9ca010d1afe"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.1"
+  }
+}
+```
+
+### Ordered TRACE
+
+| Seq | Event | Owner | Status | Diagnostic stage |
+|---:|---|---|---|---|
+| 1 | RUN_STARTED | TRACE | RUNNING | PROJECT_CONTEXT |
+| 2 | HANDOFF_STARTED | KNOWLEDGE | STARTED | OWNER_REQUEST_BUILDING |
+| 3 | HANDOFF_ACCEPTED | KNOWLEDGE | ACCEPTED | OWNER_REQUEST_BUILDING |
+| 4 | OWNER_INVOCATION_STARTED | KNOWLEDGE | STARTED | KNOWLEDGE_ENGINE |
+| 5 | OWNER_INVOCATION_COMPLETED | KNOWLEDGE | COMPLETED | KNOWLEDGE_ENGINE |
+| 6 | RESULT_PERSISTED | KNOWLEDGE | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 7 | HANDOFF_STARTED | SCIENTIFIC_THINKING | STARTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 8 | HANDOFF_ACCEPTED | SCIENTIFIC_THINKING | ACCEPTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 9 | OWNER_INVOCATION_STARTED | SCIENTIFIC_THINKING | STARTED | SCIENTIFIC_THINKING_ENGINE |
+| 10 | OWNER_INVOCATION_COMPLETED | SCIENTIFIC_THINKING | COMPLETED_WITH_LIMITATIONS | SCIENTIFIC_THINKING_ENGINE |
+| 11 | RESULT_PERSISTED | SCIENTIFIC_THINKING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 12 | HANDOFF_STARTED | IMAGING | STARTED | ST_TO_IMAGING_HANDOFF |
+| 13 | HANDOFF_ACCEPTED | IMAGING | ACCEPTED | ST_TO_IMAGING_HANDOFF |
+| 14 | OWNER_INVOCATION_STARTED | IMAGING | STARTED | IMAGING_ENGINE |
+| 15 | OWNER_INVOCATION_COMPLETED | IMAGING | COMPLETED_WITH_LIMITATIONS | IMAGING_ENGINE |
+| 16 | RESULT_PERSISTED | IMAGING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 17 | HANDOFF_STARTED | VAL | STARTED | VAL_INPUT_ADAPTER |
+| 18 | HANDOFF_ACCEPTED | VAL | ACCEPTED | VAL_INPUT_ADAPTER |
+| 19 | VALIDATION_STARTED | VAL | STARTED | VAL_ENGINE |
+| 20 | VALIDATION_COMPLETED | VAL | STRUCTURAL_FIDELITY_PASS | VAL_ENGINE |
+| 21 | RESULT_PERSISTED | VAL | VALIDATION_RUN_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 22 | RUN_COMPLETED | TRACE | COMPLETED |  |
+
+### Direct technical summary
+
+```json
+{
+  "projectTupleExact": true,
+  "projectUnchanged": true,
+  "projectWrites": 0,
+  "humanDecisionBypassed": false,
+  "automaticAdoption": 0,
+  "externalCalls": 0,
+  "obsRuntimeCalls": 0,
+  "valRepairCalls": 0,
+  "valScientificQualificationClaimed": false,
+  "traceEventCount": 22,
+  "traceCompleted": true,
+  "frozenInputDigest": "ke1-cc67dc33757ba067"
+}
+```
+
+### Pre-authored HumanLoopReviewEnvelope
+
+```json
+{
+  "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+  "casePurpose": "Observer si une contradiction documentaire de substituabilité reste visible jusqu’à Imaging et VAL sans sélection automatique d’une position.",
+  "whatEachOwnerShouldContribute": {
+    "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+    "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+    "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+    "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+    "REGULATORY_RESOLUTION": "NOT_INVOKED"
+  },
+  "criticalInformationToPreserve": {
+    "unknowns": [
+      "Part de la variation attribuable à la biologie plutôt qu’à la modalité ou au modèle"
+    ],
+    "contradictions": [
+      "Position A: des profils de perfusion peuvent éclairer un construit si le modèle est explicite.",
+      "Position B: CBF et autres grandeurs ne sont pas directement commutables entre modalités."
+    ],
+    "limitations": [
+      "CTP et ASL reposent sur des hypothèses et chaînes d’estimation différentes.",
+      "Aucune progression biologique ne peut être conclue du seul changement numérique."
+    ],
+    "sourceRefs": [
+      "RB-005:v1.0",
+      "src/features/protocol-designer/fixtures.ts#neuro"
+    ]
+  },
+  "expectedStopOrRefusalBehavior": "Aucun arrêt prédéterminé; toute limitation produite reste visible.",
+  "scientificallyForbiddenBehaviors": [
+    "Transformer un OwnerResult en Project truth",
+    "Promouvoir une contradiction en conclusion résolue",
+    "Inventer une source ou une preuve",
+    "Sélectionner automatiquement une méthode Imaging",
+    "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+    "Créer une approbation réglementaire"
+  ],
+  "acceptableKindsOfResponse": [
+    "Candidats explicitement non adoptés",
+    "Clarification ou gap traçable",
+    "Alternatives conservées",
+    "Stratégies Imaging candidates avec limites",
+    "Diagnostic VAL structurel"
+  ],
+  "humanReviewQuestions": {
+    "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+    "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+    "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+    "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+    "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+    "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+    "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+    "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+  },
+  "L1": "PENDING",
+  "L2": "PENDING",
+  "L3": "PENDING",
+  "L4": "PENDING",
+  "L5": "PENDING",
+  "L6": "PENDING",
+  "L7": "PENDING",
+  "L8": "PENDING"
+}
+```
+
+### Human adjudication
+
+| Question | State |
+|---|---|
+| L1 | PENDING |
+| L2 | PENDING |
+| L3 | PENDING |
+| L4 | PENDING |
+| L5 | PENDING |
+| L6 | PENDING |
+| L7 | PENDING |
+| L8 | PENDING |
+
+## 3. Temporalité post-revascularisation non décidée
+
+- Case: `LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01`
+- Family: `C_PROJECT_UNKNOWN_GOVERNS_PATH`
+- Domain: `NEURO_PERFUSION_TEMPORAL_CONTEXT`
+- Purpose: Observer si une UNKNOWN Project structurante demeure gouvernante dans K, ST, Imaging et VAL.
+
+### Scientific question
+
+Chez des adultes après revascularisation cérébrale, la relation entre Tmax et CBF doit-elle être étudiée en phase aiguë ou au suivi chronique lorsque le moment d’évaluation n’est pas encore décidé ?
+
+### Frozen Project context
+
+Project tuple: `project:loop-g-c-post-revasc-timing-unknown-01` / `project:loop-g-c-post-revasc-timing-unknown-01:version:1` / `ke1-e4c28baa11ab8a3e` / snapshot `ke1-4448e9438ea2426f`
+
+| Type | Epistemic state | Content |
+|---|---|---|
+| SCIENTIFIC_QUESTION | EXPLICIT_USER_STATED | La relation entre Tmax et CBF après revascularisation doit-elle être étudiée en phase aiguë ou au suivi chronique ? |
+| POPULATION | EXPLICIT_USER_STATED | Adultes après revascularisation cérébrale |
+| CONDITION | EXPLICIT_USER_STATED | État post-revascularisation cérébrale |
+| IMAGING_MODALITY | EXPLICIT_USER_STATED | IRM de perfusion cérébrale |
+| CANONICAL_VARIABLE | EXPLICIT_USER_STATED | Tmax |
+| CANONICAL_VARIABLE | EXPLICIT_USER_STATED | CBF |
+| UNCERTAINTY | UNKNOWN | Moment d’évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois |
+
+### Knowledge output
+
+Coverage: `SUPPORTED` — Result: `knowledge-result:ke1-bc7120cb1cbb2ddf` — Digest: `ke1-bc7120cb1cbb2ddf`
+
+- Source `RB-005:v1.0`: Reasoning Book 05 — Neuro Perfusion & Metabolism Foundations (output/documents/noxia-protocol-designer-reasoning-book-rb-005-neuro-perfusion-metabolism-foundations.docx)
+
+Governed documentary statements:
+
+- [CONTEXT] La question distingue les grandeurs hémodynamiques, l’oxygénation et le métabolisme, ainsi que les hypothèses propres à chaque modalité. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [EVIDENCE_MAP] Grandeurs hémodynamiques et modèles — Qualifie les distinctions entre débit, volume et délais. — RB-005 v1.0, §7–27 — `APPLICABLE_WITH_LIMITATIONS`
+- [EVIDENCE_MAP] OEF, CMRO₂ et différences de modalité — Borne l’interprétation physiologique et la commutabilité entre modalités. — RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Tmax et TTP ne sont pas des synonymes de débit cérébral. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Les seuils de pénombre ou de core dépendent du contexte, du logiciel et de la population. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [LIMITATION] Le démonstrateur ne formule aucune recommandation clinique ou de thrombectomie. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] La robustesse des seuils et des cartes dépend des méthodes, des délais collatéraux et de la transférabilité entre populations. — RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] Position A — information physiologique utile — Les profils de perfusion, d’oxygénation et de métabolisme peuvent éclairer des construits distincts lorsque le modèle est explicite. — RB-005 v1.0, §7–31 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONTROVERSY] Position B — non-substituabilité — CBF, CBV, délais, OEF et CMRO₂ ne sont ni synonymes ni directement commutables entre modalités. — RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [OPEN_QUESTION] Comment séparer une altération métabolique d’un effet de délai, de modèle ou de condition systémique ? — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] CBF, CBV, MTT, TTP et Tmax : grandeurs distinctes — RB-005 v1.0, §7–27 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] OEF et CMRO₂ : extraction d’oxygène et métabolisme — RB-005 v1.0, §28–31 et §39–64 — `APPLICABLE_WITH_LIMITATIONS`
+- [CONSTRUCT] Délai collatéral, état systémique et couplage neurovasculaire — RB-005 v1.0, §7–27 — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] Le biomarqueur sélectionné représente le construit physiologique visé. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] Le délai et la dispersion sont séparés d’une véritable altération du débit. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [HYPOTHESIS] La modalité et le modèle permettent la comparaison envisagée. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [DECISION_CANDIDATE] Lecture hémodynamique ciblée — bénéfice documenté : Clarifie débit, volume et délai avec un modèle explicite. Limite : Ne décrit pas directement l’extraction d’oxygène ni le métabolisme. Condition : Modèle, AIF et effets de délai qualifiés. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+- [DECISION_CANDIDATE] Lecture physiologique intégrée — bénéfice documenté : Met en relation perfusion, oxygénation et métabolisme. Limite : Plus de modèles, de modalités et d’incertitudes cumulées. Condition : Temporalité, recalage et hypothèses intermodalités documentés. — RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé — `APPLICABLE_WITH_LIMITATIONS`
+
+Knowledge gaps and limitations:
+
+```json
+{
+  "gaps": [
+    {
+      "gapId": "knowledge-gap:ke1-de9b8954fe5e2a40",
+      "code": "MISSING_CRITICAL_CONTEXT",
+      "scope": "CONTEXT",
+      "explanation": "Dimensions critiques absentes : MISSING_TECHNIQUE, MISSING_TIMING, MISSING_USAGE, PENDING_VERIFICATION:condition:cerebral-revascularization, PENDING_VERIFICATION:modality:perfusion-mri, PENDING_VERIFICATION:population:post-revascularization, PENDING_VERIFICATION:question:tmax-cbf-timing, PENDING_VERIFICATION:unknown:assessment-timing, PENDING_VERIFICATION:variable:cbf, PENDING_VERIFICATION:variable:tmax, UNKNOWN_PROJECT_OBJECT:unknown:assessment-timing.",
+      "affectedConceptIds": [
+        "modality:mri",
+        "biomarker:cerebral-perfusion"
+      ],
+      "resumeCondition": "Obtenir une clarification humaine."
+    }
+  ],
+  "limitations": [
+    "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+    "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+    "FOUR_DECLARED_DOMAINS_ONLY",
+    "NARRATIVE_CORPUS",
+    "NO_PATIENT_LEVEL_INTERPRETATION",
+    "NOT_ATOMIC_ASSERTIONS",
+    "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+  ]
+}
+```
+
+### Scientific Thinking output
+
+Status: `CLARIFICATION_REQUIRED` — Next: `CLARIFY` — Handoff: `NOT_READY`
+
+Understood problem: La relation entre Tmax et CBF après revascularisation doit-elle être étudiée en phase aiguë ou au suivi chronique ?
+
+```json
+{
+  "questions": [
+    {
+      "questionId": "ST-Q-001",
+      "text": "La relation entre Tmax et CBF après revascularisation doit-elle être étudiée en phase aiguë ou au suivi chronique ?",
+      "kind": "PRIMARY",
+      "rationale": "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale. Une inconnue Project structurante interdit de traiter la branche dépendante comme testable avant clarification.",
+      "testability": "NEEDS_CLARIFICATION",
+      "scope": "BALANCED",
+      "support": "SUPPORTED",
+      "reviewState": "PENDING",
+      "linkedAssumptionIds": [
+        "ST-A-001"
+      ],
+      "sourceTerms": [
+        "Adultes après revascularisation cérébrale",
+        "CBF"
+      ]
+    }
+  ],
+  "hypotheses": [],
+  "objectives": [],
+  "mechanisms": [],
+  "assumptions": [
+    {
+      "assumptionId": "ST-A-001",
+      "text": "La relation exprimée entre Adultes après revascularisation cérébrale et CBF est supposée avant d’être démontrée.",
+      "challenge": "Distinguer association, prédiction, temporalité et causalité ; rechercher une explication concurrente.",
+      "support": "SUPPORTED",
+      "status": "CHALLENGED"
+    },
+    {
+      "assumptionId": "ST-A-002",
+      "text": "La pertinence de IRM de perfusion cérébrale est présumée avant confirmation de la finalité scientifique.",
+      "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+      "support": "SUPPORTED",
+      "status": "CHALLENGED"
+    }
+  ],
+  "alternatives": [],
+  "unknowns": [
+    "Connaissance non résolue : Adultes après revascularisation cérébrale",
+    "Connaissance non résolue : État post-revascularisation cérébrale",
+    "Connaissance non résolue : Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+    "Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+    "PENDING_VERIFICATION:condition:cerebral-revascularization",
+    "PENDING_VERIFICATION:modality:perfusion-mri",
+    "PENDING_VERIFICATION:population:post-revascularization",
+    "PENDING_VERIFICATION:question:tmax-cbf-timing",
+    "PENDING_VERIFICATION:unknown:assessment-timing",
+    "PENDING_VERIFICATION:variable:cbf",
+    "PENDING_VERIFICATION:variable:tmax",
+    "UNKNOWN_PROJECT_OBJECT:unknown:assessment-timing"
+  ],
+  "ambiguities": [
+    "CONCEPT_NON_RÉSOLU:Adultes après revascularisation cérébrale",
+    "CONCEPT_NON_RÉSOLU:État post-revascularisation cérébrale",
+    "CONCEPT_NON_RÉSOLU:Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"
+  ],
+  "contradictions": [],
+  "adaptiveQuestions": [
+    {
+      "questionId": "ST-AQ-PROJECT-UNKNOWN-ke1-bf2f9642e65985e6",
+      "label": "Moment d’évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+      "whyAsked": "Cette inconnue appartient au Project et modifie la portée ou l’applicabilité du raisonnement dépendant.",
+      "decisionImpact": "La réponse détermine quelle branche scientifique peut être instruite ; aucune complétion n’est choisie automatiquement.",
+      "decisionBlock": "SCOPE",
+      "blocking": true,
+      "suggestedAnswers": [],
+      "acceptsFreeText": true,
+      "acceptsUnknown": true,
+      "answeredValue": null
+    }
+  ],
+  "knowledgeRequest": null,
+  "handoff": {
+    "handoffVersion": "1.1",
+    "status": "NOT_READY",
+    "questionId": null,
+    "hypothesisIds": [],
+    "objectiveIds": [],
+    "mechanisms": [],
+    "knownInformation": [
+      "PROJECT_ADOPTED:condition:cerebral-revascularization:État post-revascularisation cérébrale",
+      "PROJECT_ADOPTED:modality:perfusion-mri:IRM de perfusion cérébrale",
+      "PROJECT_ADOPTED:population:post-revascularization:Adultes après revascularisation cérébrale",
+      "PROJECT_ADOPTED:question:tmax-cbf-timing:La relation entre Tmax et CBF après revascularisation doit-elle être étudiée en phase aiguë ou au suivi chronique ?",
+      "PROJECT_ADOPTED:unknown:assessment-timing:Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+      "PROJECT_ADOPTED:variable:cbf:CBF",
+      "PROJECT_ADOPTED:variable:tmax:Tmax"
+    ],
+    "acceptedUnknowns": [],
+    "unresolvedUnknowns": [
+      "Connaissance non résolue : Adultes après revascularisation cérébrale",
+      "Connaissance non résolue : État post-revascularisation cérébrale",
+      "Connaissance non résolue : Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+      "Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+      "PENDING_VERIFICATION:condition:cerebral-revascularization",
+      "PENDING_VERIFICATION:modality:perfusion-mri",
+      "PENDING_VERIFICATION:population:post-revascularization",
+      "PENDING_VERIFICATION:question:tmax-cbf-timing",
+      "PENDING_VERIFICATION:unknown:assessment-timing",
+      "PENDING_VERIFICATION:variable:cbf",
+      "PENDING_VERIFICATION:variable:tmax",
+      "UNKNOWN_PROJECT_OBJECT:unknown:assessment-timing"
+    ],
+    "contradictions": [],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "alternativesNotSelected": [],
+    "limitations": [
+      "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+      "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+      "FOUR_DECLARED_DOMAINS_ONLY",
+      "NARRATIVE_CORPUS",
+      "NO_PATIENT_LEVEL_INTERPRETATION",
+      "NOT_ATOMIC_ASSERTIONS",
+      "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+    ],
+    "provenanceRefs": [
+      "knowledge-result:ke1-bc7120cb1cbb2ddf",
+      "knowledge-result:ke1-bc7120cb1cbb2ddf@1",
+      "RB-005:v1.0",
+      "RB-005:v1.0:block:1:ke1-760b194cf72bf7d8",
+      "RB-005:v1.0:block:10:ke1-4534dc5d0dc6e091",
+      "RB-005:v1.0:block:11:ke1-e02cb20f17158f4b",
+      "RB-005:v1.0:block:12:ke1-d7f920f3015df07f",
+      "RB-005:v1.0:block:13:ke1-e31eb35ae551a18e",
+      "RB-005:v1.0:block:14:ke1-9ac55e7d921ce911",
+      "RB-005:v1.0:block:15:ke1-dde30d9ce6836490",
+      "RB-005:v1.0:block:16:ke1-69f6e34e3246884a",
+      "RB-005:v1.0:block:17:ke1-7dd4783bc1a5bc67",
+      "RB-005:v1.0:block:18:ke1-c91e7ab58a396719",
+      "RB-005:v1.0:block:2:ke1-b91e1fa20fc7465e",
+      "RB-005:v1.0:block:3:ke1-3c4e1c21788ce095",
+      "RB-005:v1.0:block:4:ke1-5f8e2ae715688083",
+      "RB-005:v1.0:block:5:ke1-f1b833841593ca10",
+      "RB-005:v1.0:block:6:ke1-598190c674bec0e2",
+      "RB-005:v1.0:block:7:ke1-ef197f67101fed0b",
+      "RB-005:v1.0:block:8:ke1-8289e7fa88ca32c6",
+      "RB-005:v1.0:block:9:ke1-216cafbc5c2d35c8",
+      "scientific-thinking-project-request:ke1-7d6ad5fbeca151bf"
+    ],
+    "knowledgeResultRef": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+    "blockedBy": [
+      "QUESTION_CONFIRMATION_REQUIRED",
+      "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+      "OBJECTIVE_HIERARCHY_REQUIRED",
+      "UNANSWERED:ST-AQ-PROJECT-UNKNOWN-ke1-bf2f9642e65985e6"
+    ],
+    "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+  },
+  "knowledgeDependencies": [
+    {
+      "owner": "KNOWLEDGE",
+      "ownershipTransferred": false,
+      "knowledgeOwnerResultRef": "knowledge-result:ke1-bc7120cb1cbb2ddf@1",
+      "knowledgeResultRef": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+      "knowledgeResultRevision": 1,
+      "knowledgeResultDigest": "ke1-bc7120cb1cbb2ddf",
+      "candidateRefs": [
+        "ST-Q-001"
+      ],
+      "assertionRefs": [],
+      "documentaryStatementRefs": [
+        "RB-005:v1.0:block:1:ke1-760b194cf72bf7d8",
+        "RB-005:v1.0:block:10:ke1-4534dc5d0dc6e091",
+        "RB-005:v1.0:block:11:ke1-e02cb20f17158f4b",
+        "RB-005:v1.0:block:12:ke1-d7f920f3015df07f",
+        "RB-005:v1.0:block:13:ke1-e31eb35ae551a18e",
+        "RB-005:v1.0:block:14:ke1-9ac55e7d921ce911",
+        "RB-005:v1.0:block:15:ke1-dde30d9ce6836490",
+        "RB-005:v1.0:block:16:ke1-69f6e34e3246884a",
+        "RB-005:v1.0:block:17:ke1-7dd4783bc1a5bc67",
+        "RB-005:v1.0:block:18:ke1-c91e7ab58a396719",
+        "RB-005:v1.0:block:2:ke1-b91e1fa20fc7465e",
+        "RB-005:v1.0:block:3:ke1-3c4e1c21788ce095",
+        "RB-005:v1.0:block:4:ke1-5f8e2ae715688083",
+        "RB-005:v1.0:block:5:ke1-f1b833841593ca10",
+        "RB-005:v1.0:block:6:ke1-598190c674bec0e2",
+        "RB-005:v1.0:block:7:ke1-ef197f67101fed0b",
+        "RB-005:v1.0:block:8:ke1-8289e7fa88ca32c6",
+        "RB-005:v1.0:block:9:ke1-216cafbc5c2d35c8"
+      ],
+      "evidenceRefs": [],
+      "sourceRefs": [
+        "RB-005:v1.0"
+      ],
+      "applicability": [],
+      "contradictionRefs": [],
+      "gapRefs": [
+        "knowledge-gap:ke1-de9b8954fe5e2a40"
+      ]
+    }
+  ],
+  "provenance": {
+    "engineVersion": "1.2.2",
+    "inputRef": "scientific-thinking-project-request:ke1-7d6ad5fbeca151bf",
+    "knowledgeResultRef": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+    "sourceRefs": [
+      "knowledge-result:ke1-bc7120cb1cbb2ddf@1",
+      "project-contribution-decision:ke1-279abe46c9ba360a",
+      "RB-005:v1.0",
+      "RB-005:v1.0:block:1:ke1-760b194cf72bf7d8",
+      "RB-005:v1.0:block:10:ke1-4534dc5d0dc6e091",
+      "RB-005:v1.0:block:11:ke1-e02cb20f17158f4b",
+      "RB-005:v1.0:block:12:ke1-d7f920f3015df07f",
+      "RB-005:v1.0:block:13:ke1-e31eb35ae551a18e",
+      "RB-005:v1.0:block:14:ke1-9ac55e7d921ce911",
+      "RB-005:v1.0:block:15:ke1-dde30d9ce6836490",
+      "RB-005:v1.0:block:16:ke1-69f6e34e3246884a",
+      "RB-005:v1.0:block:17:ke1-7dd4783bc1a5bc67",
+      "RB-005:v1.0:block:18:ke1-c91e7ab58a396719",
+      "RB-005:v1.0:block:2:ke1-b91e1fa20fc7465e",
+      "RB-005:v1.0:block:3:ke1-3c4e1c21788ce095",
+      "RB-005:v1.0:block:4:ke1-5f8e2ae715688083",
+      "RB-005:v1.0:block:5:ke1-f1b833841593ca10",
+      "RB-005:v1.0:block:6:ke1-598190c674bec0e2",
+      "RB-005:v1.0:block:7:ke1-ef197f67101fed0b",
+      "RB-005:v1.0:block:8:ke1-8289e7fa88ca32c6",
+      "RB-005:v1.0:block:9:ke1-216cafbc5c2d35c8"
+    ],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "PD-003",
+      "PD-009",
+      "KE-001"
+    ],
+    "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+  }
+}
+```
+
+### Imaging output
+
+Status: `RETURN_TO_SCIENTIFIC_THINKING` — Result: `imaging-design-result:ke1-b72b2ed0483d4b74` — Digest: `ke1-b72b2ed0483d4b74`
+
+```json
+{
+  "scientificQuestion": {
+    "questionId": "question:tmax-cbf-timing",
+    "text": "La relation entre Tmax et CBF après revascularisation doit-elle être étudiée en phase aiguë ou au suivi chronique ?",
+    "confirmation": "VALIDATED_CONTEXT"
+  },
+  "modalityCandidates": [
+    {
+      "modalityId": "IMG-MODALITY:modality:mri",
+      "label": "IRM",
+      "conceptId": "modality:mri",
+      "biomarkerIds": [],
+      "phenomenonIds": [],
+      "role": "CANDIDATE",
+      "support": "UNKNOWN",
+      "dimensions": {
+        "resolution": "UNKNOWN",
+        "repeatability": "UNKNOWN",
+        "reproducibility": "UNKNOWN",
+        "invasiveness": "UNKNOWN",
+        "irradiation": "UNKNOWN",
+        "contrast": "UNKNOWN",
+        "accessibility": "UNKNOWN",
+        "duration": "UNKNOWN",
+        "artefacts": "UNKNOWN",
+        "equipment": "UNKNOWN",
+        "multicenter": "UNKNOWN",
+        "quality": "UNKNOWN",
+        "analysis": "UNKNOWN",
+        "scientificCoverage": "UNKNOWN"
+      },
+      "dependencies": [
+        "biomarker:cerebral-perfusion"
+      ],
+      "limitations": [
+        "BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER",
+        "NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"
+      ],
+      "risks": [],
+      "evidenceRefs": [
+        "RB-005:v1.0#RB-005 v1.0 — bloc structuré de démonstration, localisateur RB précis non encodé",
+        "RB-005:v1.0#RB-005 v1.0, §28–31 et §39–64",
+        "RB-005:v1.0#RB-005 v1.0, §7–27",
+        "RB-005:v1.0#RB-005 v1.0, §7–27 ; RB-005 v1.0, §28–31 et §39–64",
+        "RB-005:v1.0#RB-005 v1.0, §7–31"
+      ],
+      "reviewState": "PENDING"
+    }
+  ],
+  "acquisitionStrategies": [],
+  "imagingVariables": [],
+  "biomarkerCandidates": [],
+  "missingInformation": [
+    "CONCEPT_NON_RÉSOLU:Adultes après revascularisation cérébrale",
+    "CONCEPT_NON_RÉSOLU:État post-revascularisation cérébrale",
+    "CONCEPT_NON_RÉSOLU:Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+    "Connaissance non résolue : Adultes après revascularisation cérébrale",
+    "Connaissance non résolue : État post-revascularisation cérébrale",
+    "Connaissance non résolue : Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+    "Dimensions critiques absentes : MISSING_TECHNIQUE, MISSING_TIMING, MISSING_USAGE, PENDING_VERIFICATION:condition:cerebral-revascularization, PENDING_VERIFICATION:modality:perfusion-mri, PENDING_VERIFICATION:population:post-revascularization, PENDING_VERIFICATION:question:tmax-cbf-timing, PENDING_VERIFICATION:unknown:assessment-timing, PENDING_VERIFICATION:variable:cbf, PENDING_VERIFICATION:variable:tmax, UNKNOWN_PROJECT_OBJECT:unknown:assessment-timing.",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+    "Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+    "PENDING_VERIFICATION:condition:cerebral-revascularization",
+    "PENDING_VERIFICATION:modality:perfusion-mri",
+    "PENDING_VERIFICATION:population:post-revascularization",
+    "PENDING_VERIFICATION:question:tmax-cbf-timing",
+    "PENDING_VERIFICATION:unknown:assessment-timing",
+    "PENDING_VERIFICATION:variable:cbf",
+    "PENDING_VERIFICATION:variable:tmax",
+    "Quel observable d’imagerie permettrait d’approcher ce phénomène ?",
+    "Quel phénomène doit rester principal ?",
+    "UNKNOWN_PROJECT_OBJECT:unknown:assessment-timing"
+  ],
+  "adaptiveQuestions": [
+    {
+      "questionId": "IMG-AQ-PRIMARY-PHENOMENON",
+      "label": "Quel phénomène doit rester principal ?",
+      "whyAsked": "Plusieurs phénomènes défendables sont conservés.",
+      "decisionImpact": "Change la hiérarchie des biomarqueurs et des acquisitions.",
+      "decisionBlock": "PHENOMENA",
+      "suggestedAnswers": [
+        {
+          "value": "IMG-PHENOMENON:biomarker:cerebral-perfusion",
+          "label": "perfusion cérébrale",
+          "consequence": "La branche est priorisée sous réserve d’une décision humaine."
+        },
+        {
+          "value": "IMG-PHENOMENON:declared:ke1-a042d32b8b40ae77",
+          "label": "Tmax",
+          "consequence": "La branche est priorisée sous réserve d’une décision humaine."
+        },
+        {
+          "value": "unknown",
+          "label": "Je ne sais pas",
+          "consequence": "L’inconnue reste explicite et la décision dépendante demeure ouverte."
+        }
+      ],
+      "acceptsFreeText": true,
+      "acceptsUnknown": true,
+      "answeredValue": null
+    },
+    {
+      "questionId": "IMG-AQ-MEASUREMENT",
+      "label": "Quel observable d’imagerie permettrait d’approcher ce phénomène ?",
+      "whyAsked": "Knowledge ne soutient actuellement aucun biomarqueur contextualisé.",
+      "decisionImpact": "Détermine si Imaging peut continuer ou doit retourner vers Scientific Thinking.",
+      "decisionBlock": "BIOMARKERS",
+      "suggestedAnswers": [
+        {
+          "value": "unknown",
+          "label": "Je ne sais pas",
+          "consequence": "L’inconnue reste explicite et la décision dépendante demeure ouverte."
+        }
+      ],
+      "acceptsFreeText": true,
+      "acceptsUnknown": true,
+      "answeredValue": null
+    }
+  ],
+  "limitations": [
+    "AUTHORIZED_ST_HANDOFF_NOT_AVAILABLE_FOR_THIS_DIRECT_DESIGN_CONTEXT",
+    "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
+    "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
+    "FOUR_DECLARED_DOMAINS_ONLY",
+    "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE",
+    "NARRATIVE_CORPUS",
+    "NO_PATIENT_LEVEL_INTERPRETATION",
+    "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION",
+    "NOT_ATOMIC_ASSERTIONS",
+    "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+  ],
+  "decisionsRequired": [
+    {
+      "gateId": "IMG-GATE-PRIMARY-PHENOMENON",
+      "type": "PRIMARY_PHENOMENON",
+      "label": "Choisir le phénomène principal",
+      "reason": "Plusieurs branches sont conservées sans classement automatique.",
+      "status": "PENDING",
+      "targetIds": [
+        "IMG-PHENOMENON:biomarker:cerebral-perfusion",
+        "IMG-PHENOMENON:declared:ke1-a042d32b8b40ae77"
+      ]
+    },
+    {
+      "gateId": "IMG-GATE-HANDOFF-FREEZE",
+      "type": "HANDOFF_FREEZE",
+      "label": "Geler le handoff Imaging",
+      "reason": "Project Construction ne reçoit que les décisions explicitement autorisées.",
+      "status": "PENDING",
+      "targetIds": [
+        "imaging-project-input:ke1-d05e5c37c618e4a3"
+      ]
+    }
+  ],
+  "knowledgeHandoff": {
+    "requestRef": "request-of:knowledge-result:ke1-bc7120cb1cbb2ddf",
+    "resultRef": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+    "resultDigest": "ke1-bc7120cb1cbb2ddf",
+    "coverageStatus": "SUPPORTED",
+    "gapCodes": [
+      "MISSING_CRITICAL_CONTEXT"
+    ],
+    "noClosestCorpusFallback": true
+  },
+  "projectConstructionHandoff": {
+    "handoffVersion": "1.2",
+    "status": "NOT_READY",
+    "imagingStrategyVersion": "project:loop-g-c-post-revasc-timing-unknown-01:version:1:IMG-ke1-8df97712",
+    "humanDecision": {
+      "status": "PENDING",
+      "decisionRecordId": null
+    },
+    "scientificStrategyStatus": "SCIENTIFIC_STRATEGY_BLOCKED",
+    "projectHandoffReadiness": "PROJECT_HANDOFF_BLOCKED",
+    "equipmentCompatibilityStatus": "NOT_APPLICABLE",
+    "executableProtocolReadiness": "EXECUTABLE_PROTOCOL_NOT_READY",
+    "resultRef": "imaging-design-result:ke1-b72b2ed0483d4b74",
+    "includedSections": [
+      "Question",
+      "Objectives",
+      "Hypotheses",
+      "Phenomena",
+      "Biomarkers",
+      "Modalities",
+      "AcquisitionStrategy",
+      "Timing",
+      "Equipment",
+      "Harmonization",
+      "Quality",
+      "ImageAnalysis",
+      "Variables",
+      "EndpointContributions",
+      "CoreLabAssessment",
+      "NonEvaluability",
+      "Risks",
+      "Limitations",
+      "KnowledgeGaps",
+      "Alternatives",
+      "HumanDecisions",
+      "Provenance"
+    ],
+    "excludedSections": [
+      "STATISTICAL_SIZING",
+      "COMPLETE_BUDGET",
+      "FINAL_CRF",
+      "REGULATORY_PLAN",
+      "COMPLETE_OPERATIONAL_PLAN",
+      "FINAL_SUBMISSION_PROTOCOL"
+    ],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "blockedBy": [
+      "HUMAN_HANDOFF_FREEZE_DECISION_PENDING",
+      "IMG-AQ-MEASUREMENT",
+      "IMG-AQ-PRIMARY-PHENOMENON",
+      "IMG-GATE-PRIMARY-PHENOMENON",
+      "MODALITY_WITHOUT_BIOMARKER",
+      "NO_DEFENSIBLE_IMAGING_CHAIN",
+      "PHENOMENON_WITHOUT_OBJECTIVE_OR_HYPOTHESIS",
+      "QUESTION_OBJECTIVE_HYPOTHESIS_CHAIN_INCOMPLETE"
+    ],
+    "unknowns": [
+      "CONCEPT_NON_RÉSOLU:Adultes après revascularisation cérébrale",
+      "CONCEPT_NON_RÉSOLU:État post-revascularisation cérébrale",
+      "CONCEPT_NON_RÉSOLU:Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+      "Connaissance non résolue : Adultes après revascularisation cérébrale",
+      "Connaissance non résolue : État post-revascularisation cérébrale",
+      "Connaissance non résolue : Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+      "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+      "Moment d'évaluation non décidé: phase aiguë avant 24 heures ou suivi chronique à trois mois",
+      "PENDING_VERIFICATION:condition:cerebral-revascularization",
+      "PENDING_VERIFICATION:modality:perfusion-mri",
+      "PENDING_VERIFICATION:population:post-revascularization",
+      "PENDING_VERIFICATION:question:tmax-cbf-timing",
+      "PENDING_VERIFICATION:unknown:assessment-timing",
+      "PENDING_VERIFICATION:variable:cbf",
+      "PENDING_VERIFICATION:variable:tmax",
+      "UNKNOWN_PROJECT_OBJECT:unknown:assessment-timing"
+    ],
+    "limitations": [
+      "PROJECT_HANDOFF_DOES_NOT_AUTHORIZE_EXECUTABLE_ACQUISITION",
+      "PROJECT_HANDOFF_DOES_NOT_CONFIRM_TECHNICAL_COMPATIBILITY"
+    ],
+    "contradictions": [],
+    "requiredFutureReviews": [
+      "BIOSTATISTICS_REVIEW",
+      "DATA_MANAGEMENT_REVIEW",
+      "EXECUTABLE_PROTOCOL_REVIEW_WITH_GOVERNED_EQUIPMENT_KNOWLEDGE"
+    ],
+    "provenance": [
+      "condition:cerebral-revascularization",
+      "imaging-project-input:ke1-d05e5c37c618e4a3",
+      "ke1-e4c28baa11ab8a3e",
+      "modality:perfusion-mri",
+      "population:post-revascularization",
+      "project:loop-g-c-post-revasc-timing-unknown-01:version:1",
+      "question:tmax-cbf-timing",
+      "RB-005:v1.0",
+      "scientific-thinking-output:ke1-5922b19ba761ac6f@1.2.2",
+      "unknown:assessment-timing",
+      "variable:cbf",
+      "variable:tmax"
+    ],
+    "trace": [
+      {
+        "sequence": 1,
+        "decision": "SCIENTIFIC_STRATEGY_BLOCKED",
+        "rationale": "Question, phénomènes et biomarqueurs sont évalués indépendamment de la qualification technique locale."
+      },
+      {
+        "sequence": 2,
+        "decision": "NOT_APPLICABLE",
+        "rationale": "La disponibilité, sa vérification et la compatibilité restent distinctes."
+      },
+      {
+        "sequence": 3,
+        "decision": "PROJECT_HANDOFF_BLOCKED",
+        "rationale": "Une porte scientifique, structurelle ou humaine reste ouverte."
+      },
+      {
+        "sequence": 4,
+        "decision": "EXECUTABLE_PROTOCOL_NOT_READY",
+        "rationale": "Aucune connaissance exécutable gouvernée ne permet de produire des paramètres exacts."
+      }
+    ]
+  },
+  "provenance": {
+    "engineVersion": "1.2.1",
+    "inputRef": "imaging-project-input:ke1-d05e5c37c618e4a3",
+    "knowledgeResultRef": "knowledge-result:ke1-bc7120cb1cbb2ddf",
+    "sourceRefs": [
+      "RB-005:v1.0"
+    ],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "RDE-003",
+      "KE-001",
+      "ST-001"
+    ],
+    "llmContributionStatus": "NO_LLM_SCIENTIFIC_DECISION"
+  }
+}
+```
+
+### VAL observation
+
+Bounded status: `STRUCTURAL_FIDELITY_PASS` — Run: `undefined` — Digest: `undefined`
+
+```json
+{
+  "observationCount": 73,
+  "observationSummary": [
+    {
+      "observationId": "val-observation:val1-0086736f91b42e4b"
+    },
+    {
+      "observationId": "val-observation:val1-00c80d2a4be35ca6"
+    },
+    {
+      "observationId": "val-observation:val1-0618d0ac04240b58"
+    },
+    {
+      "observationId": "val-observation:val1-0a47ad9f7a136133"
+    },
+    {
+      "observationId": "val-observation:val1-0e8d2f62d0e4666e"
+    },
+    {
+      "observationId": "val-observation:val1-1a0ae15879e6a5c4"
+    },
+    {
+      "observationId": "val-observation:val1-1b97c6f80a81414c"
+    },
+    {
+      "observationId": "val-observation:val1-1d07b61e7c0dff02"
+    },
+    {
+      "observationId": "val-observation:val1-1d4b66e570b9f349"
+    },
+    {
+      "observationId": "val-observation:val1-1f3801071696cf33"
+    },
+    {
+      "observationId": "val-observation:val1-1f6aed9081acad0c"
+    },
+    {
+      "observationId": "val-observation:val1-1fe15cc52479cfe1"
+    },
+    {
+      "observationId": "val-observation:val1-206e49d91da6267d"
+    },
+    {
+      "observationId": "val-observation:val1-23199df8fdb7a10c"
+    },
+    {
+      "observationId": "val-observation:val1-2beb225896afe20c"
+    },
+    {
+      "observationId": "val-observation:val1-2cddfdd66e85ba3a"
+    },
+    {
+      "observationId": "val-observation:val1-3332521cb7cd9098"
+    },
+    {
+      "observationId": "val-observation:val1-367d96dfd675c7b3"
+    },
+    {
+      "observationId": "val-observation:val1-3afdaea4cf7b0570"
+    },
+    {
+      "observationId": "val-observation:val1-40ec6ecb5e9419ff"
+    },
+    {
+      "observationId": "val-observation:val1-42c587542da6f308"
+    },
+    {
+      "observationId": "val-observation:val1-44a40e93ae62d8c7"
+    },
+    {
+      "observationId": "val-observation:val1-4636ba5a58e35b4e"
+    },
+    {
+      "observationId": "val-observation:val1-480d2b915b42e6fd"
+    },
+    {
+      "observationId": "val-observation:val1-483e62e6c3d0bbb2"
+    },
+    {
+      "observationId": "val-observation:val1-48c0c41c990eb420"
+    },
+    {
+      "observationId": "val-observation:val1-4d221b7f09b8fb2b"
+    },
+    {
+      "observationId": "val-observation:val1-5721657c886f5130"
+    },
+    {
+      "observationId": "val-observation:val1-5958bed0361da7f4"
+    },
+    {
+      "observationId": "val-observation:val1-5d08c187b665adc3"
+    },
+    {
+      "observationId": "val-observation:val1-6153cc3a6a890296"
+    },
+    {
+      "observationId": "val-observation:val1-648abfcd0301e7c1"
+    },
+    {
+      "observationId": "val-observation:val1-67e1759119a8857d"
+    },
+    {
+      "observationId": "val-observation:val1-69d72d211192eb1d"
+    },
+    {
+      "observationId": "val-observation:val1-6cdbc07279a30d4e"
+    },
+    {
+      "observationId": "val-observation:val1-6de315e12645025d"
+    },
+    {
+      "observationId": "val-observation:val1-70c7bac2404d6096"
+    },
+    {
+      "observationId": "val-observation:val1-757536fed400b02a"
+    },
+    {
+      "observationId": "val-observation:val1-75b2b58813d8afcc"
+    },
+    {
+      "observationId": "val-observation:val1-76bac6c4322caca0"
+    },
+    {
+      "observationId": "val-observation:val1-7a35f234e1965018"
+    },
+    {
+      "observationId": "val-observation:val1-7af89f5e76b965a2"
+    },
+    {
+      "observationId": "val-observation:val1-861d3febc00b59ef"
+    },
+    {
+      "observationId": "val-observation:val1-8a2ff4b2d0ab19be"
+    },
+    {
+      "observationId": "val-observation:val1-8e7887f9e989a455"
+    },
+    {
+      "observationId": "val-observation:val1-9403dee9f840c55d"
+    },
+    {
+      "observationId": "val-observation:val1-969bd72d9e4ba999"
+    },
+    {
+      "observationId": "val-observation:val1-a1af85ce313c3122"
+    },
+    {
+      "observationId": "val-observation:val1-a1f73f9d39291871"
+    },
+    {
+      "observationId": "val-observation:val1-a95d142840a3c5e4"
+    },
+    {
+      "observationId": "val-observation:val1-aa41ab103d8446a4"
+    },
+    {
+      "observationId": "val-observation:val1-ae604733014ec8bf"
+    },
+    {
+      "observationId": "val-observation:val1-af42978d6eb14f61"
+    },
+    {
+      "observationId": "val-observation:val1-b71c4a158b8a3aa1"
+    },
+    {
+      "observationId": "val-observation:val1-c12ad1a6b9fdbe02"
+    },
+    {
+      "observationId": "val-observation:val1-c241651b652a46c7"
+    },
+    {
+      "observationId": "val-observation:val1-ca748b6a2c131246"
+    },
+    {
+      "observationId": "val-observation:val1-cec939f32b55f4c7"
+    },
+    {
+      "observationId": "val-observation:val1-d87340764f03eb2a"
+    },
+    {
+      "observationId": "val-observation:val1-daf60e500cff84c4"
+    },
+    {
+      "observationId": "val-observation:val1-de2622ef282ab8d3"
+    },
+    {
+      "observationId": "val-observation:val1-df836d47f3c3d433"
+    },
+    {
+      "observationId": "val-observation:val1-e030ef421a727526"
+    },
+    {
+      "observationId": "val-observation:val1-e5a17439b90402ad"
+    },
+    {
+      "observationId": "val-observation:val1-e9c94410ba9c81a4"
+    },
+    {
+      "observationId": "val-observation:val1-ed6544a982d5d5e5"
+    },
+    {
+      "observationId": "val-observation:val1-ed69a6960dc263ea"
+    },
+    {
+      "observationId": "val-observation:val1-f119b483222077c7"
+    },
+    {
+      "observationId": "val-observation:val1-f3b3103212406f66"
+    },
+    {
+      "observationId": "val-observation:val1-fa86a26f4b4ded3b"
+    },
+    {
+      "observationId": "val-observation:val1-fd2baed0e18e7784"
+    },
+    {
+      "observationId": "val-observation:val1-fde4051d637b5911"
+    },
+    {
+      "observationId": "val-observation:val1-fedea32cc8769a38"
+    }
+  ],
+  "sourceSnapshotRef": {
+    "artifactId": "scientific-thinking-output:ke1-5922b19ba761ac6f",
+    "artifactType": "SCIENTIFIC_THINKING_RESULT",
+    "contentDigest": "ke1-5922b19ba761ac6f",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "SCIENTIFIC_THINKING",
+    "projectId": "project:loop-g-c-post-revasc-timing-unknown-01",
+    "projectVersion": "project:loop-g-c-post-revasc-timing-unknown-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "RB-005:v1.0",
+      "RB-005:v1.0:block:10:ke1-4534dc5d0dc6e091",
+      "RB-005:v1.0:block:11:ke1-e02cb20f17158f4b",
+      "RB-005:v1.0:block:12:ke1-d7f920f3015df07f",
+      "RB-005:v1.0:block:13:ke1-e31eb35ae551a18e",
+      "RB-005:v1.0:block:14:ke1-9ac55e7d921ce911",
+      "RB-005:v1.0:block:15:ke1-dde30d9ce6836490",
+      "RB-005:v1.0:block:16:ke1-69f6e34e3246884a",
+      "RB-005:v1.0:block:17:ke1-7dd4783bc1a5bc67",
+      "RB-005:v1.0:block:18:ke1-c91e7ab58a396719",
+      "RB-005:v1.0:block:1:ke1-760b194cf72bf7d8",
+      "RB-005:v1.0:block:2:ke1-b91e1fa20fc7465e",
+      "RB-005:v1.0:block:3:ke1-3c4e1c21788ce095",
+      "RB-005:v1.0:block:4:ke1-5f8e2ae715688083",
+      "RB-005:v1.0:block:5:ke1-f1b833841593ca10",
+      "RB-005:v1.0:block:6:ke1-598190c674bec0e2",
+      "RB-005:v1.0:block:7:ke1-ef197f67101fed0b",
+      "RB-005:v1.0:block:8:ke1-8289e7fa88ca32c6",
+      "RB-005:v1.0:block:9:ke1-216cafbc5c2d35c8",
+      "ke1-4448e9438ea2426f",
+      "knowledge-result:ke1-bc7120cb1cbb2ddf",
+      "knowledge-result:ke1-bc7120cb1cbb2ddf@1",
+      "scientific-thinking-handoff:ke1-8e9228a2e706ca76",
+      "scientific-thinking-output:ke1-5922b19ba761ac6f",
+      "scientific-thinking-project-request:ke1-7d6ad5fbeca151bf"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.2"
+  },
+  "targetSnapshotRef": {
+    "artifactId": "imaging-design-result:ke1-b72b2ed0483d4b74",
+    "artifactType": "IMAGING_CONTRIBUTION",
+    "contentDigest": "ke1-b72b2ed0483d4b74",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "IMAGING",
+    "projectId": "project:loop-g-c-post-revasc-timing-unknown-01",
+    "projectVersion": "project:loop-g-c-post-revasc-timing-unknown-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "RB-005:v1.0",
+      "imaging-design-result:ke1-b72b2ed0483d4b74",
+      "imaging-project-input:ke1-d05e5c37c618e4a3",
+      "ke1-4448e9438ea2426f",
+      "scientific-thinking-output:ke1-5922b19ba761ac6f@1.2.2",
+      "st-to-imaging:ke1-74e0743ade1e978e"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.1"
+  }
+}
+```
+
+### Ordered TRACE
+
+| Seq | Event | Owner | Status | Diagnostic stage |
+|---:|---|---|---|---|
+| 1 | RUN_STARTED | TRACE | RUNNING | PROJECT_CONTEXT |
+| 2 | HANDOFF_STARTED | KNOWLEDGE | STARTED | OWNER_REQUEST_BUILDING |
+| 3 | HANDOFF_ACCEPTED | KNOWLEDGE | ACCEPTED | OWNER_REQUEST_BUILDING |
+| 4 | OWNER_INVOCATION_STARTED | KNOWLEDGE | STARTED | KNOWLEDGE_ENGINE |
+| 5 | OWNER_INVOCATION_COMPLETED | KNOWLEDGE | COMPLETED | KNOWLEDGE_ENGINE |
+| 6 | RESULT_PERSISTED | KNOWLEDGE | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 7 | HANDOFF_STARTED | SCIENTIFIC_THINKING | STARTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 8 | HANDOFF_ACCEPTED | SCIENTIFIC_THINKING | ACCEPTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 9 | OWNER_INVOCATION_STARTED | SCIENTIFIC_THINKING | STARTED | SCIENTIFIC_THINKING_ENGINE |
+| 10 | OWNER_INVOCATION_COMPLETED | SCIENTIFIC_THINKING | COMPLETED_WITH_LIMITATIONS | SCIENTIFIC_THINKING_ENGINE |
+| 11 | RESULT_PERSISTED | SCIENTIFIC_THINKING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 12 | HANDOFF_STARTED | IMAGING | STARTED | ST_TO_IMAGING_HANDOFF |
+| 13 | HANDOFF_ACCEPTED | IMAGING | ACCEPTED | ST_TO_IMAGING_HANDOFF |
+| 14 | OWNER_INVOCATION_STARTED | IMAGING | STARTED | IMAGING_ENGINE |
+| 15 | OWNER_INVOCATION_COMPLETED | IMAGING | COMPLETED_WITH_LIMITATIONS | IMAGING_ENGINE |
+| 16 | RESULT_PERSISTED | IMAGING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 17 | HANDOFF_STARTED | VAL | STARTED | VAL_INPUT_ADAPTER |
+| 18 | HANDOFF_ACCEPTED | VAL | ACCEPTED | VAL_INPUT_ADAPTER |
+| 19 | VALIDATION_STARTED | VAL | STARTED | VAL_ENGINE |
+| 20 | VALIDATION_COMPLETED | VAL | STRUCTURAL_FIDELITY_PASS | VAL_ENGINE |
+| 21 | RESULT_PERSISTED | VAL | VALIDATION_RUN_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 22 | RUN_COMPLETED | TRACE | COMPLETED |  |
+
+### Direct technical summary
+
+```json
+{
+  "projectTupleExact": true,
+  "projectUnchanged": true,
+  "projectWrites": 0,
+  "humanDecisionBypassed": false,
+  "automaticAdoption": 0,
+  "externalCalls": 0,
+  "obsRuntimeCalls": 0,
+  "valRepairCalls": 0,
+  "valScientificQualificationClaimed": false,
+  "traceEventCount": 22,
+  "traceCompleted": true,
+  "frozenInputDigest": "ke1-6b651a64aa928340"
+}
+```
+
+### Pre-authored HumanLoopReviewEnvelope
+
+```json
+{
+  "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+  "casePurpose": "Observer si une UNKNOWN Project structurante demeure gouvernante dans K, ST, Imaging et VAL.",
+  "whatEachOwnerShouldContribute": {
+    "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+    "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+    "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+    "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+    "REGULATORY_RESOLUTION": "NOT_INVOKED"
+  },
+  "criticalInformationToPreserve": {
+    "unknowns": [
+      "Moment d’évaluation: phase aiguë avant 24 heures ou suivi chronique à trois mois"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Tmax n’est pas un synonyme de débit cérébral.",
+      "L’interprétation dépend du délai collatéral, du modèle et de la temporalité."
+    ],
+    "sourceRefs": [
+      "RB-005:v1.0",
+      "src/features/protocol-designer/fixtures.ts#neuro",
+      "PD-003-V2:PROJECT_UNKNOWNS"
+    ]
+  },
+  "expectedStopOrRefusalBehavior": "Conserver le handoff ST NOT_READY ou les clarifications si produits; l’adapter Imaging ne vaut pas autorisation humaine.",
+  "scientificallyForbiddenBehaviors": [
+    "Transformer un OwnerResult en Project truth",
+    "Promouvoir une contradiction en conclusion résolue",
+    "Inventer une source ou une preuve",
+    "Sélectionner automatiquement une méthode Imaging",
+    "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+    "Créer une approbation réglementaire"
+  ],
+  "acceptableKindsOfResponse": [
+    "Candidats explicitement non adoptés",
+    "Clarification ou gap traçable",
+    "Alternatives conservées",
+    "Stratégies Imaging candidates avec limites",
+    "Diagnostic VAL structurel"
+  ],
+  "humanReviewQuestions": {
+    "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+    "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+    "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+    "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+    "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+    "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+    "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+    "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+  },
+  "L1": "PENDING",
+  "L2": "PENDING",
+  "L3": "PENDING",
+  "L4": "PENDING",
+  "L5": "PENDING",
+  "L6": "PENDING",
+  "L7": "PENDING",
+  "L8": "PENDING"
+}
+```
+
+### Human adjudication
+
+| Question | State |
+|---|---|
+| L1 | PENDING |
+| L2 | PENDING |
+| L3 | PENDING |
+| L4 | PENDING |
+| L5 | PENDING |
+| L6 | PENDING |
+| L7 | PENDING |
+| L8 | PENDING |
+
+## 4. Diffusion médullaire rénale hors corpus local
+
+- Case: `LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01`
+- Family: `D_INSUFFICIENT_KNOWLEDGE_DEGRADATION`
+- Domain: `RENAL_DIFFUSION_MRI_UNCOVERED`
+- Purpose: Observer si un Knowledge gap explicite reste faible et n’est pas promu en science Imaging.
+
+### Scientific question
+
+Chez des adultes avec maladie rénale chronique, l’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?
+
+### Frozen Project context
+
+Project tuple: `project:loop-g-d-renal-dwi-knowledge-gap-01` / `project:loop-g-d-renal-dwi-knowledge-gap-01:version:1` / `ke1-568dce5c3419d450` / snapshot `ke1-e11c690dd24e97e1`
+
+| Type | Epistemic state | Content |
+|---|---|---|
+| SCIENTIFIC_QUESTION | EXPLICIT_USER_STATED | L’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ? |
+| POPULATION | EXPLICIT_USER_STATED | Adultes avec maladie rénale chronique |
+| CONDITION | EXPLICIT_USER_STATED | Fibrose interstitielle rénale |
+| IMAGING_MODALITY | EXPLICIT_USER_STATED | IRM rénale |
+| ACQUISITION | EXPLICIT_USER_STATED | IRM de diffusion rénale |
+| CANONICAL_VARIABLE | EXPLICIT_USER_STATED | ADC médullaire |
+
+### Knowledge output
+
+Coverage: `NO_PROVIDER` — Result: `knowledge-result:ke1-b85daecc6a251de8` — Digest: `ke1-b85daecc6a251de8`
+
+- No applicable local source returned.
+
+Governed documentary statements:
+
+- None.
+
+Knowledge gaps and limitations:
+
+```json
+{
+  "gaps": [
+    {
+      "gapId": "knowledge-gap:ke1-04dad697407f2513",
+      "code": "EXTERNAL_RESEARCH_REQUIRED",
+      "scope": "FUTURE_EXTERNAL_RESEARCH",
+      "explanation": "La connaissance interne est insuffisante pour fermer cette question. Une recherche scientifique externe séparée serait nécessaire ; elle n’a pas été réalisée.",
+      "affectedConceptIds": [
+        "modality:mri"
+      ],
+      "resumeCondition": "Autoriser ultérieurement un workflow de recherche externe gouverné, hors ENG-002."
+    },
+    {
+      "gapId": "knowledge-gap:ke1-62ca376a080e4e4e",
+      "code": "NO_REGISTERED_PROVIDER",
+      "scope": "EXACT_REQUEST",
+      "explanation": "Aucun provider enregistré ne déclare cette couverture exacte.",
+      "affectedConceptIds": [
+        "modality:mri"
+      ],
+      "resumeCondition": "Admettre un corpus/provider exact ou réduire explicitement la portée."
+    },
+    {
+      "gapId": "knowledge-gap:ke1-e81eacc038cd0dd4",
+      "code": "MISSING_CRITICAL_CONTEXT",
+      "scope": "CONTEXT",
+      "explanation": "Dimensions critiques absentes : MISSING_TIMING, MISSING_USAGE, PENDING_VERIFICATION:acquisition:renal-dwi, PENDING_VERIFICATION:condition:renal-fibrosis, PENDING_VERIFICATION:modality:renal-mri, PENDING_VERIFICATION:population:ckd-adults, PENDING_VERIFICATION:question:renal-adc-fibrosis, PENDING_VERIFICATION:variable:medullary-adc.",
+      "affectedConceptIds": [
+        "modality:mri"
+      ],
+      "resumeCondition": "Obtenir une clarification humaine."
+    }
+  ],
+  "limitations": []
+}
+```
+
+### Scientific Thinking output
+
+Status: `CANDIDATES_PROPOSED` — Next: `REVIEW_CANDIDATES` — Handoff: `NOT_READY`
+
+Understood problem: L’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?
+
+```json
+{
+  "questions": [
+    {
+      "questionId": "ST-Q-001",
+      "text": "L’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?",
+      "kind": "PRIMARY",
+      "rationale": "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
+      "testability": "TESTABLE_CANDIDATE",
+      "scope": "BALANCED",
+      "support": "UNSUPPORTED",
+      "reviewState": "PENDING",
+      "linkedAssumptionIds": [
+        "ST-A-001"
+      ],
+      "sourceTerms": [
+        "ADC médullaire",
+        "Adultes avec maladie rénale chronique"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesisId": "ST-H-001",
+      "text": "La relation formulée dans « L’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale  » est observable dans le contexte précisé.",
+      "kind": "PRIMARY",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.",
+      "direction": null,
+      "limitations": [],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:renal-adc-fibrosis",
+        "PENDING_VERIFICATION:population:ckd-adults",
+        "PENDING_VERIFICATION:condition:renal-fibrosis",
+        "PENDING_VERIFICATION:modality:renal-mri",
+        "PENDING_VERIFICATION:acquisition:renal-dwi",
+        "PENDING_VERIFICATION:variable:medullary-adc"
+      ],
+      "support": "UNSUPPORTED",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-002",
+      "text": "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues.",
+      "kind": "NULL_OR_COMPETING",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Une observation incompatible avec l’hypothèse principale doit rester possible.",
+      "direction": null,
+      "limitations": [
+        "Explication concurrente générique à préciser par décision humaine et Knowledge."
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:renal-adc-fibrosis",
+        "PENDING_VERIFICATION:population:ckd-adults",
+        "PENDING_VERIFICATION:condition:renal-fibrosis",
+        "PENDING_VERIFICATION:modality:renal-mri",
+        "PENDING_VERIFICATION:acquisition:renal-dwi",
+        "PENDING_VERIFICATION:variable:medullary-adc"
+      ],
+      "support": "UNSUPPORTED",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "objectiveId": "ST-O-001",
+      "text": "Évaluer la question scientifique candidate : « L’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale  ».",
+      "level": "PRIMARY",
+      "support": "UNSUPPORTED",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ],
+      "linkedHypothesisIds": [
+        "ST-H-001"
+      ]
+    }
+  ],
+  "mechanisms": [
+    {
+      "mechanismId": "ST-M-001",
+      "text": "Le mécanisme susceptible de relier ADC médullaire et Adultes avec maladie rénale chronique reste à documenter.",
+      "status": "MECHANISM_TO_DOCUMENT",
+      "support": "UNSUPPORTED",
+      "linkedHypothesisIds": [
+        "ST-H-001",
+        "ST-H-002"
+      ]
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptionId": "ST-A-001",
+      "text": "La relation exprimée entre ADC médullaire et Adultes avec maladie rénale chronique est supposée avant d’être démontrée.",
+      "challenge": "Distinguer association, prédiction, temporalité et causalité ; rechercher une explication concurrente.",
+      "support": "UNSUPPORTED",
+      "status": "CHALLENGED"
+    },
+    {
+      "assumptionId": "ST-A-002",
+      "text": "La pertinence de IRM rénale et IRM de diffusion rénale est présumée avant confirmation de la finalité scientifique.",
+      "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+      "support": "UNSUPPORTED",
+      "status": "CHALLENGED"
+    }
+  ],
+  "alternatives": [
+    "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues."
+  ],
+  "unknowns": [
+    "Connaissance non résolue : ADC médullaire",
+    "Connaissance non résolue : Adultes avec maladie rénale chronique",
+    "Connaissance non résolue : Fibrose interstitielle rénale",
+    "PENDING_VERIFICATION:acquisition:renal-dwi",
+    "PENDING_VERIFICATION:condition:renal-fibrosis",
+    "PENDING_VERIFICATION:modality:renal-mri",
+    "PENDING_VERIFICATION:population:ckd-adults",
+    "PENDING_VERIFICATION:question:renal-adc-fibrosis",
+    "PENDING_VERIFICATION:variable:medullary-adc"
+  ],
+  "ambiguities": [
+    "CONCEPT_NON_RÉSOLU:ADC médullaire",
+    "CONCEPT_NON_RÉSOLU:Adultes avec maladie rénale chronique",
+    "CONCEPT_NON_RÉSOLU:Fibrose interstitielle rénale",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"
+  ],
+  "contradictions": [],
+  "adaptiveQuestions": [],
+  "knowledgeRequest": {
+    "status": "REQUIRED",
+    "reason": "Les candidats restent visibles mais ne peuvent pas être présentés comme soutenus par le corpus exécutable courant.",
+    "unresolvedConcepts": [
+      "ADC médullaire",
+      "Adultes avec maladie rénale chronique",
+      "Fibrose interstitielle rénale"
+    ],
+    "gapCodes": [
+      "EXTERNAL_RESEARCH_REQUIRED",
+      "NO_REGISTERED_PROVIDER",
+      "MISSING_CRITICAL_CONTEXT"
+    ]
+  },
+  "handoff": {
+    "handoffVersion": "1.1",
+    "status": "NOT_READY",
+    "questionId": null,
+    "hypothesisIds": [],
+    "objectiveIds": [],
+    "mechanisms": [
+      {
+        "mechanismId": "ST-M-001",
+        "text": "Le mécanisme susceptible de relier ADC médullaire et Adultes avec maladie rénale chronique reste à documenter.",
+        "status": "MECHANISM_TO_DOCUMENT",
+        "support": "UNSUPPORTED",
+        "linkedHypothesisIds": [
+          "ST-H-001",
+          "ST-H-002"
+        ]
+      }
+    ],
+    "knownInformation": [
+      "PROJECT_ADOPTED:acquisition:renal-dwi:IRM de diffusion rénale",
+      "PROJECT_ADOPTED:condition:renal-fibrosis:Fibrose interstitielle rénale",
+      "PROJECT_ADOPTED:modality:renal-mri:IRM rénale",
+      "PROJECT_ADOPTED:population:ckd-adults:Adultes avec maladie rénale chronique",
+      "PROJECT_ADOPTED:question:renal-adc-fibrosis:L'ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?",
+      "PROJECT_ADOPTED:variable:medullary-adc:ADC médullaire"
+    ],
+    "acceptedUnknowns": [],
+    "unresolvedUnknowns": [
+      "Connaissance non résolue : ADC médullaire",
+      "Connaissance non résolue : Adultes avec maladie rénale chronique",
+      "Connaissance non résolue : Fibrose interstitielle rénale",
+      "PENDING_VERIFICATION:acquisition:renal-dwi",
+      "PENDING_VERIFICATION:condition:renal-fibrosis",
+      "PENDING_VERIFICATION:modality:renal-mri",
+      "PENDING_VERIFICATION:population:ckd-adults",
+      "PENDING_VERIFICATION:question:renal-adc-fibrosis",
+      "PENDING_VERIFICATION:variable:medullary-adc"
+    ],
+    "contradictions": [],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "alternativesNotSelected": [
+      "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues."
+    ],
+    "limitations": [],
+    "provenanceRefs": [
+      "knowledge-result:ke1-b85daecc6a251de8",
+      "knowledge-result:ke1-b85daecc6a251de8@1",
+      "scientific-thinking-project-request:ke1-d3c279107419306c"
+    ],
+    "knowledgeResultRef": "knowledge-result:ke1-b85daecc6a251de8",
+    "blockedBy": [
+      "QUESTION_CONFIRMATION_REQUIRED",
+      "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+      "OBJECTIVE_HIERARCHY_REQUIRED"
+    ],
+    "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+  },
+  "knowledgeDependencies": [
+    {
+      "owner": "KNOWLEDGE",
+      "ownershipTransferred": false,
+      "knowledgeOwnerResultRef": "knowledge-result:ke1-b85daecc6a251de8@1",
+      "knowledgeResultRef": "knowledge-result:ke1-b85daecc6a251de8",
+      "knowledgeResultRevision": 1,
+      "knowledgeResultDigest": "ke1-b85daecc6a251de8",
+      "candidateRefs": [
+        "ST-H-001",
+        "ST-H-002",
+        "ST-M-001",
+        "ST-O-001",
+        "ST-Q-001"
+      ],
+      "assertionRefs": [],
+      "documentaryStatementRefs": [],
+      "evidenceRefs": [],
+      "sourceRefs": [],
+      "applicability": [],
+      "contradictionRefs": [],
+      "gapRefs": [
+        "knowledge-gap:ke1-04dad697407f2513",
+        "knowledge-gap:ke1-62ca376a080e4e4e",
+        "knowledge-gap:ke1-e81eacc038cd0dd4"
+      ]
+    }
+  ],
+  "provenance": {
+    "engineVersion": "1.2.2",
+    "inputRef": "scientific-thinking-project-request:ke1-d3c279107419306c",
+    "knowledgeResultRef": "knowledge-result:ke1-b85daecc6a251de8",
+    "sourceRefs": [
+      "knowledge-result:ke1-b85daecc6a251de8@1",
+      "project-contribution-decision:ke1-0d02170f94681f83"
+    ],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "PD-003",
+      "PD-009",
+      "KE-001"
+    ],
+    "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+  }
+}
+```
+
+### Imaging output
+
+Status: `RETURN_TO_SCIENTIFIC_THINKING` — Result: `imaging-design-result:ke1-a0ccbd9b53fe157f` — Digest: `ke1-a0ccbd9b53fe157f`
+
+```json
+{
+  "scientificQuestion": {
+    "questionId": "question:renal-adc-fibrosis",
+    "text": "L’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?",
+    "confirmation": "VALIDATED_CONTEXT"
+  },
+  "modalityCandidates": [
+    {
+      "modalityId": "IMG-MODALITY:modality:mri",
+      "label": "IRM",
+      "conceptId": "modality:mri",
+      "biomarkerIds": [],
+      "phenomenonIds": [],
+      "role": "CANDIDATE",
+      "support": "UNKNOWN",
+      "dimensions": {
+        "resolution": "UNKNOWN",
+        "repeatability": "UNKNOWN",
+        "reproducibility": "UNKNOWN",
+        "invasiveness": "UNKNOWN",
+        "irradiation": "UNKNOWN",
+        "contrast": "UNKNOWN",
+        "accessibility": "UNKNOWN",
+        "duration": "UNKNOWN",
+        "artefacts": "UNKNOWN",
+        "equipment": "UNKNOWN",
+        "multicenter": "UNKNOWN",
+        "quality": "UNKNOWN",
+        "analysis": "UNKNOWN",
+        "scientificCoverage": "UNKNOWN"
+      },
+      "dependencies": [],
+      "limitations": [
+        "BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER",
+        "NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"
+      ],
+      "risks": [],
+      "evidenceRefs": [],
+      "reviewState": "PENDING"
+    }
+  ],
+  "acquisitionStrategies": [],
+  "imagingVariables": [],
+  "biomarkerCandidates": [],
+  "missingInformation": [
+    "Aucun provider enregistré ne déclare cette couverture exacte.",
+    "CONCEPT_NON_RÉSOLU:ADC médullaire",
+    "CONCEPT_NON_RÉSOLU:Adultes avec maladie rénale chronique",
+    "CONCEPT_NON_RÉSOLU:Fibrose interstitielle rénale",
+    "Connaissance non résolue : ADC médullaire",
+    "Connaissance non résolue : Adultes avec maladie rénale chronique",
+    "Connaissance non résolue : Fibrose interstitielle rénale",
+    "Dimensions critiques absentes : MISSING_TIMING, MISSING_USAGE, PENDING_VERIFICATION:acquisition:renal-dwi, PENDING_VERIFICATION:condition:renal-fibrosis, PENDING_VERIFICATION:modality:renal-mri, PENDING_VERIFICATION:population:ckd-adults, PENDING_VERIFICATION:question:renal-adc-fibrosis, PENDING_VERIFICATION:variable:medullary-adc.",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+    "La connaissance interne est insuffisante pour fermer cette question. Une recherche scientifique externe séparée serait nécessaire ; elle n’a pas été réalisée.",
+    "PENDING_VERIFICATION:acquisition:renal-dwi",
+    "PENDING_VERIFICATION:condition:renal-fibrosis",
+    "PENDING_VERIFICATION:modality:renal-mri",
+    "PENDING_VERIFICATION:population:ckd-adults",
+    "PENDING_VERIFICATION:question:renal-adc-fibrosis",
+    "PENDING_VERIFICATION:variable:medullary-adc",
+    "Quel observable d’imagerie permettrait d’approcher ce phénomène ?"
+  ],
+  "adaptiveQuestions": [
+    {
+      "questionId": "IMG-AQ-MEASUREMENT",
+      "label": "Quel observable d’imagerie permettrait d’approcher ce phénomène ?",
+      "whyAsked": "Knowledge ne soutient actuellement aucun biomarqueur contextualisé.",
+      "decisionImpact": "Détermine si Imaging peut continuer ou doit retourner vers Scientific Thinking.",
+      "decisionBlock": "BIOMARKERS",
+      "suggestedAnswers": [
+        {
+          "value": "unknown",
+          "label": "Je ne sais pas",
+          "consequence": "L’inconnue reste explicite et la décision dépendante demeure ouverte."
+        }
+      ],
+      "acceptsFreeText": true,
+      "acceptsUnknown": true,
+      "answeredValue": null
+    }
+  ],
+  "limitations": [
+    "AUTHORIZED_ST_HANDOFF_NOT_AVAILABLE_FOR_THIS_DIRECT_DESIGN_CONTEXT",
+    "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE",
+    "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION"
+  ],
+  "decisionsRequired": [
+    {
+      "gateId": "IMG-GATE-HANDOFF-FREEZE",
+      "type": "HANDOFF_FREEZE",
+      "label": "Geler le handoff Imaging",
+      "reason": "Project Construction ne reçoit que les décisions explicitement autorisées.",
+      "status": "PENDING",
+      "targetIds": [
+        "imaging-project-input:ke1-a95206e7af79a4ab"
+      ]
+    }
+  ],
+  "knowledgeHandoff": {
+    "requestRef": "request-of:knowledge-result:ke1-b85daecc6a251de8",
+    "resultRef": "knowledge-result:ke1-b85daecc6a251de8",
+    "resultDigest": "ke1-b85daecc6a251de8",
+    "coverageStatus": "NO_PROVIDER",
+    "gapCodes": [
+      "EXTERNAL_RESEARCH_REQUIRED",
+      "MISSING_CRITICAL_CONTEXT",
+      "NO_REGISTERED_PROVIDER"
+    ],
+    "noClosestCorpusFallback": true
+  },
+  "projectConstructionHandoff": {
+    "handoffVersion": "1.2",
+    "status": "NOT_READY",
+    "imagingStrategyVersion": "project:loop-g-d-renal-dwi-knowledge-gap-01:version:1:IMG-ke1-eb159997",
+    "humanDecision": {
+      "status": "PENDING",
+      "decisionRecordId": null
+    },
+    "scientificStrategyStatus": "SCIENTIFIC_STRATEGY_BLOCKED",
+    "projectHandoffReadiness": "PROJECT_HANDOFF_BLOCKED",
+    "equipmentCompatibilityStatus": "NOT_APPLICABLE",
+    "executableProtocolReadiness": "EXECUTABLE_PROTOCOL_NOT_READY",
+    "resultRef": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+    "includedSections": [
+      "Question",
+      "Objectives",
+      "Hypotheses",
+      "Phenomena",
+      "Biomarkers",
+      "Modalities",
+      "AcquisitionStrategy",
+      "Timing",
+      "Equipment",
+      "Harmonization",
+      "Quality",
+      "ImageAnalysis",
+      "Variables",
+      "EndpointContributions",
+      "CoreLabAssessment",
+      "NonEvaluability",
+      "Risks",
+      "Limitations",
+      "KnowledgeGaps",
+      "Alternatives",
+      "HumanDecisions",
+      "Provenance"
+    ],
+    "excludedSections": [
+      "STATISTICAL_SIZING",
+      "COMPLETE_BUDGET",
+      "FINAL_CRF",
+      "REGULATORY_PLAN",
+      "COMPLETE_OPERATIONAL_PLAN",
+      "FINAL_SUBMISSION_PROTOCOL"
+    ],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "blockedBy": [
+      "HUMAN_HANDOFF_FREEZE_DECISION_PENDING",
+      "IMG-AQ-MEASUREMENT",
+      "MODALITY_WITHOUT_BIOMARKER",
+      "NO_DEFENSIBLE_IMAGING_CHAIN"
+    ],
+    "unknowns": [
+      "CONCEPT_NON_RÉSOLU:ADC médullaire",
+      "CONCEPT_NON_RÉSOLU:Adultes avec maladie rénale chronique",
+      "CONCEPT_NON_RÉSOLU:Fibrose interstitielle rénale",
+      "Connaissance non résolue : ADC médullaire",
+      "Connaissance non résolue : Adultes avec maladie rénale chronique",
+      "Connaissance non résolue : Fibrose interstitielle rénale",
+      "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+      "PENDING_VERIFICATION:acquisition:renal-dwi",
+      "PENDING_VERIFICATION:condition:renal-fibrosis",
+      "PENDING_VERIFICATION:modality:renal-mri",
+      "PENDING_VERIFICATION:population:ckd-adults",
+      "PENDING_VERIFICATION:question:renal-adc-fibrosis",
+      "PENDING_VERIFICATION:variable:medullary-adc"
+    ],
+    "limitations": [
+      "PROJECT_HANDOFF_DOES_NOT_AUTHORIZE_EXECUTABLE_ACQUISITION",
+      "PROJECT_HANDOFF_DOES_NOT_CONFIRM_TECHNICAL_COMPATIBILITY"
+    ],
+    "contradictions": [],
+    "requiredFutureReviews": [
+      "BIOSTATISTICS_REVIEW",
+      "DATA_MANAGEMENT_REVIEW",
+      "EXECUTABLE_PROTOCOL_REVIEW_WITH_GOVERNED_EQUIPMENT_KNOWLEDGE"
+    ],
+    "provenance": [
+      "acquisition:renal-dwi",
+      "condition:renal-fibrosis",
+      "imaging-project-input:ke1-a95206e7af79a4ab",
+      "ke1-568dce5c3419d450",
+      "modality:renal-mri",
+      "population:ckd-adults",
+      "project:loop-g-d-renal-dwi-knowledge-gap-01:version:1",
+      "question:renal-adc-fibrosis",
+      "scientific-thinking-output:ke1-746f27094aef71a5@1.2.2",
+      "variable:medullary-adc"
+    ],
+    "trace": [
+      {
+        "sequence": 1,
+        "decision": "SCIENTIFIC_STRATEGY_BLOCKED",
+        "rationale": "Question, phénomènes et biomarqueurs sont évalués indépendamment de la qualification technique locale."
+      },
+      {
+        "sequence": 2,
+        "decision": "NOT_APPLICABLE",
+        "rationale": "La disponibilité, sa vérification et la compatibilité restent distinctes."
+      },
+      {
+        "sequence": 3,
+        "decision": "PROJECT_HANDOFF_BLOCKED",
+        "rationale": "Une porte scientifique, structurelle ou humaine reste ouverte."
+      },
+      {
+        "sequence": 4,
+        "decision": "EXECUTABLE_PROTOCOL_NOT_READY",
+        "rationale": "Aucune connaissance exécutable gouvernée ne permet de produire des paramètres exacts."
+      }
+    ]
+  },
+  "provenance": {
+    "engineVersion": "1.2.1",
+    "inputRef": "imaging-project-input:ke1-a95206e7af79a4ab",
+    "knowledgeResultRef": "knowledge-result:ke1-b85daecc6a251de8",
+    "sourceRefs": [],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "RDE-003",
+      "KE-001",
+      "ST-001"
+    ],
+    "llmContributionStatus": "NO_LLM_SCIENTIFIC_DECISION"
+  }
+}
+```
+
+### VAL observation
+
+Bounded status: `STRUCTURAL_FIDELITY_PASS` — Run: `undefined` — Digest: `undefined`
+
+```json
+{
+  "observationCount": 58,
+  "observationSummary": [
+    {
+      "observationId": "val-observation:val1-138927db5f03bf87"
+    },
+    {
+      "observationId": "val-observation:val1-16a92b327edabefe"
+    },
+    {
+      "observationId": "val-observation:val1-184cd06b8a4f14e7"
+    },
+    {
+      "observationId": "val-observation:val1-192765577d7ed333"
+    },
+    {
+      "observationId": "val-observation:val1-1a889225a789d6a1"
+    },
+    {
+      "observationId": "val-observation:val1-1b605d969d62497a"
+    },
+    {
+      "observationId": "val-observation:val1-1b83a35a9bc6715e"
+    },
+    {
+      "observationId": "val-observation:val1-26afc69063d9d984"
+    },
+    {
+      "observationId": "val-observation:val1-282c198b48abd8c7"
+    },
+    {
+      "observationId": "val-observation:val1-2b843c32c5f7a0ae"
+    },
+    {
+      "observationId": "val-observation:val1-3389be86cc0be71a"
+    },
+    {
+      "observationId": "val-observation:val1-33c67ecc04b101b0"
+    },
+    {
+      "observationId": "val-observation:val1-36c904b2d11ffdbe"
+    },
+    {
+      "observationId": "val-observation:val1-36eba06dcbd7a6c1"
+    },
+    {
+      "observationId": "val-observation:val1-3d5474553f0e3c09"
+    },
+    {
+      "observationId": "val-observation:val1-4e6f1dd7796c3c73"
+    },
+    {
+      "observationId": "val-observation:val1-56fbc03893b4c4c4"
+    },
+    {
+      "observationId": "val-observation:val1-57a1db208d20b86c"
+    },
+    {
+      "observationId": "val-observation:val1-5eab638d875c6869"
+    },
+    {
+      "observationId": "val-observation:val1-5fe69101f7527a05"
+    },
+    {
+      "observationId": "val-observation:val1-63266594af0f6578"
+    },
+    {
+      "observationId": "val-observation:val1-68f1b51323ee088f"
+    },
+    {
+      "observationId": "val-observation:val1-6ac7f061c174ae25"
+    },
+    {
+      "observationId": "val-observation:val1-6b6f78d322e3f287"
+    },
+    {
+      "observationId": "val-observation:val1-72c9dbc03f9b07cc"
+    },
+    {
+      "observationId": "val-observation:val1-769710b544504849"
+    },
+    {
+      "observationId": "val-observation:val1-76c18990081cc7b4"
+    },
+    {
+      "observationId": "val-observation:val1-788fd30198c9dc2d"
+    },
+    {
+      "observationId": "val-observation:val1-94598156db4f099a"
+    },
+    {
+      "observationId": "val-observation:val1-98dd54d3f79505a7"
+    },
+    {
+      "observationId": "val-observation:val1-99cdefca08ca3d46"
+    },
+    {
+      "observationId": "val-observation:val1-9ede49e7d57d07e3"
+    },
+    {
+      "observationId": "val-observation:val1-9fb6b8e07a240da4"
+    },
+    {
+      "observationId": "val-observation:val1-a05eef0a5c81fc7e"
+    },
+    {
+      "observationId": "val-observation:val1-a079fa759dc67f71"
+    },
+    {
+      "observationId": "val-observation:val1-a5cc38aa475570fe"
+    },
+    {
+      "observationId": "val-observation:val1-a81144388bbf196c"
+    },
+    {
+      "observationId": "val-observation:val1-a88bb2cd35471611"
+    },
+    {
+      "observationId": "val-observation:val1-b16bcbc02eb24c1c"
+    },
+    {
+      "observationId": "val-observation:val1-b2f040752c5dfac9"
+    },
+    {
+      "observationId": "val-observation:val1-b840b08fada19663"
+    },
+    {
+      "observationId": "val-observation:val1-cbe78447cbc50023"
+    },
+    {
+      "observationId": "val-observation:val1-d2344537642cca23"
+    },
+    {
+      "observationId": "val-observation:val1-d48c72b7d3bbdf1b"
+    },
+    {
+      "observationId": "val-observation:val1-d5c48a04896fe640"
+    },
+    {
+      "observationId": "val-observation:val1-dd571b1178a655ad"
+    },
+    {
+      "observationId": "val-observation:val1-dd5d4b1b22a4c43f"
+    },
+    {
+      "observationId": "val-observation:val1-e0d0b80a82838f0e"
+    },
+    {
+      "observationId": "val-observation:val1-e97c57373950764b"
+    },
+    {
+      "observationId": "val-observation:val1-ebb55c1df75e5281"
+    },
+    {
+      "observationId": "val-observation:val1-ed62e7d23e5c1546"
+    },
+    {
+      "observationId": "val-observation:val1-f2006abdeec541d9"
+    },
+    {
+      "observationId": "val-observation:val1-f207761252f6a29e"
+    },
+    {
+      "observationId": "val-observation:val1-f78417882721c2e4"
+    },
+    {
+      "observationId": "val-observation:val1-faea94229ecd2bee"
+    },
+    {
+      "observationId": "val-observation:val1-fd000b792e44f525"
+    },
+    {
+      "observationId": "val-observation:val1-fd715b6be98403bf"
+    },
+    {
+      "observationId": "val-observation:val1-fd839c1873800cf4"
+    }
+  ],
+  "sourceSnapshotRef": {
+    "artifactId": "scientific-thinking-output:ke1-746f27094aef71a5",
+    "artifactType": "SCIENTIFIC_THINKING_RESULT",
+    "contentDigest": "ke1-746f27094aef71a5",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "SCIENTIFIC_THINKING",
+    "projectId": "project:loop-g-d-renal-dwi-knowledge-gap-01",
+    "projectVersion": "project:loop-g-d-renal-dwi-knowledge-gap-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "ke1-e11c690dd24e97e1",
+      "knowledge-result:ke1-b85daecc6a251de8",
+      "knowledge-result:ke1-b85daecc6a251de8@1",
+      "scientific-thinking-handoff:ke1-473290e83d080c24",
+      "scientific-thinking-output:ke1-746f27094aef71a5",
+      "scientific-thinking-project-request:ke1-d3c279107419306c"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.2"
+  },
+  "targetSnapshotRef": {
+    "artifactId": "imaging-design-result:ke1-a0ccbd9b53fe157f",
+    "artifactType": "IMAGING_CONTRIBUTION",
+    "contentDigest": "ke1-a0ccbd9b53fe157f",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "IMAGING",
+    "projectId": "project:loop-g-d-renal-dwi-knowledge-gap-01",
+    "projectVersion": "project:loop-g-d-renal-dwi-knowledge-gap-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "imaging-design-result:ke1-a0ccbd9b53fe157f",
+      "imaging-project-input:ke1-a95206e7af79a4ab",
+      "ke1-e11c690dd24e97e1",
+      "scientific-thinking-output:ke1-746f27094aef71a5@1.2.2",
+      "st-to-imaging:ke1-ea0546895d0b0ab5"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.1"
+  }
+}
+```
+
+### Ordered TRACE
+
+| Seq | Event | Owner | Status | Diagnostic stage |
+|---:|---|---|---|---|
+| 1 | RUN_STARTED | TRACE | RUNNING | PROJECT_CONTEXT |
+| 2 | HANDOFF_STARTED | KNOWLEDGE | STARTED | OWNER_REQUEST_BUILDING |
+| 3 | HANDOFF_ACCEPTED | KNOWLEDGE | ACCEPTED | OWNER_REQUEST_BUILDING |
+| 4 | OWNER_INVOCATION_STARTED | KNOWLEDGE | STARTED | KNOWLEDGE_ENGINE |
+| 5 | OWNER_INVOCATION_COMPLETED | KNOWLEDGE | OWNER_EVIDENCE_GAP | KNOWLEDGE_ENGINE |
+| 6 | RESULT_PERSISTED | KNOWLEDGE | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 7 | HANDOFF_STARTED | SCIENTIFIC_THINKING | STARTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 8 | HANDOFF_ACCEPTED | SCIENTIFIC_THINKING | ACCEPTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 9 | OWNER_INVOCATION_STARTED | SCIENTIFIC_THINKING | STARTED | SCIENTIFIC_THINKING_ENGINE |
+| 10 | OWNER_INVOCATION_COMPLETED | SCIENTIFIC_THINKING | COMPLETED_WITH_LIMITATIONS | SCIENTIFIC_THINKING_ENGINE |
+| 11 | RESULT_PERSISTED | SCIENTIFIC_THINKING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 12 | HANDOFF_STARTED | IMAGING | STARTED | ST_TO_IMAGING_HANDOFF |
+| 13 | HANDOFF_ACCEPTED | IMAGING | ACCEPTED | ST_TO_IMAGING_HANDOFF |
+| 14 | OWNER_INVOCATION_STARTED | IMAGING | STARTED | IMAGING_ENGINE |
+| 15 | OWNER_INVOCATION_COMPLETED | IMAGING | COMPLETED_WITH_LIMITATIONS | IMAGING_ENGINE |
+| 16 | RESULT_PERSISTED | IMAGING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 17 | HANDOFF_STARTED | VAL | STARTED | VAL_INPUT_ADAPTER |
+| 18 | HANDOFF_ACCEPTED | VAL | ACCEPTED | VAL_INPUT_ADAPTER |
+| 19 | VALIDATION_STARTED | VAL | STARTED | VAL_ENGINE |
+| 20 | VALIDATION_COMPLETED | VAL | STRUCTURAL_FIDELITY_PASS | VAL_ENGINE |
+| 21 | RESULT_PERSISTED | VAL | VALIDATION_RUN_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 22 | RUN_COMPLETED | TRACE | COMPLETED |  |
+
+### Direct technical summary
+
+```json
+{
+  "projectTupleExact": true,
+  "projectUnchanged": true,
+  "projectWrites": 0,
+  "humanDecisionBypassed": false,
+  "automaticAdoption": 0,
+  "externalCalls": 0,
+  "obsRuntimeCalls": 0,
+  "valRepairCalls": 0,
+  "valScientificQualificationClaimed": false,
+  "traceEventCount": 22,
+  "traceCompleted": true,
+  "frozenInputDigest": "ke1-102eb33c24efdb10"
+}
+```
+
+### Pre-authored HumanLoopReviewEnvelope
+
+```json
+{
+  "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+  "casePurpose": "Observer si un Knowledge gap explicite reste faible et n’est pas promu en science Imaging.",
+  "whatEachOwnerShouldContribute": {
+    "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+    "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+    "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+    "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+    "REGULATORY_RESOLUTION": "NOT_INVOKED"
+  },
+  "criticalInformationToPreserve": {
+    "unknowns": [
+      "Aucune preuve applicable admise localement pour la relation ADC médullaire–fibrose rénale"
+    ],
+    "contradictions": [],
+    "limitations": [
+      "Les corpus locaux admis ne couvrent pas ce domaine.",
+      "L’absence de correspondance interne ne décrit pas la littérature externe."
+    ],
+    "sourceRefs": [
+      "KE-001:EXACT_FIRST_NO_IMPLICIT_FALLBACK",
+      "src/features/knowledge-engine/provider-registry.ts"
+    ]
+  },
+  "expectedStopOrRefusalBehavior": "Conserver l’insuffisance; ne pas reconstruire une preuve ni une chaîne de mesure défendable.",
+  "scientificallyForbiddenBehaviors": [
+    "Transformer un OwnerResult en Project truth",
+    "Promouvoir une contradiction en conclusion résolue",
+    "Inventer une source ou une preuve",
+    "Sélectionner automatiquement une méthode Imaging",
+    "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+    "Créer une approbation réglementaire"
+  ],
+  "acceptableKindsOfResponse": [
+    "Candidats explicitement non adoptés",
+    "Clarification ou gap traçable",
+    "Alternatives conservées",
+    "Stratégies Imaging candidates avec limites",
+    "Diagnostic VAL structurel"
+  ],
+  "humanReviewQuestions": {
+    "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+    "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+    "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+    "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+    "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+    "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+    "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+    "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+  },
+  "L1": "PENDING",
+  "L2": "PENDING",
+  "L3": "PENDING",
+  "L4": "PENDING",
+  "L5": "PENDING",
+  "L6": "PENDING",
+  "L7": "PENDING",
+  "L8": "PENDING"
+}
+```
+
+### Human adjudication
+
+| Question | State |
+|---|---|
+| L1 | PENDING |
+| L2 | PENDING |
+| L3 | PENDING |
+| L4 | PENDING |
+| L5 | PENDING |
+| L6 | PENDING |
+| L7 | PENDING |
+| L8 | PENDING |
+
+## 5. Répétabilité T2 mapping multicentrique avec branche REG
+
+- Case: `LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01`
+- Family: `E_CONDITIONAL_REG_SIBLING`
+- Domain: `CARDIAC_MRI_MULTICENTER_REPEATABILITY_FR`
+- Purpose: Observer la chaîne scientifique et une branche REG conditionnelle sœur, sans injecter REG dans le raisonnement scientifique ni inventer une approbation.
+
+### Scientific question
+
+Dans une étude prospective multicentrique française en IRM cardiaque, l’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?
+
+### Frozen Project context
+
+Project tuple: `project:loop-g-e-cmr-repeatability-reg-sibling-01` / `project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1` / `ke1-a05af6e1f0dd75d5` / snapshot `ke1-d36035fec61a0c7a`
+
+| Type | Epistemic state | Content |
+|---|---|---|
+| SCIENTIFIC_QUESTION | EXPLICIT_USER_STATED | L’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ? |
+| POPULATION | EXPLICIT_USER_STATED | Adultes inclus dans une étude française multicentrique |
+| IMAGING_MODALITY | EXPLICIT_USER_STATED | IRM cardiaque |
+| ACQUISITION | EXPLICIT_USER_STATED | T2 mapping myocardique |
+| CANONICAL_VARIABLE | EXPLICIT_USER_STATED | Répétabilité du T2 mapping myocardique |
+| STUDY_DESIGN | EXPLICIT_USER_STATED | Étude observationnelle prospective multicentrique en France |
+
+### Knowledge output
+
+Coverage: `PROVIDER_NOT_APPLICABLE` — Result: `knowledge-result:ke1-46d6f35039ef1c3c` — Digest: `ke1-46d6f35039ef1c3c`
+
+- No applicable local source returned.
+
+Governed documentary statements:
+
+- None.
+
+Knowledge gaps and limitations:
+
+```json
+{
+  "gaps": [
+    {
+      "gapId": "knowledge-gap:ke1-d03c1e42234634f6",
+      "code": "MISSING_CRITICAL_CONTEXT",
+      "scope": "BIOMARKER_SELECTION",
+      "explanation": "Un biomarqueur ne peut pas être classé sans pathologie, phénomène, population, objectif et usage.",
+      "affectedConceptIds": [
+        "modality:mri",
+        "biomarker:t2"
+      ],
+      "resumeCondition": "Fournir les dimensions critiques puis créer une nouvelle révision de requête."
+    },
+    {
+      "gapId": "knowledge-gap:ke1-ddd4fb6c3e8d4818",
+      "code": "MISSING_CRITICAL_CONTEXT",
+      "scope": "CONTEXT",
+      "explanation": "Dimensions critiques absentes : MISSING_OBJECTIVE, MISSING_PATHOLOGY, MISSING_PHENOMENON, MISSING_USAGE, PENDING_VERIFICATION:acquisition:t2-mapping, PENDING_VERIFICATION:design:prospective-multicenter, PENDING_VERIFICATION:modality:cardiac-mri, PENDING_VERIFICATION:population:cmr-adults, PENDING_VERIFICATION:question:cmr-t2-repeatability, PENDING_VERIFICATION:variable:t2-repeatability.",
+      "affectedConceptIds": [
+        "modality:mri",
+        "biomarker:t2"
+      ],
+      "resumeCondition": "Obtenir une clarification humaine."
+    },
+    {
+      "gapId": "knowledge-gap:ke1-e9f53e4390211e97",
+      "code": "NO_APPLICABLE_PROVIDER",
+      "scope": "EXACT_CONTEXT",
+      "explanation": "Les contenus retrouvés ne sont pas applicables au contexte dur demandé.",
+      "affectedConceptIds": [
+        "modality:mri",
+        "biomarker:t2"
+      ],
+      "resumeCondition": "Documenter le contexte manquant ou interroger un provider exact."
+    }
+  ],
+  "limitations": []
+}
+```
+
+### Scientific Thinking output
+
+Status: `CANDIDATES_PROPOSED` — Next: `REVIEW_CANDIDATES` — Handoff: `NOT_READY`
+
+Understood problem: L’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?
+
+```json
+{
+  "questions": [
+    {
+      "questionId": "ST-Q-001",
+      "text": "L’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?",
+      "kind": "PRIMARY",
+      "rationale": "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
+      "testability": "TESTABLE_CANDIDATE",
+      "scope": "BALANCED",
+      "support": "UNSUPPORTED",
+      "reviewState": "PENDING",
+      "linkedAssumptionIds": [
+        "ST-A-001"
+      ],
+      "sourceTerms": [
+        "Adultes inclus dans une étude française multicentrique",
+        "Étude observationnelle prospective multicentrique en France"
+      ]
+    }
+  ],
+  "hypotheses": [
+    {
+      "hypothesisId": "ST-H-001",
+      "text": "La relation formulée dans « L’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique  » est observable dans le contexte précisé.",
+      "kind": "PRIMARY",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "La relation candidate doit pouvoir être confrontée à des observations définies ; les critères restent à préciser.",
+      "direction": null,
+      "limitations": [],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cmr-t2-repeatability",
+        "PENDING_VERIFICATION:population:cmr-adults",
+        "PENDING_VERIFICATION:design:prospective-multicenter",
+        "PENDING_VERIFICATION:modality:cardiac-mri",
+        "PENDING_VERIFICATION:acquisition:t2-mapping",
+        "PENDING_VERIFICATION:variable:t2-repeatability"
+      ],
+      "support": "UNSUPPORTED",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    },
+    {
+      "hypothesisId": "ST-H-002",
+      "text": "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues.",
+      "kind": "NULL_OR_COMPETING",
+      "falsifiability": "TESTABLE_CANDIDATE",
+      "observableCondition": "Une observation incompatible avec l’hypothèse principale doit rester possible.",
+      "direction": null,
+      "limitations": [
+        "Explication concurrente générique à préciser par décision humaine et Knowledge."
+      ],
+      "unknowns": [
+        "PENDING_VERIFICATION:question:cmr-t2-repeatability",
+        "PENDING_VERIFICATION:population:cmr-adults",
+        "PENDING_VERIFICATION:design:prospective-multicenter",
+        "PENDING_VERIFICATION:modality:cardiac-mri",
+        "PENDING_VERIFICATION:acquisition:t2-mapping",
+        "PENDING_VERIFICATION:variable:t2-repeatability"
+      ],
+      "support": "UNSUPPORTED",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ]
+    }
+  ],
+  "objectives": [
+    {
+      "objectiveId": "ST-O-001",
+      "text": "Évaluer la question scientifique candidate : « L’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique  ».",
+      "level": "PRIMARY",
+      "support": "UNSUPPORTED",
+      "reviewState": "PENDING",
+      "linkedQuestionIds": [
+        "ST-Q-001"
+      ],
+      "linkedHypothesisIds": [
+        "ST-H-001"
+      ]
+    }
+  ],
+  "mechanisms": [
+    {
+      "mechanismId": "ST-M-001",
+      "text": "Le mécanisme susceptible de relier Adultes inclus dans une étude française multicentrique et Étude observationnelle prospective multicentrique en France reste à documenter.",
+      "status": "MECHANISM_TO_DOCUMENT",
+      "support": "UNSUPPORTED",
+      "linkedHypothesisIds": [
+        "ST-H-001",
+        "ST-H-002"
+      ]
+    }
+  ],
+  "assumptions": [
+    {
+      "assumptionId": "ST-A-001",
+      "text": "La relation exprimée entre Adultes inclus dans une étude française multicentrique et Étude observationnelle prospective multicentrique en France est supposée avant d’être démontrée.",
+      "challenge": "Distinguer association, prédiction, temporalité et causalité ; rechercher une explication concurrente.",
+      "support": "UNSUPPORTED",
+      "status": "CHALLENGED"
+    },
+    {
+      "assumptionId": "ST-A-002",
+      "text": "La pertinence de IRM cardiaque et T2 mapping myocardique est présumée avant confirmation de la finalité scientifique.",
+      "challenge": "Conserver cette mention comme préférence ou branche méthodologique, sans sélectionner de modalité ni de technique.",
+      "support": "UNSUPPORTED",
+      "status": "CHALLENGED"
+    }
+  ],
+  "alternatives": [
+    "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues."
+  ],
+  "unknowns": [
+    "Connaissance non résolue : Adultes inclus dans une étude française multicentrique",
+    "Connaissance non résolue : Étude observationnelle prospective multicentrique en France",
+    "PENDING_VERIFICATION:acquisition:t2-mapping",
+    "PENDING_VERIFICATION:design:prospective-multicenter",
+    "PENDING_VERIFICATION:modality:cardiac-mri",
+    "PENDING_VERIFICATION:population:cmr-adults",
+    "PENDING_VERIFICATION:question:cmr-t2-repeatability",
+    "PENDING_VERIFICATION:variable:t2-repeatability"
+  ],
+  "ambiguities": [
+    "CONCEPT_NON_RÉSOLU:Adultes inclus dans une étude française multicentrique",
+    "CONCEPT_NON_RÉSOLU:Étude observationnelle prospective multicentrique en France",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE"
+  ],
+  "contradictions": [],
+  "adaptiveQuestions": [],
+  "knowledgeRequest": {
+    "status": "REQUIRED",
+    "reason": "Les candidats restent visibles mais ne peuvent pas être présentés comme soutenus par le corpus exécutable courant.",
+    "unresolvedConcepts": [
+      "Adultes inclus dans une étude française multicentrique",
+      "Étude observationnelle prospective multicentrique en France"
+    ],
+    "gapCodes": [
+      "MISSING_CRITICAL_CONTEXT",
+      "NO_APPLICABLE_PROVIDER"
+    ]
+  },
+  "handoff": {
+    "handoffVersion": "1.1",
+    "status": "NOT_READY",
+    "questionId": null,
+    "hypothesisIds": [],
+    "objectiveIds": [],
+    "mechanisms": [
+      {
+        "mechanismId": "ST-M-001",
+        "text": "Le mécanisme susceptible de relier Adultes inclus dans une étude française multicentrique et Étude observationnelle prospective multicentrique en France reste à documenter.",
+        "status": "MECHANISM_TO_DOCUMENT",
+        "support": "UNSUPPORTED",
+        "linkedHypothesisIds": [
+          "ST-H-001",
+          "ST-H-002"
+        ]
+      }
+    ],
+    "knownInformation": [
+      "PROJECT_ADOPTED:acquisition:t2-mapping:T2 mapping myocardique",
+      "PROJECT_ADOPTED:design:prospective-multicenter:Étude observationnelle prospective multicentrique en France",
+      "PROJECT_ADOPTED:modality:cardiac-mri:IRM cardiaque",
+      "PROJECT_ADOPTED:population:cmr-adults:Adultes inclus dans une étude française multicentrique",
+      "PROJECT_ADOPTED:question:cmr-t2-repeatability:L'harmonisation des séquences et de l'analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?",
+      "PROJECT_ADOPTED:variable:t2-repeatability:Répétabilité du T2 mapping myocardique"
+    ],
+    "acceptedUnknowns": [],
+    "unresolvedUnknowns": [
+      "Connaissance non résolue : Adultes inclus dans une étude française multicentrique",
+      "Connaissance non résolue : Étude observationnelle prospective multicentrique en France",
+      "PENDING_VERIFICATION:acquisition:t2-mapping",
+      "PENDING_VERIFICATION:design:prospective-multicenter",
+      "PENDING_VERIFICATION:modality:cardiac-mri",
+      "PENDING_VERIFICATION:population:cmr-adults",
+      "PENDING_VERIFICATION:question:cmr-t2-repeatability",
+      "PENDING_VERIFICATION:variable:t2-repeatability"
+    ],
+    "contradictions": [],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "alternativesNotSelected": [
+      "Une explication concurrente ou l’absence de relation peut rendre compte des observations attendues."
+    ],
+    "limitations": [],
+    "provenanceRefs": [
+      "knowledge-result:ke1-46d6f35039ef1c3c",
+      "knowledge-result:ke1-46d6f35039ef1c3c@1",
+      "scientific-thinking-project-request:ke1-ba29d4950c5c8651"
+    ],
+    "knowledgeResultRef": "knowledge-result:ke1-46d6f35039ef1c3c",
+    "blockedBy": [
+      "QUESTION_CONFIRMATION_REQUIRED",
+      "HYPOTHESIS_ADOPTION_OR_EXPLICIT_REJECTION_REQUIRED",
+      "OBJECTIVE_HIERARCHY_REQUIRED"
+    ],
+    "boundary": "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"
+  },
+  "knowledgeDependencies": [
+    {
+      "owner": "KNOWLEDGE",
+      "ownershipTransferred": false,
+      "knowledgeOwnerResultRef": "knowledge-result:ke1-46d6f35039ef1c3c@1",
+      "knowledgeResultRef": "knowledge-result:ke1-46d6f35039ef1c3c",
+      "knowledgeResultRevision": 1,
+      "knowledgeResultDigest": "ke1-46d6f35039ef1c3c",
+      "candidateRefs": [
+        "ST-H-001",
+        "ST-H-002",
+        "ST-M-001",
+        "ST-O-001",
+        "ST-Q-001"
+      ],
+      "assertionRefs": [],
+      "documentaryStatementRefs": [],
+      "evidenceRefs": [],
+      "sourceRefs": [],
+      "applicability": [],
+      "contradictionRefs": [],
+      "gapRefs": [
+        "knowledge-gap:ke1-d03c1e42234634f6",
+        "knowledge-gap:ke1-ddd4fb6c3e8d4818",
+        "knowledge-gap:ke1-e9f53e4390211e97"
+      ]
+    }
+  ],
+  "provenance": {
+    "engineVersion": "1.2.2",
+    "inputRef": "scientific-thinking-project-request:ke1-ba29d4950c5c8651",
+    "knowledgeResultRef": "knowledge-result:ke1-46d6f35039ef1c3c",
+    "sourceRefs": [
+      "knowledge-result:ke1-46d6f35039ef1c3c@1",
+      "project-contribution-decision:ke1-90b603714a08e265"
+    ],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "PD-003",
+      "PD-009",
+      "KE-001"
+    ],
+    "llmContributionStatus": "UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY"
+  }
+}
+```
+
+### Imaging output
+
+Status: `RETURN_TO_SCIENTIFIC_THINKING` — Result: `imaging-design-result:ke1-1cbe6865af0765e9` — Digest: `ke1-1cbe6865af0765e9`
+
+```json
+{
+  "scientificQuestion": {
+    "questionId": "question:cmr-t2-repeatability",
+    "text": "L’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?",
+    "confirmation": "VALIDATED_CONTEXT"
+  },
+  "modalityCandidates": [
+    {
+      "modalityId": "IMG-MODALITY:modality:mri",
+      "label": "IRM",
+      "conceptId": "modality:mri",
+      "biomarkerIds": [],
+      "phenomenonIds": [],
+      "role": "CANDIDATE",
+      "support": "UNKNOWN",
+      "dimensions": {
+        "resolution": "UNKNOWN",
+        "repeatability": "UNKNOWN",
+        "reproducibility": "UNKNOWN",
+        "invasiveness": "UNKNOWN",
+        "irradiation": "UNKNOWN",
+        "contrast": "UNKNOWN",
+        "accessibility": "UNKNOWN",
+        "duration": "UNKNOWN",
+        "artefacts": "UNKNOWN",
+        "equipment": "UNKNOWN",
+        "multicenter": "UNKNOWN",
+        "quality": "UNKNOWN",
+        "analysis": "UNKNOWN",
+        "scientificCoverage": "UNKNOWN"
+      },
+      "dependencies": [],
+      "limitations": [
+        "BRANCH_PRESERVED_WITH_INSUFFICIENT_GOVERNED_RELATION_TO_BIOMARKER",
+        "NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"
+      ],
+      "risks": [],
+      "evidenceRefs": [],
+      "reviewState": "PENDING"
+    }
+  ],
+  "acquisitionStrategies": [],
+  "imagingVariables": [],
+  "biomarkerCandidates": [],
+  "missingInformation": [
+    "CONCEPT_NON_RÉSOLU:Adultes inclus dans une étude française multicentrique",
+    "CONCEPT_NON_RÉSOLU:Étude observationnelle prospective multicentrique en France",
+    "Connaissance non résolue : Adultes inclus dans une étude française multicentrique",
+    "Connaissance non résolue : Étude observationnelle prospective multicentrique en France",
+    "Dimensions critiques absentes : MISSING_OBJECTIVE, MISSING_PATHOLOGY, MISSING_PHENOMENON, MISSING_USAGE, PENDING_VERIFICATION:acquisition:t2-mapping, PENDING_VERIFICATION:design:prospective-multicenter, PENDING_VERIFICATION:modality:cardiac-mri, PENDING_VERIFICATION:population:cmr-adults, PENDING_VERIFICATION:question:cmr-t2-repeatability, PENDING_VERIFICATION:variable:t2-repeatability.",
+    "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+    "Les contenus retrouvés ne sont pas applicables au contexte dur demandé.",
+    "PENDING_VERIFICATION:acquisition:t2-mapping",
+    "PENDING_VERIFICATION:design:prospective-multicenter",
+    "PENDING_VERIFICATION:modality:cardiac-mri",
+    "PENDING_VERIFICATION:population:cmr-adults",
+    "PENDING_VERIFICATION:question:cmr-t2-repeatability",
+    "PENDING_VERIFICATION:variable:t2-repeatability",
+    "Quel observable d’imagerie permettrait d’approcher ce phénomène ?",
+    "Un biomarqueur ne peut pas être classé sans pathologie, phénomène, population, objectif et usage."
+  ],
+  "adaptiveQuestions": [
+    {
+      "questionId": "IMG-AQ-MEASUREMENT",
+      "label": "Quel observable d’imagerie permettrait d’approcher ce phénomène ?",
+      "whyAsked": "Knowledge ne soutient actuellement aucun biomarqueur contextualisé.",
+      "decisionImpact": "Détermine si Imaging peut continuer ou doit retourner vers Scientific Thinking.",
+      "decisionBlock": "BIOMARKERS",
+      "suggestedAnswers": [
+        {
+          "value": "unknown",
+          "label": "Je ne sais pas",
+          "consequence": "L’inconnue reste explicite et la décision dépendante demeure ouverte."
+        }
+      ],
+      "acceptsFreeText": true,
+      "acceptsUnknown": true,
+      "answeredValue": null
+    }
+  ],
+  "limitations": [
+    "AUTHORIZED_ST_HANDOFF_NOT_AVAILABLE_FOR_THIS_DIRECT_DESIGN_CONTEXT",
+    "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE",
+    "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION"
+  ],
+  "decisionsRequired": [
+    {
+      "gateId": "IMG-GATE-HANDOFF-FREEZE",
+      "type": "HANDOFF_FREEZE",
+      "label": "Geler le handoff Imaging",
+      "reason": "Project Construction ne reçoit que les décisions explicitement autorisées.",
+      "status": "PENDING",
+      "targetIds": [
+        "imaging-project-input:ke1-da2bff22cfb83b26"
+      ]
+    }
+  ],
+  "knowledgeHandoff": {
+    "requestRef": "request-of:knowledge-result:ke1-46d6f35039ef1c3c",
+    "resultRef": "knowledge-result:ke1-46d6f35039ef1c3c",
+    "resultDigest": "ke1-46d6f35039ef1c3c",
+    "coverageStatus": "PROVIDER_NOT_APPLICABLE",
+    "gapCodes": [
+      "MISSING_CRITICAL_CONTEXT",
+      "NO_APPLICABLE_PROVIDER"
+    ],
+    "noClosestCorpusFallback": true
+  },
+  "projectConstructionHandoff": {
+    "handoffVersion": "1.2",
+    "status": "NOT_READY",
+    "imagingStrategyVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1:IMG-ke1-6a1327b3",
+    "humanDecision": {
+      "status": "PENDING",
+      "decisionRecordId": null
+    },
+    "scientificStrategyStatus": "SCIENTIFIC_STRATEGY_BLOCKED",
+    "projectHandoffReadiness": "PROJECT_HANDOFF_BLOCKED",
+    "equipmentCompatibilityStatus": "NOT_APPLICABLE",
+    "executableProtocolReadiness": "EXECUTABLE_PROTOCOL_NOT_READY",
+    "resultRef": "imaging-design-result:ke1-1cbe6865af0765e9",
+    "includedSections": [
+      "Question",
+      "Objectives",
+      "Hypotheses",
+      "Phenomena",
+      "Biomarkers",
+      "Modalities",
+      "AcquisitionStrategy",
+      "Timing",
+      "Equipment",
+      "Harmonization",
+      "Quality",
+      "ImageAnalysis",
+      "Variables",
+      "EndpointContributions",
+      "CoreLabAssessment",
+      "NonEvaluability",
+      "Risks",
+      "Limitations",
+      "KnowledgeGaps",
+      "Alternatives",
+      "HumanDecisions",
+      "Provenance"
+    ],
+    "excludedSections": [
+      "STATISTICAL_SIZING",
+      "COMPLETE_BUDGET",
+      "FINAL_CRF",
+      "REGULATORY_PLAN",
+      "COMPLETE_OPERATIONAL_PLAN",
+      "FINAL_SUBMISSION_PROTOCOL"
+    ],
+    "decisionRecordIds": [],
+    "humanDecisions": [],
+    "blockedBy": [
+      "HUMAN_HANDOFF_FREEZE_DECISION_PENDING",
+      "IMG-AQ-MEASUREMENT",
+      "MODALITY_WITHOUT_BIOMARKER",
+      "NO_DEFENSIBLE_IMAGING_CHAIN"
+    ],
+    "unknowns": [
+      "CONCEPT_NON_RÉSOLU:Adultes inclus dans une étude française multicentrique",
+      "CONCEPT_NON_RÉSOLU:Étude observationnelle prospective multicentrique en France",
+      "Connaissance non résolue : Adultes inclus dans une étude française multicentrique",
+      "Connaissance non résolue : Étude observationnelle prospective multicentrique en France",
+      "FINALITÉ_SCIENTIFIQUE_NON_CONFIRMÉE",
+      "PENDING_VERIFICATION:acquisition:t2-mapping",
+      "PENDING_VERIFICATION:design:prospective-multicenter",
+      "PENDING_VERIFICATION:modality:cardiac-mri",
+      "PENDING_VERIFICATION:population:cmr-adults",
+      "PENDING_VERIFICATION:question:cmr-t2-repeatability",
+      "PENDING_VERIFICATION:variable:t2-repeatability"
+    ],
+    "limitations": [
+      "PROJECT_HANDOFF_DOES_NOT_AUTHORIZE_EXECUTABLE_ACQUISITION",
+      "PROJECT_HANDOFF_DOES_NOT_CONFIRM_TECHNICAL_COMPATIBILITY"
+    ],
+    "contradictions": [],
+    "requiredFutureReviews": [
+      "BIOSTATISTICS_REVIEW",
+      "DATA_MANAGEMENT_REVIEW",
+      "EXECUTABLE_PROTOCOL_REVIEW_WITH_GOVERNED_EQUIPMENT_KNOWLEDGE"
+    ],
+    "provenance": [
+      "acquisition:t2-mapping",
+      "design:prospective-multicenter",
+      "imaging-project-input:ke1-da2bff22cfb83b26",
+      "ke1-a05af6e1f0dd75d5",
+      "modality:cardiac-mri",
+      "population:cmr-adults",
+      "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1",
+      "question:cmr-t2-repeatability",
+      "scientific-thinking-output:ke1-858715dc9c432618@1.2.2",
+      "variable:t2-repeatability"
+    ],
+    "trace": [
+      {
+        "sequence": 1,
+        "decision": "SCIENTIFIC_STRATEGY_BLOCKED",
+        "rationale": "Question, phénomènes et biomarqueurs sont évalués indépendamment de la qualification technique locale."
+      },
+      {
+        "sequence": 2,
+        "decision": "NOT_APPLICABLE",
+        "rationale": "La disponibilité, sa vérification et la compatibilité restent distinctes."
+      },
+      {
+        "sequence": 3,
+        "decision": "PROJECT_HANDOFF_BLOCKED",
+        "rationale": "Une porte scientifique, structurelle ou humaine reste ouverte."
+      },
+      {
+        "sequence": 4,
+        "decision": "EXECUTABLE_PROTOCOL_NOT_READY",
+        "rationale": "Aucune connaissance exécutable gouvernée ne permet de produire des paramètres exacts."
+      }
+    ]
+  },
+  "provenance": {
+    "engineVersion": "1.2.1",
+    "inputRef": "imaging-project-input:ke1-da2bff22cfb83b26",
+    "knowledgeResultRef": "knowledge-result:ke1-46d6f35039ef1c3c",
+    "sourceRefs": [],
+    "policyRefs": [
+      "RDE-001",
+      "RDE-002",
+      "RDE-003",
+      "KE-001",
+      "ST-001"
+    ],
+    "llmContributionStatus": "NO_LLM_SCIENTIFIC_DECISION"
+  }
+}
+```
+
+### VAL observation
+
+Bounded status: `STRUCTURAL_FIDELITY_PASS` — Run: `undefined` — Digest: `undefined`
+
+```json
+{
+  "observationCount": 56,
+  "observationSummary": [
+    {
+      "observationId": "val-observation:val1-000286fc95031410"
+    },
+    {
+      "observationId": "val-observation:val1-02d16d6d3f3903a9"
+    },
+    {
+      "observationId": "val-observation:val1-03e35b41fd71469d"
+    },
+    {
+      "observationId": "val-observation:val1-1011d3c2c6c115d6"
+    },
+    {
+      "observationId": "val-observation:val1-1299c8afc3ab88ab"
+    },
+    {
+      "observationId": "val-observation:val1-15df4a50cf336024"
+    },
+    {
+      "observationId": "val-observation:val1-18b57025715c9df1"
+    },
+    {
+      "observationId": "val-observation:val1-196add6535c34b11"
+    },
+    {
+      "observationId": "val-observation:val1-1d95ca1e89f7b8fa"
+    },
+    {
+      "observationId": "val-observation:val1-1edec018f6243a4c"
+    },
+    {
+      "observationId": "val-observation:val1-1f510ef9b76b648d"
+    },
+    {
+      "observationId": "val-observation:val1-25d9edab37e4dd5f"
+    },
+    {
+      "observationId": "val-observation:val1-2afb262b5b6ec74f"
+    },
+    {
+      "observationId": "val-observation:val1-2d01407ad9ce544e"
+    },
+    {
+      "observationId": "val-observation:val1-357bc778b23d3234"
+    },
+    {
+      "observationId": "val-observation:val1-39f2a6c310ac3c07"
+    },
+    {
+      "observationId": "val-observation:val1-401129f3e5768a77"
+    },
+    {
+      "observationId": "val-observation:val1-43897161f918305d"
+    },
+    {
+      "observationId": "val-observation:val1-4428e273582d9a67"
+    },
+    {
+      "observationId": "val-observation:val1-4ee0bed953867eb5"
+    },
+    {
+      "observationId": "val-observation:val1-510554fd456c6771"
+    },
+    {
+      "observationId": "val-observation:val1-58c6b924b77c1530"
+    },
+    {
+      "observationId": "val-observation:val1-62cd150870a4791c"
+    },
+    {
+      "observationId": "val-observation:val1-69af6a36d19ee3aa"
+    },
+    {
+      "observationId": "val-observation:val1-712737e6abb1035a"
+    },
+    {
+      "observationId": "val-observation:val1-71ed61ce92aee762"
+    },
+    {
+      "observationId": "val-observation:val1-7b66ec4fbf88153b"
+    },
+    {
+      "observationId": "val-observation:val1-7c967f5b68ef351f"
+    },
+    {
+      "observationId": "val-observation:val1-7e3a3f6bdb20d757"
+    },
+    {
+      "observationId": "val-observation:val1-842290c4c39c8ec8"
+    },
+    {
+      "observationId": "val-observation:val1-8f14104991d17f1d"
+    },
+    {
+      "observationId": "val-observation:val1-918fb851b79540c5"
+    },
+    {
+      "observationId": "val-observation:val1-9c3a6c04e693b7c8"
+    },
+    {
+      "observationId": "val-observation:val1-a4d95f0caa9e29c0"
+    },
+    {
+      "observationId": "val-observation:val1-a87d9af8afdbe064"
+    },
+    {
+      "observationId": "val-observation:val1-ae1e48ddd7752af9"
+    },
+    {
+      "observationId": "val-observation:val1-b2a4bdab4d14c47f"
+    },
+    {
+      "observationId": "val-observation:val1-c1f64812cc54ef46"
+    },
+    {
+      "observationId": "val-observation:val1-c216e7bb5b8435b7"
+    },
+    {
+      "observationId": "val-observation:val1-c2bc447aaec44c0e"
+    },
+    {
+      "observationId": "val-observation:val1-c68834fac4566336"
+    },
+    {
+      "observationId": "val-observation:val1-c96ee092f99645c6"
+    },
+    {
+      "observationId": "val-observation:val1-ca9ed7167ce93712"
+    },
+    {
+      "observationId": "val-observation:val1-cb74a0866dfdbc82"
+    },
+    {
+      "observationId": "val-observation:val1-d4ec4a4953d9f16d"
+    },
+    {
+      "observationId": "val-observation:val1-d6edb0898e8903a5"
+    },
+    {
+      "observationId": "val-observation:val1-d768b28f217dfd13"
+    },
+    {
+      "observationId": "val-observation:val1-dba4202efc39db1a"
+    },
+    {
+      "observationId": "val-observation:val1-dc065c98548a7a1c"
+    },
+    {
+      "observationId": "val-observation:val1-deccd0f1e6501805"
+    },
+    {
+      "observationId": "val-observation:val1-e161853c23757408"
+    },
+    {
+      "observationId": "val-observation:val1-e8068c04330b7e50"
+    },
+    {
+      "observationId": "val-observation:val1-eb739d9a368a4686"
+    },
+    {
+      "observationId": "val-observation:val1-ee14ecbb7f6fde27"
+    },
+    {
+      "observationId": "val-observation:val1-ef75b373c3b8810f"
+    },
+    {
+      "observationId": "val-observation:val1-efb20e431c0bad07"
+    }
+  ],
+  "sourceSnapshotRef": {
+    "artifactId": "scientific-thinking-output:ke1-858715dc9c432618",
+    "artifactType": "SCIENTIFIC_THINKING_RESULT",
+    "contentDigest": "ke1-858715dc9c432618",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "SCIENTIFIC_THINKING",
+    "projectId": "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+    "projectVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "ke1-d36035fec61a0c7a",
+      "knowledge-result:ke1-46d6f35039ef1c3c",
+      "knowledge-result:ke1-46d6f35039ef1c3c@1",
+      "scientific-thinking-handoff:ke1-28af1e9ea3539242",
+      "scientific-thinking-output:ke1-858715dc9c432618",
+      "scientific-thinking-project-request:ke1-ba29d4950c5c8651"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.2"
+  },
+  "targetSnapshotRef": {
+    "artifactId": "imaging-design-result:ke1-1cbe6865af0765e9",
+    "artifactType": "IMAGING_CONTRIBUTION",
+    "contentDigest": "ke1-1cbe6865af0765e9",
+    "contributionId": null,
+    "immutableForRun": true,
+    "owner": "IMAGING",
+    "projectId": "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+    "projectVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1",
+    "projectionId": null,
+    "provenanceRefs": [
+      "imaging-design-result:ke1-1cbe6865af0765e9",
+      "imaging-project-input:ke1-da2bff22cfb83b26",
+      "ke1-d36035fec61a0c7a",
+      "scientific-thinking-output:ke1-858715dc9c432618@1.2.2",
+      "st-to-imaging:ke1-3526ad38db480cac"
+    ],
+    "schemaVersion": "1.0.0",
+    "sourceOfTruth": false,
+    "version": "1.2.1"
+  }
+}
+```
+
+### Conditional REG sibling
+
+REG is shown separately and is not an upstream scientific input. It does not constitute legal advice, competent-authority approval or automatic compliance.
+
+```json
+{
+  "ownerResultId": "regulatory-resolution:ke1-1a89aab7ace3d6a3",
+  "ownerResultDigest": "regulatory-resolution:ke1-1a89aab7ace3d6a3",
+  "native": {
+    "contractVersion": "1.0.0",
+    "researchProjectId": "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+    "researchProjectVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1",
+    "researchProjectDigest": "ke1-a05af6e1f0dd75d5",
+    "corpusVersion": "1.0.0",
+    "corpusDigest": "ke1-40ba687c4aefa298",
+    "resolvedAt": "2026-08-26T23:10:00.000Z",
+    "applicableRequirements": [
+      {
+        "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
+        "title": "Qualify the French RIPH category before deriving obligations",
+        "normativeStrength": "LEGAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_LEGISLATOR",
+        "sourceIds": [
+          "SRC_FR_CSP_L1121_1"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2022-07-31",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1121_1"
+        ],
+        "status": "APPLICABLE",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "Toutes les conditions REG-000 évaluables sont satisfaites dans le périmètre déclaré.",
+        "conditions": [
+          "COND_FR_HUMAN_RESEARCH_SCOPE"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_RIPH_CLASSIFICATION",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_1"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_FR_HUMAN_RESEARCH_SCOPE",
+            "outcome": "SATISFIED",
+            "reason": "Recherche en santé déclarée.",
+            "field": "projectCharacteristics.humanHealthResearch",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "DOES_NOT_APPLY_IF",
+            "reference": "OUTSIDE_RIPH_SCOPE_CONFIRMED",
+            "outcome": "NOT_SATISFIED",
+            "reason": "Recherche en santé déclarée.",
+            "field": "projectCharacteristics.humanHealthResearch",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "REQUIRES",
+            "reference": "REQ_FR_RIPH_CLASSIFICATION",
+            "outcome": "SATISFIED",
+            "reason": "Relation requires de AR_FR_RIPH conservée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_1"
+            ]
+          },
+          {
+            "check": "DEPENDS_ON",
+            "reference": "HUMAN_LEGAL_QUALIFICATION",
+            "outcome": "NOT_EVALUATED",
+            "reason": "La dépendance REG-000 HUMAN_LEGAL_QUALIFICATION est conservée ; son accomplissement ne vaut pas condition d’applicabilité sauf référence à une Requirement explicite.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_1"
+            ]
+          }
+        ]
+      }
+    ],
+    "potentiallyApplicableRequirements": [],
+    "unresolvedRequirements": [
+      {
+        "requirementId": "REQ_CNIL_MR_ANNEXES",
+        "title": "Apply the 2026 MR security and quality-control annexes when using the 2026 conformity route",
+        "normativeStrength": "CONDITIONAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_CNIL",
+        "sourceIds": [
+          "SRC_CNIL_MR_UPDATE_2026"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2026-05-23",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_CNIL_MR_UPDATE_2026"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La route MR 2026 exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_MR_2026_ROUTE"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_CNIL_MR_ANNEXES",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_CNIL_MR_UPDATE_2026"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_MR_2026_ROUTE",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La route MR 2026 exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "MR_2026_ROUTE_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_CNIL_MR_ROUTE",
+        "title": "Qualify MR-001 or MR-003 and declaration-versus-authorisation route",
+        "normativeStrength": "CONDITIONAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_CNIL",
+        "sourceIds": [
+          "SRC_CNIL_MR001_2026",
+          "SRC_CNIL_MR003_2026"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2026-05-23",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_CNIL_MR001_2026",
+          "SRC_CNIL_MR003_2026"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La route CNIL/MR exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_HEALTH_PERSONAL_DATA",
+          "COND_MR_SCOPE_QUALIFIED"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_CNIL_MR_ROUTE",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_CNIL_MR001_2026",
+              "SRC_CNIL_MR003_2026"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_HEALTH_PERSONAL_DATA",
+            "outcome": "SATISFIED",
+            "reason": "Données de santé prévues.",
+            "field": "dataCharacteristics.personalHealthData",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_MR_SCOPE_QUALIFIED",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La route CNIL/MR exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "MR_SCOPE_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "DOES_NOT_APPLY_IF",
+            "reference": "NO_PERSONAL_DATA_CONFIRMED",
+            "outcome": "NOT_SATISFIED",
+            "reason": "Données de santé prévues.",
+            "field": "dataCharacteristics.personalHealthData",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "REQUIRES",
+            "reference": "REQ_CNIL_MR_ROUTE",
+            "outcome": "SATISFIED",
+            "reason": "Relation requires de AR_CNIL_MR conservée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_CNIL_MR001_2026",
+              "SRC_CNIL_MR003_2026"
+            ]
+          },
+          {
+            "check": "DEPENDS_ON",
+            "reference": "MR_SCOPE_AND_CONFORMITY_ASSESSMENT",
+            "outcome": "NOT_EVALUATED",
+            "reason": "La dépendance REG-000 MR_SCOPE_AND_CONFORMITY_ASSESSMENT est conservée ; son accomplissement ne vaut pas condition d’applicabilité sauf référence à une Requirement explicite.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_CNIL_MR001_2026",
+              "SRC_CNIL_MR003_2026"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+        "title": "Obtain competent-authority authorisation for RIPH category 1",
+        "normativeStrength": "LEGAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_ANSM",
+        "sourceIds": [
+          "SRC_FR_CSP_L1121_4"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2016-12-31",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1121_4"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La catégorie RIPH 1 exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_NOT_REPLACED_BY_MORE_SPECIFIC_EU_ROUTE",
+          "COND_RIPH1"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_4"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_NOT_REPLACED_BY_MORE_SPECIFIC_EU_ROUTE",
+            "outcome": "SATISFIED",
+            "reason": "Aucun essai de médicament relevant d’une route européenne plus spécifique n’est déclaré.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_RIPH1",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La catégorie RIPH 1 exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_CPP_OPINION",
+        "title": "Obtain a favourable CPP opinion before implementing an RIPH",
+        "normativeStrength": "LEGAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_CPP",
+        "sourceIds": [
+          "SRC_FR_CSP_L1121_4",
+          "SRC_FR_CSP_L1123_6"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2016-12-31",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1121_4",
+          "SRC_FR_CSP_L1123_6"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_FR_RIPH_CONFIRMED"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_CPP_OPINION",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_4",
+              "SRC_FR_CSP_L1123_6"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_FR_RIPH_CONFIRMED",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_CPP_PROTOCOL",
+        "title": "Include a dated research protocol in the CPP application dossier",
+        "normativeStrength": "REGULATORY_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_CPP",
+        "sourceIds": [
+          "SRC_FR_CSP_R1123_20"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2022-03-07",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_R1123_20"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_FR_RIPH_CONFIRMED"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_CPP_PROTOCOL",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_R1123_20"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_FR_RIPH_CONFIRMED",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+        "title": "Apply the participant agreement model corresponding to the RIPH category",
+        "normativeStrength": "LEGAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_LEGISLATOR",
+        "sourceIds": [
+          "SRC_FR_CSP_L1122_1_1"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2016-12-31",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1122_1_1"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_RIPH_CATEGORY_KNOWN"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1122_1_1"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_RIPH_CATEGORY_KNOWN",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      }
+    ],
+    "regulatoryMandatoryRequirements": [
+      {
+        "requirementId": "REQ_CNIL_MR_ANNEXES",
+        "title": "Apply the 2026 MR security and quality-control annexes when using the 2026 conformity route",
+        "normativeStrength": "CONDITIONAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_CNIL",
+        "sourceIds": [
+          "SRC_CNIL_MR_UPDATE_2026"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2026-05-23",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_CNIL_MR_UPDATE_2026"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La route MR 2026 exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_MR_2026_ROUTE"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_CNIL_MR_ANNEXES",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_CNIL_MR_UPDATE_2026"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_MR_2026_ROUTE",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La route MR 2026 exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "MR_2026_ROUTE_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_CNIL_MR_ROUTE",
+        "title": "Qualify MR-001 or MR-003 and declaration-versus-authorisation route",
+        "normativeStrength": "CONDITIONAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_CNIL",
+        "sourceIds": [
+          "SRC_CNIL_MR001_2026",
+          "SRC_CNIL_MR003_2026"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2026-05-23",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_CNIL_MR001_2026",
+          "SRC_CNIL_MR003_2026"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La route CNIL/MR exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_HEALTH_PERSONAL_DATA",
+          "COND_MR_SCOPE_QUALIFIED"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_CNIL_MR_ROUTE",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_CNIL_MR001_2026",
+              "SRC_CNIL_MR003_2026"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_HEALTH_PERSONAL_DATA",
+            "outcome": "SATISFIED",
+            "reason": "Données de santé prévues.",
+            "field": "dataCharacteristics.personalHealthData",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_MR_SCOPE_QUALIFIED",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La route CNIL/MR exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "MR_SCOPE_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "DOES_NOT_APPLY_IF",
+            "reference": "NO_PERSONAL_DATA_CONFIRMED",
+            "outcome": "NOT_SATISFIED",
+            "reason": "Données de santé prévues.",
+            "field": "dataCharacteristics.personalHealthData",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "REQUIRES",
+            "reference": "REQ_CNIL_MR_ROUTE",
+            "outcome": "SATISFIED",
+            "reason": "Relation requires de AR_CNIL_MR conservée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_CNIL_MR001_2026",
+              "SRC_CNIL_MR003_2026"
+            ]
+          },
+          {
+            "check": "DEPENDS_ON",
+            "reference": "MR_SCOPE_AND_CONFORMITY_ASSESSMENT",
+            "outcome": "NOT_EVALUATED",
+            "reason": "La dépendance REG-000 MR_SCOPE_AND_CONFORMITY_ASSESSMENT est conservée ; son accomplissement ne vaut pas condition d’applicabilité sauf référence à une Requirement explicite.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_CNIL_MR001_2026",
+              "SRC_CNIL_MR003_2026"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+        "title": "Obtain competent-authority authorisation for RIPH category 1",
+        "normativeStrength": "LEGAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_ANSM",
+        "sourceIds": [
+          "SRC_FR_CSP_L1121_4"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2016-12-31",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1121_4"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La catégorie RIPH 1 exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_NOT_REPLACED_BY_MORE_SPECIFIC_EU_ROUTE",
+          "COND_RIPH1"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_4"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_NOT_REPLACED_BY_MORE_SPECIFIC_EU_ROUTE",
+            "outcome": "SATISFIED",
+            "reason": "Aucun essai de médicament relevant d’une route européenne plus spécifique n’est déclaré.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_RIPH1",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La catégorie RIPH 1 exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_CPP_OPINION",
+        "title": "Obtain a favourable CPP opinion before implementing an RIPH",
+        "normativeStrength": "LEGAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_CPP",
+        "sourceIds": [
+          "SRC_FR_CSP_L1121_4",
+          "SRC_FR_CSP_L1123_6"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2016-12-31",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1121_4",
+          "SRC_FR_CSP_L1123_6"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_FR_RIPH_CONFIRMED"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_CPP_OPINION",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_4",
+              "SRC_FR_CSP_L1123_6"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_FR_RIPH_CONFIRMED",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_CPP_PROTOCOL",
+        "title": "Include a dated research protocol in the CPP application dossier",
+        "normativeStrength": "REGULATORY_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_CPP",
+        "sourceIds": [
+          "SRC_FR_CSP_R1123_20"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2022-03-07",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_R1123_20"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_FR_RIPH_CONFIRMED"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_CPP_PROTOCOL",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_R1123_20"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_FR_RIPH_CONFIRMED",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
+        "title": "Qualify the French RIPH category before deriving obligations",
+        "normativeStrength": "LEGAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_LEGISLATOR",
+        "sourceIds": [
+          "SRC_FR_CSP_L1121_1"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2022-07-31",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1121_1"
+        ],
+        "status": "APPLICABLE",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "Toutes les conditions REG-000 évaluables sont satisfaites dans le périmètre déclaré.",
+        "conditions": [
+          "COND_FR_HUMAN_RESEARCH_SCOPE"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_RIPH_CLASSIFICATION",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_1"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_FR_HUMAN_RESEARCH_SCOPE",
+            "outcome": "SATISFIED",
+            "reason": "Recherche en santé déclarée.",
+            "field": "projectCharacteristics.humanHealthResearch",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "DOES_NOT_APPLY_IF",
+            "reference": "OUTSIDE_RIPH_SCOPE_CONFIRMED",
+            "outcome": "NOT_SATISFIED",
+            "reason": "Recherche en santé déclarée.",
+            "field": "projectCharacteristics.humanHealthResearch",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "REQUIRES",
+            "reference": "REQ_FR_RIPH_CLASSIFICATION",
+            "outcome": "SATISFIED",
+            "reason": "Relation requires de AR_FR_RIPH conservée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_1"
+            ]
+          },
+          {
+            "check": "DEPENDS_ON",
+            "reference": "HUMAN_LEGAL_QUALIFICATION",
+            "outcome": "NOT_EVALUATED",
+            "reason": "La dépendance REG-000 HUMAN_LEGAL_QUALIFICATION est conservée ; son accomplissement ne vaut pas condition d’applicabilité sauf référence à une Requirement explicite.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1121_1"
+            ]
+          }
+        ]
+      },
+      {
+        "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+        "title": "Apply the participant agreement model corresponding to the RIPH category",
+        "normativeStrength": "LEGAL_MANDATORY",
+        "jurisdiction": "FR",
+        "authority": "AUTH_FR_LEGISLATOR",
+        "sourceIds": [
+          "SRC_FR_CSP_L1122_1_1"
+        ],
+        "edition": null,
+        "effectivePeriod": {
+          "from": "2016-12-31",
+          "until": null
+        },
+        "supersededBy": [],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1122_1_1"
+        ],
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "applicableJurisdictions": [
+          "FR"
+        ],
+        "excludedJurisdictions": [
+          "EU_EEA"
+        ],
+        "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+        "conditions": [
+          "COND_RIPH_CATEGORY_KNOWN"
+        ],
+        "checks": [
+          {
+            "check": "VERSION",
+            "reference": "1.0.0/ke1-40ba687c4aefa298",
+            "outcome": "SATISFIED",
+            "reason": "La version et le digest du corpus d’entrée correspondent au snapshot résolu.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "ke1-40ba687c4aefa298"
+            ]
+          },
+          {
+            "check": "EFFECTIVE_PERIOD",
+            "reference": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
+            "outcome": "SATISFIED",
+            "reason": "La date 2026-08-26 est incluse dans la période d’effet encodée.",
+            "field": null,
+            "qualificationId": null,
+            "provenance": [
+              "SRC_FR_CSP_L1122_1_1"
+            ]
+          },
+          {
+            "check": "JURISDICTION",
+            "reference": "FR",
+            "outcome": "SATISFIED",
+            "reason": "L’exigence est limitée à la juridiction FR.",
+            "field": "jurisdiction",
+            "qualificationId": null,
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          },
+          {
+            "check": "APPLIES_IF",
+            "reference": "COND_RIPH_CATEGORY_KNOWN",
+            "outcome": "UNKNOWN_REQUIRES_QUALIFICATION",
+            "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+            "field": null,
+            "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+            "provenance": [
+              "ke1-a05af6e1f0dd75d5",
+              "ke1-d36035fec61a0c7a",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+              "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+            ]
+          }
+        ]
+      }
+    ],
+    "requiredQualifications": [
+      {
+        "qualificationId": "MR_2026_ROUTE_QUALIFICATION_REQUIRED",
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "blockedRequirementIds": [
+          "REQ_CNIL_MR_ANNEXES"
+        ],
+        "reason": "La route MR 2026 exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      },
+      {
+        "qualificationId": "MR_SCOPE_QUALIFICATION_REQUIRED",
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "blockedRequirementIds": [
+          "REQ_CNIL_MR_ROUTE"
+        ],
+        "reason": "La route CNIL/MR exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      },
+      {
+        "qualificationId": "NIH_POLICY_SCOPE_QUALIFICATION_REQUIRED",
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "blockedRequirementIds": [
+          "REQ_NIH_TRIAL_DISSEMINATION"
+        ],
+        "reason": "L’exclusion de la politique NIH exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      },
+      {
+        "qualificationId": "RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "blockedRequirementIds": [
+          "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+          "REQ_FR_CPP_OPINION",
+          "REQ_FR_CPP_PROTOCOL",
+          "REQ_FR_RIPH_CONSENT_OR_OPPOSITION"
+        ],
+        "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      },
+      {
+        "qualificationId": "US_ACT_SCOPE_QUALIFICATION_REQUIRED",
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "blockedRequirementIds": [
+          "REQ_US_ACT_REGISTRATION_RESULTS"
+        ],
+        "reason": "L’exclusion de la définition ACT exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      }
+    ],
+    "missingInformation": [],
+    "contradictions": [],
+    "humanReviewRequirements": [
+      {
+        "reviewId": "review:preserved:project-contribution-decision:ke1-90b603714a08e265:v1",
+        "kind": "EXTERNAL_AUTHORITY_REVIEW",
+        "requirementIds": [],
+        "reason": "L’utilisateur a activé « Cela correspond à mon projet » dans la session de travail courante.",
+        "decisionId": "project-contribution-decision:ke1-90b603714a08e265",
+        "status": "PRESERVED_HUMAN_DECISION",
+        "provenance": [
+          "ke1-f787ceb02bcc16d4",
+          "persistent-project-contribution:ke1-70e3c5dbfc5d8b57",
+          "turn:LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01"
+        ]
+      },
+      {
+        "reviewId": "review:qualification:MR_2026_ROUTE_QUALIFICATION_REQUIRED",
+        "kind": "REGULATORY_QUALIFICATION",
+        "requirementIds": [
+          "REQ_CNIL_MR_ANNEXES"
+        ],
+        "reason": "La route MR 2026 exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "status": "PENDING",
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      },
+      {
+        "reviewId": "review:qualification:MR_SCOPE_QUALIFICATION_REQUIRED",
+        "kind": "REGULATORY_QUALIFICATION",
+        "requirementIds": [
+          "REQ_CNIL_MR_ROUTE"
+        ],
+        "reason": "La route CNIL/MR exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "status": "PENDING",
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      },
+      {
+        "reviewId": "review:qualification:NIH_POLICY_SCOPE_QUALIFICATION_REQUIRED",
+        "kind": "REGULATORY_QUALIFICATION",
+        "requirementIds": [
+          "REQ_NIH_TRIAL_DISSEMINATION"
+        ],
+        "reason": "L’exclusion de la politique NIH exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "status": "PENDING",
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      },
+      {
+        "reviewId": "review:qualification:RIPH_CATEGORY_QUALIFICATION_REQUIRED",
+        "kind": "REGULATORY_QUALIFICATION",
+        "requirementIds": [
+          "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+          "REQ_FR_CPP_OPINION",
+          "REQ_FR_CPP_PROTOCOL",
+          "REQ_FR_RIPH_CONSENT_OR_OPPOSITION"
+        ],
+        "reason": "La catégorie RIPH exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "status": "PENDING",
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      },
+      {
+        "reviewId": "review:qualification:US_ACT_SCOPE_QUALIFICATION_REQUIRED",
+        "kind": "REGULATORY_QUALIFICATION",
+        "requirementIds": [
+          "REQ_US_ACT_REGISTRATION_RESULTS"
+        ],
+        "reason": "L’exclusion de la définition ACT exige une qualification humaine ou externe explicite.",
+        "decisionId": null,
+        "status": "PENDING",
+        "provenance": [
+          "ke1-a05af6e1f0dd75d5",
+          "ke1-d36035fec61a0c7a",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+          "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+        ]
+      }
+    ],
+    "approvalRequirements": [
+      {
+        "approvalRequirementId": "APR_ANSM_RIPH1",
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "authority": "AUTH_FR_ANSM",
+        "resultRequired": "AUTHORIZATION",
+        "requirementIds": [
+          "REQ_FR_ANSM_RIPH1_AUTHORIZATION"
+        ],
+        "sourceIds": [
+          "SRC_FR_CSP_L1121_4"
+        ],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1121_4"
+        ]
+      },
+      {
+        "approvalRequirementId": "APR_CNIL_NONCONFORMING",
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "authority": "AUTH_FR_CNIL",
+        "resultRequired": "AUTHORIZATION_AFTER_COMPETENT_ETHICS_OPINION",
+        "requirementIds": [
+          "REQ_CNIL_MR_ROUTE"
+        ],
+        "sourceIds": [
+          "SRC_CNIL_MR003_2026"
+        ],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_CNIL_MR001_2026",
+          "SRC_CNIL_MR003_2026"
+        ]
+      },
+      {
+        "approvalRequirementId": "APR_CPP_ALL_RIPH",
+        "status": "UNKNOWN_REQUIRES_QUALIFICATION",
+        "authority": "AUTH_FR_CPP",
+        "resultRequired": "FAVOURABLE_OPINION",
+        "requirementIds": [
+          "REQ_FR_CPP_OPINION"
+        ],
+        "sourceIds": [
+          "SRC_FR_CSP_L1121_4",
+          "SRC_FR_CSP_L1123_6"
+        ],
+        "provenance": [
+          "ke1-40ba687c4aefa298",
+          "ke1-a05af6e1f0dd75d5",
+          "SRC_FR_CSP_L1121_4",
+          "SRC_FR_CSP_L1123_6"
+        ]
+      }
+    ],
+    "methodologicalGuidance": [],
+    "reportingGuidance": [],
+    "corpusDiagnostics": [
+      {
+        "diagnosticId": "corpus-diagnostic:candidate-corpus",
+        "severity": "WARNING",
+        "kind": "CANDIDATE_CORPUS",
+        "ruleId": null,
+        "reference": "REG-000",
+        "requirementIds": [],
+        "description": "Le snapshot est NIVEAU_2_CANDIDATE/CANDIDATE_NOT_ADMITTED; REG-001 ne le promeut pas en autorité admise.",
+        "provenance": [
+          "REG-000",
+          "1.0.0"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_CNIL_MR:MR_SCOPE_AND_CONFORMITY_ASSESSMENT",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_CNIL_MR",
+        "reference": "MR_SCOPE_AND_CONFORMITY_ASSESSMENT",
+        "requirementIds": [
+          "REQ_CNIL_MR_ROUTE"
+        ],
+        "description": "La relation MR_SCOPE_AND_CONFORMITY_ASSESSMENT est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_CNIL_MR"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_ECRIN:COUNTRY_SELECTION",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_ECRIN",
+        "reference": "COUNTRY_SELECTION",
+        "requirementIds": [],
+        "description": "La relation COUNTRY_SELECTION est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_ECRIN"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_ECRIN:TREAT_AS_LAW",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_ECRIN",
+        "reference": "TREAT_AS_LAW",
+        "requirementIds": [],
+        "description": "La relation TREAT_AS_LAW est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_ECRIN"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_EU_CTR:CTR_SCOPE_QUALIFICATION",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_EU_CTR",
+        "reference": "CTR_SCOPE_QUALIFICATION",
+        "requirementIds": [
+          "REQ_EU_CTR_CTIS",
+          "REQ_EU_CTR_APPLICATION_DOSSIER"
+        ],
+        "description": "La relation CTR_SCOPE_QUALIFICATION est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_EU_CTR"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_FR_RIPH:HUMAN_LEGAL_QUALIFICATION",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_FR_RIPH",
+        "reference": "HUMAN_LEGAL_QUALIFICATION",
+        "requirementIds": [
+          "REQ_FR_RIPH_CLASSIFICATION"
+        ],
+        "description": "La relation HUMAN_LEGAL_QUALIFICATION est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_FR_RIPH"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_METHOD_GUIDANCE:AUTOMATIC_LEGAL_PROMOTION",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_METHOD_GUIDANCE",
+        "reference": "AUTOMATIC_LEGAL_PROMOTION",
+        "requirementIds": [],
+        "description": "La relation AUTOMATIC_LEGAL_PROMOTION est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_METHOD_GUIDANCE"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_METHOD_GUIDANCE:EXPLICIT_INCORPORATION_CHECK",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_METHOD_GUIDANCE",
+        "reference": "EXPLICIT_INCORPORATION_CHECK",
+        "requirementIds": [],
+        "description": "La relation EXPLICIT_INCORPORATION_CHECK est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_METHOD_GUIDANCE"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_NIH:FUNDER_AND_POLICY_SCOPE",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_NIH",
+        "reference": "FUNDER_AND_POLICY_SCOPE",
+        "requirementIds": [
+          "REQ_NIH_TRIAL_DISSEMINATION"
+        ],
+        "description": "La relation FUNDER_AND_POLICY_SCOPE est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_NIH"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_PHRC_STAGE:PROGRAM_EDITION",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_PHRC_STAGE",
+        "reference": "PROGRAM_EDITION",
+        "requirementIds": [
+          "REQ_PHRC_STAGE1",
+          "REQ_PHRC_STAGE2"
+        ],
+        "description": "La relation PROGRAM_EDITION est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_PHRC_STAGE"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_PHRC_STAGE:SUBMISSION_STAGE",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_PHRC_STAGE",
+        "reference": "SUBMISSION_STAGE",
+        "requirementIds": [
+          "REQ_PHRC_STAGE1",
+          "REQ_PHRC_STAGE2"
+        ],
+        "description": "La relation SUBMISSION_STAGE est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_PHRC_STAGE"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_RHU_EDITION:PROGRAM_EDITION",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_RHU_EDITION",
+        "reference": "PROGRAM_EDITION",
+        "requirementIds": [
+          "REQ_RHU_V6_COMPLETE_DOSSIER",
+          "REQ_RHU_V6_ANNEXES"
+        ],
+        "description": "La relation PROGRAM_EDITION est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_RHU_EDITION"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_UNKNOWN_PROGRAM:CURRENT_PRIMARY_CALL",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_UNKNOWN_PROGRAM",
+        "reference": "CURRENT_PRIMARY_CALL",
+        "requirementIds": [],
+        "description": "La relation CURRENT_PRIMARY_CALL est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_UNKNOWN_PROGRAM"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_UNKNOWN_PROGRAM:INFERRED_DOCUMENT_REQUIREMENTS",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_UNKNOWN_PROGRAM",
+        "reference": "INFERRED_DOCUMENT_REQUIREMENTS",
+        "requirementIds": [],
+        "description": "La relation INFERRED_DOCUMENT_REQUIREMENTS est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_UNKNOWN_PROGRAM"
+        ]
+      },
+      {
+        "diagnosticId": "corpus-diagnostic:symbolic:AR_US_ACT:US_STATUTORY_QUALIFICATION",
+        "severity": "INFORMATION",
+        "kind": "SYMBOLIC_RELATION",
+        "ruleId": "AR_US_ACT",
+        "reference": "US_STATUTORY_QUALIFICATION",
+        "requirementIds": [
+          "REQ_US_ACT_REGISTRATION_RESULTS"
+        ],
+        "description": "La relation US_STATUTORY_QUALIFICATION est symbolique dans REG-000 et n’est pas arbitrée comme une Requirement autonome par REG-001.",
+        "provenance": [
+          "REG-000",
+          "AR_US_ACT"
+        ]
+      }
+    ],
+    "humanDecisions": [
+      {
+        "envelopeVersion": "1.0",
+        "decisionId": "project-contribution-decision:ke1-90b603714a08e265",
+        "gateId": "PRJ-CONTRIBUTION-INTAKE",
+        "actor": "w1-loop-qual-01h1:researcher",
+        "mandate": "PROJECT_OWNER",
+        "scope": [
+          "RESEARCH_PROJECT",
+          "USER_CONFIRMED_PROJECT_INFORMATION"
+        ],
+        "status": "ADOPTED",
+        "version": 1,
+        "timestamp": "2026-08-26T16:00:00.000Z",
+        "impact": {
+          "affectedObjects": [],
+          "affectedEngines": [],
+          "reopenedGates": [],
+          "obsoleteProjections": []
+        },
+        "targets": [
+          "persistent-project-contribution:ke1-70e3c5dbfc5d8b57",
+          "question:cmr-t2-repeatability",
+          "population:cmr-adults",
+          "design:prospective-multicenter",
+          "modality:cardiac-mri",
+          "acquisition:t2-mapping"
+        ],
+        "reason": "L’utilisateur a activé « Cela correspond à mon projet » dans la session de travail courante.",
+        "provenance": [
+          "persistent-project-contribution:ke1-70e3c5dbfc5d8b57",
+          "ke1-f787ceb02bcc16d4",
+          "turn:LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01"
+        ],
+        "engineSource": "RESEARCH_PROJECT",
+        "projectVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+      }
+    ],
+    "provenance": {
+      "engineVersion": "1.0.0",
+      "researchProjectRefs": [
+        "ke1-a05af6e1f0dd75d5",
+        "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+        "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1"
+      ],
+      "corpusRefs": [
+        "1.0.0",
+        "ke1-40ba687c4aefa298",
+        "REG-000"
+      ],
+      "sourceRefs": [
+        "SRC_ANR_RHU_V6_2023",
+        "SRC_CLINICALTRIALS_FINAL_RULE",
+        "SRC_CNIL_MR_UPDATE_2026",
+        "SRC_CNIL_MR001_2026",
+        "SRC_CNIL_MR003_2026",
+        "SRC_DGOS_NOTE_2025_90",
+        "SRC_DGOS_PHRC_2025_2026",
+        "SRC_EC_CTR_CTIS_2025",
+        "SRC_ECRIN_RED",
+        "SRC_EMA_CTIS_2026",
+        "SRC_EQUATOR_RECORD",
+        "SRC_EQUATOR_STARD",
+        "SRC_EQUATOR_STROBE",
+        "SRC_EQUATOR_TRIPOD",
+        "SRC_EU_CTR_536_2014",
+        "SRC_FR_CSP_L1121_1",
+        "SRC_FR_CSP_L1121_4",
+        "SRC_FR_CSP_L1122_1_1",
+        "SRC_FR_CSP_L1123_6",
+        "SRC_FR_CSP_R1123_20",
+        "SRC_ICH_E6_R3_2025",
+        "SRC_NIH_DISSEMINATION_POLICY",
+        "SRC_PRISMA_2020",
+        "SRC_SPIRIT_CONSORT_2025"
+      ],
+      "authorityBoundary": "METHODOLOGICAL_AID_NOT_REGULATORY_VALIDATION"
+    },
+    "readiness": {
+      "status": "QUALIFICATION_REQUIRED",
+      "reasons": [
+        "Une ou plusieurs qualifications humaines ou externes sont requises."
+      ],
+      "unresolvedRequirementIds": [
+        "REQ_CNIL_MR_ANNEXES",
+        "REQ_CNIL_MR_ROUTE",
+        "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
+        "REQ_FR_CPP_OPINION",
+        "REQ_FR_CPP_PROTOCOL",
+        "REQ_FR_RIPH_CONSENT_OR_OPPOSITION"
+      ],
+      "notice": "LOCAL_REGULATORY_RESOLUTION_READINESS_ONLY_NOT_SCIENTIFIC_OR_REGULATORY_APPROVAL"
+    },
+    "resolutionId": "regulatory-resolution:ke1-1a89aab7ace3d6a3"
+  }
+}
+```
+
+### Ordered TRACE
+
+| Seq | Event | Owner | Status | Diagnostic stage |
+|---:|---|---|---|---|
+| 1 | RUN_STARTED | TRACE | RUNNING | PROJECT_CONTEXT |
+| 2 | HANDOFF_STARTED | KNOWLEDGE | STARTED | OWNER_REQUEST_BUILDING |
+| 3 | HANDOFF_ACCEPTED | KNOWLEDGE | ACCEPTED | OWNER_REQUEST_BUILDING |
+| 4 | OWNER_INVOCATION_STARTED | KNOWLEDGE | STARTED | KNOWLEDGE_ENGINE |
+| 5 | OWNER_INVOCATION_COMPLETED | KNOWLEDGE | OWNER_EVIDENCE_GAP | KNOWLEDGE_ENGINE |
+| 6 | RESULT_PERSISTED | KNOWLEDGE | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 7 | HANDOFF_STARTED | SCIENTIFIC_THINKING | STARTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 8 | HANDOFF_ACCEPTED | SCIENTIFIC_THINKING | ACCEPTED | KNOWLEDGE_TO_ST_HANDOFF |
+| 9 | OWNER_INVOCATION_STARTED | SCIENTIFIC_THINKING | STARTED | SCIENTIFIC_THINKING_ENGINE |
+| 10 | OWNER_INVOCATION_COMPLETED | SCIENTIFIC_THINKING | COMPLETED_WITH_LIMITATIONS | SCIENTIFIC_THINKING_ENGINE |
+| 11 | RESULT_PERSISTED | SCIENTIFIC_THINKING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 12 | HANDOFF_STARTED | IMAGING | STARTED | ST_TO_IMAGING_HANDOFF |
+| 13 | HANDOFF_ACCEPTED | IMAGING | ACCEPTED | ST_TO_IMAGING_HANDOFF |
+| 14 | OWNER_INVOCATION_STARTED | IMAGING | STARTED | IMAGING_ENGINE |
+| 15 | OWNER_INVOCATION_COMPLETED | IMAGING | COMPLETED_WITH_LIMITATIONS | IMAGING_ENGINE |
+| 16 | RESULT_PERSISTED | IMAGING | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 17 | HANDOFF_STARTED | VAL | STARTED | VAL_INPUT_ADAPTER |
+| 18 | HANDOFF_ACCEPTED | VAL | ACCEPTED | VAL_INPUT_ADAPTER |
+| 19 | VALIDATION_STARTED | VAL | STARTED | VAL_ENGINE |
+| 20 | VALIDATION_COMPLETED | VAL | STRUCTURAL_FIDELITY_PASS | VAL_ENGINE |
+| 21 | RESULT_PERSISTED | VAL | VALIDATION_RUN_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 22 | HANDOFF_STARTED | REGULATORY_RESOLUTION | STARTED | REG_REQUEST_BUILDING |
+| 23 | HANDOFF_ACCEPTED | REGULATORY_RESOLUTION | ACCEPTED | REG_REQUEST_BUILDING |
+| 24 | OWNER_INVOCATION_STARTED | REGULATORY_RESOLUTION | STARTED | REG_ENGINE |
+| 25 | OWNER_INVOCATION_COMPLETED | REGULATORY_RESOLUTION | OWNER_CONTEXT_INCOMPLETE | REG_ENGINE |
+| 26 | RESULT_PERSISTED | REGULATORY_RESOLUTION | OWNER_RESULT_RETAINED | OWNER_RESULT_PERSISTENCE |
+| 27 | RUN_COMPLETED | TRACE | COMPLETED |  |
+
+### Direct technical summary
+
+```json
+{
+  "projectTupleExact": true,
+  "projectUnchanged": true,
+  "projectWrites": 0,
+  "humanDecisionBypassed": false,
+  "automaticAdoption": 0,
+  "externalCalls": 0,
+  "obsRuntimeCalls": 0,
+  "valRepairCalls": 0,
+  "valScientificQualificationClaimed": false,
+  "traceEventCount": 27,
+  "traceCompleted": true,
+  "frozenInputDigest": "ke1-bfd3a7011f4b8585"
+}
+```
+
+### Pre-authored HumanLoopReviewEnvelope
+
+```json
+{
+  "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+  "casePurpose": "Observer la chaîne scientifique et une branche REG conditionnelle sœur, sans injecter REG dans le raisonnement scientifique ni inventer une approbation.",
+  "whatEachOwnerShouldContribute": {
+    "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+    "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+    "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+    "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+    "REGULATORY_RESOLUTION": "Résoudre l’applicabilité encodée depuis la requête caller-supplied exacte, séparément de la chaîne scientifique et sans approbation."
+  },
+  "criticalInformationToPreserve": {
+    "unknowns": [
+      "Nombre final de centres et versions exactes des séquences et logiciels"
+    ],
+    "contradictions": [
+      "L’usage multicentrique peut être défendable sous harmonisation, mais aucune valeur ne devient universelle du seul fait qu’elle est mesurable dans plusieurs centres."
+    ],
+    "limitations": [
+      "Aucun seuil clinique ni ordre de séquences n’est produit.",
+      "REG décrit seulement l’applicabilité encodée du corpus local et ne vaut ni avis juridique ni autorisation."
+    ],
+    "sourceRefs": [
+      "RB-004:v1.1",
+      "src/features/protocol-designer/fixtures.ts#cardiac",
+      "REG-001@1.0.0",
+      "REG-000:CANDIDATE_CORPUS"
+    ]
+  },
+  "expectedStopOrRefusalBehavior": "Aucun arrêt prédéterminé; toute limitation produite reste visible.",
+  "scientificallyForbiddenBehaviors": [
+    "Transformer un OwnerResult en Project truth",
+    "Promouvoir une contradiction en conclusion résolue",
+    "Inventer une source ou une preuve",
+    "Sélectionner automatiquement une méthode Imaging",
+    "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+    "Créer une approbation réglementaire"
+  ],
+  "acceptableKindsOfResponse": [
+    "Candidats explicitement non adoptés",
+    "Clarification ou gap traçable",
+    "Alternatives conservées",
+    "Stratégies Imaging candidates avec limites",
+    "Diagnostic VAL structurel"
+  ],
+  "humanReviewQuestions": {
+    "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+    "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+    "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+    "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+    "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+    "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+    "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+    "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+  },
+  "L1": "PENDING",
+  "L2": "PENDING",
+  "L3": "PENDING",
+  "L4": "PENDING",
+  "L5": "PENDING",
+  "L6": "PENDING",
+  "L7": "PENDING",
+  "L8": "PENDING"
+}
+```
+
+### Human adjudication
+
+| Question | State |
+|---|---|
+| L1 | PENDING |
+| L2 | PENDING |
+| L3 | PENDING |
+| L4 | PENDING |
+| L5 | PENDING |
+| L6 | PENDING |
+| L7 | PENDING |
+| L8 | PENDING |
+
+## Campaign disposition
+
+The packet is technically ready for manual review. No controlled-loop scientific disposition has been assigned.
+
+`NEXT_AUTHORIZED_MISSION = NONE_PENDING_MANUAL_CONTROLLED_LOOP_ADJUDICATION`

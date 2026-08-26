@@ -1,0 +1,149 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_CASE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "exactScenarioCount": 5,
+  "authoredAt": "2026-08-26T12:00:00.000Z",
+  "authoredBeforeObservation": true,
+  "cases": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "family": "A_SIMPLE_SUPPORTED_CHAIN",
+      "domain": "SPECTRAL_CT_METROLOGY",
+      "title": "Dérive de calibration et concentration d’iode reconstruite",
+      "casePurpose": "Observer une chaîne nominale simple sans contradiction structurante ni décision d’owner concurrent.",
+      "scientificQuestion": "Dans un phantom de contrôle qualité au CT spectral, une dérive de calibration est-elle associée à une variation de la concentration d’iode reconstruite lorsque dose et reconstruction restent fixées ?",
+      "expectedOwners": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "regConditionalSibling": false,
+      "sourceRefs": [
+        "RB-003:v1.0",
+        "src/features/protocol-designer/fixtures.ts#spectral"
+      ],
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "family": "B_CONTRADICTION_FULL_CHAIN",
+      "domain": "NEURO_PERFUSION_CROSS_MODALITY",
+      "title": "Changement longitudinal de CBF entre CTP et ASL",
+      "casePurpose": "Observer si une contradiction documentaire de substituabilité reste visible jusqu’à Imaging et VAL sans sélection automatique d’une position.",
+      "scientificQuestion": "Chez des adultes suivis pour maladie cérébrovasculaire, une baisse du CBF entre une perfusion CT initiale et une ASL IRM de suivi peut-elle être interprétée comme une progression biologique malgré le changement de modalité et de modèle ?",
+      "expectedOwners": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "regConditionalSibling": false,
+      "sourceRefs": [
+        "RB-005:v1.0",
+        "src/features/protocol-designer/fixtures.ts#neuro"
+      ],
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "family": "C_PROJECT_UNKNOWN_GOVERNS_PATH",
+      "domain": "NEURO_PERFUSION_TEMPORAL_CONTEXT",
+      "title": "Temporalité post-revascularisation non décidée",
+      "casePurpose": "Observer si une UNKNOWN Project structurante demeure gouvernante dans K, ST, Imaging et VAL.",
+      "scientificQuestion": "Chez des adultes après revascularisation cérébrale, la relation entre Tmax et CBF doit-elle être étudiée en phase aiguë ou au suivi chronique lorsque le moment d’évaluation n’est pas encore décidé ?",
+      "expectedOwners": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "regConditionalSibling": false,
+      "sourceRefs": [
+        "RB-005:v1.0",
+        "src/features/protocol-designer/fixtures.ts#neuro",
+        "PD-003-V2:PROJECT_UNKNOWNS"
+      ],
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "family": "D_INSUFFICIENT_KNOWLEDGE_DEGRADATION",
+      "domain": "RENAL_DIFFUSION_MRI_UNCOVERED",
+      "title": "Diffusion médullaire rénale hors corpus local",
+      "casePurpose": "Observer si un Knowledge gap explicite reste faible et n’est pas promu en science Imaging.",
+      "scientificQuestion": "Chez des adultes avec maladie rénale chronique, l’ADC médullaire en IRM de diffusion est-il associé à la fibrose interstitielle rénale ?",
+      "expectedOwners": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL"
+      ],
+      "regConditionalSibling": false,
+      "sourceRefs": [
+        "KE-001:EXACT_FIRST_NO_IMPLICIT_FALLBACK",
+        "src/features/knowledge-engine/provider-registry.ts"
+      ],
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "family": "E_CONDITIONAL_REG_SIBLING",
+      "domain": "CARDIAC_MRI_MULTICENTER_REPEATABILITY_FR",
+      "title": "Répétabilité T2 mapping multicentrique avec branche REG",
+      "casePurpose": "Observer la chaîne scientifique et une branche REG conditionnelle sœur, sans injecter REG dans le raisonnement scientifique ni inventer une approbation.",
+      "scientificQuestion": "Dans une étude prospective multicentrique française en IRM cardiaque, l’harmonisation des séquences et de l’analyse est-elle associée à une meilleure répétabilité du T2 mapping myocardique ?",
+      "expectedOwners": [
+        "KNOWLEDGE",
+        "SCIENTIFIC_THINKING",
+        "IMAGING",
+        "VAL",
+        "REGULATORY_RESOLUTION"
+      ],
+      "regConditionalSibling": true,
+      "sourceRefs": [
+        "RB-004:v1.1",
+        "src/features/protocol-designer/fixtures.ts#cardiac",
+        "REG-001@1.0.0",
+        "REG-000:CANDIDATE_CORPUS"
+      ],
+      "H1": "PENDING",
+      "H2": "PENDING",
+      "H3": "PENDING",
+      "H4": "PENDING",
+      "H5": "PENDING",
+      "H6": "PENDING",
+      "H7": "PENDING",
+      "H8": "PENDING"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_PARENTAGE_AUDIT",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "auditedBeforeFreeze": true,
+  "allowedClassifications": [
+    "NOVEL",
+    "RELATED_BUT_DISTINCT"
+  ],
+  "forbiddenClassifications": [
+    "TOO_CLOSE",
+    "EXACT_OR_NEAR_DUPLICATE"
+  ],
+  "tooCloseCount": 0,
+  "cases": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "classification": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST02H1-E-KEDGE-NONDETECTION-ALTERNATIVES-01",
+        "ST01R1-B-SPECTRAL-NEGATIVE-IODINE-01"
+      ],
+      "distinctnessRationale": "Le cas porte sur une dérive longitudinale de calibration à paramètres fixés et sur sa propagation K→ST→Imaging→VAL, non sur une non-détection K-edge ni sur une inférence d’absence d’iode.",
+      "admitted": true
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "classification": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R1-B-NEURO-ASL-TRANSIT-01",
+        "ST02H1-E-GM-WM-CBF-ASSOCIATION-01",
+        "ST01R2-C-DECONVOLUTION-DELAY-01"
+      ],
+      "distinctnessRationale": "Les cas antérieurs étudiaient transit ASL, différence GM/WM ou délai de déconvolution; celui-ci teste une comparaison longitudinale CTP→ASL explicitement non substituable à travers toute la chaîne.",
+      "admitted": true
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "classification": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R2-C-PROJECT-COMPARATOR-UNKNOWN-01",
+        "ST01R2-C-DECONVOLUTION-DELAY-01"
+      ],
+      "distinctnessRationale": "L’UNKNOWN porte sur la temporalité aiguë versus chronique après revascularisation et doit gouverner la stratégie Imaging; elle ne porte ni sur un comparateur manquant ni sur le choix d’un algorithme de déconvolution.",
+      "admitted": true
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "classification": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST02H1-E-QSM-CHOROID-PLEXUS-INSUFFICIENT-01",
+        "K-UNSUPPORTED-01",
+        "IMG-UNSUPPORTED-01"
+      ],
+      "distinctnessRationale": "Le domaine rénal DWI, la relation ADC médullaire–fibrose et la propagation du gap sur la chaîne assemblée ne figurent dans aucun cas exposé; la proximité se limite au pattern générique d’insuffisance.",
+      "admitted": true
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "classification": "RELATED_BUT_DISTINCT",
+      "nearestExposedMaterial": [
+        "ST01R1-B-CARDIAC-FIELD-TRANSFER-01",
+        "ST02H1-E-ASYMPTOMATIC-LLC-APPLICABILITY-01",
+        "W1-TRACE-01 regulatory corridor"
+      ],
+      "distinctnessRationale": "Le cas porte sur la répétabilité T2 mapping multicentrique et l’indépendance d’une branche REG sœur; il ne teste ni le transfert de valeurs entre champs, ni une applicabilité post-infection, ni la chaîne T1/ECV du corridor TRACE historique.",
+      "admitted": true
+    }
+  ],
+  "campaignConclusion": "ALL_FIVE_CASES_ADMITTED_BEFORE_FREEZE"
+}

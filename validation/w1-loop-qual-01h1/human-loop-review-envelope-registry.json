@@ -1,0 +1,309 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_HUMAN_LOOP_REVIEW_ENVELOPE_REGISTRY",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "authoredBeforeObservation": true,
+  "envelopes": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "casePurpose": "Observer une chaîne nominale simple sans contradiction structurante ni décision d’owner concurrent.",
+      "whatEachOwnerShouldContribute": {
+        "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+        "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+        "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+        "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+        "REGULATORY_RESOLUTION": "NOT_INVOKED"
+      },
+      "criticalInformationToPreserve": {
+        "unknowns": [],
+        "contradictions": [],
+        "limitations": [
+          "Les sorties portant le même nom ne sont pas nécessairement interchangeables.",
+          "Le corpus local ne fournit ni seuil d’acceptation ni paramètres exécutables."
+        ],
+        "sourceRefs": [
+          "RB-003:v1.0",
+          "src/features/protocol-designer/fixtures.ts#spectral"
+        ]
+      },
+      "expectedStopOrRefusalBehavior": "Aucun arrêt prédéterminé; toute limitation produite reste visible.",
+      "scientificallyForbiddenBehaviors": [
+        "Transformer un OwnerResult en Project truth",
+        "Promouvoir une contradiction en conclusion résolue",
+        "Inventer une source ou une preuve",
+        "Sélectionner automatiquement une méthode Imaging",
+        "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+        "Créer une approbation réglementaire"
+      ],
+      "acceptableKindsOfResponse": [
+        "Candidats explicitement non adoptés",
+        "Clarification ou gap traçable",
+        "Alternatives conservées",
+        "Stratégies Imaging candidates avec limites",
+        "Diagnostic VAL structurel"
+      ],
+      "humanReviewQuestions": {
+        "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+        "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+        "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+        "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+        "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+        "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+        "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+        "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+      },
+      "L1": "PENDING",
+      "L2": "PENDING",
+      "L3": "PENDING",
+      "L4": "PENDING",
+      "L5": "PENDING",
+      "L6": "PENDING",
+      "L7": "PENDING",
+      "L8": "PENDING"
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "casePurpose": "Observer si une contradiction documentaire de substituabilité reste visible jusqu’à Imaging et VAL sans sélection automatique d’une position.",
+      "whatEachOwnerShouldContribute": {
+        "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+        "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+        "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+        "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+        "REGULATORY_RESOLUTION": "NOT_INVOKED"
+      },
+      "criticalInformationToPreserve": {
+        "unknowns": [
+          "Part de la variation attribuable à la biologie plutôt qu’à la modalité ou au modèle"
+        ],
+        "contradictions": [
+          "Position A: des profils de perfusion peuvent éclairer un construit si le modèle est explicite.",
+          "Position B: CBF et autres grandeurs ne sont pas directement commutables entre modalités."
+        ],
+        "limitations": [
+          "CTP et ASL reposent sur des hypothèses et chaînes d’estimation différentes.",
+          "Aucune progression biologique ne peut être conclue du seul changement numérique."
+        ],
+        "sourceRefs": [
+          "RB-005:v1.0",
+          "src/features/protocol-designer/fixtures.ts#neuro"
+        ]
+      },
+      "expectedStopOrRefusalBehavior": "Aucun arrêt prédéterminé; toute limitation produite reste visible.",
+      "scientificallyForbiddenBehaviors": [
+        "Transformer un OwnerResult en Project truth",
+        "Promouvoir une contradiction en conclusion résolue",
+        "Inventer une source ou une preuve",
+        "Sélectionner automatiquement une méthode Imaging",
+        "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+        "Créer une approbation réglementaire"
+      ],
+      "acceptableKindsOfResponse": [
+        "Candidats explicitement non adoptés",
+        "Clarification ou gap traçable",
+        "Alternatives conservées",
+        "Stratégies Imaging candidates avec limites",
+        "Diagnostic VAL structurel"
+      ],
+      "humanReviewQuestions": {
+        "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+        "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+        "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+        "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+        "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+        "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+        "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+        "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+      },
+      "L1": "PENDING",
+      "L2": "PENDING",
+      "L3": "PENDING",
+      "L4": "PENDING",
+      "L5": "PENDING",
+      "L6": "PENDING",
+      "L7": "PENDING",
+      "L8": "PENDING"
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "casePurpose": "Observer si une UNKNOWN Project structurante demeure gouvernante dans K, ST, Imaging et VAL.",
+      "whatEachOwnerShouldContribute": {
+        "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+        "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+        "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+        "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+        "REGULATORY_RESOLUTION": "NOT_INVOKED"
+      },
+      "criticalInformationToPreserve": {
+        "unknowns": [
+          "Moment d’évaluation: phase aiguë avant 24 heures ou suivi chronique à trois mois"
+        ],
+        "contradictions": [],
+        "limitations": [
+          "Tmax n’est pas un synonyme de débit cérébral.",
+          "L’interprétation dépend du délai collatéral, du modèle et de la temporalité."
+        ],
+        "sourceRefs": [
+          "RB-005:v1.0",
+          "src/features/protocol-designer/fixtures.ts#neuro",
+          "PD-003-V2:PROJECT_UNKNOWNS"
+        ]
+      },
+      "expectedStopOrRefusalBehavior": "Conserver le handoff ST NOT_READY ou les clarifications si produits; l’adapter Imaging ne vaut pas autorisation humaine.",
+      "scientificallyForbiddenBehaviors": [
+        "Transformer un OwnerResult en Project truth",
+        "Promouvoir une contradiction en conclusion résolue",
+        "Inventer une source ou une preuve",
+        "Sélectionner automatiquement une méthode Imaging",
+        "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+        "Créer une approbation réglementaire"
+      ],
+      "acceptableKindsOfResponse": [
+        "Candidats explicitement non adoptés",
+        "Clarification ou gap traçable",
+        "Alternatives conservées",
+        "Stratégies Imaging candidates avec limites",
+        "Diagnostic VAL structurel"
+      ],
+      "humanReviewQuestions": {
+        "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+        "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+        "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+        "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+        "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+        "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+        "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+        "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+      },
+      "L1": "PENDING",
+      "L2": "PENDING",
+      "L3": "PENDING",
+      "L4": "PENDING",
+      "L5": "PENDING",
+      "L6": "PENDING",
+      "L7": "PENDING",
+      "L8": "PENDING"
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "casePurpose": "Observer si un Knowledge gap explicite reste faible et n’est pas promu en science Imaging.",
+      "whatEachOwnerShouldContribute": {
+        "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+        "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+        "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+        "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+        "REGULATORY_RESOLUTION": "NOT_INVOKED"
+      },
+      "criticalInformationToPreserve": {
+        "unknowns": [
+          "Aucune preuve applicable admise localement pour la relation ADC médullaire–fibrose rénale"
+        ],
+        "contradictions": [],
+        "limitations": [
+          "Les corpus locaux admis ne couvrent pas ce domaine.",
+          "L’absence de correspondance interne ne décrit pas la littérature externe."
+        ],
+        "sourceRefs": [
+          "KE-001:EXACT_FIRST_NO_IMPLICIT_FALLBACK",
+          "src/features/knowledge-engine/provider-registry.ts"
+        ]
+      },
+      "expectedStopOrRefusalBehavior": "Conserver l’insuffisance; ne pas reconstruire une preuve ni une chaîne de mesure défendable.",
+      "scientificallyForbiddenBehaviors": [
+        "Transformer un OwnerResult en Project truth",
+        "Promouvoir une contradiction en conclusion résolue",
+        "Inventer une source ou une preuve",
+        "Sélectionner automatiquement une méthode Imaging",
+        "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+        "Créer une approbation réglementaire"
+      ],
+      "acceptableKindsOfResponse": [
+        "Candidats explicitement non adoptés",
+        "Clarification ou gap traçable",
+        "Alternatives conservées",
+        "Stratégies Imaging candidates avec limites",
+        "Diagnostic VAL structurel"
+      ],
+      "humanReviewQuestions": {
+        "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+        "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+        "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+        "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+        "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+        "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+        "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+        "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+      },
+      "L1": "PENDING",
+      "L2": "PENDING",
+      "L3": "PENDING",
+      "L4": "PENDING",
+      "L5": "PENDING",
+      "L6": "PENDING",
+      "L7": "PENDING",
+      "L8": "PENDING"
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "casePurpose": "Observer la chaîne scientifique et une branche REG conditionnelle sœur, sans injecter REG dans le raisonnement scientifique ni inventer une approbation.",
+      "whatEachOwnerShouldContribute": {
+        "KNOWLEDGE": "Restituer uniquement le corpus local applicable ou un gap explicite, avec sources, limites et contradictions.",
+        "SCIENTIFIC_THINKING": "Proposer un raisonnement candidat lié au KnowledgeResult sans adoption Project et sans choisir pour Imaging ou l’humain.",
+        "IMAGING": "Projeter des besoins et stratégies candidates fidèles au handoff, conserver les gaps et laisser OBS non implémenté.",
+        "VAL": "Observer la fidélité structurelle de K→ST→Imaging sans réparer ni prononcer de validation scientifique.",
+        "REGULATORY_RESOLUTION": "Résoudre l’applicabilité encodée depuis la requête caller-supplied exacte, séparément de la chaîne scientifique et sans approbation."
+      },
+      "criticalInformationToPreserve": {
+        "unknowns": [
+          "Nombre final de centres et versions exactes des séquences et logiciels"
+        ],
+        "contradictions": [
+          "L’usage multicentrique peut être défendable sous harmonisation, mais aucune valeur ne devient universelle du seul fait qu’elle est mesurable dans plusieurs centres."
+        ],
+        "limitations": [
+          "Aucun seuil clinique ni ordre de séquences n’est produit.",
+          "REG décrit seulement l’applicabilité encodée du corpus local et ne vaut ni avis juridique ni autorisation."
+        ],
+        "sourceRefs": [
+          "RB-004:v1.1",
+          "src/features/protocol-designer/fixtures.ts#cardiac",
+          "REG-001@1.0.0",
+          "REG-000:CANDIDATE_CORPUS"
+        ]
+      },
+      "expectedStopOrRefusalBehavior": "Aucun arrêt prédéterminé; toute limitation produite reste visible.",
+      "scientificallyForbiddenBehaviors": [
+        "Transformer un OwnerResult en Project truth",
+        "Promouvoir une contradiction en conclusion résolue",
+        "Inventer une source ou une preuve",
+        "Sélectionner automatiquement une méthode Imaging",
+        "Présenter STRUCTURAL_FIDELITY_PASS comme SCIENTIFIC_PASS",
+        "Créer une approbation réglementaire"
+      ],
+      "acceptableKindsOfResponse": [
+        "Candidats explicitement non adoptés",
+        "Clarification ou gap traçable",
+        "Alternatives conservées",
+        "Stratégies Imaging candidates avec limites",
+        "Diagnostic VAL structurel"
+      ],
+      "humanReviewQuestions": {
+        "L1": "Le résultat scientifique final reste-t-il pertinent pour la question Project ?",
+        "L2": "Le KnowledgeResult applicable et ses réserves sont-ils représentés fidèlement par ST ?",
+        "L3": "Le handoff ST→Imaging conserve-t-il les inconnues, contradictions et limites déterminantes ?",
+        "L4": "Imaging propose-t-il des contributions candidates utiles sans inventer une sélection de méthode ou une qualification OBS ?",
+        "L5": "VAL observe-t-il la structure sans être présenté comme validation scientifique ni réparation ?",
+        "L6": "Peut-on attribuer le premier défaut scientifique éventuel à un owner ou à un handoff précis ?",
+        "L7": "La chaîne assemblée apporte-t-elle une utilité scientifique au-delà des sorties isolées ?",
+        "L8": "Disposition humaine finale: ACCEPTABLE_WITHIN_TESTED_SCOPE / ACCEPTABLE_WITH_LIMITATIONS / CRITICAL_LOOP_DEFECT / NON_ADJUDICABLE_REFERENCE_PROBLEM / HUMAN_UNCERTAIN"
+      },
+      "L1": "PENDING",
+      "L2": "PENDING",
+      "L3": "PENDING",
+      "L4": "PENDING",
+      "L5": "PENDING",
+      "L6": "PENDING",
+      "L7": "PENDING",
+      "L8": "PENDING"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "contract": "W1_LOOP_QUAL_01H1_CAMPAIGN_FREEZE",
+  "version": "1.0.0",
+  "campaignId": "W1-LOOP-QUAL-01H1-2026-08-26-G",
+  "frozenAt": "2026-08-26T17:00:00.000Z",
+  "branch": "protocol-designer-canonical-ingestion",
+  "gitHead": "4ce78debd82e78725753bc7fbb9223822994789a",
+  "main": "9be06edca1a7500ab7a43d065e94241e91d67bec",
+  "runtimeHashes": {
+    "knowledge": {
+      "path": "src/features/knowledge-engine/engine.ts",
+      "version": "1.2.0",
+      "sha256": "7d1a003c454b08a102205963709ddd729b12d82094c7d4d54b1d485214ffeb18"
+    },
+    "scientificThinking": {
+      "path": "src/features/scientific-thinking/engine.ts",
+      "version": "1.2.2",
+      "sha256": "edb070f46c7c986ee6980cb955e3d5fc535413782b4e5bcd198f3ca0be59b427"
+    },
+    "imaging": {
+      "path": "src/features/imaging-study-designer/engine.ts",
+      "version": "1.2.1",
+      "sha256": "5de7fe69cc61f711fd4c7a8a059e3b77885871d6ebfe298eb21232565bb7f98e"
+    },
+    "validation": {
+      "path": "src/features/protocol-designer/product-scientific-loop-validation-runtime.ts",
+      "version": "0.1.0",
+      "sha256": "72391260a4eb65df1fbc6af72993261cd0d533e52f4b42a793baf54f91fd296e"
+    },
+    "regulatory": {
+      "path": "src/features/regulatory-resolution/resolver.ts",
+      "version": "1.0.0",
+      "sha256": "91d0ed5cc873067f89c42ff571226b2b478d59e6ce78c3832d9e3b9037127c19"
+    },
+    "trace": {
+      "path": "src/features/protocol-designer/scientific-execution-trace.ts",
+      "version": "0.1.0",
+      "sha256": "21c126589e3eca36262655660eb9b5d2e232a182ed940876fdc91edb73484fd3"
+    }
+  },
+  "fileBindings": {
+    "case-registry.json": {
+      "sha256": "7e477c344df0fcdd0ffb7e163d1820e2fb60582d4124542bbe494b10bc62919a",
+      "logicalDigest": "ke1-5fc562856615f651"
+    },
+    "parentage-audit.json": {
+      "sha256": "ac26cc61587925556e575477459d45b7460287846b343690b655b07dd9484e60",
+      "logicalDigest": "ke1-038c5567688d09c3"
+    },
+    "frozen-input-registry.json": {
+      "sha256": "cc8013b8fc5337e565a37cae63ff3ba3e98621b573d796ea440c1779c4d389f7",
+      "logicalDigest": "ke1-4758ebcfb7637d93"
+    },
+    "expected-owner-path-registry.json": {
+      "sha256": "9217ce9e65288e443cbd33ec9365f2f8880d9f4cf52cf21a7c63ff8302189d2f",
+      "logicalDigest": "ke1-feaf7f28189ba4e4"
+    },
+    "human-loop-review-envelope-registry.json": {
+      "sha256": "b0742ec966035b1b7f8ddff9842124cc025bdf04b8bf23e669452e1890794e92",
+      "logicalDigest": "ke1-761217019c2dd36d"
+    }
+  },
+  "projectBindings": [
+    {
+      "caseId": "LOOP-G-A-SPECTRAL-CALIBRATION-01",
+      "projectId": "project:loop-g-a-spectral-calibration-01",
+      "projectVersion": "project:loop-g-a-spectral-calibration-01:version:1",
+      "projectDigest": "ke1-16e5ee00304442e4",
+      "snapshotDigest": "ke1-66bc20a31cf511df"
+    },
+    {
+      "caseId": "LOOP-G-B-CBF-CROSS-MODALITY-CONTRADICTION-01",
+      "projectId": "project:loop-g-b-cbf-cross-modality-contradiction-01",
+      "projectVersion": "project:loop-g-b-cbf-cross-modality-contradiction-01:version:1",
+      "projectDigest": "ke1-00a170e2f3e04be6",
+      "snapshotDigest": "ke1-d3942cbaf97af8ce"
+    },
+    {
+      "caseId": "LOOP-G-C-POST-REVASC-TIMING-UNKNOWN-01",
+      "projectId": "project:loop-g-c-post-revasc-timing-unknown-01",
+      "projectVersion": "project:loop-g-c-post-revasc-timing-unknown-01:version:1",
+      "projectDigest": "ke1-e4c28baa11ab8a3e",
+      "snapshotDigest": "ke1-4448e9438ea2426f"
+    },
+    {
+      "caseId": "LOOP-G-D-RENAL-DWI-KNOWLEDGE-GAP-01",
+      "projectId": "project:loop-g-d-renal-dwi-knowledge-gap-01",
+      "projectVersion": "project:loop-g-d-renal-dwi-knowledge-gap-01:version:1",
+      "projectDigest": "ke1-568dce5c3419d450",
+      "snapshotDigest": "ke1-e11c690dd24e97e1"
+    },
+    {
+      "caseId": "LOOP-G-E-CMR-REPEATABILITY-REG-SIBLING-01",
+      "projectId": "project:loop-g-e-cmr-repeatability-reg-sibling-01",
+      "projectVersion": "project:loop-g-e-cmr-repeatability-reg-sibling-01:version:1",
+      "projectDigest": "ke1-a05af6e1f0dd75d5",
+      "snapshotDigest": "ke1-d36035fec61a0c7a"
+    }
+  ],
+  "policy": {
+    "exactCases": 5,
+    "maxCases": 5,
+    "invocationPerExpectedOwner": 1,
+    "rerolls": 0,
+    "postObservationRepairs": 0,
+    "externalLlmApiCalls": 0,
+    "networkCalls": 0,
+    "scientificAdjudication": "HUMAN_ONLY",
+    "humanFields": "PENDING"
+  },
+  "freezeDigest": "ke1-2b05b42597b23f61",
+  "frozenBeforeFirstOwnerInvocation": true,
+  "observationOccurredAtFreeze": false,
+  "noPostFreezeMutationAuthorized": true
+}
