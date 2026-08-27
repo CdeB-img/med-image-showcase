@@ -165,7 +165,7 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
     expect(after.pendingContribution).toEqual(before.pendingContribution);
     expect(after.bridgeTraces.at(-1)).toMatchObject({
       provider: "KNOWLEDGE",
-      model: "KE-001@1.2.0",
+      model: "KE-001@1.2.1",
       calls: 0,
       persistentExtractionCalled: false,
       projectWriteCount: 0,
@@ -186,7 +186,7 @@ describe("PRODUCT-CHECKPOINT-01D — transversal UNDERSTAND Knowledge path", () 
     expect(presentation.contradictions.length).toBeGreaterThan(0);
     expect(presentation.gaps.length).toBeGreaterThan(0);
     expect(presentation.provenance.length).toBeGreaterThan(0);
-    expect(presentation.engineVersion).toBe("1.2.0");
+    expect(presentation.engineVersion).toBe("1.2.1");
     expect(presentation.freshness.corpusStateDate).toBeTruthy();
   });
 

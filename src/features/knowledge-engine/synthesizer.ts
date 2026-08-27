@@ -1,5 +1,78 @@
 import { logicalDigest, uniqueSorted } from "./canonical";
-import type { GovernedDocumentaryStatement, KnowledgeGap, KnowledgeRequest, RuntimeAssertion, RuntimeConflict, RuntimeEvidenceLink, RuntimeKnowledgeSynthesis } from "./types";
+import type {
+  CoverageStatus,
+  GovernedDocumentaryStatement,
+  KnowledgeGap,
+  KnowledgeRequest,
+  QueryPlan,
+  RuntimeAssertion,
+  RuntimeConflict,
+  RuntimeEvidenceLink,
+  RuntimeKnowledgeConclusion,
+  RuntimeKnowledgeResponseState,
+  RuntimeKnowledgeSynthesis,
+} from "./types";
+
+type SynthesisContext = {
+  coverageStatus: CoverageStatus;
+  queryPlan: QueryPlan;
+};
+
+const semanticRelation = (value: unknown): RuntimeKnowledgeConclusion["semanticRelation"] => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  const record = value as Record<string, unknown>;
+  return typeof record.subject === "string"
+    && typeof record.predicate === "string"
+    && typeof record.object === "string"
+    ? { subject: record.subject, predicate: record.predicate, object: record.object }
+    : null;
+};
+
+const modalityTokens = (modality: string | undefined) => {
+  if (modality === "MRI") return ["mr", "mri", "irm"];
+  if (modality === "CT") return ["ct", "computed-tomography", "computed tomography"];
+  if (modality === "PET") return ["pet", "tep"];
+  return modality ? [modality.toLocaleLowerCase("fr-FR")] : [];
+};
+
+const containsToken = (value: string, token: string) => new RegExp(`(?:^|[^a-z0-9])${token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:$|[^a-z0-9])`, "iu").test(value);
+
+const isCrossBranchComparison = (
+  conclusion: RuntimeKnowledgeConclusion,
+  context: SynthesisContext | undefined,
+) => {
+  if (!context || context.queryPlan.branches.length < 2 || !conclusion.semanticRelation) return false;
+  if (!/(?:COMPARE|VERSUS|AGREEMENT|CORRELAT|DISTINCT|EQUIVAL|DIFFER)/iu.test(conclusion.semanticRelation.predicate)) return false;
+  const relationMaterial = `${conclusion.semanticRelation.subject} ${conclusion.semanticRelation.object}`.toLocaleLowerCase("fr-FR");
+  return context.queryPlan.branches.every((branch) => {
+    const tokens = modalityTokens(branch.modality);
+    return tokens.length === 0 || tokens.some((token) => containsToken(relationMaterial, token));
+  });
+};
+
+const isContextualLimit = (
+  conclusion: RuntimeKnowledgeConclusion,
+  conflicts: RuntimeConflict[],
+  statementType?: GovernedDocumentaryStatement["statementType"],
+) => conclusion.applicability !== "APPLICABLE_EXACT"
+  || conclusion.limitations.length > 0
+  || conflicts.some((conflict) => conflict.positionIds.includes(conclusion.assertionId))
+  || ["LIMITATION", "CONTROVERSY", "OPEN_QUESTION"].includes(statementType ?? "")
+  || /(?:REQUIRE|DEPEND|LIMIT|INFLUENCE|CONDITION|WINDOW)/iu.test(conclusion.semanticRelation?.predicate ?? "");
+
+const responseState = (
+  coverageStatus: CoverageStatus | undefined,
+  conclusionCount: number,
+  directCount: number,
+  conflictCount: number,
+): RuntimeKnowledgeResponseState => {
+  if (coverageStatus === "SOURCE_UNAVAILABLE") return "SOURCE_UNAVAILABLE";
+  if (coverageStatus === "COVERAGE_UNKNOWN") return "COVERAGE_UNKNOWN";
+  if (coverageStatus === "CONFLICTING" || conflictCount > 0 && coverageStatus !== "PARTIAL") return "CONTRADICTORY_ANSWER";
+  if (["NO_PROVIDER", "PROVIDER_NOT_APPLICABLE", "NO_MATCH"].includes(coverageStatus ?? "") || conclusionCount === 0) return "NO_APPLICABLE_KNOWLEDGE";
+  if (coverageStatus === "PARTIAL" || directCount === 0) return "PARTIAL_ANSWER";
+  return "DIRECT_ANSWER";
+};
 
 export const synthesizeKnowledge = (
   request: KnowledgeRequest,
@@ -9,12 +82,64 @@ export const synthesizeKnowledge = (
   conflicts: RuntimeConflict[],
   gaps: KnowledgeGap[],
   inheritedLimitations: string[],
+  context?: SynthesisContext,
 ): RuntimeKnowledgeSynthesis => {
   const sourceIdsFor = (assertionId: string) => uniqueSorted(evidence.filter((item) => item.assertionId === assertionId).map((item) => item.sourceId));
-  const conclusions = [
-    ...assertions.map((assertion) => ({ conclusionId: `conclusion:${logicalDigest(assertion.revision)}`, assertionId: assertion.revision, text: assertion.text, status: assertion.status, applicability: assertion.applicability, sourceIds: sourceIdsFor(assertion.revision) })),
-    ...statements.map((statement) => ({ conclusionId: `conclusion:${logicalDigest(statement.statementId)}`, assertionId: statement.statementId, text: statement.text, status: statement.status, applicability: statement.applicability, sourceIds: [statement.sourceId] })),
-  ].sort((left, right) => left.conclusionId.localeCompare(right.conclusionId));
+  const statementTypeById = new Map(statements.map((statement) => [statement.statementId, statement.statementType]));
+  const baseConclusions: RuntimeKnowledgeConclusion[] = [
+    ...assertions.map((assertion): RuntimeKnowledgeConclusion => ({
+      conclusionId: `conclusion:${logicalDigest(assertion.revision)}`,
+      assertionId: assertion.revision,
+      itemKind: "ASSERTION",
+      text: assertion.text,
+      status: assertion.status,
+      applicability: assertion.applicability,
+      conceptIds: uniqueSorted(assertion.conceptIds),
+      sourceIds: sourceIdsFor(assertion.revision),
+      locator: assertion.locator,
+      limitations: uniqueSorted(assertion.limitations),
+      role: "SUPPORTING_CONTEXT",
+      semanticRelation: semanticRelation(assertion.atomicContent),
+    })),
+    ...statements.map((statement): RuntimeKnowledgeConclusion => ({
+      conclusionId: `conclusion:${logicalDigest(statement.statementId)}`,
+      assertionId: statement.statementId,
+      itemKind: "DOCUMENTARY_STATEMENT",
+      text: statement.text,
+      status: statement.status,
+      applicability: statement.applicability,
+      conceptIds: uniqueSorted(statement.conceptIds),
+      sourceIds: [statement.sourceId],
+      locator: statement.locator,
+      limitations: [],
+      role: "SUPPORTING_CONTEXT",
+      semanticRelation: null,
+    })),
+  ].sort((left, right) => left.assertionId.localeCompare(right.assertionId));
+
+  const directCandidates = request.requestType === "COMPARE"
+    ? baseConclusions.filter((conclusion) => isCrossBranchComparison(conclusion, context))
+    : baseConclusions.filter((conclusion) => conclusion.itemKind === "ASSERTION" && conclusion.applicability === "APPLICABLE_EXACT").slice(0, 1);
+  if (directCandidates.length === 0 && request.requestType !== "COMPARE" && baseConclusions.length > 0) directCandidates.push(baseConclusions[0]);
+  const directIds = new Set(directCandidates.map((conclusion) => conclusion.conclusionId));
+  const contextualLimitIds = new Set(baseConclusions.filter((conclusion) => !directIds.has(conclusion.conclusionId)
+    && isContextualLimit(conclusion, conflicts, statementTypeById.get(conclusion.assertionId))).map((conclusion) => conclusion.conclusionId));
+  const conclusions = baseConclusions.map((conclusion): RuntimeKnowledgeConclusion => ({
+    ...conclusion,
+    role: directIds.has(conclusion.conclusionId)
+      ? "DIRECT_RESPONSE"
+      : contextualLimitIds.has(conclusion.conclusionId)
+        ? "CONTEXTUAL_LIMIT"
+        : "SUPPORTING_CONTEXT",
+  }));
+  const responseProfile = {
+    state: responseState(context?.coverageStatus, conclusions.length, directIds.size, conflicts.length),
+    directConclusionIds: conclusions.filter((item) => item.role === "DIRECT_RESPONSE").map((item) => item.conclusionId),
+    supportingConclusionIds: conclusions.filter((item) => item.role === "SUPPORTING_CONTEXT").map((item) => item.conclusionId),
+    contextualLimitConclusionIds: conclusions.filter((item) => item.role === "CONTEXTUAL_LIMIT").map((item) => item.conclusionId),
+    contradictionIds: conflicts.map((item) => item.conflictId),
+    blockingGapIds: gaps.map((item) => item.gapId),
+  };
   const methodologicalImplications = uniqueSorted([
     ...(request.requestType === "COMPARE" ? ["Conserver chaque objet comparé dans une branche distincte, y compris une branche non couverte."] : []),
     ...(request.requestedClaimType === "BEST_OPTION" ? ["Une sélection requiert d’abord la pathologie, le phénomène, la population, l’objectif et l’usage scientifique."] : []),
@@ -25,6 +150,7 @@ export const synthesizeKnowledge = (
     question: request.normalizedQuestion,
     domain: request.context.dimensions.find((item) => item.name === "domain")?.values ?? [],
     conclusions,
+    responseProfile,
     convergences: conclusions.length > 1 && !conflicts.length ? ["Plusieurs éléments compatibles sont conservés sans vote par nombre de sources."] : [],
     divergences: conflicts.map((item) => item.explanation),
     controversies: conflicts,
@@ -36,4 +162,3 @@ export const synthesizeKnowledge = (
   const digest = logicalDigest(material);
   return { synthesisId: `runtime-knowledge-synthesis:${digest}`, digest, ...material };
 };
-

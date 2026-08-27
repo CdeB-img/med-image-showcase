@@ -1,6 +1,6 @@
 import type { ExternalEvidenceSearchResult } from "./external-evidence/types";
 
-export const KNOWLEDGE_ENGINE_VERSION = "1.2.0" as const;
+export const KNOWLEDGE_ENGINE_VERSION = "1.2.1" as const;
 
 export type KnowledgeRequestType =
   | "EXPLAIN"
@@ -319,12 +319,52 @@ export type RuntimeConflict = {
   explanation: string;
 };
 
+export type RuntimeKnowledgeResponseState =
+  | "DIRECT_ANSWER"
+  | "PARTIAL_ANSWER"
+  | "CONTRADICTORY_ANSWER"
+  | "NO_APPLICABLE_KNOWLEDGE"
+  | "SOURCE_UNAVAILABLE"
+  | "COVERAGE_UNKNOWN";
+
+export type RuntimeKnowledgeConclusionRole =
+  | "DIRECT_RESPONSE"
+  | "SUPPORTING_CONTEXT"
+  | "CONTEXTUAL_LIMIT";
+
+export type RuntimeKnowledgeConclusion = {
+  conclusionId: string;
+  assertionId: string;
+  itemKind: "ASSERTION" | "DOCUMENTARY_STATEMENT";
+  text: string;
+  status: RuntimeStatus;
+  applicability: ApplicabilityState;
+  conceptIds: string[];
+  sourceIds: string[];
+  locator: string;
+  limitations: string[];
+  role: RuntimeKnowledgeConclusionRole;
+  semanticRelation: null | {
+    subject: string;
+    predicate: string;
+    object: string;
+  };
+};
+
 export type RuntimeKnowledgeSynthesis = {
   synthesisId: string;
   digest: string;
   question: string;
   domain: string[];
-  conclusions: Array<{ conclusionId: string; assertionId: string; text: string; status: RuntimeStatus; applicability: ApplicabilityState; sourceIds: string[] }>;
+  conclusions: RuntimeKnowledgeConclusion[];
+  responseProfile: {
+    state: RuntimeKnowledgeResponseState;
+    directConclusionIds: string[];
+    supportingConclusionIds: string[];
+    contextualLimitConclusionIds: string[];
+    contradictionIds: string[];
+    blockingGapIds: string[];
+  };
   convergences: string[];
   divergences: string[];
   controversies: RuntimeConflict[];

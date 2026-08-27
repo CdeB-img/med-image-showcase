@@ -52,7 +52,7 @@ export type ProductUnderstandInteraction = {
 
 export type ProductUnderstandKnowledgePresentation = {
   contract: "PRODUCT_UNDERSTAND_KNOWLEDGE_PRESENTATION";
-  contractVersion: "1.0.0";
+  contractVersion: "1.1.0";
   resultRef: string;
   resultDigest: string;
   engineVersion: string;
@@ -249,14 +249,6 @@ export const routeProductEntry = (input: {
 const readableKnowledgeReply = (projection: UnderstandProjection) => [
   projection.answer,
   projection.requestSummary,
-  ...(projection.supportedItems.length ? [
-    "Éléments documentés :",
-    ...projection.supportedItems.slice(0, 4).map((item) => `• ${item.text}`),
-  ] : []),
-  ...(projection.gaps.length ? [
-    "Zones encore ouvertes :",
-    ...projection.gaps.slice(0, 3).map((gap) => `• ${gap}`),
-  ] : []),
   projection.boundedConclusion,
 ].join("\n");
 
@@ -265,7 +257,7 @@ const knowledgePresentation = (
   projection: UnderstandProjection,
 ): ProductUnderstandKnowledgePresentation => ({
   contract: "PRODUCT_UNDERSTAND_KNOWLEDGE_PRESENTATION",
-  contractVersion: "1.0.0",
+  contractVersion: "1.1.0",
   resultRef: result.resultId,
   resultDigest: result.resultDigest,
   engineVersion: result.trace.engineVersion,

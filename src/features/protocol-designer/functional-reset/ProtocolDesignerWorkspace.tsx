@@ -338,7 +338,7 @@ export default function ProtocolDesignerWorkspace() {
             ...emptyTraceMaterial,
             assistantReply: knowledge.assistantReply,
             provider: "KNOWLEDGE",
-            model: "KE-001@1.2.0",
+            model: "KE-001@1.2.1",
             conversationLatencyMs: 0,
             calls: 0,
             knowledgeResultRef: knowledge.knowledgeResultRef,

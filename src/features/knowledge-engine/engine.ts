@@ -49,7 +49,16 @@ const executeValidatedKnowledgeRequest = (
   const specificity = buildScientificQuestionSpecificity(request, queryPlan);
   const gaps = analyzeGaps(request, queryPlan, coverageStatus, conflicts, assertionResolution.applicableAssertions);
   const inheritedLimitations = retrieval.adapterResults.flatMap((item) => item.limitations);
-  const synthesis = synthesizeKnowledge(request, assertionResolution.applicableAssertions, applicableStatements, retrieval.adapterResults.flatMap((item) => item.evidenceLinks), conflicts, gaps, inheritedLimitations);
+  const synthesis = synthesizeKnowledge(
+    request,
+    assertionResolution.applicableAssertions,
+    applicableStatements,
+    retrieval.adapterResults.flatMap((item) => item.evidenceLinks),
+    conflicts,
+    gaps,
+    inheritedLimitations,
+    { coverageStatus, queryPlan },
+  );
   trace.add("BUILD_STRUCTURED_SYNTHESIS", "Synthèse logique déterministe ; aucune proposition scientifique ajoutée.", { assertions: assertionResolution.digest, gaps, conflicts }, synthesis);
   const builtTrace = trace.build(request.traceId, KNOWLEDGE_PROVIDER_REGISTRY.digest, { transmittedFields: minimized.transmittedFields, redactedFields: minimized.redactedFields, externalCallMade: false });
   return createKnowledgeResult({

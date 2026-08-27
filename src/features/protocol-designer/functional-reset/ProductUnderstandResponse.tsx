@@ -26,17 +26,19 @@ export default function ProductUnderstandResponse({ presentation }: Props) {
   return <div data-testid="product-understand-knowledge-response" className="max-w-[92%] space-y-3 rounded-2xl rounded-bl-sm bg-muted px-4 py-4 text-sm leading-relaxed sm:max-w-[84%]">
     <div>
       <p className="text-xs font-semibold uppercase tracking-wide text-primary">{projection.coverageLabel}</p>
-      <p className="mt-2 font-medium">{projection.answer}</p>
+      <div className="mt-2 space-y-2 font-medium">
+        {projection.answerStatements.map((statement) => <p key={statement.statementId}>{statement.text}</p>)}
+      </div>
       <p className="mt-2 text-muted-foreground">{projection.requestSummary}</p>
       <p className="mt-2 text-xs text-muted-foreground">{projection.boundedConclusion}</p>
     </div>
 
-    {presentation.assertions.length > 0 && <Detail title="Éléments documentés" count={presentation.assertions.length}>
-      {presentation.assertions.map((item, index) => <article key={`${item.locator ?? "knowledge"}:${index}`} className="border-l-2 border-primary/40 pl-3">
+    {projection.supportedItems.length > 0 && <Detail title="Éléments reliés à la réponse" count={projection.supportedItems.length}>
+      {projection.supportedItems.map((item) => <article key={item.id} className="border-l-2 border-primary/40 pl-3">
         <p>{item.text}</p>
         <p className="mt-1 text-xs text-muted-foreground">{readableCode(item.status)} · {readableCode(item.applicability)}</p>
-        {item.applicabilityReasons.map((reason) => <p key={reason} className="mt-1 text-xs text-muted-foreground">Qualification : {reason}</p>)}
-        {item.limitations.map((limitation) => <p key={limitation} className="mt-1 text-xs text-muted-foreground">Limite : {readableCode(limitation)}</p>)}
+        {item.supportIds.length > 0 && <p className="mt-1 text-xs text-muted-foreground">Traçabilité : {item.supportIds.length} source(s) reliée(s).</p>}
+        {item.locator && <p className="mt-1 break-words text-xs text-muted-foreground">Localisateur : {item.locator}</p>}
       </article>)}
     </Detail>}
 

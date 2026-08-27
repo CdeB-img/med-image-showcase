@@ -1,4 +1,4 @@
-import type { ContextDimensionName, CoverageMapStatus, KnowledgeResult } from "./types";
+import type { ContextDimensionName, CoverageMapStatus, KnowledgeResult, RuntimeKnowledgeConclusion } from "./types";
 
 export type ProjectionDepth = "SYNTHETIC" | "PROFESSIONAL" | "EXPERT";
 
@@ -9,6 +9,21 @@ export type UnderstandProjectionItem = {
   supportIds: string[];
   locator?: string;
   applicability: string;
+};
+
+export type UnderstandAnswerStatement = {
+  statementId: string;
+  role: "DIRECT_ANSWER" | "SUPPORTING_CONTEXT" | "SCIENTIFIC_BOUNDARY" | "KNOWLEDGE_GAP";
+  text: string;
+  support: {
+    knowledgeItemRefs: string[];
+    sourceRefs: string[];
+    locatorRefs: string[];
+    gapRefs: string[];
+    contradictionRefs: string[];
+    limitationRefs: string[];
+    coverageRefs: string[];
+  };
 };
 
 export type UnderstandClarification = {
@@ -25,6 +40,7 @@ export type UnderstandProjection = {
   coverageLabel: string;
   requestSummary: string;
   answer: string;
+  answerStatements: UnderstandAnswerStatement[];
   boundedConclusion: string;
   concepts: string[];
   relations: Array<{ label: string; support: string }>;
@@ -55,7 +71,7 @@ const coverageLabels: Record<CoverageMapStatus, string> = {
 
 const overallCoverageLabels: Record<KnowledgeResult["coverageStatus"], string> = {
   NO_PROVIDER: "Connaissance interne absente",
-  PROVIDER_NOT_APPLICABLE: "Contexte non applicable",
+  PROVIDER_NOT_APPLICABLE: "Réponse non disponible dans ce contexte",
   NO_MATCH: "Aucune correspondance exploitable",
   PARTIAL: "Réponse partielle",
   SUPPORTED: "Réponse étayée",
@@ -101,15 +117,6 @@ const humanize = (value: string) => limitationLabels[value] ?? (/^[A-Z0-9_]+$/.t
   ? `${value.toLocaleLowerCase("fr-FR").replace(/_/g, " ")}.`
   : value);
 
-const contextSummary = (result: KnowledgeResult) => {
-  const values = [
-    ...result.specificity.pathologies,
-    ...result.specificity.populations,
-    ...result.specificity.temporalities,
-  ];
-  return values.length ? ` dans le contexte ${values.join(" · ")}` : "";
-};
-
 const fallbackAnswer = (result: KnowledgeResult) => {
   if (result.gaps.some((item) => item.code === "PRIVACY_BLOCKED")) return "NOXIA n’interprète pas une valeur individuelle. La question peut être reformulée en explication méthodologique générale, sans donnée personnelle.";
   if (result.gaps.some((item) => item.code === "OUT_OF_DOMAIN")) return "Cette demande relève d’un support technique général et ne reçoit pas de réponse depuis les corpus scientifiques médicaux de NOXIA.";
@@ -121,6 +128,138 @@ const fallbackAnswer = (result: KnowledgeResult) => {
   if (result.coverageStatus === "CONFLICTING") return "Des positions incompatibles persistent. Elles restent séparées et aucune résolution automatique n’est produite.";
   if (result.coverageStatus === "SOURCE_UNAVAILABLE") return "Une source interne attendue est indisponible. Cette indisponibilité n’est pas transformée en absence de connaissance.";
   return "Les connaissances internes applicables permettent une réponse bornée à la question et à son contexte explicite.";
+};
+
+const emptySupport = (): UnderstandAnswerStatement["support"] => ({
+  knowledgeItemRefs: [],
+  sourceRefs: [],
+  locatorRefs: [],
+  gapRefs: [],
+  contradictionRefs: [],
+  limitationRefs: [],
+  coverageRefs: [],
+});
+
+const readableEntity = (value: string) => {
+  const tail = value.split(":").at(-1) ?? value;
+  const normalized = tail.toLocaleLowerCase("fr-FR").replace(/_/g, "-");
+  if (normalized === "myocardial-ecv-mr") return "l’ECV myocardique mesuré en IRM";
+  if (normalized === "myocardial-ecv-ct") return "l’ECV myocardique mesuré en CT";
+  if (normalized === "method-dependence") return "la dépendance à la méthode";
+  if (normalized === "hematocrit") return "l’hématocrite";
+  if (normalized === "native-and-post-contrast-myocardial-and-blood-t1") return "les mesures T1 myocardiques et sanguines, natives et après contraste";
+  return tail.replace(/[-_]/g, " ");
+};
+
+const predicateLabels: Record<string, string> = {
+  IS_METHOD_DISTINCT_FROM: "repose sur une méthode distincte de",
+  INFLUENCES: "influence",
+  REQUIRES_INPUT: "nécessite",
+  REQUIRES_T1_INPUTS: "nécessite",
+  CAN_LIMIT: "peut limiter",
+  IS_NOT_SUFFICIENT_AS_STANDALONE_ECV_SURROGATE: "ne suffit pas comme substitut autonome de l’ECV",
+};
+
+const readableRelation = (conclusion: RuntimeKnowledgeConclusion) => {
+  const relation = conclusion.semanticRelation;
+  if (!relation || !predicateLabels[relation.predicate]) return conclusion.text.replace(/[.\s]+$/u, "");
+  return `${readableEntity(relation.subject)} ${predicateLabels[relation.predicate]} ${readableEntity(relation.object)}`;
+};
+
+const statementFromConclusion = (
+  conclusion: RuntimeKnowledgeConclusion,
+  role: UnderstandAnswerStatement["role"],
+  prefix: string,
+): UnderstandAnswerStatement => ({
+  statementId: `understand-statement:${conclusion.conclusionId}`,
+  role,
+  text: `${prefix}${readableRelation(conclusion)}.`,
+  support: {
+    ...emptySupport(),
+    knowledgeItemRefs: [conclusion.assertionId],
+    sourceRefs: [...conclusion.sourceIds],
+    locatorRefs: conclusion.locator ? [conclusion.locator] : [],
+    limitationRefs: [...conclusion.limitations],
+  },
+});
+
+const conditionPriority = (conclusion: RuntimeKnowledgeConclusion) => {
+  const predicate = conclusion.semanticRelation?.predicate ?? "";
+  if (/INFLUENCE|DEPEND/iu.test(predicate)) return 0;
+  if (/REQUIRE/iu.test(predicate)) return 1;
+  if (/LIMIT|CONDITION|WINDOW/iu.test(predicate)) return 2;
+  return 3;
+};
+
+const buildAnswerStatements = (result: KnowledgeResult): UnderstandAnswerStatement[] => {
+  const byId = new Map(result.synthesis.conclusions.map((conclusion) => [conclusion.conclusionId, conclusion]));
+  const direct = result.synthesis.responseProfile.directConclusionIds.map((id) => byId.get(id)).filter((item): item is RuntimeKnowledgeConclusion => Boolean(item));
+  const directMaterial = direct.flatMap((item) => item.semanticRelation ? [item.semanticRelation.subject, item.semanticRelation.object] : []);
+  const contextualLimits = result.synthesis.responseProfile.contextualLimitConclusionIds
+    .map((id) => byId.get(id))
+    .filter((item): item is RuntimeKnowledgeConclusion => Boolean(item))
+    .filter((item) => item.semanticRelation && directMaterial.some((entity) => {
+      const material = `${item.semanticRelation?.subject ?? ""} ${item.semanticRelation?.object ?? ""}`;
+      return material.includes(entity) || entity.includes(item.semanticRelation?.subject ?? "") || entity.includes(item.semanticRelation?.object ?? "");
+    }))
+    .sort((left, right) => conditionPriority(left) - conditionPriority(right) || left.assertionId.localeCompare(right.assertionId))
+    .slice(0, 2);
+  const statements: UnderstandAnswerStatement[] = direct.slice(0, 2).map((conclusion, index) => statementFromConclusion(
+    conclusion,
+    "DIRECT_ANSWER",
+    index === 0 ? "Les connaissances internes documentent que " : "Elles documentent aussi que ",
+  ));
+  statements.push(...contextualLimits.map((conclusion) => statementFromConclusion(
+    conclusion,
+    "SUPPORTING_CONTEXT",
+    "Condition ou dépendance documentée : ",
+  )));
+
+  const directComparisonGap = result.gaps.find((gap) => gap.scope === "DIRECT_COMPARISON")
+    ?? result.gaps.find((gap) => gap.code === "NO_ASSERTION_MATCH")
+    ?? null;
+  if (directComparisonGap) statements.push({
+    statementId: `understand-statement:${directComparisonGap.gapId}`,
+    role: "KNOWLEDGE_GAP",
+    text: directComparisonGap.explanation,
+    support: { ...emptySupport(), gapRefs: [directComparisonGap.gapId] },
+  });
+  const conflict = result.controversies[0];
+  if (conflict) statements.push({
+    statementId: `understand-statement:${conflict.conflictId}`,
+    role: "SCIENTIFIC_BOUNDARY",
+    text: `Débat conservé sans résolution automatique : ${conflict.explanation === "The findings should not be collapsed into one universal conclusion. They differ materially in field strength, local model and validation context."
+      ? "les résultats ne doivent pas être fusionnés en une conclusion universelle, car ils diffèrent par le champ, le modèle local et le contexte de validation."
+      : conflict.explanation}`,
+    support: {
+      ...emptySupport(),
+      knowledgeItemRefs: [...conflict.positionIds],
+      sourceRefs: result.synthesis.conclusions.filter((item) => conflict.positionIds.includes(item.assertionId)).flatMap((item) => item.sourceIds),
+      locatorRefs: result.synthesis.conclusions.filter((item) => conflict.positionIds.includes(item.assertionId)).map((item) => item.locator).filter(Boolean),
+      contradictionRefs: [conflict.conflictId],
+    },
+  });
+
+  if (statements.length > 0) return statements;
+  const recognized = result.resolvedConcepts.map((item) => item.preferredLabel);
+  const coverageRefs = result.coverageMap.items.map((item) => item.coverageId);
+  const gapRefs = result.gaps.map((item) => item.gapId);
+  const requiresDedicatedBoundary = result.gaps.some((item) => ["PRIVACY_BLOCKED", "OUT_OF_DOMAIN"].includes(item.code))
+    || result.gaps.some((item) => item.scope === "BIOMARKER_SELECTION");
+  if (result.synthesis.responseProfile.state === "NO_APPLICABLE_KNOWLEDGE") return [{
+    statementId: `understand-statement:no-applicable:${result.synthesis.digest}`,
+    role: "KNOWLEDGE_GAP",
+    text: !requiresDedicatedBoundary && recognized.length
+      ? `Les objets demandés — ${recognized.join(", ")} — ont été reconnus, mais aucun élément applicable ne documente la relation demandée dans ce contexte. Les éléments voisins restent hors de la réponse.`
+      : fallbackAnswer(result),
+    support: { ...emptySupport(), gapRefs, coverageRefs },
+  }];
+  return [{
+    statementId: `understand-statement:coverage:${result.synthesis.digest}`,
+    role: "SCIENTIFIC_BOUNDARY",
+    text: fallbackAnswer(result),
+    support: { ...emptySupport(), gapRefs, coverageRefs },
+  }];
 };
 
 const clarificationFor = (result: KnowledgeResult): UnderstandClarification[] => {
@@ -156,11 +295,9 @@ export const projectUnderstandResult = (result: KnowledgeResult, depth: Projecti
       applicability: applicabilityLabels[item.applicability] ?? humanize(item.applicability),
     })),
   ];
-  const firstSupported = result.documentaryStatements[0]?.text ?? allItems[0]?.text;
-  const requestSummary = `Votre question porte sur ${result.specificity.centralObject}${contextSummary(result)}.`;
-  const answer = firstSupported && result.coverageStatus === "SUPPORTED"
-    ? `Les connaissances internes applicables documentent notamment : ${firstSupported}`
-    : fallbackAnswer(result);
+  const answerStatements = buildAnswerStatements(result);
+  const requestSummary = `Question comprise : ${result.request.normalizedQuestion.replace(/[.\s]+$/u, "")}.`;
+  const answer = answerStatements.map((statement) => statement.text).join(" ");
   const coverage = result.coverageMap.items.map((item) => ({
     id: item.coverageId,
     label: item.label,
@@ -185,11 +322,21 @@ export const projectUnderstandResult = (result: KnowledgeResult, depth: Projecti
       }).slice(0, depth === "EXPERT" ? 5 : 2).map((item) => item.text),
     })),
   } : null;
+  const prioritizedItemIds = [
+    ...result.synthesis.responseProfile.directConclusionIds,
+    ...result.synthesis.responseProfile.contextualLimitConclusionIds,
+    ...result.synthesis.responseProfile.supportingConclusionIds,
+  ].map((conclusionId) => result.synthesis.conclusions.find((item) => item.conclusionId === conclusionId)?.assertionId)
+    .filter((item): item is string => Boolean(item));
+  const prioritizedItems = prioritizedItemIds
+    .map((id) => allItems.find((item) => item.id === id))
+    .filter((item): item is UnderstandProjectionItem => Boolean(item));
   return {
     title: `Comprendre ${result.specificity.centralObject}`,
     coverageLabel: overallCoverageLabels[result.coverageStatus],
     requestSummary,
     answer,
+    answerStatements,
     boundedConclusion: result.externalEvidence
       ? result.externalEvidence.status === "SOURCE_UNAVAILABLE"
         ? "La réponse interne reste inchangée. La recherche documentaire externe est indisponible et cette panne n’est pas assimilée à une absence scientifique."
@@ -201,7 +348,7 @@ export const projectUnderstandResult = (result: KnowledgeResult, depth: Projecti
       : "La conclusion reste bornée aux corpus internes, à leurs versions et au contexte affiché.",
     concepts: result.resolvedConcepts.map((item) => item.preferredLabel),
     relations: result.queryPlan.resolvedRelations.map((relation) => ({ label: relation.explanation, support: relation.authority === "PROVIDER" ? "Relation documentée par un corpus interne" : "Distinction gouvernée par le contrat du Knowledge Engine" })),
-    supportedItems: allItems.slice(0, itemLimit),
+    supportedItems: prioritizedItems.slice(0, itemLimit),
     methodologicalImplications: result.synthesis.methodologicalImplications,
     coverage,
     comparison,
