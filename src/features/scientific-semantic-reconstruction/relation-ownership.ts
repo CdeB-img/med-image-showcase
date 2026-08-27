@@ -1,4 +1,4 @@
-import type { SemanticReconstructionCandidate } from "./types";
+import type { SemanticReconstructionCandidate } from "./types.js";
 
 const normalizedRelationLabel = (value: string) => value.toLocaleLowerCase("fr-FR")
   .normalize("NFD")

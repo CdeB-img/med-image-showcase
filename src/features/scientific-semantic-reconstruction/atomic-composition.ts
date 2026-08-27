@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import { applyCriticRepairs, type CriticRepairDiagnostic } from "./coverage";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
+import { applyCriticRepairs, type CriticRepairDiagnostic } from "./coverage.js";
 import {
   PROVIDER_EPISTEMIC_STATUSES,
   SEMANTIC_ELEMENT_TYPES,
@@ -14,7 +14,7 @@ import {
   type SemanticReconstructionCandidate,
   type SemanticReconstructionRequest,
   type SemanticStudyRole,
-} from "./types";
+} from "./types.js";
 
 export const SEMANTIC_ATOMIC_COMPOSITION_AUDIT_SCHEMA_VERSION = "SEM-001-ATOMIC-COMPOSITION-1.1" as const;
 export const SEMANTIC_ATOMIC_COMPOSITION_ACCEPTANCE_GUARD_VERSION = "SEM-001-ATOMIC-COMPOSITION-ACCEPTANCE-GUARD-1.0" as const;

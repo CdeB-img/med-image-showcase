@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
 
 export const IMAGING_STUDY_DESIGNER_VERSION = "1.2.1" as const;
 

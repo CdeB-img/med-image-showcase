@@ -1,11 +1,11 @@
-import { comparableScientificText, logicalDigest } from "@/features/knowledge-engine/canonical";
-import { parseSemanticReconstructionCandidate } from "./schema";
+import { comparableScientificText, logicalDigest } from "../knowledge-engine/canonical.js";
+import { parseSemanticReconstructionCandidate } from "./schema.js";
 import {
   relationAllowsReversedInventoryEndpoints,
   semanticRelationHasCollectiveSpokeGrounding,
   semanticRelationFamily,
   stabilizeRelationOwnership,
-} from "./relation-ownership";
+} from "./relation-ownership.js";
 import type {
   ExplicitCoverageReport,
   RelationCoverageReport,
@@ -17,7 +17,7 @@ import type {
   SemanticReconstructionCandidate,
   SemanticReconstructionRequest,
   SemanticTaxonomyReport,
-} from "./types";
+} from "./types.js";
 
 export class SemanticCoverageError extends Error {
   constructor(public readonly reason: string) {

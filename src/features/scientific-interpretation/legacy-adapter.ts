@@ -1,7 +1,7 @@
-import { activeSemanticElements } from "@/features/scientific-semantic-reconstruction/canonical";
-import type { ScientificSemanticModel } from "@/features/scientific-semantic-reconstruction/types";
-import { canonicalizeScientificContribution } from "./canonical";
-import { applyDeterministicAudit } from "./audit";
+import { activeSemanticElements } from "../scientific-semantic-reconstruction/canonical.js";
+import type { ScientificSemanticModel } from "../scientific-semantic-reconstruction/types.js";
+import { canonicalizeScientificContribution } from "./canonical.js";
+import { applyDeterministicAudit } from "./audit.js";
 import {
   SCIENTIFIC_INTERPRETATION_CONTRIBUTION_CONTRACT,
   SCIENTIFIC_INTERPRETATION_CONTRIBUTION_VERSION,
@@ -9,7 +9,7 @@ import {
   type ScientificInterpretationContributionEnvelope,
   type ScientificInterpretationConversation,
   type ScientificInterpretationRuntime,
-} from "./contracts";
+} from "./contracts.js";
 
 export type LegacySemanticModelInput = ScientificSemanticModel;
 

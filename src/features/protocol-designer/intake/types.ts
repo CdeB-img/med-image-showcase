@@ -1,7 +1,7 @@
 export const INTAKE_SCHEMA_VERSION = "1.0" as const;
-import type { ScientificThinkingSession } from "@/features/scientific-thinking/types";
-import type { ImagingDesignSession } from "@/features/imaging-study-designer/types";
-import type { ResearchProjectConstructionSession } from "@/features/research-project-construction/types";
+import type { ScientificThinkingSession } from "../../scientific-thinking/types.js";
+import type { ImagingDesignSession } from "../../imaging-study-designer/types.js";
+import type { ResearchProjectConstructionSession } from "../../research-project-construction/types.js";
 
 export const INTAKE_SESSION_SCHEMA_VERSION = "10.0" as const;
 export const INTAKE_FIXTURE_SET_VERSION = "p-web-06-rb003-1.0-rb004-1.1-rb005-1.0" as const;

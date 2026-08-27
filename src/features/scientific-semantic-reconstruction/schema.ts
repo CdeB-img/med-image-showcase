@@ -11,7 +11,7 @@ import {
   type SemanticCriticResult,
   type SemanticReconstructionCandidate,
   type SemanticReconstructionRequest,
-} from "./types";
+} from "./types.js";
 
 export const MAX_SEMANTIC_REQUEST_BYTES = 96_000;
 export const MAX_SEMANTIC_MESSAGES = 24;

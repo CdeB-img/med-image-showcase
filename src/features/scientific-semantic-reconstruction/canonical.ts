@@ -1,4 +1,4 @@
-import { comparableScientificText, logicalDigest, normalizeScientificText, uniqueSorted } from "@/features/knowledge-engine/canonical";
+import { comparableScientificText, logicalDigest, normalizeScientificText, uniqueSorted } from "../knowledge-engine/canonical.js";
 import {
   SCIENTIFIC_SEMANTIC_SCHEMA_VERSION,
   SCIENTIFIC_SEMANTIC_MODEL_VERSION,
@@ -15,9 +15,9 @@ import {
   type SemanticRelation,
   type SemanticProviderMetadata,
   type SemanticProviderAttempt,
-} from "./types";
-import { buildSemanticCoverage } from "./coverage";
-import { stabilizeRelationOwnership } from "./relation-ownership";
+} from "./types.js";
+import { buildSemanticCoverage } from "./coverage.js";
+import { stabilizeRelationOwnership } from "./relation-ownership.js";
 
 export class SemanticCanonicalizationError extends Error {
   constructor(public readonly reason: string) {

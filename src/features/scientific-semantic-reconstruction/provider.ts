@@ -1,15 +1,15 @@
 import { SCIENTIFIC_SEMANTIC_CRITIC_PROMPT, SCIENTIFIC_SEMANTIC_RECONSTRUCTION_PROMPT } from "../../../api/prompts/scientific-semantic-reconstruction-prompt.js";
 import { SCIENTIFIC_SEMANTIC_ATOMIC_COMPOSITION_AUDIT_PROMPT } from "../../../api/prompts/scientific-semantic-atomic-composition-prompt.js";
-import { comparableScientificText, logicalDigest } from "@/features/knowledge-engine/canonical";
+import { comparableScientificText, logicalDigest } from "../knowledge-engine/canonical.js";
 import {
   makeAtomicCompositionAuditContext,
   parseSemanticAtomicCompositionAudit,
   parseSemanticAtomicCompositionTransport,
   SEMANTIC_ATOMIC_COMPOSITION_AUDIT_JSON_SCHEMA,
-} from "./atomic-composition";
-import { parseSemanticCriticResult, parseSemanticReconstructionCandidate, SEMANTIC_CRITIC_JSON_SCHEMA, SEMANTIC_RECONSTRUCTION_JSON_SCHEMA } from "./schema";
-import { applyCriticRepairs, buildSemanticIntegrityReport } from "./coverage";
-import { semanticRelationHasCollectiveSpokeGrounding } from "./relation-ownership";
+} from "./atomic-composition.js";
+import { parseSemanticCriticResult, parseSemanticReconstructionCandidate, SEMANTIC_CRITIC_JSON_SCHEMA, SEMANTIC_RECONSTRUCTION_JSON_SCHEMA } from "./schema.js";
+import { applyCriticRepairs, buildSemanticIntegrityReport } from "./coverage.js";
+import { semanticRelationHasCollectiveSpokeGrounding } from "./relation-ownership.js";
 import type {
   ScientificSemanticProvider,
   SemanticProviderAttempt,
@@ -21,7 +21,7 @@ import type {
   SemanticTaxonomyReport,
   SemanticReconstructionCandidate,
   SemanticReconstructionRequest,
-} from "./types";
+} from "./types.js";
 
 type GoogleProviderError = {
   error?: {

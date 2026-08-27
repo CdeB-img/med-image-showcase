@@ -73,7 +73,10 @@ const check = (
   scientificJudgmentPerformed: false,
 });
 
-type LimitationProjection = Pick<ScientificThinkingOutput, "handoff" | "hypotheses">;
+type LimitationProjection = {
+  handoff: Pick<ScientificThinkingOutput["handoff"], "limitations">;
+  hypotheses: Array<Pick<ScientificThinkingOutput["hypotheses"][number], "hypothesisId" | "limitations">>;
+};
 
 export const readCurrentStLimitationRepresentation = (input: {
   output: LimitationProjection | null;

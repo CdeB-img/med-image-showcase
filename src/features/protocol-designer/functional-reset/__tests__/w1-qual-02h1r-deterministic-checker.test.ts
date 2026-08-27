@@ -13,7 +13,7 @@ const output = {
     { hypothesisId: "H-1", limitations: ["Limitation A"] },
     { hypothesisId: "H-2", limitations: ["Limitation B"] },
   ],
-} as never;
+};
 
 describe("W1-QUAL-02H1R — current ST limitation contract", () => {
   it("reads limitations from the governed nested and persisted projections", () => {

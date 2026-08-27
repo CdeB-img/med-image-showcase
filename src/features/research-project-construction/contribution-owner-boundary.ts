@@ -1,13 +1,13 @@
-import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import { logicalDigest } from "../knowledge-engine/canonical.js";
 import {
   createHumanDecisionCandidate,
   engageHumanDecision,
   type HumanDecisionEnvelope,
-} from "@/features/protocol-designer/human-decision";
+} from "../protocol-designer/human-decision.js";
 import type {
   ScientificContributionItem,
   ScientificInterpretationContributionEnvelope,
-} from "@/features/scientific-interpretation/contracts";
+} from "../scientific-interpretation/contracts.js";
 import {
   applyCanonicalProjectChangeSet,
   buildCanonicalProjectChangeSet,
@@ -15,8 +15,8 @@ import {
   projectSectionsFromCanonicalState,
   type CanonicalProjectChangeSet,
   type CanonicalResearchProjectState,
-} from "./canonical-project-backbone";
-import { RESEARCH_PROJECT_CONSTRUCTION_VERSION } from "./types";
+} from "./canonical-project-backbone.js";
+import { RESEARCH_PROJECT_CONSTRUCTION_VERSION } from "./types.js";
 
 export const RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY = "PRJ_001_CONTRIBUTION_INTAKE_ADAPTER" as const;
 export const PRJ001_CONTRIBUTION_INTAKE_GAP = {

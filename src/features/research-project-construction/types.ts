@@ -1,6 +1,6 @@
 import { z } from "zod";
-import type { ImagingDesignResult } from "@/features/imaging-study-designer/types";
-import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import type { ImagingDesignResult } from "../imaging-study-designer/types.js";
+import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
 
 export const RESEARCH_PROJECT_CONSTRUCTION_VERSION = "1.1.0" as const;
 

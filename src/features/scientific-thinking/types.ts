@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
 
 export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.2.2" as const;
 

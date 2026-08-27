@@ -11,7 +11,7 @@ import type {
   ResearchProjectSection,
   ResearchProjectSectionId,
   SpecializedResponsibility,
-} from "./contribution-owner-boundary";
+} from "./contribution-owner-boundary.js";
 
 export const CANONICAL_RESEARCH_PROJECT_STATE_CONTRACT = "PRJ001_CANONICAL_RESEARCH_PROJECT_STATE" as const;
 export const CANONICAL_RESEARCH_PROJECT_STATE_VERSION = "0.2.0" as const;
