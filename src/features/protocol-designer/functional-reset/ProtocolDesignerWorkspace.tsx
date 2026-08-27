@@ -4,6 +4,7 @@ import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-reac
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
+import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
@@ -689,7 +690,17 @@ export default function ProtocolDesignerWorkspace() {
       <header className="mb-5 flex items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">NOXIA</p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">Protocol Designer</h1>
+          <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Protocol Designer</h1>
+            <span
+              className="font-mono text-[10px] font-medium tracking-wide text-muted-foreground/70"
+              data-testid="protocol-designer-development-version"
+            >
+              {formatProductDevelopmentVersion(
+                typeof __NOXIA_BUILD_GIT_SHA__ === "undefined" ? null : __NOXIA_BUILD_GIT_SHA__,
+              )}
+            </span>
+          </div>
           <p className="mt-1 text-sm text-muted-foreground">Assistant méthodologique conversationnel</p>
         </div>
         <div className="flex items-center gap-2">

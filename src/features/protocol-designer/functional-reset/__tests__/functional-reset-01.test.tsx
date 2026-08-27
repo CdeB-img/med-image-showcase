@@ -31,6 +31,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
   it("starts with one conversation, one Project panel and honest document states", () => {
     renderDemo();
     expect(screen.getByTestId("functional-reset-workspace")).toBeInTheDocument();
+    expect(screen.getByTestId("protocol-designer-development-version")).toHaveTextContent(/^DEV · (LOCAL|[0-9a-f]{7})$/);
     expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toHaveTextContent(/préservera votre intention/);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
     const project = screen.getByTestId("functional-research-project");

@@ -35,9 +35,14 @@ const localProductBridge = (apiKey: string | null): Plugin => ({
 export default defineConfig(({ mode }) => {
   const environment = loadEnv(mode, process.cwd(), "");
   const apiKey = process.env.GEMINI_API_KEY?.trim() || environment.GEMINI_API_KEY?.trim() || null;
+  const deploymentGitSha = process.env.VERCEL_GIT_COMMIT_SHA?.trim() || environment.VERCEL_GIT_COMMIT_SHA?.trim() || "";
+  const buildGitSha = /^[0-9a-f]{7,40}$/i.test(deploymentGitSha) ? deploymentGitSha.slice(0, 7).toLowerCase() : "";
   return {
     base: "/",
     plugins: [react(), localProductBridge(apiKey)],
+    define: {
+      __NOXIA_BUILD_GIT_SHA__: JSON.stringify(buildGitSha),
+    },
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
