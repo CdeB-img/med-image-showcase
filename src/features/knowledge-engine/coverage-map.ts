@@ -7,6 +7,16 @@ const modalityMatches = (assertion: RuntimeAssertion, modality?: string) => {
   return actual === modality || (modality === "MRI" && (actual === "MR" || actual.includes("IRM")));
 };
 
+const commonBranchConceptIds = (queryPlan: QueryPlan) => queryPlan.branches.reduce<string[]>((common, branch, index) => index === 0
+  ? [...branch.conceptIds]
+  : common.filter((conceptId) => branch.conceptIds.includes(conceptId)), []);
+
+const itemSupportsConcept = (queryPlan: QueryPlan, providerId: string, conceptIds: string[], conceptId: string) => {
+  if (conceptIds.includes(conceptId)) return true;
+  const concept = queryPlan.resolvedConcepts.find((item) => item.conceptId === conceptId);
+  return (concept?.providerConcepts[providerId] ?? []).some((providerConceptId) => conceptIds.includes(providerConceptId));
+};
+
 export const buildCoverageMap = (input: {
   queryPlan: QueryPlan;
   providerExecutions: ProviderExecution[];
@@ -16,15 +26,21 @@ export const buildCoverageMap = (input: {
   conflicts: RuntimeConflict[];
 }): CoverageMap => {
   const selectionByProvider = new Map(input.queryPlan.providerSelections.map((selection) => [selection.providerId, selection]));
+  const commonConceptIds = commonBranchConceptIds(input.queryPlan);
   const items: CoverageMapItem[] = input.queryPlan.branches.map((branch) => {
     const considered = input.providerExecutions.filter((execution) => {
       const selection = selectionByProvider.get(execution.providerId);
       return Boolean(selection?.matchedConceptIds.some((conceptId) => branch.conceptIds.includes(conceptId)));
     });
     const relevantIds = new Set(considered.filter((item) => item.included).map((item) => item.providerId));
-    const assertions = input.applicableAssertions.filter((item) => relevantIds.has(item.providerId) && modalityMatches(item, branch.modality));
-    const statements = input.documentaryStatements.filter((item) => relevantIds.has(item.providerId) && item.conceptIds.some((conceptId) => branch.conceptIds.includes(conceptId)));
-    const excluded = input.excludedAssertions.filter((item) => relevantIds.has(item.providerId) && modalityMatches(item, branch.modality));
+    const branchSpecificIds = input.queryPlan.branches.length > 1 && !branch.modality
+      ? branch.conceptIds.filter((conceptId) => !commonConceptIds.includes(conceptId))
+      : [];
+    const supportsBranch = (providerId: string, conceptIds: string[]) => branchSpecificIds.length === 0
+      || branchSpecificIds.some((conceptId) => itemSupportsConcept(input.queryPlan, providerId, conceptIds, conceptId));
+    const assertions = input.applicableAssertions.filter((item) => relevantIds.has(item.providerId) && modalityMatches(item, branch.modality) && supportsBranch(item.providerId, item.conceptIds));
+    const statements = input.documentaryStatements.filter((item) => relevantIds.has(item.providerId) && supportsBranch(item.providerId, item.conceptIds));
+    const excluded = input.excludedAssertions.filter((item) => relevantIds.has(item.providerId) && modalityMatches(item, branch.modality) && supportsBranch(item.providerId, item.conceptIds));
     const supportingProviderIds = uniqueSorted([...assertions.map((item) => item.providerId), ...statements.map((item) => item.providerId)]);
     const resultCount = assertions.length + statements.length;
     const conflicting = input.conflicts.some((conflict) => conflict.positionIds.some((id) => assertions.some((assertion) => assertion.revision === id)));

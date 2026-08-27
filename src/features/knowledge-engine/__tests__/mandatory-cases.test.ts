@@ -12,12 +12,15 @@ describe("ENG-001 mandatory validation cases", () => {
     expect(result.providerExecutions.find((item) => item.providerId === "rb-004")?.reason).not.toContain("CT couvert par RB-004");
   });
 
-  it("2 — preserves no-reflow and the post-stenting reperfusion context, then emits a gap", () => {
+  it("2 — preserves no-reflow and qualifies locally relevant evidence when SOFT intervention context is undocumented", () => {
     const result = executeKnowledgeEngine({ originalQuestion: "Comprendre le no-reflow après stenting et reperfusion." });
     expect(result.resolvedConcepts).toContainEqual(expect.objectContaining({ conceptId: "phenomenon:no-reflow" }));
     expect(result.request.context.dimensions.find((item) => item.name === "timing")?.values).toContain("POST_REPERFUSION");
-    expect(result.applicableAssertions).toHaveLength(0);
-    expect(result.gaps.map((item) => item.code)).toEqual(expect.arrayContaining(["NO_APPLICABLE_PROVIDER", "MISSING_CRITICAL_CONTEXT"]));
+    expect(result.request.context.dimensions.find((item) => item.name === "intervention")).toMatchObject({ values: ["STENTING"], force: "SOFT" });
+    expect(result.applicableAssertions).toHaveLength(5);
+    expect(result.applicableAssertions.every((item) => item.applicability === "APPLICABLE_WITH_LIMITATIONS")).toBe(true);
+    expect(result.limitations).toContainEqual(expect.stringMatching(/STENTING.*n’est pas documenté/u));
+    expect(result.queryPlan.resolvedRelations).toContainEqual(expect.objectContaining({ relation: "CONTEXT_DEPENDENT_RELATION" }));
   });
 
   it("3 — distinguishes T1 mapping from ECV and queries applicable corpora", () => {

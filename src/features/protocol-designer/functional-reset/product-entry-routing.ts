@@ -248,6 +248,7 @@ export const routeProductEntry = (input: {
 
 const readableKnowledgeReply = (projection: UnderstandProjection) => [
   projection.answer,
+  ...projection.clarifications.map((item) => item.question),
   projection.requestSummary,
   projection.boundedConclusion,
 ].join("\n");

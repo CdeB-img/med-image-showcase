@@ -111,6 +111,12 @@ export type ResolvedConcept = {
   kind: "EXACT" | "KNOWN_ALIAS" | "DOCUMENT_BOUND_CONCEPT" | "UNKNOWN" | "AMBIGUOUS";
   objectType: string;
   providerConcepts: Record<string, string[]>;
+  candidateSenses?: Array<{
+    conceptId: string;
+    preferredLabel: string;
+    objectType: string;
+    providerConcepts: Record<string, string[]>;
+  }>;
 };
 
 export type ResolvedConceptRelation = {
@@ -323,6 +329,7 @@ export type RuntimeKnowledgeResponseState =
   | "DIRECT_ANSWER"
   | "PARTIAL_ANSWER"
   | "CONTRADICTORY_ANSWER"
+  | "CLARIFICATION_REQUIRED"
   | "NO_APPLICABLE_KNOWLEDGE"
   | "SOURCE_UNAVAILABLE"
   | "COVERAGE_UNKNOWN";

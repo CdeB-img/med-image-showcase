@@ -7,6 +7,7 @@ const nonRoutingConcept = (conceptId: string) => !conceptId.startsWith("modality
 
 const determineDomainGate = (request: KnowledgeRequest, resolution: ConceptResolution): QueryPlan["domainGate"] => {
   if (isPatientLevelExpression(request.originalQuestion)) return "PATIENT_LEVEL_BLOCKED";
+  if (resolution.concepts.some((item) => item.kind === "AMBIGUOUS" && (item.candidateSenses?.length ?? 0) > 1)) return "CLARIFICATION_REQUIRED";
   if (request.requestedClaimType === "BEST_OPTION") return "CLARIFICATION_REQUIRED";
   const ids = resolution.concepts.map((item) => item.conceptId);
   if (ids.includes("tool:numpy") || (ids.includes("format:dicom") && /\b(code|python|numpy|pipeline|script|program)/i.test(request.originalQuestion))) return "OUT_OF_DOMAIN";
@@ -14,9 +15,16 @@ const determineDomainGate = (request: KnowledgeRequest, resolution: ConceptResol
 };
 
 const buildBranches = (request: KnowledgeRequest, resolution: ConceptResolution): QueryBranch[] => {
+  const ambiguous = resolution.concepts.filter((item) => item.kind === "AMBIGUOUS" && (item.candidateSenses?.length ?? 0) > 1);
   const modalities = resolution.concepts.filter((item) => item.conceptId.startsWith("modality:"));
   const compare = request.requestType === "COMPARE" && modalities.length > 1;
   const hardFilters = request.context.dimensions.filter((item) => item.force === "HARD" && item.state !== "UNKNOWN");
+  if (ambiguous.length) return ambiguous.flatMap((concept) => (concept.candidateSenses ?? []).map((sense) => ({
+    branchId: `branch:sense:${sense.conceptId}`,
+    label: sense.preferredLabel,
+    conceptIds: uniqueSorted([...resolution.concepts.filter((item) => item.kind !== "AMBIGUOUS").map((item) => item.conceptId), sense.conceptId]),
+    hardFilters,
+  })));
   if (compare) return modalities.map((modality) => ({
     branchId: `branch:${modality.conceptId}`,
     label: modality.preferredLabel,
@@ -24,6 +32,19 @@ const buildBranches = (request: KnowledgeRequest, resolution: ConceptResolution)
     modality: modality.conceptId === "modality:mri" ? "MRI" : modality.conceptId === "modality:ct" ? "CT" : modality.conceptId === "modality:pet" ? "PET" : modality.preferredLabel,
     hardFilters,
   }));
+  if (request.requestType === "COMPARE") {
+    const groups = new Map<string, ConceptResolution["concepts"]>();
+    for (const concept of resolution.concepts.filter((item) => !item.conceptId.startsWith("modality:") && !item.conceptId.startsWith("context:") && item.kind !== "AMBIGUOUS")) {
+      groups.set(concept.objectType, [...(groups.get(concept.objectType) ?? []), concept]);
+    }
+    const comparedObjects = [...groups.values()].find((items) => items.length > 1);
+    if (comparedObjects) return comparedObjects.map((compared) => ({
+      branchId: `branch:object:${compared.conceptId}`,
+      label: compared.preferredLabel,
+      conceptIds: uniqueSorted([...resolution.concepts.filter((item) => !comparedObjects.some((candidate) => candidate.conceptId === item.conceptId)).map((item) => item.conceptId), compared.conceptId]),
+      hardFilters,
+    }));
+  }
   return [{ branchId: "branch:exact", label: "Contexte exact", conceptIds: resolution.concepts.map((item) => item.conceptId).sort(), hardFilters }];
 };
 

@@ -65,7 +65,9 @@ const responseState = (
   conclusionCount: number,
   directCount: number,
   conflictCount: number,
+  queryPlan?: QueryPlan,
 ): RuntimeKnowledgeResponseState => {
+  if (queryPlan?.domainGate === "CLARIFICATION_REQUIRED") return "CLARIFICATION_REQUIRED";
   if (coverageStatus === "SOURCE_UNAVAILABLE") return "SOURCE_UNAVAILABLE";
   if (coverageStatus === "COVERAGE_UNKNOWN") return "COVERAGE_UNKNOWN";
   if (coverageStatus === "CONFLICTING" || conflictCount > 0 && coverageStatus !== "PARTIAL") return "CONTRADICTORY_ANSWER";
@@ -133,7 +135,7 @@ export const synthesizeKnowledge = (
         : "SUPPORTING_CONTEXT",
   }));
   const responseProfile = {
-    state: responseState(context?.coverageStatus, conclusions.length, directIds.size, conflicts.length),
+    state: responseState(context?.coverageStatus, conclusions.length, directIds.size, conflicts.length, context?.queryPlan),
     directConclusionIds: conclusions.filter((item) => item.role === "DIRECT_RESPONSE").map((item) => item.conclusionId),
     supportingConclusionIds: conclusions.filter((item) => item.role === "SUPPORTING_CONTEXT").map((item) => item.conclusionId),
     contextualLimitConclusionIds: conclusions.filter((item) => item.role === "CONTEXTUAL_LIMIT").map((item) => item.conclusionId),
@@ -154,7 +156,11 @@ export const synthesizeKnowledge = (
     convergences: conclusions.length > 1 && !conflicts.length ? ["Plusieurs éléments compatibles sont conservés sans vote par nombre de sources."] : [],
     divergences: conflicts.map((item) => item.explanation),
     controversies: conflicts,
-    limitations: uniqueSorted([...inheritedLimitations, ...assertions.flatMap((item) => item.limitations)]),
+    limitations: uniqueSorted([
+      ...inheritedLimitations,
+      ...assertions.flatMap((item) => item.limitations),
+      ...assertions.filter((item) => item.applicability === "APPLICABLE_WITH_LIMITATIONS" || item.applicability === "PARTIALLY_APPLICABLE").flatMap((item) => item.applicabilityReasons),
+    ]),
     gaps,
     methodologicalImplications,
     sourceIds: uniqueSorted(conclusions.flatMap((item) => item.sourceIds)),

@@ -33,6 +33,15 @@ export default function ProductUnderstandResponse({ presentation }: Props) {
       <p className="mt-2 text-xs text-muted-foreground">{projection.boundedConclusion}</p>
     </div>
 
+    {projection.clarifications.length > 0 && <div className="rounded-xl border border-primary/30 bg-primary/5 px-3 py-3">
+      <p className="text-xs font-semibold uppercase tracking-wide text-primary">Clarification nécessaire</p>
+      {projection.clarifications.map((clarification) => <div key={clarification.id} className="mt-2 space-y-1">
+        <p className="font-medium">{clarification.question}</p>
+        <p className="text-xs text-muted-foreground">{clarification.reason}</p>
+        <p className="text-xs text-muted-foreground">Choix possibles : {clarification.suggestions.join(" · ")}</p>
+      </div>)}
+    </div>}
+
     {projection.supportedItems.length > 0 && <Detail title="Éléments reliés à la réponse" count={projection.supportedItems.length}>
       {projection.supportedItems.map((item) => <article key={item.id} className="border-l-2 border-primary/40 pl-3">
         <p>{item.text}</p>

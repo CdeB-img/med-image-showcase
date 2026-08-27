@@ -8,6 +8,7 @@ type ConceptRule = {
   patterns: RegExp[];
   kind?: ResolvedConcept["kind"];
   providerConcepts: Record<string, string[]>;
+  candidateSenseIds?: string[];
 };
 
 const rules: ConceptRule[] = [
@@ -20,7 +21,7 @@ const rules: ConceptRule[] = [
   { conceptId: "phenomenon:microvascular-obstruction", preferredLabel: "obstruction microvasculaire", objectType: "PHENOMENON", patterns: [/obstruction microvascul/, /\bmvo\b/], providerConcepts: { "p5-multidomain": ["microvascular-obstruction"], "rb-004": ["obstruction microvasculaire"] } },
   { conceptId: "biomarker:ecv", preferredLabel: "ECV", objectType: "DERIVED_MEASUREMENT", patterns: [/\becv\b/, /volume extracellulaire/, /extracellular volume/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:biomarker:ecv", "noxia:radiology:derived-measurement:myocardial-ecv-mr", "noxia:radiology:derived-measurement:myocardial-ecv-ct"], "rb-004": ["ECV"] } },
   { conceptId: "method:t1-mapping", preferredLabel: "T1 mapping", objectType: "MEASUREMENT_METHOD", patterns: [/t1 map{1,2}ing/, /t1 maping/, /cartograph(?:ie|y) t1/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:measurement-method:myocardial-t1-mapping", "noxia:radiology:biomarker:t1"], "rb-004": ["T1 mapping"] } },
-  { conceptId: "ambiguous:t1", preferredLabel: "T1 (acronyme à préciser)", objectType: "AMBIGUOUS_ACRONYM", patterns: [/\bt1\b(?!\s*(?:map{1,2}ing|maping|natif))/], kind: "AMBIGUOUS", providerConcepts: {} },
+  { conceptId: "ambiguous:t1", preferredLabel: "T1 (sens à préciser)", objectType: "AMBIGUOUS_CONCEPT", patterns: [/\bt1\b(?!\s*(?:map{1,2}ing|maping|natif))/], kind: "AMBIGUOUS", providerConcepts: {}, candidateSenseIds: ["method:t1-mapping", "measurement:native-t1"] },
   { conceptId: "measurement:native-t1", preferredLabel: "T1 natif", objectType: "OBSERVATION", patterns: [/t1 natif/, /native t1/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:observation:native-myocardial-t1"], "rb-004": ["T1 natif"] } },
   { conceptId: "method:synthetic-hematocrit", preferredLabel: "hématocrite synthétique", objectType: "MEASUREMENT_METHOD", patterns: [/hematocrite synthetique/, /synthetic hematocrit/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:measurement-method:synthetic-hematocrit"] } },
   { conceptId: "biomarker:t2", preferredLabel: "T2", objectType: "BIOMARKER", patterns: [/\bt2\b/, /t2 mapping/], providerConcepts: { "rb-004": ["T2"] } },
@@ -71,14 +72,23 @@ export const extractScientificObjectTerms = (question: string): Array<{ term: st
 
 export const resolveConcepts = (request: KnowledgeRequest): ConceptResolution => {
   const searchable = comparableScientificText(`${request.originalQuestion} ${request.scientificObjects.map((item) => item.originalTerm).join(" ")}`);
-  const concepts = rules.filter((rule) => matchRule(rule, searchable)).map<ResolvedConcept>((rule) => ({
-    conceptId: rule.conceptId,
-    preferredLabel: rule.preferredLabel,
-    originalTerms: uniqueSorted(request.scientificObjects.map((item) => normalizeScientificText(item.originalTerm)).filter((term) => rule.patterns.some((pattern) => pattern.test(comparableScientificText(term))))),
-    kind: rule.kind ?? "EXACT",
-    objectType: rule.objectType,
-    providerConcepts: rule.providerConcepts,
-  }));
+  const concepts = rules.filter((rule) => matchRule(rule, searchable)).map<ResolvedConcept>((rule) => {
+    const candidateSenses = (rule.candidateSenseIds ?? []).map((candidateId) => rules.find((candidate) => candidate.conceptId === candidateId)).filter((candidate): candidate is ConceptRule => Boolean(candidate)).map((candidate) => ({
+      conceptId: candidate.conceptId,
+      preferredLabel: candidate.preferredLabel,
+      objectType: candidate.objectType,
+      providerConcepts: candidate.providerConcepts,
+    }));
+    return {
+      conceptId: rule.conceptId,
+      preferredLabel: rule.preferredLabel,
+      originalTerms: uniqueSorted(request.scientificObjects.map((item) => normalizeScientificText(item.originalTerm)).filter((term) => rule.patterns.some((pattern) => pattern.test(comparableScientificText(term))))),
+      kind: rule.kind ?? "EXACT",
+      objectType: rule.objectType,
+      providerConcepts: rule.providerConcepts,
+      ...(candidateSenses.length ? { candidateSenses } : {}),
+    };
+  });
 
   const noReflow = concepts.find((item) => item.conceptId === "phenomenon:no-reflow");
   if (noReflow && !concepts.some((item) => item.conceptId === "phenomenon:microvascular-obstruction")) {

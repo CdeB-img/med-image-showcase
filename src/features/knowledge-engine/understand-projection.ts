@@ -118,6 +118,7 @@ const humanize = (value: string) => limitationLabels[value] ?? (/^[A-Z0-9_]+$/.t
   : value);
 
 const fallbackAnswer = (result: KnowledgeResult) => {
+  if (result.gaps.some((item) => item.scope === "AMBIGUOUS_KNOWN_CONCEPT")) return "Le terme demandé correspond à plusieurs sens scientifiques déjà gouvernés. Une précision est nécessaire avant d’interroger le corpus approprié ; aucun sens n’est choisi automatiquement.";
   if (result.gaps.some((item) => item.code === "PRIVACY_BLOCKED")) return "NOXIA n’interprète pas une valeur individuelle. La question peut être reformulée en explication méthodologique générale, sans donnée personnelle.";
   if (result.gaps.some((item) => item.code === "OUT_OF_DOMAIN")) return "Cette demande relève d’un support technique général et ne reçoit pas de réponse depuis les corpus scientifiques médicaux de NOXIA.";
   if (result.gaps.some((item) => item.scope === "BIOMARKER_SELECTION")) return "Aucun biomarqueur ne peut être déclaré meilleur sans préciser le phénomène, l’objectif, la population et l’usage qui modifieraient réellement le choix.";
@@ -245,7 +246,7 @@ const buildAnswerStatements = (result: KnowledgeResult): UnderstandAnswerStateme
   const coverageRefs = result.coverageMap.items.map((item) => item.coverageId);
   const gapRefs = result.gaps.map((item) => item.gapId);
   const requiresDedicatedBoundary = result.gaps.some((item) => ["PRIVACY_BLOCKED", "OUT_OF_DOMAIN"].includes(item.code))
-    || result.gaps.some((item) => item.scope === "BIOMARKER_SELECTION");
+    || result.gaps.some((item) => ["BIOMARKER_SELECTION", "AMBIGUOUS_KNOWN_CONCEPT"].includes(item.scope));
   if (result.synthesis.responseProfile.state === "NO_APPLICABLE_KNOWLEDGE") return [{
     statementId: `understand-statement:no-applicable:${result.synthesis.digest}`,
     role: "KNOWLEDGE_GAP",
@@ -264,6 +265,18 @@ const buildAnswerStatements = (result: KnowledgeResult): UnderstandAnswerStateme
 
 const clarificationFor = (result: KnowledgeResult): UnderstandClarification[] => {
   if (!result.gaps.some((item) => item.code === "MISSING_CRITICAL_CONTEXT")) return [];
+  const ambiguous = result.resolvedConcepts.find((item) => item.kind === "AMBIGUOUS" && (item.candidateSenses?.length ?? 0) > 1);
+  if (ambiguous) {
+    const suggestions = (ambiguous.candidateSenses ?? []).map((item) => item.preferredLabel);
+    return [{
+      id: `clarify-concept:${ambiguous.conceptId}`,
+      dimension: "technique",
+      question: `Quand vous dites ${ambiguous.originalTerms[0] ?? ambiguous.preferredLabel}, parlez-vous de ${suggestions.join(" ou de ")} ?`,
+      reason: "Ces sens scientifiques gouvernés conduisent à des requêtes Knowledge différentes.",
+      influence: "La réponse sélectionnera explicitement le corpus correspondant sans adopter silencieusement un sens.",
+      suggestions: [...suggestions, "Je ne sais pas"],
+    }];
+  }
   const missing = new Set(result.request.context.dimensions.filter((item) => item.critical && item.state === "UNKNOWN").map((item) => item.name));
   const definitions: Array<[ContextDimensionName, UnderstandClarification]> = [
     ["phenomenon", { id: "clarify-phenomenon", dimension: "phenomenon", question: "Quel phénomène scientifique voulez-vous principalement expliquer ou mesurer ?", reason: "Le même biomarqueur peut représenter des construits différents.", influence: "Cette réponse modifie les connaissances pertinentes et les axes de comparaison.", suggestions: ["Fibrose", "Œdème", "Perfusion", "Je ne sais pas"] }],
@@ -333,7 +346,7 @@ export const projectUnderstandResult = (result: KnowledgeResult, depth: Projecti
     .filter((item): item is UnderstandProjectionItem => Boolean(item));
   return {
     title: `Comprendre ${result.specificity.centralObject}`,
-    coverageLabel: overallCoverageLabels[result.coverageStatus],
+    coverageLabel: result.gaps.some((item) => item.scope === "AMBIGUOUS_KNOWN_CONCEPT") ? "Clarification requise" : overallCoverageLabels[result.coverageStatus],
     requestSummary,
     answer,
     answerStatements,

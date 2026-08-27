@@ -70,13 +70,13 @@ describe("PRODUCT-CHECKPOINT-01G — governed UNDERSTAND synthesis", () => {
     expect(screen.queryByText(unrelated!.text)).not.toBeInTheDocument();
   });
 
-  it("D — keeps Case A honest when no applicable item supports the requested distinction", () => {
+  it("D — keeps Case A honest while exposing only its supported partial branch", () => {
     const result = executeKnowledgeEngine({ originalQuestion: CASE_A, createdAt: "2026-08-27T13:00:01.000Z" });
     const interaction = interactionFor(CASE_A);
-    expect(result.synthesis.responseProfile.state).toBe("NO_APPLICABLE_KNOWLEDGE");
-    expect(result.applicableAssertions).toHaveLength(0);
+    expect(result.synthesis.responseProfile.state).toBe("PARTIAL_ANSWER");
+    expect(result.applicableAssertions.length).toBeGreaterThan(0);
     expect(result.documentaryStatements).toHaveLength(0);
-    expect(interaction.presentation!.projection.coverageLabel).toBe("Réponse non disponible dans ce contexte");
+    expect(interaction.presentation!.projection.coverageLabel).toBe("Réponse partielle");
     expect(interaction.assistantReply).toMatch(/no-reflow/u);
     expect(interaction.assistantReply).toMatch(/obstruction microvasculaire/u);
     expect(interaction.assistantReply).toMatch(/IRM/u);
