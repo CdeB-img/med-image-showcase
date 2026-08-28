@@ -319,7 +319,7 @@ const knowledgePresentation = (
     ...result.unresolvedConcepts.map((explanation) => ({ gapRef: null, kind: "UNRESOLVED_CONCEPT" as const, code: null, scope: null, explanation, resumeCondition: null })),
     ...result.gaps.map((item) => ({ gapRef: item.gapId, kind: "KNOWLEDGE_GAP" as const, code: item.code, scope: item.scope, explanation: item.explanation, resumeCondition: item.resumeCondition })),
   ],
-  limitations: [...result.limitations],
+  limitations: [...projection.limitations],
   provenance: result.provenance.map((item) => ({
     provider: item.providerId,
     version: item.version,

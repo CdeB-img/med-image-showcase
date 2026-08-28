@@ -4,6 +4,7 @@ import { createKnowledgeContextPackage, type KnowledgeContextInput } from "./con
 import { classifySensitivity } from "./privacy";
 import { KNOWLEDGE_RELATION_MAX_LENGTH, SCIENTIFIC_OBJECT_ORIGINAL_TERM_MAX_LENGTH } from "./scientific-object-boundary.js";
 import { KNOWLEDGE_ENGINE_VERSION, type ExternalSearchPolicy, type KnowledgePurpose, type KnowledgeRequest, type KnowledgeRequestType, type ScientificObjectRef } from "./types";
+import { hasExplicitComparisonRequest } from "@/lib/scientific-request-language";
 
 const scientificObjectSchema = z.object({
   objectId: z.string().min(1).max(200),
@@ -54,7 +55,7 @@ export type KnowledgeRequestInput = {
 const classifyPurpose = (question: string): { purpose: KnowledgePurpose; requestType: KnowledgeRequestType; claimType: KnowledgeRequest["requestedClaimType"] } => {
   const text = question.toLocaleLowerCase("fr-FR");
   if (/\b(meilleur|meilleure|optimal|optimale|choisir)\b/.test(text)) return { purpose: "CLARIFY_SELECTION", requestType: "IDENTIFY_GAP", claimType: "BEST_OPTION" };
-  if (/\b(vs\.?|versus|compar\w*|difference|différence)\b/.test(text)) return { purpose: "COMPARE", requestType: "COMPARE", claimType: "COMPARISON" };
+  if (hasExplicitComparisonRequest(text)) return { purpose: "COMPARE", requestType: "COMPARE", claimType: "COMPARISON" };
   if (/\b(applicab|valable|transpos|chez)\b/.test(text)) return { purpose: "CHECK_APPLICABILITY", requestType: "CHECK_APPLICABILITY", claimType: "APPLICABILITY" };
   return { purpose: "UNDERSTAND", requestType: "EXPLAIN", claimType: "DEFINITION" };
 };

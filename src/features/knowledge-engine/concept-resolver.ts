@@ -1,3 +1,5 @@
+import { entities } from "@/knowledge-graph/catalog.mjs";
+import { hasExplicitComparisonRequest } from "@/lib/scientific-request-language";
 import { comparableScientificText, logicalDigest, normalizeScientificText, uniqueSorted } from "./canonical";
 import type { ConceptResolution, KnowledgeRequest, ResolvedConcept, ResolvedConceptRelation, ScientificObjectRef } from "./types";
 
@@ -12,8 +14,8 @@ type ConceptRule = {
 };
 
 const rules: ConceptRule[] = [
-  { conceptId: "modality:mri", preferredLabel: "IRM", objectType: "MODALITY", patterns: [/\birm(?:\s+cardiaque)?\b/, /\bmri\b/, /\bcmr\b/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:modality:irm"], "p5-multidomain": ["MR"], "rb-004": ["IRM cardiaque"], "rb-005": ["IRM"] } },
-  { conceptId: "modality:ct", preferredLabel: "CT", objectType: "MODALITY", patterns: [/\bct(?:\s+cardiaque)?\b/, /scanner/, /tomodensitometr/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:modality:ct"], "p5-multidomain": ["CT"], "rb-003": ["CT spectral"], "rb-005": ["CT"] } },
+  { conceptId: "modality:mri", preferredLabel: "IRM", objectType: "MODALITY", patterns: [/\birm(?:\s+cardiaque)?\b/, /\bmri\b/, /\bcmr\b/], providerConcepts: { "knowledge-graph": ["noxia:radiology:modality:irm"], "p4r-ecv-t1": ["noxia:radiology:modality:irm"], "p5-multidomain": ["MR"], "rb-004": ["IRM cardiaque"], "rb-005": ["IRM"] } },
+  { conceptId: "modality:ct", preferredLabel: "CT", objectType: "MODALITY", patterns: [/\bct(?:\s+cardiaque)?\b/, /scanner/, /tomodensitometr/], providerConcepts: { "knowledge-graph": ["noxia:radiology:modality:ct"], "p4r-ecv-t1": ["noxia:radiology:modality:ct"], "p5-multidomain": ["CT"], "rb-003": ["CT spectral"], "rb-005": ["CT"] } },
   { conceptId: "modality:pet", preferredLabel: "PET", objectType: "MODALITY", patterns: [/\bpet\b/, /\btep\b/], providerConcepts: { "rb-005": ["PET"] } },
   { conceptId: "phenomenon:myocardial-fibrosis", preferredLabel: "fibrose myocardique", objectType: "PHENOMENON", patterns: [/fibrose myocard/, /myocardial fibrosis/], providerConcepts: { "p4r-ecv-t1": ["noxia:radiology:finding:diffuse-myocardial-fibrosis"], "rb-004": ["caractérisation tissulaire"] } },
   { conceptId: "pathology:fabry-disease", preferredLabel: "maladie de Fabry", objectType: "PATHOLOGY", patterns: [/maladie de fabry/, /fabry disease/], providerConcepts: {} },
@@ -39,6 +41,47 @@ const rules: ConceptRule[] = [
   { conceptId: "context:reperfusion", preferredLabel: "reperfusion", objectType: "TEMPORAL_CONTEXT", patterns: [/reperfusion/, /post[- ]?stent/, /apres (?:un |le )?(?:stent|stenting|angioplast)/], providerConcepts: { "p5-multidomain": ["microvascular-obstruction"] } },
 ];
 
+type GovernedGraphEntity = {
+  entityId: string;
+  entityType: string;
+  preferredLabel: string;
+  aliases?: readonly string[];
+  status?: string;
+};
+
+const governedGraphEntities = (entities as readonly GovernedGraphEntity[])
+  .filter((entity) => entity.status !== "inactive")
+  .filter((entity) => !rules.some((rule) => (rule.providerConcepts["knowledge-graph"] ?? []).includes(entity.entityId)));
+
+const escapeExpression = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const slugFor = (entity: GovernedGraphEntity) => entity.entityId.split(":").at(-1)?.replace(/[-_]+/g, " ") ?? "";
+
+const graphSurfaces = (entity: GovernedGraphEntity) => uniqueSorted([
+  entity.preferredLabel,
+  ...(entity.aliases ?? []),
+  ...(slugFor(entity).replace(/\s+/g, "").length >= 4 ? [slugFor(entity)] : []),
+].map(normalizeScientificText).filter(Boolean));
+
+const graphSurfaceMatch = (value: string, entity: GovernedGraphEntity) => graphSurfaces(entity).flatMap((surface) => {
+  const expression = escapeExpression(surface).replace(/(?:\\ |[-_])+/g, "[\\s\\-_]+");
+  const match = new RegExp(`(^|[^\\p{L}\\p{N}])(${expression})(?=$|[^\\p{L}\\p{N}])`, "iu").exec(value);
+  return match ? [{ term: match[2], index: match.index + match[1].length, surface }] : [];
+}).sort((left, right) => left.index - right.index || right.surface.length - left.surface.length)[0] ?? null;
+
+const graphConceptsForTerms = (terms: string[]): ResolvedConcept[] => governedGraphEntities.flatMap((entity) => {
+  const originalTerms = uniqueSorted(terms.filter((term) => Boolean(graphSurfaceMatch(term, entity))).map(normalizeScientificText));
+  if (!originalTerms.length) return [];
+  const preferred = comparableScientificText(entity.preferredLabel);
+  return [{
+    conceptId: entity.entityId,
+    preferredLabel: entity.preferredLabel,
+    originalTerms,
+    kind: originalTerms.some((term) => comparableScientificText(term) === preferred) ? "EXACT" as const : "KNOWN_ALIAS" as const,
+    objectType: entity.entityType.toLocaleUpperCase("en-US"),
+    providerConcepts: { "knowledge-graph": [entity.entityId] },
+  }];
+});
+
 const matchRule = (rule: ConceptRule, text: string) => rule.patterns.some((pattern) => pattern.test(text));
 
 export const resolveGovernedConceptsFromProviderReferences = (
@@ -57,14 +100,25 @@ export const resolveGovernedConceptsFromProviderReferences = (
 
 export const extractScientificObjectTerms = (question: string): Array<{ term: string; role: ScientificObjectRef["role"] }> => {
   const normalized = comparableScientificText(question);
-  const matches = rules.flatMap((rule) => {
+  const staticMatches = rules.flatMap((rule) => {
     const matching = rule.patterns.map((pattern) => ({ pattern, match: pattern.exec(normalized) })).filter((item) => item.match) as Array<{ pattern: RegExp; match: RegExpExecArray }>;
     if (!matching.length) return [];
     const earliest = matching.sort((left, right) => left.match.index - right.match.index)[0];
     return [{ term: earliest.match[0], index: earliest.match.index, conceptId: rule.conceptId }];
-  }).sort((left, right) => left.index - right.index);
+  });
+  const graphMatches = governedGraphEntities.flatMap((entity) => {
+    const match = graphSurfaceMatch(question, entity);
+    if (!match) return [];
+    const overlapsStatic = staticMatches.some((item) => {
+      const staticEnd = item.index + item.term.length;
+      const graphEnd = match.index + match.term.length;
+      return match.index < staticEnd && item.index < graphEnd;
+    });
+    return overlapsStatic ? [] : [{ term: match.term, index: match.index, conceptId: entity.entityId }];
+  });
+  const matches = [...staticMatches, ...graphMatches].sort((left, right) => left.index - right.index);
   const unique = matches.filter((item, index, list) => list.findIndex((candidate) => candidate.conceptId === item.conceptId) === index);
-  const terms = unique.map((item, index) => ({ term: item.term, role: index === 0 ? "SUBJECT" as const : index === 1 && /\b(vs\.?|versus|compar|difference|différence)\b/.test(normalized) ? "COMPARATOR" as const : "CONTEXT" as const }));
+  const terms = unique.map((item, index) => ({ term: item.term, role: index === 0 ? "SUBJECT" as const : index === 1 && hasExplicitComparisonRequest(normalized) ? "COMPARATOR" as const : "CONTEXT" as const }));
   const uncoveredPathology = normalized.match(/\bmaladie\s+(?:non\s+couverte\s+)?[\p{L}-]+/u)?.[0];
   if (uncoveredPathology && !terms.some((item) => item.term.includes(uncoveredPathology))) terms.push({ term: uncoveredPathology, role: "CONTEXT" });
   return terms;
@@ -72,7 +126,7 @@ export const extractScientificObjectTerms = (question: string): Array<{ term: st
 
 export const resolveConcepts = (request: KnowledgeRequest): ConceptResolution => {
   const searchable = comparableScientificText(`${request.originalQuestion} ${request.scientificObjects.map((item) => item.originalTerm).join(" ")}`);
-  const concepts = rules.filter((rule) => matchRule(rule, searchable)).map<ResolvedConcept>((rule) => {
+  const staticConcepts = rules.filter((rule) => matchRule(rule, searchable)).map<ResolvedConcept>((rule) => {
     const candidateSenses = (rule.candidateSenseIds ?? []).map((candidateId) => rules.find((candidate) => candidate.conceptId === candidateId)).filter((candidate): candidate is ConceptRule => Boolean(candidate)).map((candidate) => ({
       conceptId: candidate.conceptId,
       preferredLabel: candidate.preferredLabel,
@@ -89,6 +143,9 @@ export const resolveConcepts = (request: KnowledgeRequest): ConceptResolution =>
       ...(candidateSenses.length ? { candidateSenses } : {}),
     };
   });
+  const graphConcepts = graphConceptsForTerms(request.scientificObjects.map((item) => item.originalTerm));
+  const concepts = [...staticConcepts, ...graphConcepts]
+    .filter((concept, index, list) => list.findIndex((candidate) => candidate.conceptId === concept.conceptId) === index);
 
   const noReflow = concepts.find((item) => item.conceptId === "phenomenon:no-reflow");
   if (noReflow && !concepts.some((item) => item.conceptId === "phenomenon:microvascular-obstruction")) {
@@ -102,7 +159,9 @@ export const resolveConcepts = (request: KnowledgeRequest): ConceptResolution =>
   if (has("method:t1-mapping") && has("biomarker:ecv")) relations.push({ sourceConceptId: "method:t1-mapping", targetConceptId: "biomarker:ecv", relation: "NOT_EQUIVALENT", authority: "KE-001", explanation: "Une méthode de mapping T1 et une estimation dérivée d’ECV sont des objets distincts." });
   if (has("modality:ct") && has("technology:spectral-ct")) relations.push({ sourceConceptId: "modality:ct", targetConceptId: "technology:spectral-ct", relation: "BROADER_THAN", authority: "KE-001", explanation: "Le CT est plus large que le sous-domaine CT spectral." });
 
-  const unresolvedTerms = request.scientificObjects.map((item) => normalizeScientificText(item.originalTerm)).filter((term) => term !== "UNKNOWN_SCIENTIFIC_OBJECT" && !rules.some((rule) => rule.patterns.some((pattern) => pattern.test(comparableScientificText(term)))));
+  const unresolvedTerms = request.scientificObjects.map((item) => normalizeScientificText(item.originalTerm)).filter((term) => term !== "UNKNOWN_SCIENTIFIC_OBJECT"
+    && !rules.some((rule) => rule.patterns.some((pattern) => pattern.test(comparableScientificText(term))))
+    && !governedGraphEntities.some((entity) => Boolean(graphSurfaceMatch(term, entity))));
   if (!concepts.length) concepts.push({ conceptId: `unknown:${logicalDigest(request.originalQuestion)}`, preferredLabel: "concept non résolu", originalTerms: request.scientificObjects.map((item) => item.originalTerm), kind: "UNKNOWN", objectType: "UNKNOWN", providerConcepts: {} });
   const material = { concepts, relations, unresolvedTerms: uniqueSorted(unresolvedTerms), ambiguities: concepts.filter((item) => item.kind === "AMBIGUOUS").map((item) => `${item.preferredLabel} doit être désambiguïsé avant sélection d’un corpus.`) };
   return { ...material, digest: logicalDigest(material) };

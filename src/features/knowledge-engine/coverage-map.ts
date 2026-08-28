@@ -1,10 +1,11 @@
 import { logicalDigest, uniqueSorted } from "./canonical";
-import type { CoverageMap, CoverageMapItem, GovernedDocumentaryStatement, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict } from "./types";
+import { modalitiesAreCompatible } from "./modality";
+import { isComparativeSemanticRelation } from "./relation-semantics";
+import type { CoverageMap, CoverageMapItem, GovernedDocumentaryStatement, KnowledgeRequest, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict } from "./types";
 
 const modalityMatches = (assertion: RuntimeAssertion, modality?: string) => {
   if (!modality || !assertion.modality) return true;
-  const actual = assertion.modality.toLocaleUpperCase("fr-FR");
-  return actual === modality || (modality === "MRI" && (actual === "MR" || actual.includes("IRM")));
+  return modalitiesAreCompatible(assertion.modality, modality);
 };
 
 const commonBranchConceptIds = (queryPlan: QueryPlan) => queryPlan.branches.reduce<string[]>((common, branch, index) => index === 0
@@ -18,12 +19,14 @@ const itemSupportsConcept = (queryPlan: QueryPlan, providerId: string, conceptId
 };
 
 export const buildCoverageMap = (input: {
+  request: KnowledgeRequest;
   queryPlan: QueryPlan;
   providerExecutions: ProviderExecution[];
   applicableAssertions: RuntimeAssertion[];
   excludedAssertions: RuntimeAssertion[];
   documentaryStatements: GovernedDocumentaryStatement[];
   conflicts: RuntimeConflict[];
+  inheritedLimitations?: string[];
 }): CoverageMap => {
   const selectionByProvider = new Map(input.queryPlan.providerSelections.map((selection) => [selection.providerId, selection]));
   const commonConceptIds = commonBranchConceptIds(input.queryPlan);
@@ -81,13 +84,11 @@ export const buildCoverageMap = (input: {
       externalResearchRequired: ["PARTIAL_COVERAGE", "NO_PROVIDER", "NO_MATCH", "INCOMPATIBLE_CONTEXT"].includes(status),
     };
   });
-  if (input.queryPlan.branches.length > 1) {
+  if (input.request.requestType === "COMPARE" && input.queryPlan.branches.length > 1) {
     const branchSupported = items.filter((item) => item.status === "SUPPORTED_COVERAGE").length;
-    const directComparison = input.applicableAssertions.some((item) => {
-      const material = JSON.stringify(item.atomicContent).toLocaleLowerCase("fr-FR");
-      return material.includes("versus") || material.includes("agreement_with") || material.includes("compare");
-    });
-    const status = branchSupported === items.length && directComparison ? "SUPPORTED_COVERAGE" : branchSupported ? "PARTIAL_COVERAGE" : "INSUFFICIENT_EVIDENCE";
+    const directComparison = input.applicableAssertions.some((item) => isComparativeSemanticRelation(item.atomicContent));
+    const boundedGeneralComparison = input.inheritedLimitations?.includes("NO_GENERAL_MRI_CT_COMPARISON") ?? false;
+    const status = branchSupported === items.length && directComparison && !boundedGeneralComparison ? "SUPPORTED_COVERAGE" : branchSupported ? "PARTIAL_COVERAGE" : "INSUFFICIENT_EVIDENCE";
     items.push({
       coverageId: `coverage:${logicalDigest({ branchId: "comparison:direct", status })}`,
       branchId: "comparison:direct",
@@ -97,8 +98,12 @@ export const buildCoverageMap = (input: {
       consideredProviderIds: uniqueSorted(input.providerExecutions.filter((item) => item.included).map((item) => item.providerId)),
       supportingProviderIds: directComparison ? uniqueSorted(input.applicableAssertions.map((item) => item.providerId)) : [],
       resultCount: directComparison ? 1 : 0,
-      explanation: directComparison ? "Une comparaison directe gouvernée est disponible." : "Les branches restent visibles, mais aucune assertion comparative directe ne permet de les fusionner.",
-      externalResearchRequired: !directComparison,
+      explanation: directComparison && !boundedGeneralComparison
+        ? "Une comparaison directe gouvernée est disponible."
+        : directComparison
+          ? "Des relations comparatives bornées existent, sans couverture générale de la comparaison demandée."
+          : "Les branches restent visibles, mais aucune assertion comparative directe ne permet de les fusionner.",
+      externalResearchRequired: !directComparison || boundedGeneralComparison,
     });
   }
   const material = { items, externalResearchRequired: items.some((item) => item.externalResearchRequired) };

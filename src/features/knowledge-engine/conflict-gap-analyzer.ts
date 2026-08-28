@@ -1,4 +1,6 @@
 import { logicalDigest, uniqueSorted } from "./canonical";
+import { canonicalModality } from "./modality";
+import { isComparativeSemanticRelation } from "./relation-semantics";
 import type { CoverageStatus, KnowledgeGap, KnowledgeRequest, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict } from "./types";
 
 const assertionPropositionKey = (assertion: RuntimeAssertion) => logicalDigest({ concepts: assertion.conceptIds, atomicContent: assertion.atomicContent });
@@ -29,6 +31,7 @@ export const determineCoverage = (
   documentaryCount: number,
   excludedCount: number,
   conflicts: RuntimeConflict[],
+  inheritedLimitations: string[] = [],
 ): CoverageStatus => {
   if (queryPlan.domainGate !== "IN_SCOPE") return "PROVIDER_NOT_APPLICABLE";
   if (conflicts.some((item) => item.state === "CONTRADICTION" || item.state === "CONTROVERSY")) return "CONFLICTING";
@@ -37,8 +40,9 @@ export const determineCoverage = (
   if (!applicableAssertions.length && !documentaryCount && excludedCount) return "PROVIDER_NOT_APPLICABLE";
   if (!applicableAssertions.length && !documentaryCount) return "NO_MATCH";
   if (documentaryCount && excludedCount) return "PARTIAL";
+  if (queryPlan.branches.length > 1 && inheritedLimitations.includes("NO_GENERAL_MRI_CT_COMPARISON")) return "PARTIAL";
   if (queryPlan.branches.length > 1) {
-    const coveredModalities = new Set(applicableAssertions.map((item) => item.modality === "MR" || item.modality?.toLocaleLowerCase().includes("irm") ? "MRI" : item.modality).filter(Boolean));
+    const coveredModalities = new Set(applicableAssertions.map((item) => item.modality ? canonicalModality(item.modality) : null).filter(Boolean));
     if (queryPlan.branches.some((branch) => branch.modality && !coveredModalities.has(branch.modality))) return "PARTIAL";
     const commonConceptIds = queryPlan.branches.reduce<string[]>((common, branch, index) => index === 0
       ? [...branch.conceptIds]
@@ -61,6 +65,7 @@ export const analyzeGaps = (
   coverageStatus: CoverageStatus,
   conflicts: RuntimeConflict[],
   applicableAssertions: RuntimeAssertion[],
+  inheritedLimitations: string[] = [],
 ): KnowledgeGap[] => {
   const gaps: KnowledgeGap[] = [];
   const push = (code: KnowledgeGap["code"], scope: string, explanation: string, affectedConceptIds: string[], resumeCondition: string) => gaps.push({ gapId: `knowledge-gap:${logicalDigest({ code, scope, affectedConceptIds })}`, code, scope, explanation, affectedConceptIds, resumeCondition });
@@ -79,9 +84,16 @@ export const analyzeGaps = (
   if (["NO_PROVIDER", "NO_MATCH", "PARTIAL"].includes(coverageStatus) && !ambiguousClarification) push("EXTERNAL_RESEARCH_REQUIRED", "FUTURE_EXTERNAL_RESEARCH", "La connaissance interne est insuffisante pour fermer cette question. Une recherche scientifique externe séparée serait nécessaire ; elle n’a pas été réalisée.", conceptIds, "Autoriser ultérieurement un workflow de recherche externe gouverné, hors ENG-002.");
   if (request.context.unknowns.length && request.knowledgePurpose !== "UNDERSTAND") push("MISSING_CRITICAL_CONTEXT", "CONTEXT", `Dimensions critiques absentes : ${request.context.unknowns.join(", ")}.`, conceptIds, "Obtenir une clarification humaine.");
   if (request.context.dimensions.some((item) => item.name === "intervention" && item.values.length) && !applicableAssertions.length && !gaps.some((item) => item.code === "MISSING_CRITICAL_CONTEXT")) push("MISSING_CRITICAL_CONTEXT", "INTERVENTION", "L’applicabilité au contexte d’intervention explicite n’est pas documentée.", conceptIds, "Fournir une connaissance couvrant exactement l’intervention et le timing.");
-  if (queryPlan.branches.length > 1 && coverageStatus !== "NO_PROVIDER") {
-    const directComparison = applicableAssertions.some((item) => JSON.stringify(item.atomicContent).toLocaleLowerCase().includes("versus") || JSON.stringify(item.atomicContent).toLocaleLowerCase().includes("agreement_with"));
-    if (!directComparison) push("NO_ASSERTION_MATCH", "DIRECT_COMPARISON", "Aucune comparaison générale directe des branches demandées n’est documentée ; les résultats restent séparés par modalité.", conceptIds, "Ajouter une assertion comparative gouvernée dans ce contexte exact.");
+  if (request.requestType === "COMPARE" && queryPlan.branches.length > 1 && coverageStatus !== "NO_PROVIDER") {
+    const directComparison = applicableAssertions.some((item) => isComparativeSemanticRelation(item.atomicContent));
+    const boundedGeneralComparison = inheritedLimitations.includes("NO_GENERAL_MRI_CT_COMPARISON");
+    if (!directComparison || boundedGeneralComparison) push(
+      "NO_ASSERTION_MATCH",
+      "DIRECT_COMPARISON",
+      "Aucune comparaison générale directe des branches demandées n’est documentée ; les résultats restent séparés par modalité.",
+      conceptIds,
+      "Ajouter une assertion comparative gouvernée dans ce contexte exact.",
+    );
   }
   for (const conflict of conflicts) push("CONFLICT_UNRESOLVED", conflict.conflictId, conflict.explanation, conceptIds, "Décision ou nouvelle preuve gouvernée requise.");
   return gaps.sort((left, right) => left.gapId.localeCompare(right.gapId));

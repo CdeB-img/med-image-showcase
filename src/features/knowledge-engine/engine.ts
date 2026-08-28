@@ -44,11 +44,15 @@ const executeValidatedKnowledgeRequest = (
     ...retrieval.adapterResults.flatMap((item) => item.conflicts),
     ...analyzeConflicts(assertionResolution.applicableAssertions),
   ].map((item) => [item.conflictId, item])).values()].sort((left, right) => left.conflictId.localeCompare(right.conflictId));
-  const coverageStatus = determineCoverage(queryPlan, retrieval.providerExecutions, assertionResolution.applicableAssertions, applicableStatements.length, assertionResolution.excludedAssertions.length, conflicts);
-  const coverageMap = buildCoverageMap({ queryPlan, providerExecutions: retrieval.providerExecutions, applicableAssertions: assertionResolution.applicableAssertions, excludedAssertions: assertionResolution.excludedAssertions, documentaryStatements: applicableStatements, conflicts });
+  const contributingProviderIds = new Set([
+    ...assertionResolution.applicableAssertions.map((item) => item.providerId),
+    ...applicableStatements.map((item) => item.providerId),
+  ]);
+  const inheritedLimitations = retrieval.adapterResults.filter((item) => contributingProviderIds.has(item.providerId)).flatMap((item) => item.limitations);
+  const coverageStatus = determineCoverage(queryPlan, retrieval.providerExecutions, assertionResolution.applicableAssertions, applicableStatements.length, assertionResolution.excludedAssertions.length, conflicts, inheritedLimitations);
+  const coverageMap = buildCoverageMap({ request, queryPlan, providerExecutions: retrieval.providerExecutions, applicableAssertions: assertionResolution.applicableAssertions, excludedAssertions: assertionResolution.excludedAssertions, documentaryStatements: applicableStatements, conflicts, inheritedLimitations });
   const specificity = buildScientificQuestionSpecificity(request, queryPlan);
-  const gaps = analyzeGaps(request, queryPlan, coverageStatus, conflicts, assertionResolution.applicableAssertions);
-  const inheritedLimitations = retrieval.adapterResults.flatMap((item) => item.limitations);
+  const gaps = analyzeGaps(request, queryPlan, coverageStatus, conflicts, assertionResolution.applicableAssertions, inheritedLimitations);
   const synthesis = synthesizeKnowledge(
     request,
     assertionResolution.applicableAssertions,
@@ -71,6 +75,7 @@ const executeValidatedKnowledgeRequest = (
     specificity,
     applicableAssertions: assertionResolution.applicableAssertions,
     excludedAssertions: assertionResolution.excludedAssertions,
+    documentaryStatements: applicableStatements,
     candidateAssertions: assertionResolution.candidateAssertions,
     conflicts,
     gaps,

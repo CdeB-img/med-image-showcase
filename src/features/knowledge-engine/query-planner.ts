@@ -53,7 +53,8 @@ export const createQueryPlan = (request: KnowledgeRequest, resolution: ConceptRe
   const resolvedIds = resolution.concepts.map((item) => item.conceptId);
   const substantiveIds = resolvedIds.filter(nonRoutingConcept);
   const selections: ProviderSelection[] = KNOWLEDGE_PROVIDER_REGISTRY.providers.map((provider) => {
-    const matchedConceptIds = provider.coverageConcepts.filter((id) => resolvedIds.includes(id));
+    const matchedConceptIds = uniqueSorted(resolution.concepts.filter((concept) => provider.coverageConcepts.includes(concept.conceptId)
+      || (concept.providerConcepts[provider.id]?.length ?? 0) > 0).map((concept) => concept.conceptId));
     const substantiveMatches = matchedConceptIds.filter(nonRoutingConcept);
     const graphTechnicalMatch = provider.id === "knowledge-graph" && matchedConceptIds.some((id) => ["tool:numpy", "format:dicom"].includes(id));
     const selectable = provider.availability === "AVAILABLE";

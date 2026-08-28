@@ -5,6 +5,7 @@ import type {
   ScientificSessionContext,
   ValidatedScientificIntent,
 } from "./types.js";
+import { hasExplicitComparisonRequest } from "@/lib/scientific-request-language";
 
 export const ROUTING_INTENT_LABELS: Record<RoutingIntent, string> = {
   UNDERSTAND: "Comprendre une question scientifique",
@@ -80,12 +81,12 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
       reasons[route].push(reason);
     }
   };
-  add("UNDERSTAND", /\b(comprendre|expliquer|fonctionne|diff[ée]rence|rôle|signifie|qu['’]est-ce)\b/, "La demande exprime un besoin de compréhension.", 3);
+  add("UNDERSTAND", /\b(comprendre|expliquer|fonctionne|diff[ée]rences?|rôle|signifie|qu['’]est-ce)\b/, "La demande exprime un besoin de compréhension.", 3);
   add("FORMALIZE_IDEA", /\b(id[ée]e|intuition|hypoth[èe]se|je pense|pourrait|d[ée]pend)\b/, "La demande formule une idée ou une hypothèse à structurer.", 3);
   add("FORMALIZE_IDEA", /\b(je voudrais [ée]tudier|je cherche [àa] [ée]tudier|voir si|est-(?:il|elle) associ[ée]e?|pr[ée]dit)\b/, "La demande cherche à transformer une relation ou une finalité encore ouverte en question scientifique.", 3);
   add("DESIGN_STUDY", /\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/, "La demande vise explicitement un projet ou une étude.", 3);
   add("DESIGN_STUDY", /\b(comparer|mesurer|quantifier|[ée]valuer|suivre|d[ée]tecter)\b/, "La demande porte une action de recherche à cadrer.", 2);
-  if (/\b(comparer|comparaison|diff[ée]rence|versus|vs\.?)(?:\b|\s)/.test(corpus) && !/\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/.test(corpus)) {
+  if (hasExplicitComparisonRequest(corpus) && !/\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/.test(corpus)) {
     scores.UNDERSTAND += 3;
     reasons.UNDERSTAND.push("La comparaison demande d’abord une compréhension structurée, sans construction de projet explicite.");
   }
@@ -134,7 +135,7 @@ export const centralScientificObject = (intent: ValidatedScientificIntent) => {
 export const detectedRelationships = (intent: ValidatedScientificIntent) => {
   const corpus = normalized(`${intent.originalQuestion} ${intent.validatedReformulation}`);
   const relationships: string[] = [];
-  if (/\b(compar\w*|diff[ée]rence|versus|vs\.?)\b/.test(corpus)) relationships.push("comparaison explicitement demandée");
+  if (hasExplicitComparisonRequest(corpus)) relationships.push("comparaison explicitement demandée");
   if (/\b(effet|impact|influence|d[ée]pend|associ[ée])\b/.test(corpus)) relationships.push("relation ou dépendance à examiner");
   if (/\b(apr[èe]s|avant|pendant|suivi|[ée]volution)\b/.test(corpus)) relationships.push("relation temporelle déclarée");
   return relationships;

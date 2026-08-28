@@ -1,3 +1,6 @@
+import { comparableScientificText, uniqueSorted } from "./canonical";
+import { modalitiesAreCompatible } from "./modality";
+import { getKnowledgeProvider } from "./provider-registry";
 import type { ContextDimensionName, CoverageMapStatus, KnowledgeResult, RuntimeKnowledgeConclusion } from "./types";
 
 export type ProjectionDepth = "SYNTHETIC" | "PROFESSIONAL" | "EXPERT";
@@ -116,6 +119,36 @@ const limitationLabels: Record<string, string> = {
 const humanize = (value: string) => limitationLabels[value] ?? (/^[A-Z0-9_]+$/.test(value)
   ? `${value.toLocaleLowerCase("fr-FR").replace(/_/g, " ")}.`
   : value);
+
+const projectionLimitations = (result: KnowledgeResult, answerStatements: UnderstandAnswerStatement[]) => {
+  const answerItemIds = new Set(answerStatements.flatMap((statement) => statement.support.knowledgeItemRefs));
+  const assertions = result.applicableAssertions.filter((assertion) => answerItemIds.has(assertion.revision));
+  const statements = result.documentaryStatements.filter((statement) => answerItemIds.has(statement.statementId));
+  const requestTokens = new Set(comparableScientificText(result.request.originalQuestion)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .split(/[^a-z0-9]+/u)
+    .filter((token) => token.length >= 3));
+  const providerLimitations = uniqueSorted([...new Set([
+    ...assertions.map((assertion) => assertion.providerId),
+    ...statements.map((statement) => statement.providerId),
+  ])].flatMap((providerId) => getKnowledgeProvider(providerId)?.limitations ?? []));
+  const relevantProviderLimitations = providerLimitations.filter((limitation) => {
+    if (limitation === "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW") return true;
+    if (statements.length && ["NARRATIVE_CORPUS", "NOT_ATOMIC_ASSERTIONS", "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED", "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED"].includes(limitation)) return true;
+    const tokens = comparableScientificText(`${limitation} ${humanize(limitation)}`)
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .split(/[^a-z0-9]+/u)
+      .filter((token) => token.length >= 3);
+    return tokens.some((token) => requestTokens.has(token));
+  });
+  return uniqueSorted([
+    ...assertions.flatMap((assertion) => [...assertion.limitations, ...assertion.applicabilityReasons]),
+    ...answerStatements.flatMap((statement) => statement.support.limitationRefs),
+    ...relevantProviderLimitations,
+  ]).map(humanize);
+};
 
 const fallbackAnswer = (result: KnowledgeResult) => {
   if (result.gaps.some((item) => item.scope === "AMBIGUOUS_KNOWN_CONCEPT")) return "Le terme demandé correspond à plusieurs sens scientifiques déjà gouvernés. Une précision est nécessaire avant d’interroger le corpus approprié ; aucun sens n’est choisi automatiquement.";
@@ -331,7 +364,7 @@ export const projectUnderstandResult = (result: KnowledgeResult, depth: Projecti
         const assertion = result.applicableAssertions.find((candidate) => candidate.revision === item.id);
         if (!assertion || !result.queryPlan.branches.find((branch) => branch.branchId === coverageItem.branchId)?.modality) return false;
         const modality = result.queryPlan.branches.find((branch) => branch.branchId === coverageItem.branchId)?.modality;
-        return assertion.modality === modality || (modality === "MRI" && ["MR", "IRM"].some((value) => assertion.modality?.includes(value)));
+        return Boolean(assertion.modality && modality && modalitiesAreCompatible(assertion.modality, modality));
       }).slice(0, depth === "EXPERT" ? 5 : 2).map((item) => item.text),
     })),
   } : null;
@@ -366,7 +399,7 @@ export const projectUnderstandResult = (result: KnowledgeResult, depth: Projecti
     coverage,
     comparison,
     clarifications: clarificationFor(result),
-    limitations: result.limitations.map(humanize).slice(0, depth === "EXPERT" ? 20 : depth === "SYNTHETIC" ? 4 : 10),
+    limitations: projectionLimitations(result, answerStatements).slice(0, depth === "EXPERT" ? 20 : depth === "SYNTHETIC" ? 4 : 10),
     gaps: [...result.ambiguities, ...result.controversies.map((item) => `Controverse conservée — ${item.explanation}`), ...result.gaps.map((item) => item.explanation)],
     sources: result.sources.map((source) => ({
       id: source.sourceId,

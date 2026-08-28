@@ -1,5 +1,5 @@
 import { logicalDigest, uniqueSorted } from "./canonical";
-import type { AdapterResult, CoverageMap, CoverageStatus, KnowledgeGap, KnowledgeRequest, KnowledgeResult, KnowledgeTrace, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict, RuntimeKnowledgeSynthesis, ScientificQuestionSpecificity } from "./types";
+import type { AdapterResult, CoverageMap, CoverageStatus, GovernedDocumentaryStatement, KnowledgeGap, KnowledgeRequest, KnowledgeResult, KnowledgeTrace, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict, RuntimeKnowledgeSynthesis, ScientificQuestionSpecificity } from "./types";
 
 const dedupeBy = <T>(values: T[], key: (value: T) => string) => [...new Map(values.map((value) => [key(value), value])).values()].sort((left, right) => key(left).localeCompare(key(right)));
 
@@ -13,17 +13,34 @@ export const createKnowledgeResult = (input: {
   specificity: ScientificQuestionSpecificity;
   applicableAssertions: RuntimeAssertion[];
   excludedAssertions: RuntimeAssertion[];
+  documentaryStatements: GovernedDocumentaryStatement[];
   candidateAssertions: RuntimeAssertion[];
   conflicts: RuntimeConflict[];
   gaps: KnowledgeGap[];
   synthesis: RuntimeKnowledgeSynthesis;
   trace: KnowledgeTrace;
 }): KnowledgeResult => {
-  const statements = dedupeBy(input.adapterResults.flatMap((item) => item.documentaryStatements), (item) => item.statementId);
-  const sources = dedupeBy(input.adapterResults.flatMap((item) => item.sources), (item) => item.sourceId);
-  const evidence = dedupeBy(input.adapterResults.flatMap((item) => item.evidenceLinks), (item) => item.evidenceId);
-  const limitations = uniqueSorted([...input.adapterResults.flatMap((item) => item.limitations), ...input.synthesis.limitations]);
-  const provenance = input.adapterResults.map((item) => ({ providerId: item.providerId, version: item.providerVersion, representationDigest: item.sourceRepresentationDigest })).sort((left, right) => left.providerId.localeCompare(right.providerId));
+  const statements = dedupeBy(input.documentaryStatements, (item) => item.statementId);
+  const applicableItemIds = new Set([
+    ...input.applicableAssertions.map((item) => item.revision),
+    ...statements.map((item) => item.statementId),
+  ]);
+  const contributingProviderIds = new Set([
+    ...input.applicableAssertions.map((item) => item.providerId),
+    ...statements.map((item) => item.providerId),
+  ]);
+  const evidence = dedupeBy(input.adapterResults.flatMap((item) => item.evidenceLinks)
+    .filter((item) => applicableItemIds.has(item.assertionId)), (item) => item.evidenceId);
+  const sourceIds = new Set([
+    ...evidence.map((item) => item.sourceId),
+    ...statements.map((item) => item.sourceId),
+  ]);
+  const sources = dedupeBy(input.adapterResults.flatMap((item) => item.sources)
+    .filter((item) => sourceIds.has(item.sourceId)), (item) => item.sourceId);
+  const limitations = uniqueSorted(input.synthesis.limitations);
+  const provenance = input.adapterResults.filter((item) => contributingProviderIds.has(item.providerId))
+    .map((item) => ({ providerId: item.providerId, version: item.providerVersion, representationDigest: item.sourceRepresentationDigest }))
+    .sort((left, right) => left.providerId.localeCompare(right.providerId));
   const logicalMaterial = {
     requestRef: input.request.requestId,
     queryPlanRef: input.queryPlan.queryPlanId,

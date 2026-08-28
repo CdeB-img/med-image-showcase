@@ -1,4 +1,5 @@
 import type { ApplicabilityState, GovernedDocumentaryStatement, KnowledgeRequest, RuntimeAssertion } from "./types";
+import { modalitiesAreCompatible } from "./modality";
 
 type ApplicabilityDecision = { state: ApplicabilityState; reasons: string[] };
 
@@ -16,7 +17,7 @@ export const evaluateAssertionApplicability = (request: KnowledgeRequest, assert
   const assertionModalities = assertion.modality ? [assertion.modality] : [];
   const requestedModalities = valuesFor(request, "modality");
   if (requestedModalities.length && assertionModalities.length) {
-    const compatible = requestedModalities.some((requested) => assertionModalities.some((actual) => actual === requested || (requested === "MRI" && actual === "MR") || (requested === "MRI" && actual.toLocaleLowerCase().includes("irm"))));
+    const compatible = requestedModalities.some((requested) => assertionModalities.some((actual) => modalitiesAreCompatible(actual, requested)));
     if (!compatible) return { state: "OUT_OF_VALIDITY_DOMAIN", reasons: [`Modalité de l’assertion (${assertionModalities.join(", ")}) incompatible avec la branche demandée (${requestedModalities.join(", ")}).`] };
   }
   const explicitIntervention = valuesFor(request, "intervention");

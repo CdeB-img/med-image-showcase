@@ -7,6 +7,7 @@ export type ExternalAssertionRecord = {
   status?: string;
   subjectEntityId?: string;
   objectEntityId?: string | null;
+  literalValue?: unknown;
   predicate?: string;
   statement?: { text?: string; subject?: unknown; predicate?: string; object?: unknown };
   facets?: {
@@ -83,7 +84,15 @@ export const baseAssertion = (assertion: ExternalAssertionRecord, providerId: st
   providerId,
   status: assertion.status === "CANDIDATE" ? "ASSERTION_CANDIDATE" : "OFFICIAL_EFFECTIVE",
   text: renderAtomicStatement(assertion),
-  atomicContent: assertion.statement,
+  atomicContent: typeof assertion.subjectEntityId === "string"
+    && typeof assertion.predicate === "string"
+    && typeof (assertion.objectEntityId ?? assertion.literalValue) === "string"
+    ? {
+      subject: assertion.subjectEntityId,
+      predicate: assertion.predicate,
+      object: assertion.objectEntityId ?? assertion.literalValue,
+    }
+    : assertion.statement,
   conceptIds: uniqueSorted(assertion.facets?.concepts ?? []),
   modality: assertion.facets?.modalities?.[0],
   context: assertion.context ?? {},

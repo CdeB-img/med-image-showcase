@@ -1,4 +1,6 @@
-import { logicalDigest, uniqueSorted } from "./canonical";
+import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical";
+import { modalitiesAreCompatible } from "./modality";
+import { structuredSemanticRelation } from "./relation-semantics";
 import type {
   CoverageStatus,
   GovernedDocumentaryStatement,
@@ -18,21 +20,51 @@ type SynthesisContext = {
   queryPlan: QueryPlan;
 };
 
-const semanticRelation = (value: unknown): RuntimeKnowledgeConclusion["semanticRelation"] => {
-  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
-  const record = value as Record<string, unknown>;
-  return typeof record.subject === "string"
-    && typeof record.predicate === "string"
-    && typeof record.object === "string"
-    ? { subject: record.subject, predicate: record.predicate, object: record.object }
-    : null;
-};
-
 const modalityTokens = (modality: string | undefined) => {
   if (modality === "MRI") return ["mr", "mri", "irm"];
   if (modality === "CT") return ["ct", "computed-tomography", "computed tomography"];
   if (modality === "PET") return ["pet", "tep"];
   return modality ? [modality.toLocaleLowerCase("fr-FR")] : [];
+};
+
+const STOP_WORDS = new Set([
+  "avec", "dans", "pour", "apres", "avant", "entre", "comme", "cette", "leurs", "quelle", "quelles", "role",
+  "the", "and", "with", "from", "that", "this", "after", "before", "into", "within", "using", "used",
+]);
+
+const semanticTokens = (value: string) => comparableScientificText(value)
+  .normalize("NFD")
+  .replace(/[\u0300-\u036f]/g, "")
+  .split(/[^a-z0-9]+/u)
+  .filter((token) => token.length >= 3 && !STOP_WORDS.has(token));
+
+const structuralRelevance = (
+  request: KnowledgeRequest,
+  context: SynthesisContext | undefined,
+  conclusion: RuntimeKnowledgeConclusion,
+  assertion: RuntimeAssertion | undefined,
+) => {
+  const requestedMaterial = [
+    request.originalQuestion,
+    ...request.relations,
+    ...(context?.queryPlan.resolvedConcepts.map((concept) => concept.preferredLabel) ?? []),
+    ...request.context.dimensions.filter((dimension) => dimension.state === "KNOWN").flatMap((dimension) => dimension.values),
+  ].join(" ");
+  const conclusionMaterial = [
+    conclusion.text,
+    conclusion.semanticRelation?.subject,
+    conclusion.semanticRelation?.predicate,
+    conclusion.semanticRelation?.object,
+  ].filter(Boolean).join(" ");
+  const requestedTokens = new Set(semanticTokens(requestedMaterial));
+  const lexicalOverlap = new Set(semanticTokens(conclusionMaterial).filter((token) => requestedTokens.has(token))).size;
+  const conceptSupport = context?.queryPlan.resolvedConcepts.filter((concept) => assertion && (
+    assertion.conceptIds.includes(concept.conceptId)
+    || (concept.providerConcepts[assertion.providerId] ?? []).some((providerConcept) => assertion.conceptIds.includes(providerConcept))
+  )).length ?? 0;
+  const requestedModalities = request.context.dimensions.find((dimension) => dimension.name === "modality")?.values ?? [];
+  const modalitySupport = assertion?.modality && requestedModalities.some((modality) => modalitiesAreCompatible(assertion.modality!, modality)) ? 1 : 0;
+  return conceptSupport * 100 + modalitySupport * 20 + lexicalOverlap;
 };
 
 const containsToken = (value: string, token: string) => new RegExp(`(?:^|[^a-z0-9])${token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(?:$|[^a-z0-9])`, "iu").test(value);
@@ -101,7 +133,7 @@ export const synthesizeKnowledge = (
       locator: assertion.locator,
       limitations: uniqueSorted(assertion.limitations),
       role: "SUPPORTING_CONTEXT",
-      semanticRelation: semanticRelation(assertion.atomicContent),
+      semanticRelation: structuredSemanticRelation(assertion.atomicContent),
     })),
     ...statements.map((statement): RuntimeKnowledgeConclusion => ({
       conclusionId: `conclusion:${logicalDigest(statement.statementId)}`,
@@ -119,9 +151,14 @@ export const synthesizeKnowledge = (
     })),
   ].sort((left, right) => left.assertionId.localeCompare(right.assertionId));
 
+  const assertionById = new Map(assertions.map((assertion) => [assertion.revision, assertion]));
   const directCandidates = request.requestType === "COMPARE"
     ? baseConclusions.filter((conclusion) => isCrossBranchComparison(conclusion, context))
-    : baseConclusions.filter((conclusion) => conclusion.itemKind === "ASSERTION" && conclusion.applicability === "APPLICABLE_EXACT").slice(0, 1);
+    : baseConclusions.filter((conclusion) => conclusion.itemKind === "ASSERTION")
+      .sort((left, right) => structuralRelevance(request, context, right, assertionById.get(right.assertionId))
+        - structuralRelevance(request, context, left, assertionById.get(left.assertionId))
+        || left.assertionId.localeCompare(right.assertionId))
+      .slice(0, 2);
   if (directCandidates.length === 0 && request.requestType !== "COMPARE" && baseConclusions.length > 0) directCandidates.push(baseConclusions[0]);
   const directIds = new Set(directCandidates.map((conclusion) => conclusion.conclusionId));
   const contextualLimitIds = new Set(baseConclusions.filter((conclusion) => !directIds.has(conclusion.conclusionId)
