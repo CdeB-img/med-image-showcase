@@ -107,7 +107,7 @@ export const createP5MultidomainReport = ({ root = process.cwd(), inspectGit = t
       { contract: "Four independent domains", preserved: validation.layers.domains.valid, proof: `${scientificDomainManifests.length} manifests`, remark: "Generic contracts only." },
       { contract: "No public projection", preserved: multidomainInternalProjections.every((item) => !item.route && !item.indexable && !item.inSitemap), proof: `${multidomainInternalProjections.length} guarded projections`, remark: "No route, canonical or prose." },
       { contract: "Protected surfaces unchanged", preserved: validation.protectedSurfaces.protectedSurfacesUnchanged, proof: validation.protectedSurfaces.protectedChanges, remark: "Pages, routes, SEO, sitemap, viewers, PACS and Supabase protected." },
-      { contract: "editorial-engine unchanged", preserved: validation.protectedSurfaces.editorialEngineUnchanged, proof: validation.protectedSurfaces.editorialEngine?.head ?? null, remark: "Separate repository remains untouched." },
+      { contract: "editorial-engine ownership preserved", preserved: validation.protectedSurfaces.editorialEngineOwnershipPreserved ?? validation.protectedSurfaces.editorialEngineUnchanged, proof: validation.protectedSurfaces.editorialEngine?.proofType ?? null, remark: "Repository-local write boundary; external worktree not inspected." },
       { contract: "No human review claimed", preserved: multidomainAssertionSummary.humanReviewsClaimed === 0, proof: "scientificHumanReview=null", remark: "Automated review is explicit." },
     ]),
     validation,

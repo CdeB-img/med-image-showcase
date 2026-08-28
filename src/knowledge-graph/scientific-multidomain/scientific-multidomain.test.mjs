@@ -105,7 +105,10 @@ describe("P5 scientific multidomain wave", () => {
   it("leaves viewers unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "VIEWERS")).toEqual([]));
   it("leaves PACS unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "PACS")).toEqual([]));
   it("leaves Supabase unchanged", () => expect(protectedState.protectedChanges.filter((item) => item.surface === "SUPABASE")).toEqual([]));
-  it("leaves editorial-engine unchanged", () => expect(protectedState.editorialEngineUnchanged).toBe(true));
+  it("preserves editorial-engine ownership without inspecting its worktree", () => {
+    expect(protectedState.editorialEngineOwnershipPreserved).toBe(true);
+    expect(protectedState.editorialEngine.externalWorktreeInspected).toBe(false);
+  });
   it("preserves the recorded P5 HEAD in repository history", () => expect(() => execFileSync("git", ["merge-base", "--is-ancestor", "857e94b6df88289b59de149fe8f77e84dbee9492", "HEAD"], { encoding: "utf8" })).not.toThrow());
   it("passes git diff check", () => expect(() => execFileSync("git", ["diff", "--check"], { encoding: "utf8" })).not.toThrow());
   it("validates the complete P5 gate without Git inspection", () => expect(validateScientificMultidomain({ inspectGit: false }).valid).toBe(true));

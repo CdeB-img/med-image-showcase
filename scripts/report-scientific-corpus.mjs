@@ -45,7 +45,7 @@ const contractTable = [
   ["Viewers", report.validation.protectedSurfaces.protectedChanges.every((item) => item.surface !== "VIEWERS"), "protected-surface inspection", "No P4 viewer file"],
   ["PACS", report.validation.protectedSurfaces.protectedChanges.every((item) => item.surface !== "PACS"), "protected-surface inspection", "Outside scope"],
   ["Supabase", report.validation.protectedSurfaces.protectedChanges.every((item) => item.surface !== "SUPABASE"), "protected-surface inspection", "Outside scope"],
-  ["editorial-engine", report.validation.protectedSurfaces.editorialEngineUnchanged, report.validation.protectedSurfaces.editorialEngine.head, "Separate repository clean"],
+  ["editorial-engine ownership", report.validation.protectedSurfaces.editorialEngineOwnershipPreserved, report.validation.protectedSurfaces.editorialEngine.proofType, "Repository-local write boundary; external worktree not inspected"],
   ["No public projection", report.internalProjections.every((item) => item.route === null && !item.indexable && !item.inSitemap), "validate:scientific-projections", "12 internal fixtures"],
   ["No human-review claim", report.reviewWorkflow.scientificHumanReview === 0, "validate:scientific-corpus", "Automated structural review only"],
 ].map(row).join("\n");

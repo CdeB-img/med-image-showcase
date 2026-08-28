@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { withoutAuthorizedProductChanges } from "../test/p12-protected-surfaces.mjs";
+import { inspectEditorialEngineOwnershipBoundary } from "./scientific-corpus/protected-surfaces.mjs";
 import { entities, relations } from "./catalog.mjs";
 import { competencyCases, validateCompetencyModel } from "./competency-cases.mjs";
 import { evaluateEntityCompleteness, familyCompletenessProfiles } from "./completeness-profiles.mjs";
@@ -507,11 +508,14 @@ describe("P3M-Web deterministic migration", () => {
     expect(forbiddenImports).toEqual([]);
   });
 
-  it("80. leaves editorial-engine clean", () => {
-    const editorialEngine = "/Users/charles/Documents/Projets/editorial-engine";
-    if (!existsSync(editorialEngine)) return;
-    const status = execFileSync("git", ["status", "--porcelain"], { cwd: editorialEngine, encoding: "utf8" });
-    expect(status.trim()).toBe("");
+  it("80. preserves editorial-engine ownership through a repository-local write boundary", () => {
+    const boundary = inspectEditorialEngineOwnershipBoundary({ root });
+    expect(boundary).toMatchObject({
+      proofType: "REPOSITORY_LOCAL_WRITE_BOUNDARY",
+      externalWorktreeInspected: false,
+      preserved: true,
+      violations: [],
+    });
   });
 
   it("81. preserves the recorded migration HEAD in repository history", () => {

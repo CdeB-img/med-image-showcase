@@ -58,7 +58,7 @@ export const createP10ScientificProductionReport = ({ bundle, validation } = {})
     { contract: "Logical rollback", preserved: bundle.rollbackDryRun.valid, proof: bundle.rollbackDryRun.restoredSnapshotDigest, note: "Dry-run only; execution retained." },
     { contract: "Human review honesty", preserved: selectedAssertions.every((item) => item.scientificHumanReview === null), proof: "0 human-reviewed assertions claimed", note: "Automated review types remain explicit." },
     { contract: "No public projection", preserved: bundle.protectedSurfaces.publicPagesChanged === 0, proof: "INTERNAL_ONLY", note: "No route, canonical, sitemap or rendering." },
-    { contract: "Protected product surfaces", preserved: validation.layers.protectedSurfaces.valid, proof: "validateProtectedScientificSurfaces", note: "Viewer, PACS, Supabase, Auth, Stripe and editorial-engine unchanged." },
+    { contract: "Protected product surfaces", preserved: validation.layers.protectedSurfaces.valid, proof: "validateProtectedScientificSurfaces", note: "Viewer, PACS, Supabase, Auth and Stripe remain protected; the editorial-engine ownership boundary is repository-local." },
   ]);
   const sections = freeze({
     gitInitial: { branch: "main", head: P10_GIT_SHA, originDelta: "0/0 at initial audit", uncommittedBaselinePreserved: true },

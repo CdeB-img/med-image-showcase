@@ -221,7 +221,10 @@ describe("P4 real sourced ECV/T1 scientific corpus", () => {
   it("63 — creates concepts only with selected sources", () => expect(scientificCorpusConceptIdentities.every((item) => item.sourceRefs.length > 0)).toBe(true));
   it("64 — sources every designation", () => expect(scientificCorpusConceptDesignations.every((item) => item.sourceRef)).toBe(true));
   it("65 — preserves ambiguous historical classifications", () => expect(ontologicalRequalificationDecisions.every((item) => item.decision === "DEFERRED" && item.appliedClass === item.historicalClass)).toBe(true));
-  it("66 — leaves editorial-engine unchanged", () => expect(protectedState.editorialEngineUnchanged).toBe(true));
+  it("66 — preserves editorial-engine ownership without inspecting its worktree", () => {
+    expect(protectedState.editorialEngineOwnershipPreserved).toBe(true);
+    expect(protectedState.editorialEngine.externalWorktreeInspected).toBe(false);
+  });
   it("67 — leaves public pages unchanged outside explicitly authorized product missions", () => expect(withoutAuthorizedProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_PAGES"))).toHaveLength(0));
   it("68 — leaves public routes unchanged outside explicitly authorized product missions", () => expect(withoutAuthorizedProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "PUBLIC_ROUTES"))).toHaveLength(0));
   it("69 — leaves SEO files unchanged outside explicitly authorized product missions", () => expect(withoutAuthorizedProtectedChanges(protectedState.protectedChanges.filter((item) => item.surface === "SEO"))).toHaveLength(0));

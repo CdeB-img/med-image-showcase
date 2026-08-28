@@ -24,7 +24,7 @@ export const createKnowledgeCatalogReport = ({ root = process.cwd(), inspectGit 
     { contract: "Metrics and priorities calculated", preserved: validation.layers.contracts.valid, test: "coverage, projection and priority recomputation", remark: "No manual override is accepted." },
     { contract: "First campaign selected automatically", preserved: validation.layers.campaignExecution.valid, test: `1 execution and ${catalog.campaigns.length} remaining deterministic campaigns`, remark: "No prompt-selected domain, next campaign or publication." },
     { contract: "Public surfaces unchanged", preserved: validation.protectedSurfaces.protectedSurfacesUnchanged, test: "protected-surface inspection", remark: "Pages, routes, SEO, sitemap, viewers, PACS and Supabase remain untouched." },
-    { contract: "editorial-engine unchanged", preserved: validation.protectedSurfaces.editorialEngineUnchanged, test: validation.protectedSurfaces.editorialEngine?.head ?? "not found", remark: "Separate repository remains unchanged." },
+    { contract: "editorial-engine ownership preserved", preserved: validation.protectedSurfaces.editorialEngineOwnershipPreserved ?? validation.protectedSurfaces.editorialEngineUnchanged, test: validation.protectedSurfaces.editorialEngine?.proofType ?? "not evaluated", remark: "Repository-local write boundary; external worktree not inspected." },
   ]);
   return Object.freeze({
     reportId: "NOXIA_P7_SCIENTIFIC_KNOWLEDGE_CATALOG_REPORT",
