@@ -5,7 +5,7 @@ import { resolveRegulatoryRequirements } from "@/features/regulatory-resolution"
 import { phrcStage2Input } from "@/features/regulatory-resolution/__tests__/fixtures";
 import type { RegulatoryResolutionResult } from "@/features/regulatory-resolution/types";
 import { createResearchProjectConstructionSession, decideProjectGate, proposeEndpointRole, proposeStudyDesign } from "@/features/research-project-construction";
-import { makeFrozenImagingResult, makeProjectInput } from "@/features/research-project-construction/__tests__/fixtures";
+import { makeProjectInput, readGovernedImagingReferenceResult } from "@/features/research-project-construction/__tests__/fixtures";
 import type { ResearchProjectConstructionInput, ResearchProjectConstructionSession, ResearchProjectDesignResult } from "@/features/research-project-construction/types";
 import { CLINICAL_STUDY_TEMPLATE, composeStudyTemplateInstance } from "@/features/study-template";
 import type { DocumentProjectionRequest } from "../types";
@@ -31,7 +31,7 @@ export const makeAuthorizedImagingProject = () => authorizeProject(makeProjectIn
   outcomes: ["association bornée entre ECV IRM et espace extracellulaire histologique"],
   population: ["sous-ensemble sélectionné de validation par transplantation cardiaque décrit par la source"],
   pathology: ["UNKNOWN"],
-  imagingResult: makeFrozenImagingResult(),
+  imagingResult: readGovernedImagingReferenceResult(),
   imagingStatus: "FROZEN_BY_HUMAN",
   timings: ["UNKNOWN_EXPLICITLY_RECORDED"],
 }));

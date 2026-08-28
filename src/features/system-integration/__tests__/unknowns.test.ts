@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { projectDocument } from "@/features/document-projection";
 import { authorizeProject } from "@/features/document-projection/__tests__/fixtures";
-import { RC_TEST_02_REFERENCE_IDS, readGovernedFrozenImagingResult } from "@/features/imaging-study-designer/__tests__/governed-reference-fixtures";
+import { RC_TEST_02_REFERENCE_IDS, readGovernedImagingReferenceResult } from "@/features/imaging-study-designer/__tests__/governed-reference-fixtures";
 import { makeProjectInput } from "@/features/research-project-construction/__tests__/fixtures";
 import { auditUnknownEquipmentProjection } from "../audit";
 
 describe("SYS-001 — unknowns", () => {
   it("CAS E — UNKNOWN reste distinct de NOT_APPLICABLE, INCOMPATIBLE et READY", () => {
-    const imaging = readGovernedFrozenImagingResult(RC_TEST_02_REFERENCE_IDS.narrowMrEcvHistology);
+    const imaging = readGovernedImagingReferenceResult(RC_TEST_02_REFERENCE_IDS.narrowMrEcvHistology);
     const frozenImagingBeforeDownstreamUse = structuredClone(imaging);
     expect(imaging.projectConstructionHandoff).toMatchObject({ status: "FROZEN_BY_HUMAN", equipmentCompatibilityStatus: "UNKNOWN", executableProtocolReadiness: "EXECUTABLE_PROTOCOL_NOT_READY" });
     expect(imaging.equipmentAssessment.every((item) => item.availability === "UNKNOWN" && item.compatibility === "UNKNOWN_COMPATIBILITY")).toBe(true);

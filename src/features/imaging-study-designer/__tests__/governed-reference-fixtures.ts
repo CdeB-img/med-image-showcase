@@ -41,16 +41,20 @@ type ReferenceSpec = {
 export type GovernedImagingReferenceMetadata = {
   fixtureId: RcTest02ReferenceId;
   fixtureSchemaVersion: "1.0.0";
+  fixtureKind: "HUMAN_APPROVED_GOVERNED_TEST_REFERENCE";
+  fixtureProducer: "TEST_HARNESS";
   scientificScope: string;
-  sourceOwner: "IMAGING";
-  sourceOwnerVersion: typeof IMAGING_STUDY_DESIGNER_VERSION;
+  contractOwner: "IMAGING";
+  contractOwnerVersion: typeof IMAGING_STUDY_DESIGNER_VERSION;
   sourceResultId: string;
+  sourceResultIdKind: "CONTRACT_SHAPED_REFERENCE_RESULT_ID";
+  runtimeOwnerExecuted: false;
+  runtimeOwnerResultId: null;
   sourceCommit: "0852fb2f0b49d9132851559ce5591b89664dd35b";
   projectVersion: "RC-TEST-02-PROJECT-REFERENCE@1.0.0";
   knowledgeVersion: string;
   stVersion: "UNKNOWN_NOT_RUNTIME_BOUND";
-  imagingVersion: typeof IMAGING_STUDY_DESIGNER_VERSION;
-  humanDecisionId: string;
+  humanReferenceDecisionId: string;
   humanDecisionProvenance: "HUMAN_APPROVED_RC_TEST_02_REFERENCE_DECISION_2026_08_28";
   contradictionStatus: "NONE_IN_POSITIVE_REFERENCE_NEGATIVE_REFERENCE_PRESERVED_SEPARATELY";
   limitations: string[];
@@ -67,6 +71,8 @@ const TRANSPLANT_SOURCE_ID = "noxia:radiology:source:pubmed:23553570:revision:2"
 const TRANSPLANT_ASSERTION_ID = "noxia:radiology:scientific-assertion:ecv-t1:mr-ecv-correlates-histology";
 const FABRY_SOURCE_ID = "PD002:ReasoningBook:1.0";
 const FABRY_SOURCE_SHA = "750ea6dac7daf94fab303166457463862b3810131d5801830b5318c5c9d880e7";
+
+const governedReferenceResultId = (referenceId: RcTest02ReferenceId) => `governed-imaging-reference-result:${referenceId}:v${FIXTURE_VERSION}`;
 
 const sharedUnknowns = [
   "FIELD_STRENGTH_UNKNOWN",
@@ -341,7 +347,7 @@ const buildResult = (spec: ReferenceSpec): ImagingDesignResult => {
   const analysisId = `${spec.referenceId}:ANALYSIS`;
   const variableId = `${spec.referenceId}:VARIABLE`;
   const endpointId = `${spec.referenceId}:ENDPOINT-CONTRIBUTION`;
-  const resultId = `imaging-design-result:${spec.referenceId}:v${FIXTURE_VERSION}`;
+  const resultId = governedReferenceResultId(spec.referenceId);
   const resultDigest = logicalDigest({
     fixtureVersion: FIXTURE_VERSION,
     referenceId: spec.referenceId,
@@ -637,20 +643,24 @@ const buildResult = (spec: ReferenceSpec): ImagingDesignResult => {
 
 const metadataFor = (spec: ReferenceSpec): GovernedImagingReferenceMetadata => {
   const decision = humanDecision(spec);
-  const sourceResultId = `imaging-design-result:${spec.referenceId}:v${FIXTURE_VERSION}`;
+  const sourceResultId = governedReferenceResultId(spec.referenceId);
   const material = {
     fixtureId: spec.referenceId,
     fixtureSchemaVersion: FIXTURE_VERSION,
+    fixtureKind: "HUMAN_APPROVED_GOVERNED_TEST_REFERENCE",
+    fixtureProducer: "TEST_HARNESS",
     scientificScope: spec.scientificScope,
-    sourceOwner: "IMAGING",
-    sourceOwnerVersion: IMAGING_STUDY_DESIGNER_VERSION,
+    contractOwner: "IMAGING",
+    contractOwnerVersion: IMAGING_STUDY_DESIGNER_VERSION,
     sourceResultId,
+    sourceResultIdKind: "CONTRACT_SHAPED_REFERENCE_RESULT_ID",
+    runtimeOwnerExecuted: false,
+    runtimeOwnerResultId: null,
     sourceCommit: SOURCE_COMMIT,
     projectVersion: PROJECT_VERSION,
     knowledgeVersion: spec.knowledgeVersion,
     stVersion: "UNKNOWN_NOT_RUNTIME_BOUND",
-    imagingVersion: IMAGING_STUDY_DESIGNER_VERSION,
-    humanDecisionId: decision.decisionId,
+    humanReferenceDecisionId: decision.decisionId,
     humanDecisionProvenance: HUMAN_PROVENANCE,
     contradictionStatus: "NONE_IN_POSITIVE_REFERENCE_NEGATIVE_REFERENCE_PRESERVED_SEPARATELY",
     limitations: spec.limitations,
@@ -669,17 +679,27 @@ export const RC_TEST_02_GOVERNED_REFERENCE_REGISTRY = deepFreeze(Object.fromEntr
 
 export const readGovernedImagingInput = (referenceId: RcTest02ReferenceId): ImagingDesignInput => deepFreeze(structuredClone(frozenInputs[referenceId])) as ImagingDesignInput;
 
-export const readGovernedFrozenImagingResult = (referenceId: RcTest02ReferenceId): ImagingDesignResult => deepFreeze(structuredClone(frozenResults[referenceId])) as ImagingDesignResult;
+export const readGovernedImagingReferenceResult = (referenceId: RcTest02ReferenceId): ImagingDesignResult => deepFreeze(structuredClone(frozenResults[referenceId])) as ImagingDesignResult;
 
 export const verifyGovernedImagingReference = (referenceId: RcTest02ReferenceId) => {
   const metadata = RC_TEST_02_GOVERNED_REFERENCE_REGISTRY[referenceId];
   const recomputed = metadataFor(specs[referenceId]);
-  const result = readGovernedFrozenImagingResult(referenceId);
+  const result = readGovernedImagingReferenceResult(referenceId);
+  const validatedResult = parseImagingDesignResult(result);
   return {
     metadataDigestValid: recomputed.digest === metadata.digest,
-    sourceResultIdentityValid: result.resultId === metadata.sourceResultId,
-    ownerVersionValid: result.contractVersion === metadata.imagingVersion,
-    humanDecisionIdentityValid: result.projectConstructionHandoff.humanDecision.decisionRecordId === metadata.humanDecisionId,
+    referenceResultIdentityValid: result.resultId === metadata.sourceResultId
+      && metadata.sourceResultIdKind === "CONTRACT_SHAPED_REFERENCE_RESULT_ID"
+      && result.resultId.startsWith("governed-imaging-reference-result:"),
+    contractOwnerVersionValid: result.contractVersion === metadata.contractOwnerVersion
+      && result.provenance.engineVersion === metadata.contractOwnerVersion,
+    fixtureProvenanceValid: metadata.fixtureKind === "HUMAN_APPROVED_GOVERNED_TEST_REFERENCE"
+      && metadata.fixtureProducer === "TEST_HARNESS"
+      && metadata.contractOwner === "IMAGING",
+    runtimeNonExecutionExplicit: metadata.runtimeOwnerExecuted === false
+      && metadata.runtimeOwnerResultId === null,
+    humanDecisionIdentityValid: result.projectConstructionHandoff.humanDecision.decisionRecordId === metadata.humanReferenceDecisionId,
+    contractValidationValid: validatedResult.resultId === result.resultId,
     frozenConceptualHandoffValid: result.projectConstructionHandoff.status === "FROZEN_BY_HUMAN"
       && result.projectConstructionHandoff.executableProtocolReadiness === "EXECUTABLE_PROTOCOL_NOT_READY",
     contradictionBoundaryValid: result.contradictions.length === 0

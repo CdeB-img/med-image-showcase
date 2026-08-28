@@ -1,7 +1,7 @@
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import {
   RC_TEST_02_REFERENCE_IDS,
-  readGovernedFrozenImagingResult,
+  readGovernedImagingReferenceResult as readGovernedImagingReferenceResultFixture,
   type RcTest02ReferenceId,
 } from "@/features/imaging-study-designer/__tests__/governed-reference-fixtures";
 import type { ImagingDesignResult } from "@/features/imaging-study-designer/types";
@@ -92,6 +92,6 @@ export const makeProjectInput = (options: ProjectFixtureOptions = {}): ResearchP
   };
 };
 
-export const makeFrozenImagingResult = (
+export const readGovernedImagingReferenceResult = (
   referenceId: RcTest02ReferenceId = RC_TEST_02_REFERENCE_IDS.narrowMrEcvHistology,
-): ImagingDesignResult => readGovernedFrozenImagingResult(referenceId);
+): ImagingDesignResult => readGovernedImagingReferenceResultFixture(referenceId);

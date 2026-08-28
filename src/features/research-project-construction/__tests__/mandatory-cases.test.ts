@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { RC_TEST_02_REFERENCE_IDS } from "@/features/imaging-study-designer/__tests__/governed-reference-fixtures";
 import { executeResearchProjectConstruction } from "../engine";
-import { makeFrozenImagingResult, makeProjectInput } from "./fixtures";
+import { makeProjectInput, readGovernedImagingReferenceResult } from "./fixtures";
 
 describe("PRJ-001 — dix cas obligatoires", () => {
   it("1. construit un candidat Fabry longitudinal avec handoff IMG gelé sans calcul de puissance", () => {
-    const imaging = makeFrozenImagingResult(RC_TEST_02_REFERENCE_IDS.fabryLongitudinalEcv);
+    const imaging = readGovernedImagingReferenceResult(RC_TEST_02_REFERENCE_IDS.fabryLongitudinalEcv);
     const result = executeResearchProjectConstruction(makeProjectInput({
       question: "Chez les adultes atteints de maladie de Fabry, comment l’ECV évolue-t-il longitudinalement en IRM cardiaque ?",
       outcomes: ["évolution longitudinale de l’ECV"],

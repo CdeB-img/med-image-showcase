@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { executeResearchProjectConstruction } from "@/features/research-project-construction/engine";
 import { makeProjectInput } from "@/features/research-project-construction/__tests__/fixtures";
 import {
@@ -9,16 +9,27 @@ import {
   requestImagingChange,
 } from "../session";
 import type { ImagingDesignInput, ImagingDesignSession } from "../types";
+import * as imagingRuntime from "../engine";
 import { makeImagingInput, withInput } from "./fixtures";
 import {
   RC_TEST_02_GOVERNED_REFERENCE_REGISTRY,
   RC_TEST_02_REFERENCE_IDS,
-  readGovernedFrozenImagingResult,
+  readGovernedImagingReferenceResult,
   readGovernedImagingInput,
   verifyGovernedImagingReference,
 } from "./governed-reference-fixtures";
 
 const LIVE_SYNTHETIC_HAEMATOCRIT_CONTRADICTION = "noxia:radiology:contradiction:ecv-t1:synthetic-hematocrit-transferability:p4r:CONTEXTUAL_DIFFERENCE:The findings should not be collapsed into one universal conclusion. They differ materially in field strength, local model and validation context.";
+const EXPECTED_REFERENCE_RESULT_DIGESTS = {
+  [RC_TEST_02_REFERENCE_IDS.narrowMrEcvHistology]: "ke1-839135591d6bd0e5",
+  [RC_TEST_02_REFERENCE_IDS.multicenterPartialEquipment]: "ke1-570216cdc8989091",
+  [RC_TEST_02_REFERENCE_IDS.fabryLongitudinalEcv]: "ke1-4e766b0981178fed",
+} as const;
+const EXPECTED_PROVENANCE_METADATA_DIGESTS = {
+  [RC_TEST_02_REFERENCE_IDS.narrowMrEcvHistology]: "ke1-90d0740909260ea5",
+  [RC_TEST_02_REFERENCE_IDS.multicenterPartialEquipment]: "ke1-76c28ccf9ea3a9cb",
+  [RC_TEST_02_REFERENCE_IDS.fabryLongitudinalEcv]: "ke1-2d945663c370ed9f",
+} as const;
 
 const freezeProjectHandoff = (input: ImagingDesignInput): ImagingDesignSession => {
   let session = createImagingDesignSession(input);
@@ -166,14 +177,34 @@ describe("IMG-001B — fermeture du handoff Imaging vers Research Project", () =
   });
 
   it("relit les références gouvernées avec une identité, un digest et une immutabilité stables", () => {
+    const runtimeExecution = vi.spyOn(imagingRuntime, "executeImagingStudyDesigner");
     Object.values(RC_TEST_02_REFERENCE_IDS).forEach((referenceId) => {
-      const first = readGovernedFrozenImagingResult(referenceId);
-      const second = readGovernedFrozenImagingResult(referenceId);
+      const metadata = RC_TEST_02_GOVERNED_REFERENCE_REGISTRY[referenceId];
+      const first = readGovernedImagingReferenceResult(referenceId);
+      const second = readGovernedImagingReferenceResult(referenceId);
       expect(first).toEqual(second);
       expect(first).not.toBe(second);
       expect(Object.isFrozen(first)).toBe(true);
-      expect(first.resultId).toBe(RC_TEST_02_GOVERNED_REFERENCE_REGISTRY[referenceId].sourceResultId);
+      expect(metadata).toMatchObject({
+        fixtureKind: "HUMAN_APPROVED_GOVERNED_TEST_REFERENCE",
+        fixtureProducer: "TEST_HARNESS",
+        contractOwner: "IMAGING",
+        contractOwnerVersion: "1.2.1",
+        sourceResultIdKind: "CONTRACT_SHAPED_REFERENCE_RESULT_ID",
+        runtimeOwnerExecuted: false,
+        runtimeOwnerResultId: null,
+        humanReferenceDecisionId: `human-decision:rc-test-02:${referenceId}:2026-08-28`,
+        createdFrom: "HUMAN_APPROVED_GOVERNED_REFERENCE_SPECIFICATION",
+        sourceCommit: "0852fb2f0b49d9132851559ce5591b89664dd35b",
+      });
+      expect(first.resultId).toBe(metadata.sourceResultId);
+      expect(first.resultId).toMatch(/^governed-imaging-reference-result:/);
+      expect(first.resultDigest).toBe(EXPECTED_REFERENCE_RESULT_DIGESTS[referenceId]);
+      expect(metadata.digest).toBe(EXPECTED_PROVENANCE_METADATA_DIGESTS[referenceId]);
+      expect(first.provenance.engineVersion).toBe(metadata.contractOwnerVersion);
       expect(Object.values(verifyGovernedImagingReference(referenceId)).every(Boolean)).toBe(true);
     });
+    expect(runtimeExecution).not.toHaveBeenCalled();
+    runtimeExecution.mockRestore();
   });
 });
