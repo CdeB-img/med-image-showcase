@@ -9,7 +9,11 @@ describe("IMG-001 — dix cas produit obligatoires", () => {
     expect(result.phenomena.map((item) => item.label)).toContain("fibrose myocardique");
     expect(result.biomarkerCandidates.map((item) => item.label)).toEqual(expect.arrayContaining(["ECV", "T1 natif"]));
     expect(result.graph.edges.some((item) => item.relation === "APPROXIMATES")).toBe(true);
-    expect(JSON.stringify(result.acquisitionStrategies)).not.toMatch(/MOLLI|SASHA|séquence de type/i);
+    expect(result.acquisitionStrategies.flatMap((item) => item.level2.dependencies)).toEqual(expect.arrayContaining([
+      "noxia:radiology:acquisition-method:molli",
+      "noxia:radiology:acquisition-method:sasha",
+    ]));
+    expect(result.acquisitionStrategies.every((item) => item.level3.status === "NOT_GENERATABLE_WITH_CURRENT_EXECUTABLE_KNOWLEDGE")).toBe(true);
   });
 
   it("CAS 2 — IRM et CT restent deux branches pour la même lésion myocardique", () => {
@@ -23,7 +27,10 @@ describe("IMG-001 — dix cas produit obligatoires", () => {
     const result = executeImagingStudyDesigner(makeImagingInput({ question: "Examiner le no-reflow après reperfusion et stenting.", terms: ["no-reflow", "reperfusion", "stenting"], phenomena: ["no-reflow"], equipment: [] }));
     expect(result.phenomena.map((item) => item.label)).toContain("no-reflow");
     expect(result.biomarkerCandidates).toHaveLength(0);
-    expect(result.modalityCandidates).toHaveLength(0);
+    expect(result.modalityCandidates).toEqual([
+      expect.objectContaining({ label: "IRM", biomarkerIds: [], role: "CANDIDATE", reviewState: "PENDING" }),
+    ]);
+    expect(result.acquisitionStrategies).toHaveLength(0);
     expect(result.status).toBe("RETURN_TO_SCIENTIFIC_THINKING");
     expect(result.missingInformation.length).toBeGreaterThan(0);
   });

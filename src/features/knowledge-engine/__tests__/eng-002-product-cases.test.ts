@@ -50,12 +50,16 @@ describe("ENG-002 — 12 cas produit supplémentaires", () => {
     expect(determineCoverage(result.queryPlan, unavailable, [], 0, 0, [])).toBe("SOURCE_UNAVAILABLE");
   });
 
-  it("14 — conserve un provider présent mais exclut ses assertions au contexte incompatible", () => {
+  it("14 — conserve un provider présent et borne ses assertions sur une dimension SOFT", () => {
     const result = executeKnowledgeEngine({ originalQuestion: "Comparer le T1 mapping et l’ECV dans la maladie de Fabry.", context: { pathology: "FABRY_DISEASE" } });
     expect(result.providerExecutions.find((item) => item.providerId === "p4r-ecv-t1")?.included).toBe(true);
-    expect(result.excludedAssertions.length).toBeGreaterThan(0);
-    expect(result.coverageStatus).toBe("PARTIAL");
-    expect(result.coverageMap.items.some((item) => item.status === "PARTIAL_COVERAGE")).toBe(true);
+    expect(result.excludedAssertions).toHaveLength(0);
+    expect(result.applicableAssertions.length).toBeGreaterThan(0);
+    expect(result.applicableAssertions.some((item) => item.applicability === "APPLICABLE_WITH_LIMITATIONS")).toBe(true);
+    expect(result.limitations.length).toBeGreaterThan(0);
+    expect(result.coverageStatus).toBe("SUPPORTED");
+    expect(result.coverageMap.items.some((item) => item.resultCount > 0)).toBe(true);
+    expect(result.coverageMap.items.some((item) => item.status === "INCOMPATIBLE_CONTEXT")).toBe(false);
   });
 
   it("15 — transforme une question très générale en clarification utile", () => {

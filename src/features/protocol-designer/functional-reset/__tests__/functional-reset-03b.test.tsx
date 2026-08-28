@@ -285,7 +285,7 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     await createProjectInUi();
     expect(screen.getAllByRole("textbox")).toHaveLength(1);
     expect(screen.queryByRole("button", { name: /Continuer/i })).toBeNull();
-    expect(screen.getByLabelText("Votre message")).toHaveAttribute("placeholder", "Ajouter ou modifier un élément du projet…");
+    expect(screen.getByLabelText("Votre message")).toHaveAttribute("placeholder", "Décrivez le projet de recherche que vous souhaitez construire.");
   });
 
   it("FR03B-C11 — deterministic fallback works without a wording LLM", () => {

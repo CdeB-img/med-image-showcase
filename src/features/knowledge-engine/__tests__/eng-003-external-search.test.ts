@@ -271,11 +271,14 @@ describe("ENG-003 — cinq cas scientifiques obligatoires", () => {
 
   it("2 — no-reflow après stenting conserve le terme spécifique", async () => {
     const source = parsedSource({ pmid: "42000003", title: "No-reflow after stenting", abstractSections: [{ label: "CONCLUSIONS", text: "No-reflow was evaluated after coronary stenting and reperfusion." }], abstractText: "No-reflow was evaluated after coronary stenting and reperfusion." });
-    const { provider } = await completeWith("Comprendre le no-reflow après stenting et reperfusion.", [source]);
-    const query = provider.plans[0].branches[0].query;
-    expect(query).toContain('"no-reflow phenomenon"[Title/Abstract]');
-    expect(query).toContain('"stenting"[Title/Abstract]');
-    expect(query).not.toContain("cardiovascular");
+    const { internal, mixed, provider } = await completeWith("Comprendre le no-reflow après stenting et reperfusion.", [source]);
+    expect(internal.coverageStatus).toBe("SUPPORTED");
+    expect(internal.resolvedConcepts.map((item) => item.conceptId)).toEqual(expect.arrayContaining(["phenomenon:no-reflow", "intervention:stenting"]));
+    expect(mixed.externalEvidence?.decision).toMatchObject({ state: "INTERNAL_ONLY", authorized: false });
+    expect(mixed.externalEvidence?.queryPlan).toBeNull();
+    expect(provider.calls).toBe(0);
+    expect(provider.plans).toHaveLength(0);
+    expect(mixed.trace.privacy.externalCallMade).toBe(false);
   });
 
   it("3 — Fourier en IRM utilise une source candidate et aucun souvenir LLM", async () => {

@@ -248,8 +248,16 @@ describe("W1-IMAGING-01 — product Scientific Thinking → Imaging handoff", ()
     expect(gapImagingInvocation.result?.gaps).toEqual(expect.arrayContaining(gapKnowledgeResult.gaps.map((item) => item.code)));
   });
   it("W1IMG01-17 preserves ST alternatives", () => {
-    expect(stInvocation.result?.nativePayload?.hypotheses.some((item) => item.kind === "NULL_OR_COMPETING")).toBe(true);
-    expect(imagingNativeOutput.hypotheses.some((item) => item.kind === "NULL_OR_COMPETING")).toBe(true);
+    const stAlternatives = stInvocation.result?.nativePayload?.hypotheses.filter((item) => item.kind === "ALTERNATIVE") ?? [];
+    const imagingAlternatives = imagingNativeOutput.hypotheses.filter((item) => item.kind === "ALTERNATIVE");
+    expect(stAlternatives.length).toBeGreaterThanOrEqual(2);
+    expect(new Set(stAlternatives.map((item) => item.hypothesisId)).size).toBe(stAlternatives.length);
+    expect(new Set(stAlternatives.map((item) => item.text)).size).toBe(stAlternatives.length);
+    expect(imagingAlternatives.map((item) => ({ hypothesisId: item.hypothesisId, text: item.text, kind: item.kind }))).toEqual(
+      stAlternatives.map((item) => ({ hypothesisId: item.hypothesisId, text: item.text, kind: item.kind })),
+    );
+    expect(stAlternatives.every((item) => item.reviewState === "PENDING")).toBe(true);
+    expect(imagingAlternatives.every((item) => item.reviewState === "PENDING")).toBe(true);
   });
   it("W1IMG01-18 does not silently choose an ST branch", () => {
     expect(imagingNativeOutput.hypotheses.every((item) => item.reviewState === "PENDING")).toBe(true);
