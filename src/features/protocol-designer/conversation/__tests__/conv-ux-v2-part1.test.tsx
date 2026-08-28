@@ -6,7 +6,7 @@ import type { ScientificInterpretationContributionEnvelope } from "@/features/sc
 import { projectScientificContributionToV1 } from "@/features/scientific-interpretation/v1-compatibility";
 import { createProtocolDesignerWorkspaceHandoff } from "@/features/protocol-designer/intake/workspace-handoff";
 import { answerProjectQuestion, createResearchProjectConstructionSession } from "@/features/research-project-construction";
-import { makeFrozenImagingResult, makeProjectInput } from "@/features/research-project-construction/__tests__/fixtures";
+import { makeProjectInput } from "@/features/research-project-construction/__tests__/fixtures";
 import { buildQueryNavigationProductProjection } from "@/features/query-navigation/product";
 import ConversationalProtocolDesignerShell from "../ConversationalProtocolDesignerShell";
 import ConversationTimeline from "../ConversationTimeline";
@@ -316,7 +316,6 @@ describe("CONV-UX-V2-01 — continuous scientific conversation", () => {
   });
 
   it("COLCHICINE-E2E closes response → SI → Project owner → QRY in one conversation", () => {
-    const imaging = makeFrozenImagingResult();
     const initialProject = createResearchProjectConstructionSession(makeProjectInput({
       question: USER_TEXT,
       outcomes: [],
@@ -326,9 +325,11 @@ describe("CONV-UX-V2-01 — continuous scientific conversation", () => {
       interventions: [],
       objectives: false,
       hypotheses: false,
-      imagingResult: imaging,
-      imagingStatus: "FROZEN_BY_HUMAN",
+      imagingResult: null,
+      imagingStatus: "REQUIRED_BUT_NOT_READY",
     }));
+    expect(initialProject.result.imagingContribution).toMatchObject({ applicability: "REQUIRED_BUT_NOT_READY", resultRef: null });
+    expect(initialProject.result.refusal).toMatchObject({ code: "IMAGING_HANDOFF_NOT_READY" });
     const admittedValidationGate = [{ gateId: "V1_READY", status: "ALLOWED" as const, runRefs: ["validation-run:colchicine"], findingRefs: [], reviewRequestRefs: [], affectedBranchRefs: ["project:v1-readiness"], owner: "VAL-001", reason: "Validation fixture admise pour isoler le corridor conversationnel." }];
     const navigationSourceProject = { ...initialProject.result, localReadiness: [], projectionReadiness: [], missingInformation: [], contradictions: [], dependencies: [] };
     const initialSelection = buildQueryNavigationProductProjection(navigationSourceProject, undefined, null, admittedValidationGate);

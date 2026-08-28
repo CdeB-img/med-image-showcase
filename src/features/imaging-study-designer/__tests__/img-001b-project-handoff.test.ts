@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { executeResearchProjectConstruction } from "@/features/research-project-construction/engine";
 import { makeProjectInput } from "@/features/research-project-construction/__tests__/fixtures";
 import {
+  answerImagingQuestion,
   createImagingDesignSession,
   decideImagingChange,
   decideImagingGate,
@@ -9,9 +10,23 @@ import {
 } from "../session";
 import type { ImagingDesignInput, ImagingDesignSession } from "../types";
 import { makeImagingInput, withInput } from "./fixtures";
+import {
+  RC_TEST_02_GOVERNED_REFERENCE_REGISTRY,
+  RC_TEST_02_REFERENCE_IDS,
+  readGovernedFrozenImagingResult,
+  readGovernedImagingInput,
+  verifyGovernedImagingReference,
+} from "./governed-reference-fixtures";
+
+const LIVE_SYNTHETIC_HAEMATOCRIT_CONTRADICTION = "noxia:radiology:contradiction:ecv-t1:synthetic-hematocrit-transferability:p4r:CONTEXTUAL_DIFFERENCE:The findings should not be collapsed into one universal conclusion. They differ materially in field strength, local model and validation context.";
 
 const freezeProjectHandoff = (input: ImagingDesignInput): ImagingDesignSession => {
   let session = createImagingDesignSession(input);
+  for (let index = 0; index < 20; index += 1) {
+    const question = session.result.adaptiveQuestions.find((item) => !item.answeredValue);
+    if (!question) break;
+    session = answerImagingQuestion(session, question.questionId, "UNKNOWN_EXPLICITLY_RECORDED");
+  }
   for (let index = 0; index < 30; index += 1) {
     const gate = session.result.decisionsRequired.find((item) => item.status === "PENDING");
     if (!gate) break;
@@ -22,7 +37,24 @@ const freezeProjectHandoff = (input: ImagingDesignInput): ImagingDesignSession =
   return session;
 };
 
-const strategyInput = (patch: Partial<ImagingDesignInput> = {}) => withInput(makeImagingInput({ timings: ["temps méthodologique déclaré"] }), patch);
+const strategyInput = (patch: Partial<ImagingDesignInput> = {}) => withInput(
+  readGovernedImagingInput(RC_TEST_02_REFERENCE_IDS.narrowMrEcvHistology),
+  patch,
+);
+
+const declaredSyntheticEquipment = (): ImagingDesignInput["declaredEquipment"] => [{
+  equipmentId: "RC-TEST-02:DECLARED-SYNTHETIC-EQUIPMENT",
+  siteLabel: "Site synthétique déclaré",
+  modality: "IRM",
+  manufacturer: "SYNTHETIC_TEST_VALUE",
+  model: "SYNTHETIC_TEST_VALUE",
+  fieldStrength: null,
+  softwareVersion: "SYNTHETIC_TEST_VALUE",
+  options: [],
+  availability: "DECLARED_AVAILABLE",
+  period: null,
+  provenanceRef: "HUMAN_APPROVED_SYNTHETIC_TEST_CONTEXT",
+}];
 
 describe("IMG-001B — fermeture du handoff Imaging vers Research Project", () => {
   it("autorise un handoff de projet IRM avec équipement inconnu sans promouvoir sa compatibilité", () => {
@@ -45,16 +77,14 @@ describe("IMG-001B — fermeture du handoff Imaging vers Research Project", () =
   });
 
   it("distingue disponibilité déclarée et disponibilité vérifiée sans inventer la compatibilité", () => {
-    const declared = freezeProjectHandoff(strategyInput());
+    const declaredEquipment = declaredSyntheticEquipment();
+    const declared = freezeProjectHandoff(strategyInput({ declaredEquipment }));
     expect(declared.result.projectConstructionHandoff.equipmentCompatibilityStatus).toBe("DECLARED_NOT_VERIFIED");
     expect(declared.result.projectConstructionHandoff.limitations).toContain("EQUIPMENT_AVAILABILITY_DECLARED_NOT_VERIFIED");
 
-    const verifiedEquipment = strategyInput().declaredEquipment.map((item) => ({
+    const verifiedEquipment = declaredEquipment.map((item) => ({
       ...item,
       availability: "KNOWN_AVAILABLE" as const,
-      manufacturer: "Constructeur vérifié",
-      model: "Modèle vérifié",
-      softwareVersion: "Version vérifiée",
     }));
     const verified = freezeProjectHandoff(strategyInput({ declaredEquipment: verifiedEquipment }));
     expect(verified.result.equipmentAssessment.every((item) => item.availabilityEvidenceStatus === "VERIFIED")).toBe(true);
@@ -63,7 +93,7 @@ describe("IMG-001B — fermeture du handoff Imaging vers Research Project", () =
   });
 
   it("bloque le gel lorsqu'une incompatibilité explicite rend l'acquisition nécessaire impossible", () => {
-    const base = strategyInput();
+    const base = strategyInput({ declaredEquipment: declaredSyntheticEquipment() });
     const incompatible = base.declaredEquipment.map((item) => ({ ...item, modality: "CT", availability: "KNOWN_AVAILABLE" as const }));
     const session = freezeProjectHandoff(withInput(base, { declaredEquipment: incompatible }));
 
@@ -74,18 +104,14 @@ describe("IMG-001B — fermeture du handoff Imaging vers Research Project", () =
   });
 
   it("autorise un multicentrique partiellement connu avec limites et revue d'harmonisation future", () => {
-    const base = strategyInput();
-    const first = { ...base.declaredEquipment[0], equipmentId: "SITE-A", siteLabel: "Centre A", availability: "KNOWN_AVAILABLE" as const };
-    const second = { ...base.declaredEquipment[0], equipmentId: "SITE-B", siteLabel: "Centre B", availability: "UNKNOWN" as const, manufacturer: null, model: null, softwareVersion: null };
-    const session = freezeProjectHandoff(withInput(base, {
-      declaredEquipment: [first, second],
-      centerContext: { mode: "MULTICENTRIC_HETEROGENEOUS", declarations: ["Centre A", "Centre B"] },
-    }));
+    const session = freezeProjectHandoff(readGovernedImagingInput(RC_TEST_02_REFERENCE_IDS.multicenterPartialEquipment));
 
     expect(session.result.projectConstructionHandoff.status).toBe("FROZEN_BY_HUMAN");
     expect(session.result.projectConstructionHandoff.equipmentCompatibilityStatus).toBe("PARTIALLY_KNOWN");
     expect(session.result.projectConstructionHandoff.limitations).toContain("MULTICENTER_TECHNICAL_FEASIBILITY_PARTIAL");
     expect(session.result.projectConstructionHandoff.requiredFutureReviews).toContain("MULTICENTER_HARMONIZATION_REVIEW");
+    expect(session.input.declaredEquipment[0]).toMatchObject({ siteLabel: "Centre A — synthetic governed test entity", availability: "KNOWN_AVAILABLE", manufacturer: "SYNTHETIC_TEST_VALUE" });
+    expect(session.input.declaredEquipment[1]).toMatchObject({ siteLabel: "Centre B — synthetic governed test entity", availability: "UNKNOWN", manufacturer: null, model: null, softwareVersion: null });
   });
 
   it("refuse les paramètres exacts tout en permettant le handoff de la stratégie conceptuelle", () => {
@@ -106,7 +132,7 @@ describe("IMG-001B — fermeture du handoff Imaging vers Research Project", () =
   });
 
   it("préserve la version gelée et impose une requalification ciblée après changement d'équipement", () => {
-    let session = freezeProjectHandoff(strategyInput());
+    let session = freezeProjectHandoff(strategyInput({ declaredEquipment: declaredSyntheticEquipment() }));
     const frozenVersion = session.result.projectConstructionHandoff.imagingStrategyVersion;
     session = requestImagingChange(session, { eventType: "EquipmentChanged", description: "Remplacement de l'équipement du site principal.", sourceIds: ["SITE-A"], targetIds: ["SITE-A"] });
     const change = session.result.changes.find((item) => item.eventType === "EquipmentChanged")!;
@@ -126,5 +152,28 @@ describe("IMG-001B — fermeture du handoff Imaging vers Research Project", () =
     expect(project.imagingContribution.applicability).toBe("NOT_APPLICABLE");
     expect(project.refusal).toBeNull();
     expect(project.feasibilityAssessment.find((item) => item.domain === "TECHNICAL_FEASIBILITY")?.state).toBe("NOT_APPLICABLE");
+  });
+
+  it("LIVE — conserve la contradiction Knowledge/ST existante et interdit le gel Imaging", () => {
+    const input = makeImagingInput({ timings: ["temps méthodologique déclaré"] });
+    expect(input.contradictions).toContain(LIVE_SYNTHETIC_HAEMATOCRIT_CONTRADICTION);
+
+    const session = freezeProjectHandoff(input);
+    expect(session.result.contradictions).toContain(LIVE_SYNTHETIC_HAEMATOCRIT_CONTRADICTION);
+    expect(session.result.projectConstructionHandoff.status).toBe("NOT_READY");
+    expect(session.result.projectConstructionHandoff.blockedBy).toContain("UNRESOLVED_STRUCTURAL_CONTRADICTION");
+    expect(session.result.projectConstructionHandoff.humanDecision.status).toBe("PENDING");
+  });
+
+  it("relit les références gouvernées avec une identité, un digest et une immutabilité stables", () => {
+    Object.values(RC_TEST_02_REFERENCE_IDS).forEach((referenceId) => {
+      const first = readGovernedFrozenImagingResult(referenceId);
+      const second = readGovernedFrozenImagingResult(referenceId);
+      expect(first).toEqual(second);
+      expect(first).not.toBe(second);
+      expect(Object.isFrozen(first)).toBe(true);
+      expect(first.resultId).toBe(RC_TEST_02_GOVERNED_REFERENCE_REGISTRY[referenceId].sourceResultId);
+      expect(Object.values(verifyGovernedImagingReference(referenceId)).every(Boolean)).toBe(true);
+    });
   });
 });

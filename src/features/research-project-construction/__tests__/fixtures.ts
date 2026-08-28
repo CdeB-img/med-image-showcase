@@ -1,7 +1,10 @@
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
-import { answerImagingQuestion, createImagingDesignSession, decideImagingGate } from "@/features/imaging-study-designer";
+import {
+  RC_TEST_02_REFERENCE_IDS,
+  readGovernedFrozenImagingResult,
+  type RcTest02ReferenceId,
+} from "@/features/imaging-study-designer/__tests__/governed-reference-fixtures";
 import type { ImagingDesignResult } from "@/features/imaging-study-designer/types";
-import { makeImagingInput } from "@/features/imaging-study-designer/__tests__/fixtures";
 import { RESEARCH_PROJECT_CONSTRUCTION_VERSION, type ResearchProjectConstructionInput } from "../types";
 
 type ProjectFixtureOptions = {
@@ -89,24 +92,6 @@ export const makeProjectInput = (options: ProjectFixtureOptions = {}): ResearchP
   };
 };
 
-export const makeFrozenImagingResult = (): ImagingDesignResult => {
-  let session = createImagingDesignSession(makeImagingInput({
-    timings: ["mesure initiale", "suivi à définir scientifiquement"],
-    fields: ["1,5 T"],
-    manufacturers: ["Constructeur déclaré"],
-    models: ["Modèle déclaré"],
-    versions: ["Version déclarée"],
-  }));
-  for (let index = 0; index < 20; index += 1) {
-    const question = session.result.adaptiveQuestions.find((item) => !item.answeredValue);
-    if (!question) break;
-    session = answerImagingQuestion(session, question.questionId, "UNKNOWN_EXPLICITLY_RECORDED");
-  }
-  for (let index = 0; index < 30; index += 1) {
-    const gate = session.result.decisionsRequired.find((item) => item.status === "PENDING");
-    if (!gate) break;
-    session = decideImagingGate(session, gate.gateId, "APPROVED", "Décision humaine explicite pour fixture PRJ-001.", "Responsable Imaging", "mandate:prj-001-fixture", `2026-08-10T10:${String(index).padStart(2, "0")}:00.000Z`);
-  }
-  if (session.result.projectConstructionHandoff.status !== "FROZEN_BY_HUMAN") throw new Error("IMG_001B_LIVE_HANDOFF_NOT_FROZEN");
-  return session.result;
-};
+export const makeFrozenImagingResult = (
+  referenceId: RcTest02ReferenceId = RC_TEST_02_REFERENCE_IDS.narrowMrEcvHistology,
+): ImagingDesignResult => readGovernedFrozenImagingResult(referenceId);

@@ -27,11 +27,13 @@ export const authorizeProject = (input: ResearchProjectConstructionInput): Resea
 export const makeAuthorizedProject = () => authorizeProject(makeProjectInput({ question: "Décrire un marqueur dans une Population définie.", outcomes: ["marqueur quantitatif"] }));
 
 export const makeAuthorizedImagingProject = () => authorizeProject(makeProjectInput({
-  question: "Chez les adultes atteints de maladie de Fabry, comment l’ECV évolue-t-il longitudinalement en IRM cardiaque ?",
-  outcomes: ["évolution longitudinale de l’ECV"],
+  question: "Dans le sous-ensemble de validation par transplantation cardiaque décrit par la source, comment l’ECV IRM est-elle associée à l’espace extracellulaire histologique ?",
+  outcomes: ["association bornée entre ECV IRM et espace extracellulaire histologique"],
+  population: ["sous-ensemble sélectionné de validation par transplantation cardiaque décrit par la source"],
+  pathology: ["UNKNOWN"],
   imagingResult: makeFrozenImagingResult(),
   imagingStatus: "FROZEN_BY_HUMAN",
-  timings: ["mesure initiale", "suivi à définir scientifiquement"],
+  timings: ["UNKNOWN_EXPLICITLY_RECORDED"],
 }));
 
 export const reviseProject = (source: ResearchProjectDesignResult, patch: Partial<ResearchProjectDesignResult>): ResearchProjectDesignResult => {

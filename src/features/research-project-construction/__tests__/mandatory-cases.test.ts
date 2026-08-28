@@ -1,10 +1,11 @@
 import { describe, expect, it } from "vitest";
+import { RC_TEST_02_REFERENCE_IDS } from "@/features/imaging-study-designer/__tests__/governed-reference-fixtures";
 import { executeResearchProjectConstruction } from "../engine";
 import { makeFrozenImagingResult, makeProjectInput } from "./fixtures";
 
 describe("PRJ-001 — dix cas obligatoires", () => {
   it("1. construit un candidat Fabry longitudinal avec handoff IMG gelé sans calcul de puissance", () => {
-    const imaging = makeFrozenImagingResult();
+    const imaging = makeFrozenImagingResult(RC_TEST_02_REFERENCE_IDS.fabryLongitudinalEcv);
     const result = executeResearchProjectConstruction(makeProjectInput({
       question: "Chez les adultes atteints de maladie de Fabry, comment l’ECV évolue-t-il longitudinalement en IRM cardiaque ?",
       outcomes: ["évolution longitudinale de l’ECV"],
@@ -17,6 +18,12 @@ describe("PRJ-001 — dix cas obligatoires", () => {
     expect(result.visits.map((item) => item.temporalRole)).toEqual(["BASELINE", "FOLLOW_UP"]);
     expect(result.sizingRequirements.power).toBeNull();
     ["IMAGING", "BIOMARKER", "ACQUISITION", "VARIABLE"].forEach((type) => expect(result.impactGraph.nodes.some((item) => item.type === type)).toBe(true));
+    expect(imaging.limitations).toContain("ECV_IS_NOT_COLLAGEN_PERCENTAGE");
+    expect(imaging.limitations).toContain("ECV_IS_NOT_A_UNIVERSAL_FABRY_BIOMARKER_ROLE");
+    expect(imaging.projectConstructionHandoff.executableProtocolReadiness).toBe("EXECUTABLE_PROTOCOL_NOT_READY");
+    expect(imaging.projectConstructionHandoff.unknowns).toContain("LONGITUDINAL_COMPARABILITY_NOT_VALIDATED");
+    expect(JSON.stringify(imaging)).toContain("NOT_INTERPRETABLE_AS_PROGRESS_OR_REGRESSION");
+    expect(JSON.stringify(imaging)).toContain("SYNTHETIC_HAEMATOCRIT_NOT_AUTHORIZED_BY_THIS_REFERENCE");
   });
 
   it("2. construit une validation méthodologique comparative sans méthode automatiquement supérieure", () => {
