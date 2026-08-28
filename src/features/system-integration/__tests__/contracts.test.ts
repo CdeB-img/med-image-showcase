@@ -5,6 +5,13 @@ import { IMAGING_STUDY_DESIGNER_VERSION } from "@/features/imaging-study-designe
 import { RESEARCH_PROJECT_CONSTRUCTION_VERSION } from "@/features/research-project-construction";
 import { SCIENTIFIC_THINKING_ENGINE_VERSION } from "@/features/scientific-thinking";
 
+const CURRENT_OWNER_VERSION_BASELINE = {
+  scientificThinking: "1.2.2",
+  imaging: "1.2.1",
+  project: "1.1.0",
+  document: "1.2.0",
+} as const;
+
 describe("SYS-001 — contracts", () => {
   it("expose des versions explicites pour chaque contribution aval", () => {
     expect({
@@ -12,7 +19,7 @@ describe("SYS-001 — contracts", () => {
       imaging: IMAGING_STUDY_DESIGNER_VERSION,
       project: RESEARCH_PROJECT_CONSTRUCTION_VERSION,
       document: DOCUMENT_PROJECTION_ENGINE_VERSION,
-    }).toEqual({ scientificThinking: "1.1.0", imaging: "1.2.1", project: "1.1.0", document: "1.2.0" });
+    }).toEqual(CURRENT_OWNER_VERSION_BASELINE);
   });
 
   it("identifie le consommateur Project Construction sans le présenter comme Imaging", () => {

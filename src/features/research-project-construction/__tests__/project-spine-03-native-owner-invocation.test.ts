@@ -19,6 +19,8 @@ import {
   type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 
+const CURRENT_KNOWLEDGE_OWNER_VERSION_BASELINE = "1.2.1" as const;
+
 const authority = {
   actorRef: "project-spine-03:researcher",
   mandateRef: "PROJECT_OWNER" as const,
@@ -196,7 +198,7 @@ describe("PROJECT-SPINE-03 — native specialized owner invocation gate", () => 
     expect(knowledge.observation).toMatchObject({
       owner: "KNOWLEDGE",
       capabilityId: "KNOWLEDGE_EVIDENCE",
-      ownerRuntimeVersion: "1.2.0",
+      ownerRuntimeVersion: CURRENT_KNOWLEDGE_OWNER_VERSION_BASELINE,
       sourceProjectRef: project.projectId,
       sourceProjectVersion: project.versionId,
       sourceProjectDigest: project.projectDigest,
@@ -206,7 +208,7 @@ describe("PROJECT-SPINE-03 — native specialized owner invocation gate", () => 
     });
     expect(["COMPLETED", "OWNER_EVIDENCE_GAP"]).toContain(knowledge.observation.status);
     expect(knowledge.request.nativeInput).toMatchObject({
-      contractVersion: "1.2.0",
+      contractVersion: CURRENT_KNOWLEDGE_OWNER_VERSION_BASELINE,
       researchProjectId: project.projectId,
       strategyVersion: project.versionId,
       consumer: "RESEARCH_PROJECT_CONSTRUCTION",
