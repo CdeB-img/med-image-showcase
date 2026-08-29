@@ -4,7 +4,17 @@ import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-reac
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
+import {
+  NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
+  naturalConversationContext,
+  type ProductBridgeRequest,
+} from "@/features/protocol-designer/product-bridge";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
+import {
+  captureProductBridgeTraceText,
+  createPreProjectScientificTraceSegment,
+  createProductTraceRunId,
+} from "@/features/protocol-designer/scientific-execution-trace";
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
@@ -18,11 +28,22 @@ import {
   refreshFunctionalResetDocumentPortfolio,
 } from "@/features/document-projection";
 import {
+  buildPreProjectNavigationDecision,
   buildFunctionalResetQueryNavigation,
   isFunctionalResetQueryMisunderstanding,
+  realizePreProjectNavigationDecision,
 } from "@/features/query-navigation";
 import ContributionReview from "./ContributionReview";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
+import {
+  recordArtifactGeneratedTrace,
+  recordContributionRejectionTrace,
+  recordDocumentProjectionTrace,
+  recordInitialProductTrace,
+  recordPostAdoptionQuestionTrace,
+  recordProductErrorBoundary,
+  recordProjectAdoptionTrace,
+} from "./end-to-end-trace-adapter";
 import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
@@ -78,6 +99,7 @@ type PostAdoptionContinuationJob = {
   queryNavigation: NonNullable<FunctionalResetSession["queryNavigation"]>;
   runtimeTurns: ScientificInterpretationTurn[];
   feedback: "Projet créé." | "Projet mis à jour.";
+  traceRunId: string | null;
 };
 
 const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJob) => {
@@ -164,7 +186,23 @@ export default function ProtocolDesignerWorkspace() {
     void resolvePostAdoptionContinuationJob(job).then((continuation) => {
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
-      setSession((current) => ({
+      setSession((current) => {
+        const scientificExecutionTraceLedger = recordPostAdoptionQuestionTrace({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId: job.traceRunId,
+          conversationId: current.conversationId,
+          observedAt: continuedAt,
+          project: job.project,
+          queryNavigation: job.queryNavigation,
+          continuation: {
+            turnId: continuation.turn.turnId,
+            provider: continuation.provider,
+            model: continuation.model,
+            latencyMs: continuation.latencyMs,
+            presentationSource: continuation.presentationSource,
+          },
+        });
+        return {
         ...current,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
         entries: [...current.entries, {
@@ -176,9 +214,10 @@ export default function ProtocolDesignerWorkspace() {
         }],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: continuation.turn.turnId,
+          traceRunId: job.traceRunId ?? undefined,
           requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
-          raw: job.feedback,
-          assistantReply: continuation.content,
+          raw: captureProductBridgeTraceText({ value: job.feedback, field: "SOURCE_TEXT" }),
+          assistantReply: captureProductBridgeTraceText({ value: continuation.content, field: "ASSISTANT_REPLY" }),
           persistentExtractionCalled: false,
           persistentExtractionStatus: "NOT_REQUESTED" as const,
           providerArtifact: null,
@@ -201,8 +240,10 @@ export default function ProtocolDesignerWorkspace() {
           continuationPresentationSource: continuation.presentationSource,
           continuationMediationFailure: continuation.mediationFailure,
         }].slice(-20),
+        scientificExecutionTraceLedger,
         updatedAt: continuedAt,
-      }));
+      };
+      });
     }).finally(() => {
       if (!active) return;
       setPostAdoptionContinuationJob((current) => current === job ? null : current);
@@ -226,6 +267,7 @@ export default function ProtocolDesignerWorkspace() {
     if (!content || busy) return;
     const now = new Date().toISOString();
     const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
+    const traceRunId = createProductTraceRunId(session.sessionId, userTurn.turnId);
     const runtimeTurns = [...session.runtimeTurns, userTurn];
     const asksForExplanationOrRephrase = isFunctionalResetQueryMisunderstanding(content);
     const previousContext = [...session.bridgeTraces]
@@ -260,7 +302,7 @@ export default function ProtocolDesignerWorkspace() {
       const emptyTraceMaterial = {
         turnId: userTurn.turnId,
         requestKind: "USER_TURN" as const,
-        raw: content,
+        raw: captureProductBridgeTraceText({ value: content, field: "SOURCE_TEXT" }),
         persistentExtractionCalled: false,
         persistentExtractionStatus: "NOT_REQUESTED" as const,
         providerArtifact: null,
@@ -303,7 +345,7 @@ export default function ProtocolDesignerWorkspace() {
           }],
           bridgeTraces: [...current.bridgeTraces, {
             ...emptyTraceMaterial,
-            assistantReply,
+            assistantReply: captureProductBridgeTraceText({ value: assistantReply, field: "ASSISTANT_REPLY" }),
             provider: "DOMAIN_GATE",
             model: "DETERMINISTIC_LOCAL",
             conversationLatencyMs: 0,
@@ -339,7 +381,7 @@ export default function ProtocolDesignerWorkspace() {
           }],
           bridgeTraces: [...current.bridgeTraces, {
             ...emptyTraceMaterial,
-            assistantReply: knowledge.assistantReply,
+            assistantReply: captureProductBridgeTraceText({ value: knowledge.assistantReply, field: "ASSISTANT_REPLY" }),
             provider: "KNOWLEDGE",
             model: "KE-001@1.2.1",
             conversationLatencyMs: 0,
@@ -352,7 +394,10 @@ export default function ProtocolDesignerWorkspace() {
         return;
       }
 
-      const response = await requestProtocolDesignerBridge({
+      const preProjectNavigation = session.project
+        ? undefined
+        : buildPreProjectNavigationDecision({ routing: entryRouting });
+      const bridgeRequest: Omit<ProductBridgeRequest, "apiVersion"> = {
         requestKind: "USER_TURN",
         conversation: {
           conversationId: session.conversationId,
@@ -379,11 +424,44 @@ export default function ProtocolDesignerWorkspace() {
           } : {}),
         },
         currentProject: session.project,
+        ...(preProjectNavigation ? { preProjectNavigation } : {}),
         // Routing governs Project eligibility. Conversation-only turns remain
         // usable, but cannot trigger persistent extraction.
         evaluatePersistentDelta: entryRouting.projectConstructionEligible && !asksForExplanationOrRephrase,
-      });
+      };
+      const providerContext = naturalConversationContext(bridgeRequest);
+      const response = await requestProtocolDesignerBridge(bridgeRequest);
       const receivedAt = new Date().toISOString();
+      const preProjectRealization = preProjectNavigation
+        ? realizePreProjectNavigationDecision({
+          decision: preProjectNavigation,
+          providerReply: response.assistantReply,
+          provider: response.observability.provider,
+          model: response.observability.model,
+        })
+        : null;
+      const visibleAssistantReply = preProjectRealization?.assistantReply ?? response.assistantReply;
+      const visibleAssistantTurn = preProjectRealization
+        ? { ...response.assistantTurn, content: visibleAssistantReply }
+        : response.assistantTurn;
+      const preProjectTrace = createPreProjectScientificTraceSegment({
+        sessionId: session.sessionId,
+        sourceTurnRef: userTurn.turnId,
+        traceRunId,
+        sourceText: content,
+        routing: entryRouting,
+        request: bridgeRequest,
+        providerBoundary: {
+          systemInstruction: NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
+          context: providerContext,
+          assistantReply: visibleAssistantReply,
+          provider: preProjectRealization?.provider ?? response.observability.provider,
+          model: preProjectRealization?.model ?? response.observability.model,
+          formulationOwner: preProjectRealization?.executor === "LOCAL_DETERMINISTIC_REALIZATION"
+            ? "LOCAL_RUNTIME"
+            : undefined,
+        },
+      });
       const extractedContribution = entryRouting.projectConstructionEligible
         ? response.persistentExtraction.contribution
         : null;
@@ -397,17 +475,31 @@ export default function ProtocolDesignerWorkspace() {
         : "NOT_REQUESTED" as const;
       const failureMessage = persistenceFailureMessage(effectiveExtractionStatus, candidate?.status ?? null);
       const replacedPendingContributionId = effectiveCandidate ? session.pendingContribution?.identity.contributionId ?? null : null;
-      setSession((current) => ({
+      setSession((current) => {
+        const scientificExecutionTraceLedger = recordInitialProductTrace({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId,
+          conversationId: current.conversationId,
+          segment: preProjectTrace,
+          observedAt: receivedAt,
+          contribution,
+          candidate,
+          reviewCandidate: effectiveCandidate,
+          extractionStatus: effectiveExtractionStatus,
+          extractionLatencyMs: response.observability.extractionLatencyMs,
+          provider: response.observability.provider,
+        });
+        return {
         ...current,
         queryNavigation,
-        runtimeTurns: [...runtimeTurns, response.assistantTurn],
+        runtimeTurns: [...runtimeTurns, visibleAssistantTurn],
         pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
         entries: [
           ...current.entries.filter((entry) => !(replacedPendingContributionId
             && entry.kind === "REVIEW"
             && entry.status === "PENDING"
             && entry.contribution.identity.contributionId === replacedPendingContributionId)),
-          { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: response.assistantReply, createdAt: receivedAt },
+          { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: visibleAssistantReply, createdAt: receivedAt },
           ...(effectiveCandidate && contribution ? [{
             entryId: createConversationEntryId(),
             kind: "REVIEW" as const,
@@ -428,9 +520,10 @@ export default function ProtocolDesignerWorkspace() {
         ],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: userTurn.turnId,
+          traceRunId,
           requestKind: "USER_TURN" as const,
-          raw: content,
-          assistantReply: response.assistantReply,
+          raw: captureProductBridgeTraceText({ value: content, field: "SOURCE_TEXT" }),
+          assistantReply: captureProductBridgeTraceText({ value: visibleAssistantReply, field: "ASSISTANT_REPLY" }),
           persistentExtractionCalled: entryRouting.projectConstructionEligible && response.persistentExtraction.called,
           persistentExtractionStatus: effectiveExtractionStatus,
           persistentExtractionFailure: entryRouting.projectConstructionEligible ? response.persistentExtraction.failure ?? null : null,
@@ -452,21 +545,44 @@ export default function ProtocolDesignerWorkspace() {
           extractionLatencyMs: response.observability.extractionLatencyMs,
           calls: response.observability.calls,
           entryRouting,
+          preProjectTrace,
           knowledgeResultRef: null,
           knowledgeResultDigest: null,
           projectWriteCount: response.observability.projectWrites,
           protocolProjectionCount: 0,
         }].slice(-20),
+        scientificExecutionTraceLedger,
         updatedAt: receivedAt,
-      }));
+      };
+      });
     } catch (error) {
       const failedAt = new Date().toISOString();
       const message = error instanceof Error ? error.message : "L’interprétation scientifique est momentanément indisponible.";
-      setSession((current) => ({
+      setSession((current) => {
+        const scientificExecutionTraceLedger = recordProductErrorBoundary({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId,
+          turnId: userTurn.turnId,
+          conversationId: current.conversationId,
+          startedAt: now,
+          failedAt,
+          owner: "TRACE",
+          responsibilityOwner: "PRODUCT_BRIDGE",
+          executor: "PRODUCT_BRIDGE_CLIENT",
+          componentId: "PRODUCT_BRIDGE_CLIENT",
+          componentVersion: "UNKNOWN",
+          provider: "UNKNOWN",
+          code: "PRODUCT_BRIDGE_REQUEST_FAILED",
+          category: "UNKNOWN",
+          sourceDigest: "UNKNOWN",
+        });
+        return {
         ...current,
         entries: [...current.entries, { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: message, createdAt: failedAt }],
+        scientificExecutionTraceLedger,
         updatedAt: failedAt,
-      }));
+      };
+      });
     } finally {
       setBusy(false);
     }
@@ -516,7 +632,20 @@ export default function ProtocolDesignerWorkspace() {
         createdAt: now,
       };
       const runtimeTurns = [...session.runtimeTurns, confirmationTurn];
-      setSession((current) => ({
+      setSession((current) => {
+        const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
+        const scientificExecutionTraceLedger = recordProjectAdoptionTrace({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId: correlatedTrace?.traceRunId,
+          conversationId: current.conversationId,
+          recordedAt: now,
+          contribution,
+          project,
+          previousProjectExisted: Boolean(session.project),
+          queryNavigation,
+          documents,
+        });
+        return {
         ...current,
         project,
         queryNavigation,
@@ -534,8 +663,10 @@ export default function ProtocolDesignerWorkspace() {
         bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
           ? { ...trace, humanDecision: project.confirmationDecision, projectVersionAfter: project.versionId }
           : trace),
+        scientificExecutionTraceLedger,
         updatedAt: now,
-      }));
+      };
+      });
 
       if (shouldMediatePostAdoptionQuery(queryNavigation)
         && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion) {
@@ -546,10 +677,33 @@ export default function ProtocolDesignerWorkspace() {
           queryNavigation,
           runtimeTurns,
           feedback,
+          traceRunId: session.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId ?? null,
         });
       }
     } catch {
-      setSession((current) => ({
+      setSession((current) => {
+        const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
+        const scientificExecutionTraceLedger = correlatedTrace?.traceRunId
+          ? recordProductErrorBoundary({
+            ledger: current.scientificExecutionTraceLedger,
+            traceRunId: correlatedTrace.traceRunId,
+            turnId: correlatedTrace.turnId,
+            conversationId: current.conversationId,
+            startedAt: now,
+            failedAt: now,
+            owner: "TRACE",
+            responsibilityOwner: "RESEARCH_PROJECT",
+            executor: "PRJ001_CONTRIBUTION_OWNER_BOUNDARY",
+            componentId: "PRJ001_CONTRIBUTION_OWNER_BOUNDARY",
+            componentVersion: "1.0.0",
+            provider: "NONE",
+            code: "PROJECT_CONFIRMATION_BOUNDARY_FAILED",
+            category: "BOUNDARY_REJECTION",
+            sourceDigest: contribution.identity.contributionDigest,
+            project: current.project,
+          })
+          : current.scientificExecutionTraceLedger;
+        return {
         ...current,
         entries: [...current.entries, {
           entryId: createConversationEntryId(),
@@ -560,8 +714,10 @@ export default function ProtocolDesignerWorkspace() {
             : "NOXIA n’a pas pu mettre à jour cette partie du projet. Votre contribution reste disponible pour réessayer.",
           createdAt: now,
         }],
+        scientificExecutionTraceLedger,
         updatedAt: now,
-      }));
+      };
+      });
     } finally {
       if (!continuationScheduled) setBusy(false);
     }
@@ -578,7 +734,18 @@ export default function ProtocolDesignerWorkspace() {
         authority: session.projectAuthority,
         rejectedAt: now,
       });
-      setSession((current) => ({
+      setSession((current) => {
+        const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
+        const scientificExecutionTraceLedger = recordContributionRejectionTrace({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId: correlatedTrace?.traceRunId,
+          conversationId: current.conversationId,
+          recordedAt: now,
+          contribution,
+          decision,
+          project: current.project,
+        });
+        return {
         ...current,
         pendingContribution: null,
         entries: current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
@@ -587,8 +754,10 @@ export default function ProtocolDesignerWorkspace() {
         bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
           ? { ...trace, humanDecision: decision, projectVersionAfter: current.project?.versionId ?? null }
           : trace),
+        scientificExecutionTraceLedger,
         updatedAt: now,
-      }));
+      };
+      });
     } catch {
       setSession((current) => ({
         ...current,
@@ -622,10 +791,25 @@ export default function ProtocolDesignerWorkspace() {
       });
       const protocol = documents.projections.at(-1) ?? null;
       if (!protocol || documents.lastFailure) throw new Error(documents.lastFailure?.message ?? "DOC_PROTOCOL_PROJECTION_NOT_CREATED");
-      setSession((current) => ({
+      setSession((current) => {
+        const correlatedTrace = [...current.bridgeTraces]
+          .reverse()
+          .find((trace) => trace.traceRunId && trace.projectVersionAfter === session.project?.versionId);
+        const scientificExecutionTraceLedger = recordDocumentProjectionTrace({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId: correlatedTrace?.traceRunId,
+          conversationId: current.conversationId,
+          recordedAt: now,
+          project: session.project!,
+          decision,
+          projection: protocol,
+          projectionMode,
+        });
+        return {
         ...current,
         documents,
         openDocumentProjectionId: protocol.projectionId,
+        scientificExecutionTraceLedger,
         entries: [...current.entries, {
           entryId: createConversationEntryId(),
           kind: "TEXT",
@@ -636,12 +820,38 @@ export default function ProtocolDesignerWorkspace() {
           createdAt: now,
         }],
         updatedAt: now,
-      }));
+      };
+      });
     } catch (error) {
       const documents = markFunctionalResetDocumentFailure(session.project, session.documents, error);
-      setSession((current) => ({
+      setSession((current) => {
+        const correlatedTrace = [...current.bridgeTraces]
+          .reverse()
+          .find((trace) => trace.traceRunId && trace.projectVersionAfter === session.project?.versionId);
+        const scientificExecutionTraceLedger = correlatedTrace?.traceRunId
+          ? recordProductErrorBoundary({
+            ledger: current.scientificExecutionTraceLedger,
+            traceRunId: correlatedTrace.traceRunId,
+            turnId: correlatedTrace.turnId,
+            conversationId: current.conversationId,
+            startedAt: now,
+            failedAt: now,
+            owner: "DOC",
+            responsibilityOwner: "DOC-001",
+            executor: "FUNCTIONAL_RESET_DOCUMENT_BOUNDARY",
+            componentId: "DOC-001",
+            componentVersion: "1.0.0",
+            provider: "NONE",
+            code: "DOCUMENT_PROJECTION_BOUNDARY_FAILED",
+            category: "BOUNDARY_REJECTION",
+            sourceDigest: session.project!.projectDigest,
+            project: session.project!,
+          })
+          : current.scientificExecutionTraceLedger;
+        return {
         ...current,
         documents,
+        scientificExecutionTraceLedger,
         entries: [...current.entries, {
           entryId: createConversationEntryId(),
           kind: "ERROR",
@@ -650,7 +860,8 @@ export default function ProtocolDesignerWorkspace() {
           createdAt: now,
         }],
         updatedAt: now,
-      }));
+      };
+      });
     }
   };
 
@@ -670,6 +881,25 @@ export default function ProtocolDesignerWorkspace() {
   };
 
   const openProjection = functionalProtocolProjection(session.documents, session.openDocumentProjectionId);
+  const recordOpenProjectionArtifact = (format: "HTML", generatedAt: string) => {
+    if (!openProjection) return;
+    setSession((current) => {
+      const correlatedTrace = [...current.bridgeTraces]
+        .reverse()
+        .find((trace) => trace.traceRunId && trace.projectVersionAfter === openProjection.source.projectVersion);
+      return {
+        ...current,
+        scientificExecutionTraceLedger: recordArtifactGeneratedTrace({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId: correlatedTrace?.traceRunId,
+          conversationId: current.conversationId,
+          generatedAt,
+          projection: openProjection,
+          format,
+        }),
+      };
+    });
+  };
   const protocolCard = session.documents.cards.find((card) => card.kind === "PROTOCOL");
   const activeRouteIntent = [...session.bridgeTraces]
     .reverse()
@@ -746,6 +976,7 @@ export default function ProtocolDesignerWorkspace() {
           projection={openProjection}
           stale={protocolCard?.freshness === "STALE" || openProjection.source.projectVersion !== session.project?.versionId}
           onClose={() => setSession((current) => ({ ...current, openDocumentProjectionId: null }))}
+          onArtifactGenerated={recordOpenProjectionArtifact}
         /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm">
           <div className="border-b px-5 py-4">
             <h2 className="font-semibold">Conversation</h2>

@@ -17,6 +17,10 @@ import {
   type ScientificSessionContext,
   type ValidatedScientificIntent,
 } from "@/features/protocol-designer/intake/types";
+import {
+  representExplicitScientificDimensions,
+  type ExplicitScientificDimension,
+} from "./pre-project-intent";
 
 export type ProductEntryDomainGate = "IN_SCOPE" | "BORDERLINE" | "OUT_OF_SCOPE";
 
@@ -27,13 +31,14 @@ export type ProductEntryExplicitExclusion = {
 
 export type ProductEntryRoutingDecision = {
   contract: "FUNCTIONAL_PRODUCT_ENTRY_ROUTING";
-  contractVersion: "1.0.0";
+  contractVersion: "1.1.0";
   sourceTurnRef: string;
   domainGate: ProductEntryDomainGate;
   routeIntent: RoutingIntent | null;
   routeConfidence: ConfidenceLevel;
   routeReasons: string[];
   scientificContext: ScientificSessionContext;
+  explicitScientificDimensions: readonly ExplicitScientificDimension[];
   explicitExclusions: ProductEntryExplicitExclusion[];
   projectConstructionEligible: boolean;
   projectWriteAuthorized: false;
@@ -233,13 +238,17 @@ export const routeProductEntry = (input: {
   );
   return {
     contract: "FUNCTIONAL_PRODUCT_ENTRY_ROUTING",
-    contractVersion: "1.0.0",
+    contractVersion: "1.1.0",
     sourceTurnRef: input.sourceTurnRef,
     domainGate,
     routeIntent,
     routeConfidence,
     routeReasons,
     scientificContext,
+    explicitScientificDimensions: representExplicitScientificDimensions({
+      raw: input.raw,
+      sourceTurnRef: input.sourceTurnRef,
+    }),
     explicitExclusions: exclusions,
     projectConstructionEligible: domainGate === "IN_SCOPE" && routeIntent === "DESIGN_STUDY" && exclusions.length === 0,
     projectWriteAuthorized: false,

@@ -16,4 +16,5 @@ export * from "./contract-validation";
 export * from "./deterministic-engine";
 export * from "./semantic-review";
 export * from "./product-gates";
+export * from "./trace-structural-validation";
 export * from "./ValidationSummaryPanel";

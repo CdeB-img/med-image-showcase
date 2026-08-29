@@ -26,6 +26,27 @@ export const resolveGeminiConversationModel = (value?: string | null): string =>
 export const resolveOpenAIExtractionModel = (value?: string | null): string => value?.trim() || DEFAULT_OPENAI_EXTRACTION_MODEL;
 export const PERSISTENT_PROJECT_DELTA_CONTRACT = "PERSISTENT_PROJECT_DELTA_CANDIDATE" as const;
 
+export type ProductBridgePreProjectNavigation = Readonly<{
+  contract: "PRE_PROJECT_QUERY_NAVIGATION";
+  contractVersion: "1.0.0";
+  owner: "QUERY_NAVIGATION";
+  sourceTurnRef: string;
+  action: "ASK_QUESTION" | "PROPOSE" | "RESPOND";
+  selectedInformationNeed: string | null;
+  selectedInformationNeedRef: string | null;
+  scientificReason: string;
+  expectedInformationGain: string;
+  alreadyProvidedInformationRefs: readonly string[];
+  explicitDimensions: readonly Readonly<{ dimensionRef: string; sourceText: string }>[];
+  candidateAlternatives: readonly string[];
+  rejectedAlternatives: readonly string[];
+  rejectionReasons: readonly Readonly<{ alternativeRef: string; reasonCode: string }>[];
+  realizationDirective: string;
+  projectWriteAuthorized: false;
+  projectAdoptionAuthorized: false;
+  scientificDecisionAuthorized: false;
+}>;
+
 export const PERSISTENT_PROJECT_OBJECT_TYPES = [
   "SCIENTIFIC_QUESTION",
   "OBJECTIVE",
@@ -108,7 +129,56 @@ Reste concis dans l'échange nominal : deux à cinq phrases, sans accueil répé
 
 Lorsque NOXIA te fournit explicitement un besoin QRY après une adoption Project, ne choisis pas un autre besoin scientifique. Formule ce besoin comme une continuation courte et naturelle. Si l'utilisateur change de sujet, suis son sujet sans répéter mécaniquement la question précédente.
 
+Lorsque NOXIA te fournit une directive pré-Project gouvernée par QUERY_NAVIGATION, respecte exactement l'action ASK_QUESTION ou PROPOSE et le besoin sélectionné. Tu réalises uniquement la formulation. Ne choisis aucune autre question, ne rends pas mutuellement exclusives des dimensions présentées conjointement et ne réinterroge pas une information marquée comme déjà fournie. Pour PROPOSE, ne pose aucune question.
+
 Pas de JSON. Pas de labels internes. Pas de description de l'architecture NOXIA. Réponds directement à l'utilisateur.`;
+
+const recentNaturalConversationTurns = (request: Omit<ProductBridgeRequest, "apiVersion">) => request.conversation.turns.slice(-10);
+
+/**
+ * Shared, deterministic construction of the exact natural-conversation context.
+ * The browser uses this same pure function for passive trace correlation; the
+ * provider input therefore remains byte-for-byte identical.
+ */
+export const naturalConversationContext = (request: Omit<ProductBridgeRequest, "apiVersion">) => {
+  const interaction = request.conversation.interactionContext;
+  const preProjectNavigation = request.preProjectNavigation;
+  const project = relevantProjectContext(request.currentProject);
+  const lines = [
+    preProjectNavigation
+      ? `Tâche actuelle gouvernée par QUERY_NAVIGATION : ${preProjectNavigation.action}. Réalise uniquement la formulation de la directive fournie ; ne sélectionne aucun autre WHAT.`
+      : request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
+      ? "Tâche actuelle : le Project vient d'être adopté. Formule uniquement la continuation naturelle courte du besoin QRY fourni ; ne récapitule pas le Project et ne choisis pas un autre besoin."
+      : "Tâche actuelle : répondre naturellement au dernier message du chercheur.",
+    "Contexte de travail utile :",
+    project
+      ? `Research Project adopté (lecture seule), version ${project.revision} :\n${project.sections.map((section) => {
+        const items = section.elements.map((element) => `- [${element.stableId}] ${element.content}`).join("\n");
+        return `${section.label} :${items ? `\n${items}` : " aucune information adoptée"}`;
+      }).join("\n")}`
+      : "Aucun Research Project n'est encore adopté.",
+    interaction
+      ? `Besoin QRY actif : ${interaction.purpose}\nRéférences du besoin : ${interaction.informationNeedRefs.join(", ") || "aucune"}`
+      : "Aucun besoin QRY actif.",
+    preProjectNavigation
+      ? [
+        `Directive pré-Project : ${preProjectNavigation.realizationDirective}`,
+        `Justification : ${preProjectNavigation.scientificReason}`,
+        `Gain d'information attendu : ${preProjectNavigation.expectedInformationGain}`,
+        `Besoin sélectionné : ${preProjectNavigation.selectedInformationNeed ?? "aucun — poursuivre sans question"}`,
+        `Informations déjà fournies : ${preProjectNavigation.explicitDimensions.map((dimension) => `[${dimension.dimensionRef}] ${dimension.sourceText}`).join(" ; ") || "aucune"}`,
+      ].join("\n")
+      : "Aucune directive pré-Project gouvernée.",
+    "Conversation récente :",
+    ...recentNaturalConversationTurns(request).map((turn) => `${turn.role === "USER" ? "Chercheur" : "NOXIA"} : ${turn.content}`),
+  ];
+  return lines.join("\n\n");
+};
+
+export const buildNaturalConversationPayload = (request: Omit<ProductBridgeRequest, "apiVersion">) => ({
+  systemInstruction: { parts: [{ text: NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION }] },
+  contents: [{ role: "user", parts: [{ text: naturalConversationContext(request) }] }],
+});
 
 export const PERSISTENT_DELTA_SYSTEM_INSTRUCTION = `Tu extrais uniquement les conséquences scientifiques persistantes candidates pour le Research Project.
 
@@ -616,6 +686,7 @@ export type ProductBridgeRequest = {
   currentProject: ResearchProjectOwnerProjection | null;
   evaluatePersistentDelta: boolean;
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
+  preProjectNavigation?: ProductBridgePreProjectNavigation;
 };
 
 export type ProductBridgeResponse = {
@@ -1303,6 +1374,21 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
     || !record.conversation.turns.every((turn) => turn && typeof turn.turnId === "string"
       && ["USER", "NOXIA"].includes(turn.role)
       && typeof turn.content === "string" && turn.content.trim().length > 0 && turn.content.length <= 4_000)) return null;
+  if (record.preProjectNavigation !== undefined) {
+    const navigation = record.preProjectNavigation;
+    const latestUserTurn = [...record.conversation.turns].reverse().find((turn) => turn.role === "USER");
+    if (navigation.contract !== "PRE_PROJECT_QUERY_NAVIGATION"
+      || navigation.contractVersion !== "1.0.0"
+      || navigation.owner !== "QUERY_NAVIGATION"
+      || !["ASK_QUESTION", "PROPOSE", "RESPOND"].includes(navigation.action)
+      || navigation.sourceTurnRef !== latestUserTurn?.turnId
+      || typeof navigation.realizationDirective !== "string" || !navigation.realizationDirective
+      || !Array.isArray(navigation.alreadyProvidedInformationRefs)
+      || !Array.isArray(navigation.explicitDimensions)
+      || navigation.projectWriteAuthorized !== false
+      || navigation.projectAdoptionAuthorized !== false
+      || navigation.scientificDecisionAuthorized !== false) return null;
+  }
   if (record.currentProject !== null && record.currentProject?.contract !== "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION") return null;
   return record as ProductBridgeRequest;
 };

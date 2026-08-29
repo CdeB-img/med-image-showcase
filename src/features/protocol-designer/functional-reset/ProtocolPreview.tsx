@@ -9,11 +9,16 @@ type Props = {
   projection: DocumentProjection;
   stale: boolean;
   onClose: () => void;
+  onArtifactGenerated?: (format: "HTML", generatedAt: string) => void;
 };
 
-export default function ProtocolPreview({ projection, stale, onClose }: Props) {
+export default function ProtocolPreview({ projection, stale, onClose, onArtifactGenerated }: Props) {
   const presentation = buildStandardProtocolPresentation(projection);
   const sourceVersion = projection.source.projectVersion.match(/:version:(\d+)$/)?.[1] ?? projection.source.projectVersion;
+  const downloadHtml = () => {
+    downloadProjection(projection, "HTML");
+    onArtifactGenerated?.("HTML", new Date().toISOString());
+  };
 
   return <section className="min-h-[calc(100vh-7.5rem)] rounded-3xl border bg-background shadow-sm" aria-label="Aperçu du protocole" data-testid="functional-protocol-preview">
     <header className="sticky top-0 z-10 rounded-t-3xl border-b bg-background/95 px-5 py-4 backdrop-blur sm:px-6">
@@ -29,7 +34,7 @@ export default function ProtocolPreview({ projection, stale, onClose }: Props) {
       </div>}
       <button
         type="button"
-        onClick={() => downloadProjection(projection, "HTML")}
+        onClick={downloadHtml}
         className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground"
       >
         <Download className="h-4 w-4" />

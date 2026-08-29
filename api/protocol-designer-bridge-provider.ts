@@ -7,13 +7,17 @@ import {
   PERSISTENT_PROJECT_STUDY_ROLES,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   PRODUCT_BRIDGE_MODEL,
+  buildNaturalConversationPayload,
   buildPersistentSourceCatalog,
-  resolveGeminiConversationModel,
+  naturalConversationContext,
   relevantProjectContext,
+  resolveGeminiConversationModel,
   type PersistentExtractionProviderArtifact,
   type PersistentProjectDeltaCandidate,
   type ProductBridgeRequest,
 } from "../src/features/protocol-designer/product-bridge.js";
+
+export { buildNaturalConversationPayload, naturalConversationContext };
 
 const FUNCTION_NAME = "propose_persistent_project_delta";
 const geminiEndpoint = (model: string) => `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
@@ -53,36 +57,6 @@ export class ProductBridgeProviderError extends Error {
     this.name = "ProductBridgeProviderError";
   }
 }
-
-const recentTurns = (request: ProductBridgeRequest) => request.conversation.turns.slice(-10);
-
-export const naturalConversationContext = (request: ProductBridgeRequest) => {
-  const interaction = request.conversation.interactionContext;
-  const project = relevantProjectContext(request.currentProject);
-  const lines = [
-    request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
-      ? "Tâche actuelle : le Project vient d'être adopté. Formule uniquement la continuation naturelle courte du besoin QRY fourni ; ne récapitule pas le Project et ne choisis pas un autre besoin."
-      : "Tâche actuelle : répondre naturellement au dernier message du chercheur.",
-    "Contexte de travail utile :",
-    project
-      ? `Research Project adopté (lecture seule), version ${project.revision} :\n${project.sections.map((section) => {
-        const items = section.elements.map((element) => `- [${element.stableId}] ${element.content}`).join("\n");
-        return `${section.label} :${items ? `\n${items}` : " aucune information adoptée"}`;
-      }).join("\n")}`
-      : "Aucun Research Project n'est encore adopté.",
-    interaction
-      ? `Besoin QRY actif : ${interaction.purpose}\nRéférences du besoin : ${interaction.informationNeedRefs.join(", ") || "aucune"}`
-      : "Aucun besoin QRY actif.",
-    "Conversation récente :",
-    ...recentTurns(request).map((turn) => `${turn.role === "USER" ? "Chercheur" : "NOXIA"} : ${turn.content}`),
-  ];
-  return lines.join("\n\n");
-};
-
-export const buildNaturalConversationPayload = (request: ProductBridgeRequest) => ({
-  systemInstruction: { parts: [{ text: NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION }] },
-  contents: [{ role: "user", parts: [{ text: naturalConversationContext(request) }] }],
-});
 
 const temporalAnchorJsonSchema = {
   type: "object",

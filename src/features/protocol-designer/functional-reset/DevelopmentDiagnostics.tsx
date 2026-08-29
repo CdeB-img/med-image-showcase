@@ -1,4 +1,5 @@
 import type { FunctionalResetSession } from "./session";
+import TraceInspector from "./TraceInspector";
 
 type Props = {
   session: FunctionalResetSession;
@@ -42,6 +43,8 @@ export default function DevelopmentDiagnostics({ session }: Props) {
       <DiagnosticRow label="Décisions enregistrées" value={decisions.length} />
       <DiagnosticRow label="Document projections" value={session.documents.projections.length} />
     </dl>
+
+    <TraceInspector ledger={session.scientificExecutionTraceLedger} />
 
     <details className="mt-4 rounded-2xl border bg-background p-3">
       <summary className="cursor-pointer text-sm font-medium">Objets, contrats et dernière trace</summary>

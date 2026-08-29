@@ -332,7 +332,8 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     });
     renderDemo();
     submit("Je modifie cette référence dans mon protocole d’étude.");
-    expect(await screen.findByText("Je comprends la correction demandée.")).toBeInTheDocument();
+    expect(await screen.findByText(/Je conserve conjointement les éléments explicitement fournis/u)).toBeInTheDocument();
+    expect(screen.queryByText("Je comprends la correction demandée.")).toBeNull();
     expect(await screen.findByText(/proposition persistante est bloquée/)).toHaveAttribute("role", "alert");
     expect(stored().project).toBeNull();
     expect(stored().bridgeTraces.at(-1)).toMatchObject({

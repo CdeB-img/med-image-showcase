@@ -245,13 +245,14 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     expect(await screen.findByText(INITIAL_CONTINUATION)).toBeInTheDocument();
   });
 
-  it("Q10 unique message identities do not collapse equal assistant text", async () => {
+  it("Q10 owner-governed pre-Project realization keeps message identities unique despite repeated provider text", async () => {
     installNominalRuntime({ duplicateReply: "Même contenu visible." });
     renderDemo();
     const session = await createInitialProject();
-    expect(session.entries.filter((entry) => entry.kind === "TEXT" && entry.content === "Même contenu visible.")).toHaveLength(2);
+    expect(session.entries.filter((entry) => entry.kind === "TEXT" && entry.content === "Même contenu visible.")).toHaveLength(1);
+    expect(session.entries.some((entry) => entry.kind === "TEXT" && entry.content.includes("Je conserve conjointement"))).toBe(true);
     expect(new Set(session.entries.map((entry) => entry.entryId)).size).toBe(session.entries.length);
-    expect(await screen.findAllByText("Même contenu visible.")).toHaveLength(2);
+    expect(await screen.findAllByText("Même contenu visible.")).toHaveLength(1);
   });
 
   it("Q11 no continuation is created when QRY has no useful need", () => {

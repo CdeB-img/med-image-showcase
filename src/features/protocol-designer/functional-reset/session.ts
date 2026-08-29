@@ -43,6 +43,7 @@ import {
   SCIENTIFIC_EXECUTION_TRACE_LEDGER_CONTRACT,
   createScientificExecutionTraceLedger,
   rehydrateScientificExecutionTraceLedger,
+  type PreProjectScientificTraceSegment,
   type ScientificExecutionTraceLedger,
 } from "@/features/protocol-designer/scientific-execution-trace";
 
@@ -87,6 +88,7 @@ export type ConversationEntry =
 
 export type ProductBridgeTrace = {
   turnId: string;
+  traceRunId?: string;
   requestKind?: ProductBridgeRequest["requestKind"];
   raw: string;
   assistantReply: string;
@@ -117,6 +119,7 @@ export type ProductBridgeTrace = {
   protocolProjectionCount?: number;
   continuationPresentationSource?: PostAdoptionQueryContinuation["presentationSource"] | null;
   continuationMediationFailure?: string | null;
+  preProjectTrace?: Readonly<PreProjectScientificTraceSegment> | null;
 };
 
 export type FunctionalResetSession = {
