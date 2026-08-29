@@ -7,10 +7,13 @@ export const renderProjectionMarkdown = (projection: Readonly<DocumentProjection
   const lines: string[] = [
     `# ${escapeMarkdown(projection.title)}`,
     "",
+    `- Identité de projection : ${escapeMarkdown(projection.projectionId)}`,
     `- Projection : ${projection.projectionType} v${projection.projectionVersion}`,
     `- État : ${projection.lifecycle}`,
     `- Readiness : ${projection.readiness}`,
     `- Projet source : ${escapeMarkdown(projection.source.projectId)} · ${escapeMarkdown(projection.source.projectVersion)}`,
+    `- Empreinte du projet source : ${escapeMarkdown(projection.source.projectDigest)}`,
+    `- Projection demandée le : ${escapeMarkdown(projection.requestedAt)}`,
     `- Template : ${projection.source.template ? `${escapeMarkdown(projection.source.template.templateId)} · instance ${escapeMarkdown(projection.source.template.templateInstanceId)}` : "LEGACY_DIRECT_PROJECT_PROJECTION"}`,
     `- Profil : ${escapeMarkdown(projection.profile)}`,
     `- Usage : ${escapeMarkdown(projection.usage)}`,
@@ -37,6 +40,8 @@ export const renderProjectionMarkdown = (projection: Readonly<DocumentProjection
   });
   lines.push("", "## Registre des décisions humaines", "");
   lines.push(projection.humanDecisions.length ? bulletList(projection.humanDecisions.map((item) => `${item.status} — ${item.gateId} — ${item.actor ?? "acteur non attribué"} — mandat ${item.mandate ?? "non attribué"} — version ${item.version} — ${item.reason ?? "raison non renseignée"}`)) : "- Aucune décision transportée.");
+  lines.push("", "## Provenance de la projection", "");
+  lines.push(projection.provenanceRefs.length ? bulletList(projection.provenanceRefs) : "- Aucune provenance supplémentaire transportée.");
   lines.push("", `Digest de projection : ${projection.projectionDigest}`, "");
   return lines.join("\n");
 };

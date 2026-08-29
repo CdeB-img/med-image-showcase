@@ -1,8 +1,9 @@
-import { ArrowLeft, CircleAlert } from "lucide-react";
+import { ArrowLeft, CircleAlert, Download } from "lucide-react";
 import {
   buildStandardProtocolPresentation,
   type DocumentProjection,
 } from "@/features/document-projection";
+import { downloadProjection } from "@/features/document-projection/DocumentProjectionView";
 
 type Props = {
   projection: DocumentProjection;
@@ -26,6 +27,14 @@ export default function ProtocolPreview({ projection, stale, onClose }: Props) {
         <CircleAlert className="mt-0.5 h-4 w-4 shrink-0" />
         <p>Le projet a changé depuis cette version du protocole. Son contenu reste consultable, mais il n’est plus présenté comme courant.</p>
       </div>}
+      <button
+        type="button"
+        onClick={() => downloadProjection(projection, "HTML")}
+        className="mt-4 inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-4 text-sm font-medium text-primary-foreground"
+      >
+        <Download className="h-4 w-4" />
+        {stale ? "Télécharger cette version historique (.html)" : "Télécharger le protocole (.html)"}
+      </button>
     </header>
 
     <div className="mx-auto max-w-4xl p-5 sm:p-8">

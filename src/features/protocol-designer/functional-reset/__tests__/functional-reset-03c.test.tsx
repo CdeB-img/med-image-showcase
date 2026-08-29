@@ -159,7 +159,10 @@ const projectAtMutationStage = (stage: number) => {
 };
 
 describe("FUNCTIONAL-RESET-03C — human-readable protocol working preview", () => {
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    vi.restoreAllMocks();
+  });
 
   it("FR03C-C01 — Standard preview is derived from the existing document projection chain", () => {
     const { projection } = projectProjection(referenceProject());
@@ -301,9 +304,12 @@ describe("FUNCTIONAL-RESET-03C — human-readable protocol working preview", () 
   it("FR03C-C21 — Project mutation makes previous preview stale", () => {
     const first = projectAtMutationStage(1);
     const current = projectProjection(first).portfolio;
+    const historicalProjection = current.projections.at(-1)!;
     const changed = projectAtMutationStage(2);
     const stale = refreshFunctionalResetDocumentPortfolio({ project: changed, previous: current, requestedAt: "2026-08-22T09:04:00.000Z" });
-    expect(stale.cards.find((card) => card.kind === "PROTOCOL")).toMatchObject({ freshness: "STALE", stateLabel: "À actualiser" });
+    expect(stale.cards.find((card) => card.kind === "PROTOCOL")).toMatchObject({ freshness: "STALE", stateLabel: "À actualiser", projectionId: historicalProjection.projectionId, canOpen: true });
+    expect(stale.projections).toHaveLength(current.projections.length);
+    expect(stale.projections.at(-1)).toEqual(historicalProjection);
   });
 
   it("FR03C-C22 — Refreshing preview binds it to the new Project version", () => {
@@ -332,6 +338,43 @@ describe("FUNCTIONAL-RESET-03C — human-readable protocol working preview", () 
     expect(onClose).toHaveBeenCalledOnce();
     expect(JSON.stringify(project)).toBe(before);
     expect(screen.queryByRole("button", { name: /modifier|enregistrer|confirmer/i })).toBeNull();
+  });
+
+  it("FR03C-C24A — Explicit product action downloads the existing HTML projection without mutating Project", () => {
+    const project = referenceProject();
+    const projectBefore = JSON.stringify(project);
+    const { projection } = projectProjection(project);
+    const projectionBefore = JSON.stringify(projection);
+    const createObjectURL = vi.fn(() => "blob:noxia-protocol");
+    const revokeObjectURL = vi.fn();
+    Object.defineProperty(URL, "createObjectURL", { configurable: true, value: createObjectURL });
+    Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: revokeObjectURL });
+    const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => undefined);
+
+    render(<ProtocolPreview projection={projection} stale={false} onClose={vi.fn()} />);
+    fireEvent.click(screen.getByRole("button", { name: "Télécharger le protocole (.html)" }));
+
+    expect(createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+    expect(click).toHaveBeenCalledOnce();
+    expect(revokeObjectURL).toHaveBeenCalledWith("blob:noxia-protocol");
+    expect(JSON.stringify(project)).toBe(projectBefore);
+    expect(JSON.stringify(projection)).toBe(projectionBefore);
+  });
+
+  it("FR03C-C24B — Stale artifact stays historical and is never regenerated silently", () => {
+    const first = projectAtMutationStage(1);
+    const current = projectProjection(first).portfolio;
+    const historicalProjection = current.projections.at(-1)!;
+    const changed = projectAtMutationStage(2);
+    const changedBefore = JSON.stringify(changed);
+    const stale = refreshFunctionalResetDocumentPortfolio({ project: changed, previous: current, requestedAt: "2026-08-22T09:04:00.000Z" });
+
+    render(<ProtocolPreview projection={historicalProjection} stale onClose={vi.fn()} />);
+
+    expect(screen.getByRole("status")).toHaveTextContent("Le projet a changé depuis cette version du protocole");
+    expect(screen.getByRole("button", { name: "Télécharger cette version historique (.html)" })).toBeInTheDocument();
+    expect(stale.projections).toEqual(current.projections);
+    expect(JSON.stringify(changed)).toBe(changedBefore);
   });
 
   it("FR03C-C25 — QRY behavior is unchanged", () => {

@@ -20818,8 +20818,8 @@
           "expression": "COND_EU_EEA_MEDICINAL_TRIAL",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_EU_CTR_APPLICATION_DOSSIER",
             "SRC_EMA_CTIS_2026",
             "SRC_EU_CTR_536_2014"
@@ -20832,8 +20832,8 @@
           "expression": "COND_OBSERVATIONAL_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STROBE",
             "SRC_EQUATOR_STROBE"
           ],
@@ -20845,8 +20845,8 @@
           "expression": "COND_FR_RIPH_CONFIRMED",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_CPP_OPINION",
             "SRC_FR_CSP_L1121_4",
             "SRC_FR_CSP_L1123_6"
@@ -20859,8 +20859,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_RECORD",
             "SRC_EQUATOR_RECORD"
           ],
@@ -20872,8 +20872,8 @@
           "expression": "COND_OBSERVATIONAL_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STROBE",
             "SRC_EQUATOR_STROBE"
           ],
@@ -20885,8 +20885,8 @@
           "expression": "COND_FR_RIPH_CONFIRMED",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_CPP_PROTOCOL",
             "SRC_FR_CSP_R1123_20"
           ],
@@ -20898,8 +20898,8 @@
           "expression": "COND_DIAGNOSTIC_ACCURACY_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STARD",
             "SRC_EQUATOR_STARD"
           ],
@@ -20911,8 +20911,8 @@
           "expression": "COND_RIPH_CATEGORY_KNOWN",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
             "SRC_FR_CSP_L1122_1_1"
           ],
@@ -20924,8 +20924,8 @@
           "expression": "COND_EU_EEA_MEDICINAL_TRIAL",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_EU_CTR_CTIS",
             "SRC_EC_CTR_CTIS_2025",
             "SRC_EU_CTR_536_2014"
@@ -20938,8 +20938,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STROBE",
             "SRC_EQUATOR_STROBE"
           ],
@@ -20951,8 +20951,8 @@
           "expression": "COND_OBSERVATIONAL_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STROBE",
             "SRC_EQUATOR_STROBE"
           ],
@@ -20964,8 +20964,8 @@
           "expression": "COND_FR_RIPH_CONFIRMED",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_CPP_PROTOCOL",
             "SRC_FR_CSP_R1123_20"
           ],
@@ -20977,8 +20977,8 @@
           "expression": "COND_NIH_FUNDED_CLINICAL_TRIAL",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_NIH_TRIAL_DISSEMINATION",
             "SRC_NIH_DISSEMINATION_POLICY"
           ],
@@ -20990,8 +20990,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STROBE",
             "SRC_EQUATOR_STROBE"
           ],
@@ -21003,8 +21003,8 @@
           "expression": "COND_HEALTH_PERSONAL_DATA",
           "reason": "Condition reprise de REG-001 avec le statut OUTSIDE_EFFECTIVE_PERIOD.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_CNIL_MR_ROUTE",
             "SRC_CNIL_MR001_2026",
             "SRC_CNIL_MR003_2026"
@@ -21017,8 +21017,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_SPIRIT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -21030,8 +21030,8 @@
           "expression": "COND_PREDICTION_MODEL_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_TRIPOD",
             "SRC_EQUATOR_TRIPOD"
           ],
@@ -21043,8 +21043,8 @@
           "expression": "COND_MR_SCOPE_QUALIFIED",
           "reason": "Condition reprise de REG-001 avec le statut OUTSIDE_EFFECTIVE_PERIOD.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_CNIL_MR_ROUTE",
             "SRC_CNIL_MR001_2026",
             "SRC_CNIL_MR003_2026"
@@ -21057,8 +21057,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_TRIPOD",
             "SRC_EQUATOR_TRIPOD"
           ],
@@ -21070,8 +21070,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STROBE",
             "SRC_EQUATOR_STROBE"
           ],
@@ -21083,8 +21083,8 @@
           "expression": "COND_PREDICTION_MODEL_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_TRIPOD",
             "SRC_EQUATOR_TRIPOD"
           ],
@@ -21096,8 +21096,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_SPIRIT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -21109,8 +21109,8 @@
           "expression": "COND_MR_2026_ROUTE",
           "reason": "Condition reprise de REG-001 avec le statut OUTSIDE_EFFECTIVE_PERIOD.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_CNIL_MR_ANNEXES",
             "SRC_CNIL_MR_UPDATE_2026"
           ],
@@ -21122,8 +21122,8 @@
           "expression": "COND_ROUTINELY_COLLECTED_DATA_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_RECORD",
             "SRC_EQUATOR_RECORD"
           ],
@@ -21135,8 +21135,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STARD",
             "SRC_EQUATOR_STARD"
           ],
@@ -21148,8 +21148,8 @@
           "expression": "COND_FR_RIPH_CONFIRMED",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_CPP_PROTOCOL",
             "SRC_FR_CSP_R1123_20"
           ],
@@ -21161,8 +21161,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_TRIPOD",
             "SRC_EQUATOR_TRIPOD"
           ],
@@ -21174,8 +21174,8 @@
           "expression": "COND_PREDICTION_MODEL_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_TRIPOD",
             "SRC_EQUATOR_TRIPOD"
           ],
@@ -21187,8 +21187,8 @@
           "expression": "COND_RANDOMISED_TRIAL_PROTOCOL",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_SPIRIT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -21200,8 +21200,8 @@
           "expression": "COND_US_APPLICABLE_CLINICAL_TRIAL",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_US_ACT_REGISTRATION_RESULTS",
             "SRC_CLINICALTRIALS_FINAL_RULE"
           ],
@@ -21213,8 +21213,8 @@
           "expression": "COND_SYSTEMATIC_REVIEW_REPORT",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_PRISMA_2020",
             "SRC_PRISMA_2020"
           ],
@@ -21226,8 +21226,8 @@
           "expression": "COND_MULTICOUNTRY_DISCOVERY",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_ECRIN_RED_INFORMATIONAL",
             "SRC_ECRIN_RED"
           ],
@@ -21239,8 +21239,8 @@
           "expression": "COND_RHU_V6_2023",
           "reason": "Condition reprise de REG-001 avec le statut OUTSIDE_EFFECTIVE_PERIOD.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_RHU_V6_ANNEXES",
             "SRC_ANR_RHU_V6_2023"
           ],
@@ -21252,8 +21252,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_TRIPOD",
             "SRC_EQUATOR_TRIPOD"
           ],
@@ -21265,8 +21265,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_PRISMA_2020",
             "SRC_PRISMA_2020"
           ],
@@ -21278,8 +21278,8 @@
           "expression": "COND_RIPH_CATEGORY_KNOWN",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
             "SRC_FR_CSP_L1122_1_1"
           ],
@@ -21291,8 +21291,8 @@
           "expression": "COND_RIPH1",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
             "SRC_FR_CSP_L1121_4"
           ],
@@ -21304,8 +21304,8 @@
           "expression": "COND_PHRC_2025_2026_STAGE1",
           "reason": "Condition reprise de REG-001 avec le statut OUTSIDE_EFFECTIVE_PERIOD.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_PHRC_STAGE1",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026"
@@ -21318,8 +21318,8 @@
           "expression": "COND_NOT_REPLACED_BY_MORE_SPECIFIC_EU_ROUTE",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
             "SRC_FR_CSP_L1121_4"
           ],
@@ -21331,8 +21331,8 @@
           "expression": "COND_RANDOMISED_TRIAL_PROTOCOL",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_SPIRIT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -21344,8 +21344,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_SPIRIT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -21357,8 +21357,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_ICH_E6_R3",
             "SRC_ICH_E6_R3_2025"
           ],
@@ -21370,8 +21370,8 @@
           "expression": "COND_RANDOMISED_TRIAL_RESULTS",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_CONSORT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -21383,8 +21383,8 @@
           "expression": "COND_RANDOMISED_TRIAL_PROTOCOL",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_SPIRIT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -21396,8 +21396,8 @@
           "expression": "COND_NO_SILENT_NORMATIVE_PROMOTION",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_CONSORT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -21409,8 +21409,8 @@
           "expression": "COND_ICH_APPLICABILITY",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_ICH_E6_R3",
             "SRC_ICH_E6_R3_2025"
           ],
@@ -21422,8 +21422,8 @@
           "expression": "COND_RIPH_CATEGORY_KNOWN",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
             "SRC_FR_CSP_L1122_1_1"
           ],
@@ -21435,8 +21435,8 @@
           "expression": "COND_FR_HUMAN_RESEARCH_SCOPE",
           "reason": "Condition reprise de REG-001 avec le statut NOT_APPLICABLE.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_RIPH_CLASSIFICATION",
             "SRC_FR_CSP_L1121_1"
           ],
@@ -21448,8 +21448,8 @@
           "expression": "COND_RHU_V6_2023",
           "reason": "Condition reprise de REG-001 avec le statut OUTSIDE_EFFECTIVE_PERIOD.",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_RHU_V6_COMPLETE_DOSSIER",
             "SRC_ANR_RHU_V6_2023"
           ],
@@ -21805,7 +21805,7 @@
           "TMP-NODE:SCIENTIFIC_QUESTION"
         ]
       },
-      "digest": "tmp1-6defedad4cf758a9",
+      "digest": "tmp1-d8e499b4ed903e18",
       "documents": [
         {
           "blockIds": [
@@ -22312,7 +22312,7 @@
           "status": "APPLICABLE",
           "supportingPatterns": [],
           "supportingProjectFacts": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
           "supportingRequirements": [],
           "unknowns": []
@@ -22550,7 +22550,7 @@
             "DKP-FD29840F7616"
           ],
           "supportingProjectFacts": [
-            "imaging-design-result:ke1-bd60897daa077871"
+            "governed-imaging-reference-result:RC-TEST-02-IMG-REF-01_NARROW_MR_ECV_HISTOLOGY:v1.0.0"
           ],
           "supportingRequirements": [],
           "unknowns": []
@@ -22576,7 +22576,7 @@
           "status": "APPLICABLE",
           "supportingPatterns": [],
           "supportingProjectFacts": [
-            "project-design:ke1-4fbeadec4405d990"
+            "project-design:ke1-d4e9406d41d5ce29"
           ],
           "supportingRequirements": [],
           "unknowns": []
@@ -22843,173 +22843,96 @@
         "documentaryCatalogVersion": "1.0.0",
         "regulatoryCorpusDigest": "ke1-40ba687c4aefa298",
         "regulatoryCorpusVersion": "1.0.0",
-        "regulatoryResolutionId": "regulatory-resolution:ke1-aa522ce96e26908d",
-        "researchProjectDigest": "ke1-4c6e2f78e5d86c14",
-        "researchProjectId": "research-project:ke1-6330677151f79f3d",
-        "researchProjectVersion": "PRJ-TEST-1-project-ke1-2dbd281559688539"
+        "regulatoryResolutionId": "regulatory-resolution:ke1-1a8ac3e4fc0bbc98",
+        "researchProjectDigest": "ke1-17649f828124f81e",
+        "researchProjectId": "research-project:ke1-a5379d1496a200c0",
+        "researchProjectVersion": "PRJ-TEST-1-project-ke1-78a0188534bb4539"
       },
-      "instanceId": "TMP-INSTANCE:6DEFEDAD4CF7",
+      "instanceId": "TMP-INSTANCE:D8E499B4ED90",
       "limitations": [
         {
           "limitationId": "PRJ-LIMITATION:1",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
           "reason": "Aucun moteur spécialisé Biostatistics, Data, Regulatory, Economics, Safety ou Operations n’est simulé."
         },
         {
           "limitationId": "PRJ-LIMITATION:10",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
-          "reason": "NO_GENERAL_MRI_CT_COMPARISON"
+          "reason": "NO_PD011_PASS"
         },
         {
           "limitationId": "PRJ-LIMITATION:11",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
-          "reason": "NO_GENERAL_TECHNICAL_ANSWER"
+          "reason": "NO_SCIENTIFIC_PASS"
         },
         {
           "limitationId": "PRJ-LIMITATION:12",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
-          "reason": "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:13",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "NOT_ATOMIC_ASSERTIONS"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:14",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "noxia:radiology:confounder:cardiac-motion"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:15",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "noxia:radiology:confounder:method-dependence"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:16",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "noxia:radiology:technical-context:post-contrast-delay"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:17",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "POST_CONTRAST_T1_CONFOUNDING"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:18",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "RELATION_EVIDENCE_MAY_BE_UNKNOWN"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:19",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "SCIENTIFIC_ASSERTION_REGISTRY_EMPTY"
+          "reason": "SMALL_SELECTED_HISTOLOGIC_VALIDATION_SUBSET_SIX_EXPLANTED_HEARTS"
         },
         {
           "limitationId": "PRJ-LIMITATION:2",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
-          "reason": "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:20",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "SINGLE_CRITERION_SPECIFICITY"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:21",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "SITE_SPECIFIC_VALUES"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:22",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "SMALL_SAMPLE"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:23",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+          "reason": "CONCEPTUAL_NON_EXECUTABLE_TEST_REFERENCE_ONLY"
         },
         {
           "limitationId": "PRJ-LIMITATION:3",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "CLINICAL_MISCLASSIFICATION"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:4",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
           "reason": "Corpus de test volontairement borné."
         },
         {
+          "limitationId": "PRJ-LIMITATION:4",
+          "provenance": [
+            "research-project-design-result:ke1-17649f828124f81e"
+          ],
+          "reason": "ECV_IS_NOT_A_UNIVERSAL_OR_CLINICALLY_VALIDATED_BIOMARKER_ROLE"
+        },
+        {
           "limitationId": "PRJ-LIMITATION:5",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:6",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
-          ],
-          "reason": "ECV_T1_DOMAIN_ONLY"
-        },
-        {
-          "limitationId": "PRJ-LIMITATION:7",
-          "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
           "reason": "La sortie est une projection runtime de construction et non un protocole ou document final."
         },
         {
+          "limitationId": "PRJ-LIMITATION:6",
+          "provenance": [
+            "research-project-design-result:ke1-17649f828124f81e"
+          ],
+          "reason": "NO_CLINICAL_VALIDATION_CLAIM"
+        },
+        {
+          "limitationId": "PRJ-LIMITATION:7",
+          "provenance": [
+            "research-project-design-result:ke1-17649f828124f81e"
+          ],
+          "reason": "NO_EQUIPMENT_COMPATIBILITY_CLAIM"
+        },
+        {
           "limitationId": "PRJ-LIMITATION:8",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
-          "reason": "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE"
+          "reason": "NO_EXECUTABLE_ACQUISITION_PROTOCOL"
         },
         {
           "limitationId": "PRJ-LIMITATION:9",
           "provenance": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14"
+            "research-project-design-result:ke1-17649f828124f81e"
           ],
-          "reason": "NARRATIVE_CORPUS"
+          "reason": "NO_GENERALIZATION_BEYOND_DESCRIBED_TRANSPLANT_HISTOLOGY_CONTEXT"
         },
         {
           "limitationId": "REG-DIAGNOSTIC:corpus-diagnostic:candidate-corpus",
@@ -23169,18 +23092,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -23213,7 +23125,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -23277,7 +23189,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -23303,18 +23215,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -23345,13 +23246,13 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Budget:NOT_AVAILABLE",
             "RDE-001:Research Design Engine",
             "REQ_PHRC_STAGE2",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026",
             "TMP-001:future-consumer-boundary",
@@ -23363,9 +23264,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Budget:NOT_AVAILABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -23377,16 +23278,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
               ],
               "reason": "Exigence de financement FUND_PHRC_N.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
@@ -23397,7 +23298,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -23479,18 +23380,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -23521,12 +23411,12 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
             "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "SRC_FR_CSP_L1122_1_1",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
@@ -23591,15 +23481,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
                 "SRC_FR_CSP_L1122_1_1"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
                 "SRC_FR_CSP_L1122_1_1"
               ],
@@ -23609,7 +23499,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -23635,18 +23525,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -23677,11 +23556,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Core Lab Manual:PARTIALLY_GENERATABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -23691,7 +23570,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -23768,9 +23647,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Core Lab Manual:PARTIALLY_GENERATABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -23794,18 +23673,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -23838,7 +23706,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -23902,7 +23770,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -23928,18 +23796,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -23970,11 +23827,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Data Dictionary:PARTIALLY_GENERATABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -23984,7 +23841,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -23998,9 +23855,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Data Dictionary:PARTIALLY_GENERATABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -24078,18 +23935,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -24122,7 +23968,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -24132,7 +23978,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -24212,18 +24058,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -24256,7 +24091,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -24266,7 +24101,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -24346,18 +24181,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -24473,18 +24297,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -24517,7 +24330,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -24527,7 +24340,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -24607,18 +24420,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -24649,11 +24451,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Monitoring Plan:NOT_AVAILABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -24717,9 +24519,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Monitoring Plan:NOT_AVAILABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -24731,7 +24533,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -24757,18 +24559,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -24801,7 +24592,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -24811,7 +24602,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -24895,18 +24686,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -24937,15 +24717,15 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Protocol:STRUCTURE_ONLY",
             "RDE-001:Research Design Engine",
             "REQ_FR_CPP_PROTOCOL",
             "REQ_PHRC_STAGE2",
             "REQ_SPIRIT_2025",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026",
             "SRC_FR_CSP_R1123_20",
@@ -24958,16 +24738,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
               ],
               "reason": "Exigence de financement FUND_PHRC_N.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
@@ -24978,15 +24758,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_SPIRIT_2025",
                 "SRC_SPIRIT_CONSORT_2025"
               ],
               "reason": "Aucune randomisation déclarée.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_SPIRIT_2025",
                 "SRC_SPIRIT_CONSORT_2025"
               ],
@@ -24996,15 +24776,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_CPP_PROTOCOL",
                 "SRC_FR_CSP_R1123_20"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_CPP_PROTOCOL",
                 "SRC_FR_CSP_R1123_20"
               ],
@@ -25014,9 +24794,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Protocol:STRUCTURE_ONLY",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -25094,18 +24874,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -25212,18 +24981,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -25256,7 +25014,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -25266,7 +25024,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -25346,18 +25104,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -25390,7 +25137,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -25400,7 +25147,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -25480,18 +25227,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -25524,7 +25260,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -25588,7 +25324,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -25614,18 +25350,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -25658,7 +25383,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -25668,7 +25393,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -25748,18 +25473,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -25792,7 +25506,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -25856,7 +25570,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -25882,18 +25596,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -25926,7 +25629,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -25990,7 +25693,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -26021,18 +25724,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -26063,8 +25755,8 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
             "REQ_STROBE",
@@ -26079,15 +25771,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_TRIPOD",
                 "SRC_EQUATOR_TRIPOD"
               ],
               "reason": "Aucun type de rapport déclaré.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_TRIPOD",
                 "SRC_EQUATOR_TRIPOD"
               ],
@@ -26097,15 +25789,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_STROBE",
                 "SRC_EQUATOR_STROBE"
               ],
               "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_STROBE",
                 "SRC_EQUATOR_STROBE"
               ],
@@ -26181,18 +25873,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -26223,11 +25904,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Synopsis:STRUCTURE_ONLY",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -26236,9 +25917,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Synopsis:STRUCTURE_ONLY",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -26316,18 +25997,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -26360,7 +26030,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -26424,7 +26094,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -26529,13 +26199,13 @@
             "DKC-DFA1F2EDD8B6",
             "DOC-001:future-consumer-contract",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Budget:NOT_AVAILABLE",
             "RDE-001:Research Design Engine",
             "REQ_PHRC_STAGE2",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026",
             "TMP-001:Study Template Engine"
@@ -26601,9 +26271,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Budget:NOT_AVAILABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -26615,16 +26285,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
               ],
               "reason": "Exigence de financement FUND_PHRC_N.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
@@ -26650,8 +26320,8 @@
             "DKC-DFA1F2EDD8B6",
             "DOC-001:future-consumer-contract",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
             "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
@@ -26719,15 +26389,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
                 "SRC_FR_CSP_L1122_1_1"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
                 "SRC_FR_CSP_L1122_1_1"
               ],
@@ -26750,11 +26420,11 @@
             "DKC-DFA1F2EDD8B6",
             "DOC-001:future-consumer-contract",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Core Lab Manual:PARTIALLY_GENERATABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "FUTURE",
@@ -26818,9 +26488,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Core Lab Manual:PARTIALLY_GENERATABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -26923,11 +26593,11 @@
             "DKC-DFA1F2EDD8B6",
             "DOC-001:future-consumer-contract",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Data Dictionary:PARTIALLY_GENERATABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "FUTURE",
@@ -26991,9 +26661,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Data Dictionary:PARTIALLY_GENERATABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -27330,11 +27000,11 @@
             "DKC-DFA1F2EDD8B6",
             "DOC-001:future-consumer-contract",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Monitoring Plan:NOT_AVAILABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "FUTURE",
@@ -27343,9 +27013,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Monitoring Plan:NOT_AVAILABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -27507,15 +27177,15 @@
             "DKC-DFA1F2EDD8B6",
             "DOC-001:future-consumer-contract",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Protocol:STRUCTURE_ONLY",
             "RDE-001:Research Design Engine",
             "REQ_FR_CPP_PROTOCOL",
             "REQ_PHRC_STAGE2",
             "REQ_SPIRIT_2025",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026",
             "SRC_FR_CSP_R1123_20",
@@ -27528,15 +27198,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_CPP_PROTOCOL",
                 "SRC_FR_CSP_R1123_20"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_CPP_PROTOCOL",
                 "SRC_FR_CSP_R1123_20"
               ],
@@ -27546,16 +27216,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
               ],
               "reason": "Exigence de financement FUND_PHRC_N.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
@@ -27566,15 +27236,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_SPIRIT_2025",
                 "SRC_SPIRIT_CONSORT_2025"
               ],
               "reason": "Aucune randomisation déclarée.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_SPIRIT_2025",
                 "SRC_SPIRIT_CONSORT_2025"
               ],
@@ -27584,9 +27254,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Protocol:STRUCTURE_ONLY",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -28217,8 +27887,8 @@
             "DKC-DFA1F2EDD8B6",
             "DOC-001:future-consumer-contract",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
             "REQ_STROBE",
@@ -28288,15 +27958,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_TRIPOD",
                 "SRC_EQUATOR_TRIPOD"
               ],
               "reason": "Aucun type de rapport déclaré.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_TRIPOD",
                 "SRC_EQUATOR_TRIPOD"
               ],
@@ -28306,15 +27976,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_STROBE",
                 "SRC_EQUATOR_STROBE"
               ],
               "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_STROBE",
                 "SRC_EQUATOR_STROBE"
               ],
@@ -28337,11 +28007,11 @@
             "DKC-DFA1F2EDD8B6",
             "DOC-001:future-consumer-contract",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Synopsis:STRUCTURE_ONLY",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -28405,9 +28075,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Synopsis:STRUCTURE_ONLY",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -28509,18 +28179,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -28551,11 +28210,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
-            "PRJ-TEST-1-project-ke1-2dbd281559688539",
+            "PRJ-TEST-1-project-ke1-78a0188534bb4539",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "COMPLETE",
@@ -28579,15 +28238,15 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "PRJ-TEST-1-project-ke1-2dbd281559688539",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "ke1-17649f828124f81e",
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "Le registre de contradictions du Research Project reste visible.",
               "sourceRefs": [
-                "PRJ-TEST-1-project-ke1-2dbd281559688539"
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539"
               ],
-              "supportId": "TMP-SUPPORT:C05B426D14A2",
+              "supportId": "TMP-SUPPORT:55CA3E44EF8C",
               "supportLevel": "DIRECT"
             }
           ],
@@ -28605,18 +28264,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -28647,15 +28295,14 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
-            "project-dependency:ke1-45c6e7ffc4008dcb",
-            "project-dependency:ke1-6db2c23e884f2532",
-            "project-dependency:ke1-7ec605ee5390c94a",
-            "project-dependency:ke1-8bbcd24551a7cf29",
-            "project-dependency:ke1-deaf7a420c5a54de",
+            "project-dependency:ke1-214e8ceb783466a7",
+            "project-dependency:ke1-32f31f6f0d7ad49b",
+            "project-dependency:ke1-4de41b35245e8a31",
+            "project-dependency:ke1-82cbf659352f7db5",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -28664,23 +28311,21 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "project-dependency:ke1-45c6e7ffc4008dcb",
-                "project-dependency:ke1-6db2c23e884f2532",
-                "project-dependency:ke1-7ec605ee5390c94a",
-                "project-dependency:ke1-8bbcd24551a7cf29",
-                "project-dependency:ke1-deaf7a420c5a54de",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "ke1-17649f828124f81e",
+                "project-dependency:ke1-214e8ceb783466a7",
+                "project-dependency:ke1-32f31f6f0d7ad49b",
+                "project-dependency:ke1-4de41b35245e8a31",
+                "project-dependency:ke1-82cbf659352f7db5",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "Les dépendances structurées du Research Project sont présentes.",
               "sourceRefs": [
-                "project-dependency:ke1-45c6e7ffc4008dcb",
-                "project-dependency:ke1-6db2c23e884f2532",
-                "project-dependency:ke1-7ec605ee5390c94a",
-                "project-dependency:ke1-8bbcd24551a7cf29",
-                "project-dependency:ke1-deaf7a420c5a54de"
+                "project-dependency:ke1-214e8ceb783466a7",
+                "project-dependency:ke1-32f31f6f0d7ad49b",
+                "project-dependency:ke1-4de41b35245e8a31",
+                "project-dependency:ke1-82cbf659352f7db5"
               ],
-              "supportId": "TMP-SUPPORT:75273072D964",
+              "supportId": "TMP-SUPPORT:579FB0B1713A",
               "supportLevel": "DIRECT"
             },
             {
@@ -28716,18 +28361,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -28758,36 +28392,17 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
-            "project-endpoint:ke1-3153448314f42017",
-            "project-endpoint:ke1-68f22b54fe84ea80",
-            "project-endpoint:ke1-97b1fec75a72b5e3",
+            "project-endpoint:ke1-1f3d9f95c191a919",
+            "project-endpoint:ke1-bd38ed9086def97c",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
           "status": "CONDITIONAL",
           "supports": [
-            {
-              "kind": "PROJECT_SUPPORT",
-              "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "project-endpoint:ke1-3153448314f42017",
-                "project-endpoint:ke1-68f22b54fe84ea80",
-                "project-endpoint:ke1-97b1fec75a72b5e3",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
-              ],
-              "reason": "Des critères candidats sont présents.",
-              "sourceRefs": [
-                "project-endpoint:ke1-3153448314f42017",
-                "project-endpoint:ke1-68f22b54fe84ea80",
-                "project-endpoint:ke1-97b1fec75a72b5e3"
-              ],
-              "supportId": "TMP-SUPPORT:6237E9246DE9",
-              "supportLevel": "DIRECT"
-            },
             {
               "kind": "DOCUMENTARY_SUPPORT",
               "provenance": [
@@ -28841,6 +28456,22 @@
               ],
               "supportId": "TMP-SUPPORT:6CE006A50BAB",
               "supportLevel": "REFERENCE_ONLY"
+            },
+            {
+              "kind": "PROJECT_SUPPORT",
+              "provenance": [
+                "ke1-17649f828124f81e",
+                "project-endpoint:ke1-1f3d9f95c191a919",
+                "project-endpoint:ke1-bd38ed9086def97c",
+                "research-project-design-result:ke1-17649f828124f81e"
+              ],
+              "reason": "Des critères candidats sont présents.",
+              "sourceRefs": [
+                "project-endpoint:ke1-1f3d9f95c191a919",
+                "project-endpoint:ke1-bd38ed9086def97c"
+              ],
+              "supportId": "TMP-SUPPORT:8483E1792965",
+              "supportLevel": "DIRECT"
             }
           ],
           "unknownRefs": []
@@ -28857,18 +28488,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -28901,7 +28521,7 @@
             "doc2-badbdb3301dcc35f",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:future-consumer-boundary",
             "TMP-001:Study Template Engine"
           ],
@@ -28911,7 +28531,7 @@
             {
               "kind": "DEPENDENCY_SUPPORT",
               "provenance": [
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "TMP-001:future-consumer-boundary"
               ],
               "reason": "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
@@ -28955,18 +28575,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -28997,16 +28606,30 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
-            "PRJ-TEST-1-project-ke1-2dbd281559688539",
+            "PRJ-TEST-1-project-ke1-78a0188534bb4539",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
           "status": "CONDITIONAL",
           "supports": [
+            {
+              "kind": "PROJECT_SUPPORT",
+              "provenance": [
+                "ke1-17649f828124f81e",
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539",
+                "research-project-design-result:ke1-17649f828124f81e"
+              ],
+              "reason": "Le registre de décisions humaines est référencé sans reconstruction.",
+              "sourceRefs": [
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539"
+              ],
+              "supportId": "TMP-SUPPORT:0A691DC748EF",
+              "supportLevel": "DIRECT"
+            },
             {
               "kind": "DOCUMENTARY_SUPPORT",
               "provenance": [
@@ -29021,20 +28644,6 @@
               ],
               "supportId": "TMP-SUPPORT:8D71EC31FE9C",
               "supportLevel": "REFERENCE_ONLY"
-            },
-            {
-              "kind": "PROJECT_SUPPORT",
-              "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "PRJ-TEST-1-project-ke1-2dbd281559688539",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
-              ],
-              "reason": "Le registre de décisions humaines est référencé sans reconstruction.",
-              "sourceRefs": [
-                "PRJ-TEST-1-project-ke1-2dbd281559688539"
-              ],
-              "supportId": "TMP-SUPPORT:C8ADDF325BF1",
-              "supportLevel": "DIRECT"
             }
           ],
           "unknownRefs": []
@@ -29051,18 +28660,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -29093,30 +28691,16 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "hypothesis:ke1-6330677151f79f3d",
-            "ke1-4c6e2f78e5d86c14",
+            "hypothesis:ke1-a5379d1496a200c0",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
           "status": "CONDITIONAL",
           "supports": [
-            {
-              "kind": "PROJECT_SUPPORT",
-              "provenance": [
-                "hypothesis:ke1-6330677151f79f3d",
-                "ke1-4c6e2f78e5d86c14",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
-              ],
-              "reason": "Des hypothèses structurées existent dans le Research Project.",
-              "sourceRefs": [
-                "hypothesis:ke1-6330677151f79f3d"
-              ],
-              "supportId": "TMP-SUPPORT:5E1635B163C9",
-              "supportLevel": "DIRECT"
-            },
             {
               "kind": "DOCUMENTARY_SUPPORT",
               "provenance": [
@@ -29170,6 +28754,20 @@
               ],
               "supportId": "TMP-SUPPORT:98A4BABD25A0",
               "supportLevel": "REFERENCE_ONLY"
+            },
+            {
+              "kind": "PROJECT_SUPPORT",
+              "provenance": [
+                "hypothesis:ke1-a5379d1496a200c0",
+                "ke1-17649f828124f81e",
+                "research-project-design-result:ke1-17649f828124f81e"
+              ],
+              "reason": "Des hypothèses structurées existent dans le Research Project.",
+              "sourceRefs": [
+                "hypothesis:ke1-a5379d1496a200c0"
+              ],
+              "supportId": "TMP-SUPPORT:B405473A9E70",
+              "supportLevel": "DIRECT"
             }
           ],
           "unknownRefs": []
@@ -29186,18 +28784,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -29228,11 +28815,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "imaging-design-result:ke1-bd60897daa077871",
-            "ke1-4c6e2f78e5d86c14",
+            "governed-imaging-reference-result:RC-TEST-02-IMG-REF-01_NARROW_MR_ECV_HISTOLOGY:v1.0.0",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -29241,15 +28828,15 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "imaging-design-result:ke1-bd60897daa077871",
-                "ke1-4c6e2f78e5d86c14",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "governed-imaging-reference-result:RC-TEST-02-IMG-REF-01_NARROW_MR_ECV_HISTOLOGY:v1.0.0",
+                "ke1-17649f828124f81e",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "La contribution Imaging est explicitement applicable.",
               "sourceRefs": [
-                "imaging-design-result:ke1-bd60897daa077871"
+                "governed-imaging-reference-result:RC-TEST-02-IMG-REF-01_NARROW_MR_ECV_HISTOLOGY:v1.0.0"
               ],
-              "supportId": "TMP-SUPPORT:938924C5B464",
+              "supportId": "TMP-SUPPORT:0CAA3A65E542",
               "supportLevel": "DIRECT"
             },
             {
@@ -29294,18 +28881,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -29335,100 +28911,29 @@
           "nodeId": "TMP-NODE:LIMITATIONS",
           "provenance": [
             "Aucun moteur spécialisé Biostatistics, Data, Regulatory, Economics, Safety ou Operations n’est simulé.",
-            "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
-            "CLINICAL_MISCLASSIFICATION",
+            "CONCEPTUAL_NON_EXECUTABLE_TEST_REFERENCE_ONLY",
             "Corpus de test volontairement borné.",
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
-            "ECV_T1_DOMAIN_ONLY",
-            "ke1-4c6e2f78e5d86c14",
+            "ECV_IS_NOT_A_UNIVERSAL_OR_CLINICALLY_VALIDATED_BIOMARKER_ROLE",
+            "ke1-17649f828124f81e",
             "La sortie est une projection runtime de construction et non un protocole ou document final.",
-            "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE",
-            "NARRATIVE_CORPUS",
-            "NO_GENERAL_MRI_CT_COMPARISON",
-            "NO_GENERAL_TECHNICAL_ANSWER",
-            "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION",
-            "NOT_ATOMIC_ASSERTIONS",
-            "noxia:radiology:confounder:cardiac-motion",
-            "noxia:radiology:confounder:method-dependence",
-            "noxia:radiology:technical-context:post-contrast-delay",
+            "NO_CLINICAL_VALIDATION_CLAIM",
+            "NO_EQUIPMENT_COMPATIBILITY_CLAIM",
+            "NO_EXECUTABLE_ACQUISITION_PROTOCOL",
+            "NO_GENERALIZATION_BEYOND_DESCRIBED_TRANSPLANT_HISTOLOGY_CONTEXT",
+            "NO_PD011_PASS",
+            "NO_SCIENTIFIC_PASS",
             "PD-003:Research Object Model",
-            "POST_CONTRAST_T1_CONFOUNDING",
-            "PRJ-TEST-1-project-ke1-2dbd281559688539",
+            "PRJ-TEST-1-project-ke1-78a0188534bb4539",
             "RDE-001:Research Design Engine",
-            "RELATION_EVIDENCE_MAY_BE_UNKNOWN",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
-            "SCIENTIFIC_ASSERTION_REGISTRY_EMPTY",
-            "SINGLE_CRITERION_SPECIFICITY",
-            "SITE_SPECIFIC_VALUES",
-            "SMALL_SAMPLE",
-            "TMP-001:Study Template Engine",
-            "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
+            "research-project-design-result:ke1-17649f828124f81e",
+            "SMALL_SELECTED_HISTOLOGIC_VALIDATION_SUBSET_SIX_EXPLANTED_HEARTS",
+            "TMP-001:Study Template Engine"
           ],
           "readiness": "COMPLETE",
           "status": "REQUIRED",
           "supports": [
-            {
-              "kind": "PROJECT_SUPPORT",
-              "provenance": [
-                "Aucun moteur spécialisé Biostatistics, Data, Regulatory, Economics, Safety ou Operations n’est simulé.",
-                "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
-                "CLINICAL_MISCLASSIFICATION",
-                "Corpus de test volontairement borné.",
-                "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
-                "ECV_T1_DOMAIN_ONLY",
-                "ke1-4c6e2f78e5d86c14",
-                "La sortie est une projection runtime de construction et non un protocole ou document final.",
-                "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE",
-                "NARRATIVE_CORPUS",
-                "NO_GENERAL_MRI_CT_COMPARISON",
-                "NO_GENERAL_TECHNICAL_ANSWER",
-                "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION",
-                "NOT_ATOMIC_ASSERTIONS",
-                "noxia:radiology:confounder:cardiac-motion",
-                "noxia:radiology:confounder:method-dependence",
-                "noxia:radiology:technical-context:post-contrast-delay",
-                "POST_CONTRAST_T1_CONFOUNDING",
-                "PRJ-TEST-1-project-ke1-2dbd281559688539",
-                "RELATION_EVIDENCE_MAY_BE_UNKNOWN",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
-                "SCIENTIFIC_ASSERTION_REGISTRY_EMPTY",
-                "SINGLE_CRITERION_SPECIFICITY",
-                "SITE_SPECIFIC_VALUES",
-                "SMALL_SAMPLE",
-                "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
-              ],
-              "reason": "Le registre de limitations du Research Project reste visible.",
-              "sourceRefs": [
-                "Aucun moteur spécialisé Biostatistics, Data, Regulatory, Economics, Safety ou Operations n’est simulé.",
-                "AUTOMATED_REVIEW_IS_NOT_HUMAN_SCIENTIFIC_REVIEW",
-                "CLINICAL_MISCLASSIFICATION",
-                "Corpus de test volontairement borné.",
-                "DOCUMENTARY_SECTIONS_WITHOUT_CONTROLLED_TEXT_REMAIN_UNSTRUCTURED",
-                "ECV_T1_DOMAIN_ONLY",
-                "La sortie est une projection runtime de construction et non un protocole ou document final.",
-                "LEVEL_3_EXECUTABLE_ACQUISITION_PROTOCOL_NOT_GENERATABLE",
-                "NARRATIVE_CORPUS",
-                "NO_GENERAL_MRI_CT_COMPARISON",
-                "NO_GENERAL_TECHNICAL_ANSWER",
-                "NO_STATISTICAL_ANALYSIS_NO_SAMPLE_SIZE_NO_PATIENT_INTERPRETATION",
-                "NOT_ATOMIC_ASSERTIONS",
-                "noxia:radiology:confounder:cardiac-motion",
-                "noxia:radiology:confounder:method-dependence",
-                "noxia:radiology:technical-context:post-contrast-delay",
-                "POST_CONTRAST_T1_CONFOUNDING",
-                "PRJ-TEST-1-project-ke1-2dbd281559688539",
-                "RELATION_EVIDENCE_MAY_BE_UNKNOWN",
-                "SCIENTIFIC_ASSERTION_REGISTRY_EMPTY",
-                "SINGLE_CRITERION_SPECIFICITY",
-                "SITE_SPECIFIC_VALUES",
-                "SMALL_SAMPLE",
-                "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"
-              ],
-              "supportId": "TMP-SUPPORT:448104F7B869",
-              "supportLevel": "DIRECT"
-            },
             {
               "kind": "DOCUMENTARY_SUPPORT",
               "provenance": [
@@ -29452,6 +28957,44 @@
               ],
               "supportId": "TMP-SUPPORT:EECA1953A5D8",
               "supportLevel": "REFERENCE_ONLY"
+            },
+            {
+              "kind": "PROJECT_SUPPORT",
+              "provenance": [
+                "Aucun moteur spécialisé Biostatistics, Data, Regulatory, Economics, Safety ou Operations n’est simulé.",
+                "CONCEPTUAL_NON_EXECUTABLE_TEST_REFERENCE_ONLY",
+                "Corpus de test volontairement borné.",
+                "ECV_IS_NOT_A_UNIVERSAL_OR_CLINICALLY_VALIDATED_BIOMARKER_ROLE",
+                "ke1-17649f828124f81e",
+                "La sortie est une projection runtime de construction et non un protocole ou document final.",
+                "NO_CLINICAL_VALIDATION_CLAIM",
+                "NO_EQUIPMENT_COMPATIBILITY_CLAIM",
+                "NO_EXECUTABLE_ACQUISITION_PROTOCOL",
+                "NO_GENERALIZATION_BEYOND_DESCRIBED_TRANSPLANT_HISTOLOGY_CONTEXT",
+                "NO_PD011_PASS",
+                "NO_SCIENTIFIC_PASS",
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539",
+                "research-project-design-result:ke1-17649f828124f81e",
+                "SMALL_SELECTED_HISTOLOGIC_VALIDATION_SUBSET_SIX_EXPLANTED_HEARTS"
+              ],
+              "reason": "Le registre de limitations du Research Project reste visible.",
+              "sourceRefs": [
+                "Aucun moteur spécialisé Biostatistics, Data, Regulatory, Economics, Safety ou Operations n’est simulé.",
+                "CONCEPTUAL_NON_EXECUTABLE_TEST_REFERENCE_ONLY",
+                "Corpus de test volontairement borné.",
+                "ECV_IS_NOT_A_UNIVERSAL_OR_CLINICALLY_VALIDATED_BIOMARKER_ROLE",
+                "La sortie est une projection runtime de construction et non un protocole ou document final.",
+                "NO_CLINICAL_VALIDATION_CLAIM",
+                "NO_EQUIPMENT_COMPATIBILITY_CLAIM",
+                "NO_EXECUTABLE_ACQUISITION_PROTOCOL",
+                "NO_GENERALIZATION_BEYOND_DESCRIBED_TRANSPLANT_HISTOLOGY_CONTEXT",
+                "NO_PD011_PASS",
+                "NO_SCIENTIFIC_PASS",
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539",
+                "SMALL_SELECTED_HISTOLOGIC_VALIDATION_SUBSET_SIX_EXPLANTED_HEARTS"
+              ],
+              "supportId": "TMP-SUPPORT:F5FC4C21C971",
+              "supportLevel": "DIRECT"
             }
           ],
           "unknownRefs": []
@@ -29468,18 +29011,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -29510,11 +29042,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
-            "objective:ke1-6330677151f79f3d",
+            "ke1-17649f828124f81e",
+            "objective:ke1-a5379d1496a200c0",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -29523,15 +29055,15 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "objective:ke1-6330677151f79f3d",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "ke1-17649f828124f81e",
+                "objective:ke1-a5379d1496a200c0",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "Des objectifs structurés existent dans le Research Project.",
               "sourceRefs": [
-                "objective:ke1-6330677151f79f3d"
+                "objective:ke1-a5379d1496a200c0"
               ],
-              "supportId": "TMP-SUPPORT:BC0EB33664D9",
+              "supportId": "TMP-SUPPORT:B15C51C54A94",
               "supportLevel": "DIRECT"
             },
             {
@@ -29603,18 +29135,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -29645,11 +29166,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "project-population:ke1-6e6722dfc86589ab",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "COMPLETE",
@@ -29712,9 +29233,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "project-population:ke1-6e6722dfc86589ab",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "La structure de population du Research Project est présente.",
               "sourceRefs": [
@@ -29738,18 +29259,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -29780,11 +29290,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
-            "PRJ-TEST-1-project-ke1-2dbd281559688539",
+            "PRJ-TEST-1-project-ke1-78a0188534bb4539",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "COMPLETE",
@@ -29847,16 +29357,16 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "PRJ-TEST-1-project-ke1-2dbd281559688539",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "ke1-17649f828124f81e",
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "L’identité et la version du Research Project sont présentes.",
               "sourceRefs": [
-                "PRJ-TEST-1-project-ke1-2dbd281559688539",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
-              "supportId": "TMP-SUPPORT:6C104CCC91B1",
+              "supportId": "TMP-SUPPORT:A36A508A5AA4",
               "supportLevel": "DIRECT"
             }
           ],
@@ -29874,12 +29384,12 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "knowledge-result:test",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-construction-input:ke1-6330677151f79f3d",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-construction-input:ke1-a5379d1496a200c0",
+            "research-project-design-result:ke1-17649f828124f81e",
             "scientific-thinking-output:test",
             "TMP-001:Study Template Engine",
             "validated-intent:test"
@@ -29890,21 +29400,21 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "knowledge-result:test",
-                "research-project-construction-input:ke1-6330677151f79f3d",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-construction-input:ke1-a5379d1496a200c0",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "scientific-thinking-output:test",
                 "validated-intent:test"
               ],
               "reason": "La provenance PRJ est référencée en lecture seule.",
               "sourceRefs": [
                 "knowledge-result:test",
-                "research-project-construction-input:ke1-6330677151f79f3d",
+                "research-project-construction-input:ke1-a5379d1496a200c0",
                 "scientific-thinking-output:test",
                 "validated-intent:test"
               ],
-              "supportId": "TMP-SUPPORT:87AD493E000C",
+              "supportId": "TMP-SUPPORT:C193D0CDE063",
               "supportLevel": "DIRECT"
             },
             {
@@ -29986,12 +29496,12 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "knowledge-result:test",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-construction-input:ke1-6330677151f79f3d",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-construction-input:ke1-a5379d1496a200c0",
+            "research-project-design-result:ke1-17649f828124f81e",
             "scientific-thinking-output:test",
             "TMP-001:Study Template Engine",
             "validated-intent:test"
@@ -30002,21 +29512,21 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "knowledge-result:test",
-                "research-project-construction-input:ke1-6330677151f79f3d",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-construction-input:ke1-a5379d1496a200c0",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "scientific-thinking-output:test",
                 "validated-intent:test"
               ],
               "reason": "La provenance PRJ est référencée en lecture seule.",
               "sourceRefs": [
                 "knowledge-result:test",
-                "research-project-construction-input:ke1-6330677151f79f3d",
+                "research-project-construction-input:ke1-a5379d1496a200c0",
                 "scientific-thinking-output:test",
                 "validated-intent:test"
               ],
-              "supportId": "TMP-SUPPORT:60D25440F3B5",
+              "supportId": "TMP-SUPPORT:2073FD1B350F",
               "supportLevel": "DIRECT"
             },
             {
@@ -30088,18 +29598,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -30130,7 +29629,7 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-READINESS:DATA_FEASIBILITY:NOT_EVALUATED_BY_SPECIALIZED_ENGINE",
             "PRJ-READINESS:ECONOMIC_FEASIBILITY:NOT_EVALUATED_BY_SPECIALIZED_ENGINE",
@@ -30142,9 +29641,9 @@
             "PRJ-READINESS:SCIENTIFIC_FEASIBILITY:READY_WITH_OPEN_ITEMS",
             "PRJ-READINESS:STATISTICAL_FEASIBILITY:NOT_EVALUATED_BY_SPECIALIZED_ENGINE",
             "PRJ-READINESS:TECHNICAL_FEASIBILITY:PARTIAL",
-            "PRJ-TEST-1-project-ke1-2dbd281559688539",
+            "PRJ-TEST-1-project-ke1-78a0188534bb4539",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -30172,7 +29671,7 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-READINESS:DATA_FEASIBILITY:NOT_EVALUATED_BY_SPECIALIZED_ENGINE",
                 "PRJ-READINESS:ECONOMIC_FEASIBILITY:NOT_EVALUATED_BY_SPECIALIZED_ENGINE",
                 "PRJ-READINESS:MEASUREMENT_FEASIBILITY:READY_WITH_LIMITATIONS",
@@ -30183,8 +29682,8 @@
                 "PRJ-READINESS:SCIENTIFIC_FEASIBILITY:READY_WITH_OPEN_ITEMS",
                 "PRJ-READINESS:STATISTICAL_FEASIBILITY:NOT_EVALUATED_BY_SPECIALIZED_ENGINE",
                 "PRJ-READINESS:TECHNICAL_FEASIBILITY:PARTIAL",
-                "PRJ-TEST-1-project-ke1-2dbd281559688539",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "La readiness locale PRJ est conservée séparément de la readiness TMP.",
               "sourceRefs": [
@@ -30198,9 +29697,9 @@
                 "PRJ-READINESS:SCIENTIFIC_FEASIBILITY:READY_WITH_OPEN_ITEMS",
                 "PRJ-READINESS:STATISTICAL_FEASIBILITY:NOT_EVALUATED_BY_SPECIALIZED_ENGINE",
                 "PRJ-READINESS:TECHNICAL_FEASIBILITY:PARTIAL",
-                "PRJ-TEST-1-project-ke1-2dbd281559688539"
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539"
               ],
-              "supportId": "TMP-SUPPORT:C4DE5BE1C7DD",
+              "supportId": "TMP-SUPPORT:C7A2F29E497F",
               "supportLevel": "DIRECT"
             }
           ],
@@ -30244,18 +29743,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -30286,11 +29774,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "regulatory-resolution:ke1-aa522ce96e26908d",
+            "regulatory-resolution:ke1-1a8ac3e4fc0bbc98",
             "REQ_CNIL_MR_ANNEXES",
             "REQ_CNIL_MR_ROUTE",
             "REQ_CONSORT_2025",
@@ -30337,16 +29825,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_CPP_OPINION",
                 "SRC_FR_CSP_L1121_4",
                 "SRC_FR_CSP_L1123_6"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_CPP_OPINION",
                 "SRC_FR_CSP_L1121_4",
                 "SRC_FR_CSP_L1123_6"
@@ -30413,15 +29901,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_RHU_V6_ANNEXES",
                 "SRC_ANR_RHU_V6_2023"
               ],
               "reason": "La date 2026-01-15 est hors de la période 2023-01-02/2023-04-13.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_RHU_V6_ANNEXES",
                 "SRC_ANR_RHU_V6_2023"
               ],
@@ -30431,28 +29919,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
-                "regulatory-resolution:ke1-aa522ce96e26908d",
-                "ke1-40ba687c4aefa298"
-              ],
-              "reason": "Le registre des exigences provient du résultat REG-001, sans requalification TMP.",
-              "sourceRefs": [
-                "regulatory-resolution:ke1-aa522ce96e26908d"
-              ],
-              "supportId": "TMP-SUPPORT:350A9CFD5ECD",
-              "supportLevel": "DIRECT"
-            },
-            {
-              "kind": "REGULATORY_SUPPORT",
-              "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_CONSORT_2025",
                 "SRC_SPIRIT_CONSORT_2025"
               ],
               "reason": "Aucune randomisation déclarée.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_CONSORT_2025",
                 "SRC_SPIRIT_CONSORT_2025"
               ],
@@ -30462,15 +29937,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_US_ACT_REGISTRATION_RESULTS",
                 "SRC_CLINICALTRIALS_FINAL_RULE"
               ],
               "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_US_ACT_REGISTRATION_RESULTS",
                 "SRC_CLINICALTRIALS_FINAL_RULE"
               ],
@@ -30480,15 +29955,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_NIH_TRIAL_DISSEMINATION",
                 "SRC_NIH_DISSEMINATION_POLICY"
               ],
               "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_NIH_TRIAL_DISSEMINATION",
                 "SRC_NIH_DISSEMINATION_POLICY"
               ],
@@ -30498,15 +29973,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
                 "SRC_FR_CSP_L1121_4"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
                 "SRC_FR_CSP_L1121_4"
               ],
@@ -30516,15 +29991,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PRISMA_2020",
                 "SRC_PRISMA_2020"
               ],
               "reason": "Aucun type de rapport déclaré.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PRISMA_2020",
                 "SRC_PRISMA_2020"
               ],
@@ -30534,16 +30009,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE1",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
               ],
               "reason": "La date 2026-01-15 est hors de la période 2025-07-02/2025-12-09.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE1",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
@@ -30554,15 +30029,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_ECRIN_RED_INFORMATIONAL",
                 "SRC_ECRIN_RED"
               ],
               "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_ECRIN_RED_INFORMATIONAL",
                 "SRC_ECRIN_RED"
               ],
@@ -30572,16 +30047,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_CNIL_MR_ROUTE",
                 "SRC_CNIL_MR001_2026",
                 "SRC_CNIL_MR003_2026"
               ],
               "reason": "La date 2026-01-15 est hors de la période 2026-05-23/OPEN.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_CNIL_MR_ROUTE",
                 "SRC_CNIL_MR001_2026",
                 "SRC_CNIL_MR003_2026"
@@ -30592,16 +30067,29 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "regulatory-resolution:ke1-1a8ac3e4fc0bbc98",
+                "ke1-40ba687c4aefa298"
+              ],
+              "reason": "Le registre des exigences provient du résultat REG-001, sans requalification TMP.",
+              "sourceRefs": [
+                "regulatory-resolution:ke1-1a8ac3e4fc0bbc98"
+              ],
+              "supportId": "TMP-SUPPORT:8A1321ECB905",
+              "supportLevel": "DIRECT"
+            },
+            {
+              "kind": "REGULATORY_SUPPORT",
+              "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_EU_CTR_CTIS",
                 "SRC_EC_CTR_CTIS_2025",
                 "SRC_EU_CTR_536_2014"
               ],
               "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_EU_CTR_CTIS",
                 "SRC_EC_CTR_CTIS_2025",
                 "SRC_EU_CTR_536_2014"
@@ -30612,15 +30100,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_ICH_E6_R3",
                 "SRC_ICH_E6_R3_2025"
               ],
               "reason": "Absence d’intervention explicitement déclarée.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_ICH_E6_R3",
                 "SRC_ICH_E6_R3_2025"
               ],
@@ -30630,15 +30118,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_RIPH_CLASSIFICATION",
                 "SRC_FR_CSP_L1121_1"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_RIPH_CLASSIFICATION",
                 "SRC_FR_CSP_L1121_1"
               ],
@@ -30648,16 +30136,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_EU_CTR_APPLICATION_DOSSIER",
                 "SRC_EMA_CTIS_2026",
                 "SRC_EU_CTR_536_2014"
               ],
               "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_EU_CTR_APPLICATION_DOSSIER",
                 "SRC_EMA_CTIS_2026",
                 "SRC_EU_CTR_536_2014"
@@ -30668,15 +30156,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_STARD",
                 "SRC_EQUATOR_STARD"
               ],
               "reason": "Aucun type de rapport déclaré.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_STARD",
                 "SRC_EQUATOR_STARD"
               ],
@@ -30686,15 +30174,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_RHU_V6_COMPLETE_DOSSIER",
                 "SRC_ANR_RHU_V6_2023"
               ],
               "reason": "La date 2026-01-15 est hors de la période 2023-01-02/2023-04-13.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_RHU_V6_COMPLETE_DOSSIER",
                 "SRC_ANR_RHU_V6_2023"
               ],
@@ -30704,15 +30192,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_RECORD",
                 "SRC_EQUATOR_RECORD"
               ],
               "reason": "Aucune donnée courante déclarée.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_RECORD",
                 "SRC_EQUATOR_RECORD"
               ],
@@ -30722,15 +30210,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_CNIL_MR_ANNEXES",
                 "SRC_CNIL_MR_UPDATE_2026"
               ],
               "reason": "La date 2026-01-15 est hors de la période 2026-05-23/OPEN.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_CNIL_MR_ANNEXES",
                 "SRC_CNIL_MR_UPDATE_2026"
               ],
@@ -30752,18 +30240,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -30831,18 +30308,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -30873,30 +30339,16 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
-            "question:ke1-6330677151f79f3d",
+            "question:ke1-a5379d1496a200c0",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "COMPLETE",
           "status": "REQUIRED",
           "supports": [
-            {
-              "kind": "PROJECT_SUPPORT",
-              "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "question:ke1-6330677151f79f3d",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
-              ],
-              "reason": "La question scientifique gouvernée est présente.",
-              "sourceRefs": [
-                "question:ke1-6330677151f79f3d"
-              ],
-              "supportId": "TMP-SUPPORT:2A2BBBCB9280",
-              "supportLevel": "DIRECT"
-            },
             {
               "kind": "DOCUMENTARY_SUPPORT",
               "provenance": [
@@ -30950,6 +30402,20 @@
               ],
               "supportId": "TMP-SUPPORT:C77924A906BD",
               "supportLevel": "REFERENCE_ONLY"
+            },
+            {
+              "kind": "PROJECT_SUPPORT",
+              "provenance": [
+                "ke1-17649f828124f81e",
+                "question:ke1-a5379d1496a200c0",
+                "research-project-design-result:ke1-17649f828124f81e"
+              ],
+              "reason": "La question scientifique gouvernée est présente.",
+              "sourceRefs": [
+                "question:ke1-a5379d1496a200c0"
+              ],
+              "supportId": "TMP-SUPPORT:E05E5948DC63",
+              "supportLevel": "DIRECT"
             }
           ],
           "unknownRefs": []
@@ -30966,18 +30432,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -31008,11 +30463,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
-            "project-design:ke1-4fbeadec4405d990",
+            "project-design:ke1-d4e9406d41d5ce29",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "COMPLETE",
@@ -31075,15 +30530,15 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "project-design:ke1-4fbeadec4405d990",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "ke1-17649f828124f81e",
+                "project-design:ke1-d4e9406d41d5ce29",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "Des plans d’étude candidats sont présents.",
               "sourceRefs": [
-                "project-design:ke1-4fbeadec4405d990"
+                "project-design:ke1-d4e9406d41d5ce29"
               ],
-              "supportId": "TMP-SUPPORT:18E5EAFA71DB",
+              "supportId": "TMP-SUPPORT:6843A1182FF1",
               "supportLevel": "DIRECT"
             }
           ],
@@ -31101,18 +30556,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -31143,12 +30587,12 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "knowledge-result:test",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-construction-input:ke1-6330677151f79f3d",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-construction-input:ke1-a5379d1496a200c0",
+            "research-project-design-result:ke1-17649f828124f81e",
             "scientific-thinking-output:test",
             "TMP-001:Study Template Engine",
             "validated-intent:test"
@@ -31223,21 +30667,21 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "knowledge-result:test",
-                "research-project-construction-input:ke1-6330677151f79f3d",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14",
+                "research-project-construction-input:ke1-a5379d1496a200c0",
+                "research-project-design-result:ke1-17649f828124f81e",
                 "scientific-thinking-output:test",
                 "validated-intent:test"
               ],
               "reason": "La provenance PRJ est référencée en lecture seule.",
               "sourceRefs": [
                 "knowledge-result:test",
-                "research-project-construction-input:ke1-6330677151f79f3d",
+                "research-project-construction-input:ke1-a5379d1496a200c0",
                 "scientific-thinking-output:test",
                 "validated-intent:test"
               ],
-              "supportId": "TMP-SUPPORT:7F111BD17540",
+              "supportId": "TMP-SUPPORT:D9429912BBAF",
               "supportLevel": "DIRECT"
             }
           ],
@@ -31255,18 +30699,7 @@
             "PRJ-LIMITATION:10",
             "PRJ-LIMITATION:11",
             "PRJ-LIMITATION:12",
-            "PRJ-LIMITATION:13",
-            "PRJ-LIMITATION:14",
-            "PRJ-LIMITATION:15",
-            "PRJ-LIMITATION:16",
-            "PRJ-LIMITATION:17",
-            "PRJ-LIMITATION:18",
-            "PRJ-LIMITATION:19",
             "PRJ-LIMITATION:2",
-            "PRJ-LIMITATION:20",
-            "PRJ-LIMITATION:21",
-            "PRJ-LIMITATION:22",
-            "PRJ-LIMITATION:23",
             "PRJ-LIMITATION:3",
             "PRJ-LIMITATION:4",
             "PRJ-LIMITATION:5",
@@ -31297,11 +30730,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
-            "PRJ-TEST-1-project-ke1-2dbd281559688539",
+            "PRJ-TEST-1-project-ke1-78a0188534bb4539",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "COMPLETE",
@@ -31310,15 +30743,15 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "PRJ-TEST-1-project-ke1-2dbd281559688539",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "ke1-17649f828124f81e",
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "Le registre d’inconnues du Research Project reste une source, y compris lorsqu’il est vide.",
               "sourceRefs": [
-                "PRJ-TEST-1-project-ke1-2dbd281559688539"
+                "PRJ-TEST-1-project-ke1-78a0188534bb4539"
               ],
-              "supportId": "TMP-SUPPORT:18A8B7402966",
+              "supportId": "TMP-SUPPORT:643670FD06B9",
               "supportLevel": "DIRECT"
             },
             {
@@ -31385,7 +30818,7 @@
           "provenance": [
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "regulatory-resolution:ke1-aa522ce96e26908d",
+            "regulatory-resolution:ke1-1a8ac3e4fc0bbc98",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -31394,14 +30827,14 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
-                "regulatory-resolution:ke1-aa522ce96e26908d"
+                "regulatory-resolution:ke1-1a8ac3e4fc0bbc98"
               ],
               "reason": "Référence explicite vers le résultat REG-001.",
               "sourceRefs": [
-                "regulatory-resolution:ke1-aa522ce96e26908d",
+                "regulatory-resolution:ke1-1a8ac3e4fc0bbc98",
                 "ke1-40ba687c4aefa298"
               ],
-              "supportId": "TMP-SUPPORT:663DF5A14DF3",
+              "supportId": "TMP-SUPPORT:35B3A1E87468",
               "supportLevel": "DIRECT"
             }
           ],
@@ -31417,10 +30850,10 @@
           "limitationRefs": [],
           "nodeId": "TMP-REF:RESEARCH_PROJECT",
           "provenance": [
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -31429,15 +30862,15 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "ke1-17649f828124f81e",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "Référence explicite vers le Research Project.",
               "sourceRefs": [
-                "ke1-4c6e2f78e5d86c14",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "ke1-17649f828124f81e",
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
-              "supportId": "TMP-SUPPORT:D4E061EAF1C8",
+              "supportId": "TMP-SUPPORT:405920F4E06F",
               "supportLevel": "DIRECT"
             }
           ],
@@ -31532,13 +30965,13 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Budget:NOT_AVAILABLE",
             "RDE-001:Research Design Engine",
             "REQ_PHRC_STAGE2",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026",
             "TMP-001:Study Template Engine"
@@ -31549,16 +30982,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
               ],
               "reason": "Exigence de financement FUND_PHRC_N.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
@@ -31569,9 +31002,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Budget:NOT_AVAILABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -31652,8 +31085,8 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
             "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
@@ -31666,15 +31099,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
                 "SRC_FR_CSP_L1122_1_1"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
                 "SRC_FR_CSP_L1122_1_1"
               ],
@@ -31751,11 +31184,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Core Lab Manual:PARTIALLY_GENERATABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "FUTURE",
@@ -31764,9 +31197,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Core Lab Manual:PARTIALLY_GENERATABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -31922,11 +31355,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Data Dictionary:PARTIALLY_GENERATABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "FUTURE",
@@ -31990,9 +31423,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Data Dictionary:PARTIALLY_GENERATABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -32324,11 +31757,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Monitoring Plan:NOT_AVAILABLE",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "FUTURE",
@@ -32337,9 +31770,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Monitoring Plan:NOT_AVAILABLE",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -32499,15 +31932,15 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Protocol:STRUCTURE_ONLY",
             "RDE-001:Research Design Engine",
             "REQ_FR_CPP_PROTOCOL",
             "REQ_PHRC_STAGE2",
             "REQ_SPIRIT_2025",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026",
             "SRC_FR_CSP_R1123_20",
@@ -32520,15 +31953,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_SPIRIT_2025",
                 "SRC_SPIRIT_CONSORT_2025"
               ],
               "reason": "Aucune randomisation déclarée.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_SPIRIT_2025",
                 "SRC_SPIRIT_CONSORT_2025"
               ],
@@ -32538,9 +31971,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Protocol:STRUCTURE_ONLY",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -32607,15 +32040,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_CPP_PROTOCOL",
                 "SRC_FR_CSP_R1123_20"
               ],
               "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_FR_CPP_PROTOCOL",
                 "SRC_FR_CSP_R1123_20"
               ],
@@ -32625,16 +32058,16 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
               ],
               "reason": "Exigence de financement FUND_PHRC_N.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_PHRC_STAGE2",
                 "SRC_DGOS_NOTE_2025_90",
                 "SRC_DGOS_PHRC_2025_2026"
@@ -33201,8 +32634,8 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "PD-003:Research Object Model",
             "RDE-001:Research Design Engine",
             "REQ_STROBE",
@@ -33217,15 +32650,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_TRIPOD",
                 "SRC_EQUATOR_TRIPOD"
               ],
               "reason": "Aucun type de rapport déclaré.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_TRIPOD",
                 "SRC_EQUATOR_TRIPOD"
               ],
@@ -33235,15 +32668,15 @@
             {
               "kind": "REGULATORY_SUPPORT",
               "provenance": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_STROBE",
                 "SRC_EQUATOR_STROBE"
               ],
               "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
               "sourceRefs": [
+                "ke1-17649f828124f81e",
                 "ke1-40ba687c4aefa298",
-                "ke1-4c6e2f78e5d86c14",
                 "REQ_STROBE",
                 "SRC_EQUATOR_STROBE"
               ],
@@ -33320,11 +32753,11 @@
           "provenance": [
             "DKC-DFA1F2EDD8B6",
             "doc2-badbdb3301dcc35f",
-            "ke1-4c6e2f78e5d86c14",
+            "ke1-17649f828124f81e",
             "PD-003:Research Object Model",
             "PRJ-PROJECTION:Synopsis:STRUCTURE_ONLY",
             "RDE-001:Research Design Engine",
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "TMP-001:Study Template Engine"
           ],
           "readiness": "PARTIAL",
@@ -33388,9 +32821,9 @@
             {
               "kind": "PROJECT_SUPPORT",
               "provenance": [
-                "ke1-4c6e2f78e5d86c14",
+                "ke1-17649f828124f81e",
                 "PRJ-PROJECTION:Synopsis:STRUCTURE_ONLY",
-                "research-project-design-result:ke1-4c6e2f78e5d86c14"
+                "research-project-design-result:ke1-17649f828124f81e"
               ],
               "reason": "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.",
               "sourceRefs": [
@@ -38586,10 +38019,10 @@
       "provenance": [
         "DKC-DFA1F2EDD8B6",
         "doc2-badbdb3301dcc35f",
+        "ke1-17649f828124f81e",
         "ke1-40ba687c4aefa298",
-        "ke1-4c6e2f78e5d86c14",
-        "regulatory-resolution:ke1-aa522ce96e26908d",
-        "research-project-design-result:ke1-4c6e2f78e5d86c14",
+        "regulatory-resolution:ke1-1a8ac3e4fc0bbc98",
+        "research-project-design-result:ke1-17649f828124f81e",
         "TMP-STUDY:CLINICAL-STUDY",
         "tmp1-d26f94cc93c460c0"
       ],
@@ -42002,8 +41435,8 @@
           "reason": "La date 2026-01-15 est hors de la période 2026-05-23/OPEN.",
           "requirementId": "REQ_CNIL_MR_ANNEXES",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_CNIL_MR_ANNEXES",
             "SRC_CNIL_MR_UPDATE_2026"
           ],
@@ -42016,8 +41449,8 @@
           "reason": "La date 2026-01-15 est hors de la période 2026-05-23/OPEN.",
           "requirementId": "REQ_CNIL_MR_ROUTE",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_CNIL_MR_ROUTE",
             "SRC_CNIL_MR001_2026",
             "SRC_CNIL_MR003_2026"
@@ -42031,8 +41464,8 @@
           "reason": "Aucune randomisation déclarée.",
           "requirementId": "REQ_CONSORT_2025",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_CONSORT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -42045,8 +41478,8 @@
           "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
           "requirementId": "REQ_ECRIN_RED_INFORMATIONAL",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_ECRIN_RED_INFORMATIONAL",
             "SRC_ECRIN_RED"
           ],
@@ -42059,8 +41492,8 @@
           "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
           "requirementId": "REQ_EU_CTR_APPLICATION_DOSSIER",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_EU_CTR_APPLICATION_DOSSIER",
             "SRC_EMA_CTIS_2026",
             "SRC_EU_CTR_536_2014"
@@ -42074,8 +41507,8 @@
           "reason": "La juridiction EU_EEA n’est pas déclarée pour le projet ou ses centres.",
           "requirementId": "REQ_EU_CTR_CTIS",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_EU_CTR_CTIS",
             "SRC_EC_CTR_CTIS_2025",
             "SRC_EU_CTR_536_2014"
@@ -42089,8 +41522,8 @@
           "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
           "requirementId": "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_ANSM_RIPH1_AUTHORIZATION",
             "SRC_FR_CSP_L1121_4"
           ],
@@ -42103,8 +41536,8 @@
           "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
           "requirementId": "REQ_FR_CPP_OPINION",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_CPP_OPINION",
             "SRC_FR_CSP_L1121_4",
             "SRC_FR_CSP_L1123_6"
@@ -42120,8 +41553,8 @@
           "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
           "requirementId": "REQ_FR_CPP_PROTOCOL",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_CPP_PROTOCOL",
             "SRC_FR_CSP_R1123_20"
           ],
@@ -42134,8 +41567,8 @@
           "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
           "requirementId": "REQ_FR_RIPH_CLASSIFICATION",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_RIPH_CLASSIFICATION",
             "SRC_FR_CSP_L1121_1"
           ],
@@ -42150,8 +41583,8 @@
           "reason": "Le scénario de base est explicitement hors recherche impliquant des personnes.",
           "requirementId": "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_FR_RIPH_CONSENT_OR_OPPOSITION",
             "SRC_FR_CSP_L1122_1_1"
           ],
@@ -42164,8 +41597,8 @@
           "reason": "Absence d’intervention explicitement déclarée.",
           "requirementId": "REQ_ICH_E6_R3",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_ICH_E6_R3",
             "SRC_ICH_E6_R3_2025"
           ],
@@ -42178,8 +41611,8 @@
           "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
           "requirementId": "REQ_NIH_TRIAL_DISSEMINATION",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_NIH_TRIAL_DISSEMINATION",
             "SRC_NIH_DISSEMINATION_POLICY"
           ],
@@ -42192,8 +41625,8 @@
           "reason": "La date 2026-01-15 est hors de la période 2025-07-02/2025-12-09.",
           "requirementId": "REQ_PHRC_STAGE1",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_PHRC_STAGE1",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026"
@@ -42212,8 +41645,8 @@
           "reason": "Exigence de financement FUND_PHRC_N.",
           "requirementId": "REQ_PHRC_STAGE2",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_PHRC_STAGE2",
             "SRC_DGOS_NOTE_2025_90",
             "SRC_DGOS_PHRC_2025_2026"
@@ -42227,8 +41660,8 @@
           "reason": "Aucun type de rapport déclaré.",
           "requirementId": "REQ_PRISMA_2020",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_PRISMA_2020",
             "SRC_PRISMA_2020"
           ],
@@ -42241,8 +41674,8 @@
           "reason": "Aucune donnée courante déclarée.",
           "requirementId": "REQ_RECORD",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_RECORD",
             "SRC_EQUATOR_RECORD"
           ],
@@ -42255,8 +41688,8 @@
           "reason": "La date 2026-01-15 est hors de la période 2023-01-02/2023-04-13.",
           "requirementId": "REQ_RHU_V6_ANNEXES",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_RHU_V6_ANNEXES",
             "SRC_ANR_RHU_V6_2023"
           ],
@@ -42269,8 +41702,8 @@
           "reason": "La date 2026-01-15 est hors de la période 2023-01-02/2023-04-13.",
           "requirementId": "REQ_RHU_V6_COMPLETE_DOSSIER",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_RHU_V6_COMPLETE_DOSSIER",
             "SRC_ANR_RHU_V6_2023"
           ],
@@ -42285,8 +41718,8 @@
           "reason": "Aucune randomisation déclarée.",
           "requirementId": "REQ_SPIRIT_2025",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_SPIRIT_2025",
             "SRC_SPIRIT_CONSORT_2025"
           ],
@@ -42299,8 +41732,8 @@
           "reason": "Aucun type de rapport déclaré.",
           "requirementId": "REQ_STARD",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STARD",
             "SRC_EQUATOR_STARD"
           ],
@@ -42315,8 +41748,8 @@
           "reason": "Aucun livrable documentaire n’est demandé dans le scénario de base.",
           "requirementId": "REQ_STROBE",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_STROBE",
             "SRC_EQUATOR_STROBE"
           ],
@@ -42331,8 +41764,8 @@
           "reason": "Aucun type de rapport déclaré.",
           "requirementId": "REQ_TRIPOD",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_TRIPOD",
             "SRC_EQUATOR_TRIPOD"
           ],
@@ -42345,8 +41778,8 @@
           "reason": "La juridiction US n’est pas déclarée pour le projet ou ses centres.",
           "requirementId": "REQ_US_ACT_REGISTRATION_RESULTS",
           "sourceRefs": [
+            "ke1-17649f828124f81e",
             "ke1-40ba687c4aefa298",
-            "ke1-4c6e2f78e5d86c14",
             "REQ_US_ACT_REGISTRATION_RESULTS",
             "SRC_CLINICALTRIALS_FINAL_RULE"
           ],
@@ -42360,8 +41793,8 @@
         {
           "decision": "READ_ONLY",
           "inputRefs": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
-            "regulatory-resolution:ke1-aa522ce96e26908d",
+            "research-project-design-result:ke1-17649f828124f81e",
+            "regulatory-resolution:ke1-1a8ac3e4fc0bbc98",
             "DKC-DFA1F2EDD8B6"
           ],
           "mode": "BOUNDARY",
@@ -42372,12 +41805,12 @@
         {
           "decision": "NO_SINGLE_BRANCH_FORCED",
           "inputRefs": [
-            "research-project-design-result:ke1-4c6e2f78e5d86c14",
+            "research-project-design-result:ke1-17649f828124f81e",
             "REQ_EU_CTR_APPLICATION_DOSSIER",
             "REQ_EU_CTR_CTIS",
-            "imaging-design-result:ke1-bd60897daa077871",
+            "governed-imaging-reference-result:RC-TEST-02-IMG-REF-01_NARROW_MR_ECV_HISTOLOGY:v1.0.0",
             "REQ_ICH_E6_R3",
-            "project-design:ke1-4fbeadec4405d990",
+            "project-design:ke1-d4e9406d41d5ce29",
             "REQ_PHRC_STAGE1",
             "REQ_PHRC_STAGE2",
             "REQ_RHU_V6_ANNEXES",
@@ -42669,7 +42102,7 @@
           "mode": "DETERMINISTIC",
           "operation": "COMPOSE_LOGICAL_INSTANCE",
           "outputRefs": [
-            "TMP-INSTANCE:6DEFEDAD4CF7"
+            "TMP-INSTANCE:D8E499B4ED90"
           ],
           "sequence": 5
         }

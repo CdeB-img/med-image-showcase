@@ -57,6 +57,19 @@ describe("DOC-001 — contrats, historique, diff et exports", () => {
     expect(html.content).not.toContain("<script>alert(1)</script>");
     expect(html.content).toContain("&lt;script&gt;alert(1)&lt;/script&gt;");
     expect(html.content).toContain("Provenance");
+    const markdownSemanticContent = markdown.content.replace(/\\/g, "");
+    for (const binding of [
+      projection.projectionId,
+      projection.projectionVersion,
+      projection.source.projectId,
+      projection.source.projectVersion,
+      projection.source.projectDigest,
+      projection.requestedAt,
+      ...projection.provenanceRefs,
+    ]) {
+      expect(markdownSemanticContent).toContain(binding);
+      expect(html.content).toContain(binding);
+    }
     expect(JSON.stringify(projection)).toBe(snapshot);
   });
 

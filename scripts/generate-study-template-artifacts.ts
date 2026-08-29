@@ -1,6 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { makeFrozenImagingResult } from "@/features/research-project-construction/__tests__/fixtures";
+import { readGovernedImagingReferenceResult } from "@/features/research-project-construction/__tests__/fixtures";
 import {
   auditStudyTemplateInstance,
   composeStudyTemplateInstance,
@@ -39,7 +39,7 @@ const statusDecisions = [
   makeTemplateDecision("fixture:conditional", ["TMP-DOC:SYNOPSIS"], "CONDITIONAL"),
 ];
 
-const imagingResult = makeFrozenImagingResult();
+const imagingResult = readGovernedImagingReferenceResult();
 const inputs = [
   makeTemplateInput({ projectOptions: genericProject }),
   makeTemplateInput({ projectOptions: { ...genericProject, imagingResult }, phrc: true }),

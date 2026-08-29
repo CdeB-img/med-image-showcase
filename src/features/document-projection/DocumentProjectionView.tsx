@@ -16,7 +16,7 @@ const statusLabels: Record<DocumentSectionStatus, string> = {
 const Badge = ({ children, warning = false }: { children: React.ReactNode; warning?: boolean }) => <span className={`inline-flex max-w-full rounded-full border px-2.5 py-1 text-xs font-medium ${warning ? "border-amber-500/40 bg-amber-500/10 text-amber-800 dark:text-amber-200" : "border-border bg-muted text-muted-foreground"}`}>{children}</span>;
 const Card = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => <section className={`min-w-0 break-words rounded-2xl border bg-card p-5 shadow-sm ${className}`}>{children}</section>;
 
-const downloadProjection = (projection: DocumentProjection, format: "MARKDOWN" | "HTML") => {
+export const downloadProjection = (projection: DocumentProjection, format: "MARKDOWN" | "HTML") => {
   const rendered = renderProjection(projection, format);
   const url = URL.createObjectURL(new Blob([rendered.content], { type: rendered.mimeType }));
   const link = document.createElement("a");

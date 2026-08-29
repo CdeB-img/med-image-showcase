@@ -22,6 +22,7 @@ import {
   isFunctionalResetQueryMisunderstanding,
 } from "@/features/query-navigation";
 import ContributionReview from "./ContributionReview";
+import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
 import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
@@ -141,6 +142,7 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
 
 export default function ProtocolDesignerWorkspace() {
   const [session, setSession] = useState<FunctionalResetSession>(loadInitialSession);
+  const [projectionMode, setProjectionMode] = useState<"STANDARD" | "EXPERT">("STANDARD");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [correctionMode, setCorrectionMode] = useState(false);
@@ -675,11 +677,17 @@ export default function ProtocolDesignerWorkspace() {
   const projectPanel = <ResearchProjectPanel
     project={session.project}
     documents={session.documents}
+    mode={projectionMode}
     onOpenProtocol={(projectionId) => setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }))}
     onRequestProtocol={requestProtocolProjection}
   />;
 
-  return <main id="demo-main" className="min-h-screen bg-muted/30 text-foreground" data-testid="functional-reset-workspace">
+  return <main
+    id="demo-main"
+    className="min-h-screen bg-muted/30 text-foreground"
+    data-testid="functional-reset-workspace"
+    data-product-mode={projectionMode}
+  >
     <Helmet>
       <title>Protocol Designer — NOXIA</title>
       <meta name="description" content="Comprenez, formalisez ou construisez un Research Project dans une conversation continue avec NOXIA." />
@@ -687,23 +695,37 @@ export default function ProtocolDesignerWorkspace() {
     </Helmet>
 
     <div className="mx-auto max-w-[1480px] px-4 py-5 sm:px-6 lg:px-8">
-      <header className="mb-5 flex items-center justify-between gap-4">
+      <header className="mb-5 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">NOXIA</p>
           <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Protocol Designer</h1>
-            <span
+            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{projectionMode === "STANDARD" ? "Construisons votre projet scientifique" : "Protocol Designer"}</h1>
+            {projectionMode === "EXPERT" && <span
               className="font-mono text-[10px] font-medium tracking-wide text-muted-foreground/70"
               data-testid="protocol-designer-development-version"
-            >
-              {formatProductDevelopmentVersion(
-                typeof __NOXIA_BUILD_GIT_SHA__ === "undefined" ? null : __NOXIA_BUILD_GIT_SHA__,
-              )}
-            </span>
+            >{formatProductDevelopmentVersion(
+              typeof __NOXIA_BUILD_GIT_SHA__ === "undefined" ? null : __NOXIA_BUILD_GIT_SHA__,
+            )}</span>}
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">Assistant méthodologique conversationnel</p>
+          <p className="mt-1 text-sm text-muted-foreground">{projectionMode === "STANDARD"
+            ? "Décrivez votre question : NOXIA vous aide à la structurer, étape par étape."
+            : "Surface détaillée de développement et de diagnostic"}</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="inline-flex rounded-xl border bg-background p-1" role="group" aria-label="Mode d’affichage">
+            <button
+              type="button"
+              aria-pressed={projectionMode === "STANDARD"}
+              onClick={() => setProjectionMode("STANDARD")}
+              className={`min-h-10 rounded-lg px-3 text-sm font-medium ${projectionMode === "STANDARD" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+            >Standard</button>
+            <button
+              type="button"
+              aria-pressed={projectionMode === "EXPERT"}
+              onClick={() => setProjectionMode("EXPERT")}
+              className={`min-h-10 rounded-lg px-3 text-sm font-medium ${projectionMode === "EXPERT" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
+            >Expert</button>
+          </div>
           <Sheet>
             <SheetTrigger asChild><button type="button" className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium lg:hidden"><MessageSquareText className="h-4 w-4" />Voir mon projet</button></SheetTrigger>
             <SheetContent side="left" className="w-[min(92vw,420px)] overflow-y-auto p-4">
@@ -711,9 +733,11 @@ export default function ProtocolDesignerWorkspace() {
               <div className="pt-7">{projectPanel}</div>
             </SheetContent>
           </Sheet>
-          <button type="button" aria-label="Recommencer" onClick={reset} className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><RotateCcw className="h-4 w-4" /><span className="hidden sm:inline">Recommencer</span><span className="sm:hidden">Reset</span></button>
+          <button type="button" aria-label="Recommencer" onClick={reset} className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><RotateCcw className="h-4 w-4" /><span>Recommencer</span></button>
         </div>
       </header>
+
+      {projectionMode === "EXPERT" && <DevelopmentDiagnostics session={session} />}
 
       <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
         <div className="hidden min-w-0 self-start lg:sticky lg:top-4 lg:block lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">{projectPanel}</div>
