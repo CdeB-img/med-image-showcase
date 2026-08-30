@@ -26,7 +26,7 @@ import type {
   ProductBridgeResponse,
 } from "@/features/protocol-designer/product-bridge";
 import type { CanonicalProjectChangeSet, ContributionProjectChangeSet, HumanReviewProjection } from "@/features/research-project-construction";
-import { ensureCanonicalProjectState } from "@/features/research-project-construction";
+import { HUMAN_REVIEW_PROJECTION_VERSION, ensureCanonicalProjectState } from "@/features/research-project-construction";
 import {
   PRODUCT_KNOWLEDGE_OWNER_LEDGER_CONTRACT,
   createProductKnowledgeOwnerLedger,
@@ -249,7 +249,9 @@ export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSes
       scientificExecutionTraceLedger: rehydrateScientificExecutionTraceLedger(session.scientificExecutionTraceLedger),
       entries: repairPersistedProductPresentation(session.entries).map((entry) => entry.kind === "REVIEW"
         && entry.candidate
-        && !entry.candidate.humanReviewProjection
+        && (!entry.candidate.humanReviewProjection
+          || entry.candidate.humanReviewProjection.contractVersion !== HUMAN_REVIEW_PROJECTION_VERSION
+          || !Array.isArray(entry.candidate.humanReviewProjection.openPoints))
         ? { ...entry, candidate: undefined }
         : entry),
     };

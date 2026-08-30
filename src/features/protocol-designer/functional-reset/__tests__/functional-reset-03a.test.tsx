@@ -89,7 +89,7 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
       expect(within(proposal).getByText(value)).toBeInTheDocument();
     }
     expect(within(proposal).queryByText(/biomarqueurs sanguins|taille de l’infarctus/i)).toBeNull();
-    expect(within(proposal).getByText("population précise")).toBeInTheDocument();
+    expect(within(proposal).getByText("population précise — éléments compris, détails à préciser")).toBeInTheDocument();
     expect(within(proposal).getByText("question de recherche")).toBeInTheDocument();
   });
 

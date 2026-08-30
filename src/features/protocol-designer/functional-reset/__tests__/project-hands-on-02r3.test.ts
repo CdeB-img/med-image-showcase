@@ -175,8 +175,14 @@ describe("PROJECT-HANDS-ON-02R3 — provider contract and epistemic axes", () =>
       epistemicState: "UNKNOWN",
       provenance: { sourcePlan: "USER", sourceText: source },
     });
-    expect(prepared.humanReviewProjection.sections.flatMap((section) => section.items.map((review) => review.content)).join("\n"))
-      .toContain("précision encore requise");
+    const reviewItem = prepared.humanReviewProjection.sections
+      .flatMap((section) => section.items)
+      .find((review) => review.content.includes("Absence d'antécédent"));
+    expect(reviewItem).toMatchObject({
+      content: "Absence d'antécédent, portée non spécifiée",
+      statusLabel: "Reformulé",
+      specificationLabel: "Détails à préciser",
+    });
   });
 
   it("N13 rejects textual null sentinels instead of repairing them", () => {

@@ -10,8 +10,7 @@ type ReviewSection = {
 
 const itemState = (item: ScientificContributionItem, status: ReviewStatus) => {
   if (status === "CORRECTION_REQUESTED" || (item.previousItemIds?.length ?? 0) > 0) return "Corrigé";
-  if (item.epistemicBoundary.epistemicState === "UNKNOWN"
-    || ["UNKNOWN", "AMBIGUOUS"].includes(item.epistemicBoundary.epistemicStatus ?? "")) return "À préciser";
+  if (["UNKNOWN", "AMBIGUOUS"].includes(item.epistemicBoundary.epistemicStatus ?? "")) return "À préciser";
   if (status === "CONFIRMED" || item.epistemicBoundary.epistemicStatus === "CONFIRMED_BY_USER") return "Confirmé";
   if (item.epistemicBoundary.epistemicStatus === "EXPLICIT_USER_STATED") {
     const source = item.epistemicBoundary.sourceText?.normalize("NFKC").trim().toLocaleLowerCase("fr-FR") ?? "";
@@ -20,6 +19,12 @@ const itemState = (item: ScientificContributionItem, status: ReviewStatus) => {
   }
   return "Interprété — à confirmer";
 };
+
+const itemSpecification = (item: ScientificContributionItem) => (
+  item.epistemicBoundary.epistemicState === "UNKNOWN" || item.epistemicBoundary.epistemicState === "WITHHELD"
+    ? "Détails à préciser"
+    : null
+);
 
 const sectionsFor = (contribution: ScientificInterpretationContributionEnvelope): ReviewSection[] => {
   const items = [...new Map([
@@ -72,7 +77,7 @@ export default function UnderstandingReviewCard({ contribution, status, onConfir
     {normalizedUnderstanding && !normalizedUnderstandingDuplicatesItem && <p className="mt-4 rounded-xl bg-primary/10 p-4 text-sm">{normalizedUnderstanding}</p>}
     <div className="mt-4 grid gap-3 sm:grid-cols-2">{sections.map((section) => <section key={section.id} className="rounded-xl border p-3">
       <h4 className="text-sm font-semibold">{section.label}</h4>
-      <ul className="mt-2 space-y-2">{section.items.map((item) => <li key={item.itemId} className="text-sm"><span className="block break-words">{item.content}</span><span className="mt-1 inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{itemState(item, status)}</span></li>)}</ul>
+      <ul className="mt-2 space-y-2">{section.items.map((item) => <li key={item.itemId} className="text-sm"><span className="block break-words">{item.content}</span><span className="mt-1 flex flex-wrap gap-1"><span className="inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{itemState(item, status)}</span>{itemSpecification(item) && <span className="inline-flex rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[11px] text-muted-foreground">{itemSpecification(item)}</span>}</span></li>)}</ul>
     </section>)}</div>
     {unknowns.length > 0 && <section className="mt-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3"><h4 className="text-sm font-semibold">Inconnues importantes</h4><ul className="mt-2 space-y-1 text-sm">{unknowns.map((item) => <li key={item.itemId}>{item.content}</li>)}</ul></section>}
     {!presentationOnly && <div className="mt-5 flex flex-wrap gap-2">

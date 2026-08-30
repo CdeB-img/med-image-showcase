@@ -93,6 +93,18 @@ export type HumanReviewProjectionItem = {
   operation: "ADD" | "REMOVE" | "REPLACE";
   content: string;
   statusLabel?: "Déclaré" | "Reformulé" | "Interprété — à confirmer" | "À préciser";
+  specificationLabel?: "Détails à préciser";
+  projectSectionId?: ResearchProjectSectionId;
+};
+
+export type HumanReviewOpenPoint = {
+  openPointRef: string;
+  projectSectionId: ResearchProjectSectionId;
+  content: string;
+  source: "OBJECT_SPECIFICATION" | "SECTION_COMPLETENESS";
+  sectionState: ResearchProjectSectionState;
+  knownContentPresent: boolean;
+  sourceChangeRefs: string[];
 };
 
 export type HumanReviewProjectionSection = {
@@ -101,12 +113,15 @@ export type HumanReviewProjectionSection = {
   items: HumanReviewProjectionItem[];
 };
 
+export const HUMAN_REVIEW_PROJECTION_VERSION = "1.1.0" as const;
+
 export type HumanReviewProjection = {
   contract: "PRJ001_HUMAN_REVIEW_PROJECTION";
-  contractVersion: "1.0.0";
+  contractVersion: typeof HUMAN_REVIEW_PROJECTION_VERSION;
   sourceChangeSetRef: string;
   status: "COMPLETE" | "INCOMPLETE" | "NOT_APPLICABLE";
   sections: HumanReviewProjectionSection[];
+  openPoints: HumanReviewOpenPoint[];
   expectedChangeRefs: string[];
   coveredChangeRefs: string[];
   missingChangeRefs: string[];
@@ -1065,11 +1080,8 @@ const reviewReplacement = (previous: string, proposed: string) => {
   return `${previous} → ${proposed}`;
 };
 
-const reviewObjectLabel = (object: { objectType: string; content: string; epistemicState: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD"; provenance: { sourceText: string | null } } | null | undefined) => {
+const reviewObjectLabel = (object: { objectType: string; content: string; provenance: { sourceText: string | null } } | null | undefined) => {
   if (!object) return null;
-  if (object.epistemicState === "UNKNOWN" || object.epistemicState === "WITHHELD") {
-    return `${object.content} — précision encore requise`;
-  }
   const source = object.provenance.sourceText?.trim();
   if (object.objectType === "OBJECTIVE" && source && folded(source) !== folded(object.content)) {
     return `${object.content} — formulation d’origine : ${source}`;
@@ -1093,16 +1105,22 @@ const humanReviewObjectSectionLabel = (objectType: string, fallback: ResearchPro
 
 const humanReviewObjectStatus = (object: {
   content: string;
-  epistemicState: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD";
   provenance: { assertionKind: string; sourceText: string | null };
 }): HumanReviewProjectionItem["statusLabel"] => {
-  if (object.epistemicState === "UNKNOWN" || object.epistemicState === "WITHHELD") return "À préciser";
   if (object.provenance.assertionKind === "USER_STATED") {
     const source = object.provenance.sourceText?.trim();
     return source && folded(source) !== folded(object.content) ? "Reformulé" : "Déclaré";
   }
   return "Interprété — à confirmer";
 };
+
+const humanReviewObjectSpecification = (object: {
+  epistemicState: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD";
+}): HumanReviewProjectionItem["specificationLabel"] => (
+  object.epistemicState === "UNKNOWN" || object.epistemicState === "WITHHELD"
+    ? "Détails à préciser"
+    : undefined
+);
 
 const reviewTemporalAnchor = (anchor: NonNullable<CanonicalProjectChangeSet["temporalQualificationChanges"][number]["candidate"]>["anchor"]) => {
   const unit = anchor.unit === "DAY" ? "jour" : anchor.unit === "WEEK" ? "semaine" : anchor.unit === "MONTH" ? "mois" : anchor.unit === "YEAR" ? "an" : anchor.unit.toLocaleLowerCase("fr-FR");
@@ -1127,7 +1145,7 @@ const engagingCanonicalChangeRefs = (changeSet: CanonicalProjectChangeSet) => [
 export const validateHumanReviewProjectionCoverage = (
   changeSet: CanonicalProjectChangeSet,
   projection: Pick<HumanReviewProjection, "sections">,
-): Omit<HumanReviewProjection, "contract" | "contractVersion" | "sourceChangeSetRef" | "sections"> => {
+): Omit<HumanReviewProjection, "contract" | "contractVersion" | "sourceChangeSetRef" | "sections" | "openPoints"> => {
   const expectedChangeRefs = engagingCanonicalChangeRefs(changeSet);
   const coveredChangeRefs = projection.sections.flatMap((section) => section.items.map((item) => item.changeRef));
   const expected = new Set(expectedChangeRefs);
@@ -1147,9 +1165,73 @@ export const validateHumanReviewProjectionCoverage = (
   };
 };
 
+const INITIAL_HUMAN_REVIEW_OPEN_SECTIONS = new Set<ResearchProjectSectionId>([
+  "QUESTION",
+  "POPULATION",
+  "DESIGN",
+  "IMAGING",
+  "MEASUREMENTS",
+  "TEMPORALITY",
+  "ANALYSIS",
+]);
+
+const HUMAN_REVIEW_OPEN_POINT_LABELS: Readonly<Partial<Record<ResearchProjectSectionId, string>>> = Object.freeze({
+  QUESTION: "question de recherche",
+  POPULATION: "population précise",
+  DESIGN: "design de l’étude",
+  IMAGING: "imagerie",
+  MEASUREMENTS: "mesures et critère principal",
+  TEMPORALITY: "temporalité",
+  ANALYSIS: "analyse",
+});
+
+const lowerInitial = (value: string) => value.length ? `${value[0]!.toLocaleLowerCase("fr-FR")}${value.slice(1)}` : value;
+
+const buildHumanReviewOpenPoints = (
+  sections: readonly HumanReviewProjectionSection[],
+  proposedSections: readonly ResearchProjectSection[],
+): HumanReviewOpenPoint[] => {
+  const sectionState = new Map(proposedSections.map((section) => [section.sectionId, section] as const));
+  const specific = sections.flatMap((section) => section.items.flatMap((item): HumanReviewOpenPoint[] => {
+    if (!item.specificationLabel || !item.projectSectionId) return [];
+    const projectSection = sectionState.get(item.projectSectionId);
+    return [{
+      openPointRef: `open-point:${item.changeRef}`,
+      projectSectionId: item.projectSectionId,
+      content: `${item.content} — ${item.specificationLabel.toLocaleLowerCase("fr-FR")}`,
+      source: "OBJECT_SPECIFICATION",
+      sectionState: projectSection?.state ?? "PARTIAL",
+      knownContentPresent: true,
+      sourceChangeRefs: [item.changeRef],
+    }];
+  }));
+  const specificallyRepresentedSections = new Set(specific.map((point) => point.projectSectionId));
+  const broad = proposedSections.flatMap((section): HumanReviewOpenPoint[] => {
+    if (!INITIAL_HUMAN_REVIEW_OPEN_SECTIONS.has(section.sectionId) || section.state === "DEFINED") return [];
+    if (specificallyRepresentedSections.has(section.sectionId)) return [];
+    const knownContentPresent = section.elements.length > 0 || sections.some((reviewSection) => (
+      reviewSection.items.some((item) => item.projectSectionId === section.sectionId)
+    ));
+    const sectionLabel = HUMAN_REVIEW_OPEN_POINT_LABELS[section.sectionId] ?? lowerInitial(section.label);
+    return [{
+      openPointRef: `open-point:section:${section.sectionId.toLocaleLowerCase("fr-FR")}`,
+      projectSectionId: section.sectionId,
+      content: knownContentPresent
+        ? `${sectionLabel} — éléments compris, détails à préciser`
+        : sectionLabel,
+      source: "SECTION_COMPLETENESS",
+      sectionState: section.state,
+      knownContentPresent,
+      sourceChangeRefs: [],
+    }];
+  });
+  return [...new Map([...specific, ...broad].map((point) => [point.openPointRef, point])).values()];
+};
+
 export const buildHumanReviewProjection = (
   changeSet: CanonicalProjectChangeSet,
   current: ResearchProjectOwnerProjection | null,
+  proposedSections: readonly ResearchProjectSection[] = [],
 ): HumanReviewProjection => {
   const currentState = current ? ensureCanonicalProjectState(current) : null;
   const objectLabels = new Map<string, string>(currentState?.objects
@@ -1188,6 +1270,8 @@ export const buildHumanReviewProjection = (
       operation: change.operation,
       content,
       statusLabel: representedObject ? humanReviewObjectStatus(representedObject) : undefined,
+      specificationLabel: representedObject ? humanReviewObjectSpecification(representedObject) : undefined,
+      projectSectionId: sectionId,
     });
   });
 
@@ -1204,7 +1288,7 @@ export const buildHumanReviewProjection = (
     const content = qualification
       ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef} : ${reviewTemporalAnchor(qualification.anchor)}`
       : `${reviewOperationPrefix(change.operation)} temporalité ${change.qualificationId}`;
-    add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "TEMPORAL_QUALIFICATION", operation: change.operation, content });
+    add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "TEMPORAL_QUALIFICATION", operation: change.operation, content, projectSectionId: "TEMPORALITY" });
   });
 
   changeSet.expectedVariableOccasionChanges.forEach((change) => {
@@ -1212,7 +1296,7 @@ export const buildHumanReviewProjection = (
     const content = occasion
       ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(occasion.variableProjectRef) ?? occasion.variableProjectRef} attendu : ${reviewTemporalAnchor(occasion.anchor)}`
       : `${reviewOperationPrefix(change.operation)} occasion attendue ${change.occasionId}`;
-    add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "EXPECTED_VARIABLE_OCCASION", operation: change.operation, content });
+    add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "EXPECTED_VARIABLE_OCCASION", operation: change.operation, content, projectSectionId: "TEMPORALITY" });
   });
 
   changeSet.legacyTemporalChanges.forEach((change) => {
@@ -1229,6 +1313,7 @@ export const buildHumanReviewProjection = (
       changeKind: "LEGACY_TEMPORAL",
       operation: change.operation,
       content,
+      projectSectionId: "TEMPORALITY",
     });
   });
 
@@ -1236,9 +1321,10 @@ export const buildHumanReviewProjection = (
   const coverage = validateHumanReviewProjectionCoverage(changeSet, { sections });
   return {
     contract: "PRJ001_HUMAN_REVIEW_PROJECTION",
-    contractVersion: "1.0.0",
+    contractVersion: HUMAN_REVIEW_PROJECTION_VERSION,
     sourceChangeSetRef: changeSet.sourceContributionRef,
     sections,
+    openPoints: buildHumanReviewOpenPoints(sections, proposedSections),
     ...coverage,
   };
 };
@@ -1260,7 +1346,8 @@ export const prepareResearchProjectContributionCandidate = (
     sectionChangeSet: changeSet,
     current: current ? ensureCanonicalProjectState(current) : null,
   });
-  const humanReviewProjection = buildHumanReviewProjection(canonicalChangeSet, current);
+  const proposedSections = applyContributionProjectChangeSet(changeSet, contribution, current);
+  const humanReviewProjection = buildHumanReviewProjection(canonicalChangeSet, current, proposedSections);
   const status: ResearchProjectContributionCandidate["status"] = canonicalChangeSet.status === "NO_NET_CHANGE"
     ? "NO_NET_CHANGE"
     : canonicalChangeSet.status === "BLOCKED_BY_STRUCTURAL_CONFLICT"
@@ -1277,7 +1364,7 @@ export const prepareResearchProjectContributionCandidate = (
     changeSet,
     canonicalChangeSet,
     humanReviewProjection,
-    proposedSections: applyContributionProjectChangeSet(changeSet, contribution, current),
+    proposedSections,
     specializedResponsibilities: specializedResponsibilities(contribution),
   };
 };

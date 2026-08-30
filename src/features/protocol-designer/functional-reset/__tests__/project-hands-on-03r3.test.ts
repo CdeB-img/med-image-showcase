@@ -156,8 +156,13 @@ describe("PROJECT-HANDS-ON-03R3 — explicit measurement-procedure context", () 
 
   it("M13 shows that the method remains unresolved in Human Review", () => {
     const review = preparedMethodCandidate().prepared.humanReviewProjection;
-    expect(review.sections.flatMap((section) => section.items.map((item) => item.content)).join("\n"))
-      .toMatch(/reste à définir.*précision encore requise/i);
+    const unresolvedMethod = review.sections
+      .flatMap((section) => section.items)
+      .find((item) => /reste à définir/i.test(item.content));
+    expect(unresolvedMethod).toMatchObject({
+      statusLabel: "Reformulé",
+      specificationLabel: "Détails à préciser",
+    });
   });
 
   it("M14 keeps literal user source anchoring", () => {

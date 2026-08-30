@@ -2,20 +2,9 @@ import type { ScientificInterpretationContributionEnvelope } from "@/features/sc
 import {
   researchProjectQuestionPresentation,
   type ResearchProjectContributionCandidate,
-  type ResearchProjectSectionId,
 } from "@/features/research-project-construction";
 
 const countInFrench = (count: number) => count === 1 ? "une modification" : count === 2 ? "deux modifications" : `${count} modifications`;
-
-const OPEN_POINT_LABELS: Partial<Record<ResearchProjectSectionId, string>> = {
-  QUESTION: "question de recherche",
-  POPULATION: "population précise",
-  DESIGN: "design de l’étude",
-  IMAGING: "imagerie",
-  MEASUREMENTS: "mesures et critère principal",
-  TEMPORALITY: "temporalité",
-  ANALYSIS: "analyse",
-};
 
 type Props = {
   contribution: ScientificInterpretationContributionEnvelope;
@@ -35,9 +24,7 @@ export default function ContributionReview({ contribution, candidate, status, on
     items: [{ reviewItemRef: "review:project-summary", content: researchProjectQuestionPresentation(candidate.proposedSections) }],
   }, ...sections];
   const changeCount = candidate.humanReviewProjection.coveredChangeRefs.length;
-  const openPoints = candidate.proposedSections
-    .filter((section) => section.state !== "DEFINED" && OPEN_POINT_LABELS[section.sectionId])
-    .map((section) => OPEN_POINT_LABELS[section.sectionId]!);
+  const openPoints = candidate.humanReviewProjection.openPoints;
 
   return <section className="rounded-3xl border border-primary/30 bg-card p-5 shadow-sm" aria-labelledby={`review-${contribution.identity.contributionId}`} data-testid="functional-contribution-review">
     <p className="text-xs font-semibold uppercase tracking-[.16em] text-primary">{isUpdate ? "Modifications proposées" : "Première structure proposée"}</p>
@@ -53,14 +40,17 @@ export default function ContributionReview({ contribution, candidate, status, on
         <h4 className="text-sm font-semibold">{section.label}</h4>
         <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.reviewItemRef} className="break-words">
           <span className="block">{item.content}</span>
-          {item.statusLabel && <span className="mt-1 inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{item.statusLabel}</span>}
+          {(item.statusLabel || item.specificationLabel) && <span className="mt-1 flex flex-wrap gap-1">
+            {item.statusLabel && <span className="inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{item.statusLabel}</span>}
+            {item.specificationLabel && <span className="inline-flex rounded-full border border-amber-500/40 bg-amber-500/10 px-2 py-0.5 text-[11px] text-muted-foreground">{item.specificationLabel}</span>}
+          </span>}
         </li>)}</ul>
       </section>)}
     </div>
 
     {!isUpdate && openPoints.length > 0 && <section className="mt-4 rounded-2xl border border-dashed p-4" aria-labelledby={`open-${contribution.identity.contributionId}`}>
       <h4 id={`open-${contribution.identity.contributionId}`} className="text-sm font-semibold">Points encore ouverts</h4>
-      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">{openPoints.map((point) => <li key={point}>{point}</li>)}</ul>
+      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">{openPoints.map((point) => <li key={point.openPointRef}>{point.content}</li>)}</ul>
     </section>}
 
     {status === "PENDING" ? <div className="mt-5 flex flex-col gap-2 sm:flex-row">

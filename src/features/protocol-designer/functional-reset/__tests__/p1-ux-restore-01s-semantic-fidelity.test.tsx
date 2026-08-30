@@ -139,7 +139,9 @@ describe("P1-UX-RESTORE-01S — semantic fidelity", () => {
     expect(rendered).toHaveTextContent("Question de recherche à préciser.");
     expect(rendered).toHaveTextContent("question de recherche");
     expect(rendered).toHaveTextContent("population précise");
-    expect(rendered).toHaveTextContent("analyse");
+    expect(rendered).toHaveTextContent("Cadre saisonnier à préciser — détails à préciser");
+    expect(within(screen.getByRole("region", { name: "Points encore ouverts" })).queryByText("analyse", { exact: true }))
+      .not.toBeInTheDocument();
     expect(rendered).not.toHaveTextContent("Projet portant sur Déshydratation");
   });
 });
