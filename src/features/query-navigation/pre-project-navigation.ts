@@ -40,7 +40,16 @@ export type PreProjectRealizationResult = Readonly<{
   model: string;
   providerReplyAccepted: boolean;
   conformanceReason: string;
+  representedDimensionRefs: readonly string[];
+  missingDimensionRefs: readonly string[];
   providerCallsPerformedByRealizer: 0;
+  projectWriteAuthorized: false;
+}>;
+
+export type PreProjectVisibleStructuredUnderstanding = Readonly<{
+  source: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION";
+  visibleToUser: true;
+  representedDimensionRefs: readonly string[];
   projectWriteAuthorized: false;
 }>;
 
@@ -173,16 +182,67 @@ const providerQuestionConforms = (decision: PreProjectNavigationDecision, provid
   return governedOptions.every((option) => question.includes(normalized(option)));
 };
 
-const providerProposalConforms = (decision: PreProjectNavigationDecision, providerReply: string) => {
-  if (providerReply.includes("?")) return false;
+const PROPOSAL_REALIZATION_MARKER = /\b(?:propos|structur|organis|comprehension|objectif|vise|pouvons|pourrions|peut|pourrait|etude|projet|continu)\w*\b/u;
+const UNAUTHORIZED_WHAT_SHIFT = /\b(?:au\s+lieu\s+de|plutot\s+que|choisir\s+entre|ecarter|abandonner|remplacer)\b/u;
+const UNAUTHORIZED_ADOPTION = /\b(?:(?:le|votre)\s+(?:projet|etude)\s+(?:est|a\s+ete)\s+(?:cree|adopte|valide|enregistre)|j\s+ai\s+(?:cree|adopte|valide|enregistre)\s+(?:le|votre)\s+(?:projet|etude))\b/u;
+
+const providerProposalConformance = (
+  decision: PreProjectNavigationDecision,
+  providerReply: string,
+  structuredUnderstanding?: PreProjectVisibleStructuredUnderstanding | null,
+) => {
   const reply = normalized(providerReply);
-  return decision.explicitDimensions.every((dimension) => reply.includes(normalized(dimension.sourceText)));
+  const structurallyRepresented = structuredUnderstanding?.source === "SCIENTIFIC_INTERPRETATION_CONTRIBUTION"
+    && structuredUnderstanding.visibleToUser
+    && structuredUnderstanding.projectWriteAuthorized === false
+    ? new Set(structuredUnderstanding.representedDimensionRefs)
+    : new Set<string>();
+  const representedDimensionRefs = decision.explicitDimensions
+    .filter((dimension) => reply.includes(normalized(dimension.sourceText)) || structurallyRepresented.has(dimension.dimensionRef))
+    .map((dimension) => dimension.dimensionRef);
+  const represented = new Set(representedDimensionRefs);
+  const missingDimensionRefs = decision.explicitDimensions
+    .filter((dimension) => !represented.has(dimension.dimensionRef))
+    .map((dimension) => dimension.dimensionRef);
+  if (providerReply.includes("?")) return {
+    conforms: false,
+    reason: "PROVIDER_PROPOSAL_REJECTED_UNAUTHORIZED_QUESTION",
+    representedDimensionRefs,
+    missingDimensionRefs,
+  } as const;
+  if (UNAUTHORIZED_ADOPTION.test(reply)) return {
+    conforms: false,
+    reason: "PROVIDER_PROPOSAL_REJECTED_UNAUTHORIZED_ADOPTION",
+    representedDimensionRefs,
+    missingDimensionRefs,
+  } as const;
+  if (UNAUTHORIZED_WHAT_SHIFT.test(reply)) return {
+    conforms: false,
+    reason: "PROVIDER_PROPOSAL_REJECTED_QRY_WHAT_SHIFT",
+    representedDimensionRefs,
+    missingDimensionRefs,
+  } as const;
+  if (!PROPOSAL_REALIZATION_MARKER.test(reply)) return {
+    conforms: false,
+    reason: "PROVIDER_PROPOSAL_REJECTED_ACTION_MISMATCH",
+    representedDimensionRefs,
+    missingDimensionRefs,
+  } as const;
+  if (missingDimensionRefs.length) return {
+    conforms: false,
+    reason: "PROVIDER_PROPOSAL_REJECTED_MATERIAL_DIMENSION_OMISSION",
+    representedDimensionRefs,
+    missingDimensionRefs,
+  } as const;
+  return {
+    conforms: true,
+    reason: "PROVIDER_REALIZATION_CONFORMS_TO_QRY_ACTION_AND_STRUCTURED_WHAT",
+    representedDimensionRefs,
+    missingDimensionRefs,
+  } as const;
 };
 
-const deterministicProposal = (decision: PreProjectNavigationDecision) => {
-  const dimensions = decision.explicitDimensions.map((dimension) => `« ${dimension.sourceText} »`).join(" ; ");
-  return `Je conserve conjointement les éléments explicitement fournis : ${dimensions}. Je propose de les structurer comme une intention scientifique réversible, sans en écarter ni en prioriser aucun et sans créer ou adopter de Project à ce stade.`;
-};
+const deterministicProposal = () => "J’ai bien pris en compte les éléments scientifiques de votre demande. Je vous propose de les organiser dans une première compréhension structurée, que vous pourrez préciser avant toute confirmation.";
 
 const deterministicQuestion = (decision: PreProjectNavigationDecision) => {
   const need = decision.selectedInformationNeed?.replace(/[?.!]+$/gu, "") ?? "le choix qui reste explicitement indéterminé";
@@ -199,32 +259,42 @@ export const realizePreProjectNavigationDecision = (input: {
   providerReply?: string | null;
   provider?: string;
   model?: string;
+  structuredUnderstanding?: PreProjectVisibleStructuredUnderstanding | null;
 }): PreProjectRealizationResult => {
   const providerReply = input.providerReply?.trim() ?? "";
+  const proposalConformance = input.decision.action === "ASK_QUESTION"
+    ? null
+    : providerProposalConformance(input.decision, providerReply, input.structuredUnderstanding);
   const providerConforms = Boolean(providerReply) && (input.decision.action === "ASK_QUESTION"
     ? providerQuestionConforms(input.decision, providerReply)
-    : providerProposalConforms(input.decision, providerReply));
+    : proposalConformance?.conforms === true);
+  const representedDimensionRefs = proposalConformance?.representedDimensionRefs ?? [];
+  const missingDimensionRefs = proposalConformance?.missingDimensionRefs ?? [];
   if (providerConforms) return Object.freeze({
     assistantReply: providerReply,
     executor: "GEMINI_CONVERSATION_MODEL",
     provider: input.provider ?? "GOOGLE_GEMINI",
     model: input.model ?? "UNKNOWN",
     providerReplyAccepted: true,
-    conformanceReason: "PROVIDER_REALIZATION_CONFORMS_TO_QRY_ACTION_AND_WHAT",
+    conformanceReason: proposalConformance?.reason ?? "PROVIDER_REALIZATION_CONFORMS_TO_QRY_ACTION_AND_WHAT",
+    representedDimensionRefs: Object.freeze([...representedDimensionRefs]),
+    missingDimensionRefs: Object.freeze([...missingDimensionRefs]),
     providerCallsPerformedByRealizer: 0,
     projectWriteAuthorized: false,
   });
   return Object.freeze({
     assistantReply: input.decision.action === "ASK_QUESTION"
       ? deterministicQuestion(input.decision)
-      : deterministicProposal(input.decision),
+      : deterministicProposal(),
     executor: "LOCAL_DETERMINISTIC_REALIZATION",
     provider: "NONE",
     model: "QRY_PRE_PROJECT_REALIZATION_1.0.0",
     providerReplyAccepted: false,
     conformanceReason: providerReply
-      ? "PROVIDER_REALIZATION_REJECTED_OUTSIDE_QRY_ACTION_OR_WHAT"
+      ? proposalConformance?.reason ?? "PROVIDER_REALIZATION_REJECTED_OUTSIDE_QRY_ACTION_OR_WHAT"
       : "LOCAL_QUALIFICATION_NO_PROVIDER_REPLY",
+    representedDimensionRefs: Object.freeze([...representedDimensionRefs]),
+    missingDimensionRefs: Object.freeze([...missingDimensionRefs]),
     providerCallsPerformedByRealizer: 0,
     projectWriteAuthorized: false,
   });

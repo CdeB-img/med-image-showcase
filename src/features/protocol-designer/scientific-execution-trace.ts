@@ -267,6 +267,7 @@ export type PreProjectTraceDimensionObservation = {
   postEntryRouting: PreProjectTraceDimensionStageStatus;
   providerContext: PreProjectTraceDimensionStageStatus;
   assistantReply: PreProjectTraceDimensionStageStatus;
+  visibleOutput: PreProjectTraceDimensionStageStatus;
   formulatedQuestion: PreProjectTraceDimensionStageStatus;
 };
 
@@ -415,6 +416,7 @@ export type CreatePreProjectScientificTraceSegmentInput = {
     provider: string;
     model: string;
     formulationOwner?: PreProjectTraceOwner;
+    visibleStructuredUnderstandingDimensionRefs?: readonly string[];
   };
   diagnosticDimensionProbes?: readonly PreProjectTraceDimensionProbe[];
   captureMode?: "MINIMIZED" | "DIAGNOSTIC_FULL";
@@ -2502,13 +2504,17 @@ export const createPreProjectScientificTraceSegment = (
     const statusAt = (text: string): PreProjectTraceDimensionStageStatus => !explicitlyProvided
       ? "NOT_EXPLICITLY_PROVIDED"
       : traceTextContains(text, probe.expressions) ? "PRESENT" : "NOT_PRESENT";
+    const assistantReply = statusAt(input.providerBoundary.assistantReply);
     return {
       dimensionRef: probe.dimensionRef,
       expressions: [...probe.expressions],
       explicitlyProvided,
       postEntryRouting: statusAt(routingMaterial),
       providerContext: statusAt(input.providerBoundary.context),
-      assistantReply: statusAt(input.providerBoundary.assistantReply),
+      assistantReply,
+      visibleOutput: input.providerBoundary.visibleStructuredUnderstandingDimensionRefs?.includes(probe.dimensionRef)
+        ? "PRESENT"
+        : assistantReply,
       formulatedQuestion: statusAt(question ?? ""),
     };
   });
@@ -2905,7 +2911,7 @@ export const recordPreProjectScientificTraceSegment = (input: {
         semanticTransformation: diagnosticTransformationFor({
           observations: routing.dimensionObservations,
           stageStatus: (observation) => governedByQueryNavigation
-            ? observation.assistantReply
+            ? observation.visibleOutput
             : observation.formulatedQuestion,
           declarationSource: governedByQueryNavigation ? "COMPONENT_DECLARATION" : "LEGACY_ADAPTER",
         }),

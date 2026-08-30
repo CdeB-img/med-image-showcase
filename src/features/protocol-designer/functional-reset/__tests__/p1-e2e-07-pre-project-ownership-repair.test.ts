@@ -61,11 +61,18 @@ const recordCec = (input: {
   replayOfTraceRunId?: string;
 }) => {
   const testCase = buildCase(CEC_INPUT, input.captureLevel);
+  const representedDimensionRefs = testCase.routing.explicitScientificDimensions.map((dimension) => dimension.dimensionRef);
   const realization = realizePreProjectNavigationDecision({
     decision: testCase.decision,
     providerReply: HISTORICAL_CEC_RESPONSE,
     provider: "RECORDED_NO_CALL",
     model: "RECORDED_NO_CALL",
+    structuredUnderstanding: {
+      source: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION",
+      visibleToUser: true,
+      representedDimensionRefs,
+      projectWriteAuthorized: false,
+    },
   });
   const context = naturalConversationContext(testCase.request);
   const segment = createPreProjectScientificTraceSegment({
@@ -82,6 +89,7 @@ const recordCec = (input: {
       provider: realization.provider,
       model: realization.model,
       formulationOwner: realization.executor === "LOCAL_DETERMINISTIC_REALIZATION" ? "LOCAL_RUNTIME" : "GEMINI_CONVERSATION_MODEL",
+      visibleStructuredUnderstandingDimensionRefs: CEC_PROBES.map((probe) => probe.dimensionRef),
     },
     diagnosticDimensionProbes: CEC_PROBES,
     captureConfiguration: createScientificTraceCaptureConfiguration(input.captureLevel === "LEVEL_1_CORE" ? undefined : {
@@ -139,9 +147,8 @@ describe("P1-E2E-07 — pre-Project intent and next-action ownership repair", ()
     });
     expect(diagnostic.realization.providerReplyAccepted).toBe(false);
     expect(diagnostic.realization.assistantReply).not.toContain("?");
-    expect(diagnostic.realization.assistantReply).toMatch(/rehaussement tardif/iu);
-    expect(diagnostic.realization.assistantReply).toMatch(/ECV/u);
-    expect(diagnostic.realization.assistantReply).toMatch(/contractilit[ée]/iu);
+    expect(diagnostic.realization.assistantReply).toMatch(/premi[èe]re compr[ée]hension structur[ée]e/iu);
+    expect(diagnostic.realization.assistantReply).not.toMatch(/Je conserve conjointement|intention scientifique r[ée]versible/iu);
 
     const represented = projection.events.find((event) => event.stage === "INTENT_REPRESENTED")!;
     expect(represented.semanticTransformation?.retainedDimensions.map((dimension) => dimension.dimensionId)).toEqual([
@@ -188,10 +195,11 @@ describe("P1-E2E-07 — pre-Project intent and next-action ownership repair", ()
     expect(testCase.decision.owner).toBe("QUERY_NAVIGATION");
     expect(testCase.decision.selectedInformationNeed).toBeNull();
     expect(realization.assistantReply).not.toContain("?");
-    expectedDimensions.forEach((dimension) => {
-      expect(represented).toContain(dimension);
-      expect(realization.assistantReply).toContain(dimension);
-    });
+    expectedDimensions.forEach((dimension) => expect(represented).toContain(dimension));
+    expect(testCase.decision.alreadyProvidedInformationRefs).toEqual(
+      testCase.routing.explicitScientificDimensions.map((dimension) => dimension.dimensionRef),
+    );
+    expect(realization.assistantReply).not.toMatch(/Je conserve conjointement|intention scientifique r[ée]versible/iu);
   });
 
   it("CASE_D still asks one bounded clarification when an explicit ambiguity has material information value", () => {

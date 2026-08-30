@@ -44,26 +44,32 @@ type Props = {
   onConfirm: () => void;
   onCorrect: () => void;
   onAdd: () => void;
+  presentationOnly?: boolean;
 };
 
-export default function UnderstandingReviewCard({ contribution, status, onConfirm, onCorrect, onAdd }: Props) {
+export default function UnderstandingReviewCard({ contribution, status, onConfirm, onCorrect, onAdd, presentationOnly = false }: Props) {
   const sections = sectionsFor(contribution);
   const unknowns = [...contribution.scientificContent.unknowns, ...contribution.scientificContent.missingInformation];
+  const normalizedUnderstanding = contribution.scientificContent.normalizedUnderstanding;
+  const normalizedUnderstandingDuplicatesItem = Boolean(normalizedUnderstanding) && sections
+    .some((section) => section.items.some((item) => item.content.trim() === normalizedUnderstanding?.trim()));
   return <section className="rounded-2xl border border-primary/40 bg-card p-5 shadow-sm" aria-labelledby="understanding-review-title" data-testid="understanding-review-card">
     <p className="text-xs font-semibold uppercase tracking-wide text-primary">Compréhension de travail</p>
     <h3 id="understanding-review-title" className="mt-2 text-xl font-semibold">Voici ce que j’ai compris</h3>
-    <p className="mt-2 text-sm text-muted-foreground">Vérifiez cette reformulation avant de poursuivre. Elle reste une Contribution candidate et n’écrit pas dans le Research Project.</p>
-    {contribution.scientificContent.normalizedUnderstanding && <p className="mt-4 rounded-xl bg-primary/10 p-4 text-sm">{contribution.scientificContent.normalizedUnderstanding}</p>}
+    <p className="mt-2 text-sm text-muted-foreground">{presentationOnly
+      ? "Voici les éléments compris dans votre demande. Ils restent modifiables tant que vous n’avez pas confirmé votre projet."
+      : "Vérifiez cette reformulation avant de poursuivre. Elle reste une Contribution candidate et n’écrit pas dans le Research Project."}</p>
+    {normalizedUnderstanding && !normalizedUnderstandingDuplicatesItem && <p className="mt-4 rounded-xl bg-primary/10 p-4 text-sm">{normalizedUnderstanding}</p>}
     <div className="mt-4 grid gap-3 sm:grid-cols-2">{sections.map((section) => <section key={section.id} className="rounded-xl border p-3">
       <h4 className="text-sm font-semibold">{section.label}</h4>
       <ul className="mt-2 space-y-2">{section.items.map((item) => <li key={item.itemId} className="text-sm"><span className="block break-words">{item.content}</span><span className="mt-1 inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{itemState(item, status)}</span></li>)}</ul>
     </section>)}</div>
     {unknowns.length > 0 && <section className="mt-4 rounded-xl border border-amber-500/40 bg-amber-500/10 p-3"><h4 className="text-sm font-semibold">Inconnues importantes</h4><ul className="mt-2 space-y-1 text-sm">{unknowns.map((item) => <li key={item.itemId}>{item.content}</li>)}</ul></section>}
-    <div className="mt-5 flex flex-wrap gap-2">
+    {!presentationOnly && <div className="mt-5 flex flex-wrap gap-2">
       {status !== "CONFIRMED" && <button type="button" onClick={onConfirm} className="min-h-11 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Cela correspond à mon objectif</button>}
       <button type="button" onClick={onCorrect} className="min-h-11 rounded-lg border px-4 py-2 text-sm">Modifier certains éléments</button>
       <button type="button" onClick={onAdd} className="min-h-11 rounded-lg border px-4 py-2 text-sm">Ajouter une précision</button>
-    </div>
+    </div>}
     {status === "CONFIRMED" && <p role="status" className="mt-4 rounded-lg bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">Compréhension confirmée comme base de travail. Aucune décision Project n’a été adoptée.</p>}
   </section>;
 }

@@ -142,7 +142,7 @@ describe("P1-E2E-06R — pre-Project TRACE coverage", () => {
       "WHAT_TO_ASK_SPECIFICATION",
       "QUESTION_FORMULATION_BOUNDARY",
     ]);
-    expect(routing.routeIntent).toBe("FORMALIZE_IDEA");
+    expect(routing.routeIntent).toBe("DESIGN_STUDY");
     expect(dimensions.circulation_extracorporelle).toMatchObject({ explicitlyProvided: true, postEntryRouting: "NOT_PRESENT", providerContext: "PRESENT", assistantReply: "PRESENT", formulatedQuestion: "NOT_PRESENT" });
     expect(dimensions.troponine).toMatchObject({ explicitlyProvided: true, postEntryRouting: "NOT_PRESENT", providerContext: "PRESENT", assistantReply: "PRESENT", formulatedQuestion: "NOT_PRESENT" });
     expect(dimensions.atteinte_myocardique).toMatchObject({ explicitlyProvided: true, postEntryRouting: "NOT_PRESENT", providerContext: "PRESENT", assistantReply: "PRESENT", formulatedQuestion: "NOT_PRESENT" });
@@ -255,7 +255,7 @@ describe("P1-E2E-06R — pre-Project TRACE coverage", () => {
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: HUMAN_FIRST_TURN } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 
-    expect(await screen.findByText(/Je conserve conjointement les éléments explicitement fournis/u)).toBeInTheDocument();
+    expect(await screen.findByText(/premi[èe]re compr[ée]hension structur[ée]e/u)).toBeInTheDocument();
     expect(screen.queryByText(/cherchez-vous à identifier de véritables lésions/u)).toBeNull();
     await waitFor(() => {
       const stored = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
@@ -271,7 +271,7 @@ describe("P1-E2E-06R — pre-Project TRACE coverage", () => {
       expect(stored.project).toBeNull();
       expect(stored.queryNavigation).toBeNull();
       expect(stored.runtimeTurns[0].content).toBe(HUMAN_FIRST_TURN);
-      expect(stored.runtimeTurns[1].content).toMatch(/rehaussement tardif.*ECV.*contractilit[ée]/iu);
+      expect(stored.runtimeTurns[1].content).toMatch(/premi[èe]re compr[ée]hension structur[ée]e/iu);
       expect(stored.bridgeTraces[0].preProjectTrace.points[1]).toMatchObject({
         point: "ASK_VS_PROPOSE_DECISION",
         action: "PROPOSE",

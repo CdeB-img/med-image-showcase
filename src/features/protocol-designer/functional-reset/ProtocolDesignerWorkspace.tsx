@@ -2,7 +2,7 @@ import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import type { ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
+import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { ProductBridgeClientError, requestProtocolDesignerBridge } from "@/features/protocol-designer/product-bridge-client";
 import {
   NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
@@ -34,6 +34,7 @@ import {
   realizePreProjectNavigationDecision,
 } from "@/features/query-navigation";
 import ContributionReview from "./ContributionReview";
+import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
 import {
   recordArtifactGeneratedTrace,
@@ -91,6 +92,45 @@ const persistenceFailureMessage = (
     return "NOXIA ne peut pas vous demander de confirmer cette proposition, car la revue ne montre pas encore tous les changements. Le Research Project reste inchangé.";
   }
   return null;
+};
+
+const normalizedEvidenceText = (value: string) => value
+  .normalize("NFKD")
+  .replace(/\p{M}/gu, "")
+  .toLocaleLowerCase("fr-FR")
+  .replace(/[’']/gu, " ")
+  .replace(/[^\p{L}\p{N}]+/gu, " ")
+  .replace(/\s+/gu, " ")
+  .trim();
+
+const visibleStructuredUnderstandingEvidence = (input: {
+  contribution: ScientificInterpretationContributionEnvelope | null;
+  sourceTurnRef: string;
+  explicitDimensions: readonly Readonly<{ dimensionRef: string; sourceText: string }>[];
+}) => {
+  if (!input.contribution) return null;
+  const items = [...new Map([
+    ...input.contribution.scientificContent.explicitStatements,
+    ...input.contribution.scientificContent.candidateObjects,
+    ...input.contribution.scientificContent.inferredContext,
+    ...input.contribution.scientificContent.contextualCandidates,
+    ...input.contribution.scientificContent.temporalElements,
+  ].map((item) => [item.itemId, item])).values()].filter((item) => item.epistemicBoundary.activeState !== false
+    && item.epistemicBoundary.sourceTurnIds.includes(input.sourceTurnRef));
+  const representedDimensionRefs = input.explicitDimensions.flatMap((dimension) => {
+    const source = normalizedEvidenceText(dimension.sourceText);
+    const represented = items.some((item) => [item.epistemicBoundary.sourceText, item.content]
+      .filter((value): value is string => Boolean(value))
+      .map(normalizedEvidenceText)
+      .some((value) => value.length > 0 && (source.includes(value) || value.includes(source))));
+    return represented ? [dimension.dimensionRef] : [];
+  });
+  return {
+    source: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION" as const,
+    visibleToUser: true as const,
+    representedDimensionRefs: Object.freeze(representedDimensionRefs),
+    projectWriteAuthorized: false as const,
+  };
 };
 
 type PostAdoptionContinuationJob = {
@@ -432,12 +472,26 @@ export default function ProtocolDesignerWorkspace() {
       const providerContext = naturalConversationContext(bridgeRequest);
       const response = await requestProtocolDesignerBridge(bridgeRequest);
       const receivedAt = new Date().toISOString();
+      const extractedContribution = entryRouting.projectConstructionEligible
+        ? response.persistentExtraction.contribution
+        : null;
+      const contribution = extractedContribution && !session.project && session.pendingContribution
+        ? mergeInitialResearchProjectContributions(session.pendingContribution, extractedContribution)
+        : extractedContribution;
+      const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
+      const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
+      const structuredUnderstanding = visibleStructuredUnderstandingEvidence({
+        contribution: effectiveCandidate ? contribution : null,
+        sourceTurnRef: userTurn.turnId,
+        explicitDimensions: entryRouting.explicitScientificDimensions,
+      });
       const preProjectRealization = preProjectNavigation
         ? realizePreProjectNavigationDecision({
           decision: preProjectNavigation,
           providerReply: response.assistantReply,
           provider: response.observability.provider,
           model: response.observability.model,
+          structuredUnderstanding,
         })
         : null;
       const visibleAssistantReply = preProjectRealization?.assistantReply ?? response.assistantReply;
@@ -460,16 +514,9 @@ export default function ProtocolDesignerWorkspace() {
           formulationOwner: preProjectRealization?.executor === "LOCAL_DETERMINISTIC_REALIZATION"
             ? "LOCAL_RUNTIME"
             : undefined,
+          visibleStructuredUnderstandingDimensionRefs: structuredUnderstanding?.representedDimensionRefs,
         },
       });
-      const extractedContribution = entryRouting.projectConstructionEligible
-        ? response.persistentExtraction.contribution
-        : null;
-      const contribution = extractedContribution && !session.project && session.pendingContribution
-        ? mergeInitialResearchProjectContributions(session.pendingContribution, extractedContribution)
-        : extractedContribution;
-      const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
-      const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
       const effectiveExtractionStatus = entryRouting.projectConstructionEligible
         ? response.persistentExtraction.status
         : "NOT_REQUESTED" as const;
@@ -985,8 +1032,16 @@ export default function ProtocolDesignerWorkspace() {
 
           <div className="flex-1 space-y-5 px-4 py-5 sm:px-6" aria-live="polite">
             {session.entries.map((entry, index) => entry.kind === "REVIEW"
-              ? <ContributionReview
-                key={entry.entryId}
+              ? <div key={entry.entryId} className="space-y-4">
+                <UnderstandingReviewCard
+                  contribution={entry.contribution}
+                  status={entry.status === "REJECTED" ? "CORRECTION_REQUESTED" : entry.status}
+                  onConfirm={() => undefined}
+                  onCorrect={() => undefined}
+                  onAdd={() => undefined}
+                  presentationOnly
+                />
+                <ContributionReview
                 contribution={entry.contribution}
                 candidate={entry.candidate ?? prepareResearchProjectContributionCandidate(
                   entry.contribution,
@@ -997,6 +1052,7 @@ export default function ProtocolDesignerWorkspace() {
                 onCorrect={requestCorrection}
                 onReject={() => rejectContribution(entry.contribution.identity.contributionId)}
               />
+              </div>
               : <article key={entry.entryId} className={`flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
                 {entry.kind === "TEXT" && entry.role === "NOXIA" && entry.knowledgePresentation
                   ? <ProductUnderstandResponse presentation={entry.knowledgePresentation} />

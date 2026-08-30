@@ -295,10 +295,10 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     renderDemo();
 
     submit("Je veux construire une étude : je comparerai le CT et IRM.");
-    expect(await screen.findByText("Acquisition CT")).toBeInTheDocument();
+    expect((await screen.findAllByText("Acquisition CT")).length).toBeGreaterThan(0);
     submit("Dans cette étude, la méthode anatomique ex vivo sera la référence.");
 
-    expect(await screen.findByText("Référence anatomique ex vivo")).toBeInTheDocument();
+    expect((await screen.findAllByText("Référence anatomique ex vivo")).length).toBeGreaterThan(0);
     const reviews = await screen.findAllByTestId("functional-contribution-review");
     expect(reviews).toHaveLength(1);
     expect(within(reviews[0]!).getByText("Acquisition CT")).toBeInTheDocument();
@@ -332,7 +332,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     });
     renderDemo();
     submit("Je modifie cette référence dans mon protocole d’étude.");
-    expect(await screen.findByText(/Je conserve conjointement les éléments explicitement fournis/u)).toBeInTheDocument();
+    expect(await screen.findByText(/premi[èe]re compr[ée]hension structur[ée]e/u)).toBeInTheDocument();
     expect(screen.queryByText("Je comprends la correction demandée.")).toBeNull();
     expect(await screen.findByText(/proposition persistante est bloquée/)).toHaveAttribute("role", "alert");
     expect(stored().project).toBeNull();

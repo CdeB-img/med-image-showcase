@@ -60,6 +60,14 @@ const SCIENTIFIC_TERMS = [
 
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR");
 
+const EXPLICIT_STUDY_CONSTRUCTION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on)\s+)?(?:(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|désire|désirons)\s+)?(?:maintenant\s+)?(?:créer|construire|concevoir|monter|élaborer|construisons|concevons|montons|élaborons)\s+(?:(?:une?|l['’])\s+)?(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
+const EXPLICIT_STUDY_DESIGN = /(?:^|[^\p{L}\p{N}_])(?:étude|protocole|essai|cohorte)\s+(?:multicentrique|monocentrique|randomisée?|prospective?|rétrospective?|exploratoire|pilote)(?![\p{L}\p{N}_])/iu;
+const EXPLICIT_STUDY_MODIFICATION = /(?:^|[^\p{L}\p{N}_])(?:modifier|modifie|modifions|changer|change|corriger|corrige|ajouter|ajoute|retirer|retire)\s+(?:[\p{L}\p{N}'’.-]+\s+){0,6}(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
+
+const hasExplicitStudyConstruction = (value: string) => EXPLICIT_STUDY_CONSTRUCTION.test(value)
+  || EXPLICIT_STUDY_DESIGN.test(value)
+  || EXPLICIT_STUDY_MODIFICATION.test(value);
+
 const fieldValues = (intent: ValidatedScientificIntent, key: keyof ValidatedScientificIntent["interpretation"]) => {
   const field = intent.interpretation[key];
   if (!field || typeof field !== "object" || !("value" in field)) return [];
@@ -84,9 +92,12 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
   add("UNDERSTAND", /\b(comprendre|expliquer|fonctionne|diff[ée]rences?|rôle|signifie|qu['’]est-ce)\b/, "La demande exprime un besoin de compréhension.", 3);
   add("FORMALIZE_IDEA", /\b(id[ée]e|intuition|hypoth[èe]se|je pense|pourrait|d[ée]pend)\b/, "La demande formule une idée ou une hypothèse à structurer.", 3);
   add("FORMALIZE_IDEA", /\b(je voudrais [ée]tudier|je cherche [àa] [ée]tudier|voir si|est-(?:il|elle) associ[ée]e?|pr[ée]dit)\b/, "La demande cherche à transformer une relation ou une finalité encore ouverte en question scientifique.", 3);
-  add("DESIGN_STUDY", /\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/, "La demande vise explicitement un projet ou une étude.", 3);
+  add("DESIGN_STUDY", EXPLICIT_STUDY_CONSTRUCTION, "La demande exprime explicitement la construction d’une étude ou d’un protocole.", 5);
+  add("DESIGN_STUDY", EXPLICIT_STUDY_DESIGN, "La demande nomme explicitement une structure de design d’étude.", 3);
+  add("DESIGN_STUDY", EXPLICIT_STUDY_MODIFICATION, "La demande exprime explicitement une modification d’étude ou de protocole.", 5);
+  add("DESIGN_STUDY", /\b(reproduire|auditer)\b/u, "La demande vise une opération explicite de construction ou d’évaluation d’étude.", 3);
   add("DESIGN_STUDY", /\b(comparer|mesurer|quantifier|[ée]valuer|suivre|d[ée]tecter)\b/, "La demande porte une action de recherche à cadrer.", 2);
-  if (hasExplicitComparisonRequest(corpus) && !/\b(construire|concevoir|protocole|[ée]tude|projet de recherche|multicentrique|reproduire|auditer)\b/.test(corpus)) {
+  if (hasExplicitComparisonRequest(corpus) && !hasExplicitStudyConstruction(corpus) && !/\b(reproduire|auditer)\b/u.test(corpus)) {
     scores.UNDERSTAND += 3;
     reasons.UNDERSTAND.push("La comparaison demande d’abord une compréhension structurée, sans construction de projet explicite.");
   }

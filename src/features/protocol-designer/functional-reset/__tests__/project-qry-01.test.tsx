@@ -250,7 +250,7 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     renderDemo();
     const session = await createInitialProject();
     expect(session.entries.filter((entry) => entry.kind === "TEXT" && entry.content === "Même contenu visible.")).toHaveLength(1);
-    expect(session.entries.some((entry) => entry.kind === "TEXT" && entry.content.includes("Je conserve conjointement"))).toBe(true);
+    expect(session.entries.some((entry) => entry.kind === "TEXT" && entry.content.includes("première compréhension structurée"))).toBe(true);
     expect(new Set(session.entries.map((entry) => entry.entryId)).size).toBe(session.entries.length);
     expect(await screen.findAllByText("Même contenu visible.")).toHaveLength(1);
   });
