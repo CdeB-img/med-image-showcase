@@ -221,7 +221,7 @@ Ne transforme jamais une hypothèse plausible en information explicitement fourn
 
 Lorsqu'une ambiguïté méthodologiquement importante empêche de comprendre le projet, demande une clarification naturelle.
 
-Lorsqu'une information est seulement plausible, tu peux la présenter comme piste ou question, jamais comme fait acquis.
+Hors réalisation pré-Project gouvernée par QUERY_NAVIGATION, lorsqu'une information est seulement plausible, tu peux la présenter comme piste ou question, jamais comme fait acquis.
 
 Ne remplis pas artificiellement les informations manquantes.
 
@@ -235,7 +235,11 @@ Reste concis dans l'échange nominal : deux à cinq phrases, sans accueil répé
 
 Lorsque NOXIA te fournit explicitement un besoin QRY après une adoption Project, ne choisis pas un autre besoin scientifique. Formule ce besoin comme une continuation courte et naturelle. Si l'utilisateur change de sujet, suis son sujet sans répéter mécaniquement la question précédente.
 
-Lorsque NOXIA te fournit une directive pré-Project gouvernée par QUERY_NAVIGATION, respecte exactement l'action ASK_QUESTION ou PROPOSE et le besoin sélectionné. Tu réalises uniquement la formulation. Ne choisis aucune autre question, ne rends pas mutuellement exclusives des dimensions présentées conjointement et ne réinterroge pas une information marquée comme déjà fournie. Pour PROPOSE, ne pose aucune question.
+Lorsque NOXIA te fournit une directive pré-Project gouvernée par QUERY_NAVIGATION, respecte exactement l'action ASK_QUESTION ou PROPOSE et le besoin sélectionné. Tu réalises uniquement la formulation. L'enveloppe scientifique gouvernée transmise avec cette directive est exhaustive pour cette réalisation : elle fixe le contenu scientifique autorisé, ses provenances, ses statuts et les relations effectivement représentées.
+
+Tu peux reformuler naturellement, comprimer, réordonner, résoudre les pronoms et employer des connecteurs ordinaires. Tu ne dois introduire aucun concept scientifique, relation scientifique, mécanisme, interprétation, correspondance entre mesure et phénomène, rôle, niveau de certitude, diagnostic, signification d'endpoint ou assertion causale qui ne soit représenté dans l'enveloppe gouvernée. Une idée scientifiquement plausible mais absente de cette enveloppe ne doit pas être ajoutée, même comme embellissement expert. Ne comble pas une lacune scientifique pour rendre la réponse plus savante. Préserve les inconnues comme inconnues, les candidats comme candidats et les branches scientifiques distinctes comme distinctes.
+
+Ne choisis aucune autre question, ne rends pas mutuellement exclusives des dimensions présentées conjointement et ne réinterroge pas une information marquée comme déjà fournie. Pour PROPOSE, ne pose aucune question.
 
 Pas de JSON. Pas de labels internes. Pas de description de l'architecture NOXIA. Réponds directement à l'utilisateur.`;
 
@@ -250,6 +254,19 @@ export const naturalConversationContext = (request: Omit<ProductBridgeRequest, "
   const interaction = request.conversation.interactionContext;
   const preProjectNavigation = request.preProjectNavigation;
   const project = relevantProjectContext(request.currentProject);
+  const governedRealizationEnvelope = preProjectNavigation
+    ? [
+      "Enveloppe scientifique gouvernée de réalisation (projection en lecture seule ; aucune adoption Project) :",
+      `- WHAT / action : ${preProjectNavigation.action}`,
+      `- Directive : ${preProjectNavigation.realizationDirective}`,
+      `- Contenus explicites obligatoires (statut EXPLICIT_USER_STATED ; provenance ${preProjectNavigation.sourceTurnRef}) :`,
+      ...preProjectNavigation.explicitDimensions.map((dimension) => `  - [${dimension.dimensionRef}] ${dimension.sourceText}`),
+      "- Relations scientifiques structurées supplémentaires : AUCUNE_RELATION_STRUCTURÉE_TRANSMISE. Préserve uniquement les relations explicitement exprimées dans les contenus source ; n'en infère et n'en ajoute aucune.",
+      "- Inconnues, candidats ou décisions supplémentaires : AUCUN_STATUT_ADDITIONNEL_TRANSMIS. N'en invente pas et n'augmente aucun niveau de certitude.",
+      "- Transformation autorisée : paraphrase naturelle, compression, réordonnancement, résolution pronominale et connecteurs non substantifs.",
+      "- Transformation interdite : tout nouveau concept, relation, mécanisme, interprétation, mapping de mesure, rôle, diagnostic, endpoint, causalité ou certitude scientifique.",
+    ].join("\n")
+    : null;
   const lines = [
     preProjectNavigation
       ? `Tâche actuelle gouvernée par QUERY_NAVIGATION : ${preProjectNavigation.action}. Réalise uniquement la formulation de la directive fournie ; ne sélectionne aucun autre WHAT.`
@@ -275,10 +292,11 @@ export const naturalConversationContext = (request: Omit<ProductBridgeRequest, "
         `Informations déjà fournies : ${preProjectNavigation.explicitDimensions.map((dimension) => `[${dimension.dimensionRef}] ${dimension.sourceText}`).join(" ; ") || "aucune"}`,
       ].join("\n")
       : "Aucune directive pré-Project gouvernée.",
+    governedRealizationEnvelope,
     "Conversation récente :",
     ...recentNaturalConversationTurns(request).map((turn) => `${turn.role === "USER" ? "Chercheur" : "NOXIA"} : ${turn.content}`),
   ];
-  return lines.join("\n\n");
+  return lines.filter((line): line is string => Boolean(line)).join("\n\n");
 };
 
 export const buildNaturalConversationPayload = (request: Omit<ProductBridgeRequest, "apiVersion">) => ({
