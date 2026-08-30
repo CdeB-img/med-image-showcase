@@ -212,7 +212,8 @@ describe("PROJECT-HANDS-ON-02 — Project fidelity contract", () => {
     const reviewText = prepared.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)).join("\n");
     expect(reviewText).toContain("médicament");
     expect(reviewText).toContain("placebo");
-    expect(reviewText).toContain("COMPARES_WITH");
+    expect(reviewText).toContain("comparaison avec");
+    expect(reviewText).not.toContain("COMPARES_WITH");
     expect(reviewText).toContain("réduction des plaques carotiennes");
     expect(reviewText).toContain("IRM");
     expect(reviewText).toContain("M3");
@@ -333,11 +334,13 @@ describe("PROJECT-HANDS-ON-02 — Project fidelity contract", () => {
       "TEMPORAL_QUALIFICATION",
     ]));
     expect(projectCandidate.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content))).toEqual(expect.arrayContaining([
-      expect.stringContaining("COMPARES_WITH"),
-      expect.stringContaining("OPERATIONALIZES"),
+      expect.stringContaining("comparaison avec"),
+      expect.stringContaining("met en œuvre"),
       expect.stringContaining("avant traitement"),
       expect.stringContaining("Acquisition IRM"),
     ]));
+    expect(projectCandidate.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)).join("\n"))
+      .not.toMatch(/COMPARES_WITH|OPERATIONALIZES/);
     expect(projectCandidate.canonicalChangeSet).toMatchObject({
       status: "READY_FOR_HUMAN_DECISION",
       relationChanges: expect.arrayContaining([

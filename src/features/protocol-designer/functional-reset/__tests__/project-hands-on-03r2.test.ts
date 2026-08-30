@@ -252,8 +252,12 @@ describe("PROJECT-HANDS-ON-03R2 — canonical relation signatures", () => {
     const contribution = contributionFromPersistentDelta({ candidate: checked.candidate!, conversation: conversation(raw), currentProject: null })!;
     const candidate = prepareResearchProjectContributionCandidate(contribution, null);
     expect(candidate.humanReviewProjection).toMatchObject({ status: "COMPLETE", missingChangeRefs: [] });
-    expect(candidate.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)).join("\n"))
-      .toContain("COVERS_DATA_NEED");
+    const reviewText = candidate.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)).join("\n");
+    expect(reviewText).toContain("couvre ce besoin de données");
+    expect(reviewText).not.toContain("COVERS_DATA_NEED");
+    expect(candidate.canonicalChangeSet.relationChanges).toEqual(expect.arrayContaining([
+      expect.objectContaining({ candidate: expect.objectContaining({ relationType: "COVERS_DATA_NEED" }) }),
+    ]));
   });
 
   it("R17 leaves QRY bound to the exact adopted Project version", () => {

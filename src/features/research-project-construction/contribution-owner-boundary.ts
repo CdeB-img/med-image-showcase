@@ -1061,6 +1061,16 @@ const specializedResponsibilities = (
 
 const reviewOperationPrefix = (operation: "ADD" | "REMOVE" | "REPLACE") => operation === "ADD" ? "+" : operation === "REMOVE" ? "−" : "Modifier";
 
+const HUMAN_REVIEW_RELATION_LABELS: Readonly<Record<string, string>> = Object.freeze({
+  COMPARES_WITH: "comparaison avec",
+  COMPARED_WITH: "comparaison avec",
+  MOTIVATES_DATA_NEED: "motive ce besoin de données",
+  COVERS_DATA_NEED: "couvre ce besoin de données",
+  OPERATIONALIZES: "met en œuvre",
+});
+
+const humanReviewRelationLabel = (relationType: string) => HUMAN_REVIEW_RELATION_LABELS[relationType] ?? "relation avec";
+
 const reviewReplacement = (previous: string, proposed: string) => {
   const previousParts = previous.split(":").map((part) => part.trim());
   const proposedParts = proposed.split(":").map((part) => part.trim());
@@ -1161,7 +1171,7 @@ export const buildHumanReviewProjection = (
   changeSet.relationChanges.forEach((change) => {
     const relation = change.candidate ?? previousRelation(change.relationId);
     const content = relation
-      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(relation.sourceObjectRef) ?? relation.sourceObjectRef} — ${relation.relationType} → ${objectLabels.get(relation.targetObjectRef) ?? relation.targetObjectRef}`
+      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(relation.sourceObjectRef) ?? relation.sourceObjectRef} — ${humanReviewRelationLabel(relation.relationType)} → ${objectLabels.get(relation.targetObjectRef) ?? relation.targetObjectRef}`
       : `${reviewOperationPrefix(change.operation)} relation ${change.relationId}`;
     add("Relations", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "RELATION", operation: change.operation, content });
   });

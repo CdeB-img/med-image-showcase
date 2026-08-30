@@ -249,8 +249,12 @@ describe("PROJECT-HANDS-ON-02R4 — source-grounded mutation and references", ()
     const relatedContribution = contributionFromPersistentDelta({ candidate: relatedChecked.candidate!, conversation: conversation(relationRaw), currentProject: project })!;
     const relatedPrepared = prepareResearchProjectContributionCandidate(relatedContribution, project);
     expect(relatedPrepared.humanReviewProjection.status).toBe("COMPLETE");
-    expect(relatedPrepared.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)).join("\n"))
-      .toContain("MOTIVATES_DATA_NEED");
+    const relationReview = relatedPrepared.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)).join("\n");
+    expect(relationReview).toContain("motive ce besoin de données");
+    expect(relationReview).not.toContain("MOTIVATES_DATA_NEED");
+    expect(relatedPrepared.canonicalChangeSet.relationChanges).toEqual(expect.arrayContaining([
+      expect.objectContaining({ candidate: expect.objectContaining({ relationType: "MOTIVATES_DATA_NEED" }) }),
+    ]));
   });
 
   it("R16–R18 leaves QRY, epistemic axes and temporal semantics unchanged", () => {

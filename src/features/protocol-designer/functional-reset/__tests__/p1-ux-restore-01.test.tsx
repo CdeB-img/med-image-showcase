@@ -15,6 +15,7 @@ import {
 } from "@/features/query-navigation";
 import {
   NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
+  PERSISTENT_PROJECT_RELATION_TYPES,
   naturalConversationContext,
   type ProductBridgeRequest,
 } from "@/features/protocol-designer/product-bridge";
@@ -85,9 +86,27 @@ const cecContribution = (turns: ScientificInterpretationTurn[]): ScientificInter
         item("endpoint:lge", "ENDPOINT", "Lésions visibles en rehaussement tardif", "rehaussement tardif"),
         item("endpoint:ecv", "ENDPOINT", "Modification de l’ECV", "l'ECV"),
         item("endpoint:contractility", "ENDPOINT", "Modification de la contractilité", "contractilité"),
+        item("data-need:cmr", "DATA_NEED", "Caractérisation IRM de l’atteinte myocardique", "étudier cette atteinte à l'irm"),
       ],
       explicitStatements: [],
-      candidateRelations: [],
+      candidateRelations: [{
+        relationId: "relation:cec-goal-data-need",
+        relationType: "MOTIVATES_DATA_NEED",
+        sourceItemId: "goal:cec",
+        targetItemId: "data-need:cmr",
+        polarity: "AFFIRMED",
+        confidence: 1,
+        evidenceRefs: [],
+        epistemicBoundary: {
+          ...template.epistemicBoundary,
+          ownership: "USER",
+          epistemicStatus: "EXPLICIT_USER_STATED",
+          adoptionStatus: "CANDIDATE",
+          activeState: true,
+          sourceTurnIds: [sourceTurnRef],
+          sourceText: "étudier cette atteinte à l'irm",
+        },
+      }],
       inferredContext: [],
       contextualCandidates: [],
       temporalElements: [],
@@ -235,11 +254,20 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
     expect(within(understanding).getByText("Modification de la contractilité")).toBeInTheDocument();
     expect(understanding).not.toHaveTextContent("Contribution candidate");
     expect(understanding).not.toHaveTextContent(CEC_INPUT);
-    expect(screen.getByTestId("functional-contribution-review")).toBeInTheDocument();
+    const humanReview = screen.getByTestId("functional-contribution-review");
+    expect(humanReview).toBeInTheDocument();
+    expect(humanReview).toHaveTextContent("motive ce besoin de données");
+    for (const relationType of PERSISTENT_PROJECT_RELATION_TYPES) {
+      expect(humanReview).not.toHaveTextContent(relationType);
+    }
 
     const session = stored();
     expect(session.project).toBeNull();
     expect(session.pendingContribution).not.toBeNull();
+    expect(session.entries.find((entry: { kind: string }) => entry.kind === "REVIEW").candidate.canonicalChangeSet.relationChanges)
+      .toEqual(expect.arrayContaining([
+        expect.objectContaining({ candidate: expect.objectContaining({ relationType: "MOTIVATES_DATA_NEED" }) }),
+      ]));
     expect(session.bridgeTraces.at(-1)).toMatchObject({
       projectWriteCount: 0,
       entryRouting: { routeIntent: "DESIGN_STUDY", projectConstructionEligible: true, projectWriteAuthorized: false },
@@ -254,6 +282,7 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Expert" }));
     expect(screen.getByTestId("trace-inspector")).toBeInTheDocument();
+    expect(screen.getByTestId("protocol-designer-development-diagnostics")).toHaveTextContent("MOTIVATES_DATA_NEED");
   });
 
   it("records the repaired CEC responsibility chain at DIAGNOSTIC without FORENSIC or provider calls", () => {

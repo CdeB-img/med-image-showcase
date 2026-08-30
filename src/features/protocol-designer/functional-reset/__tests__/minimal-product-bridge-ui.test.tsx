@@ -127,7 +127,8 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     const first = renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     const firstReview = await screen.findByTestId("functional-contribution-review");
-    expect(within(firstReview).getByText(/COMPARES_WITH/)).toBeInTheDocument();
+    expect(within(firstReview).getByText(/comparaison avec/)).toBeInTheDocument();
+    expect(firstReview).not.toHaveTextContent("COMPARES_WITH");
     expect(stored().entries.find((entry: { kind: string }) => entry.kind === "REVIEW").candidate.humanReviewProjection).toMatchObject({
       status: "COMPLETE",
       missingChangeRefs: [],
@@ -171,7 +172,8 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     first.unmount();
     renderDemo();
     const reloadedReview = await screen.findByTestId("functional-contribution-review");
-    expect(within(reloadedReview).getByText(/COMPARES_WITH/)).toBeInTheDocument();
+    expect(within(reloadedReview).getByText(/comparaison avec/)).toBeInTheDocument();
+    expect(reloadedReview).not.toHaveTextContent("COMPARES_WITH");
     expect(screen.queryByText("L’espace Protocol Designer a rencontré une erreur d’affichage.")).toBeNull();
   });
 
