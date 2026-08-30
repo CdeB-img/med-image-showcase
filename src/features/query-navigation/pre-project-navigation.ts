@@ -242,7 +242,15 @@ const providerProposalConformance = (
   } as const;
 };
 
-const deterministicProposal = () => "J’ai bien pris en compte les éléments scientifiques de votre demande. Je vous propose de les organiser dans une première compréhension structurée, que vous pourrez préciser avant toute confirmation.";
+const GENERIC_DETERMINISTIC_PROPOSAL = "J’ai bien pris en compte les éléments scientifiques de votre demande. Je vous propose de les organiser dans une première compréhension structurée, que vous pourrez préciser avant toute confirmation.";
+
+const deterministicProposal = (decision: Readonly<PreProjectNavigationDecision>) => {
+  const explicitDimensions = decision.explicitDimensions
+    .map((dimension) => dimension.sourceText.trim().replace(/[.!?;:,]+$/gu, ""))
+    .filter(Boolean);
+  if (explicitDimensions.length < 2) return GENERIC_DETERMINISTIC_PROPOSAL;
+  return `J’ai bien pris en compte les éléments scientifiques de votre demande. Je vous propose de les organiser dans une première compréhension structurée : ${explicitDimensions.join(" ; ")}. Vous pourrez la préciser avant toute confirmation.`;
+};
 
 const deterministicQuestion = (decision: PreProjectNavigationDecision) => {
   const need = decision.selectedInformationNeed?.replace(/[?.!]+$/gu, "") ?? "le choix qui reste explicitement indéterminé";
@@ -285,7 +293,7 @@ export const realizePreProjectNavigationDecision = (input: {
   return Object.freeze({
     assistantReply: input.decision.action === "ASK_QUESTION"
       ? deterministicQuestion(input.decision)
-      : deterministicProposal(),
+      : deterministicProposal(input.decision),
     executor: "LOCAL_DETERMINISTIC_REALIZATION",
     provider: "NONE",
     model: "QRY_PRE_PROJECT_REALIZATION_1.0.0",

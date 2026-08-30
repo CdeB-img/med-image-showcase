@@ -60,7 +60,7 @@ const SCIENTIFIC_TERMS = [
 
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR");
 
-const EXPLICIT_STUDY_CONSTRUCTION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on)\s+)?(?:(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|désire|désirons)\s+)?(?:maintenant\s+)?(?:créer|construire|concevoir|monter|élaborer|construisons|concevons|montons|élaborons)\s+(?:(?:une?|l['’])\s+)?(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
+const EXPLICIT_STUDY_CONSTRUCTION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on)\s+)?(?:(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|désire|désirons)\s+)?(?:maintenant\s+)?(?:créer|construire|concevoir|faire|monter|élaborer|construisons|concevons|montons|élaborons)\s+(?:(?:une?|l['’])\s+)?(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
 const EXPLICIT_STUDY_DESIGN = /(?:^|[^\p{L}\p{N}_])(?:étude|protocole|essai|cohorte)\s+(?:multicentrique|monocentrique|randomisée?|prospective?|rétrospective?|exploratoire|pilote)(?![\p{L}\p{N}_])/iu;
 const EXPLICIT_STUDY_MODIFICATION = /(?:^|[^\p{L}\p{N}_])(?:modifier|modifie|modifions|changer|change|corriger|corrige|ajouter|ajoute|retirer|retire)\s+(?:[\p{L}\p{N}'’.-]+\s+){0,6}(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
 
