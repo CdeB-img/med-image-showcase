@@ -142,7 +142,7 @@ describe("FUNCTIONAL-RESET-03A2 — semantic REMOVE resolution", () => {
     const currentSnapshot = JSON.stringify(current);
     render(<ContributionReview contribution={contribution} candidate={candidate} status="PENDING" onConfirm={vi.fn()} onCorrect={vi.fn()} onReject={vi.fn()} />);
     const review = screen.getByTestId("functional-contribution-review");
-    expect(within(review).getByText("Mesures / biomarqueurs")).toBeInTheDocument();
+    expect(within(review).getByText("Éléments à observer ou mesurer")).toBeInTheDocument();
     expect(within(review).getByText("− Biomarqueurs sanguins")).toBeInTheDocument();
     expect(within(review).getByRole("button", { name: "Cela correspond à mon projet" })).toBeInTheDocument();
     expect(JSON.stringify(current)).toBe(currentSnapshot);

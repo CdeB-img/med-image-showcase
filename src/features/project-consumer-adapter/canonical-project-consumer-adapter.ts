@@ -94,7 +94,7 @@ const SECTION_LABELS: Record<ResearchProjectSectionId, string> = {
   INTERVENTION: "Intervention",
   COMPARATOR: "Comparateur",
   IMAGING: "Imagerie",
-  MEASUREMENTS: "Mesures / biomarqueurs",
+  MEASUREMENTS: "Éléments à observer ou mesurer",
   TEMPORALITY: "Temporalité",
   ANALYSIS: "Analyse",
 };

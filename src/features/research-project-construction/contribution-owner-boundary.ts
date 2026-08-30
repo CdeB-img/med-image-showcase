@@ -92,6 +92,7 @@ export type HumanReviewProjectionItem = {
   changeKind: HumanReviewChangeKind;
   operation: "ADD" | "REMOVE" | "REPLACE";
   content: string;
+  statusLabel?: "Déclaré" | "Reformulé" | "Interprété — à confirmer" | "À préciser";
 };
 
 export type HumanReviewProjectionSection = {
@@ -185,7 +186,7 @@ const SECTION_LABELS: Record<ResearchProjectSectionId, string> = {
   INTERVENTION: "Intervention",
   COMPARATOR: "Comparateur",
   IMAGING: "Imagerie",
-  MEASUREMENTS: "Mesures / biomarqueurs",
+  MEASUREMENTS: "Éléments à observer ou mesurer",
   TEMPORALITY: "Temporalité",
   ANALYSIS: "Analyse",
 };
@@ -431,7 +432,7 @@ export const sectionForContributionItem = (
     && /\b(?:moins de|less than|under|within|dans les)\s*\d+(?:[.,]\d+)?\s*(?:jours?|days?|semaines?|weeks?|mois|months?|ans?|years?)\b/.test(local)
     && /\b(?:inclu\w*|eligib\w*)\b/.test(source);
   if (explicitEligibilityWindow) return "POPULATION";
-  if (/POPULATION|ELIGIBILITY|CRITERION|CONDITION|DISEASE/.test(type)) return "POPULATION";
+  if (/POPULATION|ELIGIBILITY|CRITERION/.test(type)) return "POPULATION";
   if (/STUDY_DESIGN|DESIGN|SETTING|CENTER/.test(type)) return "DESIGN";
   if (/COMPARATOR|CONTROL_ARM|REFERENCE_ARM/.test(type)) return "COMPARATOR";
   if (/INTERVENTION|TREATMENT|EXPOSURE_ARM/.test(type)) return "INTERVENTION";
@@ -439,7 +440,7 @@ export const sectionForContributionItem = (
   if (/MODALITY|IMAGING_METHOD|ACQUISITION/.test(type)) return "IMAGING";
   if (/ANALYSIS|ESTIMAND|STATISTICAL/.test(type)) return "ANALYSIS";
   if (/OBJECTIVE|SCIENTIFIC_QUESTION/.test(type)) return "QUESTION";
-  if (/HYPOTHESIS/.test(type)) return "ANALYSIS";
+  if (/HYPOTHESIS|CONDITION|DISEASE|DATA_NEED|PROJECT_INFORMATION|PROJECT_CONTEXT|CONTEXT/.test(type)) return null;
   if (/BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET|SCIENTIFIC_OBJECT/.test(type)) return "MEASUREMENTS";
   return null;
 };
@@ -704,15 +705,8 @@ const sectionForElement = (element: ResearchProjectElement, contribution: Scient
 
 export const researchProjectQuestionPresentation = (sections: ResearchProjectSection[]) => {
   const elements = (sectionId: ResearchProjectSectionId) => sections.find((section) => section.sectionId === sectionId)?.elements ?? [];
-  const condition = elements("POPULATION").find((element) => /CONDITION|DISEASE/i.test(`${element.sourceProposedType ?? ""} ${element.sourceStudyRole ?? ""}`))?.content;
-  const intervention = elements("INTERVENTION")[0]?.content;
-  const comparator = elements("COMPARATOR")[0]?.content;
-  const measurement = elements("MEASUREMENTS")[0]?.content;
-  if (condition && intervention && comparator) return `Projet sur ${condition}, avec ${intervention} comme intervention et ${comparator} comme comparateur.`;
-  if (condition && intervention) return `Projet sur ${condition}, avec ${intervention} comme intervention.`;
-  if (condition) return `Projet portant sur ${condition}.`;
-  if (measurement) return `Projet portant sur ${measurement}.`;
-  return "Projet de recherche à préciser.";
+  const explicitQuestion = elements("QUESTION").find((element) => /SCIENTIFIC_QUESTION|RESEARCH_QUESTION/i.test(element.sourceProposedType ?? ""));
+  return explicitQuestion?.content ?? "Question de recherche à préciser.";
 };
 
 const stateFor = (
@@ -999,24 +993,15 @@ const applyContributionProjectChangeSet = (
     const elements = uniqueElements(sectionId, grouped.get(sectionId) ?? []);
     return { sectionId, label: SECTION_LABELS[sectionId], state: stateFor(sectionId, elements, contribution), elements };
   });
-  const question = researchProjectQuestionPresentation(sections);
   const questionIndex = sections.findIndex((section) => section.sectionId === "QUESTION");
+  const explicitQuestionElements = sections[questionIndex]?.elements.filter((element) => (
+    /SCIENTIFIC_QUESTION|RESEARCH_QUESTION/i.test(element.sourceProposedType ?? "")
+  )) ?? [];
   sections[questionIndex] = {
     sectionId: "QUESTION",
     label: SECTION_LABELS.QUESTION,
-    state: "DEFINED",
-    elements: [{
-      elementId: current?.sections.find((section) => section.sectionId === "QUESTION")?.elements[0]?.elementId ?? `question:${contribution.identity.contributionId}`,
-      semanticKey: "QUESTION:STRUCTURED_PROJECT_SUMMARY",
-      content: question,
-      sourceItemIds: [],
-      sourceTurnIds: contribution.source.turns.filter((turn) => turn.role === "USER").map((turn) => turn.turnId),
-      sourceProposedType: "SCIENTIFIC_QUESTION_WORKING_FORMULATION",
-      sourceStudyRole: null,
-      sourcePolarity: "AFFIRMED",
-      disposition: "USER_CONFIRMED_PROJECT_INFORMATION",
-      canonicalPromotion: "NOT_PERFORMED",
-    }],
+    state: explicitQuestionElements.length ? "DEFINED" : "TO_CLARIFY",
+    elements: explicitQuestionElements,
   };
   return sections;
 };
@@ -1080,13 +1065,43 @@ const reviewReplacement = (previous: string, proposed: string) => {
   return `${previous} → ${proposed}`;
 };
 
-const reviewObjectLabel = (object: { objectType: string; content: string; epistemicState: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD"; provenance: { sourceText: string } } | null | undefined) => {
+const reviewObjectLabel = (object: { objectType: string; content: string; epistemicState: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD"; provenance: { sourceText: string | null } } | null | undefined) => {
   if (!object) return null;
-  const sourceText = object.provenance.sourceText?.trim();
-  if (object.objectType === "OBJECTIVE" && sourceText && folded(sourceText) !== folded(object.content)) {
-    return `${sourceText}${object.epistemicState === "UNKNOWN" ? " — précision encore requise" : ""}`;
+  if (object.epistemicState === "UNKNOWN" || object.epistemicState === "WITHHELD") {
+    return `${object.content} — précision encore requise`;
   }
-  return `${object.content}${object.epistemicState === "UNKNOWN" ? " — précision encore requise" : ""}`;
+  const source = object.provenance.sourceText?.trim();
+  if (object.objectType === "OBJECTIVE" && source && folded(source) !== folded(object.content)) {
+    return `${object.content} — formulation d’origine : ${source}`;
+  }
+  return object.content;
+};
+
+const humanReviewObjectSectionLabel = (objectType: string, fallback: ResearchProjectSectionId) => {
+  if (objectType === "SCIENTIFIC_QUESTION") return "Question";
+  if (objectType === "OBJECTIVE") return "Objectif";
+  if (objectType === "HYPOTHESIS") return "Hypothèse de départ";
+  if (objectType === "CONDITION") return "Pathologie / condition";
+  if (["POPULATION", "ELIGIBILITY_CRITERION"].includes(objectType)) return "Population";
+  if (objectType === "PROJECT_INFORMATION") return "Contexte du projet";
+  if (objectType === "INTERVENTION_OR_EXPOSURE") return "Intervention / exposition";
+  if (objectType === "DATA_NEED") return "Besoin de données";
+  if (["ENDPOINT", "CANONICAL_VARIABLE"].includes(objectType)) return "Éléments à observer ou mesurer";
+  if (objectType === "ANALYSIS_SPECIFICATION") return "Analyse";
+  return SECTION_LABELS[fallback];
+};
+
+const humanReviewObjectStatus = (object: {
+  content: string;
+  epistemicState: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD";
+  provenance: { assertionKind: string; sourceText: string | null };
+}): HumanReviewProjectionItem["statusLabel"] => {
+  if (object.epistemicState === "UNKNOWN" || object.epistemicState === "WITHHELD") return "À préciser";
+  if (object.provenance.assertionKind === "USER_STATED") {
+    const source = object.provenance.sourceText?.trim();
+    return source && folded(source) !== folded(object.content) ? "Reformulé" : "Déclaré";
+  }
+  return "Interprété — à confirmer";
 };
 
 const reviewTemporalAnchor = (anchor: NonNullable<CanonicalProjectChangeSet["temporalQualificationChanges"][number]["candidate"]>["anchor"]) => {
@@ -1165,7 +1180,15 @@ export const buildHumanReviewProjection = (
       : change.operation === "REPLACE" && previous
         ? `${reviewReplacement(previousLabel, nextLabel)}${previous.scientificRole !== next?.scientificRole ? ` (rôle : ${previous.scientificRole ?? "aucun"} → ${next?.scientificRole ?? "aucun"})` : ""}`
         : `${initialStructure ? "" : `${reviewOperationPrefix(change.operation)} `}${initialStructure ? nextLabel : capitalize(nextLabel)}${!initialStructure && next?.scientificRole ? ` (rôle : ${next.scientificRole})` : ""}`;
-    add(SECTION_LABELS[sectionId], { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "OBJECT", operation: change.operation, content });
+    const representedObject = next ?? previous;
+    add(humanReviewObjectSectionLabel(representedObject?.objectType ?? "", sectionId), {
+      reviewItemRef: `review:${change.changeRef}`,
+      changeRef: change.changeRef,
+      changeKind: "OBJECT",
+      operation: change.operation,
+      content,
+      statusLabel: representedObject ? humanReviewObjectStatus(representedObject) : undefined,
+    });
   });
 
   changeSet.relationChanges.forEach((change) => {

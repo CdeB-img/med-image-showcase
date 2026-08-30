@@ -36,7 +36,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toHaveTextContent(/préservera votre intention/);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
     const project = screen.getByTestId("functional-research-project");
-    for (const label of ["Question", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Mesures / biomarqueurs", "Temporalité", "Analyse", "Documents"]) {
+    for (const label of ["Question", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Éléments à observer ou mesurer", "Temporalité", "Analyse", "Documents"]) {
       expect(within(project).getByText(label)).toBeInTheDocument();
     }
     expect(within(project).getByText("Construction en cours")).toBeInTheDocument();
@@ -52,7 +52,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
 
     expect(await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." })).toBeInTheDocument();
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: null }));
-    expect(screen.getByText("lésions myocardiques")).toBeInTheDocument();
+    expect(screen.getAllByText("lésions myocardiques").length).toBeGreaterThan(0);
     expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(2));

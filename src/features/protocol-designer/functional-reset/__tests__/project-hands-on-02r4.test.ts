@@ -231,7 +231,7 @@ describe("PROJECT-HANDS-ON-02R4 — source-grounded mutation and references", ()
     expect(prepared.humanReviewProjection.status).toBe("COMPLETE");
     const mutationReview = prepared.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)).join("\n");
     expect(mutationReview).toContain("réduction des plaques carotiennes");
-    expect(mutationReview).toContain("disparition complète de la plaque");
+    expect(mutationReview).toMatch(/disparition complète de la plaque/i);
 
     const relationRaw = "Cet objectif motive la collecte d'une information complémentaire.";
     const related = wire([change({

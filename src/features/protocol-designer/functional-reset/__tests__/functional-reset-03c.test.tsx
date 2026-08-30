@@ -264,7 +264,7 @@ describe("FUNCTIONAL-RESET-03C — human-readable protocol working preview", () 
     const { projection } = projectProjection(referenceProject());
     const labels = buildStandardProtocolPresentation(projection).openItems.map((value) => value.label);
     expect(new Set(labels).size).toBe(labels.length);
-    expect(labels).toEqual(["Objectifs", "Plan d’analyse statistique"]);
+    expect(labels).toEqual(["Question scientifique", "Objectifs", "Plan d’analyse statistique"]);
   });
 
   it("FR03C-C16 — A partially known section is not presented as wholly absent", () => {

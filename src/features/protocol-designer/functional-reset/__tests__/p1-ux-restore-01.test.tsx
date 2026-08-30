@@ -48,19 +48,26 @@ const cecContribution = (turns: ScientificInterpretationTurn[]): ScientificInter
   const base = makeFunctionalResetContribution(turns);
   const sourceTurnRef = turns.at(-1)!.turnId;
   const template = base.scientificContent.candidateObjects[0]!;
-  const item = (itemId: string, proposedType: string, content: string, sourceText: string): ScientificContributionItem => ({
+  const item = (
+    itemId: string,
+    proposedType: string,
+    content: string,
+    sourceText: string | null,
+    options: { epistemicStatus?: string; epistemicState?: "KNOWN" | "ASSUMED" | "UNKNOWN"; ownership?: string; studyRole?: string | null } = {},
+  ): ScientificContributionItem => ({
     ...template,
     itemId,
     semanticIdentity: itemId,
     proposedType,
     content,
-    studyRole: null,
+    studyRole: options.studyRole ?? null,
     evidenceRefs: [],
     previousItemIds: [],
     epistemicBoundary: {
       ...template.epistemicBoundary,
-      ownership: "USER",
-      epistemicStatus: "EXPLICIT_USER_STATED",
+      ownership: options.ownership ?? "USER",
+      epistemicState: options.epistemicState ?? "KNOWN",
+      epistemicStatus: options.epistemicStatus ?? "EXPLICIT_USER_STATED",
       adoptionStatus: "CANDIDATE",
       activeState: true,
       sourceTurnIds: [sourceTurnRef],
@@ -76,23 +83,24 @@ const cecContribution = (turns: ScientificInterpretationTurn[]): ScientificInter
     },
     scientificContent: {
       ...base.scientificContent,
-      normalizedUnderstanding: "Construire une étude exploratoire de l’atteinte myocardique après circulation extracorporelle, en reliant troponine et mesures IRM.",
+      normalizedUnderstanding: "Construire une étude exploratoire après circulation extracorporelle, à partir de l’hypothèse qu’une élévation de la troponine peut refléter une atteinte myocardique à explorer en IRM.",
       candidateObjects: [
         item("design:cec-exploratory", "STUDY_DESIGN", "Étude exploratoire", "créer une étude"),
-        item("goal:cec", "GOAL", "Explorer l’atteinte myocardique après circulation extracorporelle", "circulation extra corporelle"),
-        item("biomarker:troponin", "BIOMARKER", "Élévation de la troponine", "troponine augmente"),
-        item("condition:myocardial-injury", "CONDITION", "Atteinte myocardique", "atteinte des myocites"),
-        item("modality:cmr", "MODALITY", "IRM cardiaque", "l'irm"),
-        item("endpoint:lge", "ENDPOINT", "Lésions visibles en rehaussement tardif", "rehaussement tardif"),
-        item("endpoint:ecv", "ENDPOINT", "Modification de l’ECV", "l'ECV"),
-        item("endpoint:contractility", "ENDPOINT", "Modification de la contractilité", "contractilité"),
+        item("context:cec", "PROJECT_INFORMATION", "Après circulation extracorporelle", "suite a circulation extra corporelle"),
+        item("hypothesis:myocardial-injury", "HYPOTHESIS", "L’élévation de la troponine après circulation extracorporelle peut refléter une atteinte myocardique", "suite a circulation extra corporelle la troponine augmente et qu'il y a donc atteinte des myocites"),
+        item("objective:cec", "OBJECTIVE", "Explorer par IRM si cette atteinte est visible ou associée à des modifications fonctionnelles", "je voudrais étudier cette atteinte à l'irm pour explorer ce domaine afin de voir s'il y a de réelles lésions visibles en rehaussement tardif ou si l'on peut observer une modification de l'ECV ou de la contractilité"),
+        item("variable:troponin", "CANONICAL_VARIABLE", "Élévation de la troponine", "troponine augmente", { studyRole: "MEASUREMENT" }),
+        item("modality:cmr", "IMAGING_MODALITY", "IRM cardiaque", "l'irm"),
+        item("variable:lge", "CANONICAL_VARIABLE", "Lésions visibles en rehaussement tardif", "rehaussement tardif", { studyRole: "MEASUREMENT" }),
+        item("variable:ecv", "CANONICAL_VARIABLE", "Modification de l’ECV", "l'ECV", { studyRole: "MEASUREMENT" }),
+        item("variable:contractility", "CANONICAL_VARIABLE", "Modification de la contractilité", "contractilité", { studyRole: "MEASUREMENT" }),
         item("data-need:cmr", "DATA_NEED", "Caractérisation IRM de l’atteinte myocardique", "étudier cette atteinte à l'irm"),
       ],
       explicitStatements: [],
       candidateRelations: [{
         relationId: "relation:cec-goal-data-need",
         relationType: "MOTIVATES_DATA_NEED",
-        sourceItemId: "goal:cec",
+        sourceItemId: "objective:cec",
         targetItemId: "data-need:cmr",
         polarity: "AFFIRMED",
         confidence: 1,
@@ -111,6 +119,10 @@ const cecContribution = (turns: ScientificInterpretationTurn[]): ScientificInter
       contextualCandidates: [],
       temporalElements: [],
       correctionsAndSupersessions: [],
+      missingInformation: [
+        item("unknown:population", "POPULATION", "Population de l’étude à préciser", null, { ownership: "NOXIA", epistemicStatus: "UNKNOWN", epistemicState: "UNKNOWN" }),
+        item("unknown:analysis", "ANALYSIS_SPECIFICATION", "Analyse détaillée à préciser", null, { ownership: "NOXIA", epistemicStatus: "UNKNOWN", epistemicState: "UNKNOWN" }),
+      ],
     },
   };
 };
@@ -246,16 +258,35 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
     const understanding = await screen.findByTestId("understanding-review-card");
     expect(within(understanding).getByText("Voici ce que j’ai compris")).toBeInTheDocument();
     expect(within(understanding).getByText("Étude exploratoire")).toBeInTheDocument();
-    expect(within(understanding).getByText("Explorer l’atteinte myocardique après circulation extracorporelle")).toBeInTheDocument();
+    expect(within(understanding).getByText("Explorer par IRM si cette atteinte est visible ou associée à des modifications fonctionnelles")).toBeInTheDocument();
+    expect(within(understanding).getByText("Hypothèse de départ")).toBeInTheDocument();
+    expect(within(understanding).getByText("L’élévation de la troponine après circulation extracorporelle peut refléter une atteinte myocardique")).toBeInTheDocument();
+    expect(within(understanding).getByText("Contexte du projet")).toBeInTheDocument();
+    expect(within(understanding).getByText("Après circulation extracorporelle")).toBeInTheDocument();
     expect(within(understanding).getByText("Élévation de la troponine")).toBeInTheDocument();
     expect(within(understanding).getByText("IRM cardiaque")).toBeInTheDocument();
     expect(within(understanding).getByText("Lésions visibles en rehaussement tardif")).toBeInTheDocument();
     expect(within(understanding).getByText("Modification de l’ECV")).toBeInTheDocument();
     expect(within(understanding).getByText("Modification de la contractilité")).toBeInTheDocument();
+    expect(within(understanding).getByText("Population de l’étude à préciser")).toBeInTheDocument();
+    expect(within(understanding).getByText("Analyse détaillée à préciser")).toBeInTheDocument();
+    expect(understanding).not.toHaveTextContent("Pathologie / condition");
+    expect(understanding).not.toHaveTextContent("Mesures / biomarqueurs");
+    expect(understanding).not.toHaveTextContent("Mesures et biomarqueurs");
     expect(understanding).not.toHaveTextContent("Contribution candidate");
     expect(understanding).not.toHaveTextContent(CEC_INPUT);
     const humanReview = screen.getByTestId("functional-contribution-review");
     expect(humanReview).toBeInTheDocument();
+    expect(humanReview).toHaveTextContent("Question de recherche à préciser.");
+    expect(humanReview).toHaveTextContent("Hypothèse de départ");
+    expect(humanReview).toHaveTextContent("Objectif");
+    expect(humanReview).toHaveTextContent("Contexte du projet");
+    expect(humanReview).toHaveTextContent("Éléments à observer ou mesurer");
+    expect(humanReview).toHaveTextContent("Besoin de données");
+    expect(humanReview).not.toHaveTextContent("PopulationAtteinte myocardique");
+    expect(humanReview).not.toHaveTextContent("Questioncirculation extra corporelle");
+    expect(humanReview).not.toHaveTextContent("AnalyseCaractérisation IRM de l’atteinte myocardique");
+    expect(humanReview).not.toHaveTextContent("Mesures / biomarqueurs");
     expect(humanReview).toHaveTextContent("motive ce besoin de données");
     for (const relationType of PERSISTENT_PROJECT_RELATION_TYPES) {
       expect(humanReview).not.toHaveTextContent(relationType);

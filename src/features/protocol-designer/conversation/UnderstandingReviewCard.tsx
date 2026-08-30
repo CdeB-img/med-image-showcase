@@ -10,9 +10,14 @@ type ReviewSection = {
 
 const itemState = (item: ScientificContributionItem, status: ReviewStatus) => {
   if (status === "CORRECTION_REQUESTED" || (item.previousItemIds?.length ?? 0) > 0) return "Corrigé";
+  if (item.epistemicBoundary.epistemicState === "UNKNOWN"
+    || ["UNKNOWN", "AMBIGUOUS"].includes(item.epistemicBoundary.epistemicStatus ?? "")) return "À préciser";
   if (status === "CONFIRMED" || item.epistemicBoundary.epistemicStatus === "CONFIRMED_BY_USER") return "Confirmé";
-  if (item.epistemicBoundary.epistemicStatus === "EXPLICIT_USER_STATED") return "Déclaré";
-  if (["UNKNOWN", "AMBIGUOUS"].includes(item.epistemicBoundary.epistemicStatus ?? "")) return "Inconnu";
+  if (item.epistemicBoundary.epistemicStatus === "EXPLICIT_USER_STATED") {
+    const source = item.epistemicBoundary.sourceText?.normalize("NFKC").trim().toLocaleLowerCase("fr-FR") ?? "";
+    const content = item.content.normalize("NFKC").trim().toLocaleLowerCase("fr-FR");
+    return source && source !== content ? "Reformulé" : "Déclaré";
+  }
   return "Interprété — à confirmer";
 };
 
@@ -26,14 +31,19 @@ const sectionsFor = (contribution: ScientificInterpretationContributionEnvelope)
   ].map((item) => [item.itemId, item])).values()].filter((item) => item.epistemicBoundary.activeState !== false);
   const byType = (...types: string[]) => items.filter((item) => types.includes(item.proposedType ?? ""));
   return [
-    { id: "objective", label: "Objectif", items: byType("SCIENTIFIC_INTENT", "OPERATION", "GOAL") },
+    { id: "objective", label: "Objectif", items: byType("SCIENTIFIC_INTENT", "OPERATION", "GOAL", "OBJECTIVE") },
+    { id: "hypothesis", label: "Hypothèse de départ", items: byType("HYPOTHESIS") },
     { id: "condition", label: "Pathologie / condition", items: byType("CONDITION", "CLINICAL_CONDITION", "DISEASE_CONDITION") },
-    { id: "intervention", label: "Intervention", items: byType("INTERVENTION", "DRUG") },
+    { id: "context", label: "Contexte du projet", items: byType("PROJECT_INFORMATION", "PROJECT_CONTEXT", "CONTEXT") },
+    { id: "intervention", label: "Intervention / exposition", items: byType("INTERVENTION", "EXPOSURE", "INTERVENTION_OR_EXPOSURE", "DRUG") },
     { id: "comparator", label: "Comparateur", items: byType("COMPARATOR") },
     { id: "population", label: "Population", items: byType("POPULATION") },
     { id: "design", label: "Design envisagé", items: byType("STUDY_DESIGN") },
-    { id: "imaging", label: "Imagerie", items: byType("MODALITY", "IMAGING_MODALITY", "IMAGING_METHOD") },
-    { id: "measurements", label: "Mesures et biomarqueurs", items: byType("BIOMARKER", "BIOLOGICAL_BIOMARKER", "BIOLOGICAL_MEASUREMENT", "OUTCOME", "ENDPOINT", "SCIENTIFIC_OBJECT", "QUANTITATIVE_IMAGING_TARGET") },
+    { id: "imaging", label: "Imagerie", items: byType("MODALITY", "IMAGING_MODALITY", "IMAGING_METHOD", "ACQUISITION") },
+    { id: "measurements", label: "Éléments à observer ou mesurer", items: byType("CANONICAL_VARIABLE", "MEASURED_VARIABLE", "MEASUREMENT", "BIOMARKER", "BIOLOGICAL_BIOMARKER", "BIOLOGICAL_MEASUREMENT", "OUTCOME", "ENDPOINT", "SCIENTIFIC_OBJECT", "QUANTITATIVE_IMAGING_TARGET") },
+    { id: "data-need", label: "Besoin de données", items: byType("DATA_NEED") },
+    { id: "analysis-intent", label: "Intention d’analyse", items: byType("ANALYSIS_INTENT") },
+    { id: "analysis", label: "Analyse", items: byType("ANALYSIS", "ANALYSIS_SPECIFICATION") },
     { id: "timing", label: "Temporalité", items: byType("TIMING", "TEMPORAL_ELEMENT") },
   ].filter((section) => section.items.length);
 };

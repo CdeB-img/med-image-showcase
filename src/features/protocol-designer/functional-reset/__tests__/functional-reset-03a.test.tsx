@@ -82,13 +82,15 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await waitForProposal();
 
     const proposal = screen.getByTestId("functional-contribution-review");
-    for (const label of ["Projet", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Mesures / biomarqueurs", "Points encore ouverts"]) {
+    for (const label of ["Projet", "Pathologie / condition", "Design", "Intervention / exposition", "Comparateur", "Imagerie", "Éléments à observer ou mesurer", "Points encore ouverts"]) {
       expect(within(proposal).getByText(label)).toBeInTheDocument();
     }
     for (const value of ["infarctus du myocarde", "colchicine", "placebo", "étude multicentrique", "IRM", "inflammation", "lésions myocardiques"]) {
       expect(within(proposal).getByText(value)).toBeInTheDocument();
     }
     expect(within(proposal).queryByText(/biomarqueurs sanguins|taille de l’infarctus/i)).toBeNull();
+    expect(within(proposal).getByText("population précise")).toBeInTheDocument();
+    expect(within(proposal).getByText("question de recherche")).toBeInTheDocument();
   });
 
   it("FR03A-C02 — la Contribution reste candidate avant confirmation", async () => {

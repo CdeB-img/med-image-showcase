@@ -358,7 +358,9 @@ describe("PROJECT-HANDS-ON-03 — canonical runtime path convergence", () => {
       change(raw, "condition:mi", "CONDITION", "Infarctus du myocarde"),
     ] });
     const candidate = prepareResearchProjectContributionCandidate(value, project);
-    expect(candidate.proposedSections.find((section) => section.sectionId === "POPULATION")?.elements.map((item) => item.content)).toEqual(expect.arrayContaining(["Cochon", "Infarctus du myocarde"]));
+    expect(candidate.proposedSections.find((section) => section.sectionId === "POPULATION")?.elements.map((item) => item.content)).toEqual(expect.arrayContaining(["Cochon"]));
+    expect(candidate.proposedSections.find((section) => section.sectionId === "POPULATION")?.elements.map((item) => item.content)).not.toContain("Infarctus du myocarde");
+    expect(candidate.humanReviewProjection.sections.find((section) => section.label === "Pathologie / condition")?.items.map((item) => item.content)).toEqual(["+ Infarctus du myocarde"]);
   });
 
   it("P17 J5-J7 preserves contextual anchor and user-adopted provenance", () => {

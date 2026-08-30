@@ -8,6 +8,7 @@ import {
 const countInFrench = (count: number) => count === 1 ? "une modification" : count === 2 ? "deux modifications" : `${count} modifications`;
 
 const OPEN_POINT_LABELS: Partial<Record<ResearchProjectSectionId, string>> = {
+  QUESTION: "question de recherche",
   POPULATION: "population précise",
   DESIGN: "design de l’étude",
   IMAGING: "imagerie",
@@ -50,7 +51,10 @@ export default function ContributionReview({ contribution, candidate, status, on
     <div className="mt-4 grid gap-3 sm:grid-cols-2">
       {displayedSections.map((section) => <section key={section.sectionRef} className="rounded-2xl border p-3">
         <h4 className="text-sm font-semibold">{section.label}</h4>
-        <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.reviewItemRef} className="break-words">{item.content}</li>)}</ul>
+        <ul className="mt-2 space-y-1.5 text-sm">{section.items.map((item) => <li key={item.reviewItemRef} className="break-words">
+          <span className="block">{item.content}</span>
+          {item.statusLabel && <span className="mt-1 inline-flex rounded-full border bg-muted px-2 py-0.5 text-[11px] text-muted-foreground">{item.statusLabel}</span>}
+        </li>)}</ul>
       </section>)}
     </div>
 

@@ -167,7 +167,7 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     await reachRemovalReview();
     const beforeConfirmation = JSON.stringify(stored().project);
     const review = screen.getAllByTestId("functional-contribution-review").at(-1)!;
-    expect(within(review).getByText("Mesures / biomarqueurs")).toBeInTheDocument();
+    expect(within(review).getByText("Éléments à observer ou mesurer")).toBeInTheDocument();
     expect(within(review).getByText("− Biomarqueurs sanguins")).toBeInTheDocument();
     expect(stored().project?.revision).toBe(2);
     expect(JSON.stringify(stored().project)).toBe(beforeConfirmation);
@@ -252,7 +252,8 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
     await confirm();
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(projectPanel.textContent).not.toMatch(/The user wants to study/i);
-    expect(within(projectPanel).getByText(/Projet sur infarctus du myocarde/)).toBeInTheDocument();
+    expect(within(projectPanel).getByText("Question de recherche à préciser.")).toBeInTheDocument();
+    expect(within(projectPanel).queryByText(/Projet sur infarctus du myocarde/)).toBeNull();
   });
 
   it("FR03A1-C14 — Scientific Interpretation runtime remains on the admitted foundation", () => {
