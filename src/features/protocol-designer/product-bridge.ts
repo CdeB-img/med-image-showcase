@@ -26,6 +26,26 @@ export const resolveGeminiConversationModel = (value?: string | null): string =>
 export const resolveOpenAIExtractionModel = (value?: string | null): string => value?.trim() || DEFAULT_OPENAI_EXTRACTION_MODEL;
 export const PERSISTENT_PROJECT_DELTA_CONTRACT = "PERSISTENT_PROJECT_DELTA_CANDIDATE" as const;
 
+/**
+ * Binds provider-authored, human-readable candidate wording to the explicit
+ * conversation language without changing canonical Project identities.
+ */
+export const buildPersistentExtractionLanguageContract = (
+  language: ScientificInterpretationConversation["language"],
+) => language === "fr"
+  ? [
+    "LANGUE D'INTERACTION REQUISE POUR LE CONTENU LISIBLE PAR L'HUMAIN : français (fr).",
+    "Rédige en français toutes les chaînes libres candidates destinées au chercheur, notamment les formulations de contenu, les libellés contextuels et les événements temporels lisibles.",
+    "Conserve strictement dans leur représentation canonique les types d'objet, types de relation, rôles, statuts, opérations, valeurs d'enum, identifiants, références, versions et digests ; ne les traduis pas et ne les renomme pas.",
+    "La langue de formulation ne change ni le sens scientifique, ni l'état épistémique, ni la provenance, ni l'autorité d'adoption.",
+  ].join("\n")
+  : [
+    "REQUIRED INTERACTION LANGUAGE FOR HUMAN-READABLE CONTENT: English (en).",
+    "Write in English every candidate free-text value intended for the researcher, including content wording, contextual labels and human-readable temporal events.",
+    "Keep object types, relation types, roles, statuses, operations, enum values, identifiers, references, versions and digests in their canonical representation; do not translate or rename them.",
+    "Wording language does not change scientific meaning, epistemic state, provenance or adoption authority.",
+  ].join("\n");
+
 export type ProductBridgePreProjectNavigation = Readonly<{
   contract: "PRE_PROJECT_QUERY_NAVIGATION";
   contractVersion: "1.0.0";

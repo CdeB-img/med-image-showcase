@@ -8,6 +8,7 @@ import {
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
   PRODUCT_BRIDGE_MODEL,
   buildNaturalConversationPayload,
+  buildPersistentExtractionLanguageContract,
   buildPersistentSourceCatalog,
   naturalConversationContext,
   relevantProjectContext,
@@ -114,12 +115,13 @@ const temporalAnchorJsonSchema = {
 export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
   const userTurn = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER");
   const sourceCatalog = buildPersistentSourceCatalog(request.conversation);
+  const languageContract = buildPersistentExtractionLanguageContract(request.conversation.language);
   const proposalContext = request.conversation.turns
     .filter((turn) => turn.role === "NOXIA")
     .slice(-4)
     .map((turn) => ({ turnId: turn.turnId, content: turn.content }));
   return {
-    systemInstruction: { parts: [{ text: PERSISTENT_DELTA_SYSTEM_INSTRUCTION }] },
+    systemInstruction: { parts: [{ text: `${PERSISTENT_DELTA_SYSTEM_INSTRUCTION}\n\n${languageContract}` }] },
     contents: [{ role: "user", parts: [{ text: [
       `DERNIER MESSAGE UTILISATEUR (source de l'assertion ou de l'adoption) :\n${userTurn?.content ?? ""}`,
       `CATALOGUE D'ANCRAGES DU DERNIER MESSAGE UTILISATEUR (sélectionne uniquement un anchorId exact ; FULL_TURN est toujours valide) :\n${JSON.stringify(sourceCatalog, null, 2)}`,
