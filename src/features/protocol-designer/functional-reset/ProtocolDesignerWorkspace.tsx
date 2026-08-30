@@ -44,6 +44,7 @@ import {
   recordPostAdoptionQuestionTrace,
   recordProductErrorBoundary,
   recordProjectAdoptionTrace,
+  productTraceExtractionExecution,
 } from "./end-to-end-trace-adapter";
 import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
@@ -534,7 +535,13 @@ export default function ProtocolDesignerWorkspace() {
           reviewCandidate: effectiveCandidate,
           extractionStatus: effectiveExtractionStatus,
           extractionLatencyMs: response.observability.extractionLatencyMs,
-          provider: response.observability.provider,
+          extractionExecution: productTraceExtractionExecution({
+            contribution,
+            providerArtifact: response.persistentExtraction.providerArtifact,
+            observedProvider: response.observability.extractionProvider,
+            observedModelRequested: response.observability.extractionModelRequested,
+            observedModelReturned: response.observability.extractionModelReturned,
+          }),
         });
         return {
         ...current,

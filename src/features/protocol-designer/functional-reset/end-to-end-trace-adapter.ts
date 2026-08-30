@@ -6,6 +6,7 @@ import type {
   ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import type { PersistentExtractionProviderArtifact } from "@/features/protocol-designer/product-bridge";
 import {
   appendProductTraceStage,
   recordPreProjectScientificTraceSegment,
@@ -28,6 +29,39 @@ const projectBinding = (project: Readonly<ResearchProjectOwnerProjection>): Scie
   snapshotRef: project.projectDigest,
 });
 
+export type ProductTraceExtractionExecution = Readonly<{
+  executor: string;
+  provider: string;
+  componentId: string;
+  componentVersion: string;
+}>;
+
+export const productTraceExtractionExecution = (input: {
+  contribution: Readonly<ScientificInterpretationContributionEnvelope> | null;
+  providerArtifact: Readonly<PersistentExtractionProviderArtifact> | null;
+  observedProvider: string | null | undefined;
+  observedModelRequested: string | null | undefined;
+  observedModelReturned: string | null | undefined;
+}): ProductTraceExtractionExecution => Object.freeze({
+  executor: input.providerArtifact?.executor
+    ?? input.contribution?.identity.runtimeId
+    ?? "NONE",
+  provider: input.providerArtifact?.provider
+    ?? input.observedProvider
+    ?? input.contribution?.runtimeEvidence.provider
+    ?? "NONE",
+  componentId: input.providerArtifact?.functionName
+    ?? input.contribution?.identity.runtimeId
+    ?? "PERSISTENT_PROJECT_EXTRACTION",
+  componentVersion: input.providerArtifact?.modelReturned
+    ?? input.providerArtifact?.model
+    ?? input.observedModelReturned
+    ?? input.observedModelRequested
+    ?? input.contribution?.runtimeEvidence.model
+    ?? input.contribution?.identity.runtimeVersion
+    ?? "UNKNOWN",
+});
+
 export const recordInitialProductTrace = (input: {
   ledger: Readonly<ScientificExecutionTraceLedger>;
   traceRunId: string;
@@ -39,7 +73,7 @@ export const recordInitialProductTrace = (input: {
   reviewCandidate: Readonly<ResearchProjectContributionCandidate> | null;
   extractionStatus: string;
   extractionLatencyMs: number | null;
-  provider: string;
+  extractionExecution: ProductTraceExtractionExecution;
 }): Readonly<ScientificExecutionTraceLedger> => {
   let ledger = recordPreProjectScientificTraceSegment({
     ledger: input.ledger,
@@ -63,10 +97,10 @@ export const recordInitialProductTrace = (input: {
         stage: "PROJECT_CANDIDATE_EXTRACTED",
         responsibilityOwner: "SCIENTIFIC_INTERPRETATION",
         decisionOwner: "NONE",
-        executor: input.provider,
-        provider: input.provider,
-        componentId: "PERSISTENT_PROJECT_EXTRACTION",
-        componentVersion: input.contribution.identity.runtimeVersion,
+        executor: input.extractionExecution.executor,
+        provider: input.extractionExecution.provider,
+        componentId: input.extractionExecution.componentId,
+        componentVersion: input.extractionExecution.componentVersion,
         input: [{ ref: input.segment.segmentDigest, version: input.segment.contractVersion, digest: input.segment.segmentDigest }],
         output: [{
           ref: input.contribution.identity.contributionId,

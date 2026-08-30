@@ -174,6 +174,7 @@ export const executeOpenAIPersistentDelta = async (
   const providerArtifact: PersistentExtractionProviderArtifact = {
     artifactRef: `openai-structured-args:${structuredArgsDigest}`,
     requestTurnRef,
+    executor: "executeOpenAIPersistentDelta",
     provider: "OPENAI",
     model: modelReturned ?? modelRequested,
     modelRequested,

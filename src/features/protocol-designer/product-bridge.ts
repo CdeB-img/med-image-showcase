@@ -759,6 +759,7 @@ export type PersistentProjectDeltaCandidate = {
 export type PersistentExtractionProviderArtifact = {
   artifactRef: string;
   requestTurnRef: string;
+  executor?: string;
   provider: "GOOGLE_GEMINI" | "OPENAI";
   model: string;
   modelRequested?: string | null;
