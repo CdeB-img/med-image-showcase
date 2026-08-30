@@ -3,7 +3,36 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { executeProtocolDesignerBridge } from "./api/protocol-designer-bridge";
 
-const localProductBridge = (apiKey: string | null): Plugin => ({
+export type LocalProductBridgeConfiguration = Readonly<{
+  apiKey: string | null;
+  openAiApiKey: string | null;
+  geminiModel: string | null;
+  openAiExtractionModel: string | null;
+}>;
+
+const configuredValue = (
+  name: "GEMINI_API_KEY" | "OPENAI_API_KEY" | "GEMINI_MODEL" | "OPENAI_EXTRACTION_MODEL",
+  processEnvironment: Readonly<Record<string, string | undefined>>,
+  fileEnvironment: Readonly<Record<string, string | undefined>>,
+) => processEnvironment[name]?.trim() || fileEnvironment[name]?.trim() || null;
+
+export const resolveLocalProductBridgeConfiguration = (
+  processEnvironment: Readonly<Record<string, string | undefined>>,
+  fileEnvironment: Readonly<Record<string, string | undefined>>,
+): LocalProductBridgeConfiguration => ({
+  apiKey: configuredValue("GEMINI_API_KEY", processEnvironment, fileEnvironment),
+  openAiApiKey: configuredValue("OPENAI_API_KEY", processEnvironment, fileEnvironment),
+  geminiModel: configuredValue("GEMINI_MODEL", processEnvironment, fileEnvironment),
+  openAiExtractionModel: configuredValue("OPENAI_EXTRACTION_MODEL", processEnvironment, fileEnvironment),
+});
+
+export const executeLocalProductBridgeRequest = (
+  body: unknown,
+  configuration: LocalProductBridgeConfiguration,
+  executor: typeof executeProtocolDesignerBridge = executeProtocolDesignerBridge,
+) => executor({ body, ...configuration });
+
+const localProductBridge = (configuration: LocalProductBridgeConfiguration): Plugin => ({
   name: "noxia-local-product-bridge",
   configureServer(server) {
     server.middlewares.use("/api/protocol-designer-bridge", async (request, response, next) => {
@@ -23,7 +52,7 @@ const localProductBridge = (apiKey: string | null): Plugin => ({
       }
       let body: unknown = null;
       try { body = JSON.parse(Buffer.concat(chunks).toString("utf8")); } catch { /* parsed as invalid below */ }
-      const result = await executeProtocolDesignerBridge({ body, apiKey });
+      const result = await executeLocalProductBridgeRequest(body, configuration);
       response.statusCode = result.status;
       response.setHeader("content-type", "application/json; charset=utf-8");
       response.setHeader("cache-control", "no-store");
@@ -34,12 +63,12 @@ const localProductBridge = (apiKey: string | null): Plugin => ({
 
 export default defineConfig(({ mode }) => {
   const environment = loadEnv(mode, process.cwd(), "");
-  const apiKey = process.env.GEMINI_API_KEY?.trim() || environment.GEMINI_API_KEY?.trim() || null;
+  const providerConfiguration = resolveLocalProductBridgeConfiguration(process.env, environment);
   const deploymentGitSha = process.env.VERCEL_GIT_COMMIT_SHA?.trim() || environment.VERCEL_GIT_COMMIT_SHA?.trim() || "";
   const buildGitSha = /^[0-9a-f]{7,40}$/i.test(deploymentGitSha) ? deploymentGitSha.slice(0, 7).toLowerCase() : "";
   return {
     base: "/",
-    plugins: [react(), localProductBridge(apiKey)],
+    plugins: [react(), localProductBridge(providerConfiguration)],
     define: {
       __NOXIA_BUILD_GIT_SHA__: JSON.stringify(buildGitSha),
     },
