@@ -3,6 +3,8 @@ import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
 import {
   NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
   PERSISTENT_PROJECT_OBJECT_TYPES,
+  PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT,
+  PERSISTENT_PROJECT_RELATION_PROVIDER_DESCRIPTION,
   PERSISTENT_PROJECT_RELATION_TYPES,
   PERSISTENT_PROJECT_STUDY_ROLES,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
@@ -125,6 +127,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
     contents: [{ role: "user", parts: [{ text: [
       `DERNIER MESSAGE UTILISATEUR (source de l'assertion ou de l'adoption) :\n${userTurn?.content ?? ""}`,
       `CATALOGUE D'ANCRAGES DU DERNIER MESSAGE UTILISATEUR (sélectionne uniquement un anchorId exact ; FULL_TURN est toujours valide) :\n${JSON.stringify(sourceCatalog, null, 2)}`,
+      `CONTRAT MACHINE DES SIGNATURES RELATIONNELLES DU PROJECT (résous les types des deux références, puis respecte exactement une signature ; sinon omets la relation) :\n${JSON.stringify(PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT, null, 2)}`,
       `PROPOSITIONS NOXIA RÉCENTES (lecture seule ; utilisables uniquement si le dernier message les adopte explicitement) :\n${JSON.stringify(proposalContext, null, 2)}`,
       `RESEARCH PROJECT ADOPTÉ (lecture seule) :\n${JSON.stringify(relevantProjectContext(request.currentProject), null, 2)}`,
     ].join("\n\n") }] }],
@@ -193,7 +196,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 relationType: {
                   type: "string",
                   enum: PERSISTENT_PROJECT_RELATION_TYPES,
-                  description: "First identify both endpoint object types, then emit only one supported directed signature: COMPARES_WITH/COMPARED_WITH = INTERVENTION_OR_EXPOSURE or GROUP to the same comparison family, or IMAGING_MODALITY/ACQUISITION/ANALYSIS_SPECIFICATION/CANONICAL_VARIABLE to that same measurement-comparison family; MOTIVATES_DATA_NEED = SCIENTIFIC_QUESTION/OBJECTIVE/HYPOTHESIS -> DATA_NEED; COVERS_DATA_NEED = CANONICAL_VARIABLE -> DATA_NEED; OPERATIONALIZES = CANONICAL_VARIABLE/ACQUISITION/ANALYSIS_SPECIFICATION -> DATA_NEED. ANALYSIS_SPECIFICATION -> CANONICAL_VARIABLE is invalid. CONSUMED_BY_ANALYSIS is not supported by this product contract: never replace it with OPERATIONALIZES. Co-occurrence alone establishes no relation. Omit an optional relation when no supported signature faithfully applies; keep the explicit objects.",
+                  description: PERSISTENT_PROJECT_RELATION_PROVIDER_DESCRIPTION,
                 },
                 sourceObjectRef: { type: "string", description: "Directed source endpoint. Use an exact Project stableId or candidateRef declared in this output whose scientific object type matches the selected relation source signature. Never use a label, content, section ID or invented ID." },
                 targetObjectRef: { type: "string", description: "Directed target endpoint. Use an exact Project stableId or candidateRef declared in this output whose scientific object type matches the selected relation target signature. Omit the optional relation when no compatible target exists; never reverse a signature or invent an ID." },

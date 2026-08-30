@@ -15,6 +15,7 @@ import {
   buildProjectContextSnapshot,
   canonicalProjectObjectType,
   ensureCanonicalProjectState,
+  type CanonicalProjectObjectType,
 } from "../research-project-construction/canonical-project-backbone.js";
 
 export const PRODUCT_BRIDGE_API_VERSION = "1.0.0" as const;
@@ -117,6 +118,91 @@ export const PERSISTENT_PROJECT_RELATION_TYPES = [
   "COVERS_DATA_NEED",
   "OPERATIONALIZES",
 ] as const;
+
+export type PersistentProjectRelationType = typeof PERSISTENT_PROJECT_RELATION_TYPES[number];
+
+type PersistentProjectRelationEndpointSignature = Readonly<{
+  signatureId: string;
+  relationTypes: readonly PersistentProjectRelationType[];
+  sourceTypes: readonly CanonicalProjectObjectType[];
+  targetTypes: readonly CanonicalProjectObjectType[];
+}>;
+
+/**
+ * Single machine-readable endpoint contract for the bounded Project relation
+ * subset. Provider guidance and deterministic validation are derived from this
+ * table so a relation cannot acquire a different signature at either boundary.
+ */
+export const PERSISTENT_PROJECT_RELATION_ENDPOINT_SIGNATURES = [
+  {
+    signatureId: "STUDY_ARM_COMPARISON",
+    relationTypes: ["COMPARES_WITH", "COMPARED_WITH"],
+    sourceTypes: ["INTERVENTION_OR_EXPOSURE", "GROUP"],
+    targetTypes: ["INTERVENTION_OR_EXPOSURE", "GROUP"],
+  },
+  {
+    signatureId: "MEASUREMENT_COMPARISON",
+    relationTypes: ["COMPARES_WITH", "COMPARED_WITH"],
+    sourceTypes: ["IMAGING_MODALITY", "ACQUISITION", "ANALYSIS_SPECIFICATION", "CANONICAL_VARIABLE"],
+    targetTypes: ["IMAGING_MODALITY", "ACQUISITION", "ANALYSIS_SPECIFICATION", "CANONICAL_VARIABLE"],
+  },
+  {
+    signatureId: "MOTIVATED_DATA_NEED",
+    relationTypes: ["MOTIVATES_DATA_NEED"],
+    sourceTypes: ["SCIENTIFIC_QUESTION", "OBJECTIVE", "HYPOTHESIS"],
+    targetTypes: ["DATA_NEED"],
+  },
+  {
+    signatureId: "VARIABLE_DATA_NEED_COVERAGE",
+    relationTypes: ["COVERS_DATA_NEED"],
+    sourceTypes: ["CANONICAL_VARIABLE"],
+    targetTypes: ["DATA_NEED"],
+  },
+  {
+    signatureId: "PROJECT_OPERATIONALIZATION",
+    relationTypes: ["OPERATIONALIZES"],
+    sourceTypes: ["CANONICAL_VARIABLE", "ACQUISITION", "ANALYSIS_SPECIFICATION"],
+    targetTypes: ["DATA_NEED"],
+  },
+] as const satisfies readonly PersistentProjectRelationEndpointSignature[];
+
+export const PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT = {
+  contract: "PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT",
+  contractVersion: "1.0.0",
+  endpointTypeRepresentation: "CANONICAL_PROJECT_OBJECT_TYPE",
+  endpointTypeResolver: "canonicalProjectObjectType(proposedType, studyRole)",
+  signatures: PERSISTENT_PROJECT_RELATION_ENDPOINT_SIGNATURES,
+  noCompatibleSignatureBehavior: "OMIT_RELATION_PRESERVE_OBJECTS",
+} as const;
+
+export const persistentProjectRelationEndpointsCompatible = (
+  relationType: string,
+  sourceType: CanonicalProjectObjectType,
+  targetType: CanonicalProjectObjectType,
+) => PERSISTENT_PROJECT_RELATION_ENDPOINT_SIGNATURES.some((signature) => (
+  signature.relationTypes.some((candidate) => candidate === relationType)
+    && signature.sourceTypes.some((candidate) => candidate === sourceType)
+    && signature.targetTypes.some((candidate) => candidate === targetType)
+));
+
+const persistentProjectRelationSignatureLines = PERSISTENT_PROJECT_RELATION_ENDPOINT_SIGNATURES
+  .map((signature) => `- ${signature.relationTypes.join(" / ")} : ${signature.sourceTypes.join(", ")} vers ${signature.targetTypes.join(", ")}.`)
+  .join("\n");
+
+export const PERSISTENT_PROJECT_RELATION_PROVIDER_INSTRUCTION = [
+  "Détermine le type canonique de chaque extrémité avec le même mapping que le Research Project, puis émets uniquement une des signatures dirigées suivantes :",
+  persistentProjectRelationSignatureLines,
+  "INTERVENTION est résolu en INTERVENTION_OR_EXPOSURE et COMPARATOR en GROUP par le mapping canonique du Project.",
+  "Si aucune signature ne correspond exactement, omets la relation et conserve tous les objets explicites.",
+].join("\n");
+
+export const PERSISTENT_PROJECT_RELATION_PROVIDER_DESCRIPTION = [
+  "Resolve both endpoint types through the canonical Project mapping, then emit only a directed signature from the supplied PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT.",
+  "A named IMAGING_MODALITY is not an ACQUISITION and cannot source OPERATIONALIZES in this product subset.",
+  "ANALYSIS_SPECIFICATION -> CANONICAL_VARIABLE is invalid.",
+  "Do not substitute OPERATIONALIZES for an unsupported relation. Co-occurrence alone establishes no relation.",
+  "Omit an optional relation if no signature matches exactly; preserve the explicit objects.",
+].join(" ");
 
 /**
  * Product form of the instruction validated by ARCH-CONV-03V. The experimental
@@ -228,7 +314,7 @@ Une proposition causale, mécanistique ou explicative avancée comme point de d�
 
 Un contexte, une procédure ou une exposition mentionnée pour situer le phénomène ne devient ni SCIENTIFIC_QUESTION ni INTERVENTION par simple proximité. Lorsqu'il s'agit d'une information de contexte du projet sans rôle plus précis établi, conserve-la comme PROJECT_INFORMATION. Une SCIENTIFIC_QUESTION exige une formulation interrogative ou un objet explicitement présenté comme question de recherche ; ne la crée pas pour compléter un champ.
 
-Pour l'imagerie, distingue IMAGING_MODALITY, ACQUISITION, CANONICAL_VARIABLE, DATA_NEED et MeasurementDefinition. IMAGING_MODALITY identifie une modalité ou famille de méthode explicitement nommée. ACQUISITION représente une réalisation planifiée seulement lorsque l'utilisateur établit réellement qu'un examen, une collecte ou une acquisition aura lieu ; une modalité seulement envisagée ou comparée ne suffit pas. CANONICAL_VARIABLE représente une quantité, catégorie ou information de données définie pour le Project, jamais la modalité qui la produit. DATA_NEED représente l'information dont le Project a besoin. MeasurementDefinition reste une définition de méthode gouvernée hors de ce contrat Project et ne doit pas être inventée. Une modalité ou acquisition utilisée pour quantifier ou caractériser quelque chose peut OPERATIONALIZES un DATA_NEED, mais ne crée jamais à elle seule une MeasurementDefinition, une CANONICAL_VARIABLE ni un rôle biomarqueur. Lorsque le contexte établit une acquisition, conserve séparément l'identité de la modalité au lieu de la remplacer par l'acquisition.
+Pour l'imagerie, distingue IMAGING_MODALITY, ACQUISITION, CANONICAL_VARIABLE, DATA_NEED et MeasurementDefinition. IMAGING_MODALITY identifie une modalité ou famille de méthode explicitement nommée. ACQUISITION représente une réalisation planifiée seulement lorsque l'utilisateur établit réellement qu'un examen, une collecte ou une acquisition aura lieu ; une modalité seulement envisagée ou comparée ne suffit pas. CANONICAL_VARIABLE représente une quantité, catégorie ou information de données définie pour le Project, jamais la modalité qui la produit. DATA_NEED représente l'information dont le Project a besoin. MeasurementDefinition reste une définition de méthode gouvernée hors de ce contrat Project et ne doit pas être inventée. Une IMAGING_MODALITY nommée ne devient jamais une ACQUISITION et ne source pas OPERATIONALIZES dans ce contrat produit. Lorsque le contexte établit réellement une acquisition distincte, conserve aussi l'identité de la modalité au lieu de la remplacer par l'acquisition.
 
 Un élément que l'utilisateur souhaite observer ou mesurer peut devenir CANONICAL_VARIABLE candidate lorsqu'il est suffisamment identifié pour le Project. Il ne devient jamais un BiomarkerRole du seul fait qu'il est mesurable, observable, biologique ou lié à un outcome. Un DATA_NEED ou une intention de caractérisation n'est pas une ANALYSIS_SPECIFICATION : cette dernière reste réservée à une finalité analytique, des entrées et une procédure suffisamment définies.
 
@@ -254,11 +340,8 @@ N'émets REPLACE ou REMOVE que lorsque le DERNIER MESSAGE UTILISATEUR autorise r
 
 Un changement de rôle scientifique ne remplace pas l'identité scientifique. studyRole est indépendant de proposedType. Omets studyRole lorsqu'aucun rôle n'est explicitement établi par le dernier message ou déjà adopté sur l'objet Project référencé. Ne remplis jamais ce champ seulement parce qu'il existe. N'attribue jamais PRIMARY_INTERVENTION ou PRIMARY_OBJECTIVE : ces rôles ne font pas partie du contrat Project courant. Si l'utilisateur désigne explicitement un nouveau critère principal, conserve les objets distincts : retire le rôle principal de l'ancien objet avec REPLACE et studyRole explicitement nul dans le contrat local, puis attribue PRIMARY_ENDPOINT au nouvel objet par REPLACE s'il existe déjà ou ADD s'il est réellement nouveau. Ne déduis aucun rôle secondaire non formulé.
 
-Une relation utilise uniquement un relationType admis par le contrat, un candidateRef déclaré dans changes de cette même sortie ou un stableId présent dans objects du Project Context Snapshot. Détermine d'abord le type scientifique de chaque extrémité, puis choisis seulement une signature compatible et conserve sa direction :
-- COMPARES_WITH / COMPARED_WITH : INTERVENTION ou COMPARATOR vers INTERVENTION ou COMPARATOR ; ou IMAGING_MODALITY, ACQUISITION, ANALYSIS_SPECIFICATION ou CANONICAL_VARIABLE vers un objet de cette même famille de comparaison ;
-- MOTIVATES_DATA_NEED : SCIENTIFIC_QUESTION, OBJECTIVE ou HYPOTHESIS vers DATA_NEED ;
-- COVERS_DATA_NEED : CANONICAL_VARIABLE vers DATA_NEED ;
-- OPERATIONALIZES : CANONICAL_VARIABLE, ACQUISITION ou ANALYSIS_SPECIFICATION vers DATA_NEED.
+Une relation utilise uniquement un relationType admis par le contrat, un candidateRef déclaré dans changes de cette même sortie ou un stableId présent dans objects du Project Context Snapshot. Détermine d'abord le type scientifique canonique de chaque extrémité, puis conserve la direction.
+${PERSISTENT_PROJECT_RELATION_PROVIDER_INSTRUCTION}
 CONSUMED_BY_ANALYSIS est une relation canonique mais n'est pas disponible dans ce contrat produit : ne l'émets pas et n'utilise jamais OPERATIONALIZES comme substitut. Une ANALYSIS_SPECIFICATION ne peut donc jamais OPERATIONALIZES une CANONICAL_VARIABLE. La simple co-présence de deux objets n'établit aucune relation. N'invente jamais un identifiant, et n'utilise jamais un label, un contenu ou un sectionId comme référence. Si aucune signature admise ne représente fidèlement une relation optionnelle, omets la relation tout en conservant les objets explicites ; ne fabrique ni extrémité ni relation de remplacement. Une information inchangée déjà présente n'est pas une modification. Si aucune conséquence persistante explicite n'existe, retourne des listes vides.
 
 Ne complète pas la science. Ne crée pas de rôle scientifique non formulé. Ne décide pas pour l'utilisateur. N'applique jamais le Project.`;
@@ -949,25 +1032,6 @@ export const validatePersistentProjectDelta = (
       knownObjectType.set(ref, candidateType);
     }
   }
-  const relationEndpointsCompatible = (relationType: string, sourceRef: string, targetRef: string) => {
-    const sourceType = knownObjectType.get(sourceRef);
-    const targetType = knownObjectType.get(targetRef);
-    if (!sourceType || !targetType) return false;
-    if (relationType === "COMPARES_WITH" || relationType === "COMPARED_WITH") {
-      const studyArms = new Set(["INTERVENTION_OR_EXPOSURE", "GROUP"]);
-      const measurementMethods = new Set(["IMAGING_MODALITY", "ACQUISITION", "ANALYSIS_SPECIFICATION", "CANONICAL_VARIABLE"]);
-      return (studyArms.has(sourceType) && studyArms.has(targetType))
-        || (measurementMethods.has(sourceType) && measurementMethods.has(targetType));
-    }
-    if (relationType === "MOTIVATES_DATA_NEED") {
-      return ["SCIENTIFIC_QUESTION", "OBJECTIVE", "HYPOTHESIS"].includes(sourceType) && targetType === "DATA_NEED";
-    }
-    if (relationType === "COVERS_DATA_NEED") return sourceType === "CANONICAL_VARIABLE" && targetType === "DATA_NEED";
-    if (relationType === "OPERATIONALIZES") {
-      return ["CANONICAL_VARIABLE", "ACQUISITION", "ANALYSIS_SPECIFICATION"].includes(sourceType) && targetType === "DATA_NEED";
-    }
-    return false;
-  };
   (parsed.data.relations ?? []).forEach((relation, index) => {
     const prefix = `relation:${index}`;
     if (!rawUserTurn.includes(relation.sourceText)) {
@@ -984,7 +1048,10 @@ export const validatePersistentProjectDelta = (
       blocks.push(`${prefix}:PROJECT_RELATION_ENDPOINT_INVALID`);
       return;
     }
-    if (!relationEndpointsCompatible(relation.relationType, relation.sourceObjectRef, relation.targetObjectRef)) {
+    const sourceType = knownObjectType.get(relation.sourceObjectRef);
+    const targetType = knownObjectType.get(relation.targetObjectRef);
+    if (!sourceType || !targetType
+      || !persistentProjectRelationEndpointsCompatible(relation.relationType, sourceType, targetType)) {
       blocks.push(`${prefix}:PROJECT_RELATION_ENDPOINT_TYPE_MISMATCH`);
       return;
     }
