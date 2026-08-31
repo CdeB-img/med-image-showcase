@@ -19,8 +19,8 @@ import type {
 import {
   buildProjectContextSnapshot,
   ensureCanonicalProjectState,
+  presentCanonicalTemporalAnchor,
   type CanonicalProjectObjectVersion,
-  type CanonicalTemporalAnchorValue,
 } from "@/features/research-project-construction";
 import { CLINICAL_STUDY_TEMPLATE, composeStudyTemplateInstance } from "@/features/study-template";
 import { projectDocumentFromStudyTemplate, resolveTemplateDocumentDefinitions } from "./template-integration";
@@ -96,54 +96,6 @@ const temporalRoleFor = (element: ResearchProjectElement): ResearchProjectDesign
   if (element.semanticKey?.endsWith(":INITIAL")) return "BASELINE";
   if (element.semanticKey?.endsWith(":FOLLOW_UP")) return "FOLLOW_UP";
   return "SINGLE_ASSESSMENT";
-};
-
-const frenchTemporalQuantity = (unit: string, value: number) => {
-  const normalizedUnit = unit.toLocaleUpperCase("en-US");
-  const labels: Record<string, [string, string]> = {
-    HOUR: ["heure", "heures"],
-    DAY: ["jour", "jours"],
-    WEEK: ["semaine", "semaines"],
-    MONTH: ["mois", "mois"],
-    YEAR: ["an", "ans"],
-  };
-  const [singular, plural] = labels[normalizedUnit] ?? [unit.toLocaleLowerCase("fr-FR"), unit.toLocaleLowerCase("fr-FR")];
-  return `${value} ${Math.abs(value) === 1 ? singular : plural}`;
-};
-
-const naturalTemporalAnchor = (
-  anchor: Readonly<CanonicalTemporalAnchorValue>,
-  objectLabels: ReadonlyMap<string, string>,
-) => {
-  const lower = anchor.lowerBound;
-  const upper = anchor.upperBound;
-  let value: string;
-  if ((anchor.kind === "WINDOW" || anchor.kind === "INTERVAL") && lower !== null && upper !== null) {
-    if (anchor.unit.toLocaleUpperCase("en-US") === "DAY") value = `entre J${lower} et J${upper}`;
-    else if (anchor.unit.toLocaleUpperCase("en-US") === "HOUR" && lower === 0) value = `dans les ${frenchTemporalQuantity(anchor.unit, upper)}`;
-    else value = `entre ${frenchTemporalQuantity(anchor.unit, lower)} et ${frenchTemporalQuantity(anchor.unit, upper)}`;
-  } else if (anchor.offset !== null) {
-    value = `à ${frenchTemporalQuantity(anchor.unit, anchor.offset)}`;
-  } else if (anchor.relativeEventLabel) {
-    value = anchor.direction === "BEFORE"
-      ? `avant ${anchor.relativeEventLabel}`
-      : anchor.direction === "AFTER"
-        ? `après ${anchor.relativeEventLabel}`
-        : `au moment de ${anchor.relativeEventLabel}`;
-  } else {
-    value = "Temporalité à préciser";
-  }
-
-  if (anchor.reference.status === "KNOWN") {
-    const reference = objectLabels.get(anchor.reference.referenceProjectRef) ?? anchor.reference.referenceProjectRef;
-    if (anchor.direction === "BEFORE") return `${value} avant ${reference}`;
-    if (anchor.direction === "AFTER") return `${value}${value.startsWith("dans les ") ? " suivant " : " après "}${reference}`;
-    return `${value} par rapport à ${reference}`;
-  }
-  if (anchor.reference.status === "EXPLICIT" && anchor.relativeEventLabel) {
-    return `${value} — référentiel « ${anchor.relativeEventLabel} » à relier au projet`;
-  }
-  return `${value} — référentiel à préciser`;
 };
 
 const missingFromProject = (project: ResearchProjectOwnerProjection) => project.sections
@@ -256,7 +208,7 @@ export const projectDocumentSourceFromFunctionalProject = (
       visitId: qualification.qualificationId,
       label: canonicalObjectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef,
       temporalRole: "SINGLE_ASSESSMENT" as const,
-      timingValue: naturalTemporalAnchor(qualification.anchor, canonicalObjectLabels),
+      timingValue: presentCanonicalTemporalAnchor(qualification.anchor, canonicalObjectLabels),
       timingStatus: qualification.anchor.reference.status === "KNOWN" ? "KNOWN" as const : "SCIENTIFIC_WINDOW_TO_DEFINE" as const,
       justification: "Temporalité structurée adoptée dans le Research Project.",
       hypothesisIds: [],
@@ -268,7 +220,7 @@ export const projectDocumentSourceFromFunctionalProject = (
       visitId: occasion.occasionId,
       label: canonicalObjectLabels.get(occasion.variableProjectRef) ?? occasion.variableProjectRef,
       temporalRole: "SINGLE_ASSESSMENT" as const,
-      timingValue: naturalTemporalAnchor(occasion.anchor, canonicalObjectLabels),
+      timingValue: presentCanonicalTemporalAnchor(occasion.anchor, canonicalObjectLabels),
       timingStatus: occasion.anchor.reference.status === "KNOWN" ? "KNOWN" as const : "SCIENTIFIC_WINDOW_TO_DEFINE" as const,
       justification: "Occasion attendue structurée et adoptée dans le Research Project.",
       hypothesisIds: [],

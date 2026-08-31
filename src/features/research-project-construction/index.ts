@@ -7,6 +7,7 @@ export * from "./session";
 export * from "./project-section-projection";
 export * from "./contribution-owner-boundary";
 export * from "./canonical-project-backbone";
+export * from "./temporal-presentation";
 export * from "./specialized-owner-handoff";
 export * from "./native-specialized-owner-invocation";
 export * from "./scientific-reasoning-owner-chain";

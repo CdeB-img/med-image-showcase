@@ -16,6 +16,7 @@ import {
   type CanonicalProjectChangeSet,
   type CanonicalResearchProjectState,
 } from "./canonical-project-backbone.js";
+import { presentCanonicalTemporalAnchor } from "./temporal-presentation.js";
 import {
   projectSectionForGovernedStudyRole,
   RESEARCH_PROJECT_SECTION_LABELS as SECTION_LABELS,
@@ -108,7 +109,7 @@ export type HumanReviewProjectionSection = {
   items: HumanReviewProjectionItem[];
 };
 
-export const HUMAN_REVIEW_PROJECTION_VERSION = "1.1.0" as const;
+export const HUMAN_REVIEW_PROJECTION_VERSION = "1.2.0" as const;
 
 export type HumanReviewProjection = {
   contract: "PRJ001_HUMAN_REVIEW_PROJECTION";
@@ -1106,36 +1107,6 @@ const humanReviewObjectSpecification = (object: {
     : undefined
 );
 
-const reviewTemporalAnchor = (anchor: NonNullable<CanonicalProjectChangeSet["temporalQualificationChanges"][number]["candidate"]>["anchor"]) => {
-  const normalizedUnit = anchor.unit.trim().toLocaleUpperCase("fr-FR");
-  const unitForms: Record<string, readonly [string, string]> = {
-    DAY: ["jour", "jours"], DAYS: ["jour", "jours"], JOUR: ["jour", "jours"], JOURS: ["jour", "jours"],
-    WEEK: ["semaine", "semaines"], WEEKS: ["semaine", "semaines"], SEMAINE: ["semaine", "semaines"], SEMAINES: ["semaine", "semaines"],
-    MONTH: ["mois", "mois"], MONTHS: ["mois", "mois"], MOIS: ["mois", "mois"],
-    YEAR: ["an", "ans"], YEARS: ["an", "ans"], AN: ["an", "ans"], ANS: ["an", "ans"],
-    HOUR: ["heure", "heures"], HOURS: ["heure", "heures"], HEURE: ["heure", "heures"], HEURES: ["heure", "heures"],
-    MINUTE: ["minute", "minutes"], MINUTES: ["minute", "minutes"],
-  };
-  const unitFor = (value: number | null) => {
-    const forms = unitForms[normalizedUnit];
-    return forms ? forms[value === 1 ? 0 : 1] : anchor.unit.toLocaleLowerCase("fr-FR");
-  };
-  const referenceLabel = anchor.reference.status === "UNKNOWN"
-    ? null
-    : anchor.relativeEventLabel
-      ?? (anchor.reference.status === "KNOWN" ? `réf. ${anchor.reference.referenceProjectRef}` : null);
-  const reference = referenceLabel
-    ? `${anchor.direction === "BEFORE" ? "avant" : anchor.direction === "AFTER" ? "après" : "au moment de"} ${referenceLabel}`
-    : "référentiel à préciser";
-  if (anchor.kind === "WINDOW" || anchor.kind === "INTERVAL") return `${anchor.lowerBound} à ${anchor.upperBound} ${unitFor(anchor.upperBound)} (${reference})`;
-  if (anchor.kind === "RELATIVE_EVENT") {
-    const direction = anchor.direction === "BEFORE" ? "avant" : anchor.direction === "AFTER" ? "après" : "au moment de";
-    return `${direction} ${anchor.relativeEventLabel ?? referenceLabel ?? "référentiel à préciser"}`;
-  }
-  const codedUnit = anchor.unit === "DAY" ? "J" : anchor.unit === "WEEK" ? "S" : anchor.unit === "MONTH" ? "M" : anchor.unit === "YEAR" ? "A" : `${anchor.unit} `;
-  return `${codedUnit}${anchor.offset ?? "?"} (${reference})`;
-};
-
 const engagingCanonicalChangeRefs = (changeSet: CanonicalProjectChangeSet) => [
   ...changeSet.objectChanges.map((change) => change.changeRef),
   ...changeSet.relationChanges.map((change) => change.changeRef),
@@ -1288,7 +1259,7 @@ export const buildHumanReviewProjection = (
   changeSet.temporalQualificationChanges.forEach((change) => {
     const qualification = change.candidate ?? previousTemporal(change.qualificationId);
     const content = qualification
-      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef} : ${reviewTemporalAnchor(qualification.anchor)}`
+      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef} : ${presentCanonicalTemporalAnchor(qualification.anchor, objectLabels)}`
       : `${reviewOperationPrefix(change.operation)} temporalité ${change.qualificationId}`;
     add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "TEMPORAL_QUALIFICATION", operation: change.operation, content, projectSectionId: "TEMPORALITY" });
   });
@@ -1296,7 +1267,7 @@ export const buildHumanReviewProjection = (
   changeSet.expectedVariableOccasionChanges.forEach((change) => {
     const occasion = change.candidate ?? previousOccasion(change.occasionId);
     const content = occasion
-      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(occasion.variableProjectRef) ?? occasion.variableProjectRef} attendu : ${reviewTemporalAnchor(occasion.anchor)}`
+      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(occasion.variableProjectRef) ?? occasion.variableProjectRef} attendu : ${presentCanonicalTemporalAnchor(occasion.anchor, objectLabels)}`
       : `${reviewOperationPrefix(change.operation)} occasion attendue ${change.occasionId}`;
     add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "EXPECTED_VARIABLE_OCCASION", operation: change.operation, content, projectSectionId: "TEMPORALITY" });
   });
