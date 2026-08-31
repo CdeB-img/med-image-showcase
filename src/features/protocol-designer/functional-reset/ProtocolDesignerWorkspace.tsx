@@ -52,7 +52,9 @@ import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
 import {
   executeProductUnderstandInteraction,
+  recognizeProductDocumentAction,
   routeProductEntry,
+  type ProductDocumentAction,
 } from "./product-entry-routing";
 import {
   clearFunctionalResetSession,
@@ -308,6 +310,13 @@ export default function ProtocolDesignerWorkspace() {
     const content = draft.trim();
     if (!content || busy) return;
     const now = new Date().toISOString();
+    const productDocumentAction = recognizeProductDocumentAction(content);
+    if (productDocumentAction) {
+      setDraft("");
+      setCorrectionMode(false);
+      dispatchProductDocumentAction(productDocumentAction, { content, createdAt: now });
+      return;
+    }
     const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: now };
     const traceRunId = createProductTraceRunId(session.sessionId, userTurn.turnId);
     const runtimeTurns = [...session.runtimeTurns, userTurn];
@@ -835,7 +844,92 @@ export default function ProtocolDesignerWorkspace() {
     }
   };
 
-  const requestProtocolProjection = () => {
+  function appendProductDocumentCommandResult(input: {
+    command: { content: string; createdAt: string };
+    assistantContent: string;
+    projectionId?: string | null;
+  }) {
+    const answeredAt = new Date().toISOString();
+    setSession((current) => ({
+      ...current,
+      ...(input.projectionId !== undefined ? { openDocumentProjectionId: input.projectionId } : {}),
+      entries: [...current.entries, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "USER",
+        content: input.command.content,
+        createdAt: input.command.createdAt,
+      }, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "NOXIA",
+        content: input.assistantContent,
+        createdAt: answeredAt,
+      }],
+      updatedAt: answeredAt,
+    }));
+  }
+
+  function dispatchProductDocumentAction(
+    action: ProductDocumentAction,
+    command: { content: string; createdAt: string },
+  ) {
+    if (!session.project) {
+      appendProductDocumentCommandResult({
+        command,
+        assistantContent: "Un Research Project confirmé est nécessaire avant de pouvoir afficher un aperçu du protocole.",
+      });
+      return;
+    }
+
+    const protocolCard = session.documents.cards.find((card) => card.kind === "PROTOCOL");
+    const projectionId = protocolCard?.canOpen ? protocolCard.projectionId : null;
+    if (action === "OPEN_CURRENT_PROTOCOL") {
+      appendProductDocumentCommandResult({
+        command,
+        assistantContent: projectionId
+          ? protocolCard?.freshness === "CURRENT"
+            ? "Voici la version actuelle du protocole."
+            : "Voici la dernière version disponible du protocole. Elle reste signalée comme historique."
+          : "Aucun aperçu du protocole n’existe encore. Une demande explicite de création est nécessaire.",
+        ...(projectionId ? { projectionId } : {}),
+      });
+      return;
+    }
+
+    if (action === "DOWNLOAD_PROTOCOL") {
+      appendProductDocumentCommandResult({
+        command,
+        assistantContent: projectionId
+          ? "Le protocole est ouvert. Le téléchargement HTML est disponible dans l’aperçu."
+          : "Aucun aperçu du protocole n’est encore disponible au téléchargement.",
+        ...(projectionId ? { projectionId } : {}),
+      });
+      return;
+    }
+
+    if (action === "CREATE_PROTOCOL" && protocolCard?.freshness === "CURRENT" && projectionId) {
+      appendProductDocumentCommandResult({
+        command,
+        assistantContent: "Voici la version actuelle du protocole.",
+        projectionId,
+      });
+      return;
+    }
+
+    if (action === "REGENERATE_PROTOCOL" && protocolCard?.freshness === "CURRENT" && projectionId) {
+      appendProductDocumentCommandResult({
+        command,
+        assistantContent: "Le protocole reflète déjà la version actuelle du Research Project.",
+        projectionId,
+      });
+      return;
+    }
+
+    requestProtocolProjection(command);
+  }
+
+  function requestProtocolProjection(command?: { content: string; createdAt: string }) {
     if (!session.project) return;
     const now = new Date().toISOString();
     try {
@@ -872,7 +966,13 @@ export default function ProtocolDesignerWorkspace() {
         documents,
         openDocumentProjectionId: protocol.projectionId,
         scientificExecutionTraceLedger,
-        entries: [...current.entries, {
+        entries: [...current.entries, ...(command ? [{
+          entryId: createConversationEntryId(),
+          kind: "TEXT" as const,
+          role: "USER" as const,
+          content: command.content,
+          createdAt: command.createdAt,
+        }] : []), {
           entryId: createConversationEntryId(),
           kind: "TEXT",
           role: "NOXIA",
@@ -914,7 +1014,13 @@ export default function ProtocolDesignerWorkspace() {
         ...current,
         documents,
         scientificExecutionTraceLedger,
-        entries: [...current.entries, {
+        entries: [...current.entries, ...(command ? [{
+          entryId: createConversationEntryId(),
+          kind: "TEXT" as const,
+          role: "USER" as const,
+          content: command.content,
+          createdAt: command.createdAt,
+        }] : []), {
           entryId: createConversationEntryId(),
           kind: "ERROR",
           role: "NOXIA",

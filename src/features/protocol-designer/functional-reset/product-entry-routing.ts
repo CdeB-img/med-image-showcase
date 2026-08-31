@@ -24,6 +24,12 @@ import {
 
 export type ProductEntryDomainGate = "IN_SCOPE" | "BORDERLINE" | "OUT_OF_SCOPE";
 
+export type ProductDocumentAction =
+  | "OPEN_CURRENT_PROTOCOL"
+  | "CREATE_PROTOCOL"
+  | "REGENERATE_PROTOCOL"
+  | "DOWNLOAD_PROTOCOL";
+
 export type ProductEntryExplicitExclusion = {
   code: "NO_STUDY" | "NO_PROTOCOL";
   sourceText: string;
@@ -120,6 +126,44 @@ export type ProductUnderstandKnowledgePresentation = {
 };
 
 const comparable = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR");
+
+const comparableProductCommand = (value: string) => value
+  .normalize("NFKD")
+  .replace(/\p{M}/gu, "")
+  .toLocaleLowerCase("fr-FR")
+  .replace(/[’']/gu, " ")
+  .replace(/[^\p{L}\p{N}]+/gu, " ")
+  .replace(/\s+/gu, " ")
+  .trim();
+
+/**
+ * Finite product-command recognition at the existing Product Entry boundary.
+ * Full-message matching is intentional: mentioning a protocol inside a
+ * scientific modification must continue through the scientific corridor.
+ */
+export const recognizeProductDocumentAction = (value: string): ProductDocumentAction | null => {
+  const command = comparableProductCommand(value);
+  const politePrefix = "(?:(?:ok|d accord|merci)\\s+)?";
+  const politeSuffix = "(?:\\s+s il (?:te|vous) plait)?";
+  const protocolResource = "(?:(?:le|la|l)\\s+)?(?:protocole(?:\\s+(?:partiel|de travail))?|apercu(?:\\s+du protocole)?)";
+
+  if (new RegExp(`^${politePrefix}(?:telecharge|exporte)(?:\\s+moi)?\\s+${protocolResource}${politeSuffix}$`, "u").test(command)) {
+    return "DOWNLOAD_PROTOCOL";
+  }
+  if (new RegExp(`^${politePrefix}(?:actualise|rafraichis|regenere)(?:\\s+moi)?\\s+${protocolResource}(?:\\s+avec\\s+la\\s+derniere\\s+version\\s+du\\s+projet)?${politeSuffix}$`, "u").test(command)
+    || new RegExp(`^${politePrefix}mets\\s+a\\s+jour\\s+${protocolResource}${politeSuffix}$`, "u").test(command)) {
+    return "REGENERATE_PROTOCOL";
+  }
+  if (new RegExp(`^${politePrefix}(?:cree|genere|produis|prepare)(?:\\s+moi)?\\s+(?:(?:un|le|l)\\s+)?(?:premier\\s+)?(?:protocole(?:\\s+(?:partiel|de travail))?|apercu(?:\\s+du protocole)?)${politeSuffix}$`, "u").test(command)
+    || new RegExp(`^${politePrefix}(?:affiche|montre|ouvre)(?:\\s+moi)?\\s+un\\s+premier\\s+(?:protocole(?:\\s+de travail)?|apercu(?:\\s+du protocole)?)${politeSuffix}$`, "u").test(command)) {
+    return "CREATE_PROTOCOL";
+  }
+  if (new RegExp(`^${politePrefix}(?:affiche|montre|ouvre)(?:\\s+moi)?\\s+${protocolResource}${politeSuffix}$`, "u").test(command)
+    || new RegExp(`^${politePrefix}je\\s+(?:veux|voudrais|souhaite)\\s+(?:voir|ouvrir|afficher)\\s+${protocolResource}${politeSuffix}$`, "u").test(command)) {
+    return "OPEN_CURRENT_PROTOCOL";
+  }
+  return null;
+};
 
 const sentenceContaining = (text: string, pattern: RegExp) => text
   .split(/(?<=[.!?])\s+/u)
