@@ -3,16 +3,21 @@ import type { DocumentProjection, DocumentSectionInstance } from "./types";
 export const STANDARD_PROTOCOL_PRESENTATION_BOUNDARY = "DOC_001_STANDARD_PROTOCOL_PRESENTATION" as const;
 
 export type StandardProtocolSectionId =
+  | "title"
   | "question"
   | "objectives"
+  | "hypotheses"
   | "population"
   | "design"
   | "intervention"
   | "comparator"
   | "imaging"
+  | "biospecimens"
+  | "endpoints"
   | "measurements"
   | "temporality"
-  | "analysis";
+  | "analysis"
+  | "limitations";
 
 export type StandardProtocolEntry = {
   entryId: string;
@@ -62,6 +67,8 @@ type SectionBuilder = {
   title: string;
   sourceSectionIds: string[];
   entries: (sections: DocumentSectionInstance[]) => StandardProtocolEntry[];
+  synthesizeOpenItemWhenEmpty?: boolean;
+  includeSourceUnknowns?: boolean;
 };
 
 const normalizedKey = (value: string) => value
@@ -130,6 +137,13 @@ const simpleFacts = (
   .map((fact) => entry(sectionId, kind, kind === "PARAGRAPH" ? sentence(fact.value.split(/\s+—\s+/)[0]!) : fact.value.split(/\s+—\s+/)[0]!)),
 (value) => normalizedKey(value.value));
 
+const titleEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
+  "title",
+  factsFrom(sections, ["document-control"]),
+  /^Titre de travail$/i,
+  "LABELED_VALUE",
+).map((item) => ({ ...item, label: "Titre de travail" }));
+
 const questionEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
   "question",
   factsFrom(sections, ["scientific-question"]),
@@ -140,6 +154,13 @@ const objectiveEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
   "objectives",
   factsFrom(sections, ["objectives-hypotheses"]),
   /^Objectif\b/i,
+  "LIST_ITEM",
+);
+
+const hypothesisEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
+  "hypotheses",
+  factsFrom(sections, ["objectives-hypotheses"]),
+  /^Hypothèse\b/i,
   "LIST_ITEM",
 );
 
@@ -193,10 +214,23 @@ const imagingEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
   /Référence d’acquisition conceptuelle/i,
 );
 
+const biospecimenEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
+  "biospecimens",
+  factsFrom(sections, ["biospecimens"]),
+  /^Prélèvement \/ échantillon$/i,
+  "LIST_ITEM",
+);
+
+const endpointEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
+  "endpoints",
+  factsFrom(sections, ["endpoints-variables"]),
+  /^Critère\b/i,
+  "LIST_ITEM",
+);
+
 const measurementEntries = (sections: DocumentSectionInstance[]) => {
   const facts = factsFrom(sections, ["endpoints-variables"]);
-  const variables = facts.filter((fact) => /^Variable\b/i.test(fact.label));
-  const source = variables.length ? variables : facts.filter((fact) => /^Critère\b/i.test(fact.label));
+  const source = facts.filter((fact) => /^(?:Variable|Mesure|Critère)\b/i.test(fact.label));
   return unique(source.map((fact) => entry("measurements", "LIST_ITEM", fact.value.split(/\s+—\s+/)[0]!)),
     (value) => normalizedKey(value.value));
 };
@@ -221,28 +255,44 @@ const analysisEntries = (sections: DocumentSectionInstance[]) => simpleFacts(
   /^Exigence\s+(?:COMPARISON|comparaison)/i,
 );
 
+const internalDiagnostic = (value: string) => /MeasurementDefinitions|ObservableProperties|BiomarkerRoles|canonicalPromotion|handoff|adaptation de lecture|contrat PRJ-001|champs booléens historiques|\b(?:IMAGING|BIOSTATISTICS|QRY|PRJ|TMP|DOC|OBSERVABILITY_MEASUREMENT):/i.test(value);
+
+const limitationEntries = (sections: DocumentSectionInstance[]) => unique(
+  simpleFacts(
+    "limitations",
+    factsFrom(sections, ["risks-biases-limitations"]),
+    /^(?:Limitation source|Élément à préciser)$/i,
+    "LIST_ITEM",
+  ).filter((item) => !internalDiagnostic(item.value)),
+  (item) => normalizedKey(item.value),
+);
+
 const BUILDERS: SectionBuilder[] = [
+  { sectionId: "title", title: "Titre de travail", sourceSectionIds: ["document-control"], entries: titleEntries, synthesizeOpenItemWhenEmpty: false, includeSourceUnknowns: false },
   { sectionId: "question", title: "Question scientifique", sourceSectionIds: ["scientific-question"], entries: questionEntries },
   { sectionId: "objectives", title: "Objectifs", sourceSectionIds: ["objectives-hypotheses"], entries: objectiveEntries },
+  { sectionId: "hypotheses", title: "Hypothèses", sourceSectionIds: ["objectives-hypotheses"], entries: hypothesisEntries, synthesizeOpenItemWhenEmpty: false, includeSourceUnknowns: false },
   { sectionId: "population", title: "Population", sourceSectionIds: ["population"], entries: populationEntries },
   { sectionId: "design", title: "Design", sourceSectionIds: ["study-design"], entries: designEntries },
   { sectionId: "intervention", title: "Intervention", sourceSectionIds: ["groups-comparators"], entries: (sections) => groupEntries(sections, "EXPOSURE", "intervention") },
   { sectionId: "comparator", title: "Comparateur", sourceSectionIds: ["groups-comparators"], entries: (sections) => groupEntries(sections, "COMPARATOR", "comparator") },
   { sectionId: "imaging", title: "Imagerie", sourceSectionIds: ["imaging"], entries: imagingEntries },
+  { sectionId: "biospecimens", title: "Prélèvements / échantillons", sourceSectionIds: ["biospecimens"], entries: biospecimenEntries, synthesizeOpenItemWhenEmpty: false, includeSourceUnknowns: false },
+  { sectionId: "endpoints", title: "Critères d’évaluation", sourceSectionIds: ["endpoints-variables"], entries: endpointEntries, synthesizeOpenItemWhenEmpty: false, includeSourceUnknowns: false },
   { sectionId: "measurements", title: "Mesures", sourceSectionIds: ["endpoints-variables"], entries: measurementEntries },
   { sectionId: "temporality", title: "Temporalité", sourceSectionIds: ["visits-temporal"], entries: temporalEntries },
   { sectionId: "analysis", title: "Analyse", sourceSectionIds: ["analysis-statistics"], entries: analysisEntries },
+  { sectionId: "limitations", title: "Limites et éléments à préciser", sourceSectionIds: ["risks-biases-limitations"], entries: limitationEntries, synthesizeOpenItemWhenEmpty: false, includeSourceUnknowns: false },
 ];
 
 const openItemLabel = (builder: SectionBuilder, sourceText: string, hasKnownContent: boolean) => {
   if (/objectif/i.test(sourceText) || builder.sectionId === "objectives") return "Objectifs";
+  if (builder.sectionId === "limitations" && !internalDiagnostic(sourceText)) return visibleLanguage(sourceText);
   if (builder.sectionId === "population" && /crit[eè]re|population|inclusion|exclusion/i.test(sourceText)) return "Critères complémentaires de population";
   if (builder.sectionId === "analysis" && /statistic|Biostatistics|dimensionnement|numérique/i.test(sourceText)) return "Plan d’analyse statistique";
   if (hasKnownContent) return null;
   return builder.title;
 };
-
-const internalDiagnostic = (value: string) => /MeasurementDefinitions|ObservableProperties|BiomarkerRoles|canonicalPromotion|handoff|\b(?:IMAGING|BIOSTATISTICS|QRY|PRJ|OBSERVABILITY_MEASUREMENT):/i.test(value);
 
 const openItemsFor = (
   builder: SectionBuilder,
@@ -254,13 +304,14 @@ const openItemsFor = (
     sourceSectionId: string;
     sourceKind: StandardProtocolOpenItem["sourceKind"];
     sourceIndex: number;
-  }> = sourceSections.flatMap((section) => section.unknowns.map((sourceText, sourceIndex) => ({
+  }> = (builder.includeSourceUnknowns === false ? [] : sourceSections.flatMap((section) => section.unknowns.map((sourceText, sourceIndex) => ({
     sourceText,
     sourceSectionId: section.sectionId,
     sourceKind: "UNKNOWN" as const,
     sourceIndex,
-  }))).filter((candidate) => !internalDiagnostic(candidate.sourceText));
-  if (!candidates.length && entries.length === 0 && sourceSections.some((section) => section.applicability !== "NOT_APPLICABLE")) {
+  })))).filter((candidate) => !internalDiagnostic(candidate.sourceText))
+    .filter((candidate) => builder.sectionId !== "analysis" || /statistic|Biostatistics|dimensionnement|numérique/i.test(candidate.sourceText));
+  if (builder.synthesizeOpenItemWhenEmpty !== false && !candidates.length && entries.length === 0 && sourceSections.some((section) => section.applicability !== "NOT_APPLICABLE")) {
     const sourceSection = sourceSections[0];
     candidates.push({
       sourceText: sourceSection?.statusReasons[0] ?? `${builder.title} non renseigné dans la projection.`,
