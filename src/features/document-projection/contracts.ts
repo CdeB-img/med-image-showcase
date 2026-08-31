@@ -74,7 +74,7 @@ const protocolSections: SectionDefinition[] = [
     sourcePaths: ["scientificQuestion", "objectives", "populationDesign", "selectedStudyDesignCandidate"], requiredObjectKinds: ["ScientificQuestion"], optionalObjectKinds: ["Objective", "Population", "StudyDesign"], dependencyTypes: ["SCIENTIFIC_STRUCTURE"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability({ minimumFacts: 2, partialWhenUnknowns: true, partialWhenPendingDecisions: true }),
     facts: [
-      fact("scientificQuestion", "Question", "{{text}}", "ScientificQuestion", commitment("CONFIRMED"), "questionId"),
+      fact("scientificQuestion", "Question", "{{text}}", "ScientificQuestion", commitment("CONFIRMED"), "questionId", { kind: "ITEM_FIELD_NOT_EQUALS", path: "text", value: "__EMPTY__" }),
       fact("objectives[]", "Objectif principal", "{{text}}", "Objective", reviewCommitment, "objectiveId", { kind: "ITEM_FIELD_EQUALS", path: "level", value: "PRIMARY" }),
       fact("populationDesign.populationConcept.conditionOrPathology[]", "Population", "{{value}}", "Population", commitment("CANDIDATE")),
       fact("studyDesignCandidates[]", "Plan d’étude", "{{label}}", "StudyDesign", { kind: "SELECTED_REF", itemPath: "designId", rootPath: "selectedStudyDesignCandidate.designId", selected: "ADOPTED", other: "CANDIDATE" }, "designId", { kind: "ITEM_EQUALS_ROOT", path: "designId", rootPath: "selectedStudyDesignCandidate.designId" }),
@@ -85,7 +85,7 @@ const protocolSections: SectionDefinition[] = [
     sectionId: "scientific-question", title: "Question scientifique", order: 3, intent: "DECLARE", pattern: "DECLARATIVE",
     sourcePaths: ["scientificQuestion"], requiredObjectKinds: ["ScientificQuestion"], optionalObjectKinds: [], dependencyTypes: ["QUESTION"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability(),
-    facts: [fact("scientificQuestion", "Question scientifique confirmée", "{{text}}", "ScientificQuestion", commitment("CONFIRMED"), "questionId")], unknowns: [], limitations: [], contradictions: [], decisionGateIds: [],
+    facts: [fact("scientificQuestion", "Question scientifique confirmée", "{{text}}", "ScientificQuestion", commitment("CONFIRMED"), "questionId", { kind: "ITEM_FIELD_NOT_EQUALS", path: "text", value: "__EMPTY__" })], unknowns: [], limitations: [], contradictions: [], decisionGateIds: [],
   }),
   section({
     sectionId: "objectives-hypotheses", title: "Objectifs et hypothèses", order: 4, intent: "DECLARE", pattern: "ENUMERATION",

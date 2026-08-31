@@ -399,8 +399,9 @@ describe("PROJECT-HANDS-ON-02 — Project fidelity contract", () => {
     ]));
     expect(documentSource.visits.map((visit) => visit.timingValue)).toEqual(expect.arrayContaining([
       expect.stringContaining("avant traitement"),
-      expect.stringContaining("MONTH"),
+      expect.stringContaining("mois"),
     ]));
+    expect(documentSource.visits.map((visit) => visit.timingValue).join(" ")).not.toMatch(/ACQUISITION_TIME|EXPECTED_AT|MONTH|SCIENTIFIC_WINDOW_TO_DEFINE|OPERATIONAL_WINDOW_FUTURE/);
     expect(documentSource.provenance.sourceRefs).not.toContain(RAW);
     expect(JSON.stringify(documentSource)).not.toContain("pizza");
   });

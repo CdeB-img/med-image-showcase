@@ -20,6 +20,7 @@ import {
   buildProjectContextSnapshot,
   ensureCanonicalProjectState,
   type CanonicalProjectObjectVersion,
+  type CanonicalTemporalAnchorValue,
 } from "@/features/research-project-construction";
 import { CLINICAL_STUDY_TEMPLATE, composeStudyTemplateInstance } from "@/features/study-template";
 import { projectDocumentFromStudyTemplate, resolveTemplateDocumentDefinitions } from "./template-integration";
@@ -97,6 +98,54 @@ const temporalRoleFor = (element: ResearchProjectElement): ResearchProjectDesign
   return "SINGLE_ASSESSMENT";
 };
 
+const frenchTemporalQuantity = (unit: string, value: number) => {
+  const normalizedUnit = unit.toLocaleUpperCase("en-US");
+  const labels: Record<string, [string, string]> = {
+    HOUR: ["heure", "heures"],
+    DAY: ["jour", "jours"],
+    WEEK: ["semaine", "semaines"],
+    MONTH: ["mois", "mois"],
+    YEAR: ["an", "ans"],
+  };
+  const [singular, plural] = labels[normalizedUnit] ?? [unit.toLocaleLowerCase("fr-FR"), unit.toLocaleLowerCase("fr-FR")];
+  return `${value} ${Math.abs(value) === 1 ? singular : plural}`;
+};
+
+const naturalTemporalAnchor = (
+  anchor: Readonly<CanonicalTemporalAnchorValue>,
+  objectLabels: ReadonlyMap<string, string>,
+) => {
+  const lower = anchor.lowerBound;
+  const upper = anchor.upperBound;
+  let value: string;
+  if ((anchor.kind === "WINDOW" || anchor.kind === "INTERVAL") && lower !== null && upper !== null) {
+    if (anchor.unit.toLocaleUpperCase("en-US") === "DAY") value = `entre J${lower} et J${upper}`;
+    else if (anchor.unit.toLocaleUpperCase("en-US") === "HOUR" && lower === 0) value = `dans les ${frenchTemporalQuantity(anchor.unit, upper)}`;
+    else value = `entre ${frenchTemporalQuantity(anchor.unit, lower)} et ${frenchTemporalQuantity(anchor.unit, upper)}`;
+  } else if (anchor.offset !== null) {
+    value = `à ${frenchTemporalQuantity(anchor.unit, anchor.offset)}`;
+  } else if (anchor.relativeEventLabel) {
+    value = anchor.direction === "BEFORE"
+      ? `avant ${anchor.relativeEventLabel}`
+      : anchor.direction === "AFTER"
+        ? `après ${anchor.relativeEventLabel}`
+        : `au moment de ${anchor.relativeEventLabel}`;
+  } else {
+    value = "Temporalité à préciser";
+  }
+
+  if (anchor.reference.status === "KNOWN") {
+    const reference = objectLabels.get(anchor.reference.referenceProjectRef) ?? anchor.reference.referenceProjectRef;
+    if (anchor.direction === "BEFORE") return `${value} avant ${reference}`;
+    if (anchor.direction === "AFTER") return `${value}${value.startsWith("dans les ") ? " suivant " : " après "}${reference}`;
+    return `${value} par rapport à ${reference}`;
+  }
+  if (anchor.reference.status === "EXPLICIT" && anchor.relativeEventLabel) {
+    return `${value} — référentiel « ${anchor.relativeEventLabel} » à relier au projet`;
+  }
+  return `${value} — référentiel à préciser`;
+};
+
 const missingFromProject = (project: ResearchProjectOwnerProjection) => project.sections
   .filter((section) => section.state === "TO_CLARIFY" && section.sectionId !== "BIOSPECIMENS")
   .map((section) => `${section.label} : information à préciser dans le Research Project.`);
@@ -132,18 +181,26 @@ export const projectDocumentSourceFromFunctionalProject = (
   const canonicalAnalysis = canonicalOfType("ANALYSIS_SPECIFICATION");
   const canonicalDataNeeds = canonicalOfType("DATA_NEED");
   const questionElements = elements(project, "QUESTION");
+  const explicitQuestionElement = questionElements.find((element) => hasType(element, /SCIENTIFIC_QUESTION|RESEARCH_QUESTION/)) ?? null;
   const interventionElements = elements(project, "INTERVENTION");
   const comparatorElements = elements(project, "COMPARATOR");
   const timingElements = elements(project, "TEMPORALITY");
   const analysisElements = elements(project, "ANALYSIS");
   const confirmedHandoff = handoffDecision?.status === "ADOPTED" && handoffDecision.projectVersion === project.versionId;
   const populationId = `${project.projectId}:population`;
-  const questionId = canonicalQuestion?.objectId ?? questionElements[0]?.elementId ?? `${project.projectId}:question`;
+  const questionId = canonicalQuestion?.objectId ?? explicitQuestionElement?.elementId ?? `${project.projectId}:question:unresolved`;
   const missing = missingFromProject(project);
   const conditionOrPathology = canonicalPopulation.filter((item) => item.objectType === "CONDITION").map((item) => item.content);
   const requiredCharacteristics = canonicalPopulation.filter((item) => item.objectType === "ELIGIBILITY_CRITERION").map((item) => item.content);
   const clinicalContext = canonicalPopulation.filter((item) => item.objectType === "POPULATION").map((item) => item.content);
   const modalityElements = canonicalImaging;
+  const canonicalObjectLabels = new Map(canonicalObjects.map((object) => [object.objectId, object.content]));
+  const temporalQualifications = canonicalState.temporalQualifications.filter((qualification) => qualification.actuality === "CURRENT");
+  const expectedVariableOccasions = canonicalState.expectedVariableOccasions.filter((occasion) => occasion.actuality === "CURRENT");
+  const hasStructuredTemporalState = temporalQualifications.length > 0 || expectedVariableOccasions.length > 0;
+  const timingIds = hasStructuredTemporalState
+    ? [...temporalQualifications.map((qualification) => qualification.qualificationId), ...expectedVariableOccasions.map((occasion) => occasion.occasionId)]
+    : timingElements.map((timing) => timing.elementId);
   const imagingResponsibility = project.specializedResponsibilities.find((item) => item.owner === "IMAGING");
   const statisticsResponsibility = project.specializedResponsibilities.find((item) => item.owner === "BIOSTATISTICS");
   const variables = canonicalVariables.map((item) => ({
@@ -152,7 +209,7 @@ export const projectDocumentSourceFromFunctionalProject = (
     source: "USER_PROVIDED" as const,
     sourceRef: item.objectVersionId,
     role: "MEASUREMENT_CANDIDATE" as const,
-    timingIds: timingElements.map((timing) => timing.elementId),
+    timingIds,
     endpointIds: [],
     analysisRequirementIds: canonicalAnalysis.map((analysis) => analysis.objectId),
     qualityRequirements: [],
@@ -169,7 +226,7 @@ export const projectDocumentSourceFromFunctionalProject = (
     hypothesisIds: [],
     variableIds: [],
     populationId,
-    timingIds: timingElements.map((timing) => timing.elementId),
+    timingIds,
     analysisRequirementIds: canonicalAnalysis.map((analysis) => analysis.objectId),
     measurementMethod: "",
     justification: "Critère canonique lu sans promotion ni changement de rôle.",
@@ -193,6 +250,43 @@ export const projectDocumentSourceFromFunctionalProject = (
     populationId,
     sourceRefs: refs(item),
     reviewState: "ADOPTED" as const,
+  }));
+  const visits: ResearchProjectDesignResult["visits"] = hasStructuredTemporalState ? [
+    ...temporalQualifications.map((qualification) => ({
+      visitId: qualification.qualificationId,
+      label: canonicalObjectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef,
+      temporalRole: "SINGLE_ASSESSMENT" as const,
+      timingValue: naturalTemporalAnchor(qualification.anchor, canonicalObjectLabels),
+      timingStatus: qualification.anchor.reference.status === "KNOWN" ? "KNOWN" as const : "SCIENTIFIC_WINDOW_TO_DEFINE" as const,
+      justification: "Temporalité structurée adoptée dans le Research Project.",
+      hypothesisIds: [],
+      endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
+      measurementIds: variables.map((variable) => variable.variableId),
+      dependencies: [qualification.subjectProjectRef],
+    })),
+    ...expectedVariableOccasions.map((occasion) => ({
+      visitId: occasion.occasionId,
+      label: canonicalObjectLabels.get(occasion.variableProjectRef) ?? occasion.variableProjectRef,
+      temporalRole: "SINGLE_ASSESSMENT" as const,
+      timingValue: naturalTemporalAnchor(occasion.anchor, canonicalObjectLabels),
+      timingStatus: occasion.anchor.reference.status === "KNOWN" ? "KNOWN" as const : "SCIENTIFIC_WINDOW_TO_DEFINE" as const,
+      justification: "Occasion attendue structurée et adoptée dans le Research Project.",
+      hypothesisIds: [],
+      endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
+      measurementIds: [occasion.variableProjectRef],
+      dependencies: [occasion.variableProjectRef],
+    })),
+  ] : timingElements.map((item) => ({
+    visitId: item.elementId,
+    label: "Temporalité confirmée",
+    temporalRole: temporalRoleFor(item),
+    timingValue: item.content,
+    timingStatus: "KNOWN" as const,
+    justification: "Fenêtre temporelle explicitement confirmée dans le Research Project.",
+    hypothesisIds: [],
+    endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
+    measurementIds: variables.map((variable) => variable.variableId),
+    dependencies: modalityElements.map((modality) => modality.objectId),
   }));
   const decisionRecords = [project.confirmationDecision, ...(confirmedHandoff && handoffDecision ? [handoffDecision] : [])];
   const specializedRequirements = project.specializedResponsibilities
@@ -220,7 +314,7 @@ export const projectDocumentSourceFromFunctionalProject = (
     projectionNotice: "RUNTIME_PROJECT_PROJECTION_DOES_NOT_OWN_CANONICAL_TRUTH",
     scientificQuestion: {
       questionId,
-      text: canonicalQuestion?.content ?? questionElements[0]?.content ?? "",
+      text: canonicalQuestion?.content ?? explicitQuestionElement?.content ?? "",
       confirmation: "HUMAN_CONFIRMED",
     },
     // Untyped canonical objectives and hypotheses are transported through the
@@ -262,25 +356,16 @@ export const projectDocumentSourceFromFunctionalProject = (
       justification: analysisElements.find((item) => hasType(item, /COMPAR/))?.content ?? "Intervention et comparateur explicitement confirmés.",
       reviewState: "ADOPTED",
     }] : [],
-    visits: timingElements.map((item) => ({
-      visitId: item.elementId,
-      label: "Temporalité confirmée",
-      temporalRole: temporalRoleFor(item),
-      timingValue: item.content,
-      timingStatus: "KNOWN" as const,
-      justification: "Fenêtre temporelle explicitement confirmée dans le Research Project.",
-      hypothesisIds: [],
-      endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
-      measurementIds: variables.map((variable) => variable.variableId),
-      dependencies: modalityElements.map((modality) => modality.objectId),
-    })),
+    visits,
     temporalStructure: {
-      rationale: timingElements.map((item) => item.content).join(" ; "),
-      anchor: timingElements[0]?.content ?? null,
-      biologicalWindows: timingElements.map((item) => item.content),
+      rationale: visits.map((visit) => `${visit.label} : ${visit.timingValue}`).join(" ; "),
+      anchor: visits[0]?.timingValue ?? null,
+      biologicalWindows: visits.flatMap((visit) => visit.timingValue ? [visit.timingValue] : []),
       operationalWindows: [],
-      repeatedMeasures: timingElements.length > 1,
-      unknowns: timingElements.length ? [] : ["La temporalité du projet reste à préciser."],
+      repeatedMeasures: visits.length > 1,
+      unknowns: visits.length
+        ? visits.filter((visit) => visit.timingStatus !== "KNOWN").map((visit) => `Le référentiel temporel de ${visit.label} reste à préciser.`)
+        : ["La temporalité du projet reste à préciser."],
     },
     endpointCandidates: endpoints,
     variables,
@@ -329,8 +414,8 @@ export const projectDocumentSourceFromFunctionalProject = (
       groupIds: [...interventionGroups, ...comparatorGroups].map((item) => item.groupId),
       endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
       variableIds: variables.map((variable) => variable.variableId),
-      timingIds: timingElements.map((item) => item.elementId),
-      repeatedMeasures: timingElements.length > 1,
+      timingIds,
+      repeatedMeasures: visits.length > 1,
       multicenterStructure: canonicalDesign.map((item) => item.content).join(" ; "),
       analysisPurposes: canonicalAnalysis.map((item) => item.content),
       knownAssumptions: [],

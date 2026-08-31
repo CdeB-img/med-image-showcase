@@ -240,7 +240,7 @@ const temporalEntries = (sections: DocumentSectionInstance[]) => {
   return unique(visits.flatMap((fact) => {
     const clean = fact.value
       .replace(/^Temporalité confirmée\s+—\s+/i, "")
-      .replace(/\s+(?:KNOWN|PARTIAL|UNKNOWN)\s+—\s+.*$/i, "")
+      .replace(/\s+(?:KNOWN|PARTIAL|UNKNOWN|SCIENTIFIC_WINDOW_TO_DEFINE|OPERATIONAL_WINDOW_FUTURE)\s+—\s+.*$/i, "")
       .trim();
     const separator = clean.indexOf(":");
     return separator > 0
@@ -286,7 +286,8 @@ const BUILDERS: SectionBuilder[] = [
 ];
 
 const openItemLabel = (builder: SectionBuilder, sourceText: string, hasKnownContent: boolean) => {
-  if (/objectif/i.test(sourceText) || builder.sectionId === "objectives") return "Objectifs";
+  if (/objectif/i.test(sourceText)) return "Objectifs";
+  if (builder.sectionId === "objectives") return hasKnownContent ? null : "Objectifs";
   if (builder.sectionId === "limitations" && !internalDiagnostic(sourceText)) return visibleLanguage(sourceText);
   if (builder.sectionId === "population" && /crit[eè]re|population|inclusion|exclusion/i.test(sourceText)) return "Critères complémentaires de population";
   if (builder.sectionId === "analysis" && /statistic|Biostatistics|dimensionnement|numérique/i.test(sourceText)) return "Plan d’analyse statistique";

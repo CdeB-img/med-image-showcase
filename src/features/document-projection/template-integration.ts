@@ -168,7 +168,7 @@ const enrichSection = (
     applicability: mapApplicability(section.applicability, dominant),
     status,
     statusReasons: uniqueSorted([...section.statusReasons, ...templateReasons(nodes, dominant)]),
-    unknowns: uniqueSorted([...section.unknowns, ...missing.map((item) => item.reason), ...globalUnknowns, ...(request.unknowns ?? [])]),
+    unknowns: uniqueSorted([...section.unknowns, ...missing.map((item) => item.reason), ...globalUnknowns]),
     limitations: uniqueSorted([...section.limitations, ...templateLimitations.map((item) => item.reason), ...globalLimitations]),
     contradictions: uniqueSorted([...section.contradictions, ...conflictReasons]),
     conflicts: conflictReasons,
