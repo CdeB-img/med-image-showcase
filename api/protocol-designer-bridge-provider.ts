@@ -73,7 +73,7 @@ const temporalAnchorJsonSchema = {
     upperBound: { anyOf: [{ type: "number" }, { type: "null" }] },
     relativeEventLabel: {
       anyOf: [{ type: "string" }, { type: "null" }],
-      description: "Required nullable field. It MUST be null whenever reference.status is UNKNOWN. Use a non-null label only for an event that is explicitly source-grounded or reconstructible from the supplied conversation context and resolved through referenceProjectRef; never invent a conventional zero, baseline or study event.",
+      description: "Required nullable field. It MUST be null whenever reference.status is UNKNOWN. Use a non-null label for an event explicitly source-grounded or reconstructible from supplied conversation context; use EXPLICIT when its Project reference is not bound and KNOWN when referenceProjectRef binds it. Never invent a conventional zero, baseline or study event.",
     },
     tolerance: {
       anyOf: [{
@@ -88,7 +88,7 @@ const temporalAnchorJsonSchema = {
       }, { type: "null" }],
     },
     reference: {
-      description: "Use KNOWN only when the event is source-grounded and bound to an exact Project or same-output candidate reference. Otherwise use UNKNOWN while preserving the explicit timepoint or window.",
+      description: "Use KNOWN when a source-grounded event is bound to an exact Project or same-output candidate reference. Use EXPLICIT when the source unambiguously supplies the event but no Project/candidate reference represents it. Use UNKNOWN only when the event is absent or ambiguous.",
       anyOf: [{
         type: "object",
         additionalProperties: false,
@@ -100,6 +100,14 @@ const temporalAnchorJsonSchema = {
           },
         },
         required: ["status", "referenceProjectRef"],
+      }, {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          status: { type: "string", enum: ["EXPLICIT"] },
+          bindingStatus: { type: "string", enum: ["PROJECT_REF_UNRESOLVED"] },
+        },
+        required: ["status", "bindingStatus"],
       }, {
         type: "object",
         additionalProperties: false,

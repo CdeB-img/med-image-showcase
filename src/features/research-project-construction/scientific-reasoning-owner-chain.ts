@@ -125,7 +125,9 @@ const temporalLabel = (item: ProjectContextSnapshot["temporalQualifications"][nu
   const anchor = item.anchor;
   const reference = anchor.reference.status === "KNOWN"
     ? anchor.reference.referenceProjectRef
-    : `UNKNOWN:${anchor.reference.unresolvedReason}`;
+    : anchor.reference.status === "EXPLICIT"
+      ? `EXPLICIT:${anchor.relativeEventLabel}`
+      : `UNKNOWN:${anchor.reference.unresolvedReason}`;
   return `${item.stableId}|${item.temporalRole}|${anchor.kind}|${anchor.direction}|${anchor.offset ?? "UNKNOWN"}|${anchor.unit}|${reference}`;
 };
 
@@ -133,7 +135,9 @@ const occasionLabel = (item: ProjectContextSnapshot["expectedVariableOccasions"]
   const anchor = item.anchor;
   const reference = anchor.reference.status === "KNOWN"
     ? anchor.reference.referenceProjectRef
-    : `UNKNOWN:${anchor.reference.unresolvedReason}`;
+    : anchor.reference.status === "EXPLICIT"
+      ? `EXPLICIT:${anchor.relativeEventLabel}`
+      : `UNKNOWN:${anchor.reference.unresolvedReason}`;
   return `${item.stableId}|EXPECTED_AT|${item.variableProjectRef}|${anchor.kind}|${anchor.direction}|${anchor.offset ?? "UNKNOWN"}|${anchor.unit}|${reference}`;
 };
 

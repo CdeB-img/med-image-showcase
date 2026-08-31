@@ -65,6 +65,10 @@ export type CanonicalTemporalReference =
     relationType: "ANCHORED_TO";
   }
   | {
+    status: "EXPLICIT";
+    bindingStatus: "PROJECT_REF_UNRESOLVED";
+  }
+  | {
     status: "UNKNOWN";
     unresolvedReason: "REFERENCE_EVENT_NOT_SUPPLIED" | "REFERENCE_EVENT_AMBIGUOUS" | "LEGACY_MAPPING_REQUIRED";
   };
@@ -473,7 +477,9 @@ const temporalAnchorFrom = (
   tolerance: anchor.tolerance,
   reference: anchor.reference.status === "KNOWN"
     ? { status: "KNOWN", referenceProjectRef: anchor.reference.referenceProjectRef, relationType: "ANCHORED_TO" }
-    : { status: "UNKNOWN", unresolvedReason: anchor.reference.unresolvedReason },
+    : anchor.reference.status === "EXPLICIT"
+      ? { status: "EXPLICIT", bindingStatus: anchor.reference.bindingStatus }
+      : { status: "UNKNOWN", unresolvedReason: anchor.reference.unresolvedReason },
   provenance,
 });
 
@@ -1363,7 +1369,9 @@ export const projectSectionsFromCanonicalState = (
         : `${prefix}${anchor.offset}`;
     const reference = anchor.reference.status === "KNOWN"
       ? `référence ${byObjectRef.get(anchor.reference.referenceProjectRef)?.content ?? anchor.reference.referenceProjectRef}`
-      : "référence inconnue";
+      : anchor.reference.status === "EXPLICIT"
+        ? `référence ${anchor.relativeEventLabel}`
+        : "référence inconnue";
     return `${value} (${reference})`;
   };
   const temporalProjections: ResearchProjectElement[] = state.temporalQualifications

@@ -122,6 +122,7 @@ export type ScientificTemporalAnchorCandidate = {
   tolerance: null | { lower: number | null; upper: number | null; unit: string };
   reference:
     | { status: "KNOWN"; referenceProjectRef: string }
+    | { status: "EXPLICIT"; bindingStatus: "PROJECT_REF_UNRESOLVED" }
     | { status: "UNKNOWN"; unresolvedReason: "REFERENCE_EVENT_NOT_SUPPLIED" | "REFERENCE_EVENT_AMBIGUOUS" };
 };
 

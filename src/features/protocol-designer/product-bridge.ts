@@ -345,7 +345,7 @@ Une comparaison peut porter sur des groupes ou interventions, mais aussi sur des
 
 Toute temporalité explicitement exprimée doit être conservée dans temporalQualifications ; ne la résume pas dans content et ne la supprime pas lorsque son référentiel manque. Une temporalité exprimée dans le même message qu'un nouvel objet référence le candidateRef de cet objet. Un repère relatif ou abrégé reste une information temporelle explicite : conserve le référentiel UNKNOWN lorsqu'il n'est pas fourni ou reste ambigu.
 
-Sépare toujours le temps explicite de son événement de référence. Lorsque reference.status = UNKNOWN, relativeEventLabel doit être null : n'invente aucun événement zéro, baseline ou événement d'étude conventionnel pour compléter le repère. Conserve intégralement offset, bornes, unité et rôle temporel. Utilise reference.status = KNOWN et un relativeEventLabel non nul uniquement lorsque l'événement est explicitement ancré dans le dernier message ou réellement reconstructible depuis une question temporelle récente, et qu'il est relié à un stableId Project exact ou à un candidateRef déclaré dans cette sortie. Pour une réponse elliptique à une question temporelle, sourceAnchorId reste celui du fragment utilisateur exact et le référent conversationnel ne devient jamais une fausse source utilisateur.
+Sépare toujours le temps explicite de son événement de référence. Lorsque l'événement n'est pas fourni ou reste ambigu, utilise reference.status = UNKNOWN et relativeEventLabel = null : n'invente aucun événement zéro, baseline ou événement d'étude conventionnel pour compléter le repère. Lorsque l'événement est explicitement et sans ambiguïté fourni mais qu'aucun stableId Project ni candidateRef de la même sortie ne le représente, conserve son libellé exact ou fidèlement reformulé dans relativeEventLabel et utilise reference.status = EXPLICIT avec bindingStatus = PROJECT_REF_UNRESOLVED. Utilise reference.status = KNOWN lorsque ce même événement est relié à un stableId Project exact ou à un candidateRef déclaré dans cette sortie. Conserve intégralement offset, bornes, unité, direction et rôle temporel. Pour une réponse elliptique à une question temporelle, sourceAnchorId reste celui du fragment utilisateur exact et le référent conversationnel ne devient jamais une fausse source utilisateur.
 
 Pour la population, sépare les dimensions persistantes qui possèdent des identités différentes lorsque le contrat le permet : cohorte ou population, borne d'âge, condition d'inclusion, absence ou exclusion, seuil d'éligibilité. Utilise ELIGIBILITY_CRITERION pour une contrainte d'éligibilité et conserve AMBIGUOUS ou UNKNOWN lorsque la portée exacte d'une absence ou exclusion n'est pas fournie. Ne transforme pas plusieurs critères indépendants en une seule phrase POPULATION.
 
@@ -430,6 +430,7 @@ export const persistentTemporalAnchorSchema = z.object({
   }).strict().nullable(),
   reference: z.discriminatedUnion("status", [
     z.object({ status: z.literal("KNOWN"), referenceProjectRef: z.string().min(1).max(300) }).strict(),
+    z.object({ status: z.literal("EXPLICIT"), bindingStatus: z.literal("PROJECT_REF_UNRESOLVED") }).strict(),
     z.object({ status: z.literal("UNKNOWN"), unresolvedReason: z.enum(["REFERENCE_EVENT_NOT_SUPPLIED", "REFERENCE_EVENT_AMBIGUOUS"]) }).strict(),
   ]),
 }).strict();
@@ -742,10 +743,16 @@ export const validatePersistentProviderContract = (value: unknown): PersistentPr
     if (qualification.anchor?.reference.status === "UNKNOWN" && qualification.anchor.relativeEventLabel !== null) {
       blocks.push(`temporalQualification:${index}:UNKNOWN_TEMPORAL_REFERENCE_REQUIRES_NULL_LABEL`);
     }
+    if (qualification.anchor?.reference.status === "EXPLICIT" && qualification.anchor.relativeEventLabel === null) {
+      blocks.push(`temporalQualification:${index}:EXPLICIT_TEMPORAL_REFERENCE_REQUIRES_LABEL`);
+    }
   });
   parsed.expectedVariableOccasions.forEach((occasion, index) => {
     if (occasion.anchor?.reference.status === "UNKNOWN" && occasion.anchor.relativeEventLabel !== null) {
       blocks.push(`expectedVariableOccasion:${index}:UNKNOWN_TEMPORAL_REFERENCE_REQUIRES_NULL_LABEL`);
+    }
+    if (occasion.anchor?.reference.status === "EXPLICIT" && occasion.anchor.relativeEventLabel === null) {
+      blocks.push(`expectedVariableOccasion:${index}:EXPLICIT_TEMPORAL_REFERENCE_REQUIRES_LABEL`);
     }
   });
   return { valid: blocks.length === 0, blocks };
@@ -1326,7 +1333,9 @@ const contributionTemporalAnchor = (
   }
   const reference = anchor.reference.status === "KNOWN"
     ? { status: "KNOWN" as const, referenceProjectRef: anchor.reference.referenceProjectRef! }
-    : { status: "UNKNOWN" as const, unresolvedReason: anchor.reference.unresolvedReason! };
+    : anchor.reference.status === "EXPLICIT"
+      ? { status: "EXPLICIT" as const, bindingStatus: anchor.reference.bindingStatus }
+      : { status: "UNKNOWN" as const, unresolvedReason: anchor.reference.unresolvedReason! };
   return {
     kind: anchor.kind,
     direction: anchor.direction,

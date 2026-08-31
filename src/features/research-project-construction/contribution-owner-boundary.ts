@@ -1107,12 +1107,30 @@ const humanReviewObjectSpecification = (object: {
 );
 
 const reviewTemporalAnchor = (anchor: NonNullable<CanonicalProjectChangeSet["temporalQualificationChanges"][number]["candidate"]>["anchor"]) => {
-  const unit = anchor.unit === "DAY" ? "jour" : anchor.unit === "WEEK" ? "semaine" : anchor.unit === "MONTH" ? "mois" : anchor.unit === "YEAR" ? "an" : anchor.unit.toLocaleLowerCase("fr-FR");
-  const reference = anchor.reference.status === "KNOWN" ? `réf. ${anchor.reference.referenceProjectRef}` : "référentiel à préciser";
-  if (anchor.kind === "WINDOW" || anchor.kind === "INTERVAL") return `${anchor.lowerBound} à ${anchor.upperBound} ${unit}${anchor.upperBound === 1 ? "" : "s"} (${reference})`;
+  const normalizedUnit = anchor.unit.trim().toLocaleUpperCase("fr-FR");
+  const unitForms: Record<string, readonly [string, string]> = {
+    DAY: ["jour", "jours"], DAYS: ["jour", "jours"], JOUR: ["jour", "jours"], JOURS: ["jour", "jours"],
+    WEEK: ["semaine", "semaines"], WEEKS: ["semaine", "semaines"], SEMAINE: ["semaine", "semaines"], SEMAINES: ["semaine", "semaines"],
+    MONTH: ["mois", "mois"], MONTHS: ["mois", "mois"], MOIS: ["mois", "mois"],
+    YEAR: ["an", "ans"], YEARS: ["an", "ans"], AN: ["an", "ans"], ANS: ["an", "ans"],
+    HOUR: ["heure", "heures"], HOURS: ["heure", "heures"], HEURE: ["heure", "heures"], HEURES: ["heure", "heures"],
+    MINUTE: ["minute", "minutes"], MINUTES: ["minute", "minutes"],
+  };
+  const unitFor = (value: number | null) => {
+    const forms = unitForms[normalizedUnit];
+    return forms ? forms[value === 1 ? 0 : 1] : anchor.unit.toLocaleLowerCase("fr-FR");
+  };
+  const referenceLabel = anchor.reference.status === "UNKNOWN"
+    ? null
+    : anchor.relativeEventLabel
+      ?? (anchor.reference.status === "KNOWN" ? `réf. ${anchor.reference.referenceProjectRef}` : null);
+  const reference = referenceLabel
+    ? `${anchor.direction === "BEFORE" ? "avant" : anchor.direction === "AFTER" ? "après" : "au moment de"} ${referenceLabel}`
+    : "référentiel à préciser";
+  if (anchor.kind === "WINDOW" || anchor.kind === "INTERVAL") return `${anchor.lowerBound} à ${anchor.upperBound} ${unitFor(anchor.upperBound)} (${reference})`;
   if (anchor.kind === "RELATIVE_EVENT") {
     const direction = anchor.direction === "BEFORE" ? "avant" : anchor.direction === "AFTER" ? "après" : "au moment de";
-    return `${direction} ${anchor.relativeEventLabel ?? reference}`;
+    return `${direction} ${anchor.relativeEventLabel ?? referenceLabel ?? "référentiel à préciser"}`;
   }
   const codedUnit = anchor.unit === "DAY" ? "J" : anchor.unit === "WEEK" ? "S" : anchor.unit === "MONTH" ? "M" : anchor.unit === "YEAR" ? "A" : `${anchor.unit} `;
   return `${codedUnit}${anchor.offset ?? "?"} (${reference})`;
