@@ -11,6 +11,7 @@ import {
 } from "@/features/protocol-designer/product-bridge";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
 import {
+  buildPreProjectTraceRealizationOutcome,
   captureProductBridgeTraceText,
   createPreProjectScientificTraceSegment,
   createProductTraceRunId,
@@ -516,6 +517,13 @@ export default function ProtocolDesignerWorkspace() {
             ? "LOCAL_RUNTIME"
             : undefined,
           visibleStructuredUnderstandingDimensionRefs: structuredUnderstanding?.representedDimensionRefs,
+          ...(preProjectRealization ? {
+            realizationOutcome: buildPreProjectTraceRealizationOutcome({
+              attemptedProvider: response.observability.provider,
+              providerReply: response.assistantReply,
+              realization: preProjectRealization,
+            }),
+          } : {}),
         },
       });
       const effectiveExtractionStatus = entryRouting.projectConstructionEligible

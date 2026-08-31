@@ -19,6 +19,7 @@ import {
   recordFunctionalResetQueryResponse,
 } from "@/features/query-navigation";
 import {
+  buildPreProjectTraceRealizationOutcome,
   createPreProjectScientificTraceSegment,
   createProductTraceRunId,
   createScientificExecutionTraceLedger,
@@ -331,6 +332,11 @@ describe("P1-BEHAVIOR-01A — executable behavioral contract", () => {
         provider: realization.provider,
         model: realization.model,
         formulationOwner: "LOCAL_RUNTIME",
+        realizationOutcome: buildPreProjectTraceRealizationOutcome({
+          attemptedProvider: "GOOGLE_GEMINI",
+          providerReply: "D’accord.",
+          realization,
+        }),
       },
       captureConfiguration: createScientificTraceCaptureConfiguration({ captureLevel: "LEVEL_2_DIAGNOSTIC" }),
     });

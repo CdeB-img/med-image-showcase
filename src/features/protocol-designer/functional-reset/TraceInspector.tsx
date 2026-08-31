@@ -72,7 +72,7 @@ const DimensionList = ({ label, dimensions }: {
 
 const DiagnosticDetails = ({ run }: { run: ReturnType<typeof buildTraceInspectorRunProjection> }) => {
   if (run.captureLevel === "LEVEL_1_CORE") return <p className="rounded-xl border bg-background p-3 text-sm text-muted-foreground">UNKNOWN — ce run CORE ne capture pas les transformations sémantiques détaillées.</p>;
-  const enrichedEvents = run.events.filter((event) => event.semanticTransformation || event.actionDecision);
+  const enrichedEvents = run.events.filter((event) => event.semanticTransformation || event.actionDecision || event.realizationOutcome);
   return <div className="space-y-3" data-testid="trace-inspector-diagnostic-view">
     <dl className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
       <LabelValue label="ASK_VS_PROPOSE_OWNER" value={run.ownerFacts.askVsProposeOwner} />
@@ -100,6 +100,12 @@ const DiagnosticDetails = ({ run }: { run: ReturnType<typeof buildTraceInspector
         <LabelValue label="ALREADY_PROVIDED_INFORMATION_REFS" value={event.actionDecision?.alreadyProvidedInformationRefs.join(", ") || "UNKNOWN"} />
         <LabelValue label="CANDIDATE_ALTERNATIVES" value={event.actionDecision?.candidateAlternatives.join(", ") || "UNKNOWN"} />
         <LabelValue label="REJECTED_ALTERNATIVES" value={event.actionDecision?.rejectedAlternatives.join(", ") || "UNKNOWN"} />
+        <LabelValue label="ATTEMPTED_PROVIDER" value={event.realizationOutcome?.attemptedProvider ?? "UNKNOWN"} />
+        <LabelValue label="PROVIDER_RESPONSE_RECEIVED" value={event.realizationOutcome ? String(event.realizationOutcome.providerResponseReceived).toUpperCase() : "UNKNOWN"} />
+        <LabelValue label="PROVIDER_RESPONSE_ACCEPTED" value={event.realizationOutcome?.providerResponseAccepted == null ? "NOT_APPLICABLE" : String(event.realizationOutcome.providerResponseAccepted).toUpperCase()} />
+        <LabelValue label="PROVIDER_REJECTION_REASON" value={event.realizationOutcome?.providerRejectionReason ?? "UNKNOWN"} />
+        <LabelValue label="EFFECTIVE_EXECUTOR" value={event.realizationOutcome?.effectiveExecutor ?? "UNKNOWN"} />
+        <LabelValue label="FALLBACK_REASON" value={event.realizationOutcome?.fallbackReason ?? "UNKNOWN"} />
       </dl>
     </article>)}
 

@@ -109,6 +109,23 @@ export type ScientificTraceActionDecision = {
   rejectionReasons: readonly { alternativeRef: string; reasonCode: string | ScientificProductTraceSentinel }[];
 };
 
+/**
+ * Factual outcome of a realization boundary. It keeps the attempted provider
+ * distinct from the executor that effectively produced the visible response.
+ * It carries no scientific or conformance judgment of its own.
+ */
+export type ScientificTraceRealizationOutcome = {
+  contract: "SCIENTIFIC_TRACE_REALIZATION_OUTCOME";
+  contractVersion: "1.0.0";
+  declarationSource: "STRUCTURED_COMPONENT_OUTPUT";
+  attemptedProvider: string | ScientificProductTraceSentinel;
+  providerResponseReceived: boolean;
+  providerResponseAccepted: boolean | null;
+  providerRejectionReason: string | ScientificProductTraceSentinel;
+  effectiveExecutor: string | ScientificProductTraceSentinel;
+  fallbackReason: string | ScientificProductTraceSentinel;
+};
+
 export type ScientificTraceForensicField =
   | "EXACT_USER_INPUT"
   | "EXACT_COMPONENT_SEMANTIC_INPUT"
@@ -220,6 +237,7 @@ export type ScientificProductTraceCommonEnvelope = {
   replayOfTraceRunId?: string | ScientificProductTraceSentinel;
   semanticTransformation?: ScientificTraceSemanticTransformation;
   actionDecision?: ScientificTraceActionDecision;
+  realizationOutcome?: ScientificTraceRealizationOutcome;
   forensicPayload?: ScientificTraceForensicPayload;
   traceMutatesProduct: false;
   traceDecides: false;
@@ -250,6 +268,7 @@ export type ScientificProductTraceEnvelopeInput = {
   artifactId?: string | ScientificProductTraceSentinel;
   semanticTransformation?: ScientificTraceSemanticTransformation;
   actionDecision?: ScientificTraceActionDecision;
+  realizationOutcome?: ScientificTraceRealizationOutcome;
   forensicPayload?: ScientificTraceForensicPayload;
 };
 
@@ -339,6 +358,7 @@ export type PreProjectScientificTracePoint =
     assistantReplyDigest: string;
     provider: string;
     model: string;
+    realizationOutcome?: ScientificTraceRealizationOutcome;
   };
 
 export type PreProjectScientificTraceSegment = {
@@ -417,6 +437,7 @@ export type CreatePreProjectScientificTraceSegmentInput = {
     model: string;
     formulationOwner?: PreProjectTraceOwner;
     visibleStructuredUnderstandingDimensionRefs?: readonly string[];
+    realizationOutcome?: ScientificTraceRealizationOutcome;
   };
   diagnosticDimensionProbes?: readonly PreProjectTraceDimensionProbe[];
   captureMode?: "MINIMIZED" | "DIAGNOSTIC_FULL";
@@ -1095,6 +1116,17 @@ const validateActionDecision = (value: unknown): value is ScientificTraceActionD
     && typeof item.alternativeRef === "string"
     && typeof item.reasonCode === "string");
 
+const validateRealizationOutcome = (value: unknown): value is ScientificTraceRealizationOutcome => isRecord(value)
+  && value.contract === "SCIENTIFIC_TRACE_REALIZATION_OUTCOME"
+  && value.contractVersion === "1.0.0"
+  && value.declarationSource === "STRUCTURED_COMPONENT_OUTPUT"
+  && typeof value.attemptedProvider === "string"
+  && typeof value.providerResponseReceived === "boolean"
+  && (value.providerResponseAccepted === null || typeof value.providerResponseAccepted === "boolean")
+  && typeof value.providerRejectionReason === "string"
+  && typeof value.effectiveExecutor === "string"
+  && typeof value.fallbackReason === "string";
+
 const validateForensicPayload = (value: unknown): value is ScientificTraceForensicPayload => isRecord(value)
   && value.contract === "SCIENTIFIC_TRACE_FORENSIC_PAYLOAD"
   && value.contractVersion === "1.0.0"
@@ -1121,10 +1153,12 @@ const validateCaptureExtensions = (value: Record<string, unknown>) => {
     || value.retentionPolicyId !== policies.retentionPolicyId) return false;
   if (value.semanticTransformation !== undefined && !validateSemanticTransformation(value.semanticTransformation)) return false;
   if (value.actionDecision !== undefined && !validateActionDecision(value.actionDecision)) return false;
+  if (value.realizationOutcome !== undefined && !validateRealizationOutcome(value.realizationOutcome)) return false;
   if (value.forensicPayload !== undefined && !validateForensicPayload(value.forensicPayload)) return false;
   if (level === "LEVEL_1_CORE") {
     return value.semanticTransformation === undefined
       && value.actionDecision === undefined
+      && value.realizationOutcome === undefined
       && value.forensicPayload === undefined;
   }
   if (level === "LEVEL_2_DIAGNOSTIC") return value.forensicPayload === undefined;
@@ -1177,6 +1211,7 @@ const validateCommonEnvelope = (value: unknown, eventId: string, runId: string):
       && value.replayOfTraceRunId === undefined
       && value.semanticTransformation === undefined
       && value.actionDecision === undefined
+      && value.realizationOutcome === undefined
       && value.forensicPayload === undefined;
   }
   return validateCaptureExtensions(value);
@@ -1458,6 +1493,7 @@ const commonEnvelopeFor = (input: {
     replayOfTraceRunId: captureConfiguration.replayOfTraceRunId,
     ...(specified?.semanticTransformation ? { semanticTransformation: clone(specified.semanticTransformation) } : {}),
     ...(specified?.actionDecision ? { actionDecision: clone(specified.actionDecision) } : {}),
+    ...(specified?.realizationOutcome ? { realizationOutcome: clone(specified.realizationOutcome) } : {}),
     ...(specified?.forensicPayload ? { forensicPayload: clone(specified.forensicPayload) } : {}),
     traceMutatesProduct: false,
     traceDecides: false,
@@ -2465,6 +2501,34 @@ const defaultTraceDimensionProbes = (routing: CreatePreProjectScientificTraceSeg
   }));
 };
 
+export const buildPreProjectTraceRealizationOutcome = (input: {
+  attemptedProvider: string | null | undefined;
+  providerReply: string | null | undefined;
+  realization: Readonly<{
+    executor: string;
+    providerReplyAccepted: boolean;
+    conformanceReason: string;
+  }>;
+}): Readonly<ScientificTraceRealizationOutcome> => {
+  const providerResponseReceived = Boolean(input.providerReply?.trim());
+  const providerResponseAccepted = providerResponseReceived
+    ? input.realization.providerReplyAccepted
+    : null;
+  const providerRejected = providerResponseReceived && providerResponseAccepted === false;
+  const fallbackUsed = input.realization.executor === "LOCAL_DETERMINISTIC_REALIZATION";
+  return deepFreeze({
+    contract: "SCIENTIFIC_TRACE_REALIZATION_OUTCOME" as const,
+    contractVersion: "1.0.0" as const,
+    declarationSource: "STRUCTURED_COMPONENT_OUTPUT" as const,
+    attemptedProvider: input.attemptedProvider?.trim() || "NONE",
+    providerResponseReceived,
+    providerResponseAccepted,
+    providerRejectionReason: providerRejected ? input.realization.conformanceReason : "NOT_APPLICABLE",
+    effectiveExecutor: input.realization.executor,
+    fallbackReason: fallbackUsed ? input.realization.conformanceReason : "NOT_APPLICABLE",
+  });
+};
+
 /**
  * Creates the pre-Project segment carried by the existing bridgeTrace. It only
  * observes artifacts already produced by routing and the provider boundary.
@@ -2609,6 +2673,9 @@ export const createPreProjectScientificTraceSegment = (
     assistantReplyDigest,
     provider: input.providerBoundary.provider,
     model: input.providerBoundary.model,
+    ...(captureConfiguration.captureLevel !== "LEVEL_1_CORE" && input.providerBoundary.realizationOutcome
+      ? { realizationOutcome: input.providerBoundary.realizationOutcome }
+      : {}),
   }];
   const material = {
     contract: PRE_PROJECT_SCIENTIFIC_TRACE_SEGMENT_CONTRACT,
@@ -2915,6 +2982,7 @@ export const recordPreProjectScientificTraceSegment = (input: {
             : observation.formulatedQuestion,
           declarationSource: governedByQueryNavigation ? "COMPONENT_DECLARATION" : "LEGACY_ADAPTER",
         }),
+        ...(formulation.realizationOutcome ? { realizationOutcome: formulation.realizationOutcome } : {}),
       }),
     },
   });

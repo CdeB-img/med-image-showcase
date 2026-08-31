@@ -73,6 +73,12 @@ export type TraceInspectorEventProjection = Readonly<{
   dependencies: readonly string[];
   semanticTransformation: ScientificProductTraceCommonEnvelope["semanticTransformation"] | null;
   actionDecision: ScientificProductTraceCommonEnvelope["actionDecision"] | null;
+  realizationOutcome: ScientificProductTraceCommonEnvelope["realizationOutcome"] | null;
+  attemptedProvider: string | null;
+  providerResponseReceived: boolean | null;
+  providerResponseAccepted: boolean | null;
+  providerRejectionReason: string | null;
+  fallbackReason: string | null;
   forensic: readonly TraceForensicFieldProjection[];
 }>;
 
@@ -353,6 +359,12 @@ export const buildTraceInspectorRunProjection = (input: {
     dependencies: Object.freeze([...common.dependencies]),
     semanticTransformation: common.semanticTransformation ?? null,
     actionDecision: common.actionDecision ?? null,
+    realizationOutcome: common.realizationOutcome ?? null,
+    attemptedProvider: common.realizationOutcome?.attemptedProvider ?? null,
+    providerResponseReceived: common.realizationOutcome?.providerResponseReceived ?? null,
+    providerResponseAccepted: common.realizationOutcome?.providerResponseAccepted ?? null,
+    providerRejectionReason: common.realizationOutcome?.providerRejectionReason ?? null,
+    fallbackReason: common.realizationOutcome?.fallbackReason ?? null,
     forensic: forensicProjectionFor(captureLevel, native.technicalMetadata, common.forensicPayload),
   }));
   const diagnostics = diagnoseScientificTraceRun(input);
@@ -396,6 +408,7 @@ const productEnvelopeMaterial = (event: TraceInspectorEventProjection) => ({
   output: event.outputRefs,
   status: event.status,
   reasonCode: event.reasonCode,
+  realizationOutcome: event.realizationOutcome,
 });
 
 export const compareTraceInspectorRuns = (input: {
@@ -429,6 +442,7 @@ export const compareTraceInspectorRuns = (input: {
       ...(stableValidationStringify(leftEvent.outputRefs) !== stableValidationStringify(rightEvent.outputRefs) ? ["OUTPUT_REFS_OR_DIGESTS"] : []),
       ...(stableValidationStringify(leftEvent.semanticTransformation) !== stableValidationStringify(rightEvent.semanticTransformation) ? ["TRANSFORMATIONS"] : []),
       ...(stableValidationStringify(leftEvent.actionDecision) !== stableValidationStringify(rightEvent.actionDecision) ? ["ACTION_DECISION"] : []),
+      ...(stableValidationStringify(leftEvent.realizationOutcome) !== stableValidationStringify(rightEvent.realizationOutcome) ? ["REALIZATION_OUTCOME"] : []),
     ];
     if (fields.length) differences.push(Object.freeze({
       stage: leftEvent.stage,
