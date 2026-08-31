@@ -78,7 +78,7 @@ const temporalRoleFor = (element: ResearchProjectElement): ResearchProjectDesign
 };
 
 const missingFromProject = (project: ResearchProjectOwnerProjection) => project.sections
-  .filter((section) => section.state === "TO_CLARIFY")
+  .filter((section) => section.state === "TO_CLARIFY" && section.sectionId !== "BIOSPECIMENS")
   .map((section) => `${section.label} : information à préciser dans le Research Project.`);
 
 const projectionReadiness = (projection: ResearchProjectDesignResult["projectionReadiness"][number]["projection"], available: boolean, missing: string[]): ResearchProjectDesignResult["projectionReadiness"][number] => ({

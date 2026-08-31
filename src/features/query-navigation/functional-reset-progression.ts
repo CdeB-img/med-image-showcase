@@ -100,6 +100,7 @@ const SECTION_DEPENDENCY_ORDER: ResearchProjectSectionId[] = [
   "COMPARATOR",
   "MEASUREMENTS",
   "IMAGING",
+  "BIOSPECIMENS",
   "TEMPORALITY",
   "ANALYSIS",
 ];
@@ -111,6 +112,7 @@ const STANDARD_SECTION_LABELS: Record<ResearchProjectSectionId, string> = {
   INTERVENTION: "l’intervention",
   COMPARATOR: "le comparateur",
   IMAGING: "l’imagerie",
+  BIOSPECIMENS: "les prélèvements et échantillons",
   MEASUREMENTS: "les mesures et biomarqueurs",
   TEMPORALITY: "la temporalité",
   ANALYSIS: "l’analyse",
@@ -142,6 +144,7 @@ const sectionIntent = (sectionId: ResearchProjectSectionId) => ({
   INTERVENTION: "Préciser l’intervention ou l’exposition étudiée.",
   COMPARATOR: "Préciser le comparateur ou le groupe de référence.",
   IMAGING: "Préciser le rôle de l’imagerie dans le projet.",
+  BIOSPECIMENS: "Préciser les prélèvements ou échantillons prévus lorsque le projet en comporte.",
   MEASUREMENTS: "Préciser les mesures, critères ou biomarqueurs prioritaires.",
   TEMPORALITY: "Préciser les moments ou fenêtres de mesure utiles.",
   ANALYSIS: "Préciser l’objectif de comparaison ou d’analyse.",

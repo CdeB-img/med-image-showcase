@@ -9,8 +9,8 @@ import type {
 } from "../scientific-interpretation/contracts.js";
 import type {
   ResearchProjectOwnerProjection,
-  ResearchProjectSectionId,
 } from "../research-project-construction/contribution-owner-boundary.js";
+import type { ResearchProjectSectionId } from "../research-project-construction/project-section-projection.js";
 import {
   buildProjectContextSnapshot,
   canonicalProjectObjectType,
@@ -104,6 +104,7 @@ export const PERSISTENT_PROJECT_STUDY_ROLES = [
   "OUTCOME_ROLE",
   "PRIMARY_REFERENCE_ARM",
   "PRIMARY_ENDPOINT",
+  "SAMPLE_COLLECTION",
 ] as const;
 
 /**
@@ -338,6 +339,8 @@ Un élément que l'utilisateur souhaite observer ou mesurer peut devenir CANONIC
 
 Une procédure de mesure ou une méthode de référence n'est jamais une INTERVENTION du seul fait qu'elle est appliquée à un tissu, un animal ou un participant. Utilise ACQUISITION pour une acquisition ou un prélèvement, CANONICAL_VARIABLE pour la grandeur produite et DATA_NEED pour le besoin mesuré. ANALYSIS_SPECIFICATION est une spécification analytique autonome : elle exige au minimum une finalité ou question analytique, des entrées et une procédure suffisamment établies pour former une identité de spécification. Une simple mention de traitement, segmentation, quantification ou d'une méthode restant à définir ne suffit pas à la créer. Lorsque ce contexte méthodologique est explicitement dit mais reste trop incomplet pour constituer une MeasurementDefinition ou une ANALYSIS_SPECIFICATION, conserve-le séparément comme PROJECT_INFORMATION avec son fragment source exact, le lien contextuel lisible vers la grandeur concernée dans content et epistemicState = UNKNOWN. PROJECT_INFORMATION préserve ici une information Project sous-spécifiée ; il ne devient ni une méthode qualifiée par son owner ni un substitut permanent à MeasurementDefinition. N'attribue REFERENCE_STANDARD que si l'utilisateur établit explicitement ce rôle ou s'il est déjà adopté dans le Project.
 
+Lorsqu'une ACQUISITION représente explicitement une collecte de matériau ou d'échantillon, conserve le rôle structuré SAMPLE_COLLECTION et la section de projection BIOSPECIMENS. Ce rôle de projection ne transforme pas l'ACQUISITION runtime en objet canonique Biospecimen et ne permet d'inventer aucun détail de collecte, stockage, traitement ou analyse.
+
 Une comparaison peut porter sur des groupes ou interventions, mais aussi sur des modalités, acquisitions, procédures d'analyse ou grandeurs mesurées. Conserve les deux extrémités explicites et COMPARES_WITH sans transformer une comparaison méthodologique en comparaison de bras. Une affirmation utilisateur sur la précision ou la performance d'une méthode peut être conservée comme HYPOTHESIS ou rationale Project ; elle ne devient jamais une preuve Knowledge ni une hypothèse statistique formelle non formulée.
 
 Toute temporalité explicitement exprimée doit être conservée dans temporalQualifications ; ne la résume pas dans content et ne la supprime pas lorsque son référentiel manque. Une temporalité exprimée dans le même message qu'un nouvel objet référence le candidateRef de cet objet. Un repère relatif ou abrégé reste une information temporelle explicite : conserve le référentiel UNKNOWN lorsqu'il n'est pas fourni ou reste ambigu.
@@ -370,6 +373,7 @@ export const PROJECT_SECTION_IDS = [
   "INTERVENTION",
   "COMPARATOR",
   "IMAGING",
+  "BIOSPECIMENS",
   "MEASUREMENTS",
   "TEMPORALITY",
   "ANALYSIS",
@@ -722,6 +726,12 @@ export const validatePersistentProviderContract = (value: unknown): PersistentPr
     if (role && !PERSISTENT_PROJECT_STUDY_ROLES.includes(role as (typeof PERSISTENT_PROJECT_STUDY_ROLES)[number])) {
       blocks.push(`change:${index}:STUDY_ROLE_OUTSIDE_PROVIDER_VOCABULARY`);
     }
+    if (role === "SAMPLE_COLLECTION" && change.targetSectionId && change.targetSectionId !== "BIOSPECIMENS") {
+      blocks.push(`change:${index}:SAMPLE_COLLECTION_SECTION_MISMATCH`);
+    }
+    if (change.targetSectionId === "BIOSPECIMENS" && role !== "SAMPLE_COLLECTION") {
+      blocks.push(`change:${index}:BIOSPECIMENS_SECTION_REQUIRES_SAMPLE_COLLECTION_ROLE`);
+    }
   });
   parsed.relations.forEach((relation, index) => {
     if (!PERSISTENT_PROJECT_RELATION_TYPES.includes(relation.relationType as (typeof PERSISTENT_PROJECT_RELATION_TYPES)[number])) {
@@ -973,6 +983,14 @@ export const validatePersistentProjectDelta = (
     }
     const targetRole = target?.element.sourceStudyRole ?? null;
     const proposedRole = change.studyRole === undefined ? targetRole : change.studyRole;
+    if (proposedRole === "SAMPLE_COLLECTION" && change.targetSectionId && change.targetSectionId !== "BIOSPECIMENS") {
+      blocks.push(`${prefix}:SAMPLE_COLLECTION_SECTION_MISMATCH`);
+      return;
+    }
+    if (change.targetSectionId === "BIOSPECIMENS" && proposedRole !== "SAMPLE_COLLECTION") {
+      blocks.push(`${prefix}:BIOSPECIMENS_SECTION_REQUIRES_SAMPLE_COLLECTION_ROLE`);
+      return;
+    }
     const targetType = target?.element.sourceProposedType ?? null;
     const proposedType = change.proposedType ?? targetType;
     const canonicalType = canonicalProjectObjectType({
@@ -1215,6 +1233,7 @@ const typeForSection: Record<(typeof PROJECT_SECTION_IDS)[number], string> = {
   INTERVENTION: "INTERVENTION",
   COMPARATOR: "COMPARATOR",
   IMAGING: "MODALITY",
+  BIOSPECIMENS: "ACQUISITION",
   MEASUREMENTS: "MEASUREMENT",
   TEMPORALITY: "TIMEPOINT",
   ANALYSIS: "ANALYSIS_INTENT",

@@ -2,7 +2,9 @@ import { logicalDigest, uniqueSorted } from "@/features/knowledge-engine/canonic
 import {
   PRJ001_CONTRIBUTION_INTAKE_GAP,
   RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY,
+  RESEARCH_PROJECT_SECTION_LABELS as SECTION_LABELS,
   RESEARCH_PROJECT_SECTION_ORDER,
+  projectSectionForGovernedStudyRole,
   type ProjectContextSnapshot,
   type ResearchProjectElement,
   type ResearchProjectOwnerProjection,
@@ -87,18 +89,6 @@ export type LegacyConsumerProjectionResult = {
   readOnly: true;
 };
 
-const SECTION_LABELS: Record<ResearchProjectSectionId, string> = {
-  QUESTION: "Question",
-  POPULATION: "Population",
-  DESIGN: "Design",
-  INTERVENTION: "Intervention",
-  COMPARATOR: "Comparateur",
-  IMAGING: "Imagerie",
-  MEASUREMENTS: "Éléments à observer ou mesurer",
-  TEMPORALITY: "Temporalité",
-  ANALYSIS: "Analyse",
-};
-
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T;
 
 const deepFreeze = <T>(value: T): Readonly<T> => {
@@ -110,6 +100,8 @@ const deepFreeze = <T>(value: T): Readonly<T> => {
 };
 
 const sectionFor = (object: ProjectContextSnapshot["objects"][number]): ResearchProjectSectionId => {
+  const governedRoleSection = projectSectionForGovernedStudyRole(object.scientificRole);
+  if (governedRoleSection) return governedRoleSection;
   if (object.type === "SCIENTIFIC_QUESTION") return "QUESTION";
   if (["CONDITION", "POPULATION", "ELIGIBILITY_CRITERION"].includes(object.type)) return "POPULATION";
   if (object.type === "STUDY_DESIGN") return "DESIGN";

@@ -36,11 +36,11 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toHaveTextContent(/préservera votre intention/);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
     const project = screen.getByTestId("functional-research-project");
-    for (const label of ["Question", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Éléments à observer ou mesurer", "Temporalité", "Analyse", "Documents"]) {
+    for (const label of ["Question", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Prélèvements / échantillons", "Éléments à observer ou mesurer", "Temporalité", "Analyse", "Documents"]) {
       expect(within(project).getByText(label)).toBeInTheDocument();
     }
     expect(within(project).getByText("Construction en cours")).toBeInTheDocument();
-    expect(within(project).getAllByText("À préciser dans la conversation.")).toHaveLength(9);
+    expect(within(project).getAllByText("À préciser dans la conversation.")).toHaveLength(10);
     expect(screen.queryByText(/Actor|Mandate|Branch|Gate|Guided Intake|Orientation/)).toBeNull();
   });
 

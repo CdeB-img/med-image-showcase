@@ -9,9 +9,12 @@ import type {
   ResearchProjectElement,
   ResearchProjectOwnerProjection,
   ResearchProjectSection,
-  ResearchProjectSectionId,
   SpecializedResponsibility,
 } from "./contribution-owner-boundary.js";
+import {
+  projectSectionForGovernedStudyRole,
+  type ResearchProjectSectionId,
+} from "./project-section-projection.js";
 
 export const CANONICAL_RESEARCH_PROJECT_STATE_CONTRACT = "PRJ001_CANONICAL_RESEARCH_PROJECT_STATE" as const;
 export const CANONICAL_RESEARCH_PROJECT_STATE_VERSION = "0.2.0" as const;
@@ -494,7 +497,12 @@ const itemBySourceRef = (contribution: ScientificInterpretationContributionEnvel
   return new Map(items.flatMap((item) => [item.itemId, item.semanticIdentity].filter((ref): ref is string => Boolean(ref)).map((ref) => [ref, item] as const)));
 };
 
-const sectionForCanonicalType = (type: CanonicalProjectObjectType): ResearchProjectSectionId => {
+const sectionForCanonicalType = (
+  type: CanonicalProjectObjectType,
+  scientificRole?: string | null,
+): ResearchProjectSectionId => {
+  const governedRoleSection = projectSectionForGovernedStudyRole(scientificRole);
+  if (governedRoleSection) return governedRoleSection;
   if (["SCIENTIFIC_QUESTION", "OBJECTIVE"].includes(type)) return "QUESTION";
   if (["CONDITION", "POPULATION", "ELIGIBILITY_CRITERION"].includes(type)) return "POPULATION";
   if (type === "STUDY_DESIGN") return "DESIGN";
@@ -512,7 +520,7 @@ const rawObjectCandidateFrom = (
   objectId: string,
 ) => {
   const objectType = canonicalProjectObjectType(item);
-  const sectionId = sectionForCanonicalType(objectType);
+  const sectionId = sectionForCanonicalType(objectType, item.studyRole);
   const projection: ResearchProjectElement = {
     elementId: objectId,
     semanticKey: `${sectionId}:${objectType}:${normalized(item.semanticIdentity ?? item.content)}`,
@@ -567,7 +575,7 @@ const objectCandidateFrom = (
     },
   };
   const objectType = canonicalProjectObjectType(fallbackItem);
-  const sectionId = sectionForCanonicalType(objectType);
+  const sectionId = sectionForCanonicalType(objectType, fallbackItem.studyRole);
   return {
     objectId: element.elementId,
     objectType,

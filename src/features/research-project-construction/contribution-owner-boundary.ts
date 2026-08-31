@@ -16,6 +16,12 @@ import {
   type CanonicalProjectChangeSet,
   type CanonicalResearchProjectState,
 } from "./canonical-project-backbone.js";
+import {
+  projectSectionForGovernedStudyRole,
+  RESEARCH_PROJECT_SECTION_LABELS as SECTION_LABELS,
+  RESEARCH_PROJECT_SECTION_ORDER,
+  type ResearchProjectSectionId,
+} from "./project-section-projection.js";
 import { RESEARCH_PROJECT_CONSTRUCTION_VERSION } from "./types.js";
 
 export const RESEARCH_PROJECT_CONTRIBUTION_BOUNDARY = "PRJ_001_CONTRIBUTION_INTAKE_ADAPTER" as const;
@@ -23,17 +29,6 @@ export const PRJ001_CONTRIBUTION_INTAKE_GAP = {
   existingContractGap: "PRJ001_V1_REQUIRES_SCIENTIFIC_THINKING_HANDOFF_AND_CANNOT_REPRESENT_EXPLICIT_IMAGING_PENDING_OWNER_WITHOUT_FALSE_NOT_APPLICABLE_FALSE_FROZEN_OR_REFUSAL",
   adaptationScope: "USER_CONFIRMED_PROJECT_INFORMATION_ONLY_NO_DESIGN_FREEZE_NO_PD003_V2_CANONICAL_PROMOTION",
 } as const;
-
-export type ResearchProjectSectionId =
-  | "QUESTION"
-  | "POPULATION"
-  | "DESIGN"
-  | "INTERVENTION"
-  | "COMPARATOR"
-  | "IMAGING"
-  | "MEASUREMENTS"
-  | "TEMPORALITY"
-  | "ANALYSIS";
 
 export type ResearchProjectSectionState = "DEFINED" | "PARTIAL" | "TO_CLARIFY";
 
@@ -193,20 +188,6 @@ export type ResearchProjectOwnerProjection = {
   appliedChangeSet?: ContributionProjectChangeSet;
   canonicalState?: CanonicalResearchProjectState;
 };
-
-const SECTION_LABELS: Record<ResearchProjectSectionId, string> = {
-  QUESTION: "Question",
-  POPULATION: "Population",
-  DESIGN: "Design",
-  INTERVENTION: "Intervention",
-  COMPARATOR: "Comparateur",
-  IMAGING: "Imagerie",
-  MEASUREMENTS: "Éléments à observer ou mesurer",
-  TEMPORALITY: "Temporalité",
-  ANALYSIS: "Analyse",
-};
-
-export const RESEARCH_PROJECT_SECTION_ORDER = Object.keys(SECTION_LABELS) as ResearchProjectSectionId[];
 
 const active = (item: ScientificContributionItem) => item.epistemicBoundary.activeState !== false;
 const positiveProjectValue = (item: ScientificContributionItem) => active(item) && item.polarity !== "NEGATED";
@@ -437,6 +418,8 @@ export const sectionForContributionItem = (
   item: ScientificContributionItem,
   contribution: ScientificInterpretationContributionEnvelope,
 ): ResearchProjectSectionId | null => {
+  const governedRoleSection = projectSectionForGovernedStudyRole(item.studyRole);
+  if (governedRoleSection) return governedRoleSection;
   const type = typeOf(item);
   const local = foldedWithSeparators(itemLocalContext(item));
   const source = foldedWithSeparators(contribution.source.turns
@@ -733,6 +716,7 @@ const stateFor = (
   const items = contributionItems(contribution);
   if (sectionId === "ANALYSIS" && !items.some((item) => sectionForContributionItem(item, contribution) === "ANALYSIS")) return "PARTIAL";
   if (sectionId === "IMAGING") return "PARTIAL";
+  if (sectionId === "BIOSPECIMENS") return "PARTIAL";
   if (sectionId === "MEASUREMENTS") return "PARTIAL";
   if (sectionId === "TEMPORALITY") return "PARTIAL";
   if (sectionId === "POPULATION") {

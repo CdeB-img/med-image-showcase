@@ -4,6 +4,7 @@ export * from "./engine";
 export * from "./graph";
 export * from "./change";
 export * from "./session";
+export * from "./project-section-projection";
 export * from "./contribution-owner-boundary";
 export * from "./canonical-project-backbone";
 export * from "./specialized-owner-handoff";
