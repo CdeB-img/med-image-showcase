@@ -60,9 +60,27 @@ const SCIENTIFIC_TERMS = [
 
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR");
 
-const EXPLICIT_STUDY_CONSTRUCTION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on)\s+)?(?:(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|désire|désirons)\s+)?(?:maintenant\s+)?(?:créer|construire|concevoir|faire|monter|élaborer|construisons|concevons|montons|élaborons)\s+(?:(?:une?|l['’])\s+)?(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
+const EXPLICIT_STUDY_CONSTRUCTION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on)\s+)?(?:(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|désire|désirons)\s+)?(?:maintenant\s+)?(?:créer|construire|concevoir|faire|mener|conduire|définir|structurer|planifier|monter|élaborer|mettre\s+en\s+place|construisons|concevons|menons|conduisons|définissons|structurons|planifions|montons|élaborons)\s+(?:(?:une?|l['’])\s+)?(?:[\p{L}\p{N}'’.-]+\s+){0,2}(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
 const EXPLICIT_STUDY_DESIGN = /(?:^|[^\p{L}\p{N}_])(?:étude|protocole|essai|cohorte)\s+(?:multicentrique|monocentrique|randomisée?|prospective?|rétrospective?|exploratoire|pilote)(?![\p{L}\p{N}_])/iu;
 const EXPLICIT_STUDY_MODIFICATION = /(?:^|[^\p{L}\p{N}_])(?:modifier|modifie|modifions|changer|change|corriger|corrige|ajouter|ajoute|retirer|retire)\s+(?:[\p{L}\p{N}'’.-]+\s+){0,6}(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
+
+const EXPLICIT_UNDERSTANDING_REQUEST = /(?:^|[^\p{L}\p{N}_])(?:comprendre|expliquer|fonctionne|différences?|rôle|signifie|qu['’]est-ce)(?![\p{L}\p{N}_])/iu;
+const VAGUE_FUTURE_IDEA = /(?:^|[^\p{L}\p{N}_])(?:j['’]aimerais|nous\s+aimerions|je\s+souhaiterais|nous\s+souhaiterions)\s+(?:peut-être\s+)?(?:travailler|explorer|réfléchir)\s+(?:sur|à)(?![\p{L}\p{N}_])/iu;
+const PROSPECTIVE_PLANNING = /(?:^|[^\p{L}\p{N}_])(?:je|nous|on)\s+(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|prévois|prévoyons|compte|comptons|vais|allons)(?![\p{L}\p{N}_])/iu;
+const PROSPECTIVE_RESEARCH_ACTION = /(?:^|[^\p{L}\p{N}_])(?:étudier|évaluer|evaluer|mesurer|quantifier|détecter|detecter|suivre|observer|analyser|tester|comparer|recruter|recueillir|collecter)(?![\p{L}\p{N}_])/iu;
+const POPULATION_OR_GROUP_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:populations?|patients?|participants?|sujets?|groupes?|cohortes?)(?![\p{L}\p{N}_])/iu;
+const COMPARISON_OR_ENDPOINT_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:comparer|comparaison|versus|objectif|critère|endpoint|devenir|incidence|nombre|taux)(?![\p{L}\p{N}_])/iu;
+const METHOD_OR_DATA_COLLECTION_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:méthodes?|mesures?|recueillir|collecte|prélèvements?|imagerie|modalités?|données|questionnaires?|suivi|détecter|detecter|examens?)(?![\p{L}\p{N}_])/iu;
+
+const hasProspectiveStructuralStudyEvidence = (value: string) => {
+  if (!PROSPECTIVE_PLANNING.test(value) || !PROSPECTIVE_RESEARCH_ACTION.test(value)) return false;
+  const structuralSignalCount = [
+    POPULATION_OR_GROUP_EVIDENCE,
+    COMPARISON_OR_ENDPOINT_EVIDENCE,
+    METHOD_OR_DATA_COLLECTION_EVIDENCE,
+  ].filter((pattern) => pattern.test(value)).length;
+  return structuralSignalCount >= 3 && !EXPLICIT_UNDERSTANDING_REQUEST.test(value);
+};
 
 const hasExplicitStudyConstruction = (value: string) => EXPLICIT_STUDY_CONSTRUCTION.test(value)
   || EXPLICIT_STUDY_DESIGN.test(value)
@@ -89,14 +107,19 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
       reasons[route].push(reason);
     }
   };
-  add("UNDERSTAND", /\b(comprendre|expliquer|fonctionne|diff[ée]rences?|rôle|signifie|qu['’]est-ce)\b/, "La demande exprime un besoin de compréhension.", 3);
-  add("FORMALIZE_IDEA", /\b(id[ée]e|intuition|hypoth[èe]se|je pense|pourrait|d[ée]pend)\b/, "La demande formule une idée ou une hypothèse à structurer.", 3);
-  add("FORMALIZE_IDEA", /\b(je voudrais [ée]tudier|je cherche [àa] [ée]tudier|voir si|est-(?:il|elle) associ[ée]e?|pr[ée]dit)\b/, "La demande cherche à transformer une relation ou une finalité encore ouverte en question scientifique.", 3);
+  add("UNDERSTAND", EXPLICIT_UNDERSTANDING_REQUEST, "La demande exprime un besoin de compréhension.", 3);
+  add("FORMALIZE_IDEA", /(?:^|[^\p{L}\p{N}_])(?:idée|intuition|hypothèse|je\s+pense|pourrait|dépend)(?![\p{L}\p{N}_])/iu, "La demande formule une idée ou une hypothèse à structurer.", 3);
+  add("FORMALIZE_IDEA", /(?:^|[^\p{L}\p{N}_])(?:je\s+voudrais\s+étudier|je\s+cherche\s+à\s+étudier|voir\s+si|est-(?:il|elle)\s+associée?|prédit)(?![\p{L}\p{N}_])/iu, "La demande cherche à transformer une relation ou une finalité encore ouverte en question scientifique.", 3);
+  add("FORMALIZE_IDEA", VAGUE_FUTURE_IDEA, "La demande exprime une piste future encore insuffisamment structurée pour construire une étude.", 3);
   add("DESIGN_STUDY", EXPLICIT_STUDY_CONSTRUCTION, "La demande exprime explicitement la construction d’une étude ou d’un protocole.", 5);
   add("DESIGN_STUDY", EXPLICIT_STUDY_DESIGN, "La demande nomme explicitement une structure de design d’étude.", 3);
   add("DESIGN_STUDY", EXPLICIT_STUDY_MODIFICATION, "La demande exprime explicitement une modification d’étude ou de protocole.", 5);
-  add("DESIGN_STUDY", /\b(reproduire|auditer)\b/u, "La demande vise une opération explicite de construction ou d’évaluation d’étude.", 3);
-  add("DESIGN_STUDY", /\b(comparer|mesurer|quantifier|[ée]valuer|suivre|d[ée]tecter)\b/, "La demande porte une action de recherche à cadrer.", 2);
+  if (hasProspectiveStructuralStudyEvidence(corpus)) {
+    scores.DESIGN_STUDY += 4;
+    reasons.DESIGN_STUDY.push("La demande combine une action prospective de recherche avec des éléments de population, de comparaison ou critère, et de méthode ou collecte.");
+  }
+  add("DESIGN_STUDY", /(?:^|[^\p{L}\p{N}_])(?:reproduire|auditer)(?![\p{L}\p{N}_])/iu, "La demande vise une opération explicite de construction ou d’évaluation d’étude.", 3);
+  add("DESIGN_STUDY", /(?:^|[^\p{L}\p{N}_])(?:comparer|mesurer|quantifier|évaluer|evaluer|suivre|détecter|detecter)(?![\p{L}\p{N}_])/iu, "La demande porte une action de recherche à cadrer.", 2);
   if (hasExplicitComparisonRequest(corpus) && !hasExplicitStudyConstruction(corpus) && !/\b(reproduire|auditer)\b/u.test(corpus)) {
     scores.UNDERSTAND += 3;
     reasons.UNDERSTAND.push("La comparaison demande d’abord une compréhension structurée, sans construction de projet explicite.");

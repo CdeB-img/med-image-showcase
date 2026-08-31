@@ -138,6 +138,24 @@ describe("P1-BEHAVIOR-01A — executable behavioral contract", () => {
     expect(candidate).toMatchObject({ status: "CANDIDATE_PENDING_HUMAN_CONFIRMATION", projectWriteAuthorized: false });
   });
 
+  it.each([
+    "Nous souhaitons conduire une étude comparant deux populations avec une mesure principale.",
+    "Je voudrais définir un protocole de recherche avec deux groupes et une stratégie de mesure.",
+    "Nous allons recruter deux populations, comparer leurs résultats et recueillir une mesure pour répondre à notre objectif de recherche.",
+  ])("B01 — recognizes rich construction beyond one canonical wording: %s", (raw) => {
+    contractFor("B01");
+    const testCase = routed(raw, `B01-generalized:${raw}`);
+    const candidate = prepareResearchProjectContributionCandidate(richStudyContribution(), null);
+    expect(testCase.routing).toMatchObject({
+      routeIntent: "DESIGN_STUDY",
+      projectConstructionEligible: true,
+      projectWriteAuthorized: false,
+    });
+    expect(testCase.decision).toMatchObject({ owner: "QUERY_NAVIGATION", action: "PROPOSE", providerCalls: 0 });
+    expect(testCase.realization.assistantReply).not.toContain("?");
+    expect(candidate).toMatchObject({ status: "CANDIDATE_PENDING_HUMAN_CONFIRMATION", projectWriteAuthorized: false });
+  });
+
   it("B02 — keeps a genuinely sparse request sparse and permits the bounded generic response", () => {
     contractFor("B02");
     const testCase = routed("Je veux créer une étude.", "B02");
