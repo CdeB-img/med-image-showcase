@@ -422,7 +422,19 @@ const enrichLegacyProjection = (
     })),
     impactGraph: {
       ...projection.impactGraph,
-      nodes: snapshot.objects.map((object) => ({ nodeId: object.stableId, type: object.type, label: object.content, status: object.epistemicState, whyExists: `Canonical object ${object.versionRef}` })),
+      canonicalSource: true,
+      nodes: snapshot.objects.map((object) => ({
+        nodeId: object.stableId,
+        type: object.type,
+        label: object.content,
+        status: object.epistemicState,
+        whyExists: `Canonical object ${object.versionRef}`,
+        versionRef: object.versionRef,
+        scientificRole: object.scientificRole,
+        epistemicState: object.epistemicState,
+        sourceRefs: uniqueSorted([object.stableId, object.versionRef, object.sourceContributionRef, ...object.sourceItemRefs]),
+        canonicalType: object.type,
+      })),
       edges: snapshot.relations.map((relation) => ({ edgeId: relation.stableId, from: relation.sourceProjectRef, to: relation.targetProjectRef, relation: relation.type })),
     },
     candidateVersion: {

@@ -260,7 +260,21 @@ export type ResearchProjectDesignResult = {
   dependencies: Array<{ dependencyId: string; from: string; to: string; reason: string; changeEffect: ProjectImpactState }>;
   impactGraph: {
     ontologyStatus: "NO_NEW_ONTOLOGY_RUNTIME_PROJECTION";
-    nodes: Array<{ nodeId: string; type: string; label: string; status: string; whyExists: string }>;
+    nodes: Array<{
+      nodeId: string;
+      type: string;
+      label: string;
+      status: string;
+      whyExists: string;
+      /** Read-only canonical metadata available to compatibility consumers. */
+      versionRef?: string;
+      sectionId?: string;
+      scientificRole?: string | null;
+      epistemicState?: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD";
+      sourceRefs?: string[];
+      canonicalType?: string;
+    }>;
+    canonicalSource?: true;
     edges: Array<{ edgeId: string; from: string; to: string; relation: string }>;
     changes: ProjectChange[];
     impacts: ProjectImpact[];

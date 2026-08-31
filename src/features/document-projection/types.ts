@@ -57,11 +57,16 @@ export type ProjectionOwnership = {
   editorialForm: "DOC-001";
 };
 
-export type DeclarativePredicate = {
+export type AtomicDeclarativePredicate = {
   kind: "ROOT_PATH_EQUALS" | "ROOT_PATH_NOT_EQUALS" | "ROOT_PATH_NON_EMPTY" | "ITEM_FIELD_EQUALS" | "ITEM_FIELD_NOT_EQUALS" | "ITEM_EQUALS_ROOT" | "ITEM_NOT_EQUALS_ROOT";
   path: string;
   value?: string;
   rootPath?: string;
+};
+
+export type DeclarativePredicate = AtomicDeclarativePredicate | {
+  kind: "ALL";
+  predicates: AtomicDeclarativePredicate[];
 };
 
 export type CommitmentRule =
@@ -302,6 +307,7 @@ export type DocumentProjection = {
       templateDefinitionDigest: string;
       templateInstanceId: string;
       templateInstanceDigest: string;
+      requestedDetailLevel?: StudyTemplateInstance["requestedDetailLevel"];
     };
     regulatoryResolution: null | RegulatoryResolutionReference;
     documentaryPatternSnapshot: null | DocumentaryPatternSnapshotReference;

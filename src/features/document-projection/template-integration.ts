@@ -284,6 +284,7 @@ export const projectDocumentFromStudyTemplate = (request: DocumentProjectionRequ
       templateDefinitionDigest: request.templateContext.definition.digest,
       templateInstanceId: request.templateContext.instance.instanceId,
       templateInstanceDigest: request.templateContext.instance.digest,
+      requestedDetailLevel: request.templateContext.instance.requestedDetailLevel,
     },
     regulatoryResolution: { ...request.regulatoryResolutionRef },
     documentaryPatternSnapshot: { ...request.documentaryPatternSnapshotRef },

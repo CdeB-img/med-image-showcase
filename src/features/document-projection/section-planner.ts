@@ -14,6 +14,7 @@ const equal = (value: unknown, expected?: string) => expected === "__NULL__" ? v
 
 const predicateMatches = (predicate: DeclarativePredicate | undefined, root: Readonly<ResearchProjectDesignResult>, item: unknown) => {
   if (!predicate) return true;
+  if (predicate.kind === "ALL") return predicate.predicates.every((candidate) => predicateMatches(candidate, root, item));
   const itemValue = resolvePath(item, predicate.path);
   const rootValue = resolvePath(root, predicate.path);
   switch (predicate.kind) {

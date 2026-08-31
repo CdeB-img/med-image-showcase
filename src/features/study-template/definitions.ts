@@ -59,6 +59,7 @@ const SHARED_BLOCK_SPECS: SharedBlockSpec[] = [
   { id: "STUDY_DESIGN", label: "Study design candidates and decision", kind: "REQUIRED_BLOCK", selector: "STUDY_DESIGN" },
   { id: "ENDPOINTS", label: "Endpoint structure", kind: "CONDITIONAL_BLOCK", selector: "ENDPOINTS" },
   { id: "IMAGING_CONTRIBUTION", label: "Imaging contribution", kind: "CONDITIONAL_BLOCK", selector: "IMAGING", categories: ["Imaging", "Acquisition", "CoreLab"] },
+  { id: "BIOSPECIMENS", label: "Biospecimen and material collection", kind: "CONDITIONAL_BLOCK", selector: "BIOSPECIMENS", categories: ["Project", "Data"] },
   { id: "REQUIREMENT_REGISTER", label: "Applicable requirement register", kind: "TABLE", selector: "REG_REQUIREMENTS", categories: ["Regulatory Interaction", "Document Structure"] },
   { id: "DEPENDENCY_WORKFLOW", label: "Dependency workflow", kind: "WORKFLOW", selector: "DEPENDENCIES", categories: ["Workflow", "Project"] },
   { id: "HUMAN_DECISIONS", label: "Human decision trace", kind: "DECISION", selector: "HUMAN_DECISIONS", categories: ["Human Decision", "Decision"] },

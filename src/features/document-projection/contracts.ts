@@ -31,6 +31,7 @@ function commitment(value: "CONFIRMED" | "ADOPTED" | "CANDIDATE" | "REQUIREMENT"
   return { kind: "STATIC", value };
 }
 const reviewCommitment: CommitmentRule = { kind: "FIELD_MAP", path: "reviewState", map: { ADOPTED: "ADOPTED", PENDING: "CANDIDATE", REJECTED: "REJECTED" }, fallback: "CANDIDATE" };
+const epistemicCommitment: CommitmentRule = { kind: "FIELD_MAP", path: "epistemicState", map: { KNOWN: "ADOPTED", ASSUMED: "CANDIDATE", UNKNOWN: "UNKNOWN", WITHHELD: "UNKNOWN" }, fallback: "UNKNOWN" };
 const statusCommitment: CommitmentRule = { kind: "FIELD_MAP", path: "status", map: { APPROVED: "ADOPTED", PENDING: "UNKNOWN", REJECTED: "REJECTED" }, fallback: "UNKNOWN" };
 const fact = (select: string, label: string, template: string, sourceKind: string, commitmentRule: CommitmentRule, sourceIdPath?: string, includeWhen?: FactDefinition["includeWhen"]): FactDefinition => ({ select, label, template, sourceKind, commitment: commitmentRule, sourceIdPath, includeWhen });
 const text = (select: string, template = "{{value}}", includeWhen?: TextDefinition["includeWhen"]): TextDefinition => ({ select, template, includeWhen });
@@ -55,13 +56,16 @@ const section = (definition: SectionDefinition): SectionDefinition => Object.fre
 const protocolSections: SectionDefinition[] = [
   section({
     sectionId: "document-control", title: "Identification et contrôle documentaire", order: 1, intent: "TRACE", pattern: "IDENTITY",
-    sourcePaths: ["documentHandoff", "candidateVersion", "provenance"], requiredObjectKinds: ["ResearchProjectVersion"], optionalObjectKinds: [], dependencyTypes: ["SOURCE_VERSION"], specializedEngine: null,
+    sourcePaths: ["documentHandoff", "candidateVersion", "provenance", "impactGraph.nodes"], requiredObjectKinds: ["ResearchProjectVersion"], optionalObjectKinds: ["WorkingTitle"], dependencyTypes: ["SOURCE_VERSION"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability({ minimumFacts: 4 }),
     facts: [
       fact("$root", "Projet source", "{{root.documentHandoff.projectId}}", "ResearchProject", commitment("CONFIRMED"), "documentHandoff.projectId"),
       fact("$root", "Version source gelée", "{{root.candidateVersion.versionId}}", "ResearchProjectVersion", commitment("CONFIRMED"), "candidateVersion.versionId"),
       fact("$root", "Digest source", "{{root.resultDigest}}", "ResearchProjectVersion", commitment("CONFIRMED"), "candidateVersion.versionId"),
       fact("$root", "Handoff documentaire", "{{root.documentHandoff.status}}", "DocumentHandoff", commitment("ADOPTED"), "documentHandoff.candidateVersionRef"),
+      fact("impactGraph.nodes[]", "Titre de travail", "{{label}}", "WorkingTitle", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "scientificRole", value: "WORKING_TITLE" }),
+      fact("impactGraph.nodes[]", "Titre de travail", "{{label}}", "WorkingTitle", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "scientificRole", value: "PROJECT_TITLE" }),
+      fact("impactGraph.nodes[]", "Titre de travail", "{{label}}", "WorkingTitle", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "scientificRole", value: "TITLE" }),
       fact("$root", "Frontière", "Projection en lecture seule ; ni vérité du projet, ni protocole clinique exécutable.", "DOC-001", commitment("LIMITATION")),
     ], unknowns: [], limitations: [], contradictions: [], decisionGateIds: [],
   }),
@@ -88,9 +92,14 @@ const protocolSections: SectionDefinition[] = [
     sourcePaths: ["objectives", "hypotheses"], requiredObjectKinds: [], optionalObjectKinds: ["Objective", "Hypothesis"], dependencyTypes: ["SCIENTIFIC_STRUCTURE"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability({ partialWhenUnknowns: true }),
     facts: [
-      fact("objectives[]", "Objectif {{level}}", "{{text}}", "Objective", reviewCommitment, "objectiveId"),
-      fact("hypotheses[]", "Hypothèse {{kind}}", "{{text}}", "Hypothesis", reviewCommitment, "hypothesisId"),
-    ], unknowns: [text("$root", "Aucun Objectif source n’est disponible.", { kind: "ROOT_PATH_EQUALS", path: "objectives", value: "__EMPTY__" })], limitations: [], contradictions: [], decisionGateIds: [],
+      fact("impactGraph.nodes[]", "Objectif {{scientificRole}}", "{{label}}", "Objective", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "canonicalType", value: "OBJECTIVE" }),
+      fact("impactGraph.nodes[]", "Hypothèse {{scientificRole}}", "{{label}}", "Hypothesis", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "canonicalType", value: "HYPOTHESIS" }),
+      fact("objectives[]", "Objectif {{level}}", "{{text}}", "Objective", reviewCommitment, "objectiveId", { kind: "ROOT_PATH_NOT_EQUALS", path: "impactGraph.canonicalSource", value: "true" }),
+      fact("hypotheses[]", "Hypothèse {{kind}}", "{{text}}", "Hypothesis", reviewCommitment, "hypothesisId", { kind: "ROOT_PATH_NOT_EQUALS", path: "impactGraph.canonicalSource", value: "true" }),
+    ], unknowns: [text("$root", "Aucun Objectif source n’est disponible.", { kind: "ALL", predicates: [
+      { kind: "ROOT_PATH_NOT_EQUALS", path: "impactGraph.canonicalSource", value: "true" },
+      { kind: "ROOT_PATH_EQUALS", path: "objectives", value: "__EMPTY__" },
+    ] })], limitations: [], contradictions: [], decisionGateIds: [],
   }),
   section({
     sectionId: "population", title: "Population scientifique", order: 5, intent: "JUSTIFY", pattern: "SYNTHESIS",
@@ -108,6 +117,7 @@ const protocolSections: SectionDefinition[] = [
     sourcePaths: ["studyDesignCandidates", "selectedStudyDesignCandidate", "multicenterAssessment"], requiredObjectKinds: [], optionalObjectKinds: ["StudyDesign"], dependencyTypes: ["STUDY_DESIGN_DECISION"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability({ partialWhenPendingDecisions: true }),
     facts: [
+      fact("impactGraph.nodes[]", "Caractéristique de design confirmée", "{{label}}", "StudyDesign", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "canonicalType", value: "STUDY_DESIGN" }),
       fact("studyDesignCandidates[]", "Plan adopté", "{{label}} — {{whyItAnswersQuestion}}", "StudyDesign", commitment("ADOPTED"), "designId", { kind: "ITEM_EQUALS_ROOT", path: "designId", rootPath: "selectedStudyDesignCandidate.designId" }),
       fact("studyDesignCandidates[]", "Alternative candidate", "{{label}} — {{whyItAnswersQuestion}}", "StudyDesign", commitment("CANDIDATE"), "designId", { kind: "ITEM_NOT_EQUALS_ROOT", path: "designId", rootPath: "selectedStudyDesignCandidate.designId" }),
       fact("multicenterAssessment", "Caractéristique de design confirmée", "{{declaredMode}}", "StudyDesign", commitment("CONFIRMED"), undefined, { kind: "ITEM_FIELD_NOT_EQUALS", path: "declaredMode", value: "__EMPTY__" }),
@@ -137,8 +147,10 @@ const protocolSections: SectionDefinition[] = [
     sourcePaths: ["endpointCandidates", "variables", "measurementDependencies"], requiredObjectKinds: [], optionalObjectKinds: ["Endpoint", "Variable"], dependencyTypes: ["PRIMARY_ENDPOINT_DECISION"], specializedEngine: null,
     applicability: { kind: "WHEN_ANY_NON_EMPTY", paths: ["endpointCandidates", "variables"], whenPresent: "CONDITIONALLY_APPLICABLE", whenAbsent: "APPLICABILITY_UNKNOWN" }, generability: generability({ partialWhenUnknowns: true, partialWhenPendingDecisions: true }),
     facts: [
-      fact("endpointCandidates[]", "Critère {{proposedRole}}", "{{label}} — {{justification}}", "Endpoint", { kind: "ROOT_GATE", gateId: "PRJ-GATE-PRIMARY-ENDPOINT", map: { APPROVED: "ADOPTED", PENDING: "CANDIDATE", REJECTED: "REJECTED" }, fallback: "CANDIDATE" }, "endpointId"),
-      fact("variables[]", "Variable {{role}}", "{{definition}}", "Variable", { kind: "FIELD_MAP", path: "knowledgeStatus", map: { KNOWN: "CANDIDATE", PARTIAL: "UNKNOWN", UNKNOWN: "UNKNOWN" }, fallback: "UNKNOWN" }, "variableId"),
+      fact("impactGraph.nodes[]", "Critère {{scientificRole}}", "{{label}}", "Endpoint", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "canonicalType", value: "ENDPOINT" }),
+      fact("impactGraph.nodes[]", "Mesure {{scientificRole}}", "{{label}}", "Variable", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "canonicalType", value: "CANONICAL_VARIABLE" }),
+      fact("endpointCandidates[]", "Critère {{proposedRole}}", "{{label}} — {{justification}}", "Endpoint", { kind: "ROOT_GATE", gateId: "PRJ-GATE-PRIMARY-ENDPOINT", map: { APPROVED: "ADOPTED", PENDING: "CANDIDATE", REJECTED: "REJECTED" }, fallback: "CANDIDATE" }, "endpointId", { kind: "ROOT_PATH_NOT_EQUALS", path: "impactGraph.canonicalSource", value: "true" }),
+      fact("variables[]", "Variable {{role}}", "{{definition}}", "Variable", { kind: "FIELD_MAP", path: "knowledgeStatus", map: { KNOWN: "CANDIDATE", PARTIAL: "UNKNOWN", UNKNOWN: "UNKNOWN" }, fallback: "UNKNOWN" }, "variableId", { kind: "ROOT_PATH_NOT_EQUALS", path: "impactGraph.canonicalSource", value: "true" }),
     ], unknowns: [text("variables[]", "{{definition}} : connaissance {{knowledgeStatus}}", { kind: "ITEM_FIELD_NOT_EQUALS", path: "knowledgeStatus", value: "KNOWN" })], limitations: [text("endpointCandidates[]", "{{limitations}}")], contradictions: [], decisionGateIds: ["PRJ-GATE-PRIMARY-ENDPOINT"],
   }),
   section({
@@ -156,7 +168,15 @@ const protocolSections: SectionDefinition[] = [
     ], unknowns: [], limitations: [text("imagingContribution.limitations[]"), text("imagingContribution.requiredFutureReviews[]")], contradictions: [], staticLimitations: ["Aucun paramètre constructeur ni protocole d’acquisition exécutable n’est produit par DOC-001."], decisionGateIds: [],
   }),
   section({
-    sectionId: "analysis-statistics", title: "Exigences d’analyse et statistiques", order: 11, intent: "BOUND", pattern: "REQUIREMENT_REGISTER",
+    sectionId: "biospecimens", title: "Prélèvements / échantillons", order: 11, intent: "DECLARE", pattern: "ENUMERATION",
+    sourcePaths: ["impactGraph.nodes"], requiredObjectKinds: [], optionalObjectKinds: ["BiospecimenMaterialCollection"], dependencyTypes: ["STUDY_DESIGN"], specializedEngine: null,
+    applicability: { kind: "WHEN_ANY_NON_EMPTY", paths: ["impactGraph.nodes"], whenPresent: "CONDITIONALLY_APPLICABLE", whenAbsent: "APPLICABILITY_UNKNOWN" }, generability: generability(),
+    facts: [
+      fact("impactGraph.nodes[]", "Prélèvement / échantillon", "{{label}}", "BiospecimenMaterialCollection", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "scientificRole", value: "SAMPLE_COLLECTION" }),
+    ], unknowns: [], limitations: [], contradictions: [], decisionGateIds: [],
+  }),
+  section({
+    sectionId: "analysis-statistics", title: "Exigences d’analyse et statistiques", order: 12, intent: "BOUND", pattern: "REQUIREMENT_REGISTER",
     sourcePaths: ["analysisRequirements", "biostatisticsRequirements", "sizingRequirements"], requiredObjectKinds: [], optionalObjectKinds: ["AnalysisRequirement"], dependencyTypes: ["BIOSTATISTICS_REVIEW"], specializedEngine: "Biostatistics Engine",
     applicability: { kind: "WHEN_ANY_NON_EMPTY", paths: ["analysisRequirements", "endpointCandidates"], whenPresent: "CONDITIONALLY_APPLICABLE", whenAbsent: "APPLICABILITY_UNKNOWN" }, generability: generability({ requirementsOnly: true, partialWhenUnknowns: true }),
     facts: [
@@ -166,13 +186,13 @@ const protocolSections: SectionDefinition[] = [
     ], unknowns: [text("biostatisticsRequirements.unknownAssumptions[]"), text("biostatisticsRequirements.missingNumericalInputs[]"), text("sizingRequirements.inputs[]", "{{name}} : {{reason}}")], limitations: [], contradictions: [], staticLimitations: ["Aucun modèle statistique, nombre de sujets, puissance ou valeur numérique n’est inventé."], decisionGateIds: [],
   }),
   section({
-    sectionId: "data-management", title: "Exigences de Data Management", order: 12, intent: "BOUND", pattern: "REQUIREMENT_REGISTER",
+    sectionId: "data-management", title: "Exigences de Data Management", order: 13, intent: "BOUND", pattern: "REQUIREMENT_REGISTER",
     sourcePaths: ["dataManagementRequirements"], requiredObjectKinds: [], optionalObjectKinds: ["DataRequirement"], dependencyTypes: ["DATA_REVIEW"], specializedEngine: "Data Management Engine",
     applicability: { kind: "WHEN_ANY_NON_EMPTY", paths: ["dataManagementRequirements"], whenPresent: "CONDITIONALLY_APPLICABLE", whenAbsent: "APPLICABILITY_UNKNOWN" }, generability: generability({ requirementsOnly: true, partialWhenUnknowns: true }),
     facts: [fact("dataManagementRequirements[]", "Exigence {{kind}}", "{{reason}}", "DataRequirement", commitment("REQUIREMENT"), "requirementId")], unknowns: [text("$root", "Les exigences Data Management spécialisées ne sont pas disponibles.", { kind: "ROOT_PATH_EQUALS", path: "dataManagementRequirements", value: "__EMPTY__" })], limitations: [], contradictions: [], staticLimitations: ["Aucune procédure Data Management, CRF ou Data Dictionary n’est déduite de ces exigences."], decisionGateIds: [],
   }),
   section({
-    sectionId: "safety-regulatory-operations", title: "Questions de sécurité, réglementation et opérations", order: 13, intent: "BOUND", pattern: "REQUIREMENT_REGISTER",
+    sectionId: "safety-regulatory-operations", title: "Questions de sécurité, réglementation et opérations", order: 14, intent: "BOUND", pattern: "REQUIREMENT_REGISTER",
     sourcePaths: ["safetyQuestions", "regulatoryQuestions", "operationsQuestions", "economicsQuestions"], requiredObjectKinds: [], optionalObjectKinds: ["SpecializedQuestion"], dependencyTypes: ["SPECIALIZED_REVIEW"], specializedEngine: "Specialized domain engines",
     applicability: { kind: "WHEN_ANY_NON_EMPTY", paths: ["safetyQuestions", "regulatoryQuestions", "operationsQuestions", "economicsQuestions"], whenPresent: "CONDITIONALLY_APPLICABLE", whenAbsent: "APPLICABILITY_UNKNOWN" }, generability: generability({ requirementsOnly: true, alwaysPartialWhenFacts: true }),
     facts: [
@@ -183,7 +203,7 @@ const protocolSections: SectionDefinition[] = [
     ], unknowns: [text("safetyQuestions[]", "Sécurité : {{status}}"), text("regulatoryQuestions[]", "Réglementation : {{status}}"), text("operationsQuestions[]", "Opérations : {{status}}"), text("economicsQuestions[]", "Économie : {{status}}")], limitations: [], contradictions: [], staticLimitations: ["Aucune réponse réglementaire, de sécurité, opérationnelle ou économique n’est inventée."], decisionGateIds: [],
   }),
   section({
-    sectionId: "risks-biases-limitations", title: "Risques, biais et limitations", order: 14, intent: "BOUND", pattern: "ENUMERATION",
+    sectionId: "risks-biases-limitations", title: "Risques, biais et limitations", order: 15, intent: "BOUND", pattern: "ENUMERATION",
     sourcePaths: ["risks", "biases", "confounders", "limitations"], requiredObjectKinds: [], optionalObjectKinds: ["Risk", "Bias", "Confounder", "Limitation"], dependencyTypes: ["LIMITATIONS_DECISION"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability({ partialWhenPendingDecisions: true }),
     facts: [
@@ -191,10 +211,11 @@ const protocolSections: SectionDefinition[] = [
       fact("biases[]", "Biais", "{{label}} — {{justification}}", "Bias", commitment("CANDIDATE"), "biasId"),
       fact("confounders[]", "Facteur de confusion candidat", "{{label}} — {{whyPlausible}}", "Confounder", commitment("CANDIDATE"), "confounderId"),
       fact("limitations[]", "Limitation source", "{{value}}", "Limitation", commitment("LIMITATION")),
+      fact("impactGraph.nodes[]", "Élément à préciser", "{{label}}", "ProjectUnknown", epistemicCommitment, "versionRef", { kind: "ITEM_FIELD_EQUALS", path: "canonicalType", value: "UNCERTAINTY" }),
     ], unknowns: [], limitations: [], contradictions: [], decisionGateIds: ["PRJ-GATE-LIMITATIONS"],
   }),
   section({
-    sectionId: "open-elements", title: "Décisions humaines, inconnues et contradictions", order: 15, intent: "BOUND", pattern: "TRACE_REGISTER",
+    sectionId: "open-elements", title: "Décisions humaines, inconnues et contradictions", order: 16, intent: "BOUND", pattern: "TRACE_REGISTER",
     sourcePaths: ["decisionsRequired", "missingInformation", "contradictions", "candidateVersion"], requiredObjectKinds: [], optionalObjectKinds: ["Decision", "Unknown", "Contradiction"], dependencyTypes: ["HUMAN_DECISION"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability({ minimumFacts: 0, partialWhenUnknowns: true, partialWhenPendingDecisions: true, blockWhenContradictions: true }),
     facts: [
@@ -204,7 +225,7 @@ const protocolSections: SectionDefinition[] = [
     ], unknowns: [text("missingInformation[]"), text("candidateVersion.unknowns[]")], limitations: [], contradictions: [text("contradictions[]"), text("candidateVersion.contradictions[]")], decisionGateIds: ["*"],
   }),
   section({
-    sectionId: "provenance-version", title: "Provenance, versions et historique", order: 16, intent: "TRACE", pattern: "TRACE_REGISTER",
+    sectionId: "provenance-version", title: "Provenance, versions et historique", order: 17, intent: "TRACE", pattern: "TRACE_REGISTER",
     sourcePaths: ["provenance", "trace", "candidateVersion", "documentHandoff"], requiredObjectKinds: ["Provenance", "SourceVersion"], optionalObjectKinds: [], dependencyTypes: ["TRACEABILITY"], specializedEngine: null,
     applicability: { kind: "ALWAYS", value: "APPLICABLE" }, generability: generability({ minimumFacts: 3 }),
     facts: [
@@ -242,6 +263,7 @@ export const PROTOCOL_TEMPLATE_SECTION_BINDINGS: Readonly<Record<string, readonl
   "visits-temporal": ["TMP-NODE:STUDY_DESIGN"],
   "endpoints-variables": ["TMP-NODE:ENDPOINTS"],
   imaging: ["TMP-NODE:IMAGING_CONTRIBUTION"],
+  biospecimens: ["TMP-NODE:BIOSPECIMENS"],
   "analysis-statistics": ["TMP-NODE:REQUIREMENT_REGISTER", "TMP-NODE:FUTURE_SPECIALIZED_INPUTS"],
   "data-management": ["TMP-NODE:REQUIREMENT_REGISTER", "TMP-NODE:FUTURE_SPECIALIZED_INPUTS"],
   "safety-regulatory-operations": ["TMP-NODE:REQUIREMENT_REGISTER", "TMP-NODE:FUTURE_SPECIALIZED_INPUTS"],

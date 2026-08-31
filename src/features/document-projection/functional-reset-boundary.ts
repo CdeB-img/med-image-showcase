@@ -16,6 +16,11 @@ import type {
   ResearchProjectOwnerProjection,
   ResearchProjectSectionId,
 } from "@/features/research-project-construction";
+import {
+  buildProjectContextSnapshot,
+  ensureCanonicalProjectState,
+  type CanonicalProjectObjectVersion,
+} from "@/features/research-project-construction";
 import { CLINICAL_STUDY_TEMPLATE, composeStudyTemplateInstance } from "@/features/study-template";
 import { projectDocumentFromStudyTemplate, resolveTemplateDocumentDefinitions } from "./template-integration";
 import type {
@@ -69,7 +74,22 @@ const elements = (project: ResearchProjectOwnerProjection, sectionId: ResearchPr
 const typeOf = (element: ResearchProjectElement) => `${element.sourceProposedType ?? ""} ${element.sourceStudyRole ?? ""}`.toLocaleUpperCase("fr-FR");
 const hasType = (element: ResearchProjectElement, pattern: RegExp) => pattern.test(typeOf(element));
 const refs = (element: ResearchProjectElement) => uniqueSorted([element.elementId, ...element.sourceItemIds, ...element.sourceTurnIds]);
-const allElements = (project: ResearchProjectOwnerProjection) => project.sections.flatMap((section) => section.elements);
+
+const canonicalRefs = (object: CanonicalProjectObjectVersion) => uniqueSorted([
+  object.objectId,
+  object.objectVersionId,
+  object.sourceContributionRef,
+  ...object.sourceItemRefs,
+  ...object.decisionRefs,
+]);
+
+const endpointRole = (scientificRole: string | null): ResearchProjectDesignResult["endpointCandidates"][number]["proposedRole"] => {
+  const role = scientificRole?.toLocaleUpperCase("en-US") ?? "";
+  if (role.includes("PRIMARY")) return "PRIMARY_CANDIDATE";
+  if (role.includes("SECONDARY")) return "SECONDARY_CANDIDATE";
+  if (role.includes("EXPLORATORY")) return "EXPLORATORY_CANDIDATE";
+  return "UNDECIDED_CANDIDATE";
+};
 
 const temporalRoleFor = (element: ResearchProjectElement): ResearchProjectDesignResult["visits"][number]["temporalRole"] => {
   if (element.semanticKey?.endsWith(":INITIAL")) return "BASELINE";
@@ -98,53 +118,62 @@ export const projectDocumentSourceFromFunctionalProject = (
   project: Readonly<ResearchProjectOwnerProjection>,
   handoffDecision: Readonly<HumanDecisionEnvelope> | null,
 ): ResearchProjectDesignResult => {
+  const canonicalState = ensureCanonicalProjectState(project);
+  const canonicalSnapshot = buildProjectContextSnapshot({ project });
+  const canonicalObjects = canonicalState.objects.filter((object) => object.actuality === "CURRENT");
+  const canonicalOfType = (...types: CanonicalProjectObjectVersion["objectType"][]) => canonicalObjects.filter((object) => types.includes(object.objectType));
+  const canonicalQuestion = canonicalOfType("SCIENTIFIC_QUESTION")[0] ?? null;
+  const canonicalPopulation = canonicalOfType("CONDITION", "POPULATION", "ELIGIBILITY_CRITERION");
+  const canonicalDesign = canonicalOfType("STUDY_DESIGN");
+  const canonicalImaging = canonicalOfType("IMAGING_MODALITY", "ACQUISITION")
+    .filter((object) => object.scientificRole !== "SAMPLE_COLLECTION");
+  const canonicalEndpoints = canonicalOfType("ENDPOINT");
+  const canonicalVariables = canonicalOfType("CANONICAL_VARIABLE");
+  const canonicalAnalysis = canonicalOfType("ANALYSIS_SPECIFICATION");
+  const canonicalDataNeeds = canonicalOfType("DATA_NEED");
   const questionElements = elements(project, "QUESTION");
-  const populationElements = elements(project, "POPULATION");
-  const designElements = elements(project, "DESIGN");
   const interventionElements = elements(project, "INTERVENTION");
   const comparatorElements = elements(project, "COMPARATOR");
-  const imagingElements = elements(project, "IMAGING");
-  const measurementElements = elements(project, "MEASUREMENTS");
   const timingElements = elements(project, "TEMPORALITY");
   const analysisElements = elements(project, "ANALYSIS");
   const confirmedHandoff = handoffDecision?.status === "ADOPTED" && handoffDecision.projectVersion === project.versionId;
   const populationId = `${project.projectId}:population`;
-  const questionId = questionElements[0]?.elementId ?? `${project.projectId}:question`;
+  const questionId = canonicalQuestion?.objectId ?? questionElements[0]?.elementId ?? `${project.projectId}:question`;
   const missing = missingFromProject(project);
-  const conditionOrPathology = populationElements.filter((item) => hasType(item, /CONDITION|DISEASE|PATHOLOGY/)).map((item) => item.content);
-  const requiredCharacteristics = populationElements.filter((item) => hasType(item, /POPULATION|ELIGIBILITY|CRITERION|DEMOGRAPHIC|AGE/)).map((item) => item.content);
-  const clinicalContext = populationElements.filter((item) => !conditionOrPathology.includes(item.content) && !requiredCharacteristics.includes(item.content)).map((item) => item.content);
-  const modalityElements = imagingElements.filter((item) => hasType(item, /MODALITY|IMAGING_METHOD|ACQUISITION/));
+  const conditionOrPathology = canonicalPopulation.filter((item) => item.objectType === "CONDITION").map((item) => item.content);
+  const requiredCharacteristics = canonicalPopulation.filter((item) => item.objectType === "ELIGIBILITY_CRITERION").map((item) => item.content);
+  const clinicalContext = canonicalPopulation.filter((item) => item.objectType === "POPULATION").map((item) => item.content);
+  const modalityElements = canonicalImaging;
   const imagingResponsibility = project.specializedResponsibilities.find((item) => item.owner === "IMAGING");
   const statisticsResponsibility = project.specializedResponsibilities.find((item) => item.owner === "BIOSTATISTICS");
-  const variables = measurementElements.map((item) => ({
-    variableId: item.elementId,
+  const variables = canonicalVariables.map((item) => ({
+    variableId: item.objectId,
     definition: item.content,
     source: "USER_PROVIDED" as const,
-    sourceRef: item.sourceItemIds[0] ?? item.elementId,
+    sourceRef: item.objectVersionId,
     role: "MEASUREMENT_CANDIDATE" as const,
     timingIds: timingElements.map((timing) => timing.elementId),
-    endpointIds: hasType(item, /ENDPOINT|OUTCOME/) ? [item.elementId] : [],
-    analysisRequirementIds: analysisElements.map((analysis) => analysis.elementId),
+    endpointIds: [],
+    analysisRequirementIds: canonicalAnalysis.map((analysis) => analysis.objectId),
     qualityRequirements: [],
-    provenance: refs(item),
-    knowledgeStatus: "KNOWN" as const,
+    provenance: canonicalRefs(item),
+    knowledgeStatus: item.epistemicState === "KNOWN" ? "KNOWN" as const : item.epistemicState === "ASSUMED" ? "PARTIAL" as const : "UNKNOWN" as const,
     finalDataDictionaryName: null,
   }));
-  const endpoints = measurementElements.filter((item) => hasType(item, /ENDPOINT|OUTCOME/)).map((item) => ({
-    endpointId: item.elementId,
+  const endpoints = canonicalEndpoints.map((item) => ({
+    endpointId: item.objectId,
     label: item.content,
-    proposedRole: "UNDECIDED_CANDIDATE" as const,
+    proposedRole: endpointRole(item.scientificRole),
     questionId,
     objectiveIds: [],
     hypothesisIds: [],
-    variableIds: [item.elementId],
+    variableIds: [],
     populationId,
     timingIds: timingElements.map((timing) => timing.elementId),
-    analysisRequirementIds: analysisElements.map((analysis) => analysis.elementId),
+    analysisRequirementIds: canonicalAnalysis.map((analysis) => analysis.objectId),
     measurementMethod: "",
-    justification: "Critère explicitement exprimé et confirmé comme information de travail ; son rôle final reste à décider.",
-    limitations: ["Le rôle principal, secondaire ou exploratoire n’est pas adopté."],
+    justification: "Critère canonique lu sans promotion ni changement de rôle.",
+    limitations: item.scientificRole ? [] : ["Le rôle principal, secondaire ou exploratoire reste non spécifié."],
     humanDecisionRequired: true as const,
   }));
   const interventionGroups = interventionElements.map((item) => ({
@@ -172,12 +201,15 @@ export const projectDocumentSourceFromFunctionalProject = (
   const compatibilityLimitation = "Adaptation de lecture PRJ-001 : le snapshot est immuable pour DOC, sans gel scientifique supplémentaire ni promotion canonique du Research Project.";
   const projectLimitations = uniqueSorted([
     compatibilityLimitation,
-    ...(!imagingElements.length ? ["Le contrat PRJ-001 historique ne possède pas d’état Imaging non qualifié ; l’adaptateur conserve donc l’applicabilité comme inconnue et n’affirme pas une non-applicabilité."] : []),
+    ...(!canonicalImaging.length ? ["Le contrat PRJ-001 historique ne possède pas d’état Imaging non qualifié ; l’adaptateur conserve donc l’applicabilité comme inconnue et n’affirme pas une non-applicabilité."] : []),
     "Les champs booléens historiques non qualifiables par le Project minimal ne doivent pas être interprétés comme des décisions scientifiques.",
     ...project.specializedResponsibilities.filter((item) => item.state === "PENDING_SPECIALIST_CONTRIBUTION").map((item) => item.retainedResponsibility),
   ]);
-  const objectRefs = uniqueSorted(allElements(project).map((item) => item.elementId));
-  const projectionMissing = uniqueSorted([...missing, ...specializedRequirements]);
+  const issueReasons = (kind: (typeof canonicalSnapshot.openIssues)[number]["kind"]) => canonicalSnapshot.openIssues
+    .filter((issue) => issue.kind === kind)
+    .map((issue) => issue.reason);
+  const objectRefs = uniqueSorted(canonicalObjects.flatMap(canonicalRefs));
+  const projectionMissing = uniqueSorted([...missing, ...specializedRequirements, ...issueReasons("UNKNOWN"), ...issueReasons("AMBIGUITY")]);
 
   return {
     contractVersion: project.contractVersion,
@@ -188,9 +220,11 @@ export const projectDocumentSourceFromFunctionalProject = (
     projectionNotice: "RUNTIME_PROJECT_PROJECTION_DOES_NOT_OWN_CANONICAL_TRUTH",
     scientificQuestion: {
       questionId,
-      text: questionElements[0]?.content ?? "",
+      text: canonicalQuestion?.content ?? questionElements[0]?.content ?? "",
       confirmation: "HUMAN_CONFIRMED",
     },
+    // Untyped canonical objectives and hypotheses are transported through the
+    // existing compatibility graph below, rather than assigned a legacy role.
     objectives: [],
     hypotheses: [],
     populationDesign: {
@@ -214,8 +248,8 @@ export const projectDocumentSourceFromFunctionalProject = (
         })),
       },
       justification: "Population composée uniquement depuis les informations confirmées dans le Project.",
-      sourceRefs: uniqueSorted(populationElements.flatMap(refs)),
-      missingInformation: populationElements.length ? [] : ["La population scientifique reste à préciser."],
+      sourceRefs: uniqueSorted(canonicalPopulation.flatMap(canonicalRefs)),
+      missingInformation: canonicalPopulation.length ? [] : ["La population scientifique reste à préciser."],
       reviewState: "ADOPTED",
     },
     studyDesignCandidates: [],
@@ -238,7 +272,7 @@ export const projectDocumentSourceFromFunctionalProject = (
       hypothesisIds: [],
       endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
       measurementIds: variables.map((variable) => variable.variableId),
-      dependencies: modalityElements.map((modality) => modality.elementId),
+      dependencies: modalityElements.map((modality) => modality.objectId),
     })),
     temporalStructure: {
       rationale: timingElements.map((item) => item.content).join(" ; "),
@@ -251,13 +285,13 @@ export const projectDocumentSourceFromFunctionalProject = (
     endpointCandidates: endpoints,
     variables,
     measurementDependencies: [],
-    analysisRequirements: analysisElements.map((item) => ({
-      requirementId: item.elementId,
+    analysisRequirements: canonicalAnalysis.map((item) => ({
+      requirementId: item.objectId,
       purpose: "COMPARISON" as const,
       reason: item.content,
       endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
       variableIds: variables.map((variable) => variable.variableId),
-      dependencies: refs(item),
+      dependencies: canonicalRefs(item),
       finalStatisticalModel: null,
       biostatisticsReviewRequired: true as const,
     })),
@@ -269,8 +303,8 @@ export const projectDocumentSourceFromFunctionalProject = (
       notice: "NO_STATISTICAL_VALUE_INVENTED",
     },
     imagingContribution: {
-      applicability: imagingElements.length ? "APPLICABLE" : "REQUIRED_BUT_NOT_READY",
-      resultRef: imagingElements.length ? `${project.versionId}:confirmed-imaging-information` : null,
+      applicability: canonicalImaging.length ? "APPLICABLE" : "REQUIRED_BUT_NOT_READY",
+      resultRef: canonicalImaging.length ? `${project.versionId}:confirmed-imaging-information` : null,
       variableIds: variables.filter((variable) => /IRM|imagerie/i.test(variable.definition)).map((variable) => variable.variableId),
       acquisitionRefs: modalityElements.map((item) => item.content),
       qualityRefs: [],
@@ -280,7 +314,13 @@ export const projectDocumentSourceFromFunctionalProject = (
       executableProtocolReadiness: null,
       requiredFutureReviews: imagingResponsibility?.state === "PENDING_SPECIALIST_CONTRIBUTION" ? [imagingResponsibility.retainedResponsibility] : [],
     },
-    dataManagementRequirements: [],
+    dataManagementRequirements: canonicalDataNeeds.map((item) => ({
+      requirementId: item.objectId,
+      kind: "CANONICAL_DATA_NEED_REFERENCE",
+      reason: item.content,
+      sourceRefs: canonicalRefs(item),
+      status: "SPECIALIZED_ENGINE_REQUIRED" as const,
+    })),
     biostatisticsRequirements: {
       status: "SPECIALIZED_ENGINE_REQUIRED",
       questionRef: questionId,
@@ -291,8 +331,8 @@ export const projectDocumentSourceFromFunctionalProject = (
       variableIds: variables.map((variable) => variable.variableId),
       timingIds: timingElements.map((item) => item.elementId),
       repeatedMeasures: timingElements.length > 1,
-      multicenterStructure: designElements.map((item) => item.content).join(" ; "),
-      analysisPurposes: analysisElements.map((item) => item.content),
+      multicenterStructure: canonicalDesign.map((item) => item.content).join(" ; "),
+      analysisPurposes: canonicalAnalysis.map((item) => item.content),
       knownAssumptions: [],
       unknownAssumptions: statisticsResponsibility?.state === "PENDING_SPECIALIST_CONTRIBUTION" ? [statisticsResponsibility.retainedResponsibility] : ["Aucune spécification Biostatistics adoptée n’est présente."],
       missingNumericalInputs: ["Les entrées numériques de dimensionnement ne sont pas définies."],
@@ -317,10 +357,10 @@ export const projectDocumentSourceFromFunctionalProject = (
       recruitmentDuration: null,
     },
     multicenterAssessment: {
-      declaredMode: designElements.map((item) => item.content).join(" ; "),
+      declaredMode: canonicalDesign.map((item) => item.content).join(" ; "),
       scientificNecessity: "UNKNOWN",
       operationalNecessity: "NOT_EVALUATED_BY_SPECIALIZED_ENGINE",
-      factors: designElements.map((item) => item.content),
+      factors: canonicalDesign.map((item) => item.content),
       monocenterAlternativePreserved: true,
       centerCount: null,
       notice: "MULTICENTER_IS_NOT_AUTOMATICALLY_SUPERIOR",
@@ -328,8 +368,8 @@ export const projectDocumentSourceFromFunctionalProject = (
     biases: [],
     confounders: [],
     risks: [],
-    limitations: projectLimitations,
-    contradictions: [],
+    limitations: uniqueSorted([...projectLimitations, ...issueReasons("LIMITATION")]),
+    contradictions: uniqueSorted(issueReasons("CONTRADICTION")),
     missingInformation: projectionMissing,
     alternatives: [],
     compromises: [],
@@ -344,8 +384,26 @@ export const projectDocumentSourceFromFunctionalProject = (
     dependencies: [],
     impactGraph: {
       ontologyStatus: "NO_NEW_ONTOLOGY_RUNTIME_PROJECTION",
-      nodes: [],
-      edges: [],
+      canonicalSource: true,
+      nodes: canonicalObjects.map((object) => ({
+        nodeId: object.objectId,
+        type: object.objectType,
+        label: object.content,
+        status: object.epistemicState,
+        whyExists: `Objet canonique adopté ${object.objectVersionId}`,
+        versionRef: object.objectVersionId,
+        sectionId: object.sectionId,
+        scientificRole: object.scientificRole,
+        epistemicState: object.epistemicState,
+        sourceRefs: canonicalRefs(object),
+        canonicalType: object.objectType,
+      })),
+      edges: canonicalState.relations.filter((relation) => relation.actuality === "CURRENT").map((relation) => ({
+        edgeId: relation.relationId,
+        from: relation.sourceObjectRef,
+        to: relation.targetObjectRef,
+        relation: relation.relationType,
+      })),
       changes: [],
       impacts: [],
     },
@@ -380,8 +438,8 @@ export const projectDocumentSourceFromFunctionalProject = (
       decisionRecordIds: decisionRecords.map((decision) => decision.decisionId),
       knowledgeResultRef: null,
       unknowns: projectionMissing,
-      contradictions: [],
-      limitations: projectLimitations,
+      contradictions: uniqueSorted(issueReasons("CONTRADICTION")),
+      limitations: uniqueSorted([...projectLimitations, ...issueReasons("LIMITATION")]),
       dependencies: specializedRequirements,
       changesFromPrevious: project.previousVersionId ? [`Version précédente : ${project.previousVersionId}`] : [],
       frozenAt: confirmedHandoff ? handoffDecision?.timestamp ?? null : null,
@@ -514,13 +572,13 @@ const requestFor = (
       provenance: [project.versionId, project.projectDigest],
     })),
     compositionAsOf: requestedAt,
-    requestedDetailLevel: "FULL",
+    requestedDetailLevel: "SHORT",
   });
   const request: DocumentProjectionRequest = {
     project: source,
     decisionRecords: source.documentHandoff.humanDecisions,
     projectionType: "PROTOCOL",
-    profile: "RESEARCH_PROTOCOL_WORKING_PROJECTION",
+    profile: "SHORT_PROTOCOL_DRAFT",
     usage: "SCIENTIFIC_PROJECT_REVIEW",
     audience: "RESEARCH_TEAM",
     requestedAt,

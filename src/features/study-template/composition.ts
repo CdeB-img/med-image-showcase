@@ -36,6 +36,13 @@ const blockLike = (node: TemplateNodeDefinition) => ["BLOCK", "TABLE", "ANNEX", 
 
 const directProjectSupport = (node: TemplateNodeDefinition, input: StudyTemplateCompositionInput): TemplateSupport[] => {
   const project = input.researchProject;
+  const canonicalNodes = project.impactGraph.nodes;
+  const canonicalRefs = (...types: string[]) => canonicalNodes
+    .filter((candidate) => types.includes(candidate.type))
+    .map((candidate) => candidate.versionRef ?? candidate.nodeId);
+  const biospecimenRefs = canonicalNodes
+    .filter((candidate) => candidate.scientificRole === "SAMPLE_COLLECTION" || candidate.sectionId === "BIOSPECIMENS")
+    .map((candidate) => candidate.versionRef ?? candidate.nodeId);
   const supports: TemplateSupport[] = [];
   const add = (selector: string, sourceRefs: string[], reason: string, supportLevel: TemplateSupport["supportLevel"] = "DIRECT") => supports.push({
     supportId: `TMP-SUPPORT:${templateDigest([node.nodeId, selector, sourceRefs]).slice(5, 17).toUpperCase()}`,
@@ -49,11 +56,12 @@ const directProjectSupport = (node: TemplateNodeDefinition, input: StudyTemplate
   for (const selector of node.projectSelectors) {
     if (selector === "PROJECT_ID") add(selector, [project.resultId, project.candidateVersion.versionId], "L’identité et la version du Research Project sont présentes.");
     else if (selector === "SCIENTIFIC_QUESTION" && project.scientificQuestion?.text) add(selector, [project.scientificQuestion.questionId], "La question scientifique gouvernée est présente.");
-    else if (selector === "OBJECTIVES" && project.objectives.length) add(selector, project.objectives.map((item) => item.objectiveId), "Des objectifs structurés existent dans le Research Project.");
-    else if (selector === "HYPOTHESES" && project.hypotheses.length) add(selector, project.hypotheses.map((item) => item.hypothesisId), "Des hypothèses structurées existent dans le Research Project.");
+    else if (selector === "OBJECTIVES" && (project.objectives.length || canonicalRefs("OBJECTIVE").length)) add(selector, uniqueSorted([...project.objectives.map((item) => item.objectiveId), ...canonicalRefs("OBJECTIVE")]), "Des objectifs structurés existent dans le Research Project.");
+    else if (selector === "HYPOTHESES" && (project.hypotheses.length || canonicalRefs("HYPOTHESIS").length)) add(selector, uniqueSorted([...project.hypotheses.map((item) => item.hypothesisId), ...canonicalRefs("HYPOTHESIS")]), "Des hypothèses structurées existent dans le Research Project.");
     else if (selector === "POPULATION" && project.populationDesign) add(selector, [project.populationDesign.populationId], "La structure de population du Research Project est présente.");
-    else if (selector === "STUDY_DESIGN" && project.studyDesignCandidates.length) add(selector, project.studyDesignCandidates.map((item) => item.designId), "Des plans d’étude candidats sont présents.");
-    else if (selector === "ENDPOINTS" && project.endpointCandidates.length) add(selector, project.endpointCandidates.map((item) => item.endpointId), "Des critères candidats sont présents.");
+    else if (selector === "STUDY_DESIGN" && (project.studyDesignCandidates.length || canonicalRefs("STUDY_DESIGN").length)) add(selector, uniqueSorted([...project.studyDesignCandidates.map((item) => item.designId), ...canonicalRefs("STUDY_DESIGN")]), "Des plans d’étude structurés sont présents.");
+    else if (selector === "ENDPOINTS" && (project.endpointCandidates.length || canonicalRefs("ENDPOINT", "CANONICAL_VARIABLE").length)) add(selector, uniqueSorted([...project.endpointCandidates.map((item) => item.endpointId), ...canonicalRefs("ENDPOINT", "CANONICAL_VARIABLE")]), "Des critères ou mesures structurés sont présents.");
+    else if (selector === "BIOSPECIMENS" && biospecimenRefs.length) add(selector, uniqueSorted(biospecimenRefs), "Des prélèvements ou collections de matériau sont explicitement présents dans le Research Project.");
     else if (selector === "IMAGING" && project.imagingContribution.applicability === "APPLICABLE") add(selector, [project.imagingContribution.resultRef ?? project.resultId], "La contribution Imaging est explicitement applicable.");
     else if (selector === "IMAGING" && project.imagingContribution.applicability === "NOT_APPLICABLE") add(selector, [project.resultId], "La contribution Imaging est explicitement non applicable.", "EXCLUSION");
     else if (selector === "UNKNOWNS") add(selector, [project.candidateVersion.versionId, ...project.missingInformation], "Le registre d’inconnues du Research Project reste une source, y compris lorsqu’il est vide.", project.missingInformation.length ? "UNKNOWN" : "DIRECT");
