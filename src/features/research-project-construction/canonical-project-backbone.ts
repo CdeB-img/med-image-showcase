@@ -633,6 +633,11 @@ export const buildCanonicalProjectChangeSet = (input: {
     const previous = currentObjects.find((object) => refs.includes(object.objectId)
       || refs.some((ref) => object.sourceItemRefs.includes(ref))) ?? null;
     if (item.epistemicBoundary.activeState === false) {
+      // The section change set already resolves removal evidence against the
+      // canonical Project identity. A persistent REMOVE also remains present
+      // as an inactive contribution item for provenance; that alias must not
+      // create a second canonical change for the same object.
+      if (previous && objectChanges.some((change) => change.objectId === previous.objectId)) continue;
       if (previous) objectChanges.push({
         changeRef: `canonical-object-change:${logicalDigest({ contribution: input.contribution.identity.contributionId, item: item.itemId, operation: "REMOVE" })}`,
         operation: "REMOVE",
