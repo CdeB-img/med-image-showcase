@@ -319,11 +319,13 @@ Pour chaque modification durable explicite, propose une opération minimale et u
 
 Pour chaque change, relation, temporalQualification et expectedVariableOccasion, sélectionne un sourceAnchorId EXACT dans le catalogue borné du DERNIER MESSAGE UTILISATEUR. Tu choisis quel passage soutient sémantiquement la contribution ; NOXIA matérialise ensuite déterministement les caractères exacts du RAW. N'invente aucun identifiant d'ancrage et n'utilise jamais un texte du Project ou de NOXIA comme preuve utilisateur courante.
 
-Le catalogue contient toujours un ancrage FULL_TURN valide. Utilise-le lorsqu'aucun fragment plus précis ne soutient fidèlement la contribution. Plusieurs contributions peuvent sélectionner le même ancrage. Pour une réponse elliptique résolue par le contexte, sélectionne l'ancrage du fragment utilisateur elliptique ; conserve séparément le référent contextuel et ne transforme jamais les mots du Project ou de NOXIA en fausse source utilisateur.
+Le catalogue contient toujours un ancrage FULL_TURN valide. Utilise-le uniquement lorsqu'aucun fragment plus précis ne soutient fidèlement la contribution. Lorsqu'un tour contient plusieurs changements indépendants, sélectionne pour chacun l'ancrage le plus étroit qui porte son identité et sa valeur ; ne réutilise pas FULL_TURN pour importer le contenu d'une autre proposition. Plusieurs contributions ne peuvent sélectionner le même ancrage large que si ce passage soutient réellement chacune d'elles. Pour une réponse elliptique résolue par le contexte, sélectionne l'ancrage du fragment utilisateur elliptique ; conserve séparément le référent contextuel et ne transforme jamais les mots du Project ou de NOXIA en fausse source utilisateur.
 
 Lis le message entier avant de produire la sortie. Un même tour peut contenir plusieurs faits persistants indépendants : produis toutes leurs modifications atomiques, leurs relations et leurs qualifications temporelles. Ne sélectionne jamais un seul changement principal au détriment des autres faits explicites.
 
 N'aplatis jamais plusieurs identités explicites dans un seul objet. Une comparaison entre une intervention et un comparateur produit deux objets distincts et une relation COMPARES_WITH. Une intervention dont l'identité exacte n'est pas fournie reste explicite comme catégorie et inconnue quant à son identité précise ; n'invente aucun nom, dose, phase, randomisation ou aveugle.
+
+Pour chaque candidat, identity/candidateRef, proposedType, content, studyRole, qualification temporelle et provenance doivent décrire le même objet ou changement explicite. Ne combine jamais l'identité d'un changement avec la valeur, la modalité, le temps ou le rôle d'un autre changement du même tour.
 
 Traite séparément la provenance linguistique et l'état épistémique. EXPLICIT_USER_STATED signifie uniquement que le contenu est ancré dans un fragment utilisateur exact. Cela ne suffit jamais à rendre KNOWN une portée, un référentiel ou un qualificatif non fourni. Pour un contenu explicitement dit mais sous-spécifié, conserve la provenance EXPLICIT_USER_STATED et porte epistemicState = UNKNOWN. N'efface ni le contenu explicite ni l'inconnue.
 
@@ -889,6 +891,37 @@ export type ProductBridgeResponse = {
 
 const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR").replace(/\s+/g, " ").trim();
 
+/**
+ * Extracts only explicit, deterministic temporal literals. This is not a
+ * semantic parser: it supports a fail-closed coherence check when both a new
+ * candidate identity and its content independently encode temporal values.
+ */
+const temporalLiteralSignatures = (value: string | null | undefined) => {
+  if (!value) return new Set<string>();
+  const text = value.normalize("NFKC")
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLocaleLowerCase("fr-FR")
+    .replace(/[^\p{L}\p{N}.,]+/gu, " ")
+    .trim();
+  const signatures = new Set<string>();
+  const addMatches = (pattern: RegExp, unit: string, valueGroup = 1) => {
+    for (const match of text.matchAll(pattern)) {
+      const raw = match[valueGroup];
+      if (raw) signatures.add(`${unit}:${raw.replace(",", ".")}`);
+    }
+  };
+  addMatches(/\b(?:j|jour|jours|day|days)\s*(\d+(?:[.,]\d+)?)\b/gu, "DAY");
+  addMatches(/\b(\d+(?:[.,]\d+)?)\s*(?:jour|jours|day|days)\b/gu, "DAY");
+  addMatches(/\b(?:m)\s*(\d+(?:[.,]\d+)?)\b/gu, "MONTH");
+  addMatches(/\b(\d+(?:[.,]\d+)?)\s*(?:mois|month|months)\b/gu, "MONTH");
+  addMatches(/\b(?:w)\s*(\d+(?:[.,]\d+)?)\b/gu, "WEEK");
+  addMatches(/\b(\d+(?:[.,]\d+)?)\s*(?:semaine|semaines|week|weeks)\b/gu, "WEEK");
+  addMatches(/\b(?:y)\s*(\d+(?:[.,]\d+)?)\b/gu, "YEAR");
+  addMatches(/\b(\d+(?:[.,]\d+)?)\s*(?:an|ans|annee|annees|year|years)\b/gu, "YEAR");
+  return signatures;
+};
+
 const projectElements = (project: ResearchProjectOwnerProjection | null) => project
   ? ensureCanonicalProjectState(project).objects
     .filter((object) => object.actuality === "CURRENT")
@@ -971,6 +1004,18 @@ export const validatePersistentProjectDelta = (
         return;
       }
       candidateRefs.add(change.candidateRef);
+    }
+    if (change.operation === "ADD") {
+      const identityTemporalValues = new Set([
+        ...temporalLiteralSignatures(change.candidateRef),
+        ...temporalLiteralSignatures(change.semanticIdentity),
+      ]);
+      const contentTemporalValues = temporalLiteralSignatures(change.content);
+      if (identityTemporalValues.size > 0 && contentTemporalValues.size > 0
+        && ![...identityTemporalValues].some((value) => contentTemporalValues.has(value))) {
+        blocks.push(`${prefix}:CANDIDATE_IDENTITY_CONTENT_TEMPORAL_MISMATCH`);
+        return;
+      }
     }
     const target = change.targetProjectRef
       ? elements.find(({ element }) => element.elementId === change.targetProjectRef)

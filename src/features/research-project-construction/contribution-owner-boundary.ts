@@ -11,6 +11,7 @@ import type {
 import {
   applyCanonicalProjectChangeSet,
   buildCanonicalProjectChangeSet,
+  canonicalProjectObjectType,
   ensureCanonicalProjectState,
   projectSectionsFromCanonicalState,
   type CanonicalProjectChangeSet,
@@ -555,7 +556,11 @@ const temporalModality = (context: string) => {
 };
 
 const timingCriterion = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope) => {
-  if (sectionId !== "TEMPORALITY") return null;
+  // Visit is already the governed PD-003 specialization for a planned meeting
+  // or operational window. Preserve its own semantic payload instead of
+  // rebuilding it from the whole source turn, which may contain independent
+  // temporal changes for other objects.
+  if (sectionId !== "TEMPORALITY" || canonicalProjectObjectType(item) === "VISIT") return null;
   const context = folded(itemContext(item, contribution));
   const localContext = folded(itemScientificValueContext(item));
   const localWithSeparators = foldedWithSeparators(itemScientificValueContext(item));
@@ -1257,9 +1262,15 @@ export const buildHumanReviewProjection = (
   });
 
   changeSet.temporalQualificationChanges.forEach((change) => {
-    const qualification = change.candidate ?? previousTemporal(change.qualificationId);
-    const content = qualification
-      ? `${reviewOperationPrefix(change.operation)} ${objectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef} : ${presentCanonicalTemporalAnchor(qualification.anchor, objectLabels)}`
+    const previous = previousTemporal(change.qualificationId);
+    const qualification = change.candidate ?? previous;
+    const subjectLabel = qualification
+      ? objectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef
+      : null;
+    const content = change.operation === "REPLACE" && previous && change.candidate
+      ? `${subjectLabel} : ${presentCanonicalTemporalAnchor(previous.anchor, objectLabels)} → ${presentCanonicalTemporalAnchor(change.candidate.anchor, objectLabels)}`
+      : qualification
+      ? `${reviewOperationPrefix(change.operation)} ${subjectLabel} : ${presentCanonicalTemporalAnchor(qualification.anchor, objectLabels)}`
       : `${reviewOperationPrefix(change.operation)} temporalité ${change.qualificationId}`;
     add("Temporalité", { reviewItemRef: `review:${change.changeRef}`, changeRef: change.changeRef, changeKind: "TEMPORAL_QUALIFICATION", operation: change.operation, content, projectSectionId: "TEMPORALITY" });
   });
