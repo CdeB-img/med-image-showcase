@@ -42,6 +42,42 @@ const safeProviderError = (error: ProductBridgeProviderError) => ({
   requestId: error.requestId,
 });
 
+const LOCAL_SOURCE_CATALOG_INTEGRITY_BLOCK_PREFIXES = [
+  "SOURCE_CATALOG_",
+  "SOURCE_ANCHOR_DUPLICATE:",
+  "SOURCE_ANCHOR_NOT_CURRENT_USER_TURN:",
+  "SOURCE_ANCHOR_NOT_USER_EVIDENCE:",
+  "SOURCE_ANCHOR_OFFSETS_INVALID:",
+  "SOURCE_ANCHOR_EXACT_TEXT_MISMATCH:",
+] as const;
+
+/**
+ * A provider-shaped candidate may be re-extracted once when deterministic
+ * validation rejects that output. Local catalog-integrity failures are not
+ * recoverable through another provider call and therefore never trigger it.
+ */
+export const isRecoverablePersistentValidationFailure = (blocks: readonly string[]) =>
+  blocks.length > 0 && blocks.every((block) => !LOCAL_SOURCE_CATALOG_INTEGRITY_BLOCK_PREFIXES
+    .some((prefix) => block.startsWith(prefix)));
+
+const addOptional = (left: number | undefined, right: number | undefined) =>
+  left === undefined && right === undefined ? undefined : (left ?? 0) + (right ?? 0);
+
+const addOpenAIUsage = (
+  left: ProductBridgeResponse["observability"]["extractionUsage"],
+  right: ProductBridgeResponse["observability"]["extractionUsage"],
+): ProductBridgeResponse["observability"]["extractionUsage"] => right ? ({
+  input_tokens: addOptional(left?.input_tokens, right.input_tokens),
+  output_tokens: addOptional(left?.output_tokens, right.output_tokens),
+  total_tokens: addOptional(left?.total_tokens, right.total_tokens),
+  input_tokens_details: left?.input_tokens_details || right.input_tokens_details ? {
+    cached_tokens: addOptional(left?.input_tokens_details?.cached_tokens, right.input_tokens_details?.cached_tokens),
+  } : undefined,
+  output_tokens_details: left?.output_tokens_details || right.output_tokens_details ? {
+    reasoning_tokens: addOptional(left?.output_tokens_details?.reasoning_tokens, right.output_tokens_details?.reasoning_tokens),
+  } : undefined,
+}) : left;
+
 export const executeProtocolDesignerBridge = async (input: {
   body: unknown;
   apiKey: string | null;
@@ -84,7 +120,9 @@ export const executeProtocolDesignerBridge = async (input: {
   let extractionLatencyMs: number | null = null;
   let extractionUsage: ProductBridgeResponse["observability"]["extractionUsage"] = null;
   let extractionModelReturned: string | null = null;
-  let providerStarts: 1 | 2 = 1;
+  let providerStarts: 1 | 2 | 3 = 1;
+  let extractionAttempts: 0 | 1 | 2 = 0;
+  let recoveryContext: Omit<NonNullable<ProductBridgeResponse["persistentExtraction"]["recovery"]>, "outcome"> | null = null;
 
   if (request.evaluatePersistentDelta) {
     try {
@@ -93,57 +131,79 @@ export const executeProtocolDesignerBridge = async (input: {
           "PERSISTENT_DELTA", null, "OPENAI_API_KEY_MISSING", "Persistent extraction is unavailable.", null, "OPENAI",
         );
       }
-      providerStarts = 2;
-      const extracted = await executeOpenAIPersistentDelta(request, input.openAiApiKey, input.fetchImpl, extractionModel);
-      extractionLatencyMs = extracted.latencyMs;
-      extractionUsage = extracted.usage;
-      extractionModelReturned = extracted.modelReturned;
-      input.onPersistentProviderArtifact?.(extracted.value.providerArtifact);
-      const providerContract = validatePersistentProviderContract(extracted.value.structuredArgs);
-      const sourceCatalog = extracted.value.providerArtifact.sourceCatalog ?? buildPersistentSourceCatalog(request.conversation);
-      const materialized = materializePersistentSourceAnchors({
-        value: extracted.value.structuredArgs,
-        catalog: sourceCatalog,
-        currentUserTurn: { turnId: latestUser.turnId, content: latestUser.content },
-      });
-      const checked = materialized.value
-        ? validatePersistentProjectDelta(materialized.value, latestUser.content, request.currentProject, request.conversation)
-        : {
-          wireCandidate: null,
-          candidate: null,
-          validation: {
-            valid: false,
-            acceptedChanges: [],
-            acceptedRelations: [],
-            acceptedTemporalQualifications: [],
-            acceptedExpectedVariableOccasions: [],
-            blocks: [],
-            noOps: [],
-            normalizations: [],
-          },
+      const executeAndValidateExtraction = async () => {
+        extractionAttempts = extractionAttempts === 0 ? 1 : 2;
+        providerStarts = extractionAttempts === 1 ? 2 : 3;
+        const extracted = await executeOpenAIPersistentDelta(request, input.openAiApiKey!, input.fetchImpl, extractionModel);
+        extractionLatencyMs = (extractionLatencyMs ?? 0) + extracted.latencyMs;
+        extractionUsage = addOpenAIUsage(extractionUsage, extracted.usage);
+        extractionModelReturned = extracted.modelReturned;
+        input.onPersistentProviderArtifact?.(extracted.value.providerArtifact);
+        const providerContract = validatePersistentProviderContract(extracted.value.structuredArgs);
+        const sourceCatalog = extracted.value.providerArtifact.sourceCatalog ?? buildPersistentSourceCatalog(request.conversation);
+        const materialized = materializePersistentSourceAnchors({
+          value: extracted.value.structuredArgs,
+          catalog: sourceCatalog,
+          currentUserTurn: { turnId: latestUser.turnId, content: latestUser.content },
+        });
+        const checked = materialized.value
+          ? validatePersistentProjectDelta(materialized.value, latestUser.content, request.currentProject, request.conversation)
+          : {
+            wireCandidate: null,
+            candidate: null,
+            validation: {
+              valid: false,
+              acceptedChanges: [],
+              acceptedRelations: [],
+              acceptedTemporalQualifications: [],
+              acceptedExpectedVariableOccasions: [],
+              blocks: [],
+              noOps: [],
+              normalizations: [],
+            },
+          };
+        const validation = providerContract.valid && materialized.valid ? checked.validation : {
+          ...checked.validation,
+          valid: false,
+          blocks: [...materialized.blocks, ...checked.validation.blocks, ...providerContract.blocks],
         };
-      const validation = providerContract.valid && materialized.valid ? checked.validation : {
-        ...checked.validation,
-        valid: false,
-        blocks: [...materialized.blocks, ...checked.validation.blocks, ...providerContract.blocks],
+        const contribution = checked.candidate && validation.valid
+          ? contributionFromPersistentDelta({
+            candidate: checked.candidate,
+            conversation: request.conversation,
+            currentProject: request.currentProject,
+            providerArtifact: extracted.value.providerArtifact,
+            createdAt,
+          })
+          : null;
+        return { extracted, checked, validation, contribution };
       };
-      const contribution = checked.candidate && validation.valid
-        ? contributionFromPersistentDelta({
-          candidate: checked.candidate,
-          conversation: request.conversation,
-          currentProject: request.currentProject,
-          providerArtifact: extracted.value.providerArtifact,
-          createdAt,
-        })
-        : null;
+
+      const firstAttempt = await executeAndValidateExtraction();
+      let selectedAttempt = firstAttempt;
+      if (!firstAttempt.validation.valid && isRecoverablePersistentValidationFailure(firstAttempt.validation.blocks)) {
+        recoveryContext = {
+          attempted: true,
+          reason: "RECOVERABLE_PROVIDER_OUTPUT_VALIDATION_FAILURE",
+          triggerBlocks: [...firstAttempt.validation.blocks],
+          firstProviderArtifact: firstAttempt.extracted.value.providerArtifact,
+          firstWireCandidate: firstAttempt.checked.wireCandidate,
+          firstCandidate: firstAttempt.checked.candidate,
+          firstValidation: firstAttempt.validation,
+        };
+        selectedAttempt = await executeAndValidateExtraction();
+      }
+
+      const { extracted, checked, validation, contribution } = selectedAttempt;
+      const selectedStatus = validation.valid
+        ? (checked.candidate?.changes.length
+          || checked.candidate?.relations.length
+          || checked.candidate?.temporalQualifications.length
+          || checked.candidate?.expectedVariableOccasions.length) ? "CANDIDATE" : "NO_CHANGE"
+        : "BLOCKED";
       persistentExtraction = {
         called: true,
-        status: validation.valid
-          ? (checked.candidate?.changes.length
-            || checked.candidate?.relations.length
-            || checked.candidate?.temporalQualifications.length
-            || checked.candidate?.expectedVariableOccasions.length) ? "CANDIDATE" : "NO_CHANGE"
-          : "BLOCKED",
+        status: selectedStatus,
         failure: validation.valid ? null : {
           code: "PERSISTENT_VALIDATION_BLOCKED",
           message: "La contribution persistante ne respecte pas le contrat canonique.",
@@ -155,10 +215,26 @@ export const executeProtocolDesignerBridge = async (input: {
         candidate: checked.candidate,
         validation,
         contribution,
+        recovery: recoveryContext ? { ...recoveryContext, outcome: selectedStatus } : null,
       };
     } catch (error) {
       const provider = error instanceof ProductBridgeProviderError ? safeProviderError(error) : null;
-      persistentExtraction = {
+      persistentExtraction = recoveryContext ? {
+        called: true,
+        status: "BLOCKED",
+        failure: {
+          code: "PERSISTENT_VALIDATION_BLOCKED",
+          message: "La contribution persistante ne respecte pas le contrat canonique et la récupération bornée n'a pas abouti.",
+          details: [...recoveryContext.firstValidation.blocks],
+          provider: provider?.stage === "PERSISTENT_DELTA" ? { ...provider, stage: "PERSISTENT_DELTA" } : null,
+        },
+        providerArtifact: recoveryContext.firstProviderArtifact,
+        wireCandidate: recoveryContext.firstWireCandidate,
+        candidate: recoveryContext.firstCandidate,
+        validation: recoveryContext.firstValidation,
+        contribution: null,
+        recovery: { ...recoveryContext, outcome: "TECHNICAL_FAILURE" },
+      } : {
         called: true,
         status: "TECHNICAL_FAILURE",
         failure: {
@@ -172,6 +248,7 @@ export const executeProtocolDesignerBridge = async (input: {
         candidate: null,
         validation: null,
         contribution: null,
+        recovery: null,
       };
     }
   }
@@ -194,6 +271,7 @@ export const executeProtocolDesignerBridge = async (input: {
         conversationLatencyMs: conversation.latencyMs,
         extractionLatencyMs,
         calls: providerStarts,
+        extractionAttempts,
         projectWrites: 0,
         conversationUsage: conversation.usage,
         extractionUsage,

@@ -95,6 +95,7 @@ export type ProductBridgeTrace = {
   persistentExtractionCalled: boolean;
   persistentExtractionStatus: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
   persistentExtractionFailure?: ProductBridgeResponse["persistentExtraction"]["failure"];
+  persistentExtractionRecovery?: ProductBridgeResponse["persistentExtraction"]["recovery"];
   providerArtifact: PersistentExtractionProviderArtifact | null;
   wireCandidate: PersistentProjectDeltaWireCandidate | null;
   persistentCandidate: PersistentProjectDeltaCandidate | null;
@@ -112,6 +113,7 @@ export type ProductBridgeTrace = {
   conversationLatencyMs: number;
   extractionLatencyMs: number | null;
   calls: number;
+  extractionAttempts?: number;
   entryRouting?: ProductEntryRoutingDecision | null;
   knowledgeResultRef?: string | null;
   knowledgeResultDigest?: string | null;

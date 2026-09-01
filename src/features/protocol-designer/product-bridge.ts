@@ -827,6 +827,17 @@ export type PersistentDeltaValidation = {
   normalizations: PersistentDeltaNormalization[];
 };
 
+export type PersistentExtractionRecovery = {
+  attempted: true;
+  reason: "RECOVERABLE_PROVIDER_OUTPUT_VALIDATION_FAILURE";
+  triggerBlocks: string[];
+  firstProviderArtifact: PersistentExtractionProviderArtifact;
+  firstWireCandidate: PersistentProjectDeltaWireCandidate | null;
+  firstCandidate: PersistentProjectDeltaCandidate | null;
+  firstValidation: PersistentDeltaValidation;
+  outcome: "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
+};
+
 export type ProductBridgeRequest = {
   apiVersion: typeof PRODUCT_BRIDGE_API_VERSION;
   conversation: ScientificInterpretationConversation;
@@ -862,6 +873,7 @@ export type ProductBridgeResponse = {
     candidate: PersistentProjectDeltaCandidate | null;
     validation: PersistentDeltaValidation | null;
     contribution: ScientificInterpretationContributionEnvelope | null;
+    recovery?: PersistentExtractionRecovery | null;
   };
   observability: {
     provider: "GOOGLE_GEMINI";
@@ -873,7 +885,8 @@ export type ProductBridgeResponse = {
     extractionModelReturned?: string | null;
     conversationLatencyMs: number;
     extractionLatencyMs: number | null;
-    calls: 1 | 2;
+    calls: 1 | 2 | 3;
+    extractionAttempts?: 0 | 1 | 2;
     projectWrites: 0;
     conversationUsage?: { promptTokenCount?: number; candidatesTokenCount?: number; totalTokenCount?: number } | null;
     extractionUsage?: {
