@@ -98,6 +98,15 @@ const temporalRoleFor = (element: ResearchProjectElement): ResearchProjectDesign
   return "SINGLE_ASSESSMENT";
 };
 
+const canonicalVisitRole = (scientificRole: string | null): ResearchProjectDesignResult["visits"][number]["temporalRole"] => {
+  const role = scientificRole?.toLocaleUpperCase("en-US") ?? "";
+  if (role.includes("BASELINE")) return "BASELINE";
+  if (role.includes("FOLLOW_UP")) return "FOLLOW_UP";
+  if (role.includes("REPEATED")) return "REPEATED_MEASUREMENT";
+  if (role.includes("EVENT")) return "EVENT";
+  return "SINGLE_ASSESSMENT";
+};
+
 const missingFromProject = (project: ResearchProjectOwnerProjection) => project.sections
   .filter((section) => section.state === "TO_CLARIFY" && section.sectionId !== "BIOSPECIMENS")
   .map((section) => `${section.label} : information à préciser dans le Research Project.`);
@@ -132,6 +141,7 @@ export const projectDocumentSourceFromFunctionalProject = (
   const canonicalVariables = canonicalOfType("CANONICAL_VARIABLE");
   const canonicalAnalysis = canonicalOfType("ANALYSIS_SPECIFICATION");
   const canonicalDataNeeds = canonicalOfType("DATA_NEED");
+  const canonicalVisits = canonicalOfType("VISIT");
   const questionElements = elements(project, "QUESTION");
   const explicitQuestionElement = questionElements.find((element) => hasType(element, /SCIENTIFIC_QUESTION|RESEARCH_QUESTION/)) ?? null;
   const interventionElements = elements(project, "INTERVENTION");
@@ -203,7 +213,7 @@ export const projectDocumentSourceFromFunctionalProject = (
     sourceRefs: refs(item),
     reviewState: "ADOPTED" as const,
   }));
-  const visits: ResearchProjectDesignResult["visits"] = hasStructuredTemporalState ? [
+  const structuredVisits: ResearchProjectDesignResult["visits"] = hasStructuredTemporalState ? [
     ...temporalQualifications.map((qualification) => ({
       visitId: qualification.qualificationId,
       label: canonicalObjectLabels.get(qualification.subjectProjectRef) ?? qualification.subjectProjectRef,
@@ -228,7 +238,7 @@ export const projectDocumentSourceFromFunctionalProject = (
       measurementIds: [occasion.variableProjectRef],
       dependencies: [occasion.variableProjectRef],
     })),
-  ] : timingElements.map((item) => ({
+  ] : timingElements.filter((item) => !hasType(item, /VISIT/)).map((item) => ({
     visitId: item.elementId,
     label: "Temporalité confirmée",
     temporalRole: temporalRoleFor(item),
@@ -240,6 +250,21 @@ export const projectDocumentSourceFromFunctionalProject = (
     measurementIds: variables.map((variable) => variable.variableId),
     dependencies: modalityElements.map((modality) => modality.objectId),
   }));
+  const visits: ResearchProjectDesignResult["visits"] = [
+    ...structuredVisits,
+    ...canonicalVisits.map((visit) => ({
+      visitId: visit.objectId,
+      label: "Visite",
+      temporalRole: canonicalVisitRole(visit.scientificRole),
+      timingValue: visit.content,
+      timingStatus: "KNOWN" as const,
+      justification: "Visite canonique adoptée dans le Research Project ; contenu conservé sans enrichissement documentaire.",
+      hypothesisIds: [],
+      endpointIds: [],
+      measurementIds: [],
+      dependencies: [],
+    })),
+  ];
   const decisionRecords = [project.confirmationDecision, ...(confirmedHandoff && handoffDecision ? [handoffDecision] : [])];
   const specializedRequirements = project.specializedResponsibilities
     .filter((item) => item.state === "PENDING_SPECIALIST_CONTRIBUTION")
