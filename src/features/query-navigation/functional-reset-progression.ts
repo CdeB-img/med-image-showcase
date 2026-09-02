@@ -247,6 +247,10 @@ const groupCandidatesByScientificDimension = (
     return [{
       ...structuredClone(members[0]!),
       candidateId,
+      ...(sectionId === "DESIGN" ? {
+        owner: "STUDY_DESIGN",
+        capabilityRef: "STUDY_DESIGN_COHERENCE",
+      } : {}),
       targetRef: `${project.projectId}:standard-progression-dimension:${sectionId}`,
       sourceRefs: members.flatMap((candidate) => candidate.sourceRefs).sort(),
       navigationNeedRefs: needRefs,
@@ -265,7 +269,10 @@ const groupCandidatesByScientificDimension = (
         sourceRefs: members.flatMap((candidate) => candidate.provenance.sourceRefs).sort(),
         owner: "QUERY_NAVIGATION",
         evidence: members.flatMap((candidate) => candidate.provenance.evidence),
-        limitations: members.length > 1 ? ["SAME_SCIENTIFIC_DIMENSION_NEEDS_GROUPED_FOR_ONE_FREE_TEXT_EXCHANGE"] : [],
+        limitations: [
+          ...(members.length > 1 ? ["SAME_SCIENTIFIC_DIMENSION_NEEDS_GROUPED_FOR_ONE_FREE_TEXT_EXCHANGE"] : []),
+          ...(sectionId === "DESIGN" ? ["QRY_SELECTS_SCOPE_STUDY_DESIGN_OWNS_PROPOSAL"] : []),
+        ],
       },
     }];
   });

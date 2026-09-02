@@ -45,11 +45,14 @@ import {
   recordPostAdoptionQuestionTrace,
   recordProductErrorBoundary,
   recordProjectAdoptionTrace,
+  recordStudyDesignConversationTrace,
+  recordStudyDesignOptionReviewTrace,
   productTraceExtractionExecution,
 } from "./end-to-end-trace-adapter";
 import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
+import StudyDesignStandardCard from "./StudyDesignStandardCard";
 import {
   executeProductUnderstandInteraction,
   recognizeProductDocumentAction,
@@ -66,8 +69,18 @@ import {
   productEntryPromptForIntent,
   resolvePostAdoptionQueryContinuation,
   shouldMediatePostAdoptionQuery,
+  type ConversationEntry,
   type FunctionalResetSession,
 } from "./session";
+import {
+  buildStandardStudyDesignPresentation,
+  buildStudyDesignOptionContribution,
+  dispatchStudyDesignFromQuery,
+  interactionMatchesCurrentProject,
+  isStudyDesignQueryDispatch,
+  readStudyDesignProposalFromLedger,
+  resolveStudyDesignConversation,
+} from "./study-design-standard";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -138,15 +151,51 @@ const visibleStructuredUnderstandingEvidence = (input: {
 };
 
 type PostAdoptionContinuationJob = {
+  sessionId: string;
   conversationId: string;
   project: NonNullable<FunctionalResetSession["project"]>;
   queryNavigation: NonNullable<FunctionalResetSession["queryNavigation"]>;
+  ownerResultLedger: FunctionalResetSession["knowledgeOwnerLedger"];
+  scientificExecutionTraceLedger: FunctionalResetSession["scientificExecutionTraceLedger"];
   runtimeTurns: ScientificInterpretationTurn[];
   feedback: "Projet créé." | "Projet mis à jour.";
   traceRunId: string | null;
 };
 
 const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJob) => {
+  if (isStudyDesignQueryDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchStudyDesignFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      presentationTurnRef: turnId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    const turn = {
+      turnId,
+      role: "NOXIA" as const,
+      content: dispatched.presentation.plainText,
+      createdAt: completedAt,
+    };
+    return {
+      kind: "STUDY_DESIGN" as const,
+      turn,
+      content: turn.content,
+      presentationSource: dispatched.proposal.options.length ? "RDE_STANDARD_PROJECTION" as const : "RDE_INFORMATION_NEED" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "STUDY_DESIGN_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
   const fallback = resolvePostAdoptionQueryContinuation(job.queryNavigation);
   if (!fallback || !job.queryNavigation.currentAction || !job.queryNavigation.currentPresentation) return null;
   try {
@@ -178,6 +227,7 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
     const visible = resolvePostAdoptionQueryContinuation(job.queryNavigation, continuation.assistantReply);
     if (!visible) return null;
     return {
+      kind: "QUESTION" as const,
       turn: { ...continuation.assistantTurn, content: visible.content },
       content: visible.content,
       presentationSource: visible.presentationSource,
@@ -189,6 +239,7 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
     } as const;
   } catch (error) {
     return {
+      kind: "QUESTION" as const,
       turn: {
         turnId: createTurnId(),
         role: "NOXIA" as const,
@@ -231,7 +282,9 @@ export default function ProtocolDesignerWorkspace() {
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
       setSession((current) => {
-        const scientificExecutionTraceLedger = recordPostAdoptionQuestionTrace({
+        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN"
+          ? continuation.traceLedger
+          : recordPostAdoptionQuestionTrace({
           ledger: current.scientificExecutionTraceLedger,
           traceRunId: job.traceRunId,
           conversationId: current.conversationId,
@@ -245,20 +298,34 @@ export default function ProtocolDesignerWorkspace() {
             latencyMs: continuation.latencyMs,
             presentationSource: continuation.presentationSource,
           },
-        });
+          });
+        const conversationEntry: ConversationEntry = continuation.kind === "STUDY_DESIGN" && continuation.proposal.options.length
+          ? {
+            entryId: createConversationEntryId(),
+            kind: "STUDY_DESIGN_PROPOSAL",
+            role: "NOXIA",
+            presentation: continuation.presentation,
+            createdAt: continuedAt,
+          }
+          : {
+            entryId: createConversationEntryId(),
+            kind: "TEXT",
+            role: "NOXIA",
+            content: continuation.content,
+            createdAt: continuedAt,
+          };
         return {
         ...current,
+        queryNavigation: continuation.kind === "STUDY_DESIGN" ? continuation.navigation : current.queryNavigation,
+        studyDesignInteraction: continuation.kind === "STUDY_DESIGN" ? continuation.interaction : current.studyDesignInteraction,
+        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
-        entries: [...current.entries, {
-          entryId: createConversationEntryId(),
-          kind: "TEXT",
-          role: "NOXIA",
-          content: continuation.content,
-          createdAt: continuedAt,
-        }],
+        entries: [...current.entries, conversationEntry],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: continuation.turn.turnId,
-          traceRunId: job.traceRunId ?? undefined,
+          traceRunId: continuation.kind === "STUDY_DESIGN"
+            ? continuation.interaction.traceRunId ?? undefined
+            : job.traceRunId ?? undefined,
           requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
           raw: captureProductBridgeTraceText({ value: job.feedback, field: "SOURCE_TEXT" }),
           assistantReply: captureProductBridgeTraceText({ value: continuation.content, field: "ASSISTANT_REPLY" }),
@@ -275,7 +342,7 @@ export default function ProtocolDesignerWorkspace() {
           projectVersionBefore: job.project.versionId,
           projectVersionAfter: job.project.versionId,
           qryNeedBefore: null,
-          qryNeedAfter: job.queryNavigation.currentAction?.navigationNeedRefs[0] ?? null,
+          qryNeedAfter: (continuation.kind === "STUDY_DESIGN" ? continuation.navigation : job.queryNavigation).currentAction?.navigationNeedRefs[0] ?? null,
           provider: continuation.provider,
           model: continuation.model,
           conversationLatencyMs: continuation.latencyMs,
@@ -288,6 +355,23 @@ export default function ProtocolDesignerWorkspace() {
         updatedAt: continuedAt,
       };
       });
+    }).catch((error: unknown) => {
+      if (!active) return;
+      const failedAt = new Date().toISOString();
+      setSession((current) => ({
+        ...current,
+        entries: [...current.entries, {
+          entryId: createConversationEntryId(),
+          kind: "ERROR",
+          role: "NOXIA",
+          content: isStudyDesignQueryDispatch(job.queryNavigation)
+            ? "NOXIA n’a pas pu préparer les stratégies d’étude à partir de cette version du Research Project. Le Project reste inchangé."
+            : "NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.",
+          createdAt: failedAt,
+        }],
+        updatedAt: failedAt,
+      }));
+      if (import.meta.env.DEV) console.error("NOXIA_POST_ADOPTION_CONTINUATION_FAILURE", error);
     }).finally(() => {
       if (!active) return;
       setPostAdoptionContinuationJob((current) => current === job ? null : current);
@@ -305,11 +389,160 @@ export default function ProtocolDesignerWorkspace() {
     return (entryIndex: number) => firstProjectContributionIndex >= 0 && entryIndex > firstProjectContributionIndex;
   }, [session.entries]);
 
+  const applyStudyDesignInput = (content: string, explicitOptionRef?: string) => {
+    const interaction = session.studyDesignInteraction;
+    const project = session.project;
+    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
+    if (!interactionMatchesCurrentProject(interaction, project)) {
+      setSession((current) => ({
+        ...current,
+        studyDesignInteraction: current.studyDesignInteraction
+          ? { ...current.studyDesignInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+          : null,
+      }));
+      return false;
+    }
+    const proposal = readStudyDesignProposalFromLedger({
+      ledger: session.knowledgeOwnerLedger,
+      resultRef: interaction.ownerResultRef,
+    });
+    if (!proposal) return false;
+    const resolution = explicitOptionRef
+      ? { kind: "SELECT_OPTION" as const, optionRef: explicitOptionRef }
+      : resolveStudyDesignConversation({ raw: content, proposal });
+    if (resolution.kind === "FALLTHROUGH") return false;
+
+    const recordedAt = new Date().toISOString();
+    const userTurn: ScientificInterpretationTurn = {
+      turnId: createTurnId(),
+      role: "USER",
+      content,
+      createdAt: recordedAt,
+    };
+    const proposalEntry = session.entries.find((entry) => entry.kind === "STUDY_DESIGN_PROPOSAL"
+      && entry.presentation.proposalRef === proposal.proposalId);
+    const proposalTurn: ScientificInterpretationTurn = {
+      turnId: interaction.presentationTurnRef,
+      role: "NOXIA",
+      content: proposalEntry?.kind === "STUDY_DESIGN_PROPOSAL"
+        ? proposalEntry.presentation.plainText
+        : buildStandardStudyDesignPresentation(proposal).plainText,
+      createdAt: proposalEntry?.createdAt ?? recordedAt,
+    };
+
+    if (resolution.kind === "SELECT_OPTION") {
+      const contribution = buildStudyDesignOptionContribution({
+        conversationId: session.conversationId,
+        project,
+        proposal,
+        optionRef: resolution.optionRef,
+        proposalTurn,
+        selectionTurn: userTurn,
+        createdAt: recordedAt,
+      });
+      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
+      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") {
+        throw new Error(`STUDY_DESIGN_REVIEW_CANDIDATE_${candidate.status}`);
+      }
+      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
+        ledger: session.scientificExecutionTraceLedger,
+        traceRunId: interaction.traceRunId,
+        conversationId: session.conversationId,
+        recordedAt,
+        contribution,
+        candidate,
+        project,
+        proposalRef: proposal.proposalId,
+        proposalDigest: proposal.proposalDigest,
+        optionRef: resolution.optionRef,
+      });
+      setSession((current) => ({
+        ...current,
+        runtimeTurns: [...current.runtimeTurns, userTurn],
+        pendingContribution: contribution,
+        studyDesignInteraction: current.studyDesignInteraction ? {
+          ...current.studyDesignInteraction,
+          status: "PENDING_HUMAN_REVIEW",
+          selectedOptionRef: resolution.optionRef,
+          pendingContributionRef: contribution.identity.contributionId,
+        } : null,
+        entries: [...current.entries, {
+          entryId: createConversationEntryId(),
+          kind: "TEXT",
+          role: "USER",
+          content,
+          createdAt: recordedAt,
+        }, {
+          entryId: createConversationEntryId(),
+          kind: "REVIEW",
+          role: "NOXIA",
+          contribution,
+          candidate,
+          traceRunId: interaction.traceRunId,
+          status: "PENDING",
+          decision: null,
+          createdAt: recordedAt,
+        }],
+        scientificExecutionTraceLedger,
+        updatedAt: recordedAt,
+      }));
+      return true;
+    }
+
+    const assistantTurn: ScientificInterpretationTurn = {
+      turnId: createTurnId(),
+      role: "NOXIA",
+      content: resolution.response,
+      createdAt: recordedAt,
+    };
+    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
+      ledger: session.scientificExecutionTraceLedger,
+      traceRunId: interaction.traceRunId,
+      conversationId: session.conversationId,
+      recordedAt,
+      project,
+      proposalRef: proposal.proposalId,
+      proposalDigest: proposal.proposalDigest,
+      turnRef: userTurn.turnId,
+      status: resolution.kind === "DISCUSS" ? "DISCUSSION"
+        : resolution.kind === "DEFER" ? "DEFERRED"
+          : "OPTIONS_REJECTED",
+    });
+    setSession((current) => ({
+      ...current,
+      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
+      studyDesignInteraction: resolution.kind === "REJECT_ALL" && current.studyDesignInteraction
+        ? { ...current.studyDesignInteraction, status: "REJECTED", staleReason: "USER_REJECTED_ALL_OPTIONS" }
+        : current.studyDesignInteraction,
+      entries: [...current.entries, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "USER",
+        content,
+        createdAt: recordedAt,
+      }, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "NOXIA",
+        content: resolution.response,
+        createdAt: recordedAt,
+      }],
+      scientificExecutionTraceLedger,
+      updatedAt: recordedAt,
+    }));
+    return true;
+  };
+
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     const content = draft.trim();
     if (!content || busy) return;
     const now = new Date().toISOString();
+    if (applyStudyDesignInput(content)) {
+      setDraft("");
+      setCorrectionMode(false);
+      return;
+    }
     const productDocumentAction = recognizeProductDocumentAction(content);
     if (productDocumentAction) {
       setDraft("");
@@ -705,23 +938,34 @@ export default function ProtocolDesignerWorkspace() {
         createdAt: now,
       };
       const runtimeTurns = [...session.runtimeTurns, confirmationTurn];
-      setSession((current) => {
-        const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
-        const scientificExecutionTraceLedger = recordProjectAdoptionTrace({
-          ledger: current.scientificExecutionTraceLedger,
-          traceRunId: correlatedTrace?.traceRunId,
-          conversationId: current.conversationId,
-          recordedAt: now,
-          contribution,
-          project,
-          previousProjectExisted: Boolean(session.project),
-          queryNavigation,
-          documents,
-        });
-        return {
+      const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
+        ? reviewEntry.traceRunId
+        : session.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
+      const scientificExecutionTraceLedger = recordProjectAdoptionTrace({
+        ledger: session.scientificExecutionTraceLedger,
+        traceRunId: correlatedTraceRunId,
+        conversationId: session.conversationId,
+        recordedAt: now,
+        contribution,
+        project,
+        previousProjectExisted: Boolean(session.project),
+        queryNavigation,
+        documents,
+      });
+      setSession((current) => ({
         ...current,
         project,
         queryNavigation,
+        studyDesignInteraction: current.studyDesignInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.studyDesignInteraction,
+            status: "ADOPTED",
+            adoptedProjectVersion: project.versionId,
+            staleReason: null,
+          }
+          : current.studyDesignInteraction && !interactionMatchesCurrentProject(current.studyDesignInteraction, project)
+            ? { ...current.studyDesignInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+            : current.studyDesignInteraction,
         documents,
         currentContribution: contribution,
         pendingContribution: null,
@@ -738,19 +982,21 @@ export default function ProtocolDesignerWorkspace() {
           : trace),
         scientificExecutionTraceLedger,
         updatedAt: now,
-      };
-      });
+      }));
 
       if (shouldMediatePostAdoptionQuery(queryNavigation)
         && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion) {
         continuationScheduled = true;
         setPostAdoptionContinuationJob({
+          sessionId: session.sessionId,
           conversationId: session.conversationId,
           project,
           queryNavigation,
+          ownerResultLedger: session.knowledgeOwnerLedger,
+          scientificExecutionTraceLedger,
           runtimeTurns,
           feedback,
-          traceRunId: session.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId ?? null,
+          traceRunId: correlatedTraceRunId ?? null,
         });
       }
     } catch {
@@ -808,10 +1054,14 @@ export default function ProtocolDesignerWorkspace() {
         rejectedAt: now,
       });
       setSession((current) => {
-        const correlatedTrace = current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId);
+        const reviewEntry = current.entries.find((entry) => entry.kind === "REVIEW"
+          && entry.contribution.identity.contributionId === contributionId);
+        const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
+          ? reviewEntry.traceRunId
+          : current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
         const scientificExecutionTraceLedger = recordContributionRejectionTrace({
           ledger: current.scientificExecutionTraceLedger,
-          traceRunId: correlatedTrace?.traceRunId,
+          traceRunId: correlatedTraceRunId,
           conversationId: current.conversationId,
           recordedAt: now,
           contribution,
@@ -821,6 +1071,14 @@ export default function ProtocolDesignerWorkspace() {
         return {
         ...current,
         pendingContribution: null,
+        studyDesignInteraction: current.studyDesignInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.studyDesignInteraction,
+            status: "ACTIVE",
+            selectedOptionRef: null,
+            pendingContributionRef: null,
+          }
+          : current.studyDesignInteraction,
         entries: current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
           ? { ...entry, status: "REJECTED" as const, decision }
           : entry),
@@ -1176,6 +1434,23 @@ export default function ProtocolDesignerWorkspace() {
                 onReject={() => rejectContribution(entry.contribution.identity.contributionId)}
               />
               </div>
+              : entry.kind === "STUDY_DESIGN_PROPOSAL"
+                ? <StudyDesignStandardCard
+                  key={entry.entryId}
+                  presentation={entry.presentation}
+                  interaction={readStudyDesignProposalFromLedger({
+                    ledger: session.knowledgeOwnerLedger,
+                    resultRef: session.studyDesignInteraction?.ownerResultRef ?? "",
+                  })?.proposalId === entry.presentation.proposalRef ? session.studyDesignInteraction : null}
+                  onSelect={(optionRef) => {
+                    const option = entry.presentation.options.find((candidate) => candidate.optionRef === optionRef);
+                    if (option) applyStudyDesignInput(`Je retiens l’option « ${option.label} » pour revue.`, optionRef);
+                  }}
+                  onDiscuss={() => {
+                    setDraft("");
+                    composerRef.current?.focus();
+                  }}
+                />
               : <article key={entry.entryId} className={`flex ${entry.role === "USER" ? "justify-end" : "justify-start"}`}>
                 {entry.kind === "TEXT" && entry.role === "NOXIA" && entry.knowledgePresentation
                   ? <ProductUnderstandResponse presentation={entry.knowledgePresentation} />

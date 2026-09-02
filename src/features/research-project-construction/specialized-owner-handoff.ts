@@ -98,8 +98,8 @@ export const SPECIALIZED_OWNER_CAPABILITIES = Object.freeze([
     canWriteProject: false,
     externalProvider: "NONE",
     limitations: [
-      "IMPLEMENTED_NOT_PRODUCT_WIRED: direct owner invocation only; Standard reachability is not implemented.",
-      "RDE-02 must wire the proposal into the existing Human Review and contribution boundary before any Project adoption path exists.",
+      "IMPLEMENTED_AND_PRODUCT_WIRED: QRY can dispatch DESIGN to Study Design and Standard can project its non-adopted options.",
+      "Any selected option remains a contribution candidate until the existing Human Review boundary records explicit confirmation.",
       "Research Project Construction remains PRJ-owned and is not reclassified as Study Design.",
     ],
   },

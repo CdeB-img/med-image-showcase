@@ -537,7 +537,7 @@ describe("W1-TRACE-01 — passive scientific execution trace", () => {
     trace.complete("2026-08-25T10:00:01.000Z");
     persistFunctionalResetSession(storage, { ...session, scientificExecutionTraceLedger: trace.getLedger() });
     const loaded = loadFunctionalResetSession(storage);
-    expect(loaded.contractVersion).toBe("1.7.0");
+    expect(loaded.contractVersion).toBe("1.8.0");
     expect(loaded.scientificExecutionTraceLedger).toEqual(trace.getLedger());
     expect(Object.isFrozen(loaded.scientificExecutionTraceLedger.events[0])).toBe(true);
   });
@@ -548,7 +548,7 @@ describe("W1-TRACE-01 — passive scientific execution trace", () => {
     const { scientificExecutionTraceLedger: _notInV160, ...legacy } = session;
     storage.setItem(FUNCTIONAL_RESET_STORAGE_KEY, JSON.stringify({ ...legacy, contractVersion: "1.6.0" }));
     const migrated = loadFunctionalResetSession(storage);
-    expect(migrated.contractVersion).toBe("1.7.0");
+    expect(migrated.contractVersion).toBe("1.8.0");
     expect("entries" in migrated.scientificExecutionTraceLedger).toBe(false);
     expect(migrated.scientificExecutionTraceLedger.events).toEqual([]);
     expect(migrated.knowledgeOwnerLedger).toEqual(session.knowledgeOwnerLedger);

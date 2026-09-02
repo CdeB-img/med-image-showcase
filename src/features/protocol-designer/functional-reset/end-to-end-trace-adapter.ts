@@ -1,4 +1,5 @@
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
+import { logicalDigest } from "@/features/knowledge-engine";
 import type { DocumentProjection, FunctionalResetDocumentPortfolio } from "@/features/document-projection";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import type {
@@ -179,6 +180,178 @@ export const recordInitialProductTrace = (input: {
   }
   return ledger;
 };
+
+export const recordStudyDesignOptionReviewTrace = (input: {
+  ledger: Readonly<ScientificExecutionTraceLedger>;
+  traceRunId: string | null | undefined;
+  conversationId: string;
+  recordedAt: string;
+  contribution: Readonly<ScientificInterpretationContributionEnvelope>;
+  candidate: Readonly<ResearchProjectContributionCandidate>;
+  project: Readonly<ResearchProjectOwnerProjection>;
+  proposalRef: string;
+  proposalDigest: string;
+  optionRef: string;
+}): Readonly<ScientificExecutionTraceLedger> => {
+  if (!hasRun(input.ledger, input.traceRunId)) return input.ledger;
+  const traceRunId = input.traceRunId!;
+  const binding = projectBinding(input.project);
+  let ledger = appendProductTraceStage({
+    ledger: input.ledger,
+    traceRunId,
+    timestamp: input.recordedAt,
+    status: "OPTION_SELECTED_PENDING_REVIEW",
+    owner: "UI",
+    durationMs: 0,
+    envelope: {
+      stage: "UI_PROJECTION",
+      responsibilityOwner: "STUDY_DESIGN",
+      decisionOwner: "HUMAN",
+      executor: "STANDARD_STUDY_DESIGN_PRESENTATION",
+      provider: "NONE",
+      componentId: "STANDARD_STUDY_DESIGN_PRESENTATION",
+      componentVersion: input.contribution.identity.runtimeVersion,
+      input: [{ ref: input.proposalRef, version: "1.0.0", digest: input.proposalDigest }],
+      output: [{ ref: input.optionRef, version: "1.0.0", digest: logicalDigest({ proposal: input.proposalDigest, option: input.optionRef }) }],
+      reasonCode: "USER_SELECTED_OPTION_WITHOUT_PROJECT_WRITE",
+      completedAt: input.recordedAt,
+      conversationId: input.conversationId,
+      project: binding,
+    },
+  }).ledger;
+  ledger = appendProductTraceStage({
+    ledger,
+    traceRunId,
+    timestamp: input.recordedAt,
+    status: "CANDIDATE",
+    owner: "STUDY_DESIGN",
+    durationMs: 0,
+    envelope: {
+      stage: "PROJECT_CANDIDATE_EXTRACTED",
+      responsibilityOwner: "STUDY_DESIGN",
+      decisionOwner: "NONE",
+      executor: "STANDARD_STUDY_DESIGN_CONTRIBUTION_ADAPTER",
+      provider: "NONE",
+      componentId: "STANDARD_STUDY_DESIGN_CONTRIBUTION_ADAPTER",
+      componentVersion: input.contribution.identity.runtimeVersion,
+      input: [
+        { ref: input.proposalRef, version: "1.0.0", digest: input.proposalDigest },
+        { ref: input.optionRef, version: "1.0.0", digest: logicalDigest({ proposal: input.proposalDigest, option: input.optionRef }) },
+      ],
+      output: [{
+        ref: input.contribution.identity.contributionId,
+        version: input.contribution.identity.contractVersion,
+        digest: input.contribution.identity.contributionDigest,
+      }],
+      reasonCode: "OWNER_OPTION_SELECTED_PENDING_HUMAN_REVIEW",
+      completedAt: input.recordedAt,
+      conversationId: input.conversationId,
+      project: binding,
+    },
+  }).ledger;
+  ledger = appendProductTraceStage({
+    ledger,
+    traceRunId,
+    timestamp: input.recordedAt,
+    status: input.candidate.status,
+    owner: "RESEARCH_PROJECT",
+    durationMs: 0,
+    envelope: {
+      stage: "PROJECT_CANDIDATE_VALIDATED",
+      responsibilityOwner: "RESEARCH_PROJECT",
+      decisionOwner: "NONE",
+      executor: "PRJ001_CONTRIBUTION_OWNER_BOUNDARY",
+      provider: "NONE",
+      componentId: "PRJ001_CONTRIBUTION_OWNER_BOUNDARY",
+      componentVersion: "1.0.0",
+      input: [{
+        ref: input.contribution.identity.contributionId,
+        version: input.contribution.identity.contractVersion,
+        digest: input.contribution.identity.contributionDigest,
+      }],
+      output: [{
+        ref: input.candidate.changeSet.sourceContributionRef,
+        version: input.candidate.changeSet.contractVersion,
+        digest: input.candidate.changeSet.sourceContributionDigest,
+      }],
+      reasonCode: input.candidate.status,
+      completedAt: input.recordedAt,
+      conversationId: input.conversationId,
+      project: binding,
+    },
+  }).ledger;
+  return appendProductTraceStage({
+    ledger,
+    traceRunId,
+    timestamp: input.recordedAt,
+    status: "PRESENTED_PENDING_HUMAN_DECISION",
+    owner: "UI",
+    durationMs: 0,
+    envelope: {
+      stage: "HUMAN_REVIEW_PRESENTED",
+      responsibilityOwner: "RESEARCH_PROJECT",
+      decisionOwner: "HUMAN",
+      executor: "PROTOCOL_DESIGNER_UI",
+      provider: "NONE",
+      componentId: "CONTRIBUTION_REVIEW",
+      componentVersion: input.candidate.humanReviewProjection.contractVersion,
+      input: [{
+        ref: input.candidate.changeSet.sourceContributionRef,
+        version: input.candidate.changeSet.contractVersion,
+        digest: input.candidate.changeSet.sourceContributionDigest,
+      }],
+      output: [{
+        ref: input.candidate.contributionRef,
+        version: input.candidate.humanReviewProjection.contractVersion,
+        digest: input.candidate.contributionDigest,
+      }],
+      reasonCode: "HUMAN_CONFIRMATION_REQUIRED",
+      completedAt: input.recordedAt,
+      conversationId: input.conversationId,
+      project: binding,
+    },
+  }).ledger;
+};
+
+export const recordStudyDesignConversationTrace = (input: {
+  ledger: Readonly<ScientificExecutionTraceLedger>;
+  traceRunId: string | null | undefined;
+  conversationId: string;
+  recordedAt: string;
+  project: Readonly<ResearchProjectOwnerProjection>;
+  proposalRef: string;
+  proposalDigest: string;
+  turnRef: string;
+  status: "DISCUSSION" | "DEFERRED" | "OPTIONS_REJECTED";
+}): Readonly<ScientificExecutionTraceLedger> => !hasRun(input.ledger, input.traceRunId)
+  ? input.ledger
+  : appendProductTraceStage({
+    ledger: input.ledger,
+    traceRunId: input.traceRunId!,
+    timestamp: input.recordedAt,
+    status: input.status,
+    owner: "UI",
+    durationMs: 0,
+    envelope: {
+      stage: "UI_PROJECTION",
+      responsibilityOwner: "STUDY_DESIGN",
+      decisionOwner: "NONE",
+      executor: "STANDARD_STUDY_DESIGN_CONVERSATION",
+      provider: "NONE",
+      componentId: "STANDARD_STUDY_DESIGN_PRESENTATION",
+      componentVersion: "1.0.0",
+      input: [{ ref: input.proposalRef, version: "1.0.0", digest: input.proposalDigest }],
+      output: [{ ref: input.turnRef, version: "NOT_APPLICABLE", digest: logicalDigest({ turn: input.turnRef, status: input.status }) }],
+      reasonCode: input.status === "DISCUSSION"
+        ? "PROPOSAL_DISCUSSION_WITHOUT_ADOPTION"
+        : input.status === "DEFERRED"
+          ? "PROPOSAL_DEFERRED_WITHOUT_ADOPTION"
+          : "ALL_OPTIONS_REJECTED_WITHOUT_PROJECT_WRITE",
+      completedAt: input.recordedAt,
+      conversationId: input.conversationId,
+      project: projectBinding(input.project),
+    },
+  }).ledger;
 
 const recordHumanDecision = (input: {
   ledger: Readonly<ScientificExecutionTraceLedger>;

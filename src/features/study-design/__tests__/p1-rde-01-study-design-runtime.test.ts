@@ -290,7 +290,7 @@ describe("P1-RDE-01 — bounded Study Design runtime", () => {
     });
   });
 
-  it("registers exactly one callable, non-product-wired Study Design capability", () => {
+  it("registers exactly one callable Study Design capability wired through the governed product boundary", () => {
     const entries = listSpecializedOwnerCapabilities().entries.filter((entry) => entry.capabilityId === "STUDY_DESIGN_COHERENCE");
     expect(entries).toHaveLength(1);
     expect(entries[0]).toMatchObject({
@@ -301,6 +301,6 @@ describe("P1-RDE-01 — bounded Study Design runtime", () => {
       canWriteProject: false,
       externalProvider: "NONE",
     });
-    expect(entries[0]?.limitations).toEqual(expect.arrayContaining([expect.stringContaining("IMPLEMENTED_NOT_PRODUCT_WIRED")]));
+    expect(entries[0]?.limitations).toEqual(expect.arrayContaining([expect.stringContaining("IMPLEMENTED_AND_PRODUCT_WIRED")]));
   });
 });

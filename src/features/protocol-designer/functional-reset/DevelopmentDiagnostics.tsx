@@ -21,6 +21,12 @@ export default function DevelopmentDiagnostics({ session }: Props) {
     },
     project: session.project,
     queryNavigation: session.queryNavigation,
+    studyDesign: {
+      interaction: session.studyDesignInteraction,
+      result: session.studyDesignInteraction
+        ? session.knowledgeOwnerLedger.entries.find((entry) => entry.result?.resultId === session.studyDesignInteraction?.ownerResultRef)?.result ?? null
+        : null,
+    },
     documents: session.documents,
     decisions: decisions.map((entry) => entry.kind === "REVIEW" ? entry.decision : null),
     latestBridgeTrace: session.bridgeTraces.at(-1) ?? null,
