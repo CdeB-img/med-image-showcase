@@ -92,6 +92,25 @@ const endpointRole = (scientificRole: string | null): ResearchProjectDesignResul
   return "UNDECIDED_CANDIDATE";
 };
 
+const DOCUMENT_STUDY_DESIGN_FAMILIES: readonly ResearchProjectDesignResult["studyDesignCandidates"][number]["family"][] = [
+  "CROSS_SECTIONAL_OBSERVATIONAL",
+  "PROSPECTIVE_LONGITUDINAL_COHORT",
+  "RETROSPECTIVE_LONGITUDINAL_COHORT",
+  "AMBISPECTIVE_LONGITUDINAL_COHORT",
+  "PROSPECTIVE_PROGNOSTIC_COHORT",
+  "METHODOLOGICAL_VALIDATION",
+  "COMPARATIVE_OBSERVATIONAL",
+  "INTERVENTIONAL_COMPARATIVE_STUDY",
+  "CASE_CONTROL",
+];
+
+const canonicalStudyDesignFamily = (
+  scientificRole: string | null,
+): ResearchProjectDesignResult["studyDesignCandidates"][number]["family"] | null => {
+  const normalized = scientificRole?.trim().toLocaleUpperCase("en-US") ?? "";
+  return DOCUMENT_STUDY_DESIGN_FAMILIES.find((family) => family === normalized) ?? null;
+};
+
 const temporalRoleFor = (element: ResearchProjectElement): ResearchProjectDesignResult["visits"][number]["temporalRole"] => {
   if (element.semanticKey?.endsWith(":INITIAL")) return "BASELINE";
   if (element.semanticKey?.endsWith(":FOLLOW_UP")) return "FOLLOW_UP";
@@ -142,6 +161,32 @@ export const projectDocumentSourceFromFunctionalProject = (
   const canonicalAnalysis = canonicalOfType("ANALYSIS_SPECIFICATION");
   const canonicalDataNeeds = canonicalOfType("DATA_NEED");
   const canonicalVisits = canonicalOfType("VISIT");
+  const studyDesignCandidates: ResearchProjectDesignResult["studyDesignCandidates"] = canonicalDesign.flatMap((design) => {
+    const family = canonicalStudyDesignFamily(design.scientificRole);
+    return family ? [{
+      designId: design.objectId,
+      family,
+      label: design.content,
+      whyItAnswersQuestion: "Plan d’étude adopté par décision humaine et transporté depuis le Project canonique.",
+      estimandPurpose: "Aucune finalité scientifique supplémentaire n’est inférée par l’adaptateur documentaire.",
+      limitations: [],
+      biases: [],
+      constraints: [],
+      decisionsImplied: [],
+      sourceSignals: uniqueSorted([...canonicalRefs(design), ...design.provenance.evidenceRefs]),
+      reviewState: "ADOPTED" as const,
+    }] : [];
+  });
+  const selectedCanonicalDesign = studyDesignCandidates.length === 1
+    ? canonicalDesign.find((design) => design.objectId === studyDesignCandidates[0]?.designId) ?? null
+    : null;
+  const selectedStudyDesignCandidate: ResearchProjectDesignResult["selectedStudyDesignCandidate"] = selectedCanonicalDesign
+    ? {
+        designId: selectedCanonicalDesign.objectId,
+        decisionRecordId: selectedCanonicalDesign.decisionRefs.at(-1) ?? project.confirmationDecision.decisionId,
+        humanSelected: true,
+      }
+    : null;
   const questionElements = elements(project, "QUESTION");
   const explicitQuestionElement = questionElements.find((element) => hasType(element, /SCIENTIFIC_QUESTION|RESEARCH_QUESTION/)) ?? null;
   const interventionElements = elements(project, "INTERVENTION");
@@ -323,8 +368,8 @@ export const projectDocumentSourceFromFunctionalProject = (
       missingInformation: canonicalPopulation.length ? [] : ["La population scientifique reste à préciser."],
       reviewState: "ADOPTED",
     },
-    studyDesignCandidates: [],
-    selectedStudyDesignCandidate: null,
+    studyDesignCandidates,
+    selectedStudyDesignCandidate,
     groups: [...interventionGroups, ...comparatorGroups],
     comparators: interventionGroups.length && comparatorGroups.length ? [{
       comparatorId: `${project.versionId}:confirmed-comparison`,
@@ -387,7 +432,7 @@ export const projectDocumentSourceFromFunctionalProject = (
       status: "SPECIALIZED_ENGINE_REQUIRED",
       questionRef: questionId,
       hypothesisIds: [],
-      designCandidateIds: [],
+      designCandidateIds: studyDesignCandidates.map((design) => design.designId),
       groupIds: [...interventionGroups, ...comparatorGroups].map((item) => item.groupId),
       endpointIds: endpoints.map((endpoint) => endpoint.endpointId),
       variableIds: variables.map((variable) => variable.variableId),
