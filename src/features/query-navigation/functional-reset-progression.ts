@@ -1,8 +1,13 @@
-import type {
-  ResearchProjectElement,
-  ResearchProjectOwnerProjection,
-  ResearchProjectSectionId,
+import {
+  ensureCanonicalProjectState,
+  type ResearchProjectElement,
+  type ResearchProjectOwnerProjection,
+  type ResearchProjectSectionId,
 } from "@/features/research-project-construction";
+/*
+ * QRY consumes canonical epistemic state for completeness. Project element
+ * presence alone records representation, not scientific resolution.
+ */
 import { buildQueryNavigationContext } from "./adapters";
 import { makeQueryNavigationId } from "./canonical";
 import type {
@@ -160,9 +165,23 @@ const hasEvidence = (elements: readonly ResearchProjectElement[], pattern: RegEx
   .filter((element) => element.sourcePolarity !== "NEGATED")
   .some((element) => pattern.test(searchableElement(element)));
 
+const resolvedSectionElements = (
+  project: Readonly<ResearchProjectOwnerProjection>,
+  sectionId: ResearchProjectSectionId,
+) => {
+  const canonicalObjects = ensureCanonicalProjectState(project).objects
+    .filter((object) => object.actuality === "CURRENT");
+  const objectByElementRef = new Map(canonicalObjects.map((object) => [object.projection.elementId, object]));
+  return (project.sections.find((section) => section.sectionId === sectionId)?.elements ?? [])
+    .filter((element) => {
+      const canonicalObject = objectByElementRef.get(element.elementId);
+      if (canonicalObject) return !["UNKNOWN", "WITHHELD"].includes(canonicalObject.epistemicState);
+      return !["UNKNOWN", "WITHHELD"].includes(element.sourcePolarity?.toLocaleUpperCase("en-US") ?? "");
+    });
+};
+
 const facetsForProject = (project: Readonly<ResearchProjectOwnerProjection>): NeedFacet[] => {
-  const elements = (sectionId: ResearchProjectSectionId) =>
-    project.sections.find((section) => section.sectionId === sectionId)?.elements ?? [];
+  const elements = (sectionId: ResearchProjectSectionId) => resolvedSectionElements(project, sectionId);
   const facets: NeedFacet[] = [];
   const add = (sectionId: ResearchProjectSectionId, facetId: string, intent: string, resolved: boolean) => {
     if (!resolved) facets.push({ sectionId, facetId, intent });
@@ -233,8 +252,7 @@ const groupCandidatesByScientificDimension = (
       candidate.affectedDecisionRefs.includes(`project-section:${sectionId}`));
     if (!members.length) return [];
     const needRefs = members.flatMap((candidate) => candidate.navigationNeedRefs).sort();
-    const section = project.sections.find((candidate) => candidate.sectionId === sectionId);
-    const hasNoConfirmedInformation = !section?.elements.length;
+    const hasNoConfirmedInformation = resolvedSectionElements(project, sectionId).length === 0;
     const blocking = hasNoConfirmedInformation || blockerSections.has(sectionId)
       ? "BLOCKS_IRREVERSIBLE_DECISION" as const
       : "BLOCKS_CURRENT_BRANCH" as const;

@@ -1343,6 +1343,7 @@ export const projectSectionsFromCanonicalState = (
   sectionTemplate: ResearchProjectSection[],
 ): ResearchProjectSection[] => {
   const currentObjects = state.objects.filter((object) => object.actuality === "CURRENT");
+  const epistemicStateResolvesDimension = (value: CanonicalProjectEpistemicState) => !["UNKNOWN", "WITHHELD"].includes(value);
   const byObjectRef = new Map(currentObjects.map((object) => [object.objectId, object]));
   const relationProjections: ResearchProjectElement[] = state.relations
     .filter((relation) => relation.actuality === "CURRENT")
@@ -1406,13 +1407,25 @@ export const projectSectionsFromCanonicalState = (
     .filter(({ legacyObject }) => legacyObject.actuality === "CURRENT")
     .map(({ legacyObject }) => legacyObject.projection);
   return sectionTemplate.map((section) => {
-    const canonicalObjects = currentObjects
-      .filter((object) => object.sectionId === section.sectionId)
-      .map((object) => object.projection);
+    const sectionObjects = currentObjects.filter((object) => object.sectionId === section.sectionId);
+    const canonicalObjects = sectionObjects.map((object) => object.projection);
+    const supplementaryResolved = section.sectionId === "ANALYSIS"
+      ? state.relations.some((relation) => relation.actuality === "CURRENT" && epistemicStateResolvesDimension(relation.epistemicState))
+      : section.sectionId === "TEMPORALITY"
+        ? state.temporalQualifications.some((qualification) => qualification.actuality === "CURRENT")
+          || state.expectedVariableOccasions.some((occasion) => occasion.actuality === "CURRENT")
+          || state.legacyTemporalObjects.some(({ legacyObject }) => legacyObject.actuality === "CURRENT" && epistemicStateResolvesDimension(legacyObject.epistemicState))
+        : false;
+    const sectionState = sectionObjects.length > 0
+      && !sectionObjects.some((object) => epistemicStateResolvesDimension(object.epistemicState))
+      && !supplementaryResolved
+      ? "TO_CLARIFY" as const
+      : section.state;
     if (section.sectionId === "QUESTION") {
       const existingRefs = new Set(section.elements.map((element) => element.elementId));
       return {
         ...section,
+        state: sectionState,
         elements: [
           ...section.elements,
           ...canonicalObjects.filter((element) => !existingRefs.has(element.elementId)),
@@ -1421,6 +1434,7 @@ export const projectSectionsFromCanonicalState = (
     }
     return {
       ...section,
+      state: sectionState,
       elements: [
         ...canonicalObjects,
         ...(section.sectionId === "ANALYSIS" ? relationProjections : []),

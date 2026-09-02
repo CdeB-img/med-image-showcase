@@ -720,6 +720,24 @@ const stateFor = (
 ): ResearchProjectSectionState => {
   if (!elements.length) return "TO_CLARIFY";
   const items = contributionItems(contribution);
+  const itemsByRef = new Map(items.flatMap((item) => [item.itemId, item.semanticIdentity]
+    .filter((ref): ref is string => Boolean(ref))
+    .map((ref) => [ref, item] as const)));
+  const resolvesScientificDimension = (element: ResearchProjectElement) => {
+    if (["UNKNOWN", "WITHHELD"].includes(element.sourcePolarity?.toLocaleUpperCase("en-US") ?? "")) return false;
+    const sourceItems = element.sourceItemIds.flatMap((ref) => {
+      const item = itemsByRef.get(ref);
+      return item ? [item] : [];
+    });
+    if (!sourceItems.length) return true;
+    return sourceItems.some((item) => {
+      const explicitState = item.epistemicBoundary.epistemicState;
+      if (explicitState) return !["UNKNOWN", "WITHHELD"].includes(explicitState);
+      const legacyState = item.epistemicBoundary.epistemicStatus?.toLocaleUpperCase("en-US") ?? "";
+      return !["UNKNOWN", "AMBIGUOUS", "WITHHELD"].includes(legacyState);
+    });
+  };
+  if (!elements.some(resolvesScientificDimension)) return "TO_CLARIFY";
   if (sectionId === "ANALYSIS" && !items.some((item) => sectionForContributionItem(item, contribution) === "ANALYSIS")) return "PARTIAL";
   if (sectionId === "IMAGING") return "PARTIAL";
   if (sectionId === "BIOSPECIMENS") return "PARTIAL";
