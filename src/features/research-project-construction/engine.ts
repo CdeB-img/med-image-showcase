@@ -1,4 +1,5 @@
 import { logicalDigest, normalizeScientificText, uniqueSorted } from "@/features/knowledge-engine/canonical";
+import { buildLegacyStudyDesignReasoningSeeds } from "@/features/study-design/design-reasoning";
 import { buildResearchProjectGraph } from "./graph";
 import { parseResearchProjectDesignResult, RESEARCH_PROJECT_CONSTRUCTION_VERSION, type AnalysisRequirement, type EndpointCandidate, type PopulationDesign, type ProjectGroup, type ProjectVariable, type ResearchProjectConstructionInput, type ResearchProjectControls, type ResearchProjectDesignResult, type SpecializedEvaluationState, type StudyDesignCandidate } from "./types";
 
@@ -58,24 +59,22 @@ const buildPopulation = (input: ResearchProjectConstructionInput, controls: Rese
 };
 
 const buildDesignCandidates = (input: ResearchProjectConstructionInput, text: string): StudyDesignCandidate[] => {
-  const candidates: StudyDesignCandidate[] = [];
-  const add = (family: StudyDesignCandidate["family"], label: string, why: string, estimand: string, limitations: string[], biases: string[], constraints: string[], signals: string[]) => {
-    if (candidates.some((item) => item.family === family)) return;
-    candidates.push({ designId: stableId("design", { family, question: input.confirmedScientificQuestion.questionId }), family, label, whyItAnswersQuestion: why, estimandPurpose: estimand, limitations, biases, constraints, decisionsImplied: ["Adoption humaine du plan d’étude", "Revue Biostatistics des exigences analytiques"], sourceSignals: uniqueSorted(signals), reviewState: "PENDING" });
-  };
-  const validation = includesAny(text, [/validat/, /concord/, /compar\w* (deux|2) (méthod|mesur)/, /deux méthodes/, /reproductib/, /répétabil/]);
-  const prognostic = includesAny(text, [/pronosti/, /prédi\w*/, /événement futur/, /survie/, /risque de survenue/]);
-  const longitudinal = includesAny(text, [/longitudinal/, /évolution/, /suivi/, /progression/, /variation/, /répét\w* mesure/]);
-  const retrospective = includesAny(text, [/rétrospect/, /données existantes/, /base existante/, /déjà acquises/]) || input.scientificContext.availableData.length > 0;
-  const comparative = includesAny(text, [/compar/, /versus| vs /, /groupe/, /exposé/, /intervention/]);
-
-  if (validation) add("METHODOLOGICAL_VALIDATION", "Validation méthodologique comparative", "La Question porte sur la comparabilité, la concordance ou la reproductibilité de méthodes de mesure.", "Estimer l’accord, les différences et la répétabilité entre méthodes sans revendiquer un effet pronostique.", ["La méthode de référence et les conditions de répétition restent à décider."], ["Biais de mesure", "Effet d’ordre ou d’apprentissage"], ["Réalisation des méthodes dans des conditions comparables"], ["relation méthodologique détectée"]);
-  if (prognostic) add("PROSPECTIVE_PROGNOSTIC_COHORT", "Cohorte pronostique prospective", "Le biomarqueur ou l’exposition doit précéder un événement futur distinct.", "Estimer une association ou une capacité prédictive entre une mesure initiale et un outcome futur.", ["Durée et modalités du suivi restent à documenter.", "La causalité n’est pas établie par le seul caractère prospectif."], ["Attrition", "Confusion pronostique"], ["Outcome futur définissable", "Suivi et adjudication à organiser"], ["finalité pronostique détectée"]);
-  if (longitudinal && !prognostic) add("PROSPECTIVE_LONGITUDINAL_COHORT", "Cohorte longitudinale prospective", "La Question examine une évolution au cours du temps ou une variation intra-sujet.", "Estimer un changement et sa variabilité dans une Population définie.", ["Fenêtre scientifique et fréquence des mesures restent à justifier."], ["Attrition", "Effet de maturation ou de temporalité"], ["Mesures répétées comparables"], ["évolution temporelle détectée"]);
-  if (retrospective && (longitudinal || prognostic || comparative)) add("RETROSPECTIVE_LONGITUDINAL_COHORT", "Cohorte rétrospective à partir de données existantes", "Des données existantes peuvent instruire une trajectoire ou une association sans recrutement immédiat.", "Explorer la relation avec les données effectivement disponibles et leur temporalité réelle.", ["Qualité, exhaustivité et calendrier des données ne sont pas contrôlés prospectivement."], ["Biais de sélection", "Biais d’information"], ["Provenance et qualité des données existantes à vérifier"], ["données existantes déclarées"]);
-  if (comparative && !validation) add("COMPARATIVE_OBSERVATIONAL", "Étude observationnelle comparative", "La Question comporte des groupes, expositions ou stratégies à comparer sans intervention automatiquement imposée.", "Estimer une différence ou association entre groupes scientifiquement justifiés.", ["La comparabilité initiale et la confusion doivent être examinées."], ["Biais de sélection", "Confusion"], ["Définition défendable des groupes"], ["comparaison déclarée"]);
-  if (!candidates.length || (!longitudinal && !prognostic && !validation && !retrospective)) add("CROSS_SECTIONAL_OBSERVATIONAL", "Étude observationnelle transversale minimale", "Une mesure unique peut suffire à décrire ou examiner l’association demandée lorsque la Question n’impose ni suivi ni intervention.", "Décrire la distribution ou une association au temps scientifique retenu.", ["Aucune évolution temporelle ou relation pronostique ne peut être établie."], ["Biais de sélection", "Biais de mesure"], ["Population et mesure définissables au même temps"], ["absence de nécessité temporelle démontrée"]);
-  return candidates.sort((a, b) => a.family.localeCompare(b.family));
+  return buildLegacyStudyDesignReasoningSeeds({
+    text,
+    hasAvailableData: input.scientificContext.availableData.length > 0,
+  }).map((seed) => ({
+    designId: stableId("design", { family: seed.family, question: input.confirmedScientificQuestion.questionId }),
+    family: seed.family,
+    label: seed.label,
+    whyItAnswersQuestion: seed.whyItAnswersQuestion,
+    estimandPurpose: seed.estimandPurpose,
+    limitations: seed.limitations,
+    biases: seed.biases,
+    constraints: seed.constraints,
+    decisionsImplied: ["Adoption humaine du plan d’étude", "Revue Biostatistics des exigences analytiques"],
+    sourceSignals: uniqueSorted(seed.sourceSignals),
+    reviewState: "PENDING",
+  }));
 };
 
 const buildGroups = (input: ResearchProjectConstructionInput, population: PopulationDesign, designs: StudyDesignCandidate[], text: string): ProjectGroup[] => {

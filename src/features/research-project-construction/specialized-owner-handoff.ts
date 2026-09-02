@@ -88,17 +88,18 @@ export const SPECIALIZED_OWNER_CAPABILITIES = Object.freeze([
     capabilityId: "STUDY_DESIGN_COHERENCE",
     owner: "STUDY_DESIGN",
     role: "SPECIALIZED_OWNER",
-    status: "UNAVAILABLE",
-    implementationVersion: null,
-    inputContract: "RDE-001/RDE-002 v1.1 normative contract only",
-    outputContract: "No standalone Study Design runtime result",
-    pd003V2Compatibility: "NOT_RUNTIME_AVAILABLE",
-    readsProjectSnapshot: false,
-    canProduceProjectContribution: false,
+    status: "AVAILABLE_WITH_LIMITATIONS",
+    implementationVersion: "1.0.0",
+    inputContract: "StudyDesignRuntimeInput",
+    outputContract: "StudyDesignProposalContribution",
+    pd003V2Compatibility: "NATIVE",
+    readsProjectSnapshot: true,
+    canProduceProjectContribution: true,
     canWriteProject: false,
     externalProvider: "NONE",
     limitations: [
-      "Study Design is a normative owner of study-strategy coherence, but no standalone native runtime is implemented.",
+      "IMPLEMENTED_NOT_PRODUCT_WIRED: direct owner invocation only; Standard reachability is not implemented.",
+      "RDE-02 must wire the proposal into the existing Human Review and contribution boundary before any Project adoption path exists.",
       "Research Project Construction remains PRJ-owned and is not reclassified as Study Design.",
     ],
   },
@@ -495,6 +496,7 @@ export const recordSpecializedOwnerResult = <TNativePayload>(input: {
   limitations?: string[];
   provenance?: string[];
   projectContribution?: ScientificInterpretationContributionEnvelope | null;
+  humanDecisionRequired?: boolean;
 }): SpecializedOwnerResult<TNativePayload> => {
   const definition = capabilityById(input.request.capabilityId)!;
   if (definition.status === "UNAVAILABLE") throw new Error("CALL_NONEXISTENT_ENGINE");
@@ -525,7 +527,7 @@ export const recordSpecializedOwnerResult = <TNativePayload>(input: {
     limitations: [...definition.limitations, ...(input.limitations ?? [])],
     provenance: [input.request.handoffId, input.request.sourceProject.snapshotDigest, ...(input.provenance ?? [])],
     projectContribution: input.projectContribution ?? null,
-    humanDecisionRequired: carriesContribution,
+    humanDecisionRequired: input.humanDecisionRequired ?? carriesContribution,
   });
 };
 

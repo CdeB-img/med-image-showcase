@@ -16,6 +16,16 @@ import {
   type ScientificThinkingInput,
   type ScientificThinkingOutput,
 } from "@/features/scientific-thinking";
+import {
+  STUDY_DESIGN_RUNTIME_VERSION,
+  buildStudyDesignDownstreamHandoffRequests,
+  buildStudyDesignRuntimeInput,
+  executeStudyDesignRuntime,
+  validateStudyDesignProposal,
+  type StudyDesignProposalContribution,
+  type StudyDesignRuntimeInput,
+  type StudyDesignTraceSink,
+} from "@/features/study-design";
 import type {
   ScientificContributionItem,
   ScientificInterpretationContributionEnvelope,
@@ -77,6 +87,10 @@ export type ScientificReasoningOwnerInvocation<TNativeInput, TNativeOutput> = {
   request: SpecializedOwnerHandoffRequest<TNativeInput>;
   result: SpecializedOwnerResult<TNativeOutput> | null;
   observation: ScientificReasoningOwnerObservation;
+};
+
+export type StudyDesignOwnerInvocation = ScientificReasoningOwnerInvocation<StudyDesignRuntimeInput, StudyDesignProposalContribution> & {
+  downstreamHandoffRequests: readonly Readonly<SpecializedOwnerHandoffRequest>[];
 };
 
 export type ScientificThinkingToImagingHandoff = {
@@ -567,57 +581,132 @@ export const invokeScientificThinkingOwnerFromProject = (input: InvocationTiming
   monotonicNow: input.monotonicNow,
 });
 
-export type StudyDesignUnavailableRequest = {
-  requestedOperation: "ASSESS_STUDY_STRATEGY_COHERENCE";
-  sourceScientificThinkingResultRef: string | null;
-};
-
-export const invokeUnavailableStudyDesignOwner = (input: InvocationTiming & {
-  project: ResearchProjectOwnerProjection;
-  scientificThinkingResult?: SpecializedOwnerResult<ScientificThinkingOutput> | null;
-}): ScientificReasoningOwnerInvocation<StudyDesignUnavailableRequest, null> => {
-  const nativeInput: StudyDesignUnavailableRequest = {
-    requestedOperation: "ASSESS_STUDY_STRATEGY_COHERENCE",
-    sourceScientificThinkingResultRef: input.scientificThinkingResult
-      ? `${input.scientificThinkingResult.resultId}@${input.scientificThinkingResult.resultVersion}`
-      : null,
-  };
-  const handoffId = `study-design-handoff:${logicalDigest({ project: input.project.projectDigest, nativeInput })}`;
-  const request = createSpecializedOwnerHandoffRequest({
+export const invokeStudyDesignOwnerFromSnapshot = (input: InvocationTiming & {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
+  purpose?: string;
+  traceSink?: StudyDesignTraceSink;
+  runtime?: (nativeInput: Readonly<StudyDesignRuntimeInput>, traceSink?: StudyDesignTraceSink) => Readonly<StudyDesignProposalContribution>;
+}): StudyDesignOwnerInvocation => {
+  const nativeInput = buildStudyDesignRuntimeInput(input.projectSnapshot);
+  const handoffId = `study-design-handoff:${logicalDigest({
+    project: nativeInput.projectDigest,
+    version: nativeInput.projectVersion,
+    snapshot: nativeInput.projectSnapshot.snapshotDigest,
+  })}`;
+  const request = createSpecializedOwnerHandoffRequestFromSnapshot({
     handoffId,
     owner: "STUDY_DESIGN",
     capabilityId: "STUDY_DESIGN_COHERENCE",
-    purpose: "Évaluer la cohérence de la stratégie d'étude.",
-    project: input.project,
-    nativeInputType: "RDE-001/RDE-002 v1.1 normative contract only",
-    nativeInputVersion: "NOT_IMPLEMENTED",
+    purpose: input.purpose ?? "Évaluer la cohérence de la stratégie d'étude sans adopter ni muter le Project.",
+    sourceProject: input.projectSnapshot,
+    nativeInputType: "StudyDesignRuntimeInput",
+    nativeInputVersion: STUDY_DESIGN_RUNTIME_VERSION,
     nativeInput,
   });
-  const result = createSpecializedOwnerGapResult({
-    request,
-    resultId: `study-design-owner-gap:${logicalDigest({ handoffId, code: "CALL_NONEXISTENT_ENGINE" })}`,
-    resultVersion: "NOT_IMPLEMENTED",
-    completedAt: input.completedAt,
-  });
-  return {
-    request,
-    result,
-    observation: observation({
+  const invocationId = `scientific-owner-invocation:${logicalDigest({ handoffId, startedAt: input.startedAt })}`;
+  const projectBefore = stableStringify(input.projectSnapshot);
+  const started = now(input.monotonicNow);
+  try {
+    const nativeOutput = (input.runtime ?? executeStudyDesignRuntime)(request.nativeInput, input.traceSink);
+    const latencyMs = elapsed(started, now(input.monotonicNow));
+    const validation = validateStudyDesignProposal(request.nativeInput, nativeOutput);
+    if (validation.status === "BLOCKED" || stableStringify(input.projectSnapshot) !== projectBefore) {
+      return {
+        request,
+        result: null,
+        downstreamHandoffRequests: [],
+        observation: observation({
+          request,
+          invocationId,
+          ownerRuntimeVersion: STUDY_DESIGN_RUNTIME_VERSION,
+          status: "INVALID_OWNER_RESULT",
+          failureCode: validation.status === "BLOCKED"
+            ? `STUDY_DESIGN_PROPOSAL_INVALID:${validation.findings.map((finding) => finding.code).join(",")}`
+            : "STUDY_DESIGN_PROJECT_MUTATION_DETECTED",
+          startedAt: input.startedAt,
+          completedAt: input.completedAt,
+          latencyMs,
+          runtimeStarts: 1,
+        }),
+      };
+    }
+    const unknowns = unique(nativeOutput.unresolvedQuestions);
+    const gaps = unique(nativeOutput.informationNeeds.map((need) => `${need.needId}:${need.question}`));
+    const limitations = unique(nativeOutput.limitations);
+    const downstreamHandoffRequests = buildStudyDesignDownstreamHandoffRequests(request.nativeInput, nativeOutput);
+    const result = recordSpecializedOwnerResult({
       request,
-      invocationId: `scientific-owner-invocation:${logicalDigest({ handoffId, startedAt: input.startedAt })}`,
-      ownerRuntimeVersion: null,
-      resultRef: `${result.resultId}@${result.resultVersion}`,
-      status: "OWNER_UNAVAILABLE",
-      failureCode: "CALL_NONEXISTENT_ENGINE",
-      gaps: result.gaps,
-      limitations: result.limitations,
-      startedAt: input.startedAt,
+      resultId: nativeOutput.proposalId,
+      resultVersion: STUDY_DESIGN_RUNTIME_VERSION,
       completedAt: input.completedAt,
-      latencyMs: 0,
-      runtimeStarts: 0,
-    }),
-  };
+      status: "COMPLETED_WITH_LIMITATIONS",
+      resultKind: nativeOutput.options.length ? "RECOMMENDATION_OPTION" : "GAP",
+      nativePayloadType: "StudyDesignProposalContribution",
+      nativePayloadVersion: STUDY_DESIGN_RUNTIME_VERSION,
+      nativePayload: nativeOutput,
+      stableProjectRefs: request.sourceProject.objects.map((item) => item.stableId),
+      evidenceRefs: nativeOutput.options.flatMap((option) => option.rationale.evidenceRefs),
+      unknowns,
+      gaps,
+      limitations,
+      provenance: [nativeOutput.proposalId, nativeOutput.proposalDigest, ...nativeOutput.provenanceRefs],
+      humanDecisionRequired: true,
+    });
+    return {
+      request,
+      result,
+      downstreamHandoffRequests,
+      observation: observation({
+        request,
+        invocationId,
+        ownerRuntimeVersion: STUDY_DESIGN_RUNTIME_VERSION,
+        resultRef: `${result.resultId}@${result.resultVersion}`,
+        status: "COMPLETED_WITH_LIMITATIONS",
+        stableProjectRefs: result.stableProjectRefs,
+        unknowns,
+        gaps,
+        limitations,
+        startedAt: input.startedAt,
+        completedAt: input.completedAt,
+        latencyMs,
+        runtimeStarts: 1,
+      }),
+    };
+  } catch (error) {
+    const latencyMs = elapsed(started, now(input.monotonicNow));
+    return {
+      request,
+      result: null,
+      downstreamHandoffRequests: [],
+      observation: observation({
+        request,
+        invocationId,
+        ownerRuntimeVersion: STUDY_DESIGN_RUNTIME_VERSION,
+        status: "OWNER_RUNTIME_FAILURE",
+        failureCode: error instanceof Error ? error.message : "STUDY_DESIGN_RUNTIME_FAILURE",
+        startedAt: input.startedAt,
+        completedAt: input.completedAt,
+        latencyMs,
+        runtimeStarts: 1,
+      }),
+    };
+  }
 };
+
+export const invokeStudyDesignOwnerFromProject = (input: InvocationTiming & {
+  project: ResearchProjectOwnerProjection;
+  purpose?: string;
+  traceSink?: StudyDesignTraceSink;
+  runtime?: (nativeInput: Readonly<StudyDesignRuntimeInput>, traceSink?: StudyDesignTraceSink) => Readonly<StudyDesignProposalContribution>;
+}): StudyDesignOwnerInvocation => invokeStudyDesignOwnerFromSnapshot({
+  projectSnapshot: buildProjectContextSnapshot({ project: input.project }),
+  purpose: input.purpose,
+  traceSink: input.traceSink,
+  runtime: input.runtime,
+  startedAt: input.startedAt,
+  completedAt: input.completedAt,
+  monotonicNow: input.monotonicNow,
+});
 
 export const buildScientificThinkingToImagingHandoff = (input: {
   result: SpecializedOwnerResult<ScientificThinkingOutput>;

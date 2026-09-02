@@ -453,6 +453,7 @@ export type ScientificTraceOwner =
   | "RESEARCH_PROJECT"
   | "KNOWLEDGE"
   | "SCIENTIFIC_THINKING"
+  | "STUDY_DESIGN"
   | "IMAGING"
   | "REGULATORY_RESOLUTION"
   | "VAL"
@@ -485,6 +486,7 @@ export type FirstDivergentStage =
   | "KNOWLEDGE_ENGINE"
   | "KNOWLEDGE_TO_ST_HANDOFF"
   | "SCIENTIFIC_THINKING_ENGINE"
+  | "STUDY_DESIGN_ENGINE"
   | "ST_TO_IMAGING_HANDOFF"
   | "IMAGING_ENGINE"
   | "VAL_INPUT_ADAPTER"
@@ -746,8 +748,10 @@ const TECHNICAL_METADATA_KEYS = new Set([
   "ledgerContract",
   "ledgerVersion",
   "llmCalls",
+  "handoffCount",
   "observationContract",
   "observationVersion",
+  "optionCount",
   "profileId",
   "profileVersion",
   "projectWrites",
@@ -908,6 +912,7 @@ const TRACE_OWNERS = new Set<ScientificTraceOwner>([
   "RESEARCH_PROJECT",
   "KNOWLEDGE",
   "SCIENTIFIC_THINKING",
+  "STUDY_DESIGN",
   "IMAGING",
   "REGULATORY_RESOLUTION",
   "VAL",
@@ -975,6 +980,7 @@ const DIVERGENT_STAGES = new Set<FirstDivergentStage>([
   "KNOWLEDGE_ENGINE",
   "KNOWLEDGE_TO_ST_HANDOFF",
   "SCIENTIFIC_THINKING_ENGINE",
+  "STUDY_DESIGN_ENGINE",
   "ST_TO_IMAGING_HANDOFF",
   "IMAGING_ENGINE",
   "VAL_INPUT_ADAPTER",
@@ -2056,6 +2062,8 @@ const ownerStage = (owner: ScientificTraceOwner): FirstDivergentStage => owner =
   ? "KNOWLEDGE_ENGINE"
   : owner === "SCIENTIFIC_THINKING"
     ? "SCIENTIFIC_THINKING_ENGINE"
+    : owner === "STUDY_DESIGN"
+      ? "STUDY_DESIGN_ENGINE"
     : owner === "IMAGING"
       ? "IMAGING_ENGINE"
       : owner === "REGULATORY_RESOLUTION"
@@ -2150,6 +2158,9 @@ export const recordOwnerInvocationTrace = (trace: ScientificRunTraceRecorder | u
   const dependencies = entry.dependencies.map(dependencyRef);
   const resultRef = entry.result ? ownerResultRef(entry.result) : null;
   const summary = traceSummary(entry);
+  const nativePayload = isRecord(entry.result?.nativePayload) ? entry.result?.nativePayload : null;
+  const optionCount = nativePayload && Array.isArray(nativePayload.options) ? nativePayload.options.length : null;
+  const handoffCount = nativePayload && Array.isArray(nativePayload.downstreamHandoffs) ? nativePayload.downstreamHandoffs.length : null;
   trace.append({
     eventType: "HANDOFF_STARTED",
     timestamp: entry.observation.startedAt,
@@ -2216,6 +2227,10 @@ export const recordOwnerInvocationTrace = (trace: ScientificRunTraceRecorder | u
     error: completed ? null : { category: "OWNER_RUNTIME", code: failureCode! },
     diagnostic: { stage: ownerStage(owner), code: completed ? "OWNER_RESULT_OBSERVED" : failureCode! },
     nextExpectedHandoff: input.nextExpectedHandoff ?? nextHandoffFor(owner),
+    technicalMetadata: {
+      ...(optionCount === null ? {} : { optionCount }),
+      ...(handoffCount === null ? {} : { handoffCount }),
+    },
   });
   trace.append({
     eventType: "RESULT_PERSISTED",

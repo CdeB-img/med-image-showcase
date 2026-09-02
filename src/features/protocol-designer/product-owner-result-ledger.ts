@@ -15,7 +15,7 @@ export const PRODUCT_OWNER_RESULT_LEDGER_VERSION = "0.2.0" as const;
 const LEGACY_KNOWLEDGE_LEDGER_VERSION = "0.1.0" as const;
 
 export type ProductOwnerResultDependency = {
-  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "IMAGING" | "REGULATORY_RESOLUTION";
+  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "IMAGING" | "REGULATORY_RESOLUTION";
   resultId: string;
   resultVersion: string;
   nativeResultDigest: string;
@@ -63,6 +63,7 @@ const nativeResultDigest = (result: SpecializedOwnerResult | null) => {
   if (!result?.nativePayload || !isRecord(result.nativePayload)) return null;
   const digest = result.nativePayload.resultDigest
     ?? result.nativePayload.outputDigest
+    ?? result.nativePayload.proposalDigest
     ?? result.nativePayload.resolutionId;
   return typeof digest === "string" ? digest : null;
 };
@@ -127,6 +128,7 @@ export const createProductOwnerResultLedger = (sessionId: string): Readonly<Prod
 const supportedOwnerCapability = (owner: unknown, capabilityId: unknown) => (
   (owner === "KNOWLEDGE" && capabilityId === "KNOWLEDGE_EVIDENCE")
   || (owner === "SCIENTIFIC_THINKING" && capabilityId === "SCIENTIFIC_THINKING_PROPOSAL")
+  || (owner === "STUDY_DESIGN" && capabilityId === "STUDY_DESIGN_COHERENCE")
   || (owner === "IMAGING" && capabilityId === "IMAGING_STUDY_DESIGN")
   || (owner === "REGULATORY_RESOLUTION" && capabilityId === "REGULATORY_REQUIREMENT_RESOLUTION")
 );
@@ -177,6 +179,38 @@ const validateScientificThinkingBoundary = (entry: ProductOwnerResultLedgerEntry
     || knowledgeDependency.resultVersion !== String(knowledgeInput.resultRevision)
     || knowledgeDependency.nativeResultDigest !== knowledgeInput.resultDigest) {
     throw new Error("PRODUCT_OWNER_RESULT_LEDGER_KNOWLEDGE_DEPENDENCY_MISMATCH");
+  }
+};
+
+const validateStudyDesignBoundary = (entry: ProductOwnerResultLedgerEntry) => {
+  if (entry.request.owner !== "STUDY_DESIGN") return;
+  const nativeInput = entry.request.nativeInput;
+  const nativePayload = entry.result?.nativePayload;
+  const projectSnapshot = isRecord(nativeInput) && isRecord(nativeInput.projectSnapshot) ? nativeInput.projectSnapshot : null;
+  const sourceProject = isRecord(nativePayload) && isRecord(nativePayload.sourceProject) ? nativePayload.sourceProject : null;
+  if (!isRecord(nativeInput)
+    || nativeInput.projectId !== entry.request.sourceProject.sourceProjectRef
+    || nativeInput.projectVersion !== entry.request.sourceProject.sourceProjectVersion
+    || nativeInput.projectDigest !== entry.request.sourceProject.sourceProjectDigest
+    || !projectSnapshot
+    || projectSnapshot.snapshotDigest !== entry.request.sourceProject.snapshotDigest
+    || nativeInput.projectWriteAuthorized !== false
+    || entry.dependencies.length !== 0
+    || (entry.result !== null && (
+      entry.result.projectContribution !== null
+      || !isRecord(nativePayload)
+      || nativePayload.owner !== "STUDY_DESIGN"
+      || nativePayload.capabilityId !== "STUDY_DESIGN_COHERENCE"
+      || nativePayload.projectWriteAuthorized !== false
+      || nativePayload.candidateIsAdopted !== false
+      || nativePayload.selectedOptionId !== null
+      || !sourceProject
+      || sourceProject.projectId !== nativeInput.projectId
+      || sourceProject.projectVersion !== nativeInput.projectVersion
+      || sourceProject.projectDigest !== nativeInput.projectDigest
+      || sourceProject.snapshotDigest !== projectSnapshot.snapshotDigest
+    ))) {
+    throw new Error("PRODUCT_OWNER_RESULT_LEDGER_STUDY_DESIGN_BOUNDARY_INVALID");
   }
 };
 
@@ -280,6 +314,7 @@ const validateEntryBoundary = (entry: ProductOwnerResultLedgerEntry, priorEntrie
   }
   validateKnowledgeBoundary(entry);
   validateScientificThinkingBoundary(entry);
+  validateStudyDesignBoundary(entry);
   validateImagingBoundary(entry, priorEntries);
   validateRegulatoryBoundary(entry);
 };
@@ -425,7 +460,7 @@ export const readProductOwnerResult = (input: {
   ledger: Readonly<ProductOwnerResultLedger>;
   resultId: string;
   currentProjectSnapshot: Readonly<ProjectContextSnapshot>;
-  expectedOwner?: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "IMAGING" | "REGULATORY_RESOLUTION";
+  expectedOwner?: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "IMAGING" | "REGULATORY_RESOLUTION";
 }) => {
   const ledger = rehydrateProductOwnerResultLedger(input.ledger);
   const entry = ledger.entries.find((candidate) => candidate.result?.resultId === input.resultId

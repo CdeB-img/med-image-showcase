@@ -16,7 +16,7 @@ import {
   createScientificReasoningKnowledgeGap,
   invokeImagingOwnerFromScientificThinking,
   invokeScientificThinkingOwnerFromProject,
-  invokeUnavailableStudyDesignOwner,
+  invokeStudyDesignOwnerFromProject,
   listSpecializedOwnerCapabilities,
   prepareSpecializedOwnerProjectContribution,
   rejectSpecializedOwnerProjectContribution,
@@ -226,7 +226,7 @@ let project: ResearchProjectOwnerProjection;
 let projectBefore: string;
 let stInvocation: ScientificReasoningOwnerInvocation<ScientificThinkingInput, ScientificThinkingOutput>;
 let imagingInvocation: ImagingOwnerChainInvocation;
-let studyDesignInvocation: ReturnType<typeof invokeUnavailableStudyDesignOwner>;
+let studyDesignInvocation: ReturnType<typeof invokeStudyDesignOwnerFromProject>;
 let knowledgeGap: ReturnType<typeof createScientificReasoningKnowledgeGap>;
 
 describe("PROJECT-SPINE-04 — scientific reasoning and study design owner chain", () => {
@@ -234,7 +234,7 @@ describe("PROJECT-SPINE-04 — scientific reasoning and study design owner chain
     project = projectFixture();
     projectBefore = JSON.stringify(project);
     stInvocation = invokeScientificThinkingOwnerFromProject({ project, ...timing });
-    studyDesignInvocation = invokeUnavailableStudyDesignOwner({ project, scientificThinkingResult: stInvocation.result, ...timing });
+    studyDesignInvocation = invokeStudyDesignOwnerFromProject({ project, ...timing });
     knowledgeGap = createScientificReasoningKnowledgeGap({ project, sourceResult: stInvocation.result!, completedAt: timing.completedAt });
     imagingInvocation = invokeImagingOwnerFromScientificThinking({ project, scientificThinkingResult: stInvocation.result!, ...timing });
   });
@@ -275,28 +275,45 @@ describe("PROJECT-SPINE-04 — scientific reasoning and study design owner chain
     expect(currentHypotheses.some((item) => item.objectId.startsWith("st-hypothesis-candidate:"))).toBe(false);
   });
 
-  it("S05–S07 — inventories Study Design as normative but unavailable and never falls back to Gemini", () => {
+  it("S05–S07 — invokes the bounded Study Design owner without Project write or conversational fallback", () => {
     const capability = listSpecializedOwnerCapabilities().entries.find((item) => item.capabilityId === "STUDY_DESIGN_COHERENCE");
     expect(capability).toMatchObject({
       owner: "STUDY_DESIGN",
-      status: "UNAVAILABLE",
-      implementationVersion: null,
-      inputContract: "RDE-001/RDE-002 v1.1 normative contract only",
-      outputContract: "No standalone Study Design runtime result",
-      readsProjectSnapshot: false,
-      canProduceProjectContribution: false,
+      status: "AVAILABLE_WITH_LIMITATIONS",
+      implementationVersion: "1.0.0",
+      inputContract: "StudyDesignRuntimeInput",
+      outputContract: "StudyDesignProposalContribution",
+      readsProjectSnapshot: true,
+      canProduceProjectContribution: true,
       canWriteProject: false,
       externalProvider: "NONE",
     });
     expect(studyDesignInvocation.observation).toMatchObject({
-      status: "OWNER_UNAVAILABLE",
-      failureCode: "CALL_NONEXISTENT_ENGINE",
-      ownerRuntimeVersion: null,
-      runtimeStarts: 0,
+      status: "COMPLETED_WITH_LIMITATIONS",
+      failureCode: null,
+      ownerRuntimeVersion: "1.0.0",
+      runtimeStarts: 1,
       conversationalLlmCalls: 0,
       projectWrites: 0,
     });
-    expect(studyDesignInvocation.result).toMatchObject({ status: "OWNER_CAPABILITY_UNAVAILABLE", resultKind: "GAP", nativePayload: null });
+    expect(studyDesignInvocation.result).toMatchObject({
+      status: "COMPLETED_WITH_LIMITATIONS",
+      resultKind: "GAP",
+      humanDecisionRequired: true,
+      projectContribution: null,
+      nativePayload: {
+        owner: "STUDY_DESIGN",
+        proposalStatus: "INSUFFICIENT_CONTEXT",
+        selectedOptionId: null,
+        projectWriteAuthorized: false,
+        candidateIsAdopted: false,
+      },
+    });
+    expect(studyDesignInvocation.result?.nativePayload?.options).toEqual([]);
+    expect(studyDesignInvocation.result?.nativePayload?.informationNeeds.length).toBeGreaterThan(0);
+    expect(studyDesignInvocation.result?.nativePayload?.options.length).toBeLessThanOrEqual(3);
+    expect(studyDesignInvocation.downstreamHandoffRequests).toEqual([]);
+    expect(JSON.stringify(project)).toBe(projectBefore);
   });
 
   it("S08–S12 — invokes Imaging once through a provenance-preserving ST→Imaging handoff and retains Knowledge/OBS gaps", () => {
@@ -428,8 +445,7 @@ describe("PROJECT-SPINE-04 — scientific reasoning and study design owner chain
       expect.objectContaining({ version: 2, actuality: "CURRENT", supersedesVersionRef: "hypothesis:timing-mvo:version:1" }),
     ]));
 
-    expect([stInvocation, imagingInvocation].reduce((sum, invocation) => sum + invocation.observation.runtimeStarts, 0)).toBe(2);
-    expect(studyDesignInvocation.observation.runtimeStarts).toBe(0);
+    expect([stInvocation, studyDesignInvocation, imagingInvocation].reduce((sum, invocation) => sum + invocation.observation.runtimeStarts, 0)).toBe(3);
     expect([stInvocation, studyDesignInvocation, imagingInvocation, staleInvocation]
       .reduce((sum, invocation) => sum + invocation.observation.conversationalLlmCalls, 0)).toBe(0);
     expect(JSON.stringify(accepted)).not.toContain("ASK_GEMINI_INSTEAD");
