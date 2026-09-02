@@ -192,7 +192,7 @@ export const recordStudyDesignOptionReviewTrace = (input: {
   proposalRef: string;
   proposalDigest: string;
   optionRef: string;
-  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING";
+  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING" | "OBSERVABILITY_MEASUREMENT";
 }): Readonly<ScientificExecutionTraceLedger> => {
   if (!hasRun(input.ledger, input.traceRunId)) return input.ledger;
   const traceRunId = input.traceRunId!;
@@ -200,7 +200,9 @@ export const recordStudyDesignOptionReviewTrace = (input: {
   const responsibilityOwner = input.responsibilityOwner ?? "STUDY_DESIGN";
   const componentPrefix = responsibilityOwner === "SCIENTIFIC_THINKING"
     ? "STANDARD_SCIENTIFIC_THINKING"
-    : "STANDARD_STUDY_DESIGN";
+    : responsibilityOwner === "OBSERVABILITY_MEASUREMENT"
+      ? "STANDARD_OBSERVABILITY"
+      : "STANDARD_STUDY_DESIGN";
   let ledger = appendProductTraceStage({
     ledger: input.ledger,
     traceRunId,
@@ -229,7 +231,7 @@ export const recordStudyDesignOptionReviewTrace = (input: {
     traceRunId,
     timestamp: input.recordedAt,
     status: "CANDIDATE",
-    owner: "STUDY_DESIGN",
+    owner: responsibilityOwner,
     durationMs: 0,
     envelope: {
       stage: "PROJECT_CANDIDATE_EXTRACTED",
@@ -328,7 +330,7 @@ export const recordStudyDesignConversationTrace = (input: {
   proposalDigest: string;
   turnRef: string;
   status: "DISCUSSION" | "DEFERRED" | "OPTIONS_REJECTED";
-  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING";
+  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING" | "OBSERVABILITY_MEASUREMENT";
 }): Readonly<ScientificExecutionTraceLedger> => !hasRun(input.ledger, input.traceRunId)
   ? input.ledger
   : appendProductTraceStage({
@@ -344,11 +346,15 @@ export const recordStudyDesignConversationTrace = (input: {
       decisionOwner: "NONE",
       executor: input.responsibilityOwner === "SCIENTIFIC_THINKING"
         ? "STANDARD_SCIENTIFIC_THINKING_CONVERSATION"
-        : "STANDARD_STUDY_DESIGN_CONVERSATION",
+        : input.responsibilityOwner === "OBSERVABILITY_MEASUREMENT"
+          ? "STANDARD_OBSERVABILITY_CONVERSATION"
+          : "STANDARD_STUDY_DESIGN_CONVERSATION",
       provider: "NONE",
       componentId: input.responsibilityOwner === "SCIENTIFIC_THINKING"
         ? "STANDARD_SCIENTIFIC_THINKING_PRESENTATION"
-        : "STANDARD_STUDY_DESIGN_PRESENTATION",
+        : input.responsibilityOwner === "OBSERVABILITY_MEASUREMENT"
+          ? "STANDARD_OBSERVABILITY_PRESENTATION"
+          : "STANDARD_STUDY_DESIGN_PRESENTATION",
       componentVersion: "1.0.0",
       input: [{ ref: input.proposalRef, version: "1.0.0", digest: input.proposalDigest }],
       output: [{ ref: input.turnRef, version: "NOT_APPLICABLE", digest: logicalDigest({ turn: input.turnRef, status: input.status }) }],

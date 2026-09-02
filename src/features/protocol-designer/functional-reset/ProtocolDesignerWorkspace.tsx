@@ -53,6 +53,7 @@ import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
 import StudyDesignStandardCard from "./StudyDesignStandardCard";
+import ObservabilityStandardCard from "./ObservabilityStandardCard";
 import {
   executeProductUnderstandInteraction,
   recognizeProductDocumentAction,
@@ -90,6 +91,15 @@ import {
   resolveScientificThinkingConversation,
   scientificThinkingInteractionMatchesCurrentProject,
 } from "./scientific-thinking-standard";
+import {
+  buildObservabilityMeasurementContribution,
+  buildStandardObservabilityPresentation,
+  dispatchObservabilityFromQuery,
+  isObservabilityQueryDispatch,
+  observabilityInteractionMatchesCurrentProject,
+  readObservabilityResultFromLedger,
+  resolveObservabilityConversation,
+} from "./observability-standard";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -200,6 +210,34 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
       mediationFailure: null,
       provider: "NONE",
       model: "SCIENTIFIC_THINKING_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
+  if (isObservabilityQueryDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchObservabilityFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      presentationTurnRef: turnId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    const turn = { turnId, role: "NOXIA" as const, content: dispatched.presentation.plainText, createdAt: completedAt };
+    return {
+      kind: "OBSERVABILITY" as const,
+      turn,
+      content: turn.content,
+      presentationSource: "OBS_STANDARD_PROJECTION" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "OBSERVABILITY_MEASUREMENT_RUNTIME",
       latencyMs: 0,
       calls: 0,
       ...dispatched,
@@ -324,7 +362,7 @@ export default function ProtocolDesignerWorkspace() {
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
       setSession((current) => {
-        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING"
+        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY"
           ? continuation.traceLedger
           : recordPostAdoptionQuestionTrace({
           ledger: current.scientificExecutionTraceLedger,
@@ -349,6 +387,14 @@ export default function ProtocolDesignerWorkspace() {
             presentation: continuation.presentation,
             createdAt: continuedAt,
           }
+          : continuation.kind === "OBSERVABILITY"
+            ? {
+              entryId: createConversationEntryId(),
+              kind: "OBSERVABILITY_PROPOSAL",
+              role: "NOXIA",
+              presentation: continuation.presentation,
+              createdAt: continuedAt,
+            }
           : {
             entryId: createConversationEntryId(),
             kind: "TEXT",
@@ -361,12 +407,13 @@ export default function ProtocolDesignerWorkspace() {
         queryNavigation: continuation.kind === "STUDY_DESIGN" ? continuation.navigation : current.queryNavigation,
         studyDesignInteraction: continuation.kind === "STUDY_DESIGN" ? continuation.interaction : current.studyDesignInteraction,
         scientificThinkingInteraction: continuation.kind === "SCIENTIFIC_THINKING" ? continuation.interaction : current.scientificThinkingInteraction,
-        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
+        observabilityInteraction: continuation.kind === "OBSERVABILITY" ? continuation.interaction : current.observabilityInteraction,
+        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
         entries: [...current.entries, conversationEntry],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: continuation.turn.turnId,
-          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING"
+          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY"
             ? continuation.interaction.traceRunId ?? undefined
             : job.traceRunId ?? undefined,
           requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
@@ -409,6 +456,8 @@ export default function ProtocolDesignerWorkspace() {
           role: "NOXIA",
           content: isScientificThinkingQueryDispatch(job.queryNavigation)
             ? "NOXIA n’a pas pu préparer les propositions scientifiques à partir de cette version du Research Project. Le Project reste inchangé."
+            : isObservabilityQueryDispatch(job.queryNavigation)
+              ? "NOXIA n’a pas pu qualifier les besoins d’observation et de mesure à partir de cette version du Research Project. Le Project reste inchangé."
             : isStudyDesignQueryDispatch(job.queryNavigation)
               ? "NOXIA n’a pas pu préparer les stratégies d’étude à partir de cette version du Research Project. Le Project reste inchangé."
               : "NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.",
@@ -711,6 +760,105 @@ export default function ProtocolDesignerWorkspace() {
     return true;
   };
 
+  const applyObservabilityInput = (content: string, explicitMeasurementRef?: string) => {
+    const interaction = session.observabilityInteraction;
+    const project = session.project;
+    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
+    if (!observabilityInteractionMatchesCurrentProject(interaction, project)) {
+      setSession((current) => ({
+        ...current,
+        observabilityInteraction: current.observabilityInteraction
+          ? { ...current.observabilityInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+          : null,
+      }));
+      return false;
+    }
+    const result = readObservabilityResultFromLedger({ ledger: session.knowledgeOwnerLedger, resultRef: interaction.ownerResultRef });
+    if (!result) return false;
+    const resolution = explicitMeasurementRef
+      ? { kind: "SELECT_MEASUREMENT" as const, measurementRef: explicitMeasurementRef }
+      : resolveObservabilityConversation({ raw: content, result });
+    if (resolution.kind === "FALLTHROUGH") return false;
+    const recordedAt = new Date().toISOString();
+    const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: recordedAt };
+    const proposalEntry = session.entries.find((entry) => entry.kind === "OBSERVABILITY_PROPOSAL"
+      && entry.presentation.resultRef === result.resultId);
+    const proposalTurn: ScientificInterpretationTurn = {
+      turnId: interaction.presentationTurnRef,
+      role: "NOXIA",
+      content: proposalEntry?.kind === "OBSERVABILITY_PROPOSAL"
+        ? proposalEntry.presentation.plainText
+        : buildStandardObservabilityPresentation(result).plainText,
+      createdAt: proposalEntry?.createdAt ?? recordedAt,
+    };
+    if (resolution.kind === "SELECT_MEASUREMENT") {
+      const contribution = buildObservabilityMeasurementContribution({
+        conversationId: session.conversationId,
+        project,
+        result,
+        measurementRef: resolution.measurementRef,
+        proposalTurn,
+        selectionTurn: userTurn,
+        createdAt: recordedAt,
+      });
+      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
+      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") throw new Error(`OBS_REVIEW_CANDIDATE_${candidate.status}`);
+      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
+        ledger: session.scientificExecutionTraceLedger,
+        traceRunId: interaction.traceRunId,
+        conversationId: session.conversationId,
+        recordedAt,
+        contribution,
+        candidate,
+        project,
+        proposalRef: result.resultId,
+        proposalDigest: result.resultDigest,
+        optionRef: resolution.measurementRef,
+        responsibilityOwner: "OBSERVABILITY_MEASUREMENT",
+      });
+      setSession((current) => ({
+        ...current,
+        runtimeTurns: [...current.runtimeTurns, userTurn],
+        pendingContribution: contribution,
+        observabilityInteraction: current.observabilityInteraction ? {
+          ...current.observabilityInteraction,
+          status: "PENDING_HUMAN_REVIEW",
+          selectedMeasurementRef: resolution.measurementRef,
+          pendingContributionRef: contribution.identity.contributionId,
+        } : null,
+        entries: [...current.entries,
+          { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: recordedAt },
+          { entryId: createConversationEntryId(), kind: "REVIEW", role: "NOXIA", contribution, candidate, traceRunId: interaction.traceRunId, status: "PENDING", decision: null, createdAt: recordedAt }],
+        scientificExecutionTraceLedger,
+        updatedAt: recordedAt,
+      }));
+      return true;
+    }
+    const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: resolution.response, createdAt: recordedAt };
+    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
+      ledger: session.scientificExecutionTraceLedger,
+      traceRunId: interaction.traceRunId,
+      conversationId: session.conversationId,
+      recordedAt,
+      project,
+      proposalRef: result.resultId,
+      proposalDigest: result.resultDigest,
+      turnRef: userTurn.turnId,
+      status: resolution.kind === "DISCUSS" ? "DISCUSSION" : "DEFERRED",
+      responsibilityOwner: "OBSERVABILITY_MEASUREMENT",
+    });
+    setSession((current) => ({
+      ...current,
+      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
+      entries: [...current.entries,
+        { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: recordedAt },
+        { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: resolution.response, createdAt: recordedAt }],
+      scientificExecutionTraceLedger,
+      updatedAt: recordedAt,
+    }));
+    return true;
+  };
+
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     const content = draft.trim();
@@ -722,6 +870,11 @@ export default function ProtocolDesignerWorkspace() {
       return;
     }
     if (applyStudyDesignInput(content)) {
+      setDraft("");
+      setCorrectionMode(false);
+      return;
+    }
+    if (applyObservabilityInput(content)) {
       setDraft("");
       setCorrectionMode(false);
       return;
@@ -1159,6 +1312,16 @@ export default function ProtocolDesignerWorkspace() {
           : current.scientificThinkingInteraction && !scientificThinkingInteractionMatchesCurrentProject(current.scientificThinkingInteraction, project)
             ? { ...current.scientificThinkingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
             : current.scientificThinkingInteraction,
+        observabilityInteraction: current.observabilityInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.observabilityInteraction,
+            status: "ADOPTED",
+            adoptedProjectVersion: project.versionId,
+            staleReason: null,
+          }
+          : current.observabilityInteraction && !observabilityInteractionMatchesCurrentProject(current.observabilityInteraction, project)
+            ? { ...current.observabilityInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+            : current.observabilityInteraction,
         documents,
         currentContribution: contribution,
         pendingContribution: null,
@@ -1280,6 +1443,14 @@ export default function ProtocolDesignerWorkspace() {
             pendingContributionRef: null,
           }
           : current.scientificThinkingInteraction,
+        observabilityInteraction: current.observabilityInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.observabilityInteraction,
+            status: "ACTIVE",
+            selectedMeasurementRef: null,
+            pendingContributionRef: null,
+          }
+          : current.observabilityInteraction,
         entries: current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
           ? { ...entry, status: "REJECTED" as const, decision }
           : entry),
@@ -1646,6 +1817,23 @@ export default function ProtocolDesignerWorkspace() {
                   onSelect={(optionRef) => {
                     const option = entry.presentation.options.find((candidate) => candidate.optionRef === optionRef);
                     if (option) applyStudyDesignInput(`Je retiens l’option « ${option.label} » pour revue.`, optionRef);
+                  }}
+                  onDiscuss={() => {
+                    setDraft("");
+                    composerRef.current?.focus();
+                  }}
+                />
+              : entry.kind === "OBSERVABILITY_PROPOSAL"
+                ? <ObservabilityStandardCard
+                  key={entry.entryId}
+                  presentation={entry.presentation}
+                  interaction={readObservabilityResultFromLedger({
+                    ledger: session.knowledgeOwnerLedger,
+                    resultRef: session.observabilityInteraction?.ownerResultRef ?? "",
+                  })?.resultId === entry.presentation.resultRef ? session.observabilityInteraction : null}
+                  onSelect={(measurementRef) => {
+                    const option = entry.presentation.options.find((candidate) => candidate.optionRef === measurementRef);
+                    if (option) applyObservabilityInput(`Je retiens la mesure « ${option.measurementLabel} » pour revue.`, measurementRef);
                   }}
                   onDiscuss={() => {
                     setDraft("");

@@ -256,11 +256,17 @@ const groupCandidatesByScientificDimension = (
   const projectHasScientificQuestion = ensureCanonicalProjectState(project).objects.some((object) => object.actuality === "CURRENT"
     && object.objectType === "SCIENTIFIC_QUESTION"
     && !["UNKNOWN", "WITHHELD"].includes(object.epistemicState));
+  const projectHasObservationBasis = ensureCanonicalProjectState(project).objects.some((object) => object.actuality === "CURRENT"
+    && ["OBJECTIVE", "HYPOTHESIS", "SCIENTIFIC_MODEL", "ENDPOINT"].includes(object.objectType)
+    && !["UNKNOWN", "WITHHELD"].includes(object.epistemicState));
   const grouped = SECTION_DEPENDENCY_ORDER.flatMap((sectionId): NextActionCandidate[] => {
     const members = candidates.filter((candidate) =>
       candidate.affectedDecisionRefs.includes(`project-section:${sectionId}`));
     if (!members.length) return [];
     const needRefs = members.flatMap((candidate) => candidate.navigationNeedRefs).sort();
+    const observabilityQualificationSelected = sectionId === "MEASUREMENTS"
+      && projectHasObservationBasis
+      && members.some((candidate) => candidate.affectedBranchRefs.includes("project-facet:MEASUREMENTS:MEASUREMENT_SET"));
     const hasNoConfirmedInformation = sectionId === "QUESTION"
       ? !projectHasScientificQuestion
       : resolvedSectionElements(project, sectionId).length === 0;
@@ -282,6 +288,9 @@ const groupCandidatesByScientificDimension = (
       } : sectionId === "QUESTION" ? {
         owner: "SCIENTIFIC_THINKING",
         capabilityRef: "SCIENTIFIC_THINKING_PROPOSAL",
+      } : observabilityQualificationSelected ? {
+        owner: "OBSERVABILITY_MEASUREMENT",
+        capabilityRef: "OBSERVABILITY_QUALIFICATION",
       } : {}),
       targetRef: `${project.projectId}:standard-progression-dimension:${sectionId}`,
       sourceRefs: members.flatMap((candidate) => candidate.sourceRefs).sort(),
@@ -305,6 +314,7 @@ const groupCandidatesByScientificDimension = (
           ...(members.length > 1 ? ["SAME_SCIENTIFIC_DIMENSION_NEEDS_GROUPED_FOR_ONE_FREE_TEXT_EXCHANGE"] : []),
           ...(sectionId === "DESIGN" ? ["QRY_SELECTS_SCOPE_STUDY_DESIGN_OWNS_PROPOSAL"] : []),
           ...(sectionId === "QUESTION" ? ["QRY_SELECTS_SCOPE_SCIENTIFIC_THINKING_OWNS_PROPOSAL"] : []),
+          ...(observabilityQualificationSelected ? ["QRY_SELECTS_MEASUREMENT_SET_SCOPE_OBSERVABILITY_OWNS_QUALIFICATION"] : []),
         ],
       },
     }];

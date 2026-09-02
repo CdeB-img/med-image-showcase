@@ -15,7 +15,7 @@ export const PRODUCT_OWNER_RESULT_LEDGER_VERSION = "0.2.0" as const;
 const LEGACY_KNOWLEDGE_LEDGER_VERSION = "0.1.0" as const;
 
 export type ProductOwnerResultDependency = {
-  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "IMAGING" | "REGULATORY_RESOLUTION";
+  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "REGULATORY_RESOLUTION";
   resultId: string;
   resultVersion: string;
   nativeResultDigest: string;
@@ -129,6 +129,7 @@ const supportedOwnerCapability = (owner: unknown, capabilityId: unknown) => (
   (owner === "KNOWLEDGE" && capabilityId === "KNOWLEDGE_EVIDENCE")
   || (owner === "SCIENTIFIC_THINKING" && capabilityId === "SCIENTIFIC_THINKING_PROPOSAL")
   || (owner === "STUDY_DESIGN" && capabilityId === "STUDY_DESIGN_COHERENCE")
+  || (owner === "OBSERVABILITY_MEASUREMENT" && capabilityId === "OBSERVABILITY_QUALIFICATION")
   || (owner === "IMAGING" && capabilityId === "IMAGING_STUDY_DESIGN")
   || (owner === "REGULATORY_RESOLUTION" && capabilityId === "REGULATORY_REQUIREMENT_RESOLUTION")
 );
@@ -220,6 +221,44 @@ const validateStudyDesignBoundary = (entry: ProductOwnerResultLedgerEntry) => {
       || sourceProject.snapshotDigest !== projectSnapshot.snapshotDigest
     ))) {
     throw new Error("PRODUCT_OWNER_RESULT_LEDGER_STUDY_DESIGN_BOUNDARY_INVALID");
+  }
+};
+
+const validateObservabilityBoundary = (entry: ProductOwnerResultLedgerEntry) => {
+  if (entry.request.owner !== "OBSERVABILITY_MEASUREMENT") return;
+  const nativeInput = entry.request.nativeInput;
+  const nativePayload = entry.result?.nativePayload;
+  const projectSnapshot = isRecord(nativeInput) && isRecord(nativeInput.projectSnapshot) ? nativeInput.projectSnapshot : null;
+  const sourceProject = isRecord(nativePayload) && isRecord(nativePayload.sourceProject) ? nativePayload.sourceProject : null;
+  const upstreamInputs = isRecord(nativeInput) && Array.isArray(nativeInput.upstreamOwnerInputs)
+    ? nativeInput.upstreamOwnerInputs.filter(isRecord)
+    : [];
+  const dependencyRefs = new Set(entry.dependencies.map((dependency) => `${dependency.owner}:${dependency.resultId}:${dependency.resultVersion}:${dependency.nativeResultDigest}`));
+  if (!isRecord(nativeInput)
+    || nativeInput.projectId !== entry.request.sourceProject.sourceProjectRef
+    || nativeInput.projectVersion !== entry.request.sourceProject.sourceProjectVersion
+    || nativeInput.projectDigest !== entry.request.sourceProject.sourceProjectDigest
+    || !projectSnapshot
+    || projectSnapshot.snapshotDigest !== entry.request.sourceProject.snapshotDigest
+    || nativeInput.projectWriteAuthorized !== false
+    || upstreamInputs.some((dependency) => dependency.ownershipTransferred !== false
+      || !dependencyRefs.has(`${dependency.owner}:${dependency.resultId}:${dependency.resultVersion}:${dependency.resultDigest}`))
+    || entry.dependencies.length !== upstreamInputs.length
+    || (entry.result !== null && (
+      entry.result.projectContribution !== null
+      || !isRecord(nativePayload)
+      || nativePayload.owner !== "OBSERVABILITY_MEASUREMENT"
+      || nativePayload.capabilityId !== "OBSERVABILITY_QUALIFICATION"
+      || nativePayload.projectWriteAuthorized !== false
+      || nativePayload.projectOwnershipTransferred !== false
+      || nativePayload.candidateIsAdopted !== false
+      || !sourceProject
+      || sourceProject.projectId !== nativeInput.projectId
+      || sourceProject.projectVersion !== nativeInput.projectVersion
+      || sourceProject.projectDigest !== nativeInput.projectDigest
+      || sourceProject.snapshotDigest !== projectSnapshot.snapshotDigest
+    ))) {
+    throw new Error("PRODUCT_OWNER_RESULT_LEDGER_OBSERVABILITY_BOUNDARY_INVALID");
   }
 };
 
@@ -324,6 +363,7 @@ const validateEntryBoundary = (entry: ProductOwnerResultLedgerEntry, priorEntrie
   validateKnowledgeBoundary(entry);
   validateScientificThinkingBoundary(entry);
   validateStudyDesignBoundary(entry);
+  validateObservabilityBoundary(entry);
   validateImagingBoundary(entry, priorEntries);
   validateRegulatoryBoundary(entry);
 };
@@ -469,7 +509,7 @@ export const readProductOwnerResult = (input: {
   ledger: Readonly<ProductOwnerResultLedger>;
   resultId: string;
   currentProjectSnapshot: Readonly<ProjectContextSnapshot>;
-  expectedOwner?: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "IMAGING" | "REGULATORY_RESOLUTION";
+  expectedOwner?: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "REGULATORY_RESOLUTION";
 }) => {
   const ledger = rehydrateProductOwnerResultLedger(input.ledger);
   const entry = ledger.entries.find((candidate) => candidate.result?.resultId === input.resultId

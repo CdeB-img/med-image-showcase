@@ -26,6 +26,17 @@ import {
   type StudyDesignRuntimeInput,
   type StudyDesignTraceSink,
 } from "@/features/study-design";
+import {
+  OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION,
+  buildObservabilityMeasurementInput,
+  executeObservabilityMeasurementRuntime,
+  validateObservabilityMeasurementResult,
+  type BiomarkerRoleDeclaration,
+  type MeasurementDefinitionDeclaration,
+  type ObservablePropertyDeclaration,
+  type ObservabilityMeasurementResult,
+  type ObservabilityMeasurementRuntimeInput,
+} from "@/features/observability-measurement";
 import type {
   ScientificContributionItem,
   ScientificInterpretationContributionEnvelope,
@@ -61,8 +72,8 @@ export type ScientificReasoningOwnerObservation = {
   contractVersion: typeof SCIENTIFIC_REASONING_OWNER_CHAIN_VERSION;
   invocationId: string;
   handoffId: string;
-  owner: "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "IMAGING";
-  capabilityId: "SCIENTIFIC_THINKING_PROPOSAL" | "STUDY_DESIGN_COHERENCE" | "IMAGING_STUDY_DESIGN";
+  owner: "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING";
+  capabilityId: "SCIENTIFIC_THINKING_PROPOSAL" | "STUDY_DESIGN_COHERENCE" | "OBSERVABILITY_QUALIFICATION" | "IMAGING_STUDY_DESIGN";
   ownerRuntimeVersion: string | null;
   sourceProjectRef: string;
   sourceProjectVersion: string;
@@ -92,6 +103,8 @@ export type ScientificReasoningOwnerInvocation<TNativeInput, TNativeOutput> = {
 export type StudyDesignOwnerInvocation = ScientificReasoningOwnerInvocation<StudyDesignRuntimeInput, StudyDesignProposalContribution> & {
   downstreamHandoffRequests: readonly Readonly<SpecializedOwnerHandoffRequest>[];
 };
+
+export type ObservabilityMeasurementOwnerInvocation = ScientificReasoningOwnerInvocation<ObservabilityMeasurementRuntimeInput, ObservabilityMeasurementResult>;
 
 export type ScientificThinkingToImagingHandoff = {
   contract: "PROJECT_SPINE_04_ST_TO_IMAGING_HANDOFF";
@@ -721,6 +734,120 @@ export const invokeStudyDesignOwnerFromProject = (input: InvocationTiming & {
   completedAt: input.completedAt,
   monotonicNow: input.monotonicNow,
 });
+
+export const invokeObservabilityMeasurementOwnerFromSnapshot = (input: InvocationTiming & {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
+  upstreamOwnerResults?: readonly Readonly<SpecializedOwnerResult>[];
+  observablePropertyDeclarations?: readonly ObservablePropertyDeclaration[];
+  measurementDefinitionDeclarations?: readonly MeasurementDefinitionDeclaration[];
+  biomarkerRoleDeclarations?: readonly BiomarkerRoleDeclaration[];
+  purpose?: string;
+  runtime?: (nativeInput: Readonly<ObservabilityMeasurementRuntimeInput>) => Readonly<ObservabilityMeasurementResult>;
+}): ObservabilityMeasurementOwnerInvocation => {
+  const nativeInput = buildObservabilityMeasurementInput({
+    projectSnapshot: input.projectSnapshot,
+    upstreamOwnerResults: input.upstreamOwnerResults,
+    observablePropertyDeclarations: input.observablePropertyDeclarations,
+    measurementDefinitionDeclarations: input.measurementDefinitionDeclarations,
+    biomarkerRoleDeclarations: input.biomarkerRoleDeclarations,
+    purpose: input.purpose,
+  });
+  const handoffId = `observability-handoff:${logicalDigest({ project: nativeInput.projectDigest, input: nativeInput.inputId })}`;
+  const request = createSpecializedOwnerHandoffRequestFromSnapshot({
+    handoffId,
+    owner: "OBSERVABILITY_MEASUREMENT",
+    capabilityId: "OBSERVABILITY_QUALIFICATION",
+    purpose: input.purpose ?? "Qualifier comment le phénomène scientifique peut devenir observable et mesurable, sans adopter ni muter le Project.",
+    sourceProject: input.projectSnapshot,
+    nativeInputType: "ObservabilityMeasurementRuntimeInput",
+    nativeInputVersion: OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION,
+    nativeInput,
+  });
+  const invocationId = `scientific-owner-invocation:${logicalDigest({ handoffId, startedAt: input.startedAt })}`;
+  const projectBefore = stableStringify(input.projectSnapshot);
+  const started = now(input.monotonicNow);
+  try {
+    const nativeOutput = (input.runtime ?? executeObservabilityMeasurementRuntime)(request.nativeInput);
+    const latencyMs = elapsed(started, now(input.monotonicNow));
+    const validation = validateObservabilityMeasurementResult(request.nativeInput, nativeOutput);
+    if (validation.status === "BLOCKED" || stableStringify(input.projectSnapshot) !== projectBefore) {
+      return {
+        request,
+        result: null,
+        observation: observation({
+          request,
+          invocationId,
+          ownerRuntimeVersion: OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION,
+          status: "INVALID_OWNER_RESULT",
+          failureCode: validation.status === "BLOCKED"
+            ? `OBS_RESULT_INVALID:${validation.findings.map((finding) => finding.code).join(",")}`
+            : "OBS_PROJECT_MUTATION_DETECTED",
+          startedAt: input.startedAt,
+          completedAt: input.completedAt,
+          latencyMs,
+          runtimeStarts: 1,
+        }),
+      };
+    }
+    const unknowns = unique(nativeOutput.uncertainty);
+    const gaps = unique(nativeOutput.informationNeeds.map((need) => `${need.needId}:${need.informationNeeded}`));
+    const limitations = unique(nativeOutput.limitations);
+    const result = recordSpecializedOwnerResult({
+      request,
+      resultId: nativeOutput.resultId,
+      resultVersion: OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION,
+      completedAt: input.completedAt,
+      status: gaps.length || unknowns.length || limitations.length ? "COMPLETED_WITH_LIMITATIONS" : "COMPLETED",
+      resultKind: nativeOutput.resultStatus === "INFORMATION_REQUIRED" ? "GAP" : "RECOMMENDATION_OPTION",
+      nativePayloadType: "ObservabilityMeasurementResult",
+      nativePayloadVersion: OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION,
+      nativePayload: nativeOutput,
+      stableProjectRefs: request.sourceProject.objects.map((item) => item.stableId),
+      evidenceRefs: [...nativeOutput.provenanceRefs],
+      unknowns,
+      gaps,
+      limitations,
+      provenance: [nativeOutput.resultId, nativeOutput.resultDigest, ...nativeOutput.provenanceRefs],
+      humanDecisionRequired: true,
+    });
+    return {
+      request,
+      result,
+      observation: observation({
+        request,
+        invocationId,
+        ownerRuntimeVersion: OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION,
+        resultRef: `${result.resultId}@${result.resultVersion}`,
+        status: "COMPLETED_WITH_LIMITATIONS",
+        stableProjectRefs: result.stableProjectRefs,
+        unknowns,
+        gaps,
+        limitations,
+        startedAt: input.startedAt,
+        completedAt: input.completedAt,
+        latencyMs,
+        runtimeStarts: 1,
+      }),
+    };
+  } catch (error) {
+    const latencyMs = elapsed(started, now(input.monotonicNow));
+    return {
+      request,
+      result: null,
+      observation: observation({
+        request,
+        invocationId,
+        ownerRuntimeVersion: OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION,
+        status: "OWNER_RUNTIME_FAILURE",
+        failureCode: error instanceof Error ? error.message : "OBS_RUNTIME_FAILURE",
+        startedAt: input.startedAt,
+        completedAt: input.completedAt,
+        latencyMs,
+        runtimeStarts: 1,
+      }),
+    };
+  }
+};
 
 export const buildScientificThinkingToImagingHandoff = (input: {
   result: SpecializedOwnerResult<ScientificThinkingOutput>;

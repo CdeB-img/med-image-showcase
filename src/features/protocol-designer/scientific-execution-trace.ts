@@ -177,6 +177,8 @@ export type ScientificProductTraceStage =
   | "KNOWLEDGE_RESULT"
   | "SCIENTIFIC_THINKING_REQUEST"
   | "SCIENTIFIC_THINKING_RESULT"
+  | "OBSERVABILITY_REQUEST"
+  | "OBSERVABILITY_RESULT"
   | "IMAGING_REQUEST"
   | "IMAGING_RESULT"
   | "REG_REQUEST"
@@ -454,6 +456,7 @@ export type ScientificTraceOwner =
   | "KNOWLEDGE"
   | "SCIENTIFIC_THINKING"
   | "STUDY_DESIGN"
+  | "OBSERVABILITY_MEASUREMENT"
   | "IMAGING"
   | "REGULATORY_RESOLUTION"
   | "VAL"
@@ -487,6 +490,7 @@ export type FirstDivergentStage =
   | "KNOWLEDGE_TO_ST_HANDOFF"
   | "SCIENTIFIC_THINKING_ENGINE"
   | "STUDY_DESIGN_ENGINE"
+  | "OBSERVABILITY_MEASUREMENT_ENGINE"
   | "ST_TO_IMAGING_HANDOFF"
   | "IMAGING_ENGINE"
   | "VAL_INPUT_ADAPTER"
@@ -913,6 +917,7 @@ const TRACE_OWNERS = new Set<ScientificTraceOwner>([
   "KNOWLEDGE",
   "SCIENTIFIC_THINKING",
   "STUDY_DESIGN",
+  "OBSERVABILITY_MEASUREMENT",
   "IMAGING",
   "REGULATORY_RESOLUTION",
   "VAL",
@@ -942,6 +947,8 @@ const PRODUCT_TRACE_STAGES: readonly ScientificProductTraceStage[] = [
   "KNOWLEDGE_RESULT",
   "SCIENTIFIC_THINKING_REQUEST",
   "SCIENTIFIC_THINKING_RESULT",
+  "OBSERVABILITY_REQUEST",
+  "OBSERVABILITY_RESULT",
   "IMAGING_REQUEST",
   "IMAGING_RESULT",
   "REG_REQUEST",
@@ -981,6 +988,7 @@ const DIVERGENT_STAGES = new Set<FirstDivergentStage>([
   "KNOWLEDGE_TO_ST_HANDOFF",
   "SCIENTIFIC_THINKING_ENGINE",
   "STUDY_DESIGN_ENGINE",
+  "OBSERVABILITY_MEASUREMENT_ENGINE",
   "ST_TO_IMAGING_HANDOFF",
   "IMAGING_ENGINE",
   "VAL_INPUT_ADAPTER",
@@ -1397,7 +1405,8 @@ export const SCIENTIFIC_TRACE_EVENT_CROSSWALK: readonly ScientificTraceEventCros
 const ownerRequestStage = (owner: ScientificTraceOwner): ScientificProductTraceStage => owner === "KNOWLEDGE"
   ? "KNOWLEDGE_REQUEST"
   : owner === "SCIENTIFIC_THINKING" ? "SCIENTIFIC_THINKING_REQUEST"
-    : owner === "IMAGING" ? "IMAGING_REQUEST"
+    : owner === "OBSERVABILITY_MEASUREMENT" ? "OBSERVABILITY_REQUEST"
+      : owner === "IMAGING" ? "IMAGING_REQUEST"
       : owner === "REGULATORY_RESOLUTION" ? "REG_REQUEST"
         : owner === "VAL" ? "VAL_REQUEST"
           : "ERROR_BOUNDARY";
@@ -1405,7 +1414,8 @@ const ownerRequestStage = (owner: ScientificTraceOwner): ScientificProductTraceS
 const ownerResultStage = (owner: ScientificTraceOwner): ScientificProductTraceStage => owner === "KNOWLEDGE"
   ? "KNOWLEDGE_RESULT"
   : owner === "SCIENTIFIC_THINKING" ? "SCIENTIFIC_THINKING_RESULT"
-    : owner === "IMAGING" ? "IMAGING_RESULT"
+    : owner === "OBSERVABILITY_MEASUREMENT" ? "OBSERVABILITY_RESULT"
+      : owner === "IMAGING" ? "IMAGING_RESULT"
       : owner === "REGULATORY_RESOLUTION" ? "REG_RESULT"
         : owner === "VAL" ? "VAL_RESULT"
           : "ERROR_BOUNDARY";
@@ -2064,8 +2074,10 @@ const ownerStage = (owner: ScientificTraceOwner): FirstDivergentStage => owner =
     ? "SCIENTIFIC_THINKING_ENGINE"
     : owner === "STUDY_DESIGN"
       ? "STUDY_DESIGN_ENGINE"
-    : owner === "IMAGING"
-      ? "IMAGING_ENGINE"
+    : owner === "OBSERVABILITY_MEASUREMENT"
+      ? "OBSERVABILITY_MEASUREMENT_ENGINE"
+      : owner === "IMAGING"
+        ? "IMAGING_ENGINE"
       : owner === "REGULATORY_RESOLUTION"
         ? "REG_ENGINE"
         : owner === "VAL"
