@@ -20,6 +20,8 @@ import {
   type ResearchDesignHandoff,
   type ScientificThinkingAdaptiveQuestion,
   type ScientificThinkingInput,
+  type ScientificModelCandidate,
+  type ScientificThinkingDownstreamHandoff,
   type ScientificThinkingOperation,
   type ScientificThinkingOutput,
   type ScientificThinkingTraceEvent,
@@ -313,6 +315,19 @@ const buildAssumptions = (input: ScientificThinkingInput): AssumptionCandidate[]
 const buildHypotheses = (input: ScientificThinkingInput, questions: QuestionCandidate[], controls: ScientificThinkingControls): HypothesisCandidate[] => {
   const primary = questions.find((item) => item.kind === "PRIMARY");
   if (!primary || primary.testability !== "TESTABLE_CANDIDATE") return [];
+  if (input.existingHypotheses.length) return input.existingHypotheses.slice(0, 3).map((text, index) => ({
+    hypothesisId: `ST-H-PROJECT-${String(index + 1).padStart(3, "0")}`,
+    text,
+    kind: index === 0 ? "PRIMARY" : "ALTERNATIVE",
+    falsifiability: "TESTABLE_CANDIDATE",
+    observableCondition: "Cette hypothèse Project est conservée sans sélection ; une information discriminante doit pouvoir la confronter aux alternatives.",
+    direction: null,
+    limitations: input.knowledge.limitations,
+    unknowns: input.missingInformation,
+    support: candidateSupport(input.knowledge.support),
+    linkedQuestionIds: [primary.questionId],
+    reviewState: reviewFor(`ST-H-PROJECT-${String(index + 1).padStart(3, "0")}`, controls.hypothesisReviews),
+  }));
   const base = sentence(primary.text).replace(/^(Quel|Quelle|Quels|Quelles|Comment|Pourquoi)\b/i, "Une relation concernant");
   const hypotheses: Omit<HypothesisCandidate, "reviewState">[] = [{
     hypothesisId: "ST-H-001",
@@ -330,7 +345,7 @@ const buildHypotheses = (input: ScientificThinkingInput, questions: QuestionCand
     : explicitClauses.length >= 2
       ? explicitClauses.map((item) => `Interprétation candidate explicitement ouverte : ${item}`)
       : input.knowledge.support === "CONFLICTING" ? exactStatements : [];
-  branchTexts.forEach((text, index) => {
+  branchTexts.slice(0, 2).forEach((text, index) => {
     const statement = input.knowledge.reasoningStatements.find((item) => item.text === text);
     hypotheses.push({
       hypothesisId: `ST-H-KNOWLEDGE-${String(index + 1).padStart(3, "0")}`,
@@ -388,6 +403,99 @@ const buildMechanisms = (input: ScientificThinkingInput, hypotheses: HypothesisC
     support: candidateSupport(input.knowledge.support),
     linkedHypothesisIds: hypotheses.map((item) => item.hypothesisId),
   }];
+};
+
+const buildScientificModels = (
+  input: ScientificThinkingInput,
+  hypotheses: HypothesisCandidate[],
+  mechanisms: MechanismCandidate[],
+): ScientificModelCandidate[] => mechanisms
+  .filter((mechanism) => mechanism.status === "KNOWLEDGE_SUPPORTED_MECHANISM")
+  .slice(0, 3)
+  .map((mechanism, index) => ({
+    modelId: `ST-MODEL-${String(index + 1).padStart(3, "0")}`,
+    text: mechanism.text,
+    rationale: "Concept explicatif candidat dérivé d’un énoncé Knowledge applicable ; il ne constitue pas une vérité Project.",
+    assumptions: input.existingHypotheses.length ? input.existingHypotheses.slice(0, 3) : hypotheses.map((item) => item.text).slice(0, 3),
+    uncertainties: unique([...input.missingInformation, ...input.knowledge.limitations]),
+    support: mechanism.support,
+    reviewState: "PENDING" as const,
+    linkedHypothesisIds: [...mechanism.linkedHypothesisIds],
+  }));
+
+const buildDownstreamHandoffs = (input: {
+  sourceOutputRef: string;
+  sourceProject: NonNullable<ScientificThinkingOutput["sourceProject"]>;
+  nativeInput: ScientificThinkingInput;
+  questions: QuestionCandidate[];
+  hypotheses: HypothesisCandidate[];
+  models: ScientificModelCandidate[];
+  knowledgeRequired: boolean;
+}): ScientificThinkingDownstreamHandoff[] => {
+  const provenanceRefs = unique([
+    input.nativeInput.requestId,
+    ...input.nativeInput.information.explicit,
+    ...input.nativeInput.researchContext.previousDecisionIds,
+  ]);
+  const candidateRefs = unique([
+    ...input.questions.map((item) => item.questionId),
+    ...input.hypotheses.map((item) => item.hypothesisId),
+    ...input.models.map((item) => item.modelId),
+  ]);
+  const make = (details: {
+    targetOwner: ScientificThinkingDownstreamHandoff["targetOwner"];
+    capabilityId: ScientificThinkingDownstreamHandoff["capabilityId"];
+    purpose: string;
+    informationNeeded: string[];
+  }): ScientificThinkingDownstreamHandoff => ({
+    handoffId: `scientific-thinking-handoff-proposal:${logicalDigest({ output: input.sourceOutputRef, target: details.targetOwner })}`,
+    sourceOwner: "SCIENTIFIC_THINKING",
+    targetOwner: details.targetOwner,
+    capabilityId: details.capabilityId,
+    sourceOutputRef: input.sourceOutputRef,
+    sourceCandidateRefs: candidateRefs,
+    sourceProjectRef: input.sourceProject.projectId,
+    sourceProjectVersion: input.sourceProject.projectVersion,
+    sourceProjectDigest: input.sourceProject.projectDigest,
+    purpose: details.purpose,
+    informationNeeded: unique(details.informationNeeded),
+    provenanceRefs,
+    status: "PROPOSED_NOT_EXECUTED",
+    ownershipTransferred: false,
+    projectWriteAuthorized: false,
+  });
+  const handoffs: ScientificThinkingDownstreamHandoff[] = [];
+  if (input.questions.some((item) => item.testability === "TESTABLE_CANDIDATE") || input.hypotheses.length) handoffs.push(make({
+    targetOwner: "STUDY_DESIGN",
+    capabilityId: "STUDY_DESIGN_COHERENCE",
+    purpose: "Qualifier les conséquences de design de la question et des hypothèses sans choisir ni adopter un design.",
+    informationNeeded: ["question scientifique confirmée", "hypothèses retenues ou explicitement écartées", "incertitudes structurantes"],
+  }));
+  if (input.hypotheses.some((item) => item.observableCondition.trim().length > 0)) handoffs.push(make({
+    targetOwner: "OBSERVABILITY_MEASUREMENT",
+    capabilityId: "OBSERVABILITY_QUALIFICATION",
+    purpose: "Qualifier les manifestations observables requises par les hypothèses sans créer de MeasurementDefinition.",
+    informationNeeded: ["ObservableProperties candidates", "limites d’observabilité", "chaîne hypothèse-observation"],
+  }));
+  if (input.nativeInput.methodsMentioned.length > 0) handoffs.push(make({
+    targetOwner: "IMAGING",
+    capabilityId: "IMAGING_STUDY_DESIGN",
+    purpose: "Qualifier l’implication d’imagerie déclarée sans choisir d’acquisition ni de protocole.",
+    informationNeeded: ["manifestation d’imagerie recherchée", "faisabilité conceptuelle", "limites de mesure et de qualité"],
+  }));
+  if (input.hypotheses.length > 1 || has(`${input.nativeInput.scientificPurpose.join(" ")} ${input.nativeInput.relations.join(" ")}`, /analys|compar|discrimin|longitudinal|evolution/)) handoffs.push(make({
+    targetOwner: "BIOSTATISTICS",
+    capabilityId: "BIOSTATISTICS_PLANNING",
+    purpose: "Qualifier le besoin analytique discriminant sans sélectionner de modèle statistique ni produire de dimensionnement.",
+    informationNeeded: ["contraste scientifique à discriminer", "estimand à qualifier", "incertitudes et alternatives"],
+  }));
+  if (input.knowledgeRequired) handoffs.push(make({
+    targetOwner: "KNOWLEDGE",
+    capabilityId: "KNOWLEDGE_EVIDENCE",
+    purpose: "Documenter les propositions et incertitudes avant toute prétention de soutien scientifique.",
+    informationNeeded: ["éléments de preuve applicables", "controverses", "limites et lacunes documentaires"],
+  }));
+  return handoffs;
 };
 
 const buildAdaptiveQuestions = (input: ScientificThinkingInput, questions: QuestionCandidate[], answers: Record<string, string>): ScientificThinkingAdaptiveQuestion[] => {
@@ -622,6 +730,7 @@ export const executeScientificThinkingEngine = (
   const hypotheses = refusal ? [] : buildHypotheses(input, questions, controls);
   const objectives = refusal ? [] : buildObjectives(input, questions, controls);
   const mechanisms = refusal ? [] : buildMechanisms(input, hypotheses);
+  const scientificModels = refusal ? [] : buildScientificModels(input, hypotheses, mechanisms);
   const adaptiveQuestions = refusal && refusal.code !== "NON_TESTABLE" ? [] : buildAdaptiveQuestions(input, questions, answers);
   const ambiguities = unique([
     ...(isMethodOnlyComparison(input) && !resolvedComparisonTarget(answers["ST-AQ-COMPARISON-TARGET"]) ? ["OBJET_DE_COMPARAISON_NON_PRÉCISÉ"] : []),
@@ -706,16 +815,45 @@ export const executeScientificThinkingEngine = (
       gapRefs: input.knowledge.gapRefs,
     }]
     : [];
+  const sourceProject = input.researchContext.researchProjectId
+    && input.researchContext.researchProjectVersion
+    && input.researchContext.researchProjectDigest
+    && input.researchContext.projectSnapshotDigest
+    ? {
+      projectId: input.researchContext.researchProjectId,
+      projectVersion: input.researchContext.researchProjectVersion,
+      projectDigest: input.researchContext.researchProjectDigest,
+      snapshotDigest: input.researchContext.projectSnapshotDigest,
+    }
+    : null;
+  const outputId = `scientific-thinking-output:${logicalDigest({ request: input.requestId, candidateRefs, sourceProject })}`;
+  const downstreamHandoffs = sourceProject ? buildDownstreamHandoffs({
+    sourceOutputRef: outputId,
+    sourceProject,
+    nativeInput: input,
+    questions,
+    hypotheses,
+    models: scientificModels,
+    knowledgeRequired,
+  }) : [];
+  const epistemicStatus: ScientificThinkingOutput["epistemicStatus"] = questions.some((item) => item.testability === "TESTABLE_CANDIDATE")
+    ? "PROPOSAL_ONLY"
+    : "INSUFFICIENT_CONTEXT_UNKNOWN_PRESERVED";
   const core = {
     input: input.requestId, status: outputStatus,
+    sourceProject,
     originalIdea: input.originalExpression,
     understoodProblem: questions[0]?.text ?? refusal?.reason ?? "Problème scientifique non encore structurable.",
     centralScientificObject: objectLabel(input),
-    semanticElements, questions, hypotheses, objectives, mechanisms, assumptions, unknowns, ambiguities,
+    semanticElements, questions, hypotheses, objectives, mechanisms, scientificModels, assumptions, unknowns, ambiguities,
     selectedQuestionCandidate: questions.find((item) => item.reviewState === "ADOPTED") ?? null,
     contradictions: unique([...input.contradictions, ...input.knowledge.contradictions]), conceptualBiases, reasoningIssues, methodPreferences: input.methodsMentioned, alternatives,
     operations, adaptiveQuestions, humanGates, changes: controls.changes ?? [], refusal, knowledgeRequest,
     graph: { projectionVersion: "RUNTIME_PROJECTION_1.0" as const, ontologyStatus: "NO_NEW_ONTOLOGY" as const, ...graphParts }, handoff, knowledgeDependencies,
+    downstreamHandoffs, epistemicStatus,
+    projectWriteAuthorized: false as const,
+    projectOwnershipTransferred: false as const,
+    candidateIsAdopted: false as const,
   };
   const outputDigest = logicalDigest(core);
   const proposedNextAction: ScientificThinkingOutput["proposedNextAction"] = refusal && refusal.code !== "NON_TESTABLE" ? "STOP"
@@ -736,20 +874,26 @@ export const executeScientificThinkingEngine = (
   ];
   const output: ScientificThinkingOutput = {
     contractVersion: SCIENTIFIC_THINKING_ENGINE_VERSION,
-    outputId: `scientific-thinking-output:${outputDigest}`,
+    outputId,
     outputDigest,
+    sourceProject,
     status: core.status,
     candidateNotice: "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW",
     originalIdea: input.originalExpression,
     understoodProblem: core.understoodProblem,
     centralScientificObject: core.centralScientificObject,
-    semanticElements, questions, hypotheses, objectives, mechanisms, assumptions, unknowns, ambiguities,
+    semanticElements, questions, hypotheses, objectives, mechanisms, scientificModels, assumptions, unknowns, ambiguities,
     selectedQuestionCandidate: core.selectedQuestionCandidate,
     contradictions: core.contradictions, conceptualBiases, reasoningIssues, methodPreferences: input.methodsMentioned, alternatives,
     operations, adaptiveQuestions, humanGates, changes: controls.changes ?? [], refusal, knowledgeRequest,
     proposedNextAction,
     humanDecisionRequired: humanGates.some((item) => item.status === "PENDING"),
     knowledgeDependencies,
+    downstreamHandoffs,
+    epistemicStatus,
+    projectWriteAuthorized: false,
+    projectOwnershipTransferred: false,
+    candidateIsAdopted: false,
     provenance: {
       engineVersion: SCIENTIFIC_THINKING_ENGINE_VERSION,
       inputRef: input.requestId,

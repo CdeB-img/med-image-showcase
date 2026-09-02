@@ -81,6 +81,15 @@ import {
   readStudyDesignProposalFromLedger,
   resolveStudyDesignConversation,
 } from "./study-design-standard";
+import {
+  buildScientificThinkingSelectionContribution,
+  buildStandardScientificThinkingPresentation,
+  dispatchScientificThinkingFromQuery,
+  isScientificThinkingQueryDispatch,
+  readScientificThinkingOutputFromLedger,
+  resolveScientificThinkingConversation,
+  scientificThinkingInteractionMatchesCurrentProject,
+} from "./scientific-thinking-standard";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -163,6 +172,39 @@ type PostAdoptionContinuationJob = {
 };
 
 const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJob) => {
+  if (isScientificThinkingQueryDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchScientificThinkingFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      presentationTurnRef: turnId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    const turn = {
+      turnId,
+      role: "NOXIA" as const,
+      content: dispatched.presentation.plainText,
+      createdAt: completedAt,
+    };
+    return {
+      kind: "SCIENTIFIC_THINKING" as const,
+      turn,
+      content: turn.content,
+      presentationSource: "ST_STANDARD_PROJECTION" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "SCIENTIFIC_THINKING_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
   if (isStudyDesignQueryDispatch(job.queryNavigation)) {
     const completedAt = new Date().toISOString();
     const turnId = createTurnId();
@@ -282,7 +324,7 @@ export default function ProtocolDesignerWorkspace() {
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
       setSession((current) => {
-        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN"
+        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING"
           ? continuation.traceLedger
           : recordPostAdoptionQuestionTrace({
           ledger: current.scientificExecutionTraceLedger,
@@ -318,12 +360,13 @@ export default function ProtocolDesignerWorkspace() {
         ...current,
         queryNavigation: continuation.kind === "STUDY_DESIGN" ? continuation.navigation : current.queryNavigation,
         studyDesignInteraction: continuation.kind === "STUDY_DESIGN" ? continuation.interaction : current.studyDesignInteraction,
-        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
+        scientificThinkingInteraction: continuation.kind === "SCIENTIFIC_THINKING" ? continuation.interaction : current.scientificThinkingInteraction,
+        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
         entries: [...current.entries, conversationEntry],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: continuation.turn.turnId,
-          traceRunId: continuation.kind === "STUDY_DESIGN"
+          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING"
             ? continuation.interaction.traceRunId ?? undefined
             : job.traceRunId ?? undefined,
           requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
@@ -364,9 +407,11 @@ export default function ProtocolDesignerWorkspace() {
           entryId: createConversationEntryId(),
           kind: "ERROR",
           role: "NOXIA",
-          content: isStudyDesignQueryDispatch(job.queryNavigation)
-            ? "NOXIA n’a pas pu préparer les stratégies d’étude à partir de cette version du Research Project. Le Project reste inchangé."
-            : "NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.",
+          content: isScientificThinkingQueryDispatch(job.queryNavigation)
+            ? "NOXIA n’a pas pu préparer les propositions scientifiques à partir de cette version du Research Project. Le Project reste inchangé."
+            : isStudyDesignQueryDispatch(job.queryNavigation)
+              ? "NOXIA n’a pas pu préparer les stratégies d’étude à partir de cette version du Research Project. Le Project reste inchangé."
+              : "NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.",
           createdAt: failedAt,
         }],
         updatedAt: failedAt,
@@ -388,6 +433,139 @@ export default function ProtocolDesignerWorkspace() {
     const firstProjectContributionIndex = session.entries.findIndex((entry) => entry.kind === "REVIEW" && entry.status === "CONFIRMED");
     return (entryIndex: number) => firstProjectContributionIndex >= 0 && entryIndex > firstProjectContributionIndex;
   }, [session.entries]);
+
+  const applyScientificThinkingInput = (content: string) => {
+    const interaction = session.scientificThinkingInteraction;
+    const project = session.project;
+    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
+    if (!scientificThinkingInteractionMatchesCurrentProject(interaction, project)) {
+      setSession((current) => ({
+        ...current,
+        scientificThinkingInteraction: current.scientificThinkingInteraction
+          ? { ...current.scientificThinkingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+          : null,
+      }));
+      return false;
+    }
+    const output = readScientificThinkingOutputFromLedger({
+      ledger: session.knowledgeOwnerLedger,
+      resultRef: interaction.ownerResultRef,
+    });
+    if (!output) return false;
+    const resolution = resolveScientificThinkingConversation({ raw: content, output });
+    if (resolution.kind === "FALLTHROUGH") return false;
+    const recordedAt = new Date().toISOString();
+    const userTurn: ScientificInterpretationTurn = {
+      turnId: createTurnId(),
+      role: "USER",
+      content,
+      createdAt: recordedAt,
+    };
+    const priorProposalTurn = session.runtimeTurns.find((turn) => turn.turnId === interaction.presentationTurnRef);
+    const proposalTurn: ScientificInterpretationTurn = priorProposalTurn ?? {
+      turnId: interaction.presentationTurnRef,
+      role: "NOXIA",
+      content: buildStandardScientificThinkingPresentation(output).plainText,
+      createdAt: recordedAt,
+    };
+    if (resolution.kind === "SELECT_CANDIDATE") {
+      const contribution = buildScientificThinkingSelectionContribution({
+        conversationId: session.conversationId,
+        project,
+        output,
+        candidateRef: resolution.candidateRef,
+        proposalTurn,
+        selectionTurn: userTurn,
+        createdAt: recordedAt,
+      });
+      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
+      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") {
+        throw new Error(`SCIENTIFIC_THINKING_REVIEW_CANDIDATE_${candidate.status}`);
+      }
+      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
+        ledger: session.scientificExecutionTraceLedger,
+        traceRunId: interaction.traceRunId,
+        conversationId: session.conversationId,
+        recordedAt,
+        contribution,
+        candidate,
+        project,
+        proposalRef: output.outputId,
+        proposalDigest: output.outputDigest,
+        optionRef: resolution.candidateRef,
+        responsibilityOwner: "SCIENTIFIC_THINKING",
+      });
+      setSession((current) => ({
+        ...current,
+        runtimeTurns: [...current.runtimeTurns, userTurn],
+        pendingContribution: contribution,
+        scientificThinkingInteraction: current.scientificThinkingInteraction ? {
+          ...current.scientificThinkingInteraction,
+          status: "PENDING_HUMAN_REVIEW",
+          selectedCandidateRef: resolution.candidateRef,
+          pendingContributionRef: contribution.identity.contributionId,
+        } : null,
+        entries: [...current.entries, {
+          entryId: createConversationEntryId(),
+          kind: "TEXT",
+          role: "USER",
+          content,
+          createdAt: recordedAt,
+        }, {
+          entryId: createConversationEntryId(),
+          kind: "REVIEW",
+          role: "NOXIA",
+          contribution,
+          candidate,
+          traceRunId: interaction.traceRunId,
+          status: "PENDING",
+          decision: null,
+          createdAt: recordedAt,
+        }],
+        scientificExecutionTraceLedger,
+        updatedAt: recordedAt,
+      }));
+      return true;
+    }
+    const assistantTurn: ScientificInterpretationTurn = {
+      turnId: createTurnId(),
+      role: "NOXIA",
+      content: resolution.response,
+      createdAt: recordedAt,
+    };
+    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
+      ledger: session.scientificExecutionTraceLedger,
+      traceRunId: interaction.traceRunId,
+      conversationId: session.conversationId,
+      recordedAt,
+      project,
+      proposalRef: output.outputId,
+      proposalDigest: output.outputDigest,
+      turnRef: userTurn.turnId,
+      status: resolution.kind === "DISCUSS" ? "DISCUSSION" : "DEFERRED",
+      responsibilityOwner: "SCIENTIFIC_THINKING",
+    });
+    setSession((current) => ({
+      ...current,
+      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
+      entries: [...current.entries, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "USER",
+        content,
+        createdAt: recordedAt,
+      }, {
+        entryId: createConversationEntryId(),
+        kind: "TEXT",
+        role: "NOXIA",
+        content: resolution.response,
+        createdAt: recordedAt,
+      }],
+      scientificExecutionTraceLedger,
+      updatedAt: recordedAt,
+    }));
+    return true;
+  };
 
   const applyStudyDesignInput = (content: string, explicitOptionRef?: string) => {
     const interaction = session.studyDesignInteraction;
@@ -538,6 +716,11 @@ export default function ProtocolDesignerWorkspace() {
     const content = draft.trim();
     if (!content || busy) return;
     const now = new Date().toISOString();
+    if (applyScientificThinkingInput(content)) {
+      setDraft("");
+      setCorrectionMode(false);
+      return;
+    }
     if (applyStudyDesignInput(content)) {
       setDraft("");
       setCorrectionMode(false);
@@ -966,6 +1149,16 @@ export default function ProtocolDesignerWorkspace() {
           : current.studyDesignInteraction && !interactionMatchesCurrentProject(current.studyDesignInteraction, project)
             ? { ...current.studyDesignInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
             : current.studyDesignInteraction,
+        scientificThinkingInteraction: current.scientificThinkingInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.scientificThinkingInteraction,
+            status: "ADOPTED",
+            adoptedProjectVersion: project.versionId,
+            staleReason: null,
+          }
+          : current.scientificThinkingInteraction && !scientificThinkingInteractionMatchesCurrentProject(current.scientificThinkingInteraction, project)
+            ? { ...current.scientificThinkingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+            : current.scientificThinkingInteraction,
         documents,
         currentContribution: contribution,
         pendingContribution: null,
@@ -1079,6 +1272,14 @@ export default function ProtocolDesignerWorkspace() {
             pendingContributionRef: null,
           }
           : current.studyDesignInteraction,
+        scientificThinkingInteraction: current.scientificThinkingInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.scientificThinkingInteraction,
+            status: "ACTIVE",
+            selectedCandidateRef: null,
+            pendingContributionRef: null,
+          }
+          : current.scientificThinkingInteraction,
         entries: current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
           ? { ...entry, status: "REJECTED" as const, decision }
           : entry),

@@ -63,7 +63,7 @@ export type ResearchProjectOwnerAuthority = {
 
 export type SpecializedResponsibility = {
   owner: "SCIENTIFIC_THINKING" | "IMAGING" | "OBSERVABILITY_MEASUREMENT" | "BIOSTATISTICS";
-  state: "RETAINED_OUTSIDE_NOMINAL_UX" | "PENDING_SPECIALIST_CONTRIBUTION" | "NOT_TRIGGERED";
+  state: "AVAILABLE_ON_QRY_DEMAND" | "PENDING_SPECIALIST_CONTRIBUTION" | "NOT_TRIGGERED";
   retainedResponsibility: string;
   sourceItemIds: string[];
 };
@@ -440,7 +440,7 @@ export const sectionForContributionItem = (
   if (/MODALITY|IMAGING_METHOD|ACQUISITION/.test(type)) return "IMAGING";
   if (/ANALYSIS|ESTIMAND|STATISTICAL/.test(type)) return "ANALYSIS";
   if (/OBJECTIVE|SCIENTIFIC_QUESTION/.test(type)) return "QUESTION";
-  if (/HYPOTHESIS|CONDITION|DISEASE|DATA_NEED|PROJECT_INFORMATION|PROJECT_CONTEXT|CONTEXT/.test(type)) return null;
+  if (/HYPOTHESIS|SCIENTIFIC_MODEL|CONCEPTUAL_MODEL|CONDITION|DISEASE|DATA_NEED|PROJECT_INFORMATION|PROJECT_CONTEXT|CONTEXT/.test(type)) return null;
   if (/BIOMARKER|MEASURED_VARIABLE|MEASUREMENT|ENDPOINT|OUTCOME|QUANTITATIVE_TARGET|SCIENTIFIC_OBJECT/.test(type)) return "MEASUREMENTS";
   return null;
 };
@@ -1042,7 +1042,7 @@ const specializedResponsibilities = (
   return [
     {
       owner: "SCIENTIFIC_THINKING",
-      state: "RETAINED_OUTSIDE_NOMINAL_UX",
+      state: "AVAILABLE_ON_QRY_DEMAND",
       retainedResponsibility: "Questions, hypothèses et ScientificModels restent candidats tant qu’une Contribution spécialisée et une adoption mandatée ne les qualifient pas.",
       sourceItemIds: [],
     },
@@ -1101,6 +1101,7 @@ const humanReviewObjectSectionLabel = (objectType: string, fallback: ResearchPro
   if (objectType === "SCIENTIFIC_QUESTION") return "Question";
   if (objectType === "OBJECTIVE") return "Objectif";
   if (objectType === "HYPOTHESIS") return "Hypothèse de départ";
+  if (objectType === "SCIENTIFIC_MODEL") return "Modèle scientifique";
   if (objectType === "CONDITION") return "Pathologie / condition";
   if (["POPULATION", "ELIGIBILITY_CRITERION"].includes(objectType)) return "Population";
   if (objectType === "PROJECT_INFORMATION") return "Contexte du projet";

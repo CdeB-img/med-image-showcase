@@ -158,10 +158,19 @@ const validateScientificThinkingBoundary = (entry: ProductOwnerResultLedgerEntry
   if (!isRecord(nativeInput)
     || !isRecord(nativeInput.researchContext)
     || nativeInput.researchContext.researchProjectId !== entry.request.sourceProject.sourceProjectRef
+    || nativeInput.researchContext.researchProjectVersion !== entry.request.sourceProject.sourceProjectVersion
+    || nativeInput.researchContext.researchProjectDigest !== entry.request.sourceProject.sourceProjectDigest
+    || nativeInput.researchContext.projectSnapshotDigest !== entry.request.sourceProject.snapshotDigest
     || !isRecord(nativeInput.scientificIntent)
     || nativeInput.scientificIntent.semanticModelDigest !== entry.request.sourceProject.sourceProjectDigest
     || (entry.result !== null && (
       !isRecord(nativePayload)
+      || nativePayload.projectWriteAuthorized !== false
+      || !isRecord(nativePayload.sourceProject)
+      || nativePayload.sourceProject.projectId !== entry.request.sourceProject.sourceProjectRef
+      || nativePayload.sourceProject.projectVersion !== entry.request.sourceProject.sourceProjectVersion
+      || nativePayload.sourceProject.projectDigest !== entry.request.sourceProject.sourceProjectDigest
+      || nativePayload.sourceProject.snapshotDigest !== entry.request.sourceProject.snapshotDigest
       || !isRecord(nativePayload.provenance)
       || nativePayload.provenance.inputRef !== nativeInput.requestId
     ))) {

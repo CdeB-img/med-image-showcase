@@ -6,7 +6,7 @@ import { RESEARCH_PROJECT_CONSTRUCTION_VERSION } from "@/features/research-proje
 import { SCIENTIFIC_THINKING_ENGINE_VERSION } from "@/features/scientific-thinking";
 
 const CURRENT_OWNER_VERSION_BASELINE = {
-  scientificThinking: "1.2.2",
+  scientificThinking: "1.3.0",
   imaging: "1.2.1",
   project: "1.1.0",
   document: "1.2.0",

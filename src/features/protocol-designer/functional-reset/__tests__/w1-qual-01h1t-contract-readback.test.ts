@@ -30,7 +30,9 @@ const HISTORICAL_CAMPAIGN_D_ST_IDENTITY = {
 describe("H1T current contract and immutable-evidence readback", () => {
   it("reads question plus purpose from the current Project to ST product builder", () => {
     const source = read("src/features/research-project-construction/scientific-reasoning-owner-chain.ts");
-    expect(source).toContain("const originalExpression = `${validatedReformulation} ${purpose}`;");
+    expect(source).toContain("const originalExpression = unique([");
+    expect(source).toContain("...projectObjectives,");
+    expect(source).toContain("purpose,");
     expect(source).toContain("originalExpression,");
     expect(source).toContain("validatedReformulation,");
   });

@@ -50,6 +50,9 @@ export const buildScientificThinkingInput = (
     sessionId?: string;
     contextVersion?: number;
     researchProjectId?: string | null;
+    researchProjectVersion?: string | null;
+    researchProjectDigest?: string | null;
+    projectSnapshotDigest?: string | null;
     previousDecisionIds?: string[];
     sourceJourney?: Exclude<RoutingIntent, "DOCUMENT">;
   } = {},
@@ -90,6 +93,9 @@ export const buildScientificThinkingInput = (
       sessionId: runtime.sessionId ?? "UNBOUND_SESSION",
       contextVersion: runtime.contextVersion ?? 0,
       researchProjectId: runtime.researchProjectId ?? null,
+      researchProjectVersion: runtime.researchProjectVersion ?? null,
+      researchProjectDigest: runtime.researchProjectDigest ?? null,
+      projectSnapshotDigest: runtime.projectSnapshotDigest ?? null,
       previousDecisionIds: uniqueSorted(runtime.previousDecisionIds ?? []),
     },
     scientificObjectTerms: material.terms,
@@ -104,6 +110,7 @@ export const buildScientificThinkingInput = (
       ...declaredMethods,
     ]),
     scientificPurpose: uniqueSorted(asValues(intent, "scientificPurpose")),
+    existingHypotheses: [],
     context: uniqueSorted(asValues(intent, "clinicalContext")),
     missingInformation: uniqueSorted(intent.interpretation.missingInformation.map(normalizeScientificText).filter(Boolean)),
     projectUnknowns: [],

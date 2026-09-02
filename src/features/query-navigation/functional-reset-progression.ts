@@ -182,10 +182,16 @@ const resolvedSectionElements = (
 
 const facetsForProject = (project: Readonly<ResearchProjectOwnerProjection>): NeedFacet[] => {
   const elements = (sectionId: ResearchProjectSectionId) => resolvedSectionElements(project, sectionId);
+  const currentObjects = ensureCanonicalProjectState(project).objects.filter((object) => object.actuality === "CURRENT"
+    && !["UNKNOWN", "WITHHELD"].includes(object.epistemicState));
   const facets: NeedFacet[] = [];
   const add = (sectionId: ResearchProjectSectionId, facetId: string, intent: string, resolved: boolean) => {
     if (!resolved) facets.push({ sectionId, facetId, intent });
   };
+
+  const questionKnown = currentObjects.some((object) => object.objectType === "SCIENTIFIC_QUESTION");
+  const objectiveKnown = currentObjects.some((object) => object.objectType === "OBJECTIVE");
+  add("QUESTION", "QUESTION_FORMULATION", "Formuler ou préciser la question scientifique à partir de l’objectif adopté.", !objectiveKnown || questionKnown);
 
   const population = elements("POPULATION");
   add("POPULATION", "POPULATION_DEFINITION", "Préciser la population clinique étudiée.", hasEvidence(population, /condition|disease|patholog|population definition/));
@@ -247,12 +253,17 @@ const groupCandidatesByScientificDimension = (
   blockerSignals: readonly FunctionalResetDocumentBlockerSignal[],
 ): NextActionCandidate[] => {
   const blockerSections = documentSections(blockerSignals);
+  const projectHasScientificQuestion = ensureCanonicalProjectState(project).objects.some((object) => object.actuality === "CURRENT"
+    && object.objectType === "SCIENTIFIC_QUESTION"
+    && !["UNKNOWN", "WITHHELD"].includes(object.epistemicState));
   const grouped = SECTION_DEPENDENCY_ORDER.flatMap((sectionId): NextActionCandidate[] => {
     const members = candidates.filter((candidate) =>
       candidate.affectedDecisionRefs.includes(`project-section:${sectionId}`));
     if (!members.length) return [];
     const needRefs = members.flatMap((candidate) => candidate.navigationNeedRefs).sort();
-    const hasNoConfirmedInformation = resolvedSectionElements(project, sectionId).length === 0;
+    const hasNoConfirmedInformation = sectionId === "QUESTION"
+      ? !projectHasScientificQuestion
+      : resolvedSectionElements(project, sectionId).length === 0;
     const blocking = hasNoConfirmedInformation || blockerSections.has(sectionId)
       ? "BLOCKS_IRREVERSIBLE_DECISION" as const
       : "BLOCKS_CURRENT_BRANCH" as const;
@@ -268,6 +279,9 @@ const groupCandidatesByScientificDimension = (
       ...(sectionId === "DESIGN" ? {
         owner: "STUDY_DESIGN",
         capabilityRef: "STUDY_DESIGN_COHERENCE",
+      } : sectionId === "QUESTION" ? {
+        owner: "SCIENTIFIC_THINKING",
+        capabilityRef: "SCIENTIFIC_THINKING_PROPOSAL",
       } : {}),
       targetRef: `${project.projectId}:standard-progression-dimension:${sectionId}`,
       sourceRefs: members.flatMap((candidate) => candidate.sourceRefs).sort(),
@@ -290,27 +304,33 @@ const groupCandidatesByScientificDimension = (
         limitations: [
           ...(members.length > 1 ? ["SAME_SCIENTIFIC_DIMENSION_NEEDS_GROUPED_FOR_ONE_FREE_TEXT_EXCHANGE"] : []),
           ...(sectionId === "DESIGN" ? ["QRY_SELECTS_SCOPE_STUDY_DESIGN_OWNS_PROPOSAL"] : []),
+          ...(sectionId === "QUESTION" ? ["QRY_SELECTS_SCOPE_SCIENTIFIC_THINKING_OWNS_PROPOSAL"] : []),
         ],
       },
     }];
   });
+  const questionPrerequisite = grouped.find((candidate) => candidate.affectedDecisionRefs.includes("project-section:QUESTION"));
   return grouped.map((candidate, index) => {
     const previousEqualPriority = grouped.slice(0, index).reverse().find((previous) =>
       previous.informationValue.blocking === candidate.informationValue.blocking);
-    if (!previousEqualPriority) return candidate;
+    const prerequisites = [
+      ...(questionPrerequisite && questionPrerequisite.targetRef !== candidate.targetRef ? [questionPrerequisite] : []),
+      ...(previousEqualPriority && previousEqualPriority.targetRef !== questionPrerequisite?.targetRef ? [previousEqualPriority] : []),
+    ];
+    if (!prerequisites.length) return candidate;
     return {
       ...candidate,
-      dependencies: [{
+      dependencies: prerequisites.map((prerequisite) => ({
         dependencyId: makeQueryNavigationId("qry-dependency", {
-          prerequisiteRef: previousEqualPriority.targetRef,
+          prerequisiteRef: prerequisite.targetRef,
           dependentRef: candidate.targetRef,
         }),
-        prerequisiteRef: previousEqualPriority.targetRef,
+        prerequisiteRef: prerequisite.targetRef,
         dependentRef: candidate.targetRef,
         kind: "PROJECT_GRAPH",
         status: "OPEN",
         sourceRef: project.versionId,
-      }],
+      })),
     };
   });
 };
@@ -512,7 +532,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
     currentUsageRef: "FUNCTIONAL_RESET_STANDARD_CONVERSATION",
     limitations: [
       "QRY_SELECTS_INFORMATION_SCOPE_PRESENTATION_ONLY_REWORDS",
-      "NO_ST_IMG_KNOWLEDGE_OR_SCIENTIFIC_RECOMMENDATION_TRIGGERED",
+      "ONLY_QRY_SELECTED_SPECIALIZED_OWNER_SCOPE_MAY_TRIGGER_OWNER_DISPATCH",
     ],
   });
   const individualCandidates = buildNextActionCandidates(context, selectNextAction(context).needs);

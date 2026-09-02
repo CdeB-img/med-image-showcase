@@ -23,6 +23,7 @@ export const CANONICAL_PROJECT_OBJECT_TYPES = [
   "SCIENTIFIC_QUESTION",
   "OBJECTIVE",
   "HYPOTHESIS",
+  "SCIENTIFIC_MODEL",
   "CONDITION",
   "POPULATION",
   "ELIGIBILITY_CRITERION",
@@ -376,6 +377,7 @@ export const canonicalProjectObjectType = (item: Pick<ScientificContributionItem
   if (/QUESTION/.test(type)) return "SCIENTIFIC_QUESTION";
   if (/OBJECTIVE|GOAL/.test(type)) return "OBJECTIVE";
   if (/HYPOTHESIS/.test(type)) return "HYPOTHESIS";
+  if (/SCIENTIFIC_MODEL|CONCEPTUAL_MODEL/.test(type)) return "SCIENTIFIC_MODEL";
   if (/ELIGIBILITY|CRITERION|INCLUSION|EXCLUSION/.test(type)) return "ELIGIBILITY_CRITERION";
   if (/CONDITION|DISEASE|PATHOLOGY/.test(type)) return "CONDITION";
   if (/POPULATION/.test(type)) return "POPULATION";

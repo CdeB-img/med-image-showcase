@@ -192,10 +192,15 @@ export const recordStudyDesignOptionReviewTrace = (input: {
   proposalRef: string;
   proposalDigest: string;
   optionRef: string;
+  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING";
 }): Readonly<ScientificExecutionTraceLedger> => {
   if (!hasRun(input.ledger, input.traceRunId)) return input.ledger;
   const traceRunId = input.traceRunId!;
   const binding = projectBinding(input.project);
+  const responsibilityOwner = input.responsibilityOwner ?? "STUDY_DESIGN";
+  const componentPrefix = responsibilityOwner === "SCIENTIFIC_THINKING"
+    ? "STANDARD_SCIENTIFIC_THINKING"
+    : "STANDARD_STUDY_DESIGN";
   let ledger = appendProductTraceStage({
     ledger: input.ledger,
     traceRunId,
@@ -205,11 +210,11 @@ export const recordStudyDesignOptionReviewTrace = (input: {
     durationMs: 0,
     envelope: {
       stage: "UI_PROJECTION",
-      responsibilityOwner: "STUDY_DESIGN",
+      responsibilityOwner,
       decisionOwner: "HUMAN",
-      executor: "STANDARD_STUDY_DESIGN_PRESENTATION",
+      executor: `${componentPrefix}_PRESENTATION`,
       provider: "NONE",
-      componentId: "STANDARD_STUDY_DESIGN_PRESENTATION",
+      componentId: `${componentPrefix}_PRESENTATION`,
       componentVersion: input.contribution.identity.runtimeVersion,
       input: [{ ref: input.proposalRef, version: "1.0.0", digest: input.proposalDigest }],
       output: [{ ref: input.optionRef, version: "1.0.0", digest: logicalDigest({ proposal: input.proposalDigest, option: input.optionRef }) }],
@@ -228,11 +233,11 @@ export const recordStudyDesignOptionReviewTrace = (input: {
     durationMs: 0,
     envelope: {
       stage: "PROJECT_CANDIDATE_EXTRACTED",
-      responsibilityOwner: "STUDY_DESIGN",
+      responsibilityOwner,
       decisionOwner: "NONE",
-      executor: "STANDARD_STUDY_DESIGN_CONTRIBUTION_ADAPTER",
+      executor: `${componentPrefix}_CONTRIBUTION_ADAPTER`,
       provider: "NONE",
-      componentId: "STANDARD_STUDY_DESIGN_CONTRIBUTION_ADAPTER",
+      componentId: `${componentPrefix}_CONTRIBUTION_ADAPTER`,
       componentVersion: input.contribution.identity.runtimeVersion,
       input: [
         { ref: input.proposalRef, version: "1.0.0", digest: input.proposalDigest },
@@ -323,6 +328,7 @@ export const recordStudyDesignConversationTrace = (input: {
   proposalDigest: string;
   turnRef: string;
   status: "DISCUSSION" | "DEFERRED" | "OPTIONS_REJECTED";
+  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING";
 }): Readonly<ScientificExecutionTraceLedger> => !hasRun(input.ledger, input.traceRunId)
   ? input.ledger
   : appendProductTraceStage({
@@ -334,11 +340,15 @@ export const recordStudyDesignConversationTrace = (input: {
     durationMs: 0,
     envelope: {
       stage: "UI_PROJECTION",
-      responsibilityOwner: "STUDY_DESIGN",
+      responsibilityOwner: input.responsibilityOwner ?? "STUDY_DESIGN",
       decisionOwner: "NONE",
-      executor: "STANDARD_STUDY_DESIGN_CONVERSATION",
+      executor: input.responsibilityOwner === "SCIENTIFIC_THINKING"
+        ? "STANDARD_SCIENTIFIC_THINKING_CONVERSATION"
+        : "STANDARD_STUDY_DESIGN_CONVERSATION",
       provider: "NONE",
-      componentId: "STANDARD_STUDY_DESIGN_PRESENTATION",
+      componentId: input.responsibilityOwner === "SCIENTIFIC_THINKING"
+        ? "STANDARD_SCIENTIFIC_THINKING_PRESENTATION"
+        : "STANDARD_STUDY_DESIGN_PRESENTATION",
       componentVersion: "1.0.0",
       input: [{ ref: input.proposalRef, version: "1.0.0", digest: input.proposalDigest }],
       output: [{ ref: input.turnRef, version: "NOT_APPLICABLE", digest: logicalDigest({ turn: input.turnRef, status: input.status }) }],

@@ -50,6 +50,7 @@ import type {
   StandardStudyDesignInteraction,
   StandardStudyDesignPresentation,
 } from "./study-design-standard";
+import type { StandardScientificThinkingInteraction } from "./scientific-thinking-standard";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Dites-moi ce que vous souhaitez comprendre, formaliser ou construire.\nNOXIA préservera votre intention avant de proposer la suite.";
@@ -71,7 +72,7 @@ export const shouldMediatePostAdoptionQuery = (
 
 export type PostAdoptionQueryContinuation = {
   content: string;
-  presentationSource: "GEMINI_MEDIATED" | "QRY_STANDARD_FALLBACK" | "RDE_STANDARD_PROJECTION" | "RDE_INFORMATION_NEED";
+  presentationSource: "GEMINI_MEDIATED" | "QRY_STANDARD_FALLBACK" | "RDE_STANDARD_PROJECTION" | "RDE_INFORMATION_NEED" | "ST_STANDARD_PROJECTION";
 };
 
 export const resolvePostAdoptionQueryContinuation = (
@@ -131,7 +132,7 @@ export type ProductBridgeTrace = {
 
 export type FunctionalResetSession = {
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
-  contractVersion: "1.8.0";
+  contractVersion: "1.9.0";
   sessionId: string;
   conversationId: string;
   projectId: string;
@@ -145,6 +146,7 @@ export type FunctionalResetSession = {
   project: ResearchProjectOwnerProjection | null;
   queryNavigation: FunctionalResetQueryNavigation | null;
   studyDesignInteraction: StandardStudyDesignInteraction | null;
+  scientificThinkingInteraction: StandardScientificThinkingInteraction | null;
   documents: FunctionalResetDocumentPortfolio;
   openDocumentProjectionId: string | null;
   bridgeTraces: ProductBridgeTrace[];
@@ -162,7 +164,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
   const sessionId = id("protocol-designer-session");
   return {
     contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION",
-    contractVersion: "1.8.0",
+    contractVersion: "1.9.0",
     sessionId,
     conversationId: id("scientific-conversation"),
     projectId: `${sessionId}:research-project`,
@@ -181,6 +183,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     project: null,
     queryNavigation: null,
     studyDesignInteraction: null,
+    scientificThinkingInteraction: null,
     documents: createEmptyFunctionalResetDocumentPortfolio(),
     openDocumentProjectionId: null,
     bridgeTraces: [],
@@ -194,7 +197,7 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
   if (!value || typeof value !== "object") return false;
   const record = value as Partial<FunctionalResetSession>;
   return record.contract === "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION"
-    && record.contractVersion === "1.8.0"
+    && record.contractVersion === "1.9.0"
     && typeof record.sessionId === "string"
     && typeof record.conversationId === "string"
     && Array.isArray(record.entries)
@@ -203,6 +206,7 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
     && (!record.project || record.project.contract === "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION")
     && (!record.queryNavigation || record.queryNavigation.contract === "FUNCTIONAL_RESET_QUERY_NAVIGATION")
     && (!record.studyDesignInteraction || record.studyDesignInteraction.contract === "FUNCTIONAL_RESET_STUDY_DESIGN_INTERACTION")
+    && (!record.scientificThinkingInteraction || record.scientificThinkingInteraction.contract === "FUNCTIONAL_RESET_SCIENTIFIC_THINKING_INTERACTION")
     && record.documents?.contract === "FUNCTIONAL_RESET_DOCUMENT_PORTFOLIO"
     && record.documents.owner === "DOC-001"
     && (record.openDocumentProjectionId === null || typeof record.openDocumentProjectionId === "string")
@@ -218,21 +222,22 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
 const migrateLegacySession = (value: unknown): FunctionalResetSession | null => {
   if (!value || typeof value !== "object") return null;
   const record = value as Record<string, unknown>;
-  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0"].includes(String(record.contractVersion))) return null;
+  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0", "1.8.0"].includes(String(record.contractVersion))) return null;
   if (typeof record.sessionId !== "string") return null;
   const migrated = {
     ...record,
-    contractVersion: "1.8.0",
+    contractVersion: "1.9.0",
     queryNavigation: record.contractVersion === "1.2.0" ? null : record.queryNavigation,
-    studyDesignInteraction: null,
+    studyDesignInteraction: record.contractVersion === "1.8.0" ? record.studyDesignInteraction ?? null : null,
+    scientificThinkingInteraction: null,
     bridgeTraces: Array.isArray(record.bridgeTraces) ? record.bridgeTraces : [],
-    knowledgeOwnerLedger: ["1.5.0", "1.6.0", "1.7.0"].includes(String(record.contractVersion)) && record.knowledgeOwnerLedger
+    knowledgeOwnerLedger: ["1.5.0", "1.6.0", "1.7.0", "1.8.0"].includes(String(record.contractVersion)) && record.knowledgeOwnerLedger
       ? record.knowledgeOwnerLedger
       : createProductKnowledgeOwnerLedger(record.sessionId),
-    validationRunLedger: ["1.6.0", "1.7.0"].includes(String(record.contractVersion)) && record.validationRunLedger
+    validationRunLedger: ["1.6.0", "1.7.0", "1.8.0"].includes(String(record.contractVersion)) && record.validationRunLedger
       ? record.validationRunLedger
       : createProductValidationRunLedger(record.sessionId),
-    scientificExecutionTraceLedger: record.contractVersion === "1.7.0" && record.scientificExecutionTraceLedger
+    scientificExecutionTraceLedger: ["1.7.0", "1.8.0"].includes(String(record.contractVersion)) && record.scientificExecutionTraceLedger
       ? record.scientificExecutionTraceLedger
       : createScientificExecutionTraceLedger(record.sessionId),
   };

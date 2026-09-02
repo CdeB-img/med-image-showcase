@@ -138,7 +138,7 @@ const projectUnknowns = (snapshot: ProjectContextSnapshot) => [
 
 const knowledgeRole = (item: ProjectContextSnapshot["objects"][number]): ScientificObjectRef["role"] => {
   if (/COMPARATOR/i.test(item.scientificRole ?? "")) return "COMPARATOR";
-  if (["CONDITION", "ENDPOINT", "CANONICAL_VARIABLE", "SCIENTIFIC_QUESTION", "HYPOTHESIS"].includes(item.type)) return "SUBJECT";
+  if (["CONDITION", "ENDPOINT", "CANONICAL_VARIABLE", "SCIENTIFIC_QUESTION", "HYPOTHESIS", "SCIENTIFIC_MODEL"].includes(item.type)) return "SUBJECT";
   if (item.epistemicState === "UNKNOWN") return "UNKNOWN";
   return "CONTEXT";
 };

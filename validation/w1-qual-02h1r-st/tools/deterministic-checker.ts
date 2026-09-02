@@ -232,7 +232,7 @@ export const runCampaignEDeterministicChecks = (input: {
   const ownershipIntact = Boolean(
     result?.owner === "SCIENTIFIC_THINKING"
     && result.projectWriteAuthorized === false
-    && output?.provenance.engineVersion === "1.2.2"
+    && String(output?.provenance.engineVersion) === "1.2.2"
     && output.knowledgeDependencies.every((item) => item.ownershipTransferred === false),
   );
   const resultDigestVerified = Boolean(result && output)

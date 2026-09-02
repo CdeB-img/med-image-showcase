@@ -322,14 +322,16 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
   });
 
-  it("FR03B-C14 — nominal progression reconnects Knowledge but imports no ST or IMG capability", () => {
+  it("FR03B-C14 — nominal progression dispatches ST only through the QRY-selected owner and imports no direct engine or IMG capability", () => {
     const sources = [
       "src/features/query-navigation/functional-reset-progression.ts",
       "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
     ].map((path) => readFileSync(resolve(process.cwd(), path), "utf8")).join("\n");
     expect(sources).toMatch(/product-entry-routing/);
     expect(sources).not.toMatch(/features\/(?:scientific-thinking|imaging-study-designer)/);
-    expect(sources).not.toMatch(/trigger(?:ScientificThinking|Imaging)|build(?:ScientificThinking|Imaging)/);
+    expect(sources).toMatch(/isScientificThinkingQueryDispatch/);
+    expect(sources).toMatch(/dispatchScientificThinkingFromQuery/);
+    expect(sources).not.toMatch(/trigger(?:ScientificThinking|Imaging)|buildImaging/);
   });
 
   it("FR03B-C15 — existing 03A1 and 03A2 Project changesets remain valid", () => {

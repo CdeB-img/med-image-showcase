@@ -183,6 +183,7 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     throw new Error("KNOWLEDGE_RESULT_PROJECT_MISMATCH");
   }
   const question = objectsOf(snapshot, "SCIENTIFIC_QUESTION")[0];
+  const projectObjectives = contentsOf(snapshot, "OBJECTIVE");
   const purpose = input.purpose ?? "Examiner la cohérence scientifique de cette question et les hypothèses encore à expliciter.";
   const comparison = snapshot.relations.find((item) => /COMPARE/i.test(item.type));
   const comparisonSource = comparison
@@ -193,8 +194,12 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     : null;
   const validatedReformulation = question?.content
     ? `${comparison ? `Comparaison explicite entre ${comparisonSource} et ${comparisonTarget}. ` : ""}${question.content}`
-    : purpose;
-  const originalExpression = `${validatedReformulation} ${purpose}`;
+    : projectObjectives[0] ?? purpose;
+  const originalExpression = unique([
+    validatedReformulation,
+    ...projectObjectives,
+    purpose,
+  ]).join(" ");
   const unknowns = unique([
     ...projectUnknowns(snapshot),
     ...(!question ? ["PROJECT_SCIENTIFIC_QUESTION_NOT_EXPLICIT"] : []),
@@ -226,6 +231,9 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
       sessionId: `owner-chain:${snapshot.sourceProjectRef}`,
       contextVersion: input.project?.revision ?? input.projectRevision ?? snapshot.sourceProjectRevision,
       researchProjectId: snapshot.sourceProjectRef,
+      researchProjectVersion: snapshot.sourceProjectVersion,
+      researchProjectDigest: snapshot.sourceProjectDigest,
+      projectSnapshotDigest: snapshot.snapshotDigest,
       previousDecisionIds: unique(snapshot.humanDecisions.map((decision) => decision.decisionId)),
     },
     scientificObjectTerms,
@@ -240,7 +248,8 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     phenomena: contentsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE"),
     outcomes: contentsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE"),
     methodsMentioned: contentsOf(snapshot, "IMAGING_MODALITY", "ACQUISITION"),
-    scientificPurpose: contentsOf(snapshot, "OBJECTIVE"),
+    scientificPurpose: projectObjectives,
+    existingHypotheses: contentsOf(snapshot, "HYPOTHESIS"),
     context: contentsOf(snapshot, "CONDITION", "STUDY_DESIGN", "INTERVENTION_OR_EXPOSURE", "CONSTRAINT"),
     missingInformation: unknowns,
     projectUnknowns: snapshot.objects
@@ -321,12 +330,9 @@ const contributionFromScientificThinking = (input: {
   request: SpecializedOwnerHandoffRequest<ScientificThinkingInput>;
   createdAt: string;
 }): ScientificInterpretationContributionEnvelope | null => {
-  const hypothesis = input.output.hypotheses.find((item) => item.reviewState === "PENDING") ?? input.output.hypotheses[0];
-  if (!hypothesis) return null;
-  const epistemicStatus = ["SUPPORTED", "PARTIAL"].includes(hypothesis.support)
-    ? "SUPPORTED_CANDIDATE"
-    : "UNSUPPORTED_CANDIDATE";
-  const item: ScientificContributionItem = {
+  const hypotheses = input.output.hypotheses.filter((item) => item.reviewState === "PENDING");
+  if (!hypotheses.length) return null;
+  const items: ScientificContributionItem[] = hypotheses.map((hypothesis) => ({
     itemId: `st-project-candidate:${hypothesis.hypothesisId}`,
     semanticIdentity: `st-hypothesis-candidate:${hypothesis.hypothesisId}`,
     proposedType: "HYPOTHESIS",
@@ -338,7 +344,9 @@ const contributionFromScientificThinking = (input: {
     evidenceRefs: [...input.output.provenance.sourceRefs],
     epistemicBoundary: {
       ownership: "SCIENTIFIC_THINKING",
-      epistemicStatus,
+      epistemicStatus: ["SUPPORTED", "PARTIAL"].includes(hypothesis.support)
+        ? "SUPPORTED_CANDIDATE"
+        : "UNSUPPORTED_CANDIDATE",
       adoptionStatus: "CANDIDATE",
       originType: "OWNER_RESULT",
       originStatus: "NATIVE_SCIENTIFIC_THINKING_CANDIDATE",
@@ -346,13 +354,13 @@ const contributionFromScientificThinking = (input: {
       sourceTurnIds: [],
       sourceText: hypothesis.text,
     },
-  };
+  }));
   const contributionId = `scientific-thinking-project-contribution:${logicalDigest({
     output: input.output.outputId,
-    hypothesis: hypothesis.hypothesisId,
+    hypotheses: hypotheses.map((hypothesis) => hypothesis.hypothesisId),
     project: input.request.sourceProject.sourceProjectDigest,
   })}`;
-  const contributionDigest = logicalDigest({ contributionId, item, outputDigest: input.output.outputDigest });
+  const contributionDigest = logicalDigest({ contributionId, items, outputDigest: input.output.outputDigest });
   return {
     contract: "SCIENTIFIC_INTERPRETATION_CONTRIBUTION_ENVELOPE",
     contractNature: "RUNTIME_CONTRIBUTION_NOT_PD003_ROOT",
@@ -387,7 +395,7 @@ const contributionFromScientificThinking = (input: {
       normalizedUnderstanding: input.output.understoodProblem,
       routeProposal: null,
       explicitStatements: [],
-      candidateObjects: [item],
+      candidateObjects: items,
       candidateRelations: [],
       inferredContext: [],
       contextualCandidates: [],
@@ -408,14 +416,14 @@ const contributionFromScientificThinking = (input: {
       projectOwnershipTransferred: false,
       humanDecisionEnvelopeRef: null,
     },
-    mapping: [{
+    mapping: items.map((item) => ({
       sourceItemId: item.itemId,
       proposedTargetDomain: "RESEARCH_PROJECT",
       proposedTargetTypes: ["HYPOTHESIS"],
       mappingStatus: "DOMAIN_REVIEW_REQUIRED",
       qualificationOwnerRequired: "RESEARCH_PROJECT",
       mappingLimitations: ["Scientific Thinking candidate requires deterministic PRJ validation and Human Decision."],
-    }],
+    })),
     audit: { deterministicFindings: [], semanticAuditFindings: [], unresolvedFindings: [] },
     decisionBoundary: {
       decisionRequired: true,
@@ -500,6 +508,12 @@ export const invokeScientificThinkingOwnerFromSnapshot = (input: InvocationTimin
     const latencyMs = elapsed(started, now(input.monotonicNow));
     if (nativeOutput.contractVersion !== SCIENTIFIC_THINKING_ENGINE_VERSION
       || nativeOutput.provenance.inputRef !== nativeInput.requestId
+      || !nativeOutput.sourceProject
+      || nativeOutput.sourceProject.projectId !== input.projectSnapshot.sourceProjectRef
+      || nativeOutput.sourceProject.projectVersion !== input.projectSnapshot.sourceProjectVersion
+      || nativeOutput.sourceProject.projectDigest !== input.projectSnapshot.sourceProjectDigest
+      || nativeOutput.sourceProject.snapshotDigest !== input.projectSnapshot.snapshotDigest
+      || nativeOutput.projectWriteAuthorized !== false
       || stableStringify(input.projectSnapshot) !== projectBefore) {
       return {
         request,

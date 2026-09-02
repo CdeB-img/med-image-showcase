@@ -71,7 +71,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
       confirmationDecision: { status: "ADOPTED", actor: expect.any(String), mandate: "PROJECT_OWNER", engineSource: "RESEARCH_PROJECT" },
     });
     expect(firstProject.specializedResponsibilities).toEqual(expect.arrayContaining([
-      expect.objectContaining({ owner: "SCIENTIFIC_THINKING", state: "RETAINED_OUTSIDE_NOMINAL_UX" }),
+      expect.objectContaining({ owner: "SCIENTIFIC_THINKING", state: "AVAILABLE_ON_QRY_DEMAND" }),
       expect.objectContaining({ owner: "IMAGING", state: "PENDING_SPECIALIST_CONTRIBUTION" }),
     ]));
     expect(firstProject.sections.flatMap((section: { elements: Array<{ canonicalPromotion: string }> }) => section.elements).every((element: { canonicalPromotion: string }) => element.canonicalPromotion === "NOT_PERFORMED")).toBe(true);

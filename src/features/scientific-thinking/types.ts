@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { humanDecisionEnvelopeSchema, type HumanDecisionEnvelope } from "../protocol-designer/human-decision.js";
 
-export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.2.2" as const;
+export const SCIENTIFIC_THINKING_ENGINE_VERSION = "1.3.0" as const;
 
 export const SEMANTIC_TYPES = [
   "OBSERVATION",
@@ -103,6 +103,9 @@ export type ScientificThinkingInput = {
     sessionId: string;
     contextVersion: number;
     researchProjectId: string | null;
+    researchProjectVersion: string | null;
+    researchProjectDigest: string | null;
+    projectSnapshotDigest: string | null;
     previousDecisionIds: string[];
   };
   scientificObjectTerms: string[];
@@ -114,6 +117,7 @@ export type ScientificThinkingInput = {
   outcomes: string[];
   methodsMentioned: string[];
   scientificPurpose: string[];
+  existingHypotheses: string[];
   context: string[];
   missingInformation: string[];
   projectUnknowns: ScientificThinkingProjectUnknown[];
@@ -199,6 +203,35 @@ export type MechanismCandidate = {
   status: "MECHANISM_TO_DOCUMENT" | "KNOWLEDGE_SUPPORTED_MECHANISM";
   support: KnowledgeSupport;
   linkedHypothesisIds: string[];
+};
+
+export type ScientificModelCandidate = {
+  modelId: string;
+  text: string;
+  rationale: string;
+  assumptions: string[];
+  uncertainties: string[];
+  support: KnowledgeSupport;
+  reviewState: CandidateReviewState;
+  linkedHypothesisIds: string[];
+};
+
+export type ScientificThinkingDownstreamHandoff = {
+  handoffId: string;
+  sourceOwner: "SCIENTIFIC_THINKING";
+  targetOwner: "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "BIOSTATISTICS" | "KNOWLEDGE";
+  capabilityId: "STUDY_DESIGN_COHERENCE" | "OBSERVABILITY_QUALIFICATION" | "IMAGING_STUDY_DESIGN" | "BIOSTATISTICS_PLANNING" | "KNOWLEDGE_EVIDENCE";
+  sourceOutputRef: string;
+  sourceCandidateRefs: string[];
+  sourceProjectRef: string;
+  sourceProjectVersion: string;
+  sourceProjectDigest: string;
+  purpose: string;
+  informationNeeded: string[];
+  provenanceRefs: string[];
+  status: "PROPOSED_NOT_EXECUTED";
+  ownershipTransferred: false;
+  projectWriteAuthorized: false;
 };
 
 export type AssumptionCandidate = {
@@ -296,6 +329,12 @@ export type ScientificThinkingOutput = {
   contractVersion: typeof SCIENTIFIC_THINKING_ENGINE_VERSION;
   outputId: string;
   outputDigest: string;
+  sourceProject: null | {
+    projectId: string;
+    projectVersion: string;
+    projectDigest: string;
+    snapshotDigest: string;
+  };
   status: "CANDIDATES_PROPOSED" | "CLARIFICATION_REQUIRED" | "REFUSED";
   candidateNotice: "ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW";
   originalIdea: string;
@@ -307,6 +346,7 @@ export type ScientificThinkingOutput = {
   hypotheses: HypothesisCandidate[];
   objectives: ObjectiveCandidate[];
   mechanisms: MechanismCandidate[];
+  scientificModels: ScientificModelCandidate[];
   assumptions: AssumptionCandidate[];
   unknowns: string[];
   ambiguities: string[];
@@ -339,6 +379,11 @@ export type ScientificThinkingOutput = {
     contradictionRefs: string[];
     gapRefs: string[];
   }>;
+  downstreamHandoffs: ScientificThinkingDownstreamHandoff[];
+  epistemicStatus: "PROPOSAL_ONLY" | "INSUFFICIENT_CONTEXT_UNKNOWN_PRESERVED";
+  projectWriteAuthorized: false;
+  projectOwnershipTransferred: false;
+  candidateIsAdopted: false;
   provenance: {
     engineVersion: typeof SCIENTIFIC_THINKING_ENGINE_VERSION;
     inputRef: string;
@@ -378,7 +423,11 @@ export const scientificThinkingInputSchema = z.object({
   validatedReformulation: z.string().min(3).max(4_000),
   language: z.enum(["fr", "en"]),
   scientificIntent: z.object({ intentRef: z.string(), userExpertise: z.string(), sourceJourney: z.enum(["UNDERSTAND", "FORMALIZE_IDEA", "DESIGN_STUDY"]), semanticModelRef: z.string().optional(), semanticModelDigest: z.string().optional() }).strict(),
-  researchContext: z.object({ sessionId: z.string(), contextVersion: z.number().int().min(0), researchProjectId: z.string().nullable(), previousDecisionIds: stringArray }).strict(),
+  researchContext: z.object({
+    sessionId: z.string(), contextVersion: z.number().int().min(0), researchProjectId: z.string().nullable(),
+    researchProjectVersion: z.string().nullable(), researchProjectDigest: z.string().nullable(), projectSnapshotDigest: z.string().nullable(),
+    previousDecisionIds: stringArray,
+  }).strict(),
   scientificObjectTerms: stringArray,
   resolvedConcepts: z.array(z.object({ conceptId: z.string(), label: z.string(), status: z.enum(["RESOLVED", "UNRESOLVED"]) }).strict()),
   relations: stringArray,
@@ -388,6 +437,7 @@ export const scientificThinkingInputSchema = z.object({
   outcomes: stringArray,
   methodsMentioned: stringArray,
   scientificPurpose: stringArray,
+  existingHypotheses: stringArray,
   context: stringArray,
   missingInformation: stringArray,
   projectUnknowns: z.array(z.object({ objectRef: z.string(), objectType: z.string(), text: z.string() }).strict()).max(100),
@@ -408,7 +458,21 @@ export const scientificThinkingInputSchema = z.object({
     gaps: z.array(z.object({ gapRef: z.string(), code: z.string(), explanation: z.string(), resumeCondition: z.string() }).strict()).max(100),
     unresolvedConcepts: stringArray, limitations: stringArray,
   }).strict(),
-}).strict();
+}).strict().superRefine((input, context) => {
+  const projectBinding = [
+    input.researchContext.researchProjectId,
+    input.researchContext.researchProjectVersion,
+    input.researchContext.researchProjectDigest,
+    input.researchContext.projectSnapshotDigest,
+  ];
+  if (projectBinding.some(Boolean) && !projectBinding.every(Boolean)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["researchContext"],
+      message: "A Project-bound Scientific Thinking request requires exact id, version, digest and snapshot digest.",
+    });
+  }
+});
 
 const candidateReviewSchema = z.enum(["PENDING", "ADOPTED", "REJECTED"]);
 const supportSchema = z.enum(["SUPPORTED", "PARTIAL", "UNSUPPORTED", "CONFLICTING", "UNAVAILABLE"]);
@@ -429,17 +493,31 @@ const objectiveCandidateSchema = z.object({
 const mechanismCandidateSchema = z.object({
   mechanismId: z.string(), text: z.string(), status: z.enum(["MECHANISM_TO_DOCUMENT", "KNOWLEDGE_SUPPORTED_MECHANISM"]), support: supportSchema, linkedHypothesisIds: stringArray,
 }).strict();
+const scientificModelCandidateSchema = z.object({
+  modelId: z.string(), text: z.string(), rationale: z.string(), assumptions: stringArray, uncertainties: stringArray,
+  support: supportSchema, reviewState: candidateReviewSchema, linkedHypothesisIds: stringArray,
+}).strict();
+const downstreamHandoffSchema = z.object({
+  handoffId: z.string(), sourceOwner: z.literal("SCIENTIFIC_THINKING"),
+  targetOwner: z.enum(["STUDY_DESIGN", "OBSERVABILITY_MEASUREMENT", "IMAGING", "BIOSTATISTICS", "KNOWLEDGE"]),
+  capabilityId: z.enum(["STUDY_DESIGN_COHERENCE", "OBSERVABILITY_QUALIFICATION", "IMAGING_STUDY_DESIGN", "BIOSTATISTICS_PLANNING", "KNOWLEDGE_EVIDENCE"]),
+  sourceOutputRef: z.string(), sourceCandidateRefs: stringArray,
+  sourceProjectRef: z.string(), sourceProjectVersion: z.string(), sourceProjectDigest: z.string(),
+  purpose: z.string(), informationNeeded: stringArray, provenanceRefs: referenceArray,
+  status: z.literal("PROPOSED_NOT_EXECUTED"), ownershipTransferred: z.literal(false), projectWriteAuthorized: z.literal(false),
+}).strict();
 
 export const scientificThinkingOutputSchema = z.object({
   contractVersion: z.literal(SCIENTIFIC_THINKING_ENGINE_VERSION),
   outputId: z.string().min(1), outputDigest: z.string().min(1),
+  sourceProject: z.object({ projectId: z.string(), projectVersion: z.string(), projectDigest: z.string(), snapshotDigest: z.string() }).strict().nullable(),
   status: z.enum(["CANDIDATES_PROPOSED", "CLARIFICATION_REQUIRED", "REFUSED"]),
   candidateNotice: z.literal("ALL_GENERATED_SCIENTIFIC_CONTENT_REQUIRES_HUMAN_REVIEW"),
   originalIdea: z.string(), understoodProblem: z.string(), centralScientificObject: z.string(),
   semanticElements: z.array(z.object({ elementId: z.string(), type: z.enum(SEMANTIC_TYPES), text: z.string(), source: z.enum(["USER_EXPLICIT", "NOXIA_CANDIDATE"]), confidence: z.enum(["HIGH", "MEDIUM", "LOW"]), support: supportSchema }).strict()),
   questions: z.array(questionCandidateSchema), hypotheses: z.array(hypothesisCandidateSchema), objectives: z.array(objectiveCandidateSchema),
   selectedQuestionCandidate: questionCandidateSchema.nullable(),
-  mechanisms: z.array(mechanismCandidateSchema), assumptions: z.array(z.object({ assumptionId: z.string(), text: z.string(), challenge: z.string(), support: supportSchema, status: z.enum(["OPEN", "CHALLENGED"]) }).strict()), unknowns: stringArray, ambiguities: stringArray,
+  mechanisms: z.array(mechanismCandidateSchema), scientificModels: z.array(scientificModelCandidateSchema), assumptions: z.array(z.object({ assumptionId: z.string(), text: z.string(), challenge: z.string(), support: supportSchema, status: z.enum(["OPEN", "CHALLENGED"]) }).strict()), unknowns: stringArray, ambiguities: stringArray,
   contradictions: stringArray, conceptualBiases: stringArray, methodPreferences: stringArray, alternatives: stringArray,
   reasoningIssues: stringArray,
   operations: z.array(z.object({ operation: z.enum(SCIENTIFIC_THINKING_OPERATIONS), status: z.enum(["EXECUTED", "AVAILABLE", "NOT_APPLICABLE", "BLOCKED"]), reason: z.string() }).strict()),
@@ -455,6 +533,9 @@ export const scientificThinkingOutputSchema = z.object({
     assertionRefs: referenceArray, documentaryStatementRefs: referenceArray, evidenceRefs: referenceArray, sourceRefs: referenceArray,
     applicability: z.array(z.object({ assertionRef: z.string(), status: z.string() }).strict()), contradictionRefs: referenceArray, gapRefs: referenceArray,
   }).strict()),
+  downstreamHandoffs: z.array(downstreamHandoffSchema),
+  epistemicStatus: z.enum(["PROPOSAL_ONLY", "INSUFFICIENT_CONTEXT_UNKNOWN_PRESERVED"]),
+  projectWriteAuthorized: z.literal(false), projectOwnershipTransferred: z.literal(false), candidateIsAdopted: z.literal(false),
   provenance: z.object({ engineVersion: z.literal(SCIENTIFIC_THINKING_ENGINE_VERSION), inputRef: z.string(), knowledgeResultRef: z.string().nullable(), sourceRefs: referenceArray, policyRefs: z.tuple([z.literal("RDE-001"), z.literal("RDE-002"), z.literal("PD-003"), z.literal("PD-009"), z.literal("KE-001")]), llmContributionStatus: z.literal("UPSTREAM_LANGUAGE_INTERPRETATION_CANDIDATE_ONLY") }).strict(),
   graph: z.object({ projectionVersion: z.literal("RUNTIME_PROJECTION_1.0"), ontologyStatus: z.literal("NO_NEW_ONTOLOGY"), nodes: z.array(z.unknown()), edges: z.array(z.unknown()) }).strict(),
   handoff: z.object({ handoffVersion: z.literal("1.1"), status: z.enum(["NOT_READY", "READY_FOR_HUMAN_AUTHORIZATION", "AUTHORIZED"]), questionId: z.string().nullable(), hypothesisIds: stringArray, objectiveIds: stringArray, mechanisms: z.array(mechanismCandidateSchema), knownInformation: stringArray, acceptedUnknowns: stringArray, unresolvedUnknowns: stringArray, contradictions: stringArray, decisionRecordIds: stringArray, humanDecisions: z.array(humanDecisionEnvelopeSchema), alternativesNotSelected: stringArray, limitations: stringArray, provenanceRefs: referenceArray, knowledgeResultRef: z.string().nullable(), blockedBy: stringArray, boundary: z.literal("NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN") }).strict(),
