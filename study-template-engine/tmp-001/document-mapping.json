@@ -2,7 +2,7 @@
   "dataStatus": "ILLUSTRATIVE_TECHNICAL_FIXTURE_NOT_SCIENTIFIC_CORPUS",
   "instances": [
     {
-      "instanceId": "TMP-INSTANCE:E4531747151A",
+      "instanceId": "TMP-INSTANCE:2055F11630A4",
       "mappings": [
         {
           "blockIds": [
@@ -74,11 +74,11 @@
           "documentId": "CORE_LAB_MANUAL",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-          "readiness": "COMPLETE",
+          "readiness": "FUTURE",
           "sectionIds": [
             "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "FUTURE"
         },
         {
           "blockIds": [
@@ -169,11 +169,11 @@
           "documentId": "IMAGING_CHARTER",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:IMAGING_CHARTER",
-          "readiness": "COMPLETE",
+          "readiness": "UNKNOWN",
           "sectionIds": [
             "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "UNKNOWN"
         },
         {
           "blockIds": [
@@ -444,7 +444,7 @@
       ]
     },
     {
-      "instanceId": "TMP-INSTANCE:D8E499B4ED90",
+      "instanceId": "TMP-INSTANCE:BBB8E534A860",
       "mappings": [
         {
           "blockIds": [
@@ -886,7 +886,7 @@
       ]
     },
     {
-      "instanceId": "TMP-INSTANCE:0DCAC27D4EFA",
+      "instanceId": "TMP-INSTANCE:0513BBF2DAAF",
       "mappings": [
         {
           "blockIds": [
@@ -958,11 +958,11 @@
           "documentId": "CORE_LAB_MANUAL",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-          "readiness": "COMPLETE",
+          "readiness": "FUTURE",
           "sectionIds": [
             "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "FUTURE"
         },
         {
           "blockIds": [
@@ -1053,11 +1053,11 @@
           "documentId": "IMAGING_CHARTER",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:IMAGING_CHARTER",
-          "readiness": "COMPLETE",
+          "readiness": "UNKNOWN",
           "sectionIds": [
             "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "UNKNOWN"
         },
         {
           "blockIds": [
@@ -1328,7 +1328,7 @@
       ]
     },
     {
-      "instanceId": "TMP-INSTANCE:19299CD14C0E",
+      "instanceId": "TMP-INSTANCE:ADBA5FC09227",
       "mappings": [
         {
           "blockIds": [
@@ -1400,11 +1400,11 @@
           "documentId": "CORE_LAB_MANUAL",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-          "readiness": "COMPLETE",
+          "readiness": "FUTURE",
           "sectionIds": [
             "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "FUTURE"
         },
         {
           "blockIds": [
@@ -1495,11 +1495,11 @@
           "documentId": "IMAGING_CHARTER",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:IMAGING_CHARTER",
-          "readiness": "COMPLETE",
+          "readiness": "UNKNOWN",
           "sectionIds": [
             "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "UNKNOWN"
         },
         {
           "blockIds": [
@@ -1770,7 +1770,7 @@
       ]
     },
     {
-      "instanceId": "TMP-INSTANCE:F68B1E216B6C",
+      "instanceId": "TMP-INSTANCE:21C4E0ACD3FF",
       "mappings": [
         {
           "blockIds": [
@@ -1937,11 +1937,11 @@
           "documentId": "IMAGING_CHARTER",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:IMAGING_CHARTER",
-          "readiness": "COMPLETE",
+          "readiness": "UNKNOWN",
           "sectionIds": [
             "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "UNKNOWN"
         },
         {
           "blockIds": [
@@ -2212,7 +2212,7 @@
       ]
     },
     {
-      "instanceId": "TMP-INSTANCE:650D89A94EB5",
+      "instanceId": "TMP-INSTANCE:0686F6260E44",
       "mappings": [
         {
           "blockIds": [
@@ -2284,11 +2284,11 @@
           "documentId": "CORE_LAB_MANUAL",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-          "readiness": "COMPLETE",
+          "readiness": "FUTURE",
           "sectionIds": [
             "TMP-SECTION-DEF:CORE_LAB_MANUAL:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "FUTURE"
         },
         {
           "blockIds": [
@@ -2379,11 +2379,11 @@
           "documentId": "IMAGING_CHARTER",
           "futureConsumer": "DOC-001",
           "nodeId": "TMP-DOC:IMAGING_CHARTER",
-          "readiness": "COMPLETE",
+          "readiness": "UNKNOWN",
           "sectionIds": [
             "TMP-SECTION-DEF:IMAGING_CHARTER:PRIMARY"
           ],
-          "status": "NOT_APPLICABLE"
+          "status": "UNKNOWN"
         },
         {
           "blockIds": [

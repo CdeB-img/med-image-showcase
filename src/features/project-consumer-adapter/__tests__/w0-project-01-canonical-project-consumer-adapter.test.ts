@@ -25,7 +25,7 @@ import {
   buildDataManagementPlanningInput,
   buildStudyDataPlanContribution,
 } from "@/features/data-analysis-planning";
-import { composeStudyTemplateInstance } from "@/features/study-template";
+import { composeStudyTemplateInstance, studyTemplateProjectInputFromProjectSnapshot } from "@/features/study-template";
 import { projectDocumentSourceFromFunctionalProject } from "@/features/document-projection/functional-reset-boundary";
 import { projectCanonicalSnapshotForLegacyConsumers } from "../canonical-project-consumer-adapter";
 
@@ -259,7 +259,7 @@ describe("W0-PROJECT-01 — canonical Project consumer adapter", () => {
       researchProjectDigest: legacy.resultDigest,
     }));
     tmp = composeStudyTemplateInstance({
-      researchProject: legacy,
+      researchProject: studyTemplateProjectInputFromProjectSnapshot(snapshot),
       applicableRequirementSet: regulatory,
       documentaryPatternGraph: DOCUMENTARY_PATTERN_CATALOG,
       upstreamHumanDecisions: legacy.documentHandoff.humanDecisions,

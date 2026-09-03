@@ -29,6 +29,7 @@ describe("TMP-001 composition cases A–G", () => {
       phrc: true,
       projectTransform: (project) => ({
         ...project,
+        studyDesignCandidates: project.studyDesignCandidates.map((candidate) => ({ ...candidate, reviewState: "ADOPTED" as const })),
         imagingContribution: { ...project.imagingContribution, applicability: "APPLICABLE", resultRef: "img:fixture", projectHandoffReadiness: "PROJECT_HANDOFF_READY" },
       }),
     }));

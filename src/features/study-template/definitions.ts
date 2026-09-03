@@ -1,4 +1,5 @@
 import { templateDigest, uniqueSorted } from "./canonical.ts";
+import { STUDY_TEMPLATE_PROJECT_INPUT_VERSION } from "./types.ts";
 import type {
   BlockDefinition,
   DocumentDefinition,
@@ -302,6 +303,7 @@ export const STUDY_TEMPLATE_DOCUMENTS: DocumentDefinition[] = DOCUMENT_SPECS.map
 
 const templateMaterial = {
   templateId: "TMP-STUDY:CLINICAL-STUDY",
+  compositionInputContract: `TMP001_PROJECT_INPUT@${STUDY_TEMPLATE_PROJECT_INPUT_VERSION}`,
   familyIds: STUDY_FAMILY_DEFINITIONS.map((family) => family.familyId),
   graph: STUDY_TEMPLATE_GRAPH,
   documents: STUDY_TEMPLATE_DOCUMENTS,
@@ -315,14 +317,14 @@ export const CLINICAL_STUDY_TEMPLATE: StudyTemplateDefinition = {
   templateId: "TMP-STUDY:CLINICAL-STUDY",
   label: "Clinical Study — multi-axis logical template",
   description: "Structure logique multi-axes pour une étude clinique ; elle ne qualifie ni la science, ni la réglementation, ni le contenu documentaire.",
-  templateVersion: "1.0.0",
-  templateRevision: 1,
+  templateVersion: "1.1.0",
+  templateRevision: 2,
   createdAt: "2026-08-11T00:00:00.000Z",
-  updatedAt: "2026-08-11T00:00:00.000Z",
-  derivedFrom: null,
-  supersedes: null,
+  updatedAt: "2026-09-04T00:00:00.000Z",
+  derivedFrom: "tmp1-d26f94cc93c460c0",
+  supersedes: "tmp1-d26f94cc93c460c0",
   supersededBy: null,
-  reason: "Création de TMP-001 V1.",
+  reason: "Réconciliation TMP-001 avec l’entrée native Project V2 et conservation explicite des états épistémiques et de cycle de vie.",
   provenance: [...TMP_PROVENANCE],
   familyIds: uniqueSorted(STUDY_FAMILY_DEFINITIONS.map((family) => family.familyId)),
   graph: STUDY_TEMPLATE_GRAPH,

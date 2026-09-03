@@ -7,3 +7,4 @@ export * from "./catalog.ts";
 export * from "./persistence.ts";
 export * from "./versioning.ts";
 export * from "./adapters.ts";
+export * from "./project-input.ts";

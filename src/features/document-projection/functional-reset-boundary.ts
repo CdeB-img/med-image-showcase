@@ -22,7 +22,11 @@ import {
   presentCanonicalTemporalAnchor,
   type CanonicalProjectObjectVersion,
 } from "@/features/research-project-construction";
-import { CLINICAL_STUDY_TEMPLATE, composeStudyTemplateInstance } from "@/features/study-template";
+import {
+  CLINICAL_STUDY_TEMPLATE,
+  composeStudyTemplateInstance,
+  studyTemplateProjectInputFromProjectSnapshot,
+} from "@/features/study-template";
 import { projectDocumentFromStudyTemplate, resolveTemplateDocumentDefinitions } from "./template-integration";
 import type {
   DocumentProjection,
@@ -661,9 +665,11 @@ const requestFor = (
   priorProjection: Readonly<DocumentProjection> | null,
 ) => {
   const source = projectDocumentSourceFromFunctionalProject(project, handoffDecision);
+  const projectSnapshot = buildProjectContextSnapshot({ project });
+  const templateProjectInput = studyTemplateProjectInputFromProjectSnapshot(projectSnapshot);
   const regulatory = resolveRegulatoryRequirements(regulatoryInputFor(project, source, requestedAt));
   const template = composeStudyTemplateInstance({
-    researchProject: source,
+    researchProject: templateProjectInput,
     applicableRequirementSet: regulatory,
     documentaryPatternGraph: DOCUMENTARY_PATTERN_CATALOG,
     upstreamHumanDecisions: source.documentHandoff.humanDecisions,

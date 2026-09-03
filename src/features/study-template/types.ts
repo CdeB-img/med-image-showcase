@@ -1,10 +1,15 @@
 import type { PatternCatalog, PatternStatus } from "@/features/documentary-knowledge/types";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
 import type { RegulatoryResolutionResult } from "@/features/regulatory-resolution/types";
-import type { ResearchProjectDesignResult } from "@/features/research-project-construction/types";
+import type {
+  CanonicalProjectEpistemicState,
+  CanonicalProjectObjectType,
+  CanonicalTemporalAnchorValue,
+} from "@/features/research-project-construction/canonical-project-backbone";
 
-export const STUDY_TEMPLATE_ENGINE_VERSION = "1.0.0" as const;
-export const STUDY_TEMPLATE_SCHEMA_VERSION = "1.0.0" as const;
+export const STUDY_TEMPLATE_ENGINE_VERSION = "1.1.0" as const;
+export const STUDY_TEMPLATE_SCHEMA_VERSION = "1.1.0" as const;
+export const STUDY_TEMPLATE_PROJECT_INPUT_VERSION = "1.0.0" as const;
 
 export const TEMPLATE_NODE_KINDS = [
   "DOCUMENT",
@@ -309,8 +314,93 @@ export type TemplateDocumentMapping = {
   boundary: "LOGICAL_DEFINITION_NOT_DOCUMENT_PROJECTION";
 };
 
+export type StudyTemplateProjectObject = {
+  stableId: string;
+  versionRef: string;
+  version: number;
+  type: CanonicalProjectObjectType;
+  content: string;
+  scientificRole: string | null;
+  semanticKey: string;
+  epistemicState: CanonicalProjectEpistemicState;
+  adoptionState: "ADOPTED" | "CANDIDATE" | "REJECTED";
+  actuality: "CURRENT" | "SUPERSEDED";
+  provenanceRefs: string[];
+  decisionRefs: string[];
+};
+
+/**
+ * Projection bornée et read-only du Project pour TMP-001. Elle transporte les
+ * objets et états applicables à la composition, mais ne transfère aucun
+ * ownership scientifique, réglementaire ou documentaire au moteur TMP.
+ */
+export type StudyTemplateProjectInput = {
+  contract: "TMP001_PROJECT_INPUT";
+  contractVersion: typeof STUDY_TEMPLATE_PROJECT_INPUT_VERSION;
+  owner: "RESEARCH_PROJECT";
+  sourceKind: "PROJECT_CONTEXT_SNAPSHOT" | "LEGACY_RESEARCH_PROJECT_DESIGN_RESULT_COMPATIBILITY";
+  projectId: string;
+  projectVersion: string;
+  projectDigest: string;
+  projectRevision: number;
+  previousProjectVersion: string | null;
+  lifecycle: "ADOPTED" | "CANDIDATE" | "REJECTED" | "UNKNOWN";
+  sourceSnapshotDigest: string;
+  objects: StudyTemplateProjectObject[];
+  relations: Array<{
+    stableId: string;
+    versionRef: string;
+    type: string;
+    sourceProjectRef: string;
+    targetProjectRef: string;
+    polarity: string | null;
+    epistemicState: CanonicalProjectEpistemicState;
+    adoptionState: "ADOPTED" | "CANDIDATE" | "REJECTED";
+    actuality: "CURRENT" | "SUPERSEDED";
+    provenanceRefs: string[];
+    decisionRefs: string[];
+  }>;
+  temporalQualifications: Array<{
+    stableId: string;
+    versionRef: string;
+    subjectProjectRef: string;
+    temporalRole: string;
+    anchor: CanonicalTemporalAnchorValue | null;
+    actuality: "CURRENT" | "SUPERSEDED";
+    provenanceRefs: string[];
+    decisionRefs: string[];
+  }>;
+  expectedVariableOccasions: Array<{
+    stableId: string;
+    versionRef: string;
+    variableProjectRef: string;
+    anchor: CanonicalTemporalAnchorValue | null;
+    studyUnitOrGroupRef: string | null;
+    applicableContext: string | null;
+    actuality: "CURRENT" | "SUPERSEDED";
+    provenanceRefs: string[];
+    decisionRefs: string[];
+  }>;
+  issues: Array<{
+    issueRef: string;
+    kind: "UNKNOWN" | "WITHHELD" | "AMBIGUITY" | "LIMITATION" | "CONTRADICTION";
+    reason: string;
+    sourceRefs: string[];
+  }>;
+  imagingApplicability: "APPLICABLE" | "NOT_APPLICABLE" | "UNKNOWN";
+  humanDecisions: HumanDecisionEnvelope[];
+  specializedResponsibilities: Array<{
+    owner: string;
+    state: string;
+    retainedResponsibility: string;
+    sourceRefs: string[];
+  }>;
+  provenanceRefs: string[];
+  readOnly: true;
+};
+
 export type StudyTemplateCompositionInput = {
-  researchProject: Readonly<ResearchProjectDesignResult>;
+  researchProject: Readonly<StudyTemplateProjectInput>;
   applicableRequirementSet: Readonly<RegulatoryResolutionResult>;
   documentaryPatternGraph: Readonly<PatternCatalog>;
   humanDecisions?: ReadonlyArray<TemplateHumanDecision>;

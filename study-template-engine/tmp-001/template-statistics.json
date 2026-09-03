@@ -1,19 +1,19 @@
 {
-  "blockCount": 43,
+  "blockCount": 44,
   "byBlockStatus": {
     "BLOCKED": 4,
-    "CONDITIONAL": 116,
+    "CONDITIONAL": 127,
     "CONFLICTING": 1,
-    "FUTURE": 275,
-    "NOT_APPLICABLE": 108,
+    "FUTURE": 289,
+    "NOT_APPLICABLE": 74,
     "OPTIONAL": 1,
     "REQUIRED": 46,
-    "UNKNOWN": 1
+    "UNKNOWN": 16
   },
   "byNodeKind": {
     "ANNEX": 1,
     "BLOCK": 6,
-    "CONDITIONAL_BLOCK": 4,
+    "CONDITIONAL_BLOCK": 5,
     "DECISION": 1,
     "DOCUMENT": 23,
     "FUTURE_BLOCK": 19,
@@ -27,14 +27,14 @@
   },
   "byReadiness": {
     "BLOCKED": 4,
-    "COMPLETE": 155,
+    "COMPLETE": 121,
     "CONFLICTING": 1,
-    "FUTURE": 275,
-    "PARTIAL": 116,
-    "UNKNOWN": 1
+    "FUTURE": 289,
+    "PARTIAL": 127,
+    "UNKNOWN": 16
   },
   "byRelationType": {
-    "CONTAINS": 132,
+    "CONTAINS": 133,
     "DEPENDS_ON": 20,
     "FOLLOWS": 1,
     "GENERALIZES": 1,
@@ -50,10 +50,10 @@
   "documentCount": 23,
   "familyCount": 13,
   "instanceCount": 6,
-  "nodeCount": 92,
+  "nodeCount": 93,
   "provenanceCoveragePercent": 100,
-  "relationCount": 252,
-  "reusableBlockCount": 20,
+  "relationCount": 253,
+  "reusableBlockCount": 21,
   "sectionCount": 23,
   "templateCount": 1
 }

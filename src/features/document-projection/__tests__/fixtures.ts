@@ -7,7 +7,11 @@ import type { RegulatoryResolutionResult } from "@/features/regulatory-resolutio
 import { createResearchProjectConstructionSession, decideProjectGate, proposeEndpointRole, proposeStudyDesign } from "@/features/research-project-construction";
 import { makeProjectInput, readGovernedImagingReferenceResult } from "@/features/research-project-construction/__tests__/fixtures";
 import type { ResearchProjectConstructionInput, ResearchProjectConstructionSession, ResearchProjectDesignResult } from "@/features/research-project-construction/types";
-import { CLINICAL_STUDY_TEMPLATE, composeStudyTemplateInstance } from "@/features/study-template";
+import {
+  CLINICAL_STUDY_TEMPLATE,
+  composeStudyTemplateInstance,
+  studyTemplateProjectInputFromLegacyResearchProject,
+} from "@/features/study-template";
 import type { DocumentProjectionRequest } from "../types";
 
 export const authorizeProject = (input: ResearchProjectConstructionInput): ResearchProjectConstructionSession => {
@@ -61,7 +65,7 @@ export const makeTemplateProjectionSources = (
   });
   const patterns = options.patterns ?? DOCUMENTARY_PATTERN_CATALOG;
   const instance = composeStudyTemplateInstance({
-    researchProject: project,
+    researchProject: studyTemplateProjectInputFromLegacyResearchProject(project),
     applicableRequirementSet: regulatory,
     documentaryPatternGraph: patterns,
     upstreamHumanDecisions: project.documentHandoff.humanDecisions,

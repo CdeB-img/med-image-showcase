@@ -1,6 +1,5 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { readGovernedImagingReferenceResult } from "@/features/research-project-construction/__tests__/fixtures";
 import {
   auditStudyTemplateInstance,
   composeStudyTemplateInstance,
@@ -9,22 +8,14 @@ import {
   stableTemplateStringify,
   templateDigest,
 } from "@/features/study-template";
-import { makeTemplateDecision, makeTemplateInput } from "@/features/study-template/__tests__/fixtures";
+import { makeNativeTemplateInput, makeTemplateDecision } from "@/features/study-template/__tests__/fixtures";
 
 const OUTPUT_ROOT = resolve(process.cwd(), "study-template-engine/tmp-001");
-const GENERATED_AT = "2026-08-11T12:00:00.000Z";
+const GENERATED_AT = "2026-09-04T00:00:00.000Z";
 const checkOnly = process.argv.includes("--check");
 const fixtureBoundary = {
   dataStatus: "ILLUSTRATIVE_TECHNICAL_FIXTURE_NOT_SCIENTIFIC_CORPUS",
   notice: "Ces instances prouvent les contrats TMP-001. Elles ne décrivent aucune étude réelle et ne valent ni protocole, ni recommandation, ni qualification réglementaire.",
-};
-
-const genericProject = {
-  question: "Question scientifique de fixture à structurer, sans usage clinique.",
-  outcomes: ["outcome de fixture"],
-  population: ["population de fixture"],
-  pathology: ["condition de fixture"],
-  assertions: [],
 };
 
 const conflictDecisions = [
@@ -39,14 +30,13 @@ const statusDecisions = [
   makeTemplateDecision("fixture:conditional", ["TMP-DOC:SYNOPSIS"], "CONDITIONAL"),
 ];
 
-const imagingResult = readGovernedImagingReferenceResult();
 const inputs = [
-  makeTemplateInput({ projectOptions: genericProject }),
-  makeTemplateInput({ projectOptions: { ...genericProject, imagingResult }, phrc: true }),
-  makeTemplateInput({ projectOptions: genericProject, declaredUnknowns: [{ unknownId: "fixture:unknown:endpoint", field: "endpoint.primary", reason: "Critère de fixture non arrêté.", provenance: ["TMP-001:TEST_FIXTURE"] }] }),
-  makeTemplateInput({ projectOptions: genericProject, humanDecisions: conflictDecisions }),
-  makeTemplateInput({ projectOptions: genericProject, humanDecisions: statusDecisions }),
-  { ...makeTemplateInput({ projectOptions: genericProject }), requestedDetailLevel: "MINIMAL" as const },
+  makeNativeTemplateInput(),
+  makeNativeTemplateInput({ imaging: true, phrc: true }),
+  makeNativeTemplateInput({ declaredUnknowns: [{ unknownId: "fixture:unknown:endpoint", field: "endpoint.primary", reason: "Critère de fixture non arrêté.", provenance: ["TMP-001:TEST_FIXTURE"] }] }),
+  makeNativeTemplateInput({ humanDecisions: conflictDecisions }),
+  makeNativeTemplateInput({ humanDecisions: statusDecisions }),
+  { ...makeNativeTemplateInput(), requestedDetailLevel: "MINIMAL" as const },
 ].map((input) => ({
   ...input,
   declaredLimitations: [

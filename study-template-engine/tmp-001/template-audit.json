@@ -18,74 +18,128 @@
       "auditVersion": "TMP-001-AUDIT-1.0.0",
       "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
       "counts": {
-        "ERROR": 0,
+        "ERROR": 1,
         "INFORMATION": 0,
         "WARNING": 0
       },
-      "findings": [],
-      "passed": true,
-      "subjectId": "TMP-INSTANCE:E4531747151A"
+      "findings": [
+        {
+          "code": "BROKEN_REFERENCE",
+          "evidenceRefs": [],
+          "findingId": "TMP-FINDING-B7CECE193FA1",
+          "message": "Un support ne référence aucune source.",
+          "severity": "ERROR",
+          "subjectId": "TMP-SUPPORT:D851EF5F0AA0"
+        }
+      ],
+      "passed": false,
+      "subjectId": "TMP-INSTANCE:2055F11630A4"
     },
     {
       "auditVersion": "TMP-001-AUDIT-1.0.0",
       "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
       "counts": {
-        "ERROR": 0,
+        "ERROR": 1,
         "INFORMATION": 0,
         "WARNING": 0
       },
-      "findings": [],
-      "passed": true,
-      "subjectId": "TMP-INSTANCE:D8E499B4ED90"
+      "findings": [
+        {
+          "code": "BROKEN_REFERENCE",
+          "evidenceRefs": [],
+          "findingId": "TMP-FINDING-B7CECE193FA1",
+          "message": "Un support ne référence aucune source.",
+          "severity": "ERROR",
+          "subjectId": "TMP-SUPPORT:D851EF5F0AA0"
+        }
+      ],
+      "passed": false,
+      "subjectId": "TMP-INSTANCE:BBB8E534A860"
     },
     {
       "auditVersion": "TMP-001-AUDIT-1.0.0",
       "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
       "counts": {
-        "ERROR": 0,
+        "ERROR": 1,
         "INFORMATION": 0,
         "WARNING": 0
       },
-      "findings": [],
-      "passed": true,
-      "subjectId": "TMP-INSTANCE:0DCAC27D4EFA"
+      "findings": [
+        {
+          "code": "BROKEN_REFERENCE",
+          "evidenceRefs": [],
+          "findingId": "TMP-FINDING-B7CECE193FA1",
+          "message": "Un support ne référence aucune source.",
+          "severity": "ERROR",
+          "subjectId": "TMP-SUPPORT:D851EF5F0AA0"
+        }
+      ],
+      "passed": false,
+      "subjectId": "TMP-INSTANCE:0513BBF2DAAF"
     },
     {
       "auditVersion": "TMP-001-AUDIT-1.0.0",
       "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
       "counts": {
-        "ERROR": 0,
+        "ERROR": 1,
         "INFORMATION": 0,
         "WARNING": 0
       },
-      "findings": [],
-      "passed": true,
-      "subjectId": "TMP-INSTANCE:19299CD14C0E"
+      "findings": [
+        {
+          "code": "BROKEN_REFERENCE",
+          "evidenceRefs": [],
+          "findingId": "TMP-FINDING-B7CECE193FA1",
+          "message": "Un support ne référence aucune source.",
+          "severity": "ERROR",
+          "subjectId": "TMP-SUPPORT:D851EF5F0AA0"
+        }
+      ],
+      "passed": false,
+      "subjectId": "TMP-INSTANCE:ADBA5FC09227"
     },
     {
       "auditVersion": "TMP-001-AUDIT-1.0.0",
       "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
       "counts": {
-        "ERROR": 0,
+        "ERROR": 1,
         "INFORMATION": 0,
         "WARNING": 0
       },
-      "findings": [],
-      "passed": true,
-      "subjectId": "TMP-INSTANCE:F68B1E216B6C"
+      "findings": [
+        {
+          "code": "BROKEN_REFERENCE",
+          "evidenceRefs": [],
+          "findingId": "TMP-FINDING-B7CECE193FA1",
+          "message": "Un support ne référence aucune source.",
+          "severity": "ERROR",
+          "subjectId": "TMP-SUPPORT:D851EF5F0AA0"
+        }
+      ],
+      "passed": false,
+      "subjectId": "TMP-INSTANCE:21C4E0ACD3FF"
     },
     {
       "auditVersion": "TMP-001-AUDIT-1.0.0",
       "boundary": "DETECTION_ONLY_NO_AUTOMATIC_FIX",
       "counts": {
-        "ERROR": 0,
+        "ERROR": 1,
         "INFORMATION": 0,
         "WARNING": 0
       },
-      "findings": [],
-      "passed": true,
-      "subjectId": "TMP-INSTANCE:650D89A94EB5"
+      "findings": [
+        {
+          "code": "BROKEN_REFERENCE",
+          "evidenceRefs": [],
+          "findingId": "TMP-FINDING-B7CECE193FA1",
+          "message": "Un support ne référence aucune source.",
+          "severity": "ERROR",
+          "subjectId": "TMP-SUPPORT:D851EF5F0AA0"
+        }
+      ],
+      "passed": false,
+      "subjectId": "TMP-INSTANCE:0686F6260E44"
     }
   ],
-  "passed": true
+  "passed": false
 }

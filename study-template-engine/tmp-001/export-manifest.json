@@ -1,59 +1,59 @@
 {
   "boundary": "MACHINE_READABLE_LOGICAL_STRUCTURE_ONLY_NO_DOCUMENT",
-  "contractVersion": "1.0.0",
+  "contractVersion": "1.1.0",
   "dataStatus": "ILLUSTRATIVE_TECHNICAL_FIXTURE_NOT_SCIENTIFIC_CORPUS",
-  "engineVersion": "1.0.0",
+  "engineVersion": "1.1.0",
   "files": [
     {
-      "digest": "tmp1-262cc6a9db482e7d",
+      "digest": "tmp1-263148d8b7a0c51c",
       "path": "dependency-graph.json"
     },
     {
-      "digest": "tmp1-1cdc0b6ed6cad782",
+      "digest": "tmp1-fd3c03a5c5a27971",
       "path": "document-mapping.json"
     },
     {
-      "digest": "tmp1-93f0755b3641b1d7",
+      "digest": "tmp1-0dd207a4d0e0ea08",
       "path": "pattern-mapping.json"
     },
     {
-      "digest": "tmp1-5ea3e17ed0dc4002",
+      "digest": "tmp1-8962a0979bbc49db",
       "path": "readiness-graph.json"
     },
     {
-      "digest": "tmp1-326f2fd6b909acf2",
+      "digest": "tmp1-74525609d925f4cd",
       "path": "requirement-mapping.json"
     },
     {
-      "digest": "tmp1-39d28573b6d5c157",
+      "digest": "tmp1-8db5aa0cca3c0f48",
       "path": "structured-export.json"
     },
     {
-      "digest": "tmp1-e1e341de9d692352",
+      "digest": "tmp1-0e92d1549f691468",
       "path": "study-template-catalog.json"
     },
     {
-      "digest": "tmp1-c4a07f7ced7d04f8",
+      "digest": "tmp1-b59d09289f735e44",
       "path": "template-audit.json"
     },
     {
-      "digest": "tmp1-45b7eacd69fcb059",
+      "digest": "tmp1-890780526cf7c076",
       "path": "template-families.json"
     },
     {
-      "digest": "tmp1-313d599f3239285b",
+      "digest": "tmp1-32caa38e76df3d9a",
       "path": "template-graph.json"
     },
     {
-      "digest": "tmp1-c2a9298fc8331e8b",
+      "digest": "tmp1-55e9fa0a9568e38e",
       "path": "template-instances.json"
     },
     {
-      "digest": "tmp1-69f85e25d89306a9",
+      "digest": "tmp1-8b61938e1a2c1242",
       "path": "template-statistics.json"
     }
   ],
-  "generatedAt": "2026-08-11T12:00:00.000Z",
+  "generatedAt": "2026-09-04T00:00:00.000Z",
   "nextArchitecturalStep": "VAL-001_NOT_IMPLEMENTED",
   "notice": "Ces instances prouvent les contrats TMP-001. Elles ne décrivent aucune étude réelle et ne valent ni protocole, ni recommandation, ni qualification réglementaire."
 }

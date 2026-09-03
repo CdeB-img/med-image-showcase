@@ -34,15 +34,24 @@ type RequirementEvidence = {
 
 const blockLike = (node: TemplateNodeDefinition) => ["BLOCK", "TABLE", "ANNEX", "WORKFLOW", "DECISION", "CONDITIONAL_BLOCK", "OPTIONAL_BLOCK", "REQUIRED_BLOCK", "FUTURE_BLOCK"].includes(node.kind);
 
+const applicableProjectObjects = (input: StudyTemplateCompositionInput) => input.researchProject.objects.filter((object) =>
+  object.actuality === "CURRENT"
+  && object.adoptionState === "ADOPTED"
+  && object.epistemicState !== "UNKNOWN"
+  && object.epistemicState !== "WITHHELD");
+
 const directProjectSupport = (node: TemplateNodeDefinition, input: StudyTemplateCompositionInput): TemplateSupport[] => {
   const project = input.researchProject;
-  const canonicalNodes = project.impactGraph.nodes;
-  const canonicalRefs = (...types: string[]) => canonicalNodes
+  const currentObjects = applicableProjectObjects(input);
+  const canonicalRefs = (...types: string[]) => currentObjects
     .filter((candidate) => types.includes(candidate.type))
-    .map((candidate) => candidate.versionRef ?? candidate.nodeId);
-  const biospecimenRefs = canonicalNodes
-    .filter((candidate) => candidate.scientificRole === "SAMPLE_COLLECTION" || candidate.sectionId === "BIOSPECIMENS")
-    .map((candidate) => candidate.versionRef ?? candidate.nodeId);
+    .map((candidate) => candidate.versionRef);
+  const biospecimenRefs = currentObjects
+    .filter((candidate) => candidate.scientificRole === "SAMPLE_COLLECTION")
+    .map((candidate) => candidate.versionRef);
+  const issueRefs = (kind: StudyTemplateCompositionInput["researchProject"]["issues"][number]["kind"]) => project.issues
+    .filter((issue) => issue.kind === kind)
+    .map((issue) => issue.issueRef);
   const supports: TemplateSupport[] = [];
   const add = (selector: string, sourceRefs: string[], reason: string, supportLevel: TemplateSupport["supportLevel"] = "DIRECT") => supports.push({
     supportId: `TMP-SUPPORT:${templateDigest([node.nodeId, selector, sourceRefs]).slice(5, 17).toUpperCase()}`,
@@ -50,27 +59,27 @@ const directProjectSupport = (node: TemplateNodeDefinition, input: StudyTemplate
     sourceRefs: uniqueSorted(sourceRefs),
     supportLevel,
     reason,
-    provenance: uniqueSorted([project.resultId, project.resultDigest, ...sourceRefs]),
+    provenance: uniqueSorted([project.projectId, project.projectVersion, project.projectDigest, project.sourceSnapshotDigest, ...sourceRefs]),
   });
 
   for (const selector of node.projectSelectors) {
-    if (selector === "PROJECT_ID") add(selector, [project.resultId, project.candidateVersion.versionId], "L’identité et la version du Research Project sont présentes.");
-    else if (selector === "SCIENTIFIC_QUESTION" && project.scientificQuestion?.text) add(selector, [project.scientificQuestion.questionId], "La question scientifique gouvernée est présente.");
-    else if (selector === "OBJECTIVES" && (project.objectives.length || canonicalRefs("OBJECTIVE").length)) add(selector, uniqueSorted([...project.objectives.map((item) => item.objectiveId), ...canonicalRefs("OBJECTIVE")]), "Des objectifs structurés existent dans le Research Project.");
-    else if (selector === "HYPOTHESES" && (project.hypotheses.length || canonicalRefs("HYPOTHESIS").length)) add(selector, uniqueSorted([...project.hypotheses.map((item) => item.hypothesisId), ...canonicalRefs("HYPOTHESIS")]), "Des hypothèses structurées existent dans le Research Project.");
-    else if (selector === "POPULATION" && project.populationDesign) add(selector, [project.populationDesign.populationId], "La structure de population du Research Project est présente.");
-    else if (selector === "STUDY_DESIGN" && (project.studyDesignCandidates.length || canonicalRefs("STUDY_DESIGN").length)) add(selector, uniqueSorted([...project.studyDesignCandidates.map((item) => item.designId), ...canonicalRefs("STUDY_DESIGN")]), "Des plans d’étude structurés sont présents.");
-    else if (selector === "ENDPOINTS" && (project.endpointCandidates.length || canonicalRefs("ENDPOINT", "CANONICAL_VARIABLE").length)) add(selector, uniqueSorted([...project.endpointCandidates.map((item) => item.endpointId), ...canonicalRefs("ENDPOINT", "CANONICAL_VARIABLE")]), "Des critères ou mesures structurés sont présents.");
+    if (selector === "PROJECT_ID") add(selector, [project.projectId, project.projectVersion, project.projectDigest], "L’identité et la version du Research Project sont présentes.");
+    else if (selector === "SCIENTIFIC_QUESTION" && canonicalRefs("SCIENTIFIC_QUESTION").length) add(selector, canonicalRefs("SCIENTIFIC_QUESTION"), "La question scientifique gouvernée est présente.");
+    else if (selector === "OBJECTIVES" && canonicalRefs("OBJECTIVE").length) add(selector, canonicalRefs("OBJECTIVE"), "Des objectifs structurés existent dans le Research Project.");
+    else if (selector === "HYPOTHESES" && canonicalRefs("HYPOTHESIS").length) add(selector, canonicalRefs("HYPOTHESIS"), "Des hypothèses structurées existent dans le Research Project.");
+    else if (selector === "POPULATION" && canonicalRefs("POPULATION", "CONDITION", "ELIGIBILITY_CRITERION").length) add(selector, canonicalRefs("POPULATION", "CONDITION", "ELIGIBILITY_CRITERION"), "La structure de population du Research Project est présente.");
+    else if (selector === "STUDY_DESIGN" && canonicalRefs("STUDY_DESIGN").length) add(selector, canonicalRefs("STUDY_DESIGN"), "Des plans d’étude structurés sont présents.");
+    else if (selector === "ENDPOINTS" && canonicalRefs("ENDPOINT", "CANONICAL_VARIABLE", "DATA_NEED").length) add(selector, canonicalRefs("ENDPOINT", "CANONICAL_VARIABLE", "DATA_NEED"), "Des critères, variables ou besoins de données structurés sont présents.");
     else if (selector === "BIOSPECIMENS" && biospecimenRefs.length) add(selector, uniqueSorted(biospecimenRefs), "Des prélèvements ou collections de matériau sont explicitement présents dans le Research Project.");
-    else if (selector === "IMAGING" && project.imagingContribution.applicability === "APPLICABLE") add(selector, [project.imagingContribution.resultRef ?? project.resultId], "La contribution Imaging est explicitement applicable.");
-    else if (selector === "IMAGING" && project.imagingContribution.applicability === "NOT_APPLICABLE") add(selector, [project.resultId], "La contribution Imaging est explicitement non applicable.", "EXCLUSION");
-    else if (selector === "UNKNOWNS") add(selector, [project.candidateVersion.versionId, ...project.missingInformation], "Le registre d’inconnues du Research Project reste une source, y compris lorsqu’il est vide.", project.missingInformation.length ? "UNKNOWN" : "DIRECT");
-    else if (selector === "LIMITATIONS") add(selector, [project.candidateVersion.versionId, ...project.limitations], "Le registre de limitations du Research Project reste visible.");
-    else if (selector === "CONTRADICTIONS") add(selector, [project.candidateVersion.versionId, ...project.contradictions], "Le registre de contradictions du Research Project reste visible.", project.contradictions.length ? "UNKNOWN" : "DIRECT");
-    else if (selector === "HUMAN_DECISIONS") add(selector, [project.candidateVersion.versionId, ...project.documentHandoff.decisionRecordIds], "Le registre de décisions humaines est référencé sans reconstruction.");
-    else if (selector === "DEPENDENCIES") add(selector, project.dependencies.map((item) => item.dependencyId), "Les dépendances structurées du Research Project sont présentes.", project.dependencies.length ? "DIRECT" : "UNKNOWN");
-    else if (selector === "PROVENANCE") add(selector, [project.provenance.inputRef, ...project.provenance.sourceRefs], "La provenance PRJ est référencée en lecture seule.");
-    else if (selector === "READINESS") add(selector, [project.candidateVersion.versionId, ...project.localReadiness.map((item) => `PRJ-READINESS:${item.domain}:${item.state}`)], "La readiness locale PRJ est conservée séparément de la readiness TMP.");
+    else if (selector === "IMAGING" && project.imagingApplicability === "APPLICABLE") add(selector, canonicalRefs("IMAGING_MODALITY", "ACQUISITION"), "La contribution Imaging est explicitement applicable.");
+    else if (selector === "IMAGING" && project.imagingApplicability === "NOT_APPLICABLE") add(selector, [project.projectId], "La contribution Imaging est explicitement non applicable.", "EXCLUSION");
+    else if (selector === "UNKNOWNS") add(selector, [project.projectVersion, ...issueRefs("UNKNOWN"), ...issueRefs("WITHHELD"), ...issueRefs("AMBIGUITY")], "Le registre d’inconnues du Research Project reste une source, y compris lorsqu’il est vide.", issueRefs("UNKNOWN").length || issueRefs("WITHHELD").length || issueRefs("AMBIGUITY").length ? "UNKNOWN" : "DIRECT");
+    else if (selector === "LIMITATIONS") add(selector, [project.projectVersion, ...issueRefs("LIMITATION")], "Le registre de limitations du Research Project reste visible.");
+    else if (selector === "CONTRADICTIONS") add(selector, [project.projectVersion, ...issueRefs("CONTRADICTION")], "Le registre de contradictions du Research Project reste visible.", issueRefs("CONTRADICTION").length ? "UNKNOWN" : "DIRECT");
+    else if (selector === "HUMAN_DECISIONS") add(selector, [project.projectVersion, ...project.humanDecisions.map((decision) => `${decision.decisionId}@${decision.version}`)], "Le registre de décisions humaines est référencé sans reconstruction.");
+    else if (selector === "DEPENDENCIES") add(selector, project.relations.filter((relation) => relation.actuality === "CURRENT" && relation.adoptionState === "ADOPTED").map((item) => item.versionRef), "Les dépendances structurées du Research Project sont présentes.", project.relations.length ? "DIRECT" : "UNKNOWN");
+    else if (selector === "PROVENANCE") add(selector, project.provenanceRefs, "La provenance PRJ est référencée en lecture seule.");
+    else if (selector === "READINESS") add(selector, [project.projectVersion, `PRJ-LIFECYCLE:${project.lifecycle}`], "Le cycle de vie Project est conservé séparément de la readiness TMP.");
     else if (selector === "REG_REQUIREMENTS") supports.push({
       supportId: `TMP-SUPPORT:${templateDigest([node.nodeId, input.applicableRequirementSet.resolutionId]).slice(5, 17).toUpperCase()}`,
       kind: "REGULATORY_SUPPORT",
@@ -80,22 +89,23 @@ const directProjectSupport = (node: TemplateNodeDefinition, input: StudyTemplate
       provenance: [input.applicableRequirementSet.resolutionId, input.applicableRequirementSet.corpusDigest],
     });
     else if (selector === "HUMAN_REVIEW" && input.humanDecisions?.some((decision) => decision.targetNodeIds.includes(node.nodeId))) add(selector, input.humanDecisions.map((decision) => decision.decisionId), "Une décision humaine TMP cible explicitement ce bloc.");
-    else if (selector === "SPECIALIZED_DEPENDENCY" || selector.startsWith("SPECIALTY:")) supports.push({
-      supportId: `TMP-SUPPORT:${templateDigest([node.nodeId, selector]).slice(5, 17).toUpperCase()}`,
-      kind: "DEPENDENCY_SUPPORT",
-      sourceRefs: [selector, "PRJ-001:SPECIALIZED_ENGINE_REQUIREMENTS"],
-      supportLevel: "FUTURE_DEPENDENCY",
-      reason: "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
-      provenance: [project.resultId, "TMP-001:future-consumer-boundary"],
-    });
-    else if (selector.startsWith("PROJECTION:")) {
-      const projection = selector.slice("PROJECTION:".length).toLowerCase();
-      const readiness = project.projectionReadiness.find((item) => item.projection.toLowerCase() === projection);
-      if (readiness) add(selector, [`PRJ-PROJECTION:${readiness.projection}:${readiness.availability}`], "PRJ expose une disponibilité de données pour cette projection ; elle ne constitue pas une obligation documentaire.", "CONDITIONAL");
+    else if (selector === "SPECIALIZED_DEPENDENCY" || selector.startsWith("SPECIALTY:")) {
+      const specialty = selector.startsWith("SPECIALTY:") ? selector.slice("SPECIALTY:".length).toLocaleUpperCase("en-US") : null;
+      const responsibilities = project.specializedResponsibilities.filter((responsibility) => !specialty || responsibility.owner.toLocaleUpperCase("en-US").includes(specialty));
+      supports.push({
+        supportId: `TMP-SUPPORT:${templateDigest([node.nodeId, selector, responsibilities]).slice(5, 17).toUpperCase()}`,
+        kind: "DEPENDENCY_SUPPORT",
+        sourceRefs: uniqueSorted([selector, ...responsibilities.flatMap((responsibility) => responsibility.sourceRefs)]),
+        supportLevel: "FUTURE_DEPENDENCY",
+        reason: responsibilities.length
+          ? "Le bloc reste visible comme dépendance spécialisée future déclarée par le Project ; TMP-001 ne simule pas le moteur propriétaire."
+          : "Le bloc reste visible comme dépendance spécialisée future ; TMP-001 ne simule pas le moteur absent.",
+        provenance: uniqueSorted([project.projectId, project.projectVersion, "TMP-001:future-consumer-boundary", ...responsibilities.flatMap((responsibility) => responsibility.sourceRefs)]),
+      });
     }
   }
 
-  if (node.nodeId === "TMP-REF:RESEARCH_PROJECT") add("SOURCE_REFERENCE", [project.resultId, project.resultDigest], "Référence explicite vers le Research Project.");
+  if (node.nodeId === "TMP-REF:RESEARCH_PROJECT") add("SOURCE_REFERENCE", [project.projectId, project.projectVersion, project.projectDigest, project.sourceSnapshotDigest], "Référence explicite vers le Research Project.");
   if (node.nodeId === "TMP-REF:REG-001") supports.push({
     supportId: `TMP-SUPPORT:${templateDigest([node.nodeId, input.applicableRequirementSet.resolutionId]).slice(5, 17).toUpperCase()}`,
     kind: "REGULATORY_SUPPORT",
@@ -183,7 +193,8 @@ const resolveFamilies = (input: StudyTemplateCompositionInput, requirements: rea
   const potentialText = requirements.filter((requirement) => ["CONDITIONALLY_APPLICABLE", "POTENTIALLY_APPLICABLE", "UNKNOWN_REQUIRES_QUALIFICATION", "UNKNOWN_MISSING_INFORMATION"].includes(requirement.status)).flatMap((requirement) => requirement.text);
   const conflictingText = requirements.filter((requirement) => requirement.status === "CONFLICTING_REQUIREMENTS").flatMap((requirement) => requirement.text);
   const notApplicableText = requirements.filter((requirement) => requirement.status === "NOT_APPLICABLE").flatMap((requirement) => requirement.text);
-  const projectDesignText = project.studyDesignCandidates.flatMap((item) => [item.family, item.label, ...item.sourceSignals]);
+  const projectDesignObjects = applicableProjectObjects(input).filter((item) => item.type === "STUDY_DESIGN");
+  const projectDesignText = projectDesignObjects.flatMap((item) => [item.content, item.scientificRole ?? "", item.semanticKey]);
   const make = (family: StudyFamilyDefinition): StudyFamilyProfile => {
     let status: FamilyResolutionStatus = "UNKNOWN";
     let source: StudyFamilyProfile["source"] = "PROJECT_AND_REG-001";
@@ -196,23 +207,23 @@ const resolveFamilies = (input: StudyTemplateCompositionInput, requirements: rea
       status = "APPLICABLE";
       source = "TMP-001_BASE";
       reason = "Le moteur compose une StudyTemplateInstance pour un Research Project fourni.";
-      supportingProjectFacts = [project.resultId];
+      supportingProjectFacts = [project.projectId, project.projectVersion];
     } else if (family.resolver === "PROJECT_DESIGN") {
       source = "PROJECT";
       if (containsTemplateToken(projectDesignText, family.resolverTokens)) {
         status = "APPLICABLE";
-        supportingProjectFacts = project.studyDesignCandidates.map((item) => item.designId);
+        supportingProjectFacts = projectDesignObjects.map((item) => item.versionRef);
         reason = "Le Research Project expose explicitement un ou plusieurs plans de cette famille.";
       }
     } else if (family.resolver === "PROJECT_IMAGING") {
       source = "PROJECT";
-      if (project.imagingContribution.applicability === "APPLICABLE") {
+      if (project.imagingApplicability === "APPLICABLE") {
         status = "APPLICABLE";
-        supportingProjectFacts = [project.imagingContribution.resultRef ?? project.resultId];
+        supportingProjectFacts = applicableProjectObjects(input).filter((item) => ["IMAGING_MODALITY", "ACQUISITION"].includes(item.type)).map((item) => item.versionRef);
         reason = "La contribution Imaging est explicitement applicable dans le Research Project.";
-      } else if (project.imagingContribution.applicability === "NOT_APPLICABLE") {
+      } else if (project.imagingApplicability === "NOT_APPLICABLE") {
         status = "NOT_APPLICABLE";
-        supportingProjectFacts = [project.resultId];
+        supportingProjectFacts = [project.projectId, project.projectVersion];
         reason = "Le Research Project porte une exclusion explicite de la contribution Imaging.";
       }
     } else {
@@ -295,10 +306,10 @@ const detectedConflicts = (input: StudyTemplateCompositionInput, requirementMapp
   });
   const project = input.researchProject;
   const regulatory = input.applicableRequirementSet;
-  if (project.resultDigest !== regulatory.researchProjectDigest || regulatory.researchProjectId !== project.documentHandoff.projectId) {
-    add([project.resultId, project.resultDigest, regulatory.resolutionId, regulatory.researchProjectDigest], ["TMP-NODE:PROJECT_IDENTITY", "TMP-NODE:REQUIREMENT_REGISTER"], "Les identités ou digests Project/REG-001 ne correspondent pas.", ["Rejouer REG-001 sur la version exacte du Research Project."]);
+  if (project.projectDigest !== regulatory.researchProjectDigest || regulatory.researchProjectId !== project.projectId) {
+    add([project.projectId, project.projectDigest, regulatory.resolutionId, regulatory.researchProjectDigest], ["TMP-NODE:PROJECT_IDENTITY", "TMP-NODE:REQUIREMENT_REGISTER"], "Les identités ou digests Project/REG-001 ne correspondent pas.", ["Rejouer REG-001 sur la version exacte du Research Project."]);
   }
-  project.contradictions.forEach((description) => add([project.resultId, description], ["TMP-NODE:CONFLICTS"], description, ["Arbitrage humain dans le moteur propriétaire de la contradiction."]));
+  project.issues.filter((issue) => issue.kind === "CONTRADICTION").forEach((issue) => add([project.projectId, issue.issueRef, ...issue.sourceRefs], ["TMP-NODE:CONFLICTS"], issue.reason, ["Arbitrage humain dans le moteur propriétaire de la contradiction."]));
   regulatory.contradictions.forEach((conflict) => {
     const affected = requirementMapping.filter((mapping) => conflict.requirementIds.includes(mapping.requirementId)).flatMap((mapping) => mapping.nodeIds);
     add([conflict.contradictionId, ...conflict.requirementIds, ...conflict.provenance], affected.length ? affected : ["TMP-NODE:REQUIREMENT_REGISTER"], conflict.description, ["Qualification ou arbitrage humain dans REG-001."]);
@@ -342,7 +353,9 @@ export const composeStudyTemplateInstance = (input: StudyTemplateCompositionInpu
   })).sort((left, right) => left.conditionId.localeCompare(right.conditionId));
   const conflicts = detectedConflicts(input, requirementMapping, patternMapping);
 
-  const projectUnknowns = input.researchProject.missingInformation.map((reason, index) => ({ unknownId: `PRJ-UNKNOWN:${index + 1}`, field: "researchProject.missingInformation", reason, provenance: [input.researchProject.resultId] }));
+  const projectUnknowns = input.researchProject.issues
+    .filter((issue) => ["UNKNOWN", "WITHHELD", "AMBIGUITY"].includes(issue.kind))
+    .map((issue) => ({ unknownId: `PRJ-${issue.kind}:${issue.issueRef}`, field: `researchProject.${issue.kind.toLocaleLowerCase("en-US")}`, reason: issue.reason, provenance: [input.researchProject.projectId, ...issue.sourceRefs] }));
   const regulatoryUnknowns = input.applicableRequirementSet.missingInformation.map((missing, index) => ({ unknownId: `REG-UNKNOWN:${index + 1}:${templateDigest(missing).slice(5, 11)}`, field: missing.field, reason: missing.reason, provenance: missing.provenance }));
   const unknowns = [...projectUnknowns, ...regulatoryUnknowns, ...(input.declaredUnknowns ?? [])].sort((left, right) => left.unknownId.localeCompare(right.unknownId));
   const missingInformation: TemplateMissingInformation[] = [
@@ -364,10 +377,10 @@ export const composeStudyTemplateInstance = (input: StudyTemplateCompositionInpu
     })),
   ].sort((left, right) => left.missingInformationId.localeCompare(right.missingInformationId));
   const limitations = [
-    ...input.researchProject.limitations.map((reason, index) => ({ limitationId: `PRJ-LIMITATION:${index + 1}`, reason, provenance: [input.researchProject.resultId] })),
+    ...input.researchProject.issues.filter((issue) => issue.kind === "LIMITATION").map((issue) => ({ limitationId: `PRJ-LIMITATION:${issue.issueRef}`, reason: issue.reason, provenance: [input.researchProject.projectId, ...issue.sourceRefs] })),
     ...input.applicableRequirementSet.corpusDiagnostics.map((diagnostic) => ({ limitationId: `REG-DIAGNOSTIC:${diagnostic.diagnosticId}`, reason: diagnostic.description, provenance: diagnostic.provenance })),
     { limitationId: "TMP-LIMITATION:DOC002_REFERENCE_ONLY", reason: "Les patterns DOC-002 restent candidats, locaux, historiques ou externes selon leur statut et ne créent aucune obligation.", provenance: [input.documentaryPatternGraph.catalogId, input.documentaryPatternGraph.digest] },
-    { limitationId: "TMP-LIMITATION:DOC001_FUTURE_ADAPTER", reason: "TMP-001 expose des DocumentDefinitions pour un futur adaptateur DOC-001 ; DOC-001 n’est pas modifié et ne consomme pas encore StudyTemplateInstance.", provenance: ["DOC-001:current-implementation", "TMP-001:future-consumer-contract"] },
+    { limitationId: "TMP-LIMITATION:DOC001B_READ_ONLY_CONSUMER", reason: "DOC-001B consomme la StudyTemplateInstance comme structure logique en lecture seule ; TMP-001 ne génère aucun document.", provenance: ["DOC-001B:template-integration", "TMP-001:consumer-boundary"] },
     ...(input.declaredLimitations ?? []),
   ].sort((left, right) => left.limitationId.localeCompare(right.limitationId));
   const humanDecisions = [...(input.humanDecisions ?? [])].map((decision) => ({ ...decision, targetNodeIds: uniqueSorted(decision.targetNodeIds), provenance: uniqueSorted(decision.provenance) })).sort((left, right) => left.decisionId.localeCompare(right.decisionId) || left.version - right.version);
@@ -495,7 +508,7 @@ export const composeStudyTemplateInstance = (input: StudyTemplateCompositionInpu
   };
   const instanceMaterial = {
     template: [template.templateId, template.templateVersion, template.templateRevision],
-    inputs: [input.researchProject.resultDigest, input.applicableRequirementSet.resolutionId, input.documentaryPatternGraph.digest],
+    inputs: [input.researchProject.projectDigest, input.researchProject.sourceSnapshotDigest, input.applicableRequirementSet.resolutionId, input.documentaryPatternGraph.digest],
     familyProfiles,
     nodes: nodeInstances,
     relations: instanceRelations,
@@ -520,9 +533,9 @@ export const composeStudyTemplateInstance = (input: StudyTemplateCompositionInpu
     composedAt: input.compositionAsOf,
     requestedDetailLevel: input.requestedDetailLevel ?? "FULL",
     inputRefs: {
-      researchProjectId: input.researchProject.documentHandoff.projectId,
-      researchProjectVersion: input.researchProject.candidateVersion.versionId,
-      researchProjectDigest: input.researchProject.resultDigest,
+      researchProjectId: input.researchProject.projectId,
+      researchProjectVersion: input.researchProject.projectVersion,
+      researchProjectDigest: input.researchProject.projectDigest,
       regulatoryResolutionId: input.applicableRequirementSet.resolutionId,
       regulatoryCorpusVersion: input.applicableRequirementSet.corpusVersion,
       regulatoryCorpusDigest: input.applicableRequirementSet.corpusDigest,
@@ -540,15 +553,17 @@ export const composeStudyTemplateInstance = (input: StudyTemplateCompositionInpu
     unknowns,
     limitations,
     humanDecisions,
-    upstreamHumanDecisionRefs: uniqueSorted([...(input.upstreamHumanDecisions ?? []), ...input.researchProject.documentHandoff.humanDecisions, ...input.applicableRequirementSet.humanDecisions].map((decision) => `${decision.decisionId}@${decision.version}`)),
+    upstreamHumanDecisionRefs: uniqueSorted([...(input.upstreamHumanDecisions ?? []), ...input.researchProject.humanDecisions, ...input.applicableRequirementSet.humanDecisions].map((decision) => `${decision.decisionId}@${decision.version}`)),
     requirementMapping,
     patternMapping,
     dependencyGraph,
     readinessGraph,
     inputMutationChecks: mutationChecks,
     provenance: uniqueSorted([
-      input.researchProject.resultId,
-      input.researchProject.resultDigest,
+      input.researchProject.projectId,
+      input.researchProject.projectVersion,
+      input.researchProject.projectDigest,
+      input.researchProject.sourceSnapshotDigest,
       input.applicableRequirementSet.resolutionId,
       input.applicableRequirementSet.corpusDigest,
       input.documentaryPatternGraph.catalogId,
@@ -557,7 +572,7 @@ export const composeStudyTemplateInstance = (input: StudyTemplateCompositionInpu
       template.digest,
     ]),
     trace: [
-      { sequence: 1, operation: "READ_GOVERNED_INPUTS", inputRefs: [input.researchProject.resultId, input.applicableRequirementSet.resolutionId, input.documentaryPatternGraph.catalogId], outputRefs: [], decision: "READ_ONLY", mode: "BOUNDARY" },
+      { sequence: 1, operation: "READ_GOVERNED_INPUTS", inputRefs: [input.researchProject.projectId, input.researchProject.projectVersion, input.researchProject.projectDigest, input.researchProject.sourceSnapshotDigest, input.applicableRequirementSet.resolutionId, input.documentaryPatternGraph.catalogId], outputRefs: [], decision: "READ_ONLY", mode: "BOUNDARY" },
       { sequence: 2, operation: "RESOLVE_MULTI_AXIS_FAMILIES", inputRefs: familyProfiles.flatMap((profile) => [...profile.supportingProjectFacts, ...profile.supportingRequirements]), outputRefs: familyProfiles.map((profile) => profile.familyId), decision: "NO_SINGLE_BRANCH_FORCED", mode: "DETERMINISTIC" },
       { sequence: 3, operation: "MAP_REQUIREMENTS_AND_PATTERNS", inputRefs: [...requirementMapping.map((mapping) => mapping.requirementId), ...patternMapping.map((mapping) => mapping.patternId)], outputRefs: nodeInstances.map((node) => node.nodeId), decision: "PATTERN_NEVER_MAKES_REQUIRED", mode: "DETERMINISTIC" },
       { sequence: 4, operation: "APPLY_HUMAN_TEMPLATE_DECISIONS", inputRefs: humanDecisions.map((decision) => decision.decisionId), outputRefs: humanDecisions.flatMap((decision) => decision.targetNodeIds), decision: "HUMAN_INPUT_PRESERVED", mode: "HUMAN_INPUT" },

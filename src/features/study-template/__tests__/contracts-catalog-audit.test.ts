@@ -62,11 +62,11 @@ describe("TMP-001 audit, versioning and contracts", () => {
     const descriptive = { ...CLINICAL_STUDY_TEMPLATE, description: "Description révisée." };
     expect(classifyTemplateChange(CLINICAL_STUDY_TEMPLATE, descriptive)).toBe("DESCRIPTION_ONLY");
     const revision = versionStudyTemplate(CLINICAL_STUDY_TEMPLATE, descriptive, "2026-08-11T13:00:00.000Z", "Clarification descriptive.");
-    expect(revision.templateVersion).toBe("1.0.0");
-    expect(revision.templateRevision).toBe(2);
+    expect(revision.templateVersion).toBe(CLINICAL_STUDY_TEMPLATE.templateVersion);
+    expect(revision.templateRevision).toBe(CLINICAL_STUDY_TEMPLATE.templateRevision + 1);
     const behavioral = { ...CLINICAL_STUDY_TEMPLATE, behaviorDigest: "tmp1-behavior-change" };
     const version = versionStudyTemplate(CLINICAL_STUDY_TEMPLATE, behavioral, "2026-08-11T14:00:00.000Z", "Changement comportemental.");
-    expect(version.templateVersion).toBe("1.1.0");
+    expect(version.templateVersion).toBe("1.2.0");
     expect(version.templateRevision).toBe(1);
   });
 

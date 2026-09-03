@@ -3,7 +3,7 @@
   "instances": [
     {
       "graph": {
-        "digest": "tmp1-d1727163b6bdda9f",
+        "digest": "tmp1-68c469c535b75d39",
         "nodes": [
           {
             "nodeId": "TMP-BLOCK:ARCHIVE_MANIFEST:SPECIFIC",
@@ -12,383 +12,6 @@
           {
             "nodeId": "TMP-BLOCK:BUDGET:SPECIFIC",
             "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:CONSENT:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:CORE_LAB_MANUAL:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:CRF_SPECIFICATION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:DATA_DICTIONARY:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:DATA_MANAGEMENT_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:FUNDING_APPLICATION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:IMAGING_CHARTER:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:MONITORING_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PATIENT_INFORMATION:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PROTOCOL:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PUBLICATION_PLAN:SPECIFIC",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-BLOCK:QUALITY_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:REGISTRY_SUBMISSION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:REGULATORY_SUBMISSION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:RISK_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SAP:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SITE_DOCUMENTS:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SYNOPSIS:SPECIFIC",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-BLOCK:TRAINING_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:BUDGET",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:CONSENT",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:CRF_SPECIFICATION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:DATA_DICTIONARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:FUNDING_APPLICATION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:IMAGING_CHARTER",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:MONITORING_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:PATIENT_INFORMATION",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:PROTOCOL",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:PUBLICATION_PLAN",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-DOC:QUALITY_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:RISK_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:SAP",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:SITE_DOCUMENTS",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:STUDY_REPORT",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:SYNOPSIS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-DOC:TRAINING_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-NODE:CONFLICTS",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:DEPENDENCY_WORKFLOW",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:ENDPOINTS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-NODE:HUMAN_DECISIONS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:HYPOTHESES",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:IMAGING_CONTRIBUTION",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:LIMITATIONS",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:OBJECTIVES",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:POPULATION",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:PROJECT_IDENTITY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:PROVENANCE",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:PROVENANCE_SUBSECTION",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:READINESS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:REQUIREMENT_REGISTER",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:REVIEW_NOTES",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:SCIENTIFIC_QUESTION",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:STUDY_DESIGN",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:TRACE_ANNEX",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:UNKNOWNS",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-REF:DOC-002",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-REF:REG-001",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-REF:RESEARCH_PROJECT",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-SECTION:ARCHIVE_MANIFEST:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:BUDGET:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:CONSENT:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:CORE_LAB_MANUAL:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:CRF_SPECIFICATION:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:DATA_DICTIONARY:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:DATA_MANAGEMENT_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:FUNDING_APPLICATION:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:IMAGING_CHARTER:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:INVESTIGATOR_BROCHURE:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:MONITORING_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:PATIENT_INFORMATION:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:PROTOCOL:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:PUBLICATION_PLAN:PRIMARY",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-SECTION:QUALITY_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:REGISTRY_SUBMISSION:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:REGULATORY_SUBMISSION:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:RISK_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:SAP:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:SITE_DOCUMENTS:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:STUDY_REPORT:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:SYNOPSIS:PRIMARY",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-SECTION:TRAINING_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          }
-        ],
-        "overall": "PARTIAL"
-      },
-      "instanceId": "TMP-INSTANCE:E4531747151A"
-    },
-    {
-      "graph": {
-        "digest": "tmp1-1401daca7096f53e",
-        "nodes": [
-          {
-            "nodeId": "TMP-BLOCK:ARCHIVE_MANIFEST:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:BUDGET:SPECIFIC",
-            "readiness": "BLOCKED"
           },
           {
             "nodeId": "TMP-BLOCK:CONSENT:SPECIFIC",
@@ -416,546 +39,173 @@
           },
           {
             "nodeId": "TMP-BLOCK:IMAGING_CHARTER:SPECIFIC",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:MONITORING_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PATIENT_INFORMATION:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PROTOCOL:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PUBLICATION_PLAN:SPECIFIC",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-BLOCK:QUALITY_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:REGISTRY_SUBMISSION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:REGULATORY_SUBMISSION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:RISK_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SAP:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SITE_DOCUMENTS:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SYNOPSIS:SPECIFIC",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-BLOCK:TRAINING_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:BUDGET",
-            "readiness": "BLOCKED"
-          },
-          {
-            "nodeId": "TMP-DOC:CONSENT",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:CRF_SPECIFICATION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:DATA_DICTIONARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:FUNDING_APPLICATION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:IMAGING_CHARTER",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:MONITORING_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:PATIENT_INFORMATION",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:PROTOCOL",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:PUBLICATION_PLAN",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-DOC:QUALITY_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:RISK_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:SAP",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:SITE_DOCUMENTS",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:STUDY_REPORT",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:SYNOPSIS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-DOC:TRAINING_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-NODE:CONFLICTS",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:DEPENDENCY_WORKFLOW",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:ENDPOINTS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-NODE:HUMAN_DECISIONS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:HYPOTHESES",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:IMAGING_CONTRIBUTION",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:LIMITATIONS",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:OBJECTIVES",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:POPULATION",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:PROJECT_IDENTITY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:PROVENANCE",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:PROVENANCE_SUBSECTION",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:READINESS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:REQUIREMENT_REGISTER",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:REVIEW_NOTES",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:SCIENTIFIC_QUESTION",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:STUDY_DESIGN",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:TRACE_ANNEX",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:UNKNOWNS",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-REF:DOC-002",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-REF:REG-001",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-REF:RESEARCH_PROJECT",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-SECTION:ARCHIVE_MANIFEST:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:BUDGET:PRIMARY",
-            "readiness": "BLOCKED"
-          },
-          {
-            "nodeId": "TMP-SECTION:CONSENT:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:CORE_LAB_MANUAL:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:CRF_SPECIFICATION:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:DATA_DICTIONARY:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:DATA_MANAGEMENT_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:FUNDING_APPLICATION:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:IMAGING_CHARTER:PRIMARY",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-SECTION:INVESTIGATOR_BROCHURE:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:MONITORING_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:PATIENT_INFORMATION:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:PROTOCOL:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:PUBLICATION_PLAN:PRIMARY",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-SECTION:QUALITY_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:REGISTRY_SUBMISSION:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:REGULATORY_SUBMISSION:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:RISK_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:SAP:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:SITE_DOCUMENTS:PRIMARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-SECTION:STUDY_REPORT:PRIMARY",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-SECTION:SYNOPSIS:PRIMARY",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-SECTION:TRAINING_PLAN:PRIMARY",
-            "readiness": "FUTURE"
-          }
-        ],
-        "overall": "BLOCKED"
-      },
-      "instanceId": "TMP-INSTANCE:D8E499B4ED90"
-    },
-    {
-      "graph": {
-        "digest": "tmp1-873c833a6738d74e",
-        "nodes": [
-          {
-            "nodeId": "TMP-BLOCK:ARCHIVE_MANIFEST:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:BUDGET:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:CONSENT:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:CORE_LAB_MANUAL:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:CRF_SPECIFICATION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:DATA_DICTIONARY:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:DATA_MANAGEMENT_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:FUNDING_APPLICATION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:IMAGING_CHARTER:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:MONITORING_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PATIENT_INFORMATION:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PROTOCOL:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:PUBLICATION_PLAN:SPECIFIC",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-BLOCK:QUALITY_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:REGISTRY_SUBMISSION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:REGULATORY_SUBMISSION:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:RISK_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SAP:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SITE_DOCUMENTS:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-BLOCK:SYNOPSIS:SPECIFIC",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-BLOCK:TRAINING_PLAN:SPECIFIC",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:BUDGET",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:CONSENT",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:CRF_SPECIFICATION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:DATA_DICTIONARY",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:FUNDING_APPLICATION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:IMAGING_CHARTER",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:MONITORING_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:PATIENT_INFORMATION",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:PROTOCOL",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:PUBLICATION_PLAN",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-DOC:QUALITY_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:RISK_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:SAP",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:SITE_DOCUMENTS",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-DOC:STUDY_REPORT",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-DOC:SYNOPSIS",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-DOC:TRAINING_PLAN",
-            "readiness": "FUTURE"
-          },
-          {
-            "nodeId": "TMP-NODE:CONFLICTS",
-            "readiness": "COMPLETE"
-          },
-          {
-            "nodeId": "TMP-NODE:DEPENDENCY_WORKFLOW",
-            "readiness": "PARTIAL"
-          },
-          {
-            "nodeId": "TMP-NODE:ENDPOINTS",
             "readiness": "UNKNOWN"
           },
           {
+            "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:MONITORING_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PATIENT_INFORMATION:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PUBLICATION_PLAN:SPECIFIC",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-BLOCK:QUALITY_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:REGISTRY_SUBMISSION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:REGULATORY_SUBMISSION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:RISK_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SAP:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SITE_DOCUMENTS:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SYNOPSIS:SPECIFIC",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-BLOCK:TRAINING_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:BUDGET",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:CONSENT",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:DATA_DICTIONARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:IMAGING_CHARTER",
+            "readiness": "UNKNOWN"
+          },
+          {
+            "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:MONITORING_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:PROTOCOL",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-DOC:QUALITY_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:RISK_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:SAP",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:STUDY_REPORT",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:SYNOPSIS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-DOC:TRAINING_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-NODE:BIOSPECIMENS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:CONFLICTS",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:DEPENDENCY_WORKFLOW",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:ENDPOINTS",
+            "readiness": "PARTIAL"
+          },
+          {
             "nodeId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
             "readiness": "FUTURE"
           },
@@ -969,7 +219,7 @@
           },
           {
             "nodeId": "TMP-NODE:IMAGING_CONTRIBUTION",
-            "readiness": "COMPLETE"
+            "readiness": "PARTIAL"
           },
           {
             "nodeId": "TMP-NODE:LIMITATIONS",
@@ -1049,7 +299,7 @@
           },
           {
             "nodeId": "TMP-SECTION:CORE_LAB_MANUAL:PRIMARY",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-SECTION:CRF_SPECIFICATION:PRIMARY",
@@ -1069,7 +319,7 @@
           },
           {
             "nodeId": "TMP-SECTION:IMAGING_CHARTER:PRIMARY",
-            "readiness": "COMPLETE"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-SECTION:INVESTIGATOR_BROCHURE:PRIMARY",
@@ -1130,11 +380,11 @@
         ],
         "overall": "UNKNOWN"
       },
-      "instanceId": "TMP-INSTANCE:0DCAC27D4EFA"
+      "instanceId": "TMP-INSTANCE:2055F11630A4"
     },
     {
       "graph": {
-        "digest": "tmp1-9d54c198b5f8d41c",
+        "digest": "tmp1-3f06fa49c4b8dba5",
         "nodes": [
           {
             "nodeId": "TMP-BLOCK:ARCHIVE_MANIFEST:SPECIFIC",
@@ -1142,7 +392,7 @@
           },
           {
             "nodeId": "TMP-BLOCK:BUDGET:SPECIFIC",
-            "readiness": "FUTURE"
+            "readiness": "BLOCKED"
           },
           {
             "nodeId": "TMP-BLOCK:CONSENT:SPECIFIC",
@@ -1150,7 +400,7 @@
           },
           {
             "nodeId": "TMP-BLOCK:CORE_LAB_MANUAL:SPECIFIC",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-BLOCK:CRF_SPECIFICATION:SPECIFIC",
@@ -1170,7 +420,388 @@
           },
           {
             "nodeId": "TMP-BLOCK:IMAGING_CHARTER:SPECIFIC",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:MONITORING_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PATIENT_INFORMATION:SPECIFIC",
             "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PUBLICATION_PLAN:SPECIFIC",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-BLOCK:QUALITY_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:REGISTRY_SUBMISSION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:REGULATORY_SUBMISSION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:RISK_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SAP:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SITE_DOCUMENTS:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SYNOPSIS:SPECIFIC",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-BLOCK:TRAINING_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:BUDGET",
+            "readiness": "BLOCKED"
+          },
+          {
+            "nodeId": "TMP-DOC:CONSENT",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:DATA_DICTIONARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:IMAGING_CHARTER",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:MONITORING_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:PROTOCOL",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-DOC:QUALITY_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:RISK_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:SAP",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:STUDY_REPORT",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:SYNOPSIS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-DOC:TRAINING_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-NODE:BIOSPECIMENS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:CONFLICTS",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:DEPENDENCY_WORKFLOW",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:ENDPOINTS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-NODE:HUMAN_DECISIONS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:HYPOTHESES",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:IMAGING_CONTRIBUTION",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:LIMITATIONS",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:OBJECTIVES",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:POPULATION",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:PROJECT_IDENTITY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:PROVENANCE",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:PROVENANCE_SUBSECTION",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:READINESS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:REQUIREMENT_REGISTER",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:REVIEW_NOTES",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:STUDY_DESIGN",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:TRACE_ANNEX",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:UNKNOWNS",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-REF:DOC-002",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-REF:REG-001",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-REF:RESEARCH_PROJECT",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-SECTION:ARCHIVE_MANIFEST:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:BUDGET:PRIMARY",
+            "readiness": "BLOCKED"
+          },
+          {
+            "nodeId": "TMP-SECTION:CONSENT:PRIMARY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-SECTION:CORE_LAB_MANUAL:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:CRF_SPECIFICATION:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:DATA_DICTIONARY:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:DATA_MANAGEMENT_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:FUNDING_APPLICATION:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:IMAGING_CHARTER:PRIMARY",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-SECTION:INVESTIGATOR_BROCHURE:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:MONITORING_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:PATIENT_INFORMATION:PRIMARY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-SECTION:PROTOCOL:PRIMARY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-SECTION:PUBLICATION_PLAN:PRIMARY",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-SECTION:QUALITY_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:REGISTRY_SUBMISSION:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:REGULATORY_SUBMISSION:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:RISK_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:SAP:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:SITE_DOCUMENTS:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:STUDY_REPORT:PRIMARY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-SECTION:SYNOPSIS:PRIMARY",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-SECTION:TRAINING_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          }
+        ],
+        "overall": "BLOCKED"
+      },
+      "instanceId": "TMP-INSTANCE:BBB8E534A860"
+    },
+    {
+      "graph": {
+        "digest": "tmp1-55f53064183f2f40",
+        "nodes": [
+          {
+            "nodeId": "TMP-BLOCK:ARCHIVE_MANIFEST:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:BUDGET:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:CONSENT:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:CORE_LAB_MANUAL:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:CRF_SPECIFICATION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:DATA_DICTIONARY:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:DATA_MANAGEMENT_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:FUNDING_APPLICATION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:IMAGING_CHARTER:SPECIFIC",
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
@@ -1242,7 +873,7 @@
           },
           {
             "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-DOC:CRF_SPECIFICATION",
@@ -1262,7 +893,7 @@
           },
           {
             "nodeId": "TMP-DOC:IMAGING_CHARTER",
-            "readiness": "COMPLETE"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
@@ -1298,7 +929,7 @@
           },
           {
             "nodeId": "TMP-DOC:RISK_PLAN",
-            "readiness": "CONFLICTING"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-DOC:SAP",
@@ -1321,6 +952,10 @@
             "readiness": "FUTURE"
           },
           {
+            "nodeId": "TMP-NODE:BIOSPECIMENS",
+            "readiness": "PARTIAL"
+          },
+          {
             "nodeId": "TMP-NODE:CONFLICTS",
             "readiness": "COMPLETE"
           },
@@ -1330,7 +965,7 @@
           },
           {
             "nodeId": "TMP-NODE:ENDPOINTS",
-            "readiness": "PARTIAL"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
@@ -1346,7 +981,7 @@
           },
           {
             "nodeId": "TMP-NODE:IMAGING_CONTRIBUTION",
-            "readiness": "COMPLETE"
+            "readiness": "PARTIAL"
           },
           {
             "nodeId": "TMP-NODE:LIMITATIONS",
@@ -1426,7 +1061,7 @@
           },
           {
             "nodeId": "TMP-SECTION:CORE_LAB_MANUAL:PRIMARY",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-SECTION:CRF_SPECIFICATION:PRIMARY",
@@ -1446,7 +1081,388 @@
           },
           {
             "nodeId": "TMP-SECTION:IMAGING_CHARTER:PRIMARY",
+            "readiness": "UNKNOWN"
+          },
+          {
+            "nodeId": "TMP-SECTION:INVESTIGATOR_BROCHURE:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:MONITORING_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:PATIENT_INFORMATION:PRIMARY",
             "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-SECTION:PROTOCOL:PRIMARY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-SECTION:PUBLICATION_PLAN:PRIMARY",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-SECTION:QUALITY_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:REGISTRY_SUBMISSION:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:REGULATORY_SUBMISSION:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:RISK_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:SAP:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:SITE_DOCUMENTS:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:STUDY_REPORT:PRIMARY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-SECTION:SYNOPSIS:PRIMARY",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-SECTION:TRAINING_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          }
+        ],
+        "overall": "UNKNOWN"
+      },
+      "instanceId": "TMP-INSTANCE:0513BBF2DAAF"
+    },
+    {
+      "graph": {
+        "digest": "tmp1-1907c11cdb7f06f0",
+        "nodes": [
+          {
+            "nodeId": "TMP-BLOCK:ARCHIVE_MANIFEST:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:BUDGET:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:CONSENT:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:CORE_LAB_MANUAL:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:CRF_SPECIFICATION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:DATA_DICTIONARY:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:DATA_MANAGEMENT_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:FUNDING_APPLICATION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:IMAGING_CHARTER:SPECIFIC",
+            "readiness": "UNKNOWN"
+          },
+          {
+            "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:MONITORING_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PATIENT_INFORMATION:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PROTOCOL:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:PUBLICATION_PLAN:SPECIFIC",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-BLOCK:QUALITY_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:REGISTRY_SUBMISSION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:REGULATORY_SUBMISSION:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:RISK_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SAP:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SITE_DOCUMENTS:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:STUDY_REPORT:SPECIFIC",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-BLOCK:SYNOPSIS:SPECIFIC",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-BLOCK:TRAINING_PLAN:SPECIFIC",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:ARCHIVE_MANIFEST",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:BUDGET",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:CONSENT",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:CRF_SPECIFICATION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:DATA_DICTIONARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:DATA_MANAGEMENT_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:FUNDING_APPLICATION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:IMAGING_CHARTER",
+            "readiness": "UNKNOWN"
+          },
+          {
+            "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:MONITORING_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:PATIENT_INFORMATION",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:PROTOCOL",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:PUBLICATION_PLAN",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-DOC:QUALITY_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:REGISTRY_SUBMISSION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:REGULATORY_SUBMISSION",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:RISK_PLAN",
+            "readiness": "CONFLICTING"
+          },
+          {
+            "nodeId": "TMP-DOC:SAP",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:SITE_DOCUMENTS",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-DOC:STUDY_REPORT",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-DOC:SYNOPSIS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-DOC:TRAINING_PLAN",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-NODE:BIOSPECIMENS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:CONFLICTS",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:DEPENDENCY_WORKFLOW",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:ENDPOINTS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-NODE:HUMAN_DECISIONS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:HYPOTHESES",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:IMAGING_CONTRIBUTION",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:LIMITATIONS",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:OBJECTIVES",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:POPULATION",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:PROJECT_IDENTITY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:PROVENANCE",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:PROVENANCE_SUBSECTION",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:READINESS",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:REQUIREMENT_REGISTER",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:REVIEW_NOTES",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:SCIENTIFIC_QUESTION",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:STUDY_DESIGN",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-NODE:TRACE_ANNEX",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-NODE:UNKNOWNS",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-REF:DOC-002",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-REF:REG-001",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-REF:RESEARCH_PROJECT",
+            "readiness": "PARTIAL"
+          },
+          {
+            "nodeId": "TMP-SECTION:ARCHIVE_MANIFEST:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:BUDGET:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:CONSENT:PRIMARY",
+            "readiness": "COMPLETE"
+          },
+          {
+            "nodeId": "TMP-SECTION:CORE_LAB_MANUAL:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:CRF_SPECIFICATION:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:DATA_DICTIONARY:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:DATA_MANAGEMENT_PLAN:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:FUNDING_APPLICATION:PRIMARY",
+            "readiness": "FUTURE"
+          },
+          {
+            "nodeId": "TMP-SECTION:IMAGING_CHARTER:PRIMARY",
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-SECTION:INVESTIGATOR_BROCHURE:PRIMARY",
@@ -1507,11 +1523,11 @@
         ],
         "overall": "CONFLICTING"
       },
-      "instanceId": "TMP-INSTANCE:19299CD14C0E"
+      "instanceId": "TMP-INSTANCE:ADBA5FC09227"
     },
     {
       "graph": {
-        "digest": "tmp1-9508c74c28864558",
+        "digest": "tmp1-6abc9dce9687be5a",
         "nodes": [
           {
             "nodeId": "TMP-BLOCK:ARCHIVE_MANIFEST:SPECIFIC",
@@ -1527,7 +1543,7 @@
           },
           {
             "nodeId": "TMP-BLOCK:CORE_LAB_MANUAL:SPECIFIC",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-BLOCK:CRF_SPECIFICATION:SPECIFIC",
@@ -1547,7 +1563,7 @@
           },
           {
             "nodeId": "TMP-BLOCK:IMAGING_CHARTER:SPECIFIC",
-            "readiness": "COMPLETE"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
@@ -1639,7 +1655,7 @@
           },
           {
             "nodeId": "TMP-DOC:IMAGING_CHARTER",
-            "readiness": "COMPLETE"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
@@ -1698,6 +1714,10 @@
             "readiness": "FUTURE"
           },
           {
+            "nodeId": "TMP-NODE:BIOSPECIMENS",
+            "readiness": "PARTIAL"
+          },
+          {
             "nodeId": "TMP-NODE:CONFLICTS",
             "readiness": "COMPLETE"
           },
@@ -1723,7 +1743,7 @@
           },
           {
             "nodeId": "TMP-NODE:IMAGING_CONTRIBUTION",
-            "readiness": "COMPLETE"
+            "readiness": "PARTIAL"
           },
           {
             "nodeId": "TMP-NODE:LIMITATIONS",
@@ -1803,7 +1823,7 @@
           },
           {
             "nodeId": "TMP-SECTION:CORE_LAB_MANUAL:PRIMARY",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-SECTION:CRF_SPECIFICATION:PRIMARY",
@@ -1823,7 +1843,7 @@
           },
           {
             "nodeId": "TMP-SECTION:IMAGING_CHARTER:PRIMARY",
-            "readiness": "COMPLETE"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-SECTION:INVESTIGATOR_BROCHURE:PRIMARY",
@@ -1884,11 +1904,11 @@
         ],
         "overall": "BLOCKED"
       },
-      "instanceId": "TMP-INSTANCE:F68B1E216B6C"
+      "instanceId": "TMP-INSTANCE:21C4E0ACD3FF"
     },
     {
       "graph": {
-        "digest": "tmp1-d1727163b6bdda9f",
+        "digest": "tmp1-68c469c535b75d39",
         "nodes": [
           {
             "nodeId": "TMP-BLOCK:ARCHIVE_MANIFEST:SPECIFIC",
@@ -1904,7 +1924,7 @@
           },
           {
             "nodeId": "TMP-BLOCK:CORE_LAB_MANUAL:SPECIFIC",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-BLOCK:CRF_SPECIFICATION:SPECIFIC",
@@ -1924,7 +1944,7 @@
           },
           {
             "nodeId": "TMP-BLOCK:IMAGING_CHARTER:SPECIFIC",
-            "readiness": "COMPLETE"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-BLOCK:INVESTIGATOR_BROCHURE:SPECIFIC",
@@ -1996,7 +2016,7 @@
           },
           {
             "nodeId": "TMP-DOC:CORE_LAB_MANUAL",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-DOC:CRF_SPECIFICATION",
@@ -2016,7 +2036,7 @@
           },
           {
             "nodeId": "TMP-DOC:IMAGING_CHARTER",
-            "readiness": "COMPLETE"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-DOC:INVESTIGATOR_BROCHURE",
@@ -2075,6 +2095,10 @@
             "readiness": "FUTURE"
           },
           {
+            "nodeId": "TMP-NODE:BIOSPECIMENS",
+            "readiness": "PARTIAL"
+          },
+          {
             "nodeId": "TMP-NODE:CONFLICTS",
             "readiness": "COMPLETE"
           },
@@ -2100,7 +2124,7 @@
           },
           {
             "nodeId": "TMP-NODE:IMAGING_CONTRIBUTION",
-            "readiness": "COMPLETE"
+            "readiness": "PARTIAL"
           },
           {
             "nodeId": "TMP-NODE:LIMITATIONS",
@@ -2180,7 +2204,7 @@
           },
           {
             "nodeId": "TMP-SECTION:CORE_LAB_MANUAL:PRIMARY",
-            "readiness": "COMPLETE"
+            "readiness": "FUTURE"
           },
           {
             "nodeId": "TMP-SECTION:CRF_SPECIFICATION:PRIMARY",
@@ -2200,7 +2224,7 @@
           },
           {
             "nodeId": "TMP-SECTION:IMAGING_CHARTER:PRIMARY",
-            "readiness": "COMPLETE"
+            "readiness": "UNKNOWN"
           },
           {
             "nodeId": "TMP-SECTION:INVESTIGATOR_BROCHURE:PRIMARY",
@@ -2259,9 +2283,9 @@
             "readiness": "FUTURE"
           }
         ],
-        "overall": "PARTIAL"
+        "overall": "UNKNOWN"
       },
-      "instanceId": "TMP-INSTANCE:650D89A94EB5"
+      "instanceId": "TMP-INSTANCE:0686F6260E44"
     }
   ],
   "notice": "LOCAL_TEMPLATE_READINESS_ONLY_NOT_SCIENTIFIC_OR_REGULATORY_READINESS"

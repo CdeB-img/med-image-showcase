@@ -1,6 +1,6 @@
 {
   "boundary": "LOGICAL_STRUCTURE_ONLY_NO_DOCUMENT_GENERATION",
-  "digest": "tmp1-517bce932b5d57bf",
+  "digest": "tmp1-168852a1c7a5278d",
   "graphId": "TMP-GRAPH:CLINICAL-STUDY:1.0.0",
   "graphVersion": "1.0.0",
   "nodes": [
@@ -1705,6 +1705,59 @@
         "TRAINING_PLAN",
         "Training Plan"
       ]
+    },
+    {
+      "defaultStatus": "CONDITIONAL",
+      "dependencyIds": [],
+      "description": "Bloc logique réutilisable « Biospecimen and material collection ». Il référence les objets gouvernés sans produire de contenu documentaire.",
+      "detailLevels": [
+        "FULL",
+        "MEDIUM",
+        "SHORT",
+        "MINIMAL"
+      ],
+      "documentIds": [
+        "PROTOCOL",
+        "SYNOPSIS",
+        "IMAGING_CHARTER",
+        "CORE_LAB_MANUAL",
+        "SAP",
+        "DATA_MANAGEMENT_PLAN",
+        "CRF_SPECIFICATION",
+        "DATA_DICTIONARY",
+        "MONITORING_PLAN",
+        "QUALITY_PLAN",
+        "RISK_PLAN",
+        "TRAINING_PLAN",
+        "FUNDING_APPLICATION",
+        "BUDGET",
+        "INVESTIGATOR_BROCHURE",
+        "SITE_DOCUMENTS",
+        "PATIENT_INFORMATION",
+        "CONSENT",
+        "REGULATORY_SUBMISSION",
+        "PUBLICATION_PLAN",
+        "REGISTRY_SUBMISSION",
+        "STUDY_REPORT",
+        "ARCHIVE_MANIFEST"
+      ],
+      "familyIds": [],
+      "kind": "CONDITIONAL_BLOCK",
+      "label": "Biospecimen and material collection",
+      "nodeId": "TMP-NODE:BIOSPECIMENS",
+      "patternCategories": [
+        "Project",
+        "Data"
+      ],
+      "projectSelectors": [
+        "BIOSPECIMENS"
+      ],
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "requirementTokens": []
     },
     {
       "defaultStatus": "CONDITIONAL",
@@ -6208,6 +6261,18 @@
       "relationId": "TMP-REL:CE9D48DB50C8",
       "toId": "TMP-NODE:FUTURE_SPECIALIZED_INPUTS",
       "type": "DEPENDS_ON"
+    },
+    {
+      "fromId": "TMP-SECTION:PROTOCOL:PRIMARY",
+      "provenance": [
+        "TMP-001:Study Template Engine",
+        "PD-003:Research Object Model",
+        "RDE-001:Research Design Engine"
+      ],
+      "reason": "La structure Protocol de référence expose le bloc partagé sans le dupliquer.",
+      "relationId": "TMP-REL:D15F8E4E6B57",
+      "toId": "TMP-NODE:BIOSPECIMENS",
+      "type": "CONTAINS"
     },
     {
       "fromId": "TMP-DOC:SITE_DOCUMENTS",
