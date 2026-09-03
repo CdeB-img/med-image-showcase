@@ -271,6 +271,10 @@ const validateImagingBoundary = (
   const nativePayload = entry.result?.nativePayload;
   const sourceHandoff = isRecord(nativeInput) && isRecord(nativeInput.sourceHandoff) ? nativeInput.sourceHandoff : null;
   const knowledgeInput = isRecord(nativeInput) && isRecord(nativeInput.knowledge) ? nativeInput.knowledge : null;
+  const sourceProject = isRecord(nativeInput) && isRecord(nativeInput.sourceProject) ? nativeInput.sourceProject : null;
+  const lineage = isRecord(nativeInput) && Array.isArray(nativeInput.sourceOwnerLineage)
+    ? nativeInput.sourceOwnerLineage.filter(isRecord)
+    : [];
   const knowledgeDependency = entry.dependencies.find((dependency) => dependency.owner === "KNOWLEDGE") ?? null;
   const scientificThinkingDependency = entry.dependencies.find((dependency) => dependency.owner === "SCIENTIFIC_THINKING") ?? null;
   const retainedKnowledge = knowledgeDependency ? priorEntries.find((candidate) => candidate.result?.resultId === knowledgeDependency.resultId
@@ -279,24 +283,51 @@ const validateImagingBoundary = (
   const retainedScientificThinking = scientificThinkingDependency ? priorEntries.find((candidate) => candidate.result?.resultId === scientificThinkingDependency.resultId
     && candidate.result.resultVersion === scientificThinkingDependency.resultVersion
     && candidate.result.owner === "SCIENTIFIC_THINKING")?.result ?? null : null;
+  const directProjectInvocation = Boolean(sourceProject
+    && sourceProject.projectId === entry.request.sourceProject.sourceProjectRef
+    && sourceProject.projectVersion === entry.request.sourceProject.sourceProjectVersion
+    && sourceProject.projectDigest === entry.request.sourceProject.sourceProjectDigest
+    && sourceProject.snapshotDigest === entry.request.sourceProject.snapshotDigest
+    && sourceHandoff?.stOutputRef === null
+    && lineage.some((item) => item.sourceOwner === "RESEARCH_PROJECT"
+      && item.resultRef === sourceProject.projectId
+      && item.resultVersion === sourceProject.projectVersion
+      && item.resultDigest === sourceProject.projectDigest
+      && item.ownershipTransferred === false)
+    && lineage.filter((item) => item.sourceOwner !== "RESEARCH_PROJECT").every((item) => entry.dependencies.some((dependency) =>
+      dependency.owner === item.sourceOwner
+      && dependency.resultId === item.resultRef
+      && dependency.resultVersion === item.resultVersion
+      && dependency.nativeResultDigest === item.resultDigest))
+    && entry.dependencies.length === lineage.filter((item) => item.sourceOwner !== "RESEARCH_PROJECT").length);
+  const legacyScientificThinkingInvocation = Boolean(knowledgeDependency
+    && scientificThinkingDependency
+    && retainedKnowledge
+    && retainedScientificThinking
+    && knowledgeInput?.resultId === retainedKnowledge.resultId
+    && knowledgeInput.resultDigest === nativeResultDigest(retainedKnowledge)
+    && isRecord(retainedScientificThinking.nativePayload)
+    && sourceHandoff?.stOutputRef === retainedScientificThinking.nativePayload.outputId);
   if (!isRecord(nativeInput)
     || nativeInput.researchProjectId !== entry.request.sourceProject.sourceProjectRef
     || nativeInput.strategyVersion !== entry.request.sourceProject.sourceProjectVersion
     || !sourceHandoff
     || !knowledgeInput
-    || !knowledgeDependency
-    || !scientificThinkingDependency
-    || !retainedKnowledge
-    || !retainedScientificThinking
-    || knowledgeInput.resultId !== retainedKnowledge.resultId
-    || knowledgeInput.resultDigest !== nativeResultDigest(retainedKnowledge)
-    || !isRecord(retainedScientificThinking.nativePayload)
-    || sourceHandoff.stOutputRef !== retainedScientificThinking.nativePayload.outputId
+    || (!directProjectInvocation && !legacyScientificThinkingInvocation)
     || (entry.result !== null && (
       entry.result.projectContribution !== null
       || !isRecord(nativePayload)
       || !isRecord(nativePayload.provenance)
       || nativePayload.provenance.inputRef !== nativeInput.inputId
+      || (directProjectInvocation && (
+        nativePayload.projectWriteAuthorized !== false
+        || nativePayload.candidateIsAdopted !== false
+        || !isRecord(nativePayload.sourceProject)
+        || nativePayload.sourceProject.projectId !== sourceProject?.projectId
+        || nativePayload.sourceProject.projectVersion !== sourceProject?.projectVersion
+        || nativePayload.sourceProject.projectDigest !== sourceProject?.projectDigest
+        || nativePayload.sourceProject.snapshotDigest !== sourceProject?.snapshotDigest
+      ))
     ))) {
     throw new Error("PRODUCT_OWNER_RESULT_LEDGER_IMAGING_BOUNDARY_INVALID");
   }

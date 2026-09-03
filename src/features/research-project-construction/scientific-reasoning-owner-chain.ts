@@ -1047,6 +1047,263 @@ export const buildImagingInputFromProjectAndScientificThinking = (input: {
   };
 };
 
+export const buildImagingInputFromProjectSnapshot = (input: {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
+  upstreamOwnerResults?: readonly Readonly<SpecializedOwnerResult>[];
+  sourceNeed?: Readonly<{ id: string; purpose: string }>;
+}): ImagingDesignInput => {
+  const snapshot = input.projectSnapshot;
+  const upstream = (input.upstreamOwnerResults ?? []).filter((result) =>
+    result.sourceProjectRef === snapshot.sourceProjectRef
+    && result.sourceProjectVersion === snapshot.sourceProjectVersion
+    && result.sourceProjectDigest === snapshot.sourceProjectDigest
+    && result.sourceSnapshotDigest === snapshot.snapshotDigest
+    && result.projectWriteAuthorized === false);
+  const observabilityResults = upstream.filter((result) => result.owner === "OBSERVABILITY_MEASUREMENT")
+    .flatMap((result) => {
+      const payload = result.nativePayload as ObservabilityMeasurementResult | null;
+      return payload?.owner === "OBSERVABILITY_MEASUREMENT"
+        && payload.downstreamHandoffs.some((handoff) => handoff.targetOwner === "IMAGING") ? [{ result, payload }] : [];
+    });
+  const studyDesignResults = upstream.filter((result) => result.owner === "STUDY_DESIGN")
+    .flatMap((result) => {
+      const payload = result.nativePayload as StudyDesignProposalContribution | null;
+      return payload?.owner === "STUDY_DESIGN"
+        && payload.downstreamHandoffs.some((handoff) => handoff.targetOwner === "IMAGING") ? [{ result, payload }] : [];
+    });
+  const projectQuestion = objectsOf(snapshot, "SCIENTIFIC_QUESTION")[0];
+  const projectObjectives = objectsOf(snapshot, "OBJECTIVE");
+  const projectHypotheses = objectsOf(snapshot, "HYPOTHESIS");
+  const modalities = objectsOf(snapshot, "IMAGING_MODALITY");
+  const acquisitions = objectsOf(snapshot, "ACQUISITION");
+  const measurementObjects = objectsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE", "SCIENTIFIC_MODEL");
+  const timing = unique([
+    ...snapshot.temporalQualifications.map(temporalLabel),
+    ...snapshot.expectedVariableOccasions.map(occasionLabel),
+  ]);
+  const lineage: NonNullable<ImagingDesignInput["sourceOwnerLineage"]> = [
+    {
+      sourceOwner: "RESEARCH_PROJECT",
+      resultRef: snapshot.sourceProjectRef,
+      resultVersion: snapshot.sourceProjectVersion,
+      resultDigest: snapshot.sourceProjectDigest,
+      needRefs: input.sourceNeed ? [input.sourceNeed.id] : snapshot.activeQryNeed ? [snapshot.activeQryNeed.id] : [],
+      purpose: input.sourceNeed?.purpose ?? snapshot.activeQryNeed?.purpose ?? "Spécialiser les besoins Imaging explicitement représentés dans le Research Project.",
+      ownershipTransferred: false,
+    },
+    ...observabilityResults.map(({ result, payload }) => ({
+      sourceOwner: "OBSERVABILITY_MEASUREMENT" as const,
+      resultRef: result.resultId,
+      resultVersion: result.resultVersion,
+      resultDigest: payload.resultDigest,
+      needRefs: payload.downstreamHandoffs.filter((handoff) => handoff.targetOwner === "IMAGING").map((handoff) => handoff.handoffId),
+      purpose: "Spécialiser en Imaging les MeasurementDefinitions qualifiées par OBS sans transfert d’ownership.",
+      ownershipTransferred: false as const,
+    })),
+    ...studyDesignResults.map(({ result, payload }) => ({
+      sourceOwner: "STUDY_DESIGN" as const,
+      resultRef: result.resultId,
+      resultVersion: result.resultVersion,
+      resultDigest: payload.proposalDigest,
+      needRefs: payload.downstreamHandoffs.filter((handoff) => handoff.targetOwner === "IMAGING").map((handoff) => handoff.handoffId),
+      purpose: "Traduire les conséquences de design en exigences Imaging sans modifier le Study Design.",
+      ownershipTransferred: false as const,
+    })),
+  ];
+  const context: NonNullable<ImagingDesignInput["imagingContext"]> = {
+    modalities: modalities.map((item) => ({
+      ref: item.stableId,
+      label: item.content,
+      epistemicState: item.epistemicState,
+      provenanceRefs: unique([item.versionRef, ...item.sourceItemRefs, ...item.provenance.evidenceRefs]),
+    })),
+    acquisitions: acquisitions.map((item) => ({
+      ref: item.stableId,
+      label: item.content,
+      modalityRefs: snapshot.relations.filter((relation) =>
+        relation.sourceProjectRef === item.stableId && modalities.some((modality) => modality.stableId === relation.targetProjectRef)
+        || relation.targetProjectRef === item.stableId && modalities.some((modality) => modality.stableId === relation.sourceProjectRef))
+        .map((relation) => relation.sourceProjectRef === item.stableId ? relation.targetProjectRef : relation.sourceProjectRef),
+      provenanceRefs: unique([item.versionRef, ...item.sourceItemRefs, ...item.provenance.evidenceRefs]),
+    })),
+    measurementNeeds: observabilityResults.flatMap(({ payload }) => payload.measurementDefinitions.map((item) => ({
+      measurementRef: item.measurementRef,
+      label: item.label,
+      valueNature: item.valueNature,
+      limitations: [...item.limitations],
+      provenanceRefs: [...item.provenanceRefs],
+      sourceOwner: "OBSERVABILITY_MEASUREMENT" as const,
+    }))),
+    designConsequences: studyDesignResults.flatMap(({ payload }) => payload.options.map((item) => ({
+      consequenceRef: item.optionId,
+      label: item.label,
+      temporalDirection: item.axes.temporalDirection,
+      structuralForm: item.axes.structuralForm,
+      limitations: [...item.limitations],
+      provenanceRefs: [...item.provenanceRefs],
+      sourceOwner: "STUDY_DESIGN" as const,
+    }))),
+    feasibilityConstraints: contentsOf(snapshot, "CONSTRAINT"),
+  };
+  const questionText = projectQuestion?.content ?? projectObjectives[0]?.content ?? "Besoin d’imagerie à spécialiser pour le Research Project";
+  const material = {
+    project: snapshot.snapshotDigest,
+    lineage,
+    modalities: context.modalities,
+    acquisitions: context.acquisitions,
+    measurements: context.measurementNeeds,
+    design: context.designConsequences,
+  };
+  const inputId = `imaging-project-input:${logicalDigest(material)}`;
+  return {
+    contractVersion: IMAGING_STUDY_DESIGNER_VERSION,
+    inputId,
+    researchProjectId: snapshot.sourceProjectRef,
+    strategyVersion: snapshot.sourceProjectVersion,
+    sourceProject: {
+      projectId: snapshot.sourceProjectRef,
+      projectVersion: snapshot.sourceProjectVersion,
+      projectDigest: snapshot.sourceProjectDigest,
+      snapshotDigest: snapshot.snapshotDigest,
+    },
+    sourceOwnerLineage: lineage,
+    imagingContext: context,
+    sourceHandoff: {
+      kind: "VALIDATED_DESIGN_CONTEXT",
+      stOutputRef: null,
+      status: "VALIDATED_WITHOUT_ST_HANDOFF",
+      boundary: "NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN",
+      humanDecisions: [...snapshot.humanDecisions],
+    },
+    originalExpression: questionText,
+    confirmedScientificQuestion: { questionId: projectQuestion?.stableId ?? `project-question:${logicalDigest(questionText)}`, text: questionText, confirmation: "VALIDATED_CONTEXT" },
+    objectives: projectObjectives.map((item, index) => ({
+      objectiveId: item.stableId,
+      text: item.content,
+      level: /EXPLOR/i.test(item.scientificRole ?? "") ? "EXPLORATORY" as const
+        : /SECONDARY|SECONDAIRE/i.test(item.scientificRole ?? "") || index > 0 ? "SECONDARY" as const : "PRIMARY" as const,
+      reviewState: "ADOPTED" as const,
+    })),
+    hypotheses: projectHypotheses.map((item, index) => ({
+      hypothesisId: item.stableId,
+      text: item.content,
+      kind: /NULL|NULLE|COMPETING/i.test(item.scientificRole ?? "") ? "NULL_OR_COMPETING" as const
+        : index > 0 ? "ALTERNATIVE" as const : "PRIMARY" as const,
+      reviewState: "ADOPTED" as const,
+    })),
+    mechanisms: [],
+    centralScientificObject: measurementObjects[0]?.content ?? questionText,
+    scientificObjectTerms: snapshot.objects.map((item) => item.content),
+    pathologyOrCondition: contentsOf(snapshot, "CONDITION"),
+    populationContext: contentsOf(snapshot, "POPULATION", "ELIGIBILITY_CRITERION"),
+    temporalContext: timing,
+    phenomenaDeclared: unique(measurementObjects.map((item) => item.content)),
+    outcomesDeclared: contentsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE"),
+    methodPreferences: unique([...modalities.map((item) => item.content), ...acquisitions.map((item) => item.content)]),
+    scientificRelationships: snapshot.relations.map((item) => `${item.type}(${item.sourceProjectRef},${item.targetProjectRef})`),
+    knownConstraints: unique([...contentsOf(snapshot, "CONSTRAINT"), ...context.designConsequences.flatMap((item) => item.limitations)]),
+    declaredEquipment: [],
+    centerContext: { mode: "UNKNOWN", declarations: [] },
+    knowledge: {
+      resultId: null,
+      resultDigest: null,
+      coverageStatus: "NO_RESULT",
+      concepts: [],
+      assertions: [],
+      documentaryStatements: [],
+      gaps: [],
+      limitations: ["No external Knowledge result was required or invented for this Project-bound Imaging specialization."],
+      sourceIds: [],
+      matchingSemantics: "NO_RESULT",
+    },
+    decisions: snapshot.humanDecisions.map((item) => item.decisionId),
+    uncertainties: unique([...projectUnknowns(snapshot), ...snapshot.openIssues.filter((item) => item.kind === "AMBIGUITY" || item.kind === "LIMITATION").map((item) => item.reason)]),
+    contradictions: snapshot.openConflicts.map((item) => item.message),
+    safetyFlags: [],
+    provenance: unique([snapshot.snapshotDigest, ...lineage.map((item) => `${item.sourceOwner}:${item.resultRef}@${item.resultVersion}`)]),
+    trace: [{
+      sequence: 1,
+      operation: "BUILD_IMAGING_INPUT_FROM_EXACT_PROJECT_AND_OWNER_RESULTS",
+      decision: "PROJECT_OBS_RDE_CONTEXT_CONSUMED_WITHOUT_OWNERSHIP_TRANSFER",
+      inputDigest: logicalDigest(material),
+      outputDigest: logicalDigest({ inputId, sourceProject: snapshot.sourceProjectDigest, lineage }),
+    }],
+  };
+};
+
+export const invokeImagingOwnerFromProjectSnapshot = (input: InvocationTiming & {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
+  upstreamOwnerResults?: readonly Readonly<SpecializedOwnerResult>[];
+  sourceNeed?: Readonly<{ id: string; purpose: string }>;
+  purpose?: string;
+  runtime?: (nativeInput: ImagingDesignInput) => ImagingDesignResult;
+}): ScientificReasoningOwnerInvocation<ImagingDesignInput, ImagingDesignResult> => {
+  const nativeInput = buildImagingInputFromProjectSnapshot(input);
+  const request = createSpecializedOwnerHandoffRequestFromSnapshot({
+    handoffId: `project-to-imaging:${logicalDigest({ project: input.projectSnapshot.snapshotDigest, purpose: input.purpose ?? "QRY_IMAGING_SCOPE" })}`,
+    owner: "IMAGING",
+    capabilityId: "IMAGING_STUDY_DESIGN",
+    purpose: input.purpose ?? "Spécialiser le besoin Imaging sélectionné par QRY.",
+    sourceProject: input.projectSnapshot,
+    nativeInputType: "ImagingDesignInput",
+    nativeInputVersion: IMAGING_STUDY_DESIGNER_VERSION,
+    nativeInput,
+  });
+  const invocationId = `scientific-owner-invocation:${logicalDigest({ handoff: request.handoffId, startedAt: input.startedAt })}`;
+  const started = now(input.monotonicNow);
+  try {
+    const nativeOutput = (input.runtime ?? executeImagingStudyDesigner)(nativeInput);
+    const latencyMs = elapsed(started, now(input.monotonicNow));
+    if (nativeOutput.provenance.inputRef !== nativeInput.inputId
+      || nativeOutput.sourceProject?.projectId !== input.projectSnapshot.sourceProjectRef
+      || nativeOutput.sourceProject.projectVersion !== input.projectSnapshot.sourceProjectVersion
+      || nativeOutput.sourceProject.projectDigest !== input.projectSnapshot.sourceProjectDigest
+      || nativeOutput.sourceProject.snapshotDigest !== input.projectSnapshot.snapshotDigest
+      || nativeOutput.projectWriteAuthorized !== false
+      || nativeOutput.candidateIsAdopted !== false) {
+      return { request, result: null, observation: observation({
+        request, invocationId, ownerRuntimeVersion: IMAGING_STUDY_DESIGNER_VERSION,
+        status: "INVALID_OWNER_RESULT", failureCode: "IMAGING_RESULT_PROJECT_OR_INPUT_MISMATCH",
+        startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1,
+      }) };
+    }
+    const gaps = unique([...nativeOutput.knowledgeHandoff.gapCodes, ...nativeOutput.missingInformation]);
+    const unknowns = unique([...nativeOutput.projectConstructionHandoff.unknowns, ...nativeInput.uncertainties]);
+    const limitations = unique([...nativeOutput.limitations, ...nativeOutput.projectConstructionHandoff.limitations]);
+    const result = recordSpecializedOwnerResult({
+      request,
+      resultId: nativeOutput.resultId,
+      resultVersion: IMAGING_STUDY_DESIGNER_VERSION,
+      completedAt: input.completedAt,
+      status: gaps.length || unknowns.length || limitations.length ? "COMPLETED_WITH_LIMITATIONS" : "COMPLETED",
+      resultKind: nativeOutput.modalityCandidates.length || nativeOutput.acquisitionStrategies.length ? "RECOMMENDATION_OPTION" : "GAP",
+      nativePayloadType: "ImagingDesignResult",
+      nativePayloadVersion: IMAGING_STUDY_DESIGNER_VERSION,
+      nativePayload: nativeOutput,
+      stableProjectRefs: request.sourceProject.objects.map((item) => item.stableId),
+      evidenceRefs: unique([...nativeOutput.modalityCandidates.flatMap((item) => item.evidenceRefs), ...nativeOutput.biomarkerCandidates.flatMap((item) => item.evidenceRefs)]),
+      unknowns,
+      gaps,
+      limitations,
+      provenance: unique([nativeOutput.resultId, nativeOutput.provenance.inputRef, ...nativeOutput.provenance.sourceRefs]),
+    });
+    return { request, result, observation: observation({
+      request, invocationId, ownerRuntimeVersion: IMAGING_STUDY_DESIGNER_VERSION,
+      resultRef: `${result.resultId}@${result.resultVersion}`,
+      status: result.status === "COMPLETED" ? "COMPLETED" : "COMPLETED_WITH_LIMITATIONS",
+      stableProjectRefs: result.stableProjectRefs, unknowns, gaps, limitations,
+      startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1,
+    }) };
+  } catch (error) {
+    const latencyMs = elapsed(started, now(input.monotonicNow));
+    return { request, result: null, observation: observation({
+      request, invocationId, ownerRuntimeVersion: IMAGING_STUDY_DESIGNER_VERSION,
+      status: "OWNER_RUNTIME_FAILURE", failureCode: error instanceof Error ? error.message : "IMAGING_RUNTIME_FAILURE",
+      startedAt: input.startedAt, completedAt: input.completedAt, latencyMs, runtimeStarts: 1,
+    }) };
+  }
+};
+
 export type ImagingOwnerChainInvocation = {
   handoff: ScientificThinkingToImagingHandoff;
   request: SpecializedOwnerHandoffRequest<ImagingDesignInput> | null;

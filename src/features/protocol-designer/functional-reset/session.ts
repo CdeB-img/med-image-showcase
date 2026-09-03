@@ -52,6 +52,7 @@ import type {
 } from "./study-design-standard";
 import type { StandardScientificThinkingInteraction } from "./scientific-thinking-standard";
 import type { StandardObservabilityInteraction, StandardObservabilityPresentation } from "./observability-standard";
+import type { StandardImagingInteraction, StandardImagingPresentation } from "./imaging-standard";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Dites-moi ce que vous souhaitez comprendre, formaliser ou construire.\nNOXIA préservera votre intention avant de proposer la suite.";
@@ -73,7 +74,7 @@ export const shouldMediatePostAdoptionQuery = (
 
 export type PostAdoptionQueryContinuation = {
   content: string;
-  presentationSource: "GEMINI_MEDIATED" | "QRY_STANDARD_FALLBACK" | "RDE_STANDARD_PROJECTION" | "RDE_INFORMATION_NEED" | "ST_STANDARD_PROJECTION" | "OBS_STANDARD_PROJECTION";
+  presentationSource: "GEMINI_MEDIATED" | "QRY_STANDARD_FALLBACK" | "RDE_STANDARD_PROJECTION" | "RDE_INFORMATION_NEED" | "ST_STANDARD_PROJECTION" | "OBS_STANDARD_PROJECTION" | "IMAGING_STANDARD_PROJECTION";
 };
 
 export const resolvePostAdoptionQueryContinuation = (
@@ -91,6 +92,7 @@ export type ConversationEntry =
   | { entryId: string; kind: "TEXT"; role: "USER" | "NOXIA"; content: string; knowledgePresentation?: ProductUnderstandKnowledgePresentation | null; createdAt: string }
   | { entryId: string; kind: "STUDY_DESIGN_PROPOSAL"; role: "NOXIA"; presentation: StandardStudyDesignPresentation; createdAt: string }
   | { entryId: string; kind: "OBSERVABILITY_PROPOSAL"; role: "NOXIA"; presentation: StandardObservabilityPresentation; createdAt: string }
+  | { entryId: string; kind: "IMAGING_PROPOSAL"; role: "NOXIA"; presentation: StandardImagingPresentation; createdAt: string }
   | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; traceRunId?: string | null; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; createdAt: string }
   | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string };
 
@@ -150,6 +152,7 @@ export type FunctionalResetSession = {
   studyDesignInteraction: StandardStudyDesignInteraction | null;
   scientificThinkingInteraction: StandardScientificThinkingInteraction | null;
   observabilityInteraction: StandardObservabilityInteraction | null;
+  imagingInteraction: StandardImagingInteraction | null;
   documents: FunctionalResetDocumentPortfolio;
   openDocumentProjectionId: string | null;
   bridgeTraces: ProductBridgeTrace[];
@@ -188,6 +191,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     studyDesignInteraction: null,
     scientificThinkingInteraction: null,
     observabilityInteraction: null,
+    imagingInteraction: null,
     documents: createEmptyFunctionalResetDocumentPortfolio(),
     openDocumentProjectionId: null,
     bridgeTraces: [],
@@ -212,6 +216,7 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
     && (!record.studyDesignInteraction || record.studyDesignInteraction.contract === "FUNCTIONAL_RESET_STUDY_DESIGN_INTERACTION")
     && (!record.scientificThinkingInteraction || record.scientificThinkingInteraction.contract === "FUNCTIONAL_RESET_SCIENTIFIC_THINKING_INTERACTION")
     && (!record.observabilityInteraction || record.observabilityInteraction.contract === "FUNCTIONAL_RESET_OBSERVABILITY_INTERACTION")
+    && (!record.imagingInteraction || record.imagingInteraction.contract === "FUNCTIONAL_RESET_IMAGING_INTERACTION")
     && record.documents?.contract === "FUNCTIONAL_RESET_DOCUMENT_PORTFOLIO"
     && record.documents.owner === "DOC-001"
     && (record.openDocumentProjectionId === null || typeof record.openDocumentProjectionId === "string")
@@ -236,6 +241,7 @@ const migrateLegacySession = (value: unknown): FunctionalResetSession | null => 
     studyDesignInteraction: record.contractVersion === "1.8.0" ? record.studyDesignInteraction ?? null : null,
     scientificThinkingInteraction: null,
     observabilityInteraction: null,
+    imagingInteraction: null,
     bridgeTraces: Array.isArray(record.bridgeTraces) ? record.bridgeTraces : [],
     knowledgeOwnerLedger: ["1.5.0", "1.6.0", "1.7.0", "1.8.0"].includes(String(record.contractVersion)) && record.knowledgeOwnerLedger
       ? record.knowledgeOwnerLedger
@@ -269,6 +275,7 @@ export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSes
     const reloadSafeSession: FunctionalResetSession = {
       ...session,
       observabilityInteraction: session.observabilityInteraction ?? null,
+      imagingInteraction: session.imagingInteraction ?? null,
       knowledgeOwnerLedger: rehydrateProductKnowledgeOwnerLedger(session.knowledgeOwnerLedger),
       validationRunLedger: rehydrateProductValidationRunLedger(session.validationRunLedger),
       scientificExecutionTraceLedger: rehydrateScientificExecutionTraceLedger(session.scientificExecutionTraceLedger),

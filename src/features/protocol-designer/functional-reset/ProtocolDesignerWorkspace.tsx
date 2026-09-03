@@ -54,6 +54,7 @@ import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
 import StudyDesignStandardCard from "./StudyDesignStandardCard";
 import ObservabilityStandardCard from "./ObservabilityStandardCard";
+import ImagingStandardCard from "./ImagingStandardCard";
 import {
   executeProductUnderstandInteraction,
   recognizeProductDocumentAction,
@@ -100,6 +101,15 @@ import {
   readObservabilityResultFromLedger,
   resolveObservabilityConversation,
 } from "./observability-standard";
+import {
+  prepareImagingAcquisitionContribution,
+  buildStandardImagingPresentation,
+  dispatchImagingFromQuery,
+  imagingInteractionMatchesCurrentProject,
+  isImagingQueryDispatch,
+  readImagingResultFromLedger,
+  resolveImagingConversation,
+} from "./imaging-standard";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -243,6 +253,34 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
       ...dispatched,
     };
   }
+  if (isImagingQueryDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchImagingFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      presentationTurnRef: turnId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    const turn = { turnId, role: "NOXIA" as const, content: dispatched.presentation.plainText, createdAt: completedAt };
+    return {
+      kind: "IMAGING" as const,
+      turn,
+      content: turn.content,
+      presentationSource: "IMAGING_STANDARD_PROJECTION" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "IMAGING_STUDY_DESIGNER_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
   if (isStudyDesignQueryDispatch(job.queryNavigation)) {
     const completedAt = new Date().toISOString();
     const turnId = createTurnId();
@@ -362,7 +400,7 @@ export default function ProtocolDesignerWorkspace() {
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
       setSession((current) => {
-        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY"
+        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING"
           ? continuation.traceLedger
           : recordPostAdoptionQuestionTrace({
           ledger: current.scientificExecutionTraceLedger,
@@ -395,6 +433,14 @@ export default function ProtocolDesignerWorkspace() {
               presentation: continuation.presentation,
               createdAt: continuedAt,
             }
+          : continuation.kind === "IMAGING"
+            ? {
+              entryId: createConversationEntryId(),
+              kind: "IMAGING_PROPOSAL",
+              role: "NOXIA",
+              presentation: continuation.presentation,
+              createdAt: continuedAt,
+            }
           : {
             entryId: createConversationEntryId(),
             kind: "TEXT",
@@ -408,12 +454,13 @@ export default function ProtocolDesignerWorkspace() {
         studyDesignInteraction: continuation.kind === "STUDY_DESIGN" ? continuation.interaction : current.studyDesignInteraction,
         scientificThinkingInteraction: continuation.kind === "SCIENTIFIC_THINKING" ? continuation.interaction : current.scientificThinkingInteraction,
         observabilityInteraction: continuation.kind === "OBSERVABILITY" ? continuation.interaction : current.observabilityInteraction,
-        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
+        imagingInteraction: continuation.kind === "IMAGING" ? continuation.interaction : current.imagingInteraction,
+        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
         entries: [...current.entries, conversationEntry],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: continuation.turn.turnId,
-          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY"
+          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING"
             ? continuation.interaction.traceRunId ?? undefined
             : job.traceRunId ?? undefined,
           requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
@@ -458,6 +505,8 @@ export default function ProtocolDesignerWorkspace() {
             ? "NOXIA n’a pas pu préparer les propositions scientifiques à partir de cette version du Research Project. Le Project reste inchangé."
             : isObservabilityQueryDispatch(job.queryNavigation)
               ? "NOXIA n’a pas pu qualifier les besoins d’observation et de mesure à partir de cette version du Research Project. Le Project reste inchangé."
+            : isImagingQueryDispatch(job.queryNavigation)
+              ? "NOXIA n’a pas pu préparer la stratégie d’imagerie à partir de cette version du Research Project. Le Project reste inchangé."
             : isStudyDesignQueryDispatch(job.queryNavigation)
               ? "NOXIA n’a pas pu préparer les stratégies d’étude à partir de cette version du Research Project. Le Project reste inchangé."
               : "NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.",
@@ -859,6 +908,105 @@ export default function ProtocolDesignerWorkspace() {
     return true;
   };
 
+  const applyImagingInput = (content: string, explicitOptionRef?: string) => {
+    const interaction = session.imagingInteraction;
+    const project = session.project;
+    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
+    if (!imagingInteractionMatchesCurrentProject(interaction, project)) {
+      setSession((current) => ({
+        ...current,
+        imagingInteraction: current.imagingInteraction
+          ? { ...current.imagingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+          : null,
+      }));
+      return false;
+    }
+    const result = readImagingResultFromLedger({ ledger: session.knowledgeOwnerLedger, resultRef: interaction.ownerResultRef });
+    if (!result) return false;
+    const resolution = explicitOptionRef
+      ? { kind: "SELECT_OPTION" as const, optionRef: explicitOptionRef }
+      : resolveImagingConversation({ raw: content, result });
+    if (resolution.kind === "FALLTHROUGH") return false;
+    const recordedAt = new Date().toISOString();
+    const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: recordedAt };
+    const proposalEntry = session.entries.find((entry) => entry.kind === "IMAGING_PROPOSAL"
+      && entry.presentation.resultRef === result.resultId);
+    const proposalTurn: ScientificInterpretationTurn = {
+      turnId: interaction.presentationTurnRef,
+      role: "NOXIA",
+      content: proposalEntry?.kind === "IMAGING_PROPOSAL"
+        ? proposalEntry.presentation.plainText
+        : buildStandardImagingPresentation(result).plainText,
+      createdAt: proposalEntry?.createdAt ?? recordedAt,
+    };
+    if (resolution.kind === "SELECT_OPTION") {
+      const contribution = prepareImagingAcquisitionContribution({
+        conversationId: session.conversationId,
+        project,
+        result,
+        optionRef: resolution.optionRef,
+        proposalTurn,
+        selectionTurn: userTurn,
+        createdAt: recordedAt,
+      });
+      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
+      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") throw new Error(`IMAGING_REVIEW_CANDIDATE_${candidate.status}`);
+      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
+        ledger: session.scientificExecutionTraceLedger,
+        traceRunId: interaction.traceRunId,
+        conversationId: session.conversationId,
+        recordedAt,
+        contribution,
+        candidate,
+        project,
+        proposalRef: result.resultId,
+        proposalDigest: result.resultDigest,
+        optionRef: resolution.optionRef,
+        responsibilityOwner: "IMAGING",
+      });
+      setSession((current) => ({
+        ...current,
+        runtimeTurns: [...current.runtimeTurns, userTurn],
+        pendingContribution: contribution,
+        imagingInteraction: current.imagingInteraction ? {
+          ...current.imagingInteraction,
+          status: "PENDING_HUMAN_REVIEW",
+          selectedOptionRef: resolution.optionRef,
+          pendingContributionRef: contribution.identity.contributionId,
+        } : null,
+        entries: [...current.entries,
+          { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: recordedAt },
+          { entryId: createConversationEntryId(), kind: "REVIEW", role: "NOXIA", contribution, candidate, traceRunId: interaction.traceRunId, status: "PENDING", decision: null, createdAt: recordedAt }],
+        scientificExecutionTraceLedger,
+        updatedAt: recordedAt,
+      }));
+      return true;
+    }
+    const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: resolution.response, createdAt: recordedAt };
+    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
+      ledger: session.scientificExecutionTraceLedger,
+      traceRunId: interaction.traceRunId,
+      conversationId: session.conversationId,
+      recordedAt,
+      project,
+      proposalRef: result.resultId,
+      proposalDigest: result.resultDigest,
+      turnRef: userTurn.turnId,
+      status: resolution.kind === "DISCUSS" ? "DISCUSSION" : "DEFERRED",
+      responsibilityOwner: "IMAGING",
+    });
+    setSession((current) => ({
+      ...current,
+      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
+      entries: [...current.entries,
+        { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: recordedAt },
+        { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: resolution.response, createdAt: recordedAt }],
+      scientificExecutionTraceLedger,
+      updatedAt: recordedAt,
+    }));
+    return true;
+  };
+
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     const content = draft.trim();
@@ -875,6 +1023,11 @@ export default function ProtocolDesignerWorkspace() {
       return;
     }
     if (applyObservabilityInput(content)) {
+      setDraft("");
+      setCorrectionMode(false);
+      return;
+    }
+    if (applyImagingInput(content)) {
       setDraft("");
       setCorrectionMode(false);
       return;
@@ -1322,6 +1475,16 @@ export default function ProtocolDesignerWorkspace() {
           : current.observabilityInteraction && !observabilityInteractionMatchesCurrentProject(current.observabilityInteraction, project)
             ? { ...current.observabilityInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
             : current.observabilityInteraction,
+        imagingInteraction: current.imagingInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.imagingInteraction,
+            status: "ADOPTED",
+            adoptedProjectVersion: project.versionId,
+            staleReason: null,
+          }
+          : current.imagingInteraction && !imagingInteractionMatchesCurrentProject(current.imagingInteraction, project)
+            ? { ...current.imagingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+            : current.imagingInteraction,
         documents,
         currentContribution: contribution,
         pendingContribution: null,
@@ -1451,6 +1614,14 @@ export default function ProtocolDesignerWorkspace() {
             pendingContributionRef: null,
           }
           : current.observabilityInteraction,
+        imagingInteraction: current.imagingInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.imagingInteraction,
+            status: "ACTIVE",
+            selectedOptionRef: null,
+            pendingContributionRef: null,
+          }
+          : current.imagingInteraction,
         entries: current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
           ? { ...entry, status: "REJECTED" as const, decision }
           : entry),
@@ -1834,6 +2005,23 @@ export default function ProtocolDesignerWorkspace() {
                   onSelect={(measurementRef) => {
                     const option = entry.presentation.options.find((candidate) => candidate.optionRef === measurementRef);
                     if (option) applyObservabilityInput(`Je retiens la mesure « ${option.measurementLabel} » pour revue.`, measurementRef);
+                  }}
+                  onDiscuss={() => {
+                    setDraft("");
+                    composerRef.current?.focus();
+                  }}
+                />
+              : entry.kind === "IMAGING_PROPOSAL"
+                ? <ImagingStandardCard
+                  key={entry.entryId}
+                  presentation={entry.presentation}
+                  interaction={readImagingResultFromLedger({
+                    ledger: session.knowledgeOwnerLedger,
+                    resultRef: session.imagingInteraction?.ownerResultRef ?? "",
+                  })?.resultId === entry.presentation.resultRef ? session.imagingInteraction : null}
+                  onSelect={(optionRef) => {
+                    const option = entry.presentation.options.find((candidate) => candidate.optionRef === optionRef);
+                    if (option) applyImagingInput(`Je retiens la stratégie ${option.acquisitionLabel ?? option.modalityLabel} pour revue.`, optionRef);
                   }}
                   onDiscuss={() => {
                     setDraft("");

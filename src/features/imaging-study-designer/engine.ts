@@ -82,7 +82,7 @@ const buildPhenomena = (input: ImagingDesignInput, controls: ImagingDesignContro
 
 const buildBiomarkers = (input: ImagingDesignInput, phenomena: PhenomenonCandidate[], controls: ImagingDesignControls): BiomarkerCandidate[] => {
   const concepts = input.knowledge.concepts.filter((item) => ["BIOMARKER", "DERIVED_MEASUREMENT", "OBSERVATION"].includes(item.objectType));
-  return concepts.flatMap((concept): BiomarkerCandidate[] => {
+  const governed = concepts.flatMap((concept): BiomarkerCandidate[] => {
     const statements = statementsFor(input, concept.conceptId);
     if (!statements.length) return [];
     const linked = phenomena.filter((phenomenon) => statements.some((statement) => statement.conceptIds.includes(phenomenon.phenomenonId.replace("IMG-PHENOMENON:", ""))));
@@ -110,6 +110,31 @@ const buildBiomarkers = (input: ImagingDesignInput, phenomena: PhenomenonCandida
       reviewState: review(controls.biomarkerReviews, candidateId),
     }];
   });
+  const observationNeeds = (input.imagingContext?.measurementNeeds ?? []).map((need): BiomarkerCandidate => {
+    const candidateId = `IMG-BIOMARKER:obs:${logicalDigest(need.measurementRef)}`;
+    return {
+      biomarkerId: candidateId,
+      label: need.label,
+      conceptId: need.measurementRef,
+      phenomenonIds: phenomena.map((item) => item.phenomenonId),
+      objectiveIds: uniqueSorted(phenomena.flatMap((item) => item.objectiveIds)),
+      measurementType: "OBS_MEASUREMENT_DEFINITION_SPECIALIZATION_NEED",
+      quantification: need.valueNature === "UNKNOWN" ? "UNKNOWN" : "PARTIALLY_SUPPORTED",
+      domainOfValidity: uniqueSorted([...input.pathologyOrCondition, ...input.populationContext]),
+      dependencies: [need.measurementRef],
+      technicalSensitivity: "UNKNOWN",
+      timingSensitivity: input.temporalContext.length ? "PARTIALLY_SUPPORTED" : "UNKNOWN",
+      reproducibility: "UNKNOWN",
+      limitations: uniqueSorted([...need.limitations, "OBS_MEASUREMENT_DEFINITION_REMAINS_OWNED_BY_OBSERVABILITY_MEASUREMENT"]),
+      confounders: [],
+      evidenceRefs: uniqueSorted(need.provenanceRefs),
+      applicability: "PARTIALLY_SUPPORTED",
+      knowledgeGaps: [],
+      reviewState: review(controls.biomarkerReviews, candidateId),
+    };
+  });
+  return [...governed, ...observationNeeds].filter((candidate, index, candidates) =>
+    candidates.findIndex((other) => normalized(other.label) === normalized(candidate.label)) === index);
 };
 
 const comparisonDimensions = ["relation_phenomenon", "measurement_type", "quantification", "reproducibility", "technical_dependencies", "timing", "multicenter", "equipment", "quality", "evidence"] as const;
@@ -132,7 +157,10 @@ const buildModalities = (input: ImagingDesignInput, biomarkers: BiomarkerCandida
   const governed = input.knowledge.concepts.filter((item) => ["MODALITY", "MODALITY_TECHNOLOGY", "DETECTOR_TECHNOLOGY"].includes(item.objectType))
     .map((item) => ({ conceptId: item.conceptId, label: item.label }));
   const asserted = input.knowledge.assertions.filter((item) => item.modality).map((item) => ({ conceptId: `governed-modality:${logicalDigest(item.modality!)}`, label: displayModality(item.modality!) }));
-  const options = [...governed, ...asserted].filter((item, index, array) => array.findIndex((other) => normalized(other.label) === normalized(item.label)) === index);
+  const declared = (input.imagingContext?.modalities ?? [])
+    .filter((item) => !["UNKNOWN", "WITHHELD"].includes(item.epistemicState))
+    .map((item) => ({ conceptId: item.ref, label: displayModality(item.label) }));
+  const options = [...declared, ...governed, ...asserted].filter((item, index, array) => array.findIndex((other) => normalized(other.label) === normalized(item.label)) === index);
   return options.map((option): ModalityCandidate => {
     const statements = allStatements(input).filter((item) => item.conceptIds.includes(option.conceptId) || normalized(item.modality) === normalized(option.label));
     const linked = biomarkers.filter((biomarker) => statements.some((item) => item.conceptIds.includes(biomarker.conceptId)));
@@ -154,7 +182,10 @@ const buildModalities = (input: ImagingDesignInput, biomarkers: BiomarkerCandida
         ...(!biomarkers.length ? ["NO_BIOMARKER_LINK_NO_ACQUISITION_STRATEGY_GENERATED"] : []),
       ]),
       risks: [],
-      evidenceRefs: uniqueSorted(statements.map((item) => `${item.sourceId}#${item.locator}`)),
+      evidenceRefs: uniqueSorted([
+        ...statements.map((item) => `${item.sourceId}#${item.locator}`),
+        ...(input.imagingContext?.modalities.find((item) => item.ref === option.conceptId)?.provenanceRefs ?? []),
+      ]),
       reviewState: review(controls.modalityReviews, candidateId),
     };
   });
@@ -168,8 +199,11 @@ const buildModalityComparison = (modalities: ModalityCandidate[], biomarkers: Bi
   notice: "NO_AUTOMATIC_RANKING",
 }];
 
-const buildAcquisitions = (modalities: ModalityCandidate[], biomarkers: BiomarkerCandidate[], controls: ImagingDesignControls): AcquisitionStrategy[] => modalities.filter((modality) => modality.biomarkerIds.length > 0).map((modality, index) => {
+const buildAcquisitions = (input: ImagingDesignInput, modalities: ModalityCandidate[], biomarkers: BiomarkerCandidate[], controls: ImagingDesignControls): AcquisitionStrategy[] => modalities.filter((modality) => modality.biomarkerIds.length > 0).map((modality, index) => {
   const linked = biomarkers.filter((item) => modality.biomarkerIds.includes(item.biomarkerId));
+  const declaredAcquisition = input.imagingContext?.acquisitions.find((item) =>
+    item.modalityRefs.includes(modality.conceptId)
+    || normalized(item.label).includes(normalized(modality.label)));
   const id = `IMG-ACQUISITION:${logicalDigest({ modality: modality.modalityId, biomarkers: linked.map((item) => item.biomarkerId) })}`;
   return {
     acquisitionId: id,
@@ -179,7 +213,8 @@ const buildAcquisitions = (modalities: ModalityCandidate[], biomarkers: Biomarke
     level1: { status: "CONCEPTUAL_STRATEGY", measurementNeed: `Approcher ${linked.map((item) => item.label).join(" / ")}`, scientificReason: `Examiner le ou les phénomènes reliés à ${linked.map((item) => item.label).join(" / ")}.` },
     level2: {
       status: "METHODOLOGICAL_ACQUISITION_PLAN",
-      acquisitionFamily: `Famille d’acquisition ${modality.label} à qualifier pour ${linked.map((item) => item.label).join(" / ")}`,
+      acquisitionFamily: declaredAcquisition?.label
+        ?? `Famille d’acquisition ${modality.label} à qualifier pour ${linked.map((item) => item.label).join(" / ")}`,
       conditions: ["Définition de mesure stable", "Chaîne d’acquisition et d’analyse documentée"],
       dependencies: uniqueSorted([...modality.dependencies, ...linked.flatMap((item) => item.dependencies)]),
       timingRequirements: ["Timing biologique ou méthodologique à justifier"],
@@ -235,7 +270,9 @@ const buildEquipment = (input: ImagingDesignInput, acquisitions: AcquisitionStra
 const buildTiming = (input: ImagingDesignInput, acquisitions: AcquisitionStrategy[], controls: ImagingDesignControls): ImagingDesignResult["timingStrategy"] => {
   if (!acquisitions.length) return [];
   const timingAnswer = controls.answers?.["IMG-AQ-TIMING"];
-  if (!input.temporalContext.length && timingAnswer && timingAnswer !== "unknown") return [{
+  const designTiming = (input.imagingContext?.designConsequences ?? []).filter((item) =>
+    item.structuralForm === "LONGITUDINAL" || item.temporalDirection !== "UNKNOWN");
+  if (!input.temporalContext.length && !designTiming.length && timingAnswer && timingAnswer !== "unknown") return [{
     timingId: `IMG-TIMING:declared:${logicalDigest(timingAnswer)}`,
     type: "METHODOLOGICAL_TIMING",
     value: timingAnswer === "change" ? "Évolution déclarée ; moments exacts à justifier" : "Mesure ponctuelle déclarée ; moment exact à justifier",
@@ -243,13 +280,25 @@ const buildTiming = (input: ImagingDesignInput, acquisitions: AcquisitionStrateg
     linkedIds: acquisitions.map((item) => item.acquisitionId),
     support: "PARTIALLY_SUPPORTED",
   }];
-  if (!input.temporalContext.length) return [{
+  if (!input.temporalContext.length && !designTiming.length) return [{
     timingId: "IMG-TIMING:UNKNOWN", type: "UNKNOWN_TIMING", value: "Non défini", justification: "Aucune justification biologique, méthodologique, opérationnelle ou imposée n’est disponible.", linkedIds: acquisitions.map((item) => item.acquisitionId), support: "UNKNOWN",
   }];
-  return input.temporalContext.map((value, index) => ({
-    timingId: `IMG-TIMING:${index + 1}:${logicalDigest(value)}`, type: "IMPOSED_TIMING", value,
-    justification: "Temporalité déclarée par l’utilisateur ; sa justification scientifique reste à qualifier.", linkedIds: acquisitions.map((item) => item.acquisitionId), support: "UNKNOWN",
-  }));
+  return [
+    ...input.temporalContext.map((value, index) => ({
+      timingId: `IMG-TIMING:${index + 1}:${logicalDigest(value)}`, type: "IMPOSED_TIMING" as const, value,
+      justification: "Temporalité déclarée par l’utilisateur ; sa justification scientifique reste à qualifier.", linkedIds: acquisitions.map((item) => item.acquisitionId), support: "UNKNOWN" as const,
+    })),
+    ...designTiming.map((item) => ({
+      timingId: `IMG-TIMING:rde:${logicalDigest(item.consequenceRef)}`,
+      type: "METHODOLOGICAL_TIMING" as const,
+      value: item.structuralForm === "LONGITUDINAL"
+        ? "Acquisitions répétées comparables aux temps retenus par le Research Project"
+        : `Cohérence d’acquisition requise pour une composante ${item.temporalDirection.toLocaleLowerCase("fr-FR")}`,
+      justification: "Conséquence du design consommée depuis Study Design sans modifier le design ni créer de visite.",
+      linkedIds: acquisitions.map((acquisition) => acquisition.acquisitionId),
+      support: "PARTIALLY_SUPPORTED" as const,
+    })),
+  ];
 };
 
 const effectiveCenterMode = (input: ImagingDesignInput, controls: ImagingDesignControls): ImagingDesignInput["centerContext"]["mode"] => {
@@ -423,7 +472,7 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
   const phenomena = isPatient ? [] : buildPhenomena(input, controls);
   const biomarkerCandidates = isPatient ? [] : buildBiomarkers(input, phenomena, controls);
   const modalityCandidates = isPatient ? [] : buildModalities(input, biomarkerCandidates, controls);
-  const acquisitionStrategies = buildAcquisitions(modalityCandidates, biomarkerCandidates, controls);
+  const acquisitionStrategies = buildAcquisitions(input, modalityCandidates, biomarkerCandidates, controls);
   const equipmentAssessment = buildEquipment(input, acquisitionStrategies, modalityCandidates);
   const timingStrategy = buildTiming(input, acquisitionStrategies, controls);
   const harmonizationStrategy = buildHarmonization(input, equipmentAssessment, controls);
@@ -482,10 +531,33 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
   const compatibilityStatus = equipmentCompatibilityStatus(equipmentAssessment);
   const handoffDecisionPending = !frozen;
   const inputDigest = logicalDigest(input);
+  const downstreamHandoffs: NonNullable<ImagingDesignResult["downstreamHandoffs"]> = [
+    ...((imagingVariables.length || input.imagingContext?.measurementNeeds.length) ? [{
+      handoffId: `IMG-HANDOFF:BIOSTATISTICS:${logicalDigest({ input: input.inputId, variables: imagingVariables.map((item) => item.variableId) })}`,
+      targetOwner: "BIOSTATISTICS" as const,
+      purpose: "Qualifier les conséquences analytiques des mesures d’imagerie sans choisir estimand, modèle, effectif, multiplicité ni méthode de données manquantes.",
+      informationNeeded: uniqueSorted(imagingVariables.map((item) => `${item.variableId}: mesure d’imagerie à qualifier analytiquement`)),
+      sourceRefs: uniqueSorted([input.inputId, ...imagingVariables.flatMap((item) => item.provenance)]),
+      status: "PROPOSED_NOT_EXECUTED" as const,
+      ownershipTransferred: false as const,
+      projectWriteAuthorized: false as const,
+    }] : []),
+    ...(acquisitionStrategies.length ? [{
+      handoffId: `IMG-HANDOFF:DATA_MANAGEMENT:${logicalDigest({ input: input.inputId, acquisitions: acquisitionStrategies.map((item) => item.acquisitionId) })}`,
+      targetOwner: "DATA_MANAGEMENT" as const,
+      purpose: "Préserver le besoin de métadonnées, provenance image, identifiants de modalité/acquisition, qualité et lecture sans exécuter la réponse Data Management.",
+      informationNeeded: ["Métadonnées d’acquisition", "Provenance des images et lectures", "Statut qualité et identifiants de protocole"],
+      sourceRefs: uniqueSorted([input.inputId, ...acquisitionStrategies.map((item) => item.acquisitionId)]),
+      status: "PROPOSED_NOT_EXECUTED" as const,
+      ownershipTransferred: false as const,
+      projectWriteAuthorized: false as const,
+    }] : []),
+  ];
   const resultMaterial = {
     inputRef: input.inputId, status, phenomena, biomarkerCandidates, modalityCandidates, acquisitionStrategies, equipmentAssessment, timingStrategy,
     harmonizationStrategy, qualityStrategy, nonEvaluabilityRules, imageAnalysisStrategy, imagingVariables, endpointContributions, alternatives,
     decisionsRequired, adaptiveQuestions, changes, impacts, graph, refusal,
+    sourceProject: input.sourceProject, sourceOwnerLineage: input.sourceOwnerLineage, downstreamHandoffs,
   };
   const resultDigest = logicalDigest(resultMaterial);
   const resultId = `imaging-design-result:${resultDigest}`;
@@ -507,6 +579,14 @@ export const executeImagingStudyDesigner = (rawInput: ImagingDesignInput, contro
     resultDigest,
     status,
     projectionNotice: "RUNTIME_PROJECTION_DOES_NOT_OWN_CANONICAL_SCIENCE",
+    ...(input.sourceProject ? {
+      sourceProject: input.sourceProject,
+      sourceOwnerLineage: input.sourceOwnerLineage ?? [],
+      downstreamHandoffs,
+      epistemicStatus: modalityCandidates.length || acquisitionStrategies.length ? "PROPOSAL_ONLY" as const : "INSUFFICIENT_CONTEXT_UNKNOWN_PRESERVED" as const,
+      projectWriteAuthorized: false as const,
+      candidateIsAdopted: false as const,
+    } : {}),
     scientificQuestion: input.confirmedScientificQuestion,
     objectives: input.objectives,
     hypotheses: input.hypotheses,

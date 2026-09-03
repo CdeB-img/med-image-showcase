@@ -27,11 +27,47 @@ export type ImagingKnowledgeStatement = {
   modality: string | null;
 };
 
+export type ImagingSourceOwnerLineage = {
+  sourceOwner: "RESEARCH_PROJECT" | "OBSERVABILITY_MEASUREMENT" | "STUDY_DESIGN" | "SCIENTIFIC_THINKING";
+  resultRef: string;
+  resultVersion: string;
+  resultDigest: string;
+  needRefs: string[];
+  purpose: string;
+  ownershipTransferred: false;
+};
+
+export type ImagingProjectContext = {
+  modalities: Array<{ ref: string; label: string; epistemicState: "KNOWN" | "ASSUMED" | "UNKNOWN" | "WITHHELD"; provenanceRefs: string[] }>;
+  acquisitions: Array<{ ref: string; label: string; modalityRefs: string[]; provenanceRefs: string[] }>;
+  measurementNeeds: Array<{
+    measurementRef: string;
+    label: string;
+    valueNature: string;
+    limitations: string[];
+    provenanceRefs: string[];
+    sourceOwner: "OBSERVABILITY_MEASUREMENT";
+  }>;
+  designConsequences: Array<{
+    consequenceRef: string;
+    label: string;
+    temporalDirection: string;
+    structuralForm: string;
+    limitations: string[];
+    provenanceRefs: string[];
+    sourceOwner: "STUDY_DESIGN";
+  }>;
+  feasibilityConstraints: string[];
+};
+
 export type ImagingDesignInput = {
   contractVersion: typeof IMAGING_STUDY_DESIGNER_VERSION;
   inputId: string;
   researchProjectId: string | null;
   strategyVersion: string;
+  sourceProject?: { projectId: string; projectVersion: string; projectDigest: string; snapshotDigest: string };
+  sourceOwnerLineage?: ImagingSourceOwnerLineage[];
+  imagingContext?: ImagingProjectContext;
   sourceHandoff: {
     kind: "AUTHORIZED_ST_HANDOFF" | "VALIDATED_DESIGN_CONTEXT";
     stOutputRef: string | null;
@@ -182,6 +218,21 @@ export type ImagingDesignResult = {
   resultDigest: string;
   status: "STRATEGY_CANDIDATES" | "CLARIFICATION_REQUIRED" | "REFUSED" | "RETURN_TO_SCIENTIFIC_THINKING";
   projectionNotice: "RUNTIME_PROJECTION_DOES_NOT_OWN_CANONICAL_SCIENCE";
+  sourceProject?: ImagingDesignInput["sourceProject"];
+  sourceOwnerLineage?: ImagingSourceOwnerLineage[];
+  downstreamHandoffs?: Array<{
+    handoffId: string;
+    targetOwner: "BIOSTATISTICS" | "DATA_MANAGEMENT";
+    purpose: string;
+    informationNeeded: string[];
+    sourceRefs: string[];
+    status: "PROPOSED_NOT_EXECUTED";
+    ownershipTransferred: false;
+    projectWriteAuthorized: false;
+  }>;
+  epistemicStatus?: "PROPOSAL_ONLY" | "INSUFFICIENT_CONTEXT_UNKNOWN_PRESERVED";
+  projectWriteAuthorized?: false;
+  candidateIsAdopted?: false;
   scientificQuestion: ImagingDesignInput["confirmedScientificQuestion"];
   objectives: ImagingDesignInput["objectives"];
   hypotheses: ImagingDesignInput["hypotheses"];
@@ -407,6 +458,18 @@ const projectConstructionHandoffSchema = z.object({
 
 export const imagingDesignInputSchema = z.object({
   contractVersion: z.literal(IMAGING_STUDY_DESIGNER_VERSION), inputId: z.string(), researchProjectId: z.string().nullable(), strategyVersion: z.string(),
+  sourceProject: z.object({ projectId: z.string(), projectVersion: z.string(), projectDigest: z.string(), snapshotDigest: z.string() }).strict().optional(),
+  sourceOwnerLineage: z.array(z.object({
+    sourceOwner: z.enum(["RESEARCH_PROJECT", "OBSERVABILITY_MEASUREMENT", "STUDY_DESIGN", "SCIENTIFIC_THINKING"]),
+    resultRef: z.string(), resultVersion: z.string(), resultDigest: z.string(), needRefs: stringArray, purpose: z.string(), ownershipTransferred: z.literal(false),
+  }).strict()).optional(),
+  imagingContext: z.object({
+    modalities: z.array(z.object({ ref: z.string(), label: z.string(), epistemicState: z.enum(["KNOWN", "ASSUMED", "UNKNOWN", "WITHHELD"]), provenanceRefs: stringArray }).strict()),
+    acquisitions: z.array(z.object({ ref: z.string(), label: z.string(), modalityRefs: stringArray, provenanceRefs: stringArray }).strict()),
+    measurementNeeds: z.array(z.object({ measurementRef: z.string(), label: z.string(), valueNature: z.string(), limitations: stringArray, provenanceRefs: stringArray, sourceOwner: z.literal("OBSERVABILITY_MEASUREMENT") }).strict()),
+    designConsequences: z.array(z.object({ consequenceRef: z.string(), label: z.string(), temporalDirection: z.string(), structuralForm: z.string(), limitations: stringArray, provenanceRefs: stringArray, sourceOwner: z.literal("STUDY_DESIGN") }).strict()),
+    feasibilityConstraints: stringArray,
+  }).strict().optional(),
   sourceHandoff: z.object({ kind: z.enum(["AUTHORIZED_ST_HANDOFF", "VALIDATED_DESIGN_CONTEXT"]), stOutputRef: z.string().nullable(), status: z.enum(["AUTHORIZED", "VALIDATED_WITHOUT_ST_HANDOFF"]), boundary: z.literal("NO_PROTOCOL_NO_METHOD_SELECTION_NO_STATISTICAL_PLAN"), humanDecisions: z.array(humanDecisionEnvelopeSchema) }).strict(),
   originalExpression: z.string().min(3).max(4_000),
   confirmedScientificQuestion: z.object({ questionId: z.string(), text: z.string(), confirmation: z.enum(["HUMAN_CONFIRMED", "VALIDATED_CONTEXT"]) }).strict(),
@@ -433,6 +496,10 @@ export const imagingDesignResultSchema = z.object({
   contractVersion: z.literal(IMAGING_STUDY_DESIGNER_VERSION), inputVersion: z.literal(IMAGING_STUDY_DESIGNER_VERSION), resultId: z.string(), resultDigest: z.string(),
   status: z.enum(["STRATEGY_CANDIDATES", "CLARIFICATION_REQUIRED", "REFUSED", "RETURN_TO_SCIENTIFIC_THINKING"]),
   projectionNotice: z.literal("RUNTIME_PROJECTION_DOES_NOT_OWN_CANONICAL_SCIENCE"),
+  sourceProject: z.object({ projectId: z.string(), projectVersion: z.string(), projectDigest: z.string(), snapshotDigest: z.string() }).strict().optional(),
+  sourceOwnerLineage: z.array(z.unknown()).optional(), downstreamHandoffs: z.array(z.unknown()).optional(),
+  epistemicStatus: z.enum(["PROPOSAL_ONLY", "INSUFFICIENT_CONTEXT_UNKNOWN_PRESERVED"]).optional(),
+  projectWriteAuthorized: z.literal(false).optional(), candidateIsAdopted: z.literal(false).optional(),
   ...Object.fromEntries(resultRequiredKeys.map((key) => [key, z.unknown()])),
   biomarkerComparison: z.array(z.unknown()), modalityComparison: z.array(z.unknown()), changes: z.array(z.unknown()), impacts: z.array(z.unknown()), graph: z.unknown(),
   knowledgeHandoff: z.unknown(), projectConstructionHandoff: projectConstructionHandoffSchema, adaptiveQuestions: z.array(z.unknown()), refusal: z.unknown().nullable(),

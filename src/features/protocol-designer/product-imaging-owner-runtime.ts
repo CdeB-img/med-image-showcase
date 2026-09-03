@@ -3,6 +3,7 @@ import type { ImagingDesignInput, ImagingDesignResult } from "@/features/imaging
 import type { ScientificThinkingOutput } from "@/features/scientific-thinking";
 import {
   invokeImagingOwnerFromScientificThinking,
+  invokeImagingOwnerFromProjectSnapshot,
   type ProjectContextSnapshot,
   type ResearchProjectOwnerProjection,
   type ScientificReasoningOwnerObservation,
@@ -23,6 +24,8 @@ import {
   ownerResultNativeDigest,
   readProductOwnerResult,
   type ProductOwnerResultLedgerEntry,
+  type ProductOwnerResultDependency,
+  type ProductOwnerResultLedger,
 } from "./product-owner-result-ledger";
 import {
   recordOwnerInvocationTrace,
@@ -46,6 +49,20 @@ export type ProductImagingOwnerInvocation = {
   terraCalls: 0;
 };
 
+export type ProductProjectImagingOwnerInvocation = {
+  ledger: Readonly<ProductOwnerResultLedger>;
+  entry: Readonly<ProductOwnerResultLedgerEntry<ImagingDesignInput, ImagingDesignResult>>;
+  request: Readonly<SpecializedOwnerHandoffRequest<ImagingDesignInput>>;
+  result: Readonly<SpecializedOwnerResult<ImagingDesignResult>> | null;
+  observation: Readonly<ScientificReasoningOwnerObservation>;
+  upstreamOwnerResults: readonly Readonly<SpecializedOwnerResult>[];
+  projectWrites: 0;
+  humanDecisionBypassed: false;
+  externalEvidenceCalls: 0;
+  geminiCalls: 0;
+  openaiCalls: 0;
+};
+
 const deepFreeze = <T>(value: T): Readonly<T> => {
   if (value && typeof value === "object" && !Object.isFrozen(value)) {
     Object.values(value as Record<string, unknown>).forEach((nested) => deepFreeze(nested));
@@ -55,11 +72,111 @@ const deepFreeze = <T>(value: T): Readonly<T> => {
 };
 
 const exactDependency = (result: SpecializedOwnerResult) => ({
-  owner: result.owner as "KNOWLEDGE" | "SCIENTIFIC_THINKING",
+  owner: result.owner as ProductOwnerResultDependency["owner"],
   resultId: result.resultId,
   resultVersion: result.resultVersion,
   nativeResultDigest: ownerResultNativeDigest(result)!,
 });
+
+const hasImagingHandoff = (result: Readonly<SpecializedOwnerResult>) => {
+  const payload = result.nativePayload as { downstreamHandoffs?: readonly { targetOwner?: string }[] } | null;
+  return payload?.downstreamHandoffs?.some((handoff) => handoff.targetOwner === "IMAGING") ?? false;
+};
+
+const currentImagingUpstreamResults = (
+  ledger: Readonly<ProductOwnerResultLedger>,
+  snapshot: Readonly<ProjectContextSnapshot>,
+) => {
+  const seen = new Set<string>();
+  return [...ledger.entries].reverse().flatMap((entry): Readonly<SpecializedOwnerResult>[] => {
+    const result = entry.result;
+    if (!result
+      || !["OBSERVABILITY_MEASUREMENT", "STUDY_DESIGN"].includes(result.owner)
+      || result.sourceProjectRef !== snapshot.sourceProjectRef
+      || result.sourceProjectVersion !== snapshot.sourceProjectVersion
+      || result.sourceProjectDigest !== snapshot.sourceProjectDigest
+      || result.sourceSnapshotDigest !== snapshot.snapshotDigest
+      || !hasImagingHandoff(result)
+      || seen.has(result.owner)) return [];
+    seen.add(result.owner);
+    return [result];
+  });
+};
+
+export const invokeImagingForProjectSnapshot = (input: {
+  projectSnapshot: Readonly<ProjectContextSnapshot>;
+  ledger: Readonly<ProductOwnerResultLedger>;
+  callerRef: string;
+  purpose: string;
+  sourceNeed?: Readonly<{ id: string; purpose: string }>;
+  startedAt: string;
+  completedAt: string;
+  retainedAt?: string;
+  runtime?: (request: ImagingDesignInput) => ImagingDesignResult;
+  monotonicNow?: () => number;
+  trace?: ScientificRunTraceRecorder;
+}): ProductProjectImagingOwnerInvocation => {
+  const upstreamOwnerResults = currentImagingUpstreamResults(input.ledger, input.projectSnapshot);
+  try {
+    const invocation = invokeImagingOwnerFromProjectSnapshot({
+      projectSnapshot: input.projectSnapshot,
+      upstreamOwnerResults,
+      sourceNeed: input.sourceNeed,
+      purpose: input.purpose,
+      startedAt: input.startedAt,
+      completedAt: input.completedAt,
+      runtime: input.runtime,
+      monotonicNow: input.monotonicNow,
+    });
+    const dependencies = upstreamOwnerResults.map(exactDependency);
+    const retained = appendProductOwnerInvocation({
+      ledger: input.ledger,
+      callerRef: input.callerRef,
+      retainedAt: input.retainedAt ?? input.completedAt,
+      request: invocation.request,
+      result: invocation.result,
+      observation: invocation.observation,
+      dependencies,
+    });
+    recordOwnerInvocationTrace(input.trace, {
+      entry: retained.entry,
+      ledgerContract: PRODUCT_OWNER_RESULT_LEDGER_CONTRACT,
+      ledgerVersion: PRODUCT_OWNER_RESULT_LEDGER_VERSION,
+      handoffStage: "OWNER_REQUEST_BUILDING",
+      nextExpectedHandoff: null,
+    });
+    return deepFreeze({
+      ledger: retained.ledger,
+      entry: retained.entry,
+      request: retained.entry.request,
+      result: retained.entry.result,
+      observation: retained.entry.observation,
+      upstreamOwnerResults,
+      projectWrites: 0,
+      humanDecisionBypassed: false,
+      externalEvidenceCalls: 0,
+      geminiCalls: 0,
+      openaiCalls: 0,
+    }) as ProductProjectImagingOwnerInvocation;
+  } catch (error) {
+    const code = error instanceof Error ? error.message : "IMAGING_PRODUCT_UNKNOWN_FAILURE";
+    recordRejectedHandoffTrace(input.trace, {
+      timestamp: input.completedAt,
+      owner: "IMAGING",
+      stage: code.includes("PROJECT") || code.includes("SNAPSHOT") ? "PROJECT_CONTEXT" : "IMAGING_ENGINE",
+      code,
+      expectedProject: input.trace?.getRun().project ?? null,
+      receivedProject: {
+        projectId: input.projectSnapshot.sourceProjectRef,
+        projectVersion: input.projectSnapshot.sourceProjectVersion,
+        projectDigest: input.projectSnapshot.sourceProjectDigest,
+        snapshotRef: input.projectSnapshot.snapshotDigest,
+      },
+      stale: code.includes("STALE"),
+    });
+    throw error;
+  }
+};
 
 type ProductImagingOwnerInvocationInput = {
   project: ResearchProjectOwnerProjection;

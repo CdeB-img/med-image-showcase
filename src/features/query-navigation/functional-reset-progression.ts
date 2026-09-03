@@ -208,7 +208,7 @@ const facetsForProject = (project: Readonly<ResearchProjectOwnerProjection>): Ne
 
   const imaging = elements("IMAGING");
   add("IMAGING", "MODALITY", "Préciser la modalité d’imagerie envisagée.", hasEvidence(imaging, /modality|modalite|imaging method|irm|mri|ct|scanner|echograph/));
-  add("IMAGING", "IMAGING_ROLE", "Préciser le rôle attendu de l’imagerie sans définir de paramètres techniques.", hasEvidence(imaging, /acquisition|measurement definition|lecture|readout|role/));
+  add("IMAGING", "IMAGING_ROLE", "Spécialiser le rôle, l’acquisition, la qualité, la comparabilité et la faisabilité de l’imagerie déjà déclarée.", hasEvidence(imaging, /acquisition|measurement definition|lecture|readout|role|qualit|comparab|faisabil/));
 
   const measurements = elements("MEASUREMENTS");
   add("MEASUREMENTS", "MEASUREMENT_SET", "Préciser les mesures, critères ou biomarqueurs étudiés.", measurements.length > 0);
@@ -267,6 +267,9 @@ const groupCandidatesByScientificDimension = (
     const observabilityQualificationSelected = sectionId === "MEASUREMENTS"
       && projectHasObservationBasis
       && members.some((candidate) => candidate.affectedBranchRefs.includes("project-facet:MEASUREMENTS:MEASUREMENT_SET"));
+    const imagingSpecializationSelected = sectionId === "IMAGING"
+      && resolvedSectionElements(project, "IMAGING").some((element) => hasEvidence([element], /modality|modalite|imaging method|irm|mri|ct|scanner|echograph|pet|spect/))
+      && members.some((candidate) => candidate.affectedBranchRefs.includes("project-facet:IMAGING:IMAGING_ROLE"));
     const hasNoConfirmedInformation = sectionId === "QUESTION"
       ? !projectHasScientificQuestion
       : resolvedSectionElements(project, sectionId).length === 0;
@@ -291,6 +294,9 @@ const groupCandidatesByScientificDimension = (
       } : observabilityQualificationSelected ? {
         owner: "OBSERVABILITY_MEASUREMENT",
         capabilityRef: "OBSERVABILITY_QUALIFICATION",
+      } : imagingSpecializationSelected ? {
+        owner: "IMAGING",
+        capabilityRef: "IMAGING_STUDY_DESIGN",
       } : {}),
       targetRef: `${project.projectId}:standard-progression-dimension:${sectionId}`,
       sourceRefs: members.flatMap((candidate) => candidate.sourceRefs).sort(),
@@ -315,6 +321,7 @@ const groupCandidatesByScientificDimension = (
           ...(sectionId === "DESIGN" ? ["QRY_SELECTS_SCOPE_STUDY_DESIGN_OWNS_PROPOSAL"] : []),
           ...(sectionId === "QUESTION" ? ["QRY_SELECTS_SCOPE_SCIENTIFIC_THINKING_OWNS_PROPOSAL"] : []),
           ...(observabilityQualificationSelected ? ["QRY_SELECTS_MEASUREMENT_SET_SCOPE_OBSERVABILITY_OWNS_QUALIFICATION"] : []),
+          ...(imagingSpecializationSelected ? ["QRY_SELECTS_IMAGING_SPECIALIZATION_SCOPE_IMAGING_OWNS_REALIZATION"] : []),
         ],
       },
     }];
