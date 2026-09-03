@@ -19,7 +19,7 @@ export const BIOSTATISTICS_REASONING_RESULT_CONTRACT = "BIOSTATISTICS_REASONING_
 export const BIOSTATISTICS_REASONING_RUNTIME_VERSION = "1.0.0" as const;
 
 export type BiostatisticsUpstreamOwnerInput = {
-  sourceOwner: "RESEARCH_PROJECT" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING";
+  sourceOwner: "RESEARCH_PROJECT" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "DATA_MANAGEMENT";
   resultRef: string;
   resultVersion: string;
   resultDigest: string;

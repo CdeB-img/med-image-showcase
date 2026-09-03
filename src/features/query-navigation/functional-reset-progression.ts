@@ -48,6 +48,26 @@ export type FunctionalResetDocumentBlockerSignal = {
   items: string[];
 };
 
+export type FunctionalResetDataOwnerState = {
+  currentCdmResult: null | {
+    resultId: string;
+    resultVersion: string;
+    resultDigest: string;
+    sourceProjectRef: string;
+    sourceProjectVersion: string;
+    sourceProjectDigest: string;
+  };
+  currentDataManagementResult: null | {
+    resultId: string;
+    resultVersion: string;
+    resultDigest: string;
+    sourceProjectRef: string;
+    sourceProjectVersion: string;
+    sourceProjectDigest: string;
+    sourceCdmResultDigest: string;
+  };
+};
+
 export type FunctionalResetQuestionWordingProposal = {
   selectedActionRef: string;
   informationNeedRefs: string[];
@@ -77,7 +97,7 @@ export type FunctionalResetQueryNavigation = {
   projectVersion: string;
   projectDigest: string;
   sourceStateDigest: string;
-  status: "QUESTION_READY" | "NO_USEFUL_QUESTION";
+  status: "QUESTION_READY" | "OWNER_ACTION_READY" | "NO_USEFUL_QUESTION";
   selection: NavigationSelection;
   memory: QueryNavigationMemory;
   currentAction: SelectedNavigationAction | null;
@@ -224,6 +244,7 @@ const facetsForProject = (project: Readonly<ResearchProjectOwnerProjection>): Ne
 
 export const buildFunctionalResetQuerySourceState = (
   project: Readonly<ResearchProjectOwnerProjection>,
+  dataOwnerState?: Readonly<FunctionalResetDataOwnerState> | null,
 ): QueryNavigationSourceState => {
   const sourceState = emptySourceState();
   sourceState.projectUnknowns = facetsForProject(project)
@@ -236,6 +257,47 @@ export const buildFunctionalResetQuerySourceState = (
       branchRefs: [`project-facet:${facet.sectionId}:${facet.facetId}`],
       knownOptions: [],
     }));
+  const currentObjects = ensureCanonicalProjectState(project).objects.filter((object) => object.actuality === "CURRENT"
+    && !["UNKNOWN", "WITHHELD"].includes(object.epistemicState));
+  const hasCanonicalVariable = currentObjects.some((object) => object.objectType === "CANONICAL_VARIABLE");
+  const noOpenProjectFacet = sourceState.projectUnknowns.length === 0;
+  const cdm = dataOwnerState?.currentCdmResult;
+  const currentCdm = Boolean(cdm
+    && cdm.sourceProjectRef === project.projectId
+    && cdm.sourceProjectVersion === project.versionId
+    && cdm.sourceProjectDigest === project.projectDigest);
+  const dm = dataOwnerState?.currentDataManagementResult;
+  const currentDm = Boolean(currentCdm && dm
+    && dm.sourceProjectRef === project.projectId
+    && dm.sourceProjectVersion === project.versionId
+    && dm.sourceProjectDigest === project.projectDigest
+    && dm.sourceCdmResultDigest === cdm!.resultDigest);
+  if (dataOwnerState && noOpenProjectFacet && hasCanonicalVariable && !currentCdm) {
+    sourceState.planningDecisionRequirements.push({
+      ref: `${project.projectId}:cdm:canonical-representation`,
+      version: "CANONICAL_STUDY_DATA_RUNTIME_1.0.0",
+      domain: "STUDY_DATA",
+      owner: "STUDY_DATA_CDM",
+      intent: "Construire la représentation canonique des variables et occasions adoptées, sans créer de donnée réalisée.",
+      decisionRefs: ["project-section:MEASUREMENTS"],
+      branchRefs: ["project-facet:MEASUREMENTS:CDM_CANONICAL_REPRESENTATION"],
+      blockingLevel: "OPEN_DECISION_NON_BLOCKING",
+      knownOptions: [],
+    });
+  }
+  if (dataOwnerState && noOpenProjectFacet && currentCdm && !currentDm) {
+    sourceState.planningDecisionRequirements.push({
+      ref: `${project.projectId}:data-management:operational-requirements`,
+      version: "DATA_MANAGEMENT_REASONING_RUNTIME_1.0.0",
+      domain: "DATA_MANAGEMENT",
+      owner: "DATA_MANAGEMENT",
+      intent: "Définir les exigences opérationnelles de collecte, contrôle et release depuis le résultat CDM exact.",
+      decisionRefs: ["project-section:TEMPORALITY"],
+      branchRefs: ["project-facet:TEMPORALITY:DATA_MANAGEMENT_OPERATIONS"],
+      blockingLevel: "OPEN_DECISION_NON_BLOCKING",
+      knownOptions: [],
+    });
+  }
   return sourceState;
 };
 
@@ -278,6 +340,10 @@ const groupCandidatesByScientificDimension = (
     const biostatisticsPlanningSelected = sectionId === "ANALYSIS"
       && projectHasBiostatisticsBasis
       && members.some((candidate) => candidate.affectedBranchRefs.includes("project-facet:ANALYSIS:ANALYSIS_OBJECTIVE"));
+    const cdmRepresentationSelected = sectionId === "MEASUREMENTS"
+      && members.some((candidate) => candidate.affectedBranchRefs.includes("project-facet:MEASUREMENTS:CDM_CANONICAL_REPRESENTATION"));
+    const dataManagementSelected = sectionId === "TEMPORALITY"
+      && members.some((candidate) => candidate.affectedBranchRefs.includes("project-facet:TEMPORALITY:DATA_MANAGEMENT_OPERATIONS"));
     const hasNoConfirmedInformation = sectionId === "QUESTION"
       ? !projectHasScientificQuestion
       : resolvedSectionElements(project, sectionId).length === 0;
@@ -293,7 +359,13 @@ const groupCandidatesByScientificDimension = (
     return [{
       ...structuredClone(members[0]!),
       candidateId,
-      ...(sectionId === "DESIGN" ? {
+      ...(cdmRepresentationSelected ? {
+        owner: "STUDY_DATA_CDM",
+        capabilityRef: "STUDY_DATA_PLANNING",
+      } : dataManagementSelected ? {
+        owner: "DATA_MANAGEMENT",
+        capabilityRef: "DATA_MANAGEMENT_PLANNING",
+      } : sectionId === "DESIGN" ? {
         owner: "STUDY_DESIGN",
         capabilityRef: "STUDY_DESIGN_COHERENCE",
       } : sectionId === "QUESTION" ? {
@@ -334,6 +406,8 @@ const groupCandidatesByScientificDimension = (
           ...(observabilityQualificationSelected ? ["QRY_SELECTS_MEASUREMENT_SET_SCOPE_OBSERVABILITY_OWNS_QUALIFICATION"] : []),
           ...(imagingSpecializationSelected ? ["QRY_SELECTS_IMAGING_SPECIALIZATION_SCOPE_IMAGING_OWNS_REALIZATION"] : []),
           ...(biostatisticsPlanningSelected ? ["QRY_SELECTS_ANALYTICAL_SCOPE_BIOSTATISTICS_OWNS_REASONING"] : []),
+          ...(cdmRepresentationSelected ? ["QRY_SELECTS_CANONICAL_DATA_SCOPE_CDM_OWNS_REPRESENTATION"] : []),
+          ...(dataManagementSelected ? ["QRY_SELECTS_OPERATIONAL_DATA_SCOPE_DM_OWNS_REASONING"] : []),
         ],
       },
     }];
@@ -514,6 +588,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
   recordedAt: string;
   wordingProposal?: FunctionalResetQuestionWordingProposal | null;
   forceRebuild?: boolean;
+  dataOwnerState?: Readonly<FunctionalResetDataOwnerState> | null;
 }): FunctionalResetQueryNavigation => {
   if (!input.forceRebuild && input.previous
     && input.previous.projectVersion === input.project.versionId
@@ -537,7 +612,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
     });
   }
 
-  const sourceState = buildFunctionalResetQuerySourceState(input.project);
+  const sourceState = buildFunctionalResetQuerySourceState(input.project, input.dataOwnerState);
   const unresolvedContext = buildQueryNavigationContext({
     projectRef: input.project.projectId,
     projectVersion: input.project.versionId,
@@ -602,6 +677,45 @@ export const buildFunctionalResetQueryNavigation = (input: {
   };
 
   const action = buildSelectedNavigationAction(selection);
+  const ownerAction = ["STUDY_DATA_CDM", "DATA_MANAGEMENT"].includes(action.owner)
+    && ["STUDY_DATA_PLANNING", "DATA_MANAGEMENT_PLANNING"].includes(selection.selected.capabilityRef ?? "");
+  if (ownerAction) {
+    memory = rememberSelectedNavigationAction(memory, action);
+    memory = recordLifecycleEvent(memory, {
+      eventType: "ACTION_SELECTED",
+      actionRef: action.selectedActionId,
+      presentationRef: null,
+      responseRef: null,
+      projectRef: input.project.projectId,
+      projectVersion: input.project.versionId,
+      sourceStateDigest: context.sourceStateDigest,
+      reason: "QRY_SELECTED_SPECIALIZED_OWNER_ACTION",
+      evidenceRefs: action.navigationNeedRefs,
+      recordedAt: input.recordedAt,
+    });
+    return {
+      contract: "FUNCTIONAL_RESET_QUERY_NAVIGATION",
+      contractVersion: "1.0.0",
+      boundary: FUNCTIONAL_RESET_QRY_BOUNDARY,
+      owner: "QUERY_NAVIGATION",
+      projectRef: input.project.projectId,
+      projectVersion: input.project.versionId,
+      projectDigest: input.project.projectDigest,
+      sourceStateDigest: context.sourceStateDigest,
+      status: "OWNER_ACTION_READY",
+      selection,
+      memory,
+      currentAction: action,
+      currentPresentation: null,
+      standardQuestion: null,
+      needSections,
+      documentSignalRefs,
+      lastResponseRoute: null,
+      projectionOnly: true,
+      sourceOfTruth: false,
+      projectWriteAuthorized: false,
+    };
+  }
   const presentation = buildQuestionPresentationRequest(action, selection.selected);
   const previousScope = input.previous?.standardQuestion?.scopeSectionIds ?? [];
   const currentScope = sectionsForAction(action);
@@ -973,6 +1087,12 @@ export const validateFunctionalResetQueryNavigation = (navigation: Readonly<Func
   if (navigation.status === "NO_USEFUL_QUESTION") return navigation.currentAction === null
     && navigation.currentPresentation === null
     && navigation.standardQuestion === null;
+  if (navigation.status === "OWNER_ACTION_READY") return navigation.owner === "QUERY_NAVIGATION"
+    && navigation.currentAction !== null
+    && ["STUDY_DATA_CDM", "DATA_MANAGEMENT"].includes(navigation.currentAction.owner)
+    && navigation.currentPresentation === null
+    && navigation.standardQuestion === null
+    && navigation.projectWriteAuthorized === false;
   if (!navigation.currentAction || !navigation.currentPresentation || !navigation.standardQuestion) return false;
   return navigation.owner === "QUERY_NAVIGATION"
     && navigation.currentAction.selectedActionId === navigation.standardQuestion.selectedActionRef

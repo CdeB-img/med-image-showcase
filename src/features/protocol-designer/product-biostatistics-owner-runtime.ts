@@ -73,7 +73,7 @@ const currentUpstreamResults = (
   return [...ledger.entries].reverse().flatMap((entry): Readonly<SpecializedOwnerResult>[] => {
     const result = entry.result;
     if (!result
-      || !["SCIENTIFIC_THINKING", "STUDY_DESIGN", "OBSERVABILITY_MEASUREMENT", "IMAGING"].includes(result.owner)
+      || !["SCIENTIFIC_THINKING", "STUDY_DESIGN", "OBSERVABILITY_MEASUREMENT", "IMAGING", "DATA_MANAGEMENT"].includes(result.owner)
       || result.sourceProjectRef !== snapshot.sourceProjectRef
       || result.sourceProjectVersion !== snapshot.sourceProjectVersion
       || result.sourceProjectDigest !== snapshot.sourceProjectDigest
@@ -177,14 +177,28 @@ export const invokeBiostatisticsForProjectSnapshot = (input: {
     projectSnapshot: input.projectSnapshot,
     selectedNeed: structuredClone(input.selectedNeed),
     upstreamOwnerInputs: [directProjectLineage, ...upstreamOwnerResults.map(upstreamInput)],
-    dataRelease: input.dataRelease ?? {
+    dataRelease: input.dataRelease ?? (() => {
+      const dataManagement = [...upstreamOwnerResults].reverse().find((item) => item.owner === "DATA_MANAGEMENT");
+      const payload = isRecord(dataManagement?.nativePayload) ? dataManagement?.nativePayload : null;
+      const readiness = records(payload?.downstreamReadiness)[0];
+      return readiness && readiness.targetOwner === "BIOSTATISTICS"
+        ? {
+          status: readiness.status === "RELEASED" ? "RELEASED" as const : "REQUIRED_UNRESOLVED" as const,
+          releaseRef: typeof readiness.releaseRef === "string" ? readiness.releaseRef : null,
+          releaseVersion: typeof readiness.releaseVersion === "string" ? readiness.releaseVersion : null,
+          releaseDigest: typeof readiness.releaseDigest === "string" ? readiness.releaseDigest : null,
+          openFindingRefs: strings(readiness.openFindingRefs),
+          owner: "DATA_MANAGEMENT" as const,
+        }
+        : {
       status: "REQUIRED_UNRESOLVED",
       releaseRef: null,
       releaseVersion: null,
       releaseDigest: null,
       openFindingRefs: [],
       owner: "DATA_MANAGEMENT",
-    },
+        };
+    })(),
     analyticalDecisions: structuredClone(input.analyticalDecisions ?? {}),
     projectWriteAuthorized: false,
   };

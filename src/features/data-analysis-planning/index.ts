@@ -7,3 +7,5 @@ export * from "./project-integration";
 export * from "./projections";
 export * from "./dimensioning-calculator";
 export * from "./runtime";
+export * from "./canonical-study-data-runtime";
+export * from "./data-management-runtime";

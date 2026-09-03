@@ -15,7 +15,7 @@ export const PRODUCT_OWNER_RESULT_LEDGER_VERSION = "0.2.0" as const;
 const LEGACY_KNOWLEDGE_LEDGER_VERSION = "0.1.0" as const;
 
 export type ProductOwnerResultDependency = {
-  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "BIOSTATISTICS" | "REGULATORY_RESOLUTION";
+  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "BIOSTATISTICS" | "STUDY_DATA_CDM" | "DATA_MANAGEMENT" | "REGULATORY_RESOLUTION";
   resultId: string;
   resultVersion: string;
   nativeResultDigest: string;
@@ -132,6 +132,8 @@ const supportedOwnerCapability = (owner: unknown, capabilityId: unknown) => (
   || (owner === "OBSERVABILITY_MEASUREMENT" && capabilityId === "OBSERVABILITY_QUALIFICATION")
   || (owner === "IMAGING" && capabilityId === "IMAGING_STUDY_DESIGN")
   || (owner === "BIOSTATISTICS" && capabilityId === "BIOSTATISTICS_PLANNING")
+  || (owner === "STUDY_DATA_CDM" && capabilityId === "STUDY_DATA_PLANNING")
+  || (owner === "DATA_MANAGEMENT" && capabilityId === "DATA_MANAGEMENT_PLANNING")
   || (owner === "REGULATORY_RESOLUTION" && capabilityId === "REGULATORY_REQUIREMENT_RESOLUTION")
 );
 
@@ -401,6 +403,96 @@ const validateBiostatisticsBoundary = (entry: ProductOwnerResultLedgerEntry) => 
   }
 };
 
+const validateCanonicalStudyDataBoundary = (entry: ProductOwnerResultLedgerEntry) => {
+  if (entry.request.owner !== "STUDY_DATA_CDM") return;
+  const nativeInput = entry.request.nativeInput;
+  const nativePayload = entry.result?.nativePayload;
+  const projectSnapshot = isRecord(nativeInput) && isRecord(nativeInput.projectSnapshot) ? nativeInput.projectSnapshot : null;
+  const sourceProject = isRecord(nativePayload) && isRecord(nativePayload.sourceProject) ? nativePayload.sourceProject : null;
+  const upstreamInputs = isRecord(nativeInput) && Array.isArray(nativeInput.upstreamOwnerInputs)
+    ? nativeInput.upstreamOwnerInputs.filter(isRecord).filter((item) => item.sourceOwner !== "RESEARCH_PROJECT")
+    : [];
+  const dependencyRefs = new Set(entry.dependencies.map((dependency) => `${dependency.owner}:${dependency.resultId}:${dependency.resultVersion}:${dependency.nativeResultDigest}`));
+  if (!isRecord(nativeInput)
+    || nativeInput.projectId !== entry.request.sourceProject.sourceProjectRef
+    || nativeInput.projectVersion !== entry.request.sourceProject.sourceProjectVersion
+    || nativeInput.projectDigest !== entry.request.sourceProject.sourceProjectDigest
+    || !projectSnapshot
+    || projectSnapshot.snapshotDigest !== entry.request.sourceProject.snapshotDigest
+    || nativeInput.projectWriteAuthorized !== false
+    || upstreamInputs.some((dependency) => dependency.ownershipTransferred !== false
+      || !dependencyRefs.has(`${dependency.sourceOwner}:${dependency.resultRef}:${dependency.resultVersion}:${dependency.resultDigest}`))
+    || entry.dependencies.length !== upstreamInputs.length
+    || (entry.result !== null && (
+      entry.result.projectContribution !== null
+      || !isRecord(nativePayload)
+      || nativePayload.owner !== "STUDY_DATA_CDM"
+      || nativePayload.capabilityId !== "STUDY_DATA_PLANNING"
+      || nativePayload.projectWriteAuthorized !== false
+      || nativePayload.projectOwnershipTransferred !== false
+      || nativePayload.projectObjectsRedefined !== false
+      || nativePayload.expectedOccasionCreatedOccurrence !== false
+      || nativePayload.datasetIsSourceOfTruth !== false
+      || nativePayload.analyticalMissingnessStrategyCreated !== false
+      || nativePayload.realizedDataFabricated !== false
+      || !sourceProject
+      || sourceProject.projectId !== nativeInput.projectId
+      || sourceProject.projectVersion !== nativeInput.projectVersion
+      || sourceProject.projectDigest !== nativeInput.projectDigest
+      || sourceProject.snapshotDigest !== projectSnapshot.snapshotDigest
+    ))) throw new Error("PRODUCT_OWNER_RESULT_LEDGER_CDM_BOUNDARY_INVALID");
+};
+
+const validateDataManagementBoundary = (entry: ProductOwnerResultLedgerEntry) => {
+  if (entry.request.owner !== "DATA_MANAGEMENT") return;
+  const nativeInput = entry.request.nativeInput;
+  const nativePayload = entry.result?.nativePayload;
+  const projectSnapshot = isRecord(nativeInput) && isRecord(nativeInput.projectSnapshot) ? nativeInput.projectSnapshot : null;
+  const cdmResult = isRecord(nativeInput) && isRecord(nativeInput.cdmResult) ? nativeInput.cdmResult : null;
+  const sourceProject = isRecord(nativePayload) && isRecord(nativePayload.sourceProject) ? nativePayload.sourceProject : null;
+  const sourceCdmResult = isRecord(nativePayload) && isRecord(nativePayload.sourceCdmResult) ? nativePayload.sourceCdmResult : null;
+  const upstreamInputs = isRecord(nativeInput) && Array.isArray(nativeInput.upstreamOwnerInputs)
+    ? nativeInput.upstreamOwnerInputs.filter(isRecord)
+    : [];
+  const dependencyRefs = new Set(entry.dependencies.map((dependency) => `${dependency.owner}:${dependency.resultId}:${dependency.resultVersion}:${dependency.nativeResultDigest}`));
+  if (!isRecord(nativeInput)
+    || nativeInput.projectId !== entry.request.sourceProject.sourceProjectRef
+    || nativeInput.projectVersion !== entry.request.sourceProject.sourceProjectVersion
+    || nativeInput.projectDigest !== entry.request.sourceProject.sourceProjectDigest
+    || !projectSnapshot
+    || projectSnapshot.snapshotDigest !== entry.request.sourceProject.snapshotDigest
+    || !cdmResult
+    || nativeInput.projectWriteAuthorized !== false
+    || upstreamInputs.some((dependency) => dependency.ownershipTransferred !== false
+      || !dependencyRefs.has(`${dependency.sourceOwner}:${dependency.resultRef}:${dependency.resultVersion}:${dependency.resultDigest}`))
+    || entry.dependencies.length !== upstreamInputs.length
+    || !dependencyRefs.has(`STUDY_DATA_CDM:${String(cdmResult.resultId)}:${String(cdmResult.resultVersion)}:${String(cdmResult.resultDigest)}`)
+    || (entry.result !== null && (
+      entry.result.projectContribution !== null
+      || !isRecord(nativePayload)
+      || nativePayload.owner !== "DATA_MANAGEMENT"
+      || nativePayload.capabilityId !== "DATA_MANAGEMENT_PLANNING"
+      || nativePayload.projectWriteAuthorized !== false
+      || nativePayload.projectOwnershipTransferred !== false
+      || nativePayload.projectObjectsRedefined !== false
+      || nativePayload.cdmResultMutated !== false
+      || nativePayload.scientificMeaningRedefined !== false
+      || nativePayload.statisticalStrategySelected !== false
+      || nativePayload.analyticalMissingnessStrategyCreated !== false
+      || nativePayload.realizedDataFabricated !== false
+      || nativePayload.realOperationsExecuted !== false
+      || !sourceProject
+      || sourceProject.projectId !== nativeInput.projectId
+      || sourceProject.projectVersion !== nativeInput.projectVersion
+      || sourceProject.projectDigest !== nativeInput.projectDigest
+      || sourceProject.snapshotDigest !== projectSnapshot.snapshotDigest
+      || !sourceCdmResult
+      || sourceCdmResult.resultId !== cdmResult.resultId
+      || sourceCdmResult.resultVersion !== cdmResult.resultVersion
+      || sourceCdmResult.resultDigest !== cdmResult.resultDigest
+    ))) throw new Error("PRODUCT_OWNER_RESULT_LEDGER_DATA_MANAGEMENT_BOUNDARY_INVALID");
+};
+
 const validateEntryBoundary = (entry: ProductOwnerResultLedgerEntry, priorEntries: readonly ProductOwnerResultLedgerEntry[]) => {
   if (!supportedOwnerCapability(entry.request.owner, entry.request.capabilityId)
     || entry.observation.owner !== entry.request.owner
@@ -438,6 +530,8 @@ const validateEntryBoundary = (entry: ProductOwnerResultLedgerEntry, priorEntrie
   validateObservabilityBoundary(entry);
   validateImagingBoundary(entry, priorEntries);
   validateBiostatisticsBoundary(entry);
+  validateCanonicalStudyDataBoundary(entry);
+  validateDataManagementBoundary(entry);
   validateRegulatoryBoundary(entry);
 };
 
@@ -582,7 +676,7 @@ export const readProductOwnerResult = (input: {
   ledger: Readonly<ProductOwnerResultLedger>;
   resultId: string;
   currentProjectSnapshot: Readonly<ProjectContextSnapshot>;
-  expectedOwner?: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "BIOSTATISTICS" | "REGULATORY_RESOLUTION";
+  expectedOwner?: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "BIOSTATISTICS" | "STUDY_DATA_CDM" | "DATA_MANAGEMENT" | "REGULATORY_RESOLUTION";
 }) => {
   const ledger = rehydrateProductOwnerResultLedger(input.ledger);
   const entry = ledger.entries.find((candidate) => candidate.result?.resultId === input.resultId

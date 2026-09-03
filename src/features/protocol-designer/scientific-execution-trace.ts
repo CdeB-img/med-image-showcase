@@ -183,6 +183,10 @@ export type ScientificProductTraceStage =
   | "IMAGING_RESULT"
   | "BIOSTATISTICS_REQUEST"
   | "BIOSTATISTICS_RESULT"
+  | "CDM_REQUEST"
+  | "CDM_RESULT"
+  | "DATA_MANAGEMENT_REQUEST"
+  | "DATA_MANAGEMENT_RESULT"
   | "REG_REQUEST"
   | "REG_RESULT"
   | "VAL_REQUEST"
@@ -461,6 +465,8 @@ export type ScientificTraceOwner =
   | "OBSERVABILITY_MEASUREMENT"
   | "IMAGING"
   | "BIOSTATISTICS"
+  | "STUDY_DATA_CDM"
+  | "DATA_MANAGEMENT"
   | "REGULATORY_RESOLUTION"
   | "VAL"
   | "TMP"
@@ -497,6 +503,8 @@ export type FirstDivergentStage =
   | "ST_TO_IMAGING_HANDOFF"
   | "IMAGING_ENGINE"
   | "BIOSTATISTICS_ENGINE"
+  | "CDM_ENGINE"
+  | "DATA_MANAGEMENT_ENGINE"
   | "VAL_INPUT_ADAPTER"
   | "VAL_ENGINE"
   | "REG_REQUEST_BUILDING"
@@ -924,6 +932,8 @@ const TRACE_OWNERS = new Set<ScientificTraceOwner>([
   "OBSERVABILITY_MEASUREMENT",
   "IMAGING",
   "BIOSTATISTICS",
+  "STUDY_DATA_CDM",
+  "DATA_MANAGEMENT",
   "REGULATORY_RESOLUTION",
   "VAL",
   "TMP",
@@ -958,6 +968,10 @@ const PRODUCT_TRACE_STAGES: readonly ScientificProductTraceStage[] = [
   "IMAGING_RESULT",
   "BIOSTATISTICS_REQUEST",
   "BIOSTATISTICS_RESULT",
+  "CDM_REQUEST",
+  "CDM_RESULT",
+  "DATA_MANAGEMENT_REQUEST",
+  "DATA_MANAGEMENT_RESULT",
   "REG_REQUEST",
   "REG_RESULT",
   "VAL_REQUEST",
@@ -999,6 +1013,8 @@ const DIVERGENT_STAGES = new Set<FirstDivergentStage>([
   "ST_TO_IMAGING_HANDOFF",
   "IMAGING_ENGINE",
   "BIOSTATISTICS_ENGINE",
+  "CDM_ENGINE",
+  "DATA_MANAGEMENT_ENGINE",
   "VAL_INPUT_ADAPTER",
   "VAL_ENGINE",
   "REG_REQUEST_BUILDING",
@@ -1416,6 +1432,8 @@ const ownerRequestStage = (owner: ScientificTraceOwner): ScientificProductTraceS
     : owner === "OBSERVABILITY_MEASUREMENT" ? "OBSERVABILITY_REQUEST"
       : owner === "IMAGING" ? "IMAGING_REQUEST"
       : owner === "BIOSTATISTICS" ? "BIOSTATISTICS_REQUEST"
+      : owner === "STUDY_DATA_CDM" ? "CDM_REQUEST"
+      : owner === "DATA_MANAGEMENT" ? "DATA_MANAGEMENT_REQUEST"
       : owner === "REGULATORY_RESOLUTION" ? "REG_REQUEST"
         : owner === "VAL" ? "VAL_REQUEST"
           : "ERROR_BOUNDARY";
@@ -1426,6 +1444,8 @@ const ownerResultStage = (owner: ScientificTraceOwner): ScientificProductTraceSt
     : owner === "OBSERVABILITY_MEASUREMENT" ? "OBSERVABILITY_RESULT"
       : owner === "IMAGING" ? "IMAGING_RESULT"
       : owner === "BIOSTATISTICS" ? "BIOSTATISTICS_RESULT"
+      : owner === "STUDY_DATA_CDM" ? "CDM_RESULT"
+      : owner === "DATA_MANAGEMENT" ? "DATA_MANAGEMENT_RESULT"
       : owner === "REGULATORY_RESOLUTION" ? "REG_RESULT"
         : owner === "VAL" ? "VAL_RESULT"
           : "ERROR_BOUNDARY";
@@ -2090,6 +2110,10 @@ const ownerStage = (owner: ScientificTraceOwner): FirstDivergentStage => owner =
         ? "IMAGING_ENGINE"
       : owner === "BIOSTATISTICS"
         ? "BIOSTATISTICS_ENGINE"
+      : owner === "STUDY_DATA_CDM"
+        ? "CDM_ENGINE"
+      : owner === "DATA_MANAGEMENT"
+        ? "DATA_MANAGEMENT_ENGINE"
       : owner === "REGULATORY_RESOLUTION"
         ? "REG_ENGINE"
         : owner === "VAL"

@@ -56,6 +56,8 @@ import StudyDesignStandardCard from "./StudyDesignStandardCard";
 import ObservabilityStandardCard from "./ObservabilityStandardCard";
 import ImagingStandardCard from "./ImagingStandardCard";
 import BiostatisticsStandardCard from "./BiostatisticsStandardCard";
+import CanonicalStudyDataStandardCard from "./CanonicalStudyDataStandardCard";
+import DataManagementStandardCard from "./DataManagementStandardCard";
 import {
   executeProductUnderstandInteraction,
   recognizeProductDocumentAction,
@@ -120,6 +122,17 @@ import {
   readBiostatisticsResultFromLedger,
   resolveBiostatisticsConversation,
 } from "./biostatistics-standard";
+import {
+  deriveFunctionalResetDataOwnerState,
+  dispatchCanonicalStudyDataFromQuery,
+  isCanonicalStudyDataQueryDispatch,
+  readCanonicalStudyDataResultFromLedger,
+} from "./canonical-study-data-standard";
+import {
+  dispatchDataManagementFromQuery,
+  isDataManagementQueryDispatch,
+  readDataManagementResultFromLedger,
+} from "./data-management-standard";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -197,7 +210,7 @@ type PostAdoptionContinuationJob = {
   ownerResultLedger: FunctionalResetSession["knowledgeOwnerLedger"];
   scientificExecutionTraceLedger: FunctionalResetSession["scientificExecutionTraceLedger"];
   runtimeTurns: ScientificInterpretationTurn[];
-  feedback: "Projet créé." | "Projet mis à jour.";
+  feedback: string;
   traceRunId: string | null;
 };
 
@@ -286,6 +299,62 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
       mediationFailure: null,
       provider: "NONE",
       model: "IMAGING_STUDY_DESIGNER_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
+  if (isCanonicalStudyDataQueryDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchCanonicalStudyDataFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      presentationTurnRef: turnId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    const turn = { turnId, role: "NOXIA" as const, content: dispatched.presentation.plainText, createdAt: completedAt };
+    return {
+      kind: "CDM" as const,
+      turn,
+      content: turn.content,
+      presentationSource: "CDM_STANDARD_PROJECTION" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "CANONICAL_STUDY_DATA_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
+  if (isDataManagementQueryDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchDataManagementFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      presentationTurnRef: turnId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    const turn = { turnId, role: "NOXIA" as const, content: dispatched.presentation.plainText, createdAt: completedAt };
+    return {
+      kind: "DATA_MANAGEMENT" as const,
+      turn,
+      content: turn.content,
+      presentationSource: "DATA_MANAGEMENT_STANDARD_PROJECTION" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "DATA_MANAGEMENT_REASONING_RUNTIME",
       latencyMs: 0,
       calls: 0,
       ...dispatched,
@@ -438,7 +507,7 @@ export default function ProtocolDesignerWorkspace() {
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
       setSession((current) => {
-        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS"
+        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS" || continuation.kind === "CDM" || continuation.kind === "DATA_MANAGEMENT"
           ? continuation.traceLedger
           : recordPostAdoptionQuestionTrace({
           ledger: current.scientificExecutionTraceLedger,
@@ -487,6 +556,22 @@ export default function ProtocolDesignerWorkspace() {
               presentation: continuation.presentation,
               createdAt: continuedAt,
             }
+          : continuation.kind === "CDM"
+            ? {
+              entryId: createConversationEntryId(),
+              kind: "CDM_RESULT",
+              role: "NOXIA",
+              presentation: continuation.presentation,
+              createdAt: continuedAt,
+            }
+          : continuation.kind === "DATA_MANAGEMENT"
+            ? {
+              entryId: createConversationEntryId(),
+              kind: "DATA_MANAGEMENT_RESULT",
+              role: "NOXIA",
+              presentation: continuation.presentation,
+              createdAt: continuedAt,
+            }
           : {
             entryId: createConversationEntryId(),
             kind: "TEXT",
@@ -502,12 +587,14 @@ export default function ProtocolDesignerWorkspace() {
         observabilityInteraction: continuation.kind === "OBSERVABILITY" ? continuation.interaction : current.observabilityInteraction,
         imagingInteraction: continuation.kind === "IMAGING" ? continuation.interaction : current.imagingInteraction,
         biostatisticsInteraction: continuation.kind === "BIOSTATISTICS" ? continuation.interaction : current.biostatisticsInteraction,
-        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
+        canonicalStudyDataInteraction: continuation.kind === "CDM" ? continuation.interaction : current.canonicalStudyDataInteraction,
+        dataManagementInteraction: continuation.kind === "DATA_MANAGEMENT" ? continuation.interaction : current.dataManagementInteraction,
+        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS" || continuation.kind === "CDM" || continuation.kind === "DATA_MANAGEMENT" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
         entries: [...current.entries, conversationEntry],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: continuation.turn.turnId,
-          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS"
+          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS" || continuation.kind === "CDM" || continuation.kind === "DATA_MANAGEMENT"
             ? continuation.interaction.traceRunId ?? undefined
             : job.traceRunId ?? undefined,
           requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
@@ -556,6 +643,10 @@ export default function ProtocolDesignerWorkspace() {
               ? "NOXIA n’a pas pu préparer la stratégie d’imagerie à partir de cette version du Research Project. Le Project reste inchangé."
             : isBiostatisticsQueryDispatch(job.queryNavigation)
               ? "NOXIA n’a pas pu préparer les stratégies analytiques à partir de cette version du Research Project. Le Project reste inchangé."
+            : isCanonicalStudyDataQueryDispatch(job.queryNavigation)
+              ? "NOXIA n’a pas pu représenter les données attendues à partir de cette version du Research Project. Le Project reste inchangé."
+            : isDataManagementQueryDispatch(job.queryNavigation)
+              ? "NOXIA n’a pas pu préparer la gestion opérationnelle des données à partir du résultat canonique courant. Le Project reste inchangé."
             : isStudyDesignQueryDispatch(job.queryNavigation)
               ? "NOXIA n’a pas pu préparer les stratégies d’étude à partir de cette version du Research Project. Le Project reste inchangé."
               : "NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.",
@@ -1155,6 +1246,55 @@ export default function ProtocolDesignerWorkspace() {
     return true;
   };
 
+  const continueFromCanonicalStudyData = () => {
+    const project = session.project;
+    const interaction = session.canonicalStudyDataInteraction;
+    if (!project || !interaction || interaction.status !== "ACTIVE" || busy) return;
+    const result = readCanonicalStudyDataResultFromLedger({
+      ledger: session.knowledgeOwnerLedger,
+      resultRef: interaction.ownerResultRef,
+    });
+    if (!result || result.sourceProject.projectVersion !== project.versionId
+      || result.sourceProject.projectDigest !== project.projectDigest) {
+      setSession((current) => ({
+        ...current,
+        canonicalStudyDataInteraction: current.canonicalStudyDataInteraction
+          ? { ...current.canonicalStudyDataInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+          : null,
+      }));
+      return;
+    }
+    const recordedAt = new Date().toISOString();
+    const queryNavigation = buildFunctionalResetQueryNavigation({
+      project,
+      previous: session.queryNavigation,
+      documentBlockers: documentBlockerSignals(session.documents),
+      recordedAt,
+      forceRebuild: true,
+      dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
+    });
+    setSession((current) => ({
+      ...current,
+      queryNavigation,
+      canonicalStudyDataInteraction: current.canonicalStudyDataInteraction
+        ? { ...current.canonicalStudyDataInteraction, status: "COMPLETED" }
+        : null,
+      updatedAt: recordedAt,
+    }));
+    setBusy(true);
+    setPostAdoptionContinuationJob({
+      sessionId: session.sessionId,
+      conversationId: session.conversationId,
+      project,
+      queryNavigation,
+      ownerResultLedger: session.knowledgeOwnerLedger,
+      scientificExecutionTraceLedger: session.scientificExecutionTraceLedger,
+      runtimeTurns: session.runtimeTurns,
+      feedback: "Préparer la gestion opérationnelle des données.",
+      traceRunId: interaction.traceRunId,
+    });
+  };
+
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     const content = draft.trim();
@@ -1571,6 +1711,7 @@ export default function ProtocolDesignerWorkspace() {
         previous: session.queryNavigation,
         documentBlockers: documentBlockerSignals(documents),
         recordedAt: now,
+        dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
       });
       const feedback = session.project ? "Projet mis à jour." : "Projet créé.";
       const confirmationTurn: ScientificInterpretationTurn = {
@@ -1648,6 +1789,16 @@ export default function ProtocolDesignerWorkspace() {
           : current.biostatisticsInteraction && !biostatisticsInteractionMatchesCurrentProject(current.biostatisticsInteraction, project)
             ? { ...current.biostatisticsInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
             : current.biostatisticsInteraction,
+        canonicalStudyDataInteraction: current.canonicalStudyDataInteraction
+          && (current.canonicalStudyDataInteraction.sourceProjectVersion !== project.versionId
+            || current.canonicalStudyDataInteraction.sourceProjectDigest !== project.projectDigest)
+          ? { ...current.canonicalStudyDataInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+          : current.canonicalStudyDataInteraction,
+        dataManagementInteraction: current.dataManagementInteraction
+          && (current.dataManagementInteraction.sourceProjectVersion !== project.versionId
+            || current.dataManagementInteraction.sourceProjectDigest !== project.projectDigest)
+          ? { ...current.dataManagementInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+          : current.dataManagementInteraction,
         documents,
         currentContribution: contribution,
         pendingContribution: null,
@@ -1666,8 +1817,10 @@ export default function ProtocolDesignerWorkspace() {
         updatedAt: now,
       }));
 
-      if (shouldMediatePostAdoptionQuery(queryNavigation)
-        && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion) {
+      if ((shouldMediatePostAdoptionQuery(queryNavigation)
+        && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion)
+        || isCanonicalStudyDataQueryDispatch(queryNavigation)
+        || isDataManagementQueryDispatch(queryNavigation)) {
         continuationScheduled = true;
         setPostAdoptionContinuationJob({
           sessionId: session.sessionId,
@@ -2211,6 +2364,33 @@ export default function ProtocolDesignerWorkspace() {
                     const option = entry.presentation.options.find((candidate) => candidate.optionRef === strategyRef);
                     if (option) applyBiostatisticsInput(`Je retiens la stratégie « ${option.label} » pour revue.`, strategyRef);
                   }}
+                  onDiscuss={() => {
+                    setDraft("");
+                    composerRef.current?.focus();
+                  }}
+                />
+              : entry.kind === "CDM_RESULT"
+                ? <CanonicalStudyDataStandardCard
+                  key={entry.entryId}
+                  presentation={entry.presentation}
+                  interaction={readCanonicalStudyDataResultFromLedger({
+                    ledger: session.knowledgeOwnerLedger,
+                    resultRef: session.canonicalStudyDataInteraction?.ownerResultRef ?? "",
+                  })?.resultId === entry.presentation.resultRef ? session.canonicalStudyDataInteraction : null}
+                  onContinue={continueFromCanonicalStudyData}
+                  onDiscuss={() => {
+                    setDraft("");
+                    composerRef.current?.focus();
+                  }}
+                />
+              : entry.kind === "DATA_MANAGEMENT_RESULT"
+                ? <DataManagementStandardCard
+                  key={entry.entryId}
+                  presentation={entry.presentation}
+                  interaction={readDataManagementResultFromLedger({
+                    ledger: session.knowledgeOwnerLedger,
+                    resultRef: session.dataManagementInteraction?.ownerResultRef ?? "",
+                  })?.resultId === entry.presentation.resultRef ? session.dataManagementInteraction : null}
                   onDiscuss={() => {
                     setDraft("");
                     composerRef.current?.focus();
