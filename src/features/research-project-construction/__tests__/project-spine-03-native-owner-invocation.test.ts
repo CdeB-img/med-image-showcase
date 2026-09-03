@@ -14,7 +14,7 @@ import {
   confirmResearchProjectContribution,
   invokeKnowledgeOwnerFromProject,
   invokeRegulatoryOwnerFromProject,
-  invokeUnavailableBiostatisticsCalculation,
+  invokeBiostatisticsCalculation,
   prepareSpecializedOwnerProjectContribution,
   type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
@@ -258,17 +258,39 @@ describe("PROJECT-SPINE-03 — native specialized owner invocation gate", () => 
     expect(regulatory.result?.unknowns).toContain("reg-unknown:emergency-consent");
     expect(JSON.stringify(regulatory.result?.nativePayload).toLocaleLowerCase("fr-FR")).not.toContain("consentement d'urgence conforme");
 
-    const biostatistics = invokeUnavailableBiostatisticsCalculation({ project, ...timing });
+    const biostatistics = invokeBiostatisticsCalculation({
+      project,
+      parameters: {
+        difference: 5,
+        commonStandardDeviation: 10,
+        twoSidedAlpha: 0.05,
+        power: 0.8,
+        anticipatedNonEvaluableRate: 0.1,
+        sourceRefs: {
+          difference: "project-assumption:relevant-difference",
+          commonStandardDeviation: "project-assumption:standard-deviation",
+          twoSidedAlpha: "project-decision:alpha",
+          power: "project-decision:power",
+          anticipatedNonEvaluableRate: "project-assumption:non-evaluable-rate",
+        },
+      },
+      ...timing,
+    });
     expect(biostatistics.observation).toMatchObject({
-      status: "OWNER_UNAVAILABLE",
-      failureCode: "CALL_NONEXISTENT_ENGINE",
-      ownerRuntimeVersion: null,
-      runtimeStarts: 0,
+      status: "COMPLETED",
+      failureCode: null,
+      ownerRuntimeVersion: "1.0.0",
+      runtimeStarts: 1,
       llmFallbackCalls: 0,
       projectWrites: 0,
     });
-    expect(biostatistics.result).toMatchObject({ status: "OWNER_CAPABILITY_UNAVAILABLE", resultKind: "GAP", nativePayload: null });
-    expect(biostatistics.result?.nativePayload).toBeNull();
+    expect(biostatistics.result).toMatchObject({
+      status: "COMPLETED_WITH_LIMITATIONS",
+      resultKind: "INFORMATIONAL_ONLY",
+      nativePayload: { totalSampleSize: 140, projectWriteAuthorized: false },
+      projectContribution: null,
+      projectWriteAuthorized: false,
+    });
 
     const projectVNext = advanceProject(project);
     expect(assessSpecializedOwnerResultFreshness(knowledge.result!, projectVNext)).toMatchObject({ status: "STALE_OWNER_RESULT", staleReasons: ["PROJECT_VERSION_CHANGED", "PROJECT_DIGEST_CHANGED"] });

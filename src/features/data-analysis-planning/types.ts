@@ -268,7 +268,7 @@ export type StatisticalMethodDefinition = {
   methodFamily: string | null;
   model: string | null;
   status: PlanningKnowledgeStatus;
-  source: "PROJECT_DECISION" | "HUMAN_CONTRIBUTION" | "EXISTING_SPECIFICATION" | "UNKNOWN";
+  source: "PROJECT_DECISION" | "HUMAN_CONTRIBUTION" | "EXISTING_SPECIFICATION" | "BIOSTATISTICS_REASONING" | "UNKNOWN";
   provenance: PlanningProvenance;
 };
 

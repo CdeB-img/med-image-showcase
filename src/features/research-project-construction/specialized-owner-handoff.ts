@@ -1,4 +1,9 @@
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
+import {
+  TWO_GROUP_CONTINUOUS_DIMENSIONING_VERSION,
+  calculateTwoGroupContinuousSampleSize,
+  type TwoGroupContinuousDimensioningInput,
+} from "@/features/data-analysis-planning/dimensioning-calculator";
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
 import {
   buildProjectContextSnapshot,
@@ -158,29 +163,33 @@ export const SPECIALIZED_OWNER_CAPABILITIES = Object.freeze([
     role: "SPECIALIZED_OWNER",
     status: "AVAILABLE_WITH_LIMITATIONS",
     implementationVersion: "1.0.0",
-    inputContract: "DataAnalysisPlanningContext / BiostatisticsPlanningInput",
-    outputContract: "DataAnalysisPlanningContribution<BiostatisticsPlanningPayload>",
-    pd003V2Compatibility: "COMPATIBLE_THROUGH_ADAPTER",
+    inputContract: "BiostatisticsReasoningRuntimeInput",
+    outputContract: "BiostatisticsReasoningResult / AnalysisSpecification / DimensionnementDefinition",
+    pd003V2Compatibility: "NATIVE",
     readsProjectSnapshot: true,
     canProduceProjectContribution: true,
     canWriteProject: false,
     externalProvider: "NONE",
-    limitations: ["Design-time planning only.", "No sample-size calculation, AnalysisExecution or AnalysisResult runtime."],
+    limitations: [
+      "IMPLEMENTED_AND_PRODUCT_WIRED: QRY may dispatch a legitimate ANALYSIS need to Biostatistics and Standard projects non-adopted analytical alternatives.",
+      "Design-time reasoning only; no AnalysisExecution or AnalysisResult runtime is created.",
+      "One bounded deterministic two-group continuous dimensioning calculation is available only with complete sourced inputs.",
+    ],
   },
   {
     capabilityId: "BIOSTATISTICS_CALCULATION",
     owner: "BIOSTATISTICS",
     role: "SPECIALIZED_OWNER",
-    status: "UNAVAILABLE",
-    implementationVersion: null,
-    inputContract: "BIOSTATISTICS-001 architecture only",
-    outputContract: "No calculation result runtime",
-    pd003V2Compatibility: "NOT_RUNTIME_AVAILABLE",
-    readsProjectSnapshot: false,
+    status: "AVAILABLE_WITH_LIMITATIONS",
+    implementationVersion: "1.0.0",
+    inputContract: "TwoGroupContinuousDimensioningInput",
+    outputContract: "DimensioningCalculationCandidate",
+    pd003V2Compatibility: "NATIVE",
+    readsProjectSnapshot: true,
     canProduceProjectContribution: false,
     canWriteProject: false,
     externalProvider: "NONE",
-    limitations: ["The current planning runtime deliberately leaves calculatedSampleSize null."],
+    limitations: ["Only the governed two-independent-group continuous normal approximation with equal allocation is implemented.", "Every numeric input requires an explicit source reference; output remains a non-adopted calculation candidate."],
   },
   {
     capabilityId: "STUDY_DATA_PLANNING",
@@ -506,6 +515,17 @@ export const recordSpecializedOwnerResult = <TNativePayload>(input: {
   if (definition.status === "UNAVAILABLE") throw new Error("CALL_NONEXISTENT_ENGINE");
   if (input.request.missingContext.length) throw new Error("SPECIALIZED_OWNER_BLOCKED_BY_MISSING_CONTEXT");
   if (input.request.missingEvidence.length) throw new Error("SPECIALIZED_OWNER_BLOCKED_BY_MISSING_EVIDENCE");
+  if (input.request.capabilityId === "BIOSTATISTICS_CALCULATION") {
+    const parameters = (input.request.nativeInput as { parameters?: TwoGroupContinuousDimensioningInput }).parameters;
+    if (!parameters) throw new Error("BIOSTATISTICS_CALCULATION_INPUT_REQUIRED");
+    const expected = calculateTwoGroupContinuousSampleSize(parameters);
+    if (input.resultKind !== "INFORMATIONAL_ONLY"
+      || input.nativePayloadType !== "DimensioningCalculationCandidate"
+      || input.nativePayloadVersion !== TWO_GROUP_CONTINUOUS_DIMENSIONING_VERSION
+      || logicalDigest(input.nativePayload) !== logicalDigest(expected)) {
+      throw new Error("BIOSTATISTICS_CALCULATION_RESULT_INVALID");
+    }
+  }
   const carriesContribution = input.resultKind === "PROJECT_CONTRIBUTION_CANDIDATE";
   if (input.resultKind === "GAP" && !(input.unknowns?.length || input.gaps?.length || input.limitations?.length)) {
     throw new Error("SPECIALIZED_OWNER_NATIVE_GAP_REASON_REQUIRED");

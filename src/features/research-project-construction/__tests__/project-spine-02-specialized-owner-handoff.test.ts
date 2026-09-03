@@ -19,6 +19,7 @@ import {
   confirmSpecializedOwnerProjectContribution,
   createSpecializedOwnerGapResult,
   createSpecializedOwnerHandoffRequest,
+  invokeBiostatisticsCalculation,
   listSpecializedOwnerCapabilities,
   prepareSpecializedOwnerProjectContribution,
   recordSpecializedOwnerResult,
@@ -28,6 +29,21 @@ import {
   type SpecializedOwnerId,
   type SpecializedOwnerResultKind,
 } from "@/features/research-project-construction";
+
+const DIMENSIONING_PARAMETERS = {
+  difference: 5,
+  commonStandardDeviation: 10,
+  twoSidedAlpha: 0.05,
+  power: 0.8,
+  anticipatedNonEvaluableRate: 0.1,
+  sourceRefs: {
+    difference: "project-assumption:relevant-difference",
+    commonStandardDeviation: "project-assumption:standard-deviation",
+    twoSidedAlpha: "project-decision:alpha",
+    power: "project-decision:power",
+    anticipatedNonEvaluableRate: "project-assumption:non-evaluable-rate",
+  },
+};
 
 const authority = {
   actorRef: "project-spine-02:researcher",
@@ -304,16 +320,15 @@ describe("PROJECT-SPINE-02 — specialized owner handoff backbone", () => {
     });
   });
 
-  it("H15/H16 — absent calculation/engine produces a capability gap and cannot call a fallback", () => {
+  it("H15/H16 — bounded calculation is explicit while absent execution still produces a capability gap", () => {
     const project = projectWithTemporalBackbone();
     const inventory = listSpecializedOwnerCapabilities().entries;
-    expect(inventory.find((item) => item.capabilityId === "BIOSTATISTICS_CALCULATION")).toMatchObject({ status: "UNAVAILABLE", canWriteProject: false });
+    expect(inventory.find((item) => item.capabilityId === "BIOSTATISTICS_CALCULATION")).toMatchObject({ status: "AVAILABLE_WITH_LIMITATIONS", canWriteProject: false });
     expect(inventory.find((item) => item.capabilityId === "DATA_MANAGEMENT_EXECUTION")).toMatchObject({ status: "UNAVAILABLE", canWriteProject: false });
+    const calculation = invokeBiostatisticsCalculation({ project, parameters: DIMENSIONING_PARAMETERS, startedAt: "2026-08-24T08:03:00.000Z", completedAt: "2026-08-24T08:03:00.000Z" });
+    expect(calculation.result).toMatchObject({ resultKind: "INFORMATIONAL_ONLY", nativePayload: { totalSampleSize: 140 }, projectWriteAuthorized: false });
     const request = requestFor(project, { owner: "BIOSTATISTICS", capabilityId: "BIOSTATISTICS_CALCULATION", nativeInput: { request: "Calculons la taille d'échantillon" } });
-    const gap = createSpecializedOwnerGapResult({ request, resultId: "biostatistics-gap:1", resultVersion: "1.0.0", completedAt: "2026-08-24T08:03:00.000Z" });
-    expect(gap).toMatchObject({ status: "OWNER_CAPABILITY_UNAVAILABLE", nativePayload: null, conversationalLlmExpertFallback: "FORBIDDEN" });
-    expect(gap.nativePayload).toBeNull();
-    expect(() => completedResult({ request, kind: "INFORMATIONAL_ONLY", payload: { inventedSampleSize: 200 } })).toThrow("CALL_NONEXISTENT_ENGINE");
+    expect(() => completedResult({ request, kind: "INFORMATIONAL_ONLY", payload: { inventedSampleSize: 200 } })).toThrow("BIOSTATISTICS_CALCULATION_INPUT_REQUIRED");
   });
 
   it("H17/H18 — stable refs, TemporalAnchor and ExpectedVariableOccasion survive the handoff", () => {
@@ -370,11 +385,13 @@ describe("PROJECT-SPINE-02 — specialized owner handoff backbone", () => {
     const literature = completedResult({ request: literatureRequest, kind: "EVIDENCE_DIAGNOSTIC", payload: { status: "SUPPORTED_OR_GAP_FROM_KNOWLEDGE_ONLY" }, resultId: "replay:literature" });
     expect(literature.owner).toBe("KNOWLEDGE");
 
-    const dimensioning = createSpecializedOwnerGapResult({
-      request: requestFor(project, { owner: "BIOSTATISTICS", capabilityId: "BIOSTATISTICS_CALCULATION", nativeInput: { request: "Calculons la taille d'échantillon" } }),
-      resultId: "replay:dimensioning", resultVersion: "1.0.0", completedAt: "2026-08-24T08:04:00.000Z",
-    });
-    expect(dimensioning.status).toBe("OWNER_CAPABILITY_UNAVAILABLE");
+    const dimensioning = invokeBiostatisticsCalculation({
+      project,
+      parameters: DIMENSIONING_PARAMETERS,
+      startedAt: "2026-08-24T08:04:00.000Z",
+      completedAt: "2026-08-24T08:04:00.000Z",
+    }).result!;
+    expect(dimensioning).toMatchObject({ status: "COMPLETED_WITH_LIMITATIONS", nativePayload: { totalSampleSize: 140 } });
 
     const regulatory = createSpecializedOwnerGapResult({
       request: requestFor(project, { owner: "REGULATORY_RESOLUTION", capabilityId: "REGULATORY_REQUIREMENT_RESOLUTION", nativeInput: { question: "Quand et comment recueillir le consentement ?" }, missingContext: ["JURISDICTION", "RESEARCH_QUALIFICATION"] }),

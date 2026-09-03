@@ -259,6 +259,11 @@ const groupCandidatesByScientificDimension = (
   const projectHasObservationBasis = ensureCanonicalProjectState(project).objects.some((object) => object.actuality === "CURRENT"
     && ["OBJECTIVE", "HYPOTHESIS", "SCIENTIFIC_MODEL", "ENDPOINT"].includes(object.objectType)
     && !["UNKNOWN", "WITHHELD"].includes(object.epistemicState));
+  const currentGovernedObjectTypes = new Set(ensureCanonicalProjectState(project).objects
+    .filter((object) => object.actuality === "CURRENT" && !["UNKNOWN", "WITHHELD"].includes(object.epistemicState))
+    .map((object) => object.objectType));
+  const projectHasBiostatisticsBasis = (["OBJECTIVE", "ENDPOINT", "CANONICAL_VARIABLE", "POPULATION"] as const)
+    .every((objectType) => currentGovernedObjectTypes.has(objectType));
   const grouped = SECTION_DEPENDENCY_ORDER.flatMap((sectionId): NextActionCandidate[] => {
     const members = candidates.filter((candidate) =>
       candidate.affectedDecisionRefs.includes(`project-section:${sectionId}`));
@@ -270,6 +275,9 @@ const groupCandidatesByScientificDimension = (
     const imagingSpecializationSelected = sectionId === "IMAGING"
       && resolvedSectionElements(project, "IMAGING").some((element) => hasEvidence([element], /modality|modalite|imaging method|irm|mri|ct|scanner|echograph|pet|spect/))
       && members.some((candidate) => candidate.affectedBranchRefs.includes("project-facet:IMAGING:IMAGING_ROLE"));
+    const biostatisticsPlanningSelected = sectionId === "ANALYSIS"
+      && projectHasBiostatisticsBasis
+      && members.some((candidate) => candidate.affectedBranchRefs.includes("project-facet:ANALYSIS:ANALYSIS_OBJECTIVE"));
     const hasNoConfirmedInformation = sectionId === "QUESTION"
       ? !projectHasScientificQuestion
       : resolvedSectionElements(project, sectionId).length === 0;
@@ -297,6 +305,9 @@ const groupCandidatesByScientificDimension = (
       } : imagingSpecializationSelected ? {
         owner: "IMAGING",
         capabilityRef: "IMAGING_STUDY_DESIGN",
+      } : biostatisticsPlanningSelected ? {
+        owner: "BIOSTATISTICS",
+        capabilityRef: "BIOSTATISTICS_PLANNING",
       } : {}),
       targetRef: `${project.projectId}:standard-progression-dimension:${sectionId}`,
       sourceRefs: members.flatMap((candidate) => candidate.sourceRefs).sort(),
@@ -322,6 +333,7 @@ const groupCandidatesByScientificDimension = (
           ...(sectionId === "QUESTION" ? ["QRY_SELECTS_SCOPE_SCIENTIFIC_THINKING_OWNS_PROPOSAL"] : []),
           ...(observabilityQualificationSelected ? ["QRY_SELECTS_MEASUREMENT_SET_SCOPE_OBSERVABILITY_OWNS_QUALIFICATION"] : []),
           ...(imagingSpecializationSelected ? ["QRY_SELECTS_IMAGING_SPECIALIZATION_SCOPE_IMAGING_OWNS_REALIZATION"] : []),
+          ...(biostatisticsPlanningSelected ? ["QRY_SELECTS_ANALYTICAL_SCOPE_BIOSTATISTICS_OWNS_REASONING"] : []),
         ],
       },
     }];

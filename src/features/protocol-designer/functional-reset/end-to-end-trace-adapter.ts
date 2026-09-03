@@ -192,7 +192,7 @@ export const recordStudyDesignOptionReviewTrace = (input: {
   proposalRef: string;
   proposalDigest: string;
   optionRef: string;
-  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING" | "OBSERVABILITY_MEASUREMENT" | "IMAGING";
+  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "BIOSTATISTICS";
 }): Readonly<ScientificExecutionTraceLedger> => {
   if (!hasRun(input.ledger, input.traceRunId)) return input.ledger;
   const traceRunId = input.traceRunId!;
@@ -202,8 +202,10 @@ export const recordStudyDesignOptionReviewTrace = (input: {
     ? "STANDARD_SCIENTIFIC_THINKING"
     : responsibilityOwner === "OBSERVABILITY_MEASUREMENT"
       ? "STANDARD_OBSERVABILITY"
-      : responsibilityOwner === "IMAGING"
-        ? "STANDARD_IMAGING"
+    : responsibilityOwner === "IMAGING"
+      ? "STANDARD_IMAGING"
+      : responsibilityOwner === "BIOSTATISTICS"
+        ? "STANDARD_BIOSTATISTICS"
       : "STANDARD_STUDY_DESIGN";
   let ledger = appendProductTraceStage({
     ledger: input.ledger,
@@ -332,7 +334,7 @@ export const recordStudyDesignConversationTrace = (input: {
   proposalDigest: string;
   turnRef: string;
   status: "DISCUSSION" | "DEFERRED" | "OPTIONS_REJECTED";
-  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING" | "OBSERVABILITY_MEASUREMENT" | "IMAGING";
+  responsibilityOwner?: "STUDY_DESIGN" | "SCIENTIFIC_THINKING" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "BIOSTATISTICS";
 }): Readonly<ScientificExecutionTraceLedger> => !hasRun(input.ledger, input.traceRunId)
   ? input.ledger
   : appendProductTraceStage({
@@ -352,6 +354,8 @@ export const recordStudyDesignConversationTrace = (input: {
           ? "STANDARD_OBSERVABILITY_CONVERSATION"
           : input.responsibilityOwner === "IMAGING"
             ? "STANDARD_IMAGING_CONVERSATION"
+          : input.responsibilityOwner === "BIOSTATISTICS"
+            ? "STANDARD_BIOSTATISTICS_CONVERSATION"
           : "STANDARD_STUDY_DESIGN_CONVERSATION",
       provider: "NONE",
       componentId: input.responsibilityOwner === "SCIENTIFIC_THINKING"
@@ -360,6 +364,8 @@ export const recordStudyDesignConversationTrace = (input: {
           ? "STANDARD_OBSERVABILITY_PRESENTATION"
           : input.responsibilityOwner === "IMAGING"
             ? "STANDARD_IMAGING_PRESENTATION"
+          : input.responsibilityOwner === "BIOSTATISTICS"
+            ? "STANDARD_BIOSTATISTICS_PRESENTATION"
           : "STANDARD_STUDY_DESIGN_PRESENTATION",
       componentVersion: "1.0.0",
       input: [{ ref: input.proposalRef, version: "1.0.0", digest: input.proposalDigest }],

@@ -72,8 +72,8 @@ export type ScientificReasoningOwnerObservation = {
   contractVersion: typeof SCIENTIFIC_REASONING_OWNER_CHAIN_VERSION;
   invocationId: string;
   handoffId: string;
-  owner: "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING";
-  capabilityId: "SCIENTIFIC_THINKING_PROPOSAL" | "STUDY_DESIGN_COHERENCE" | "OBSERVABILITY_QUALIFICATION" | "IMAGING_STUDY_DESIGN";
+  owner: "SCIENTIFIC_THINKING" | "STUDY_DESIGN" | "OBSERVABILITY_MEASUREMENT" | "IMAGING" | "BIOSTATISTICS";
+  capabilityId: "SCIENTIFIC_THINKING_PROPOSAL" | "STUDY_DESIGN_COHERENCE" | "OBSERVABILITY_QUALIFICATION" | "IMAGING_STUDY_DESIGN" | "BIOSTATISTICS_PLANNING";
   ownerRuntimeVersion: string | null;
   sourceProjectRef: string;
   sourceProjectVersion: string;

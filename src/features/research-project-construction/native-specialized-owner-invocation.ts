@@ -21,7 +21,12 @@ import {
 } from "@/features/regulatory-resolution";
 import type { ResearchProjectOwnerProjection } from "./contribution-owner-boundary";
 import {
-  createSpecializedOwnerGapResult,
+  TWO_GROUP_CONTINUOUS_DIMENSIONING_VERSION,
+  calculateTwoGroupContinuousSampleSize,
+  type DimensioningCalculationCandidate,
+  type TwoGroupContinuousDimensioningInput,
+} from "@/features/data-analysis-planning/dimensioning-calculator";
+import {
   createSpecializedOwnerHandoffRequest,
   createSpecializedOwnerHandoffRequestFromSnapshot,
   recordSpecializedOwnerResult,
@@ -518,15 +523,18 @@ export const invokeRegulatoryOwnerFromSnapshot = (input: InvocationTiming & {
 export type BiostatisticsCalculationRequest = {
   question: string;
   requestedOperation: "CALCULATE_SAMPLE_SIZE";
+  parameters: TwoGroupContinuousDimensioningInput;
 };
 
-export const invokeUnavailableBiostatisticsCalculation = (input: InvocationTiming & {
+export const invokeBiostatisticsCalculation = (input: InvocationTiming & {
   project: ResearchProjectOwnerProjection;
+  parameters: TwoGroupContinuousDimensioningInput;
   question?: string;
-}): NativeOwnerInvocation<BiostatisticsCalculationRequest, null> => {
+}): NativeOwnerInvocation<BiostatisticsCalculationRequest, DimensioningCalculationCandidate> => {
   const nativeInput: BiostatisticsCalculationRequest = {
     question: input.question ?? "Calcule l'effectif nécessaire.",
     requestedOperation: "CALCULATE_SAMPLE_SIZE",
+    parameters: structuredClone(input.parameters),
   };
   const handoffId = `biostatistics-calculation-handoff:${logicalDigest({ project: input.project.projectDigest, nativeInput })}`;
   const request = createSpecializedOwnerHandoffRequest({
@@ -535,37 +543,66 @@ export const invokeUnavailableBiostatisticsCalculation = (input: InvocationTimin
     capabilityId: "BIOSTATISTICS_CALCULATION",
     purpose: nativeInput.question,
     project: input.project,
-    nativeInputType: "BIOSTATISTICS-001 architecture only",
-    nativeInputVersion: "NOT_IMPLEMENTED",
+    nativeInputType: "TwoGroupContinuousDimensioningInput",
+    nativeInputVersion: TWO_GROUP_CONTINUOUS_DIMENSIONING_VERSION,
     nativeInput,
   });
-  const result = createSpecializedOwnerGapResult({
-    request,
-    resultId: `owner-gap:${logicalDigest({ handoffId, code: "CALL_NONEXISTENT_ENGINE" })}`,
-    resultVersion: "NOT_IMPLEMENTED",
-    completedAt: input.completedAt,
-    limitations: ["No sample-size calculation runtime exists; no numerical result was produced."],
-  });
   const invocationId = `native-owner-invocation:${logicalDigest({ handoffId, startedAt: input.startedAt })}`;
-  return {
-    request,
-    result,
-    observation: observation({
+  const started = measure(input.monotonicNow);
+  try {
+    const calculation = calculateTwoGroupContinuousSampleSize(nativeInput.parameters);
+    const latencyMs = elapsed(started, measure(input.monotonicNow));
+    const result = recordSpecializedOwnerResult({
       request,
-      invocationId,
-      ownerRuntimeVersion: null,
-      requestRef: handoffId,
-      resultRef: `${result.resultId}@${result.resultVersion}`,
-      status: "OWNER_UNAVAILABLE",
-      failureCode: "CALL_NONEXISTENT_ENGINE",
-      provenance: [...result.provenance],
-      unknowns: [...result.unknowns],
-      gaps: [...result.gaps],
-      limitations: [...result.limitations],
-      startedAt: input.startedAt,
+      resultId: calculation.calculationId,
+      resultVersion: calculation.methodVersion,
       completedAt: input.completedAt,
-      latencyMs: 0,
-      runtimeStarts: 0,
-    }),
-  };
+      status: "COMPLETED_WITH_LIMITATIONS",
+      resultKind: "INFORMATIONAL_ONLY",
+      nativePayloadType: "DimensioningCalculationCandidate",
+      nativePayloadVersion: calculation.methodVersion,
+      nativePayload: calculation,
+      evidenceRefs: Object.values(calculation.inputs.sourceRefs),
+      limitations: [...calculation.limitations],
+      provenance: [calculation.calculationId, calculation.methodIdentity],
+      humanDecisionRequired: true,
+    });
+    return {
+      request,
+      result,
+      observation: observation({
+        request,
+        invocationId,
+        ownerRuntimeVersion: calculation.methodVersion,
+        requestRef: handoffId,
+        resultRef: `${result.resultId}@${result.resultVersion}`,
+        status: "COMPLETED",
+        provenance: [...result.provenance],
+        evidenceRefs: [...result.evidenceRefs],
+        limitations: [...result.limitations],
+        startedAt: input.startedAt,
+        completedAt: input.completedAt,
+        latencyMs,
+        runtimeStarts: 1,
+      }),
+    };
+  } catch (error) {
+    const latencyMs = elapsed(started, measure(input.monotonicNow));
+    return {
+      request,
+      result: null,
+      observation: observation({
+        request,
+        invocationId,
+        ownerRuntimeVersion: TWO_GROUP_CONTINUOUS_DIMENSIONING_VERSION,
+        requestRef: handoffId,
+        status: "OWNER_RUNTIME_FAILURE",
+        failureCode: error instanceof Error ? error.message : "BIOSTATISTICS_CALCULATION_FAILURE",
+        startedAt: input.startedAt,
+        completedAt: input.completedAt,
+        latencyMs,
+        runtimeStarts: 1,
+      }),
+    };
+  }
 };

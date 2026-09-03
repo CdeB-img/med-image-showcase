@@ -5,3 +5,5 @@ export * from "./data-management";
 export * from "./biostatistics";
 export * from "./project-integration";
 export * from "./projections";
+export * from "./dimensioning-calculator";
+export * from "./runtime";

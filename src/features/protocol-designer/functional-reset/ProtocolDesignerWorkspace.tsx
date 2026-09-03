@@ -55,6 +55,7 @@ import ResearchProjectPanel from "./ResearchProjectPanel";
 import StudyDesignStandardCard from "./StudyDesignStandardCard";
 import ObservabilityStandardCard from "./ObservabilityStandardCard";
 import ImagingStandardCard from "./ImagingStandardCard";
+import BiostatisticsStandardCard from "./BiostatisticsStandardCard";
 import {
   executeProductUnderstandInteraction,
   recognizeProductDocumentAction,
@@ -110,6 +111,15 @@ import {
   readImagingResultFromLedger,
   resolveImagingConversation,
 } from "./imaging-standard";
+import {
+  biostatisticsInteractionMatchesCurrentProject,
+  buildBiostatisticsStrategyContribution,
+  buildStandardBiostatisticsPresentation,
+  dispatchBiostatisticsFromQuery,
+  isBiostatisticsQueryDispatch,
+  readBiostatisticsResultFromLedger,
+  resolveBiostatisticsConversation,
+} from "./biostatistics-standard";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -281,6 +291,34 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
       ...dispatched,
     };
   }
+  if (isBiostatisticsQueryDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchBiostatisticsFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      presentationTurnRef: turnId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    const turn = { turnId, role: "NOXIA" as const, content: dispatched.presentation.plainText, createdAt: completedAt };
+    return {
+      kind: "BIOSTATISTICS" as const,
+      turn,
+      content: turn.content,
+      presentationSource: "BIOSTATISTICS_STANDARD_PROJECTION" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "BIOSTATISTICS_REASONING_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
   if (isStudyDesignQueryDispatch(job.queryNavigation)) {
     const completedAt = new Date().toISOString();
     const turnId = createTurnId();
@@ -400,7 +438,7 @@ export default function ProtocolDesignerWorkspace() {
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
       setSession((current) => {
-        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING"
+        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS"
           ? continuation.traceLedger
           : recordPostAdoptionQuestionTrace({
           ledger: current.scientificExecutionTraceLedger,
@@ -441,6 +479,14 @@ export default function ProtocolDesignerWorkspace() {
               presentation: continuation.presentation,
               createdAt: continuedAt,
             }
+          : continuation.kind === "BIOSTATISTICS"
+            ? {
+              entryId: createConversationEntryId(),
+              kind: "BIOSTATISTICS_PROPOSAL",
+              role: "NOXIA",
+              presentation: continuation.presentation,
+              createdAt: continuedAt,
+            }
           : {
             entryId: createConversationEntryId(),
             kind: "TEXT",
@@ -455,12 +501,13 @@ export default function ProtocolDesignerWorkspace() {
         scientificThinkingInteraction: continuation.kind === "SCIENTIFIC_THINKING" ? continuation.interaction : current.scientificThinkingInteraction,
         observabilityInteraction: continuation.kind === "OBSERVABILITY" ? continuation.interaction : current.observabilityInteraction,
         imagingInteraction: continuation.kind === "IMAGING" ? continuation.interaction : current.imagingInteraction,
-        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
+        biostatisticsInteraction: continuation.kind === "BIOSTATISTICS" ? continuation.interaction : current.biostatisticsInteraction,
+        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
         entries: [...current.entries, conversationEntry],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: continuation.turn.turnId,
-          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING"
+          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS"
             ? continuation.interaction.traceRunId ?? undefined
             : job.traceRunId ?? undefined,
           requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
@@ -507,6 +554,8 @@ export default function ProtocolDesignerWorkspace() {
               ? "NOXIA n’a pas pu qualifier les besoins d’observation et de mesure à partir de cette version du Research Project. Le Project reste inchangé."
             : isImagingQueryDispatch(job.queryNavigation)
               ? "NOXIA n’a pas pu préparer la stratégie d’imagerie à partir de cette version du Research Project. Le Project reste inchangé."
+            : isBiostatisticsQueryDispatch(job.queryNavigation)
+              ? "NOXIA n’a pas pu préparer les stratégies analytiques à partir de cette version du Research Project. Le Project reste inchangé."
             : isStudyDesignQueryDispatch(job.queryNavigation)
               ? "NOXIA n’a pas pu préparer les stratégies d’étude à partir de cette version du Research Project. Le Project reste inchangé."
               : "NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.",
@@ -1007,6 +1056,105 @@ export default function ProtocolDesignerWorkspace() {
     return true;
   };
 
+  const applyBiostatisticsInput = (content: string, explicitStrategyRef?: string) => {
+    const interaction = session.biostatisticsInteraction;
+    const project = session.project;
+    if (!interaction || interaction.status !== "ACTIVE" || !project) return false;
+    if (!biostatisticsInteractionMatchesCurrentProject(interaction, project)) {
+      setSession((current) => ({
+        ...current,
+        biostatisticsInteraction: current.biostatisticsInteraction
+          ? { ...current.biostatisticsInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+          : null,
+      }));
+      return false;
+    }
+    const result = readBiostatisticsResultFromLedger({ ledger: session.knowledgeOwnerLedger, resultRef: interaction.ownerResultRef });
+    if (!result) return false;
+    const resolution = explicitStrategyRef
+      ? { kind: "SELECT_STRATEGY" as const, strategyRef: explicitStrategyRef }
+      : resolveBiostatisticsConversation({ raw: content, result });
+    if (resolution.kind === "FALLTHROUGH") return false;
+    const recordedAt = new Date().toISOString();
+    const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content, createdAt: recordedAt };
+    const proposalEntry = session.entries.find((entry) => entry.kind === "BIOSTATISTICS_PROPOSAL"
+      && entry.presentation.resultRef === result.resultId);
+    const proposalTurn: ScientificInterpretationTurn = {
+      turnId: interaction.presentationTurnRef,
+      role: "NOXIA",
+      content: proposalEntry?.kind === "BIOSTATISTICS_PROPOSAL"
+        ? proposalEntry.presentation.plainText
+        : buildStandardBiostatisticsPresentation(result).plainText,
+      createdAt: proposalEntry?.createdAt ?? recordedAt,
+    };
+    if (resolution.kind === "SELECT_STRATEGY") {
+      const contribution = buildBiostatisticsStrategyContribution({
+        conversationId: session.conversationId,
+        project,
+        result,
+        strategyRef: resolution.strategyRef,
+        proposalTurn,
+        selectionTurn: userTurn,
+        createdAt: recordedAt,
+      });
+      const candidate = prepareResearchProjectContributionCandidate(contribution, project);
+      if (candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION") throw new Error(`BIOSTATISTICS_REVIEW_CANDIDATE_${candidate.status}`);
+      const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
+        ledger: session.scientificExecutionTraceLedger,
+        traceRunId: interaction.traceRunId,
+        conversationId: session.conversationId,
+        recordedAt,
+        contribution,
+        candidate,
+        project,
+        proposalRef: result.resultId,
+        proposalDigest: result.resultDigest,
+        optionRef: resolution.strategyRef,
+        responsibilityOwner: "BIOSTATISTICS",
+      });
+      setSession((current) => ({
+        ...current,
+        runtimeTurns: [...current.runtimeTurns, userTurn],
+        pendingContribution: contribution,
+        biostatisticsInteraction: current.biostatisticsInteraction ? {
+          ...current.biostatisticsInteraction,
+          status: "PENDING_HUMAN_REVIEW",
+          selectedStrategyRef: resolution.strategyRef,
+          pendingContributionRef: contribution.identity.contributionId,
+        } : null,
+        entries: [...current.entries,
+          { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: recordedAt },
+          { entryId: createConversationEntryId(), kind: "REVIEW", role: "NOXIA", contribution, candidate, traceRunId: interaction.traceRunId, status: "PENDING", decision: null, createdAt: recordedAt }],
+        scientificExecutionTraceLedger,
+        updatedAt: recordedAt,
+      }));
+      return true;
+    }
+    const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: resolution.response, createdAt: recordedAt };
+    const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
+      ledger: session.scientificExecutionTraceLedger,
+      traceRunId: interaction.traceRunId,
+      conversationId: session.conversationId,
+      recordedAt,
+      project,
+      proposalRef: result.resultId,
+      proposalDigest: result.resultDigest,
+      turnRef: userTurn.turnId,
+      status: resolution.kind === "DISCUSS" ? "DISCUSSION" : "DEFERRED",
+      responsibilityOwner: "BIOSTATISTICS",
+    });
+    setSession((current) => ({
+      ...current,
+      runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
+      entries: [...current.entries,
+        { entryId: createConversationEntryId(), kind: "TEXT", role: "USER", content, createdAt: recordedAt },
+        { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: resolution.response, createdAt: recordedAt }],
+      scientificExecutionTraceLedger,
+      updatedAt: recordedAt,
+    }));
+    return true;
+  };
+
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     const content = draft.trim();
@@ -1028,6 +1176,11 @@ export default function ProtocolDesignerWorkspace() {
       return;
     }
     if (applyImagingInput(content)) {
+      setDraft("");
+      setCorrectionMode(false);
+      return;
+    }
+    if (applyBiostatisticsInput(content)) {
       setDraft("");
       setCorrectionMode(false);
       return;
@@ -1485,6 +1638,16 @@ export default function ProtocolDesignerWorkspace() {
           : current.imagingInteraction && !imagingInteractionMatchesCurrentProject(current.imagingInteraction, project)
             ? { ...current.imagingInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
             : current.imagingInteraction,
+        biostatisticsInteraction: current.biostatisticsInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.biostatisticsInteraction,
+            status: "ADOPTED",
+            adoptedProjectVersion: project.versionId,
+            staleReason: null,
+          }
+          : current.biostatisticsInteraction && !biostatisticsInteractionMatchesCurrentProject(current.biostatisticsInteraction, project)
+            ? { ...current.biostatisticsInteraction, status: "STALE", staleReason: "SOURCE_PROJECT_VERSION_CHANGED" }
+            : current.biostatisticsInteraction,
         documents,
         currentContribution: contribution,
         pendingContribution: null,
@@ -1622,6 +1785,14 @@ export default function ProtocolDesignerWorkspace() {
             pendingContributionRef: null,
           }
           : current.imagingInteraction,
+        biostatisticsInteraction: current.biostatisticsInteraction?.pendingContributionRef === contributionId
+          ? {
+            ...current.biostatisticsInteraction,
+            status: "ACTIVE",
+            selectedStrategyRef: null,
+            pendingContributionRef: null,
+          }
+          : current.biostatisticsInteraction,
         entries: current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
           ? { ...entry, status: "REJECTED" as const, decision }
           : entry),
@@ -2022,6 +2193,23 @@ export default function ProtocolDesignerWorkspace() {
                   onSelect={(optionRef) => {
                     const option = entry.presentation.options.find((candidate) => candidate.optionRef === optionRef);
                     if (option) applyImagingInput(`Je retiens la stratégie ${option.acquisitionLabel ?? option.modalityLabel} pour revue.`, optionRef);
+                  }}
+                  onDiscuss={() => {
+                    setDraft("");
+                    composerRef.current?.focus();
+                  }}
+                />
+              : entry.kind === "BIOSTATISTICS_PROPOSAL"
+                ? <BiostatisticsStandardCard
+                  key={entry.entryId}
+                  presentation={entry.presentation}
+                  interaction={readBiostatisticsResultFromLedger({
+                    ledger: session.knowledgeOwnerLedger,
+                    resultRef: session.biostatisticsInteraction?.ownerResultRef ?? "",
+                  })?.resultId === entry.presentation.resultRef ? session.biostatisticsInteraction : null}
+                  onSelect={(strategyRef) => {
+                    const option = entry.presentation.options.find((candidate) => candidate.optionRef === strategyRef);
+                    if (option) applyBiostatisticsInput(`Je retiens la stratégie « ${option.label} » pour revue.`, strategyRef);
                   }}
                   onDiscuss={() => {
                     setDraft("");
