@@ -1,0 +1,71 @@
+{
+  "MISSION_ID": "OWNER-KNOWLEDGE-COVERAGE-01",
+  "OBSERVATION_BASELINE_SHA": "76a5d91969d77eabeb9e1022cb5096a6cd5ba8f5",
+  "IMPLEMENTATION_OBSERVATION_NOT_AUTHORITY": true,
+  "KNOWLEDGE_RUNTIME_CURRENT_STATE": "NATIVE_DETERMINISTIC_KNOWLEDGE_ENGINE_1_2_1_WITH_INTERNAL_PROVIDER_REGISTRY_1_1_0_AND_SEPARATE_PUBMED_CANDIDATE_DISCOVERY",
+  "CURRENT_INTERNAL_PROVIDERS": [
+    {"PROVIDER_ID":"assertion-layer","STATUS":"CURRENT_EMPTY","RUNTIME_USE":"AVAILABLE_EMPTY"},
+    {"PROVIDER_ID":"knowledge-graph","STATUS":"CURRENT_EFFECTIVE","RUNTIME_USE":"ENTITY_RELATION_ONLY"},
+    {"PROVIDER_ID":"p4-historical","STATUS":"HISTORICAL_SUPERSEDED","RUNTIME_USE":"REPLAY_ONLY"},
+    {"PROVIDER_ID":"p4r-ecv-t1","STATUS":"CURRENT_EFFECTIVE","RUNTIME_USE":"ATOMIC_ASSERTIONS_ECV_T1"},
+    {"PROVIDER_ID":"p5-multidomain","STATUS":"CURRENT_EFFECTIVE","RUNTIME_USE":"ATOMIC_ASSERTIONS_FOUR_DECLARED_DOMAINS"},
+    {"PROVIDER_ID":"rb-003","STATUS":"CURRENT_DOCUMENTARY","RUNTIME_USE":"CONTROLLED_DOCUMENTARY_BLOCKS"},
+    {"PROVIDER_ID":"rb-004","STATUS":"CURRENT_DOCUMENTARY","RUNTIME_USE":"CONTROLLED_DOCUMENTARY_BLOCKS"},
+    {"PROVIDER_ID":"rb-005","STATUS":"CURRENT_DOCUMENTARY","RUNTIME_USE":"CONTROLLED_DOCUMENTARY_BLOCKS"}
+  ],
+  "REFERENCE_CORPUS_RUNTIME_REACHABLE": "NO",
+  "REFERENCE_CORPUS_REACHABILITY_EVIDENCE": [
+    "No RC01/REFERENCE-CORPUS-01 import or identifier exists below src/.",
+    "src/features/knowledge-engine/provider-registry.ts declares no reference-corpus provider.",
+    "src/features/knowledge-engine/adapters/index.ts registers no reference-corpus adapter."
+  ],
+  "EXISTING_EXTERNAL_EVIDENCE_PATH": {
+    "STATE": "PRESENT_BUT_NOT_A_REFERENCE_CORPUS_PATH",
+    "PROVIDER": "pubmed-ncbi",
+    "CAPABILITIES": ["DISCOVERY","METADATA","ABSTRACT_RETRIEVAL","IDENTITY_RESOLUTION"],
+    "OUTPUT_STATUS": ["SOURCE_CANDIDATE","ASSERTION_CANDIDATE","CANDIDATE_EVIDENCE"],
+    "LIMITS": ["Governed concept query dictionary is bounded.","Original Project/user free text is not transmitted.","Abstract conclusions only; PMC is linked but full text is not extracted.","Candidates are not merged into internal effective conclusions.","This path cannot address standards, laws, templates or real-study documents in RC01."]
+  },
+  "SOURCE_ANCHOR_SUPPORT": {
+    "STATUS": "PARTIAL",
+    "INTERNAL_STRUCTURED_CORPORA": "EvidenceLink locator/section supported.",
+    "REASONING_BOOKS": "Controlled documentary localizers supported; unstructured sections are not converted.",
+    "PUBMED": "PubMed record and abstract-section locator supported for candidates.",
+    "REFERENCE_CORPUS_01": "NONE_AT_RUNTIME",
+    "GAP": "No deterministic page/section/claim anchor mapping for RC01 document representations."
+  },
+  "DOCUMENT_LEVEL_RETRIEVAL_SUPPORT": {
+    "STATUS": "PARTIAL_INTERNAL_ONLY",
+    "SUPPORTED": ["Controlled RB documentary blocks through the Reasoning Book adapter."],
+    "NOT_SUPPORTED": ["Arbitrary internal or external PDF retrieval.","RC01 local FDA PDF content retrieval.","RC01 remote document retrieval.","Full-text PubMed/PMC extraction."]
+  },
+  "SECTION_OR_CLAIM_LEVEL_RETRIEVAL_SUPPORT": {
+    "STATUS": "PARTIAL_INTERNAL_AND_ABSTRACT_CANDIDATE_ONLY",
+    "SUPPORTED": ["P4R/P5 atomic assertions plus EvidenceLinks.","RB controlled documentary statements.","Deterministic PubMed abstract conclusion excerpts as candidates."],
+    "NOT_SUPPORTED": ["RC01 section units.","RC01 claim candidates.","Source-class-aware practice patterns.","Regulatory provisions with jurisdiction/effective-period predicates."]
+  },
+  "CURRENT_SOURCE_METADATA_FIELDS": ["sourceId","revision","title","status","locator","doi","pmid","pmcid"],
+  "MISSING_FOR_REFERENCE_BRIDGE": ["organization","documentType","sourceClass","jurisdiction","publicationDate","effectiveDate","supersedes","supersededBy","regulatoryApplicability","licence/copyright","retrievalDate","local-copy digest","owner relevance"],
+  "CURRENT_CONTEXT_DIMENSIONS": ["domain","pathology","population","phenomenon","biomarker","modality","technique","equipment","timing","objective","criterion","intervention","usage"],
+  "MISSING_CONTEXT_DIMENSIONS_FOR_REFERENCE_BRIDGE": ["jurisdiction","regulatory/study classification","source temporal applicability"],
+  "CURRENT_APPLICABILITY_FILTER": {
+    "ASSERTIONS": "Checks contradictory context, modality compatibility, intervention coverage and pathology coverage; other dimensions may remain limitations.",
+    "DOCUMENTARY_STATEMENTS": "Only contradictory-context override; otherwise trusts provider-supplied applicability.",
+    "CONCLUSION": "INSUFFICIENT_FOR_REGULATORY_OR_VERSIONED_REFERENCE_APPLICABILITY_WITHOUT_ADDITIVE_CONTRACT_WORK"
+  },
+  "OWNER_CONSUMPTION": {
+    "SCIENTIFIC_THINKING":"DIRECT_KNOWLEDGE_RESULT_PROJECTION_PRESENT",
+    "IMAGING":"DIRECT_KNOWLEDGE_RESULT_PROJECTION_PRESENT",
+    "STUDY_DESIGN":"NO_KNOWLEDGE_RESULT_IN_NATIVE_INPUT",
+    "OBSERVABILITY_MEASUREMENT":"NO_KNOWLEDGE_RESULT_IN_NATIVE_INPUT",
+    "BIOSTATISTICS":"NO_KNOWLEDGE_RESULT_IN_NATIVE_INPUT",
+    "CDM":"NO_KNOWLEDGE_RESULT_IN_NATIVE_INPUT",
+    "DATA_MANAGEMENT":"NO_KNOWLEDGE_RESULT_IN_NATIVE_INPUT",
+    "REG":"INDEPENDENT_REG000_CORPUS_RESOLVER_NOT_A_KNOWLEDGE_RESULT_CONSUMER",
+    "RESEARCH_PROJECT":"CONSUMES_GOVERNED_OWNER_CONTRIBUTIONS_NOT_RAW_SOURCES",
+    "QRY":"CAN_SELECT_KNOWLEDGE_ACTIONS_AND_INFORMATION_NEEDS_BUT_NOT_MISSING_PROVIDER_CAPABILITIES"
+  },
+  "FIRST_RUNTIME_GAP": "REGISTRY_NOT_RUNTIME_VISIBLE",
+  "NEXT_BOUNDARIES_AFTER_FIRST_GAP": ["DOCUMENT_NOT_INGESTED","NO_RETRIEVAL_INDEX","NO_SOURCE_ANCHOR_MAPPING","NO_OWNER_QUERY_CONTRACT_FOR_SEVERAL_OWNERS","NO_JURISDICTION_OR_EFFECTIVE_PERIOD_FILTER"],
+  "PROVIDER_CALLS": 0
+}

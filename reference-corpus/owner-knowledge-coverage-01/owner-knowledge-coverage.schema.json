@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "noxia://reference-corpus/owner-knowledge-coverage-01/schema",
+  "title": "NOXIA owner knowledge coverage audit",
+  "type": "object",
+  "$defs": {
+    "owner": {"enum": ["KNOWLEDGE", "SCIENTIFIC_THINKING", "STUDY_DESIGN", "OBSERVABILITY_MEASUREMENT", "IMAGING", "BIOSTATISTICS", "CDM", "DATA_MANAGEMENT", "REG", "RESEARCH_PROJECT", "QRY"]},
+    "needId": {"type": "string", "pattern": "^OKC01-N-[0-9]{3}$"},
+    "sourceId": {"type": "string", "pattern": "^RC01-[A-E]-[0-9]{3}$"},
+    "assetId": {"type": "string", "pattern": "^NOXIA-[A-Z0-9-]+$"},
+    "coverageStatus": {"enum": ["COVERED_STRONG", "COVERED_PARTIAL", "COVERED_CONTEXT_LIMITED", "COVERED_BY_EXISTING_NOXIA_ASSET", "REFERENCE_EXISTS_BUT_NOT_RUNTIME_REACHABLE", "GAP_DOCUMENTARY", "GAP_RUNTIME_ACCESS", "GAP_OWNER_MECHANIC", "HUMAN_ONLY", "NOT_APPLICABLE", "UNKNOWN"]},
+    "gapClass": {"enum": ["ENGINE_MECHANIC_GAP", "KNOWLEDGE_GAP", "PROJECT_CONTEXT_GAP", "RUNTIME_ACCESS_GAP", "HUMAN_JUDGMENT_REQUIRED"]},
+    "priority": {"enum": ["P0_BLOCKS_FIRST_INTEGRATED_TEST", "P1_HIGH_VALUE_BEFORE_HUMAN_TEST", "P2_CAN_FOLLOW_INITIAL_TEST", "P3_LONG_TERM"]},
+    "readiness": {"enum": ["READY", "READY_WITH_LIMITATIONS", "NOT_READY", "UNKNOWN"]}
+  }
+}
