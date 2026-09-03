@@ -21,6 +21,9 @@ export const createKnowledgeResult = (input: {
   trace: KnowledgeTrace;
 }): KnowledgeResult => {
   const statements = dedupeBy(input.documentaryStatements, (item) => item.statementId);
+  const referenceSourceSnapshots = dedupeBy(input.adapterResults.flatMap((item) => item.referenceSourceSnapshots ?? []), (item) => item.snapshotId);
+  const referenceEvidenceCandidates = dedupeBy(input.adapterResults.flatMap((item) => item.referenceEvidenceCandidates ?? []), (item) => item.candidateId);
+  const referenceDocumentRelationships = dedupeBy(input.adapterResults.flatMap((item) => item.referenceDocumentRelationships ?? []), (item) => item.relationshipId);
   const applicableItemIds = new Set([
     ...input.applicableAssertions.map((item) => item.revision),
     ...statements.map((item) => item.statementId),
@@ -28,12 +31,15 @@ export const createKnowledgeResult = (input: {
   const contributingProviderIds = new Set([
     ...input.applicableAssertions.map((item) => item.providerId),
     ...statements.map((item) => item.providerId),
+    ...referenceEvidenceCandidates.map((item) => item.providerId),
+    ...(referenceSourceSnapshots.length || referenceDocumentRelationships.length ? ["reference-corpus-01"] : []),
   ]);
   const evidence = dedupeBy(input.adapterResults.flatMap((item) => item.evidenceLinks)
     .filter((item) => applicableItemIds.has(item.assertionId)), (item) => item.evidenceId);
   const sourceIds = new Set([
     ...evidence.map((item) => item.sourceId),
     ...statements.map((item) => item.sourceId),
+    ...referenceSourceSnapshots.map((item) => item.sourceId),
   ]);
   const sources = dedupeBy(input.adapterResults.flatMap((item) => item.sources)
     .filter((item) => sourceIds.has(item.sourceId)), (item) => item.sourceId);
@@ -57,6 +63,9 @@ export const createKnowledgeResult = (input: {
     excludedAssertionIds: input.excludedAssertions.map((item) => item.revision),
     candidateAssertionIds: input.candidateAssertions.map((item) => item.revision),
     documentaryStatementIds: statements.map((item) => item.statementId),
+    referenceSourceSnapshotIds: referenceSourceSnapshots.map((item) => item.snapshotId),
+    referenceEvidenceCandidateIds: referenceEvidenceCandidates.map((item) => item.candidateId),
+    referenceDocumentRelationshipIds: referenceDocumentRelationships.map((item) => item.relationshipId),
     sourceIds: sources.map((item) => item.sourceId),
     evidenceIds: evidence.map((item) => item.evidenceId),
     synthesisDigest: input.synthesis.digest,
@@ -67,7 +76,12 @@ export const createKnowledgeResult = (input: {
     traceDigest: input.trace.digest,
   };
   const resultDigest = logicalDigest(logicalMaterial);
-  const runtimeStatus = input.applicableAssertions.length || statements.length ? "RUNTIME_DERIVED" : "UNAVAILABLE_OR_UNKNOWN";
+  const corpusStateDate = referenceSourceSnapshots.map((snapshot) => snapshot.retrievalDate).sort().at(-1) ?? "2026-08-03";
+  const runtimeStatus = input.applicableAssertions.length || statements.length
+    ? "RUNTIME_DERIVED"
+    : referenceEvidenceCandidates.length
+      ? "ASSERTION_CANDIDATE"
+      : "UNAVAILABLE_OR_UNKNOWN";
   return {
     resultId: `knowledge-result:${resultDigest}`,
     resultRevision: 1,
@@ -89,6 +103,9 @@ export const createKnowledgeResult = (input: {
     documentaryStatements: statements,
     candidateAssertions: input.candidateAssertions,
     sources,
+    referenceSourceSnapshots,
+    referenceEvidenceCandidates,
+    referenceDocumentRelationships,
     evidence,
     applicability: Object.fromEntries([...input.applicableAssertions, ...input.excludedAssertions].map((item) => [item.revision, item.applicability])),
     synthesis: input.synthesis,
@@ -96,7 +113,7 @@ export const createKnowledgeResult = (input: {
     gaps: input.gaps,
     limitations,
     provenance,
-    freshness: { requirement: input.request.freshnessRequirement, corpusStateDate: "2026-08-03" },
+    freshness: { requirement: input.request.freshnessRequirement, corpusStateDate },
     consumerHints: uniqueSorted([
       ...(input.gaps.some((item) => item.code === "PRIVACY_BLOCKED") ? ["REFORMULATE_AS_GENERAL_METHODOLOGICAL_QUESTION"] : []),
       ...(input.gaps.some((item) => item.code === "MISSING_CRITICAL_CONTEXT") ? ["REQUEST_CONTEXT_CLARIFICATION"] : []),
@@ -105,6 +122,7 @@ export const createKnowledgeResult = (input: {
     ]),
     humanReviewRequirements: uniqueSorted([
       ...(input.candidateAssertions.length ? ["ASSERTION_CANDIDATE_REVIEW_REQUIRED"] : []),
+      ...(referenceEvidenceCandidates.length ? ["EXTERNAL_REFERENCE_CANDIDATE_REVIEW_REQUIRED"] : []),
       ...(input.conflicts.length ? ["CONFLICT_REVIEW_REQUIRED"] : []),
       ...(input.request.requestedClaimType === "BEST_OPTION" ? ["HUMAN_SELECTION_REQUIRED"] : []),
     ]),

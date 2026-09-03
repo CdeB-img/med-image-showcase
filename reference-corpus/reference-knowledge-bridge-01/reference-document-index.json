@@ -1,0 +1,1390 @@
+{
+  "EXTRACTION_ENGINE": "pypdf:6.10.0",
+  "MAX_SECTIONS_PER_NEED_SOURCE": 3,
+  "MAX_SECTION_CHARACTERS": 600,
+  "MISSION_ID": "REFERENCE-KNOWLEDGE-BRIDGE-01",
+  "NEED_SOURCE_SECTIONS": [
+    {
+      "NEED_ID": "OKC01-N-001",
+      "SECTION_IDS": [
+        "RC01-A-016:page-3",
+        "RC01-A-016:page-4",
+        "RC01-A-016:page-6"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-002",
+      "SECTION_IDS": [
+        "RC01-A-017:page-6",
+        "RC01-A-017:page-1",
+        "RC01-A-017:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-003",
+      "SECTION_IDS": [
+        "RC01-A-016:page-17",
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-16"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-003",
+      "SECTION_IDS": [
+        "RC01-A-017:page-1",
+        "RC01-A-017:page-2",
+        "RC01-A-017:page-4"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-003",
+      "SECTION_IDS": [
+        "RC01-A-018:page-13",
+        "RC01-A-018:page-7",
+        "RC01-A-018:page-11"
+      ],
+      "SOURCE_ID": "RC01-A-018"
+    },
+    {
+      "NEED_ID": "OKC01-N-003",
+      "SECTION_IDS": [
+        "RC01-A-019:page-5",
+        "RC01-A-019:page-25",
+        "RC01-A-019:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-003",
+      "SECTION_IDS": [
+        "RC01-A-020:page-6",
+        "RC01-A-020:page-53",
+        "RC01-A-020:page-4"
+      ],
+      "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-004",
+      "SECTION_IDS": [
+        "RC01-A-019:page-12",
+        "RC01-A-019:page-6",
+        "RC01-A-019:page-16"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-005",
+      "SECTION_IDS": [
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-17",
+        "RC01-A-016:page-55"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-005",
+      "SECTION_IDS": [
+        "RC01-A-017:page-11",
+        "RC01-A-017:page-1",
+        "RC01-A-017:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-009",
+      "SECTION_IDS": [
+        "RC01-A-017:page-6",
+        "RC01-A-017:page-5",
+        "RC01-A-017:page-10"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-010",
+      "SECTION_IDS": [
+        "RC01-A-019:page-13",
+        "RC01-A-019:page-23",
+        "RC01-A-019:page-10"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-011",
+      "SECTION_IDS": [
+        "RC01-A-017:page-11",
+        "RC01-A-017:page-5",
+        "RC01-A-017:page-6"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-012",
+      "SECTION_IDS": [
+        "RC01-A-018:page-7",
+        "RC01-A-018:page-8",
+        "RC01-A-018:page-11"
+      ],
+      "SOURCE_ID": "RC01-A-018"
+    },
+    {
+      "NEED_ID": "OKC01-N-015",
+      "SECTION_IDS": [
+        "RC01-A-019:page-16",
+        "RC01-A-019:page-19",
+        "RC01-A-019:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-015",
+      "SECTION_IDS": [
+        "RC01-A-020:page-26",
+        "RC01-A-020:page-55",
+        "RC01-A-020:page-10"
+      ],
+      "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-016",
+      "SECTION_IDS": [
+        "RC01-A-018:page-7",
+        "RC01-A-018:page-11",
+        "RC01-A-018:page-15"
+      ],
+      "SOURCE_ID": "RC01-A-018"
+    },
+    {
+      "NEED_ID": "OKC01-N-016",
+      "SECTION_IDS": [
+        "RC01-A-020:page-35",
+        "RC01-A-020:page-38",
+        "RC01-A-020:page-39"
+      ],
+      "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-017",
+      "SECTION_IDS": [
+        "RC01-A-017:page-7",
+        "RC01-A-017:page-6",
+        "RC01-A-017:page-18"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-019",
+      "SECTION_IDS": [
+        "RC01-A-017:page-6",
+        "RC01-A-017:page-7",
+        "RC01-A-017:page-23"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-020",
+      "SECTION_IDS": [
+        "RC01-A-017:page-1",
+        "RC01-A-017:page-2",
+        "RC01-A-017:page-4"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-021",
+      "SECTION_IDS": [
+        "RC01-A-017:page-6",
+        "RC01-A-017:page-18",
+        "RC01-A-017:page-4"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-022",
+      "SECTION_IDS": [
+        "RC01-A-017:page-27",
+        "RC01-A-017:page-9",
+        "RC01-A-017:page-1"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-023",
+      "SECTION_IDS": [
+        "RC01-A-017:page-29",
+        "RC01-A-017:page-1",
+        "RC01-A-017:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-023",
+      "SECTION_IDS": [
+        "RC01-A-019:page-5",
+        "RC01-A-019:page-2",
+        "RC01-A-019:page-1"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-024",
+      "SECTION_IDS": [
+        "RC01-A-017:page-7",
+        "RC01-A-017:page-1",
+        "RC01-A-017:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-025",
+      "SECTION_IDS": [
+        "RC01-A-017:page-9",
+        "RC01-A-017:page-23",
+        "RC01-A-017:page-4"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-026",
+      "SECTION_IDS": [
+        "RC01-A-017:page-5",
+        "RC01-A-017:page-1",
+        "RC01-A-017:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-027",
+      "SECTION_IDS": [
+        "RC01-A-017:page-5",
+        "RC01-A-017:page-23",
+        "RC01-A-017:page-27"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-028",
+      "SECTION_IDS": [
+        "RC01-A-017:page-10",
+        "RC01-A-017:page-4",
+        "RC01-A-017:page-15"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-029",
+      "SECTION_IDS": [
+        "RC01-A-017:page-18",
+        "RC01-A-017:page-20",
+        "RC01-A-017:page-23"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-030",
+      "SECTION_IDS": [
+        "RC01-A-017:page-4",
+        "RC01-A-017:page-10",
+        "RC01-A-017:page-11"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-031",
+      "SECTION_IDS": [
+        "RC01-A-017:page-27",
+        "RC01-A-017:page-17",
+        "RC01-A-017:page-23"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-032",
+      "SECTION_IDS": [
+        "RC01-A-017:page-4",
+        "RC01-A-017:page-10",
+        "RC01-A-017:page-11"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-033",
+      "SECTION_IDS": [
+        "RC01-A-017:page-18",
+        "RC01-A-017:page-20",
+        "RC01-A-017:page-28"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-034",
+      "SECTION_IDS": [
+        "RC01-A-017:page-28",
+        "RC01-A-017:page-15",
+        "RC01-A-017:page-5"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-035",
+      "SECTION_IDS": [
+        "RC01-A-017:page-4",
+        "RC01-A-017:page-10",
+        "RC01-A-017:page-11"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-035",
+      "SECTION_IDS": [
+        "RC01-A-019:page-11",
+        "RC01-A-019:page-5",
+        "RC01-A-019:page-17"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-038",
+      "SECTION_IDS": [
+        "RC01-A-018:page-7",
+        "RC01-A-018:page-18",
+        "RC01-A-018:page-29"
+      ],
+      "SOURCE_ID": "RC01-A-018"
+    },
+    {
+      "NEED_ID": "OKC01-N-038",
+      "SECTION_IDS": [
+        "RC01-A-019:page-5",
+        "RC01-A-019:page-13",
+        "RC01-A-019:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-038",
+      "SECTION_IDS": [
+        "RC01-A-020:page-16",
+        "RC01-A-020:page-43",
+        "RC01-A-020:page-47"
+      ],
+      "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-041",
+      "SECTION_IDS": [
+        "RC01-A-019:page-9",
+        "RC01-A-019:page-5",
+        "RC01-A-019:page-10"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-042",
+      "SECTION_IDS": [
+        "RC01-A-018:page-23",
+        "RC01-A-018:page-24",
+        "RC01-A-018:page-11"
+      ],
+      "SOURCE_ID": "RC01-A-018"
+    },
+    {
+      "NEED_ID": "OKC01-N-042",
+      "SECTION_IDS": [
+        "RC01-A-020:page-25",
+        "RC01-A-020:page-27",
+        "RC01-A-020:page-12"
+      ],
+      "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-043",
+      "SECTION_IDS": [
+        "RC01-A-018:page-15",
+        "RC01-A-018:page-14",
+        "RC01-A-018:page-16"
+      ],
+      "SOURCE_ID": "RC01-A-018"
+    },
+    {
+      "NEED_ID": "OKC01-N-043",
+      "SECTION_IDS": [
+        "RC01-A-020:page-27",
+        "RC01-A-020:page-31",
+        "RC01-A-020:page-33"
+      ],
+      "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-044",
+      "SECTION_IDS": [
+        "RC01-A-020:page-22",
+        "RC01-A-020:page-11",
+        "RC01-A-020:page-15"
+      ],
+      "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-045",
+      "SECTION_IDS": [
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-13",
+        "RC01-A-016:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-047",
+      "SECTION_IDS": [
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-13",
+        "RC01-A-016:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-049",
+      "SECTION_IDS": [
+        "RC01-A-016:page-11",
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-16"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-050",
+      "SECTION_IDS": [
+        "RC01-A-016:page-24",
+        "RC01-A-016:page-17",
+        "RC01-A-016:page-28"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-051",
+      "SECTION_IDS": [
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-11",
+        "RC01-A-016:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-053",
+      "SECTION_IDS": [
+        "RC01-A-016:page-11",
+        "RC01-A-016:page-95",
+        "RC01-A-016:page-5"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-054",
+      "SECTION_IDS": [
+        "RC01-A-016:page-24",
+        "RC01-A-016:page-95",
+        "RC01-A-016:page-109"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-057",
+      "SECTION_IDS": [
+        "RC01-A-016:page-24",
+        "RC01-A-016:page-105",
+        "RC01-A-016:page-10"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-058",
+      "SECTION_IDS": [
+        "RC01-A-016:page-24",
+        "RC01-A-016:page-105",
+        "RC01-A-016:page-54"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-059",
+      "SECTION_IDS": [
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-105",
+        "RC01-A-016:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-061",
+      "SECTION_IDS": [
+        "RC01-A-016:page-16",
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-17"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-067",
+      "SECTION_IDS": [
+        "RC01-A-016:page-1",
+        "RC01-A-016:page-17",
+        "RC01-A-016:page-65"
+      ],
+      "SOURCE_ID": "RC01-A-016"
+    },
+    {
+      "NEED_ID": "OKC01-N-067",
+      "SECTION_IDS": [
+        "RC01-A-017:page-6",
+        "RC01-A-017:page-27",
+        "RC01-A-017:page-4"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-067",
+      "SECTION_IDS": [
+        "RC01-A-018:page-7",
+        "RC01-A-018:page-8",
+        "RC01-A-018:page-11"
+      ],
+      "SOURCE_ID": "RC01-A-018"
+    },
+    {
+      "NEED_ID": "OKC01-N-067",
+      "SECTION_IDS": [
+        "RC01-A-019:page-5",
+        "RC01-A-019:page-22",
+        "RC01-A-019:page-2"
+      ],
+      "SOURCE_ID": "RC01-A-019"
+    },
+    {
+      "NEED_ID": "OKC01-N-067",
+      "SECTION_IDS": [
+        "RC01-A-020:page-6",
+        "RC01-A-020:page-53",
+        "RC01-A-020:page-4"
+      ],
+      "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-070",
+      "SECTION_IDS": [
+        "RC01-A-017:page-17",
+        "RC01-A-017:page-12",
+        "RC01-A-017:page-24"
+      ],
+      "SOURCE_ID": "RC01-A-017"
+    }
+  ],
+  "NORMALIZATION": "NUL_TO_SPACE_WHITESPACE_COLLAPSE_TRIM",
+  "SOURCES": [
+    {
+      "DOCUMENT_VERSION": "June 2026",
+      "INDEXED_SECTION_COUNT": 19,
+      "PAGE_COUNT": 110,
+      "SECTIONS": [
+        {
+          "EXACT_CONTENT_SHA256": "39f9f9930772cbf43060581818fca128c938824df232ff2af587d633c097b1df",
+          "EXACT_TEXT": "STUDY DATA TECHNICAL CONFORMANCE GUIDE Technical Specifications Document This Document is incorporated by reference into the following Guidance Document(s): Guidance for Industry Providing Regulatory Submissions in Electronic Format – Standardized Study Data For questions regarding this technical specifications document, contact CBER at cber-edata@fda.hhs.gov or CDER at cder-edata@fda.hhs.gov U.S. Department of Health and Human Services Food and Drug Administration Center for Biologics Evaluation and Research (CBER) Center for Drug Evaluation and Research (CDER) June 2026",
+          "HEADING": "STUDY DATA",
+          "NORMALIZED_TEXT_OFFSET_END": 578,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 1,
+          "SECTION_ID": "RC01-A-016:page-1"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "d7c52d255b341592d6c2cb4a96ec5abae0acff4ce3b054c19382439f33094ebc",
+          "EXACT_TEXT": "STUDY DATA TECHNICAL CONFORMANCE GUIDE June 2026",
+          "HEADING": "STUDY DATA",
+          "NORMALIZED_TEXT_OFFSET_END": 48,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 2,
+          "SECTION_ID": "RC01-A-016:page-2"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "8d5452bc782e22a357af0a5594b6ebf7126c96843975372d18152c125df02914",
+          "EXACT_TEXT": "i Revision History Date Version Summary of Revisions January 2014 1.0 Initial Version December 2014 2.0 Revisions based on the public comment period (February 2014 – May 2014); and CDER/CBER internal review May 2014 – December 2014 March 2015 2.1 Revisions based on comments received to version 2.0. Updates to Sections 2.2 Study Data Reviewer’s Guide (SDRG) SDRG, 2.3 Analysis Data Reviewer’s (ADRG), 3.3.1 SAS Transport Format, 3.3.2. Dataset Size and a revision of Section 4.1.4.5 Data Definition File June 2015 2.2 Revisions based on comments received to version 2.1. Updates on Table of Contents",
+          "HEADING": "Revision History",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 3,
+          "SECTION_ID": "RC01-A-016:page-3"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "6ecc80340b716ede3ac01a1dfff7ea3dfcf66cbf86d6bdab08d6f44e0d26694b",
+          "EXACT_TEXT": "ii Revision History Date Version Summary of Revisions October 2016 3.2 Section 2.2.1 (SDRG for Clinical Data) – Added naming convention Section 2.2.2 (SDRG for Nonclinical Data) -Added naming convention Section 2.3 (Analysis Data Reviewer’s Guide) – Provided additional information Section 3.3.3 (Dataset Column Length) – Expanded Information Section 4.1.1.2 (SDTM General Considerations) – Expanded Adjudication Data Section 4.1.2.10 ( Software Programs) – Added more detail related to software programs Section 4.1.3.2 (General Considerations) – Added VISITDY variable information Section 4.1.3.3 (",
+          "HEADING": "Revision History",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 4,
+          "SECTION_ID": "RC01-A-016:page-4"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "df1ea3a492d553707b826bdf68ab57986941f340d61a96095111595d74dc2a9a",
+          "EXACT_TEXT": "iii Revision History Date Version Summary of Revisions October 2017 4.0 Section 1.5 (Relationship to Other Documents) – Updated references Section 2.1 (Study Data Standardization Plan) – Clarification on SDSP and added footnotes Section 2.2 (Study Data Reviewer’s Guides) – Clarification on Reviewer Guides Section 4.1 (Clinical Data Interchange Standards Consortium) – Clarification on terms SDTM, ADaM, and SEND Section 4.1.1.2 (SDTM General Considerations) – Updated and clarified text Section 4.1.1.3 (SDTM Domain Specifications) – Added QS Domain (Questionnaires) Section 4.1.2.4 (Subject-Level ",
+          "HEADING": "iii",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 5,
+          "SECTION_ID": "RC01-A-016:page-5"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "ec1a1884ba324c24716cc59d0321a6c16db4978bd6bf408d8e664b42b3ab33da",
+          "EXACT_TEXT": "iv Revision History Date Version Summary of Revisions March 2019 4.3 Section 2.3 (Analysis Data Reviewer’s Guide) – Clarified text Section 4.1.1.3 (SDTM Domain Specifications) – Updated text Section 4.1.3.2 (General Considerations) – Clarified text Section 4.1.3.3 (SEND Domain Specification) – Added, updated, and clarified text Section 4.1.4.5 (Data Definition Files for SDTM, SEND, and ADaM) – Clarified text Section 5.2 (Supported Therapeutic Areas) – Added TA sections Section 6.4.1.1 (General Considerations) – Updated text Section 6.4.2.1 (General Considerations) – Updated text Section 6.5.1 ",
+          "HEADING": "Revision History",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 6,
+          "SECTION_ID": "RC01-A-016:page-6"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "99907ce0a784342a17cc20cacaf255adada6b8be4fae8e888c171cba7b830323",
+          "EXACT_TEXT": "viii Table of Contents 1. INTRODUCTION ............................................................................................................... 1 BACKGROUND ................................................................................................................................................ 1 PURPOSE ...................................................................................................................................................... 1 DOCUMENT REVISION AND CONTROL ..................................................................................................",
+          "HEADING": "viii",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 10,
+          "SECTION_ID": "RC01-A-016:page-10"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "c2735093ebe647c84afb228a473e13e744d450b4499e9ebdba828a641e1d997e",
+          "EXACT_TEXT": "ix Naming Conventions in SDTM and SEND ................................................................................... 37 SDTM and SEND Versions .......................................................................................................... 37 Data Definition Files for SDTM, SEND, and ADaM...................................................................... 37 Annotated Case Report Form (aCRF) for SDTM ......................................................................... 38 Modification of Requirements During Specific Public Health Emergencies Declared by the Secretary of H",
+          "HEADING": "Naming Conventions in SDTM and SEND ................................................................................... 37",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 11,
+          "SECTION_ID": "RC01-A-016:page-11"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "0a5049c139fa5d22f2f6fa1f7d4757c0eabac746ae04e96174222c05dbe68894",
+          "EXACT_TEXT": "xi APPENDIX E: EXAMPLE STUDY DATA FOLDER STRUCTURE .................................................................... 83 APPENDIX F: TECHNICAL REJECTION CRITERIA FOR STUDY DATA VALIDATION IMPORTANT INFORMATION .................................................................................................................................... 85 APPENDIX G: EXAMPLES OF TS.XPT DATASETS ..................................................................................... 88 APPENDIX H: HHS DECLARED PUBLIC HEALTH EMERGENCIES AND MODIFICATIONS TO DATA STANDARDS REQUIREMENTS .......................",
+          "HEADING": "APPENDIX E: EXAMPLE STUDY DATA FOLDER STRUCTURE .................................................................... 83",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 13,
+          "SECTION_ID": "RC01-A-016:page-13"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "5402116fe28ee365096082c79fa609b890425db6787ebca2b5c9a68e9cc98ae0",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 3 of 97 June 2026 Organization and Summary of the Guide This document is organized as follows: Section 1: Introduction – provides information on regulatory policy and guidance background, purpose, and document control. Section 2: Planning and Providing Standardized Study Data – recommends and provides details on preparing an overall study data standardization plan, a study data reviewer’s guide and an analysis data reviewer’s guide. Section 3: Exchange Format:",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 16,
+          "SECTION_ID": "RC01-A-016:page-16"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "5b6aacd6dfd2a88af8179ddf8a74a20c0075d0e00948382fea34d2688a2d0ed6",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 4 of 97 June 2026 This Guide is incorporated by reference into the Guidance to Industry Providing Regulatory Submissions in Electronic Format: Standardized Study Data. In addition, sponsors should reference the following: • Study Data Standards Resources Web page (See section 1.3) • FDA Data Standards Catalog (See section 1.1) • FDA Portable Document Format Specifications (See section 3.2) • Specifications for File Format Types Using eCTD Specifications8 • Gui",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 17,
+          "SECTION_ID": "RC01-A-016:page-17"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "71d0f30e4c5a6e0e92db8f3ce7333363a416cd00aaa18c02df97ae9817be3b94",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 11 of 97 June 2026 elsewhere in the entry. This does not allow for machine-readable matching of individual subject data across all datasets. Improper implementation of the USUBJID variable is a common error with applications and often requires sponsors to re-submit their data. Adjudication Data There are no existing standards or best practices for the representation of adjudication data as part of a standard data submission. Until standards for adjudication da",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 24,
+          "SECTION_ID": "RC01-A-016:page-24"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "b654b3736768fb54c4c9447df3bd8cd789060877795e5ac977dc5213e0a5961a",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 15 of 97 June 2026 TSPARMC D value TSPARM value TSVAL value FDATCHSP FDA Tech Spec Should be the exact listing on the study data standards resources website for technical specification documents Ex. Vaccines Technical Specification Guidance v1.0 SDTIGVER SDTM IG Version Should be the exact term listed in column F of the FDA Data Standards Catalog, Submission Data Exchange Stds tab. If multiple SDTM IG Versions are used for a study, then each version used shoul",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 28,
+          "SECTION_ID": "RC01-A-016:page-28"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "69fd94c981a346c4cc8ddf26464a95a71f1690e3d63fce5722b8335900ee23e0",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 41 of 97 June 2026 For Meal Data: Implementation examples demonstrating how the types of meals (i.e., fatty meals or drinks) are currently not available in the TAUG. Sponsors should consult with the appropriate FDA review division on the best approach for each specific study. 5.1.10 Kidney Transplant Therapeutic Area User Guide v1.0 The Kidney Transplant TAUG does not address two important data elements. First, the date of the request for a biopsy is important",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 54,
+          "SECTION_ID": "RC01-A-016:page-54"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "9f0af03d2b36befac54d6e74b8c367708c1dcde2a4593355f5268913a7bcc969",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 42 of 97 June 2026 domain as appropriate and provide a referential link to any detailed information regarding the protocol violation. Sponsors should consult with the appropriate FDA review division on the best approach for each specific study. 5.1.15 Major Depressive Disorder Therapeutic Area User Guide v1.0 When reviewing the Major Depressive Disorder TAUG, also reference the FDA’s Guidance for Industry document for MDD. Additionally, consult the Division of",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 55,
+          "SECTION_ID": "RC01-A-016:page-55"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "415c1521ae10c2fbe92c669dfe641978191d2f49b5564d519393da5069279887",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 52 of 97 June 2026 Do not use the eCTD ‘append’ lifecycle operator when submitting updated or changed content within study data files that were previously submitted. Updated files should be submitted as replaced and not submitted as new. 7.1.2 eCTD v4.0 Specifications For information on how to incorporate datasets into the eCTD v4.0, refer to the Guidance to Industry Providing Regulatory Submissions in Electronic Format: Certain Human Pharmaceutical Product Ap",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 65,
+          "SECTION_ID": "RC01-A-016:page-65"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "11e29d06a5063c2e389fed563dc9bbda34cbf700467c0a8504f6d8e00aa823e3",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 82 of 97 June 2026 Appendix D: Additional Documents Evaluated By FDA The Agency recognizes that there may be additional documents beyond Therapeutic Area User Guides (TAUGs), Implementation Guides (IGs), and Models that provide technical information about how to implement a CDISC standard and that these documents fall outside the scope of the FDA Data Standards Catalog. Immediately below is a list of SDO properties that have been evaluated by CBER and CDER and",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 95,
+          "SECTION_ID": "RC01-A-016:page-95"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "6947b5f9823882c692e6716c100c07353e4eb71c0c83c9642c7dc6dc3916a6a4",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 92 of 97 June 2026 Appendix I: Best Practice - SEND Data Review Prior to Submission to CDER and CBER Background Electronic nonclinical study data in SEND format has become an integral part of nonclinical safety review at FDA. When the submitted SEND study data is complete, is consistent with the study report, and is in conformance with the SENDIG used, reviewers can easily assess study outcomes. However, when SEND study data packages are submitted with certain",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 105,
+          "SECTION_ID": "RC01-A-016:page-105"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "f87ee76b2f3e28152f0b36f6cdc9a035c78ed13eb23c0354b5cc80ea8e263d2a",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations U.S. Food & Drug Administration 10903 New Hampshire Avenue Silver Spring, MD 20903 www.fda.gov Page 96 of 97 June 2026 Glossary The following is a list of acronyms and terms used in this Guide: aCRF: Annotated Case Report Form ANDA: Abbreviated New Drug Application ADaM: Analysis Data Model ADRG: Analysis Data Reviewer’s Guide ADSL: Subject- Level Analysis Data ASCII: American Standard Code for Information Interchange CBER: Center for Biologics Evaluation and Research CDASH: Clinical Data Acquisition Standards Harmonization CDER: Center for Drug Evaluation a",
+          "HEADING": "U.S. Food & Drug Administration",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 109,
+          "SECTION_ID": "RC01-A-016:page-109"
+        }
+      ],
+      "SOURCE_ID": "RC01-A-016",
+      "SOURCE_SHA256": "5887c3387b81a403619f0b37c30f3ad58912e7bcb8bce515b17e9c794c1e7b49"
+    },
+    {
+      "DOCUMENT_VERSION": "Final Guidance April 2018",
+      "INDEXED_SECTION_COUNT": 19,
+      "PAGE_COUNT": 31,
+      "SECTIONS": [
+        {
+          "EXACT_CONTENT_SHA256": "275780c3b4c08f6466319c448e5c0abb2ca2fbae054f58af3c773de8e8cf35bc",
+          "EXACT_TEXT": "Clinical Trial Imaging Endpoint Process Standards Guidance for Industry U.S. Department of Health and Human Services Food and Drug Administration Center for Drug Evaluation and Research (CDER) Center for Biologics Evaluation and Research (CBER) April 2018 Clinical/Medical",
+          "HEADING": "Clinical Trial Imaging",
+          "NORMALIZED_TEXT_OFFSET_END": 272,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 1,
+          "SECTION_ID": "RC01-A-017:page-1"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "8b187283ea4572fb8e6d5d6498774d8b0d3c382a8be86d397c43aa6528a4bc75",
+          "EXACT_TEXT": "Clinical Trial Imaging Endpoint Process Standards Guidance for Industry Additional copies are available from: Office of Communications, Division of Drug Information Center for Drug Evaluation and Research Food and Drug Administration 10001 New Hampshire Ave., Hillandale Bldg., 4th Floor Silver Spring, MD 20993-0002 Phone: 855-543-3784 or 301-796-3400; Fax: 301-431-6353; Email: druginfo@fda.hhs.gov https://www.fda.gov/Drugs/GuidanceComplianceRegulatoryInformation/Guidances/default.htm and/or Office of Communication, Outreach, and Development Center for Biologics Evaluation and Research Food and",
+          "HEADING": "Clinical Trial Imaging",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 2,
+          "SECTION_ID": "RC01-A-017:page-2"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "73200420006b4a1f70afe82fec481f6ba59e712c698eb8e30f3ccd605ece0a9e",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 1 Clinical Trial Imaging Endpoint Process Standards Guidance for Industry1 This guidance represents the current thinking of the Food and Drug Administration (FDA or Agency) on this topic. It does not establish any rights for any person and is not binding on FDA or the public. You can use an alternative approach if it satisfies the requirements of the applicable statutes and regulations. To discuss an alternative approach, contact the FDA office responsible for this guidance as listed on the title page. I. INTRODUCTION The purpose of this guidance is to assis",
+          "HEADING": "Clinical Trial Imaging Endpoint Process Standards",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 4,
+          "SECTION_ID": "RC01-A-017:page-4"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "5682504125f026fa00c6c8b9cb0e90bcaaa494ab397af85fabf64fca13726737",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 2 selecting an imaging endpoint for a clinical trial. An imaging endpoint, even if standardized and considered to be precise and accurate, might not be interpretable if it does not have clinical meaningfulness (e.g., hip fracture versus changes in local blood flow in the central nervous system detected by positron emission tomography (PET) imaging). This guidance does not address whether specific imaging measures would be acceptable in submissions used to support approval of a drug or biologic. These considerations should be discussed with the FDA review div",
+          "HEADING": "selecting an imaging endpoint for a clinical trial. An imaging endpoint, even if standardized and",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 5,
+          "SECTION_ID": "RC01-A-017:page-5"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "428abcf88eaebbba3e5cc7340ba7787d3f723c4158d1cab99a66ce04ae74f2fc",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 3 A clinical trial’s design and clinical context are critical determinants of the extent that imaging process standards could be important to the trial. In a clinical trial where the imaging process and imaging primary endpoint measures are not well standardized in medical practice, trial-specific standards become important. The following sections outline the imaging process topics that sponsors should address when an imaging primary endpoint is used within a clinical trial intended to support the approval of a proposed drug. 4 III. LOGISTICAL AND TECHNICAL ",
+          "HEADING": "A clinical trial’s design and clinical context are critical determinants of the extent that imaging",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 6,
+          "SECTION_ID": "RC01-A-017:page-6"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "2c17fd7498b076968bce7c398231c5e0d1849bcb55d09663ea2e6371ac5d30eb",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 4 biases in image interpretation are controlled by the trial design features. However, these characteristics may not apply to some clinical trials, such as those that might be subject to bias and cannot be blinded, those that use imaging modalities vulnerable to image quality problems, and those that use specialized imaging measures. In open-label clinical trials, availability of clinical information might influence a site-based image interpretation because the expected relation of clinical features to outcome is known, and therefore, a site-based image inte",
+          "HEADING": "biases in image interpretation are controlled by the trial design features. However, these",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 7,
+          "SECTION_ID": "RC01-A-017:page-7"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "da8634a65bb341e3d2b70997a72ea5f7ec9e8d9450bf2e9ff1ea3cdbd30d7fa7",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 6 extent of imaging process standardization critical for a phase 3 clinical trial that uses an imaging- based primary endpoint, sponsors should consider the following factors: • Imaging modality availability and the modality’s technical performance variation across trial sites • Performance features of the imaging modality at the trial sites or any other locations where subjects may undergo imaging • Qualifications of the imaging technologists and any special technological needs for the trial • Proposed imaging measures’ reliance on phantoms and/or calibrati",
+          "HEADING": "extent of imaging process standardization critical for a phase 3 clinical trial that uses an imaging-",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 9,
+          "SECTION_ID": "RC01-A-017:page-9"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "b320e81512c5d6c0fbb1be648a68673a1b0f5222f3b64ffbb833ec57259649fa",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 7 IV. THE EXTENT OF IMAGING PROCESS STANDARDS The extent of imaging process standards in a phase 3 clinical trial runs on a continuum from the standards already in place in imaging medical practice to trial-specific considerations of image acquisition, display, transmission, interpretation, database development, and archiving. Similarly, the effort associated with clinical trial imaging standardization may range from relatively minor to challenging. At a minimum, the sponsor should consider the following questions when developing primary endpoint imaging pro",
+          "HEADING": "IV. THE EXTENT OF IMAGING PROCESS STANDARDS",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 10,
+          "SECTION_ID": "RC01-A-017:page-10"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "5d290401e968c5b109beb4fdecd54d43c11ad490f4524b12ae55f6f89fa3f7b2",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 8 of imaging process standards a sponsor should consider when augmenting medical practice imaging processes. In comparison to medical practice imaging process standards alone, trial- specific standards may provide better assurances that the imaging methods for the assessment of a trial imaging endpoint are well defined and reliable.6 6 See 21 CFR 314.126(b)(6).",
+          "HEADING": "of imaging process standards a sponsor should consider when augmenting medical practice",
+          "NORMALIZED_TEXT_OFFSET_END": 399,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 11,
+          "SECTION_ID": "RC01-A-017:page-11"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "72ca1cadb8b447a8f2fbeb4e00671c820f8be63fe09372aff64ba34c9abe89a6",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 9 REFERENCES Dogan, S, Y Plantinga, J Crouse, et al., 2011, Algorithms to Measure Carotid Intima-Media Thickness in Trials: A Comparison of Reproducibility, Rate of Progression and Treatment Effect, J Hypertens, 29(11):2181–93. Eisenhauer, E, P Therasse, J Bogaerts, et al., 2009, New Response Evaluation Criteria in Solid Tumors: Revised RECIST Guideline (version 1.1), Eur J Cancer, 45(2):228–47. Gierada, D, K Garg, H Nath, D Strollo, R Fagerstrom, and M Ford, 2009, CT Quality Assurance in the Lung Screening Study Component of the National Lung Screening Tria",
+          "HEADING": "REFERENCES",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 12,
+          "SECTION_ID": "RC01-A-017:page-12"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "959741b158abf0656e1e154ecf2b1f8a53513cab1d89712efb3c58d2c05d7d11",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 12 The charter should specify the important imaging equipment for the trial, including the imaging drug (contrast) injectors, scanners, ultrasound probe selection/settings, and software. This is particularly important for certain functional and quantitative imaging tasks that benefit from the use of specific scanners and models that are able to perform the imaging and allow the control that ensures the standardization. The importance of the equipment specifications varies with the role of imaging in the trial and may limit the number of qualifying clinical s",
+          "HEADING": "The charter should specify the important imaging equipment for the trial, including the",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 15,
+          "SECTION_ID": "RC01-A-017:page-15"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "b53bcf10755bd2b2640898698bde7e5d52628bb92afa25b9b527cb1bdbf790f7",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 14 result in unacceptable levels of image variability. Subject preparation also might be based on subject-specific factors, such as age, weight, and physical condition; the importance of standardization of these aspects may widely vary. For example, a trial conducted among pediatric subjects may call for some form of sedation. A description of the acceptable sedatives (including doses, route of administration, and potential for repeat dosing) may prove essential to quality imaging as well as to the avoidance of missing images. • Schedule for imaging and alte",
+          "HEADING": "result in unacceptable levels of image variability. Subject preparation also might be",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 17,
+          "SECTION_ID": "RC01-A-017:page-17"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "f886f098c70bd17e989c0d322aba217f2ba1b8116bbaae1f8c94431de80f204f",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 15 • Site qualification process. The charter should address the process used to qualify clinical sites for trial participation, specifically describing and/or referencing the tests to be performed to verify equipment performance, technical support, and capability for compliance with charter expectations. We anticipate that phantom imaging, on-site inspection, and/or training will provide sufficient site qualification for many trials. In some situations, the site qualification process should build upon these expectations by imaging subjects as part of a quali",
+          "HEADING": "• Site qualification process. The charter should address the process used to qualify",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 18,
+          "SECTION_ID": "RC01-A-017:page-18"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "b7a9603905dbb3938fa2e86742b5258afa1ed872c8bada43b5509269eae6f581",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 17 both the clinical site and a centralized facility, we regard these elements as important aspects to address within the charter when a centralized facility is used. Image Transfer, Receipt Documentation, and Initial Quality Assessment The charter should identify the process for transfer of imaging data from each clinical site to the centralized image interpretation facility, including the plans for the following: • Verification of the image technical adequacy • Transfer of images and supportive information to the centralized facility • The centralized faci",
+          "HEADING": "both the clinical site and a centralized facility, we regard these elements as important aspects to",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 20,
+          "SECTION_ID": "RC01-A-017:page-20"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "bbff555a8630f851531f99713c991ae5c3405bc752c99e71aa18d55dd07eaf0a",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 20 ‒ The time commitment of readers and reader availability. ‒ Any unique considerations for identification of a reader that adjudicates discordance in image interpretation between readers and that determines the final assessment. ‒ The importance, if any, of clinical readers (i.e., image interpretation by clinicians aware of nonimaging clinical trial information). • Reader training and qualification. The reader training process should be described, emphasizing the training documentation process and the use of any specific training materials (e.g., a trainin",
+          "HEADING": "‒ The time commitment of readers and reader availability.",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 23,
+          "SECTION_ID": "RC01-A-017:page-23"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "6bec74f28ba1650f2d34a5b94a9db87ba5dd44b40f32d831415f46d273c7f12a",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 21 training (with mock image reads) may be important in documenting reader proficiency. ‒ Description of any reader retraining procedures. Some image interpretation processes may include the use of test images intermixed among the clinical trial images such that readers are intermittently tested as to the proficiency and/or consistency in their reads. Failure to sustain proficiency may result in replacement of a reader with another trained and qualified reader. The charter should describe the reader testing and retraining or replacement procedure. • Timing o",
+          "HEADING": "training (with mock image reads) may be important in documenting reader",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 24,
+          "SECTION_ID": "RC01-A-017:page-24"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "34d0ad6891a3c5b7e5666ed3f0b496d85899be8eea3bdc675232853c2837a8aa",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 24 In some clinical trials, evaluation of reader interpretation performance will be of value to help assess the extent to which readers are consistent in image interpretation and comply with the trial specifications. We recommend evaluating intra- and inter-reader performance with defined and prespecified metrics based upon evaluations that are ongoing during the image interpretation process. In many situations, intra-reader variability as a measure of reader performance should be assessed by periodic blinded testing of the reader with a preselected or prede",
+          "HEADING": "In some clinical trials, evaluation of reader interpretation performance will be of value to",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 27,
+          "SECTION_ID": "RC01-A-017:page-27"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "aeea2ad18372a65e2a246836797034ced500558fbae59adc6dc2b29f342d080c",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 25 Imaging Data Transfer Process to the Sponsor Image interpretation should result in the completion of a case report form and/or tabular display of numbers, measures, or categories of responses. The charter should describe the process for transfer of this information to the sponsor and the time point or points for transmission of this information. The charter should describe how the sponsor will use the transferred information to establish the variables used in the analysis of the primary endpoint. Archiving of Images and Image Interpretations Images should",
+          "HEADING": "Imaging Data Transfer Process to the Sponsor",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 28,
+          "SECTION_ID": "RC01-A-017:page-28"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "7092b793647b140df154d3a7ad609908ece54d6d3cda5bbbb68419b844154a8f",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 26 proposed imaging technical details. We encourage sponsors to include in their charters a brief section that states all imaging technical documents will be reviewed to ensure that the imaging- specific details produce imaging outcomes consistent with the trial’s clinical protocol and statistical analysis plan.",
+          "HEADING": "proposed imaging technical details. We encourage sponsors to include in their charters a brief",
+          "NORMALIZED_TEXT_OFFSET_END": 349,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 29,
+          "SECTION_ID": "RC01-A-017:page-29"
+        }
+      ],
+      "SOURCE_ID": "RC01-A-017",
+      "SOURCE_SHA256": "b518528b1f8b713835b2bf07575819fb481327a08035e3bd8175aa13f628bd9f"
+    },
+    {
+      "DOCUMENT_VERSION": "Final Guidance November 2019",
+      "INDEXED_SECTION_COUNT": 11,
+      "PAGE_COUNT": 37,
+      "SECTIONS": [
+        {
+          "EXACT_CONTENT_SHA256": "ca87478121ec066456916d55735349411ce4fc322fe5ce5edb14d7832ab89495",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 3 • The term prospective, for the purposes of this guidance, means that the adaptation is planned and details specified before any comparative analyses of accumulating trial data are conducted. In nearly all situations, potential adaptive design modifications should be planned and described in the clinical trial protocol (and in a separate statistical analysis plan) prior to initiation of the trial. • This guidance distinguishes between those trials that are intended to provide substantial evidence of effectiveness and other trials, termed exploratory trials",
+          "HEADING": "• The term prospective, for the purposes of this guidance, means that the adaptation is planned",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 7,
+          "SECTION_ID": "RC01-A-018:page-7"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "33b47950b54ed1220109c89b94f9dafc0e99effdc0280b55546344d4f67f200b",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 4 nature of the advantages depends on the scientific context and type or types of adaptation considered, with potential advantages falling into the following major categories: • Statistical efficiency: In some cases, an adaptive design can provide a greater chance to detect a true drug effect (i.e., greater statistical power) than a comparable non-adaptive design.7 This is often true, for example, of group sequential designs (section V.A.) and designs with adaptive modifications to the sample size (section V.B.). Alternatively, an adaptive design may provide",
+          "HEADING": "nature of the advantages depends on the scientific context and type or types of adaptation",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 8,
+          "SECTION_ID": "RC01-A-018:page-8"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "0270e186374c4147c8151aa16a7e367a0cd7f2dee0f73ed768fbb0917692fd47",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 7 considerations with the appropriate FDA review division at regulatory meetings such as End-of- Phase-2 (EOP2) or Type C meetings. III. PRINCIPLES FOR ADAPTIVE DESIGNS In general, the design, conduct, and analysis of an adaptive clinical trial intended to provide substantial evidence of effectiveness should satisfy four key principles: the chance of erroneous conclusions should be adequately controlled, estimation of treatment effects should be sufficiently reliable, details of the design should be completely prespecified, and trial integrity should be appr",
+          "HEADING": "considerations with the appropriate FDA review division at regulatory meetings such as End-of-",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 11,
+          "SECTION_ID": "RC01-A-018:page-11"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "e56ff7fdfb26af93c3de1ce3e22fdbe3efdd3a29a555e0e6302a4147c7e388ae",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 9 the exact rule for modifying the sample size reduces concern that the adaptation could have been influenced by knowledge of comparative results and precludes the use of a statistical adjustment to account for modifications based on comparative interim results (section V.B.). Finally, complete prespecification can motivate careful planning at the design stage, eliminate unnecessary sponsor access to comparative interim data, and help ensure that the DMC, if involved in implementing the adaptive design, effectively focuses on its primary responsibilities of ",
+          "HEADING": "the exact rule for modifying the sample size reduces concern that the adaptation could have been",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 13,
+          "SECTION_ID": "RC01-A-018:page-13"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "5e621ad5b5cd86e0f16be8b1a032dd3dcc50395e654e97ac71b7b7c29e522e45",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 10 IV. ADAPTIVE DESIGNS BASED ON NON-COMPARATIVE DATA This section addresses adaptive clinical trial designs in which adaptations are based entirely on analyses of non-comparative data, that is, without incorporating information about treatment assignment. Such analyses are sometimes called blinded or masked analyses. In general, adequately prespecified adaptations based on non-comparative data have no effect or a limited effect on the Type I error probability. This makes them an attractive choice in many settings, particularly when uncertainty about event p",
+          "HEADING": "IV. ADAPTIVE DESIGNS BASED ON NON-COMPARATIVE DATA",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 14,
+          "SECTION_ID": "RC01-A-018:page-14"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "e9670e306c323f68474565b31849a0fa4b1edb2d16f03edce7b25183e179be41",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 11 statistical methods should take into account the adaptive trial design. Second, when adaptations are based on comparative interim analyses, additional steps are critical to ensure appropriate trial conduct. This is discussed in more detail in section VII. Finally, stopping or adaptation rules can be specified on a variety of different scales, such as the estimate of treatment effect, fixed sample p-value, conditional probability of trial success, Bayesian posterior probability that the drug is effective, or Bayesian predictive probability of trial success",
+          "HEADING": "statistical methods should take into account the adaptive trial design. Second, when adaptations",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 15,
+          "SECTION_ID": "RC01-A-018:page-15"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "bac32c1144671eb7c7cd584e3a80e761172402180ef949162d10a510eb5817b7",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 12 event targets. The flexibility in the number of analyses can help accommodate faster- or slower- than-expected enrollment rates. If, however, interim analysis times are chosen based on accumulating comparative results, the Type I error probability can be inflated. For example, adjusting the next interim analysis to occur sooner than originally planned because the current interim analysis result is close to the stopping boundary would not be appropriate. Because of this potential issue with the Lan-DeMets alpha-spending approach, sponsors should put in pla",
+          "HEADING": "event targets. The flexibility in the number of analyses can help accommodate faster- or slower-",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 16,
+          "SECTION_ID": "RC01-A-018:page-16"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "67d97424a959dd0ce82aeeca537722828c419f87bfaa75a6ec6fa3ef70fcf2cc",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 14 sampling plan other than the maximum sample size, such as the number and spacing of future interim analyses. The additional considerations regarding adherence to the adaptation plan, the evaluation of safety, and the estimation of treatment effects that were discussed in section V.A. on group sequential designs also apply to designs with sample size adaptations based on comparative data. Of note, prospective planning should include prespecification of not only the statistical hypothesis testing method that will be used, but also the rule governing the sam",
+          "HEADING": "sampling plan other than the maximum sample size, such as the number and spacing of future",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 18,
+          "SECTION_ID": "RC01-A-018:page-18"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "0dc5452eebb32b24f7f72aa558164e77700612c0a7ae4c54abc49a4d2fedc2fc",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 19 example, median 6-month) survival. The null hypothesis is equal mortality rates in the two arms. Possible scenarios consistent with this null hypothesis would include equal mortality rates of 5 percent, of 50 percent, of 99 percent, of 99.01 percent, and so on. While it is impossible to simulate every scenario compatible with the null hypothesis, it may be possible to determine a limited set of scenarios that adequately represent the plausible range of potential false positives. In this example, medical experts might feel comfortable ruling out any scenar",
+          "HEADING": "example, median 6-month) survival. The null hypothesis is equal mortality rates in the two arms.",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 23,
+          "SECTION_ID": "RC01-A-018:page-23"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "1133e15dfe585c58980bcc8070d2b645cb99519f5f5a0a79eed6291760a0726e",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 20 some cases, fewer iterations might suffice to evaluate Type I error probability. For example, it might be sufficient to use 10,000 iterations if a particularly fine grid of scenarios is explored and every scenario has an estimated Type I error probability below the desired level. Also, a smaller number of simulations can generally be used if the upper bound of the 95% confidence interval for the Type I error probability estimate is below the desired level. Clinical trial simulations can also be used to estimate power and other relevant operating character",
+          "HEADING": "some cases, fewer iterations might suffice to evaluate Type I error probability. For example, it",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 24,
+          "SECTION_ID": "RC01-A-018:page-24"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "cd4d39079ed9837b5446511106d4442a54bb6fd68f000c698cee85aa87ef00f0",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 25 There are multiple potential models for implementing a plan for the sponsor to limit access to comparative data in an adaptive design trial. A dedicated independent adaptation body could be established, exclusive of a DMC, if one exists. Alternatively, the adaptive decision-making role could be assigned to the DMC, although its primary responsibility should remain to ensure patient safety and trial integrity.25 This latter model might best be reserved for group sequential designs and other straightforward adaptive designs with simple adaptation algorithms",
+          "HEADING": "There are multiple potential models for implementing a plan for the sponsor to limit access to",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 29,
+          "SECTION_ID": "RC01-A-018:page-29"
+        }
+      ],
+      "SOURCE_ID": "RC01-A-018",
+      "SOURCE_SHA256": "c8b48547036f69ad95b4aac55510bd0c37ead058dd35dbc7cd0c15085e371a89"
+    },
+    {
+      "DOCUMENT_VERSION": "Final Guidance October 2022",
+      "INDEXED_SECTION_COUNT": 15,
+      "PAGE_COUNT": 29,
+      "SECTIONS": [
+        {
+          "EXACT_CONTENT_SHA256": "ada1627b62fab3325d0517027fec18b2e191c53ea9e795b2356ea54bdf779695",
+          "EXACT_TEXT": "Multiple Endpoints in Clinical Trials Guidance for Industry U.S. Department of Health and Human Services Food and Drug Administration Center for Drug Evaluation and Research (CDER) Center for Biologics Evaluation and Research (CBER) October 2022 Biostatistics",
+          "HEADING": "Multiple Endpoints in",
+          "NORMALIZED_TEXT_OFFSET_END": 259,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 1,
+          "SECTION_ID": "RC01-A-019:page-1"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "0dc2d3995273b48439a02c28597edc2be48d0127ae3ec2a17ea6145b0a95a09b",
+          "EXACT_TEXT": "Multiple Endpoints in Clinical Trials Guidance for Industry Additional copies are available from: Office of Communications, Division of Drug Information Center for Drug Evaluation and Research Food and Drug Administration 10001 New Hampshire Ave., Hillandale Bldg., 4th Floor Silver Spring, MD 20993-0002 Phone: 855-543-3784 or 301-796-3400; Fax: 301-431-6353 Email: druginfo@fda.hhs.gov https://www.fda.gov/drugs/guidance-compliance-regulatory-information/guidances-drugs and/or Office of Communication, Outreach and Development Center for Biologics Evaluation and Research Food and Drug Administrat",
+          "HEADING": "Multiple Endpoints in",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 2,
+          "SECTION_ID": "RC01-A-019:page-2"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "aff1ec4e8e3a2c09bc1c262e7763f6b273bbdc6ee36d3bf9fb0837c1dd87241e",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 2 In general, FDA’s guidance documents do not establish legally enforceable responsibilities. Instead, guidances describe the Agency’s current thinking on a topic and should be viewed only as recommendations, unless specific regulatory or statutory requirements are cited. The use of the word should in Agency guidances means that something is suggested or recommended, but not required. II. BACKGROUND AND SCOPE Efficacy endpoints are measures designed to reflect the intended effects of a drug. They include assessments of clinical events (e.g., mortality, strok",
+          "HEADING": "In general, FDA’s guidance documents do not establish legally enforceable responsibilities.",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 5,
+          "SECTION_ID": "RC01-A-019:page-5"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "f31010d06cbb507f1adcdc3cf218659d1ab7cf22ffb2ceb0187897879ed15c92",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 3 A. Demonstrating the Study Objective of Effectiveness A conclusion that a study has demonstrated an intended effect of a drug is critical to meeting the legal standard for substantial evidence of effectiveness required to support approval of a new drug (i.e., “… adequate and well-controlled investigations…on the basis of which it could fairly and responsibly be concluded…that the drug will have the effect it purports…to have…”) (section 505(d) of the FD&C Act).4 FDA regulations further establish that to be adequate and well controlled, a clinical study of ",
+          "HEADING": "A. Demonstrating the Study Objective of Effectiveness",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 6,
+          "SECTION_ID": "RC01-A-019:page-6"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "4b11d80e784bebc071776729cd36194e2ff5953b5c9b68d83cb9594fd1ead9d5",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 6 specified, appropriate adjustments for multiple endpoints and analyses can be selected, prespecified, and applied, as appropriate. Changes in the analytic plan to perform additional analyses can reintroduce a multiplicity problem that can negatively impact the ability to interpret the study’s results unless these changes are made prior to data analysis and appropriate multiplicity adjustments are performed. The statistical analysis plan should not be changed after unmasking of treatment assignments and performing statistical analyses. A focus of this guida",
+          "HEADING": "specified, appropriate adjustments for multiple endpoints and analyses can be selected,",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 9,
+          "SECTION_ID": "RC01-A-019:page-9"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "46ea25dac69edf865125c835592c7e5dbfe2dc72bd0b11c8b0e46b314ab22a0d",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 7 prespecified primary endpoint, there are no multiple-endpoint-related multiplicity issues in the determination that the study achieves its objective. Multiple primary endpoints occur in three ways, further described in section III.C. The first is when there are multiple primary endpoints, and each endpoint could be sufficient on its own to establish the drug’s efficacy. These multiple endpoints thus correspond to multiple chances of success, and in this case, failure to adjust for multiplicity can lead to Type I error rate inflation and a false conclusion ",
+          "HEADING": "prespecified primary endpoint, there are no multiple-endpoint-related multiplicity issues in the",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 10,
+          "SECTION_ID": "RC01-A-019:page-10"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "a45d4b118ceaede29f0e55779697e00f1d4629001b4a797426fbb5b6efff4550",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 8 different clinically important endpoint occurs more frequently or earlier in the disease process, leading to larger power. In such cases, generally the endpoint with inadequate power for detection is classified as a secondary endpoint, while the endpoint for which larger power is expected is classified as the primary endpoint. For example, in some oncology trials, progression-free survival is selected as the primary endpoint, and overall survival is selected as the secondary endpoint because an effect of treatment on disease progression is clinically impor",
+          "HEADING": "different clinically important endpoint occurs more frequently or earlier in the disease process,",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 11,
+          "SECTION_ID": "RC01-A-019:page-11"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "d12071f0f779bbd4d5cd3b039a26e6154dc65ee25f66dde56b9e70b01727447d",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 9 1. When Demonstration of Treatment Effects on Two or More Distinct Endpoints Is Recommended to Establish Clinical Benefit (Co-Primary Endpoints) For some disorders, there are two or more different features that are so critically important to the disease under study that a drug will not be considered effective without demonstration of a treatment effect on all of these disease features. The term used in this guidance to describe this circumstance of multiple primary endpoints is co-primary endpoints. Multiple primary endpoints become co-primary endpoints wh",
+          "HEADING": "1. When Demonstration of Treatment Effects on Two or More Distinct Endpoints Is",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 12,
+          "SECTION_ID": "RC01-A-019:page-12"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "63cec9a12829160a66626d1134263475980efeb9d770c6a60e026c90871e0490",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 10 method that will better detect a treatment effect is not known a priori (at the time of trial design). In this circumstance, a study might be designed such that success on any one of several endpoints could support a conclusion of effectiveness. This creates a primary endpoint family. For example, consider a drug for the treatment of burn wounds where it is not known whether the drug will increase the rate of wound closure or reduce scarring, but the demonstration of either effect alone would be considered clinically important. A study in this case might ",
+          "HEADING": "method that will better detect a treatment effect is not known a priori (at the time of trial design).",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 13,
+          "SECTION_ID": "RC01-A-019:page-13"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "c52f4431a15cd40f26afc777a0076a1c5e41b1da8b429834a44559505b3a2f53",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 13 As with composite endpoints, understanding which components of a within-subject multi- component endpoint have contributed most to the overall statistical significance could be important to correctly understanding the clinical effects of the drug. Consequently, analysis of the study results on the individual components is usually important but, as stated previously, if undertaken, should not be presented in FDA-approved labeling in ways that imply a statistically rigorous conclusion or convey certainty about the effects that are not supported by that tria",
+          "HEADING": "As with composite endpoints, understanding which components of a within-subject multi-",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 16,
+          "SECTION_ID": "RC01-A-019:page-16"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "54c8af9c2b409ef249e5ab7ccf5400d80a50e41f929e1a09485681f31ffd20c9",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 14 In some cases, a primary endpoint can be tested for non-inferiority (with a fixed margin), followed by testing it for superiority. If this endpoint is the only endpoint being tested, then non- inferiority and superiority can be tested without multiplicity adjustment because the null hypotheses of non-inferiority and superiority are naturally ordered, and the two tests apply to the one hierarchy considered for this endpoint. However, if at least one more endpoint is included for testing, then multiplicity issues arise, and adjustments should be made to con",
+          "HEADING": "In some cases, a primary endpoint can be tested for non-inferiority (with a fixed margin),",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 17,
+          "SECTION_ID": "RC01-A-019:page-17"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "981c94a7041042392f7f0533effe66951053ef8928983929c62bd52e5539e412",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 16 48 Hochberg Y and AC Tamhane, 1987, Multiple Comparison Procedures, New York (NY): John 49 Wiley & Sons. 50 51 Holm SA, 1979, A simple sequentially rejective multiple test procedure, Scandinavian Journal of 52 Statistics, 6(2): 65-70. 53 54 Hommel G, F Bretz, and W Maurer, 2011, Multiple hypotheses testing based on ordered p values 55 — a historical survey with applications to medical research, Journal of Biopharmaceutical 56 Statistics, 21(4): 595-609. 57 58 Hung HMJ and SJ Wang, 2010, Challenges to multiple testing in clinical trials, Biometrical 59 Jou",
+          "HEADING": "Hochberg Y and AC Tamhane, 1987, Multiple Comparison Procedures, New York (NY): John 49",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 19,
+          "SECTION_ID": "RC01-A-019:page-19"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "7d56547d27a7246e496970fa3ca88be5a229416108fa176eb828108e4b20b9e1",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 19 i. The test begins by comparing the smallest p-value, p(1), to α/m, the same threshold used 148 in the equally-weighted Bonferroni correction. If this p(1) is less than α/m, the treatment 149 effect for the endpoint associated with this p-value is considered significant. 150 151 ii. The test then compares the next-smallest p-value, p(2), to an endpoint-specific alpha of 152 the total alpha divided by the number of yet-untested endpoints (e.g., α/(m-1) for the 153 second smallest p-value, a somewhat less conservative significance level). If p(2) < 154 α/(m",
+          "HEADING": "i. The test begins by comparing the smallest p-value, p(1), to α/m, the same threshold used 148",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 22,
+          "SECTION_ID": "RC01-A-019:page-22"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "96d20f3f4f6993cbe513d3fab8fab37abb9c7e27fc8cb1a35312d0774011249e",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 20 when certain conditions are met. Various simulation experiments for the general case (e.g., for 194 more than two endpoints with unequal correlation structures) indicate that the Hochberg 195 procedure usually will, but is not guaranteed to, control the overall Type I error rate for 196 positively correlated endpoints, but fails to do so for some negatively correlated tests (Sarkar et 197 al. 1997, Huque 2016). 198 199 4. Prospective Alpha Allocation Scheme 200 201 The Prospective Alpha Allocation Scheme (PAAS) (Moye 2000) is a single-step method that has",
+          "HEADING": "when certain conditions are met. Various simulation experiments for the general case (e.g., for 194",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 23,
+          "SECTION_ID": "RC01-A-019:page-23"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "fd778fe61973707189e61df3349915dbcd1f5f1084f41843c4b54a676604087f",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 22 are examined. The endpoints in the second family can be tested at the overall alpha level by any 286 prespecified acceptable method (e.g., Holm procedure, the fixed-sequence method, or others 287 described in this appendix) that controls Type I error rate within the second family. If, however, 288 at least one of the null hypotheses of the primary family fails to be rejected, the primary family 289 criterion has not been met and the secondary endpoint family is not tested. 290 291 A parallel gatekeeping strategy is applied when the endpoints in the primar",
+          "HEADING": "are examined. The endpoints in the second family can be tested at the overall alpha level by any 286",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 25,
+          "SECTION_ID": "RC01-A-019:page-25"
+        }
+      ],
+      "SOURCE_ID": "RC01-A-019",
+      "SOURCE_SHA256": "40284a050aab0037799072b2340e37d4b02ab6f7f2339fff6ea1cd55673a9563"
+    },
+    {
+      "DOCUMENT_VERSION": "Final Guidance November 2016",
+      "INDEXED_SECTION_COUNT": 20,
+      "PAGE_COUNT": 56,
+      "SECTIONS": [
+        {
+          "EXACT_CONTENT_SHA256": "85831d3cef9a017ced54fbb1ee2cc92095e462e323f75ebb6987326e161ba292",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 1 Non-Inferiority Clinical Trials to Establish Effectiveness Guidance for Industry1 This guidance represents the current thinking of the Food and Drug Administration (FDA or Agency) on this topic. It does not establish any rights for any person and is not binding on FDA or the public. You can use an alternative approach if it satisfies the requirements of the applicable statutes and regulations. To discuss an alternative approach, contact the FDA office responsible for this guidance as listed on the title page. I. INTRODUCTION This document provides guidance",
+          "HEADING": "Non-Inferiority Clinical Trials to Establish Effectiveness",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 4,
+          "SECTION_ID": "RC01-A-020:page-4"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "112e293a7ab0e6c12f343f7c7577b1935db80370c1bbf2fbba33df85de87329f",
+          "EXACT_TEXT": "3 drugs should be considered effective in the study, for example, by reference to results in previous placebo-controlled studies of the active control drug. This guidance consists of four parts: • A general discussion of regulatory, study design, scientific, and statistical issues associated with the use of NI studies to establish the effectiveness of a new drug • A focus on some of these issues in more detail, notably the statistical approaches used to determine the NI margin and to test for non-inferiority • Commonly asked questions about NI studies • Four examples of successful and unsucces",
+          "HEADING": "drugs should be considered effective in the study, for example, by reference to results in",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 6,
+          "SECTION_ID": "RC01-A-020:page-6"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "7d6b3c8e9251458f04f0dbfb38bd10e57da6b038156f6537bceed4371fa13334",
+          "EXACT_TEXT": "7 The choice of the margin M1 has important practical consequences. The smaller the margin, the lower the upper bound of the 95% two-sided confidence interval for C-T must be, and the larger the sample size needed to establish non-inferiority. Showing that the upper bound of the 95% CI of C-T is less than M1 demonstrates that the test drug has some effect (i.e., an effect > 0). The margin of interest, however, as noted above, is usually smaller than M1 (to show that an adequate portion of the clinical benefit of the control is preserved), in which case it is called M2. The basis for this expec",
+          "HEADING": "The choice of the margin M1 has important practical consequences. The smaller the margin, the",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 10,
+          "SECTION_ID": "RC01-A-020:page-10"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "de3a9714f457e57348dfc6d8e2abf199218b2cbbafb258ca294c5463b308894a",
+          "EXACT_TEXT": "8 C. The Non-Inferiority Margin As described above, the NI study seeks to show that the amount by which the test drug (T) is inferior to the active control (C), C-T, is less than some prespecified NI margin (M). M can be no larger than the presumed entire effect of the active control in the NI study, and the margin based on the entire active control effect is generally referred to as M 1. It is critical to recognize that M1 is not measured in the NI trial (in the absence of a placebo arm), but rather is estimated based on past performance of the active control. The effect is assumed to be pres",
+          "HEADING": "C. The Non-Inferiority Margin",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 11,
+          "SECTION_ID": "RC01-A-020:page-11"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "17c7f24e8c34f4e6ba5de7bf11f9582c610d7de364bd6f2a3854881a26c3556c",
+          "EXACT_TEXT": "9 beneficial effect, and denying that benefit to subjects with a serious illness is not ethical. For the same reason, it would not usually be acceptable for a test drug to lose most of that active control’s effect. It is therefore usual in NI studies to choose a smaller margin (M2) that reflects the largest loss of effect that would be clinically acceptable. This can be described as an absolute difference in effect (typical of antibiotic trials) or as a fraction of the risk reduction provided by the control (typical in cardiovascular outcome trials). Note that a larger value for M2 may be just",
+          "HEADING": "beneficial effect, and denying that benefit to subjects with a serious illness is not ethical. For the",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 12,
+          "SECTION_ID": "RC01-A-020:page-12"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "66c247b0a532ef0d1f508fa612d3bfffe489bd71778b78ddf0efbb917ebfb458",
+          "EXACT_TEXT": "12 As explained above, the choice of M1, and the conclusion that a trial has assay sensitivity (i.e., the active control would have had an effect of at least M1), is based on three considerations: 1. Historical evidence of sensitivity to drug effects 2. The similarity of the new NI trial to the historical trials (the constancy assumption) 3. The quality of the new trial (ruling out defects that would tend to minimize differences between treatments) 1. Historical Evidence of Sensitivity to Drug Effects (HESDE) HESDE means that prior studies, which were appropriately designed and conducted trial",
+          "HEADING": "As explained above, the choice of M1, and the conclusion that a trial has assay sensitivity (i.e.,",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 15,
+          "SECTION_ID": "RC01-A-020:page-15"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "899d6117349a3b2055061ae4dc35e13bd98b692b32c5c6ee2a60efa609a59374",
+          "EXACT_TEXT": "13 • Entry criteria • Analytic approaches For example, the effect of an angiotensin-converting enzyme (ACE) inhibitor on heart failure mortality has repeatedly been shown in studies where the drugs were added to diuretics and (frequently) digoxin, establishing HESDE, but evolution in treatment since those studies were conducted raises questions about our understanding of the present-day effect of ACE inhibitors. Since the time of those studies, other medications (beta blockers, spironolactone) have come into standard use. We do not know whether the past effect would still be present when ACE i",
+          "HEADING": "• Entry criteria",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 16,
+          "SECTION_ID": "RC01-A-020:page-16"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "9d9535722765e522b8e226a3a0693190c2f5ff0b4a8d1b20b296fedc79539373",
+          "EXACT_TEXT": "19 IV. CHOOSING THE NON-INFERIORITY MARGIN AND TESTING THE NON- INFERIORITY HYPOTHESIS A. Introduction In this section, various sources of uncertainty that come into play for NI trials are discussed, with particular emphasis on those affecting the choice of margin. We also discuss in more detail the choice of statistical test for the NI hypothesis. As described briefly in section III, there are two different approaches to analysis of the NI study, one called the fixed margin method and the other called the synthesis method. Both use the same data from the historical studies and NI study, but i",
+          "HEADING": "IV. CHOOSING THE NON-INFERIORITY MARGIN AND TESTING THE NON-",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 22,
+          "SECTION_ID": "RC01-A-020:page-22"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "78694f4e9a1865ff9338f606dfcc9bd4a0c9c70418bce2b1040107d43b12aee2",
+          "EXACT_TEXT": "22 which can be a difference in event rates or a risk ratio. The treatment effect has an uncertainty that is usually represented by the confidence interval. The lower bound of the 95% confidence interval provides a conservative estimate of the effect the active control had in the historical study and can be assumed to have in a future NI study, recognizing the possibility that changes in practice could reduce the historical effect somewhat. It is critical that a conservative estimate of the effect of the active control be used as the basis of the NI margin, because the logic of the NI study de",
+          "HEADING": "which can be a difference in event rates or a risk ratio. The treatment effect has an uncertainty",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 25,
+          "SECTION_ID": "RC01-A-020:page-25"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "cb764f1958640c282b6c3513a76ad4d53dad7a2e4aa5fbdebc6c30bb6f851da0",
+          "EXACT_TEXT": "23 Several cases illustrate the use of multiple studies to estimate the active control effect and problems that can arise. • The ideal case is one where (1) there are a number of studies, each of sufficient size to demonstrate the effect of the active control and (2) the effects derived from these studies are reasonably consistent, so that an average effect derived from a meta-analysis provides a reasonable estimate of the control effect and supports a credible choice of M1. • If there are many small studies, some of which have not demonstrated an effect of the active control, it may still be ",
+          "HEADING": "Several cases illustrate the use of multiple studies to estimate the active control effect and",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 26,
+          "SECTION_ID": "RC01-A-020:page-26"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "29efb4efeba747208ce0ba1e1cbbffcfdd8fdd82342f6cfee552743cbee5367f",
+          "EXACT_TEXT": "24 As previously discussed, the assumption of constancy of the effect of the active comparator between the historical studies and the NI study is crucial to a conclusion of efficacy based on non-inferiority. There are, however, technical difficulties in defining what is meant by a constant effect across studies in different populations and at different times. The mathematical way in which the treatment effect is formulated will affect the meaning and plausibility of the constancy assumption. Consider, for example, studies of fairly infrequent, binary outcomes, typical of most cardiovascular st",
+          "HEADING": "As previously discussed, the assumption of constancy of the effect of the active comparator",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 27,
+          "SECTION_ID": "RC01-A-020:page-27"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "d498d684d51d5b50410479331befd334c61005c18e4af5b81105442ac8778ea0",
+          "EXACT_TEXT": "28 The selection of M2 is then based on clinical judgment regarding how much of the active comparator treatment effect needs to be retained to demonstrate sufficient benefit for drug approval. The exercise of clinical judgment for the determination of M2 should be applied after the determination of M1 has been made. All relevant studies of the active comparator and all randomized patients within these studies should generally be used in determining the margin M1 because that provides a more reliable estimate of the active control effect and avoids any potential for prejudice in selecting which",
+          "HEADING": "The selection of M2 is then based on clinical judgment regarding how much of the active",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 31,
+          "SECTION_ID": "RC01-A-020:page-31"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "b9a8292224a8de5d92ce724a320600937763e1cafed81095c71d81d0d2ca8f2f",
+          "EXACT_TEXT": "30 control effect. The disadvantage of the synthesis approach is that it is not possible to use clinical judgment to choose M2, based on the magnitude of M1, in advance of the NI trial. D. Considerations for Selecting the Clinical Margin (M2) M 2 is the prespecified NI margin that is to be ruled out in an NI study. The determination of M2 is based on clinical judgment and is usually calculated by taking a percentage or fraction of M1. The clinical judgment in determining M2 may take into account the actual disease incidence or prevalence and its impact on the practicality of sample sizes that ",
+          "HEADING": "control effect. The disadvantage of the synthesis approach is that it is not possible to use clinical",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 33,
+          "SECTION_ID": "RC01-A-020:page-33"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "480d5023687ac3d52ff5daf29dab880e89e6e887967d3b53338865612afb27d3",
+          "EXACT_TEXT": "32 When multiple endpoints or multiple doses of the test treatment are to be evaluated in an NI study that also includes a test for superiority, careful planning of the order in which hypothesis tests are to be carried out is needed. For example, will superiority of the primary endpoint be tested before or after non-inferiority of a key secondary endpoint? A decision tree can be helpful in determining whether adjustments for multiplicity are needed and to what tests they should be applied to ensure that adequate control of the Type I error rate is achieved for the trial. In general, it would n",
+          "HEADING": "When multiple endpoints or multiple doses of the test treatment are to be evaluated in an NI",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 35,
+          "SECTION_ID": "RC01-A-020:page-35"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "e6fb629ced5189bed8a453a936f66cae601a19a1c10f5ad07acf2aea6f92b8ef",
+          "EXACT_TEXT": "35 6. What factors should be considered when selecting an endpoint for a NI trial? The endpoints chosen for clinical trials (superiority or non-inferiority) should be clinically meaningful measures of the way patients feel, function, or survive that can be reliably assessed in the target population. The endpoints generally reflect the event rate or other measure of disease in the population but also must take into account practical considerations, such as the size of the study required to demonstrate superiority or non-inferiority with respect to the endpoint. In NI studies, the endpoint must ",
+          "HEADING": "6. What factors should be considered when selecting an endpoint for a NI trial?",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 38,
+          "SECTION_ID": "RC01-A-020:page-38"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "55e613f8120628c20e6c645f3a8a508b2570de730357deb3dbac4b70b8a6cb14",
+          "EXACT_TEXT": "36 • When the new drug and an established treatment are pharmacologically distinct, an add- on study where the test drug and placebo are each added to the established treatment. • A study in patients who do not respond to the established therapy. It may be possible to conduct a placebo-controlled trial in these patients. Alternatively, nonresponders could be randomly assigned to the test drug or the failed therapy, and superiority assessed to demonstrate effectiveness in the nonresponder population. • A study in patients who cannot tolerate the established effective therapy. • A study of a pop",
+          "HEADING": "• When the new drug and an established treatment are pharmacologically distinct, an add-",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 39,
+          "SECTION_ID": "RC01-A-020:page-39"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "5aef007c7c6d3b85304a7ed4b1c03046dc58da2e25d1821b6682257340a936d5",
+          "EXACT_TEXT": "40 Example 1(B): Application of the Synthesis Method to Example 1(A) This example demonstrates the following: • The critical features of the synthesis method for demonstrating non-inferiority of a new anticoagulant • The calculations and sources of statistical variability that are incorporated in the synthesis approach • The main differences in interpretation of results from the fixed margin and the synthesis approaches when applied to the same set of studies and data In this example, we illustrate the synthesis method using the same data as Example 1(A), which consist of six studies comparing",
+          "HEADING": "Example 1(B): Application of the Synthesis Method to Example 1(A)",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 43,
+          "SECTION_ID": "RC01-A-020:page-43"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "2adc19889ec9f547de7744792e4b1da9160d0aa9a3f9c2bf468198f218a6fc38",
+          "EXACT_TEXT": "44 Example 3: Xeloda to Treat Metastatic Colorectal Cancer — the Synthesis Method This example of Xeloda for first-line treatment of metastatic colorectal cancer illustrates: • The use of the synthesis method to demonstrate a loss of no more than 50% of the historical control treatment’s effect and a relaxation of this criterion when two NI studies are available • The use of additional endpoints in the decision-making process • The use of a conservative estimate of the active control effect because (1) a subset of the available studies to estimate the margin was selected and (2) the effect was",
+          "HEADING": "Example 3: Xeloda to Treat Metastatic Colorectal Cancer — the Synthesis Method",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 47,
+          "SECTION_ID": "RC01-A-020:page-47"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "c7b72d3018260242f8276c9dd9dee8e92118b508a0a17cf595b6b778c22728bd",
+          "EXACT_TEXT": "50 Austrian, R., and Gold, J. (1964). “Pneumococcal Bacteremia With Especial Reference to Bacteremic Pneumococcal Pneumonia.” Ann Intern Med 60, 759-776.",
+          "HEADING": "Austrian, R., and Gold, J. (1964). “Pneumococcal Bacteremia With Especial Reference to",
+          "NORMALIZED_TEXT_OFFSET_END": 153,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 53,
+          "SECTION_ID": "RC01-A-020:page-53"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "2aa04503712ce72555742ca3dd594d1a44f91ee570c78f369fc6db964870974c",
+          "EXACT_TEXT": "52 Ellenberg, S.S., Temple, R. (2000). “Placebo-Controlled Trials and Active-Control Trials in the Evaluation of New Treatments - Part 2: Practical Issues and Specific Cases.” Annals of Internal Medicine 133, 464-470. Huitfeldt, B., Hummel, J., on behalf of European Federation of Statisticians in the Pharmaceutical Industry (EFSPI) (2011). “The Draft FDA Guideline on Non-Inferiority Clinical Trials: A Critical Review From European Pharmaceutical Industry Statisticians.” Pharmaceutical Statistics 10, 414-419. Hung, H.M.J., Wang, S.J., O’Neill, R.T. (2005). “A Regulatory Perspective on Choice of",
+          "HEADING": "Ellenberg, S.S., Temple, R. (2000). “Placebo-Controlled Trials and Active-Control Trials in the",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 55,
+          "SECTION_ID": "RC01-A-020:page-55"
+        }
+      ],
+      "SOURCE_ID": "RC01-A-020",
+      "SOURCE_SHA256": "9eb8993e8be5ce94d6accb24f35d179993bb48f2899d275b4d0f837944cbfc61"
+    }
+  ],
+  "SOURCE_REGISTRY_REF": "reference-corpus/reference-corpus-01/reference-corpus.json",
+  "STATUS": "DETERMINISTIC_LOCAL_PDF_INDEX_NON_NORMATIVE"
+}

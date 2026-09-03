@@ -13,6 +13,8 @@ export * from "./coverage-map";
 export * from "./specificity";
 export * from "./synthesizer";
 export * from "./knowledge-result";
+export * from "./reference-corpus";
+export * from "./knowledge-owner-handoff";
 export * from "./llm-policy";
 export * from "./privacy";
 export * from "./persistence";

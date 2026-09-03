@@ -18,7 +18,19 @@ export const retrieveKnowledge = (request: KnowledgeRequest, queryPlan: QueryPla
     try {
       const result = adapter.query({ request, queryPlan, provider });
       adapterResults.push(result);
-      return { providerId: provider.id, providerVersion: provider.version, included: true, reason: selection.reason, executionStatus: result.executionStatus, resultCount: result.assertions.length + result.documentaryStatements.length, diagnostics: result.diagnostics };
+      return {
+        providerId: provider.id,
+        providerVersion: provider.version,
+        included: true,
+        reason: selection.reason,
+        executionStatus: result.executionStatus,
+        resultCount: result.assertions.length
+          + result.documentaryStatements.length
+          + (result.referenceEvidenceCandidates?.length ?? 0)
+          + (result.referenceSourceSnapshots?.length ?? 0)
+          + (result.referenceDocumentRelationships?.length ?? 0),
+        diagnostics: result.diagnostics,
+      };
     } catch (error) {
       return { providerId: provider.id, providerVersion: provider.version, included: true, reason: selection.reason, executionStatus: "FAILED", resultCount: 0, diagnostics: [error instanceof Error ? error.message : "UNKNOWN_ADAPTER_ERROR"] };
     }
@@ -29,4 +41,3 @@ export const retrieveKnowledge = (request: KnowledgeRequest, queryPlan: QueryPla
 };
 
 export const registrySnapshotIsStable = () => KNOWLEDGE_PROVIDER_REGISTRY.providers.map((item) => item.id).join("|") === [...KNOWLEDGE_PROVIDER_REGISTRY.providers].sort((left, right) => left.id.localeCompare(right.id)).map((item) => item.id).join("|");
-

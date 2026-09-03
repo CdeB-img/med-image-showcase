@@ -8,6 +8,7 @@ import {
   type KnowledgeContextInput,
   type KnowledgeRequest,
   type KnowledgeResult,
+  type ReferenceKnowledgeNeed,
   type ScientificObjectRef,
 } from "@/features/knowledge-engine";
 import {
@@ -148,6 +149,20 @@ const knowledgeRole = (item: ProjectContextSnapshot["objects"][number]): Scienti
   return "CONTEXT";
 };
 
+const REFERENCE_OWNER_CONSUMERS: Readonly<Record<ReferenceKnowledgeNeed["owner"], KnowledgeRequest["consumer"]>> = {
+  KNOWLEDGE: "RESEARCH_PROJECT_CONSTRUCTION",
+  SCIENTIFIC_THINKING: "SCIENTIFIC_THINKING_ENGINE",
+  STUDY_DESIGN: "STUDY_DESIGN_ENGINE",
+  OBSERVABILITY_MEASUREMENT: "OBSERVABILITY_MEASUREMENT_ENGINE",
+  IMAGING: "IMAGING_STUDY_DESIGNER",
+  BIOSTATISTICS: "BIOSTATISTICS_ENGINE",
+  CDM: "STUDY_DATA_CDM",
+  DATA_MANAGEMENT: "DATA_MANAGEMENT_ENGINE",
+  REG: "REGULATORY_RESOLUTION_ENGINE",
+};
+
+const consumerForReferenceOwner = (owner: ReferenceKnowledgeNeed["owner"]): KnowledgeRequest["consumer"] => REFERENCE_OWNER_CONSUMERS[owner];
+
 const knowledgeDimensionByProjectType: Partial<Record<ProjectContextSnapshot["objects"][number]["type"], ContextDimensionName>> = {
   CONDITION: "pathology",
   POPULATION: "population",
@@ -180,6 +195,7 @@ export const buildKnowledgeRequestFromCanonicalSnapshot = (input: {
   projectSnapshot: Readonly<ProjectContextSnapshot>;
   question: string;
   createdAt: string;
+  referenceNeed?: Partial<Omit<ReferenceKnowledgeNeed, "needId" | "needClass" | "owner">> & Pick<ReferenceKnowledgeNeed, "needId" | "needClass" | "owner">;
 }): KnowledgeRequest => {
   const snapshot = input.projectSnapshot;
   const scientificObjects = snapshot.objects.slice(0, 30).map((item) => ({
@@ -194,9 +210,12 @@ export const buildKnowledgeRequestFromCanonicalSnapshot = (input: {
     relations: snapshot.relations.slice(0, 30).map((item) => `${item.type}(${item.sourceProjectRef},${item.targetProjectRef})`),
     unknowns: projectUnknowns(snapshot),
     researchProjectId: snapshot.sourceProjectRef,
+    researchProjectVersion: input.referenceNeed ? snapshot.sourceProjectVersion : undefined,
+    researchProjectDigest: input.referenceNeed ? snapshot.sourceProjectDigest : undefined,
     strategyVersion: snapshot.sourceProjectVersion,
-    consumer: "RESEARCH_PROJECT_CONSTRUCTION",
+    consumer: input.referenceNeed ? consumerForReferenceOwner(input.referenceNeed.owner) : "RESEARCH_PROJECT_CONSTRUCTION",
     externalSearchPolicy: "INTERNAL_ONLY",
+    referenceNeed: input.referenceNeed,
     createdAt: input.createdAt,
   });
   return request;
@@ -206,10 +225,12 @@ export const buildKnowledgeRequestFromProjectSnapshot = (input: {
   project: ResearchProjectOwnerProjection;
   question: string;
   createdAt: string;
+  referenceNeed?: Partial<Omit<ReferenceKnowledgeNeed, "needId" | "needClass" | "owner">> & Pick<ReferenceKnowledgeNeed, "needId" | "needClass" | "owner">;
 }): KnowledgeRequest => buildKnowledgeRequestFromCanonicalSnapshot({
   projectSnapshot: buildProjectContextSnapshot({ project: input.project }),
   question: input.question,
   createdAt: input.createdAt,
+  referenceNeed: input.referenceNeed,
 });
 
 const validKnowledgeResult = (
@@ -222,6 +243,9 @@ const validKnowledgeResult = (
   && result.request.requestId === request.nativeInput.requestId
   && result.request.researchProjectId === request.sourceProject.sourceProjectRef
   && result.request.strategyVersion === request.sourceProject.sourceProjectVersion
+  && (!result.request.referenceNeed
+    || result.request.researchProjectVersion === request.sourceProject.sourceProjectVersion
+      && result.request.researchProjectDigest === request.sourceProject.sourceProjectDigest)
   && result.request.externalSearchPolicy === "INTERNAL_ONLY"
   && result.trace.privacy.externalCallMade === false
   && result.externalEvidence === null;
@@ -234,6 +258,10 @@ export const invokeKnowledgeOwnerFromSnapshot = (input: InvocationTiming & {
 }): NativeOwnerInvocation<KnowledgeRequest, KnowledgeResult> => {
   if (input.knowledgeRequest.researchProjectId !== input.projectSnapshot.sourceProjectRef
     || input.knowledgeRequest.strategyVersion !== input.projectSnapshot.sourceProjectVersion
+    || input.knowledgeRequest.referenceNeed && (
+      input.knowledgeRequest.researchProjectVersion !== input.projectSnapshot.sourceProjectVersion
+      || input.knowledgeRequest.researchProjectDigest !== input.projectSnapshot.sourceProjectDigest
+    )
     || input.knowledgeRequest.externalSearchPolicy !== "INTERNAL_ONLY") {
     throw new Error("KNOWLEDGE_REQUEST_PROJECT_SNAPSHOT_MISMATCH");
   }
@@ -267,9 +295,10 @@ export const invokeKnowledgeOwnerFromSnapshot = (input: InvocationTiming & {
     ])];
     const gaps = nativeResult.gaps.map((item) => `${item.gapId}:${item.code}`);
     const unknowns = [...new Set([...nativeResult.unresolvedConcepts, ...nativeResult.ambiguities, ...nativeResult.request.unknowns])];
-    const hasOwnerEvidence = evidenceRefs.length > 0
-      || nativeResult.applicableAssertions.length > 0
-      || nativeResult.documentaryStatements.length > 0;
+    const hasOwnerEvidence = nativeResult.applicableAssertions.length > 0
+      || nativeResult.documentaryStatements.length > 0
+      || nativeResult.referenceEvidenceCandidates.length > 0
+      || nativeResult.evidence.length > 0;
     const resultKind = hasOwnerEvidence ? "EVIDENCE_DIAGNOSTIC" as const : "GAP" as const;
     const result = recordSpecializedOwnerResult({
       request,

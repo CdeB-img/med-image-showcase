@@ -35,6 +35,12 @@ const executeValidatedKnowledgeRequest = (
   trace.add("RETRIEVE_CORPUS", "Tous les providers inclus ont été exécutés ou ont produit un diagnostic distinct.", queryPlan.executionOrder, retrieval.providerExecutions);
   const allAssertions = retrieval.adapterResults.flatMap((item) => item.assertions);
   const allStatements = retrieval.adapterResults.flatMap((item) => item.documentaryStatements);
+  const referenceSourceSnapshots = retrieval.adapterResults.flatMap((item) => item.referenceSourceSnapshots ?? []);
+  const referenceEvidenceCandidates = retrieval.adapterResults.flatMap((item) => item.referenceEvidenceCandidates ?? []);
+  if (request.referenceNeed) {
+    trace.add("RESOLVE_REFERENCE_SOURCE", "Résolution exclusive par identités RC01 gouvernées ; aucun chemin ni URL fourni par le caller n’est dereferencé.", request.referenceNeed, referenceSourceSnapshots.map((snapshot) => ({ sourceId: snapshot.sourceId, state: snapshot.contentAvailability, digest: snapshot.snapshotDigest })));
+    trace.add("RESOLVE_REFERENCE_SECTION", "Sélection lexicale bornée dans l’index local digesté ; aucun contenu metadata-only n’est extrapolé.", referenceSourceSnapshots.map((snapshot) => snapshot.snapshotId), referenceEvidenceCandidates.map((candidate) => ({ candidateId: candidate.candidateId, anchorId: candidate.anchor.anchorId })));
+  }
   const applicable = applyApplicability(request, allAssertions, allStatements);
   trace.add("ASSESS_APPLICABILITY", "Applicabilité calculée sans score compensatoire ni décision LLM.", allAssertions.map((item) => item.revision), applicable.assertions.map((item) => ({ id: item.revision, state: item.applicability })));
   const assertionResolution = resolveAssertions(applicable.assertions);
@@ -47,12 +53,14 @@ const executeValidatedKnowledgeRequest = (
   const contributingProviderIds = new Set([
     ...assertionResolution.applicableAssertions.map((item) => item.providerId),
     ...applicableStatements.map((item) => item.providerId),
+    ...referenceEvidenceCandidates.map((item) => item.providerId),
+    ...(referenceSourceSnapshots.length ? ["reference-corpus-01"] : []),
   ]);
   const inheritedLimitations = retrieval.adapterResults.filter((item) => contributingProviderIds.has(item.providerId)).flatMap((item) => item.limitations);
-  const coverageStatus = determineCoverage(queryPlan, retrieval.providerExecutions, assertionResolution.applicableAssertions, applicableStatements.length, assertionResolution.excludedAssertions.length, conflicts, inheritedLimitations);
-  const coverageMap = buildCoverageMap({ request, queryPlan, providerExecutions: retrieval.providerExecutions, applicableAssertions: assertionResolution.applicableAssertions, excludedAssertions: assertionResolution.excludedAssertions, documentaryStatements: applicableStatements, conflicts, inheritedLimitations });
+  const coverageStatus = determineCoverage(queryPlan, retrieval.providerExecutions, assertionResolution.applicableAssertions, applicableStatements.length, assertionResolution.excludedAssertions.length, conflicts, inheritedLimitations, referenceEvidenceCandidates.length);
+  const coverageMap = buildCoverageMap({ request, queryPlan, providerExecutions: retrieval.providerExecutions, applicableAssertions: assertionResolution.applicableAssertions, excludedAssertions: assertionResolution.excludedAssertions, documentaryStatements: applicableStatements, referenceEvidenceCandidates, conflicts, inheritedLimitations });
   const specificity = buildScientificQuestionSpecificity(request, queryPlan);
-  const gaps = analyzeGaps(request, queryPlan, coverageStatus, conflicts, assertionResolution.applicableAssertions, inheritedLimitations);
+  const gaps = analyzeGaps(request, queryPlan, coverageStatus, conflicts, assertionResolution.applicableAssertions, inheritedLimitations, referenceEvidenceCandidates, referenceSourceSnapshots);
   const synthesis = synthesizeKnowledge(
     request,
     assertionResolution.applicableAssertions,
@@ -64,6 +72,7 @@ const executeValidatedKnowledgeRequest = (
     { coverageStatus, queryPlan },
   );
   trace.add("BUILD_STRUCTURED_SYNTHESIS", "Synthèse logique déterministe ; aucune proposition scientifique ajoutée.", { assertions: assertionResolution.digest, gaps, conflicts }, synthesis);
+  if (request.referenceNeed) trace.add("EMIT_REFERENCE_RESULT", "Les références externes restent des candidats ancrés, sans assertion effective ni autorisation d’écriture Project.", referenceEvidenceCandidates.map((candidate) => candidate.candidateId), { candidateCount: referenceEvidenceCandidates.length, projectWriteAuthorized: false });
   const builtTrace = trace.build(request.traceId, KNOWLEDGE_PROVIDER_REGISTRY.digest, { transmittedFields: minimized.transmittedFields, redactedFields: minimized.redactedFields, externalCallMade: false });
   return createKnowledgeResult({
     request,

@@ -39,7 +39,8 @@ export type ContextDimensionName =
   | "objective"
   | "criterion"
   | "intervention"
-  | "usage";
+  | "usage"
+  | "jurisdiction";
 
 export type PrivacyClass = "PUBLIC" | "INTERNAL" | "CONFIDENTIAL_PROJECT" | "RESTRICTED_PERSONAL";
 export type ExternalSearchPolicy = "INTERNAL_ONLY" | "EXTERNAL_ALLOWED" | "EXTERNAL_REQUIRED" | "EXTERNAL_FORBIDDEN";
@@ -83,12 +84,26 @@ export type KnowledgeRequest = {
   requestId: string;
   requestRevision: number;
   researchProjectId?: string;
+  researchProjectVersion?: string;
+  researchProjectDigest?: string;
   strategyVersion?: string;
   originalQuestion: string;
   normalizedQuestion: string;
   requestType: KnowledgeRequestType;
   knowledgePurpose: KnowledgePurpose;
-  consumer: "PROTOCOL_DESIGNER_UNDERSTAND" | "SCIENTIFIC_THINKING_ENGINE" | "IMAGING_STUDY_DESIGNER" | "RESEARCH_PROJECT_CONSTRUCTION" | "KNOWLEDGE_ENGINE_TEST";
+  consumer:
+    | "PROTOCOL_DESIGNER_UNDERSTAND"
+    | "SCIENTIFIC_THINKING_ENGINE"
+    | "STUDY_DESIGN_ENGINE"
+    | "OBSERVABILITY_MEASUREMENT_ENGINE"
+    | "IMAGING_STUDY_DESIGNER"
+    | "BIOSTATISTICS_ENGINE"
+    | "STUDY_DATA_CDM"
+    | "DATA_MANAGEMENT_ENGINE"
+    | "REGULATORY_RESOLUTION_ENGINE"
+    | "RESEARCH_PROJECT_CONSTRUCTION"
+    | "KNOWLEDGE_ENGINE_TEST";
+  referenceNeed?: ReferenceKnowledgeNeed;
   scientificObjects: ScientificObjectRef[];
   relations: string[];
   requestedClaimType: "DEFINITION" | "COMPARISON" | "APPLICABILITY" | "BEST_OPTION" | "GAP";
@@ -135,10 +150,41 @@ export type ConceptResolution = {
   digest: string;
 };
 
-export type ProviderType = "STRUCTURED_CORPUS" | "KNOWLEDGE_GRAPH" | "ASSERTION_LAYER" | "REASONING_BOOK";
-export type ProviderCapability = "CONCEPT" | "RELATION" | "ASSERTION" | "EVIDENCE" | "DOCUMENTARY_STATEMENT";
+export type ReferenceKnowledgeOwner =
+  | "KNOWLEDGE"
+  | "SCIENTIFIC_THINKING"
+  | "STUDY_DESIGN"
+  | "OBSERVABILITY_MEASUREMENT"
+  | "IMAGING"
+  | "BIOSTATISTICS"
+  | "CDM"
+  | "DATA_MANAGEMENT"
+  | "REG";
+
+export type ReferenceKnowledgeNeed = {
+  needId: string;
+  needClass: string;
+  owner: ReferenceKnowledgeOwner;
+  sourcePreferences: string[];
+  jurisdictionTarget?: string;
+  includeHistorical: boolean;
+  maxSources: number;
+  maxSectionsPerSource: number;
+};
+
+export type ProviderType = "STRUCTURED_CORPUS" | "KNOWLEDGE_GRAPH" | "ASSERTION_LAYER" | "REASONING_BOOK" | "REFERENCE_CORPUS";
+export type ProviderCapability =
+  | "CONCEPT"
+  | "RELATION"
+  | "ASSERTION"
+  | "EVIDENCE"
+  | "DOCUMENTARY_STATEMENT"
+  | "SOURCE_METADATA"
+  | "DOCUMENT_SECTION"
+  | "REFERENCE_STATEMENT_CANDIDATE"
+  | "DOCUMENT_RELATIONSHIP";
 export type ProviderAvailability = "AVAILABLE" | "AVAILABLE_EMPTY" | "REPLAY_ONLY" | "NOT_ACTIVATED" | "UNAVAILABLE";
-export type ProviderStatus = "CURRENT_EFFECTIVE" | "CURRENT_DOCUMENTARY" | "CURRENT_EMPTY" | "HISTORICAL_SUPERSEDED" | "CANDIDATE_NOT_ACTIVATED";
+export type ProviderStatus = "CURRENT_EFFECTIVE" | "CURRENT_DOCUMENTARY" | "CURRENT_CANDIDATE" | "CURRENT_EMPTY" | "HISTORICAL_SUPERSEDED" | "CANDIDATE_NOT_ACTIVATED";
 
 export type KnowledgeProviderDefinition = {
   id: string;
@@ -157,8 +203,8 @@ export type KnowledgeProviderDefinition = {
   supportedRelations: string[];
   contextDimensions: ContextDimensionName[];
   supportedContextDimensions: ContextDimensionName[];
-  granularity: "ATOMIC_ASSERTION" | "DOCUMENTARY_BLOCK" | "ENTITY_RELATION";
-  resultGranularity: "ATOMIC_ASSERTION" | "DOCUMENTARY_BLOCK" | "ENTITY_RELATION";
+  granularity: "ATOMIC_ASSERTION" | "DOCUMENTARY_BLOCK" | "ENTITY_RELATION" | "REFERENCE_SECTION";
+  resultGranularity: "ATOMIC_ASSERTION" | "DOCUMENTARY_BLOCK" | "ENTITY_RELATION" | "REFERENCE_SECTION";
   provenanceSupport: "SOURCE_AND_LOCATOR" | "SOURCE_REFS";
   sourceLocatorSupport: "SOURCE_AND_LOCATOR" | "SOURCE_REFS";
   evidenceSupport: "EVIDENCE_LINKS" | "DOCUMENTARY_LOCALIZERS" | "NONE";
@@ -219,6 +265,93 @@ export type RuntimeSource = {
   doi?: string;
   pmid?: string;
   pmcid?: string;
+  sourceSnapshotRef?: string;
+};
+
+export type ReferenceContentAvailability = "METADATA_ONLY" | "DOCUMENT_AVAILABLE" | "SECTION_INDEXED" | "CLAIM_ANCHORED";
+
+export type ReferenceSourceSnapshot = {
+  snapshotId: string;
+  snapshotDigest: string;
+  sourceId: string;
+  metadataRef: string;
+  title: string;
+  organization: string;
+  documentType: string;
+  sourceClass: string;
+  documentVersion: string;
+  publicationDate: string;
+  effectiveDate: string;
+  currentOrHistorical: string;
+  jurisdiction: string;
+  regulatoryApplicability: string;
+  methodologicalRelevance: string;
+  scientificRelevance: string;
+  practicePatternRelevance: string;
+  officialUrl: string;
+  localDigest: string | null;
+  retrievalDate: string;
+  supersedes: string[];
+  supersededBy: string[];
+  licenceOrCopyrightStatus: string;
+  localCopyAllowed: "YES" | "NO" | "UNKNOWN";
+  redistributionAllowed: "YES" | "NO" | "UNKNOWN";
+  uncertainties: string[];
+  ownerRelevance: string[];
+  targetDomains: string[];
+  contentAvailability: ReferenceContentAvailability;
+  externalAuthorityStatus: "EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY";
+};
+
+export type ReferenceSourceAnchor = {
+  anchorId: string;
+  sourceId: string;
+  documentVersion: string;
+  page: number;
+  sectionId: string;
+  heading: string;
+  normalizedTextOffsetStart: number;
+  normalizedTextOffsetEnd: number;
+  exactContentDigest: string;
+  locator: string;
+};
+
+export type ReferenceEvidenceCandidate = {
+  candidateId: string;
+  providerId: "reference-corpus-01";
+  status: "EXTERNAL_REFERENCE_CANDIDATE";
+  needId: string;
+  needClass: string;
+  owner: ReferenceKnowledgeOwner;
+  sourceId: string;
+  sourceSnapshotRef: string;
+  anchor: ReferenceSourceAnchor;
+  exactTextExcerpt: string;
+  supportTypes: string[];
+  jurisdiction: string;
+  regulatoryApplicability: string;
+  methodologicalRelevance: string;
+  scientificRelevance: string;
+  practicePatternRelevance: string;
+  sourceClass: string;
+  documentType: string;
+  currentOrHistorical: string;
+  limitations: string[];
+  uncertainties: string[];
+  candidateIsGovernedAssertion: false;
+  projectWriteAuthorized: false;
+};
+
+export type ReferenceDocumentRelationship = {
+  relationshipId: string;
+  relationshipType: "SAME_STUDY_ARTIFACT_SET";
+  studySetId: string;
+  studyTitle: string;
+  trialIdentifiers: string[];
+  artifacts: Array<{ sourceId: string; role: string }>;
+  provenance: string[];
+  limitations: string[];
+  practiceRuleInferred: false;
 };
 
 export type RuntimeEvidenceLink = {
@@ -270,6 +403,9 @@ export type AdapterResult = {
   assertions: RuntimeAssertion[];
   documentaryStatements: GovernedDocumentaryStatement[];
   sources: RuntimeSource[];
+  referenceSourceSnapshots?: ReferenceSourceSnapshot[];
+  referenceEvidenceCandidates?: ReferenceEvidenceCandidate[];
+  referenceDocumentRelationships?: ReferenceDocumentRelationship[];
   evidenceLinks: RuntimeEvidenceLink[];
   conflicts: RuntimeConflict[];
   limitations: string[];
@@ -437,6 +573,9 @@ export type KnowledgeResult = {
   documentaryStatements: GovernedDocumentaryStatement[];
   candidateAssertions: RuntimeAssertion[];
   sources: RuntimeSource[];
+  referenceSourceSnapshots: ReferenceSourceSnapshot[];
+  referenceEvidenceCandidates: ReferenceEvidenceCandidate[];
+  referenceDocumentRelationships: ReferenceDocumentRelationship[];
   evidence: RuntimeEvidenceLink[];
   applicability: Record<string, ApplicabilityState>;
   synthesis: RuntimeKnowledgeSynthesis;

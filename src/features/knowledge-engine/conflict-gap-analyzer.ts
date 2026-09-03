@@ -1,7 +1,7 @@
 import { logicalDigest, uniqueSorted } from "./canonical";
 import { canonicalModality } from "./modality";
 import { isComparativeSemanticRelation } from "./relation-semantics";
-import type { CoverageStatus, KnowledgeGap, KnowledgeRequest, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict } from "./types";
+import type { CoverageStatus, KnowledgeGap, KnowledgeRequest, ProviderExecution, QueryPlan, ReferenceEvidenceCandidate, ReferenceSourceSnapshot, RuntimeAssertion, RuntimeConflict } from "./types";
 
 const assertionPropositionKey = (assertion: RuntimeAssertion) => logicalDigest({ concepts: assertion.conceptIds, atomicContent: assertion.atomicContent });
 
@@ -32,11 +32,13 @@ export const determineCoverage = (
   excludedCount: number,
   conflicts: RuntimeConflict[],
   inheritedLimitations: string[] = [],
+  referenceCandidateCount = 0,
 ): CoverageStatus => {
   if (queryPlan.domainGate !== "IN_SCOPE") return "PROVIDER_NOT_APPLICABLE";
   if (conflicts.some((item) => item.state === "CONTRADICTION" || item.state === "CONTROVERSY")) return "CONFLICTING";
   if (providerExecutions.some((item) => item.included && ["FAILED", "UNAVAILABLE"].includes(item.executionStatus))) return "SOURCE_UNAVAILABLE";
   if (!queryPlan.providerSelections.some((item) => item.included)) return "NO_PROVIDER";
+  if (!applicableAssertions.length && !documentaryCount && referenceCandidateCount) return "PARTIAL";
   if (!applicableAssertions.length && !documentaryCount && excludedCount) return "PROVIDER_NOT_APPLICABLE";
   if (!applicableAssertions.length && !documentaryCount) return "NO_MATCH";
   if (documentaryCount && excludedCount) return "PARTIAL";
@@ -66,6 +68,8 @@ export const analyzeGaps = (
   conflicts: RuntimeConflict[],
   applicableAssertions: RuntimeAssertion[],
   inheritedLimitations: string[] = [],
+  referenceEvidenceCandidates: ReferenceEvidenceCandidate[] = [],
+  referenceSourceSnapshots: ReferenceSourceSnapshot[] = [],
 ): KnowledgeGap[] => {
   const gaps: KnowledgeGap[] = [];
   const push = (code: KnowledgeGap["code"], scope: string, explanation: string, affectedConceptIds: string[], resumeCondition: string) => gaps.push({ gapId: `knowledge-gap:${logicalDigest({ code, scope, affectedConceptIds })}`, code, scope, explanation, affectedConceptIds, resumeCondition });
@@ -81,6 +85,8 @@ export const analyzeGaps = (
   if (coverageStatus === "PROVIDER_NOT_APPLICABLE" && !ambiguousClarification) push("NO_APPLICABLE_PROVIDER", "EXACT_CONTEXT", "Les contenus retrouvés ne sont pas applicables au contexte dur demandé.", conceptIds, "Documenter le contexte manquant ou interroger un provider exact.");
   if (coverageStatus === "NO_MATCH" && !ambiguousClarification) push("NO_ASSERTION_MATCH", "EXACT_REQUEST", "Les providers applicables ont été interrogés sans assertion correspondante.", conceptIds, "Ajouter une connaissance gouvernée ou autoriser une découverte externe séparée.");
   if (coverageStatus === "SOURCE_UNAVAILABLE") push("PROVIDER_FAILURE", "RUNTIME", "Au moins un provider sélectionné n’a pas pu être exécuté ; aucune absence scientifique n’est conclue.", conceptIds, "Rétablir le provider et rejouer le même plan.");
+  if (referenceSourceSnapshots.some((snapshot) => snapshot.contentAvailability === "METADATA_ONLY")) push("MISSING_SOURCE_ACCESS", "REFERENCE_DOCUMENT_CONTENT", "Au moins une source documentaire est visible uniquement par ses métadonnées ; aucun contenu spécifique n’en est inféré.", conceptIds, "Acquérir et indexer explicitement une copie autorisée et digestée.");
+  if (referenceEvidenceCandidates.length) push("MISSING_REVIEW_OR_ACTIVATION", "EXTERNAL_REFERENCE_CANDIDATE", "Des extraits documentaires externes ancrés sont disponibles comme candidats, sans promotion automatique en assertion gouvernée.", conceptIds, "Qualifier le support exact dans le corridor Knowledge puis requérir la revue humaine applicable.");
   if (["NO_PROVIDER", "NO_MATCH", "PARTIAL"].includes(coverageStatus) && !ambiguousClarification) push("EXTERNAL_RESEARCH_REQUIRED", "FUTURE_EXTERNAL_RESEARCH", "La connaissance interne est insuffisante pour fermer cette question. Une recherche scientifique externe séparée serait nécessaire ; elle n’a pas été réalisée.", conceptIds, "Autoriser ultérieurement un workflow de recherche externe gouverné, hors ENG-002.");
   if (request.context.unknowns.length && request.knowledgePurpose !== "UNDERSTAND") push("MISSING_CRITICAL_CONTEXT", "CONTEXT", `Dimensions critiques absentes : ${request.context.unknowns.join(", ")}.`, conceptIds, "Obtenir une clarification humaine.");
   if (request.context.dimensions.some((item) => item.name === "intervention" && item.values.length) && !applicableAssertions.length && !gaps.some((item) => item.code === "MISSING_CRITICAL_CONTEXT")) push("MISSING_CRITICAL_CONTEXT", "INTERVENTION", "L’applicabilité au contexte d’intervention explicite n’est pas documentée.", conceptIds, "Fournir une connaissance couvrant exactement l’intervention et le timing.");

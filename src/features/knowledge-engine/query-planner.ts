@@ -58,7 +58,8 @@ export const createQueryPlan = (request: KnowledgeRequest, resolution: ConceptRe
     const substantiveMatches = matchedConceptIds.filter(nonRoutingConcept);
     const graphTechnicalMatch = provider.id === "knowledge-graph" && matchedConceptIds.some((id) => ["tool:numpy", "format:dicom"].includes(id));
     const selectable = provider.availability === "AVAILABLE";
-    const included = domainGate === "IN_SCOPE" && selectable && (substantiveMatches.length > 0 || graphTechnicalMatch);
+    const explicitReferenceNeed = provider.id === "reference-corpus-01" && Boolean(request.referenceNeed);
+    const included = domainGate === "IN_SCOPE" && selectable && (explicitReferenceNeed || substantiveMatches.length > 0 || graphTechnicalMatch);
     const reason = domainGate !== "IN_SCOPE"
       ? `Exclu par Domain Gate : ${domainGate}.`
       : provider.availability === "REPLAY_ONLY"
@@ -70,7 +71,9 @@ export const createQueryPlan = (request: KnowledgeRequest, resolution: ConceptRe
             : provider.availability === "UNAVAILABLE"
               ? "Provider enregistré mais indisponible à l’exécution."
       : included
-        ? `Correspondance exacte déclarée : ${matchedConceptIds.join(", ")}.`
+        ? explicitReferenceNeed
+          ? `Besoin documentaire explicite gouverné : ${request.referenceNeed!.needId} (${request.referenceNeed!.needClass}).`
+          : `Correspondance exacte déclarée : ${matchedConceptIds.join(", ")}.`
         : matchedConceptIds.length
           ? "Modalité seule insuffisante pour substituer un domaine scientifique absent."
           : "Aucun concept exact de la demande dans la couverture déclarée.";

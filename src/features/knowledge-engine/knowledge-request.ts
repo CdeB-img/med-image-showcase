@@ -3,7 +3,7 @@ import { logicalDigest, normalizeScientificText, uniqueSorted } from "./canonica
 import { createKnowledgeContextPackage, type KnowledgeContextInput } from "./context-package";
 import { classifySensitivity } from "./privacy";
 import { KNOWLEDGE_RELATION_MAX_LENGTH, SCIENTIFIC_OBJECT_ORIGINAL_TERM_MAX_LENGTH } from "./scientific-object-boundary.js";
-import { KNOWLEDGE_ENGINE_VERSION, type ExternalSearchPolicy, type KnowledgePurpose, type KnowledgeRequest, type KnowledgeRequestType, type ScientificObjectRef } from "./types";
+import { KNOWLEDGE_ENGINE_VERSION, type ExternalSearchPolicy, type KnowledgePurpose, type KnowledgeRequest, type KnowledgeRequestType, type ReferenceKnowledgeNeed, type ScientificObjectRef } from "./types";
 import { hasExplicitComparisonRequest } from "@/lib/scientific-request-language";
 
 const scientificObjectSchema = z.object({
@@ -12,17 +12,31 @@ const scientificObjectSchema = z.object({
   role: z.enum(["SUBJECT", "COMPARATOR", "CONTEXT", "UNKNOWN"]),
 }).strict();
 
+const referenceNeedSchema = z.object({
+  needId: z.string().regex(/^OKC01-N-[0-9]{3}$/),
+  needClass: z.string().regex(/^[A-Z0-9_]{3,120}$/),
+  owner: z.enum(["KNOWLEDGE", "SCIENTIFIC_THINKING", "STUDY_DESIGN", "OBSERVABILITY_MEASUREMENT", "IMAGING", "BIOSTATISTICS", "CDM", "DATA_MANAGEMENT", "REG"]),
+  sourcePreferences: z.array(z.string().regex(/^RC01-[A-E]-[0-9]{3}$/)).max(20),
+  jurisdictionTarget: z.string().min(1).max(120).optional(),
+  includeHistorical: z.boolean(),
+  maxSources: z.number().int().min(1).max(10),
+  maxSectionsPerSource: z.number().int().min(1).max(5),
+}).strict();
+
 export const knowledgeRequestSchema = z.object({
   contractVersion: z.literal(KNOWLEDGE_ENGINE_VERSION),
   requestId: z.string().min(1).max(200),
   requestRevision: z.number().int().min(1),
   researchProjectId: z.string().min(1).max(200).optional(),
+  researchProjectVersion: z.string().min(1).max(200).optional(),
+  researchProjectDigest: z.string().min(1).max(200).optional(),
   strategyVersion: z.string().min(1).max(100).optional(),
   originalQuestion: z.string().min(3).max(4_000),
   normalizedQuestion: z.string().min(3).max(4_000),
   requestType: z.enum(["EXPLAIN", "COMPARE", "SUPPORT_REASONING", "CHECK_APPLICABILITY", "IDENTIFY_GAP"]),
   knowledgePurpose: z.enum(["UNDERSTAND", "COMPARE", "CLARIFY_SELECTION", "CHECK_APPLICABILITY", "IDENTIFY_GAP"]),
-  consumer: z.enum(["PROTOCOL_DESIGNER_UNDERSTAND", "SCIENTIFIC_THINKING_ENGINE", "IMAGING_STUDY_DESIGNER", "RESEARCH_PROJECT_CONSTRUCTION", "KNOWLEDGE_ENGINE_TEST"]),
+  consumer: z.enum(["PROTOCOL_DESIGNER_UNDERSTAND", "SCIENTIFIC_THINKING_ENGINE", "STUDY_DESIGN_ENGINE", "OBSERVABILITY_MEASUREMENT_ENGINE", "IMAGING_STUDY_DESIGNER", "BIOSTATISTICS_ENGINE", "STUDY_DATA_CDM", "DATA_MANAGEMENT_ENGINE", "REGULATORY_RESOLUTION_ENGINE", "RESEARCH_PROJECT_CONSTRUCTION", "KNOWLEDGE_ENGINE_TEST"]),
+  referenceNeed: referenceNeedSchema.optional(),
   scientificObjects: z.array(scientificObjectSchema).min(1).max(30),
   relations: z.array(z.string().min(1).max(KNOWLEDGE_RELATION_MAX_LENGTH)).max(30),
   requestedClaimType: z.enum(["DEFINITION", "COMPARISON", "APPLICABILITY", "BEST_OPTION", "GAP"]),
@@ -45,10 +59,13 @@ export type KnowledgeRequestInput = {
   exclusions?: string[];
   unknowns?: string[];
   researchProjectId?: string;
+  researchProjectVersion?: string;
+  researchProjectDigest?: string;
   strategyVersion?: string;
   consumer?: KnowledgeRequest["consumer"];
   freshnessRequirement?: string;
   externalSearchPolicy?: ExternalSearchPolicy;
+  referenceNeed?: Partial<Omit<ReferenceKnowledgeNeed, "needId" | "needClass" | "owner">> & Pick<ReferenceKnowledgeNeed, "needId" | "needClass" | "owner">;
   createdAt?: string;
 };
 
@@ -63,6 +80,10 @@ const classifyPurpose = (question: string): { purpose: KnowledgePurpose; request
 export const createKnowledgeRequest = (input: KnowledgeRequestInput): KnowledgeRequest => {
   const originalQuestion = normalizeScientificText(input.originalQuestion);
   if (!originalQuestion) throw new Error("KNOWLEDGE_REQUEST_EMPTY_QUESTION");
+  const projectBindingValues = [input.researchProjectId, input.researchProjectVersion, input.researchProjectDigest];
+  if (input.referenceNeed && projectBindingValues.some(Boolean) && !projectBindingValues.every(Boolean)) {
+    throw new Error("REFERENCE_KNOWLEDGE_PROJECT_BINDING_INCOMPLETE");
+  }
   const sensitivityClassification = input.researchProjectId || input.strategyVersion
     ? "CONFIDENTIAL_PROJECT" as const
     : classifySensitivity(originalQuestion);
@@ -83,6 +104,21 @@ export const createKnowledgeRequest = (input: KnowledgeRequestInput): KnowledgeR
     classification,
     consumer: input.consumer ?? "PROTOCOL_DESIGNER_UNDERSTAND",
     freshnessRequirement: input.freshnessRequirement ?? "AS_OF_2026_08_09",
+    projectBinding: projectBindingValues.some(Boolean) ? {
+      researchProjectId: input.researchProjectId,
+      researchProjectVersion: input.researchProjectVersion,
+      researchProjectDigest: input.researchProjectDigest,
+    } : undefined,
+    referenceNeed: input.referenceNeed ? {
+      needId: input.referenceNeed.needId,
+      needClass: input.referenceNeed.needClass,
+      owner: input.referenceNeed.owner,
+      sourcePreferences: uniqueSorted(input.referenceNeed.sourcePreferences ?? []),
+      jurisdictionTarget: input.referenceNeed.jurisdictionTarget,
+      includeHistorical: input.referenceNeed.includeHistorical ?? false,
+      maxSources: input.referenceNeed.maxSources ?? 5,
+      maxSectionsPerSource: input.referenceNeed.maxSectionsPerSource ?? 3,
+    } : undefined,
   };
   const digest = logicalDigest(material);
   const request: KnowledgeRequest = {
@@ -90,12 +126,15 @@ export const createKnowledgeRequest = (input: KnowledgeRequestInput): KnowledgeR
     requestId: `knowledge-request:${digest}`,
     requestRevision: 1,
     researchProjectId: input.researchProjectId,
+    researchProjectVersion: input.researchProjectVersion,
+    researchProjectDigest: input.researchProjectDigest,
     strategyVersion: input.strategyVersion,
     originalQuestion,
     normalizedQuestion: originalQuestion,
     requestType: classification.requestType,
     knowledgePurpose: classification.purpose,
     consumer: input.consumer ?? "PROTOCOL_DESIGNER_UNDERSTAND",
+    referenceNeed: material.referenceNeed,
     scientificObjects,
     relations: material.relations,
     requestedClaimType: classification.claimType,

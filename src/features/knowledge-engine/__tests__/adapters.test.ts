@@ -65,7 +65,7 @@ describe("Knowledge Graph adapter", () => {
 describe("adapter contract", () => {
   it("has one real adapter for every registered adapter family and stable versions", () => {
     expect(KNOWLEDGE_ADAPTERS.map((item) => item.adapterId)).toEqual([...KNOWLEDGE_ADAPTERS].map((item) => item.adapterId).sort());
-    expect(KNOWLEDGE_ADAPTERS.map((item) => item.adapterId)).toEqual(expect.arrayContaining(["empty-provider-adapter-v1", "knowledge-graph-adapter-v1", "p4r-adapter-v1", "p5-adapter-v1", "reasoning-book-adapter-v1-1"]));
+    expect(KNOWLEDGE_ADAPTERS.map((item) => item.adapterId)).toEqual(expect.arrayContaining(["empty-provider-adapter-v1", "knowledge-graph-adapter-v1", "p4r-adapter-v1", "p5-adapter-v1", "reasoning-book-adapter-v1-1", "reference-corpus-adapter-v1"]));
     expect(KNOWLEDGE_ADAPTERS.every((item) => /^1\.[01]\.0$/.test(item.adapterVersion))).toBe(true);
   });
 });

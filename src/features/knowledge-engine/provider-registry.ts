@@ -1,4 +1,5 @@
 import { logicalDigest } from "./canonical";
+import { REFERENCE_CORPUS_RUNTIME_DIGEST, REFERENCE_CORPUS_REGISTRY_REF } from "./reference-corpus";
 import type { KnowledgeProviderDefinition } from "./types";
 
 type ProviderInput = Omit<KnowledgeProviderDefinition,
@@ -102,6 +103,17 @@ const providers = ([
     knownLimitations: ["NARRATIVE_CORPUS", "NOT_ATOMIC_ASSERTIONS", "UNSTRUCTURED_SECTIONS_DECLARED_NOT_CONVERTED"], completenessClaim: "Toutes les familles de sections fiables du DOCX maître sont inventoriées ; seuls les blocs contrôlés sont restitués comme texte documentaire.",
     status: "CURRENT_DOCUMENTARY", availability: "AVAILABLE", programOwner: "NXP-000003", adapterId: "reasoning-book-adapter-v1-1",
   }),
+  defineProvider({
+    providerId: "reference-corpus-01", version: `1.0.0-${REFERENCE_CORPUS_RUNTIME_DIGEST.slice(0, 12)}`, providerType: "REFERENCE_CORPUS",
+    authoritySource: REFERENCE_CORPUS_REGISTRY_REF, authority: "RC01 — registre documentaire externe non normatif, accessible uniquement via Knowledge",
+    domain: ["EXTERNAL_REFERENCE_DOCUMENTS"], coverageConcepts: [], queryCapabilities: ["SOURCE_METADATA", "DOCUMENT_SECTION", "REFERENCE_STATEMENT_CANDIDATE", "DOCUMENT_RELATIONSHIP"],
+    supportedEntities: ["ReferenceSourceSnapshot", "ReferenceSourceAnchor", "ReferenceEvidenceCandidate", "ReferenceDocumentRelationship"],
+    supportedRelations: ["CANDIDATE_SUPPORT", "SAME_STUDY_ARTIFACT_SET"], supportedContextDimensions: ["domain", "pathology", "population", "phenomenon", "biomarker", "modality", "technique", "equipment", "timing", "objective", "criterion", "intervention", "usage", "jurisdiction"],
+    resultGranularity: "REFERENCE_SECTION", sourceLocatorSupport: "SOURCE_AND_LOCATOR", evidenceSupport: "DOCUMENTARY_LOCALIZERS",
+    knownLimitations: ["EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY", "FIVE_LOCAL_PDFS_SECTION_INDEXED", "FIFTY_THREE_REMOTE_SOURCES_METADATA_ONLY", "NO_AUTOMATIC_PROJECT_ADOPTION", "NO_PRACTICE_PATTERN_EXTRACTION"],
+    completenessClaim: "Visibilité exhaustive du registre RC01 ; contenu borné aux cinq PDF locaux indexés et sélection documentaire exclusivement candidate.",
+    status: "CURRENT_CANDIDATE", availability: "AVAILABLE", adapterId: "reference-corpus-adapter-v1",
+  }),
 ] satisfies KnowledgeProviderDefinition[]).sort((left, right) => left.providerId.localeCompare(right.providerId));
 
 const snapshotMaterial = providers.map((provider) => ({
@@ -115,12 +127,13 @@ const snapshotMaterial = providers.map((provider) => ({
 
 export const KNOWLEDGE_PROVIDER_REGISTRY = Object.freeze({
   registryId: "noxia-knowledge-provider-registry",
-  version: "1.1.0",
+  version: "1.2.0",
   providers: Object.freeze(providers),
   diagnostics: Object.freeze([
     "P4_IS_HISTORICAL_REPLAY_ONLY_AND_P4R_IS_CURRENT",
     "SCIENTIFIC_ASSERTION_LAYER_HAS_ZERO_ASSERTIONS_AND_IS_NOT_A_POSITIVE_ASSERTION_PROVIDER",
     "REASONING_BOOKS_RETURN_GOVERNED_DOCUMENTARY_STATEMENTS_NOT_ATOMIC_ASSERTIONS",
+    "REFERENCE_CORPUS_RETURNS_EXTERNAL_CANDIDATES_NOT_GOVERNED_ASSERTIONS",
   ]),
   digest: logicalDigest(snapshotMaterial),
 });

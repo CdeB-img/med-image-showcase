@@ -1,7 +1,7 @@
 import { logicalDigest, uniqueSorted } from "./canonical";
 import { modalitiesAreCompatible } from "./modality";
 import { isComparativeSemanticRelation } from "./relation-semantics";
-import type { CoverageMap, CoverageMapItem, GovernedDocumentaryStatement, KnowledgeRequest, ProviderExecution, QueryPlan, RuntimeAssertion, RuntimeConflict } from "./types";
+import type { CoverageMap, CoverageMapItem, GovernedDocumentaryStatement, KnowledgeRequest, ProviderExecution, QueryPlan, ReferenceEvidenceCandidate, RuntimeAssertion, RuntimeConflict } from "./types";
 
 const modalityMatches = (assertion: RuntimeAssertion, modality?: string) => {
   if (!modality || !assertion.modality) return true;
@@ -25,6 +25,7 @@ export const buildCoverageMap = (input: {
   applicableAssertions: RuntimeAssertion[];
   excludedAssertions: RuntimeAssertion[];
   documentaryStatements: GovernedDocumentaryStatement[];
+  referenceEvidenceCandidates?: ReferenceEvidenceCandidate[];
   conflicts: RuntimeConflict[];
   inheritedLimitations?: string[];
 }): CoverageMap => {
@@ -33,7 +34,8 @@ export const buildCoverageMap = (input: {
   const items: CoverageMapItem[] = input.queryPlan.branches.map((branch) => {
     const considered = input.providerExecutions.filter((execution) => {
       const selection = selectionByProvider.get(execution.providerId);
-      return Boolean(selection?.matchedConceptIds.some((conceptId) => branch.conceptIds.includes(conceptId)));
+      return Boolean(selection?.matchedConceptIds.some((conceptId) => branch.conceptIds.includes(conceptId))
+        || input.request.referenceNeed && execution.providerId === "reference-corpus-01");
     });
     const relevantIds = new Set(considered.filter((item) => item.included).map((item) => item.providerId));
     const branchSpecificIds = input.queryPlan.branches.length > 1 && !branch.modality
@@ -43,16 +45,17 @@ export const buildCoverageMap = (input: {
       || branchSpecificIds.some((conceptId) => itemSupportsConcept(input.queryPlan, providerId, conceptIds, conceptId));
     const assertions = input.applicableAssertions.filter((item) => relevantIds.has(item.providerId) && modalityMatches(item, branch.modality) && supportsBranch(item.providerId, item.conceptIds));
     const statements = input.documentaryStatements.filter((item) => relevantIds.has(item.providerId) && supportsBranch(item.providerId, item.conceptIds));
+    const referenceCandidates = (input.referenceEvidenceCandidates ?? []).filter((item) => relevantIds.has(item.providerId));
     const excluded = input.excludedAssertions.filter((item) => relevantIds.has(item.providerId) && modalityMatches(item, branch.modality) && supportsBranch(item.providerId, item.conceptIds));
-    const supportingProviderIds = uniqueSorted([...assertions.map((item) => item.providerId), ...statements.map((item) => item.providerId)]);
-    const resultCount = assertions.length + statements.length;
+    const supportingProviderIds = uniqueSorted([...assertions.map((item) => item.providerId), ...statements.map((item) => item.providerId), ...referenceCandidates.map((item) => item.providerId)]);
+    const resultCount = assertions.length + statements.length + referenceCandidates.length;
     const conflicting = input.conflicts.some((conflict) => conflict.positionIds.some((id) => assertions.some((assertion) => assertion.revision === id)));
     const status = input.queryPlan.domainGate !== "IN_SCOPE"
       ? "OUT_OF_DOMAIN" as const
       : conflicting
         ? "CONFLICTING_COVERAGE" as const
         : resultCount
-          ? excluded.length ? "PARTIAL_COVERAGE" as const : "SUPPORTED_COVERAGE" as const
+          ? referenceCandidates.length || excluded.length ? "PARTIAL_COVERAGE" as const : "SUPPORTED_COVERAGE" as const
           : excluded.length
             ? "INCOMPATIBLE_CONTEXT" as const
             : !relevantIds.size

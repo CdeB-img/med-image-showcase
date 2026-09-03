@@ -54,7 +54,7 @@ export const createKnowledgeContextPackage = (
   input: KnowledgeContextInput = {},
 ): KnowledgeContextPackage => {
   const inferred = explicitFromQuestion(question);
-  const names: ContextDimensionName[] = ["domain", "pathology", "population", "phenomenon", "biomarker", "modality", "technique", "equipment", "timing", "objective", "criterion", "intervention", "usage"];
+  const names: ContextDimensionName[] = ["domain", "pathology", "population", "phenomenon", "biomarker", "modality", "technique", "equipment", "timing", "objective", "criterion", "intervention", "usage", "jurisdiction"];
   const dimensions: ContextDimension[] = names.map((name) => {
     const explicitlyProvided = Object.prototype.hasOwnProperty.call(input, name);
     const values = explicitlyProvided ? normalizeValues(input[name]) : normalizeValues(inferred[name]);
