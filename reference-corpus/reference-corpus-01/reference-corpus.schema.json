@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "noxia://reference-corpus/reference-corpus-01/schema",
+  "title": "NOXIA governed external reference source",
+  "type": "object",
+  "required": ["MISSION_ID", "STATUS", "RETRIEVAL_DATE", "SOURCES"],
+  "properties": {
+    "MISSION_ID": {"const": "REFERENCE-CORPUS-01"},
+    "STATUS": {"const": "NON_NORMATIVE_REFERENCE_REGISTRY_NOT_RUNTIME_WIRED"},
+    "RETRIEVAL_DATE": {"type": "string", "format": "date"},
+    "SOURCES": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/source"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "triState": {"enum": ["YES", "NO", "UNKNOWN"]},
+    "source": {
+      "type": "object",
+      "required": [
+        "SOURCE_ID", "TITLE", "ORGANIZATION", "DOCUMENT_TYPE", "SOURCE_CLASS",
+        "OFFICIAL_URL", "LOCAL_COPY_PATH", "FILE_FORMAT", "DOCUMENT_VERSION",
+        "PUBLICATION_DATE", "EFFECTIVE_DATE", "RETRIEVAL_DATE", "SUPERSEDES",
+        "SUPERSEDED_BY", "CURRENT_OR_HISTORICAL", "JURISDICTION", "LANGUAGE",
+        "AUTHORITY_OR_EVIDENCE_CLASS", "REGULATORY_APPLICABILITY",
+        "METHODOLOGICAL_RELEVANCE", "SCIENTIFIC_RELEVANCE",
+        "PRACTICE_PATTERN_RELEVANCE", "OWNER_RELEVANCE",
+        "LICENCE_OR_COPYRIGHT_STATUS", "LOCAL_COPY_ALLOWED",
+        "REDISTRIBUTION_ALLOWED", "SHA256", "RETRIEVAL_QUALITY_TIER",
+        "TARGET_DOMAINS", "NOTES", "UNCERTAINTIES"
+      ],
+      "properties": {
+        "SOURCE_ID": {"type": "string", "pattern": "^RC01-[A-E]-[0-9]{3}$"},
+        "TITLE": {"type": "string", "minLength": 1},
+        "ORGANIZATION": {"type": "string", "minLength": 1},
+        "DOCUMENT_TYPE": {"enum": ["LAW_OR_REGULATION", "REGULATORY_GUIDANCE", "INTERNATIONAL_GUIDELINE", "STANDARD", "CONSENSUS", "SCIENTIFIC_GUIDELINE", "METHODS_REFERENCE", "BEST_PRACTICE", "INSTITUTIONAL_GUIDE", "FUNDING_RULE", "STUDY_PROTOCOL", "STATISTICAL_ANALYSIS_PLAN", "CASE_REPORT_FORM", "DATA_DICTIONARY", "DATA_MANAGEMENT_PLAN", "IMAGING_CHARTER", "CORE_LAB_MANUAL", "LAB_MANUAL", "MONITORING_PLAN", "SAFETY_PLAN", "PROCEDURE_MANUAL", "PUBLICATION", "OTHER"]},
+        "SOURCE_CLASS": {"enum": ["A_AUTHORITATIVE_OR_INSTITUTIONAL_REFERENCE", "B_SCIENTIFIC_OR_METHODOLOGICAL_REFERENCE", "C_PRACTICE_ARTIFACT", "D_FUNDING_OR_OPERATIONAL_RULE", "E_LINKED_STUDY_ARTIFACT_SET"]},
+        "OFFICIAL_URL": {"type": "string", "pattern": "^https://"},
+        "LOCAL_COPY_PATH": {"type": ["string", "null"]},
+        "FILE_FORMAT": {"type": "string", "minLength": 1},
+        "DOCUMENT_VERSION": {"type": "string", "minLength": 1},
+        "PUBLICATION_DATE": {"type": "string", "minLength": 1},
+        "EFFECTIVE_DATE": {"type": "string", "minLength": 1},
+        "RETRIEVAL_DATE": {"type": "string", "format": "date"},
+        "SUPERSEDES": {"type": "array", "items": {"type": "string"}},
+        "SUPERSEDED_BY": {"type": "array", "items": {"type": "string"}},
+        "CURRENT_OR_HISTORICAL": {"type": "string", "minLength": 1},
+        "JURISDICTION": {"type": "string", "minLength": 1},
+        "LANGUAGE": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "AUTHORITY_OR_EVIDENCE_CLASS": {"type": "string", "not": {"pattern": "NOXIA_(CONSTITUTION|LEVEL_1|NORMATIVE_AUTHORITY)"}},
+        "REGULATORY_APPLICABILITY": {"type": "string", "minLength": 1},
+        "METHODOLOGICAL_RELEVANCE": {"enum": ["HIGH", "MEDIUM", "LOW", "CONTEXT_SPECIFIC", "UNKNOWN"]},
+        "SCIENTIFIC_RELEVANCE": {"enum": ["HIGH", "MEDIUM", "LOW", "CONTEXT_SPECIFIC", "UNKNOWN"]},
+        "PRACTICE_PATTERN_RELEVANCE": {"enum": ["HIGH", "MEDIUM", "LOW", "CONTEXT_SPECIFIC", "UNKNOWN"]},
+        "OWNER_RELEVANCE": {"type": "array", "minItems": 1, "items": {"enum": ["KNOWLEDGE", "SCIENTIFIC_THINKING", "STUDY_DESIGN", "OBSERVABILITY_MEASUREMENT", "IMAGING", "BIOSTATISTICS", "CDM", "DATA_MANAGEMENT", "REG", "PROJECT", "TMP_DOC", "FUTURE_BUDGET_FEASIBILITY", "NONE"]}},
+        "LICENCE_OR_COPYRIGHT_STATUS": {"type": "string", "minLength": 1},
+        "LOCAL_COPY_ALLOWED": {"$ref": "#/$defs/triState"},
+        "REDISTRIBUTION_ALLOWED": {"$ref": "#/$defs/triState"},
+        "SHA256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+        "RETRIEVAL_QUALITY_TIER": {"enum": ["TIER_A", "TIER_B", "TIER_C", "TIER_D", "TIER_E"]},
+        "TARGET_DOMAINS": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "NOTES": {"type": "string"},
+        "UNCERTAINTIES": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "MISSION_ID": "REFERENCE-CORPUS-01",
+  "STATUS": "NON_NORMATIVE_LINKAGE_REGISTRY_NO_PATTERN_EXTRACTION",
+  "RETRIEVAL_DATE": "2026-09-03",
+  "STUDY_SETS": [
+    {
+      "STUDY_SET_ID": "RC01-SET-001",
+      "STUDY_TITLE": "Analysis of 18F-AV-1451 PET Imaging in Cognitively Healthy, MCI, and AD Subjects",
+      "TRIAL_IDENTIFIERS": ["NCT02016560", "18F-AV-1451-A05"],
+      "SPONSOR": "Avid Radiopharmaceuticals",
+      "CONDITION": ["Alzheimer's Disease"],
+      "DESIGN": "INTERVENTIONAL; PHASE2/PHASE3; open-label multicenter imaging study",
+      "PHASE": "PHASE2; PHASE3",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-048", "ROLE": "PROTOCOL"},
+        {"SOURCE_ID": "RC01-E-049", "ROLE": "SAP_UPLOAD_001"},
+        {"SOURCE_ID": "RC01-E-050", "ROLE": "SAP_UPLOAD_002"},
+        {"SOURCE_ID": "RC01-E-051", "ROLE": "SAP_UPLOAD_003"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["All artifacts are deposited under the exact ClinicalTrials.gov record NCT02016560"],
+      "VERSION_RELATIONSHIPS": ["Protocol PDF identifies Amendment 2 approved 2015-08-07", "Ordering and supersession of SAP uploads remain UNKNOWN pending content inspection"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://clinicaltrials.gov/study/NCT02016560", "https://clinicaltrials.gov/api/v2/studies/NCT02016560"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Exact NCT identifier in registry and repository paths", "Protocol contains NCT02016560 and protocol identifier 18F-AV-1451-A05"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-002",
+      "STUDY_TITLE": "18F-DCFPyL PET/CT in Hepatocellular Carcinoma",
+      "TRIAL_IDENTIFIERS": ["NCT05009979", "10000080", "000080-C"],
+      "SPONSOR": "National Cancer Institute (NCI)",
+      "CONDITION": ["Hepatocellular Carcinoma"],
+      "DESIGN": "INTERVENTIONAL; PHASE2; multi-site imaging study",
+      "PHASE": "PHASE2",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-052", "ROLE": "COMBINED_PROTOCOL_SAP"},
+        {"SOURCE_ID": "RC01-E-053", "ROLE": "PROTOCOL_ADDENDUM_OR_COMPANION"},
+        {"SOURCE_ID": "RC01-E-054", "ROLE": "INFORMED_CONSENT_FORM"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["All artifacts are deposited under NCT05009979", "Combined protocol/SAP and ICF provide a same-study documentary subset"],
+      "VERSION_RELATIONSHIPS": ["Combined protocol/SAP states version date 2023-12-01", "Exact relation of Prot_001 to Prot_SAP_000 remains UNKNOWN pending content inspection"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://clinicaltrials.gov/study/NCT05009979", "https://clinicaltrials.gov/api/v2/studies/NCT05009979"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Exact NCT identifier in registry and repository paths", "Combined document cover identifies NCT05009979 and NIH protocol 000080"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-003",
+      "STUDY_TITLE": "18F-DCFBC PET/CT in Prostate Cancer",
+      "TRIAL_IDENTIFIERS": ["NCT02190279"],
+      "SPONSOR": "National Cancer Institute (NCI)",
+      "CONDITION": ["Prostatic Neoplasms", "Prostate Cancer"],
+      "DESIGN": "INTERVENTIONAL; EARLY_PHASE1; PET/CT imaging study",
+      "PHASE": "EARLY_PHASE1",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-055", "ROLE": "COMBINED_PROTOCOL_SAP"},
+        {"SOURCE_ID": "RC01-E-056", "ROLE": "INFORMED_CONSENT_FORM"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["Both artifacts are deposited under NCT02190279"],
+      "VERSION_RELATIONSHIPS": ["UNKNOWN pending content inspection"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://clinicaltrials.gov/study/NCT02190279", "https://clinicaltrials.gov/api/v2/studies/NCT02190279"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Exact NCT identifier in registry and repository paths"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-004",
+      "STUDY_TITLE": "High Resolution MRI Study for Prostate Cancer",
+      "TRIAL_IDENTIFIERS": ["NCT03292874"],
+      "SPONSOR": "Cedars-Sinai Medical Center",
+      "CONDITION": ["Prostate Cancer"],
+      "DESIGN": "INTERVENTIONAL; phase not applicable; high-resolution MRI study",
+      "PHASE": "NOT_APPLICABLE",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-057", "ROLE": "COMBINED_PROTOCOL_SAP"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["Protocol and SAP are combined in the same deposited artifact"],
+      "VERSION_RELATIONSHIPS": ["Intrinsic combined-file relationship; internal versions UNKNOWN"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://clinicaltrials.gov/study/NCT03292874", "https://clinicaltrials.gov/api/v2/studies/NCT03292874"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Exact NCT identifier in registry and document path", "ClinicalTrials.gov labels the file Prot_SAP"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-005",
+      "STUDY_TITLE": "A Multi-modal, Physician-centered Intervention to Improve Guideline-concordant Prostate Cancer Imaging",
+      "TRIAL_IDENTIFIERS": ["NCT03445559"],
+      "SPONSOR": "VA Office of Research and Development",
+      "CONDITION": ["Prostate Cancer"],
+      "DESIGN": "INTERVENTIONAL; phase not applicable; imaging-use implementation study",
+      "PHASE": "NOT_APPLICABLE",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-058", "ROLE": "COMBINED_PROTOCOL_SAP"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["Protocol and SAP are combined in the same deposited artifact"],
+      "VERSION_RELATIONSHIPS": ["Intrinsic combined-file relationship; internal versions UNKNOWN"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://clinicaltrials.gov/study/NCT03445559", "https://clinicaltrials.gov/api/v2/studies/NCT03445559"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Exact NCT identifier in registry and document path", "ClinicalTrials.gov labels the file Prot_SAP"]
+    }
+  ]
+}
