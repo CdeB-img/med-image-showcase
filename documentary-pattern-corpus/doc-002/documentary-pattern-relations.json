@@ -43,6 +43,24 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-01CA481C0E78",
+    "fromId": "DKP-340F8D524540",
+    "type": "COMPLEMENTS",
+    "toId": "DKP-F7AC222CC51D",
+    "rationale": "La preuve SPRINT contextualise la continuité entre collecte et définition sans remplacer l’owner Data.",
+    "evidenceIds": [
+      "DKE-DOC002R-SPRINT-CRF-02",
+      "DKE-DOC002R-SPRINT-DD-03",
+      "DKE-DOC002R-SPRINT-PROTOCOL-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-078",
+      "RC01-E-079",
+      "RC01-E-080"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-01ECAFE2CCF1",
     "fromId": "DKP-382000279B3F",
     "type": "SUPPORTED_BY",
@@ -100,6 +118,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-091AD0AF5335",
+    "fromId": "DKP-FE04065A7771",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-OPERATIONS-SPRINT-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-OPERATIONS-SPRINT-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-081"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-09705FCF648E",
     "fromId": "DKP-BF350009D500",
     "type": "PRECEDES",
@@ -111,6 +143,34 @@
     "provenanceSourceIds": [
       "SRC-DOC000D-PATTERNS",
       "SRC-DOC000D-REPORT"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-098BE920C578",
+    "fromId": "DKP-02B4755BF083",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-RIGHTS-REMAP-CAP-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-REMAP-CAP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-062"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-09CA8E0B3976",
+    "fromId": "DKP-02B4755BF083",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-RIGHTS-PRACTICAL-04",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-PRACTICAL-04"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-068"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -434,6 +494,24 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-186D891E1084",
+    "fromId": "DKP-454DC0E79FF5",
+    "type": "GENERALIZES",
+    "toId": "DKP-256835E3A253",
+    "rationale": "La modularité décrit la structure globale dont certains renvois explicites sont des instances.",
+    "evidenceIds": [
+      "DKE-DOC002R-MODULARITY-PRACTICAL-03",
+      "DKE-DOC002R-MODULARITY-REMAP-02",
+      "DKE-DOC002R-MODULARITY-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-075",
+      "RC01-E-077"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-193AE1AA0D47",
     "fromId": "DKP-C0ACD68FA6F8",
     "type": "DERIVES_FROM",
@@ -490,6 +568,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-1C869E00173F",
+    "fromId": "DKP-E8F3BD55B33F",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-COMMITMENT-DERIVED-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-DERIVED-01"
+    ],
+    "provenanceSourceIds": [
+      "SRC-DOC000B-PATTERNS"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-1DDD71DC3066",
     "fromId": "DKP-BBB050819384",
     "type": "SUPPORTED_BY",
@@ -514,6 +606,34 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-PATTERNS"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-2230C9FFA4FB",
+    "fromId": "DKP-02B4755BF083",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-RIGHTS-STEP-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-059"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-2275681975FA",
+    "fromId": "DKP-744E34E606ED",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-VERSION-PRINCIPLE-03",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-PRINCIPLE-03"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-065"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -598,6 +718,20 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-STRUCTURES"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-2787D00ED73D",
+    "fromId": "DKP-E6BCFE9EAAEA",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-DETAIL-PRACTICAL-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-PRACTICAL-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-076"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -718,6 +852,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-2CDAE2C18734",
+    "fromId": "DKP-340F8D524540",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-SPRINT-CRF-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-SPRINT-CRF-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-079"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-2DC3510C9DAB",
     "fromId": "DKP-0D57F6B09EFB",
     "type": "DERIVES_FROM",
@@ -828,6 +976,22 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-R1-VALIDATION"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-36773370F862",
+    "fromId": "DKP-999F6F6E3C80",
+    "type": "ALTERNATIVE_TO",
+    "toId": "DKP-256835E3A253",
+    "rationale": "L’omission inexpliquée et le report explicitement référencé sont des qualifications distinctes.",
+    "evidenceIds": [
+      "DKE-DOC002R-OMISSION-CORELAB-01",
+      "DKE-DOC002R-OMISSION-ISPY-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-073",
+      "SRC-INTEGRITY-C2A679E74CF8"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -989,6 +1153,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-3EBD3725213D",
+    "fromId": "DKP-E8F3BD55B33F",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-COMMITMENT-PRINCIPLE-03",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-PRINCIPLE-03"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-065"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-3F14362B5044",
     "fromId": "DKP-012B32B4F0F6",
     "type": "SUPPORTED_BY",
@@ -1048,6 +1226,26 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-4356FEAD0D61",
+    "fromId": "DKP-E8F3BD55B33F",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-A6A969D6BDFA",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-DERIVED-01",
+      "DKE-DOC002R-COMMITMENT-PRACTICAL-04",
+      "DKE-DOC002R-COMMITMENT-PRINCIPLE-03",
+      "DKE-DOC002R-COMMITMENT-STEP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-065",
+      "RC01-E-077",
+      "SRC-DOC000B-PATTERNS"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-43CD8EE9EF5E",
     "fromId": "DKP-E25AF9FF77BA",
     "type": "DERIVES_FROM",
@@ -1072,6 +1270,20 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000D-PATTERNS"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-4404E323E75E",
+    "fromId": "DKP-256835E3A253",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-DEFERRAL-STEP-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-DEFERRAL-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1162,6 +1374,24 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-4B82DEBA09B4",
+    "fromId": "DKP-A2F4089BEDDC",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-84666D710A94",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-ANALYSIS-ORCHID-01",
+      "DKE-DOC002R-ANALYSIS-PRACTICAL-03",
+      "DKE-DOC002R-ANALYSIS-REMAP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-063",
+      "RC01-E-069",
+      "RC01-E-085"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-4C5D8B80A1E6",
     "fromId": "DKP-E2F5EC535EDC",
     "type": "DERIVES_FROM",
@@ -1173,6 +1403,24 @@
     "provenanceSourceIds": [
       "SRC-DOC000A-CANDIDATES",
       "SRC-DOC000A-REPORT"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-4CA862109696",
+    "fromId": "DKP-340F8D524540",
+    "type": "PRECEDES",
+    "toId": "DKP-3BEBCD18D4AD",
+    "rationale": "Les liens démontrés sont établis avant de qualifier les classes documentaires absentes.",
+    "evidenceIds": [
+      "DKE-DOC002R-SPRINT-CRF-02",
+      "DKE-DOC002R-SPRINT-DD-03",
+      "DKE-DOC002R-SPRINT-PROTOCOL-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-078",
+      "RC01-E-079",
+      "RC01-E-080"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1229,6 +1477,22 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-R1-VALIDATION"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-4FB2419D8E85",
+    "fromId": "DKP-3BEBCD18D4AD",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-A06AEC414553",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-INCOMPLETE-ORCHID-02",
+      "DKE-DOC002R-INCOMPLETE-SPRINT-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-078",
+      "RC01-E-082"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1377,6 +1641,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-5A7E1E1499B2",
+    "fromId": "DKP-454DC0E79FF5",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-MODULARITY-STEP-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-MODULARITY-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-5AE595F43E8C",
     "fromId": "DKP-8D40BA7EA261",
     "type": "SUPPORTED_BY",
@@ -1506,6 +1784,26 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-5E4DD92C1D01",
+    "fromId": "DKP-E6BCFE9EAAEA",
+    "type": "COMPLEMENTS",
+    "toId": "DKP-005C1C1BF536",
+    "rationale": "La frontière de détail complète la structure conditionnelle du protocole sans en changer l’owner.",
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-ORCHID-04",
+      "DKE-DOC002R-DETAIL-PRACTICAL-02",
+      "DKE-DOC002R-DETAIL-SPRINT-03",
+      "DKE-DOC002R-DETAIL-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-076",
+      "RC01-E-081",
+      "RC01-E-085"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-5E645ED57AF6",
     "fromId": "DKP-968B7EABF10A",
     "type": "DERIVES_FROM",
@@ -1516,6 +1814,34 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-STRUCTURES"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-5E81FADE01AA",
+    "fromId": "DKP-A2F4089BEDDC",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-ANALYSIS-REMAP-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-ANALYSIS-REMAP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-063"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-6083A2DB1E2B",
+    "fromId": "DKP-744E34E606ED",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-VERSION-SPRINT-05",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-SPRINT-05"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-080"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1531,6 +1857,22 @@
     "provenanceSourceIds": [
       "SRC-DOC000D-PATTERNS",
       "SRC-DOC000D-REPORT"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-644AD204D997",
+    "fromId": "DKP-3BEBCD18D4AD",
+    "type": "ALTERNATIVE_TO",
+    "toId": "DKP-FFC1720AB539",
+    "rationale": "Une famille documentaire partielle ne doit pas être gonflée en cycle complet.",
+    "evidenceIds": [
+      "DKE-DOC002R-INCOMPLETE-ORCHID-02",
+      "DKE-DOC002R-INCOMPLETE-SPRINT-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-078",
+      "RC01-E-082"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1587,6 +1929,20 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-R1-VALIDATION"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-66AEE182B04C",
+    "fromId": "DKP-E6BCFE9EAAEA",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-DETAIL-ORCHID-04",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-ORCHID-04"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-085"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1734,6 +2090,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-6DCD906F6356",
+    "fromId": "DKP-FE04065A7771",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-OPERATIONS-ORCHID-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-OPERATIONS-ORCHID-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-084"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-6DF8AC7F6674",
     "fromId": "DKP-50D78EF87F56",
     "type": "SUPPORTED_BY",
@@ -1744,6 +2114,24 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000A-CANDIDATES"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-6EC7F8F5B187",
+    "fromId": "DKP-340F8D524540",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-552205A22BC3",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-SPRINT-CRF-02",
+      "DKE-DOC002R-SPRINT-DD-03",
+      "DKE-DOC002R-SPRINT-PROTOCOL-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-078",
+      "RC01-E-079",
+      "RC01-E-080"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1776,6 +2164,26 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-716F14E0D348",
+    "fromId": "DKP-E8F3BD55B33F",
+    "type": "COMPLEMENTS",
+    "toId": "DKP-454DC0E79FF5",
+    "rationale": "La formulation bornée rend visible la structure modulaire sans la transformer en science.",
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-DERIVED-01",
+      "DKE-DOC002R-COMMITMENT-PRACTICAL-04",
+      "DKE-DOC002R-COMMITMENT-PRINCIPLE-03",
+      "DKE-DOC002R-COMMITMENT-STEP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-065",
+      "RC01-E-077",
+      "SRC-DOC000B-PATTERNS"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-717CCEC20DDA",
     "fromId": "DKP-99F255ABCF6C",
     "type": "SUPPORTED_BY",
@@ -1786,6 +2194,34 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000A-CANDIDATES"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-729A7B0B3C12",
+    "fromId": "DKP-A2F4089BEDDC",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-ANALYSIS-PRACTICAL-03",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-ANALYSIS-PRACTICAL-03"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-069"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-740D57092030",
+    "fromId": "DKP-744E34E606ED",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-VERSION-REMAP-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-REMAP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-074"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1828,6 +2264,58 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-R1-VALIDATION"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-7709A05E8E4C",
+    "fromId": "DKP-999F6F6E3C80",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-84E1B365A692",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-OMISSION-CORELAB-01",
+      "DKE-DOC002R-OMISSION-ISPY-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-073",
+      "SRC-INTEGRITY-C2A679E74CF8"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-779471FFE8C3",
+    "fromId": "DKP-256835E3A253",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-DEFERRAL-REMAP-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-DEFERRAL-REMAP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-075"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-780EDCBBE3B9",
+    "fromId": "DKP-744E34E606ED",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-A8C92997A76B",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-PRACTICAL-04",
+      "DKE-DOC002R-VERSION-PRINCIPLE-03",
+      "DKE-DOC002R-VERSION-REMAP-02",
+      "DKE-DOC002R-VERSION-SPRINT-05",
+      "DKE-DOC002R-VERSION-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-061",
+      "RC01-E-065",
+      "RC01-E-074",
+      "RC01-E-076",
+      "RC01-E-080"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -1932,6 +2420,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-7F1DBBA0FC73",
+    "fromId": "DKP-02B4755BF083",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-RIGHTS-I-SPY-2-05",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-I-SPY-2-05"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-071"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-7FA6D1BD5DA8",
     "fromId": "DKP-2CA028FB1A82",
     "type": "SUPPORTED_BY",
@@ -1956,6 +2458,58 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-PATTERNS"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-80F6DA325866",
+    "fromId": "DKP-256835E3A253",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-DEFERRAL-PRACTICAL-03",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-DEFERRAL-PRACTICAL-03"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-077"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-83D8B188B4E2",
+    "fromId": "DKP-FE04065A7771",
+    "type": "COMPLEMENTS",
+    "toId": "DKP-E6BCFE9EAAEA",
+    "rationale": "L’allocation opérationnelle constitue une application contextualisée de la frontière de détail.",
+    "evidenceIds": [
+      "DKE-DOC002R-OPERATIONS-ORCHID-02",
+      "DKE-DOC002R-OPERATIONS-SPRINT-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-081",
+      "RC01-E-084"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-84779D3E8F72",
+    "fromId": "DKP-02B4755BF083",
+    "type": "SPECIALIZES",
+    "toId": "DKP-19467AD759E3",
+    "rationale": "La preuve distante applique le bloc de trace à une source non stockable.",
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-I-SPY-2-05",
+      "DKE-DOC002R-RIGHTS-PRACTICAL-04",
+      "DKE-DOC002R-RIGHTS-PRINCIPLE-03",
+      "DKE-DOC002R-RIGHTS-REMAP-CAP-02",
+      "DKE-DOC002R-RIGHTS-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-059",
+      "RC01-E-062",
+      "RC01-E-065",
+      "RC01-E-068",
+      "RC01-E-071"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -2046,6 +2600,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-87AEBC4F1DDC",
+    "fromId": "DKP-3BEBCD18D4AD",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-INCOMPLETE-ORCHID-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-INCOMPLETE-ORCHID-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-082"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-87F014317E4D",
     "fromId": "DKP-3D88379D346B",
     "type": "SUPPORTED_BY",
@@ -2117,6 +2685,46 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-8C50930F3D25",
+    "fromId": "DKP-A2F4089BEDDC",
+    "type": "COMPLEMENTS",
+    "toId": "DKP-E6BCFE9EAAEA",
+    "rationale": "La séparation protocole–SAP est une frontière spécialisée d’analyse.",
+    "evidenceIds": [
+      "DKE-DOC002R-ANALYSIS-ORCHID-01",
+      "DKE-DOC002R-ANALYSIS-PRACTICAL-03",
+      "DKE-DOC002R-ANALYSIS-REMAP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-063",
+      "RC01-E-069",
+      "RC01-E-085"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-8D2D4D3960E3",
+    "fromId": "DKP-02B4755BF083",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-94AC7B3F0790",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-I-SPY-2-05",
+      "DKE-DOC002R-RIGHTS-PRACTICAL-04",
+      "DKE-DOC002R-RIGHTS-PRINCIPLE-03",
+      "DKE-DOC002R-RIGHTS-REMAP-CAP-02",
+      "DKE-DOC002R-RIGHTS-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-059",
+      "RC01-E-062",
+      "RC01-E-065",
+      "RC01-E-068",
+      "RC01-E-071"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-8DAAEC43C40F",
     "fromId": "DKP-DFD44B765C5E",
     "type": "SUPPORTED_BY",
@@ -2127,6 +2735,20 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-STRUCTURES"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-8E9DA4278739",
+    "fromId": "DKP-454DC0E79FF5",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-MODULARITY-PRACTICAL-03",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-MODULARITY-PRACTICAL-03"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-077"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -2142,6 +2764,20 @@
     "provenanceSourceIds": [
       "SRC-DOC000A-CANDIDATES",
       "SRC-DOC000A-REPORT"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-92663AF98E7B",
+    "fromId": "DKP-E8F3BD55B33F",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-COMMITMENT-PRACTICAL-04",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-PRACTICAL-04"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-077"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -2445,6 +3081,28 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-A04776E0A19D",
+    "fromId": "DKP-744E34E606ED",
+    "type": "SPECIALIZES",
+    "toId": "DKP-968B7EABF10A",
+    "rationale": "La succession explicite contextualise le pattern général d’historique des modifications.",
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-PRACTICAL-04",
+      "DKE-DOC002R-VERSION-PRINCIPLE-03",
+      "DKE-DOC002R-VERSION-REMAP-02",
+      "DKE-DOC002R-VERSION-SPRINT-05",
+      "DKE-DOC002R-VERSION-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-061",
+      "RC01-E-065",
+      "RC01-E-074",
+      "RC01-E-076",
+      "RC01-E-080"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-A0699233DFBA",
     "fromId": "DKP-11D0AA20786F",
     "type": "DERIVES_FROM",
@@ -2455,6 +3113,54 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-R1-VALIDATION"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-A07858ABB8A5",
+    "fromId": "DKP-02B4755BF083",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-RIGHTS-PRINCIPLE-03",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-PRINCIPLE-03"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-065"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-A2420E39BEDB",
+    "fromId": "DKP-CBD68BC3401B",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-AMENDMENT-PRINCIPLE-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-AMENDMENT-PRINCIPLE-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-066"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-A2635E26CD17",
+    "fromId": "DKP-E8F3BD55B33F",
+    "type": "SPECIALIZES",
+    "toId": "DKP-260A634F60CD",
+    "rationale": "La portée et la spécialisation contextualisent le niveau d’engagement existant.",
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-DERIVED-01",
+      "DKE-DOC002R-COMMITMENT-PRACTICAL-04",
+      "DKE-DOC002R-COMMITMENT-PRINCIPLE-03",
+      "DKE-DOC002R-COMMITMENT-STEP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-065",
+      "RC01-E-077",
+      "SRC-DOC000B-PATTERNS"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -2553,6 +3259,20 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-R1-VALIDATION"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-AA4F87C521E6",
+    "fromId": "DKP-999F6F6E3C80",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-OMISSION-ISPY-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-OMISSION-ISPY-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-073"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -2862,6 +3582,26 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-B6C26B7335AC",
+    "fromId": "DKP-E6BCFE9EAAEA",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-679A0D6B825F",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-ORCHID-04",
+      "DKE-DOC002R-DETAIL-PRACTICAL-02",
+      "DKE-DOC002R-DETAIL-SPRINT-03",
+      "DKE-DOC002R-DETAIL-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-076",
+      "RC01-E-081",
+      "RC01-E-085"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-B70823786A27",
     "fromId": "DKP-2759C6B6572B",
     "type": "DERIVES_FROM",
@@ -2942,6 +3682,38 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-R1-VALIDATION"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-B920A6FD8569",
+    "fromId": "DKP-744E34E606ED",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-VERSION-PRACTICAL-04",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-PRACTICAL-04"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-076"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-B9CFDF4AFA2D",
+    "fromId": "DKP-454DC0E79FF5",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-CD1E554CBED1",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-MODULARITY-PRACTICAL-03",
+      "DKE-DOC002R-MODULARITY-REMAP-02",
+      "DKE-DOC002R-MODULARITY-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-075",
+      "RC01-E-077"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -3092,6 +3864,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-C4769F55622C",
+    "fromId": "DKP-CBD68BC3401B",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-DDD37AF65B30",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-AMENDMENT-PRINCIPLE-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-066"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-C53243B8CE8B",
     "fromId": "DKP-D29A6FD414F8",
     "type": "DERIVES_FROM",
@@ -3181,6 +3967,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-CB4F5C9254A6",
+    "fromId": "DKP-E6BCFE9EAAEA",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-DETAIL-STEP-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-CD9CDA0DB05A",
     "fromId": "DKP-BB4C893DAB13",
     "type": "DERIVES_FROM",
@@ -3192,6 +3992,52 @@
     "provenanceSourceIds": [
       "SRC-DOC000D-PATTERNS",
       "SRC-DOC000D-REPORT"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-CE6B20F65B78",
+    "fromId": "DKP-256835E3A253",
+    "type": "SPECIALIZES",
+    "toId": "DKP-E6BCFE9EAAEA",
+    "rationale": "Le report explicite est une qualification plus stricte que la simple observation d’une frontière de détail.",
+    "evidenceIds": [
+      "DKE-DOC002R-DEFERRAL-PRACTICAL-03",
+      "DKE-DOC002R-DEFERRAL-REMAP-02",
+      "DKE-DOC002R-DEFERRAL-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-075",
+      "RC01-E-077"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-D0706AD3069A",
+    "fromId": "DKP-999F6F6E3C80",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-OMISSION-CORELAB-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-OMISSION-CORELAB-01"
+    ],
+    "provenanceSourceIds": [
+      "SRC-INTEGRITY-C2A679E74CF8"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-D08247BCA867",
+    "fromId": "DKP-E8F3BD55B33F",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-COMMITMENT-STEP-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-STEP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -3321,6 +4167,50 @@
     "provenanceSourceIds": [
       "SRC-DOC000D-PATTERNS",
       "SRC-DOC000D-REPORT"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-D81059461575",
+    "fromId": "DKP-FE04065A7771",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-EDFE6AE5FA49",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-OPERATIONS-ORCHID-02",
+      "DKE-DOC002R-OPERATIONS-SPRINT-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-081",
+      "RC01-E-084"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-D894155B203E",
+    "fromId": "DKP-A2F4089BEDDC",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-ANALYSIS-ORCHID-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-ANALYSIS-ORCHID-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-085"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-D92B134EA3EC",
+    "fromId": "DKP-E6BCFE9EAAEA",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-DETAIL-SPRINT-03",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-SPRINT-03"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-081"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -3485,6 +4375,26 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-E01D1087B2DF",
+    "fromId": "DKP-E6BCFE9EAAEA",
+    "type": "COMPLEMENTS",
+    "toId": "DKP-256835E3A253",
+    "rationale": "Une allocation observée ne devient un report intentionnel que si le renvoi spécialisé est explicite.",
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-ORCHID-04",
+      "DKE-DOC002R-DETAIL-PRACTICAL-02",
+      "DKE-DOC002R-DETAIL-SPRINT-03",
+      "DKE-DOC002R-DETAIL-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-076",
+      "RC01-E-081",
+      "RC01-E-085"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-E0C3A8F0D49A",
     "fromId": "DKP-ED559DDA3C6F",
     "type": "DERIVES_FROM",
@@ -3524,6 +4434,20 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000A-CANDIDATES"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-E3E561C7BFF1",
+    "fromId": "DKP-340F8D524540",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-SPRINT-PROTOCOL-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-SPRINT-PROTOCOL-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-078"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -3571,6 +4495,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-E881B1EAF4F7",
+    "fromId": "DKP-454DC0E79FF5",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-MODULARITY-REMAP-02",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-MODULARITY-REMAP-02"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-075"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-E9DA220374C8",
     "fromId": "DKP-5BA3579AB677",
     "type": "SUPPORTED_BY",
@@ -3581,6 +4519,34 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000A-CANDIDATES"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-EA21DD7D940B",
+    "fromId": "DKP-744E34E606ED",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-VERSION-STEP-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-061"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-EB61D70F1625",
+    "fromId": "DKP-3BEBCD18D4AD",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-INCOMPLETE-SPRINT-01",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-INCOMPLETE-SPRINT-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-078"
     ],
     "status": "CANDIDATE_ONLY"
   },
@@ -3728,6 +4694,20 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-F552B69DB9B4",
+    "fromId": "DKP-CBD68BC3401B",
+    "type": "COMPLEMENTS",
+    "toId": "DKP-744E34E606ED",
+    "rationale": "L’impact d’amendement complète le lignage de version sans le remplacer.",
+    "evidenceIds": [
+      "DKE-DOC002R-AMENDMENT-PRINCIPLE-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-066"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-F71122DDD8A3",
     "fromId": "DKP-DC7B0E8C6D8C",
     "type": "SUPPORTED_BY",
@@ -3742,6 +4722,24 @@
     "status": "CANDIDATE_ONLY"
   },
   {
+    "relationId": "DKR-F7EBD5EE1446",
+    "fromId": "DKP-256835E3A253",
+    "type": "DERIVES_FROM",
+    "toId": "DKF-C90D3A1C85B5",
+    "rationale": "Le pattern est abstrait à partir d’un fait documentaire contextualisé.",
+    "evidenceIds": [
+      "DKE-DOC002R-DEFERRAL-PRACTICAL-03",
+      "DKE-DOC002R-DEFERRAL-REMAP-02",
+      "DKE-DOC002R-DEFERRAL-STEP-01"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-060",
+      "RC01-E-075",
+      "RC01-E-077"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
     "relationId": "DKR-F8B293204B32",
     "fromId": "DKP-0C80722EC24B",
     "type": "DERIVES_FROM",
@@ -3752,6 +4750,20 @@
     ],
     "provenanceSourceIds": [
       "SRC-DOC000B-R1-VALIDATION"
+    ],
+    "status": "CANDIDATE_ONLY"
+  },
+  {
+    "relationId": "DKR-F9DB32E55D60",
+    "fromId": "DKP-340F8D524540",
+    "type": "SUPPORTED_BY",
+    "toId": "DKE-DOC002R-SPRINT-DD-03",
+    "rationale": "Le pattern conserve le lien vers son observation documentaire.",
+    "evidenceIds": [
+      "DKE-DOC002R-SPRINT-DD-03"
+    ],
+    "provenanceSourceIds": [
+      "RC01-E-080"
     ],
     "status": "CANDIDATE_ONLY"
   },

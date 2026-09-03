@@ -89,6 +89,7 @@ export const PATTERN_AUDIT_CODES = [
   "SENSITIVE_VALUE_LEAK",
   "SOURCE_VERSION_MISSING",
   "BROKEN_SOURCE_REFERENCE",
+  "RIGHTS_BOUNDARY_VIOLATION",
 ] as const;
 
 export type PatternStatus = (typeof PATTERN_STATUSES)[number];
@@ -104,8 +105,49 @@ export type PatternSourceReference = {
   artifactPath: string;
   artifactVersion: string;
   artifactDigest: string;
-  sourceKind: "DERIVED_AUDIT" | "DERIVED_INTELLIGENCE" | "DERIVED_OPERATIONAL_CORPUS" | "EXTERNAL_COMPARISON";
+  sourceKind: "DERIVED_AUDIT" | "DERIVED_INTELLIGENCE" | "DERIVED_OPERATIONAL_CORPUS" | "EXTERNAL_COMPARISON" | "REFERENCE_CORPUS_DERIVED_EVIDENCE";
   authorityBoundary: "EVIDENCE_ONLY_NOT_AUTHORITY";
+  artifactDigestScope?: "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY";
+  referenceSourceId?: string;
+  artifactId?: string;
+  platformTrialId?: string | null;
+  studyId?: string;
+  artifactType?: string;
+  title?: string;
+  artifactDate?: string;
+  officialUrl?: string;
+  retrievedAt?: string;
+  currentOrHistoricalStatus?: string;
+  contentAvailabilityState?: "CONTENT_ACCESSIBLE_NOT_STORED";
+  rights?: {
+    publiclyAccessible: "YES" | "NO" | "UNKNOWN";
+    localStorageAllowed: "YES" | "NO" | "UNKNOWN";
+    repositoryCommitAllowed: "YES" | "NO" | "UNKNOWN";
+    derivedPatternAnalysisAllowed: "YES" | "NO" | "UNKNOWN";
+    redistributionAllowed: "YES" | "NO" | "UNKNOWN";
+  };
+  contentEvidence?: {
+    inspected: "YES" | "PARTIAL" | "NO";
+    minimalDocumentStructure: string[];
+    verifiedSectionOrThemeReferences: string[];
+    paginationOrStableSectionIdentifiers: string[];
+    transientBinarySha256: string | null;
+    reproducibilityLimitations: string[];
+  } | null;
+  artifactRelationships?: Array<{
+    relationType: string;
+    fromArtifactId: string;
+    toArtifactId: string;
+    linkageConfidence: string;
+    linkageSource: string;
+  }>;
+  versionRelationships?: Array<{
+    from: string;
+    to: string;
+    relation: string;
+    confidence: string;
+  }>;
+  limitations?: string[];
 };
 
 export type PatternEvidence = {

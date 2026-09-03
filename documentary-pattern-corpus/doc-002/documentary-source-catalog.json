@@ -1,5 +1,1759 @@
 [
   {
+    "sourceId": "RC01-E-059",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Living official overview",
+    "artifactDigest": "b032e177eec023ed60734efd2ee86a65a47d718e66e5e1a1293c857d957eec2f",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-059",
+    "artifactId": "RC01-ART-059",
+    "platformTrialId": "RC01-PLATFORM-001",
+    "studyId": "STEP",
+    "artifactType": "MASTER_PROTOCOL_OVERVIEW",
+    "title": "StrokeNet Thrombectomy Endovascular Platform — Master Protocol overview",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://www.nihstrokenet.org/trials/step-trial/master",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_PLATFORM_RESOURCE_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "master overview",
+        "shared trial operations",
+        "outcomes and follow-up"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "common procedures",
+        "data collection",
+        "monitoring",
+        "follow-up",
+        "safety",
+        "outcomes"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "HTML heading: Master Protocol"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Living HTML",
+        "No local copy",
+        "Future review requires official URL retrieval"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "DOMAIN_SPECIALIZES_MASTER",
+        "fromArtifactId": "RC01-ART-060",
+        "toArtifactId": "RC01-ART-059",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://nihstrokenet.org/trials/step-trial/domain-a-synopsis"
+      },
+      {
+        "relationType": "RESOURCE_HUB_DESCRIBES_VERSION_LINEAGE",
+        "fromArtifactId": "RC01-ART-061",
+        "toArtifactId": "RC01-ART-059",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://nihstrokenet.org/trials/step-trial/resources"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Full master protocol file was not obtained"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-060",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Living official synopsis",
+    "artifactDigest": "3c466c8e355cfe301c09d56923b3c023e4b93fda63dfccde116a8a12ba037b7f",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-060",
+    "artifactId": "RC01-ART-060",
+    "platformTrialId": "RC01-PLATFORM-001",
+    "studyId": "STEP_DOMAIN_A",
+    "artifactType": "DOMAIN_SYNOPSIS",
+    "title": "STEP Domain A synopsis",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://nihstrokenet.org/trials/step-trial/domain-a-synopsis",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_PLATFORM_RESOURCE_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "domain synopsis",
+        "eligibility and strata",
+        "imaging and endpoints"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "Domain A strata",
+        "imaging timing and criteria",
+        "endpoints",
+        "sample maxima"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "HTML heading: Domain A Synopsis"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Living HTML",
+        "No local copy",
+        "Full domain protocol not obtained"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "DOMAIN_SPECIALIZES_MASTER",
+        "fromArtifactId": "RC01-ART-060",
+        "toArtifactId": "RC01-ART-059",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://nihstrokenet.org/trials/step-trial/domain-a-synopsis"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Full domain protocol and exact statistical rules were not obtained"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-061",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Living official resource hub",
+    "artifactDigest": "2da9c9e49e1147996c40008c152e98a47f5a2b0e972799c8da4a650a8ab4b19c",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-061",
+    "artifactId": "RC01-ART-061",
+    "platformTrialId": "RC01-PLATFORM-001",
+    "studyId": "STEP",
+    "artifactType": "RESOURCE_AND_VERSION_HUB",
+    "title": "STEP trial resources and protocol lineage",
+    "artifactDate": "2026-06",
+    "officialUrl": "https://nihstrokenet.org/trials/step-trial/resources",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_PLATFORM_RESOURCE_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "dated resource groups",
+        "master training resources",
+        "domain training resources"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "June 2026 Master v7",
+        "October 2025 Master v6 and Domain A v4",
+        "November 2025 Domain A v5"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "HTML date/version labels"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Living resource hub",
+        "Linked-file rights and persistence vary"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "RESOURCE_HUB_DESCRIBES_VERSION_LINEAGE",
+        "fromArtifactId": "RC01-ART-061",
+        "toArtifactId": "RC01-ART-059",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://nihstrokenet.org/trials/step-trial/resources"
+      }
+    ],
+    "versionRelationships": [
+      {
+        "from": "STEP Master v6",
+        "to": "STEP Master v7",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      },
+      {
+        "from": "STEP Domain A v4",
+        "to": "STEP Domain A v5",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      }
+    ],
+    "limitations": [
+      "Each linked file has distinct rights",
+      "Full file-level supersession was not established"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-062",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "4.1",
+    "artifactDigest": "832b91a7ea6c090c495749d8198cc9a2a04836da9e7d65dedd6e03d099300173",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-062",
+    "artifactId": "RC01-ART-062",
+    "platformTrialId": "RC01-PLATFORM-002",
+    "studyId": "REMAP_CAP",
+    "artifactType": "CORE_PROTOCOL",
+    "title": "REMAP-CAP Core Protocol",
+    "artifactDate": "2026-05-29",
+    "officialUrl": "https://www.remapcap.org/s/REMAP-CAP-Core-Protocol-V41-29-MAY-2026_CLEAN.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_CORE_PROTOCOL_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "PARTIAL",
+      "minimalDocumentStructure": [
+        "current core-protocol listing"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "core protocol identity",
+        "version 4.1",
+        "date 2026-05-29"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Official hub document label"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "File text not independently section-indexed",
+        "No local copy",
+        "Regional versions may differ"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SAP_SPECIALIZES_CORE",
+        "fromArtifactId": "RC01-ART-063",
+        "toArtifactId": "RC01-ART-062",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://www.remapcap.org/protocol-documents"
+      },
+      {
+        "relationType": "DOMAIN_SPECIALIZES_CORE",
+        "fromArtifactId": "RC01-ART-075",
+        "toArtifactId": "RC01-ART-062",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://www.remapcap.org/protocol-documents"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Current file text was not independently section-indexed",
+      "Regional versions may differ"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-063",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "4",
+    "artifactDigest": "3b5e16afd7629764c4e8084d5ce3975135cc391395ca2ae080b89d2c4b098b2d",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-063",
+    "artifactId": "RC01-ART-063",
+    "platformTrialId": "RC01-PLATFORM-002",
+    "studyId": "REMAP_CAP",
+    "artifactType": "STATISTICAL_ANALYSIS_PLAN",
+    "title": "REMAP-CAP Statistical Analysis Appendix",
+    "artifactDate": "2024-11-05",
+    "officialUrl": "https://www.remapcap.org/s/REMAP-CAP-Statistical-Analysis-Appendix-V4-05-NOV-2024_CLEAN.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_SAP_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "master statistical appendix",
+        "adaptive analysis specifications",
+        "domain extension boundary"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "master analysis framework",
+        "domain-specific extension references"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Document title/version: Statistical Analysis Appendix v4"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "No local copy or digest",
+        "Domain-specific SAPs may apply"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SAP_SPECIALIZES_CORE",
+        "fromArtifactId": "RC01-ART-063",
+        "toArtifactId": "RC01-ART-062",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://www.remapcap.org/protocol-documents"
+      }
+    ],
+    "versionRelationships": [
+      {
+        "from": "REMAP-CAP SAP v3",
+        "to": "REMAP-CAP SAP v4",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      }
+    ],
+    "limitations": [
+      "Domain-specific SAP extensions may apply"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-064",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Living UK document hub",
+    "artifactDigest": "1ec5e46b3752f407e2a48b233ebd680cebeceb6066f78071ed26f77d9e51373c",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-064",
+    "artifactId": "RC01-ART-064",
+    "platformTrialId": "RC01-PLATFORM-002",
+    "studyId": "REMAP_CAP_UK",
+    "artifactType": "OPERATIONAL_AND_ECRF_HUB",
+    "title": "REMAP-CAP UK documentation, eCRF and operational resources",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://remapcap.co.uk/documentation/",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_LIVING_RESOURCE_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "NO",
+      "repositoryCommitAllowed": "NO",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "NO"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "protocol versions",
+        "eCRF versions",
+        "manuals and trackers"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "Protocol v3.1/v4.0",
+        "eCRF v3.1/v4.0",
+        "amendments",
+        "manuals",
+        "version tracker"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "HTML document-family headings"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Reference-only/noncommercial restriction",
+        "Living regional hub",
+        "No local copy"
+      ]
+    },
+    "artifactRelationships": [],
+    "versionRelationships": [],
+    "limitations": [
+      "Regional documents are not global master documents",
+      "Operational files change independently"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-065",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "14.0",
+    "artifactDigest": "f4996d7f3e07be7f62f7c4e94423c507273a895d5645ba307a3946bb6adc1da8",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-065",
+    "artifactId": "RC01-ART-065",
+    "platformTrialId": "RC01-PLATFORM-003",
+    "studyId": "PRINCIPLE",
+    "artifactType": "MASTER_PROTOCOL",
+    "title": "PRINCIPLE Trial Protocol",
+    "artifactDate": "2022-08-08",
+    "officialUrl": "https://www.principletrial.org/files/trial-documents/principle-protocol_v14-0_08aug2022_clean.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "LATEST_PROTOCOL_FOUND_ON_OFFICIAL_SITE",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "NO",
+      "repositoryCommitAllowed": "NO",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "NO"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "master protocol",
+        "embedded Master SAP",
+        "Data Management",
+        "arm appendices",
+        "schedule",
+        "amendment history"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "Master SAP",
+        "Data Management",
+        "intervention appendices",
+        "protocol amendment history"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "PDF: 97 pages",
+        "Version 14.0 / 8 August 2022"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Copyright/confidential marking",
+        "No local copy or digest",
+        "Future review requires official URL retrieval"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "AMENDMENT_GROUPS_AFFECTED_DOCUMENTS",
+        "fromArtifactId": "RC01-ART-066",
+        "toArtifactId": "RC01-ART-065",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://www.principletrial.org/health-professionals/substantial-amendment-22"
+      }
+    ],
+    "versionRelationships": [
+      {
+        "from": "PRINCIPLE Protocol v13.0",
+        "to": "PRINCIPLE Protocol v14.0",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      }
+    ],
+    "limitations": [
+      "Current operational status of each arm is not inferred"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-066",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Substantial Amendment 22",
+    "artifactDigest": "e7d4dfe258c652b75d1e9cded75226b9f41b26c69922c6984637afc2db33fc67",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-066",
+    "artifactId": "RC01-ART-066",
+    "platformTrialId": "RC01-PLATFORM-003",
+    "studyId": "PRINCIPLE",
+    "artifactType": "AMENDMENT_DOCUMENT_GROUPING",
+    "title": "PRINCIPLE substantial amendment 22 and trial-document lineage",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://www.principletrial.org/health-professionals/substantial-amendment-22",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "HISTORICAL_AMENDMENT_DOCUMENT_GROUPING",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "amendment identity",
+        "affected document grouping",
+        "approval artifacts"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "protocol",
+        "participant-information sheet",
+        "consent",
+        "approval documents"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "HTML heading: Substantial Amendment 22"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Individual file supersession not adjudicated",
+        "No local copy"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "AMENDMENT_GROUPS_AFFECTED_DOCUMENTS",
+        "fromArtifactId": "RC01-ART-066",
+        "toArtifactId": "RC01-ART-065",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://www.principletrial.org/health-professionals/substantial-amendment-22"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Individual file supersession edges require file-level review"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-067",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Living official results page",
+    "artifactDigest": "3961d340a7ed34fce5d5dca09429f6341c40fb5eaf27d6b5e9958bf8f6f8a4cb",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-067",
+    "artifactId": "RC01-ART-067",
+    "platformTrialId": "RC01-PLATFORM-003",
+    "studyId": "PRINCIPLE",
+    "artifactType": "RESULTS_AND_PUBLICATIONS_HUB",
+    "title": "PRINCIPLE Trial results and publications",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://www.principletrial.org/results/results",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_LIVING_RESOURCE_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "PARTIAL",
+      "minimalDocumentStructure": [
+        "result groups",
+        "publication links"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "intervention-specific results",
+        "linked publications"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "HTML results headings"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Publication rights and protocol binding vary",
+        "Not used as protocol substitute"
+      ]
+    },
+    "artifactRelationships": [],
+    "versionRelationships": [],
+    "limitations": [
+      "Publication rights and exact protocol binding vary"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-068",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "4.0",
+    "artifactDigest": "c589b82ca30487d1fecf52130a85fbf14812491c6032221a446bd089d9db70ba",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-068",
+    "artifactId": "RC01-ART-068",
+    "platformTrialId": "RC01-PLATFORM-004",
+    "studyId": "PRACTICAL",
+    "artifactType": "MASTER_PROTOCOL",
+    "title": "PRACTICAL Master Protocol",
+    "artifactDate": "2022-12-20",
+    "officialUrl": "https://practicalplatform.org/assets/images/uploads/doc/PRACTICAL_Master_Protocol_v.4.0_20Dec2022_.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "LATEST_MASTER_PROTOCOL_FOUND_ON_OFFICIAL_SITE",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "NO",
+      "repositoryCommitAllowed": "NO",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "NO"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "master protocol",
+        "domain relationships",
+        "shared platform operations",
+        "version history"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "master/domain separation",
+        "registry embedding",
+        "analysis-layer references"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "PDF: 37 pages",
+        "Version 4.0 / 20 December 2022"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Copyright/confidential restriction",
+        "No local copy or digest"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "DOMAIN_SPECIALIZES_MASTER",
+        "fromArtifactId": "RC01-ART-076",
+        "toArtifactId": "RC01-ART-068",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://practicalplatform.org/docs"
+      }
+    ],
+    "versionRelationships": [
+      {
+        "from": "PRACTICAL Master Protocol v3.x",
+        "to": "PRACTICAL Master Protocol v4.0",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      }
+    ],
+    "limitations": [
+      "Current active domains require live verification"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-069",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "2.0",
+    "artifactDigest": "4900bae0ed18859a5052560aca2ef81d14e49eb90f55ff9df55e270db9e89de4",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-069",
+    "artifactId": "RC01-ART-069",
+    "platformTrialId": "RC01-PLATFORM-004",
+    "studyId": "PRACTICAL",
+    "artifactType": "STATISTICAL_ANALYSIS_PLAN",
+    "title": "PRACTICAL Master Statistical Analysis Plan",
+    "artifactDate": "2022-08-30",
+    "officialUrl": "https://practicalplatform.org/assets/images/uploads/doc/OZUHN-004_SAP_v.2.0_30Aug2022_FC_-_signed_%281%29_.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "LATEST_MASTER_SAP_FOUND_ON_OFFICIAL_SITE",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "NO",
+      "repositoryCommitAllowed": "NO",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "NO"
+    },
+    "contentEvidence": {
+      "inspected": "PARTIAL",
+      "minimalDocumentStructure": [
+        "master statistical analysis plan listing",
+        "master/domain analysis boundary"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "Master SAP v2.0 identity",
+        "domain-specific SAP relationship"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Document title/version: Master SAP v2.0 / 30 August 2022"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Text retrieval was limited",
+        "Copyright/confidential restriction",
+        "No local copy"
+      ]
+    },
+    "artifactRelationships": [],
+    "versionRelationships": [],
+    "limitations": [
+      "Domain-specific SAPs may specialize the master SAP"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-070",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Living official document hub",
+    "artifactDigest": "9552b74e08581377e38f7bdb8e509d9df0a5619907ca21a86ed51410e7b1aedf",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-070",
+    "artifactId": "RC01-ART-070",
+    "platformTrialId": "RC01-PLATFORM-004",
+    "studyId": "PRACTICAL",
+    "artifactType": "DOCUMENT_HUB",
+    "title": "PRACTICAL protocol, domain and operational document hub",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://practicalplatform.org/docs",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_LIVING_RESOURCE_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "master documents",
+        "SOP",
+        "domain protocols",
+        "intervention appendices"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "Master Protocol",
+        "Master SAP",
+        "SOP",
+        "domain documents",
+        "intervention appendices"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "HTML document-family headings"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Living document hub",
+        "Linked-document rights vary"
+      ]
+    },
+    "artifactRelationships": [],
+    "versionRelationships": [],
+    "limitations": [
+      "Linked artifacts change independently"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-071",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Living NCT record",
+    "artifactDigest": "d18604516e546ae3b48dc771fe90da3c7010cbe1fb928568edb6739fc7b2d8de",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-071",
+    "artifactId": "RC01-ART-071",
+    "platformTrialId": "RC01-PLATFORM-005",
+    "studyId": "I_SPY_2",
+    "artifactType": "TRIAL_REGISTRY_RECORD",
+    "title": "I-SPY 2 Trial ClinicalTrials.gov record",
+    "artifactDate": "2010-01-05",
+    "officialUrl": "https://clinicaltrials.gov/study/NCT01042379",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ACTIVE_OR_UPDATING_REGISTRY_RECORD_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "registry identification",
+        "design",
+        "arms",
+        "outcomes",
+        "serial assessments"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "NCT01042379",
+        "adaptive treatment evaluation",
+        "serial MRI assessments"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "ClinicalTrials.gov structured record modules"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Living registry record",
+        "No uploaded protocol/SAP document section"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "IMAGING_DATA_LINKED_TO_STUDY",
+        "fromArtifactId": "RC01-ART-073",
+        "toArtifactId": "RC01-ART-071",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70230072"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "No uploaded protocol/SAP document section was present"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-072",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Living sponsor page",
+    "artifactDigest": "e431211c54e2d952aac529905228ab7b99b6fd5f98343852ae08100bd8c9df73",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-072",
+    "artifactId": "RC01-ART-072",
+    "platformTrialId": "RC01-PLATFORM-005",
+    "studyId": "I_SPY_2_2",
+    "artifactType": "SPONSOR_PLATFORM_DESCRIPTION",
+    "title": "I-SPY 2.2 sponsor platform description",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://www.quantumleaphealth.org/i-spy-2-2",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_SPONSOR_RESOURCE_AT_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "platform evolution",
+        "response monitoring",
+        "biomarker stratification"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "I-SPY 2.2 design",
+        "serial MRI response monitoring"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Official sponsor-page headings"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Living sponsor page",
+        "Not a protocol or SAP"
+      ]
+    },
+    "artifactRelationships": [],
+    "versionRelationships": [],
+    "limitations": [
+      "I-SPY 2 to I-SPY 2.2 continuity is not a simple version edge"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-073",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "TCIA collection snapshot page",
+    "artifactDigest": "475b9a77dfb52caa6b75a9a9b4ebb99873b07c4fcaedfbbc8038d6760a96cb3a",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-073",
+    "artifactId": "RC01-ART-073",
+    "platformTrialId": "RC01-PLATFORM-005",
+    "studyId": "I_SPY_2",
+    "artifactType": "IMAGING_DATA_COLLECTION",
+    "title": "I-SPY 2 Breast MRI Collection",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70230072",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ARCHIVED_RESEARCH_DATA_RESOURCE",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "PARTIAL",
+      "minimalDocumentStructure": [
+        "collection identity",
+        "imaging data scope",
+        "access metadata"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "I-SPY 2 breast MRI collection",
+        "serial imaging data"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "TCIA collection identity/page ID 70230072"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Collection-specific terms",
+        "Not a protocol or imaging charter",
+        "No data downloaded"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "IMAGING_DATA_LINKED_TO_STUDY",
+        "fromArtifactId": "RC01-ART-073",
+        "toArtifactId": "RC01-ART-071",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70230072"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Collection terms require separate review",
+      "Not a protocol or imaging charter"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-074",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "3.1 UK",
+    "artifactDigest": "2864437bb97b76d6ea6d6e76bd5d67dcdf2569426dc0b157dd75aeb124e4c099",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-074",
+    "artifactId": "RC01-ART-074",
+    "platformTrialId": "RC01-PLATFORM-002",
+    "studyId": "REMAP_CAP_UK",
+    "artifactType": "CORE_PROTOCOL",
+    "title": "REMAP-CAP Core Protocol",
+    "artifactDate": "2022-11-09",
+    "officialUrl": "https://www.remapcap.org/s/REMAP-CAP-Core-Protocol-V31-UK-9-Nov-2022_CLEAN.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "HISTORICAL_SUPERSEDED_PROTOCOL_RETAINED_FOR_VERSION_ANALYSIS",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "core protocol",
+        "domain/region architecture",
+        "analysis and governance references",
+        "version history"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "core provisions",
+        "domain-specific appendices",
+        "regional appendices",
+        "statistical appendix relationship"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "PDF: 34 pages",
+        "Version 3.1 UK / 9 November 2022"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Historical version",
+        "No repository copy or retained digest",
+        "Future review requires exact official URL retrieval"
+      ]
+    },
+    "artifactRelationships": [],
+    "versionRelationships": [
+      {
+        "from": "REMAP-CAP Core v3.1 UK",
+        "to": "REMAP-CAP Core v4.0",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      }
+    ],
+    "limitations": [
+      "Historical UK applicability only"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-075",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "4",
+    "artifactDigest": "899a843eef84f5ab9bc61d7569f4cfb0ccc438484f179da12d34f27bf54e42ac",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-075",
+    "artifactId": "RC01-ART-075",
+    "platformTrialId": "RC01-PLATFORM-002",
+    "studyId": "REMAP_CAP_ANTIBIOTIC_DOMAIN",
+    "artifactType": "DOMAIN_APPENDIX",
+    "title": "REMAP-CAP Antibiotic Domain-Specific Appendix",
+    "artifactDate": "2024-11-05",
+    "officialUrl": "https://static1.squarespace.com/static/5cde3c7d9a69340001d79ffe/t/692524971832543e9e3a38a1/1764041879162/REMAP-CAP%2BAntibiotic%2BDSA%2B-%2BV4%2B-%2B05%2BNOV%2B2024_CLEAN.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_DOMAIN_APPENDIX_AT_OFFICIAL_HUB_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "domain scope",
+        "domain eligibility",
+        "interventions",
+        "domain outcomes and operations"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "Antibiotic domain-specific provisions",
+        "core-protocol references"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Document title/version: Antibiotic DSA v4 / 5 November 2024"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "No local copy or digest",
+        "Regional enactment is context-specific"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "DOMAIN_SPECIALIZES_CORE",
+        "fromArtifactId": "RC01-ART-075",
+        "toArtifactId": "RC01-ART-062",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://www.remapcap.org/protocol-documents"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Regional enactment remains context-specific"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-076",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "3.0",
+    "artifactDigest": "5d65e3d6d6e4c567475266c4e55d98f660976e70f9d9b859dfca3e9af650b358",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-076",
+    "artifactId": "RC01-ART-076",
+    "platformTrialId": "RC01-PLATFORM-004",
+    "studyId": "PRACTICAL_IMV_DOMAIN",
+    "artifactType": "DOMAIN_PROTOCOL",
+    "title": "PRACTICAL Invasive Mechanical Ventilation Strategies Domain Protocol",
+    "artifactDate": "2025-08-08",
+    "officialUrl": "https://practicalplatform.org/assets/images/uploads/doc/OZUHN-004-3_IMV_Strategies_DOMAIN_PROTOCOL_v.3.0_08Aug2025_FC_.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_DOMAIN_PROTOCOL_AT_OFFICIAL_HUB_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "NO",
+      "repositoryCommitAllowed": "NO",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "NO"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "domain scope",
+        "domain eligibility",
+        "domain outcomes",
+        "intervention references"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "IMV Strategies domain",
+        "intervention-appendix relationship"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Version 3.0 / 8 August 2025"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Copyright/confidential restriction",
+        "No local copy or digest",
+        "Regional activation not inferred"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "DOMAIN_SPECIALIZES_MASTER",
+        "fromArtifactId": "RC01-ART-076",
+        "toArtifactId": "RC01-ART-068",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://practicalplatform.org/docs"
+      },
+      {
+        "relationType": "INTERVENTION_APPENDIX_SPECIALIZES_DOMAIN",
+        "fromArtifactId": "RC01-ART-077",
+        "toArtifactId": "RC01-ART-076",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://practicalplatform.org/docs"
+      }
+    ],
+    "versionRelationships": [
+      {
+        "from": "PRACTICAL IMV Domain Protocol v2.x",
+        "to": "PRACTICAL IMV Domain Protocol v3.0",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      }
+    ],
+    "limitations": [
+      "Current regional activation is not inferred"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-077",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "2.0",
+    "artifactDigest": "3880d5e9ea4eeda33ac416f677878e83f9b2ee1e939a0c87e55a410f1051f57a",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-077",
+    "artifactId": "RC01-ART-077",
+    "platformTrialId": "RC01-PLATFORM-004",
+    "studyId": "PRACTICAL_IMV_LPV",
+    "artifactType": "INTERVENTION_APPENDIX",
+    "title": "PRACTICAL Lower PEEP versus Higher PEEP Ventilation Strategy Intervention Appendix",
+    "artifactDate": "2024-08-15",
+    "officialUrl": "https://practicalplatform.org/assets/images/uploads/doc/OZUHN-004-3_LPV_Intervention_Appendix_v.2.0_15Aug2024_Final_Clean_.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "CURRENT_INTERVENTION_APPENDIX_AT_OFFICIAL_HUB_RETRIEVAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "NO",
+      "repositoryCommitAllowed": "NO",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "NO"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "intervention scope",
+        "operational specification",
+        "domain references"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "LPV intervention",
+        "IMV domain relationship"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Version 2.0 / 15 August 2024"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Copyright/confidential restriction",
+        "No local copy or digest",
+        "Current intervention availability not inferred"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "INTERVENTION_APPENDIX_SPECIALIZES_DOMAIN",
+        "fromArtifactId": "RC01-ART-077",
+        "toArtifactId": "RC01-ART-076",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://practicalplatform.org/docs"
+      }
+    ],
+    "versionRelationships": [
+      {
+        "from": "PRACTICAL LPV Appendix v1.x",
+        "to": "PRACTICAL LPV Appendix v2.0",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      }
+    ],
+    "limitations": [
+      "Current intervention availability is not inferred"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-078",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "5.0",
+    "artifactDigest": "7bbd5f7b143202b5709b217ad3fe360de6131d0ae133ec4625acab343cdc2f1a",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-078",
+    "artifactId": "RC01-ART-078",
+    "platformTrialId": null,
+    "studyId": "SPRINT",
+    "artifactType": "PROTOCOL",
+    "title": "Systolic Blood Pressure Intervention Trial Protocol",
+    "artifactDate": "2015-10-01",
+    "officialUrl": "https://biolincc.nhlbi.nih.gov/media/studies/sprint/SPRINT_Protocol.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "FINAL_OR_LATE_STUDY_PROTOCOL_IN_ARCHIVAL_REPOSITORY",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "protocol",
+        "analysis plan",
+        "data management"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "Chapter 10 Analysis Plan",
+        "Chapter 11 Data Management"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Protocol Version 5.0 / 1 October 2015",
+        "Chapter 10",
+        "Chapter 11"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "No local copy or digest",
+        "Embedded chapters are not standalone SAP/DMP"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SAME_STUDY_DOCUMENT_FAMILY",
+        "fromArtifactId": "RC01-ART-079",
+        "toArtifactId": "RC01-ART-078",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+      },
+      {
+        "relationType": "OPERATIONAL_MANUAL_SUPPORTS_PROTOCOL",
+        "fromArtifactId": "RC01-ART-081",
+        "toArtifactId": "RC01-ART-078",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Embedded analysis/data-management chapters are not standalone SAP/DMP"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-079",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Official archival forms compilation; exact version UNKNOWN",
+    "artifactDigest": "5680696629ccbd219f56c001d8756b56678c06eac62301767cbef0cc531fd7a3",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-079",
+    "artifactId": "RC01-ART-079",
+    "platformTrialId": null,
+    "studyId": "SPRINT",
+    "artifactType": "CRF",
+    "title": "Systolic Blood Pressure Intervention Trial Forms",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://biolincc.nhlbi.nih.gov/media/studies/sprint/SPRINT_Forms.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ARCHIVAL_STUDY_FORMS",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "study forms compilation",
+        "visit/data collection forms"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "SPRINT forms package"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Official file identity: SPRINT_Forms.pdf"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Exact form-version chronology not exposed",
+        "No local copy or digest"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SAME_STUDY_DOCUMENT_FAMILY",
+        "fromArtifactId": "RC01-ART-079",
+        "toArtifactId": "RC01-ART-078",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+      },
+      {
+        "relationType": "SAME_STUDY_DATA_RELEASE",
+        "fromArtifactId": "RC01-ART-080",
+        "toArtifactId": "RC01-ART-079",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Form version chronology is not exposed"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-080",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "SPRINT_2020b",
+    "artifactDigest": "f207e1cca6267424d4edab8cda8c24fe62723d067f36ab907085d74ebd776ae8",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-080",
+    "artifactId": "RC01-ART-080",
+    "platformTrialId": null,
+    "studyId": "SPRINT",
+    "artifactType": "DATA_DICTIONARY",
+    "title": "Systolic Blood Pressure Intervention Trial Data Dictionary",
+    "artifactDate": "2020-11-18",
+    "officialUrl": "https://biolincc.nhlbi.nih.gov/media/studies/sprint/data_dictionary/SPRINT_2020b.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ARCHIVAL_DATA_RELEASE_DICTIONARY",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "release-specific variables",
+        "variable labels and coding"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "SPRINT_2020b variable dictionary"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Release identity SPRINT_2020b",
+        "Generated 18 November 2020"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Field-level form correspondence not adjudicated",
+        "No local copy or digest"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SAME_STUDY_DATA_RELEASE",
+        "fromArtifactId": "RC01-ART-080",
+        "toArtifactId": "RC01-ART-079",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+      }
+    ],
+    "versionRelationships": [
+      {
+        "from": "SPRINT Data Dictionary 2020a",
+        "to": "SPRINT Data Dictionary 2020b",
+        "relation": "SUPERSEDED_BY",
+        "confidence": "HIGH"
+      }
+    ],
+    "limitations": [
+      "Field-level dictionary-to-form correspondence was not adjudicated"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-081",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Official archival manual; exact version UNKNOWN",
+    "artifactDigest": "821adb328421af1b304237d4d6cc979e9fa7713fb6d1535515962a78fb9bcb4c",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-081",
+    "artifactId": "RC01-ART-081",
+    "platformTrialId": null,
+    "studyId": "SPRINT",
+    "artifactType": "PROCEDURE_MANUAL",
+    "title": "Systolic Blood Pressure Intervention Trial Manual of Procedures",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://biolincc.nhlbi.nih.gov/media/studies/sprint/SPRINT_Manual_of_Procedures.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ARCHIVAL_STUDY_MANUAL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "manual of procedures",
+        "data management and security",
+        "data entry and forms"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "Chapter 17 Data Management and Security",
+        "data entry",
+        "forms operations"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "PDF: 505 pages",
+        "Chapter 17"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "No standalone DMP",
+        "No local copy or digest"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "OPERATIONAL_MANUAL_SUPPORTS_PROTOCOL",
+        "fromArtifactId": "RC01-ART-081",
+        "toArtifactId": "RC01-ART-078",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "No standalone DMP was found"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-082",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Official archival protocol; exact version in source file",
+    "artifactDigest": "1c5c116798234b82ecdde6adcb04eb396a8d4b13589f3d60d9c024f329e382ac",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-082",
+    "artifactId": "RC01-ART-082",
+    "platformTrialId": null,
+    "studyId": "ORCHID",
+    "artifactType": "PROTOCOL",
+    "title": "ORCHID Protocol",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://biolincc.nhlbi.nih.gov/media/studies/petal_orchid/ORCHID_Protocol.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ARCHIVAL_STUDY_PROTOCOL",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "protocol",
+        "data collection",
+        "electronic database references"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "electronic case-report forms",
+        "electronic study database"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Official file identity: ORCHID_Protocol.pdf"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Exact source-file version not separately recorded",
+        "No standalone CRF package",
+        "No local copy or digest"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SAP_SUPPORTS_PROTOCOL",
+        "fromArtifactId": "RC01-ART-085",
+        "toArtifactId": "RC01-ART-082",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+      },
+      {
+        "relationType": "SAME_STUDY_DATA_RELEASE",
+        "fromArtifactId": "RC01-ART-083",
+        "toArtifactId": "RC01-ART-082",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+      },
+      {
+        "relationType": "SOP_SUPPORTS_PROTOCOL",
+        "fromArtifactId": "RC01-ART-084",
+        "toArtifactId": "RC01-ART-082",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "No standalone CRF package was exposed"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-083",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "PETAL_ORCHID_2021a",
+    "artifactDigest": "e2e4010ff2469da312dc74f08f7f1893a7f2f2cb43b9c9c0bd20fd550dc9deb4",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-083",
+    "artifactId": "RC01-ART-083",
+    "platformTrialId": null,
+    "studyId": "ORCHID",
+    "artifactType": "DATA_DICTIONARY",
+    "title": "ORCHID Data Dictionary",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://biolincc.nhlbi.nih.gov/media/studies/petal_orchid/data_dictionary/PETAL_ORCHID_2021a.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ARCHIVAL_DATA_RELEASE_DICTIONARY",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "release-specific variables",
+        "variable labels and coding"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "PETAL_ORCHID_2021a variable dictionary"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Release identity PETAL_ORCHID_2021a"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "No direct form-to-dictionary mapping adjudicated",
+        "No local copy or digest"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SAME_STUDY_DATA_RELEASE",
+        "fromArtifactId": "RC01-ART-083",
+        "toArtifactId": "RC01-ART-082",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "No direct form-to-dictionary mapping was adjudicated"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-084",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Official archival SOP compilation; exact component versions in source file",
+    "artifactDigest": "b6a7e6b668a87ac11e0563727f4fa06664e5ef55ca7345c952935e33351cf628",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-084",
+    "artifactId": "RC01-ART-084",
+    "platformTrialId": null,
+    "studyId": "ORCHID",
+    "artifactType": "SOP",
+    "title": "ORCHID Standard Operating Procedures",
+    "artifactDate": "UNKNOWN",
+    "officialUrl": "https://biolincc.nhlbi.nih.gov/media/studies/petal_orchid/ORCHID_SOPs.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ARCHIVAL_STUDY_OPERATIONAL_DOCUMENT",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "study-specific SOP compilation",
+        "operational procedures"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "ORCHID SOP family"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Official file identity: ORCHID_SOPs.pdf"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "SOPs are not relabeled as DMP",
+        "Component version chronology not recorded",
+        "No local copy or digest"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SOP_SUPPORTS_PROTOCOL",
+        "fromArtifactId": "RC01-ART-084",
+        "toArtifactId": "RC01-ART-082",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "SOPs are not relabeled as a standalone DMP"
+    ]
+  },
+  {
+    "sourceId": "RC01-E-085",
+    "corpusId": "REFERENCE-CORPUS-01",
+    "artifactPath": "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+    "artifactVersion": "Final SAP",
+    "artifactDigest": "3a393694129a3db9cfd2cd60a0052fe7145eccab8986694e10b30a976175d5c5",
+    "artifactDigestScope": "METADATA_AND_AUTHORIZED_DERIVED_EVIDENCE_ONLY",
+    "sourceKind": "REFERENCE_CORPUS_DERIVED_EVIDENCE",
+    "authorityBoundary": "EVIDENCE_ONLY_NOT_AUTHORITY",
+    "referenceSourceId": "RC01-E-085",
+    "artifactId": "RC01-ART-085",
+    "platformTrialId": null,
+    "studyId": "ORCHID",
+    "artifactType": "SAP",
+    "title": "ORCHID Statistical Analysis Plan",
+    "artifactDate": "2020-06-17",
+    "officialUrl": "https://biolincc.nhlbi.nih.gov/media/studies/petal_orchid/ORCHID_Statistical_Analysis_Plan.pdf",
+    "retrievedAt": "2026-09-03",
+    "currentOrHistoricalStatus": "ARCHIVAL_FINAL_STATISTICAL_ANALYSIS_PLAN",
+    "contentAvailabilityState": "CONTENT_ACCESSIBLE_NOT_STORED",
+    "rights": {
+      "publiclyAccessible": "YES",
+      "localStorageAllowed": "UNKNOWN",
+      "repositoryCommitAllowed": "UNKNOWN",
+      "derivedPatternAnalysisAllowed": "YES",
+      "redistributionAllowed": "UNKNOWN"
+    },
+    "contentEvidence": {
+      "inspected": "YES",
+      "minimalDocumentStructure": [
+        "standalone statistical analysis plan",
+        "analysis populations and methods",
+        "planned outputs"
+      ],
+      "verifiedSectionOrThemeReferences": [
+        "final statistical analysis plan"
+      ],
+      "paginationOrStableSectionIdentifiers": [
+        "Final SAP date 17 June 2020",
+        "Official file identity: ORCHID_Statistical_Analysis_Plan.pdf"
+      ],
+      "transientBinarySha256": null,
+      "reproducibilityLimitations": [
+        "Exact protocol-amendment binding not adjudicated",
+        "No local copy or digest"
+      ]
+    },
+    "artifactRelationships": [
+      {
+        "relationType": "SAP_SUPPORTS_PROTOCOL",
+        "fromArtifactId": "RC01-ART-085",
+        "toArtifactId": "RC01-ART-082",
+        "linkageConfidence": "HIGH",
+        "linkageSource": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+      }
+    ],
+    "versionRelationships": [],
+    "limitations": [
+      "Exact protocol amendment binding was not independently established"
+    ]
+  },
+  {
     "sourceId": "SRC-DOC000A-CANDIDATES",
     "corpusId": "DOC-000A",
     "artifactPath": "_audit/10-reusable-knowledge-candidates.csv",

@@ -2826,6 +2826,115 @@
     "relatedBehaviorKeys": []
   },
   {
+    "factId": "DKF-552205A22BC3",
+    "behaviorKey": "doc002r:propagation:same-study-variable-definition",
+    "name": "Continuité documentaire des variables au sein d'une même étude",
+    "description": "Une famille liée peut relier protocole, formulaires et dictionnaire de données pour rendre les variables reconstructibles sans faire d'un document aval la source scientifique du projet.",
+    "category": "Data",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "SPRINT, preuves de même étude Protocol–CRF–Data Dictionary",
+    "inputs": [
+      "Dictionnaire de données",
+      "Formulaires",
+      "Identité d'étude",
+      "Protocole"
+    ],
+    "actions": [
+      "Préserver les identités d'artefact",
+      "Relier collecte et définition",
+      "Conserver les lacunes de correspondance champ à champ"
+    ],
+    "outputs": [
+      "Lignage documentaire de variable candidat"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-SPRINT-PROTOCOL-01",
+        "sourceId": "RC01-E-078",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-006/PROTOCOL",
+        "observation": "Le protocole SPRINT appartient à la même famille officielle que les formulaires et le dictionnaire.",
+        "sourceDocumentRefs": [
+          "RC01-ART-078"
+        ],
+        "familyRef": "PROTOCOL",
+        "projectRef": "SPRINT",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-552205A22BC3"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-SPRINT-CRF-02",
+        "sourceId": "RC01-E-079",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-006/CRF",
+        "observation": "La compilation de formulaires SPRINT documente les supports de collecte de la même étude.",
+        "sourceDocumentRefs": [
+          "RC01-ART-079"
+        ],
+        "familyRef": "CRF",
+        "projectRef": "SPRINT",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-552205A22BC3"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-SPRINT-DD-03",
+        "sourceId": "RC01-E-080",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-006/DATA_DICTIONARY",
+        "observation": "Le dictionnaire SPRINT documente une version de variables et de codages de la même étude.",
+        "sourceDocumentRefs": [
+          "RC01-ART-080"
+        ],
+        "familyRef": "DATA_DICTIONARY",
+        "projectRef": "SPRINT",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-552205A22BC3"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-SPRINT-VARIABLE-LINEAGE",
+        "name": "Lignage SPRINT",
+        "description": "Protocole, formulaires et dictionnaire sont liés par l’identité SPRINT.",
+        "applicability": "SPRINT seulement; correspondance de champs non adjudiquée",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Aucun DMP ou SAP autonome n’est ajouté à cette chaîne."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-SPRINT-PROTOCOL-01",
+          "DKE-DOC002R-SPRINT-CRF-02",
+          "DKE-DOC002R-SPRINT-DD-03"
+        ]
+      }
+    ],
+    "limitations": [
+      "La correspondance champ à champ n'a pas été adjudiquée.",
+      "Le pattern ne crée ni variable canonique ni décision de collecte."
+    ],
+    "sourceIds": [
+      "RC01-E-078",
+      "RC01-E-079",
+      "RC01-E-080"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "COMPLEMENTS",
+        "targetBehaviorKey": "doc000b:structure:variable-specification",
+        "rationale": "La preuve SPRINT contextualise la continuité entre collecte et définition sans remplacer l’owner Data."
+      },
+      {
+        "type": "PRECEDES",
+        "targetBehaviorKey": "doc002r:boundary:incomplete-linked-document-family",
+        "rationale": "Les liens démontrés sont établis avant de qualifier les classes documentaires absentes."
+      }
+    ]
+  },
+  {
     "factId": "DKF-55FBBFAC96FA",
     "behaviorKey": "doc000d:TimingConstraint:preservation-des-intervalles-intra-examen",
     "name": "Préservation des intervalles intra-examen",
@@ -3135,6 +3244,175 @@
     ],
     "extractedAt": "2026-08-10",
     "relatedBehaviorKeys": []
+  },
+  {
+    "factId": "DKF-679A0D6B825F",
+    "behaviorKey": "doc002r:boundary:protocol-specialized-document-detail-allocation",
+    "name": "Allocation contextualisée du niveau de détail entre protocole et document spécialisé",
+    "description": "Un protocole peut porter l'engagement de haut niveau tandis qu'un artefact explicitement lié porte un détail de domaine, opérationnel ou analytique; la répartition doit être constatée dans la même étude et ne constitue pas une règle universelle.",
+    "category": "Document Structure",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Famille documentaire d'une même étude avec liens explicites entre artefacts",
+    "inputs": [
+      "Artefact spécialisé lié",
+      "Identité d'étude",
+      "Protocole ou document maître",
+      "Version et provenance"
+    ],
+    "actions": [
+      "Vérifier l'identité commune",
+      "Localiser l'engagement de haut niveau",
+      "Localiser le détail spécialisé",
+      "Conserver les limites et versions"
+    ],
+    "outputs": [
+      "Frontière de détail documentaire contextualisée"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-DETAIL-STEP-01",
+        "sourceId": "RC01-E-060",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-001",
+        "observation": "Le synopsis de domaine STEP spécialise une vue maître officiellement liée.",
+        "sourceDocumentRefs": [
+          "RC01-ART-059",
+          "RC01-ART-060"
+        ],
+        "familyRef": "MASTER_PROTOCOL_AND_DOMAIN_SYNOPSIS",
+        "projectRef": "STEP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-679A0D6B825F"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-DETAIL-PRACTICAL-02",
+        "sourceId": "RC01-E-076",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-004",
+        "observation": "La famille PRACTICAL sépare les couches maître, domaine et intervention par des artefacts liés.",
+        "sourceDocumentRefs": [
+          "RC01-ART-068",
+          "RC01-ART-076",
+          "RC01-ART-077"
+        ],
+        "familyRef": "MASTER_DOMAIN_INTERVENTION",
+        "projectRef": "PRACTICAL",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-679A0D6B825F"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-DETAIL-SPRINT-03",
+        "sourceId": "RC01-E-081",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-006",
+        "observation": "Dans SPRINT, le protocole et le manuel de procédures répartissent contenu directeur et réalisation opérationnelle.",
+        "sourceDocumentRefs": [
+          "RC01-ART-078",
+          "RC01-ART-081"
+        ],
+        "familyRef": "PROTOCOL_AND_PROCEDURE_MANUAL",
+        "projectRef": "SPRINT",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-679A0D6B825F"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-DETAIL-ORCHID-04",
+        "sourceId": "RC01-E-085",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-007",
+        "observation": "Dans ORCHID, le protocole, les SOP et le SAP exposent des frontières opérationnelles et analytiques distinctes.",
+        "sourceDocumentRefs": [
+          "RC01-ART-082",
+          "RC01-ART-084",
+          "RC01-ART-085"
+        ],
+        "familyRef": "PROTOCOL_SOP_SAP",
+        "projectRef": "ORCHID",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-679A0D6B825F"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-DETAIL-STEP",
+        "name": "Maître vers domaine STEP",
+        "description": "Le domaine lié porte un niveau de détail propre à sa portée.",
+        "applicability": "STEP uniquement, selon les artefacts et versions référencés",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Le protocole maître complet n’est pas stocké localement."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-DETAIL-STEP-01"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-DETAIL-PRACTICAL",
+        "name": "Maître, domaine et intervention PRACTICAL",
+        "description": "Des couches documentaires liées spécialisent progressivement le contexte.",
+        "applicability": "PRACTICAL uniquement, sans inférer l’activation courante",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Les documents protégés ne sont ni copiés ni redistribués."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-DETAIL-PRACTICAL-02"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-DETAIL-SPRINT",
+        "name": "Protocole et manuel SPRINT",
+        "description": "Le manuel porte des éléments opérationnels distincts du protocole.",
+        "applicability": "SPRINT uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Aucun DMP autonome n’est établi."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-DETAIL-SPRINT-03"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-DETAIL-ORCHID",
+        "name": "Protocole, SOP et SAP ORCHID",
+        "description": "Les artefacts séparent contenu directeur, procédures et analyse.",
+        "applicability": "ORCHID uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Aucun CRF ni DMP autonome n’est établi."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-DETAIL-ORCHID-04"
+        ]
+      }
+    ],
+    "limitations": [
+      "Aucune famille documentaire n'impose cette répartition à une autre étude.",
+      "L'absence de détail n'est pas interprétée comme un renvoi sans référence explicite."
+    ],
+    "sourceIds": [
+      "RC01-E-060",
+      "RC01-E-076",
+      "RC01-E-081",
+      "RC01-E-085"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "COMPLEMENTS",
+        "targetBehaviorKey": "doc000b:structure:contextual-protocol-with-conditional-blocks",
+        "rationale": "La frontière de détail complète la structure conditionnelle du protocole sans en changer l’owner."
+      },
+      {
+        "type": "COMPLEMENTS",
+        "targetBehaviorKey": "doc002r:classification:explicit-deferral-to-specialized-document",
+        "rationale": "Une allocation observée ne devient un report intentionnel que si le renvoi spécialisé est explicite."
+      }
+    ]
   },
   {
     "factId": "DKF-68E665CAD614",
@@ -3841,6 +4119,226 @@
     "relatedBehaviorKeys": []
   },
   {
+    "factId": "DKF-84666D710A94",
+    "behaviorKey": "doc002r:boundary:same-study-analysis-plan-allocation",
+    "name": "Séparation du cadre protocolaire et du plan d'analyse",
+    "description": "Lorsqu'un SAP est explicitement lié au protocole de la même étude, les engagements analytiques peuvent être répartis entre cadre directeur et spécification statistique sans déduire une méthode ni une compatibilité de version non prouvée.",
+    "category": "Document Structure",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Familles liées ORCHID, REMAP-CAP et PRACTICAL",
+    "inputs": [
+      "Identité d'étude",
+      "Protocole",
+      "SAP",
+      "Version explicite disponible"
+    ],
+    "actions": [
+      "Conserver la relation protocole–SAP",
+      "Distinguer cadre et spécification",
+      "Exposer les liaisons de version non adjudiquées"
+    ],
+    "outputs": [
+      "Frontière analytique documentaire traçable"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-ANALYSIS-ORCHID-01",
+        "sourceId": "RC01-E-085",
+        "locator": "RELATIONSHIPS/SAP_SUPPORTS_PROTOCOL/ORCHID",
+        "observation": "Le SAP final ORCHID est relié au protocole ORCHID dans la même famille officielle.",
+        "sourceDocumentRefs": [
+          "RC01-ART-082",
+          "RC01-ART-085"
+        ],
+        "familyRef": "PROTOCOL_AND_SAP",
+        "projectRef": "ORCHID",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-84666D710A94"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-ANALYSIS-REMAP-02",
+        "sourceId": "RC01-E-063",
+        "locator": "RELATIONSHIPS/SAP_SPECIALIZES_CORE/REMAP_CAP",
+        "observation": "L'appendice d'analyse REMAP-CAP est co-listé avec le protocole cœur et conserve sa propre version.",
+        "sourceDocumentRefs": [
+          "RC01-ART-062",
+          "RC01-ART-063"
+        ],
+        "familyRef": "CORE_PROTOCOL_AND_SAP",
+        "projectRef": "REMAP_CAP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-84666D710A94"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-ANALYSIS-PRACTICAL-03",
+        "sourceId": "RC01-E-069",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-004/SAP",
+        "observation": "PRACTICAL publie séparément le protocole maître et le plan d'analyse maître.",
+        "sourceDocumentRefs": [
+          "RC01-ART-068",
+          "RC01-ART-069"
+        ],
+        "familyRef": "MASTER_PROTOCOL_AND_MASTER_SAP",
+        "projectRef": "PRACTICAL",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-84666D710A94"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-ANALYSIS-ORCHID",
+        "name": "SAP autonome ORCHID",
+        "description": "Le SAP est un artefact analytique autonome lié au protocole.",
+        "applicability": "ORCHID uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Le lien exact à une version de protocole n’a pas été adjudiqué."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-ANALYSIS-ORCHID-01"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-ANALYSIS-PLATFORM",
+        "name": "Plan maître et extensions",
+        "description": "Un plan maître peut coexister avec des extensions spécifiques au domaine.",
+        "applicability": "REMAP-CAP ou PRACTICAL selon leurs artefacts officiels",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Aucune architecture statistique universelle n’est déduite."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-ANALYSIS-REMAP-02",
+          "DKE-DOC002R-ANALYSIS-PRACTICAL-03"
+        ]
+      }
+    ],
+    "limitations": [
+      "DOC-002 ne sélectionne aucune méthode statistique.",
+      "La compatibilité exacte protocole–SAP reste UNKNOWN lorsqu'elle n'est pas explicitement établie."
+    ],
+    "sourceIds": [
+      "RC01-E-063",
+      "RC01-E-069",
+      "RC01-E-085"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "COMPLEMENTS",
+        "targetBehaviorKey": "doc002r:boundary:protocol-specialized-document-detail-allocation",
+        "rationale": "La séparation protocole–SAP est une frontière spécialisée d’analyse."
+      }
+    ]
+  },
+  {
+    "factId": "DKF-84E1B365A692",
+    "behaviorKey": "doc002r:classification:uninterpreted-documentary-omission",
+    "name": "Omission documentaire non interprétée",
+    "description": "Une information absente d'un artefact observé reste une omission non interprétée tant qu'aucun renvoi, motif de report ou statut de non-applicabilité n'est explicitement prouvé.",
+    "category": "Unknown",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Information attendue ou dimension de variante absente d'un document disponible",
+    "inputs": [
+      "Artefact observé",
+      "Dimension recherchée",
+      "Documents aval disponibles ou absents",
+      "Preuve de renvoi éventuelle"
+    ],
+    "actions": [
+      "Constater l'absence",
+      "Rechercher un renvoi explicite dans la preuve disponible",
+      "Conserver UNKNOWN si le motif manque"
+    ],
+    "outputs": [
+      "Omission non interprétée avec limite explicite"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-OMISSION-CORELAB-01",
+        "sourceId": "SRC-INTEGRITY-C2A679E74CF8",
+        "locator": "document-dependencies:Core Lab Manual",
+        "observation": "Le modèle documentaire signale qu'une mention isolée de lecture centralisée ne suffit pas à établir les paramètres du dispositif de lecture.",
+        "sourceDocumentRefs": [
+          "DOC-000B-DOCUMENT-DEPENDENCIES",
+          "DOC-000B-VARIANT-MAP"
+        ],
+        "familyRef": "CORE_LAB_MANUAL",
+        "projectRef": null,
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-84E1B365A692"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-OMISSION-ISPY-02",
+        "sourceId": "RC01-E-073",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-005",
+        "observation": "La famille I-SPY relie une ressource d'imagerie à l'étude sans fournir dans le corpus un protocole, un SAP ou une charte d'imagerie complets.",
+        "sourceDocumentRefs": [
+          "RC01-ART-071",
+          "RC01-ART-073"
+        ],
+        "familyRef": "IMAGING_DATA_WITHOUT_FULL_DOCUMENT_CHAIN",
+        "projectRef": "I_SPY_2",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-84E1B365A692"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-OMISSION-READER-COUNT",
+        "name": "Nombre de lecteurs non documenté",
+        "description": "La lecture centralisée est mentionnée mais le nombre de lecteurs n’est pas établi dans les artefacts disponibles.",
+        "applicability": "Conserver comme omission non interprétée si aucun document spécialisé lié n’est disponible",
+        "kind": "UNRESOLVED_VARIANT",
+        "limitations": [
+          "Ne pas qualifier automatiquement cette absence de report intentionnel."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-OMISSION-CORELAB-01"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-OMISSION-MISSING-FAMILY",
+        "name": "Famille spécialisée non disponible",
+        "description": "Une fonction est observable mais son artefact documentaire spécialisé n’est pas accessible dans le corpus.",
+        "applicability": "Conserver UNKNOWN et la limite de corpus",
+        "kind": "UNRESOLVED_VARIANT",
+        "limitations": [
+          "Ne prouve pas que le document n’existe pas hors corpus."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-OMISSION-ISPY-02"
+        ]
+      }
+    ],
+    "limitations": [
+      "L'absence d'un document public ne prouve ni son inexistence ni une décision scientifique.",
+      "Une mention de lecture centralisée sans nombre de lecteurs ne prouve pas un report intentionnel."
+    ],
+    "sourceIds": [
+      "RC01-E-073",
+      "SRC-INTEGRITY-C2A679E74CF8"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "ALTERNATIVE_TO",
+        "targetBehaviorKey": "doc002r:classification:explicit-deferral-to-specialized-document",
+        "rationale": "L’omission inexpliquée et le report explicitement référencé sont des qualifications distinctes."
+      }
+    ]
+  },
+  {
     "factId": "DKF-850D5FE107F3",
     "behaviorKey": "doc000b:structure:requirement-traceability-line",
     "name": "Requirement Traceability Line",
@@ -4313,6 +4811,173 @@
     "relatedBehaviorKeys": []
   },
   {
+    "factId": "DKF-94AC7B3F0790",
+    "behaviorKey": "doc002r:boundary:remote-content-evidence-rights",
+    "name": "Preuve documentaire distante sans droit de stockage",
+    "description": "Un document officiellement accessible mais non stockable reste une source de preuve dérivée bornée; son URL, son identité, son statut de droits et ses limites de reproductibilité sont conservés sans binaire ni extrait substantiel.",
+    "category": "Document Structure",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Sources RC01 qualifiées CONTENT_ACCESSIBLE_NOT_STORED",
+    "inputs": [
+      "Identité de document",
+      "Limites de reproductibilité",
+      "Références de structure autorisées",
+      "Statut de droits",
+      "URL officielle"
+    ],
+    "actions": [
+      "Conserver la métadonnée",
+      "Limiter l'abstraction aux phénomènes autorisés",
+      "Ne pas stocker le binaire",
+      "Rendre la dépendance de récupération future explicite"
+    ],
+    "outputs": [
+      "Preuve dérivée rights-first"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-RIGHTS-STEP-01",
+        "sourceId": "RC01-E-059",
+        "locator": "PLATFORM_READINESS/RC01-PLATFORM-001",
+        "observation": "La preuve STEP reste accessible par récupération contrôlée avec contenu local, index de sections et readiness runtime explicitement absents.",
+        "sourceDocumentRefs": [
+          "RC01-ART-059",
+          "RC01-ART-060",
+          "RC01-ART-061"
+        ],
+        "familyRef": "REMOTE_CONTENT_RIGHTS_BOUNDARY",
+        "projectRef": "STEP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-94AC7B3F0790"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-RIGHTS-REMAP-CAP-02",
+        "sourceId": "RC01-E-062",
+        "locator": "PLATFORM_READINESS/RC01-PLATFORM-002",
+        "observation": "La preuve REMAP_CAP reste accessible par récupération contrôlée avec contenu local, index de sections et readiness runtime explicitement absents.",
+        "sourceDocumentRefs": [
+          "RC01-ART-062",
+          "RC01-ART-063",
+          "RC01-ART-064",
+          "RC01-ART-074",
+          "RC01-ART-075"
+        ],
+        "familyRef": "REMOTE_CONTENT_RIGHTS_BOUNDARY",
+        "projectRef": "REMAP_CAP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-94AC7B3F0790"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-RIGHTS-PRINCIPLE-03",
+        "sourceId": "RC01-E-065",
+        "locator": "PLATFORM_READINESS/RC01-PLATFORM-003",
+        "observation": "La preuve PRINCIPLE reste accessible par récupération contrôlée avec contenu local, index de sections et readiness runtime explicitement absents.",
+        "sourceDocumentRefs": [
+          "RC01-ART-065",
+          "RC01-ART-066",
+          "RC01-ART-067"
+        ],
+        "familyRef": "REMOTE_CONTENT_RIGHTS_BOUNDARY",
+        "projectRef": "PRINCIPLE",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-94AC7B3F0790"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-RIGHTS-PRACTICAL-04",
+        "sourceId": "RC01-E-068",
+        "locator": "PLATFORM_READINESS/RC01-PLATFORM-004",
+        "observation": "La preuve PRACTICAL reste accessible par récupération contrôlée avec contenu local, index de sections et readiness runtime explicitement absents.",
+        "sourceDocumentRefs": [
+          "RC01-ART-068",
+          "RC01-ART-069",
+          "RC01-ART-070",
+          "RC01-ART-076",
+          "RC01-ART-077"
+        ],
+        "familyRef": "REMOTE_CONTENT_RIGHTS_BOUNDARY",
+        "projectRef": "PRACTICAL",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-94AC7B3F0790"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-RIGHTS-I-SPY-2-05",
+        "sourceId": "RC01-E-071",
+        "locator": "PLATFORM_READINESS/RC01-PLATFORM-005",
+        "observation": "La preuve I_SPY_2 reste accessible par récupération contrôlée avec contenu local, index de sections et readiness runtime explicitement absents.",
+        "sourceDocumentRefs": [
+          "RC01-ART-071",
+          "RC01-ART-072",
+          "RC01-ART-073"
+        ],
+        "familyRef": "REMOTE_CONTENT_RIGHTS_BOUNDARY",
+        "projectRef": "I_SPY_2",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-94AC7B3F0790"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-RIGHTS-NO-STORAGE",
+        "name": "Stockage et commit interdits",
+        "description": "La consultation autorise une analyse dérivée mais pas la conservation du binaire.",
+        "applicability": "Sources dont LOCAL_STORAGE_ALLOWED et REPOSITORY_COMMIT_ALLOWED valent NO",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Aucun texte substantiel n’est reproduit."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-RIGHTS-REMAP-CAP-02",
+          "DKE-DOC002R-RIGHTS-PRINCIPLE-03",
+          "DKE-DOC002R-RIGHTS-PRACTICAL-04"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-RIGHTS-UNKNOWN-STORAGE",
+        "name": "Droit de stockage non établi",
+        "description": "Le contenu reste non stocké tant que le droit de conservation n’est pas établi.",
+        "applicability": "Sources dont le droit de stockage vaut UNKNOWN",
+        "kind": "UNRESOLVED_VARIANT",
+        "limitations": [
+          "L’accessibilité publique ne suffit pas à autoriser le commit."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-RIGHTS-STEP-01",
+          "DKE-DOC002R-RIGHTS-I-SPY-2-05"
+        ]
+      }
+    ],
+    "limitations": [
+      "L'accès ponctuel ne crée aucun droit de redistribution.",
+      "La reproductibilité hors ligne n'est pas garantie.",
+      "La source n'est ni SECTION_INDEXED ni runtime-content-ready."
+    ],
+    "sourceIds": [
+      "RC01-E-059",
+      "RC01-E-062",
+      "RC01-E-065",
+      "RC01-E-068",
+      "RC01-E-071"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "SPECIALIZES",
+        "targetBehaviorKey": "doc000b:structure:source-trace-block",
+        "rationale": "La preuve distante applique le bloc de trace à une source non stockable."
+      }
+    ]
+  },
+  {
     "factId": "DKF-94F13F448939",
     "behaviorKey": "doc000d:QualityCriterion:controle-de-reception-minimal",
     "name": "Contrôle de réception minimal",
@@ -4722,6 +5387,112 @@
     "relatedBehaviorKeys": []
   },
   {
+    "factId": "DKF-A06AEC414553",
+    "behaviorKey": "doc002r:boundary:incomplete-linked-document-family",
+    "name": "Famille documentaire liée mais incomplète",
+    "description": "Une famille de même étude conserve les artefacts présents, les contenus intégrés et les classes autonomes absentes sans compléter la chaîne depuis une autre étude.",
+    "category": "Unknown",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Familles SPRINT et ORCHID indépendantes",
+    "inputs": [
+      "Artefacts présents",
+      "Classes autonomes absentes",
+      "Contenus intégrés",
+      "Identité d'étude"
+    ],
+    "actions": [
+      "Inventorier les artefacts liés",
+      "Distinguer intégré et autonome",
+      "Conserver les absences",
+      "Interdire la fusion inter-études"
+    ],
+    "outputs": [
+      "Famille partielle honnête et reconstructible"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-INCOMPLETE-SPRINT-01",
+        "sourceId": "RC01-E-078",
+        "locator": "CHAIN_ASSESSMENT/FAMILIES/SPRINT",
+        "observation": "SPRINT relie protocole, CRF, dictionnaire et manuel; le DMP et le SAP ne sont pas établis comme artefacts autonomes.",
+        "sourceDocumentRefs": [
+          "RC01-ART-078",
+          "RC01-ART-079",
+          "RC01-ART-080",
+          "RC01-ART-081"
+        ],
+        "familyRef": "INCOMPLETE_LINKED_FAMILY",
+        "projectRef": "SPRINT",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A06AEC414553"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-INCOMPLETE-ORCHID-02",
+        "sourceId": "RC01-E-082",
+        "locator": "CHAIN_ASSESSMENT/FAMILIES/ORCHID",
+        "observation": "ORCHID relie protocole, dictionnaire, SOP et SAP; le CRF et le DMP ne sont pas établis comme artefacts autonomes.",
+        "sourceDocumentRefs": [
+          "RC01-ART-082",
+          "RC01-ART-083",
+          "RC01-ART-084",
+          "RC01-ART-085"
+        ],
+        "familyRef": "INCOMPLETE_LINKED_FAMILY",
+        "projectRef": "ORCHID",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A06AEC414553"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-INCOMPLETE-SPRINT",
+        "name": "Famille SPRINT",
+        "description": "Protocol, CRF, Data Dictionary et MOP sont présents.",
+        "applicability": "SPRINT uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Pas de DMP ni SAP autonomes établis."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-INCOMPLETE-SPRINT-01"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-INCOMPLETE-ORCHID",
+        "name": "Famille ORCHID",
+        "description": "Protocol, Data Dictionary, SOP et SAP sont présents.",
+        "applicability": "ORCHID uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Pas de CRF ni DMP autonomes établis."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-INCOMPLETE-ORCHID-02"
+        ]
+      }
+    ],
+    "limitations": [
+      "SPRINT et ORCHID fournissent des preuves complémentaires mais jamais une chaîne unique.",
+      "Une classe absente du corpus n'est pas déclarée inexistante."
+    ],
+    "sourceIds": [
+      "RC01-E-078",
+      "RC01-E-082"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "ALTERNATIVE_TO",
+        "targetBehaviorKey": "doc000a:workflow:descriptive-study-lifecycle",
+        "rationale": "Une famille documentaire partielle ne doit pas être gonflée en cycle complet."
+      }
+    ]
+  },
+  {
     "factId": "DKF-A309B6B427E6",
     "behaviorKey": "doc000d:ReadingPattern:plan-d-affichage-et-aveugle-prespecifies",
     "name": "Plan d'affichage et aveugle préspecifiés",
@@ -4983,6 +5754,313 @@
     ],
     "extractedAt": "2026-08-10",
     "relatedBehaviorKeys": []
+  },
+  {
+    "factId": "DKF-A6A969D6BDFA",
+    "behaviorKey": "doc002r:commitment:scope-and-specialization-boundary",
+    "name": "Engagement documentaire borné par portée et spécialisation",
+    "description": "La formulation documentaire doit distinguer dispositions communes, engagements propres à un domaine, paramètres laissés ouverts et détails confiés à un artefact lié sans augmenter le niveau d'engagement scientifique.",
+    "category": "Editorial",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Protocoles maîtres, documents de domaine et artefacts spécialisés liés",
+    "inputs": [
+      "Couche de spécialisation",
+      "Fait ou décision gouverné",
+      "Portée documentaire",
+      "Statut connu ou ouvert"
+    ],
+    "actions": [
+      "Conserver l'engagement source",
+      "Expliciter la portée",
+      "Signaler les paramètres ouverts",
+      "Référencer la couche spécialisée"
+    ],
+    "outputs": [
+      "Formulation documentaire bornée et traçable"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-COMMITMENT-DERIVED-01",
+        "sourceId": "SRC-DOC000B-PATTERNS",
+        "locator": "interpretations-authorisees-interdites",
+        "observation": "Le modèle DOC-000B distingue contenu observé, interprétation autorisée et promotion interdite.",
+        "sourceDocumentRefs": [
+          "DOC-000B-PATTERN-MAP"
+        ],
+        "familyRef": "EDITORIAL_COMMITMENT",
+        "projectRef": null,
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A6A969D6BDFA"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-COMMITMENT-STEP-02",
+        "sourceId": "RC01-E-060",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-001",
+        "observation": "STEP sépare portée maître et spécialisation de domaine dans des ressources liées.",
+        "sourceDocumentRefs": [
+          "RC01-ART-059",
+          "RC01-ART-060"
+        ],
+        "familyRef": "MASTER_DOMAIN_COMMITMENT",
+        "projectRef": "STEP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A6A969D6BDFA"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-COMMITMENT-PRINCIPLE-03",
+        "sourceId": "RC01-E-065",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-003",
+        "observation": "PRINCIPLE combine protocole maître, sections spécialisées intégrées et historique d'amendement dans une portée explicitement versionnée.",
+        "sourceDocumentRefs": [
+          "RC01-ART-065"
+        ],
+        "familyRef": "EMBEDDED_SPECIALIZED_COMMITMENT",
+        "projectRef": "PRINCIPLE",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A6A969D6BDFA"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-COMMITMENT-PRACTICAL-04",
+        "sourceId": "RC01-E-077",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-004",
+        "observation": "PRACTICAL distribue les engagements entre couches maître, domaine et intervention liées.",
+        "sourceDocumentRefs": [
+          "RC01-ART-068",
+          "RC01-ART-076",
+          "RC01-ART-077"
+        ],
+        "familyRef": "MASTER_DOMAIN_INTERVENTION_COMMITMENT",
+        "projectRef": "PRACTICAL",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A6A969D6BDFA"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-COMMITMENT-SHARED",
+        "name": "Disposition commune",
+        "description": "Le document maître porte une disposition partagée à la portée observée.",
+        "applicability": "Seulement si la portée maître est prouvée",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Ne vaut pas règle universelle."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-COMMITMENT-STEP-02",
+          "DKE-DOC002R-COMMITMENT-PRACTICAL-04"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-COMMITMENT-SPECIALIZED",
+        "name": "Engagement spécialisé",
+        "description": "Un domaine ou une intervention porte un engagement propre à sa portée.",
+        "applicability": "Seulement pour l’artefact spécialisé lié",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Ne doit pas être projeté sur les autres domaines."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-COMMITMENT-STEP-02",
+          "DKE-DOC002R-COMMITMENT-PRACTICAL-04"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-COMMITMENT-OPEN",
+        "name": "Paramètre explicitement ouvert",
+        "description": "Une information non arrêtée reste visible comme ouverte ou requérant une décision humaine.",
+        "applicability": "Lorsque le statut source est UNKNOWN ou décision requise",
+        "kind": "UNRESOLVED_VARIANT",
+        "limitations": [
+          "Aucun remplissage automatique."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-COMMITMENT-DERIVED-01"
+        ]
+      }
+    ],
+    "limitations": [
+      "Aucun wording source n'est imité.",
+      "Le pattern ne choisit ni étude, ni endpoint, ni méthode, ni paramètre."
+    ],
+    "sourceIds": [
+      "RC01-E-060",
+      "RC01-E-065",
+      "RC01-E-077",
+      "SRC-DOC000B-PATTERNS"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "SPECIALIZES",
+        "targetBehaviorKey": "doc000b:editorial:explicit-commitment-level",
+        "rationale": "La portée et la spécialisation contextualisent le niveau d’engagement existant."
+      },
+      {
+        "type": "COMPLEMENTS",
+        "targetBehaviorKey": "doc002r:architecture:master-domain-artifact-modularity",
+        "rationale": "La formulation bornée rend visible la structure modulaire sans la transformer en science."
+      }
+    ]
+  },
+  {
+    "factId": "DKF-A8C92997A76B",
+    "behaviorKey": "doc002r:version:explicit-artifact-succession",
+    "name": "Succession documentaire versionnée explicitement",
+    "description": "Une relation de succession entre versions est conservée lorsqu'une source officielle identifie les deux versions; elle ne prouve pas la propagation du changement aux artefacts aval.",
+    "category": "Document Structure",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Versions explicites STEP, REMAP-CAP, PRINCIPLE, PRACTICAL et SPRINT",
+    "inputs": [
+      "Artefact antérieur",
+      "Artefact ultérieur",
+      "Portée de version",
+      "Source officielle de succession"
+    ],
+    "actions": [
+      "Conserver les deux identités de version",
+      "Enregistrer la relation de succession",
+      "Refuser toute propagation aval non prouvée"
+    ],
+    "outputs": [
+      "Lignage de version reconstructible"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-VERSION-STEP-01",
+        "sourceId": "RC01-E-061",
+        "locator": "VERSION_RELATIONSHIPS/STEP",
+        "observation": "Le hub STEP conserve des couples de versions successives pour le maître et le domaine.",
+        "sourceDocumentRefs": [
+          "RC01-ART-061"
+        ],
+        "familyRef": "PLATFORM_VERSION_LINEAGE",
+        "projectRef": "STEP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A8C92997A76B"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-VERSION-REMAP-02",
+        "sourceId": "RC01-E-074",
+        "locator": "VERSION_RELATIONSHIPS/REMAP_CAP",
+        "observation": "La lignée REMAP-CAP conserve une version cœur historique et une version ultérieure explicitement nommée.",
+        "sourceDocumentRefs": [
+          "RC01-ART-062",
+          "RC01-ART-074"
+        ],
+        "familyRef": "CORE_PROTOCOL_VERSION_LINEAGE",
+        "projectRef": "REMAP_CAP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A8C92997A76B"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-VERSION-PRINCIPLE-03",
+        "sourceId": "RC01-E-065",
+        "locator": "VERSION_RELATIONSHIPS/PRINCIPLE",
+        "observation": "Le protocole PRINCIPLE observé déclare une succession de version explicite.",
+        "sourceDocumentRefs": [
+          "RC01-ART-065"
+        ],
+        "familyRef": "PROTOCOL_VERSION_LINEAGE",
+        "projectRef": "PRINCIPLE",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A8C92997A76B"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-VERSION-PRACTICAL-04",
+        "sourceId": "RC01-E-076",
+        "locator": "VERSION_RELATIONSHIPS/PRACTICAL",
+        "observation": "PRACTICAL conserve des successions distinctes pour les couches maître, domaine et intervention.",
+        "sourceDocumentRefs": [
+          "RC01-ART-068",
+          "RC01-ART-076",
+          "RC01-ART-077"
+        ],
+        "familyRef": "MODULAR_VERSION_LINEAGE",
+        "projectRef": "PRACTICAL",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A8C92997A76B"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-VERSION-SPRINT-05",
+        "sourceId": "RC01-E-080",
+        "locator": "VERSION_RELATIONSHIPS/SPRINT",
+        "observation": "Le dictionnaire SPRINT conserve une succession de release explicitement identifiée.",
+        "sourceDocumentRefs": [
+          "RC01-ART-080"
+        ],
+        "familyRef": "DATA_DICTIONARY_VERSION_LINEAGE",
+        "projectRef": "SPRINT",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-A8C92997A76B"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-VERSION-PLATFORM",
+        "name": "Versions de plateforme modulaires",
+        "description": "Les couches maître, domaine ou intervention peuvent évoluer selon des lignées distinctes.",
+        "applicability": "STEP, REMAP-CAP ou PRACTICAL selon les relations explicites",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Ne pas supposer une mise à jour synchrone de toutes les couches."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-VERSION-STEP-01",
+          "DKE-DOC002R-VERSION-REMAP-02",
+          "DKE-DOC002R-VERSION-PRACTICAL-04"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-VERSION-DATA-RELEASE",
+        "name": "Version de dictionnaire de données",
+        "description": "La release du dictionnaire conserve sa propre identité de version.",
+        "applicability": "SPRINT uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "La compatibilité champ à champ avec les formulaires reste non adjudiquée."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-VERSION-SPRINT-05"
+        ]
+      }
+    ],
+    "limitations": [
+      "Aucun artefact aval n'est marqué obsolète sans preuve propre.",
+      "La version la plus récente observée n'est pas automatiquement la version applicable."
+    ],
+    "sourceIds": [
+      "RC01-E-061",
+      "RC01-E-065",
+      "RC01-E-074",
+      "RC01-E-076",
+      "RC01-E-080"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "SPECIALIZES",
+        "targetBehaviorKey": "doc000b:structure:change-history",
+        "rationale": "La succession explicite contextualise le pattern général d’historique des modifications."
+      }
+    ]
   },
   {
     "factId": "DKF-AA42FFADA696",
@@ -6050,6 +7128,128 @@
     "relatedBehaviorKeys": []
   },
   {
+    "factId": "DKF-C90D3A1C85B5",
+    "behaviorKey": "doc002r:classification:explicit-deferral-to-specialized-document",
+    "name": "Report explicite du détail vers un document spécialisé",
+    "description": "Le détail peut être qualifié de volontairement différé seulement lorsqu'un artefact directeur référence explicitement une couche spécialisée liée et identifiable.",
+    "category": "Document Structure",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Relations documentaires explicites au sein d'une même étude ou plateforme",
+    "inputs": [
+      "Artefact directeur",
+      "Artefact spécialisé",
+      "Identité d'étude commune",
+      "Référence explicite"
+    ],
+    "actions": [
+      "Vérifier le lien explicite",
+      "Conserver les identités et versions",
+      "Limiter la qualification à la portée observée"
+    ],
+    "outputs": [
+      "Report intentionnel étayé et contextualisé"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-DEFERRAL-STEP-01",
+        "sourceId": "RC01-E-060",
+        "locator": "RELATIONSHIPS/DOMAIN_SPECIALIZES_MASTER/STEP",
+        "observation": "La navigation officielle STEP relie la vue maître au synopsis de domaine.",
+        "sourceDocumentRefs": [
+          "RC01-ART-059",
+          "RC01-ART-060"
+        ],
+        "familyRef": "MASTER_TO_DOMAIN",
+        "projectRef": "STEP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-C90D3A1C85B5"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-DEFERRAL-REMAP-02",
+        "sourceId": "RC01-E-075",
+        "locator": "RELATIONSHIPS/DOMAIN_SPECIALIZES_CORE/REMAP_CAP",
+        "observation": "La documentation REMAP-CAP relie le protocole cœur aux couches domaine et analyse.",
+        "sourceDocumentRefs": [
+          "RC01-ART-062",
+          "RC01-ART-063",
+          "RC01-ART-075"
+        ],
+        "familyRef": "CORE_TO_DOMAIN_AND_ANALYSIS",
+        "projectRef": "REMAP_CAP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-C90D3A1C85B5"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-DEFERRAL-PRACTICAL-03",
+        "sourceId": "RC01-E-077",
+        "locator": "RELATIONSHIPS/INTERVENTION_APPENDIX_SPECIALIZES_DOMAIN",
+        "observation": "La documentation PRACTICAL relie explicitement maître, domaine et annexe d'intervention.",
+        "sourceDocumentRefs": [
+          "RC01-ART-068",
+          "RC01-ART-076",
+          "RC01-ART-077"
+        ],
+        "familyRef": "MASTER_TO_DOMAIN_TO_INTERVENTION",
+        "projectRef": "PRACTICAL",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-C90D3A1C85B5"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-DEFERRAL-MASTER-DOMAIN",
+        "name": "Renvoi maître vers domaine",
+        "description": "La couche maître conserve la portée commune et la couche domaine spécialise le détail.",
+        "applicability": "Seulement si le lien maître-domaine est explicite",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "La granularité exacte reste propre à chaque plateforme."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-DEFERRAL-STEP-01",
+          "DKE-DOC002R-DEFERRAL-REMAP-02",
+          "DKE-DOC002R-DEFERRAL-PRACTICAL-03"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-DEFERRAL-DOMAIN-INTERVENTION",
+        "name": "Renvoi domaine vers intervention",
+        "description": "Une annexe d’intervention spécialise une couche de domaine déjà liée au maître.",
+        "applicability": "Seulement pour la hiérarchie PRACTICAL observée",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Aucune activation courante n’est déduite."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-DEFERRAL-PRACTICAL-03"
+        ]
+      }
+    ],
+    "limitations": [
+      "Le pattern ne décide ni le contenu à différer ni sa qualité scientifique.",
+      "Sans référence explicite, appliquer l'omission non interprétée."
+    ],
+    "sourceIds": [
+      "RC01-E-060",
+      "RC01-E-075",
+      "RC01-E-077"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "SPECIALIZES",
+        "targetBehaviorKey": "doc002r:boundary:protocol-specialized-document-detail-allocation",
+        "rationale": "Le report explicite est une qualification plus stricte que la simple observation d’une frontière de détail."
+      }
+    ]
+  },
+  {
     "factId": "DKF-CCD3AFC339D2",
     "behaviorKey": "doc000a:family:29_budget",
     "name": "Structure documentaire récurrente — budget",
@@ -6098,6 +7298,140 @@
     ],
     "extractedAt": "2026-08-10",
     "relatedBehaviorKeys": []
+  },
+  {
+    "factId": "DKF-CD1E554CBED1",
+    "behaviorKey": "doc002r:architecture:master-domain-artifact-modularity",
+    "name": "Modularité documentaire maître–domaine–intervention",
+    "description": "Certaines plateformes structurent des dispositions communes dans une couche maître ou cœur et des spécialisations dans des artefacts de domaine ou d'intervention explicitement liés.",
+    "category": "Document Structure",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Architectures observées STEP, REMAP-CAP et PRACTICAL",
+    "inputs": [
+      "Artefact d'intervention éventuel",
+      "Artefact de domaine",
+      "Document maître ou cœur",
+      "Liens officiels"
+    ],
+    "actions": [
+      "Conserver la hiérarchie observée",
+      "Préserver les versions par couche",
+      "Refuser la généralisation inter-plateforme"
+    ],
+    "outputs": [
+      "Hiérarchie documentaire modulaire contextualisée"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-MODULARITY-STEP-01",
+        "sourceId": "RC01-E-060",
+        "locator": "RELATIONSHIPS/DOMAIN_SPECIALIZES_MASTER/STEP",
+        "observation": "STEP relie une vue maître et un synopsis de domaine.",
+        "sourceDocumentRefs": [
+          "RC01-ART-059",
+          "RC01-ART-060"
+        ],
+        "familyRef": "MASTER_DOMAIN",
+        "projectRef": "STEP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-CD1E554CBED1"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-MODULARITY-REMAP-02",
+        "sourceId": "RC01-E-075",
+        "locator": "RELATIONSHIPS/DOMAIN_SPECIALIZES_CORE/REMAP_CAP",
+        "observation": "REMAP-CAP sépare protocole cœur, appendice de domaine, couche analytique et ressources régionales.",
+        "sourceDocumentRefs": [
+          "RC01-ART-062",
+          "RC01-ART-063",
+          "RC01-ART-064",
+          "RC01-ART-075"
+        ],
+        "familyRef": "CORE_DOMAIN_REGION_ANALYSIS",
+        "projectRef": "REMAP_CAP",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-CD1E554CBED1"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-MODULARITY-PRACTICAL-03",
+        "sourceId": "RC01-E-077",
+        "locator": "RELATIONSHIPS/INTERVENTION_APPENDIX_SPECIALIZES_DOMAIN/PRACTICAL",
+        "observation": "PRACTICAL relie des artefacts maître, domaine et intervention.",
+        "sourceDocumentRefs": [
+          "RC01-ART-068",
+          "RC01-ART-076",
+          "RC01-ART-077"
+        ],
+        "familyRef": "MASTER_DOMAIN_INTERVENTION",
+        "projectRef": "PRACTICAL",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-CD1E554CBED1"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-MODULARITY-STEP",
+        "name": "Maître et domaine STEP",
+        "description": "Deux couches liées sont observées.",
+        "applicability": "STEP uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Le protocole maître complet n’est pas stocké."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-MODULARITY-STEP-01"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-MODULARITY-REMAP",
+        "name": "Cœur, domaine, région et analyse REMAP-CAP",
+        "description": "Plusieurs axes documentaires sont séparés et liés.",
+        "applicability": "REMAP-CAP uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "L’applicabilité régionale varie."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-MODULARITY-REMAP-02"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-MODULARITY-PRACTICAL",
+        "name": "Maître, domaine et intervention PRACTICAL",
+        "description": "Trois niveaux de spécialisation sont observés.",
+        "applicability": "PRACTICAL uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "L’activation courante n’est pas inférée."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-MODULARITY-PRACTICAL-03"
+        ]
+      }
+    ],
+    "limitations": [
+      "Chaque plateforme conserve sa propre architecture.",
+      "La modularité documentaire ne détermine ni design scientifique ni activation d'un domaine."
+    ],
+    "sourceIds": [
+      "RC01-E-060",
+      "RC01-E-075",
+      "RC01-E-077"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "GENERALIZES",
+        "targetBehaviorKey": "doc002r:classification:explicit-deferral-to-specialized-document",
+        "rationale": "La modularité décrit la structure globale dont certains renvois explicites sont des instances."
+      }
+    ]
   },
   {
     "factId": "DKF-CF541A74EA16",
@@ -6595,6 +7929,63 @@
     ]
   },
   {
+    "factId": "DKF-DDD37AF65B30",
+    "behaviorKey": "doc002r:amendment:explicit-affected-document-group",
+    "name": "Groupement explicite des documents affectés par un amendement",
+    "description": "Une page d'amendement peut relier plusieurs artefacts affectés; la relation est conservée sans déclarer chaque fichier supersédé ni approuvé en l'absence d'une preuve au niveau du fichier.",
+    "category": "Document Structure",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "PRINCIPLE, amendement et groupe de documents officiellement liés",
+    "inputs": [
+      "Artefacts groupés",
+      "Identité d'amendement",
+      "Relations de version disponibles",
+      "Source officielle"
+    ],
+    "actions": [
+      "Conserver le groupement",
+      "Distinguer impact et supersession",
+      "Laisser les arêtes fichier par fichier UNKNOWN"
+    ],
+    "outputs": [
+      "Impact documentaire d'amendement borné"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-AMENDMENT-PRINCIPLE-01",
+        "sourceId": "RC01-E-066",
+        "locator": "RELATIONSHIPS/AMENDMENT_GROUPS_AFFECTED_DOCUMENTS",
+        "observation": "La source officielle PRINCIPLE groupe protocole et documents associés sous un amendement identifié.",
+        "sourceDocumentRefs": [
+          "RC01-ART-065",
+          "RC01-ART-066"
+        ],
+        "familyRef": "AMENDMENT_DOCUMENT_GROUP",
+        "projectRef": "PRINCIPLE",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-DDD37AF65B30"
+        ]
+      }
+    ],
+    "variants": [],
+    "limitations": [
+      "L'applicabilité courante reste hors du pattern.",
+      "Le groupement ne vaut ni approbation ni preuve de supersession pour chaque document."
+    ],
+    "sourceIds": [
+      "RC01-E-066"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "COMPLEMENTS",
+        "targetBehaviorKey": "doc002r:version:explicit-artifact-succession",
+        "rationale": "L’impact d’amendement complète le lignage de version sans le remplacer."
+      }
+    ]
+  },
+  {
     "factId": "DKF-E4025FCAA745",
     "behaviorKey": "doc000d:PositioningRule:positionnement-comme-variable-controlee",
     "name": "Positionnement comme variable contrôlée",
@@ -6818,6 +8209,107 @@
         "type": "PRECEDES",
         "targetBehaviorKey": "doc000b:structure:change-impact-record",
         "rationale": "Une correction acceptée précède l’enregistrement de son impact et de sa clôture."
+      }
+    ]
+  },
+  {
+    "factId": "DKF-EDFE6AE5FA49",
+    "behaviorKey": "doc002r:boundary:same-study-operational-and-data-workflow-allocation",
+    "name": "Allocation des procédures et workflows data dans des artefacts liés",
+    "description": "Des procédures opérationnelles ou de Data Management peuvent être distribuées entre protocole, manuel et SOP d'une même étude sans que ces artefacts soient requalifiés en DMP autonome.",
+    "category": "Workflow",
+    "origin": "DOCUMENTARY_CORPUS",
+    "scope": "Familles liées SPRINT et ORCHID, conservées séparément",
+    "inputs": [
+      "Contenu data ou opérationnel observé",
+      "Identité d'étude",
+      "Manuel ou SOP",
+      "Protocole"
+    ],
+    "actions": [
+      "Relier les artefacts de même étude",
+      "Qualifier le rôle documentaire",
+      "Préserver l'absence de DMP autonome"
+    ],
+    "outputs": [
+      "Workflow documentaire contextualisé"
+    ],
+    "evidence": [
+      {
+        "evidenceId": "DKE-DOC002R-OPERATIONS-SPRINT-01",
+        "sourceId": "RC01-E-081",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-006/MOP",
+        "observation": "Le manuel SPRINT lié au protocole porte des thèmes de Data Management, sécurité et opérations de saisie.",
+        "sourceDocumentRefs": [
+          "RC01-ART-078",
+          "RC01-ART-081"
+        ],
+        "familyRef": "PROTOCOL_AND_PROCEDURE_MANUAL",
+        "projectRef": "SPRINT",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-EDFE6AE5FA49"
+        ]
+      },
+      {
+        "evidenceId": "DKE-DOC002R-OPERATIONS-ORCHID-02",
+        "sourceId": "RC01-E-084",
+        "locator": "DOC002R_EXTRACTION_CANDIDATES/DEC01-CAND-007/SOP",
+        "observation": "La compilation SOP ORCHID liée au protocole porte la couche procédurale de la même étude.",
+        "sourceDocumentRefs": [
+          "RC01-ART-082",
+          "RC01-ART-084"
+        ],
+        "familyRef": "PROTOCOL_AND_SOP",
+        "projectRef": "ORCHID",
+        "institutionRef": null,
+        "extractedFactIds": [
+          "DKF-EDFE6AE5FA49"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "variantId": "DKV-DOC002R-OPS-SPRINT",
+        "name": "Manuel de procédures SPRINT",
+        "description": "Le manuel complète le protocole sur des opérations et workflows data.",
+        "applicability": "SPRINT uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Pas de DMP autonome établi."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-OPERATIONS-SPRINT-01"
+        ]
+      },
+      {
+        "variantId": "DKV-DOC002R-OPS-ORCHID",
+        "name": "SOP ORCHID",
+        "description": "Les SOP complètent le protocole sur les procédures opérationnelles.",
+        "applicability": "ORCHID uniquement",
+        "kind": "OBSERVED_VARIANT",
+        "limitations": [
+          "Les SOP ne sont pas renommées DMP."
+        ],
+        "evidenceIds": [
+          "DKE-DOC002R-OPERATIONS-ORCHID-02"
+        ]
+      }
+    ],
+    "limitations": [
+      "SPRINT et ORCHID ne sont jamais fusionnés en chaîne unique.",
+      "Un chapitre ou une SOP ne devient pas automatiquement un DMP."
+    ],
+    "sourceIds": [
+      "RC01-E-081",
+      "RC01-E-084"
+    ],
+    "extractedAt": "2026-09-04",
+    "relatedBehaviorKeys": [
+      {
+        "type": "COMPLEMENTS",
+        "targetBehaviorKey": "doc002r:boundary:protocol-specialized-document-detail-allocation",
+        "rationale": "L’allocation opérationnelle constitue une application contextualisée de la frontière de détail."
       }
     ]
   },

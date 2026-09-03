@@ -28,6 +28,37 @@
     ]
   },
   {
+    "patternId": "DKP-02B4755BF083",
+    "variantId": "DKV-DOC002R-RIGHTS-NO-STORAGE",
+    "name": "Stockage et commit interdits",
+    "description": "La consultation autorise une analyse dérivée mais pas la conservation du binaire.",
+    "applicability": "Sources dont LOCAL_STORAGE_ALLOWED et REPOSITORY_COMMIT_ALLOWED valent NO",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Aucun texte substantiel n’est reproduit."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-REMAP-CAP-02",
+      "DKE-DOC002R-RIGHTS-PRINCIPLE-03",
+      "DKE-DOC002R-RIGHTS-PRACTICAL-04"
+    ]
+  },
+  {
+    "patternId": "DKP-02B4755BF083",
+    "variantId": "DKV-DOC002R-RIGHTS-UNKNOWN-STORAGE",
+    "name": "Droit de stockage non établi",
+    "description": "Le contenu reste non stocké tant que le droit de conservation n’est pas établi.",
+    "applicability": "Sources dont le droit de stockage vaut UNKNOWN",
+    "kind": "UNRESOLVED_VARIANT",
+    "limitations": [
+      "L’accessibilité publique ne suffit pas à autoriser le commit."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-RIGHTS-STEP-01",
+      "DKE-DOC002R-RIGHTS-I-SPY-2-05"
+    ]
+  },
+  {
     "patternId": "DKP-070D8E33DEB5",
     "variantId": "DKV-CLP-034",
     "name": "Variante locale observée",
@@ -103,6 +134,36 @@
     ]
   },
   {
+    "patternId": "DKP-256835E3A253",
+    "variantId": "DKV-DOC002R-DEFERRAL-DOMAIN-INTERVENTION",
+    "name": "Renvoi domaine vers intervention",
+    "description": "Une annexe d’intervention spécialise une couche de domaine déjà liée au maître.",
+    "applicability": "Seulement pour la hiérarchie PRACTICAL observée",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Aucune activation courante n’est déduite."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-DEFERRAL-PRACTICAL-03"
+    ]
+  },
+  {
+    "patternId": "DKP-256835E3A253",
+    "variantId": "DKV-DOC002R-DEFERRAL-MASTER-DOMAIN",
+    "name": "Renvoi maître vers domaine",
+    "description": "La couche maître conserve la portée commune et la couche domaine spécialise le détail.",
+    "applicability": "Seulement si le lien maître-domaine est explicite",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "La granularité exacte reste propre à chaque plateforme."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-DEFERRAL-STEP-01",
+      "DKE-DOC002R-DEFERRAL-REMAP-02",
+      "DKE-DOC002R-DEFERRAL-PRACTICAL-03"
+    ]
+  },
+  {
     "patternId": "DKP-2DBB65C675A5",
     "variantId": "DKV-CLP-003",
     "name": "Variante locale observée",
@@ -115,6 +176,50 @@
     "limitations": [
       "Les valeurs locales observées ne sont pas réutilisées",
       "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-340F8D524540",
+    "variantId": "DKV-DOC002R-SPRINT-VARIABLE-LINEAGE",
+    "name": "Lignage SPRINT",
+    "description": "Protocole, formulaires et dictionnaire sont liés par l’identité SPRINT.",
+    "applicability": "SPRINT seulement; correspondance de champs non adjudiquée",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Aucun DMP ou SAP autonome n’est ajouté à cette chaîne."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-SPRINT-PROTOCOL-01",
+      "DKE-DOC002R-SPRINT-CRF-02",
+      "DKE-DOC002R-SPRINT-DD-03"
+    ]
+  },
+  {
+    "patternId": "DKP-3BEBCD18D4AD",
+    "variantId": "DKV-DOC002R-INCOMPLETE-ORCHID",
+    "name": "Famille ORCHID",
+    "description": "Protocol, Data Dictionary, SOP et SAP sont présents.",
+    "applicability": "ORCHID uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Pas de CRF ni DMP autonomes établis."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-INCOMPLETE-ORCHID-02"
+    ]
+  },
+  {
+    "patternId": "DKP-3BEBCD18D4AD",
+    "variantId": "DKV-DOC002R-INCOMPLETE-SPRINT",
+    "name": "Famille SPRINT",
+    "description": "Protocol, CRF, Data Dictionary et MOP sont présents.",
+    "applicability": "SPRINT uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Pas de DMP ni SAP autonomes établis."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-INCOMPLETE-SPRINT-01"
     ]
   },
   {
@@ -145,6 +250,48 @@
     "limitations": [
       "Algorithme de checksum non imposé",
       "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-454DC0E79FF5",
+    "variantId": "DKV-DOC002R-MODULARITY-PRACTICAL",
+    "name": "Maître, domaine et intervention PRACTICAL",
+    "description": "Trois niveaux de spécialisation sont observés.",
+    "applicability": "PRACTICAL uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "L’activation courante n’est pas inférée."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-MODULARITY-PRACTICAL-03"
+    ]
+  },
+  {
+    "patternId": "DKP-454DC0E79FF5",
+    "variantId": "DKV-DOC002R-MODULARITY-REMAP",
+    "name": "Cœur, domaine, région et analyse REMAP-CAP",
+    "description": "Plusieurs axes documentaires sont séparés et liés.",
+    "applicability": "REMAP-CAP uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "L’applicabilité régionale varie."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-MODULARITY-REMAP-02"
+    ]
+  },
+  {
+    "patternId": "DKP-454DC0E79FF5",
+    "variantId": "DKV-DOC002R-MODULARITY-STEP",
+    "name": "Maître et domaine STEP",
+    "description": "Deux couches liées sont observées.",
+    "applicability": "STEP uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Le protocole maître complet n’est pas stocké."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-MODULARITY-STEP-01"
     ]
   },
   {
@@ -313,6 +460,64 @@
     ]
   },
   {
+    "patternId": "DKP-744E34E606ED",
+    "variantId": "DKV-DOC002R-VERSION-DATA-RELEASE",
+    "name": "Version de dictionnaire de données",
+    "description": "La release du dictionnaire conserve sa propre identité de version.",
+    "applicability": "SPRINT uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "La compatibilité champ à champ avec les formulaires reste non adjudiquée."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-SPRINT-05"
+    ]
+  },
+  {
+    "patternId": "DKP-744E34E606ED",
+    "variantId": "DKV-DOC002R-VERSION-PLATFORM",
+    "name": "Versions de plateforme modulaires",
+    "description": "Les couches maître, domaine ou intervention peuvent évoluer selon des lignées distinctes.",
+    "applicability": "STEP, REMAP-CAP ou PRACTICAL selon les relations explicites",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Ne pas supposer une mise à jour synchrone de toutes les couches."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-VERSION-STEP-01",
+      "DKE-DOC002R-VERSION-REMAP-02",
+      "DKE-DOC002R-VERSION-PRACTICAL-04"
+    ]
+  },
+  {
+    "patternId": "DKP-999F6F6E3C80",
+    "variantId": "DKV-DOC002R-OMISSION-MISSING-FAMILY",
+    "name": "Famille spécialisée non disponible",
+    "description": "Une fonction est observable mais son artefact documentaire spécialisé n’est pas accessible dans le corpus.",
+    "applicability": "Conserver UNKNOWN et la limite de corpus",
+    "kind": "UNRESOLVED_VARIANT",
+    "limitations": [
+      "Ne prouve pas que le document n’existe pas hors corpus."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-OMISSION-ISPY-02"
+    ]
+  },
+  {
+    "patternId": "DKP-999F6F6E3C80",
+    "variantId": "DKV-DOC002R-OMISSION-READER-COUNT",
+    "name": "Nombre de lecteurs non documenté",
+    "description": "La lecture centralisée est mentionnée mais le nombre de lecteurs n’est pas établi dans les artefacts disponibles.",
+    "applicability": "Conserver comme omission non interprétée si aucun document spécialisé lié n’est disponible",
+    "kind": "UNRESOLVED_VARIANT",
+    "limitations": [
+      "Ne pas qualifier automatiquement cette absence de report intentionnel."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-OMISSION-CORELAB-01"
+    ]
+  },
+  {
     "patternId": "DKP-9E9611C8A7BB",
     "variantId": "DKV-CLP-009",
     "name": "Variante locale observée",
@@ -325,6 +530,35 @@
     "limitations": [
       "Catégories exactes à définir au projet",
       "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-A2F4089BEDDC",
+    "variantId": "DKV-DOC002R-ANALYSIS-ORCHID",
+    "name": "SAP autonome ORCHID",
+    "description": "Le SAP est un artefact analytique autonome lié au protocole.",
+    "applicability": "ORCHID uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Le lien exact à une version de protocole n’a pas été adjudiqué."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-ANALYSIS-ORCHID-01"
+    ]
+  },
+  {
+    "patternId": "DKP-A2F4089BEDDC",
+    "variantId": "DKV-DOC002R-ANALYSIS-PLATFORM",
+    "name": "Plan maître et extensions",
+    "description": "Un plan maître peut coexister avec des extensions spécifiques au domaine.",
+    "applicability": "REMAP-CAP ou PRACTICAL selon leurs artefacts officiels",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Aucune architecture statistique universelle n’est déduite."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-ANALYSIS-REMAP-02",
+      "DKE-DOC002R-ANALYSIS-PRACTICAL-03"
     ]
   },
   {
@@ -617,6 +851,106 @@
     ]
   },
   {
+    "patternId": "DKP-E6BCFE9EAAEA",
+    "variantId": "DKV-DOC002R-DETAIL-ORCHID",
+    "name": "Protocole, SOP et SAP ORCHID",
+    "description": "Les artefacts séparent contenu directeur, procédures et analyse.",
+    "applicability": "ORCHID uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Aucun CRF ni DMP autonome n’est établi."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-ORCHID-04"
+    ]
+  },
+  {
+    "patternId": "DKP-E6BCFE9EAAEA",
+    "variantId": "DKV-DOC002R-DETAIL-PRACTICAL",
+    "name": "Maître, domaine et intervention PRACTICAL",
+    "description": "Des couches documentaires liées spécialisent progressivement le contexte.",
+    "applicability": "PRACTICAL uniquement, sans inférer l’activation courante",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Les documents protégés ne sont ni copiés ni redistribués."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-PRACTICAL-02"
+    ]
+  },
+  {
+    "patternId": "DKP-E6BCFE9EAAEA",
+    "variantId": "DKV-DOC002R-DETAIL-SPRINT",
+    "name": "Protocole et manuel SPRINT",
+    "description": "Le manuel porte des éléments opérationnels distincts du protocole.",
+    "applicability": "SPRINT uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Aucun DMP autonome n’est établi."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-SPRINT-03"
+    ]
+  },
+  {
+    "patternId": "DKP-E6BCFE9EAAEA",
+    "variantId": "DKV-DOC002R-DETAIL-STEP",
+    "name": "Maître vers domaine STEP",
+    "description": "Le domaine lié porte un niveau de détail propre à sa portée.",
+    "applicability": "STEP uniquement, selon les artefacts et versions référencés",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Le protocole maître complet n’est pas stocké localement."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-DETAIL-STEP-01"
+    ]
+  },
+  {
+    "patternId": "DKP-E8F3BD55B33F",
+    "variantId": "DKV-DOC002R-COMMITMENT-OPEN",
+    "name": "Paramètre explicitement ouvert",
+    "description": "Une information non arrêtée reste visible comme ouverte ou requérant une décision humaine.",
+    "applicability": "Lorsque le statut source est UNKNOWN ou décision requise",
+    "kind": "UNRESOLVED_VARIANT",
+    "limitations": [
+      "Aucun remplissage automatique."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-DERIVED-01"
+    ]
+  },
+  {
+    "patternId": "DKP-E8F3BD55B33F",
+    "variantId": "DKV-DOC002R-COMMITMENT-SHARED",
+    "name": "Disposition commune",
+    "description": "Le document maître porte une disposition partagée à la portée observée.",
+    "applicability": "Seulement si la portée maître est prouvée",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Ne vaut pas règle universelle."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-STEP-02",
+      "DKE-DOC002R-COMMITMENT-PRACTICAL-04"
+    ]
+  },
+  {
+    "patternId": "DKP-E8F3BD55B33F",
+    "variantId": "DKV-DOC002R-COMMITMENT-SPECIALIZED",
+    "name": "Engagement spécialisé",
+    "description": "Un domaine ou une intervention porte un engagement propre à sa portée.",
+    "applicability": "Seulement pour l’artefact spécialisé lié",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Ne doit pas être projeté sur les autres domaines."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-COMMITMENT-STEP-02",
+      "DKE-DOC002R-COMMITMENT-PRACTICAL-04"
+    ]
+  },
+  {
     "patternId": "DKP-EADDC91BABD8",
     "variantId": "DKV-CLP-006",
     "name": "Variante locale observée",
@@ -689,6 +1023,34 @@
     "limitations": [
       "L'état implémenté reste NOT_IMPLEMENTED",
       "La variante ne vaut ni standard ni configuration par défaut."
+    ]
+  },
+  {
+    "patternId": "DKP-FE04065A7771",
+    "variantId": "DKV-DOC002R-OPS-ORCHID",
+    "name": "SOP ORCHID",
+    "description": "Les SOP complètent le protocole sur les procédures opérationnelles.",
+    "applicability": "ORCHID uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Les SOP ne sont pas renommées DMP."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-OPERATIONS-ORCHID-02"
+    ]
+  },
+  {
+    "patternId": "DKP-FE04065A7771",
+    "variantId": "DKV-DOC002R-OPS-SPRINT",
+    "name": "Manuel de procédures SPRINT",
+    "description": "Le manuel complète le protocole sur des opérations et workflows data.",
+    "applicability": "SPRINT uniquement",
+    "kind": "OBSERVED_VARIANT",
+    "limitations": [
+      "Pas de DMP autonome établi."
+    ],
+    "evidenceIds": [
+      "DKE-DOC002R-OPERATIONS-SPRINT-01"
     ]
   }
 ]

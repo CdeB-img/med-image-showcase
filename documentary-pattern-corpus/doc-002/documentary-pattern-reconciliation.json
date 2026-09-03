@@ -1,0 +1,516 @@
+{
+  "missionId": "DOC002R_RECONCILIATION_AND_EXTENSION",
+  "projectionType": "NON_NORMATIVE_RECONCILIATION_AND_BENCHMARK_PREPARATION",
+  "generatedAt": "2026-09-04",
+  "priorCatalog": {
+    "catalogId": "DKC-DFA1F2EDD8B6",
+    "version": "1.0.0",
+    "digest": "doc2-badbdb3301dcc35f"
+  },
+  "currentCatalog": {
+    "catalogId": "DKC-53324D5E2771",
+    "version": "1.1.0",
+    "digest": "doc2-605fc70376c81cff"
+  },
+  "generationOwner": "DOC-002_EXISTING_GENERATOR",
+  "newPatternIds": [
+    "DKP-02B4755BF083",
+    "DKP-256835E3A253",
+    "DKP-340F8D524540",
+    "DKP-3BEBCD18D4AD",
+    "DKP-454DC0E79FF5",
+    "DKP-744E34E606ED",
+    "DKP-999F6F6E3C80",
+    "DKP-A2F4089BEDDC",
+    "DKP-CBD68BC3401B",
+    "DKP-E6BCFE9EAAEA",
+    "DKP-E8F3BD55B33F",
+    "DKP-FE04065A7771"
+  ],
+  "identityIntegrity": {
+    "expectedLegacyPatternCount": 120,
+    "observedLegacyPatternCount": 120,
+    "expectedLegacyPatternIdsSha256": "c02dba6b6c561ed94f47911394ca86a53fc5294e95ff41faf5ef8350718e081e",
+    "observedLegacyPatternIdsSha256": "c02dba6b6c561ed94f47911394ca86a53fc5294e95ff41faf5ef8350718e081e",
+    "expectedLegacyPatternRecordsSha256": "2e6ee2ba37b555f1d3b9f115673124a3f60a34048ea16a9f08ffd996774af0bd",
+    "observedLegacyPatternRecordsSha256": "2e6ee2ba37b555f1d3b9f115673124a3f60a34048ea16a9f08ffd996774af0bd",
+    "identityRegressionCount": 0
+  },
+  "sourceAccess": {
+    "remoteContentReaccessed": "NO_NOT_REQUIRED_DERIVED_CLOSURE_SUFFICIENT",
+    "rawHistoricalSourceReadCount": 0,
+    "restrictedArchiveAccessed": "NO",
+    "protectedRemoteBinariesCommitted": 0,
+    "contentAccessibleNotStoredCount": 27,
+    "runtimeContentReadyCount": 0,
+    "sectionIndexReadyCount": 0,
+    "reproducibleLocalContentReadyCount": 0
+  },
+  "linkedStudyBoundaries": {
+    "ADDITIONAL_LINKED_STUDY_SEARCH": "EXECUTED_CONDITIONALLY",
+    "TRIGGER": "The five platform sets did not supply a defensible complete Protocol-to-CRF-to-Data-Dictionary-to-DMP-to-SAP same-study chain",
+    "SAME_STUDY_COMPLETE_CHAIN_FOUND": "NO",
+    "COMPLETE_CHAIN_COUNT": 0,
+    "NEAR_COMPLETE_CHAIN_COUNT": 2,
+    "FAMILIES": [
+      {
+        "STUDY_SET_ID": "RC01-SET-011",
+        "STUDY": "SPRINT",
+        "LINKAGE_CONFIDENCE": "HIGH",
+        "PROTOCOL": "PRESENT",
+        "CRF": "PRESENT",
+        "DATA_DICTIONARY": "PRESENT",
+        "DMP": "ABSENT_STANDALONE; DATA_MANAGEMENT_PRESENT_IN_PROTOCOL_AND_MOP",
+        "SAP": "ABSENT_STANDALONE; ANALYSIS_PLAN_PRESENT_IN_PROTOCOL",
+        "OTHER": [
+          "MANUAL_OF_PROCEDURES"
+        ],
+        "MISSING_ARTIFACT_CLASSES": [
+          "STANDALONE_DMP",
+          "STANDALONE_SAP"
+        ]
+      },
+      {
+        "STUDY_SET_ID": "RC01-SET-012",
+        "STUDY": "ORCHID",
+        "LINKAGE_CONFIDENCE": "HIGH",
+        "PROTOCOL": "PRESENT",
+        "CRF": "ABSENT_STANDALONE; ECRF_REFERENCED_IN_PROTOCOL",
+        "DATA_DICTIONARY": "PRESENT",
+        "DMP": "ABSENT_STANDALONE",
+        "SAP": "PRESENT",
+        "OTHER": [
+          "SOP_COMPILATION"
+        ],
+        "MISSING_ARTIFACT_CLASSES": [
+          "STANDALONE_CRF_PACKAGE",
+          "STANDALONE_DMP"
+        ]
+      }
+    ],
+    "STOP_CONDITION_B_SATISFIED": "YES",
+    "RATIONALE": "Two official, exact-identity study families jointly expose protocol, CRF, data-dictionary, operational/data-management and SAP boundaries without fabricating missing standalone artifacts."
+  },
+  "versionRelationships": [
+    {
+      "FROM": "STEP Master v6",
+      "TO": "STEP Master v7",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-061",
+      "CONFIDENCE": "HIGH"
+    },
+    {
+      "FROM": "STEP Domain A v4",
+      "TO": "STEP Domain A v5",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-061",
+      "CONFIDENCE": "HIGH"
+    },
+    {
+      "FROM": "REMAP-CAP Core v3.1 UK",
+      "TO": "REMAP-CAP Core v4.0",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-074",
+      "CONFIDENCE": "HIGH"
+    },
+    {
+      "FROM": "REMAP-CAP SAP v3",
+      "TO": "REMAP-CAP SAP v4",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-063",
+      "CONFIDENCE": "HIGH"
+    },
+    {
+      "FROM": "PRINCIPLE Protocol v13.0",
+      "TO": "PRINCIPLE Protocol v14.0",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-065",
+      "CONFIDENCE": "HIGH"
+    },
+    {
+      "FROM": "PRACTICAL Master Protocol v3.x",
+      "TO": "PRACTICAL Master Protocol v4.0",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-068",
+      "CONFIDENCE": "HIGH"
+    },
+    {
+      "FROM": "PRACTICAL IMV Domain Protocol v2.x",
+      "TO": "PRACTICAL IMV Domain Protocol v3.0",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-076",
+      "CONFIDENCE": "HIGH"
+    },
+    {
+      "FROM": "PRACTICAL LPV Appendix v1.x",
+      "TO": "PRACTICAL LPV Appendix v2.0",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-077",
+      "CONFIDENCE": "HIGH"
+    },
+    {
+      "FROM": "SPRINT Data Dictionary 2020a",
+      "TO": "SPRINT Data Dictionary 2020b",
+      "RELATION": "SUPERSEDED_BY",
+      "EVIDENCE_SOURCE_ID": "RC01-E-080",
+      "CONFIDENCE": "HIGH"
+    }
+  ],
+  "artifactRelationships": [
+    {
+      "RELATION_TYPE": "DOMAIN_SPECIALIZES_MASTER",
+      "FROM_ARTIFACT_ID": "RC01-ART-060",
+      "TO_ARTIFACT_ID": "RC01-ART-059",
+      "LINKAGE_BASIS": [
+        "Official STEP master-to-domain navigation",
+        "common STEP identity"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://nihstrokenet.org/trials/step-trial/domain-a-synopsis"
+    },
+    {
+      "RELATION_TYPE": "RESOURCE_HUB_DESCRIBES_VERSION_LINEAGE",
+      "FROM_ARTIFACT_ID": "RC01-ART-061",
+      "TO_ARTIFACT_ID": "RC01-ART-059",
+      "LINKAGE_BASIS": [
+        "Official STEP resources page names master protocol versions"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://nihstrokenet.org/trials/step-trial/resources"
+    },
+    {
+      "RELATION_TYPE": "SAP_SPECIALIZES_CORE",
+      "FROM_ARTIFACT_ID": "RC01-ART-063",
+      "TO_ARTIFACT_ID": "RC01-ART-062",
+      "LINKAGE_BASIS": [
+        "Official REMAP-CAP protocol-document hub co-lists current core and SAP"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://www.remapcap.org/protocol-documents"
+    },
+    {
+      "RELATION_TYPE": "DOMAIN_SPECIALIZES_CORE",
+      "FROM_ARTIFACT_ID": "RC01-ART-075",
+      "TO_ARTIFACT_ID": "RC01-ART-062",
+      "LINKAGE_BASIS": [
+        "Official REMAP-CAP hub labels document as Antibiotic Domain-Specific Appendix"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://www.remapcap.org/protocol-documents"
+    },
+    {
+      "RELATION_TYPE": "AMENDMENT_GROUPS_AFFECTED_DOCUMENTS",
+      "FROM_ARTIFACT_ID": "RC01-ART-066",
+      "TO_ARTIFACT_ID": "RC01-ART-065",
+      "LINKAGE_BASIS": [
+        "Official PRINCIPLE Substantial Amendment 22 page groups trial protocol and associated documents"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://www.principletrial.org/health-professionals/substantial-amendment-22"
+    },
+    {
+      "RELATION_TYPE": "DOMAIN_SPECIALIZES_MASTER",
+      "FROM_ARTIFACT_ID": "RC01-ART-076",
+      "TO_ARTIFACT_ID": "RC01-ART-068",
+      "LINKAGE_BASIS": [
+        "Official PRACTICAL hub co-lists master and domain protocols",
+        "common OZUHN-004 identity"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://practicalplatform.org/docs"
+    },
+    {
+      "RELATION_TYPE": "INTERVENTION_APPENDIX_SPECIALIZES_DOMAIN",
+      "FROM_ARTIFACT_ID": "RC01-ART-077",
+      "TO_ARTIFACT_ID": "RC01-ART-076",
+      "LINKAGE_BASIS": [
+        "Official PRACTICAL hub and OZUHN-004-3 identity"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://practicalplatform.org/docs"
+    },
+    {
+      "RELATION_TYPE": "IMAGING_DATA_LINKED_TO_STUDY",
+      "FROM_ARTIFACT_ID": "RC01-ART-073",
+      "TO_ARTIFACT_ID": "RC01-ART-071",
+      "LINKAGE_BASIS": [
+        "Exact I-SPY 2 identity",
+        "TCIA collection provenance"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70230072"
+    },
+    {
+      "RELATION_TYPE": "SAME_STUDY_DOCUMENT_FAMILY",
+      "FROM_ARTIFACT_ID": "RC01-ART-079",
+      "TO_ARTIFACT_ID": "RC01-ART-078",
+      "LINKAGE_BASIS": [
+        "Official BioLINCC SPRINT grouping",
+        "NCT01206062"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+    },
+    {
+      "RELATION_TYPE": "SAME_STUDY_DATA_RELEASE",
+      "FROM_ARTIFACT_ID": "RC01-ART-080",
+      "TO_ARTIFACT_ID": "RC01-ART-079",
+      "LINKAGE_BASIS": [
+        "Official BioLINCC SPRINT grouping",
+        "SPRINT identity"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+    },
+    {
+      "RELATION_TYPE": "OPERATIONAL_MANUAL_SUPPORTS_PROTOCOL",
+      "FROM_ARTIFACT_ID": "RC01-ART-081",
+      "TO_ARTIFACT_ID": "RC01-ART-078",
+      "LINKAGE_BASIS": [
+        "Official BioLINCC SPRINT grouping",
+        "SPRINT identity"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://biolincc.nhlbi.nih.gov/studies/sprint/"
+    },
+    {
+      "RELATION_TYPE": "SAP_SUPPORTS_PROTOCOL",
+      "FROM_ARTIFACT_ID": "RC01-ART-085",
+      "TO_ARTIFACT_ID": "RC01-ART-082",
+      "LINKAGE_BASIS": [
+        "Official BioLINCC ORCHID grouping",
+        "NCT04332991/ORCHID identity"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+    },
+    {
+      "RELATION_TYPE": "SAME_STUDY_DATA_RELEASE",
+      "FROM_ARTIFACT_ID": "RC01-ART-083",
+      "TO_ARTIFACT_ID": "RC01-ART-082",
+      "LINKAGE_BASIS": [
+        "Official BioLINCC ORCHID grouping",
+        "HLB02372021a"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+    },
+    {
+      "RELATION_TYPE": "SOP_SUPPORTS_PROTOCOL",
+      "FROM_ARTIFACT_ID": "RC01-ART-084",
+      "TO_ARTIFACT_ID": "RC01-ART-082",
+      "LINKAGE_BASIS": [
+        "Official BioLINCC ORCHID grouping",
+        "ORCHID identity"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_SOURCE": "https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"
+    }
+  ],
+  "capability": {
+    "DOCUMENTARY_COMMITMENT": "SUPPORTED_STRONG",
+    "DOCUMENTARY_DETAIL_BOUNDARY": "SUPPORTED_STRONG",
+    "INTENTIONAL_UNDERSPECIFICATION": "SUPPORTED_PARTIAL",
+    "DOCUMENTARY_OMISSION": "SUPPORTED_STRONG",
+    "CROSS_DOCUMENT_PROPAGATION": "SUPPORTED_STRONG",
+    "DOCUMENT_VERSIONING": "SUPPORTED_STRONG",
+    "AMENDMENT_PROPAGATION": "SUPPORTED_PARTIAL",
+    "DOCUMENT_MODULARITY": "SUPPORTED_STRONG",
+    "PROTOCOL_WRITING": "SUPPORTED_STRONG",
+    "CRF_DESIGN": "SUPPORTED_STRONG",
+    "DATA_DICTIONARY_RELATIONSHIP": "SUPPORTED_STRONG",
+    "DMP_WORKFLOW": "SUPPORTED_PARTIAL",
+    "DATA_VALIDATION": "SUPPORTED_STRONG",
+    "DATABASE_FREEZE": "SUPPORTED_STRONG",
+    "SITE_FEASIBILITY": "SUPPORTED_STRONG",
+    "MONITORING": "SUPPORTED_STRONG",
+    "QUALITY_ASSURANCE": "SUPPORTED_STRONG",
+    "AUDIT": "SUPPORTED_STRONG",
+    "BUDGET": "SUPPORTED_STRONG",
+    "CLOSEOUT": "SUPPORTED_STRONG",
+    "ARCHIVING": "SUPPORTED_STRONG",
+    "MASTER_PROTOCOL": "SUPPORTED_STRONG",
+    "ARM_COHORT_MODULARITY": "SUPPORTED_STRONG",
+    "PLATFORM_VERSIONING": "SUPPORTED_STRONG"
+  },
+  "platformBenchmark": {
+    "status": "PREPARED_NOT_EXECUTED",
+    "imagingTransposition": "PLANNED_NOT_EXECUTED",
+    "futureTarget": "FUNCTIONALLY_EQUIVALENT_OR_BETTER_DOCUMENT_SET",
+    "platforms": [
+      {
+        "platformTrialId": "RC01-PLATFORM-001",
+        "name": "STEP",
+        "documentaryContentInspected": "YES",
+        "contentAccessibleForFutureRetrieval": "YES",
+        "localReproducibleContent": "NO",
+        "sectionIndexedInKnowledge": "NO",
+        "doc002rSourceReady": "YES",
+        "sourceIds": [
+          "RC01-E-059",
+          "RC01-E-060",
+          "RC01-E-061"
+        ],
+        "artifactIds": [
+          "RC01-ART-059",
+          "RC01-ART-060",
+          "RC01-ART-061"
+        ],
+        "patternIds": [
+          "DKP-02B4755BF083",
+          "DKP-256835E3A253",
+          "DKP-454DC0E79FF5",
+          "DKP-744E34E606ED",
+          "DKP-E6BCFE9EAAEA",
+          "DKP-E8F3BD55B33F"
+        ],
+        "limitations": [
+          "No full master/domain protocol binary",
+          "Official HTML provides sufficient bounded master/domain/version evidence",
+          "Future retrieval depends on external official endpoints"
+        ]
+      },
+      {
+        "platformTrialId": "RC01-PLATFORM-002",
+        "name": "REMAP_CAP",
+        "documentaryContentInspected": "YES",
+        "contentAccessibleForFutureRetrieval": "YES",
+        "localReproducibleContent": "NO",
+        "sectionIndexedInKnowledge": "NO",
+        "doc002rSourceReady": "YES",
+        "sourceIds": [
+          "RC01-E-062",
+          "RC01-E-063",
+          "RC01-E-064",
+          "RC01-E-074",
+          "RC01-E-075"
+        ],
+        "artifactIds": [
+          "RC01-ART-062",
+          "RC01-ART-063",
+          "RC01-ART-064",
+          "RC01-ART-074",
+          "RC01-ART-075"
+        ],
+        "patternIds": [
+          "DKP-02B4755BF083",
+          "DKP-256835E3A253",
+          "DKP-454DC0E79FF5",
+          "DKP-744E34E606ED",
+          "DKP-A2F4089BEDDC"
+        ],
+        "limitations": [
+          "Regional versions may differ",
+          "UK operational material is reference-only",
+          "Current core v4.1 was not section-indexed",
+          "Future retrieval depends on external official endpoints"
+        ]
+      },
+      {
+        "platformTrialId": "RC01-PLATFORM-003",
+        "name": "PRINCIPLE",
+        "documentaryContentInspected": "YES",
+        "contentAccessibleForFutureRetrieval": "YES",
+        "localReproducibleContent": "NO",
+        "sectionIndexedInKnowledge": "NO",
+        "doc002rSourceReady": "YES",
+        "sourceIds": [
+          "RC01-E-065",
+          "RC01-E-066",
+          "RC01-E-067"
+        ],
+        "artifactIds": [
+          "RC01-ART-065",
+          "RC01-ART-066",
+          "RC01-ART-067"
+        ],
+        "patternIds": [
+          "DKP-02B4755BF083",
+          "DKP-744E34E606ED",
+          "DKP-CBD68BC3401B",
+          "DKP-E8F3BD55B33F"
+        ],
+        "limitations": [
+          "Protocol is copyright/confidential",
+          "No CRF or data dictionary enrolled",
+          "Future retrieval depends on external official endpoints"
+        ]
+      },
+      {
+        "platformTrialId": "RC01-PLATFORM-004",
+        "name": "PRACTICAL",
+        "documentaryContentInspected": "YES",
+        "contentAccessibleForFutureRetrieval": "YES",
+        "localReproducibleContent": "NO",
+        "sectionIndexedInKnowledge": "NO",
+        "doc002rSourceReady": "YES",
+        "sourceIds": [
+          "RC01-E-068",
+          "RC01-E-069",
+          "RC01-E-070",
+          "RC01-E-076",
+          "RC01-E-077"
+        ],
+        "artifactIds": [
+          "RC01-ART-068",
+          "RC01-ART-069",
+          "RC01-ART-070",
+          "RC01-ART-076",
+          "RC01-ART-077"
+        ],
+        "patternIds": [
+          "DKP-02B4755BF083",
+          "DKP-256835E3A253",
+          "DKP-454DC0E79FF5",
+          "DKP-744E34E606ED",
+          "DKP-A2F4089BEDDC",
+          "DKP-E6BCFE9EAAEA",
+          "DKP-E8F3BD55B33F"
+        ],
+        "limitations": [
+          "Documents are copyright/confidential or reuse-restricted",
+          "Current active domains require live verification",
+          "Future retrieval depends on external official endpoints"
+        ]
+      },
+      {
+        "platformTrialId": "RC01-PLATFORM-005",
+        "name": "I_SPY_2",
+        "documentaryContentInspected": "PARTIAL",
+        "contentAccessibleForFutureRetrieval": "UNCERTAIN",
+        "localReproducibleContent": "NO",
+        "sectionIndexedInKnowledge": "NO",
+        "doc002rSourceReady": "PARTIAL",
+        "sourceIds": [
+          "RC01-E-071",
+          "RC01-E-072",
+          "RC01-E-073"
+        ],
+        "artifactIds": [
+          "RC01-ART-071",
+          "RC01-ART-072",
+          "RC01-ART-073"
+        ],
+        "patternIds": [
+          "DKP-02B4755BF083",
+          "DKP-999F6F6E3C80"
+        ],
+        "limitations": [
+          "No official full protocol, SAP, amendment or imaging charter found in bounded primary-source search",
+          "Publications and data collection do not substitute for trial documents",
+          "Future retrieval of a sufficient trial-document set is uncertain"
+        ]
+      }
+    ]
+  },
+  "boundaries": {
+    "secondPatternEngineCreated": "NO",
+    "secondPatternGraphCreated": "NO",
+    "secondDocumentaryCorpusCreated": "NO",
+    "scientificRulesCreated": 0,
+    "regulatoryRequirementsCreated": 0,
+    "practiceToAuthorityPromotions": 0,
+    "binaryOrProtectedTextStored": "NO",
+    "tmpRuntimeChanged": "NO"
+  }
+}
