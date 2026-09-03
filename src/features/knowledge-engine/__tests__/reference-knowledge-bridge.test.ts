@@ -41,9 +41,13 @@ describe("REFERENCE-KNOWLEDGE-BRIDGE-01 — corpus visibility and anchoring", ()
   it("CASE A resolves the accepted RC01 registry and provider without a second Knowledge engine", () => {
     const snapshot = resolveReferenceSourceSnapshot("RC01-A-016");
     const snapshots = listReferenceSourceSnapshots();
-    expect(snapshots).toHaveLength(89);
-    expect(snapshots.filter((item) => item.contentAvailability === "METADATA_ONLY")).toHaveLength(82);
-    expect(snapshots.filter((item) => item.contentAvailability === "SECTION_INDEXED")).toHaveLength(7);
+    expect(new Set(snapshots.map((item) => item.sourceId)).size).toBe(snapshots.length);
+    expect(snapshots.filter((item) => item.contentAvailability === "SECTION_INDEXED")).not.toHaveLength(0);
+    expect(snapshots.filter((item) => item.contentAvailability === "SECTION_INDEXED").every((item) => item.localDigest && item.localCopyAllowed === "YES" && item.redistributionAllowed === "YES")).toBe(true);
+    expect(snapshots.filter((item) => item.contentAvailability === "METADATA_ONLY").every((item) => item.localDigest === null)).toBe(true);
+    for (const sourceId of Array.from({ length: 12 }, (_, index) => `RC01-E-${String(index + 74).padStart(3, "0")}`)) {
+      expect(snapshots.some((item) => item.sourceId === sourceId && item.contentAvailability === "METADATA_ONLY")).toBe(true);
+    }
     expect(snapshot).toMatchObject({ sourceId: "RC01-A-016", contentAvailability: "SECTION_INDEXED", externalAuthorityStatus: "EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY" });
     expect(getKnowledgeProvider("reference-corpus-01")).toMatchObject({ type: "REFERENCE_CORPUS", adapterId: "reference-corpus-adapter-v1", status: "CURRENT_CANDIDATE" });
     expect(Object.isFrozen(snapshot)).toBe(true);
@@ -141,6 +145,16 @@ describe("REFERENCE-KNOWLEDGE-BRIDGE-01 — jurisdiction, time, and source class
     expect(result.referenceSourceSnapshots[0]).toMatchObject({ sourceId: "RC01-E-062", contentAvailability: "METADATA_ONLY" });
     expect(result.referenceEvidenceCandidates).toHaveLength(0);
     expect(result.referenceDocumentRelationships[0]).toMatchObject({ studySetId: "RC01-SET-007", relationshipType: "SAME_STUDY_ARTIFACT_SET", practiceRuleInferred: false });
+    expect(result.referenceDocumentRelationships[0].artifacts).toEqual(expect.arrayContaining([
+      { sourceId: "RC01-E-074", role: "HISTORICAL_CORE_PROTOCOL_V3_1_UK" },
+      { sourceId: "RC01-E-075", role: "ANTIBIOTIC_DOMAIN_SPECIFIC_APPENDIX_V4" },
+    ]));
+  });
+
+  it("CASE K2 exposes a newly linked study family as remote evidence without content or authority promotion", () => {
+    const snapshot = resolveReferenceSourceSnapshot("RC01-E-080");
+    expect(snapshot).toMatchObject({ sourceId: "RC01-E-080", contentAvailability: "METADATA_ONLY", externalAuthorityStatus: "EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY" });
+    expect(snapshot?.localDigest).toBeNull();
   });
 });
 

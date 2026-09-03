@@ -45,6 +45,7 @@ const corpus = await load("reference-corpus.json");
 const schema = await load("reference-corpus.schema.json");
 const linked = await load("linked-study-sets.json");
 const platforms = await load("platform-trial-reference-set.json");
+const closure = await load("documentary-evidence-closure-01.json");
 const reclassification = await load("targeted-gap-reclassification-01r.json");
 const gap = await load("gap-matrix.json");
 const rejections = await load("rejection-log.json");
@@ -110,6 +111,117 @@ for (const trial of platforms.TRIALS) {
   if (trial.DOCUMENTS.length !== trial.DOCUMENT_VERSIONS.length) fail(`${trial.PLATFORM_TRIAL_ID}: document/version cardinality mismatch`);
   for (const artifact of trial.DOCUMENTS) if (!ids.has(artifact.SOURCE_ID)) fail(`${trial.PLATFORM_TRIAL_ID}: unknown platform artifact ${artifact.SOURCE_ID}`);
 }
+if (closure.MISSION_ID !== "DOCUMENTARY-EVIDENCE-CLOSURE-01") fail("invalid documentary evidence closure identity");
+if (closure.STATUS !== "NON_NORMATIVE_EVIDENCE_CLOSURE_PROJECTION_NOT_PATTERN_ADMISSION") fail("invalid documentary evidence closure status");
+const closureArtifactFields = [
+  "SOURCE_ID", "PLATFORM_TRIAL_ID", "STUDY_ID", "TRIAL_IDENTIFIERS", "ARTIFACT_ID", "ARTIFACT_TYPE",
+  "TITLE", "VERSION", "DATE", "SOURCE_ORGANIZATION", "OFFICIAL_URL", "RETRIEVAL_DATE",
+  "CURRENT_OR_HISTORICAL_STATUS", "SUPERSEDES", "SUPERSEDED_BY", "PROVENANCE", "UNCERTAINTIES",
+  "PUBLICLY_ACCESSIBLE", "LOCAL_STORAGE_ALLOWED", "REPOSITORY_COMMIT_ALLOWED",
+  "DERIVED_PATTERN_ANALYSIS_ALLOWED", "REDISTRIBUTION_ALLOWED", "CONTENT_READINESS_STATE", "CONTENT_LOCATORS",
+];
+const rightsStates = new Set(["YES", "NO", "UNKNOWN"]);
+const contentStates = new Set(["METADATA_ONLY", "CONTENT_ACCESSIBLE_NOT_STORED", "LOCAL_DOCUMENT_AVAILABLE", "SECTION_INDEXED", "CLAIM_ANCHORED"]);
+const inspectionStates = new Set(["YES", "PARTIAL", "NO"]);
+const futureRetrievalStates = new Set(["YES", "UNCERTAIN", "NO"]);
+const sourceReadinessStates = new Set(["YES", "PARTIAL", "NO"]);
+const sourceById = new Map(corpus.SOURCES.map((source) => [source.SOURCE_ID, source]));
+const linkedArtifactSourceIds = new Set(linked.STUDY_SETS.flatMap((set) => set.ARTIFACTS.map((artifact) => artifact.SOURCE_ID)));
+const closureArtifactIds = new Set();
+for (const artifact of closure.ARTIFACTS) {
+  for (const key of closureArtifactFields) if (!(key in artifact)) fail(`${artifact.ARTIFACT_ID ?? "UNKNOWN"}: missing closure artifact field ${key}`);
+  if (!ids.has(artifact.SOURCE_ID)) fail(`${artifact.ARTIFACT_ID}: unknown closure source ${artifact.SOURCE_ID}`);
+  if (!linkedArtifactSourceIds.has(artifact.SOURCE_ID)) fail(`${artifact.ARTIFACT_ID}: source absent from linked-study registry`);
+  if (!/^RC01-ART-\d{3}$/.test(artifact.ARTIFACT_ID) || closureArtifactIds.has(artifact.ARTIFACT_ID)) fail(`${artifact.ARTIFACT_ID}: invalid or duplicate closure artifact id`);
+  closureArtifactIds.add(artifact.ARTIFACT_ID);
+  if (artifact.PLATFORM_TRIAL_ID !== null && !platformIds.has(artifact.PLATFORM_TRIAL_ID)) fail(`${artifact.ARTIFACT_ID}: unknown platform identity`);
+  if (artifact.OFFICIAL_URL !== sourceById.get(artifact.SOURCE_ID).OFFICIAL_URL) fail(`${artifact.ARTIFACT_ID}: canonical URL differs from source registry`);
+  for (const key of ["PUBLICLY_ACCESSIBLE", "LOCAL_STORAGE_ALLOWED", "REPOSITORY_COMMIT_ALLOWED", "DERIVED_PATTERN_ANALYSIS_ALLOWED", "REDISTRIBUTION_ALLOWED"]) {
+    if (!rightsStates.has(artifact[key])) fail(`${artifact.ARTIFACT_ID}: invalid ${key}`);
+  }
+  if (!contentStates.has(artifact.CONTENT_READINESS_STATE)) fail(`${artifact.ARTIFACT_ID}: invalid content-readiness state`);
+  for (const key of ["TRIAL_IDENTIFIERS", "SUPERSEDES", "SUPERSEDED_BY", "PROVENANCE", "UNCERTAINTIES", "CONTENT_LOCATORS"]) if (!Array.isArray(artifact[key])) fail(`${artifact.ARTIFACT_ID}: ${key} must be an array`);
+  if (artifact.CONTENT_READINESS_STATE === "CONTENT_ACCESSIBLE_NOT_STORED" && artifact.PUBLICLY_ACCESSIBLE !== "YES") fail(`${artifact.ARTIFACT_ID}: inaccessible artifact marked content-accessible`);
+  if (artifact.CONTENT_READINESS_STATE !== "METADATA_ONLY" && !artifact.CONTENT_LOCATORS.length) fail(`${artifact.ARTIFACT_ID}: content-ready artifact lacks locator evidence`);
+  if (artifact.REPOSITORY_COMMIT_ALLOWED !== "YES" && sourceById.get(artifact.SOURCE_ID).LOCAL_COPY_PATH !== null) fail(`${artifact.ARTIFACT_ID}: local file conflicts with repository-commit right`);
+}
+if (!closure.ARTIFACTS.every((artifact) => artifact.CONTENT_READINESS_STATE === "CONTENT_ACCESSIBLE_NOT_STORED")) fail("closure artifacts must remain accessible-not-stored evidence");
+if (!Array.isArray(closure.RETRIEVAL_EVIDENCE) || closure.RETRIEVAL_EVIDENCE.length !== closure.ARTIFACTS.length) fail("retrieval evidence must cover every closure artifact exactly once");
+const retrievalEvidenceArtifactIds = new Set();
+for (const evidence of closure.RETRIEVAL_EVIDENCE) {
+  for (const key of ["ARTIFACT_ID", "DOCUMENTARY_CONTENT_INSPECTED", "MINIMAL_DOCUMENT_STRUCTURE", "VERIFIED_SECTION_OR_THEME_REFERENCES", "PAGINATION_OR_STABLE_SECTION_IDENTIFIERS", "TRANSIENT_BINARY_SHA256", "REPRODUCIBILITY_LIMITATIONS"]) {
+    if (!(key in evidence)) fail(`${evidence.ARTIFACT_ID ?? "UNKNOWN"}: missing retrieval-evidence field ${key}`);
+  }
+  if (!closureArtifactIds.has(evidence.ARTIFACT_ID) || retrievalEvidenceArtifactIds.has(evidence.ARTIFACT_ID)) fail(`${evidence.ARTIFACT_ID}: unknown or duplicate retrieval evidence`);
+  retrievalEvidenceArtifactIds.add(evidence.ARTIFACT_ID);
+  if (!inspectionStates.has(evidence.DOCUMENTARY_CONTENT_INSPECTED) || evidence.DOCUMENTARY_CONTENT_INSPECTED === "NO") fail(`${evidence.ARTIFACT_ID}: invalid documentary inspection state`);
+  for (const key of ["MINIMAL_DOCUMENT_STRUCTURE", "VERIFIED_SECTION_OR_THEME_REFERENCES", "PAGINATION_OR_STABLE_SECTION_IDENTIFIERS", "REPRODUCIBILITY_LIMITATIONS"]) {
+    if (!Array.isArray(evidence[key])) fail(`${evidence.ARTIFACT_ID}: ${key} must be an array`);
+  }
+  if (!evidence.MINIMAL_DOCUMENT_STRUCTURE.length || !evidence.VERIFIED_SECTION_OR_THEME_REFERENCES.length || !evidence.REPRODUCIBILITY_LIMITATIONS.length) fail(`${evidence.ARTIFACT_ID}: insufficient retrieval evidence`);
+  const derivedText = [
+    ...evidence.MINIMAL_DOCUMENT_STRUCTURE,
+    ...evidence.VERIFIED_SECTION_OR_THEME_REFERENCES,
+    ...evidence.PAGINATION_OR_STABLE_SECTION_IDENTIFIERS,
+    ...evidence.REPRODUCIBILITY_LIMITATIONS,
+  ];
+  if (derivedText.some((value) => typeof value !== "string" || !value.trim() || value.length > 400)) fail(`${evidence.ARTIFACT_ID}: invalid or substantively long derived evidence`);
+  if (evidence.TRANSIENT_BINARY_SHA256 !== null && !/^[a-f0-9]{64}$/.test(evidence.TRANSIENT_BINARY_SHA256)) fail(`${evidence.ARTIFACT_ID}: invalid transient digest`);
+}
+if ([...closureArtifactIds].some((artifactId) => !retrievalEvidenceArtifactIds.has(artifactId))) fail("retrieval evidence has a coverage gap");
+for (const relation of closure.RELATIONSHIPS) {
+  for (const key of ["RELATION_TYPE", "FROM_ARTIFACT_ID", "TO_ARTIFACT_ID", "LINKAGE_BASIS", "LINKAGE_CONFIDENCE", "LINKAGE_SOURCE"]) if (!(key in relation)) fail(`closure relation missing ${key}`);
+  if (!closureArtifactIds.has(relation.FROM_ARTIFACT_ID) || !closureArtifactIds.has(relation.TO_ARTIFACT_ID)) fail(`${relation.RELATION_TYPE}: unknown artifact relation endpoint`);
+  if (!relation.LINKAGE_BASIS.length || !["HIGH", "MEDIUM", "LOW"].includes(relation.LINKAGE_CONFIDENCE)) fail(`${relation.RELATION_TYPE}: invalid linkage evidence`);
+  if (!relation.LINKAGE_SOURCE.startsWith("https://")) fail(`${relation.RELATION_TYPE}: non-official linkage URL`);
+}
+for (const relation of closure.VERSION_RELATIONSHIPS) {
+  if (!ids.has(relation.EVIDENCE_SOURCE_ID)) fail(`unknown version-relation evidence ${relation.EVIDENCE_SOURCE_ID}`);
+  if (!relation.FROM || !relation.TO || !relation.RELATION || !relation.CONFIDENCE) fail("incomplete version relation");
+}
+if (closure.PLATFORM_READINESS.length !== 5) fail("documentary closure must preserve exactly five platform trials");
+if (new Set(closure.PLATFORM_READINESS.map((item) => item.PLATFORM_TRIAL_ID)).size !== 5) fail("duplicate platform readiness identity");
+if (closure.PLATFORM_READINESS.some((item) => !platformIds.has(item.PLATFORM_TRIAL_ID))) fail("unknown platform readiness identity");
+const platformReadinessFields = [
+  "DOCUMENTARY_CONTENT_INSPECTED", "CONTENT_ACCESSIBLE_FOR_FUTURE_RETRIEVAL", "LOCAL_REPRODUCIBLE_CONTENT",
+  "SECTION_INDEXED_IN_KNOWLEDGE", "DOC002R_SOURCE_READY", "PLATFORM_RUNTIME_CONTENT_READY",
+  "PLATFORM_SECTION_INDEX_READY", "PLATFORM_REPRODUCIBLE_LOCAL_CONTENT_READY",
+];
+for (const item of closure.PLATFORM_READINESS) {
+  for (const key of platformReadinessFields) if (!(key in item)) fail(`${item.PLATFORM_TRIAL_ID}: missing readiness field ${key}`);
+  if (!inspectionStates.has(item.DOCUMENTARY_CONTENT_INSPECTED)) fail(`${item.PLATFORM_TRIAL_ID}: invalid inspection readiness`);
+  if (!futureRetrievalStates.has(item.CONTENT_ACCESSIBLE_FOR_FUTURE_RETRIEVAL)) fail(`${item.PLATFORM_TRIAL_ID}: invalid future-retrieval readiness`);
+  if (!sourceReadinessStates.has(item.DOC002R_SOURCE_READY)) fail(`${item.PLATFORM_TRIAL_ID}: invalid DOC002R source readiness`);
+  if (item.LOCAL_REPRODUCIBLE_CONTENT !== "NO" || item.SECTION_INDEXED_IN_KNOWLEDGE !== "NO") fail(`${item.PLATFORM_TRIAL_ID}: remote evidence promoted to local or indexed readiness`);
+  if (item.PLATFORM_RUNTIME_CONTENT_READY !== "NO" || item.PLATFORM_SECTION_INDEX_READY !== "NO" || item.PLATFORM_REPRODUCIBLE_LOCAL_CONTENT_READY !== "NO") fail(`${item.PLATFORM_TRIAL_ID}: unsupported platform runtime readiness`);
+}
+const readyPlatformCount = closure.PLATFORM_READINESS.filter((item) => item.PLATFORM_CONTENT_READY === "YES").length;
+if (readyPlatformCount !== closure.PLATFORM_CONTENT_READY_COUNT || readyPlatformCount < 4) fail("platform content-readiness gate not satisfied");
+const doc002rSourceReadyCount = closure.PLATFORM_READINESS.filter((item) => item.DOC002R_SOURCE_READY === "YES").length;
+if (doc002rSourceReadyCount < 4) fail("DOC002R source-readiness gate not satisfied");
+if (closure.PLATFORM_CONTENT_READY_MEANING !== "DOCUMENTARY_CONTENT_SUFFICIENTLY_ACCESSIBLE_FOR_LATER_CONTROLLED_DOC002R_ANALYSIS") fail("platform content readiness meaning is ambiguous");
+if (closure.PLATFORM_RUNTIME_CONTENT_READY_COUNT !== 0 || closure.PLATFORM_SECTION_INDEX_READY_COUNT !== 0 || closure.PLATFORM_REPRODUCIBLE_LOCAL_CONTENT_READY_COUNT !== 0) fail("unsupported platform local/runtime readiness count");
+if (closure.ENOUGH_DOCUMENTARY_EVIDENCE_FOR_ONE_DOC002R_PASS !== "YES") fail("bounded DOC002R evidence gate not satisfied");
+if (!closure.PLATFORM_READINESS.every((item) => item.METADATA_READY === "YES" && item.LINKAGE_READY === "YES")) fail("platform metadata/linkage not ready");
+const platformSourceIds = new Set(platforms.TRIALS.flatMap((trial) => trial.DOCUMENTS.map((artifact) => artifact.SOURCE_ID)));
+const closurePlatformSourceIds = new Set(closure.ARTIFACTS.filter((artifact) => artifact.PLATFORM_TRIAL_ID !== null).map((artifact) => artifact.SOURCE_ID));
+if (platformSourceIds.size !== closurePlatformSourceIds.size || [...platformSourceIds].some((sourceId) => !closurePlatformSourceIds.has(sourceId))) fail("platform artifact closure is incomplete");
+if (closure.CHAIN_ASSESSMENT.SAME_STUDY_COMPLETE_CHAIN_FOUND !== "NO" || closure.CHAIN_ASSESSMENT.COMPLETE_CHAIN_COUNT !== 0) fail("unsupported complete same-study chain claim");
+if (closure.CHAIN_ASSESSMENT.NEAR_COMPLETE_CHAIN_COUNT < 2 || closure.CHAIN_ASSESSMENT.FAMILIES.length < 2) fail("near-complete family fallback not satisfied");
+for (const family of closure.CHAIN_ASSESSMENT.FAMILIES) {
+  if (!linkedIds.has(family.STUDY_SET_ID) || family.LINKAGE_CONFIDENCE !== "HIGH") fail(`${family.STUDY_SET_ID}: invalid near-complete family`);
+  if (!family.MISSING_ARTIFACT_CLASSES?.length) fail(`${family.STUDY_SET_ID}: missing artifact classes not explicit`);
+}
+for (const candidate of closure.DOC002R_EXTRACTION_CANDIDATES) {
+  for (const key of ["candidateId", "candidateType", "sourceIds", "artifactIds", "studyOrPlatformIdentity", "reason", "relevantDocumentaryPhenomenon", "limitations"]) if (!(key in candidate)) fail(`${candidate.candidateId ?? "UNKNOWN"}: missing extraction-candidate field ${key}`);
+  for (const sourceId of candidate.sourceIds) if (!ids.has(sourceId)) fail(`${candidate.candidateId}: unknown candidate source ${sourceId}`);
+  for (const artifactId of candidate.artifactIds) if (!closureArtifactIds.has(artifactId)) fail(`${candidate.candidateId}: unknown candidate artifact ${artifactId}`);
+  if (!candidate.limitations.includes("Candidate is not an admitted pattern")) fail(`${candidate.candidateId}: pattern-admission boundary absent`);
+}
+if (closure.BOUNDARIES.SECOND_REGISTRY_CREATED !== "NO" || closure.BOUNDARIES.DOC002_PATTERN_EXTRACTED !== "NO" || closure.BOUNDARIES.PRACTICE_RULE_ADMITTED !== "NO" || closure.BOUNDARIES.EXTERNAL_AUTHORITY_PROMOTED !== "NO" || closure.BOUNDARIES.LOCAL_BINARY_ADDED !== "NO" || closure.BOUNDARIES.RESTRICTED_ARCHIVE_ACCESSED !== "NO") fail("documentary closure boundary violated");
+const expectedNewClosureSources = Array.from({ length: 12 }, (_, index) => `RC01-E-${String(index + 74).padStart(3, "0")}`);
+if (expectedNewClosureSources.some((sourceId) => !ids.has(sourceId))) fail("documentary closure source range incomplete");
+if (closure.COUNTS.NEW_SOURCES !== expectedNewClosureSources.length || closure.COUNTS.NEW_LOCAL_FILES !== 0 || closure.COUNTS.NEW_SECTION_INDEXED !== 0) fail("documentary closure counts invalid");
 if (reclassification.MISSION_ID !== "TARGETED-REFERENCE-CORPUS-01R" || reclassification.RECLASSIFICATIONS.length !== 7) fail("invalid targeted gap reclassification");
 for (const item of reclassification.RECLASSIFICATIONS) {
   if (!/^OKC01-X-\d{3}$/.test(item.PLAN_ID)) fail(`${item.PLAN_ID}: invalid plan id`);
@@ -134,6 +246,13 @@ console.log(JSON.stringify({
   linkedStudySets: linked.STUDY_SETS.length,
   linkedArtifacts: linked.STUDY_SETS.reduce((sum, set) => sum + set.ARTIFACTS.length, 0),
   platformTrials: platforms.TRIALS.length,
+  platformArtifacts: platforms.TRIALS.reduce((sum, trial) => sum + trial.DOCUMENTS.length, 0),
+  platformContentReady: readyPlatformCount,
+  doc002rSourceReady: doc002rSourceReadyCount,
+  platformRuntimeContentReady: closure.PLATFORM_RUNTIME_CONTENT_READY_COUNT,
+  documentaryClosureArtifacts: closure.ARTIFACTS.length,
+  retrievalEvidenceRecords: closure.RETRIEVAL_EVIDENCE.length,
+  documentaryExtractionCandidates: closure.DOC002R_EXTRACTION_CANDIDATES.length,
   rejected: rejections.CANDIDATES.filter((item) => item.DISPOSITION === "REJECTED").length,
   deferred: rejections.CANDIDATES.filter((item) => item.DISPOSITION === "DEFERRED").length,
   classes: counts

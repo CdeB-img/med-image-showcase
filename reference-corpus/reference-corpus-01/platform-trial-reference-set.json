@@ -81,7 +81,7 @@
       ],
       "LINKAGE_CONFIDENCE": "HIGH",
       "COPYRIGHT_STATUS": "INSTITUTIONAL_WEB_AND_LINKED_FILE_RIGHTS_NOT_VERIFIED",
-      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "LOCAL_CONTENT_AVAILABILITY": "CONTENT_ACCESSIBLE_NOT_STORED",
       "STUDY_SET_ID": "RC01-SET-006",
       "PHASE_OR_STATUS": "ACTIVE_PLATFORM_RESOURCE_AT_RETRIEVAL; exact recruitment status requires registry recheck",
       "DOMAIN_STRUCTURE": "Shared master platform with treatment domains; Domain A is represented separately.",
@@ -140,6 +140,14 @@
         {
           "SOURCE_ID": "RC01-E-064",
           "ROLE": "UK_OPERATIONAL_AND_ECRF_HUB"
+        },
+        {
+          "SOURCE_ID": "RC01-E-074",
+          "ROLE": "HISTORICAL_CORE_PROTOCOL_V3_1_UK"
+        },
+        {
+          "SOURCE_ID": "RC01-E-075",
+          "ROLE": "ANTIBIOTIC_DOMAIN_SPECIFIC_APPENDIX_V4"
         }
       ],
       "DOCUMENT_VERSIONS": [
@@ -154,11 +162,21 @@
         {
           "SOURCE_ID": "RC01-E-064",
           "VERSION": "LIVING_HUB"
+        },
+        {
+          "SOURCE_ID": "RC01-E-074",
+          "VERSION": "3.1 UK / 2022-11-09 / HISTORICAL"
+        },
+        {
+          "SOURCE_ID": "RC01-E-075",
+          "VERSION": "4 / 2024-11-05"
         }
       ],
       "AMENDMENT_RELATIONSHIPS": [
         "Core protocol v4.1 supersedes v4.0",
         "SAP v4 supersedes v3",
+        "Historical core protocol v3.1 is superseded by the v4.x line",
+        "Antibiotic DSA v4 supersedes its prior domain version",
         "Regional/domain appendices specialize the core"
       ],
       "PUBLICATIONS": [],
@@ -169,6 +187,7 @@
       "SOURCE_PROVENANCE": [
         "https://www.remapcap.org/protocol-documents",
         "https://www.remapcap.org/superseded-protocol-documents",
+        "https://www.remapcap.org/s/REMAP-CAP-Core-Protocol-V31-UK-9-Nov-2022_CLEAN.pdf",
         "https://remapcap.co.uk/documentation/"
       ],
       "LINKAGE_BASIS": [
@@ -177,7 +196,7 @@
       ],
       "LINKAGE_CONFIDENCE": "HIGH",
       "COPYRIGHT_STATUS": "CONSORTIUM_RIGHTS_NOT_VERIFIED; UK_OPERATIONAL_SITE_REFERENCE_ONLY_RESTRICTION",
-      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "LOCAL_CONTENT_AVAILABILITY": "CONTENT_ACCESSIBLE_NOT_STORED",
       "STUDY_SET_ID": "RC01-SET-007",
       "PHASE_OR_STATUS": "CURRENT_PLATFORM_DOCUMENT_SET_AT_RETRIEVAL",
       "DOMAIN_STRUCTURE": "Global core protocol with multiple therapeutic domains, regional appendices and domain-specific appendices.",
@@ -185,11 +204,14 @@
       "KEY_ELIGIBILITY_LOGIC": "Critically ill patient and domain-specific eligibility layered over core eligibility; regional implementations vary.",
       "STATISTICAL_APPROACH": "Master Statistical Analysis Appendix with domain-specific extensions; Bayesian adaptive features must be read from exact versions.",
       "ARTIFACT_RELATIONSHIPS": [
-        "Core protocol and SAP are listed together by the official protocol-document hub",
+        "Core protocols, SAP and domain appendices are listed together by the official protocol-document hub",
+        "Historical core v3.1 exposes content-level version and modularity evidence",
+        "Antibiotic DSA v4 specializes rather than replaces the core protocol",
         "UK operational/eCRF files are a regional projection, not the global master source"
       ],
       "CURRENT_OR_HISTORICAL": "CURRENT_DOCUMENT_SET_WITH_VERSIONED_SUPERSEDED_ARCHIVE",
       "LIMITATIONS": [
+        "The current core v4.1 text was not locally retained; historical v3.1 supplies core-protocol content evidence",
         "Regional and domain appendices can diverge",
         "UK operational files explicitly restrict use",
         "A text difference is not a scientific divergence by default"
@@ -263,8 +285,8 @@
         "ROLE": "No imaging-specific platform role established in the bounded source set."
       },
       "SOURCE_PROVENANCE": [
-        "https://www.principletrial.org/files/trial-documents/principle-protocol-v14.0",
-        "https://www.principletrial.org/health-professionals/primary-care",
+        "https://www.principletrial.org/files/trial-documents/principle-protocol_v14-0_08aug2022_clean.pdf",
+        "https://www.principletrial.org/health-professionals/substantial-amendment-22",
         "https://www.principletrial.org/results/results"
       ],
       "LINKAGE_BASIS": [
@@ -273,7 +295,7 @@
       ],
       "LINKAGE_CONFIDENCE": "HIGH",
       "COPYRIGHT_STATUS": "PROTOCOL_MARKED_COPYRIGHT_AND_CONFIDENTIAL; LINKED_PUBLICATION_RIGHTS_VARY",
-      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "LOCAL_CONTENT_AVAILABILITY": "CONTENT_ACCESSIBLE_NOT_STORED",
       "STUDY_SET_ID": "RC01-SET-008",
       "PHASE_OR_STATUS": "LATEST_PROTOCOL_FOUND_VERSION_14.0; intervention-arm status requires current trial context",
       "DOMAIN_STRUCTURE": "Community adaptive platform with interventions introduced and discontinued through amendments.",
@@ -332,6 +354,14 @@
         {
           "SOURCE_ID": "RC01-E-070",
           "ROLE": "DOMAIN_AND_OPERATIONAL_DOCUMENT_HUB"
+        },
+        {
+          "SOURCE_ID": "RC01-E-076",
+          "ROLE": "IMV_STRATEGIES_DOMAIN_PROTOCOL"
+        },
+        {
+          "SOURCE_ID": "RC01-E-077",
+          "ROLE": "LPV_INTERVENTION_APPENDIX"
         }
       ],
       "DOCUMENT_VERSIONS": [
@@ -346,11 +376,21 @@
         {
           "SOURCE_ID": "RC01-E-070",
           "VERSION": "LIVING_HUB"
+        },
+        {
+          "SOURCE_ID": "RC01-E-076",
+          "VERSION": "3.0 / 2025-08-08"
+        },
+        {
+          "SOURCE_ID": "RC01-E-077",
+          "VERSION": "2.0 / 2024-08-15"
         }
       ],
       "AMENDMENT_RELATIONSHIPS": [
         "Master protocol v4.0 and master SAP v2.0 are separate version lines",
-        "Domain documents specialize master artifacts"
+        "IMV Strategies domain protocol v3.0 supersedes its prior domain version",
+        "LPV intervention appendix v2.0 supersedes its prior appendix version",
+        "Domain and intervention documents specialize master artifacts"
       ],
       "PUBLICATIONS": [],
       "IMAGING_COMPONENT": {
@@ -366,7 +406,7 @@
       ],
       "LINKAGE_CONFIDENCE": "HIGH",
       "COPYRIGHT_STATUS": "DOCUMENTS_MARKED_CONFIDENTIAL_OR_REUSE_RIGHTS_UNCLEAR",
-      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "LOCAL_CONTENT_AVAILABILITY": "CONTENT_ACCESSIBLE_NOT_STORED",
       "STUDY_SET_ID": "RC01-SET-009",
       "PHASE_OR_STATUS": "CURRENT_LIVING_PLATFORM_RESOURCE_AT_RETRIEVAL",
       "DOMAIN_STRUCTURE": "Registry-embedded platform with a master protocol, treatment domains and regional/operational documents.",
@@ -374,7 +414,8 @@
       "KEY_ELIGIBILITY_LOGIC": "Critically ill patients with acute hypoxemic respiratory failure plus domain-specific criteria.",
       "STATISTICAL_APPROACH": "Master SAP plus domain-specific SAPs; shared and specialized analysis layers must remain distinct.",
       "ARTIFACT_RELATIONSHIPS": [
-        "Master protocol, master SAP and domain documents are co-listed on the official document hub",
+        "Master protocol, master SAP, domain protocols and intervention appendices are co-listed on the official document hub",
+        "The LPV appendix is subordinate to the IMV Strategies domain protocol",
         "Domain documents specialize rather than automatically supersede the master artifacts"
       ],
       "CURRENT_OR_HISTORICAL": "CURRENT_RESOURCE_SET_WITH_MIXED_DOCUMENT_DATES",
@@ -460,7 +501,7 @@
       ],
       "LINKAGE_CONFIDENCE": "HIGH",
       "COPYRIGHT_STATUS": "SPONSOR_AND_COLLECTION_SPECIFIC_RIGHTS_REQUIRE_SEPARATE_REVIEW",
-      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "LOCAL_CONTENT_AVAILABILITY": "CONTENT_ACCESSIBLE_NOT_STORED",
       "STUDY_SET_ID": "RC01-SET-010",
       "PHASE_OR_STATUS": "ACTIVE_OR_UPDATING_REGISTRY_AND_SPONSOR_RESOURCES_AT_RETRIEVAL",
       "DOMAIN_STRUCTURE": "Biomarker-stratified multi-agent platform evolving from I-SPY 2 to I-SPY 2.2.",

@@ -28,12 +28,12 @@
     {
       "PLAN_ID": "OKC01-X-003",
       "GAP_IDS": ["OKC01-G-CDM-001", "OKC01-G-DM-001", "OKC01-G-LINK-001"],
-      "RESULT": "PARTIALLY_IMPROVED",
+      "RESULT": "STRONGLY_IMPROVED",
       "NEED_SUPPORT": [
-        {"NEED_ID": "OKC01-N-047", "OWNER": "CDM", "SOURCE_IDS": ["RC01-C-046", "RC01-E-064", "RC01-E-070"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "INSTITUTIONAL_TEMPLATE_AND_REAL_STUDY_PATTERN", "JURISDICTION": "EU_AND_STUDY_SPECIFIC", "LIMITATIONS": ["No complete CRF/data dictionary pair", "No cross-study synthetic linkage"]},
-        {"NEED_ID": "OKC01-N-060", "OWNER": "DATA_MANAGEMENT", "SOURCE_IDS": ["RC01-C-046", "RC01-E-064", "RC01-E-070"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "DATA_MANAGEMENT_PRACTICE_ARTIFACT", "JURISDICTION": "EU_AND_STUDY_SPECIFIC", "LIMITATIONS": ["No same-study DMP-to-SAP version chain", "Operational files are metadata-only"]}
+        {"NEED_ID": "OKC01-N-047", "OWNER": "CDM", "SOURCE_IDS": ["RC01-C-046", "RC01-E-064", "RC01-E-070", "RC01-E-078", "RC01-E-079", "RC01-E-080", "RC01-E-082", "RC01-E-083"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "INSTITUTIONAL_TEMPLATE_AND_REAL_STUDY_DOCUMENTARY_EVIDENCE", "JURISDICTION": "EU_AND_STUDY_SPECIFIC", "LIMITATIONS": ["SPRINT provides a same-study CRF/data-dictionary pair", "ORCHID references eCRF but exposes no standalone CRF package", "No cross-study synthetic linkage"]},
+        {"NEED_ID": "OKC01-N-060", "OWNER": "DATA_MANAGEMENT", "SOURCE_IDS": ["RC01-C-046", "RC01-E-064", "RC01-E-070", "RC01-E-078", "RC01-E-081", "RC01-E-082", "RC01-E-084", "RC01-E-085"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "DATA_MANAGEMENT_AND_CROSS_DOCUMENT_PRACTICE_ARTIFACT", "JURISDICTION": "EU_AND_STUDY_SPECIFIC", "LIMITATIONS": ["No complete same-study standalone DMP-to-SAP chain", "New trial files are content-accessible but not stored", "No owner/runtime admission"]}
       ],
-      "RESIDUAL_GAPS": ["Protocol-to-CRF-to-data-dictionary-to-DMP-to-SAP complete chain", "Query/reconciliation and lock/release artifact lineage"]
+      "RESIDUAL_GAPS": ["Complete same-study chain with standalone Protocol/CRF/Data Dictionary/DMP/SAP", "Query/reconciliation and lock/release artifact lineage", "DOC002R extraction/adjudication remains separate"]
     },
     {
       "PLAN_ID": "OKC01-X-004",

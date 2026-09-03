@@ -137,10 +137,12 @@
       "ARTIFACTS": [
         {"SOURCE_ID": "RC01-E-062", "ROLE": "CORE_PROTOCOL_V4_1"},
         {"SOURCE_ID": "RC01-E-063", "ROLE": "STATISTICAL_ANALYSIS_APPENDIX_V4"},
-        {"SOURCE_ID": "RC01-E-064", "ROLE": "UK_OPERATIONAL_AND_ECRF_HUB"}
+        {"SOURCE_ID": "RC01-E-064", "ROLE": "UK_OPERATIONAL_AND_ECRF_HUB"},
+        {"SOURCE_ID": "RC01-E-074", "ROLE": "HISTORICAL_CORE_PROTOCOL_V3_1_UK"},
+        {"SOURCE_ID": "RC01-E-075", "ROLE": "ANTIBIOTIC_DOMAIN_SPECIFIC_APPENDIX_V4"}
       ],
-      "ARTIFACT_RELATIONSHIPS": ["Core protocol and SAP are listed together by the official protocol-document hub", "UK operational resources are a regional projection"],
-      "VERSION_RELATIONSHIPS": ["Core protocol v4.1 supersedes v4.0", "SAP v4 supersedes v3", "Regional/domain documents specialize the core rather than silently supersede it"],
+      "ARTIFACT_RELATIONSHIPS": ["Core protocol, SAP and domain-specific appendices are co-listed by the official protocol-document hub", "UK operational resources are a regional projection", "The Antibiotic DSA specializes rather than replaces the core protocol"],
+      "VERSION_RELATIONSHIPS": ["Core protocol v4.1 supersedes v4.0; historical v3.1 is retained as an older distinct version", "SAP v4 supersedes v3", "Antibiotic DSA v4 supersedes its prior domain version", "Regional/domain documents specialize the core rather than silently supersede it"],
       "PUBLICATION_LINKS": [],
       "SOURCE_PROVENANCE": ["https://www.remapcap.org/protocol-documents", "https://www.remapcap.org/superseded-protocol-documents", "https://remapcap.co.uk/documentation/"],
       "LINKAGE_CONFIDENCE": "HIGH",
@@ -163,7 +165,7 @@
       "ARTIFACT_RELATIONSHIPS": ["Official trial site binds protocol, amendments and results to the PRINCIPLE identity"],
       "VERSION_RELATIONSHIPS": ["Protocol v14.0 supersedes v13.0", "Arm/amendment chronology requires file-level review"],
       "PUBLICATION_LINKS": ["https://www.principletrial.org/results/results"],
-      "SOURCE_PROVENANCE": ["https://www.principletrial.org/files/trial-documents/principle-protocol-v14.0", "https://www.principletrial.org/health-professionals/primary-care"],
+      "SOURCE_PROVENANCE": ["https://www.principletrial.org/files/trial-documents/principle-protocol_v14-0_08aug2022_clean.pdf", "https://www.principletrial.org/health-professionals/substantial-amendment-22"],
       "LINKAGE_CONFIDENCE": "HIGH",
       "LINKAGE_BASIS": ["Common official PRINCIPLE site and study identity", "Protocol carries the EudraCT identifier"]
     },
@@ -179,10 +181,12 @@
       "ARTIFACTS": [
         {"SOURCE_ID": "RC01-E-068", "ROLE": "MASTER_PROTOCOL_V4_0"},
         {"SOURCE_ID": "RC01-E-069", "ROLE": "MASTER_SAP_V2_0"},
-        {"SOURCE_ID": "RC01-E-070", "ROLE": "DOMAIN_AND_OPERATIONAL_DOCUMENT_HUB"}
+        {"SOURCE_ID": "RC01-E-070", "ROLE": "DOMAIN_AND_OPERATIONAL_DOCUMENT_HUB"},
+        {"SOURCE_ID": "RC01-E-076", "ROLE": "IMV_STRATEGIES_DOMAIN_PROTOCOL_V3_0"},
+        {"SOURCE_ID": "RC01-E-077", "ROLE": "LPV_INTERVENTION_APPENDIX_V2_0"}
       ],
-      "ARTIFACT_RELATIONSHIPS": ["Official document hub co-lists master protocol, master SAP and domain documents"],
-      "VERSION_RELATIONSHIPS": ["Master protocol v4.0 and master SAP v2.0 retained separately", "Domain documents specialize master documents; exact precedence is context-specific"],
+      "ARTIFACT_RELATIONSHIPS": ["Official document hub co-lists master protocol, master SAP, domain protocols and intervention appendices", "The LPV intervention appendix is subordinate to the IMV Strategies domain protocol"],
+      "VERSION_RELATIONSHIPS": ["Master protocol v4.0 and master SAP v2.0 retained separately", "IMV Strategies domain protocol v3.0 supersedes its prior domain version", "LPV intervention appendix v2.0 supersedes its prior appendix version", "Domain and intervention documents specialize master documents; exact precedence is context-specific"],
       "PUBLICATION_LINKS": [],
       "SOURCE_PROVENANCE": ["https://practicalplatform.org/docs"],
       "LINKAGE_CONFIDENCE": "HIGH",
@@ -208,6 +212,50 @@
       "SOURCE_PROVENANCE": ["https://clinicaltrials.gov/study/NCT01042379", "https://www.quantumleaphealth.org/i-spy-2-2", "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70230072"],
       "LINKAGE_CONFIDENCE": "HIGH",
       "LINKAGE_BASIS": ["Exact NCT and I-SPY study identity", "Sponsor and TCIA linkage"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-011",
+      "STUDY_TITLE": "Systolic Blood Pressure Intervention Trial",
+      "TRIAL_IDENTIFIERS": ["NCT01206062", "SPRINT"],
+      "SPONSOR": "National Heart, Lung, and Blood Institute",
+      "CONDITION": ["Hypertension", "Cardiovascular disease risk"],
+      "DESIGN": "MULTICENTER RANDOMIZED CONTROLLED TRIAL",
+      "PHASE": "NOT_APPLICABLE",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-078", "ROLE": "PROTOCOL_V5_0_WITH_EMBEDDED_ANALYSIS_AND_DATA_MANAGEMENT_CHAPTERS"},
+        {"SOURCE_ID": "RC01-E-079", "ROLE": "CASE_REPORT_FORMS_COMPILATION"},
+        {"SOURCE_ID": "RC01-E-080", "ROLE": "DATA_DICTIONARY_RELEASE_2020B"},
+        {"SOURCE_ID": "RC01-E-081", "ROLE": "MANUAL_OF_PROCEDURES_WITH_DATA_MANAGEMENT_OPERATIONS"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["BioLINCC groups protocol, forms, data dictionary and manual under the exact SPRINT study page", "Protocol and manual identify study-level analysis and data-management responsibilities", "Dictionary is release-specific and is not presumed to be contemporaneous with every form version"],
+      "VERSION_RELATIONSHIPS": ["Protocol v5.0 supersedes v4.x", "Data dictionary SPRINT_2020b supersedes SPRINT_2020a", "Forms and manual file-level version chronology remains UNKNOWN"],
+      "PUBLICATION_LINKS": ["https://biolincc.nhlbi.nih.gov/studies/sprint/"],
+      "SOURCE_PROVENANCE": ["https://biolincc.nhlbi.nih.gov/studies/sprint/", "https://clinicaltrials.gov/study/NCT01206062"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Exact NCT01206062/SPRINT identity", "Official BioLINCC same-study grouping", "Artifact titles and repository paths carry the SPRINT identity"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-012",
+      "STUDY_TITLE": "Outcomes Related to COVID-19 Treated with Hydroxychloroquine among In-patients with Symptomatic Disease",
+      "TRIAL_IDENTIFIERS": ["NCT04332991", "ORCHID", "HLB02372021a"],
+      "SPONSOR": "PETAL Network / National Heart, Lung, and Blood Institute",
+      "CONDITION": ["COVID-19"],
+      "DESIGN": "MULTICENTER RANDOMIZED PLACEBO-CONTROLLED CLINICAL TRIAL",
+      "PHASE": "NOT_APPLICABLE",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-082", "ROLE": "PROTOCOL"},
+        {"SOURCE_ID": "RC01-E-083", "ROLE": "DATA_DICTIONARY_RELEASE_2021A"},
+        {"SOURCE_ID": "RC01-E-084", "ROLE": "STANDARD_OPERATING_PROCEDURES"},
+        {"SOURCE_ID": "RC01-E-085", "ROLE": "STATISTICAL_ANALYSIS_PLAN_2020_06_17"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["BioLINCC groups protocol, data dictionary, SOPs and SAP under the exact ORCHID study page", "Protocol explicitly references electronic case-report forms and an electronic study database but the CRF package is absent from the public grouping", "SOPs are retained as operational artifacts and are not relabeled as a DMP"],
+      "VERSION_RELATIONSHIPS": ["SAP is dated 2020-06-17", "Data dictionary release is PETAL_ORCHID_2021a", "Exact protocol-to-SAP amendment binding and SOP component chronology remain UNKNOWN"],
+      "PUBLICATION_LINKS": ["https://biolincc.nhlbi.nih.gov/studies/petal_orchid/"],
+      "SOURCE_PROVENANCE": ["https://biolincc.nhlbi.nih.gov/studies/petal_orchid/", "https://clinicaltrials.gov/study/NCT04332991"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Exact NCT04332991/ORCHID identity", "Official BioLINCC same-study grouping", "BioLINCC accession HLB02372021a"]
     }
   ]
 }
