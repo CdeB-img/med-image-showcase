@@ -44,6 +44,8 @@ const requiredDomains = new Set([
 const corpus = await load("reference-corpus.json");
 const schema = await load("reference-corpus.schema.json");
 const linked = await load("linked-study-sets.json");
+const platforms = await load("platform-trial-reference-set.json");
+const reclassification = await load("targeted-gap-reclassification-01r.json");
 const gap = await load("gap-matrix.json");
 const rejections = await load("rejection-log.json");
 const searches = await load("search-log.json");
@@ -51,7 +53,7 @@ const existing = await load("existing-noxia-assets.json");
 
 if (schema.$id !== "noxia://reference-corpus/reference-corpus-01/schema" || !schema.$defs?.source) fail("invalid metadata schema identity");
 if (corpus.MISSION_ID !== "REFERENCE-CORPUS-01") fail("wrong mission identity");
-if (corpus.STATUS !== "NON_NORMATIVE_REFERENCE_REGISTRY_NOT_RUNTIME_WIRED") fail("wrong corpus status");
+if (corpus.STATUS !== "NON_NORMATIVE_REFERENCE_REGISTRY_RUNTIME_BRIDGED_READ_ONLY") fail("wrong corpus status");
 const ids = new Set();
 const digests = new Map();
 for (const source of corpus.SOURCES) {
@@ -68,6 +70,7 @@ for (const source of corpus.SOURCES) {
   if (/NOXIA_(CONSTITUTION|LEVEL_1|NORMATIVE_AUTHORITY)/.test(source.AUTHORITY_OR_EVIDENCE_CLASS)) fail(`${source.SOURCE_ID}: external authority promoted`);
   if (!source.LICENCE_OR_COPYRIGHT_STATUS) fail(`${source.SOURCE_ID}: missing licence status`);
   if (source.LOCAL_COPY_PATH) {
+    if (source.LOCAL_COPY_ALLOWED !== "YES" || source.REDISTRIBUTION_ALLOWED !== "YES") fail(`${source.SOURCE_ID}: local copy without explicit storage and redistribution permission`);
     if (!source.SHA256) fail(`${source.SOURCE_ID}: local copy without digest`);
     const absolute = path.resolve(root, source.LOCAL_COPY_PATH);
     await access(absolute);
@@ -87,6 +90,34 @@ for (const set of linked.STUDY_SETS) {
   if (!set.LINKAGE_BASIS?.length || !set.LINKAGE_CONFIDENCE) fail(`${set.STUDY_SET_ID}: missing linkage basis`);
   for (const artifact of set.ARTIFACTS) if (!ids.has(artifact.SOURCE_ID)) fail(`${set.STUDY_SET_ID}: unknown artifact ${artifact.SOURCE_ID}`);
 }
+if (platforms.MISSION_ID !== "TARGETED-REFERENCE-CORPUS-01R" || platforms.TRIALS.length !== 5) fail("invalid bounded platform-trial set");
+const platformFields = [
+  "PLATFORM_TRIAL_ID", "STUDY_TITLE", "TRIAL_IDENTIFIERS", "SPONSOR", "CONDITION",
+  "MASTER_PROTOCOL_ID", "DESIGN", "PLATFORM_FEATURES", "ARMS_OR_COHORT_MODEL", "SHARED_CONTROL",
+  "ADAPTIVE_FEATURES", "DOCUMENTS", "DOCUMENT_VERSIONS", "AMENDMENT_RELATIONSHIPS", "PUBLICATIONS",
+  "IMAGING_COMPONENT", "SOURCE_PROVENANCE", "LINKAGE_BASIS", "LINKAGE_CONFIDENCE",
+  "COPYRIGHT_STATUS", "LOCAL_CONTENT_AVAILABILITY", "STUDY_SET_ID", "LIMITATIONS",
+  "FUTURE_NOXIA_TRANSPOSITION",
+];
+const linkedIds = new Set(linked.STUDY_SETS.map((set) => set.STUDY_SET_ID));
+const platformIds = new Set();
+for (const trial of platforms.TRIALS) {
+  for (const key of platformFields) if (!(key in trial)) fail(`${trial.PLATFORM_TRIAL_ID ?? "UNKNOWN"}: missing platform field ${key}`);
+  if (platformIds.has(trial.PLATFORM_TRIAL_ID)) fail(`${trial.PLATFORM_TRIAL_ID}: duplicate platform id`);
+  platformIds.add(trial.PLATFORM_TRIAL_ID);
+  if (!linkedIds.has(trial.STUDY_SET_ID)) fail(`${trial.PLATFORM_TRIAL_ID}: unknown linked study set`);
+  if (trial.DOCUMENTS.length < 2) fail(`${trial.PLATFORM_TRIAL_ID}: insufficient linked artifacts`);
+  if (trial.DOCUMENTS.length !== trial.DOCUMENT_VERSIONS.length) fail(`${trial.PLATFORM_TRIAL_ID}: document/version cardinality mismatch`);
+  for (const artifact of trial.DOCUMENTS) if (!ids.has(artifact.SOURCE_ID)) fail(`${trial.PLATFORM_TRIAL_ID}: unknown platform artifact ${artifact.SOURCE_ID}`);
+}
+if (reclassification.MISSION_ID !== "TARGETED-REFERENCE-CORPUS-01R" || reclassification.RECLASSIFICATIONS.length !== 7) fail("invalid targeted gap reclassification");
+for (const item of reclassification.RECLASSIFICATIONS) {
+  if (!/^OKC01-X-\d{3}$/.test(item.PLAN_ID)) fail(`${item.PLAN_ID}: invalid plan id`);
+  if (!["CLOSED_FOR_CURRENT_SCOPE", "STRONGLY_IMPROVED", "PARTIALLY_IMPROVED", "UNCHANGED", "BLOCKED_BY_ACCESS", "DEFERRED"].includes(item.RESULT)) fail(`${item.PLAN_ID}: invalid result`);
+  for (const need of item.NEED_SUPPORT) {
+    for (const sourceId of need.SOURCE_IDS) if (!ids.has(sourceId)) fail(`${item.PLAN_ID}: unknown mapped source ${sourceId}`);
+  }
+}
 const gapDomains = new Set(gap.DOMAINS.map((item) => item.DOMAIN));
 for (const domain of requiredDomains) if (!gapDomains.has(domain)) fail(`gap matrix missing ${domain}`);
 for (const item of gap.DOMAINS) {
@@ -102,6 +133,7 @@ console.log(JSON.stringify({
   localCopies: digests.size,
   linkedStudySets: linked.STUDY_SETS.length,
   linkedArtifacts: linked.STUDY_SETS.reduce((sum, set) => sum + set.ARTIFACTS.length, 0),
+  platformTrials: platforms.TRIALS.length,
   rejected: rejections.CANDIDATES.filter((item) => item.DISPOSITION === "REJECTED").length,
   deferred: rejections.CANDIDATES.filter((item) => item.DISPOSITION === "DEFERRED").length,
   classes: counts

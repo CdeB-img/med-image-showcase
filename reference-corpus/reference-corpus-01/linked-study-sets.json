@@ -103,6 +103,111 @@
       "SOURCE_PROVENANCE": ["https://clinicaltrials.gov/study/NCT03445559", "https://clinicaltrials.gov/api/v2/studies/NCT03445559"],
       "LINKAGE_CONFIDENCE": "HIGH",
       "LINKAGE_BASIS": ["Exact NCT identifier in registry and document path", "ClinicalTrials.gov labels the file Prot_SAP"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-006",
+      "STUDY_TITLE": "StrokeNet Thrombectomy Endovascular Platform",
+      "TRIAL_IDENTIFIERS": ["NCT06289985", "STEP"],
+      "SPONSOR": "NIH StrokeNet / National Institute of Neurological Disorders and Stroke",
+      "CONDITION": ["Acute ischemic stroke"],
+      "DESIGN": "MASTER-PROTOCOL PLATFORM; domain-based endovascular stroke trials",
+      "PHASE": "PLATFORM; DOMAIN_SPECIFIC",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-059", "ROLE": "MASTER_PROTOCOL_OVERVIEW"},
+        {"SOURCE_ID": "RC01-E-060", "ROLE": "DOMAIN_A_SYNOPSIS"},
+        {"SOURCE_ID": "RC01-E-061", "ROLE": "RESOURCE_AND_VERSION_HUB"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["Official STEP navigation links master, domain and resource pages"],
+      "VERSION_RELATIONSHIPS": ["Living resource hub exposes protocol/domain lineage; exact file-level supersession remains UNKNOWN"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://www.nihstrokenet.org/trials/step-trial/master", "https://nihstrokenet.org/trials/step-trial/resources"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Common STEP platform identity", "Official master-to-domain navigation"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-007",
+      "STUDY_TITLE": "REMAP-CAP",
+      "TRIAL_IDENTIFIERS": ["NCT02735707", "REMAP-CAP"],
+      "SPONSOR": "REMAP-CAP international consortium",
+      "CONDITION": ["Severe community-acquired pneumonia", "Critical illness"],
+      "DESIGN": "MULTINATIONAL ADAPTIVE PLATFORM; core protocol plus domains and regions",
+      "PHASE": "PLATFORM; DOMAIN_SPECIFIC",
+      "COUNTRIES": ["Multinational"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-062", "ROLE": "CORE_PROTOCOL_V4_1"},
+        {"SOURCE_ID": "RC01-E-063", "ROLE": "STATISTICAL_ANALYSIS_APPENDIX_V4"},
+        {"SOURCE_ID": "RC01-E-064", "ROLE": "UK_OPERATIONAL_AND_ECRF_HUB"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["Core protocol and SAP are listed together by the official protocol-document hub", "UK operational resources are a regional projection"],
+      "VERSION_RELATIONSHIPS": ["Core protocol v4.1 supersedes v4.0", "SAP v4 supersedes v3", "Regional/domain documents specialize the core rather than silently supersede it"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://www.remapcap.org/protocol-documents", "https://www.remapcap.org/superseded-protocol-documents", "https://remapcap.co.uk/documentation/"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Common REMAP-CAP identity", "Official current and superseded document hubs"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-008",
+      "STUDY_TITLE": "PRINCIPLE Trial",
+      "TRIAL_IDENTIFIERS": ["EudraCT 2020-001209-22", "PRINCIPLE"],
+      "SPONSOR": "University of Oxford",
+      "CONDITION": ["Acute respiratory infection", "COVID-19"],
+      "DESIGN": "COMMUNITY ADAPTIVE PLATFORM; intervention arms introduced/discontinued by amendment",
+      "PHASE": "PLATFORM",
+      "COUNTRIES": ["United Kingdom"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-065", "ROLE": "PROTOCOL_V14_0"},
+        {"SOURCE_ID": "RC01-E-066", "ROLE": "AMENDMENT_AND_DOCUMENT_LINEAGE_HUB"},
+        {"SOURCE_ID": "RC01-E-067", "ROLE": "RESULTS_AND_PUBLICATIONS_HUB"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["Official trial site binds protocol, amendments and results to the PRINCIPLE identity"],
+      "VERSION_RELATIONSHIPS": ["Protocol v14.0 supersedes v13.0", "Arm/amendment chronology requires file-level review"],
+      "PUBLICATION_LINKS": ["https://www.principletrial.org/results/results"],
+      "SOURCE_PROVENANCE": ["https://www.principletrial.org/files/trial-documents/principle-protocol-v14.0", "https://www.principletrial.org/health-professionals/primary-care"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Common official PRINCIPLE site and study identity", "Protocol carries the EudraCT identifier"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-009",
+      "STUDY_TITLE": "PRACTICAL Platform Trial",
+      "TRIAL_IDENTIFIERS": ["NCT05440851", "OZUHN-004", "PRACTICAL"],
+      "SPONSOR": "PRACTICAL international critical-care consortium",
+      "CONDITION": ["Acute hypoxemic respiratory failure", "Critical illness"],
+      "DESIGN": "REGISTRY-EMBEDDED ADAPTIVE PLATFORM; master and domain protocols",
+      "PHASE": "PLATFORM; DOMAIN_SPECIFIC",
+      "COUNTRIES": ["Multinational"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-068", "ROLE": "MASTER_PROTOCOL_V4_0"},
+        {"SOURCE_ID": "RC01-E-069", "ROLE": "MASTER_SAP_V2_0"},
+        {"SOURCE_ID": "RC01-E-070", "ROLE": "DOMAIN_AND_OPERATIONAL_DOCUMENT_HUB"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["Official document hub co-lists master protocol, master SAP and domain documents"],
+      "VERSION_RELATIONSHIPS": ["Master protocol v4.0 and master SAP v2.0 retained separately", "Domain documents specialize master documents; exact precedence is context-specific"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://practicalplatform.org/docs"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Common PRACTICAL/OZUHN-004 identity", "Official document hub"]
+    },
+    {
+      "STUDY_SET_ID": "RC01-SET-010",
+      "STUDY_TITLE": "I-SPY 2 / I-SPY 2.2",
+      "TRIAL_IDENTIFIERS": ["NCT01042379", "I-SPY 2", "I-SPY 2.2"],
+      "SPONSOR": "Quantum Leap Healthcare Collaborative",
+      "CONDITION": ["High-risk early breast cancer"],
+      "DESIGN": "BIOMARKER-ADAPTIVE NEOADJUVANT PLATFORM WITH SERIAL MRI",
+      "PHASE": "PHASE2_PLATFORM",
+      "COUNTRIES": ["United States"],
+      "ARTIFACTS": [
+        {"SOURCE_ID": "RC01-E-071", "ROLE": "CLINICALTRIALS_GOV_RECORD"},
+        {"SOURCE_ID": "RC01-E-072", "ROLE": "SPONSOR_PLATFORM_EVOLUTION_PAGE"},
+        {"SOURCE_ID": "RC01-E-073", "ROLE": "IMAGING_DATA_COLLECTION"}
+      ],
+      "ARTIFACT_RELATIONSHIPS": ["Registry and sponsor pages share the I-SPY platform identity", "TCIA collection is linked to I-SPY 2 imaging data but is not a protocol version"],
+      "VERSION_RELATIONSHIPS": ["I-SPY 2 to I-SPY 2.2 evolution is recorded without asserting a single supersession edge"],
+      "PUBLICATION_LINKS": [],
+      "SOURCE_PROVENANCE": ["https://clinicaltrials.gov/study/NCT01042379", "https://www.quantumleaphealth.org/i-spy-2-2", "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70230072"],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "LINKAGE_BASIS": ["Exact NCT and I-SPY study identity", "Sponsor and TCIA linkage"]
     }
   ]
 }

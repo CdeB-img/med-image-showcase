@@ -14,6 +14,24 @@
       "SOURCE_ID": "RC01-A-016"
     },
     {
+      "NEED_ID": "OKC01-N-001",
+      "SECTION_IDS": [
+        "RC01-A-023:page-38",
+        "RC01-A-023:page-1",
+        "RC01-A-023:page-43"
+      ],
+      "SOURCE_ID": "RC01-A-023"
+    },
+    {
+      "NEED_ID": "OKC01-N-001",
+      "SECTION_IDS": [
+        "RC01-B-035:page-16",
+        "RC01-B-035:page-1",
+        "RC01-B-035:page-4"
+      ],
+      "SOURCE_ID": "RC01-B-035"
+    },
+    {
       "NEED_ID": "OKC01-N-002",
       "SECTION_IDS": [
         "RC01-A-017:page-6",
@@ -21,6 +39,24 @@
         "RC01-A-017:page-2"
       ],
       "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-002",
+      "SECTION_IDS": [
+        "RC01-A-023:page-14",
+        "RC01-A-023:page-34",
+        "RC01-A-023:page-50"
+      ],
+      "SOURCE_ID": "RC01-A-023"
+    },
+    {
+      "NEED_ID": "OKC01-N-002",
+      "SECTION_IDS": [
+        "RC01-B-035:page-35",
+        "RC01-B-035:page-17",
+        "RC01-B-035:page-14"
+      ],
+      "SOURCE_ID": "RC01-B-035"
     },
     {
       "NEED_ID": "OKC01-N-003",
@@ -66,6 +102,24 @@
         "RC01-A-020:page-4"
       ],
       "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-003",
+      "SECTION_IDS": [
+        "RC01-A-023:page-40",
+        "RC01-A-023:page-43",
+        "RC01-A-023:page-50"
+      ],
+      "SOURCE_ID": "RC01-A-023"
+    },
+    {
+      "NEED_ID": "OKC01-N-003",
+      "SECTION_IDS": [
+        "RC01-B-035:page-26",
+        "RC01-B-035:page-1",
+        "RC01-B-035:page-4"
+      ],
+      "SOURCE_ID": "RC01-B-035"
     },
     {
       "NEED_ID": "OKC01-N-004",
@@ -131,6 +185,24 @@
       "SOURCE_ID": "RC01-A-018"
     },
     {
+      "NEED_ID": "OKC01-N-012",
+      "SECTION_IDS": [
+        "RC01-B-035:page-14",
+        "RC01-B-035:page-17",
+        "RC01-B-035:page-1"
+      ],
+      "SOURCE_ID": "RC01-B-035"
+    },
+    {
+      "NEED_ID": "OKC01-N-014",
+      "SECTION_IDS": [
+        "RC01-B-035:page-20",
+        "RC01-B-035:page-2",
+        "RC01-B-035:page-7"
+      ],
+      "SOURCE_ID": "RC01-B-035"
+    },
+    {
       "NEED_ID": "OKC01-N-015",
       "SECTION_IDS": [
         "RC01-A-019:page-16",
@@ -194,6 +266,15 @@
       "SOURCE_ID": "RC01-A-017"
     },
     {
+      "NEED_ID": "OKC01-N-020",
+      "SECTION_IDS": [
+        "RC01-B-035:page-9",
+        "RC01-B-035:page-10",
+        "RC01-B-035:page-23"
+      ],
+      "SOURCE_ID": "RC01-B-035"
+    },
+    {
       "NEED_ID": "OKC01-N-021",
       "SECTION_IDS": [
         "RC01-A-017:page-6",
@@ -203,6 +284,15 @@
       "SOURCE_ID": "RC01-A-017"
     },
     {
+      "NEED_ID": "OKC01-N-021",
+      "SECTION_IDS": [
+        "RC01-B-035:page-14",
+        "RC01-B-035:page-10",
+        "RC01-B-035:page-13"
+      ],
+      "SOURCE_ID": "RC01-B-035"
+    },
+    {
       "NEED_ID": "OKC01-N-022",
       "SECTION_IDS": [
         "RC01-A-017:page-27",
@@ -210,6 +300,15 @@
         "RC01-A-017:page-1"
       ],
       "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-022",
+      "SECTION_IDS": [
+        "RC01-B-035:page-5",
+        "RC01-B-035:page-27",
+        "RC01-B-035:page-1"
+      ],
+      "SOURCE_ID": "RC01-B-035"
     },
     {
       "NEED_ID": "OKC01-N-023",
@@ -248,6 +347,15 @@
       "SOURCE_ID": "RC01-A-017"
     },
     {
+      "NEED_ID": "OKC01-N-025",
+      "SECTION_IDS": [
+        "RC01-B-035:page-35",
+        "RC01-B-035:page-4",
+        "RC01-B-035:page-15"
+      ],
+      "SOURCE_ID": "RC01-B-035"
+    },
+    {
       "NEED_ID": "OKC01-N-026",
       "SECTION_IDS": [
         "RC01-A-017:page-5",
@@ -255,6 +363,15 @@
         "RC01-A-017:page-2"
       ],
       "SOURCE_ID": "RC01-A-017"
+    },
+    {
+      "NEED_ID": "OKC01-N-026",
+      "SECTION_IDS": [
+        "RC01-B-035:page-37",
+        "RC01-B-035:page-11",
+        "RC01-B-035:page-35"
+      ],
+      "SOURCE_ID": "RC01-B-035"
     },
     {
       "NEED_ID": "OKC01-N-027",
@@ -347,6 +464,15 @@
       "SOURCE_ID": "RC01-A-019"
     },
     {
+      "NEED_ID": "OKC01-N-035",
+      "SECTION_IDS": [
+        "RC01-B-035:page-5",
+        "RC01-B-035:page-1",
+        "RC01-B-035:page-4"
+      ],
+      "SOURCE_ID": "RC01-B-035"
+    },
+    {
       "NEED_ID": "OKC01-N-038",
       "SECTION_IDS": [
         "RC01-A-018:page-7",
@@ -372,6 +498,15 @@
         "RC01-A-020:page-47"
       ],
       "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-038",
+      "SECTION_IDS": [
+        "RC01-B-035:page-35",
+        "RC01-B-035:page-1",
+        "RC01-B-035:page-4"
+      ],
+      "SOURCE_ID": "RC01-B-035"
     },
     {
       "NEED_ID": "OKC01-N-041",
@@ -401,6 +536,15 @@
       "SOURCE_ID": "RC01-A-020"
     },
     {
+      "NEED_ID": "OKC01-N-042",
+      "SECTION_IDS": [
+        "RC01-B-035:page-4",
+        "RC01-B-035:page-1",
+        "RC01-B-035:page-8"
+      ],
+      "SOURCE_ID": "RC01-B-035"
+    },
+    {
       "NEED_ID": "OKC01-N-043",
       "SECTION_IDS": [
         "RC01-A-018:page-15",
@@ -417,6 +561,15 @@
         "RC01-A-020:page-33"
       ],
       "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-043",
+      "SECTION_IDS": [
+        "RC01-B-035:page-37",
+        "RC01-B-035:page-1",
+        "RC01-B-035:page-4"
+      ],
+      "SOURCE_ID": "RC01-B-035"
     },
     {
       "NEED_ID": "OKC01-N-044",
@@ -527,6 +680,33 @@
       "SOURCE_ID": "RC01-A-016"
     },
     {
+      "NEED_ID": "OKC01-N-062",
+      "SECTION_IDS": [
+        "RC01-A-023:page-38",
+        "RC01-A-023:page-55",
+        "RC01-A-023:page-102"
+      ],
+      "SOURCE_ID": "RC01-A-023"
+    },
+    {
+      "NEED_ID": "OKC01-N-063",
+      "SECTION_IDS": [
+        "RC01-A-023:page-43",
+        "RC01-A-023:page-100",
+        "RC01-A-023:page-109"
+      ],
+      "SOURCE_ID": "RC01-A-023"
+    },
+    {
+      "NEED_ID": "OKC01-N-064",
+      "SECTION_IDS": [
+        "RC01-A-023:page-94",
+        "RC01-A-023:page-70",
+        "RC01-A-023:page-93"
+      ],
+      "SOURCE_ID": "RC01-A-023"
+    },
+    {
       "NEED_ID": "OKC01-N-067",
       "SECTION_IDS": [
         "RC01-A-016:page-1",
@@ -570,6 +750,15 @@
         "RC01-A-020:page-4"
       ],
       "SOURCE_ID": "RC01-A-020"
+    },
+    {
+      "NEED_ID": "OKC01-N-067",
+      "SECTION_IDS": [
+        "RC01-B-035:page-14",
+        "RC01-B-035:page-4",
+        "RC01-B-035:page-9"
+      ],
+      "SOURCE_ID": "RC01-B-035"
     },
     {
       "NEED_ID": "OKC01-N-070",
@@ -1383,6 +1572,330 @@
       ],
       "SOURCE_ID": "RC01-A-020",
       "SOURCE_SHA256": "9eb8993e8be5ce94d6accb24f35d179993bb48f2899d275b4d0f837944cbfc61"
+    },
+    {
+      "DOCUMENT_VERSION": "Version 7.2",
+      "INDEXED_SECTION_COUNT": 14,
+      "PAGE_COUNT": 161,
+      "SECTIONS": [
+        {
+          "EXACT_CONTENT_SHA256": "06a5a4a1f09bb45a7ba4f97542bbbdcba16eca94ec0ba9df496194b59232ac1b",
+          "EXACT_TEXT": "Page 1 of 161 The rules governing medicinal products in the European Union VOLUME 10 – Guidance document applying to clinical trials CLINICAL TRIALS REGULATION (EU) NO 536/2014 QUESTIONS & ANSWERS VERSION 7.2 Amended and endorsed through written procedure by the Clinical Trials Coordination and Advisory Group Document history: Date of discussion by the Clinical Trials Coordination and Advisory Group: Written procedure in Q1 2026 Date of publication: 27 March 2026 Supersedes: 7.1 Changes compared to superseded version: - Q&A 1.24, points 76 and 77 (ex79 and ex 80) on patient facing documents - ",
+          "HEADING": "Page 1 of 161",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 1,
+          "SECTION_ID": "RC01-A-023:page-1"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "106438a75ef1bc98ef873f615f06888bdc9f488ac1731a764091846b11d579a3",
+          "EXACT_TEXT": "March 2026 Page 14 of 161 conflicting rules in guidelines, albeit ICH or other guidelines. Documents or data that are not foreseen by the Regulation (e.g. the progress report as defined in the ICH E.6 guidance) shall not be requested or submitted based on recommendations in different guidelines. This approach reflects also recital 24, stating that the content of the application dossier should be harmonised to simplify the application process for clinical trials. 12. When Member States are allowed margin for national practices it is explicitly provided in the CTR itself, see for example Article",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 14,
+          "SECTION_ID": "RC01-A-023:page-14"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "2e271e644e336ff5c11b4658f5f0f387c6730cfa26e131f7877c384d726275ec",
+          "EXACT_TEXT": "March 2026 Page 34 of 161 modification application, which could mean that the start of the trial or the inclusion of the first subject is delayed until the condition is met. 102. Conditions should be clear and related to an issue already identified in the request for information (RFI) submitted during the assessment. Exceptionally, sponsors may agree in the initial application cover letter to a condition without a prior consideration (See CTCG cover letter template for initial application on HMA website under ‘Key Documents List ’) Usually a single round of RFI is expected with a short time fo",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 34,
+          "SECTION_ID": "RC01-A-023:page-34"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "32b5701eb2669884d9728f299fb8d5fb108ccfdbeaec14c7207b22a45362bd92",
+          "EXACT_TEXT": "March 2026 Page 38 of 161 2.15. In case the sponsor of a clinical trial is not the product owner (PO) of the IMP and should not have access to the quality IMPD (IMPD-Q) or associated considerations/RFI in order to protect commercially confidential information, what options do exist for the PO and the sponsor? NB: As current version of CTIS does not include the functionality for the submission of a document part of the IMPD by a third party other than the sponsor, this Q&A aims to provide guidance on a proposed solution to handle this scenario. In light of the experience gathered with this proc",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 38,
+          "SECTION_ID": "RC01-A-023:page-38"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "1706b27b7efd4340ff45095babc015d49a63efee962f1404625096255d590139",
+          "EXACT_TEXT": "March 2026 Page 40 of 161 mandatory fields should be completed with “IMPD -Q-only” for text fields or “0” for numeric fields. 4. In the “sponsor trial” reference should be made to the “IMPD -Q-only application” in the cover letter, stating the EU-CT number of the “IMPD-Q- only application” . Instead of the IMPD -Q, a Letter of access document should be uploaded referring to the “IMPD-Q-only application” . Content of the labelling of the IMP in accordance with Annex I, section J of the Regulation should (also) be uploaded in the “sponsor trial” . 5. Important! After conclusion of Part I assessm",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 40,
+          "SECTION_ID": "RC01-A-023:page-40"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "fd6b6782a29322bf6f43d163babcc47c059d976066125affd753e39a17580de2",
+          "EXACT_TEXT": "March 2026 Page 43 of 161 The CTIS will not be able to differentiate between the different types of content changes in a given document. A good example is the IB: a new version of this document can be uploaded as an SM (e.g. with changes impacting benefit/risk in the trial) or as an art.81(9) (e.g. annual update with no significant changes on participants safety and/or benefit/risk in the trial). It is up to the sponsor to define the correct path, depending on the nature of the changes. This guidance will facilitate that task. Incorrect use of the non-substantial modification functionality by ",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 43,
+          "SECTION_ID": "RC01-A-023:page-43"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "610c0de4ad79776d5b21eaeec41736c007728f842b5edfed527c550735efde15",
+          "EXACT_TEXT": "March 2026 Page 50 of 161 If an IMPD has been approved in an MSC for any CT and has not been modified, it is accepted that the IMPD document itself is not submitted for each and every trial with the same IMP in that MSC. The CTR allows this for the different sections of the IMPD and the CTIS enables users to provide a reference for common IMPD -Q or IMPD -efficacy and IMPD-safety. Instead of submitting a complete IMPD in the following related trials, a reference to the first trial containing the approved IMPD could be acceptable under certain conditions. Most importantly, every MSC in every da",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 50,
+          "SECTION_ID": "RC01-A-023:page-50"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "74d1882280e99db031b739059bfd36dc8794941d7b79f2155969ce1ff78f88f0",
+          "EXACT_TEXT": "March 2026 Page 55 of 161 198. Nevertheless, each Member State Concerned takes an individual decision and can disagree with a positive conclusion by the RMS only on the grounds as described in Article 8(2) of the CTR. Such divergencies relating to Part I can also arise when Member States are added after the initial application was approved (Article 14), since these new Member States did not participate in the initial Part I review. This might lead to the situation that for a given clinical trial, several versions of the Part I documents may exist. The CTIS reflects these versions and contains ",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 55,
+          "SECTION_ID": "RC01-A-023:page-55"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "1a8de5b8e0a6156c532dc18c6d56f85682d740cd63fada54029f51d749b517bf",
+          "EXACT_TEXT": "March 2026 Page 70 of 161 SAFETY REPORTING 7.1. Question: How should the definition of an Adverse event be applied in clinical trials, what should be considered? 277. Answer: An adverse event (AE) is defined in Article 2 (32) of Clinical Trials Regulation (EU) 536/2014 as follows: “Any untoward medical occurrence in a subject to whom a medicinal product is administered and which does not necessarily have a causal relationship with this treatment. ” An AE can be any unfavourable and unintended sign (including an abnormal laboratory finding), symptom or disease temporally associated with the use",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 70,
+          "SECTION_ID": "RC01-A-023:page-70"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "e33848a3a007a505bc15d6b7af0c8d7f37701dd63f02e14393599ae97a46c951",
+          "EXACT_TEXT": "March 2026 Page 93 of 161 7.26. Question: What should be the terminology, formats and standards for the SUSAR reporting to EVCTM? 353. For the classification, retrieval, presentation, evaluation and assessment, electronic exchange and communication of SUSAR information to EVCTM, sponsors should apply the following terminology: (a) the Medical Dictionary for Regulatory Activities (MedDRA) as developed by the International Council for Harmonisation of Technical Requirements for Pharmaceuticals for Human Use (ICH), multidisciplinary topic M1; (b) the lists of Standard Terms published by the Europ",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 93,
+          "SECTION_ID": "RC01-A-023:page-93"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "b279f6b4ee6cceb494b3077d95375c2eafbeaa20adb054ff74178009949cf98e",
+          "EXACT_TEXT": "March 2026 Page 94 of 161 356. For the purpose of paragraph 1(a) sponsors the following terminology, format and standard apply as of 30 June 2022: a) ISO/HL7 27953 -2 standard, ‘Health Informatics , - Individual case safety reports (ICSRs) in pharmacovigilance — Part 2: Human pharmaceutical reporting requirements for ICSR based on the ICH E2B(R3) Individual Case Safety Report (ICSR) Specification and Related Files; b) the standard terminology referred to in 7.25.1; c) the current version of the EU Individual Case Safety Report (ICSR) Implementation Guide50. 357. Sponsors shall report SUSARs el",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 94,
+          "SECTION_ID": "RC01-A-023:page-94"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "9d25a5f4861c98f2cfb07e4cf86a1dadb061c78bcf4d4c69044f7a89b98347d2",
+          "EXACT_TEXT": "March 2026 Page 100 of 161 errors, misuse or abuse in relation to the IMP should be recorded by the investigator and notified to the sponsor. General rules of Clinical Trials Regulation (EU) 536/2014 as well as the guidance given in this Question and answer document apply as regards the expedited reporting of SUSARs (including reporting only unexpected SARs), the submission of ASR and the implementation of risk mitigation measures. 7.34 Question: What should be the content and format of an Annual Safety Report? 379. Answer: An Annual Safety Report (ASR; Development Safety Update Report, DSUR) ",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 100,
+          "SECTION_ID": "RC01-A-023:page-100"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "99cd5d8b1502f313bdf301533844956a42e40ecccd61012c35aff0e32d72ad9f",
+          "EXACT_TEXT": "March 2026 Page 102 of 161 included in each ASR. 388. In general, a single ASR should be prepared for clinical trials involving a development of a (fixed) combination product. 389. In exceptional cases (e.g., in academic studies), a single ASR for the trial may also be prepared for multi-drug therapy. Given the potential complexities it is not possible to provide specific guidance that addresses all the different situations. However, some advice can be found in section 2.5 of the ICH E2F. 7.37. Question: What is a Development International Birth Date (DIBD), how is it defined, and what is it u",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 102,
+          "SECTION_ID": "RC01-A-023:page-102"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "a793f62fd68169ad3950ec3ee649161bc7d7e5ba185671236a5ba0a23eca4635",
+          "EXACT_TEXT": "March 2026 Page 109 of 161 7.48. Question: Which are the responsibilities of the investigator and sponsor with regards to monitoring and safety reporting of advanced therapy investigational medicinal products? 413. Answer: Regarding clinical trials with advanced therapies, general rules as well as IMP specific guidance apply which is contained in the detailed guidelines on good clinical practice specific to advanced therapy medicinal products57. 7.49. Question: What are the general rules for reporting safety of auxiliary medicinal products (AxMPs)? 414. Answer: This section applies to safety r",
+          "HEADING": "March 2026",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 109,
+          "SECTION_ID": "RC01-A-023:page-109"
+        }
+      ],
+      "SOURCE_ID": "RC01-A-023",
+      "SOURCE_SHA256": "f18321ee8540d42448d79e697589f755fe942beee927cc40e6b14fc4a1d6931f"
+    },
+    {
+      "DOCUMENT_VERSION": "Final guidance",
+      "INDEXED_SECTION_COUNT": 20,
+      "PAGE_COUNT": 39,
+      "SECTIONS": [
+        {
+          "EXACT_CONTENT_SHA256": "ef271cdbacd551964ca8aeb5da42e395bf108cef96d0fc53d60b2e23a3d98000",
+          "EXACT_TEXT": "Guidance for Industry and FDA Staff Statistical Guidance on Reporting Results from Studies Evaluating Diagnostic Tests Document issued on: March 13, 2007 The draft of this document was issued on March 12, 2003. For questions regarding this document, contact Kristen Meier at 240-276-3060, or send an e-mail to kristen.meier@fda.hhs.gov. U.S. Department of Health and Human Services Food and Drug Administration Center for Devices and Radiological Health Diagnostic Devices Branch Division of Biostatistics Office of Surveillance and Biometrics",
+          "HEADING": "Guidance for Industry and FDA",
+          "NORMALIZED_TEXT_OFFSET_END": 543,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 1,
+          "SECTION_ID": "RC01-B-035:page-1"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "18f53fbc451f145021582ced0fb1b0fbbbfc75b3884dec806f9942ddae3cc868",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations Preface Public Comment Written comments and suggestions may be submitted at any time for Agency consideration to the Division of Dockets Management, Food and Drug Administration, 5630 Fishers Lane, Room 1061, (HFA-305), Rockville, MD, 20852. Alternatively, electronic comments may be submitted to http://www.fda.gov/dockets/ecomments. When submitting comments, please refer to Docket No. 2003D-0044. Comments may not be acted upon by the Agency until the document is next revised or updated. Additional Copies Additional copies are available from the Internet at: ",
+          "HEADING": "Preface",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 2,
+          "SECTION_ID": "RC01-B-035:page-2"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "b50ad821a9ee7431d9ae039838ee432ffbe91204a2ab985d37465c85583d76c1",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations Guidance for Industry and FDA Staff Statistical Guidance on Reporting Results from Studies Evaluating Diagnostic Tests This guidance represents the Food and Drug Administration's (FDA's) current thinking on this topic. It does not create or confer any rights for or on any person and does not operate to bind FDA or the public. You can use an alternative approach if the approach satisfies the requirements of the applicable statutes and regulations. If you want to discuss an alternative approach, contact the FDA staff responsible for implementing this guidance.",
+          "HEADING": "Guidance for Industry and FDA Staff",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 4,
+          "SECTION_ID": "RC01-B-035:page-4"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "5c52372f439cf5258057ffb3d9cc3701b84528c2d137fdaacca7ce3ff6369995",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations Correct use of terminology for describing performance results is important to ensure safe and effective use of a diagnostic device. Whenever possible, this guidance uses internationally accepted terminology and definitions as compiled in the Clinical and Laboratory Standards Institute (CLSI) Harmonized Terminology Database.1 This guidance also uses terms as they are defined in the STARD (STAndards for Reporting of Diagnostic Accuracy) Initiative.2 The STARD Initiative pertains to studies of diagnostic accuracy. While the STARD Initiative does not specificall",
+          "HEADING": "Correct use of terminology for describing performance results is important to ensure safe",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 5,
+          "SECTION_ID": "RC01-B-035:page-5"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "49a2a168ab715b8bb0ba680275522cb818e41e1b6604a7e0a6a6f4b614e03b94",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations two groups (condition present or absent) and does not consider the outcome of the new test under evaluation. The reference standard can be a single test or method, or a combination of methods and techniques, including clinical follow-up. If a reference standard is a combination of methods, the algorithm specifying how the different results are combined to make a final positive/negative classification (which may include the choice and ordering of these methods) is part of the standard. Examples of reference standards include the diagnosis of myocardial infarc",
+          "HEADING": "two groups (condition present or absent) and does not consider the outcome of the",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 7,
+          "SECTION_ID": "RC01-B-035:page-7"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "0cc218d5a4b4168eb9910a403964d75d4cee2e4b827e9a3d8129b586b230e86e",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations negative (see the Appendix for an example of this calculation). These are only estimates for sensitivity and specificity because they are based on only a subset of subjects from the intended use population; if another subset of subjects were tested (or even the same subjects tested at a different time), then the estimates of sensitivity and specificity would probably be numerically different. Confidence intervals and significance levels quantify the statistical uncertainty in these estimates due to the subject/sample selection process. This type of uncertain",
+          "HEADING": "negative (see the Appendix for an example of this calculation). These are",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 8,
+          "SECTION_ID": "RC01-B-035:page-8"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "7e096ee60ea54704de6b06d29ee0ea8af1067390bafd84dcb31a568a7d191eb0",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations When a non-reference standard is used for comparison When a new test is evaluated by comparison to a non-reference standard, sensitivity and specificity are not appropriate terms to describe the comparative results. Information on the accuracy or “correctness” of the new test cannot be estimated directly. Instead, when a non-reference standard is used for comparison, FDA recommends you demonstrate the ability of the candidate test to agree sufficiently with the comparative method or predicate. A question addressed in this document is how to report results fr",
+          "HEADING": "When a non-reference standard is used for comparison",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 9,
+          "SECTION_ID": "RC01-B-035:page-9"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "6d4c8c483099c97b4d4b30ae7e6a2b5fe85806e4a5dc16fe73788b1dd2d36ff1",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 3. If a reference standard is not available or unacceptable for your particular intended use and/or intended use population: consider whether one can be constructed. If so, calculate estimated sensitivity and specificity under the constructed standard. 4. If a reference standard is not available and cannot be constructed: calculate and report measures of agreement (see Appendices). We now provide more details on these recommendations: If a reference standard is available From a purely statistical perspective, FDA believes that the best approach is to designa",
+          "HEADING": "3. If a reference standard is not available or unacceptable for your",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 10,
+          "SECTION_ID": "RC01-B-035:page-10"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "0233165e945f94e0cf50ce63487fbe684dfdcae157592172cc3ff011505aca0b",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations al. (2002), and references cited within these references. Since this approach can be statistically complicated, FDA recommends you consult with a CDRH statistician before using this approach. In rare circumstances, it may be possible to estimate sensitivity and specificity without using a reference standard in the study. This may be reasonable, for example, when the sensitivity and specificity of the designated comparative method are well established from previous evaluations against a reference standard in similar subject populations. Further elaboration of",
+          "HEADING": "al. (2002), and references cited within these references. Since this",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 11,
+          "SECTION_ID": "RC01-B-035:page-11"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "914970ff10b1e7fe93de8592aa80092b5703d301dc2f1b4fa6ddf22b91ce4652",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations 4.2 Selecting the Study Population In addition to choosing an appropriate comparative benchmark, evaluating a new test also involves choosing an appropriate set of: • subjects or specimens to be tested • individuals and laboratories to perform the tests • conditions under which the tests will be conducted. Spectrum bias Estimates of diagnostic accuracy are subject to spectrum bias when the subjects included in the study do not include the complete spectrum of patient characteristics; that is, important patient subgroups are missing. See Begg (1987), Pepe (20",
+          "HEADING": "4.2 Selecting the Study Population",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 13,
+          "SECTION_ID": "RC01-B-035:page-13"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "199d3e9c5d377f2fd391d8afb8af584e2279bb05409792917f1f22bad6fa7dd7",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations See Rothwell (2006) for a non-technical discussion in the context of randomized trials. 5. Reporting Recommendations Similar reporting principles apply to any study evaluating a diagnostic test, regardless of whether the comparative benchmark is a reference standard. Reporting the context of the study Performance measures should be interpreted in the context of the study population and study design. Sensitivity and specificity cannot be interpreted by themselves; additional information is needed. For example, estimated sensitivity and specificity of the same",
+          "HEADING": "See Rothwell (2006) for a non-technical discussion in the context of",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 14,
+          "SECTION_ID": "RC01-B-035:page-14"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "95dd0e86ba5972e84152b0424132c4f347077008290689f20a95541596f5b78c",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations FDA recommends you include in your results a clear description of all methods used and how and what data were collected, such as: • subject recruitment procedures • subject demographics • subject and specimen inclusion and exclusion criteria • specimen collection procedures • time of specimen collection and testing • types of specimens collected • number of specimens collected and tested and number discarded • number of specimens included in final data analysis • specimen collection devices (if applicable) • specimen storage and handling procedures. Reportin",
+          "HEADING": "FDA recommends you include in your results a clear description of all methods",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 15,
+          "SECTION_ID": "RC01-B-035:page-15"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "941a1285327d4192f84997173f7bd1354ac821c521501596e024955bc5958f13",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations • Receiver Operating Characteristic (ROC) Plots (if condition status is known). The CLSI document GP10 Assessment of the Clinical Accuracy of Laboratory Tests Using Receiver Operating Characteristic (ROC) Plots provides further guidance on this topic. Accounting of subjects and test results FDA recommends you provide a complete accounting of all subjects and test results, including: • number of subjects planned to be tested • number tested • number used in final analysis • number omitted from final analysis. Other results FDA recommends you provide the numbe",
+          "HEADING": "• Receiver Operating Characteristic (ROC) Plots (if condition status is",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 16,
+          "SECTION_ID": "RC01-B-035:page-16"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "d6193ff32175446024d15bdecbebff4e91369c88abea8a8bc7af7225cafc403e",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations specimens from subjects in the intended use population, with and without the target condition, including unclear cases. FDA recommends you provide a description of the results, indicating: • the nature of the specimens studied • how the target condition status was determined • the limitations introduced through selective sampling. 6. Statistically Inappropriate Practices Some common practices for reporting results are statistically inappropriate because they are misleading or can lead to inaccurate estimates of test performance. These practices most often ar",
+          "HEADING": "specimens from subjects in the intended use population, with and without the",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 17,
+          "SECTION_ID": "RC01-B-035:page-17"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "c9b4c037bf9ca32ed42b49218e829c802029c6a4d891783e81d40de9a2003acb",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations When evaluating some types of tests, the comparative “procedure” is not a single test, but the outcome of a combination of several comparative methods and possibly clinical information. Often, two or more comparative methods are performed and interpreted according to a pre-specified testing sequence or algorithm to determine condition status. The decision to use a second or third comparative method may depend on the outcome of the initial comparative method. This approach may be statistically reasonable. However, FDA believes this approach is not valid if th",
+          "HEADING": "When evaluating some types of tests, the comparative “procedure” is not a single",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 20,
+          "SECTION_ID": "RC01-B-035:page-20"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "965d12f2e5c62ec6e15c1296de0baf476573af76c5cf37658b5809c3643532c3",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations Table 2. Example of results comparing a new test to reference standard for 220 subjects Reference Standard Condition Present + Condition Absent − Total + 44 1 45 New Test − 7 168 175 Total 51 169 220 From Table 2, estimated sensitivity and specificity are calculated in the following manner: estimated sensitivity = 100% x 44/51 = 86.3% estimated specificity = 100% x 168/169 = 99.4% Two-sided 95% score confidence intervals for sensitivity and specificity are (74.3%, 93.2%) and (96.7%, 99.9%), respectively. See Altman et al. (2000) and the most current edition ",
+          "HEADING": "Table 2. Example of results comparing a new test to reference standard for",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 23,
+          "SECTION_ID": "RC01-B-035:page-23"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "b5c25192f27364d0292483c6d5a36f31836646dbd82c987f70a7940d442d1f65",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations Two-sided 95% score confidence intervals for positive percent agreement and negative percent agreement conditional on the observed non-reference standard results (ignoring variability in the non-reference standard) are (78.8%, 96.4%) and ( 93.5%, 98.8%), respectively. A two-sided 95% score confidence interval for overall percent agreement is (92.4%, 97.8%). See Altman et al. (2000) and the most current edition of CLSI EP12-A for a brief discussion about computing score confidence intervals and alternatively, how to calculate exact (Clopper-Pearson) confidenc",
+          "HEADING": "Two-sided 95% score confidence intervals for positive percent agreement and negative",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 26,
+          "SECTION_ID": "RC01-B-035:page-26"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "8ee53d9bc3330e3ccb5438d57b0ee2d44f200b39105ad82e86b5425c718f452a",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations Table 5B. Example of results comparing new test B to a non-reference standard for 572 subjects where the positive percent agreement is high, and overall agreement is high Non-Reference Standard Total + − + 40 19 41 New Test B − 1 512 513 Total 41 531 572 positive percent agreement (new / non ref. std.) = 100% x 40/41 = 97.6% negative percent agreement (new / non ref. std.) = 100% x 512/531 = 96.4% overall percent agreement = 100% x (40+512)/572 = 96.5% Thus, measures of overall agreement are not in themselves a sufficient characterization of the performance ",
+          "HEADING": "Table 5B. Example of results comparing new test B to a non-reference standard for",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 27,
+          "SECTION_ID": "RC01-B-035:page-27"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "7e89c7f7e6b0baf0942fda8a29bea019534925194ee440ecb1c00afb6d83715f",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations reference standard — the best available method for establishing the presence or absence of the target condition; the reference standard can be a single test or method, or a combination of methods and techniques, including clinical follow-up sensitivity — the proportion of subjects with the target condition in whom the test is positive; calculated as 100xTP/(TP+FN) specificity — the proportion of subjects without the target condition in whom the test is negative; calculated as 100xTN/(FP+TN) study population — the subjects/patients (and specimen types) includ",
+          "HEADING": "reference standard — the best available method for establishing the presence or absence",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 35,
+          "SECTION_ID": "RC01-B-035:page-35"
+        },
+        {
+          "EXACT_CONTENT_SHA256": "9505537aa4140ec5c26215dd3bac7941a5a10d200e8c7d209ad8b18fa8e5705a",
+          "EXACT_TEXT": "Contains Nonbinding Recommendations CLSI (formerly NCCLS) document GP10-A. Assessment of the clinical accuracy of laboratory tests using receiver operating characteristic (ROC) plots: Approved guideline. CLSI, 940 West Valley Road, Suite 1400, Wayne, PA 19087. Dunn, G., & Everitt, B. (1995). Clinical biostatistics: An introduction to evidence-based medicine. New York: John Wiley & Sons. Fleiss, J. L. (1981). Statistical methods for rates and proportions, Second Ed. New York: John Wiley & Sons. Gart, J.J., & Buck, A.A. (1966). Comparison of a screening test and a reference test in epidemiologic",
+          "HEADING": "CLSI (formerly NCCLS) document GP10-A. Assessment of the clinical accuracy of",
+          "NORMALIZED_TEXT_OFFSET_END": 600,
+          "NORMALIZED_TEXT_OFFSET_START": 0,
+          "PAGE": 37,
+          "SECTION_ID": "RC01-B-035:page-37"
+        }
+      ],
+      "SOURCE_ID": "RC01-B-035",
+      "SOURCE_SHA256": "4a5c66b8a05cdd71d0abc68d528c0f225a5382be9908a6517749ed030551bd0b"
     }
   ],
   "SOURCE_REGISTRY_REF": "reference-corpus/reference-corpus-01/reference-corpus.json",

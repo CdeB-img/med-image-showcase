@@ -1,0 +1,485 @@
+{
+  "MISSION_ID": "TARGETED-REFERENCE-CORPUS-01R",
+  "STATUS": "NON_NORMATIVE_PLATFORM_TRIAL_REFERENCE_SET_NO_PATTERN_ADMISSION",
+  "SOURCE_REGISTRY_REF": "reference-corpus.json",
+  "LINKED_STUDY_REGISTRY_REF": "linked-study-sets.json",
+  "RETRIEVAL_DATE": "2026-09-03",
+  "SELECTION_RATIONALE": "Five deliberately diverse platform studies were selected for master/domain adaptivity, operational, analysis, amendment and data-artifact comparison; two are explicitly imaging-rich.",
+  "PLATFORM_TRIAL_IMAGING_TRANSPOSITION": "PLANNED_NOT_EXECUTED",
+  "PLATFORM_TRIAL_FUTURE_BENCHMARK_INTENT": "FUNCTIONALLY_EQUIVALENT_OR_BETTER_DOCUMENT_SET_WITH_SCIENTIFIC_COHERENCE_APPROPRIATE_COMMITMENTS_APPROPRIATE_UNDERSPECIFICATION_CROSS_DOCUMENT_CONSISTENCY_VERSIONABILITY_TRACEABILITY_AND_PROFESSIONAL_CREDIBILITY",
+  "TRIALS": [
+    {
+      "PLATFORM_TRIAL_ID": "RC01-PLATFORM-001",
+      "STUDY_TITLE": "StrokeNet Thrombectomy Endovascular Platform (STEP)",
+      "TRIAL_IDENTIFIERS": [
+        "NCT06289985",
+        "STEP"
+      ],
+      "SPONSOR": "NIH StrokeNet / National Institute of Neurological Disorders and Stroke",
+      "CONDITION": [
+        "Acute ischemic stroke",
+        "Endovascular thrombectomy"
+      ],
+      "MASTER_PROTOCOL_ID": "STEP Master Protocol / NCT06289985",
+      "DESIGN": "Master-protocol endovascular stroke platform with domain trials",
+      "PLATFORM_FEATURES": [
+        "MASTER_PROTOCOL",
+        "DOMAIN_STRUCTURE",
+        "SHARED_INFRASTRUCTURE",
+        "IMAGING_DEPENDENT_ELIGIBILITY"
+      ],
+      "ARMS_OR_COHORT_MODEL": "Domain-specific treatment comparisons; Domain A represented in this subset",
+      "SHARED_CONTROL": "UNKNOWN_FROM_ENROLLED_METADATA",
+      "ADAPTIVE_FEATURES": [
+        "DOMAIN_ENTRY_AND_EVOLUTION_POSSIBLE",
+        "EXACT_DECISION_RULES_UNKNOWN"
+      ],
+      "DOCUMENTS": [
+        {
+          "SOURCE_ID": "RC01-E-059",
+          "ROLE": "MASTER_PROTOCOL_OVERVIEW"
+        },
+        {
+          "SOURCE_ID": "RC01-E-060",
+          "ROLE": "DOMAIN_A_SYNOPSIS"
+        },
+        {
+          "SOURCE_ID": "RC01-E-061",
+          "ROLE": "RESOURCE_AND_VERSION_HUB"
+        }
+      ],
+      "DOCUMENT_VERSIONS": [
+        {
+          "SOURCE_ID": "RC01-E-059",
+          "VERSION": "LIVING_OVERVIEW"
+        },
+        {
+          "SOURCE_ID": "RC01-E-060",
+          "VERSION": "LIVING_SYNOPSIS"
+        },
+        {
+          "SOURCE_ID": "RC01-E-061",
+          "VERSION": "LIVING_HUB"
+        }
+      ],
+      "AMENDMENT_RELATIONSHIPS": [
+        "Resource hub preserves document lineage; exact supersession edges require file-level protocol review"
+      ],
+      "PUBLICATIONS": [],
+      "IMAGING_COMPONENT": {
+        "PRESENT": "YES",
+        "ROLE": "Imaging is integral to eligibility, disease characterization and endovascular workflow; detailed acquisition/central-read rules remain document-specific."
+      },
+      "SOURCE_PROVENANCE": [
+        "https://www.nihstrokenet.org/trials/step-trial/master",
+        "https://nihstrokenet.org/trials/step-trial/domain-a-synopsis",
+        "https://nihstrokenet.org/trials/step-trial/resources"
+      ],
+      "LINKAGE_BASIS": [
+        "Common STEP identity",
+        "Official master-to-domain navigation"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "COPYRIGHT_STATUS": "INSTITUTIONAL_WEB_AND_LINKED_FILE_RIGHTS_NOT_VERIFIED",
+      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "STUDY_SET_ID": "RC01-SET-006",
+      "PHASE_OR_STATUS": "ACTIVE_PLATFORM_RESOURCE_AT_RETRIEVAL; exact recruitment status requires registry recheck",
+      "DOMAIN_STRUCTURE": "Shared master platform with treatment domains; Domain A is represented separately.",
+      "ADAPTIVITY_MODEL": "Master-protocol platform with domain-specific interventions; exact adaptive decision rules remain UNKNOWN from enrolled metadata.",
+      "KEY_ELIGIBILITY_LOGIC": "Imaging-confirmed acute ischemic stroke and thrombectomy eligibility; exact thresholds remain protocol-version specific.",
+      "STATISTICAL_APPROACH": "Domain-specific analysis under a common platform; no unverified Bayesian/frequentist rule inferred.",
+      "ARTIFACT_RELATIONSHIPS": [
+        "Official STEP navigation links master, domain and resource pages",
+        "All artifacts use the STEP platform identity"
+      ],
+      "CURRENT_OR_HISTORICAL": "CURRENT_RESOURCE_SET_AT_RETRIEVAL",
+      "LIMITATIONS": [
+        "Full master/domain protocols were not locally retained",
+        "Current domain activation and exact statistical rules are not inferred from summaries"
+      ],
+      "FUTURE_NOXIA_TRANSPOSITION": "Candidate for master-versus-domain identity, imaging eligibility and shared-versus-domain contribution tests; requires owner-specific admission before any product rule."
+    },
+    {
+      "PLATFORM_TRIAL_ID": "RC01-PLATFORM-002",
+      "STUDY_TITLE": "REMAP-CAP",
+      "TRIAL_IDENTIFIERS": [
+        "NCT02735707",
+        "REMAP-CAP"
+      ],
+      "SPONSOR": "REMAP-CAP international consortium",
+      "CONDITION": [
+        "Severe community-acquired pneumonia",
+        "Critical illness"
+      ],
+      "MASTER_PROTOCOL_ID": "REMAP-CAP Core Protocol v4.1 / NCT02735707",
+      "DESIGN": "Perpetual multinational adaptive platform with core, domain and regional layers",
+      "PLATFORM_FEATURES": [
+        "MASTER_PROTOCOL",
+        "MULTIPLE_DOMAINS",
+        "REGIONAL_APPENDICES",
+        "DOMAIN_APPENDICES",
+        "VERSIONED_SUPERSEDED_ARCHIVE"
+      ],
+      "ARMS_OR_COHORT_MODEL": "Domain-specific interventions and strata layered over the core platform",
+      "SHARED_CONTROL": "PRESENT_OR_DOMAIN_SPECIFIC; exact contemporaneous-control rules require SAP/domain appendices",
+      "ADAPTIVE_FEATURES": [
+        "RESPONSE_ADAPTIVE_RANDOMIZATION",
+        "DOMAIN_ENTRY_EXIT",
+        "PERPETUAL_PLATFORM",
+        "BAYESIAN_ANALYSIS_CONTEXT"
+      ],
+      "DOCUMENTS": [
+        {
+          "SOURCE_ID": "RC01-E-062",
+          "ROLE": "CORE_PROTOCOL"
+        },
+        {
+          "SOURCE_ID": "RC01-E-063",
+          "ROLE": "MASTER_STATISTICAL_ANALYSIS_APPENDIX"
+        },
+        {
+          "SOURCE_ID": "RC01-E-064",
+          "ROLE": "UK_OPERATIONAL_AND_ECRF_HUB"
+        }
+      ],
+      "DOCUMENT_VERSIONS": [
+        {
+          "SOURCE_ID": "RC01-E-062",
+          "VERSION": "4.1 / 2026-05-29"
+        },
+        {
+          "SOURCE_ID": "RC01-E-063",
+          "VERSION": "4 / 2024-11-05"
+        },
+        {
+          "SOURCE_ID": "RC01-E-064",
+          "VERSION": "LIVING_HUB"
+        }
+      ],
+      "AMENDMENT_RELATIONSHIPS": [
+        "Core protocol v4.1 supersedes v4.0",
+        "SAP v4 supersedes v3",
+        "Regional/domain appendices specialize the core"
+      ],
+      "PUBLICATIONS": [],
+      "IMAGING_COMPONENT": {
+        "PRESENT": "CONTEXT_SPECIFIC",
+        "ROLE": "Imaging may be a clinical covariate or eligibility fact in domain/regional practice, but no platform-wide imaging owner role is asserted."
+      },
+      "SOURCE_PROVENANCE": [
+        "https://www.remapcap.org/protocol-documents",
+        "https://www.remapcap.org/superseded-protocol-documents",
+        "https://remapcap.co.uk/documentation/"
+      ],
+      "LINKAGE_BASIS": [
+        "Common REMAP-CAP identity",
+        "Official current and superseded document hubs"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "COPYRIGHT_STATUS": "CONSORTIUM_RIGHTS_NOT_VERIFIED; UK_OPERATIONAL_SITE_REFERENCE_ONLY_RESTRICTION",
+      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "STUDY_SET_ID": "RC01-SET-007",
+      "PHASE_OR_STATUS": "CURRENT_PLATFORM_DOCUMENT_SET_AT_RETRIEVAL",
+      "DOMAIN_STRUCTURE": "Global core protocol with multiple therapeutic domains, regional appendices and domain-specific appendices.",
+      "ADAPTIVITY_MODEL": "Response-adaptive platform with perpetual domain entry/exit; exact model and decision thresholds are SAP/domain-appendix specific.",
+      "KEY_ELIGIBILITY_LOGIC": "Critically ill patient and domain-specific eligibility layered over core eligibility; regional implementations vary.",
+      "STATISTICAL_APPROACH": "Master Statistical Analysis Appendix with domain-specific extensions; Bayesian adaptive features must be read from exact versions.",
+      "ARTIFACT_RELATIONSHIPS": [
+        "Core protocol and SAP are listed together by the official protocol-document hub",
+        "UK operational/eCRF files are a regional projection, not the global master source"
+      ],
+      "CURRENT_OR_HISTORICAL": "CURRENT_DOCUMENT_SET_WITH_VERSIONED_SUPERSEDED_ARCHIVE",
+      "LIMITATIONS": [
+        "Regional and domain appendices can diverge",
+        "UK operational files explicitly restrict use",
+        "A text difference is not a scientific divergence by default"
+      ],
+      "FUTURE_NOXIA_TRANSPOSITION": "Candidate for shared-core, domain, regional projection and version-lineage tests; no automatic architecture transfer."
+    },
+    {
+      "PLATFORM_TRIAL_ID": "RC01-PLATFORM-003",
+      "STUDY_TITLE": "PRINCIPLE",
+      "TRIAL_IDENTIFIERS": [
+        "EudraCT 2020-001209-22",
+        "PRINCIPLE"
+      ],
+      "SPONSOR": "University of Oxford",
+      "CONDITION": [
+        "Acute respiratory infection",
+        "COVID-19 community treatment"
+      ],
+      "MASTER_PROTOCOL_ID": "PRINCIPLE Protocol v14.0 / EudraCT 2020-001209-22",
+      "DESIGN": "Community multi-arm adaptive platform with intervention changes through amendments",
+      "PLATFORM_FEATURES": [
+        "MASTER_PROTOCOL",
+        "ARM_ENTRY_EXIT",
+        "SUBSTANTIAL_AMENDMENTS",
+        "INTERVENTION_SPECIFIC_RESULTS"
+      ],
+      "ARMS_OR_COHORT_MODEL": "Multiple intervention arms introduced or discontinued over time",
+      "SHARED_CONTROL": "PRESENT_PLATFORM_CONTROL; exact contemporaneous-control method requires SAP",
+      "ADAPTIVE_FEATURES": [
+        "ARM_ENTRY_EXIT",
+        "ADAPTIVE_COMPARATIVE_ANALYSIS",
+        "EXACT_THRESHOLDS_UNKNOWN"
+      ],
+      "DOCUMENTS": [
+        {
+          "SOURCE_ID": "RC01-E-065",
+          "ROLE": "PROTOCOL"
+        },
+        {
+          "SOURCE_ID": "RC01-E-066",
+          "ROLE": "AMENDMENT_AND_DOCUMENT_LINEAGE_HUB"
+        },
+        {
+          "SOURCE_ID": "RC01-E-067",
+          "ROLE": "RESULTS_AND_PUBLICATIONS_HUB"
+        }
+      ],
+      "DOCUMENT_VERSIONS": [
+        {
+          "SOURCE_ID": "RC01-E-065",
+          "VERSION": "14.0 / 2022-08-08"
+        },
+        {
+          "SOURCE_ID": "RC01-E-066",
+          "VERSION": "LIVING_HUB"
+        },
+        {
+          "SOURCE_ID": "RC01-E-067",
+          "VERSION": "LIVING_HUB"
+        }
+      ],
+      "AMENDMENT_RELATIONSHIPS": [
+        "Protocol v14.0 supersedes v13.0",
+        "Official hub exposes multiple amendments without a flattened chronology"
+      ],
+      "PUBLICATIONS": [
+        "RC01-E-067"
+      ],
+      "IMAGING_COMPONENT": {
+        "PRESENT": "NO_PLATFORM_CORE_ROLE_IDENTIFIED",
+        "ROLE": "No imaging-specific platform role established in the bounded source set."
+      },
+      "SOURCE_PROVENANCE": [
+        "https://www.principletrial.org/files/trial-documents/principle-protocol-v14.0",
+        "https://www.principletrial.org/health-professionals/primary-care",
+        "https://www.principletrial.org/results/results"
+      ],
+      "LINKAGE_BASIS": [
+        "Common PRINCIPLE official site and study identity",
+        "Protocol carries EudraCT identity"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "COPYRIGHT_STATUS": "PROTOCOL_MARKED_COPYRIGHT_AND_CONFIDENTIAL; LINKED_PUBLICATION_RIGHTS_VARY",
+      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "STUDY_SET_ID": "RC01-SET-008",
+      "PHASE_OR_STATUS": "LATEST_PROTOCOL_FOUND_VERSION_14.0; intervention-arm status requires current trial context",
+      "DOMAIN_STRUCTURE": "Community adaptive platform with interventions introduced and discontinued through amendments.",
+      "ADAPTIVITY_MODEL": "Adaptive multi-arm platform; exact allocation and decision rules remain protocol/SAP specific.",
+      "KEY_ELIGIBILITY_LOGIC": "Community participants at increased risk with syndrome/time-window criteria; version and arm-specific eligibility apply.",
+      "STATISTICAL_APPROACH": "Adaptive comparative analyses with intervention-specific results; exact estimands and thresholds require exact protocol/SAP versions.",
+      "ARTIFACT_RELATIONSHIPS": [
+        "Protocol, amendment and results resources share the official PRINCIPLE trial identity",
+        "Results are linked to the platform but do not supersede the protocol"
+      ],
+      "CURRENT_OR_HISTORICAL": "MIXED_CURRENT_RESOURCE_AND_HISTORICAL_ARM_RESULTS",
+      "LIMITATIONS": [
+        "Protocol is marked copyright/confidential",
+        "No CRF, dictionary or DMP was enrolled",
+        "Arm-level chronology requires deeper file-level review"
+      ],
+      "FUTURE_NOXIA_TRANSPOSITION": "Candidate for amendment, arm-status and result-lineage tests; not a source for copying intervention decisions."
+    },
+    {
+      "PLATFORM_TRIAL_ID": "RC01-PLATFORM-004",
+      "STUDY_TITLE": "PRACTICAL",
+      "TRIAL_IDENTIFIERS": [
+        "NCT05440851",
+        "OZUHN-004",
+        "PRACTICAL"
+      ],
+      "SPONSOR": "PRACTICAL international critical-care platform consortium",
+      "CONDITION": [
+        "Acute hypoxemic respiratory failure",
+        "Critical illness"
+      ],
+      "MASTER_PROTOCOL_ID": "PRACTICAL Master Protocol v4.0 / NCT05440851 / OZUHN-004",
+      "DESIGN": "Registry-embedded multinational adaptive critical-care platform",
+      "PLATFORM_FEATURES": [
+        "MASTER_PROTOCOL",
+        "DOMAIN_PROTOCOLS",
+        "REGISTRY_EMBEDDING",
+        "MASTER_AND_DOMAIN_SAPS"
+      ],
+      "ARMS_OR_COHORT_MODEL": "Domain-specific critical-care interventions under a shared master platform",
+      "SHARED_CONTROL": "DOMAIN_SPECIFIC; exact rule requires domain SAP",
+      "ADAPTIVE_FEATURES": [
+        "ADAPTIVE_PLATFORM",
+        "DOMAIN_SPECIALIZATION",
+        "EXACT_ALLOCATION_AND_STOPPING_RULES_UNKNOWN"
+      ],
+      "DOCUMENTS": [
+        {
+          "SOURCE_ID": "RC01-E-068",
+          "ROLE": "MASTER_PROTOCOL"
+        },
+        {
+          "SOURCE_ID": "RC01-E-069",
+          "ROLE": "MASTER_SAP"
+        },
+        {
+          "SOURCE_ID": "RC01-E-070",
+          "ROLE": "DOMAIN_AND_OPERATIONAL_DOCUMENT_HUB"
+        }
+      ],
+      "DOCUMENT_VERSIONS": [
+        {
+          "SOURCE_ID": "RC01-E-068",
+          "VERSION": "4.0 / 2022-12-20"
+        },
+        {
+          "SOURCE_ID": "RC01-E-069",
+          "VERSION": "2.0 / 2022-08-30"
+        },
+        {
+          "SOURCE_ID": "RC01-E-070",
+          "VERSION": "LIVING_HUB"
+        }
+      ],
+      "AMENDMENT_RELATIONSHIPS": [
+        "Master protocol v4.0 and master SAP v2.0 are separate version lines",
+        "Domain documents specialize master artifacts"
+      ],
+      "PUBLICATIONS": [],
+      "IMAGING_COMPONENT": {
+        "PRESENT": "CONTEXT_SPECIFIC",
+        "ROLE": "No platform-wide imaging measurement role established in the bounded set."
+      },
+      "SOURCE_PROVENANCE": [
+        "https://practicalplatform.org/docs"
+      ],
+      "LINKAGE_BASIS": [
+        "Common PRACTICAL/OZUHN-004 identity",
+        "Official document hub"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "COPYRIGHT_STATUS": "DOCUMENTS_MARKED_CONFIDENTIAL_OR_REUSE_RIGHTS_UNCLEAR",
+      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "STUDY_SET_ID": "RC01-SET-009",
+      "PHASE_OR_STATUS": "CURRENT_LIVING_PLATFORM_RESOURCE_AT_RETRIEVAL",
+      "DOMAIN_STRUCTURE": "Registry-embedded platform with a master protocol, treatment domains and regional/operational documents.",
+      "ADAPTIVITY_MODEL": "Adaptive platform; exact domain-specific allocation and stopping logic require protocol/SAP/domain documents.",
+      "KEY_ELIGIBILITY_LOGIC": "Critically ill patients with acute hypoxemic respiratory failure plus domain-specific criteria.",
+      "STATISTICAL_APPROACH": "Master SAP plus domain-specific SAPs; shared and specialized analysis layers must remain distinct.",
+      "ARTIFACT_RELATIONSHIPS": [
+        "Master protocol, master SAP and domain documents are co-listed on the official document hub",
+        "Domain documents specialize rather than automatically supersede the master artifacts"
+      ],
+      "CURRENT_OR_HISTORICAL": "CURRENT_RESOURCE_SET_WITH_MIXED_DOCUMENT_DATES",
+      "LIMITATIONS": [
+        "Documents are marked confidential or have unclear reuse rights",
+        "No synthetic master/domain merge is authorized",
+        "Current active domains require live verification"
+      ],
+      "FUTURE_NOXIA_TRANSPOSITION": "Candidate for registry-embedded recruitment, master/domain specialization and analysis-layer tests; no automatic pattern admission."
+    },
+    {
+      "PLATFORM_TRIAL_ID": "RC01-PLATFORM-005",
+      "STUDY_TITLE": "I-SPY 2 / I-SPY 2.2",
+      "TRIAL_IDENTIFIERS": [
+        "NCT01042379",
+        "I-SPY 2",
+        "I-SPY 2.2"
+      ],
+      "SPONSOR": "Quantum Leap Healthcare Collaborative",
+      "CONDITION": [
+        "High-risk early breast cancer",
+        "Neoadjuvant therapy"
+      ],
+      "MASTER_PROTOCOL_ID": "I-SPY 2 / NCT01042379; I-SPY 2.2 evolution page",
+      "DESIGN": "Biomarker-stratified adaptive neoadjuvant breast-cancer platform with serial MRI",
+      "PLATFORM_FEATURES": [
+        "MULTI_AGENT_PLATFORM",
+        "BIOMARKER_SUBPOPULATIONS",
+        "SERIAL_IMAGING",
+        "PLATFORM_EVOLUTION"
+      ],
+      "ARMS_OR_COHORT_MODEL": "Therapeutic agents evaluated across biomarker-defined signatures",
+      "SHARED_CONTROL": "PRESENT_PLATFORM_CONTROL; exact contemporaneous borrowing requires protocol/SAP",
+      "ADAPTIVE_FEATURES": [
+        "BIOMARKER_ADAPTATION",
+        "GRADUATION_OR_FUTILITY_DECISIONS",
+        "EXACT_MODEL_PARAMETERS_UNKNOWN"
+      ],
+      "DOCUMENTS": [
+        {
+          "SOURCE_ID": "RC01-E-071",
+          "ROLE": "CLINICALTRIALS_GOV_RECORD"
+        },
+        {
+          "SOURCE_ID": "RC01-E-072",
+          "ROLE": "SPONSOR_PLATFORM_EVOLUTION_PAGE"
+        },
+        {
+          "SOURCE_ID": "RC01-E-073",
+          "ROLE": "IMAGING_DATA_COLLECTION"
+        }
+      ],
+      "DOCUMENT_VERSIONS": [
+        {
+          "SOURCE_ID": "RC01-E-071",
+          "VERSION": "LIVING_NCT_RECORD"
+        },
+        {
+          "SOURCE_ID": "RC01-E-072",
+          "VERSION": "LIVING_SPONSOR_PAGE"
+        },
+        {
+          "SOURCE_ID": "RC01-E-073",
+          "VERSION": "TCIA_COLLECTION_PAGE"
+        }
+      ],
+      "AMENDMENT_RELATIONSHIPS": [
+        "I-SPY 2 to I-SPY 2.2 evolution is preserved without asserting a single supersession edge"
+      ],
+      "PUBLICATIONS": [],
+      "IMAGING_COMPONENT": {
+        "PRESENT": "YES",
+        "ROLE": "Serial breast MRI is a longitudinal response measurement and research-data artifact, not merely an eligibility image."
+      },
+      "SOURCE_PROVENANCE": [
+        "https://clinicaltrials.gov/study/NCT01042379",
+        "https://www.quantumleaphealth.org/i-spy-2-2",
+        "https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=70230072"
+      ],
+      "LINKAGE_BASIS": [
+        "Exact NCT and I-SPY identity",
+        "Sponsor and TCIA linkage"
+      ],
+      "LINKAGE_CONFIDENCE": "HIGH",
+      "COPYRIGHT_STATUS": "SPONSOR_AND_COLLECTION_SPECIFIC_RIGHTS_REQUIRE_SEPARATE_REVIEW",
+      "LOCAL_CONTENT_AVAILABILITY": "METADATA_ONLY",
+      "STUDY_SET_ID": "RC01-SET-010",
+      "PHASE_OR_STATUS": "ACTIVE_OR_UPDATING_REGISTRY_AND_SPONSOR_RESOURCES_AT_RETRIEVAL",
+      "DOMAIN_STRUCTURE": "Biomarker-stratified multi-agent platform evolving from I-SPY 2 to I-SPY 2.2.",
+      "ADAPTIVITY_MODEL": "Adaptive treatment evaluation by biomarker-defined signatures; exact graduation/futility rules require exact protocol/SAP.",
+      "KEY_ELIGIBILITY_LOGIC": "High-risk early breast cancer with biomarker and serial assessment requirements; exact stage/subtype criteria are version-specific.",
+      "STATISTICAL_APPROACH": "Biomarker-adaptive treatment evaluation; no model parameters inferred from sponsor summaries.",
+      "ARTIFACT_RELATIONSHIPS": [
+        "NCT record and sponsor page share the I-SPY platform identity",
+        "TCIA collection is linked to I-SPY 2 imaging data, not treated as a protocol version"
+      ],
+      "CURRENT_OR_HISTORICAL": "MIXED_LIVING_TRIAL_RESOURCE_AND_ARCHIVED_IMAGING_DATA",
+      "LIMITATIONS": [
+        "I-SPY 2 to 2.2 supersession/continuity is not reduced to a single version edge",
+        "Data-collection terms require separate review",
+        "No protocol/SAP binary was enrolled"
+      ],
+      "FUTURE_NOXIA_TRANSPOSITION": "Candidate for biomarker-stratified adaptivity, serial-imaging measurement and study-to-data lineage tests; scientific validity still requires owner and human adjudication."
+    }
+  ],
+  "PRACTICE_PATTERN_ADMISSION": "NONE",
+  "RUNTIME_BEHAVIOR_CHANGE_AUTHORIZED": "NO"
+}

@@ -192,8 +192,8 @@ requireValue(runtimeDoc.PROVIDER_CALLS === 0, "Provider call count must remain z
 
 const expectedStudySetIds = linkedSets.STUDY_SETS.map((set) => set.STUDY_SET_ID).sort();
 const assessedStudySetIds = linkedAssessment.ASSESSMENTS.map((set) => set.STUDY_SET_ID).sort();
-requireValue(expectedStudySetIds.length === 5, "Expected five source linked-study sets");
-requireValue(JSON.stringify(assessedStudySetIds) === JSON.stringify(expectedStudySetIds), "Linked-study assessment must cover the five exact source sets");
+requireValue(expectedStudySetIds.length === 10, "Expected ten bounded linked-study sets after TARGETED-REFERENCE-CORPUS-01R");
+requireValue(JSON.stringify(assessedStudySetIds) === JSON.stringify(expectedStudySetIds), "Linked-study assessment must cover the ten exact source sets");
 
 requireValue(expansionPlan.TARGETED_CORPUS_EXPANSION_REQUIRED === "YES", "Targeted corpus expansion must remain explicit");
 for (const priority of expansionPlan.PRIORITIES) {

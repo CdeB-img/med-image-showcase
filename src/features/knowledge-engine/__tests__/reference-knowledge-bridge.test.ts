@@ -41,9 +41,9 @@ describe("REFERENCE-KNOWLEDGE-BRIDGE-01 — corpus visibility and anchoring", ()
   it("CASE A resolves the accepted RC01 registry and provider without a second Knowledge engine", () => {
     const snapshot = resolveReferenceSourceSnapshot("RC01-A-016");
     const snapshots = listReferenceSourceSnapshots();
-    expect(snapshots).toHaveLength(58);
-    expect(snapshots.filter((item) => item.contentAvailability === "METADATA_ONLY")).toHaveLength(53);
-    expect(snapshots.filter((item) => item.contentAvailability === "SECTION_INDEXED")).toHaveLength(5);
+    expect(snapshots).toHaveLength(89);
+    expect(snapshots.filter((item) => item.contentAvailability === "METADATA_ONLY")).toHaveLength(82);
+    expect(snapshots.filter((item) => item.contentAvailability === "SECTION_INDEXED")).toHaveLength(7);
     expect(snapshot).toMatchObject({ sourceId: "RC01-A-016", contentAvailability: "SECTION_INDEXED", externalAuthorityStatus: "EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY" });
     expect(getKnowledgeProvider("reference-corpus-01")).toMatchObject({ type: "REFERENCE_CORPUS", adapterId: "reference-corpus-adapter-v1", status: "CURRENT_CANDIDATE" });
     expect(Object.isFrozen(snapshot)).toBe(true);
@@ -70,6 +70,17 @@ describe("REFERENCE-KNOWLEDGE-BRIDGE-01 — corpus visibility and anchoring", ()
     expect(candidate.anchor.locator).toContain(`page ${candidate.anchor.page}`);
     expect(createHash("sha256").update(candidate.exactTextExcerpt).digest("hex")).toBe(candidate.anchor.exactContentDigest);
     expect(result.trace.events.map((event) => event.operation)).toEqual(expect.arrayContaining(["RESOLVE_REFERENCE_SOURCE", "RESOLVE_REFERENCE_SECTION", "EMIT_REFERENCE_RESULT"]));
+  });
+
+  it("CASE C2 exposes newly acquired CTR and diagnostic-test content through the unchanged bridge", () => {
+    const ctr = knowledgeResult({ needId: "OKC01-N-063", needClass: "SUBSTANTIAL_MODIFICATION_AND_RESPONSIBILITIES", owner: "REG", sourcePreferences: ["RC01-A-023"], question: "clinical trial substantial modification submission" });
+    const diagnostic = knowledgeResult({ needId: "OKC01-N-043", needClass: "PRECISION_OBSERVATIONAL_CLUSTER_AND_DIAGNOSTIC_DIMENSIONING", owner: "BIOSTATISTICS", sourcePreferences: ["RC01-B-035"], question: "diagnostic accuracy confidence interval precision" });
+    expect(ctr.referenceSourceSnapshots[0]).toMatchObject({ sourceId: "RC01-A-023", contentAvailability: "SECTION_INDEXED", documentVersion: "Version 7.2" });
+    expect(diagnostic.referenceSourceSnapshots[0]).toMatchObject({ sourceId: "RC01-B-035", contentAvailability: "SECTION_INDEXED", documentVersion: "Final guidance" });
+    expect(ctr.referenceEvidenceCandidates.length).toBeGreaterThan(0);
+    expect(diagnostic.referenceEvidenceCandidates.length).toBeGreaterThan(0);
+    expect(ctr.referenceEvidenceCandidates.every((candidate) => candidate.anchor.sourceId === "RC01-A-023")).toBe(true);
+    expect(diagnostic.referenceEvidenceCandidates.every((candidate) => candidate.anchor.sourceId === "RC01-B-035")).toBe(true);
   });
 
   it("CASE D fails closed for unknown identities and rejects path-shaped source input", () => {
@@ -123,6 +134,13 @@ describe("REFERENCE-KNOWLEDGE-BRIDGE-01 — jurisdiction, time, and source class
     expect(result.referenceSourceSnapshots[0]).toMatchObject({ documentType: "FUNDING_RULE", sourceClass: "D_FUNDING_OR_OPERATIONAL_RULE" });
     expect(result.referenceEvidenceCandidates).toHaveLength(0);
     expect(result.applicableAssertions).toHaveLength(0);
+  });
+
+  it("CASE K exposes a platform protocol relationship without extracting a practice rule", () => {
+    const result = knowledgeResult({ needId: "OKC01-N-045", needClass: "ANALYSIS_DATASET_REPRODUCIBILITY_AND_RELEASE", owner: "BIOSTATISTICS", sourcePreferences: ["RC01-E-062"], question: "platform protocol and statistical analysis relationship" });
+    expect(result.referenceSourceSnapshots[0]).toMatchObject({ sourceId: "RC01-E-062", contentAvailability: "METADATA_ONLY" });
+    expect(result.referenceEvidenceCandidates).toHaveLength(0);
+    expect(result.referenceDocumentRelationships[0]).toMatchObject({ studySetId: "RC01-SET-007", relationshipType: "SAME_STUDY_ARTIFACT_SET", practiceRuleInferred: false });
   });
 });
 

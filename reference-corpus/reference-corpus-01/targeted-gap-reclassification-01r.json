@@ -1,0 +1,86 @@
+{
+  "MISSION_ID": "TARGETED-REFERENCE-CORPUS-01R",
+  "STATUS": "BOUNDED_GAP_RECLASSIFICATION_NOT_GLOBAL_COVERAGE",
+  "BASELINE_PLAN_REF": "../owner-knowledge-coverage-01/targeted-corpus-expansion-plan.json",
+  "KNOWLEDGE_INDEX_REF": "../reference-knowledge-bridge-01/reference-document-index.json",
+  "RECLASSIFICATIONS": [
+    {
+      "PLAN_ID": "OKC01-X-001",
+      "GAP_IDS": ["OKC01-G-REG-001"],
+      "RESULT": "STRONGLY_IMPROVED",
+      "NEED_SUPPORT": [
+        {"NEED_ID": "OKC01-N-062", "OWNER": "REG", "SOURCE_IDS": ["RC01-A-023", "RC01-A-024", "RC01-A-027", "RC01-A-028"], "SECTION_ANCHORS": ["RC01-A-023:page-38", "RC01-A-023:page-55", "RC01-A-023:page-102"], "SUPPORT_TYPE": "REGULATORY_GUIDANCE", "JURISDICTION": "EU_EEA_AND_FR", "LIMITATIONS": ["ANSM file currentness requires human recheck", "Study/product classification remains Project and REG input"]},
+        {"NEED_ID": "OKC01-N-063", "OWNER": "REG", "SOURCE_IDS": ["RC01-A-023", "RC01-A-024", "RC01-A-028"], "SECTION_ANCHORS": ["RC01-A-023:page-43", "RC01-A-023:page-100", "RC01-A-023:page-109"], "SUPPORT_TYPE": "REGULATORY_GUIDANCE", "JURISDICTION": "EU_EEA_AND_FR", "LIMITATIONS": ["Medicinal-product and device substantial-modification routes remain distinct", "No automatic legal conclusion"]}
+      ],
+      "RESIDUAL_GAPS": ["Currentness confirmation for named ANSM PDFs", "No complete current ANSM document bundle"]
+    },
+    {
+      "PLAN_ID": "OKC01-X-002",
+      "GAP_IDS": ["OKC01-G-IMG-001"],
+      "RESULT": "PARTIALLY_IMPROVED",
+      "NEED_SUPPORT": [
+        {"NEED_ID": "OKC01-N-030", "OWNER": "IMAGING", "SOURCE_IDS": ["RC01-C-043", "RC01-C-044"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "PRACTICE_ARTIFACT", "JURISDICTION": "US_STUDY_AND_PROGRAM_CONTEXT", "LIMITATIONS": ["Metadata-only", "No standalone rights-clear reader manual"]},
+        {"NEED_ID": "OKC01-N-032", "OWNER": "IMAGING", "SOURCE_IDS": ["RC01-C-043", "RC01-C-044"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "INSTITUTIONAL_PRACTICE_ARTIFACT", "JURISDICTION": "US_NCI_IROC_CONTEXT", "LIMITATIONS": ["No licence-clear Core Lab manual", "No universal reader/adjudication rule"]},
+        {"NEED_ID": "OKC01-N-034", "OWNER": "IMAGING", "SOURCE_IDS": ["RC01-C-043", "RC01-C-044", "RC01-E-059", "RC01-E-071", "RC01-E-073"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "REAL_STUDY_PATTERN_CANDIDATE", "JURISDICTION": "STUDY_SPECIFIC", "LIMITATIONS": ["No complete imaging charter/transfer/reader package", "No modality-specific rule generalized"]}
+      ],
+      "RESIDUAL_GAPS": ["Standalone imaging charter", "Rights-clear Core Lab manual", "Complete reader qualification/adjudication lineage", "Equipment-change and longitudinal-comparability package"]
+    },
+    {
+      "PLAN_ID": "OKC01-X-003",
+      "GAP_IDS": ["OKC01-G-CDM-001", "OKC01-G-DM-001", "OKC01-G-LINK-001"],
+      "RESULT": "PARTIALLY_IMPROVED",
+      "NEED_SUPPORT": [
+        {"NEED_ID": "OKC01-N-047", "OWNER": "CDM", "SOURCE_IDS": ["RC01-C-046", "RC01-E-064", "RC01-E-070"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "INSTITUTIONAL_TEMPLATE_AND_REAL_STUDY_PATTERN", "JURISDICTION": "EU_AND_STUDY_SPECIFIC", "LIMITATIONS": ["No complete CRF/data dictionary pair", "No cross-study synthetic linkage"]},
+        {"NEED_ID": "OKC01-N-060", "OWNER": "DATA_MANAGEMENT", "SOURCE_IDS": ["RC01-C-046", "RC01-E-064", "RC01-E-070"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "DATA_MANAGEMENT_PRACTICE_ARTIFACT", "JURISDICTION": "EU_AND_STUDY_SPECIFIC", "LIMITATIONS": ["No same-study DMP-to-SAP version chain", "Operational files are metadata-only"]}
+      ],
+      "RESIDUAL_GAPS": ["Protocol-to-CRF-to-data-dictionary-to-DMP-to-SAP complete chain", "Query/reconciliation and lock/release artifact lineage"]
+    },
+    {
+      "PLAN_ID": "OKC01-X-004",
+      "GAP_IDS": ["OKC01-G-BIO-001"],
+      "RESULT": "CLOSED_FOR_CURRENT_SCOPE",
+      "NEED_SUPPORT": [
+        {"NEED_ID": "OKC01-N-039", "OWNER": "BIOSTATISTICS", "SOURCE_IDS": ["RC01-B-036", "RC01-B-037", "RC01-B-038"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "METHODOLOGICAL_REFERENCE", "JURISDICTION": "INTERNATIONAL_METHODS", "LIMITATIONS": ["Longitudinal depth remains partial", "No calculator/runtime change"]},
+        {"NEED_ID": "OKC01-N-042", "OWNER": "BIOSTATISTICS", "SOURCE_IDS": ["RC01-B-035", "RC01-B-036", "RC01-B-037", "RC01-B-038"], "SECTION_ANCHORS": ["RC01-B-035:page-4", "RC01-B-035:page-8"], "SUPPORT_TYPE": "REGULATORY_AND_METHODOLOGICAL_REFERENCE", "JURISDICTION": "US_WITH_INTERNATIONAL_METHODOLOGICAL_VALUE", "LIMITATIONS": ["Input assumptions remain Project facts", "FDA guidance creates no French/EU requirement"]},
+        {"NEED_ID": "OKC01-N-043", "OWNER": "BIOSTATISTICS", "SOURCE_IDS": ["RC01-B-035", "RC01-B-036", "RC01-B-037", "RC01-B-038"], "SECTION_ANCHORS": ["RC01-B-035:page-37", "RC01-B-035:page-4"], "SUPPORT_TYPE": "METHODOLOGICAL_REFERENCE", "JURISDICTION": "INTERNATIONAL_METHODS", "LIMITATIONS": ["Sources distinguish precision, observational, cluster and diagnostic objectives", "No numeric recommendation is authorized by documentary coverage"]}
+      ],
+      "RESIDUAL_GAPS": ["Longitudinal and small-population precision depth", "Executable owner mechanics remain separate"]
+    },
+    {
+      "PLAN_ID": "OKC01-X-005",
+      "GAP_IDS": ["OKC01-G-SD-001", "OKC01-G-OBS-001"],
+      "RESULT": "STRONGLY_IMPROVED",
+      "NEED_SUPPORT": [
+        {"NEED_ID": "OKC01-N-014", "OWNER": "STUDY_DESIGN", "SOURCE_IDS": ["RC01-B-035", "RC01-B-037", "RC01-B-038"], "SECTION_ANCHORS": ["RC01-B-035:page-20", "RC01-B-035:page-7"], "SUPPORT_TYPE": "METHODOLOGICAL_REFERENCE", "JURISDICTION": "INTERNATIONAL_METHODS", "LIMITATIONS": ["No source chooses the Project design", "Device/IVD design depth remains bounded"]},
+        {"NEED_ID": "OKC01-N-021", "OWNER": "OBSERVABILITY_MEASUREMENT", "SOURCE_IDS": ["RC01-B-035", "RC01-B-037", "RC01-C-043", "RC01-C-044"], "SECTION_ANCHORS": ["RC01-B-035:page-14", "RC01-B-035:page-13"], "SUPPORT_TYPE": "MEASUREMENT_VALIDITY_REFERENCE", "JURISDICTION": "METHODS_AND_STUDY_SPECIFIC", "LIMITATIONS": ["Laboratory, wearable and clinical-assessment breadth remains incomplete", "No validity judgment is automated"]}
+      ],
+      "RESIDUAL_GAPS": ["Generic cross-domain measurement validity", "IVD/software-AI design-specific references"]
+    },
+    {
+      "PLAN_ID": "OKC01-X-006",
+      "GAP_IDS": ["OKC01-G-REG-002"],
+      "RESULT": "STRONGLY_IMPROVED",
+      "NEED_SUPPORT": [
+        {"NEED_ID": "OKC01-N-064", "OWNER": "REG", "SOURCE_IDS": ["RC01-A-023", "RC01-A-025", "RC01-A-029"], "SECTION_ANCHORS": ["RC01-A-023:page-70", "RC01-A-023:page-93", "RC01-A-023:page-94"], "SUPPORT_TYPE": "REGULATORY_GUIDANCE", "JURISDICTION": "EU_EEA_AND_FR", "LIMITATIONS": ["Medicinal-product and device safety pathways are not interchangeable", "ANSM currentness remains human-qualified"]},
+        {"NEED_ID": "OKC01-N-066", "OWNER": "REG", "SOURCE_IDS": ["RC01-A-026", "RC01-A-027", "RC01-A-028", "RC01-A-029"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "DEVICE_REGULATORY_GUIDANCE", "JURISDICTION": "EU_EEA_AND_FR", "LIMITATIONS": ["Metadata-only", "IVD/software/AI-specific pathways remain incomplete"]}
+      ],
+      "RESIDUAL_GAPS": ["IVD and software/AI research-specific routes", "Product/study classification remains Project input and human decision"]
+    },
+    {
+      "PLAN_ID": "OKC01-X-007",
+      "GAP_IDS": ["OKC01-G-FR-OPS-001"],
+      "RESULT": "PARTIALLY_IMPROVED",
+      "NEED_SUPPORT": [
+        {"NEED_ID": "OKC01-N-056", "OWNER": "DATA_MANAGEMENT", "SOURCE_IDS": ["RC01-C-047", "RC01-C-045", "RC01-C-046"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "INSTITUTIONAL_PRACTICE_ARTIFACT", "JURISDICTION": "FR_AND_EU_OPERATIONAL_CONTEXT", "LIMITATIONS": ["French source is a network/context page rather than a versioned manual", "ECRIN standards do not establish French sponsor procedure"]},
+        {"NEED_ID": "OKC01-N-061", "OWNER": "DATA_MANAGEMENT", "SOURCE_IDS": ["RC01-C-047"], "SECTION_ANCHORS": [], "SUPPORT_TYPE": "FRENCH_OPERATIONAL_CONTEXT", "JURISDICTION": "FR", "LIMITATIONS": ["Detailed QA/data-management/monitoring procedures remain absent"]}
+      ],
+      "RESIDUAL_GAPS": ["Versioned French sponsor QA, monitoring and data-management manuals", "Public site-feasibility instruments"]
+    }
+  ],
+  "GAPS_CLOSED": ["OKC01-G-BIO-001"],
+  "GAPS_IMPROVED": ["OKC01-G-REG-001", "OKC01-G-IMG-001", "OKC01-G-CDM-001", "OKC01-G-DM-001", "OKC01-G-LINK-001", "OKC01-G-SD-001", "OKC01-G-OBS-001", "OKC01-G-REG-002", "OKC01-G-FR-OPS-001"],
+  "RESIDUAL_P0_GAPS": [],
+  "RESIDUAL_P1_GAPS": ["OKC01-G-IMG-001", "OKC01-G-CDM-001", "OKC01-G-DM-001", "OKC01-G-LINK-001", "OKC01-G-SD-001", "OKC01-G-OBS-001", "OKC01-G-REG-001", "OKC01-G-REG-002", "OKC01-G-FR-OPS-001"],
+  "GLOBAL_COVERAGE_CLAIM": "NO",
+  "OWNER_OR_RUNTIME_CHANGE": "NO"
+}

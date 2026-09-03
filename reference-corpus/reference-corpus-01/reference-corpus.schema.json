@@ -6,7 +6,7 @@
   "required": ["MISSION_ID", "STATUS", "RETRIEVAL_DATE", "SOURCES"],
   "properties": {
     "MISSION_ID": {"const": "REFERENCE-CORPUS-01"},
-    "STATUS": {"const": "NON_NORMATIVE_REFERENCE_REGISTRY_NOT_RUNTIME_WIRED"},
+    "STATUS": {"const": "NON_NORMATIVE_REFERENCE_REGISTRY_RUNTIME_BRIDGED_READ_ONLY"},
     "RETRIEVAL_DATE": {"type": "string", "format": "date"},
     "SOURCES": {
       "type": "array",
