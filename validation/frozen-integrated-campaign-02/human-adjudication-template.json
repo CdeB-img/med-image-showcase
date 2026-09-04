@@ -1,0 +1,103 @@
+{
+  "templateId": "FIC02-HUMAN-ADJUDICATION",
+  "version": "2.0.0",
+  "status": "EMPTY_TEMPLATE_NOT_EXECUTION_RESULT",
+  "scientificModel": "PRESERVED_FROM_FIC01_V1",
+  "linguisticEvaluation": "SEPARATE_DETERMINISTIC_CONTRACT_CHECKS",
+  "instructions": "Populate only after reviewing the captured Standard transcript, Project evolution, owner evidence, document projections, TRACE and VAL diagnostics. Null means not reviewed and must never be interpreted as a negative judgment. Linguistic deterministic checks do not replace human scientific adjudication.",
+  "evidencePresentationOrder": [
+    "ORIGINAL_USER_TEXT_EN",
+    "FRENCH_WORKING_PROJECTION",
+    "CONVERSATION_TRANSCRIPT",
+    "PROJECT_STATE_EVOLUTION",
+    "OWNER_DECISIONS_AND_ALTERNATIVES",
+    "KNOWLEDGE_SOURCES_AND_LIMITATIONS",
+    "CURRENT_PROJECT",
+    "PROTOCOL_AND_DOCUMENT_PROJECTIONS",
+    "CANONICAL_INTERNAL_RESPONSE_FR",
+    "LOCALIZED_VISIBLE_RESPONSE_EN",
+    "TRACE_FIRST_DIVERGENCE",
+    "VAL_DIAGNOSTICS"
+  ],
+  "records": [
+    {
+      "scenarioId": "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+      "scientificallyDefensible": null,
+      "importantIssueOmitted": null,
+      "unjustifiedAssumption": null,
+      "alternativesAdequatelyExplored": null,
+      "tradeoffsVisible": null,
+      "questionUsefulness": null,
+      "professionalCredibility": null,
+      "comments": null,
+      "reviewerId": null,
+      "reviewedAt": null,
+      "evidenceRefs": []
+    },
+    {
+      "scenarioId": "FIC01-B-INTERVENTIONAL-ANALYTIC",
+      "scientificallyDefensible": null,
+      "importantIssueOmitted": null,
+      "unjustifiedAssumption": null,
+      "alternativesAdequatelyExplored": null,
+      "tradeoffsVisible": null,
+      "questionUsefulness": null,
+      "professionalCredibility": null,
+      "comments": null,
+      "reviewerId": null,
+      "reviewedAt": null,
+      "evidenceRefs": []
+    },
+    {
+      "scenarioId": "FIC01-C-MEASUREMENT-VALIDATION",
+      "scientificallyDefensible": null,
+      "importantIssueOmitted": null,
+      "unjustifiedAssumption": null,
+      "alternativesAdequatelyExplored": null,
+      "tradeoffsVisible": null,
+      "questionUsefulness": null,
+      "professionalCredibility": null,
+      "comments": null,
+      "reviewerId": null,
+      "reviewedAt": null,
+      "evidenceRefs": []
+    },
+    {
+      "scenarioId": "FIC01-D-MULTICENTER-HARMONIZATION",
+      "scientificallyDefensible": null,
+      "importantIssueOmitted": null,
+      "unjustifiedAssumption": null,
+      "alternativesAdequatelyExplored": null,
+      "tradeoffsVisible": null,
+      "questionUsefulness": null,
+      "professionalCredibility": null,
+      "comments": null,
+      "reviewerId": null,
+      "reviewedAt": null,
+      "evidenceRefs": []
+    },
+    {
+      "scenarioId": "FIC01-E-PLATFORM-IMAGING-STRESS",
+      "scientificallyDefensible": null,
+      "importantIssueOmitted": null,
+      "unjustifiedAssumption": null,
+      "alternativesAdequatelyExplored": null,
+      "tradeoffsVisible": null,
+      "questionUsefulness": null,
+      "professionalCredibility": null,
+      "comments": null,
+      "reviewerId": null,
+      "reviewedAt": null,
+      "evidenceRefs": []
+    }
+  ],
+  "allowedValues": {
+    "scientificallyDefensible": ["YES", "NO", "MIXED", "NOT_REVIEWED"],
+    "importantIssueOmitted": ["YES", "NO", "UNCERTAIN"],
+    "unjustifiedAssumption": ["YES", "NO"],
+    "alternativesAdequatelyExplored": ["YES", "NO", "NOT_APPLICABLE"],
+    "tradeoffsVisible": ["YES", "NO", "NOT_APPLICABLE"],
+    "questionUsefulness": ["GOOD", "MIXED", "POOR"],
+    "professionalCredibility": ["GOOD", "MIXED", "POOR"]
+  }
+}

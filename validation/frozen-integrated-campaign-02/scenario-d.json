@@ -1,0 +1,20 @@
+{
+  "scenarioId": "FIC01-D-MULTICENTER-HARMONIZATION",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "status": "PRIMARY_FROZEN",
+  "scientificDefinition": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/scenario-d.json",
+    "sha256": "d6331000cd1d95764d603d0b4bd54de549bd64feea0e95d6a854654b470dd321",
+    "scientificMutation": "NONE"
+  },
+  "originalUserTextEn": "We want to build a prospective multicenter study using quantitative cardiac MRI across different manufacturers, field strengths and software versions. The aim is to compare a disease population with a reference population. A central Core Lab is planned, but acquisition harmonization, quality control, reader organization and analysis strategy are not yet fixed.",
+  "languageBinding": {
+    "sourceUserLanguage": "EN",
+    "conversationLanguage": "EN",
+    "internalWorkingLanguage": "FR",
+    "visibleResponseLanguage": "EN",
+    "contractRef": "language-contract.json"
+  }
+}

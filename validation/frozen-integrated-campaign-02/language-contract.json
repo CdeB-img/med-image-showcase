@@ -1,0 +1,55 @@
+{
+  "contractId": "FIC02-CONVERSATION-LANGUAGE-CONTRACT",
+  "version": "2.0.0",
+  "status": "FROZEN",
+  "appliesToPrimaryScenarioIds": [
+    "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+    "FIC01-B-INTERVENTIONAL-ANALYTIC",
+    "FIC01-C-MEASUREMENT-VALIDATION",
+    "FIC01-D-MULTICENTER-HARMONIZATION"
+  ],
+  "languageGateway": {
+    "identity": "MULTILINGUAL_CONVERSATION_GATEWAY@1.0.0",
+    "version": "1.0.0",
+    "implementationQualification": "DETERMINISTIC_ADAPTER_QUALIFIED",
+    "liveProviderCapability": "NOT_VERIFIED",
+    "scientificOwner": false,
+    "projectWriteAuthorized": false
+  },
+  "languages": {
+    "sourceUserLanguage": "EN",
+    "conversationLanguage": "EN",
+    "internalWorkingLanguage": "FR",
+    "productEntryRouterLanguage": "FR",
+    "canonicalInternalResponseLanguage": "FR",
+    "visibleResponseLanguage": "EN",
+    "uiLanguage": "OUT_OF_SCOPE",
+    "documentOutputLanguage": "OUT_OF_SCOPE"
+  },
+  "projections": {
+    "inputTranslationRequired": true,
+    "outputTranslationRequired": true,
+    "originalEnglishTextPreserved": true,
+    "frenchWorkingTextIsDerived": true,
+    "localizedEnglishResponseIsDerived": true,
+    "projectLanguageTruth": "FRENCH_CANONICAL_INTERNAL_STATE",
+    "localizedProseCreatesProjectTruth": false
+  },
+  "requiredExecutionPacketFields": [
+    "ORIGINAL_USER_TEXT_EN",
+    "FRENCH_WORKING_PROJECTION",
+    "CANONICAL_INTERNAL_RESPONSE_FR",
+    "LOCALIZED_VISIBLE_RESPONSE_EN"
+  ],
+  "provenanceRequirements": {
+    "originalTextDigestRequired": true,
+    "derivedProjectionDigestRequired": true,
+    "sourceProjectionLinkRequired": true,
+    "derivedTextMayBeAttributedToUser": false
+  },
+  "futureDocumentLanguagePrinciple": {
+    "status": "OUT_OF_SCOPE_NOT_IMPLEMENTED_OR_QUALIFIED",
+    "canonicalInternalDocumentLanguage": "FR",
+    "visibleDocumentLanguage": "USER_SELECTED_DERIVED_PROJECTION"
+  }
+}

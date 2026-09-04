@@ -1,0 +1,21 @@
+{
+  "scenarioId": "FIC01-E-PLATFORM-IMAGING-STRESS",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "status": "OPTIONAL_STRESS_NOT_PRIMARY_GATE",
+  "scientificDefinition": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/scenario-e-optional.json",
+    "sha256": "b3f376c7a3852f85f6fb32c1b1b415dc730a0514543401e26994999448b3c8b1",
+    "scientificMutation": "NONE"
+  },
+  "originalUserTextEn": "We want a long-lived multicenter imaging research platform in cardiomyopathy. A common core protocol and data model should support several imaging substudies. New biomarker or imaging modules may be added or stopped over time without rewriting the entire project.",
+  "languageBinding": {
+    "sourceUserLanguage": "EN",
+    "conversationLanguage": "EN",
+    "internalWorkingLanguage": "FR",
+    "visibleResponseLanguage": "EN",
+    "contractRef": "language-contract.json"
+  },
+  "primaryGateIncluded": false
+}

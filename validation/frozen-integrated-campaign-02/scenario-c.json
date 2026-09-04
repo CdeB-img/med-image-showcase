@@ -1,0 +1,20 @@
+{
+  "scenarioId": "FIC01-C-MEASUREMENT-VALIDATION",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "status": "PRIMARY_FROZEN",
+  "scientificDefinition": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/scenario-c.json",
+    "sha256": "6bf9df1d2b1d4a14b3dbd57a5ea4a17fe672c2d1140dbd738d1f522725585170",
+    "scientificMutation": "NONE"
+  },
+  "originalUserTextEn": "We have developed an automated quantitative measurement of myocardial fibrosis from late-gadolinium-enhancement cardiac MRI. We want to validate it across several centers against expert manual assessment, but we have not yet decided the exact validation framework or primary performance endpoint.",
+  "languageBinding": {
+    "sourceUserLanguage": "EN",
+    "conversationLanguage": "EN",
+    "internalWorkingLanguage": "FR",
+    "visibleResponseLanguage": "EN",
+    "contractRef": "language-contract.json"
+  }
+}

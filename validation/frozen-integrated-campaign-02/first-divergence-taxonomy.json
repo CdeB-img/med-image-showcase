@@ -1,0 +1,71 @@
+{
+  "taxonomyId": "FIC02-FIRST-DIVERGENCE-TAXONOMY",
+  "version": "2.0.0",
+  "status": "FROZEN",
+  "baseTaxonomyRef": "../frozen-integrated-campaign-01/first-divergence-taxonomy.json",
+  "baseTaxonomySha256": "ed1351e98d78b1d9cf7e493122d68fa23072e33a1acff0717c6a86d52112cd1d",
+  "definition": "The first divergence is the earliest observable state or transformation that becomes scientifically, semantically, linguistically or structurally incorrect relative to the frozen source text, fact packet and applicable acceptance envelope.",
+  "statuses": [
+    { "code": "NONE", "meaning": "No divergence has been established with sufficient evidence." },
+    { "code": "KNOWLEDGE", "meaning": "The first unsupported change concerns evidence retrieval, qualification, applicability, content availability or limitation preservation." },
+    { "code": "OWNER_MECHANIC", "meaning": "The first unsupported change occurs within a domain owner's governed representation or reasoning contract." },
+    { "code": "HANDOFF", "meaning": "The first unsupported change occurs while transferring exact identity, meaning, evidence, uncertainty or responsibility between owners." },
+    { "code": "PROJECT", "meaning": "The first unsupported change concerns Project identity, version, provenance, canonical state or adoption." },
+    { "code": "QRY", "meaning": "The first unsupported change concerns next-action selection, information value, re-questioning or branch navigation." },
+    { "code": "TMP_DOC", "meaning": "The first unsupported change occurs in template or document projection, fidelity, detail boundary, versioning or source binding." },
+    { "code": "HOW_UX", "meaning": "The governed meaning remains correct but its realization or presentation first becomes misleading, incomplete or unusable." },
+    { "code": "VALIDATION", "meaning": "The first defect is a false, missing or mutating deterministic validation diagnostic." },
+    { "code": "UNKNOWN", "meaning": "Available evidence cannot localize the first divergence." },
+    { "code": "LANGUAGE_GATEWAY", "meaning": "The first unsupported change occurs during language detection, input projection, output localization or their provenance boundary." },
+    { "code": "PRODUCT_ENTRY_ROUTER", "meaning": "The language projection is acceptable and the first unsupported change occurs in product-entry routing or construction eligibility." },
+    { "code": "REG", "meaning": "The first unsupported change occurs within regulatory applicability, qualification, uncertainty or evidence handling." },
+    { "code": "PROVIDER_TECHNICAL", "meaning": "A provider timeout, transport, schema or availability failure is the first technical divergence; this does not by itself adjudicate scientific quality." }
+  ],
+  "chronologicalEvaluationOrder": [
+    "LANGUAGE_GATEWAY",
+    "PRODUCT_ENTRY_ROUTER",
+    "QRY",
+    "KNOWLEDGE",
+    "OWNER_MECHANIC",
+    "HANDOFF",
+    "PROJECT",
+    "REG",
+    "TMP_DOC",
+    "HOW_UX",
+    "VALIDATION",
+    "PROVIDER_TECHNICAL",
+    "UNKNOWN"
+  ],
+  "requiredRecordFields": [
+    "scenarioId",
+    "status",
+    "earliestEventId",
+    "earliestStage",
+    "observedState",
+    "frozenExpectationRef",
+    "evidenceRefs",
+    "responsibilityOwnerObserved",
+    "decisionOwnerObserved",
+    "executorObserved",
+    "providerObserved",
+    "causalOwner",
+    "confidence",
+    "downstreamQualificationState"
+  ],
+  "rules": [
+    "TRACE records facts and never assigns scientific blame.",
+    "VAL may emit only supported deterministic structural diagnostics.",
+    "Human adjudication is required for scientific or professional judgments not encoded by a deterministic contract.",
+    "The final visible responder is not presumed to be the causal owner.",
+    "A blocking first divergence invalidates downstream scientific qualification but does not delete downstream evidence.",
+    "If the earliest stage cannot be demonstrated, use UNKNOWN rather than a plausible reconstruction.",
+    "LANGUAGE_GATEWAY and PRODUCT_ENTRY_ROUTER are distinct causal classes.",
+    "A provider technical failure is not automatically a scientific failure."
+  ],
+  "downstreamInvalidation": {
+    "blockingDivergenceState": "NOT_ASSESSABLE_AFTER_UPSTREAM_DIVERGENCE",
+    "preserveTrace": true,
+    "preserveOutputs": true,
+    "repairDuringBaseline": false
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "scenarioId": "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "status": "PRIMARY_FROZEN",
+  "scientificDefinition": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/scenario-a.json",
+    "sha256": "2eb2cb2ee21d867e536f13166480220292cfc7af41fc6c16b991af93d5d7322d",
+    "scientificMutation": "NONE"
+  },
+  "originalUserTextEn": "We have historical cardiac MRI and echocardiography data from patients followed after a first myocardial infarction, and we can prospectively recruit new patients with follow-up imaging. We want to understand adverse left ventricular remodeling, but the exact study design, timing, primary endpoint, and role of each imaging modality are not decided.",
+  "languageBinding": {
+    "sourceUserLanguage": "EN",
+    "conversationLanguage": "EN",
+    "internalWorkingLanguage": "FR",
+    "visibleResponseLanguage": "EN",
+    "contractRef": "language-contract.json"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "scenarioId": "FIC01-E-PLATFORM-IMAGING-STRESS",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "status": "OPTIONAL_STRESS_NOT_PRIMARY_GATE",
+  "scientificAcceptanceEnvelope": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/acceptance-envelope-e-optional.json",
+    "sha256": "4e83b443afbf30271c5b451849317566ad4d3daf3681c6ceddd55de4913529e8",
+    "scientificMutation": "NONE"
+  },
+  "linguisticAcceptanceEnvelopeRef": "linguistic-acceptance-envelope.json",
+  "primaryGateIncluded": false
+}

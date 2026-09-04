@@ -1,0 +1,53 @@
+{
+  "rulesId": "FIC02-BLOCKING-NONBLOCKING-RULES",
+  "version": "2.0.0",
+  "status": "FROZEN",
+  "scientificRules": {
+    "semantics": "EXACT_REFERENCED_FIC01_V1_RULES",
+    "ref": "../frozen-integrated-campaign-01/campaign-rules.json",
+    "sha256": "ec2991e8dddb4ede9f2ba3b8b420c38de3b56a097f8782e420e23b63538647ed",
+    "scientificMutation": "NONE"
+  },
+  "languageBlockingFailureConditions": [
+    "Original English input is not preserved with provenance.",
+    "A French working projection materially changes a number, unit, identifier, negation, uncertainty, conditionality, temporal relation, scientific entity, UNKNOWN state or WITHHELD state.",
+    "A language projection adds scientific information, resolves ambiguity, changes a decision, writes to Project, changes owner selection through semantic embellishment or promotes a candidate to adopted state.",
+    "The visible response is not in English after a successful canonical French response and successful localization path.",
+    "A translation-caused downstream routing divergence cannot be attributed to LANGUAGE_GATEWAY from available evidence."
+  ],
+  "languageNonBlockingFindingExamples": [
+    "English wording differs literally while all frozen semantic invariants are preserved.",
+    "A stylistic localization choice is improvable without changing meaning, uncertainty, decision state or owner selection.",
+    "Live language-provider capability is NOT_VERIFIED before execution."
+  ],
+  "providerTechnicalPolicy": {
+    "providerOutageAutomaticallyScientificFailure": false,
+    "providerFailureClassifiedSeparately": true,
+    "unrecoverableFailureWithinFrozenContractMayBlockExecution": true
+  },
+  "campaignBudget": {
+    "maxStandardConversationTurnsPerScenario": 8,
+    "maxQryActionsPerScenario": 12,
+    "maxKnowledgeActionsPerScenario": 4,
+    "maxOwnerInvocationsPerScenario": 12,
+    "maxProviderCallsPerScenario": 24,
+    "maxProviderRetriesPerScenario": 8
+  },
+  "languageGatewayBudget": {
+    "maxCallsPerUserTurn": 2,
+    "maxInputProjectionCallsPerUserTurn": 1,
+    "maxOutputProjectionCallsPerUserTurn": 1,
+    "maxRetriesPerProjection": 0,
+    "hiddenRetriesAllowed": false,
+    "scientificBudgetEnlarged": false
+  },
+  "executionInvariants": {
+    "primaryScenarioOrder": ["A", "B", "C", "D"],
+    "repairsBetweenScenarios": false,
+    "promptEditsBetweenScenarios": false,
+    "corpusEditsBetweenScenarios": false,
+    "acceptanceEnvelopeEditsBetweenScenarios": false,
+    "providerSwitchBetweenScenarios": false,
+    "manualFrenchFixtureSubstitution": false
+  }
+}

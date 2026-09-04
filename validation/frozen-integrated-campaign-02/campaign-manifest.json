@@ -1,0 +1,300 @@
+{
+  "campaignId": "FROZEN-INTEGRATED-CAMPAIGN-02",
+  "campaignVersion": "2.0.0",
+  "createdAt": "2026-09-04",
+  "campaignStatus": "FROZEN",
+  "frozenAtCommit": "FROZEN_AT_COMMIT_PENDING",
+  "runtimeBaselineSha": "992fc4ce8e2636de62418c5ef43108c8f0c36fd6",
+  "previousCampaign": "FROZEN-INTEGRATED-CAMPAIGN-01@1.0.0",
+  "previousCampaignStatus": "CAMPAIGN_TECHNICALLY_INVALID_FOR_PRODUCT_SCIENTIFIC_QUALIFICATION",
+  "previousCampaignTreeDigest": "f273736ebefecaa1d1a68b30252c0be842e41d8cd95ca04dbac6e70a40d7cd99",
+  "compositeDigestAlgorithm": "sha256(JSON([{path,sha256}], paths sorted lexicographically))",
+  "languageGateway": {
+    "identity": "MULTILINGUAL_CONVERSATION_GATEWAY@1.0.0",
+    "version": "1.0.0",
+    "implementationQualification": "DETERMINISTIC_ADAPTER_QUALIFIED",
+    "liveProviderCapability": "NOT_VERIFIED"
+  },
+  "trace": {
+    "profile": "NOXIA_END_TO_END_PRODUCT_TRACE",
+    "profileVersion": "1.2.0",
+    "captureLevel": "LEVEL_2_DIAGNOSTIC",
+    "ledgerVersion": "0.1.0",
+    "eventSchemaVersion": "0.1.0",
+    "preProjectSegmentVersion": "0.1.0"
+  },
+  "languages": {
+    "sourceUserLanguage": "EN",
+    "conversationLanguage": "EN",
+    "internalWorkingLanguage": "FR",
+    "productEntryRouterLanguage": "FR",
+    "canonicalInternalResponseLanguage": "FR",
+    "visibleResponseLanguage": "EN"
+  },
+  "scenarioIds": [
+    "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+    "FIC01-B-INTERVENTIONAL-ANALYTIC",
+    "FIC01-C-MEASUREMENT-VALIDATION",
+    "FIC01-D-MULTICENTER-HARMONIZATION",
+    "FIC01-E-PLATFORM-IMAGING-STRESS"
+  ],
+  "primaryScenarioIds": [
+    "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+    "FIC01-B-INTERVENTIONAL-ANALYTIC",
+    "FIC01-C-MEASUREMENT-VALIDATION",
+    "FIC01-D-MULTICENTER-HARMONIZATION"
+  ],
+  "optionalScenarioIds": ["FIC01-E-PLATFORM-IMAGING-STRESS"],
+  "goldAnswerCount": 0,
+  "campaignBudget": {
+    "maxStandardConversationTurnsPerScenario": 8,
+    "maxQryActionsPerScenario": 12,
+    "maxKnowledgeActionsPerScenario": 4,
+    "maxOwnerInvocationsPerScenario": 12,
+    "maxProviderCallsPerScenario": 24,
+    "maxProviderRetriesPerScenario": 8
+  },
+  "languageGatewayBudget": {
+    "maxCallsPerUserTurn": 2,
+    "maxInputProjectionCallsPerUserTurn": 1,
+    "maxOutputProjectionCallsPerUserTurn": 1,
+    "maxRetriesPerProjection": 0,
+    "hiddenRetriesAllowed": false,
+    "scientificBudgetEnlarged": false
+  },
+  "componentVersions": {
+    "REFERENCE_CORPUS": "REFERENCE-CORPUS-01@2026-09-03",
+    "REFERENCE_KNOWLEDGE_INDEX": "UNVERSIONED_CURRENT_INDEX_FROZEN_BY_DIGEST",
+    "KNOWLEDGE_RUNTIME": "1.2.1",
+    "SCIENTIFIC_THINKING": "1.3.0",
+    "STUDY_DESIGN": "1.0.0",
+    "OBSERVABILITY_MEASUREMENT": "1.1.0",
+    "IMAGING": "1.2.1",
+    "BIOSTATISTICS": "1.0.0",
+    "CDM": "1.0.0",
+    "DATA_MANAGEMENT": "1.0.0",
+    "REG": "1.0.0",
+    "PROJECT_CONTRACT": "CANONICAL_STATE_0.2.0_CONSTRUCTION_1.1.0_HUMAN_REVIEW_1.2.0",
+    "QRY_RUNTIME": "1.0.0_PD-009-1.0",
+    "DOC002": "1.1.0",
+    "TMP001": "1.1.0",
+    "VAL_CURRENT_PROFILE": "CURRENT_OWNER_STACK_FIDELITY@1.0.0",
+    "STANDARD_PRODUCT_SURFACE": "CURRENT_AT_RUNTIME_BASELINE",
+    "LANGUAGE_GATEWAY_RUNTIME": "1.0.0",
+    "TRACE_RUNTIME": "1.2.0",
+    "PROVIDER_CONFIGURATION_INTENT": "REPOSITORY_INTENT_AT_RUNTIME_BASELINE"
+  },
+  "frozenComponents": [
+    {
+      "id": "REFERENCE_CORPUS",
+      "fileCount": 11,
+      "digest": "sha256:682764643198079e61cc87c81b4d64cd7974b0814730415867dba30fda6ab3cc",
+      "selection": {
+        "paths": [
+          "reference-corpus/reference-corpus-01/copyright-storage-policy.md",
+          "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+          "reference-corpus/reference-corpus-01/existing-noxia-assets.json",
+          "reference-corpus/reference-corpus-01/gap-matrix.json",
+          "reference-corpus/reference-corpus-01/linked-study-sets.json",
+          "reference-corpus/reference-corpus-01/platform-trial-reference-set.json",
+          "reference-corpus/reference-corpus-01/reference-corpus.json",
+          "reference-corpus/reference-corpus-01/reference-corpus.schema.json",
+          "reference-corpus/reference-corpus-01/rejection-log.json",
+          "reference-corpus/reference-corpus-01/search-log.json",
+          "reference-corpus/reference-corpus-01/targeted-gap-reclassification-01r.json"
+        ]
+      }
+    },
+    {
+      "id": "REFERENCE_KNOWLEDGE_INDEX",
+      "fileCount": 1,
+      "digest": "sha256:d8c1dc729181bf055042a51e674267490c9436a261162fbbfd62c73c86a51c81",
+      "selection": { "paths": ["reference-corpus/reference-knowledge-bridge-01/reference-document-index.json"] }
+    },
+    {
+      "id": "KNOWLEDGE_RUNTIME",
+      "fileCount": 48,
+      "digest": "sha256:59d5277e0cef7a3b0e368634b5c312e08d80367e2e702a5dd28763a96be85415",
+      "selection": {
+        "roots": ["src/features/knowledge-engine"],
+        "paths": ["src/features/protocol-designer/product-knowledge-owner-runtime.ts", "src/features/protocol-designer/functional-reset/knowledge-standard.ts"],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "SCIENTIFIC_THINKING",
+      "fileCount": 10,
+      "digest": "sha256:269ebbad120ca1baa840c691c9bb7193e8a4bdbe372901d74d193dac875f194a",
+      "selection": {
+        "roots": ["src/features/scientific-thinking"],
+        "paths": ["src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts", "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts"],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "STUDY_DESIGN",
+      "fileCount": 6,
+      "digest": "sha256:6118a1e24b2784fd9379cd0dba15b8a8acb8bdf67431898f55d9f6df21f8c2cc",
+      "selection": {
+        "roots": ["src/features/study-design"],
+        "paths": ["src/features/protocol-designer/product-study-design-owner-runtime.ts", "src/features/protocol-designer/functional-reset/study-design-standard.ts"],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "OBSERVABILITY_MEASUREMENT",
+      "fileCount": 5,
+      "digest": "sha256:138217fa0288da9530e3f439e3f956ab1c831a392391476000b7f963ef0293c3",
+      "selection": {
+        "roots": ["src/features/observability-measurement"],
+        "paths": ["src/features/protocol-designer/product-observability-owner-runtime.ts", "src/features/protocol-designer/functional-reset/observability-standard.ts"],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "IMAGING",
+      "fileCount": 11,
+      "digest": "sha256:0873123d24af4d1d9646545ee82a838dcd2454e042fcc735c808c7a89241bcb8",
+      "selection": {
+        "roots": ["src/features/imaging-study-designer"],
+        "paths": ["src/features/protocol-designer/product-imaging-owner-runtime.ts", "src/features/protocol-designer/functional-reset/imaging-standard.ts"],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "BIOSTATISTICS",
+      "fileCount": 15,
+      "digest": "sha256:3e176bfac181dc0d79c0f0fe51ab2270119c03990b04a7fd5042d54de2f47ea2",
+      "selection": {
+        "roots": ["src/features/data-analysis-planning"],
+        "paths": ["src/features/protocol-designer/product-biostatistics-owner-runtime.ts", "src/features/protocol-designer/functional-reset/biostatistics-standard.ts"],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "CDM",
+      "fileCount": 2,
+      "digest": "sha256:04eb06e7616a59637c626a5d28808ee3aaf41e197d11b1f85584a7d3edd8ba84",
+      "selection": { "paths": ["src/features/protocol-designer/product-canonical-study-data-owner-runtime.ts", "src/features/protocol-designer/functional-reset/canonical-study-data-standard.ts"] }
+    },
+    {
+      "id": "DATA_MANAGEMENT",
+      "fileCount": 2,
+      "digest": "sha256:2dbc78664af8006a071d9ddf8edafead137e3828329eebd1d908db5bfa441ebb",
+      "selection": { "paths": ["src/features/protocol-designer/product-data-management-owner-runtime.ts", "src/features/protocol-designer/functional-reset/data-management-standard.ts"] }
+    },
+    {
+      "id": "REG",
+      "fileCount": 9,
+      "digest": "sha256:e4e5f0358da7266ceebf01a40a7e6fad08be2dde25b4fb1df6ef4a6ba19f6ea7",
+      "selection": {
+        "roots": ["src/features/regulatory-resolution"],
+        "paths": ["src/features/protocol-designer/product-regulatory-owner-runtime.ts", "src/features/protocol-designer/functional-reset/regulatory-standard.ts"],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "PROJECT_CONTRACT",
+      "fileCount": 5,
+      "digest": "sha256:470ce48349a09d1c130d3d88ecf373d43ac72402943bfc0f8a3820ccdd4a23c5",
+      "selection": {
+        "paths": [
+          "src/features/research-project-construction/canonical-project-backbone.ts",
+          "src/features/research-project-construction/contribution-owner-boundary.ts",
+          "src/features/research-project-construction/project-section-projection.ts",
+          "src/features/research-project-construction/specialized-owner-handoff.ts",
+          "src/features/research-project-construction/types.ts"
+        ]
+      }
+    },
+    {
+      "id": "QRY_RUNTIME",
+      "fileCount": 19,
+      "digest": "sha256:96dd1196e39f50b923c546861976e5a919030557ad1b821c3610ce56f2b57ca8",
+      "selection": { "roots": ["src/features/query-navigation"], "extensions": [".ts", ".tsx"], "excludeSegments": ["__tests__"] }
+    },
+    {
+      "id": "DOC002",
+      "fileCount": 11,
+      "digest": "sha256:3c49cdbb1b2a4257f8684a041fd8e9310dae2da7a035d9c7be04896743c08efb",
+      "selection": { "roots": ["documentary-pattern-corpus/doc-002"], "extensions": [".json"] }
+    },
+    {
+      "id": "TMP001",
+      "fileCount": 13,
+      "digest": "sha256:813f01ebf6725655f711f6808081a80dadb77f7ef87cadaa384ead0988071e3f",
+      "selection": { "roots": ["study-template-engine/tmp-001"], "extensions": [".json"] }
+    },
+    {
+      "id": "VAL_CURRENT_PROFILE",
+      "fileCount": 24,
+      "digest": "sha256:f6592de70324d309942ca45ef93cbc141d1d9dd800544661cd21f89a24b45285",
+      "selection": {
+        "roots": ["src/features/validation-architecture"],
+        "paths": ["src/features/protocol-designer/product-current-owner-stack-validation-runtime.ts", "src/features/protocol-designer/product-scientific-loop-validation-runtime.ts", "src/features/protocol-designer/product-validation-run-ledger.ts"],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "STANDARD_PRODUCT_SURFACE",
+      "fileCount": 6,
+      "digest": "sha256:360d33d8a09a14b5d554bb62c57f71bc18469187fe8966e7e520b7aae5714f4a",
+      "selection": {
+        "paths": ["src/App.tsx", "src/pages/ProtocolDesigner.tsx", "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx", "src/features/protocol-designer/functional-reset/ResearchProjectPanel.tsx", "src/features/protocol-designer/functional-reset/product-entry-routing.ts", "src/features/protocol-designer/functional-reset/session.ts"]
+      }
+    },
+    {
+      "id": "LANGUAGE_GATEWAY_RUNTIME",
+      "fileCount": 7,
+      "digest": "sha256:2dc48f18fef94c8c212db8144c5be1b66a4a4f3d47b3b86a0321656aa61395f6",
+      "selection": {
+        "paths": ["src/features/protocol-designer/conversation-language-gateway.ts", "src/features/protocol-designer/product-bridge-client.ts", "src/features/protocol-designer/product-bridge.ts", "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx", "src/features/protocol-designer/functional-reset/session.ts", "api/protocol-designer-bridge-provider.ts", "api/protocol-designer-bridge.ts"]
+      }
+    },
+    {
+      "id": "TRACE_RUNTIME",
+      "fileCount": 2,
+      "digest": "sha256:0cd77918676b69723d02c6f11c9d37956800e9ad6265a3017c833a754c6a881e",
+      "selection": { "paths": ["src/features/protocol-designer/scientific-execution-trace.ts", "src/features/protocol-designer/functional-reset/end-to-end-trace-adapter.ts"] }
+    },
+    {
+      "id": "PROVIDER_CONFIGURATION_INTENT",
+      "fileCount": 6,
+      "digest": "sha256:b3b00c8c19bdf7d4499b32f7ffaf2de947d87c58b30b9a38b6a0bc5d6ffb3f12",
+      "selection": {
+        "paths": ["api/protocol-designer-bridge-provider.ts", "api/protocol-designer-bridge.ts", "api/protocol-designer-openai-extraction-provider.ts", "src/features/protocol-designer/product-bridge-client.ts", "src/features/protocol-designer/product-bridge.ts", "vite.config.ts"]
+      }
+    }
+  ],
+  "definitionDigests": {
+    "acceptance-envelope-a.json": "sha256:71246848ef1f926242795e01806e661f1bd8cd4976100d63560f3afd581c1200",
+    "acceptance-envelope-b.json": "sha256:fced4800b74207651939efc9fea5e8942e6863b6019a2e856b4a9c3d80291798",
+    "acceptance-envelope-c.json": "sha256:ea91b6fb51fce6042e41fa5fcfaa1a8fa111e027d7254286d7274564ba3931cf",
+    "acceptance-envelope-d.json": "sha256:aae8dd3644a32425f84e6221dfb392d92e78af0f34850e23c2b7b07894046a94",
+    "acceptance-envelope-e-optional.json": "sha256:eb302d87a2cb10fcf61ea23687e4f9d9c535083806c4023b98c1ccbbf5f99926",
+    "blocking-nonblocking-rules.json": "sha256:c2589b5ba9513f9d421435385c90d6b304b6cbc08ad55f439be0ca1f28f57e6f",
+    "campaign-definition-report.md": "sha256:bda91049bc4d8cf25c01e17bfd39347e00532436ef36351cc5aedb4596aa8dfd",
+    "campaign-definition-validator.mjs": "sha256:36d77fc21462b6361d55092ea47faee9ad2da54f3430009a6544a76a9d6fa402",
+    "cross-campaign-equivalence-validator.mjs": "sha256:d4eed8f2f7b2da5411f14908c6cfb8d8a6d2510adaa62d6b192a4f6c15e4e798",
+    "cross-campaign-equivalence.json": "sha256:af0d97536bab1a390c50097696d9e8521cbb6f8c233e0a67fe0b97515c0d15c2",
+    "execution-protocol.md": "sha256:44d3a2e15c92f8f2c391d69486066f82fcf39ef291099b088cedf6d9e80aecd1",
+    "first-divergence-taxonomy.json": "sha256:6d826d218ce5c8fc6197b26f52eed7b7ac92f96028aa266f259790cc60b077fd",
+    "human-adjudication-template.json": "sha256:22736da506816c772276d0c72d8c684955cde6c52666da1fd75940ed481f0852",
+    "language-contract.json": "sha256:2fa59b32dab4dcd5ec1aaf42d6a06bed5d8a8c21945b6e562c56f697b828488a",
+    "linguistic-acceptance-envelope.json": "sha256:5afd9e2c39a4d3f0bce1fbd1b518a79d46779b4de7b97a398da1c6d371997d39",
+    "provider-contract.json": "sha256:6a1282a9257e9acfa85e88bb3e178d725d78892b0b5f265967d0a701697b643a",
+    "scenario-a.json": "sha256:5af0ad8254aedd0604c0fcbb263e6af19af21d899a94bf7fdb1c1d78d6a0911f",
+    "scenario-b.json": "sha256:906cfa1c834230caa3dc1bf73c4fb207d64b18dff397940dd66d23fa22375a79",
+    "scenario-c.json": "sha256:3fbc7d6e7b1d3127b8ef96b2a8f0d8609a2f768e9164bc767b8ad85b70ec7ac1",
+    "scenario-d.json": "sha256:a9c70b7315d8bb462d8d7dc84797fbd9960b1b72fd9dbf6a167d34f80615bfb4",
+    "scenario-e-optional.json": "sha256:42b3b422eb87ca944ee561315e5eec97fa77500db900044fd0223f95c8c9b87f"
+  }
+}

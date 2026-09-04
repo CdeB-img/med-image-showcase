@@ -1,0 +1,12 @@
+{
+  "scenarioId": "FIC01-C-MEASUREMENT-VALIDATION",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "scientificAcceptanceEnvelope": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/acceptance-envelope-c.json",
+    "sha256": "ae8b1637fff8c065cf8e956190ad266dd1bf8c1b50cf654de3f8eaaced0d777a",
+    "scientificMutation": "NONE"
+  },
+  "linguisticAcceptanceEnvelopeRef": "linguistic-acceptance-envelope.json"
+}

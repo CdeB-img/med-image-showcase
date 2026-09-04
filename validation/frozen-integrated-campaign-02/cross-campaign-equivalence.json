@@ -1,0 +1,43 @@
+{
+  "comparisonId": "FIC01-TO-FIC02-SCIENTIFIC-EQUIVALENCE",
+  "version": "1.0.0",
+  "status": "FROZEN_EXPECTATION_VALIDATED_DETERMINISTICALLY",
+  "sourceCampaign": "FROZEN-INTEGRATED-CAMPAIGN-01@1.0.0",
+  "sourceCampaignStatus": "CAMPAIGN_TECHNICALLY_INVALID_FOR_PRODUCT_SCIENTIFIC_QUALIFICATION",
+  "sourceCampaignTreeDigest": "f273736ebefecaa1d1a68b30252c0be842e41d8cd95ca04dbac6e70a40d7cd99",
+  "targetCampaign": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "equivalenceMechanism": "V2_WRAPPERS_BIND_EXACT_V1_ARTIFACT_DIGESTS",
+  "requiredEqualities": [
+    "SCIENTIFIC_SCENARIO_IDENTITIES",
+    "SCIENTIFIC_SCENARIO_CONTENT",
+    "FACT_SEMANTICS",
+    "UNRESOLVED_STATES",
+    "SCIENTIFIC_ACCEPTANCE_ENVELOPE_SEMANTICS",
+    "PRIMARY_OPTIONAL_DISTINCTION",
+    "SCIENTIFIC_BLOCKING_TAXONOMY"
+  ],
+  "intentionalDifferenceAllowlist": [
+    "CAMPAIGN_IDENTITY_VERSION",
+    "RUNTIME_BASELINE",
+    "LANGUAGE_GATEWAY_IDENTITY",
+    "TRACE_PROFILE_VERSION",
+    "LANGUAGE_CONTRACTS",
+    "PROVIDER_ACCOUNTING",
+    "LANGUAGE_CAUSAL_TAXONOMY"
+  ],
+  "scenarioBindings": {
+    "scenario-a.json": "scenario-a.json",
+    "scenario-b.json": "scenario-b.json",
+    "scenario-c.json": "scenario-c.json",
+    "scenario-d.json": "scenario-d.json",
+    "scenario-e-optional.json": "scenario-e-optional.json"
+  },
+  "acceptanceEnvelopeBindings": {
+    "acceptance-envelope-a.json": "acceptance-envelope-a.json",
+    "acceptance-envelope-b.json": "acceptance-envelope-b.json",
+    "acceptance-envelope-c.json": "acceptance-envelope-c.json",
+    "acceptance-envelope-d.json": "acceptance-envelope-d.json",
+    "acceptance-envelope-e-optional.json": "acceptance-envelope-e-optional.json"
+  },
+  "scientificSemanticDrift": 0
+}

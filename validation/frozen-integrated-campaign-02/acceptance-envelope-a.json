@@ -1,0 +1,12 @@
+{
+  "scenarioId": "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "scientificAcceptanceEnvelope": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/acceptance-envelope-a.json",
+    "sha256": "efd0559462cf448d1a85edb7e82d72890e3563994908f44e5e9ff07f90534ea3",
+    "scientificMutation": "NONE"
+  },
+  "linguisticAcceptanceEnvelopeRef": "linguistic-acceptance-envelope.json"
+}

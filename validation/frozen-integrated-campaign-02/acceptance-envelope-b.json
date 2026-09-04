@@ -1,0 +1,12 @@
+{
+  "scenarioId": "FIC01-B-INTERVENTIONAL-ANALYTIC",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "scientificAcceptanceEnvelope": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/acceptance-envelope-b.json",
+    "sha256": "966eada5154a0b48df65cc4d072ee46cae7cf54863751f512c7669ce72c9ffe2",
+    "scientificMutation": "NONE"
+  },
+  "linguisticAcceptanceEnvelopeRef": "linguistic-acceptance-envelope.json"
+}

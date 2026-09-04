@@ -1,0 +1,12 @@
+{
+  "scenarioId": "FIC01-D-MULTICENTER-HARMONIZATION",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "scientificAcceptanceEnvelope": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/acceptance-envelope-d.json",
+    "sha256": "04e2ffef3624676ab4d2cda6eacfb09581dea6c9b3b9d6360ca344ff0aae57f2",
+    "scientificMutation": "NONE"
+  },
+  "linguisticAcceptanceEnvelopeRef": "linguistic-acceptance-envelope.json"
+}

@@ -1,0 +1,20 @@
+{
+  "scenarioId": "FIC01-B-INTERVENTIONAL-ANALYTIC",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "status": "PRIMARY_FROZEN",
+  "scientificDefinition": {
+    "mode": "EXACT_REFERENCED_FIC01_V1_ARTIFACT",
+    "ref": "../frozen-integrated-campaign-01/scenario-b.json",
+    "sha256": "a36ec25050555c6d7cabe9964e0ba64115a2587473b6827dc9a1dde354fdf4c1",
+    "scientificMutation": "NONE"
+  },
+  "originalUserTextEn": "We want to conduct a multicenter randomized study comparing two management strategies after an acute cardiovascular event. Imaging will be used to characterize remodeling and may contribute to the principal evaluation, but the exact endpoint hierarchy, follow-up strategy, and analysis plan are not yet fixed.",
+  "languageBinding": {
+    "sourceUserLanguage": "EN",
+    "conversationLanguage": "EN",
+    "internalWorkingLanguage": "FR",
+    "visibleResponseLanguage": "EN",
+    "contractRef": "language-contract.json"
+  }
+}
