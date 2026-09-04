@@ -68,6 +68,22 @@ export type ProductBridgePreProjectNavigation = Readonly<{
   scientificDecisionAuthorized: false;
 }>;
 
+export type ProductBridgeLanguageBoundary = Readonly<{
+  contract: "PRODUCT_BRIDGE_LANGUAGE_BOUNDARY";
+  contractVersion: "1.0.0";
+  workingLanguage: "fr";
+  turnProjections: readonly Readonly<{
+    turnId: string;
+    originalTextDigest: string;
+    frenchWorkingText: string;
+    frenchWorkingTextDigest: string;
+    sourceLanguage: string;
+    translationProjectionRef: string | null;
+    originalIsImmutableEvidence: true;
+    workingProjectionIsUserLiteral: false;
+  }>[];
+}>;
+
 export const PERSISTENT_PROJECT_OBJECT_TYPES = [
   "SCIENTIFIC_QUESTION",
   "OBJECTIVE",
@@ -246,6 +262,13 @@ Pas de JSON. Pas de labels internes. Pas de description de l'architecture NOXIA.
 
 const recentNaturalConversationTurns = (request: Omit<ProductBridgeRequest, "apiVersion">) => request.conversation.turns.slice(-10);
 
+const frenchWorkingTurnContent = (
+  request: Omit<ProductBridgeRequest, "apiVersion">,
+  turn: ScientificInterpretationTurn,
+) => turn.role === "USER"
+  ? request.languageBoundary?.turnProjections.find((projection) => projection.turnId === turn.turnId)?.frenchWorkingText ?? turn.content
+  : turn.content;
+
 /**
  * Shared, deterministic construction of the exact natural-conversation context.
  * The browser uses this same pure function for passive trace correlation; the
@@ -295,7 +318,7 @@ export const naturalConversationContext = (request: Omit<ProductBridgeRequest, "
       : "Aucune directive pré-Project gouvernée.",
     governedRealizationEnvelope,
     "Conversation récente :",
-    ...recentNaturalConversationTurns(request).map((turn) => `${turn.role === "USER" ? "Chercheur" : "NOXIA"} : ${turn.content}`),
+    ...recentNaturalConversationTurns(request).map((turn) => `${turn.role === "USER" ? "Chercheur" : "NOXIA"} : ${frenchWorkingTurnContent(request, turn)}`),
   ];
   return lines.filter((line): line is string => Boolean(line)).join("\n\n");
 };
@@ -845,6 +868,7 @@ export type ProductBridgeRequest = {
   evaluatePersistentDelta: boolean;
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
   preProjectNavigation?: ProductBridgePreProjectNavigation;
+  languageBoundary?: ProductBridgeLanguageBoundary;
 };
 
 export type ProductBridgeResponse = {
@@ -1586,6 +1610,24 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
       || navigation.projectWriteAuthorized !== false
       || navigation.projectAdoptionAuthorized !== false
       || navigation.scientificDecisionAuthorized !== false) return null;
+  }
+  if (record.languageBoundary !== undefined) {
+    const boundary = record.languageBoundary;
+    if (boundary.contract !== "PRODUCT_BRIDGE_LANGUAGE_BOUNDARY"
+      || boundary.contractVersion !== "1.0.0"
+      || boundary.workingLanguage !== "fr"
+      || !Array.isArray(boundary.turnProjections)
+      || !boundary.turnProjections.every((projection) => {
+        const sourceTurn = record.conversation!.turns.find((turn) => turn.role === "USER" && turn.turnId === projection.turnId);
+        return Boolean(sourceTurn)
+          && projection.originalTextDigest === logicalDigest(sourceTurn!.content)
+          && typeof projection.frenchWorkingText === "string" && projection.frenchWorkingText.trim().length > 0
+          && projection.frenchWorkingTextDigest === logicalDigest(projection.frenchWorkingText)
+          && typeof projection.sourceLanguage === "string" && projection.sourceLanguage.length > 0
+          && (projection.translationProjectionRef === null || typeof projection.translationProjectionRef === "string")
+          && projection.originalIsImmutableEvidence === true
+          && projection.workingProjectionIsUserLiteral === false;
+      })) return null;
   }
   if (record.currentProject !== null && record.currentProject?.contract !== "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION") return null;
   return record as ProductBridgeRequest;

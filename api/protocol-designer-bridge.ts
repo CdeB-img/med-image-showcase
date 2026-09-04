@@ -13,8 +13,13 @@ import {
 } from "../src/features/protocol-designer/product-bridge.js";
 import {
   ProductBridgeProviderError,
+  executeLanguageProjection,
   executeNaturalConversation,
 } from "./protocol-designer-bridge-provider.js";
+import {
+  materializeLanguageProjectionArtifact,
+  parseLanguageProjectionRequest,
+} from "../src/features/protocol-designer/conversation-language-gateway.js";
 import { executeOpenAIPersistentDelta } from "./protocol-designer-openai-extraction-provider.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
@@ -88,6 +93,45 @@ export const executeProtocolDesignerBridge = async (input: {
   now?: () => number;
   onPersistentProviderArtifact?: (artifact: NonNullable<ProductBridgeResponse["persistentExtraction"]["providerArtifact"]>) => void;
 }): Promise<{ status: number; body: ProductBridgeResponse | Record<string, unknown> }> => {
+  const languageRequest = parseLanguageProjectionRequest(input.body);
+  if (languageRequest) {
+    if (detectSensitiveData(languageRequest.sourceText).length) {
+      return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED", message: "Retirez toute donnée personnelle, patient ou confidentielle." } } };
+    }
+    if (!input.apiKey?.trim()) {
+      return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "GEMINI_API_KEY_MISSING", message: "Cette langue ne peut pas être traitée pour le moment." } } };
+    }
+    const model = resolveGeminiConversationModel(input.geminiModel);
+    try {
+      const projected = await executeLanguageProjection(languageRequest, input.apiKey, input.fetchImpl, model);
+      const projection = materializeLanguageProjectionArtifact({
+        request: languageRequest,
+        result: projected.value,
+        model,
+        providerResponseId: projected.responseId,
+        createdAt: new Date(input.now?.() ?? Date.now()).toISOString(),
+      });
+      return {
+        status: 200,
+        body: {
+          apiVersion: PRODUCT_BRIDGE_API_VERSION,
+          operation: "LANGUAGE_PROJECTION",
+          projection,
+          observability: {
+            provider: "GOOGLE_GEMINI",
+            model,
+            calls: 1,
+            latencyMs: projected.latencyMs,
+          },
+        },
+      };
+    } catch (error) {
+      if (error instanceof ProductBridgeProviderError) {
+        return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LANGUAGE_PROJECTION_PROVIDER_FAILURE", message: "Cette langue ne peut pas être traitée pour le moment.", provider: safeProviderError(error) } } };
+      }
+      return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LANGUAGE_PROJECTION_CONTRACT_FAILED", message: "La projection linguistique n’a pas conservé les invariants requis." } } };
+    }
+  }
   const request = parseProductBridgeRequest(input.body);
   if (!request) return { status: 400, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "Contrat du pont produit invalide." } } };
   const latestUser = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER");

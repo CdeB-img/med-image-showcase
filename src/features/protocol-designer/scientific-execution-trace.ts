@@ -8,6 +8,11 @@ import type {
   ProductOwnerResultLedgerEntry,
 } from "./product-owner-result-ledger";
 import type { ProductValidationRunLedgerEntry } from "./product-validation-run-ledger";
+import type {
+  LocalLanguageDetection,
+  LocalizedConversationResponse,
+  MultilingualUserTurn,
+} from "./conversation-language-gateway";
 
 export const SCIENTIFIC_EXECUTION_TRACE_LEDGER_CONTRACT = "SCIENTIFIC_EXECUTION_TRACE_LEDGER" as const;
 export const SCIENTIFIC_EXECUTION_TRACE_LEDGER_VERSION = "0.1.0" as const;
@@ -15,7 +20,8 @@ export const SCIENTIFIC_RUN_SCHEMA_VERSION = "0.1.0" as const;
 export const SCIENTIFIC_EXECUTION_TRACE_EVENT_SCHEMA_VERSION = "0.1.0" as const;
 export const END_TO_END_TRACE_PROFILE = "NOXIA_END_TO_END_PRODUCT_TRACE" as const;
 export const LEGACY_END_TO_END_TRACE_PROFILE_VERSION = "1.0.0" as const;
-export const END_TO_END_TRACE_PROFILE_VERSION = "1.1.0" as const;
+export const PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION = "1.1.0" as const;
+export const END_TO_END_TRACE_PROFILE_VERSION = "1.2.0" as const;
 export const PRE_PROJECT_SCIENTIFIC_TRACE_SEGMENT_CONTRACT = "SCIENTIFIC_EXECUTION_TRACE_PRE_PROJECT_SEGMENT" as const;
 export const PRE_PROJECT_SCIENTIFIC_TRACE_SEGMENT_VERSION = "0.1.0" as const;
 
@@ -161,11 +167,16 @@ export type ScientificTraceForensicPayload = {
 export type ScientificProductTraceStage =
   | "TRACE_RUN_STARTED"
   | "USER_TURN_RECEIVED"
+  | "LANGUAGE_DETECTED"
+  | "LANGUAGE_PROJECTION_CREATED"
+  | "LANGUAGE_PROJECTION_NOT_REQUIRED"
+  | "LANGUAGE_PROJECTION_FAILED"
   | "ROUTE_SELECTED"
   | "INTENT_REPRESENTED"
   | "INFORMATION_NEED_SELECTED"
   | "QUESTION_REALIZATION_REQUESTED"
   | "QUESTION_REALIZED"
+  | "RESPONSE_LOCALIZED"
   | "PROJECT_CANDIDATE_EXTRACTED"
   | "PROJECT_CANDIDATE_VALIDATED"
   | "HUMAN_REVIEW_PRESENTED"
@@ -208,7 +219,7 @@ export type ScientificTraceVersionedReference = {
 
 export type ScientificProductTraceCommonEnvelope = {
   contract: "SCIENTIFIC_EXECUTION_TRACE_COMMON_EVENT";
-  contractVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
+  contractVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
   traceRunId: string;
   turnId: string | ScientificProductTraceSentinel;
   eventId: string;
@@ -454,6 +465,7 @@ export type CreatePreProjectScientificTraceSegmentInput = {
 
 export type ScientificTraceOwner =
   | "USER"
+  | "LANGUAGE_GATEWAY"
   | "PRODUCT_ENTRY_ROUTER"
   | "INTENT_ORCHESTRATOR"
   | "QUERY_NAVIGATION"
@@ -646,7 +658,7 @@ export type ScientificExecutionTraceLedger = {
   privateReasoningStored: false;
   traceProfile?: {
     profile: typeof END_TO_END_TRACE_PROFILE;
-    profileVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
+    profileVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
     redactionPolicyId: ReadableTraceRedactionPolicyId;
     retentionPolicyId: ReadableTraceRetentionPolicyId;
     capturePolicyId: ReadableTraceCapturePolicyId;
@@ -925,6 +937,7 @@ const validateProjectBinding = (value: unknown): value is ScientificRunProjectBi
 
 const TRACE_OWNERS = new Set<ScientificTraceOwner>([
   "USER",
+  "LANGUAGE_GATEWAY",
   "PRODUCT_ENTRY_ROUTER",
   "INTENT_ORCHESTRATOR",
   "QUERY_NAVIGATION",
@@ -950,11 +963,16 @@ const TRACE_OWNERS = new Set<ScientificTraceOwner>([
 const PRODUCT_TRACE_STAGES: readonly ScientificProductTraceStage[] = [
   "TRACE_RUN_STARTED",
   "USER_TURN_RECEIVED",
+  "LANGUAGE_DETECTED",
+  "LANGUAGE_PROJECTION_CREATED",
+  "LANGUAGE_PROJECTION_NOT_REQUIRED",
+  "LANGUAGE_PROJECTION_FAILED",
   "ROUTE_SELECTED",
   "INTENT_REPRESENTED",
   "INFORMATION_NEED_SELECTED",
   "QUESTION_REALIZATION_REQUESTED",
   "QUESTION_REALIZED",
+  "RESPONSE_LOCALIZED",
   "PROJECT_CANDIDATE_EXTRACTED",
   "PROJECT_CANDIDATE_VALIDATED",
   "HUMAN_REVIEW_PRESENTED",
@@ -1210,7 +1228,7 @@ const validateCaptureExtensions = (value: Record<string, unknown>) => {
 const validateCommonEnvelope = (value: unknown, eventId: string, runId: string): value is ScientificProductTraceCommonEnvelope => {
   if (!isRecord(value)
     || value.contract !== "SCIENTIFIC_EXECUTION_TRACE_COMMON_EVENT"
-    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.contractVersion))
+    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.contractVersion))
     || value.traceRunId !== runId
     || value.eventId !== eventId
     || typeof value.turnId !== "string"
@@ -1305,7 +1323,7 @@ const validateEventShape = (event: unknown): event is ScientificExecutionTraceEv
 const validateTraceProfile = (value: unknown) => {
   if (!isRecord(value)
     || value.profile !== END_TO_END_TRACE_PROFILE
-    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.profileVersion))
+    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.profileVersion))
     || value.oneTraceSystem !== true
     || value.oneEventTaxonomy !== true
     || value.oneTraceIdentityModel !== true
@@ -1859,6 +1877,282 @@ export const appendProductTraceStage = (input: {
     common: input.envelope,
   },
 });
+
+const productTraceRunExists = (ledger: Readonly<ScientificExecutionTraceLedger>, traceRunId: string) =>
+  ledger.runBindings.some((binding) => binding.runId === traceRunId);
+
+export const recordConversationLanguageGatewayTrace = (input: {
+  ledger: Readonly<ScientificExecutionTraceLedger>;
+  traceRunId: string;
+  conversationId: string;
+  turn: Readonly<MultilingualUserTurn>;
+  observedAt: string;
+}): Readonly<ScientificExecutionTraceLedger> => {
+  let ledger = input.ledger;
+  if (!productTraceRunExists(ledger, input.traceRunId)) {
+    ledger = startProductTraceRun({
+      ledger,
+      traceRunId: input.traceRunId,
+      turnId: input.turn.turnId,
+      conversationId: input.conversationId,
+      startedAt: input.observedAt,
+      sourceDigest: input.turn.originalTextDigest,
+    }).ledger;
+  }
+  const detected = appendProductTraceStage({
+    ledger,
+    traceRunId: input.traceRunId,
+    timestamp: input.observedAt,
+    status: input.turn.languageDetectionStatus,
+    owner: "LANGUAGE_GATEWAY",
+    durationMs: 0,
+    envelope: {
+      stage: "LANGUAGE_DETECTED",
+      responsibilityOwner: "LANGUAGE_GATEWAY",
+      decisionOwner: "NONE",
+      executor: "LOCAL_CONVERSATION_LANGUAGE_DETECTOR",
+      provider: "NONE",
+      componentId: "CONVERSATION_LANGUAGE_GATEWAY",
+      componentVersion: input.turn.contractVersion,
+      input: [{ ref: input.turn.turnId, version: "NOT_APPLICABLE", digest: input.turn.originalTextDigest }],
+      output: [{
+        ref: `${input.traceRunId}:language-detection`,
+        version: input.turn.contractVersion,
+        digest: logicalDigest({
+          sourceLanguage: input.turn.sourceLanguage,
+          detectedLanguage: input.turn.detectedLanguage,
+          conversationLanguage: input.turn.conversationLanguage,
+          confidence: input.turn.languageConfidence,
+          switchCandidate: input.turn.languageSwitchCandidate,
+        }),
+      }],
+      reasonCode: input.turn.languageDetectionStatus,
+      completedAt: input.observedAt,
+      conversationId: input.conversationId,
+    },
+  });
+  ledger = detected.ledger;
+  return appendProductTraceStage({
+    ledger,
+    traceRunId: input.traceRunId,
+    timestamp: input.observedAt,
+    status: input.turn.translationStatus,
+    owner: "LANGUAGE_GATEWAY",
+    durationMs: 0,
+    envelope: {
+      stage: input.turn.translationRequired ? "LANGUAGE_PROJECTION_CREATED" : "LANGUAGE_PROJECTION_NOT_REQUIRED",
+      responsibilityOwner: "LANGUAGE_GATEWAY",
+      decisionOwner: "NONE",
+      executor: input.turn.translationRequired ? "GEMINI_LANGUAGE_PROJECTION" : "LOCAL_IDENTITY_PROJECTION",
+      provider: input.turn.translationProvider,
+      componentId: "CONVERSATION_LANGUAGE_GATEWAY",
+      componentVersion: input.turn.translationContractVersion,
+      input: [{ ref: input.turn.turnId, version: "NOT_APPLICABLE", digest: input.turn.originalTextDigest }],
+      output: [{
+        ref: input.turn.provenance.projectionRef ?? `${input.traceRunId}:identity-language-projection`,
+        version: input.turn.translationContractVersion,
+        digest: input.turn.frenchWorkingTextDigest ?? "UNKNOWN",
+      }],
+      reasonCode: input.turn.translationRequired ? "NON_FRENCH_INPUT_PROJECTED_TO_FRENCH" : "FRENCH_INPUT_USED_DIRECTLY",
+      completedAt: input.observedAt,
+      conversationId: input.conversationId,
+    },
+}).ledger;
+};
+
+export const recordConversationLanguageGatewayFailureTrace = (input: {
+  ledger: Readonly<ScientificExecutionTraceLedger>;
+  traceRunId: string;
+  conversationId: string;
+  turnId: string;
+  originalTextDigest: string;
+  projectionSourceTextDigest: string;
+  detection: Readonly<LocalLanguageDetection>;
+  projectionKind: "INPUT_TO_FRENCH" | "OUTPUT_FROM_FRENCH";
+  targetLanguage: string;
+  failureCode: string;
+  observedAt: string;
+}): Readonly<ScientificExecutionTraceLedger> => {
+  let ledger = input.ledger;
+  if (!productTraceRunExists(ledger, input.traceRunId)) {
+    ledger = startProductTraceRun({
+      ledger,
+      traceRunId: input.traceRunId,
+      turnId: input.turnId,
+      conversationId: input.conversationId,
+      startedAt: input.observedAt,
+      sourceDigest: input.originalTextDigest,
+    }).ledger;
+    ledger = appendProductTraceStage({
+      ledger,
+      traceRunId: input.traceRunId,
+      timestamp: input.observedAt,
+      status: input.detection.status,
+      owner: "LANGUAGE_GATEWAY",
+      durationMs: 0,
+      envelope: {
+        stage: "LANGUAGE_DETECTED",
+        responsibilityOwner: "LANGUAGE_GATEWAY",
+        decisionOwner: "NONE",
+        executor: "LOCAL_CONVERSATION_LANGUAGE_DETECTOR",
+        provider: "NONE",
+        componentId: "CONVERSATION_LANGUAGE_GATEWAY",
+        componentVersion: "1.0.0",
+        input: [{ ref: input.turnId, version: "NOT_APPLICABLE", digest: input.originalTextDigest }],
+        output: [{
+          ref: `${input.traceRunId}:language-detection`,
+          version: "1.0.0",
+          digest: logicalDigest(input.detection),
+        }],
+        reasonCode: input.detection.reasonCode,
+        completedAt: input.observedAt,
+        conversationId: input.conversationId,
+      },
+    }).ledger;
+  }
+  return appendProductTraceStage({
+    ledger,
+    traceRunId: input.traceRunId,
+    timestamp: input.observedAt,
+    status: "FAILED",
+    owner: "LANGUAGE_GATEWAY",
+    durationMs: null,
+    error: { category: "BOUNDARY_REJECTION", code: input.failureCode },
+    envelope: {
+      stage: "LANGUAGE_PROJECTION_FAILED",
+      responsibilityOwner: "LANGUAGE_GATEWAY",
+      decisionOwner: "NONE",
+      executor: "GEMINI_LANGUAGE_PROJECTION",
+      provider: "GOOGLE_GEMINI",
+      componentId: "CONVERSATION_LANGUAGE_GATEWAY",
+      componentVersion: "1.0.0",
+      input: [{ ref: input.turnId, version: input.projectionKind, digest: input.projectionSourceTextDigest }],
+      output: [],
+      reasonCode: input.failureCode,
+      completedAt: input.observedAt,
+      conversationId: input.conversationId,
+    },
+  }).ledger;
+};
+
+export const recordProductEntryRoutingTrace = (input: {
+  ledger: Readonly<ScientificExecutionTraceLedger>;
+  traceRunId: string;
+  conversationId: string;
+  routing: Readonly<{
+    sourceTurnRef: string;
+    contractVersion: string;
+    routeIntent: string | null;
+    routeReasons: readonly string[];
+    scientificContext: Readonly<{
+      centralScientificObject: string;
+      preservedScientificTerms: readonly string[];
+      missingInformation: readonly string[];
+    }>;
+    explicitScientificDimensions: readonly Readonly<{ dimensionRef: string }>[],
+  }>;
+  routerInputRef: string;
+  routerInputDigest: string;
+  observedAt: string;
+}): Readonly<ScientificExecutionTraceLedger> => {
+  if (!productTraceRunExists(input.ledger, input.traceRunId)) throw new Error("SCIENTIFIC_TRACE_LANGUAGE_BOUNDARY_NOT_RECORDED");
+  const existingStages = new Set(eventsFor(input.ledger, input.traceRunId).map((event) => event.common?.stage ?? canonicalStageForScientificTraceEvent(event)));
+  let ledger = input.ledger;
+  if (!existingStages.has("ROUTE_SELECTED")) {
+    ledger = appendProductTraceStage({
+      ledger,
+      traceRunId: input.traceRunId,
+      timestamp: input.observedAt,
+      status: "SELECTED",
+      owner: "PRODUCT_ENTRY_ROUTER",
+      durationMs: 0,
+      envelope: {
+        stage: "ROUTE_SELECTED",
+        responsibilityOwner: "PRODUCT_ENTRY_ROUTER",
+        decisionOwner: "PRODUCT_ENTRY_ROUTER",
+        executor: "PRODUCT_ENTRY_ROUTER",
+        provider: "NONE",
+        componentId: "PRODUCT_ENTRY_ROUTING",
+        componentVersion: input.routing.contractVersion,
+        input: [{ ref: input.routerInputRef, version: "1.0.0", digest: input.routerInputDigest }],
+        output: [{
+          ref: `${input.traceRunId}:route`,
+          version: input.routing.contractVersion,
+          digest: logicalDigest({ routeIntent: input.routing.routeIntent, routeReasons: input.routing.routeReasons }),
+        }],
+        reasonCode: input.routing.routeReasons[0] ?? "ROUTE_SELECTED_WITHOUT_REASON_CODE",
+        completedAt: input.observedAt,
+        conversationId: input.conversationId,
+      },
+    }).ledger;
+  }
+  if (!existingStages.has("INTENT_REPRESENTED")) {
+    ledger = appendProductTraceStage({
+      ledger,
+      traceRunId: input.traceRunId,
+      timestamp: input.observedAt,
+      status: "REPRESENTED",
+      owner: "INTENT_ORCHESTRATOR",
+      durationMs: 0,
+      envelope: {
+        stage: "INTENT_REPRESENTED",
+        responsibilityOwner: "INTENT_ORCHESTRATOR",
+        decisionOwner: "PRODUCT_ENTRY_ROUTER",
+        executor: "PRODUCT_ENTRY_ROUTER",
+        provider: "NONE",
+        componentId: "PRODUCT_ENTRY_ROUTING",
+        componentVersion: input.routing.contractVersion,
+        input: [{ ref: `${input.traceRunId}:route`, version: input.routing.contractVersion, digest: logicalDigest({ routeIntent: input.routing.routeIntent, routeReasons: input.routing.routeReasons }) }],
+        output: [{
+          ref: `${input.traceRunId}:intent`,
+          version: input.routing.contractVersion,
+          digest: logicalDigest({
+            centralScientificObject: input.routing.scientificContext.centralScientificObject,
+            preservedScientificTerms: input.routing.scientificContext.preservedScientificTerms,
+            missingInformation: input.routing.scientificContext.missingInformation,
+            explicitDimensionRefs: input.routing.explicitScientificDimensions.map((dimension) => dimension.dimensionRef),
+          }),
+        }],
+        reasonCode: input.routing.routeIntent ?? "UNKNOWN",
+        completedAt: input.observedAt,
+        conversationId: input.conversationId,
+      },
+    }).ledger;
+  }
+  return ledger;
+};
+
+export const recordLocalizedConversationResponseTrace = (input: {
+  ledger: Readonly<ScientificExecutionTraceLedger>;
+  traceRunId: string;
+  conversationId: string;
+  response: Readonly<LocalizedConversationResponse>;
+  observedAt: string;
+}): Readonly<ScientificExecutionTraceLedger> => {
+  if (!productTraceRunExists(input.ledger, input.traceRunId)) return input.ledger;
+  return appendProductTraceStage({
+    ledger: input.ledger,
+    traceRunId: input.traceRunId,
+    timestamp: input.observedAt,
+    status: input.response.translationStatus,
+    owner: "LANGUAGE_GATEWAY",
+    durationMs: 0,
+    envelope: {
+      stage: "RESPONSE_LOCALIZED",
+      responsibilityOwner: "LANGUAGE_GATEWAY",
+      decisionOwner: "NONE",
+      executor: input.response.translationRequired ? "GEMINI_LANGUAGE_PROJECTION" : "LOCAL_IDENTITY_PROJECTION",
+      provider: input.response.translationProvider,
+      componentId: "CONVERSATION_LANGUAGE_GATEWAY",
+      componentVersion: input.response.contractVersion,
+      input: [{ ref: input.response.provenance.canonicalResponseRef, version: "1.0.0", digest: input.response.internalFrenchResponseDigest }],
+      output: [{ ref: input.response.provenance.projectionRef ?? input.response.responseId, version: input.response.contractVersion, digest: input.response.localizedResponseDigest }],
+      reasonCode: input.response.translationRequired ? "VISIBLE_RESPONSE_LOCALIZED" : "FRENCH_RESPONSE_USED_DIRECTLY",
+      completedAt: input.observedAt,
+      conversationId: input.conversationId,
+    },
+  }).ledger;
+};
 
 export const commonEnvelopeForScientificTraceEvent = (input: {
   ledger: Readonly<ScientificExecutionTraceLedger>;
@@ -2841,7 +3135,8 @@ export const recordPreProjectScientificTraceSegment = (input: {
     ?? createScientificTraceCaptureConfiguration(input.segment.captureMode === "DIAGNOSTIC_FULL"
       ? { captureLevel: "LEVEL_2_DIAGNOSTIC", captureReason: "MANUAL_DIAGNOSTIC" }
       : undefined);
-  const started = startProductTraceRun({
+  const runAlreadyStarted = productTraceRunExists(input.ledger, input.traceRunId);
+  const started = runAlreadyStarted ? null : startProductTraceRun({
     ledger: input.ledger,
     traceRunId: input.traceRunId,
     turnId: input.segment.correlation.sourceTurnRef,
@@ -2850,8 +3145,9 @@ export const recordPreProjectScientificTraceSegment = (input: {
     sourceDigest: routing.sourceTextDigest,
     captureConfiguration,
   });
-  let ledger = started.ledger;
-  const events: Readonly<ScientificExecutionTraceEvent>[] = [started.event];
+  let ledger = started?.ledger ?? input.ledger;
+  const events: Readonly<ScientificExecutionTraceEvent>[] = started ? [started.event] : [];
+  const existingStages = new Set(eventsFor(ledger, input.traceRunId).map((event) => event.common?.stage ?? canonicalStageForScientificTraceEvent(event)));
   const add = (stageInput: Parameters<typeof appendProductTraceStage>[0]) => {
     const appended = appendProductTraceStage(stageInput);
     ledger = appended.ledger;
@@ -2862,7 +3158,7 @@ export const recordPreProjectScientificTraceSegment = (input: {
     version: PRE_PROJECT_SCIENTIFIC_TRACE_SEGMENT_VERSION,
     digest: logicalDigest(value),
   });
-  add({
+  if (!existingStages.has("ROUTE_SELECTED")) add({
     ledger,
     traceRunId: input.traceRunId,
     timestamp: input.observedAt,
@@ -2884,7 +3180,7 @@ export const recordPreProjectScientificTraceSegment = (input: {
       conversationId: input.conversationId,
     },
   });
-  add({
+  if (!existingStages.has("INTENT_REPRESENTED")) add({
     ledger,
     traceRunId: input.traceRunId,
     timestamp: input.observedAt,

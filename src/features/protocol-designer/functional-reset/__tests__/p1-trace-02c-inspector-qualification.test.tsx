@@ -432,7 +432,7 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     expect(stages.indexOf("STALE_MARKED")).toBeGreaterThan(stages.indexOf("ARTIFACT_GENERATED"));
     expect(inspected.events.find((event) => event.stage === "ARTIFACT_GENERATED")?.inputRefs[0]).toMatchObject({ ref: projection.projectionId });
     expect(inspected.events.find((event) => event.stage === "STALE_MARKED")?.status).toBe("STALE");
-    expect(inspected.events).toHaveLength(21);
+    expect(inspected.events).toHaveLength(24);
     expect(inspected.diagnostics.some((finding) => finding.code === "TRACE_CHAIN_BREAK")).toBe(false);
     expect(JSON.stringify(stored.project)).toBe(JSON.stringify(project));
 

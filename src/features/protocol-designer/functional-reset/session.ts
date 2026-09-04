@@ -56,6 +56,12 @@ import type { StandardImagingInteraction, StandardImagingPresentation } from "./
 import type { StandardBiostatisticsInteraction, StandardBiostatisticsPresentation } from "./biostatistics-standard";
 import type { StandardCanonicalStudyDataInteraction, StandardCanonicalStudyDataPresentation } from "./canonical-study-data-standard";
 import type { StandardDataManagementInteraction, StandardDataManagementPresentation } from "./data-management-standard";
+import {
+  CONVERSATION_LANGUAGE_GATEWAY_CONTRACT,
+  createConversationLanguageGatewayState,
+  type ConversationLanguageGatewayState,
+  type MultilingualUserTurn,
+} from "@/features/protocol-designer/conversation-language-gateway";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
 export const INITIAL_NOXIA_MESSAGE = "Dites-moi ce que vous souhaitez comprendre, formaliser ou construire.\nNOXIA préservera votre intention avant de proposer la suite.";
@@ -138,11 +144,13 @@ export type ProductBridgeTrace = {
   continuationPresentationSource?: PostAdoptionQueryContinuation["presentationSource"] | null;
   continuationMediationFailure?: string | null;
   preProjectTrace?: Readonly<PreProjectScientificTraceSegment> | null;
+  multilingualUserTurn?: Readonly<MultilingualUserTurn> | null;
+  languageGatewayCalls?: number;
 };
 
 export type FunctionalResetSession = {
   contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION";
-  contractVersion: "1.9.0";
+  contractVersion: "2.0.0";
   sessionId: string;
   conversationId: string;
   projectId: string;
@@ -168,6 +176,7 @@ export type FunctionalResetSession = {
   knowledgeOwnerLedger: Readonly<ProductKnowledgeOwnerLedger>;
   validationRunLedger: Readonly<ProductValidationRunLedger>;
   scientificExecutionTraceLedger: Readonly<ScientificExecutionTraceLedger>;
+  conversationLanguageGateway: Readonly<ConversationLanguageGatewayState>;
 };
 
 const id = (prefix: string) => {
@@ -179,7 +188,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
   const sessionId = id("protocol-designer-session");
   return {
     contract: "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION",
-    contractVersion: "1.9.0",
+    contractVersion: "2.0.0",
     sessionId,
     conversationId: id("scientific-conversation"),
     projectId: `${sessionId}:research-project`,
@@ -210,6 +219,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     knowledgeOwnerLedger: createProductKnowledgeOwnerLedger(sessionId),
     validationRunLedger: createProductValidationRunLedger(sessionId),
     scientificExecutionTraceLedger: createScientificExecutionTraceLedger(sessionId),
+    conversationLanguageGateway: createConversationLanguageGatewayState(),
   };
 };
 
@@ -217,7 +227,7 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
   if (!value || typeof value !== "object") return false;
   const record = value as Partial<FunctionalResetSession>;
   return record.contract === "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION"
-    && record.contractVersion === "1.9.0"
+    && record.contractVersion === "2.0.0"
     && typeof record.sessionId === "string"
     && typeof record.conversationId === "string"
     && Array.isArray(record.entries)
@@ -241,35 +251,43 @@ const looksLikeSession = (value: unknown): value is FunctionalResetSession => {
     && record.validationRunLedger?.contract === PRODUCT_VALIDATION_RUN_LEDGER_CONTRACT
     && record.validationRunLedger.sessionId === record.sessionId
     && record.scientificExecutionTraceLedger?.contract === SCIENTIFIC_EXECUTION_TRACE_LEDGER_CONTRACT
-    && record.scientificExecutionTraceLedger.sessionId === record.sessionId;
+    && record.scientificExecutionTraceLedger.sessionId === record.sessionId
+    && record.conversationLanguageGateway?.contract === CONVERSATION_LANGUAGE_GATEWAY_CONTRACT
+    && Array.isArray(record.conversationLanguageGateway.turns)
+    && Array.isArray(record.conversationLanguageGateway.responses)
+    && Array.isArray(record.conversationLanguageGateway.projectionCache)
+    && Array.isArray(record.conversationLanguageGateway.failures)
+    && record.conversationLanguageGateway.projectWriteAuthorized === false
+    && record.conversationLanguageGateway.scientificDecisionAuthorized === false;
 };
 
 const migrateLegacySession = (value: unknown): FunctionalResetSession | null => {
   if (!value || typeof value !== "object") return null;
   const record = value as Record<string, unknown>;
-  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0", "1.8.0"].includes(String(record.contractVersion))) return null;
+  if (record.contract !== "FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION" || !["1.2.0", "1.3.0", "1.4.0", "1.5.0", "1.6.0", "1.7.0", "1.8.0", "1.9.0"].includes(String(record.contractVersion))) return null;
   if (typeof record.sessionId !== "string") return null;
   const migrated = {
     ...record,
-    contractVersion: "1.9.0",
+    contractVersion: "2.0.0",
     queryNavigation: record.contractVersion === "1.2.0" ? null : record.queryNavigation,
-    studyDesignInteraction: record.contractVersion === "1.8.0" ? record.studyDesignInteraction ?? null : null,
-    scientificThinkingInteraction: null,
-    observabilityInteraction: null,
-    imagingInteraction: null,
-    biostatisticsInteraction: null,
-    canonicalStudyDataInteraction: null,
-    dataManagementInteraction: null,
+    studyDesignInteraction: ["1.8.0", "1.9.0"].includes(String(record.contractVersion)) ? record.studyDesignInteraction ?? null : null,
+    scientificThinkingInteraction: record.contractVersion === "1.9.0" ? record.scientificThinkingInteraction ?? null : null,
+    observabilityInteraction: record.contractVersion === "1.9.0" ? record.observabilityInteraction ?? null : null,
+    imagingInteraction: record.contractVersion === "1.9.0" ? record.imagingInteraction ?? null : null,
+    biostatisticsInteraction: record.contractVersion === "1.9.0" ? record.biostatisticsInteraction ?? null : null,
+    canonicalStudyDataInteraction: record.contractVersion === "1.9.0" ? record.canonicalStudyDataInteraction ?? null : null,
+    dataManagementInteraction: record.contractVersion === "1.9.0" ? record.dataManagementInteraction ?? null : null,
     bridgeTraces: Array.isArray(record.bridgeTraces) ? record.bridgeTraces : [],
-    knowledgeOwnerLedger: ["1.5.0", "1.6.0", "1.7.0", "1.8.0"].includes(String(record.contractVersion)) && record.knowledgeOwnerLedger
+    knowledgeOwnerLedger: ["1.5.0", "1.6.0", "1.7.0", "1.8.0", "1.9.0"].includes(String(record.contractVersion)) && record.knowledgeOwnerLedger
       ? record.knowledgeOwnerLedger
       : createProductKnowledgeOwnerLedger(record.sessionId),
-    validationRunLedger: ["1.6.0", "1.7.0", "1.8.0"].includes(String(record.contractVersion)) && record.validationRunLedger
+    validationRunLedger: ["1.6.0", "1.7.0", "1.8.0", "1.9.0"].includes(String(record.contractVersion)) && record.validationRunLedger
       ? record.validationRunLedger
       : createProductValidationRunLedger(record.sessionId),
-    scientificExecutionTraceLedger: ["1.7.0", "1.8.0"].includes(String(record.contractVersion)) && record.scientificExecutionTraceLedger
+    scientificExecutionTraceLedger: ["1.7.0", "1.8.0", "1.9.0"].includes(String(record.contractVersion)) && record.scientificExecutionTraceLedger
       ? record.scientificExecutionTraceLedger
       : createScientificExecutionTraceLedger(record.sessionId),
+    conversationLanguageGateway: createConversationLanguageGatewayState(),
   };
   return looksLikeSession(migrated) ? migrated : null;
 };

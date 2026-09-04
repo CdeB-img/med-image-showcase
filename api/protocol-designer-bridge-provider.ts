@@ -19,6 +19,12 @@ import {
   type PersistentProjectDeltaCandidate,
   type ProductBridgeRequest,
 } from "../src/features/protocol-designer/product-bridge.js";
+import {
+  buildLanguageProjectionProviderPayload,
+  parseLanguageProjectionProviderResult,
+  type LanguageProjectionProviderResult,
+  type LanguageProjectionRequest,
+} from "../src/features/protocol-designer/conversation-language-gateway.js";
 
 export { buildNaturalConversationPayload, naturalConversationContext };
 
@@ -48,7 +54,7 @@ export type ProductBridgeProviderResult<T> = {
 
 export class ProductBridgeProviderError extends Error {
   constructor(
-    readonly stage: "CONVERSATION" | "PERSISTENT_DELTA",
+    readonly stage: "CONVERSATION" | "PERSISTENT_DELTA" | "LANGUAGE_PROJECTION",
     readonly httpStatus: number | null,
     readonly providerStatus: string | null,
     readonly providerMessage: string,
@@ -124,6 +130,9 @@ const temporalAnchorJsonSchema = {
 
 export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
   const userTurn = [...request.conversation.turns].reverse().find((turn) => turn.role === "USER");
+  const workingProjection = userTurn
+    ? request.languageBoundary?.turnProjections.find((projection) => projection.turnId === userTurn.turnId)
+    : null;
   const sourceCatalog = buildPersistentSourceCatalog(request.conversation);
   const languageContract = buildPersistentExtractionLanguageContract(request.conversation.language);
   const proposalContext = request.conversation.turns
@@ -134,6 +143,9 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
     systemInstruction: { parts: [{ text: `${PERSISTENT_DELTA_SYSTEM_INSTRUCTION}\n\n${languageContract}` }] },
     contents: [{ role: "user", parts: [{ text: [
       `DERNIER MESSAGE UTILISATEUR (source de l'assertion ou de l'adoption) :\n${userTurn?.content ?? ""}`,
+      workingProjection
+        ? `PROJECTION DE TRAVAIL FRANÇAISE (aide linguistique dérivée ; ce texte n'est pas une citation littérale de l'utilisateur et ne remplace jamais les ancrages du message original) :\n${workingProjection.frenchWorkingText}`
+        : "AUCUNE PROJECTION LINGUISTIQUE DÉRIVÉE : le message original est déjà le texte de travail.",
       `CATALOGUE D'ANCRAGES DU DERNIER MESSAGE UTILISATEUR (sélectionne uniquement un anchorId exact ; FULL_TURN est toujours valide) :\n${JSON.stringify(sourceCatalog, null, 2)}`,
       `CONTRAT MACHINE DES SIGNATURES RELATIONNELLES DU PROJECT (résous les types des deux références, puis respecte exactement une signature ; sinon omets la relation) :\n${JSON.stringify(PERSISTENT_PROJECT_RELATION_ENDPOINT_CONTRACT, null, 2)}`,
       `PROPOSITIONS NOXIA RÉCENTES (lecture seule ; utilisables uniquement si le dernier message les adopte explicitement) :\n${JSON.stringify(proposalContext, null, 2)}`,
@@ -329,6 +341,36 @@ export const executeNaturalConversation = async (
     .find((value): value is string => typeof value === "string" && value.trim().length > 0)?.trim();
   if (!reply) throw new ProductBridgeProviderError("CONVERSATION", 200, "TEXT_RESPONSE_MISSING", "Gemini returned no visible conversational text.", result.responseId);
   return { ...result, value: reply };
+};
+
+export const executeLanguageProjection = async (
+  request: LanguageProjectionRequest,
+  apiKey: string,
+  fetchImpl?: typeof fetch,
+  model: string = PRODUCT_BRIDGE_MODEL,
+): Promise<ProductBridgeProviderResult<LanguageProjectionProviderResult>> => {
+  const resolvedModel = resolveGeminiConversationModel(model);
+  const result = await callGemini(
+    apiKey,
+    "LANGUAGE_PROJECTION",
+    buildLanguageProjectionProviderPayload(request),
+    fetchImpl,
+    resolvedModel,
+  );
+  const args = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
+    .map((part) => part.functionCall)
+    .find((candidate) => candidate?.name === "return_language_projection")?.args;
+  const projection = parseLanguageProjectionProviderResult(args);
+  if (!projection) {
+    throw new ProductBridgeProviderError(
+      "LANGUAGE_PROJECTION",
+      200,
+      "LANGUAGE_PROJECTION_MISSING",
+      "Gemini returned no valid language projection.",
+      result.responseId,
+    );
+  }
+  return { ...result, value: projection };
 };
 
 export const executePersistentDelta = async (
