@@ -1,0 +1,95 @@
+{
+  "scenarioId": "FIC01-B-INTERVENTIONAL-ANALYTIC",
+  "version": "1.0.0",
+  "status": "PRIMARY_FROZEN",
+  "title": "Multicenter interventional comparative research project",
+  "purpose": "Assess interventional, comparative, analytic and regulatory navigation without forcing a medicinal-product/device classification or an unsupported statistical choice.",
+  "initialUserIntent": "We want to conduct a multicenter randomized study comparing two management strategies after an acute cardiovascular event. Imaging will be used to characterize remodeling and may contribute to the principal evaluation, but the exact endpoint hierarchy, follow-up strategy, and analysis plan are not yet fixed.",
+  "knownFacts": [
+    { "factId": "B-KF-01", "statement": "The intended study is multicenter.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "B-KF-02", "statement": "The intended study is randomized and interventional.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "B-KF-03", "statement": "Two management strategies are to be compared after an acute cardiovascular event.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "B-KF-04", "statement": "Imaging is intended to characterize remodeling.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "B-KF-05", "statement": "Imaging may contribute to the principal evaluation, but its hierarchy is unresolved.", "source": "INITIAL_USER_INTENT" }
+  ],
+  "unresolvedDecisions": [
+    { "decisionId": "B-UD-01", "statement": "Primary scientific objective and endpoint hierarchy." },
+    { "decisionId": "B-UD-02", "statement": "Role of imaging versus clinical outcomes in the principal evaluation." },
+    { "decisionId": "B-UD-03", "statement": "Follow-up strategy and timepoints." },
+    { "decisionId": "B-UD-04", "statement": "Estimand, analysis populations, statistical model and sensitivity strategy." },
+    { "decisionId": "B-UD-05", "statement": "Regulatory jurisdiction and legal qualification." },
+    { "decisionId": "B-UD-06", "statement": "Data collection and management implementation." }
+  ],
+  "knownAbsences": [],
+  "withheldInformation": [],
+  "outOfScopeInformation": [
+    "No medicinal-product, device or in-vitro-diagnostic involvement is supplied.",
+    "No effect size, variance, event rate or recruitment rate is supplied.",
+    "No legal classification or compliance status is supplied."
+  ],
+  "allowedClarifications": [
+    "Clarify the two management strategies and whether a regulated product is involved.",
+    "Clarify the principal objective and outcome hierarchy.",
+    "Clarify jurisdiction, sponsor context and intervention burden for regulatory applicability.",
+    "Clarify estimand-relevant events, analysis populations and follow-up.",
+    "Clarify multicenter data and imaging standardization constraints."
+  ],
+  "allowedDeterministicResponses": {
+    "knownFact": "Return the exact matching knownFacts.statement.",
+    "unresolvedDecision": "not decided yet",
+    "notSupplied": "unknown / not available",
+    "unmapped": "UNMAPPED_PRODUCT_QUESTION"
+  },
+  "requiredCapabilities": [
+    "INTERVENTIONAL_COMPARATIVE_INTENT_PRESERVATION",
+    "RANDOMIZED_DESIGN_REASONING",
+    "REGULATORY_APPLICABILITY_QUESTIONING",
+    "OUTCOME_HIERARCHY_REASONING",
+    "ESTIMAND_AND_ANALYSIS_DIMENSION_SURFACING",
+    "MULTICENTER_DATA_AND_IMAGING_PLANNING",
+    "PROJECT_TO_PROTOCOL_DOCUMENT_REACHABILITY"
+  ],
+  "possibleOwners": [
+    "SCIENTIFIC_THINKING",
+    "STUDY_DESIGN",
+    "REG",
+    "IMAGING",
+    "OBSERVABILITY_MEASUREMENT",
+    "BIOSTATISTICS",
+    "CDM",
+    "DATA_MANAGEMENT",
+    "KNOWLEDGE"
+  ],
+  "conditionalOwners": [
+    { "owner": "OBSERVABILITY_MEASUREMENT", "condition": "When the measurement definition or performance of an imaging outcome becomes material." },
+    { "owner": "KNOWLEDGE", "condition": "When a governed evidence prerequisite is selected." }
+  ],
+  "forbiddenOwnerResponsibilityTransfers": [
+    "REG_TO_AUTOMATIC_LEGAL_CLASSIFICATION",
+    "BIOSTATISTICS_TO_PRIMARY_ENDPOINT_ADOPTION",
+    "IMAGING_TO_OUTCOME_HIERARCHY_ADOPTION",
+    "KNOWLEDGE_TO_REGULATORY_APPROVAL",
+    "TMP_OR_DOC_TO_PROJECT_TRUTH"
+  ],
+  "humanDecisionCheckpoints": [
+    "ADOPT_INTERVENTION_AND_COMPARATOR_DEFINITION",
+    "ADOPT_PRIMARY_OBJECTIVE_AND_ENDPOINT_HIERARCHY",
+    "ADOPT_FOLLOW_UP_STRATEGY",
+    "ADOPT_ANALYTIC_STRATEGY_WHEN_SUFFICIENTLY_SPECIFIED",
+    "CONFIRM_REGULATORY_QUALIFICATION_WHEN_REQUIRED"
+  ],
+  "terminalTarget": "A coherent versioned interventional Research Project with unresolved legal and analytical questions retained, and current Protocol/TMP/DOC projection reachable after human decisions.",
+  "campaignBudget": {
+    "maxStandardConversationTurnsPerScenario": 8,
+    "maxQryActionsPerScenario": 12,
+    "maxKnowledgeActionsPerScenario": 4,
+    "maxOwnerInvocationsPerScenario": 12,
+    "maxProviderCallsPerScenario": 24
+  },
+  "provenance": {
+    "missionId": "FROZEN-INTEGRATED-CAMPAIGN-DEFINITION-01",
+    "runtimeBaselineSha": "adea948aef0402d8f4bbf66324b0d59643e95bfd",
+    "definitionRefs": ["MISSION_SECTION_10", "MISSION_SECTION_11"],
+    "authorityRefs": ["PD-003-V2", "PD-009", "RDE-001", "REG-001", "IMG-001", "BIOSTATISTICS-001", "CDM-001", "DM-001"]
+  }
+}

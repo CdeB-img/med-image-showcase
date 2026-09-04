@@ -1,0 +1,80 @@
+{
+  "scenarioId": "FIC01-E-PLATFORM-IMAGING-STRESS",
+  "version": "1.0.0",
+  "status": "OPTIONAL_STRESS_NOT_PRIMARY_GATE",
+  "mustRecognize": [
+    "The intended product is a long-lived multicenter cardiomyopathy imaging platform.",
+    "A common core protocol and data model must coexist with evolvable substudies/modules.",
+    "Modules may be added or stopped without rewriting the whole Project.",
+    "Versioning, supersession and cross-document propagation are central requirements."
+  ],
+  "mustPreserve": [
+    "The distinction between common core, individual modules and current adopted versions.",
+    "Unresolved platform governance, module lifecycle and document-allocation choices.",
+    "Rejected, stopped and superseded module states.",
+    "The limitation that protected platform-trial content is not runtime-accessible or required."
+  ],
+  "mustConsider": [
+    "Master-protocol and modular-design alternatives.",
+    "Common versus module-specific populations, measurements, data and documents.",
+    "Human adoption, versioning, dependency and propagation rules.",
+    "Document commitment/detail boundaries across core and module artifacts."
+  ],
+  "mustNotInvent": [
+    "Protected source content, a platform precedent or a mandatory documentary pattern.",
+    "A specific module, governance body, stopping criterion or versioning algorithm.",
+    "A final DMP, SAP, Imaging Charter or CRF requirement for every module."
+  ],
+  "mustNotDo": [
+    "Treat this optional scenario as part of the mandatory primary gate.",
+    "Require runtime access to rights-restricted platform-trial content.",
+    "Let template or document projections define Project truth.",
+    "Impose one universal platform architecture where several are defensible."
+  ],
+  "acceptableAlternativeFamilies": [
+    "Master-protocol, platform-protocol or modular umbrella candidates compatible with explicit version governance.",
+    "Different common/module boundaries justified by scientific and operational dependencies.",
+    "Alternative document families and propagation strategies preserving Project identity and supersession."
+  ],
+  "requiredOwnershipBoundaries": [
+    "Study Design may propose modular structures but human adoption governs the Project.",
+    "DOC-002R and Knowledge provide contextual evidence, not mandatory architecture.",
+    "TMP/DOC project current adopted truth and cannot create it.",
+    "QRY remains free to select the next legitimate action."
+  ],
+  "requiredEvidenceBehavior": [
+    "Only admitted current patterns and Project knowledge are used.",
+    "Rights/access limitations and metadata-only status remain explicit.",
+    "No protected or non-stored content is implied to be runtime-readable."
+  ],
+  "requiredHumanBoundaries": [
+    "Human adoption of platform architecture, common/module boundaries and lifecycle governance.",
+    "Human adoption of versioning and document-propagation strategy.",
+    "Human scientific judgment where modularity tradeoffs are context-dependent."
+  ],
+  "documentaryExpectations": [
+    "Current core and module documents bind to the correct Project versions.",
+    "Stopped or superseded modules do not silently remain current.",
+    "Cross-document propagation is explicit without requiring all final specialized artifacts."
+  ],
+  "blockingFailureConditions": [
+    "Project/module identity, version or supersession is materially lost.",
+    "Protected content, governance decisions or module facts are invented.",
+    "TMP/DOC silently mutates Project truth.",
+    "The first divergence cannot be reconstructed."
+  ],
+  "nonBlockingFindingExamples": [
+    "Optional platform content is not runtime-indexed.",
+    "A secondary modular architecture is omitted.",
+    "Minor documentary or release-hardening debt."
+  ],
+  "humanReviewDimensions": [
+    { "dimension": "SCIENTIFICALLY_DEFENSIBLE", "value": null },
+    { "dimension": "IMPORTANT_ISSUE_OMITTED", "value": null },
+    { "dimension": "UNJUSTIFIED_ASSUMPTION", "value": null },
+    { "dimension": "ALTERNATIVES_ADEQUATELY_EXPLORED", "value": null },
+    { "dimension": "TRADEOFFS_VISIBLE", "value": null },
+    { "dimension": "QUESTION_USEFULNESS", "value": null },
+    { "dimension": "PROFESSIONAL_CREDIBILITY", "value": null }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "scenarioId": "FIC01-C-MEASUREMENT-VALIDATION",
+  "version": "1.0.0",
+  "mustRecognize": [
+    "An automated quantitative myocardial-fibrosis measurement from LGE cardiac MRI is to be validated multicentrically.",
+    "Expert manual assessment is a comparator, not an automatically perfect reference standard.",
+    "Construct, observable property, measurement definition, validity and performance are distinct.",
+    "Agreement, precision, repeatability, reproducibility and uncertainty are related but non-interchangeable dimensions.",
+    "The validation framework and primary performance endpoint are unresolved."
+  ],
+  "mustPreserve": [
+    "Multicenter context and the exact role of the manual expert comparison.",
+    "Uncertainty about reference strategy, primary performance dimension and analytic method.",
+    "Scanner/site, software and reader variability as unquantified until evidence exists.",
+    "Project adoption and provenance boundaries."
+  ],
+  "mustConsider": [
+    "Measurement construct, property, definition, unit and intended use.",
+    "Reference/comparator variability and possible adjudication.",
+    "Validity, performance, agreement, precision and measurement uncertainty as context requires.",
+    "Scanner, site, acquisition, software, reader and patient-spectrum effects.",
+    "Data representation, QC and analysis-method prerequisites."
+  ],
+  "mustNotInvent": [
+    "A gold-standard status for manual assessment.",
+    "ICC, Bland-Altman, AUC, sensitivity/specificity, coefficient of variation or any other method as mandatory.",
+    "A fixed threshold, acceptable error, reader count, scanner distribution or sample-size formula.",
+    "Measurement validity inferred solely from agreement."
+  ],
+  "mustNotDo": [
+    "Select an analytic method merely from the words validation or comparison.",
+    "Collapse construct validity, measurement validity and predictive/classification performance.",
+    "Resolve reference uncertainty silently.",
+    "Allow any owner contribution to become adopted Project truth without the required human gate."
+  ],
+  "acceptableAlternativeFamilies": [
+    "Agreement-, error-, discrimination-, reliability- or reproducibility-oriented frameworks when matched to a clarified intended use.",
+    "Single or composite primary performance dimensions when scientifically justified and adopted.",
+    "Different qualified reference strategies, including repeated or adjudicated manual assessment.",
+    "Alternative multicenter robustness strategies preserving uncertainty and generalizability limits."
+  ],
+  "requiredOwnershipBoundaries": [
+    "OBS owns governed measurement representation and validity/performance distinctions, not Project adoption.",
+    "Imaging contributes acquisition and technical comparability; Biostatistics contributes conditional analysis.",
+    "Knowledge supplies qualified evidence with limitations; CDM represents adopted data semantics.",
+    "QRY retains next-action ownership without an imposed owner sequence."
+  ],
+  "requiredEvidenceBehavior": [
+    "Claims about method suitability state the measurement objective and assumptions they depend on.",
+    "Reference uncertainty and multicenter applicability limitations remain attached to evidence.",
+    "Metadata-only or inaccessible content is not treated as inspected source content."
+  ],
+  "requiredHumanBoundaries": [
+    "Human adoption of construct/measurement definition and reference strategy.",
+    "Human adoption of the primary performance objective and endpoint.",
+    "Human adoption of harmonization and analytic strategy after prerequisites are known."
+  ],
+  "documentaryExpectations": [
+    "Protocol states adopted validation commitments and leaves operational detail to appropriate documents when justified.",
+    "Measurement definitions remain consistent across Project, TMP, protocol and data artifacts.",
+    "Unresolved reference and performance choices remain visible."
+  ],
+  "blockingFailureConditions": [
+    "The measurement construct, multicenter context or reference uncertainty is materially lost.",
+    "A method, threshold or perfect reference is invented or automatically adopted.",
+    "Validity and performance concepts are conflated with material downstream consequence.",
+    "Required owner reachability, Project fidelity or first-divergence reconstruction fails."
+  ],
+  "nonBlockingFindingExamples": [
+    "A secondary performance dimension is omitted while the primary structural reasoning remains sound.",
+    "A defensible specialist nuance is absent.",
+    "The presentation is improvable but remains scientifically credible."
+  ],
+  "humanReviewDimensions": [
+    { "dimension": "SCIENTIFICALLY_DEFENSIBLE", "value": null },
+    { "dimension": "IMPORTANT_ISSUE_OMITTED", "value": null },
+    { "dimension": "UNJUSTIFIED_ASSUMPTION", "value": null },
+    { "dimension": "ALTERNATIVES_ADEQUATELY_EXPLORED", "value": null },
+    { "dimension": "TRADEOFFS_VISIBLE", "value": null },
+    { "dimension": "QUESTION_USEFULNESS", "value": null },
+    { "dimension": "PROFESSIONAL_CREDIBILITY", "value": null }
+  ]
+}

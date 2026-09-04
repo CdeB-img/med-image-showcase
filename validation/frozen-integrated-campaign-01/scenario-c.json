@@ -1,0 +1,95 @@
+{
+  "scenarioId": "FIC01-C-MEASUREMENT-VALIDATION",
+  "version": "1.0.0",
+  "status": "PRIMARY_FROZEN",
+  "title": "Validation of an automated quantitative imaging measurement",
+  "purpose": "Assess whether measurement validity, performance, agreement, uncertainty and multicenter imaging effects are separated without selecting a method or treating the expert reference as infallible.",
+  "initialUserIntent": "We have developed an automated quantitative measurement of myocardial fibrosis from late-gadolinium-enhancement cardiac MRI. We want to validate it across several centers against expert manual assessment, but we have not yet decided the exact validation framework or primary performance endpoint.",
+  "knownFacts": [
+    { "factId": "C-KF-01", "statement": "An automated quantitative measurement of myocardial fibrosis has been developed.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "C-KF-02", "statement": "The measurement uses late-gadolinium-enhancement cardiac MRI.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "C-KF-03", "statement": "Validation across several centers is intended.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "C-KF-04", "statement": "Expert manual assessment is the intended comparator.", "source": "INITIAL_USER_INTENT" }
+  ],
+  "unresolvedDecisions": [
+    { "decisionId": "C-UD-01", "statement": "Scientific construct and exact observable property represented by the automated measurement." },
+    { "decisionId": "C-UD-02", "statement": "Exact measurement definition, unit and operational validity conditions." },
+    { "decisionId": "C-UD-03", "statement": "Reference/comparator strategy and handling of expert-reference variability." },
+    { "decisionId": "C-UD-04", "statement": "Validation framework and primary performance endpoint." },
+    { "decisionId": "C-UD-05", "statement": "Relevant agreement, precision, repeatability, reproducibility and uncertainty dimensions." },
+    { "decisionId": "C-UD-06", "statement": "Scanner, site, acquisition, software and reader harmonization strategy." },
+    { "decisionId": "C-UD-07", "statement": "Analysis population, sampling and statistical analysis strategy." }
+  ],
+  "knownAbsences": [],
+  "withheldInformation": [],
+  "outOfScopeInformation": [
+    "No threshold, segmentation convention or unit definition is supplied.",
+    "No exact scanner, acquisition, software or reconstruction distribution is supplied.",
+    "No reader count, adjudication process or manual-reference reliability estimate is supplied.",
+    "No effect size, expected error distribution or sample-size input is supplied."
+  ],
+  "allowedClarifications": [
+    "Clarify the intended construct, observable property and operational measurement definition.",
+    "Clarify the purpose of validation and which performance dimension could support the principal decision.",
+    "Clarify how the expert comparator is produced, repeated and adjudicated.",
+    "Clarify site, scanner, acquisition, software and patient-spectrum heterogeneity.",
+    "Clarify clinically or scientifically meaningful error and uncertainty tolerances."
+  ],
+  "allowedDeterministicResponses": {
+    "knownFact": "Return the exact matching knownFacts.statement.",
+    "unresolvedDecision": "not decided yet",
+    "notSupplied": "unknown / not available",
+    "unmapped": "UNMAPPED_PRODUCT_QUESTION"
+  },
+  "requiredCapabilities": [
+    "MEASUREMENT_CONSTRUCT_REPRESENTATION",
+    "VALIDITY_PERFORMANCE_AND_AGREEMENT_SEPARATION",
+    "REFERENCE_VARIABILITY_QUALIFICATION",
+    "MEASUREMENT_UNCERTAINTY_REASONING",
+    "MULTICENTER_IMAGING_ROBUSTNESS_REASONING",
+    "ANALYTIC_METHOD_CONTEXT_GATING",
+    "MEASUREMENT_DATA_REPRESENTATION",
+    "PROJECT_TO_PROTOCOL_DOCUMENT_REACHABILITY"
+  ],
+  "possibleOwners": [
+    "OBSERVABILITY_MEASUREMENT",
+    "IMAGING",
+    "BIOSTATISTICS",
+    "KNOWLEDGE",
+    "CDM",
+    "SCIENTIFIC_THINKING",
+    "STUDY_DESIGN"
+  ],
+  "conditionalOwners": [
+    { "owner": "DATA_MANAGEMENT", "condition": "When the adopted measurement workflow creates material acquisition, transfer, derivation, QC or audit-trail requirements." },
+    { "owner": "REG", "condition": "Only if later Project facts make a regulated-purpose qualification materially relevant." }
+  ],
+  "forbiddenOwnerResponsibilityTransfers": [
+    "OBSERVABILITY_MEASUREMENT_TO_AUTOMATIC_METHOD_ADOPTION",
+    "IMAGING_TO_REFERENCE_STANDARD_PERFECTION_ASSUMPTION",
+    "BIOSTATISTICS_TO_VALIDATION_OBJECTIVE_ADOPTION",
+    "KNOWLEDGE_TO_MEASUREMENT_DEFINITION_ADOPTION",
+    "TMP_OR_DOC_TO_PROJECT_TRUTH"
+  ],
+  "humanDecisionCheckpoints": [
+    "ADOPT_MEASUREMENT_CONSTRUCT_AND_DEFINITION",
+    "ADOPT_REFERENCE_OR_COMPARATOR_STRATEGY",
+    "ADOPT_PRIMARY_PERFORMANCE_OBJECTIVE_AND_ENDPOINT",
+    "ADOPT_IMAGING_HARMONIZATION_STRATEGY",
+    "ADOPT_ANALYTIC_STRATEGY_WHEN_SUFFICIENTLY_SPECIFIED"
+  ],
+  "terminalTarget": "A coherent versioned measurement-validation Research Project preserving reference and performance uncertainties, with current Protocol/TMP/DOC projection reachable after the necessary human adoptions.",
+  "campaignBudget": {
+    "maxStandardConversationTurnsPerScenario": 8,
+    "maxQryActionsPerScenario": 12,
+    "maxKnowledgeActionsPerScenario": 4,
+    "maxOwnerInvocationsPerScenario": 12,
+    "maxProviderCallsPerScenario": 24
+  },
+  "provenance": {
+    "missionId": "FROZEN-INTEGRATED-CAMPAIGN-DEFINITION-01",
+    "runtimeBaselineSha": "adea948aef0402d8f4bbf66324b0d59643e95bfd",
+    "definitionRefs": ["MISSION_SECTION_12", "MISSION_SECTION_13"],
+    "authorityRefs": ["PD-003-V2", "PD-009", "OBS-001", "IMG-001", "BIOSTATISTICS-001", "CDM-001"]
+  }
+}

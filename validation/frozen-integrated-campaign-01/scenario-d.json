@@ -1,0 +1,96 @@
+{
+  "scenarioId": "FIC01-D-MULTICENTER-HARMONIZATION",
+  "version": "1.0.0",
+  "status": "PRIMARY_FROZEN",
+  "title": "Multicenter quantitative imaging harmonization study",
+  "purpose": "Assess multicenter quantitative-imaging comparability, equipment provenance, quality, Core Lab and documentary detail boundaries without inventing interoperability or operational procedures.",
+  "initialUserIntent": "We want to build a prospective multicenter study using quantitative cardiac MRI across different manufacturers, field strengths and software versions. The aim is to compare a disease population with a reference population. A central Core Lab is planned, but acquisition harmonization, quality control, reader organization and analysis strategy are not yet fixed.",
+  "knownFacts": [
+    { "factId": "D-KF-01", "statement": "The intended study is prospective and multicenter.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "D-KF-02", "statement": "Quantitative cardiac MRI will be used across different manufacturers, field strengths and software versions.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "D-KF-03", "statement": "The aim is to compare a disease population with a reference population.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "D-KF-04", "statement": "A central Core Lab is planned.", "source": "INITIAL_USER_INTENT" }
+  ],
+  "unresolvedDecisions": [
+    { "decisionId": "D-UD-01", "statement": "Exact population definitions, comparison objective and quantitative MRI endpoints." },
+    { "decisionId": "D-UD-02", "statement": "Acquisition harmonization and site/scanner qualification strategy." },
+    { "decisionId": "D-UD-03", "statement": "Quality-control framework and acceptance/escalation rules." },
+    { "decisionId": "D-UD-04", "statement": "Reader organization, blinding, reproducibility and adjudication strategy." },
+    { "decisionId": "D-UD-05", "statement": "Core Lab operating model and boundary between Protocol and specialized manuals." },
+    { "decisionId": "D-UD-06", "statement": "Statistical handling of site, equipment, software and measurement heterogeneity." },
+    { "decisionId": "D-UD-07", "statement": "Data, metadata, image-transfer and provenance requirements." }
+  ],
+  "knownAbsences": [],
+  "withheldInformation": [],
+  "outOfScopeInformation": [
+    "No exact scanner models, sequences, reconstruction settings or compatibility claims are supplied.",
+    "No reader count or Core Lab workflow is supplied.",
+    "No assumption of interchangeability between field strengths, manufacturers or software versions is supplied.",
+    "No fixed document allocation between Protocol, Imaging Charter and Core Lab Manual is supplied."
+  ],
+  "allowedClarifications": [
+    "Clarify the disease/reference population definitions and comparison objective.",
+    "Clarify the quantitative measurements and intended use of the comparison.",
+    "Clarify the expected equipment/site distribution and available qualification data.",
+    "Clarify acquisition, QC, reader and Core Lab governance constraints.",
+    "Clarify required metadata, transfer, provenance and analysis constraints."
+  ],
+  "allowedDeterministicResponses": {
+    "knownFact": "Return the exact matching knownFacts.statement.",
+    "unresolvedDecision": "not decided yet",
+    "notSupplied": "unknown / not available",
+    "unmapped": "UNMAPPED_PRODUCT_QUESTION"
+  },
+  "requiredCapabilities": [
+    "MULTICENTER_HETEROGENEITY_PRESERVATION",
+    "EQUIPMENT_AND_SOFTWARE_PROVENANCE_REASONING",
+    "MEASUREMENT_COMPARABILITY_AND_ROBUSTNESS_REASONING",
+    "SITE_SCANNER_QUALIFICATION_AND_QC_SURFACING",
+    "CORE_LAB_RESPONSIBILITY_BOUNDARY",
+    "HETEROGENEITY_AWARE_ANALYSIS_PLANNING",
+    "IMAGING_METADATA_AND_DATA_FLOW_REPRESENTATION",
+    "DOCUMENTARY_DETAIL_BOUNDARY_REASONING"
+  ],
+  "possibleOwners": [
+    "IMAGING",
+    "OBSERVABILITY_MEASUREMENT",
+    "BIOSTATISTICS",
+    "CDM",
+    "DATA_MANAGEMENT",
+    "KNOWLEDGE",
+    "STUDY_DESIGN",
+    "SCIENTIFIC_THINKING"
+  ],
+  "conditionalOwners": [
+    { "owner": "REG", "condition": "Only if later Project facts create a material regulatory applicability question." }
+  ],
+  "forbiddenOwnerResponsibilityTransfers": [
+    "IMAGING_TO_AUTOMATIC_EQUIPMENT_EQUIVALENCE",
+    "OBSERVABILITY_MEASUREMENT_TO_ENDPOINT_ADOPTION",
+    "DATA_MANAGEMENT_TO_SCIENTIFIC_QC_ACCEPTANCE",
+    "DOC002_PATTERN_TO_UNIVERSAL_DOCUMENT_LAW",
+    "TMP_OR_DOC_TO_PROJECT_TRUTH"
+  ],
+  "humanDecisionCheckpoints": [
+    "ADOPT_POPULATION_AND_COMPARISON_OBJECTIVE",
+    "ADOPT_QUANTITATIVE_MEASUREMENT_STRATEGY",
+    "ADOPT_ACQUISITION_HARMONIZATION_AND_QC_STRATEGY",
+    "ADOPT_READER_AND_CORE_LAB_STRATEGY",
+    "ADOPT_ANALYTIC_STRATEGY_WHEN_SUFFICIENTLY_SPECIFIED",
+    "ADOPT_DOCUMENT_DETAIL_ALLOCATION"
+  ],
+  "terminalTarget": "A coherent versioned multicenter Research Project preserving equipment and operational uncertainty, with document projections assigning detail at an evidence-justified level.",
+  "campaignBudget": {
+    "maxStandardConversationTurnsPerScenario": 8,
+    "maxQryActionsPerScenario": 12,
+    "maxKnowledgeActionsPerScenario": 4,
+    "maxOwnerInvocationsPerScenario": 12,
+    "maxProviderCallsPerScenario": 24
+  },
+  "provenance": {
+    "missionId": "FROZEN-INTEGRATED-CAMPAIGN-DEFINITION-01",
+    "runtimeBaselineSha": "adea948aef0402d8f4bbf66324b0d59643e95bfd",
+    "definitionRefs": ["MISSION_SECTION_14", "MISSION_SECTION_15"],
+    "authorityRefs": ["PD-003-V2", "PD-009", "IMG-001", "OBS-001", "BIOSTATISTICS-001", "CDM-001", "DM-001", "DOC-002R"]
+  }
+}

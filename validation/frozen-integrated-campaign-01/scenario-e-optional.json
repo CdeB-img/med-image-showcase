@@ -1,0 +1,90 @@
+{
+  "scenarioId": "FIC01-E-PLATFORM-IMAGING-STRESS",
+  "version": "1.0.0",
+  "status": "OPTIONAL_STRESS_NOT_PRIMARY_GATE",
+  "title": "Evolvable imaging master-protocol research platform",
+  "purpose": "Stress modular Study Design, versioning and cross-document propagation using admitted current knowledge only, without requiring protected platform-trial content.",
+  "initialUserIntent": "We want a long-lived multicenter imaging research platform in cardiomyopathy. A common core protocol and data model should support several imaging substudies. New biomarker or imaging modules may be added or stopped over time without rewriting the entire project.",
+  "knownFacts": [
+    { "factId": "E-KF-01", "statement": "A long-lived multicenter imaging research platform in cardiomyopathy is intended.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "E-KF-02", "statement": "A common core protocol is intended to support several imaging substudies.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "E-KF-03", "statement": "A common data model is intended to support several imaging substudies.", "source": "INITIAL_USER_INTENT" },
+    { "factId": "E-KF-04", "statement": "Biomarker or imaging modules may be added or stopped over time without rewriting the entire project.", "source": "INITIAL_USER_INTENT" }
+  ],
+  "unresolvedDecisions": [
+    { "decisionId": "E-UD-01", "statement": "Master-protocol architecture and boundary between common core and substudies." },
+    { "decisionId": "E-UD-02", "statement": "Governance and human adoption rules for adding, changing, stopping or superseding modules." },
+    { "decisionId": "E-UD-03", "statement": "Shared population, objectives, endpoints and imaging/data elements versus module-specific elements." },
+    { "decisionId": "E-UD-04", "statement": "Versioning and cross-document propagation strategy." },
+    { "decisionId": "E-UD-05", "statement": "Scientific and operational criteria for module initiation or discontinuation." },
+    { "decisionId": "E-UD-06", "statement": "Document family and detail allocation for the core platform and modules." }
+  ],
+  "knownAbsences": [],
+  "withheldInformation": [],
+  "outOfScopeInformation": [
+    "Protected platform-trial content is not available to runtime and is not required.",
+    "No exact platform governance, biomarker list, module schema or stopping rule is supplied.",
+    "No final DMP, SAP, Imaging Charter or CRF is required by this optional fixture."
+  ],
+  "allowedClarifications": [
+    "Clarify which scientific and operational elements must remain common across modules.",
+    "Clarify module lifecycle, adoption, supersession and discontinuation governance.",
+    "Clarify shared versus module-specific populations, measurements and data elements.",
+    "Clarify versioning, document binding and propagation expectations.",
+    "Clarify the first module only if needed to make the platform structure concrete."
+  ],
+  "allowedDeterministicResponses": {
+    "knownFact": "Return the exact matching knownFacts.statement.",
+    "unresolvedDecision": "not decided yet",
+    "notSupplied": "unknown / not available",
+    "unmapped": "UNMAPPED_PRODUCT_QUESTION"
+  },
+  "requiredCapabilities": [
+    "MASTER_PROTOCOL_OPTION_SURFACING",
+    "MODULAR_PROJECT_STRUCTURE_REASONING",
+    "MODULE_LIFECYCLE_AND_VERSIONING",
+    "CROSS_DOCUMENT_PROPAGATION_REASONING",
+    "COMMON_AND_MODULE_DATA_MODEL_BOUNDARY",
+    "DOCUMENT_FAMILY_AND_DETAIL_BOUNDARY_REASONING"
+  ],
+  "possibleOwners": [
+    "STUDY_DESIGN",
+    "SCIENTIFIC_THINKING",
+    "IMAGING",
+    "CDM",
+    "DATA_MANAGEMENT",
+    "KNOWLEDGE",
+    "OBSERVABILITY_MEASUREMENT",
+    "BIOSTATISTICS"
+  ],
+  "conditionalOwners": [
+    { "owner": "REG", "condition": "Only if the adopted platform/module facts create a material regulatory applicability question." }
+  ],
+  "forbiddenOwnerResponsibilityTransfers": [
+    "DOC002_PATTERN_TO_MANDATORY_MASTER_PROTOCOL_ARCHITECTURE",
+    "TMP_TO_PROJECT_OR_MODULE_TRUTH",
+    "KNOWLEDGE_TO_MODULE_ADOPTION",
+    "DATA_MODEL_TO_SCIENTIFIC_GOVERNANCE_DECISION"
+  ],
+  "humanDecisionCheckpoints": [
+    "ADOPT_PLATFORM_AND_MASTER_PROTOCOL_ARCHITECTURE",
+    "ADOPT_COMMON_CORE_AND_MODULE_BOUNDARIES",
+    "ADOPT_MODULE_LIFECYCLE_GOVERNANCE",
+    "ADOPT_VERSIONING_AND_DOCUMENT_PROPAGATION_STRATEGY",
+    "ADOPT_INITIAL_MODULE_SCOPE_WHEN_REQUIRED"
+  ],
+  "terminalTarget": "An optional coherent versioned platform Project model with explicit common/module boundaries and reachable current document projections, without dependence on protected platform content.",
+  "campaignBudget": {
+    "maxStandardConversationTurnsPerScenario": 8,
+    "maxQryActionsPerScenario": 12,
+    "maxKnowledgeActionsPerScenario": 4,
+    "maxOwnerInvocationsPerScenario": 12,
+    "maxProviderCallsPerScenario": 24
+  },
+  "provenance": {
+    "missionId": "FROZEN-INTEGRATED-CAMPAIGN-DEFINITION-01",
+    "runtimeBaselineSha": "adea948aef0402d8f4bbf66324b0d59643e95bfd",
+    "definitionRefs": ["MISSION_SECTION_16"],
+    "authorityRefs": ["PD-003-V2", "PD-009", "RDE-001", "DOC-002R", "TMP-001", "CDM-001", "DM-001"]
+  }
+}

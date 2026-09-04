@@ -1,0 +1,83 @@
+{
+  "scenarioId": "FIC01-D-MULTICENTER-HARMONIZATION",
+  "version": "1.0.0",
+  "mustRecognize": [
+    "Manufacturer, field-strength and software-version heterogeneity are explicit scientific comparability dimensions.",
+    "The intended comparison is between a disease population and a reference population.",
+    "A central Core Lab is planned, while its operational realization remains unresolved.",
+    "Acquisition harmonization, QC, reader organization and analysis are unresolved.",
+    "Equipment provenance and metadata are required to assess robustness and comparability."
+  ],
+  "mustPreserve": [
+    "Prospective multicenter scope and the explicit sources of technical heterogeneity.",
+    "The Core Lab principle without fabricating its procedures.",
+    "Uncertainty about interchangeability, harmonization, QC, readers and analysis.",
+    "Project/source provenance and document commitment boundaries."
+  ],
+  "mustConsider": [
+    "Site/scanner qualification and acquisition harmonization alternatives.",
+    "QC, reader variability, central reading and adjudication implications.",
+    "Measurement validity, robustness and heterogeneity-aware analysis.",
+    "Equipment, software, acquisition and derivation metadata requirements.",
+    "Protocol versus Imaging Charter/Core Lab Manual detail allocation."
+  ],
+  "mustNotInvent": [
+    "Scanner compatibility or interchangeability across manufacturers or field strengths.",
+    "A specific sequence parameter set, correction method or harmonization algorithm.",
+    "Reader count, qualification thresholds, QC limits or Core Lab procedures.",
+    "Evidence-backed documentary detail where only a pattern or metadata exists."
+  ],
+  "mustNotDo": [
+    "Declare all 1.5T and 3T measurements interchangeable.",
+    "Confuse a Core Lab principle with a complete operational workflow.",
+    "Force unsupported specialized-manual details into the Protocol.",
+    "Treat DOC-002R patterns as universal laws or as Project truth."
+  ],
+  "acceptableAlternativeFamilies": [
+    "Centralized, distributed or hybrid reading candidates with explicit comparability controls.",
+    "Prospective harmonization, calibration/bridging, stratification or model-based heterogeneity strategies when evidence supports them.",
+    "Different document allocations consistent with commitment level and operational ownership.",
+    "Alternative disease/reference comparison and robustness frameworks subject to human adoption."
+  ],
+  "requiredOwnershipBoundaries": [
+    "Imaging addresses acquisition, equipment and Core Lab mechanics without adopting scientific endpoints.",
+    "OBS addresses measurement validity/robustness; Biostatistics addresses conditional analyses.",
+    "CDM/Data Management represent adopted metadata and flows without deciding scientific acceptability.",
+    "QRY selects the next action; Knowledge and DOC-002R remain evidence/context, not decision owners."
+  ],
+  "requiredEvidenceBehavior": [
+    "Equipment and comparability claims preserve source identity and applicability limits.",
+    "Unavailable or rights-restricted platform content is not reconstructed.",
+    "Documentary patterns are applied as contextual evidence, with justified divergence permitted."
+  ],
+  "requiredHumanBoundaries": [
+    "Human adoption of population/objective and measurement strategy.",
+    "Human adoption of harmonization, QC, reader/Core Lab and analytic strategies.",
+    "Human adjudication of professionally context-dependent documentary detail."
+  ],
+  "documentaryExpectations": [
+    "Protocol contains appropriate commitments, not unsupported operational detail.",
+    "Imaging Charter/Core Lab Manual needs and boundaries are surfaced where material.",
+    "Cross-document equipment, QC, reader and analysis statements remain versioned and Project-faithful."
+  ],
+  "blockingFailureConditions": [
+    "Explicit technical heterogeneity or Core Lab uncertainty is materially lost.",
+    "Equipment equivalence, acquisition parameters, reader organization or QC limits are invented.",
+    "Document detail is allocated in a way that materially misstates Project commitments.",
+    "Owner reachability, Project provenance or first-divergence reconstruction fails."
+  ],
+  "nonBlockingFindingExamples": [
+    "A secondary harmonization option is omitted.",
+    "A specialized manual could contain more professional detail without changing Protocol fidelity.",
+    "Minor documentary-pattern or presentation weakness."
+  ],
+  "humanReviewDimensions": [
+    { "dimension": "SCIENTIFICALLY_DEFENSIBLE", "value": null },
+    { "dimension": "IMPORTANT_ISSUE_OMITTED", "value": null },
+    { "dimension": "UNJUSTIFIED_ASSUMPTION", "value": null },
+    { "dimension": "ALTERNATIVES_ADEQUATELY_EXPLORED", "value": null },
+    { "dimension": "TRADEOFFS_VISIBLE", "value": null },
+    { "dimension": "QUESTION_USEFULNESS", "value": null },
+    { "dimension": "PROFESSIONAL_CREDIBILITY", "value": null }
+  ]
+}

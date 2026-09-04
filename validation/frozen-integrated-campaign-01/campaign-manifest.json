@@ -1,0 +1,315 @@
+{
+  "campaignId": "FROZEN-INTEGRATED-CAMPAIGN-01",
+  "campaignVersion": "1.0.0",
+  "createdAt": "2026-09-04",
+  "campaignStatus": "FROZEN",
+  "frozenAtCommit": "FROZEN_AT_COMMIT_PENDING",
+  "runtimeBaselineSha": "adea948aef0402d8f4bbf66324b0d59643e95bfd",
+  "compositeDigestAlgorithm": "sha256-composite-v1: sha256(JSON.stringify(sorted [{path,sha256(rawFileBytes)}]))",
+  "referenceCorpusVersion": "REFERENCE-CORPUS-01@2026-09-03",
+  "referenceCorpusDigest": "sha256:682764643198079e61cc87c81b4d64cd7974b0814730415867dba30fda6ab3cc",
+  "referenceKnowledgeIndexVersion": "UNVERSIONED_CURRENT_INDEX",
+  "referenceKnowledgeIndexVersionStatus": "NO_NATIVE_VERSION_FROZEN_BY_DIGEST",
+  "referenceKnowledgeIndexDigest": "sha256:d8c1dc729181bf055042a51e674267490c9436a261162fbbfd62c73c86a51c81",
+  "doc002Version": "1.1.0",
+  "doc002Digest": "doc2-605fc70376c81cff",
+  "doc002SourceCatalogSha256": "5772b9254ada64c020c0fe1cc72e9bf07bf6d687eabcb9e89163d48fd3429687",
+  "doc002CompositeDigest": "sha256:3c49cdbb1b2a4257f8684a041fd8e9310dae2da7a035d9c7be04896743c08efb",
+  "tmp001Version": "1.1.0",
+  "tmp001Digest": "tmp1-744227df45dc9173",
+  "tmp001CompositeDigest": "sha256:813f01ebf6725655f711f6808081a80dadb77f7ef87cadaa384ead0988071e3f",
+  "valProfile": "CURRENT_OWNER_STACK_FIDELITY",
+  "valProfileVersion": "1.0.0",
+  "valProfileDigest": "sha256:f6592de70324d309942ca45ef93cbc141d1d9dd800544661cd21f89a24b45285",
+  "qryVersionOrDigest": {
+    "contractVersion": "1.0.0",
+    "policyVersion": "PD-009-1.0",
+    "productProjectionVersion": "1.0.0",
+    "lifecycleVersion": "1.0.0",
+    "preProjectVersion": "1.0.0",
+    "knowledgePrerequisiteVersion": "1.0.0",
+    "compositeDigest": "sha256:96dd1196e39f50b923c546861976e5a919030557ad1b821c3610ce56f2b57ca8"
+  },
+  "traceVersionOrTaxonomyDigest": {
+    "profile": "NOXIA_END_TO_END_PRODUCT_TRACE",
+    "profileVersion": "1.1.0",
+    "ledgerVersion": "0.1.0",
+    "eventSchemaVersion": "0.1.0",
+    "preProjectSegmentVersion": "0.1.0",
+    "compositeDigest": "sha256:db795727f40bcdac76bdf616e53f6c857868341adb5ce3ce6bce9797b1dcc5b4"
+  },
+  "projectContractVersion": {
+    "canonicalStateVersion": "0.2.0",
+    "constructionVersion": "1.1.0",
+    "humanReviewProjectionVersion": "1.2.0",
+    "specializedOwnerHandoffVersion": "0.1.0",
+    "compositeDigest": "sha256:470ce48349a09d1c130d3d88ecf373d43ac72402943bfc0f8a3820ccdd4a23c5"
+  },
+  "ownerRuntimeVersions": {
+    "KNOWLEDGE": "1.2.1",
+    "SCIENTIFIC_THINKING": "1.3.0",
+    "STUDY_DESIGN": "1.0.0",
+    "OBSERVABILITY_MEASUREMENT": "1.1.0",
+    "IMAGING": "1.2.1",
+    "BIOSTATISTICS": "1.0.0",
+    "CDM": "1.0.0",
+    "DATA_MANAGEMENT": "1.0.0",
+    "REG": "1.0.0",
+    "STANDARD_INTERACTION_ADAPTERS": "1.0.0",
+    "OWNER_RESULT_LEDGER": "0.2.0",
+    "compositeDigest": "sha256:fd0864853f94af3d6ad610c31d69cbef3a7cc9393b167b9ea03017e1b5781c1d"
+  },
+  "providerConfigurationIdentity": {
+    "readiness": "PARTIAL",
+    "sourceCompositeDigest": "sha256:ffea5027235ae436196fa10dd56c7af88834eeb0c5639b1d3fdc1b2d43ead2c2",
+    "routingMode": "GEMINI_CONVERSATION_PLUS_OPENAI_PERSISTENT_EXTRACTION",
+    "conversation": {
+      "provider": "GOOGLE_GEMINI",
+      "defaultModel": "gemini-3.5-flash-lite",
+      "endpointFamily": "generativelanguage.googleapis.com/v1beta/generateContent",
+      "timeoutMs": 45000,
+      "retryPolicy": "NO_CONVERSATION_RETRY_IN_PRODUCT_BRIDGE",
+      "temperature": "UNSPECIFIED_PROVIDER_DEFAULT",
+      "topP": "UNSPECIFIED_PROVIDER_DEFAULT",
+      "maxOutputTokens": "UNSPECIFIED_PROVIDER_DEFAULT",
+      "deterministicSeed": "UNSUPPORTED_OR_UNSPECIFIED",
+      "toolPolicy": "NO_EXTERNAL_SEARCH; NATIVE_STRUCTURED_FUNCTION_CALL_ONLY_WHERE_REQUESTED"
+    },
+    "persistentExtraction": {
+      "provider": "OPENAI",
+      "apiFamily": "RESPONSES",
+      "defaultModel": "gpt-5.6-terra",
+      "maxOutputTokens": 8000,
+      "timeoutMs": 120000,
+      "structuredOutput": "JSON_SCHEMA_STRICT_FALSE",
+      "store": false,
+      "retryPolicy": "AT_MOST_ONE_RETRY_AFTER_RECOVERABLE_DETERMINISTIC_VALIDATION_FAILURE"
+    },
+    "requestMaximumBytes": 300000,
+    "sourceRetrievalPolicy": "LOCAL_DETERMINISTIC_REFERENCE_CORPUS_VIA_QRY_GOVERNED_KNOWLEDGE_ACTION; NO_PROVIDER_SEARCH",
+    "networkPermissions": "EXTERNAL_PROVIDER_ENDPOINTS_ONLY_WHEN_LATER_EXECUTION_IS_EXPLICITLY_AUTHORIZED",
+    "scenarioConsistencyRule": "BIND_EFFECTIVE_PROVIDER_AND_MODEL_CONFIGURATION_ONCE_BEFORE_FIRST_PRIMARY_SCENARIO",
+    "limitations": [
+      "Deployment environment model overrides are not knowable from repository state alone.",
+      "Effective production network policy and credentials are intentionally not stored.",
+      "Provider-side defaults for unspecified sampling and output settings may vary.",
+      "The execution mission must bind and record effective provider/model identities before scenario A and refuse cross-scenario changes."
+    ]
+  },
+  "standardRouteConfiguration": {
+    "productSurface": "STANDARD",
+    "diagnosticSurface": "EXPERT_TRACE",
+    "traceCaptureLevel": "LEVEL_2_DIAGNOSTIC",
+    "compositeDigest": "sha256:2d6aca9aee35da1ce69f8dbbe46cb6cf81dfd7a7d21e246cba030c81b71674e4"
+  },
+  "scenarioIds": [
+    "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+    "FIC01-B-INTERVENTIONAL-ANALYTIC",
+    "FIC01-C-MEASUREMENT-VALIDATION",
+    "FIC01-D-MULTICENTER-HARMONIZATION",
+    "FIC01-E-PLATFORM-IMAGING-STRESS"
+  ],
+  "scenarioVersions": {
+    "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING": "1.0.0",
+    "FIC01-B-INTERVENTIONAL-ANALYTIC": "1.0.0",
+    "FIC01-C-MEASUREMENT-VALIDATION": "1.0.0",
+    "FIC01-D-MULTICENTER-HARMONIZATION": "1.0.0",
+    "FIC01-E-PLATFORM-IMAGING-STRESS": "1.0.0"
+  },
+  "acceptanceEnvelopeVersions": {
+    "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING": "1.0.0",
+    "FIC01-B-INTERVENTIONAL-ANALYTIC": "1.0.0",
+    "FIC01-C-MEASUREMENT-VALIDATION": "1.0.0",
+    "FIC01-D-MULTICENTER-HARMONIZATION": "1.0.0",
+    "FIC01-E-PLATFORM-IMAGING-STRESS": "1.0.0"
+  },
+  "campaignRulesVersion": "1.0.0",
+  "humanAdjudicationProtocolVersion": "1.0.0",
+  "firstDivergenceTaxonomyVersion": "1.0.0",
+  "goldAnswerCount": 0,
+  "frozenComponents": [
+    {
+      "id": "REFERENCE_CORPUS",
+      "fileCount": 11,
+      "digest": "sha256:682764643198079e61cc87c81b4d64cd7974b0814730415867dba30fda6ab3cc",
+      "selection": {
+        "paths": [
+          "reference-corpus/reference-corpus-01/copyright-storage-policy.md",
+          "reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json",
+          "reference-corpus/reference-corpus-01/existing-noxia-assets.json",
+          "reference-corpus/reference-corpus-01/gap-matrix.json",
+          "reference-corpus/reference-corpus-01/linked-study-sets.json",
+          "reference-corpus/reference-corpus-01/platform-trial-reference-set.json",
+          "reference-corpus/reference-corpus-01/reference-corpus.json",
+          "reference-corpus/reference-corpus-01/reference-corpus.schema.json",
+          "reference-corpus/reference-corpus-01/rejection-log.json",
+          "reference-corpus/reference-corpus-01/search-log.json",
+          "reference-corpus/reference-corpus-01/targeted-gap-reclassification-01r.json"
+        ]
+      }
+    },
+    {
+      "id": "LINKED_STUDY_REGISTRY",
+      "fileCount": 1,
+      "digest": "sha256:4ec3d30b7d6694718abfa691492b4a48743ac1fcdf0add241b61ed9cea42f177",
+      "selection": { "paths": ["reference-corpus/reference-corpus-01/linked-study-sets.json"] }
+    },
+    {
+      "id": "REFERENCE_KNOWLEDGE_INDEX",
+      "fileCount": 1,
+      "digest": "sha256:d8c1dc729181bf055042a51e674267490c9436a261162fbbfd62c73c86a51c81",
+      "selection": { "paths": ["reference-corpus/reference-knowledge-bridge-01/reference-document-index.json"] }
+    },
+    {
+      "id": "DOC002",
+      "fileCount": 11,
+      "digest": "sha256:3c49cdbb1b2a4257f8684a041fd8e9310dae2da7a035d9c7be04896743c08efb",
+      "selection": { "roots": ["documentary-pattern-corpus/doc-002"], "extensions": [".json"] }
+    },
+    {
+      "id": "TMP001",
+      "fileCount": 13,
+      "digest": "sha256:813f01ebf6725655f711f6808081a80dadb77f7ef87cadaa384ead0988071e3f",
+      "selection": { "roots": ["study-template-engine/tmp-001"], "extensions": [".json"] }
+    },
+    {
+      "id": "REG000_LEGACY_CORPUS",
+      "fileCount": 2,
+      "digest": "sha256:b70e9b3a587c1e1b1978530846f779e9ad96c801523d91880a931c8dd633ce00",
+      "selection": { "paths": ["regulatory-funding-corpus/reg-000/reg-000.corpus.json", "regulatory-funding-corpus/reg-000/reg-000.schema.json"] }
+    },
+    {
+      "id": "VAL_CURRENT_PROFILE",
+      "fileCount": 24,
+      "digest": "sha256:f6592de70324d309942ca45ef93cbc141d1d9dd800544661cd21f89a24b45285",
+      "selection": {
+        "roots": ["src/features/validation-architecture"],
+        "paths": [
+          "src/features/protocol-designer/product-current-owner-stack-validation-runtime.ts",
+          "src/features/protocol-designer/product-scientific-loop-validation-runtime.ts",
+          "src/features/protocol-designer/product-validation-run-ledger.ts"
+        ],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "QRY_RUNTIME",
+      "fileCount": 19,
+      "digest": "sha256:96dd1196e39f50b923c546861976e5a919030557ad1b821c3610ce56f2b57ca8",
+      "selection": { "roots": ["src/features/query-navigation"], "extensions": [".ts", ".tsx"], "excludeSegments": ["__tests__"] }
+    },
+    {
+      "id": "TRACE_TAXONOMY_AND_RUNTIME",
+      "fileCount": 2,
+      "digest": "sha256:db795727f40bcdac76bdf616e53f6c857868341adb5ce3ce6bce9797b1dcc5b4",
+      "selection": { "paths": ["src/features/protocol-designer/scientific-execution-trace.ts", "src/features/protocol-designer/functional-reset/end-to-end-trace-adapter.ts"] }
+    },
+    {
+      "id": "PROJECT_CONTRACT",
+      "fileCount": 5,
+      "digest": "sha256:470ce48349a09d1c130d3d88ecf373d43ac72402943bfc0f8a3820ccdd4a23c5",
+      "selection": {
+        "paths": [
+          "src/features/research-project-construction/canonical-project-backbone.ts",
+          "src/features/research-project-construction/contribution-owner-boundary.ts",
+          "src/features/research-project-construction/project-section-projection.ts",
+          "src/features/research-project-construction/specialized-owner-handoff.ts",
+          "src/features/research-project-construction/types.ts"
+        ]
+      }
+    },
+    {
+      "id": "OWNER_RUNTIME_SET",
+      "fileCount": 109,
+      "digest": "sha256:fd0864853f94af3d6ad610c31d69cbef3a7cc9393b167b9ea03017e1b5781c1d",
+      "selection": {
+        "roots": [
+          "src/features/scientific-thinking",
+          "src/features/study-design",
+          "src/features/observability-measurement",
+          "src/features/imaging-study-designer",
+          "src/features/data-analysis-planning",
+          "src/features/knowledge-engine",
+          "src/features/regulatory-resolution"
+        ],
+        "paths": [
+          "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts",
+          "src/features/protocol-designer/product-study-design-owner-runtime.ts",
+          "src/features/protocol-designer/product-observability-owner-runtime.ts",
+          "src/features/protocol-designer/product-imaging-owner-runtime.ts",
+          "src/features/protocol-designer/product-biostatistics-owner-runtime.ts",
+          "src/features/protocol-designer/product-canonical-study-data-owner-runtime.ts",
+          "src/features/protocol-designer/product-data-management-owner-runtime.ts",
+          "src/features/protocol-designer/product-knowledge-owner-runtime.ts",
+          "src/features/protocol-designer/product-regulatory-owner-runtime.ts",
+          "src/features/protocol-designer/product-owner-result-ledger.ts",
+          "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts",
+          "src/features/protocol-designer/functional-reset/study-design-standard.ts",
+          "src/features/protocol-designer/functional-reset/observability-standard.ts",
+          "src/features/protocol-designer/functional-reset/imaging-standard.ts",
+          "src/features/protocol-designer/functional-reset/biostatistics-standard.ts",
+          "src/features/protocol-designer/functional-reset/canonical-study-data-standard.ts",
+          "src/features/protocol-designer/functional-reset/data-management-standard.ts",
+          "src/features/protocol-designer/functional-reset/knowledge-standard.ts",
+          "src/features/protocol-designer/functional-reset/regulatory-standard.ts"
+        ],
+        "extensions": [".ts", ".tsx"],
+        "excludeSegments": ["__tests__"]
+      }
+    },
+    {
+      "id": "OWNER_RESULT_CONTRACT_SET",
+      "fileCount": 1,
+      "digest": "sha256:a7414d62336754ffcfdc561efbd78f706367ac275e50ab73eecd988dec5b25da",
+      "selection": { "paths": ["src/features/protocol-designer/product-owner-result-ledger.ts"] }
+    },
+    {
+      "id": "PROVIDER_CONFIGURATION_SOURCE",
+      "fileCount": 6,
+      "digest": "sha256:ffea5027235ae436196fa10dd56c7af88834eeb0c5639b1d3fdc1b2d43ead2c2",
+      "selection": {
+        "paths": [
+          "api/protocol-designer-bridge-provider.ts",
+          "api/protocol-designer-bridge.ts",
+          "api/protocol-designer-openai-extraction-provider.ts",
+          "src/features/protocol-designer/product-bridge-client.ts",
+          "src/features/protocol-designer/product-bridge.ts",
+          "vite.config.ts"
+        ]
+      }
+    },
+    {
+      "id": "STANDARD_ROUTE_AND_STATE_SURFACE",
+      "fileCount": 5,
+      "digest": "sha256:2d6aca9aee35da1ce69f8dbbe46cb6cf81dfd7a7d21e246cba030c81b71674e4",
+      "selection": {
+        "paths": [
+          "src/App.tsx",
+          "src/pages/ProtocolDesigner.tsx",
+          "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+          "src/features/protocol-designer/functional-reset/ResearchProjectPanel.tsx",
+          "src/features/protocol-designer/functional-reset/session.ts"
+        ]
+      }
+    }
+  ],
+  "definitionDigests": {
+    "acceptance-envelope-a.json": "sha256:efd0559462cf448d1a85edb7e82d72890e3563994908f44e5e9ff07f90534ea3",
+    "acceptance-envelope-b.json": "sha256:966eada5154a0b48df65cc4d072ee46cae7cf54863751f512c7669ce72c9ffe2",
+    "acceptance-envelope-c.json": "sha256:ae8b1637fff8c065cf8e956190ad266dd1bf8c1b50cf654de3f8eaaced0d777a",
+    "acceptance-envelope-d.json": "sha256:04e2ffef3624676ab4d2cda6eacfb09581dea6c9b3b9d6360ca344ff0aae57f2",
+    "acceptance-envelope-e-optional.json": "sha256:4e83b443afbf30271c5b451849317566ad4d3daf3681c6ceddd55de4913529e8",
+    "campaign-definition-report.md": "sha256:7cdcf3d9d04b22a7c9ccc25ee39b413e1211b0bff2a19a5562b2ae55e513f9fb",
+    "campaign-rules.json": "sha256:ec2991e8dddb4ede9f2ba3b8b420c38de3b56a097f8782e420e23b63538647ed",
+    "execution-protocol.md": "sha256:0b17d5d5200414f4866fbf0998acec2330cc6e76b0e75a52fb3f405039e44f7f",
+    "first-divergence-taxonomy.json": "sha256:ed1351e98d78b1d9cf7e493122d68fa23072e33a1acff0717c6a86d52112cd1d",
+    "human-adjudication-template.json": "sha256:35c73acc605a94c5966b4d5d9c5834e6191c0fa5c1de082f81991131f102f218",
+    "scenario-a.json": "sha256:2eb2cb2ee21d867e536f13166480220292cfc7af41fc6c16b991af93d5d7322d",
+    "scenario-b.json": "sha256:a36ec25050555c6d7cabe9964e0ba64115a2587473b6827dc9a1dde354fdf4c1",
+    "scenario-c.json": "sha256:6bf9df1d2b1d4a14b3dbd57a5ea4a17fe672c2d1140dbd738d1f522725585170",
+    "scenario-d.json": "sha256:d6331000cd1d95764d603d0b4bd54de549bd64feea0e95d6a854654b470dd321",
+    "scenario-e-optional.json": "sha256:b3f376c7a3852f85f6fb32c1b1b415dc730a0514543401e26994999448b3c8b1",
+    "validate.mjs": "sha256:63b9a421eecefcff459eaceeeda18cd4ce428931b8b5bd27bb6538ab6ea27d13"
+  }
+}

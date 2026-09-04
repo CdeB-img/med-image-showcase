@@ -1,0 +1,78 @@
+{
+  "taxonomyId": "FIC01-FIRST-DIVERGENCE-TAXONOMY",
+  "version": "1.0.0",
+  "status": "FROZEN",
+  "definition": "The first divergence is the earliest observable state or transformation that becomes scientifically, semantically or structurally incorrect relative to the frozen fact packet and acceptance envelope.",
+  "statuses": [
+    {
+      "code": "NONE",
+      "meaning": "No divergence has been established with sufficient evidence."
+    },
+    {
+      "code": "KNOWLEDGE",
+      "meaning": "The first unsupported change concerns evidence retrieval, qualification, applicability, content availability or limitation preservation."
+    },
+    {
+      "code": "OWNER_MECHANIC",
+      "meaning": "The first unsupported change occurs within a domain owner's governed representation or reasoning contract."
+    },
+    {
+      "code": "HANDOFF",
+      "meaning": "The first unsupported change occurs while transferring exact identity, meaning, evidence, uncertainty or responsibility between owners."
+    },
+    {
+      "code": "PROJECT",
+      "meaning": "The first unsupported change concerns Project identity, version, provenance, canonical state or adoption."
+    },
+    {
+      "code": "QRY",
+      "meaning": "The first unsupported change concerns next-action selection, information value, re-questioning or branch navigation."
+    },
+    {
+      "code": "TMP_DOC",
+      "meaning": "The first unsupported change occurs in template or document projection, fidelity, detail boundary, versioning or source binding."
+    },
+    {
+      "code": "HOW_UX",
+      "meaning": "The governed meaning remains correct but its realization or presentation first becomes misleading, incomplete or unusable."
+    },
+    {
+      "code": "VALIDATION",
+      "meaning": "The first defect is a false, missing or mutating deterministic validation diagnostic."
+    },
+    {
+      "code": "UNKNOWN",
+      "meaning": "Available evidence cannot localize the first divergence."
+    }
+  ],
+  "requiredRecordFields": [
+    "scenarioId",
+    "status",
+    "earliestEventId",
+    "earliestStage",
+    "observedState",
+    "frozenExpectationRef",
+    "evidenceRefs",
+    "responsibilityOwnerObserved",
+    "decisionOwnerObserved",
+    "executorObserved",
+    "providerObserved",
+    "causalOwner",
+    "confidence",
+    "downstreamQualificationState"
+  ],
+  "rules": [
+    "TRACE records facts and never assigns scientific blame.",
+    "VAL may emit only supported deterministic structural diagnostics.",
+    "Human adjudication is required for scientific or professional judgments not encoded by a deterministic contract.",
+    "The final visible responder is not presumed to be the causal owner.",
+    "A blocking first divergence invalidates downstream scientific qualification but does not delete downstream evidence.",
+    "If the earliest stage cannot be demonstrated, use UNKNOWN rather than a plausible reconstruction."
+  ],
+  "downstreamInvalidation": {
+    "blockingDivergenceState": "NOT_ASSESSABLE_AFTER_UPSTREAM_DIVERGENCE",
+    "preserveTrace": true,
+    "preserveOutputs": true,
+    "repairDuringBaseline": false
+  }
+}

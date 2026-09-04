@@ -1,0 +1,112 @@
+{
+  "scenarioId": "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+  "version": "1.0.0",
+  "status": "PRIMARY_FROZEN",
+  "title": "Longitudinal multimodal cardiovascular imaging study",
+  "purpose": "Assess whether Standard preserves mixed historical/prospective longitudinal uncertainty and navigates multimodal imaging, measurement, analysis and data implications without silently adopting a design.",
+  "initialUserIntent": "We have historical cardiac MRI and echocardiography data from patients followed after a first myocardial infarction, and we can prospectively recruit new patients with follow-up imaging. We want to understand adverse left ventricular remodeling, but the exact study design, timing, primary endpoint, and role of each imaging modality are not decided.",
+  "knownFacts": [
+    {
+      "factId": "A-KF-01",
+      "statement": "Historical cardiac MRI data are available.",
+      "source": "INITIAL_USER_INTENT"
+    },
+    {
+      "factId": "A-KF-02",
+      "statement": "Historical echocardiography data are available.",
+      "source": "INITIAL_USER_INTENT"
+    },
+    {
+      "factId": "A-KF-03",
+      "statement": "The historical patients were followed after a first myocardial infarction.",
+      "source": "INITIAL_USER_INTENT"
+    },
+    {
+      "factId": "A-KF-04",
+      "statement": "Prospective recruitment of new patients with follow-up imaging is feasible.",
+      "source": "INITIAL_USER_INTENT"
+    },
+    {
+      "factId": "A-KF-05",
+      "statement": "The scientific aim is to understand adverse left ventricular remodeling.",
+      "source": "INITIAL_USER_INTENT"
+    }
+  ],
+  "unresolvedDecisions": [
+    { "decisionId": "A-UD-01", "statement": "Exact study design and the relationship between historical and prospective components." },
+    { "decisionId": "A-UD-02", "statement": "Primary objective and primary endpoint." },
+    { "decisionId": "A-UD-03", "statement": "Follow-up schedule and exact timepoints." },
+    { "decisionId": "A-UD-04", "statement": "Scientific role and hierarchy of MRI and echocardiography." },
+    { "decisionId": "A-UD-05", "statement": "Analysis strategy for repeated observations." },
+    { "decisionId": "A-UD-06", "statement": "Handling of temporal, site and acquisition heterogeneity if multiple sites are involved." }
+  ],
+  "knownAbsences": [],
+  "withheldInformation": [],
+  "outOfScopeInformation": [
+    "Exact acquisition parameters are not part of the fixture.",
+    "Reader organization and equipment equivalence are not supplied.",
+    "No jurisdiction-specific or product-specific regulatory fact is supplied."
+  ],
+  "allowedClarifications": [
+    "Clarify whether historical and prospective participants belong to one inferential population or distinct components.",
+    "Clarify the intended primary scientific objective or endpoint without presupposing one.",
+    "Clarify clinically meaningful follow-up timing.",
+    "Clarify complementary or hierarchical modality roles.",
+    "Clarify site structure, acquisition provenance and comparability constraints."
+  ],
+  "allowedDeterministicResponses": {
+    "knownFact": "Return the exact matching knownFacts.statement.",
+    "unresolvedDecision": "not decided yet",
+    "notSupplied": "unknown / not available",
+    "unmapped": "UNMAPPED_PRODUCT_QUESTION"
+  },
+  "requiredCapabilities": [
+    "LONGITUDINAL_INTENT_PRESERVATION",
+    "HYBRID_DESIGN_OPTION_SURFACING",
+    "MULTIMODAL_ROLE_REASONING",
+    "MEASUREMENT_COMPARABILITY_QUALIFICATION",
+    "REPEATED_MEASUREMENT_ANALYSIS_PLANNING",
+    "TEMPORAL_DATA_REPRESENTATION",
+    "PROJECT_TO_PROTOCOL_DOCUMENT_REACHABILITY"
+  ],
+  "possibleOwners": [
+    "SCIENTIFIC_THINKING",
+    "STUDY_DESIGN",
+    "OBSERVABILITY_MEASUREMENT",
+    "IMAGING",
+    "BIOSTATISTICS",
+    "CDM",
+    "DATA_MANAGEMENT",
+    "KNOWLEDGE"
+  ],
+  "conditionalOwners": [
+    { "owner": "REG", "condition": "Only if later adopted Project facts create a material regulatory applicability question." }
+  ],
+  "forbiddenOwnerResponsibilityTransfers": [
+    "KNOWLEDGE_TO_STUDY_DESIGN_DECISION",
+    "IMAGING_TO_PRIMARY_ENDPOINT_ADOPTION",
+    "BIOSTATISTICS_TO_SCIENTIFIC_OBJECTIVE_ADOPTION",
+    "TMP_OR_DOC_TO_PROJECT_TRUTH"
+  ],
+  "humanDecisionCheckpoints": [
+    "ADOPT_STUDY_DESIGN",
+    "ADOPT_PRIMARY_OBJECTIVE_AND_ENDPOINT",
+    "ADOPT_MODALITY_ROLE_STRATEGY",
+    "ADOPT_FOLLOW_UP_STRATEGY",
+    "ADOPT_ANALYTIC_STRATEGY_WHEN_SUFFICIENTLY_SPECIFIED"
+  ],
+  "terminalTarget": "A coherent versioned Research Project preserving unresolved decisions, with current Protocol/TMP/DOC projection reachable after the necessary human adoptions.",
+  "campaignBudget": {
+    "maxStandardConversationTurnsPerScenario": 8,
+    "maxQryActionsPerScenario": 12,
+    "maxKnowledgeActionsPerScenario": 4,
+    "maxOwnerInvocationsPerScenario": 12,
+    "maxProviderCallsPerScenario": 24
+  },
+  "provenance": {
+    "missionId": "FROZEN-INTEGRATED-CAMPAIGN-DEFINITION-01",
+    "runtimeBaselineSha": "adea948aef0402d8f4bbf66324b0d59643e95bfd",
+    "definitionRefs": ["MISSION_SECTION_8", "MISSION_SECTION_9"],
+    "authorityRefs": ["PD-003-V2", "PD-009", "OBS-001", "IMG-001", "BIOSTATISTICS-001", "CDM-001", "DM-001"]
+  }
+}

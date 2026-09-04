@@ -1,0 +1,158 @@
+{
+  "campaignId": "FROZEN-INTEGRATED-CAMPAIGN-01",
+  "campaignRulesVersion": "1.0.0",
+  "status": "FROZEN",
+  "purpose": "Evaluate integrated scientific behavior causally without prescribing one scientific answer or one universal owner order.",
+  "productSurface": "STANDARD",
+  "diagnosticSurface": "EXPERT_TRACE",
+  "traceCaptureLevel": "LEVEL_2_DIAGNOSTIC",
+  "primaryScenarioIds": [
+    "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+    "FIC01-B-INTERVENTIONAL-ANALYTIC",
+    "FIC01-C-MEASUREMENT-VALIDATION",
+    "FIC01-D-MULTICENTER-HARMONIZATION"
+  ],
+  "optionalScenarioIds": [
+    "FIC01-E-PLATFORM-IMAGING-STRESS"
+  ],
+  "acceptanceStates": [
+    "PASS",
+    "BLOCKING_FAIL",
+    "NON_BLOCKING_FINDING",
+    "HUMAN_REVIEW_REQUIRED",
+    "NOT_APPLICABLE",
+    "NOT_ASSESSABLE_AFTER_UPSTREAM_DIVERGENCE"
+  ],
+  "commonInvariants": [
+    "PROJECT_SOURCE_OF_TRUTH_PRESERVED",
+    "HUMAN_ADOPTION_REQUIRED_FOR_ENGAGING_DECISIONS",
+    "UNKNOWN_REMAINS_UNKNOWN",
+    "WITHHELD_REMAINS_WITHHELD",
+    "CANDIDATE_NOT_EQUAL_ADOPTED",
+    "REJECTED_NOT_REINTRODUCED_SILENTLY",
+    "SUPERSEDED_NOT_TREATED_AS_CURRENT",
+    "PROVENANCE_PRESERVED",
+    "SOURCE_LIMITATIONS_PRESERVED",
+    "METADATA_ONLY_NOT_USED_AS_CONTENT_EVIDENCE",
+    "OWNER_BOUNDARIES_PRESERVED",
+    "KNOWLEDGE_NOT_SCIENTIFIC_DECISION_OWNER",
+    "QRY_REMAINS_WHAT_NEXT_OWNER",
+    "TRACE_NON_MUTATING",
+    "VAL_NON_MUTATING",
+    "TMP_NOT_PROJECT_TRUTH",
+    "DOC_NOT_PROJECT_TRUTH",
+    "NO_AUTOMATIC_REGULATORY_APPROVAL",
+    "NO_AUTOMATIC_SCIENTIFIC_PASS"
+  ],
+  "campaignBudget": {
+    "maxStandardConversationTurnsPerScenario": 8,
+    "standardConversationTurnDefinition": "One user submission and its corresponding visible NOXIA response form one bounded exchange.",
+    "maxQryActionsPerScenario": 12,
+    "maxKnowledgeActionsPerScenario": 4,
+    "maxOwnerInvocationsPerScenario": 12,
+    "maxProviderCallsPerScenario": 24,
+    "maxProviderRetriesPerScenario": 8,
+    "budgetRationale": "Eight exchanges permit initial intent, deterministic fact-packet replies and human checkpoints. Twenty-four provider starts bound the current maximum of one conversation call plus one extraction call and at most one contract-driven extraction retry per exchange. Deterministic Reference Corpus lookups are counted separately."
+  },
+  "countingRules": {
+    "providerCallCount": "Count every external Gemini or OpenAI request start.",
+    "providerRetryCount": "Count only a repeated external request explicitly allowed by the frozen runtime retry contract.",
+    "providerFailureCount": "Count technical provider failures independently of scientific findings.",
+    "knowledgeActionCount": "Count each QRY-governed Knowledge action, including a reused current result as an action with zero new lookup.",
+    "referenceLookupCount": "Count each deterministic local Reference Corpus lookup separately from external provider calls.",
+    "ownerInvocationCount": "Count each domain-owner runtime invocation; Knowledge and QRY actions retain their separate counters."
+  },
+  "deterministicUserPolicy": {
+    "simulator": "NO_LLM",
+    "knownFactResponse": "Return the exact frozen fact.",
+    "unresolvedDecisionResponse": "not decided yet",
+    "unknownResponse": "unknown / not available",
+    "unmappedQuestionResponse": "UNMAPPED_PRODUCT_QUESTION",
+    "fabricationAllowed": false
+  },
+  "ownerNavigationPolicy": {
+    "universalOwnerOrder": false,
+    "automaticFanOut": false,
+    "superOwner": false,
+    "qrySelectsOneNextLegitimateAction": true,
+    "boundedKnowledgePrerequisiteAllowed": true,
+    "automaticProjectAdoption": false
+  },
+  "baselineRunPolicy": {
+    "runEachPrimaryScenarioOnceOnSameRuntimeBaseline": true,
+    "continueIndependentScenariosAfterFailure": true,
+    "stopScenarioAt": [
+      "BLOCKING_FIRST_DIVERGENCE",
+      "PLANNED_TERMINAL_TARGET",
+      "UNRESOLVED_HUMAN_DECISION_CHECKPOINT",
+      "ORCHESTRATION_BUDGET_EXCEEDED"
+    ],
+    "repairBetweenPrimaryScenarios": false,
+    "preserveCompleteTraceAfterDivergence": true,
+    "preserveDownstreamOutputsForForensics": true,
+    "downstreamAssessmentAfterBlockingDivergence": "NOT_ASSESSABLE_AFTER_UPSTREAM_DIVERGENCE"
+  },
+  "blockingFailureConditions": [
+    "SCIENTIFICALLY_INCORRECT_STRUCTURAL_REASONING",
+    "INVENTED_PROJECT_FACT",
+    "INVENTED_SOURCE_CONTENT",
+    "OWNERSHIP_VIOLATION",
+    "AUTOMATIC_ENGAGING_DECISION",
+    "CONTRADICTION_SILENTLY_REMOVED",
+    "UNCERTAINTY_SILENTLY_RESOLVED",
+    "WRONG_SCIENTIFIC_BRANCH_WITH_MATERIAL_DOWNSTREAM_CONSEQUENCE",
+    "REQUIRED_OWNER_STRUCTURALLY_UNREACHABLE",
+    "PROJECT_PROVENANCE_OR_VERSION_LOSS",
+    "STALE_RESULT_CONSUMED",
+    "MATERIAL_KNOWLEDGE_LIMITATION_LOST",
+    "REGULATORY_REQUIREMENT_INVENTED",
+    "COHERENT_PROJECT_UNREACHABLE",
+    "REQUIRED_PROTOCOL_DOCUMENT_CORRIDOR_UNREACHABLE",
+    "TRACE_CANNOT_RECONSTRUCT_FIRST_DIVERGENCE"
+  ],
+  "nonBlockingFindingExamples": [
+    "SECONDARY_ALTERNATIVE_OMITTED",
+    "EXPERT_NUANCE_MISSING",
+    "PROFESSIONALLY_ACCEPTABLE_STYLE_OR_WORDING_IMPERFECTION",
+    "NICHE_REFERENCE_ABSENT",
+    "UNSUPPORTED_ADVANCED_METHOD_OUTSIDE_SCENARIO_NEED",
+    "OPTIONAL_PLATFORM_CONTENT_NOT_RUNTIME_INDEXED",
+    "MICRO_UX",
+    "PROFESSIONALLY_ACCEPTABLE_DETAIL_IMBALANCE",
+    "MINOR_DOCUMENTARY_PATTERN_WEAKNESS",
+    "RELEASE_HARDENING_DEBT"
+  ],
+  "humanScientificJudgmentRule": {
+    "state": "HUMAN_REVIEW_REQUIRED",
+    "useWhen": [
+      "SEVERAL_STRATEGIES_ARE_DEFENSIBLE",
+      "TRADEOFF_DEPENDS_ON_INVESTIGATOR_PREFERENCE",
+      "EVIDENCE_IS_GENUINELY_UNCERTAIN",
+      "REGULATORY_QUALIFICATION_NEEDS_EXPERT_OR_EXTERNAL_CONFIRMATION",
+      "DOCUMENTARY_DETAIL_IS_PROFESSIONALLY_CONTEXT_DEPENDENT"
+    ],
+    "deterministicFailureFromScientificPlurality": false
+  },
+  "repairPolicyAfterBaseline": {
+    "groupBy": [
+      "ACTUAL_CAUSAL_OWNER",
+      "FIRST_DIVERGENCE_CLASS",
+      "SHARED_ROOT_CAUSE"
+    ],
+    "rewriteAcceptanceToPass": false,
+    "finalPassReusesFrozenDefinitions": true
+  },
+  "immutability": {
+    "substantiveChangeRequiresCampaignVersionIncrement": true,
+    "frozenElements": [
+      "SCENARIO_TEXT",
+      "FACT_PACKETS",
+      "ACCEPTANCE_ENVELOPES",
+      "HUMAN_ADJUDICATION_FIELDS",
+      "FAILURE_TAXONOMY",
+      "BUDGETS",
+      "PROVIDER_CONFIGURATION_IDENTITY",
+      "TRACE_CAPTURE_LEVEL"
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "scenarioId": "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+  "version": "1.0.0",
+  "mustRecognize": [
+    "Longitudinal repeated observations are intrinsic to the stated research aim.",
+    "Historical MRI and echocardiography coexist with possible prospective recruitment.",
+    "A hybrid design may be relevant but is not yet adopted.",
+    "The primary objective, endpoint, follow-up schedule and modality hierarchy are unresolved.",
+    "Population definition and the relationship between historical and prospective components affect interpretation."
+  ],
+  "mustPreserve": [
+    "Availability of both historical modalities.",
+    "Prospective recruitment feasibility without converting it into a commitment.",
+    "Uncertainty about design, timing, endpoint, modality roles and analysis.",
+    "Project provenance, versions, candidates, rejections and human-adoption state."
+  ],
+  "mustConsider": [
+    "Complementary or hierarchical roles for MRI and echocardiography.",
+    "Longitudinal comparability, repeated-measurement analysis and missing observations.",
+    "Imaging quality, acquisition provenance and harmonization where applicable.",
+    "Timepoint representation and downstream data/document implications.",
+    "Whether further evidence retrieval has material value before a decision."
+  ],
+  "mustNotInvent": [
+    "Follow-up dates or intervals.",
+    "A primary endpoint or final design.",
+    "MRI primacy, equipment equivalence, reader count or acquisition parameters.",
+    "A complete retrospective cohort inferred only from historical data availability."
+  ],
+  "mustNotDo": [
+    "Silently adopt a hybrid, retrospective or prospective design.",
+    "Collapse endpoint, objective and measurement into one concept.",
+    "Ask again for facts already explicit without material information value.",
+    "Treat Knowledge, TMP or DOC as Project decision authority."
+  ],
+  "acceptableAlternativeFamilies": [
+    "A staged exploration of retrospective and prospective components.",
+    "A justified integrated hybrid design candidate with explicit comparability limits.",
+    "MRI-primary, echocardiography-primary or complementary modality-role candidates if presented for human adoption.",
+    "Alternative longitudinal analysis families deferred until estimand and data structure are sufficiently specified."
+  ],
+  "requiredOwnershipBoundaries": [
+    "QRY governs what legitimate action comes next without a frozen universal owner sequence.",
+    "Domain owners contribute within their contracts; none silently adopts the Project.",
+    "Knowledge supplies qualified evidence and limitations, not scientific decisions.",
+    "Engaging scientific choices require human adoption."
+  ],
+  "requiredEvidenceBehavior": [
+    "Evidence claims retain source identity, applicability and limitations.",
+    "Metadata-only records are not used as document-content evidence.",
+    "Unknown, unavailable, rejected and superseded information retain distinct states."
+  ],
+  "requiredHumanBoundaries": [
+    "Human adoption of design, primary objective/endpoint, modality roles and follow-up strategy.",
+    "Human adoption of an analytic strategy once sufficiently specified.",
+    "Human scientific judgment where several coherent strategies remain defensible."
+  ],
+  "documentaryExpectations": [
+    "Protocol/TMP/DOC projections remain bound to the current adopted Project.",
+    "Document detail reflects commitment level and does not resolve open Project choices.",
+    "Cross-document temporal and modality statements remain consistent and versioned."
+  ],
+  "blockingFailureConditions": [
+    "An explicit modality, longitudinal dimension or uncertainty is lost with material consequence.",
+    "A design, endpoint, date, equipment property or reader organization is invented or automatically adopted.",
+    "A stale or provenance-disconnected result enters the Project or document corridor.",
+    "The required Project-to-document corridor or first-divergence trace is unreachable."
+  ],
+  "nonBlockingFindingExamples": [
+    "One defensible secondary design alternative is omitted.",
+    "A professionally acceptable explanation could be more concise or detailed.",
+    "A niche imaging reference is absent without changing the structural reasoning."
+  ],
+  "humanReviewDimensions": [
+    { "dimension": "SCIENTIFICALLY_DEFENSIBLE", "value": null },
+    { "dimension": "IMPORTANT_ISSUE_OMITTED", "value": null },
+    { "dimension": "UNJUSTIFIED_ASSUMPTION", "value": null },
+    { "dimension": "ALTERNATIVES_ADEQUATELY_EXPLORED", "value": null },
+    { "dimension": "TRADEOFFS_VISIBLE", "value": null },
+    { "dimension": "QUESTION_USEFULNESS", "value": null },
+    { "dimension": "PROFESSIONAL_CREDIBILITY", "value": null }
+  ]
+}

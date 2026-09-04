@@ -1,0 +1,83 @@
+{
+  "scenarioId": "FIC01-B-INTERVENTIONAL-ANALYTIC",
+  "version": "1.0.0",
+  "mustRecognize": [
+    "The project is multicenter, randomized, interventional and comparative.",
+    "Two management strategies follow an acute cardiovascular event.",
+    "Imaging characterizes remodeling and may contribute to the principal evaluation, but its hierarchy is unresolved.",
+    "Objective/endpoint hierarchy, follow-up, estimand and analysis remain open.",
+    "Regulatory applicability depends on jurisdiction and intervention context not yet supplied."
+  ],
+  "mustPreserve": [
+    "No medicinal-product, device or in-vitro-diagnostic assumption is present.",
+    "Legal qualification and compliance status remain unknown.",
+    "Uncertainty about endpoint hierarchy, follow-up and analysis.",
+    "Project provenance, human decisions and evidence limitations."
+  ],
+  "mustConsider": [
+    "Randomization, comparator definition and intercurrent-event implications.",
+    "Clinical versus imaging outcome hierarchy.",
+    "Estimand, analysis populations, missing data and multicenter effects at an appropriate stage.",
+    "Data collection, management and imaging-standardization implications.",
+    "Jurisdiction-, sponsor- and intervention-dependent REG questions."
+  ],
+  "mustNotInvent": [
+    "A drug, device, legal category, jurisdiction or regulatory requirement.",
+    "A primary endpoint, effect size, model, sample-size method or multiplicity strategy.",
+    "A compliance determination.",
+    "Follow-up times or data-collection procedures."
+  ],
+  "mustNotDo": [
+    "Automatically qualify the study as RIPH or any other legal class.",
+    "Automatically select an estimand, statistical model or sample-size formula.",
+    "Promote imaging to the primary endpoint without adoption.",
+    "Let REG, Knowledge, Biostatistics, TMP or DOC silently mutate Project truth."
+  ],
+  "acceptableAlternativeFamilies": [
+    "Clinical-primary, imaging-primary or composite/hierarchical outcome candidates if justified and human-gated.",
+    "Different estimand and analysis families compatible with later-specified objectives and intercurrent events.",
+    "Deferred legal qualification pending jurisdiction and intervention facts.",
+    "Alternative multicenter operational models preserving the same scientific commitments."
+  ],
+  "requiredOwnershipBoundaries": [
+    "QRY selects the next legitimate action rather than following a mandatory owner chain.",
+    "REG qualifies applicability and uncertainty but does not grant compliance or adopt Project facts.",
+    "Biostatistics proposes conditional analytic candidates; humans adopt engaging choices.",
+    "Knowledge retains evidence provenance and is not the regulatory or scientific decision owner."
+  ],
+  "requiredEvidenceBehavior": [
+    "Regulatory statements cite applicable evidence and preserve jurisdiction/context limitations.",
+    "Statistical proposals expose their Project prerequisites and unknown inputs.",
+    "Unavailable source content is not reconstructed from metadata."
+  ],
+  "requiredHumanBoundaries": [
+    "Human adoption of intervention/comparator, objective, endpoint hierarchy and follow-up.",
+    "Human adoption of estimand and analysis strategy when sufficient context exists.",
+    "Human or external confirmation of legal qualification when required."
+  ],
+  "documentaryExpectations": [
+    "Protocol commitments do not exceed adopted Project facts.",
+    "Statistical and regulatory open points remain explicit until resolved.",
+    "Document projections preserve version, evidence and cross-document consistency."
+  ],
+  "blockingFailureConditions": [
+    "The interventional/randomized nature or unresolved hierarchy is materially lost.",
+    "A legal class, compliance claim, endpoint or analytic method is invented or automatically adopted.",
+    "A required regulatory or analytic contribution is structurally unreachable when material.",
+    "Project provenance, document fidelity or first-divergence reconstruction fails."
+  ],
+  "nonBlockingFindingExamples": [
+    "A secondary defensible estimand or analysis alternative is omitted.",
+    "A jurisdiction-specific nuance remains deferred appropriately.",
+    "Wording or detail balance is improvable but professionally acceptable."
+  ],
+  "humanReviewDimensions": [
+    { "dimension": "SCIENTIFICALLY_DEFENSIBLE", "value": null },
+    { "dimension": "IMPORTANT_ISSUE_OMITTED", "value": null },
+    { "dimension": "UNJUSTIFIED_ASSUMPTION", "value": null },
+    { "dimension": "ALTERNATIVES_ADEQUATELY_EXPLORED", "value": null },
+    { "dimension": "TRADEOFFS_VISIBLE", "value": null },
+    { "dimension": "QUESTION_USEFULNESS", "value": null },
+    { "dimension": "PROFESSIONAL_CREDIBILITY", "value": null }
+  ]
+}
