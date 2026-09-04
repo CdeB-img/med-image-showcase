@@ -2,6 +2,11 @@
   "MISSION_ID": "OWNER-KNOWLEDGE-COVERAGE-01",
   "STATUS": "DOCUMENTARY_PROPAGATION_ASSESSMENT_NO_PATTERN_ADMISSION",
   "SOURCE": "../reference-corpus-01/linked-study-sets.json",
+  "ASSESSMENT_SCOPE": {
+    "REQUIRED_STUDY_SET_IDS": ["RC01-SET-001", "RC01-SET-002", "RC01-SET-003", "RC01-SET-004", "RC01-SET-005", "RC01-SET-006", "RC01-SET-007", "RC01-SET-008", "RC01-SET-009", "RC01-SET-010"],
+    "LATER_ACCEPTED_STUDY_SET_IDS": ["RC01-SET-011", "RC01-SET-012"],
+    "RULE": "The historical OWNER-KNOWLEDGE-COVERAGE-01 assessment remains bounded to its declared identities; later accepted sets must resolve in the current registry but are not silently backfilled into the historical assessment."
+  },
   "ASSESSMENTS": [
     {"STUDY_SET_ID":"RC01-SET-001","PROPAGATION_ANALYSIS_POSSIBLE":"PARTIAL","OBSERVABLE_CHAIN":["study identity -> protocol","protocol -> three SAP uploads"],"MISSING_ARTIFACTS":["CRF","DATA_DICTIONARY","DMP","IMAGING_CHARTER","CORE_LAB_MANUAL","DATA_RELEASE","ANALYSIS_CODE","PUBLICATION"],"POTENTIAL_OWNER_VALUE":{"STUDY_DESIGN":"Compare protocol design representation with analysis planning.","BIOSTATISTICS":"Inspect whether three SAP uploads preserve/change populations, endpoints and methods.","CDM_DATA_MANAGEMENT":"Version/supersession need is visible, but data-collection propagation is not testable."},"LIMITATIONS":["Ordering and supersession among SAP uploads remain UNKNOWN.","One study cannot establish a generic rule."]},
     {"STUDY_SET_ID":"RC01-SET-002","PROPAGATION_ANALYSIS_POSSIBLE":"PARTIAL","OBSERVABLE_CHAIN":["study identity -> combined protocol/SAP","combined protocol/SAP -> protocol companion/addendum","protocol -> informed consent"],"MISSING_ARTIFACTS":["CRF","DATA_DICTIONARY","DMP","IMAGING_CHARTER","CORE_LAB_MANUAL","DATA_RELEASE","ANALYSIS_CODE","PUBLICATION"],"POTENTIAL_OWNER_VALUE":{"STUDY_DESIGN":"Inspect cross-document protocol amendment implications.","BIOSTATISTICS":"Inspect intrinsic protocol/SAP consistency within the combined file.","REG":"Inspect separation of scientific protocol and participant-information roles.","PROJECT":"Preserve one study identity across heterogeneous artifacts."},"LIMITATIONS":["Exact relation of Prot_001 to Prot_SAP_000 is UNKNOWN.","Combined-file consistency is not independent cross-document propagation evidence."]},

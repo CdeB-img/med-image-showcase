@@ -268,7 +268,7 @@ export type RuntimeSource = {
   sourceSnapshotRef?: string;
 };
 
-export type ReferenceContentAvailability = "METADATA_ONLY" | "DOCUMENT_AVAILABLE" | "SECTION_INDEXED" | "CLAIM_ANCHORED";
+export type ReferenceContentAvailability = "METADATA_ONLY" | "CONTENT_ACCESSIBLE_NOT_STORED" | "LOCAL_DOCUMENT_AVAILABLE" | "SECTION_INDEXED" | "CLAIM_ANCHORED";
 
 export type ReferenceSourceSnapshot = {
   snapshotId: string;

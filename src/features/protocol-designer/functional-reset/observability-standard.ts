@@ -1,5 +1,11 @@
-import { logicalDigest } from "@/features/knowledge-engine";
-import type { ObservabilityMeasurementResult } from "@/features/observability-measurement";
+import { logicalDigest, type KnowledgeOwnerHandoff } from "@/features/knowledge-engine";
+import {
+  OBSERVABILITY_QUALIFICATION_DIMENSIONS,
+  type MeasurementDefinitionDeclaration,
+  type MeasurementQualificationDeclaration,
+  type ObservablePropertyDeclaration,
+  type ObservabilityMeasurementResult,
+} from "@/features/observability-measurement";
 import {
   canonicalizeScientificContribution,
   type ScientificInterpretationContributionEnvelope,
@@ -37,6 +43,7 @@ export type StandardObservabilityPresentation = {
   properties: readonly { propertyRef: string; label: string; rationale: string }[];
   options: readonly StandardObservabilityOptionPresentation[];
   informationNeeds: readonly string[];
+  qualificationNeeds: readonly string[];
   plainText: string;
 };
 
@@ -70,15 +77,98 @@ export type ObservabilityConversationResolution =
 const unique = (values: readonly string[]) => [...new Set(values.filter(Boolean))].sort((left, right) => left.localeCompare(right));
 const folded = (value: string) => value.normalize("NFKD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 
+const QUALIFICATION_LABELS: Record<(typeof OBSERVABILITY_QUALIFICATION_DIMENSIONS)[number], string> = {
+  CONSTRUCT_VALIDITY: "validité du construit",
+  CONTENT_VALIDITY: "validité de contenu",
+  CRITERION_VALIDITY: "validité par rapport à un critère",
+  AGREEMENT_BIAS_PRECISION: "accord, biais et précision",
+  REPEATABILITY_REPRODUCIBILITY: "répétabilité et reproductibilité",
+  DISCRIMINATION_CLASSIFICATION_PERFORMANCE: "performance de discrimination ou de classification",
+  CALIBRATION: "calibration",
+  MEASUREMENT_ERROR_UNCERTAINTY: "erreur et incertitude de mesure",
+  CONFOUNDING_ACQUISITION_SENSITIVITY: "sensibilité aux facteurs de confusion et conditions d’acquisition",
+  ROBUSTNESS_HARMONIZATION_COMPARABILITY: "robustesse, harmonisation et comparabilité",
+  QUALITY_REQUIREMENTS: "exigences de qualité",
+  REFERENCE_STANDARD_OR_COMPARATOR: "référence ou comparateur nécessaire",
+};
+
+export const buildStandardObservabilityDeclarations = (snapshot: ReturnType<typeof buildProjectContextSnapshot>) => {
+  const objectByRef = new Map(snapshot.objects.map((object) => [object.stableId, object]));
+  const conceptTypes = new Set(["SCIENTIFIC_QUESTION", "OBJECTIVE", "HYPOTHESIS", "SCIENTIFIC_MODEL", "ENDPOINT"]);
+  const propertyRelations = snapshot.relations.filter((relation) => relation.type === "SCIENTIFIC_CONCEPT_OPERATIONALIZED_BY_OBSERVABLE_PROPERTY");
+  const properties: ObservablePropertyDeclaration[] = propertyRelations.flatMap((relation) => {
+    const concept = objectByRef.get(relation.sourceProjectRef);
+    const property = objectByRef.get(relation.targetProjectRef);
+    if (!concept || !property || !conceptTypes.has(concept.type) || property.type !== "CANONICAL_VARIABLE" || property.scientificRole !== "OBSERVABLE_PROPERTY") return [];
+    const provenanceRefs = unique([relation.stableId, relation.versionRef, concept.stableId, concept.versionRef, property.stableId, property.versionRef]);
+    return [{
+      propertyRef: property.stableId,
+      sourceConceptRef: concept.stableId,
+      label: property.content,
+      rationale: "Propriété observable explicitement structurée et reliée à un concept scientifique adopté dans le Project.",
+      prerequisites: [],
+      assumptions: [],
+      limitations: ["PROPERTY_DECLARATION_REQUIRES_OBS_QUALIFICATION"],
+      uncertainty: [],
+      provenanceRefs,
+    }];
+  });
+  const propertyRefs = new Set(properties.map((property) => property.propertyRef));
+  const measurementRelations = snapshot.relations.filter((relation) => relation.type === "OBSERVABLE_PROPERTY_MEASURED_BY_DEFINITION");
+  const measurements: MeasurementDefinitionDeclaration[] = measurementRelations.flatMap((relation) => {
+    const measurement = objectByRef.get(relation.targetProjectRef);
+    if (!propertyRefs.has(relation.sourceProjectRef) || !measurement || measurement.type !== "CANONICAL_VARIABLE" || measurement.scientificRole !== "MEASUREMENT_DEFINITION") return [];
+    const imaging = snapshot.relations.some((candidate) => candidate.type === "MEASUREMENT_REALIZED_BY_IMAGING"
+      && candidate.sourceProjectRef === measurement.stableId
+      && objectByRef.get(candidate.targetProjectRef)?.type === "IMAGING_MODALITY");
+    return [{
+      measurementRef: measurement.stableId,
+      propertyRef: relation.sourceProjectRef,
+      label: measurement.content,
+      operationalDefinition: measurement.content,
+      valueNature: "UNKNOWN",
+      domain: imaging ? "IMAGING" : "UNKNOWN",
+      rationale: "Définition de mesure explicitement structurée et reliée à la propriété observable dans le Project.",
+      prerequisites: [],
+      assumptions: [],
+      limitations: ["VALUE_NATURE_AND_OPERATIONAL_PERFORMANCE_NOT_YET_QUALIFIED"],
+      uncertainty: ["ANALYTICAL_METHOD_NOT_SELECTED"],
+      provenanceRefs: unique([relation.stableId, relation.versionRef, measurement.stableId, measurement.versionRef]),
+    }];
+  });
+  const measurementRefs = new Set(measurements.map((measurement) => measurement.measurementRef));
+  const qualifications: MeasurementQualificationDeclaration[] = snapshot.objects.flatMap((object) => {
+    if (object.type !== "DATA_NEED" || !object.scientificRole?.startsWith("OBS_QUALIFICATION:")) return [];
+    const dimension = object.scientificRole.slice("OBS_QUALIFICATION:".length) as MeasurementQualificationDeclaration["dimension"];
+    if (!OBSERVABILITY_QUALIFICATION_DIMENSIONS.includes(dimension)) return [];
+    const relation = snapshot.relations.find((candidate) => candidate.type === "QUALIFIES_MEASUREMENT"
+      && candidate.sourceProjectRef === object.stableId
+      && measurementRefs.has(candidate.targetProjectRef));
+    return [{
+      qualificationRef: object.stableId,
+      measurementRef: relation?.targetProjectRef ?? null,
+      dimension,
+      purpose: object.content,
+      requiredEvidence: [],
+      referenceStandardOrComparatorNeed: dimension === "REFERENCE_STANDARD_OR_COMPARATOR" ? object.content : null,
+      unresolvedContext: ["QUALIFICATION_NOT_YET_RESOLVED"],
+      limitations: ["OBS_IDENTIFIES_DIMENSION_BUT_DOES_NOT_SELECT_ANALYTICAL_METHOD"],
+      provenanceRefs: unique([object.stableId, object.versionRef, ...(relation ? [relation.stableId, relation.versionRef] : [])]),
+    }];
+  });
+  return { properties, measurements, qualifications };
+};
+
 export const isObservabilityQueryDispatch = (navigation: Readonly<FunctionalResetQueryNavigation>) => {
   const action = navigation.currentAction;
   const selected = navigation.selection.selected;
   return Boolean(action
     && action.owner === "OBSERVABILITY_MEASUREMENT"
     && action.affectedDecisionRefs.length === 1
-    && action.affectedDecisionRefs[0] === "project-section:MEASUREMENTS"
+    && ["project-section:MEASUREMENTS", "project-decision:OBSERVABILITY_QUALIFICATION"].includes(action.affectedDecisionRefs[0] ?? "")
     && selected?.capabilityRef === "OBSERVABILITY_QUALIFICATION"
-    && action.affectedBranchRefs.includes("project-facet:MEASUREMENTS:MEASUREMENT_SET")
+    && (action.affectedBranchRefs.includes("project-facet:MEASUREMENTS:MEASUREMENT_SET")
+      || action.affectedBranchRefs.includes("project-branch:OBSERVABILITY_QUALIFICATION"))
     && navigation.projectVersion === action.projectVersion);
 };
 
@@ -96,6 +186,7 @@ export const buildStandardObservabilityPresentation = (
     valueNature: measurement.valueNature,
   }));
   const informationNeeds = result.informationNeeds.map((need) => need.informationNeeded);
+  const qualificationNeeds = result.validityPerformanceQualifications.map((qualification) => QUALIFICATION_LABELS[qualification.dimension]);
   const introduction = options.length > 1
     ? "Plusieurs définitions de mesure restent défendables. Elles sont conservées comme alternatives et aucune n’est adoptée."
     : options.length === 1
@@ -113,6 +204,7 @@ export const buildStandardObservabilityPresentation = (
       option.limitations[0] ? `Limite principale : ${option.limitations[0]}` : null,
     ].filter(Boolean).join("\n")),
     informationNeeds.length ? `Point à préciser\n${informationNeeds.map((need) => `– ${need}`).join("\n")}` : null,
+    qualificationNeeds.length ? `Dimensions à qualifier\n${qualificationNeeds.map((need) => `– ${need}`).join("\n")}` : null,
     options.length ? "Vous pouvez discuter ces alternatives ou en retenir une pour revue humaine." : null,
   ].filter((value): value is string => Boolean(value)).join("\n\n");
   return {
@@ -123,6 +215,7 @@ export const buildStandardObservabilityPresentation = (
     properties,
     options,
     informationNeeds,
+    qualificationNeeds,
     plainText,
   };
 };
@@ -153,12 +246,14 @@ export const dispatchObservabilityFromQuery = (input: {
   startedAt: string;
   completedAt: string;
   traceEnabled?: boolean;
+  knowledgeHandoff?: Readonly<KnowledgeOwnerHandoff> | null;
 }) => {
   if (!isObservabilityQueryDispatch(input.navigation)) throw new Error("QRY_ACTION_NOT_OWNED_BY_OBSERVABILITY");
   if (input.navigation.projectRef !== input.project.projectId
     || input.navigation.projectVersion !== input.project.versionId
     || input.navigation.projectDigest !== input.project.projectDigest) throw new Error("QRY_OBSERVABILITY_PROJECT_BINDING_STALE");
   const snapshot = buildProjectContextSnapshot({ project: input.project });
+  const declarations = buildStandardObservabilityDeclarations(snapshot);
   const traceRunId = input.traceEnabled === false ? null : `scientific-observability-trace:${logicalDigest({
     sessionId: input.sessionId,
     conversationId: input.conversationId,
@@ -189,6 +284,10 @@ export const dispatchObservabilityFromQuery = (input: {
     purpose: input.navigation.currentAction!.reason,
     startedAt: input.startedAt,
     completedAt: input.completedAt,
+    observablePropertyDeclarations: declarations.properties,
+    measurementDefinitionDeclarations: declarations.measurements,
+    measurementQualificationDeclarations: declarations.qualifications,
+    knowledgeHandoff: input.knowledgeHandoff,
     trace,
   });
   const result = invocation.result?.nativePayload;

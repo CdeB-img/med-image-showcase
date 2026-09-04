@@ -1,18 +1,19 @@
 import { logicalDigest } from "@/features/knowledge-engine";
 import { verifyValidationRunDigest, type ValidationRun } from "@/features/validation-architecture";
+import type { ProductOwnerResultDependency } from "./product-owner-result-ledger";
 
 export const PRODUCT_VALIDATION_RUN_LEDGER_CONTRACT = "PROTOCOL_DESIGNER_VALIDATION_RUN_LEDGER" as const;
 export const PRODUCT_VALIDATION_RUN_LEDGER_VERSION = "0.1.0" as const;
 
 export type ProductScientificOwnerResultReference = {
-  owner: "KNOWLEDGE" | "SCIENTIFIC_THINKING" | "IMAGING";
+  owner: ProductOwnerResultDependency["owner"];
   resultId: string;
   resultVersion: string;
   nativeResultDigest: string;
 };
 
 export type ProductValidationProfileReference = {
-  profileId: "SCIENTIFIC_OWNER_CHAIN_FIDELITY";
+  profileId: "SCIENTIFIC_OWNER_CHAIN_FIDELITY" | "CURRENT_OWNER_STACK_FIDELITY";
   profileVersion: string;
   validationEngineId: "VAL-001-DETERMINISTIC-ENGINE";
   validationEngineVersion: string;

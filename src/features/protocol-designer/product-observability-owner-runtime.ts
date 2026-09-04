@@ -2,9 +2,11 @@ import type {
   BiomarkerRoleDeclaration,
   MeasurementDefinitionDeclaration,
   ObservablePropertyDeclaration,
+  MeasurementQualificationDeclaration,
   ObservabilityMeasurementResult,
   ObservabilityMeasurementRuntimeInput,
 } from "@/features/observability-measurement";
+import type { KnowledgeOwnerHandoff } from "@/features/knowledge-engine";
 import {
   invokeObservabilityMeasurementOwnerFromSnapshot,
   type ProjectContextSnapshot,
@@ -84,6 +86,8 @@ export const invokeObservabilityForProjectSnapshot = (input: {
   observablePropertyDeclarations?: readonly ObservablePropertyDeclaration[];
   measurementDefinitionDeclarations?: readonly MeasurementDefinitionDeclaration[];
   biomarkerRoleDeclarations?: readonly BiomarkerRoleDeclaration[];
+  measurementQualificationDeclarations?: readonly MeasurementQualificationDeclaration[];
+  knowledgeHandoff?: Readonly<KnowledgeOwnerHandoff> | null;
   runtime?: (nativeInput: Readonly<ObservabilityMeasurementRuntimeInput>) => Readonly<ObservabilityMeasurementResult>;
   monotonicNow?: () => number;
   trace?: ScientificRunTraceRecorder;
@@ -96,6 +100,8 @@ export const invokeObservabilityForProjectSnapshot = (input: {
       observablePropertyDeclarations: input.observablePropertyDeclarations,
       measurementDefinitionDeclarations: input.measurementDefinitionDeclarations,
       biomarkerRoleDeclarations: input.biomarkerRoleDeclarations,
+      measurementQualificationDeclarations: input.measurementQualificationDeclarations,
+      knowledgeHandoff: input.knowledgeHandoff,
       purpose: input.purpose,
       startedAt: input.startedAt,
       completedAt: input.completedAt,
@@ -108,6 +114,14 @@ export const invokeObservabilityForProjectSnapshot = (input: {
       resultVersion: result.resultVersion,
       nativeResultDigest: ownerResultNativeDigest(result) ?? (() => { throw new Error("OBS_UPSTREAM_RESULT_DIGEST_MISSING"); })(),
     }));
+    if (input.knowledgeHandoff) {
+      const knowledgeEntry = [...input.ledger.entries].reverse().find((entry) => entry.result?.resultId === input.knowledgeHandoff!.knowledgeResultRef
+        && entry.result.owner === "KNOWLEDGE");
+      if (!knowledgeEntry?.result) throw new Error("OBS_KNOWLEDGE_RESULT_LEDGER_ENTRY_MISSING");
+      const digest = ownerResultNativeDigest(knowledgeEntry.result);
+      if (!digest || digest !== input.knowledgeHandoff.knowledgeResultDigest) throw new Error("OBS_KNOWLEDGE_RESULT_DIGEST_MISMATCH");
+      dependencies.push({ owner: "KNOWLEDGE", resultId: knowledgeEntry.result.resultId, resultVersion: knowledgeEntry.result.resultVersion, nativeResultDigest: digest });
+    }
     const retained = appendProductOwnerInvocation({
       ledger: input.ledger,
       callerRef: input.callerRef,

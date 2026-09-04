@@ -765,6 +765,8 @@ const TECHNICAL_METADATA_KEYS = new Set([
   "ledgerVersion",
   "llmCalls",
   "handoffCount",
+  "handoffDigest",
+  "handoffId",
   "observationContract",
   "observationVersion",
   "optionCount",
@@ -774,6 +776,8 @@ const TECHNICAL_METADATA_KEYS = new Set([
   "repairAuthorized",
   "runtimeStarts",
   "scientificQualificationClaimed",
+  "targetCapability",
+  "contentAvailabilityStates",
   "validationEntryDigest",
   "validationEntryId",
 ]);

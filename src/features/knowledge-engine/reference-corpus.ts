@@ -3,6 +3,7 @@ import linkedStudySetsDocument from "../../../reference-corpus/reference-corpus-
 import ownerKnowledgeCoverageDocument from "../../../reference-corpus/owner-knowledge-coverage-01/owner-knowledge-coverage.json";
 import ownerKnowledgeNeedsDocument from "../../../reference-corpus/owner-knowledge-coverage-01/owner-knowledge-needs.json";
 import referenceDocumentIndex from "../../../reference-corpus/reference-knowledge-bridge-01/reference-document-index.json";
+import documentaryEvidenceClosureDocument from "../../../reference-corpus/reference-corpus-01/documentary-evidence-closure-01.json";
 import { comparableScientificText, logicalDigest, uniqueSorted } from "./canonical";
 import type {
   KnowledgeRequest,
@@ -97,11 +98,19 @@ type LinkedStudySet = {
   VERSION_RELATIONSHIPS: string[];
 };
 
+type DocumentaryEvidenceClosure = {
+  ARTIFACTS: Array<{
+    SOURCE_ID: string;
+    CONTENT_READINESS_STATE: "METADATA_ONLY" | "CONTENT_ACCESSIBLE_NOT_STORED" | "LOCAL_DOCUMENT_AVAILABLE" | "SECTION_INDEXED" | "CLAIM_ANCHORED";
+  }>;
+};
+
 const corpus = referenceCorpusDocument as unknown as { RETRIEVAL_DATE: string; SOURCES: Rc01Source[] };
 const needs = ownerKnowledgeNeedsDocument as unknown as { NEEDS: Rc01Need[] };
 const coverage = ownerKnowledgeCoverageDocument as unknown as { COVERAGE: Rc01Coverage[] };
 const documentIndex = referenceDocumentIndex as unknown as { SOURCES: IndexedSource[]; NEED_SOURCE_SECTIONS: IndexedNeedSource[] };
 const linkedStudySets = linkedStudySetsDocument as unknown as { STUDY_SETS: LinkedStudySet[] };
+const documentaryEvidenceClosure = documentaryEvidenceClosureDocument as unknown as DocumentaryEvidenceClosure;
 
 const deepFreeze = <T>(value: T): Readonly<T> => {
   if (value && typeof value === "object" && !Object.isFrozen(value)) {
@@ -116,6 +125,7 @@ const sourceById = new Map(corpus.SOURCES.map((source) => [source.SOURCE_ID, sou
 const needById = new Map(needs.NEEDS.map((need) => [need.NEED_ID, need]));
 const coverageByNeedId = new Map(coverage.COVERAGE.map((entry) => [entry.NEED_ID, entry]));
 const indexBySourceId = new Map(documentIndex.SOURCES.map((entry) => [entry.SOURCE_ID, entry]));
+const closureStateBySourceId = new Map(documentaryEvidenceClosure.ARTIFACTS.map((entry) => [entry.SOURCE_ID, entry.CONTENT_READINESS_STATE]));
 const sectionIdsByNeedAndSource = new Map(documentIndex.NEED_SOURCE_SECTIONS.map((entry) => [`${entry.NEED_ID}:${entry.SOURCE_ID}`, entry.SECTION_IDS]));
 
 const validateStaticBridgeInputs = () => {
@@ -156,9 +166,38 @@ export const REFERENCE_CORPUS_RUNTIME_DIGEST = logicalDigest({
 const contentAvailability = (source: Rc01Source) => {
   const indexed = indexBySourceId.get(source.SOURCE_ID);
   if (indexed?.SECTIONS.length) return "SECTION_INDEXED" as const;
-  if (source.LOCAL_COPY_PATH && source.SHA256) return "DOCUMENT_AVAILABLE" as const;
+  if (source.LOCAL_COPY_PATH && source.SHA256) return "LOCAL_DOCUMENT_AVAILABLE" as const;
+  if (closureStateBySourceId.get(source.SOURCE_ID) === "CONTENT_ACCESSIBLE_NOT_STORED") return "CONTENT_ACCESSIBLE_NOT_STORED" as const;
   return "METADATA_ONLY" as const;
 };
+
+const availabilityCounts = corpus.SOURCES.reduce<Record<string, number>>((counts, source) => {
+  const state = contentAvailability(source);
+  counts[state] = (counts[state] ?? 0) + 1;
+  return counts;
+}, {});
+
+export const REFERENCE_CORPUS_CURRENT_METADATA = Object.freeze({
+  registrySourceCount: corpus.SOURCES.length,
+  localDocumentCount: corpus.SOURCES.filter((source) => Boolean(source.LOCAL_COPY_PATH && source.SHA256)).length,
+  sectionIndexedSourceCount: documentIndex.SOURCES.filter((source) => source.SECTIONS.length > 0).length,
+  indexedSectionCount: documentIndex.SOURCES.reduce((count, source) => count + source.SECTIONS.length, 0),
+  needSourceMappingCount: documentIndex.NEED_SOURCE_SECTIONS.length,
+  linkedStudySetCount: linkedStudySets.STUDY_SETS.length,
+  availabilityCounts: Object.freeze({
+    METADATA_ONLY: availabilityCounts.METADATA_ONLY ?? 0,
+    CONTENT_ACCESSIBLE_NOT_STORED: availabilityCounts.CONTENT_ACCESSIBLE_NOT_STORED ?? 0,
+    LOCAL_DOCUMENT_AVAILABLE: availabilityCounts.LOCAL_DOCUMENT_AVAILABLE ?? 0,
+    SECTION_INDEXED: availabilityCounts.SECTION_INDEXED ?? 0,
+  }),
+  supportedAvailabilityStates: Object.freeze([
+    "METADATA_ONLY",
+    "CONTENT_ACCESSIBLE_NOT_STORED",
+    "LOCAL_DOCUMENT_AVAILABLE",
+    "SECTION_INDEXED",
+    "CLAIM_ANCHORED",
+  ] as const),
+});
 
 const snapshotFrom = (source: Rc01Source): ReferenceSourceSnapshot => {
   const metadataRef = `${REFERENCE_CORPUS_REGISTRY_REF}#${source.SOURCE_ID}`;
@@ -374,7 +413,11 @@ export const queryReferenceCorpus = (request: KnowledgeRequest): ReferenceCorpus
     locator: snapshot.officialUrl,
     sourceSnapshotRef: snapshot.snapshotId,
   }));
-  const metadataOnly = snapshots.filter((snapshot) => snapshot.contentAvailability === "METADATA_ONLY");
+  const contentUnavailable = snapshots.filter((snapshot) => !["SECTION_INDEXED", "CLAIM_ANCHORED"].includes(snapshot.contentAvailability));
+  const contentUnavailableCounts = contentUnavailable.reduce<Record<string, number>>((counts, snapshot) => {
+    counts[snapshot.contentAvailability] = (counts[snapshot.contentAvailability] ?? 0) + 1;
+    return counts;
+  }, {});
   return {
     executionStatus: snapshots.length ? "SUCCESS" : "NO_MATCH",
     snapshots,
@@ -384,12 +427,12 @@ export const queryReferenceCorpus = (request: KnowledgeRequest): ReferenceCorpus
     diagnostics: uniqueSorted([
       `${snapshots.length}_REFERENCE_SOURCE_SNAPSHOTS_RESOLVED`,
       `${candidates.length}_ANCHORED_REFERENCE_CANDIDATES_EMITTED`,
-      ...(metadataOnly.length ? [`${metadataOnly.length}_METADATA_ONLY_SOURCES_NO_CONTENT_CLAIM`] : []),
+      ...Object.entries(contentUnavailableCounts).map(([state, count]) => `${count}_${state}_SOURCES_NO_CONTENT_CLAIM`),
       ...(candidates.length ? ["EXTERNAL_REFERENCE_CANDIDATES_NOT_GOVERNED_ASSERTIONS"] : []),
     ]),
     limitations: uniqueSorted([
       ...resolvedNeed.limitations,
-      ...metadataOnly.map((snapshot) => `MISSING_SOURCE_ACCESS:${snapshot.sourceId}`),
+      ...contentUnavailable.map((snapshot) => `${snapshot.contentAvailability}:NO_CONTENT_ACCESS:${snapshot.sourceId}`),
       ...(candidates.length ? ["REFERENCE_CANDIDATES_REQUIRE_REVIEW_OR_ACTIVATION"] : []),
     ]),
   };

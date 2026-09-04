@@ -2,7 +2,7 @@ import type { ProjectContextSnapshot } from "@/features/research-project-constru
 import type { SpecializedOwnerId } from "@/features/research-project-construction/specialized-owner-handoff";
 
 export const OBSERVABILITY_MEASUREMENT_RUNTIME_CONTRACT = "OBSERVABILITY_MEASUREMENT_RUNTIME" as const;
-export const OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION = "1.0.0" as const;
+export const OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION = "1.1.0" as const;
 export const OBSERVABILITY_MEASUREMENT_RESULT_CONTRACT = "OBSERVABILITY_MEASUREMENT_RESULT" as const;
 
 export type ObservabilityConceptKind =
@@ -23,6 +23,23 @@ export type GovernedBiomarkerRole =
   | "SURROGATE_OR_CANDIDATE_SURROGATE"
   | "MECHANISTIC_OR_EXPLORATORY"
   | "UNKNOWN";
+
+export const OBSERVABILITY_QUALIFICATION_DIMENSIONS = [
+  "CONSTRUCT_VALIDITY",
+  "CONTENT_VALIDITY",
+  "CRITERION_VALIDITY",
+  "AGREEMENT_BIAS_PRECISION",
+  "REPEATABILITY_REPRODUCIBILITY",
+  "DISCRIMINATION_CLASSIFICATION_PERFORMANCE",
+  "CALIBRATION",
+  "MEASUREMENT_ERROR_UNCERTAINTY",
+  "CONFOUNDING_ACQUISITION_SENSITIVITY",
+  "ROBUSTNESS_HARMONIZATION_COMPARABILITY",
+  "QUALITY_REQUIREMENTS",
+  "REFERENCE_STANDARD_OR_COMPARATOR",
+] as const;
+
+export type ObservabilityQualificationDimension = typeof OBSERVABILITY_QUALIFICATION_DIMENSIONS[number];
 
 export type ObservabilityScientificConcept = {
   conceptRef: string;
@@ -75,6 +92,37 @@ export type BiomarkerRoleDeclaration = {
   provenanceRefs: readonly string[];
 };
 
+export type MeasurementQualificationDeclaration = {
+  qualificationRef: string;
+  measurementRef: string | null;
+  dimension: ObservabilityQualificationDimension;
+  purpose: string;
+  requiredEvidence: readonly string[];
+  referenceStandardOrComparatorNeed: string | null;
+  unresolvedContext: readonly string[];
+  limitations: readonly string[];
+  provenanceRefs: readonly string[];
+};
+
+export type ObservabilityKnowledgeEvidence = {
+  handoffId: string;
+  handoffDigest: string;
+  knowledgeResultRef: string;
+  knowledgeResultDigest: string;
+  sourceRefs: readonly string[];
+  sourceSnapshotRefs: readonly string[];
+  candidateRefs: readonly string[];
+  anchorRefs: readonly string[];
+  limitations: readonly string[];
+  uncertainty: readonly string[];
+  gaps: readonly string[];
+  status: "CURRENT";
+  readOnly: true;
+  ownershipTransferred: false;
+  certaintyIncreaseAuthorized: false;
+  projectWriteAuthorized: false;
+};
+
 export type ObservabilityUpstreamOwnerInput = {
   owner: "SCIENTIFIC_THINKING" | "STUDY_DESIGN";
   resultId: string;
@@ -100,6 +148,8 @@ export type ObservabilityMeasurementRuntimeInput = {
   observablePropertyDeclarations: readonly ObservablePropertyDeclaration[];
   measurementDefinitionDeclarations: readonly MeasurementDefinitionDeclaration[];
   biomarkerRoleDeclarations: readonly BiomarkerRoleDeclaration[];
+  measurementQualificationDeclarations: readonly MeasurementQualificationDeclaration[];
+  knowledgeEvidence: ObservabilityKnowledgeEvidence | null;
   constraints: readonly string[];
   unknowns: readonly string[];
   sourceProvenanceRefs: readonly string[];
@@ -118,6 +168,13 @@ export type MeasurementDefinitionCandidate = MeasurementDefinitionDeclaration & 
 
 export type BiomarkerRoleCandidate = BiomarkerRoleDeclaration & {
   candidateStatus: "PROPOSED_NOT_ADOPTED";
+  projectWriteAuthorized: false;
+};
+
+export type MeasurementQualificationCandidate = MeasurementQualificationDeclaration & {
+  candidateStatus: "REQUIRES_QUALIFICATION";
+  analyticalMethodSelected: false;
+  scientificConclusionClaimed: false;
   projectWriteAuthorized: false;
 };
 
@@ -179,6 +236,8 @@ export type ObservabilityMeasurementResult = {
   observableProperties: readonly ObservablePropertyCandidate[];
   measurementDefinitions: readonly MeasurementDefinitionCandidate[];
   biomarkerRoles: readonly BiomarkerRoleCandidate[];
+  validityPerformanceQualifications: readonly MeasurementQualificationCandidate[];
+  knowledgeEvidence: ObservabilityKnowledgeEvidence | null;
   relationships: readonly ObservabilityRelationship[];
   informationNeeds: readonly ObservabilityInformationNeed[];
   downstreamHandoffs: readonly ObservabilityDownstreamHandoff[];

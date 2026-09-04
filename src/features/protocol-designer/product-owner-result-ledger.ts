@@ -236,6 +236,8 @@ const validateObservabilityBoundary = (entry: ProductOwnerResultLedgerEntry) => 
   const upstreamInputs = isRecord(nativeInput) && Array.isArray(nativeInput.upstreamOwnerInputs)
     ? nativeInput.upstreamOwnerInputs.filter(isRecord)
     : [];
+  const knowledgeEvidence = isRecord(nativeInput) && isRecord(nativeInput.knowledgeEvidence) ? nativeInput.knowledgeEvidence : null;
+  const knowledgeDependency = entry.dependencies.find((dependency) => dependency.owner === "KNOWLEDGE") ?? null;
   const dependencyRefs = new Set(entry.dependencies.map((dependency) => `${dependency.owner}:${dependency.resultId}:${dependency.resultVersion}:${dependency.nativeResultDigest}`));
   if (!isRecord(nativeInput)
     || nativeInput.projectId !== entry.request.sourceProject.sourceProjectRef
@@ -246,7 +248,15 @@ const validateObservabilityBoundary = (entry: ProductOwnerResultLedgerEntry) => 
     || nativeInput.projectWriteAuthorized !== false
     || upstreamInputs.some((dependency) => dependency.ownershipTransferred !== false
       || !dependencyRefs.has(`${dependency.owner}:${dependency.resultId}:${dependency.resultVersion}:${dependency.resultDigest}`))
-    || entry.dependencies.length !== upstreamInputs.length
+    || (knowledgeEvidence && (!knowledgeDependency
+      || knowledgeEvidence.status !== "CURRENT"
+      || knowledgeEvidence.readOnly !== true
+      || knowledgeEvidence.ownershipTransferred !== false
+      || knowledgeEvidence.certaintyIncreaseAuthorized !== false
+      || knowledgeEvidence.projectWriteAuthorized !== false
+      || knowledgeDependency.resultId !== knowledgeEvidence.knowledgeResultRef
+      || knowledgeDependency.nativeResultDigest !== knowledgeEvidence.knowledgeResultDigest))
+    || entry.dependencies.length !== upstreamInputs.length + (knowledgeEvidence ? 1 : 0)
     || (entry.result !== null && (
       entry.result.projectContribution !== null
       || !isRecord(nativePayload)

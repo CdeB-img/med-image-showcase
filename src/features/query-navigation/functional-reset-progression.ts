@@ -36,6 +36,7 @@ import type {
   SelectedNavigationAction,
 } from "./lifecycle-contracts";
 import { buildQuestionResponseEnvelope, routeNavigationResponse } from "./response-routing";
+import type { ProductKnowledgePrerequisiteAction } from "./knowledge-prerequisite";
 
 export const FUNCTIONAL_RESET_QRY_BOUNDARY = "QRY_001_FUNCTIONAL_RESET_STANDARD_ADAPTER" as const;
 
@@ -109,6 +110,7 @@ export type FunctionalResetQueryNavigation = {
   projectionOnly: true;
   sourceOfTruth: false;
   projectWriteAuthorized: false;
+  knowledgePrerequisite?: ProductKnowledgePrerequisiteAction;
 };
 
 type NeedFacet = {
@@ -272,6 +274,40 @@ export const buildFunctionalResetQuerySourceState = (
     && dm.sourceProjectVersion === project.versionId
     && dm.sourceProjectDigest === project.projectDigest
     && dm.sourceCdmResultDigest === cdm!.resultDigest);
+  const regulatoryResolutionRequired = currentObjects.some((object) =>
+    (object.objectType === "STUDY_DESIGN" && object.scientificRole === "INTERVENTIONAL")
+    || (object.objectType === "INTERVENTION_OR_EXPOSURE" && ["MEDICINAL_PRODUCT", "MEDICAL_DEVICE", "IVD"].includes(object.scientificRole ?? ""))
+    || (object.objectType === "PROJECT_INFORMATION" && ["REGULATORY_SUBMISSION", "REGULATORY_AMENDMENT", "JURISDICTION"].includes(object.scientificRole ?? ""))
+    || (object.objectType === "DATA_NEED" && object.scientificRole === "REGULATORY_APPLICABILITY"));
+  const observabilityQualificationRequired = currentObjects.some((object) =>
+    (object.objectType === "DATA_NEED" && (object.scientificRole === "OBSERVABILITY_QUALIFICATION" || object.scientificRole?.startsWith("OBS_QUALIFICATION:")))
+    || (object.objectType === "CANONICAL_VARIABLE" && ["OBSERVABLE_PROPERTY", "MEASUREMENT_DEFINITION"].includes(object.scientificRole ?? "")));
+  if (observabilityQualificationRequired) {
+    sourceState.planningDecisionRequirements.push({
+      ref: `${project.projectId}:observability:measurement-qualification`,
+      version: "OBSERVABILITY_MEASUREMENT_RUNTIME_1.1.0",
+      domain: "OBSERVABILITY",
+      owner: "OBSERVABILITY_MEASUREMENT",
+      intent: "Qualifier les propriétés observables, définitions de mesure et dimensions de validité explicitement structurées, sans sélectionner de méthode analytique.",
+      decisionRefs: ["project-decision:OBSERVABILITY_QUALIFICATION"],
+      branchRefs: ["project-branch:OBSERVABILITY_QUALIFICATION"],
+      blockingLevel: "BLOCKING_FOR_MEASUREMENT_BRANCH",
+      knownOptions: [],
+    });
+  }
+  if (regulatoryResolutionRequired) {
+    sourceState.planningDecisionRequirements.push({
+      ref: `${project.projectId}:regulatory:applicability-resolution`,
+      version: "REGULATORY_RESOLUTION_1.0.0",
+      domain: "REGULATORY",
+      owner: "REGULATORY_RESOLUTION",
+      intent: "Résoudre l’applicabilité réglementaire à partir des faits Project structurés et des preuves courantes explicitement requises, sans conclure à la conformité.",
+      decisionRefs: ["project-decision:REGULATORY_APPLICABILITY"],
+      branchRefs: ["project-branch:REGULATORY_APPLICABILITY"],
+      blockingLevel: "BLOCKING_FOR_REGULATORY_BRANCH",
+      knownOptions: [],
+    });
+  }
   if (dataOwnerState && noOpenProjectFacet && hasCanonicalVariable && !currentCdm) {
     sourceState.planningDecisionRequirements.push({
       ref: `${project.projectId}:cdm:canonical-representation`,
@@ -328,7 +364,8 @@ const groupCandidatesByScientificDimension = (
     .every((objectType) => currentGovernedObjectTypes.has(objectType));
   const grouped = SECTION_DEPENDENCY_ORDER.flatMap((sectionId): NextActionCandidate[] => {
     const members = candidates.filter((candidate) =>
-      candidate.affectedDecisionRefs.includes(`project-section:${sectionId}`));
+      !["REGULATORY_RESOLUTION", "OBSERVABILITY_MEASUREMENT"].includes(candidate.owner)
+      && candidate.affectedDecisionRefs.includes(`project-section:${sectionId}`));
     if (!members.length) return [];
     const needRefs = members.flatMap((candidate) => candidate.navigationNeedRefs).sort();
     const observabilityQualificationSelected = sectionId === "MEASUREMENTS"
@@ -412,9 +449,26 @@ const groupCandidatesByScientificDimension = (
       },
     }];
   });
-  const questionPrerequisite = grouped.find((candidate) => candidate.affectedDecisionRefs.includes("project-section:QUESTION"));
-  return grouped.map((candidate, index) => {
-    const previousEqualPriority = grouped.slice(0, index).reverse().find((previous) =>
+  const regulatoryCandidates = candidates.filter((candidate) => candidate.owner === "REGULATORY_RESOLUTION").map((candidate) => ({
+    ...candidate,
+    capabilityRef: "REGULATORY_REQUIREMENT_RESOLUTION",
+    provenance: {
+      ...candidate.provenance,
+      limitations: [...candidate.provenance.limitations, "QRY_SELECTS_REGULATORY_SCOPE_REG001_OWNS_APPLICABILITY_RESOLUTION"],
+    },
+  }));
+  const observabilityCandidates = candidates.filter((candidate) => candidate.owner === "OBSERVABILITY_MEASUREMENT").map((candidate) => ({
+    ...candidate,
+    capabilityRef: "OBSERVABILITY_QUALIFICATION",
+    provenance: {
+      ...candidate.provenance,
+      limitations: [...candidate.provenance.limitations, "QRY_SELECTS_OBSERVABILITY_SCOPE_OBS_OWNS_MEASUREMENT_QUALIFICATION"],
+    },
+  }));
+  const ordered = [...grouped, ...observabilityCandidates, ...regulatoryCandidates];
+  const questionPrerequisite = ordered.find((candidate) => candidate.affectedDecisionRefs.includes("project-section:QUESTION"));
+  return ordered.map((candidate, index) => {
+    const previousEqualPriority = ordered.slice(0, index).reverse().find((previous) =>
       previous.informationValue.blocking === candidate.informationValue.blocking);
     const prerequisites = [
       ...(questionPrerequisite && questionPrerequisite.targetRef !== candidate.targetRef ? [questionPrerequisite] : []),
@@ -677,8 +731,8 @@ export const buildFunctionalResetQueryNavigation = (input: {
   };
 
   const action = buildSelectedNavigationAction(selection);
-  const ownerAction = ["STUDY_DATA_CDM", "DATA_MANAGEMENT"].includes(action.owner)
-    && ["STUDY_DATA_PLANNING", "DATA_MANAGEMENT_PLANNING"].includes(selection.selected.capabilityRef ?? "");
+  const ownerAction = ["STUDY_DATA_CDM", "DATA_MANAGEMENT", "REGULATORY_RESOLUTION", "OBSERVABILITY_MEASUREMENT"].includes(action.owner)
+    && ["STUDY_DATA_PLANNING", "DATA_MANAGEMENT_PLANNING", "REGULATORY_REQUIREMENT_RESOLUTION", "OBSERVABILITY_QUALIFICATION"].includes(selection.selected.capabilityRef ?? "");
   if (ownerAction) {
     memory = rememberSelectedNavigationAction(memory, action);
     memory = recordLifecycleEvent(memory, {
@@ -1089,7 +1143,7 @@ export const validateFunctionalResetQueryNavigation = (navigation: Readonly<Func
     && navigation.standardQuestion === null;
   if (navigation.status === "OWNER_ACTION_READY") return navigation.owner === "QUERY_NAVIGATION"
     && navigation.currentAction !== null
-    && ["STUDY_DATA_CDM", "DATA_MANAGEMENT"].includes(navigation.currentAction.owner)
+    && ["STUDY_DATA_CDM", "DATA_MANAGEMENT", "REGULATORY_RESOLUTION", "OBSERVABILITY_MEASUREMENT"].includes(navigation.currentAction.owner)
     && navigation.currentPresentation === null
     && navigation.standardQuestion === null
     && navigation.projectWriteAuthorized === false;

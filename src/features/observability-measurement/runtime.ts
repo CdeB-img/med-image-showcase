@@ -1,4 +1,4 @@
-import { logicalDigest } from "@/features/knowledge-engine";
+import { logicalDigest, type KnowledgeOwnerHandoff } from "@/features/knowledge-engine";
 import type { ProjectContextSnapshot } from "@/features/research-project-construction/canonical-project-backbone";
 import type { SpecializedOwnerResult } from "@/features/research-project-construction/specialized-owner-handoff";
 import type { ScientificThinkingOutput } from "@/features/scientific-thinking";
@@ -11,6 +11,8 @@ import {
   type BiomarkerRoleDeclaration,
   type MeasurementDefinitionCandidate,
   type MeasurementDefinitionDeclaration,
+  type MeasurementQualificationCandidate,
+  type MeasurementQualificationDeclaration,
   type ObservablePropertyCandidate,
   type ObservablePropertyDeclaration,
   type ObservabilityDownstreamHandoff,
@@ -74,6 +76,8 @@ export const buildObservabilityMeasurementInput = (input: {
   observablePropertyDeclarations?: readonly ObservablePropertyDeclaration[];
   measurementDefinitionDeclarations?: readonly MeasurementDefinitionDeclaration[];
   biomarkerRoleDeclarations?: readonly BiomarkerRoleDeclaration[];
+  measurementQualificationDeclarations?: readonly MeasurementQualificationDeclaration[];
+  knowledgeHandoff?: Readonly<KnowledgeOwnerHandoff> | null;
   purpose?: string;
 }): ObservabilityMeasurementRuntimeInput => {
   if (!snapshotIsValid(input.projectSnapshot)) throw new Error("OBS_SOURCE_PROJECT_SNAPSHOT_INVALID");
@@ -121,6 +125,37 @@ export const buildObservabilityMeasurementInput = (input: {
   const propertyDeclarations = [...(input.observablePropertyDeclarations ?? [])];
   const measurementDeclarations = [...(input.measurementDefinitionDeclarations ?? [])];
   const roleDeclarations = [...(input.biomarkerRoleDeclarations ?? [])];
+  const qualificationDeclarations = [...(input.measurementQualificationDeclarations ?? [])];
+  const knowledgeHandoff = input.knowledgeHandoff ?? null;
+  if (knowledgeHandoff && (knowledgeHandoff.targetOwner !== "OBSERVABILITY_MEASUREMENT"
+    || knowledgeHandoff.status !== "CURRENT"
+    || knowledgeHandoff.projectBinding?.projectId !== input.projectSnapshot.sourceProjectRef
+    || knowledgeHandoff.projectBinding.projectVersion !== input.projectSnapshot.sourceProjectVersion
+    || knowledgeHandoff.projectBinding.projectDigest !== input.projectSnapshot.sourceProjectDigest
+    || knowledgeHandoff.readOnly !== true
+    || knowledgeHandoff.ownershipTransferred !== false
+    || knowledgeHandoff.certaintyIncreaseAuthorized !== false
+    || knowledgeHandoff.projectWriteAuthorized !== false)) {
+    throw new Error("OBS_KNOWLEDGE_HANDOFF_INVALID_OR_STALE");
+  }
+  const knowledgeEvidence = knowledgeHandoff ? {
+    handoffId: knowledgeHandoff.handoffId,
+    handoffDigest: knowledgeHandoff.handoffDigest,
+    knowledgeResultRef: knowledgeHandoff.knowledgeResultRef,
+    knowledgeResultDigest: knowledgeHandoff.knowledgeResultDigest,
+    sourceRefs: unique(knowledgeHandoff.sourceRefs),
+    sourceSnapshotRefs: unique(knowledgeHandoff.sourceSnapshotRefs),
+    candidateRefs: unique(knowledgeHandoff.candidateRefs),
+    anchorRefs: unique(knowledgeHandoff.anchors.map((anchor) => anchor.anchorId)),
+    limitations: unique(knowledgeHandoff.limitations),
+    uncertainty: unique(knowledgeHandoff.uncertainty),
+    gaps: unique(knowledgeHandoff.gaps),
+    status: "CURRENT" as const,
+    readOnly: true as const,
+    ownershipTransferred: false as const,
+    certaintyIncreaseAuthorized: false as const,
+    projectWriteAuthorized: false as const,
+  } : null;
   const sourceProvenanceRefs = unique([
     input.projectSnapshot.snapshotDigest,
     ...input.projectSnapshot.objects.flatMap((object) => [object.stableId, object.versionRef]),
@@ -128,6 +163,8 @@ export const buildObservabilityMeasurementInput = (input: {
     ...propertyDeclarations.flatMap((item) => item.provenanceRefs),
     ...measurementDeclarations.flatMap((item) => item.provenanceRefs),
     ...roleDeclarations.flatMap((item) => item.provenanceRefs),
+    ...qualificationDeclarations.flatMap((item) => item.provenanceRefs),
+    ...(knowledgeEvidence ? [knowledgeEvidence.handoffId, knowledgeEvidence.knowledgeResultRef, ...knowledgeEvidence.sourceRefs, ...knowledgeEvidence.candidateRefs] : []),
   ]);
   return {
     contract: OBSERVABILITY_MEASUREMENT_RUNTIME_CONTRACT,
@@ -140,6 +177,8 @@ export const buildObservabilityMeasurementInput = (input: {
       properties: propertyDeclarations,
       measurements: measurementDeclarations,
       roles: roleDeclarations,
+      qualifications: qualificationDeclarations,
+      knowledgeHandoff: knowledgeEvidence?.handoffDigest ?? null,
     })}`,
     projectId: input.projectSnapshot.sourceProjectRef,
     projectVersion: input.projectSnapshot.sourceProjectVersion,
@@ -152,6 +191,8 @@ export const buildObservabilityMeasurementInput = (input: {
     observablePropertyDeclarations: propertyDeclarations,
     measurementDefinitionDeclarations: measurementDeclarations,
     biomarkerRoleDeclarations: roleDeclarations,
+    measurementQualificationDeclarations: qualificationDeclarations,
+    knowledgeEvidence,
     constraints: unique(input.projectSnapshot.objects.filter((object) => object.type === "CONSTRAINT").map((object) => object.content)),
     unknowns: unique([
       ...input.projectSnapshot.objects.filter((object) => ["UNKNOWN", "WITHHELD"].includes(object.epistemicState)).map((object) => `PROJECT_OBJECT_UNRESOLVED:${object.stableId}`),
@@ -252,6 +293,23 @@ export const validateObservabilityMeasurementResult = (
   if (result.biomarkerRoles.some((item) => !measurementRefs.has(item.measurementRef) || item.candidateStatus !== "PROPOSED_NOT_ADOPTED" || item.projectWriteAuthorized !== false)) {
     add("BIOMARKER_ROLE_MEASUREMENT_OR_BOUNDARY_INVALID", "result.biomarkerRoles", "Each BiomarkerRole must cite a supplied MeasurementDefinition and remain non-adopted.");
   }
+  if (result.validityPerformanceQualifications.some((item) => (item.measurementRef !== null && !measurementRefs.has(item.measurementRef))
+    || item.candidateStatus !== "REQUIRES_QUALIFICATION"
+    || item.analyticalMethodSelected !== false
+    || item.scientificConclusionClaimed !== false
+    || item.projectWriteAuthorized !== false)) {
+    add("VALIDITY_PERFORMANCE_BOUNDARY_INVALID", "result.validityPerformanceQualifications", "OBS validity/performance dimensions must cite supplied measurements when scoped and remain unresolved without analytical selection or scientific conclusion.");
+  }
+  if (Boolean(result.knowledgeEvidence) !== Boolean(input.knowledgeEvidence)
+    || (result.knowledgeEvidence && input.knowledgeEvidence && (result.knowledgeEvidence.status !== "CURRENT"
+      || result.knowledgeEvidence.readOnly !== true
+      || result.knowledgeEvidence.ownershipTransferred !== false
+      || result.knowledgeEvidence.certaintyIncreaseAuthorized !== false
+      || result.knowledgeEvidence.projectWriteAuthorized !== false
+      || result.knowledgeEvidence.handoffDigest !== input.knowledgeEvidence.handoffDigest
+      || !input.knowledgeEvidence.limitations.every((limitation) => result.knowledgeEvidence!.limitations.includes(limitation))))) {
+    add("KNOWLEDGE_EVIDENCE_BOUNDARY_INVALID", "result.knowledgeEvidence", "OBS must preserve the exact current Knowledge projection and all limitations without certainty increase.");
+  }
   if (result.measurementDefinitions.some((item) => /bssfp|slice thickness|field strength|scanner model|reconstruction|contouring|temporal resolution/i.test(`${item.label} ${item.operationalDefinition}`))) {
     add("IMAGING_IMPLEMENTATION_LEAK", "result.measurementDefinitions", "OBS cannot define imaging acquisition, reconstruction, contouring, or QC implementation.");
   }
@@ -283,6 +341,13 @@ export const executeObservabilityMeasurementRuntime = (
   }));
   const declaredRoles: BiomarkerRoleCandidate[] = input.biomarkerRoleDeclarations.map((item) => ({
     ...structuredClone(item), candidateStatus: "PROPOSED_NOT_ADOPTED", projectWriteAuthorized: false,
+  }));
+  const qualifications: MeasurementQualificationCandidate[] = input.measurementQualificationDeclarations.map((item) => ({
+    ...structuredClone(item),
+    candidateStatus: "REQUIRES_QUALIFICATION",
+    analyticalMethodSelected: false,
+    scientificConclusionClaimed: false,
+    projectWriteAuthorized: false,
   }));
   const declaredMeasurementRefs = new Set(declaredRoles.map((item) => item.measurementRef));
   const roles: BiomarkerRoleCandidate[] = [
@@ -321,6 +386,13 @@ export const executeObservabilityMeasurementRuntime = (
   }));
   const imagingMeasurements = measurements.filter((item) => item.domain === "IMAGING");
   const quantitativeMeasurements = measurements.filter((item) => item.valueNature !== "UNKNOWN");
+  const biostatisticsQualificationRefs = qualifications.filter((item) => [
+    "AGREEMENT_BIAS_PRECISION",
+    "REPEATABILITY_REPRODUCIBILITY",
+    "DISCRIMINATION_CLASSIFICATION_PERFORMANCE",
+    "CALIBRATION",
+    "MEASUREMENT_ERROR_UNCERTAINTY",
+  ].includes(item.dimension)).map((item) => item.qualificationRef);
   const downstreamHandoffs: ObservabilityDownstreamHandoff[] = [
     ...(imagingMeasurements.length || (input.modalityContext.length && properties.length) ? [handoff({
       resultId,
@@ -331,14 +403,20 @@ export const executeObservabilityMeasurementRuntime = (
       informationNeeded: ["Définir acquisition, qualité, lecture, faisabilité et limites spécifiques à l’imagerie."],
       provenanceRefs: unique([...input.modalityContext.flatMap((item) => item.provenanceRefs), ...imagingMeasurements.flatMap((item) => item.provenanceRefs)]),
     })] : []),
-    ...(quantitativeMeasurements.length ? [handoff({
+    ...(quantitativeMeasurements.length || biostatisticsQualificationRefs.length ? [handoff({
       resultId,
       targetOwner: "BIOSTATISTICS",
       capabilityId: "BIOSTATISTICS_PLANNING",
       measurementRefs: quantitativeMeasurements.map((item) => item.measurementRef),
       purpose: "Transmettre la nature des mesures sans choisir l’estimand, le modèle ni le dimensionnement.",
-      informationNeeded: unique(quantitativeMeasurements.map((item) => `${item.measurementRef}:${item.valueNature}`)),
-      provenanceRefs: quantitativeMeasurements.flatMap((item) => item.provenanceRefs),
+      informationNeeded: unique([
+        ...quantitativeMeasurements.map((item) => `${item.measurementRef}:${item.valueNature}`),
+        ...biostatisticsQualificationRefs.map((item) => `${item}:ANALYTICAL_METHOD_NOT_SELECTED`),
+      ]),
+      provenanceRefs: unique([
+        ...quantitativeMeasurements.flatMap((item) => item.provenanceRefs),
+        ...qualifications.flatMap((item) => item.provenanceRefs),
+      ]),
     })] : []),
   ];
   const assumptions = unique([...properties.flatMap((item) => item.assumptions), ...measurements.flatMap((item) => item.assumptions)]);
@@ -346,11 +424,20 @@ export const executeObservabilityMeasurementRuntime = (
     ...properties.flatMap((item) => item.limitations),
     ...measurements.flatMap((item) => item.limitations),
     ...roles.flatMap((item) => item.limitations),
+    ...qualifications.flatMap((item) => item.limitations),
+    ...(input.knowledgeEvidence?.limitations ?? []),
     ...(input.upstreamOwnerInputs.length ? ["UPSTREAM_OWNER_HANDOFFS_CONSUMED_WITHOUT_OWNERSHIP_TRANSFER"] : []),
     "OBS_RESULT_IS_NOT_PROJECT_TRUTH",
   ]);
-  const uncertainty = unique([...input.unknowns, ...properties.flatMap((item) => item.uncertainty), ...measurements.flatMap((item) => item.uncertainty)]);
-  const status = properties.length || measurements.length ? "CANDIDATES_PROPOSED" as const : "INFORMATION_REQUIRED" as const;
+  const uncertainty = unique([
+    ...input.unknowns,
+    ...properties.flatMap((item) => item.uncertainty),
+    ...measurements.flatMap((item) => item.uncertainty),
+    ...qualifications.flatMap((item) => item.unresolvedContext),
+    ...(input.knowledgeEvidence?.uncertainty ?? []),
+    ...(input.knowledgeEvidence?.gaps ?? []),
+  ]);
+  const status = properties.length || measurements.length || qualifications.length ? "CANDIDATES_PROPOSED" as const : "INFORMATION_REQUIRED" as const;
   const base: ObservabilityMeasurementResult = {
     contract: OBSERVABILITY_MEASUREMENT_RESULT_CONTRACT,
     contractVersion: OBSERVABILITY_MEASUREMENT_RUNTIME_VERSION,
@@ -366,6 +453,8 @@ export const executeObservabilityMeasurementRuntime = (
     observableProperties: properties,
     measurementDefinitions: measurements,
     biomarkerRoles: roles,
+    validityPerformanceQualifications: qualifications,
+    knowledgeEvidence: input.knowledgeEvidence ? structuredClone(input.knowledgeEvidence) : null,
     relationships,
     informationNeeds,
     downstreamHandoffs,

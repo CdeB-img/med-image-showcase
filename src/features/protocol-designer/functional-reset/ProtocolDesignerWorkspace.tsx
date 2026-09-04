@@ -133,6 +133,9 @@ import {
   isDataManagementQueryDispatch,
   readDataManagementResultFromLedger,
 } from "./data-management-standard";
+import { attachCurrentKnowledgePrerequisiteWhenRequired, dispatchKnowledgePrerequisiteFromQuery } from "./knowledge-standard";
+import { isProductKnowledgePrerequisiteDispatch } from "@/features/query-navigation";
+import { dispatchRegulatoryFromQuery, isRegulatoryQueryDispatch } from "./regulatory-standard";
 
 const loadInitialSession = () => typeof window === "undefined"
   ? createFunctionalResetSession()
@@ -215,6 +218,113 @@ type PostAdoptionContinuationJob = {
 };
 
 const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJob) => {
+  if (isProductKnowledgePrerequisiteDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchKnowledgePrerequisiteFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    if (dispatched.targetOwnerDispatchAuthorized && isObservabilityQueryDispatch(job.queryNavigation)) {
+      const owner = dispatchObservabilityFromQuery({
+        project: job.project,
+        navigation: job.queryNavigation,
+        ownerResultLedger: dispatched.ownerResultLedger,
+        traceLedger: dispatched.traceLedger,
+        sessionId: job.sessionId,
+        conversationId: job.conversationId,
+        presentationTurnRef: turnId,
+        startedAt: completedAt,
+        completedAt,
+        knowledgeHandoff: dispatched.handoff,
+      });
+      const turn = { turnId, role: "NOXIA" as const, content: owner.presentation.plainText, createdAt: completedAt };
+      return {
+        kind: "OBSERVABILITY" as const,
+        turn,
+        content: turn.content,
+        presentationSource: "OBS_STANDARD_PROJECTION" as const,
+        mediationFailure: null,
+        provider: "NONE",
+        model: "OBSERVABILITY_MEASUREMENT_RUNTIME",
+        latencyMs: 0,
+        calls: 0,
+        ...owner,
+      };
+    }
+    if (dispatched.targetOwnerDispatchAuthorized && isRegulatoryQueryDispatch(job.queryNavigation)) {
+      const owner = dispatchRegulatoryFromQuery({
+        project: job.project,
+        navigation: job.queryNavigation,
+        ownerResultLedger: dispatched.ownerResultLedger,
+        traceLedger: dispatched.traceLedger,
+        sessionId: job.sessionId,
+        conversationId: job.conversationId,
+        startedAt: completedAt,
+        completedAt,
+        knowledgeHandoff: dispatched.handoff,
+      });
+      const turn = { turnId, role: "NOXIA" as const, content: owner.presentation.plainText, createdAt: completedAt };
+      return {
+        kind: "REGULATORY" as const,
+        turn,
+        content: turn.content,
+        presentationSource: "REG_STANDARD_PROJECTION" as const,
+        mediationFailure: null,
+        provider: "NONE",
+        model: "REG001_DETERMINISTIC_RUNTIME",
+        latencyMs: 0,
+        calls: 0,
+        ...owner,
+      };
+    }
+    const turn = { turnId, role: "NOXIA" as const, content: dispatched.presentation.plainText, createdAt: completedAt };
+    return {
+      kind: "KNOWLEDGE" as const,
+      turn,
+      content: turn.content,
+      presentationSource: "KNOWLEDGE_STANDARD_PROJECTION" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "KNOWLEDGE_ENGINE_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
+  if (isRegulatoryQueryDispatch(job.queryNavigation)) {
+    const completedAt = new Date().toISOString();
+    const turnId = createTurnId();
+    const dispatched = dispatchRegulatoryFromQuery({
+      project: job.project,
+      navigation: job.queryNavigation,
+      ownerResultLedger: job.ownerResultLedger,
+      traceLedger: job.scientificExecutionTraceLedger,
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      startedAt: completedAt,
+      completedAt,
+    });
+    const turn = { turnId, role: "NOXIA" as const, content: dispatched.presentation.plainText, createdAt: completedAt };
+    return {
+      kind: "REGULATORY" as const,
+      turn,
+      content: turn.content,
+      presentationSource: "REG_STANDARD_PROJECTION" as const,
+      mediationFailure: null,
+      provider: "NONE",
+      model: "REG001_DETERMINISTIC_RUNTIME",
+      latencyMs: 0,
+      calls: 0,
+      ...dispatched,
+    };
+  }
   if (isScientificThinkingQueryDispatch(job.queryNavigation)) {
     const completedAt = new Date().toISOString();
     const turnId = createTurnId();
@@ -507,7 +617,7 @@ export default function ProtocolDesignerWorkspace() {
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
       setSession((current) => {
-        const scientificExecutionTraceLedger = continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS" || continuation.kind === "CDM" || continuation.kind === "DATA_MANAGEMENT"
+        const scientificExecutionTraceLedger = continuation.kind !== "QUESTION"
           ? continuation.traceLedger
           : recordPostAdoptionQuestionTrace({
           ledger: current.scientificExecutionTraceLedger,
@@ -589,13 +699,13 @@ export default function ProtocolDesignerWorkspace() {
         biostatisticsInteraction: continuation.kind === "BIOSTATISTICS" ? continuation.interaction : current.biostatisticsInteraction,
         canonicalStudyDataInteraction: continuation.kind === "CDM" ? continuation.interaction : current.canonicalStudyDataInteraction,
         dataManagementInteraction: continuation.kind === "DATA_MANAGEMENT" ? continuation.interaction : current.dataManagementInteraction,
-        knowledgeOwnerLedger: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS" || continuation.kind === "CDM" || continuation.kind === "DATA_MANAGEMENT" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
+        knowledgeOwnerLedger: continuation.kind !== "QUESTION" ? continuation.ownerResultLedger : current.knowledgeOwnerLedger,
         runtimeTurns: [...job.runtimeTurns, continuation.turn],
         entries: [...current.entries, conversationEntry],
         bridgeTraces: [...current.bridgeTraces, {
           turnId: continuation.turn.turnId,
-          traceRunId: continuation.kind === "STUDY_DESIGN" || continuation.kind === "SCIENTIFIC_THINKING" || continuation.kind === "OBSERVABILITY" || continuation.kind === "IMAGING" || continuation.kind === "BIOSTATISTICS" || continuation.kind === "CDM" || continuation.kind === "DATA_MANAGEMENT"
-            ? continuation.interaction.traceRunId ?? undefined
+          traceRunId: continuation.kind !== "QUESTION"
+            ? continuation.kind === "KNOWLEDGE" ? continuation.traceRunId ?? undefined : continuation.interaction.traceRunId ?? undefined
             : job.traceRunId ?? undefined,
           requestKind: "POST_ADOPTION_QRY_CONTINUATION" as const,
           raw: captureProductBridgeTraceText({ value: job.feedback, field: "SOURCE_TEXT" }),
@@ -1265,14 +1375,14 @@ export default function ProtocolDesignerWorkspace() {
       return;
     }
     const recordedAt = new Date().toISOString();
-    const queryNavigation = buildFunctionalResetQueryNavigation({
+    const queryNavigation = attachCurrentKnowledgePrerequisiteWhenRequired({ project, navigation: buildFunctionalResetQueryNavigation({
       project,
       previous: session.queryNavigation,
       documentBlockers: documentBlockerSignals(session.documents),
       recordedAt,
       forceRebuild: true,
       dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
-    });
+    }) });
     setSession((current) => ({
       ...current,
       queryNavigation,
@@ -1706,13 +1816,13 @@ export default function ProtocolDesignerWorkspace() {
         documents = markFunctionalResetDocumentFailure(project, session.documents, error);
         documentWarning = true;
       }
-      const queryNavigation = buildFunctionalResetQueryNavigation({
+      const queryNavigation = attachCurrentKnowledgePrerequisiteWhenRequired({ project, navigation: buildFunctionalResetQueryNavigation({
         project,
         previous: session.queryNavigation,
         documentBlockers: documentBlockerSignals(documents),
         recordedAt: now,
         dataOwnerState: deriveFunctionalResetDataOwnerState({ project, ledger: session.knowledgeOwnerLedger }),
-      });
+      }) });
       const feedback = session.project ? "Projet mis à jour." : "Projet créé.";
       const confirmationTurn: ScientificInterpretationTurn = {
         turnId: createTurnId(),
@@ -1820,7 +1930,10 @@ export default function ProtocolDesignerWorkspace() {
       if ((shouldMediatePostAdoptionQuery(queryNavigation)
         && queryNavigation.currentAction && queryNavigation.currentPresentation && queryNavigation.standardQuestion)
         || isCanonicalStudyDataQueryDispatch(queryNavigation)
-        || isDataManagementQueryDispatch(queryNavigation)) {
+        || isDataManagementQueryDispatch(queryNavigation)
+        || isObservabilityQueryDispatch(queryNavigation)
+        || isRegulatoryQueryDispatch(queryNavigation)
+        || isProductKnowledgePrerequisiteDispatch(queryNavigation)) {
         continuationScheduled = true;
         setPostAdoptionContinuationJob({
           sessionId: session.sessionId,

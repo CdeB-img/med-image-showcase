@@ -192,8 +192,13 @@ requireValue(runtimeDoc.PROVIDER_CALLS === 0, "Provider call count must remain z
 
 const expectedStudySetIds = linkedSets.STUDY_SETS.map((set) => set.STUDY_SET_ID).sort();
 const assessedStudySetIds = linkedAssessment.ASSESSMENTS.map((set) => set.STUDY_SET_ID).sort();
-requireValue(expectedStudySetIds.length === 10, "Expected ten bounded linked-study sets after TARGETED-REFERENCE-CORPUS-01R");
-requireValue(JSON.stringify(assessedStudySetIds) === JSON.stringify(expectedStudySetIds), "Linked-study assessment must cover the ten exact source sets");
+requireValue(unique(expectedStudySetIds).size === expectedStudySetIds.length, "Current linked-study registry contains duplicate identities");
+requireValue(unique(assessedStudySetIds).size === assessedStudySetIds.length, "Linked-study assessment contains duplicate identities");
+const requiredStudySetIds = [...linkedAssessment.ASSESSMENT_SCOPE.REQUIRED_STUDY_SET_IDS].sort();
+const laterAcceptedStudySetIds = [...linkedAssessment.ASSESSMENT_SCOPE.LATER_ACCEPTED_STUDY_SET_IDS].sort();
+requireValue(JSON.stringify(assessedStudySetIds) === JSON.stringify(requiredStudySetIds), "Linked-study assessment must cover its exact declared historical scope");
+requireValue([...requiredStudySetIds, ...laterAcceptedStudySetIds].every((studySetId) => expectedStudySetIds.includes(studySetId)), "Declared linked-study identity is absent from the current registry");
+requireValue(expectedStudySetIds.every((studySetId) => requiredStudySetIds.includes(studySetId) || laterAcceptedStudySetIds.includes(studySetId)), "Current linked-study registry contains an unclassified identity");
 
 requireValue(expansionPlan.TARGETED_CORPUS_EXPANSION_REQUIRED === "YES", "Targeted corpus expansion must remain explicit");
 for (const priority of expansionPlan.PRIORITIES) {
@@ -239,7 +244,8 @@ console.log(JSON.stringify({
   GAP_COUNT: gaps.length,
   SOURCE_COUNT: corpus.SOURCES.length,
   ASSET_COUNT: assets.ASSETS.length,
-  LINKED_STUDY_SET_COUNT: linkedAssessment.ASSESSMENTS.length,
+  LINKED_STUDY_SET_COUNT: linkedSets.STUDY_SETS.length,
+  HISTORICAL_ASSESSED_STUDY_SET_COUNT: linkedAssessment.ASSESSMENTS.length,
   STATUS_COUNTS: statusCounts,
   PRIORITY_COUNTS: priorityCounts,
   FIRST_RUNTIME_GAP: runtimeDoc.FIRST_RUNTIME_GAP,

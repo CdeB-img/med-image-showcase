@@ -33,6 +33,8 @@ export type NavigationSourceType =
   | "DATA_NEED_STATE"
   | "STUDY_DATA_DECISION_REQUIREMENT"
   | "DATA_MANAGEMENT_DECISION_REQUIREMENT"
+  | "REGULATORY_DECISION_REQUIREMENT"
+  | "OBSERVABILITY_DECISION_REQUIREMENT"
   | "BIOSTATISTICS_DECISION_REQUIREMENT"
   | "VALIDATION_FINDING"
   | "VALIDATION_HUMAN_REVIEW_REQUEST"
@@ -185,7 +187,7 @@ export type QueryNavigationSourceState = {
   planningDecisionRequirements: Array<{
     ref: string;
     version: string;
-    domain: "STUDY_DATA" | "DATA_MANAGEMENT" | "BIOSTATISTICS";
+    domain: "STUDY_DATA" | "DATA_MANAGEMENT" | "BIOSTATISTICS" | "REGULATORY" | "OBSERVABILITY";
     owner: string;
     intent: string;
     decisionRefs: string[];

@@ -1,5 +1,5 @@
 import { logicalDigest } from "./canonical";
-import { REFERENCE_CORPUS_RUNTIME_DIGEST, REFERENCE_CORPUS_REGISTRY_REF } from "./reference-corpus";
+import { REFERENCE_CORPUS_CURRENT_METADATA, REFERENCE_CORPUS_RUNTIME_DIGEST, REFERENCE_CORPUS_REGISTRY_REF } from "./reference-corpus";
 import type { KnowledgeProviderDefinition } from "./types";
 
 type ProviderInput = Omit<KnowledgeProviderDefinition,
@@ -110,8 +110,18 @@ const providers = ([
     supportedEntities: ["ReferenceSourceSnapshot", "ReferenceSourceAnchor", "ReferenceEvidenceCandidate", "ReferenceDocumentRelationship"],
     supportedRelations: ["CANDIDATE_SUPPORT", "SAME_STUDY_ARTIFACT_SET"], supportedContextDimensions: ["domain", "pathology", "population", "phenomenon", "biomarker", "modality", "technique", "equipment", "timing", "objective", "criterion", "intervention", "usage", "jurisdiction"],
     resultGranularity: "REFERENCE_SECTION", sourceLocatorSupport: "SOURCE_AND_LOCATOR", evidenceSupport: "DOCUMENTARY_LOCALIZERS",
-    knownLimitations: ["EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY", "FIVE_LOCAL_PDFS_SECTION_INDEXED", "FIFTY_THREE_REMOTE_SOURCES_METADATA_ONLY", "NO_AUTOMATIC_PROJECT_ADOPTION", "NO_PRACTICE_PATTERN_EXTRACTION"],
-    completenessClaim: "Visibilité exhaustive du registre RC01 ; contenu borné aux cinq PDF locaux indexés et sélection documentaire exclusivement candidate.",
+    knownLimitations: [
+      "EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY",
+      `${REFERENCE_CORPUS_CURRENT_METADATA.registrySourceCount}_REGISTERED_EXTERNAL_REFERENCE_SOURCES`,
+      `${REFERENCE_CORPUS_CURRENT_METADATA.sectionIndexedSourceCount}_LOCAL_DOCUMENTS_SECTION_INDEXED`,
+      `${REFERENCE_CORPUS_CURRENT_METADATA.indexedSectionCount}_INDEXED_SECTIONS`,
+      `${REFERENCE_CORPUS_CURRENT_METADATA.availabilityCounts.CONTENT_ACCESSIBLE_NOT_STORED}_CONTENT_ACCESSIBLE_NOT_STORED`,
+      `${REFERENCE_CORPUS_CURRENT_METADATA.availabilityCounts.METADATA_ONLY}_METADATA_ONLY`,
+      "CONTENT_AVAILABILITY_STATES_ARE_NOT_INTERCHANGEABLE",
+      "NO_AUTOMATIC_PROJECT_ADOPTION",
+      "NO_PRACTICE_PATTERN_EXTRACTION",
+    ],
+    completenessClaim: `Visibilité exhaustive des ${REFERENCE_CORPUS_CURRENT_METADATA.registrySourceCount} identités RC01 ; contenu runtime borné aux ${REFERENCE_CORPUS_CURRENT_METADATA.sectionIndexedSourceCount} documents locaux totalisant ${REFERENCE_CORPUS_CURRENT_METADATA.indexedSectionCount} sections indexées. Les autres états d’accès restent explicitement non équivalents à un contenu indexé.`,
     status: "CURRENT_CANDIDATE", availability: "AVAILABLE", adapterId: "reference-corpus-adapter-v1",
   }),
 ] satisfies KnowledgeProviderDefinition[]).sort((left, right) => left.providerId.localeCompare(right.providerId));
@@ -127,7 +137,7 @@ const snapshotMaterial = providers.map((provider) => ({
 
 export const KNOWLEDGE_PROVIDER_REGISTRY = Object.freeze({
   registryId: "noxia-knowledge-provider-registry",
-  version: "1.2.0",
+  version: "1.3.0",
   providers: Object.freeze(providers),
   diagnostics: Object.freeze([
     "P4_IS_HISTORICAL_REPLAY_ONLY_AND_P4R_IS_CURRENT",

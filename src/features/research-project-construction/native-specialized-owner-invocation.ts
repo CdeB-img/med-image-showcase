@@ -368,6 +368,14 @@ export const buildRegulatoryRequestFromProjectSnapshot = (input: {
     ...snapshot.objects.map((item) => item.versionRef),
   ];
   const interventionRefs = snapshot.objects.filter((item) => item.type === "INTERVENTION_OR_EXPOSURE").map((item) => item.stableId);
+  const currentObjects = snapshot.objects.filter((item) => !["UNKNOWN", "WITHHELD"].includes(item.epistemicState));
+  const objectsWithRole = (role: string) => currentObjects.filter((item) => item.scientificRole === role);
+  const designObject = currentObjects.find((item) => item.type === "STUDY_DESIGN" && ["INTERVENTIONAL", "OBSERVATIONAL"].includes(item.scientificRole ?? ""));
+  const jurisdictionObjects = currentObjects.filter((item) => item.type === "PROJECT_INFORMATION" && item.scientificRole?.startsWith("JURISDICTION:"));
+  const jurisdictions = jurisdictionObjects.map((item) => item.scientificRole!.slice("JURISDICTION:".length)).filter(Boolean);
+  const medicinalProductRefs = objectsWithRole("MEDICINAL_PRODUCT").map((item) => item.stableId);
+  const medicalDeviceRefs = objectsWithRole("MEDICAL_DEVICE").map((item) => item.stableId);
+  const ivdRefs = objectsWithRole("IVD").map((item) => item.stableId);
   const interventionPresent = interventionRefs.length > 0
     ? knownFact(true, "Le Project Snapshot contient une intervention ou exposition explicitement typée.", [...projectRefs, ...interventionRefs])
     : regulatoryUnknown<boolean>("La présence d'une intervention", snapshot);
@@ -376,7 +384,9 @@ export const buildRegulatoryRequestFromProjectSnapshot = (input: {
     researchProjectVersion: snapshot.sourceProjectVersion,
     researchProjectDigest: snapshot.sourceProjectDigest,
     resolutionAsOf: input.resolutionAsOf,
-    jurisdiction: regulatoryUnknown("La juridiction", snapshot),
+    jurisdiction: jurisdictions.length
+      ? knownFact([...new Set(jurisdictions)], "Juridictions explicitement structurées dans le Project Snapshot.", [...projectRefs, ...jurisdictionObjects.map((item) => item.stableId)])
+      : regulatoryUnknown("La juridiction", snapshot),
     projectCharacteristics: {
       humanHealthResearch: regulatoryUnknown("La qualification de recherche impliquant la personne humaine", snapshot),
       projectNatures: regulatoryUnknown("La nature juridique du projet", snapshot),
@@ -384,7 +394,9 @@ export const buildRegulatoryRequestFromProjectSnapshot = (input: {
       explicitlyIncorporatedGuidance: regulatoryUnknown("Les référentiels méthodologiques incorporés", snapshot),
     },
     studyDesignCharacteristics: {
-      interventionModel: regulatoryUnknown("Le modèle interventionnel ou observationnel", snapshot),
+      interventionModel: designObject
+        ? knownFact(designObject.scientificRole as "INTERVENTIONAL" | "OBSERVATIONAL", "Modèle d'étude explicitement structuré dans le Project Snapshot.", [...projectRefs, designObject.stableId])
+        : regulatoryUnknown("Le modèle interventionnel ou observationnel", snapshot),
       temporalDirection: regulatoryUnknown("La direction temporelle du projet", snapshot),
       randomised: regulatoryUnknown("La randomisation", snapshot),
       registryBased: regulatoryUnknown("Le caractère registry-based", snapshot),
@@ -392,10 +404,22 @@ export const buildRegulatoryRequestFromProjectSnapshot = (input: {
     },
     interventionCharacteristics: {
       interventionPresent,
-      medicinalProductTrial: regulatoryUnknown("La qualification d'essai de médicament", snapshot),
-      medicalDeviceStudy: regulatoryUnknown("La qualification d'étude de dispositif médical", snapshot),
+      medicinalProductTrial: medicinalProductRefs.length
+        ? knownFact(true, "Un objet interventionnel est explicitement qualifié MEDICINAL_PRODUCT.", [...projectRefs, ...medicinalProductRefs])
+        : regulatoryUnknown("La qualification d'essai de médicament", snapshot),
+      medicalDeviceStudy: medicalDeviceRefs.length
+        ? knownFact(true, "Un objet interventionnel est explicitement qualifié MEDICAL_DEVICE.", [...projectRefs, ...medicalDeviceRefs])
+        : regulatoryUnknown("La qualification d'étude de dispositif médical", snapshot),
     },
-    productCharacteristics: { productTypes: regulatoryUnknown("Les types de produits de santé", snapshot) },
+    productCharacteristics: {
+      productTypes: medicinalProductRefs.length || medicalDeviceRefs.length || ivdRefs.length
+        ? knownFact([
+          ...(medicinalProductRefs.length ? ["MEDICINAL_PRODUCT" as const] : []),
+          ...(medicalDeviceRefs.length ? ["MEDICAL_DEVICE" as const] : []),
+          ...(ivdRefs.length ? ["IVD" as const] : []),
+        ], "Types de produits explicitement structurés dans le Project Snapshot.", [...projectRefs, ...medicinalProductRefs, ...medicalDeviceRefs, ...ivdRefs])
+        : regulatoryUnknown("Les types de produits de santé", snapshot),
+    },
     dataCharacteristics: {
       personalHealthData: regulatoryUnknown("Le traitement de données personnelles de santé", snapshot),
       existingData: regulatoryUnknown("L'utilisation de données existantes", snapshot),
@@ -418,7 +442,8 @@ export const buildRegulatoryRequestFromProjectSnapshot = (input: {
     fundingProgramEditionCandidates: regulatoryUnknown("Les éditions de programmes de financement", snapshot),
     knownRegulatoryQualifications: [],
     unknowns: [
-      { unknownId: "reg-unknown:jurisdiction", field: "jurisdiction", reason: "La juridiction n'est pas fournie.", provenance: projectRefs },
+      ...(jurisdictions.length ? [] : [{ unknownId: "reg-unknown:jurisdiction", field: "jurisdiction", reason: "La juridiction n'est pas fournie.", provenance: projectRefs }]),
+      ...(designObject ? [] : [{ unknownId: "reg-unknown:intervention-model", field: "studyDesignCharacteristics.interventionModel", reason: "Le modèle interventionnel ou observationnel n'est pas structuré.", provenance: projectRefs }]),
       { unknownId: "reg-unknown:research-qualification", field: "projectCharacteristics.humanHealthResearch", reason: "La qualification exacte de la recherche n'est pas fournie.", provenance: projectRefs },
       { unknownId: "reg-unknown:emergency-consent", field: "emergencyConsent", reason: "L'applicabilité d'un consentement d'urgence exige juridiction, qualification et sources applicables.", provenance: projectRefs },
     ],

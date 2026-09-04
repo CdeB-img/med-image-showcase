@@ -86,6 +86,16 @@ for (const asset of existing.ASSETS) {
   await access(absolute);
   const digest = createHash("sha256").update(await readFile(absolute)).digest("hex");
   if (digest !== asset.SHA256) fail(`${asset.ASSET_ID}: existing-asset digest mismatch`);
+  if (asset.REVISION_HISTORY) {
+    const revisionIds = new Set(asset.REVISION_HISTORY.map((revision) => revision.REVISION_ID));
+    if (revisionIds.size !== asset.REVISION_HISTORY.length) fail(`${asset.ASSET_ID}: duplicate revision identity`);
+    const currentRevision = asset.REVISION_HISTORY.find((revision) => revision.REVISION_ID === asset.CURRENT_REVISION_ID);
+    if (!currentRevision || currentRevision.STATUS !== "CURRENT") fail(`${asset.ASSET_ID}: current revision pointer is invalid`);
+    if (currentRevision.DOCUMENT_VERSION !== asset.DOCUMENT_VERSION || currentRevision.SHA256 !== asset.SHA256) fail(`${asset.ASSET_ID}: current revision identity differs from current asset`);
+    for (const revision of asset.REVISION_HISTORY) {
+      if (!revision.REVISION_ID || !revision.DOCUMENT_VERSION || !/^[a-f0-9]{64}$/.test(revision.SHA256)) fail(`${asset.ASSET_ID}: invalid revision record`);
+    }
+  }
 }
 for (const set of linked.STUDY_SETS) {
   if (!set.LINKAGE_BASIS?.length || !set.LINKAGE_CONFIDENCE) fail(`${set.STUDY_SET_ID}: missing linkage basis`);

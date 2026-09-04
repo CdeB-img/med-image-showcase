@@ -14,3 +14,4 @@ export * from "./product";
 export * from "./closure";
 export * from "./functional-reset-progression";
 export * from "./pre-project-navigation";
+export * from "./knowledge-prerequisite";

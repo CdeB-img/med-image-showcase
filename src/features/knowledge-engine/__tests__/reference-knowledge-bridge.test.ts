@@ -4,7 +4,7 @@ import { executeKnowledgeEngine } from "../engine";
 import { createKnowledgeOwnerHandoff } from "../knowledge-owner-handoff";
 import { createKnowledgeRequest } from "../knowledge-request";
 import { getKnowledgeProvider } from "../provider-registry";
-import { listReferenceSourceSnapshots, resolveReferenceSourceSnapshot } from "../reference-corpus";
+import { REFERENCE_CORPUS_CURRENT_METADATA, listReferenceSourceSnapshots, resolveReferenceSourceSnapshot } from "../reference-corpus";
 import type { KnowledgeResult, ReferenceKnowledgeOwner } from "../types";
 
 const knowledgeResult = (input: {
@@ -46,10 +46,23 @@ describe("REFERENCE-KNOWLEDGE-BRIDGE-01 — corpus visibility and anchoring", ()
     expect(snapshots.filter((item) => item.contentAvailability === "SECTION_INDEXED").every((item) => item.localDigest && item.localCopyAllowed === "YES" && item.redistributionAllowed === "YES")).toBe(true);
     expect(snapshots.filter((item) => item.contentAvailability === "METADATA_ONLY").every((item) => item.localDigest === null)).toBe(true);
     for (const sourceId of Array.from({ length: 12 }, (_, index) => `RC01-E-${String(index + 74).padStart(3, "0")}`)) {
-      expect(snapshots.some((item) => item.sourceId === sourceId && item.contentAvailability === "METADATA_ONLY")).toBe(true);
+      expect(snapshots.some((item) => item.sourceId === sourceId && item.contentAvailability === "CONTENT_ACCESSIBLE_NOT_STORED")).toBe(true);
     }
     expect(snapshot).toMatchObject({ sourceId: "RC01-A-016", contentAvailability: "SECTION_INDEXED", externalAuthorityStatus: "EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY" });
     expect(getKnowledgeProvider("reference-corpus-01")).toMatchObject({ type: "REFERENCE_CORPUS", adapterId: "reference-corpus-adapter-v1", status: "CURRENT_CANDIDATE" });
+    expect(REFERENCE_CORPUS_CURRENT_METADATA).toMatchObject({
+      registrySourceCount: 101,
+      localDocumentCount: 7,
+      sectionIndexedSourceCount: 7,
+      indexedSectionCount: 118,
+      needSourceMappingCount: 85,
+      linkedStudySetCount: 12,
+    });
+    expect(getKnowledgeProvider("reference-corpus-01")?.knownLimitations).toEqual(expect.arrayContaining([
+      "101_REGISTERED_EXTERNAL_REFERENCE_SOURCES",
+      "7_LOCAL_DOCUMENTS_SECTION_INDEXED",
+      "118_INDEXED_SECTIONS",
+    ]));
     expect(Object.isFrozen(snapshot)).toBe(true);
     expect(Object.isFrozen(snapshot?.uncertainties)).toBe(true);
   });
@@ -142,7 +155,7 @@ describe("REFERENCE-KNOWLEDGE-BRIDGE-01 — jurisdiction, time, and source class
 
   it("CASE K exposes a platform protocol relationship without extracting a practice rule", () => {
     const result = knowledgeResult({ needId: "OKC01-N-045", needClass: "ANALYSIS_DATASET_REPRODUCIBILITY_AND_RELEASE", owner: "BIOSTATISTICS", sourcePreferences: ["RC01-E-062"], question: "platform protocol and statistical analysis relationship" });
-    expect(result.referenceSourceSnapshots[0]).toMatchObject({ sourceId: "RC01-E-062", contentAvailability: "METADATA_ONLY" });
+    expect(result.referenceSourceSnapshots[0]).toMatchObject({ sourceId: "RC01-E-062", contentAvailability: "CONTENT_ACCESSIBLE_NOT_STORED" });
     expect(result.referenceEvidenceCandidates).toHaveLength(0);
     expect(result.referenceDocumentRelationships[0]).toMatchObject({ studySetId: "RC01-SET-007", relationshipType: "SAME_STUDY_ARTIFACT_SET", practiceRuleInferred: false });
     expect(result.referenceDocumentRelationships[0].artifacts).toEqual(expect.arrayContaining([
@@ -153,7 +166,7 @@ describe("REFERENCE-KNOWLEDGE-BRIDGE-01 — jurisdiction, time, and source class
 
   it("CASE K2 exposes a newly linked study family as remote evidence without content or authority promotion", () => {
     const snapshot = resolveReferenceSourceSnapshot("RC01-E-080");
-    expect(snapshot).toMatchObject({ sourceId: "RC01-E-080", contentAvailability: "METADATA_ONLY", externalAuthorityStatus: "EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY" });
+    expect(snapshot).toMatchObject({ sourceId: "RC01-E-080", contentAvailability: "CONTENT_ACCESSIBLE_NOT_STORED", externalAuthorityStatus: "EXTERNAL_REFERENCE_NOT_NOXIA_AUTHORITY" });
     expect(snapshot?.localDigest).toBeNull();
   });
 });

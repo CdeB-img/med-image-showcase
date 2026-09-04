@@ -33,10 +33,12 @@ import {
   validateObservabilityMeasurementResult,
   type BiomarkerRoleDeclaration,
   type MeasurementDefinitionDeclaration,
+  type MeasurementQualificationDeclaration,
   type ObservablePropertyDeclaration,
   type ObservabilityMeasurementResult,
   type ObservabilityMeasurementRuntimeInput,
 } from "@/features/observability-measurement";
+import type { KnowledgeOwnerHandoff } from "@/features/knowledge-engine";
 import type {
   ScientificContributionItem,
   ScientificInterpretationContributionEnvelope,
@@ -741,6 +743,8 @@ export const invokeObservabilityMeasurementOwnerFromSnapshot = (input: Invocatio
   observablePropertyDeclarations?: readonly ObservablePropertyDeclaration[];
   measurementDefinitionDeclarations?: readonly MeasurementDefinitionDeclaration[];
   biomarkerRoleDeclarations?: readonly BiomarkerRoleDeclaration[];
+  measurementQualificationDeclarations?: readonly MeasurementQualificationDeclaration[];
+  knowledgeHandoff?: Readonly<KnowledgeOwnerHandoff> | null;
   purpose?: string;
   runtime?: (nativeInput: Readonly<ObservabilityMeasurementRuntimeInput>) => Readonly<ObservabilityMeasurementResult>;
 }): ObservabilityMeasurementOwnerInvocation => {
@@ -750,6 +754,8 @@ export const invokeObservabilityMeasurementOwnerFromSnapshot = (input: Invocatio
     observablePropertyDeclarations: input.observablePropertyDeclarations,
     measurementDefinitionDeclarations: input.measurementDefinitionDeclarations,
     biomarkerRoleDeclarations: input.biomarkerRoleDeclarations,
+    measurementQualificationDeclarations: input.measurementQualificationDeclarations,
+    knowledgeHandoff: input.knowledgeHandoff,
     purpose: input.purpose,
   });
   const handoffId = `observability-handoff:${logicalDigest({ project: nativeInput.projectDigest, input: nativeInput.inputId })}`;
