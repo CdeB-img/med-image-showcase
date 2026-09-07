@@ -1,9 +1,9 @@
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 
 export const CONVERSATION_LANGUAGE_GATEWAY_CONTRACT = "PROTOCOL_DESIGNER_CONVERSATION_LANGUAGE_GATEWAY" as const;
-export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.1.0" as const;
+export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.2.0" as const;
 export const LANGUAGE_PROJECTION_CONTRACT = "CONVERSATION_LANGUAGE_PROJECTION" as const;
-export const LANGUAGE_PROJECTION_CONTRACT_VERSION = "1.1.0" as const;
+export const LANGUAGE_PROJECTION_CONTRACT_VERSION = "1.2.0" as const;
 export const CANONICAL_WORKING_LANGUAGE = "fr" as const;
 
 export type ConversationLanguageCode = string;
@@ -67,6 +67,7 @@ export type LanguageProjectionProviderResult = Readonly<{
   supportStatus: LanguageSupportStatus;
   qualificationStatus: LanguageQualificationStatus;
   translatedText: string;
+  translatedTextLanguage: ConversationLanguageCode;
   ambiguityPreserved: boolean;
   semanticInvariants: readonly ProviderSemanticInvariantEvidence[];
   limitations: readonly string[];
@@ -132,6 +133,7 @@ export type LanguageProjectionArtifact = Readonly<{
   targetLanguage: ConversationLanguageCode;
   translatedText: string;
   translatedTextDigest: string;
+  translatedTextLanguage: ConversationLanguageCode;
   providerResultDigest: string;
   status: Extract<LanguageProjectionStatus, "SUCCEEDED">;
   supportStatus: "SUPPORTED";
@@ -526,8 +528,8 @@ const providerSemanticInvariants = (input: {
     if (!evidence.sourcePresent && (evidence.sourceEvidence.length || evidence.targetEvidence.length)) {
       blocks.push(`SEMANTIC_INVARIANT_NOT_PRESENT_WITH_EVIDENCE:${invariant}`);
     }
-    if (!evidence.sourcePresent && !evidence.preserved) {
-      blocks.push(`SEMANTIC_INVARIANT_NOT_PRESENT_DECLARED_LOST:${invariant}`);
+    if (!evidence.sourcePresent && evidence.preserved) {
+      blocks.push(`SEMANTIC_INVARIANT_NOT_PRESENT_DECLARED_PRESERVED:${invariant}`);
     }
     if (evidence.sourcePresent && !evidence.preserved) {
       blocks.push(`SEMANTIC_INVARIANT_DECLARED_LOST:${invariant}`);
@@ -644,10 +646,19 @@ export const validateLanguageProjectionProviderResult = (input: {
   const blocks: string[] = [];
   const detectedLanguage = normalizeLanguageCode(input.result.detectedLanguage);
   const targetLanguage = normalizeLanguageCode(input.request.targetLanguage);
+  const translatedTextLanguage = normalizeLanguageCode(input.result.translatedTextLanguage);
   if (!detectedLanguage || detectedLanguage === "unknown") blocks.push("DETECTED_LANGUAGE_MISSING");
+  if (!translatedTextLanguage || translatedTextLanguage === "unknown") blocks.push("TRANSLATED_TEXT_LANGUAGE_MISSING");
+  if (translatedTextLanguage !== targetLanguage) blocks.push("TRANSLATED_TEXT_LANGUAGE_TARGET_MISMATCH");
   if (input.result.supportStatus !== "SUPPORTED") blocks.push(`LANGUAGE_${input.result.supportStatus}`);
   if (!input.result.translatedText.trim()) blocks.push("TRANSLATED_TEXT_MISSING");
   if (input.request.projectionKind === "INPUT_TO_FRENCH" && targetLanguage !== CANONICAL_WORKING_LANGUAGE) blocks.push("INPUT_TARGET_MUST_BE_FRENCH");
+  const sourceLanguage = normalizeLanguageCode(input.request.sourceLanguageHint);
+  if (sourceLanguage !== "unknown"
+    && sourceLanguage !== targetLanguage
+    && normalizedToken(input.request.sourceText) === normalizedToken(input.result.translatedText)) {
+    blocks.push("TRANSLATED_TEXT_IDENTICAL_TO_SOURCE_WITH_DIFFERENT_TARGET");
+  }
   if (!input.result.ambiguityPreserved) blocks.push("AMBIGUITY_PRESERVATION_NOT_ATTESTED");
   const explicitProtectedLiterals = input.request.protectedOpaqueLiterals ?? [];
   if (explicitProtectedLiterals.some((candidate) => !literalOccurrences(input.request.sourceText, candidate.literal).length)) {
@@ -703,6 +714,7 @@ export const materializeLanguageProjectionArtifact = (input: {
     targetLanguage: normalizeLanguageCode(input.request.targetLanguage),
     translatedText,
     translatedTextDigest: logicalDigest(translatedText),
+    translatedTextLanguage: normalizeLanguageCode(input.result.translatedTextLanguage),
     providerResultDigest,
     status: "SUCCEEDED",
     supportStatus: "SUPPORTED",
@@ -805,6 +817,10 @@ export const buildLocalizedConversationResponse = (input: {
 }): LocalizedConversationResponse => {
   const frenchTarget = normalizeLanguageCode(input.targetLanguage) === CANONICAL_WORKING_LANGUAGE;
   if (!frenchTarget && !input.projection) throw new Error("OUTPUT_LANGUAGE_PROJECTION_REQUIRED");
+  if (!frenchTarget && (normalizeLanguageCode(input.projection!.targetLanguage) !== normalizeLanguageCode(input.targetLanguage)
+    || normalizeLanguageCode(input.projection!.translatedTextLanguage) !== normalizeLanguageCode(input.targetLanguage))) {
+    throw new Error("OUTPUT_LANGUAGE_PROJECTION_TARGET_MISMATCH");
+  }
   const localizedResponse = frenchTarget ? input.canonicalFrenchResponse : input.projection!.translatedText;
   return {
     contract: "LOCALIZED_CONVERSATION_RESPONSE",
@@ -900,7 +916,9 @@ Traduis naturellement la terminologie scientifique, les noms de modalités et le
 
 Préserve strictement les nombres, unités, dates, négations, incertitudes, conditions, comparaisons, statuts connu/inconnu/retenu/non décidé, décisions humaines et références de sources. Chaque valeur fournie dans PROTECTED_OPAQUE_LITERALS_JSON est un littéral opaque : recopie-la caractère pour caractère, sans traduction ni normalisation.
 
-Pour chacun des cinq invariants sémantiques demandés, fournis une attestation structurée issue de ce même appel. sourcePresent indique si l'invariant est présent dans la source. Si sourcePresent=true, sourceEvidence contient le plus court extrait source qui le porte. preserved=true exige le plus court extrait cible qui conserve le même invariant. preserved=false déclare une perte ou une impossibilité d'attester la préservation et provoquera un rejet. Si sourcePresent=false, les deux listes de preuve restent vides et preserved doit rester true. Les extraits doivent être des sous-chaînes verbatim des textes correspondants.
+Pour chacun des cinq invariants sémantiques demandés, fournis une attestation structurée issue de ce même appel. sourcePresent indique si l'invariant est présent dans la source. Si sourcePresent=true, sourceEvidence contient le plus court extrait source qui le porte : preserved=true exige alors le plus court extrait cible qui conserve le même invariant, tandis que preserved=false déclare une perte ou une impossibilité d'attester la préservation et provoquera un rejet. Si sourcePresent=false, preserved=false signifie seulement NON_APPLICABLE et les deux listes de preuve restent vides. Les extraits doivent être des sous-chaînes verbatim exactes des textes correspondants, sans ajout, normalisation ni reformulation.
+
+Après avoir produit translatedText, identifie la langue réellement utilisée dans ce texte et retourne son code BCP 47 de base dans translatedTextLanguage. Ce champ décrit le texte produit ; il ne doit jamais recopier mécaniquement TARGET_LANGUAGE. Une projection qui ne satisfait pas la langue cible sera rejetée.
 
 N'augmente jamais la certitude. Ne transforme jamais une hypothèse ou une ambiguïté en fait. Si une ambiguïté possède plusieurs interprétations, conserve-la dans la traduction sans en choisir une.
 
@@ -929,7 +947,8 @@ export const buildLanguageProjectionProviderPayload = (request: LanguageProjecti
         detectedLanguage: { type: "string" },
         supportStatus: { type: "string", enum: ["SUPPORTED", "UNSUPPORTED", "UNKNOWN"] },
         qualificationStatus: { type: "string", enum: ["QUALIFIED", "PROVIDER_SUPPORTED_UNQUALIFIED", "UNKNOWN"] },
-        translatedText: { type: "string", description: "Strict linguistic projection. Translate scientific language and acronyms naturally. Preserve every value listed in PROTECTED_OPAQUE_LITERALS_JSON character-for-character." },
+        translatedText: { type: "string", description: "Strict linguistic projection in TARGET_LANGUAGE. Translate scientific language and acronyms naturally. Preserve every value listed in PROTECTED_OPAQUE_LITERALS_JSON character-for-character." },
+        translatedTextLanguage: { type: "string", description: "BCP 47 base language code actually used in translatedText after composing it. Inspect the produced text; do not echo TARGET_LANGUAGE unless the produced text is really in that language." },
         ambiguityPreserved: { type: "boolean" },
         semanticInvariants: {
           type: "array",
@@ -941,17 +960,17 @@ export const buildLanguageProjectionProviderPayload = (request: LanguageProjecti
             additionalProperties: false,
             properties: {
               invariantId: { type: "string", enum: [...SEMANTIC_LANGUAGE_INVARIANTS] },
-              sourcePresent: { type: "boolean" },
-              preserved: { type: "boolean" },
-              sourceEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 } },
-              targetEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 } },
+              sourcePresent: { type: "boolean", description: "True only when this invariant is present in SOURCE_TEXT. False means the invariant is not applicable to this projection." },
+              preserved: { type: "boolean", description: "When sourcePresent=true, true attests preservation and false declares loss. When sourcePresent=false, this must be false because preservation is not applicable." },
+              sourceEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 }, description: "Shortest exact verbatim substrings of SOURCE_TEXT supporting sourcePresent=true; empty when sourcePresent=false." },
+              targetEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 }, description: "Shortest exact verbatim substrings of translatedText supporting preserved=true; empty when sourcePresent=false or preserved=false." },
             },
             required: ["invariantId", "sourcePresent", "preserved", "sourceEvidence", "targetEvidence"],
           },
         },
         limitations: { type: "array", items: { type: "string" } },
       },
-      required: ["detectedLanguage", "supportStatus", "qualificationStatus", "translatedText", "ambiguityPreserved", "semanticInvariants", "limitations"],
+      required: ["detectedLanguage", "supportStatus", "qualificationStatus", "translatedText", "translatedTextLanguage", "ambiguityPreserved", "semanticInvariants", "limitations"],
     },
   }] }],
   toolConfig: { functionCallingConfig: { mode: "ANY", allowedFunctionNames: ["return_language_projection"] } },
@@ -964,6 +983,7 @@ export const parseLanguageProjectionProviderResult = (value: unknown): LanguageP
     || !["SUPPORTED", "UNSUPPORTED", "UNKNOWN"].includes(String(record.supportStatus))
     || !["QUALIFIED", "PROVIDER_SUPPORTED_UNQUALIFIED", "UNKNOWN"].includes(String(record.qualificationStatus))
     || typeof record.translatedText !== "string"
+    || typeof record.translatedTextLanguage !== "string" || !record.translatedTextLanguage.trim()
     || typeof record.ambiguityPreserved !== "boolean"
     || !Array.isArray(record.semanticInvariants)
     || record.semanticInvariants.length !== SEMANTIC_LANGUAGE_INVARIANTS.length
