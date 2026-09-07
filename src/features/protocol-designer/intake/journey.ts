@@ -73,16 +73,18 @@ const POPULATION_OR_GROUP_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:populations?|patien
 const COMPARISON_OR_ENDPOINT_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:comparer|comparaison|versus|objectif|critère|endpoint|devenir|incidence|nombre|taux)(?![\p{L}\p{N}_])/iu;
 const METHOD_OR_DATA_COLLECTION_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:méthodes?|mesures?|recueillir|collecte|prélèvements?|imagerie|modalités?|données|questionnaires?|suivi|détecter|detecter|examens?)(?![\p{L}\p{N}_])/iu;
 const UNRESOLVED_STUDY_STRUCTURE = /(?:^|[^\p{L}\p{N}_])(?:plan|schéma|design|cadre|temporalité|calendrier|critère|endpoint|stratégie|rôle)\b.{0,160}(?:(?:pas|non)\s+(?:encore\s+)?(?:décidé(?:e|es|s)?|défini(?:e|es|s)?|fixé(?:e|es|s)?)|ne\s+(?:sont|est)\s+pas\s+(?:encore\s+)?(?:décidé(?:e|es|s)?|défini(?:e|es|s)?|fixé(?:e|es|s)?)|reste(?:nt)?\s+(?:à|a)\s+(?:décider|définir|fixer))(?![\p{L}\p{N}_])/iu;
+const EXPLICIT_OPEN_DECISION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on|ils?|elles?)\s+n['’]?\s*(?:ai|avons|a|ont)\s+pas\s+(?:encore\s+)?(?:décidé|défini|fixé)|ne\s+(?:sont|est)\s+pas\s+(?:encore\s+)?(?:décidé(?:e|es|s)?|défini(?:e|es|s)?|fixé(?:e|es|s)?)|(?:reste|restent)\s+(?:à|a)\s+(?:décider|définir|fixer))(?![\p{L}\p{N}_])/iu;
 const EXPLICIT_VALIDATION_ACTION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on)\s+)?(?:(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions)\s+)?(?:valider|vérifier|verifier|confirmer|qualifier)(?![\p{L}\p{N}_])/iu;
+
+const structuralStudySignalCount = (value: string) => [
+  POPULATION_OR_GROUP_EVIDENCE,
+  COMPARISON_OR_ENDPOINT_EVIDENCE,
+  METHOD_OR_DATA_COLLECTION_EVIDENCE,
+].filter((pattern) => pattern.test(value)).length;
 
 const hasProspectiveStructuralStudyEvidence = (value: string) => {
   if (!PROSPECTIVE_PLANNING.test(value) || !PROSPECTIVE_RESEARCH_ACTION.test(value)) return false;
-  const structuralSignalCount = [
-    POPULATION_OR_GROUP_EVIDENCE,
-    COMPARISON_OR_ENDPOINT_EVIDENCE,
-    METHOD_OR_DATA_COLLECTION_EVIDENCE,
-  ].filter((pattern) => pattern.test(value)).length;
-  return structuralSignalCount >= 3 && !EXPLICIT_UNDERSTANDING_REQUEST.test(value);
+  return structuralStudySignalCount(value) >= 3 && !EXPLICIT_UNDERSTANDING_REQUEST.test(value);
 };
 
 const hasExplicitStudyConstruction = (value: string) => EXPLICIT_STUDY_CONSTRUCTION.test(value)
@@ -103,13 +105,21 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
   secondaryRouteIntents: RoutingIntent[];
   constructionIntentPresent: boolean;
 } => {
-  const corpus = normalized(`${intent.originalQuestion} ${intent.validatedReformulation} ${fieldValues(intent, "scientificPurpose").join(" ")}`);
+  const corpus = [...new Set([
+    intent.originalQuestion,
+    intent.validatedReformulation,
+    ...fieldValues(intent, "scientificPurpose"),
+  ].map((value) => normalized(value).trim()).filter(Boolean))].join(" ");
   const explicitStudyConstruction = EXPLICIT_STUDY_CONSTRUCTION.test(corpus) || EXPLICIT_STUDY_MODIFICATION.test(corpus);
   const prospectiveStructuralStudy = hasProspectiveStructuralStudyEvidence(corpus);
   const structuredStudyPlan = STRUCTURED_STUDY_PLAN.test(corpus) && PROSPECTIVE_RESEARCH_ACTION.test(corpus);
-  const unresolvedStructureDeclaration = UNRESOLVED_STUDY_STRUCTURE.test(corpus);
-  const explicitValidation = EXPLICIT_VALIDATION_ACTION.test(corpus) && unresolvedStructureDeclaration;
+  const explicitValidationAction = EXPLICIT_VALIDATION_ACTION.test(corpus);
+  const unresolvedStructureDeclaration = UNRESOLVED_STUDY_STRUCTURE.test(corpus)
+    || (EXPLICIT_OPEN_DECISION.test(corpus)
+      && (explicitValidationAction || structuralStudySignalCount(corpus) >= 2));
+  const explicitValidation = explicitValidationAction && unresolvedStructureDeclaration;
   const unresolvedStudyStructure = unresolvedStructureDeclaration;
+  const explicitUnderstanding = EXPLICIT_UNDERSTANDING_REQUEST.test(corpus);
   const scores: Record<RoutingIntent, number> = { UNDERSTAND: 0, FORMALIZE_IDEA: 0, DESIGN_STUDY: 0, DOCUMENT: Number.NEGATIVE_INFINITY };
   const reasons: Record<RoutingIntent, string[]> = { UNDERSTAND: [], FORMALIZE_IDEA: [], DESIGN_STUDY: [], DOCUMENT: [] };
   const add = (route: RoutingIntent, pattern: RegExp, reason: string, weight = 1) => {
@@ -144,7 +154,12 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
     reasons.UNDERSTAND.push("La comparaison demande d’abord une compréhension structurée, sans construction de projet explicite.");
   }
   const ordered = (Object.keys(scores) as RoutingIntent[]).sort((a, b) => scores[b] - scores[a]);
-  const routeIntent = ordered[0];
+  const routeIntent = explicitUnderstanding
+    && !explicitStudyConstruction
+    && !explicitValidation
+    && unresolvedStudyStructure
+    ? "UNDERSTAND"
+    : ordered[0];
   const margin = scores[ordered[0]] - scores[ordered[1]];
   return {
     routeIntent,
