@@ -59,6 +59,22 @@ export type LanguageProjectionProviderResult = Readonly<{
   limitations: readonly string[];
 }>;
 
+export type ProtectedOpaqueLiteral = Readonly<{
+  literal: string;
+  kind:
+    | "CLINICAL_TRIAL_IDENTIFIER"
+    | "VARIABLE_IDENTIFIER"
+    | "STRUCTURED_IDENTIFIER"
+    | "PROJECT_OR_OBJECT_IDENTIFIER"
+    | "UUID"
+    | "HASH"
+    | "DICOM_UID"
+    | "DOI"
+    | "URL"
+    | "EXPLICIT_CONTEXT";
+  source: "DETERMINISTIC_SOURCE_PATTERN" | "EXPLICIT_CONTEXT";
+}>;
+
 export type LanguageProjectionContractFailureDiagnostic = Readonly<{
   contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC";
   contractVersion: "1.0.0";
@@ -202,6 +218,7 @@ export type LanguageProjectionRequest = Readonly<{
   targetLanguage: ConversationLanguageCode;
   translationContractVersion: typeof LANGUAGE_PROJECTION_CONTRACT_VERSION;
   projectionIdentityDigest: string;
+  protectedOpaqueLiterals?: readonly ProtectedOpaqueLiteral[];
 }>;
 
 export type LanguageProjectionResponse = Readonly<{
@@ -301,24 +318,6 @@ export const createConversationLanguageGatewayState = (): ConversationLanguageGa
   scientificDecisionAuthorized: false,
 });
 
-export const languageProjectionIdentityDigest = (input: {
-  projectionKind: LanguageProjectionKind;
-  sourceText: string;
-  sourceLanguage: ConversationLanguageCode | "UNKNOWN";
-  targetLanguage: ConversationLanguageCode;
-  provider: "GOOGLE_GEMINI";
-  model: string;
-}) => logicalDigest({
-  contract: LANGUAGE_PROJECTION_CONTRACT,
-  contractVersion: LANGUAGE_PROJECTION_CONTRACT_VERSION,
-  projectionKind: input.projectionKind,
-  sourceTextDigest: logicalDigest(input.sourceText),
-  sourceLanguage: normalizeLanguageCode(input.sourceLanguage),
-  targetLanguage: normalizeLanguageCode(input.targetLanguage),
-  provider: input.provider,
-  model: input.model,
-});
-
 const occurrences = (value: string, expression: RegExp) => value.match(expression) ?? [];
 const normalizedToken = (value: string) => value.normalize("NFKC").toLocaleLowerCase("fr-FR").replace(/\s+/gu, " ").trim();
 const exactMultisetPreserved = (source: readonly string[], target: readonly string[]) => {
@@ -333,32 +332,131 @@ const exactMultisetPreserved = (source: readonly string[], target: readonly stri
   });
 };
 
-/**
- * Bounded language-level equivalences for acronyms whose conventional form
- * changes with word order in the target language. This is not a scientific
- * synonym registry: unknown substitutions remain rejected and opaque
- * identifiers are still literal.
- */
-const LANGUAGE_ACRONYM_EQUIVALENCE_GROUPS: readonly ReadonlySet<string>[] = Object.freeze([
-  new Set(["MRI", "IRM"]),
+const PROTECTED_OPAQUE_LITERAL_PATTERNS: readonly Readonly<{
+  kind: Exclude<ProtectedOpaqueLiteral["kind"], "EXPLICIT_CONTEXT">;
+  pattern: RegExp;
+}>[] = Object.freeze([
+  { kind: "URL", pattern: /https?:\/\/[^\s<>"']*[A-Za-z0-9/#=_~-]/giu },
+  { kind: "DOI", pattern: /\b10\.\d{4,9}\/[-._;()/:A-Z0-9]+\b/giu },
+  { kind: "UUID", pattern: /\b[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}\b/giu },
+  { kind: "CLINICAL_TRIAL_IDENTIFIER", pattern: /\bNCT\d{8}\b/gu },
+  { kind: "DICOM_UID", pattern: /\b(?:\d+\.){3,}\d+\b/gu },
+  { kind: "HASH", pattern: /\b(?:sha(?:1|224|256|384|512):)?[0-9a-f]{32,128}\b/giu },
+  { kind: "VARIABLE_IDENTIFIER", pattern: /\b[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)+\b/gu },
+  { kind: "STRUCTURED_IDENTIFIER", pattern: /\b[A-Z][A-Z0-9]{1,15}[-_](?=[A-Z0-9_-]*\d)[A-Z0-9_-]+\b/gu },
+  { kind: "PROJECT_OR_OBJECT_IDENTIFIER", pattern: /\b[A-Za-z][A-Za-z0-9_-]*(?::[A-Za-z0-9_-]+)+\b/gu },
 ]);
 
-const acronymOrIdentifierEquivalent = (source: string, target: string) => {
-  const left = source.normalize("NFKC").toLocaleUpperCase("en-US");
-  const right = target.normalize("NFKC").toLocaleUpperCase("en-US");
-  return left === right || LANGUAGE_ACRONYM_EQUIVALENCE_GROUPS.some((group) => group.has(left) && group.has(right));
+const PROTECTED_OPAQUE_LITERAL_KINDS = new Set<ProtectedOpaqueLiteral["kind"]>([
+  "CLINICAL_TRIAL_IDENTIFIER",
+  "VARIABLE_IDENTIFIER",
+  "STRUCTURED_IDENTIFIER",
+  "PROJECT_OR_OBJECT_IDENTIFIER",
+  "UUID",
+  "HASH",
+  "DICOM_UID",
+  "DOI",
+  "URL",
+  "EXPLICIT_CONTEXT",
+]);
+
+const isProtectedOpaqueLiteral = (value: unknown): value is ProtectedOpaqueLiteral => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const candidate = value as Partial<ProtectedOpaqueLiteral>;
+  return typeof candidate.literal === "string"
+    && candidate.literal.trim().length > 0
+    && candidate.literal.length <= 512
+    && PROTECTED_OPAQUE_LITERAL_KINDS.has(candidate.kind as ProtectedOpaqueLiteral["kind"])
+    && ["DETERMINISTIC_SOURCE_PATTERN", "EXPLICIT_CONTEXT"].includes(String(candidate.source))
+    && ((candidate.kind === "EXPLICIT_CONTEXT") === (candidate.source === "EXPLICIT_CONTEXT"));
 };
 
-const identifierMultisetPreserved = (source: readonly string[], target: readonly string[]) => {
-  const remaining = [...target];
-  return source.every((item) => {
-    const index = remaining.findIndex((candidate) => acronymOrIdentifierEquivalent(item, candidate));
+const literalExpression = (literal: string) => new RegExp(
+  `(?<![\\p{L}\\p{N}_])${literal.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&")}(?![\\p{L}\\p{N}_])`,
+  "gu",
+);
+
+const literalOccurrences = (text: string, literal: string) => occurrences(text, literalExpression(literal));
+
+export const extractProtectedOpaqueLiterals = (sourceText: string): readonly ProtectedOpaqueLiteral[] => {
+  const candidates = PROTECTED_OPAQUE_LITERAL_PATTERNS.flatMap(({ kind, pattern }) =>
+    [...sourceText.matchAll(pattern)].map((match) => ({
+      literal: match[0],
+      kind,
+      source: "DETERMINISTIC_SOURCE_PATTERN" as const,
+      index: match.index ?? Number.MAX_SAFE_INTEGER,
+    })));
+  const seen = new Set<string>();
+  return candidates
+    .sort((left, right) => left.index - right.index)
+    .filter((candidate) => {
+      if (seen.has(candidate.literal)) return false;
+      seen.add(candidate.literal);
+      return true;
+    })
+    .map(({ index: _index, ...candidate }) => Object.freeze(candidate));
+};
+
+const resolvedProtectedOpaqueLiterals = (input: {
+  sourceText: string;
+  explicit?: readonly ProtectedOpaqueLiteral[];
+}): readonly ProtectedOpaqueLiteral[] => {
+  const seen = new Set<string>();
+  return [...extractProtectedOpaqueLiterals(input.sourceText), ...(input.explicit ?? [])]
+    .filter((candidate) => {
+      if (seen.has(candidate.literal)) return false;
+      seen.add(candidate.literal);
+      return true;
+    });
+};
+
+export const languageProjectionIdentityDigest = (input: {
+  projectionKind: LanguageProjectionKind;
+  sourceText: string;
+  sourceLanguage: ConversationLanguageCode | "UNKNOWN";
+  targetLanguage: ConversationLanguageCode;
+  provider: "GOOGLE_GEMINI";
+  model: string;
+  protectedOpaqueLiterals?: readonly ProtectedOpaqueLiteral[];
+}) => logicalDigest({
+  contract: LANGUAGE_PROJECTION_CONTRACT,
+  contractVersion: LANGUAGE_PROJECTION_CONTRACT_VERSION,
+  projectionKind: input.projectionKind,
+  sourceTextDigest: logicalDigest(input.sourceText),
+  sourceLanguage: normalizeLanguageCode(input.sourceLanguage),
+  targetLanguage: normalizeLanguageCode(input.targetLanguage),
+  provider: input.provider,
+  model: input.model,
+  protectedOpaqueLiterals: resolvedProtectedOpaqueLiterals({
+    sourceText: input.sourceText,
+    explicit: input.protectedOpaqueLiterals,
+  }),
+});
+
+const normalizedNumber = (value: string) => {
+  const [integerPart = "0", decimalPart = ""] = value.replace(",", ".").split(".");
+  const integer = integerPart.replace(/^0+(?=\d)/u, "") || "0";
+  const decimal = decimalPart.replace(/0+$/u, "");
+  return decimal ? `${integer}.${decimal}` : integer;
+};
+
+const numericMultisetPreserved = (source: readonly string[], target: readonly string[]) => {
+  const left = [...source].map(normalizedNumber).sort();
+  const right = [...target].map(normalizedNumber).sort();
+  const remaining = [...right];
+  return left.every((item) => {
+    const index = remaining.indexOf(item);
     if (index < 0) return false;
     remaining.splice(index, 1);
     return true;
   });
 };
 
+/**
+ * This is a structural marker sentinel only. A PRESERVED result records that
+ * compatible surface evidence remains present; it does not adjudicate the
+ * semantic scope or scientific fidelity of the translation.
+ */
 const semanticMarkerInvariant = (input: {
   invariant: LanguageProjectionInvariant["invariant"];
   source: string;
@@ -377,7 +475,13 @@ const semanticMarkerInvariant = (input: {
   };
 };
 
-export const evaluateLinguisticInvariants = (source: string, target: string): readonly LanguageProjectionInvariant[] => {
+export const evaluateLinguisticInvariants = (
+  source: string,
+  target: string,
+  protectedOpaqueLiterals: readonly ProtectedOpaqueLiteral[] = extractProtectedOpaqueLiterals(source),
+): readonly LanguageProjectionInvariant[] => {
+  // Exact lexical checks are reserved for mechanically stable surface forms
+  // such as units and governed decision-status tokens.
   const exact = (invariant: LanguageProjectionInvariant["invariant"], pattern: RegExp): LanguageProjectionInvariant => {
     const sourceEvidence = occurrences(source, pattern);
     if (!sourceEvidence.length) return { invariant, status: "NOT_PRESENT", sourceEvidence: [], targetEvidence: [] };
@@ -385,18 +489,31 @@ export const evaluateLinguisticInvariants = (source: string, target: string): re
     return { invariant, status: exactMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN", sourceEvidence, targetEvidence };
   };
   const identifiers = (): LanguageProjectionInvariant => {
-    const sourceEvidence = occurrences(source, /\b[A-Z][A-Z0-9_-]{1,}\b/gu);
+    const sourceEvidence = protectedOpaqueLiterals.flatMap((candidate) => literalOccurrences(source, candidate.literal));
     if (!sourceEvidence.length) return { invariant: "IDENTIFIERS", status: "NOT_PRESENT", sourceEvidence: [], targetEvidence: [] };
-    const targetEvidence = occurrences(target, /\b[A-Z][A-Z0-9_-]{1,}\b/gu);
+    const targetEvidence = protectedOpaqueLiterals.flatMap((candidate) => literalOccurrences(target, candidate.literal));
+    const preserved = protectedOpaqueLiterals.every((candidate) =>
+      literalOccurrences(target, candidate.literal).length >= literalOccurrences(source, candidate.literal).length);
     return {
       invariant: "IDENTIFIERS",
-      status: identifierMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN",
+      status: preserved ? "PRESERVED" : "UNKNOWN",
+      sourceEvidence,
+      targetEvidence,
+    };
+  };
+  const numbers = (): LanguageProjectionInvariant => {
+    const sourceEvidence = occurrences(source, /\b\d+(?:[.,]\d+)?\b/gu);
+    if (!sourceEvidence.length) return { invariant: "NUMBERS", status: "NOT_PRESENT", sourceEvidence: [], targetEvidence: [] };
+    const targetEvidence = occurrences(target, /\b\d+(?:[.,]\d+)?\b/gu);
+    return {
+      invariant: "NUMBERS",
+      status: numericMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN",
       sourceEvidence,
       targetEvidence,
     };
   };
   return [
-    exact("NUMBERS", /\b\d+(?:[.,]\d+)?\b/gu),
+    numbers(),
     exact("UNITS", /\b(?:T|ms|s|min|h|d|mg|g|kg|µg|ug|mL|ml|L|mm|cm|m|Hz|MHz|%)\b/gu),
     identifiers(),
     semanticMarkerInvariant({ invariant: "NEGATION", source, target, sourcePattern: /\b(?:not|no|without|ne|pas|sans|aucun|none)\b|ない|なし|不|未|无|沒有|没有/giu, targetPattern: /\b(?:not|no|without|ne|pas|sans|aucun|non|none)\b|ない|なし|不|未|无|沒有|没有/giu }),
@@ -420,7 +537,15 @@ export const validateLanguageProjectionProviderResult = (input: {
   if (!input.result.translatedText.trim()) blocks.push("TRANSLATED_TEXT_MISSING");
   if (input.request.projectionKind === "INPUT_TO_FRENCH" && targetLanguage !== CANONICAL_WORKING_LANGUAGE) blocks.push("INPUT_TARGET_MUST_BE_FRENCH");
   if (!input.result.ambiguityPreserved) blocks.push("AMBIGUITY_PRESERVATION_NOT_ATTESTED");
-  const invariants = evaluateLinguisticInvariants(input.request.sourceText, input.result.translatedText);
+  const explicitProtectedLiterals = input.request.protectedOpaqueLiterals ?? [];
+  if (explicitProtectedLiterals.some((candidate) => !literalOccurrences(input.request.sourceText, candidate.literal).length)) {
+    blocks.push("PROTECTED_OPAQUE_LITERAL_SOURCE_MISMATCH");
+  }
+  const protectedOpaqueLiterals = resolvedProtectedOpaqueLiterals({
+    sourceText: input.request.sourceText,
+    explicit: explicitProtectedLiterals,
+  });
+  const invariants = evaluateLinguisticInvariants(input.request.sourceText, input.result.translatedText, protectedOpaqueLiterals);
   blocks.push(...invariants.filter((item) => item.status === "UNKNOWN").map((item) => `LINGUISTIC_INVARIANT_UNVERIFIED:${item.invariant}`));
   return { valid: blocks.length === 0, blocks, invariants };
 };
@@ -633,7 +758,11 @@ export const parseLanguageProjectionRequest = (value: unknown): LanguageProjecti
     || typeof record.sourceLanguageHint !== "string" || !record.sourceLanguageHint.trim()
     || typeof record.targetLanguage !== "string" || !record.targetLanguage.trim()
     || record.translationContractVersion !== LANGUAGE_PROJECTION_CONTRACT_VERSION
-    || typeof record.projectionIdentityDigest !== "string" || !record.projectionIdentityDigest.trim()) return null;
+    || typeof record.projectionIdentityDigest !== "string" || !record.projectionIdentityDigest.trim()
+    || (record.protectedOpaqueLiterals !== undefined
+      && (!Array.isArray(record.protectedOpaqueLiterals)
+        || !record.protectedOpaqueLiterals.every((candidate) => isProtectedOpaqueLiteral(candidate)
+          && literalOccurrences(record.sourceText!, candidate.literal).length > 0)))) return null;
   return record as LanguageProjectionRequest;
 };
 
@@ -643,7 +772,9 @@ Ta seule mission est de détecter la langue et de traduire le texte fourni vers 
 
 Tu ne réalises aucune interprétation scientifique, aucune décision, aucune clarification, aucune complétion et aucune écriture Project.
 
-Préserve strictement les nombres, unités, dates, identifiants, noms d'étude, noms de médicaments et dispositifs, acronymes, termes techniques, négations, incertitudes, conditions, comparaisons, statuts connu/inconnu/retenu/non décidé, décisions humaines et références de sources. Un acronyme peut prendre sa forme conventionnelle dans la langue cible uniquement lorsqu'il désigne strictement la même entité ; sinon copie-le caractère pour caractère.
+Traduis naturellement la terminologie scientifique, les noms de modalités et les acronymes selon l'usage de la langue cible. Ne crée aucun équivalent sémantique absent du texte source.
+
+Préserve strictement les nombres, unités, dates, négations, incertitudes, conditions, comparaisons, statuts connu/inconnu/retenu/non décidé, décisions humaines et références de sources. Chaque valeur fournie dans PROTECTED_OPAQUE_LITERALS_JSON est un littéral opaque : recopie-la caractère pour caractère, sans traduction ni normalisation.
 
 N'augmente jamais la certitude. Ne transforme jamais une hypothèse ou une ambiguïté en fait. Si une ambiguïté possède plusieurs interprétations, conserve-la dans la traduction sans en choisir une.
 
@@ -655,6 +786,10 @@ export const buildLanguageProjectionProviderPayload = (request: LanguageProjecti
     `PROJECTION_KIND=${request.projectionKind}`,
     `SOURCE_LANGUAGE_HINT=${request.sourceLanguageHint}`,
     `TARGET_LANGUAGE=${request.targetLanguage}`,
+    `PROTECTED_OPAQUE_LITERALS_JSON=${JSON.stringify(resolvedProtectedOpaqueLiterals({
+      sourceText: request.sourceText,
+      explicit: request.protectedOpaqueLiterals,
+    }).map((candidate) => candidate.literal))}`,
     "SOURCE_TEXT:",
     request.sourceText,
   ].join("\n") }] }],
@@ -668,7 +803,7 @@ export const buildLanguageProjectionProviderPayload = (request: LanguageProjecti
         detectedLanguage: { type: "string" },
         supportStatus: { type: "string", enum: ["SUPPORTED", "UNSUPPORTED", "UNKNOWN"] },
         qualificationStatus: { type: "string", enum: ["QUALIFIED", "PROVIDER_SUPPORTED_UNQUALIFIED", "UNKNOWN"] },
-        translatedText: { type: "string", description: "Strict linguistic projection. Preserve opaque identifiers literally. A technical acronym may use its conventional target-language form only when it denotes exactly the same entity; otherwise copy it character-for-character." },
+        translatedText: { type: "string", description: "Strict linguistic projection. Translate scientific language and acronyms naturally. Preserve every value listed in PROTECTED_OPAQUE_LITERALS_JSON character-for-character." },
         ambiguityPreserved: { type: "boolean" },
         limitations: { type: "array", items: { type: "string" } },
       },

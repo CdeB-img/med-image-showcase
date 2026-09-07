@@ -21,6 +21,7 @@ import {
   buildLocalizedConversationResponse,
   buildMultilingualUserTurn,
   detectConversationLanguage,
+  extractProtectedOpaqueLiterals,
   findReusableLanguageProjection,
   languageProjectionIdentityDigest,
   languageProjectionFailure,
@@ -222,6 +223,7 @@ const requestOrReuseLanguageProjection = async (input: {
   sourceLanguage: string | "UNKNOWN";
   targetLanguage: string;
 }): Promise<{ projection: LanguageProjectionArtifact; providerCalls: 0 | 1 }> => {
+  const protectedOpaqueLiterals = extractProtectedOpaqueLiterals(input.sourceText);
   const projectionIdentityDigest = languageProjectionIdentityDigest({
     projectionKind: input.projectionKind,
     sourceText: input.sourceText,
@@ -229,6 +231,7 @@ const requestOrReuseLanguageProjection = async (input: {
     targetLanguage: input.targetLanguage,
     provider: "GOOGLE_GEMINI",
     model: DEFAULT_GEMINI_CONVERSATION_MODEL,
+    protectedOpaqueLiterals,
   });
   const cached = findReusableLanguageProjection({ state: input.state, projectionIdentityDigest });
   if (cached) return { projection: cached, providerCalls: 0 };
@@ -241,6 +244,7 @@ const requestOrReuseLanguageProjection = async (input: {
     targetLanguage: input.targetLanguage,
     translationContractVersion: LANGUAGE_PROJECTION_CONTRACT_VERSION,
     projectionIdentityDigest,
+    protectedOpaqueLiterals,
   };
   let response: Awaited<ReturnType<typeof requestConversationLanguageProjection>>;
   try {

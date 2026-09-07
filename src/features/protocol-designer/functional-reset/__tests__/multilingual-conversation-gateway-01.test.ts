@@ -2,11 +2,13 @@ import { describe, expect, it, vi } from "vitest";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
 import {
   appendLanguageTurnToGatewayState,
+  buildLanguageProjectionProviderPayload,
   buildLocalizedConversationResponse,
   buildMultilingualUserTurn,
   createConversationLanguageGatewayState,
   detectConversationLanguage,
   evaluateLinguisticInvariants,
+  extractProtectedOpaqueLiterals,
   findReusableLanguageProjection,
   languageProjectionIdentityDigest,
   LanguageProjectionContractError,
@@ -16,6 +18,7 @@ import {
   resolveConversationLanguage,
   type LanguageProjectionArtifact,
   type LanguageProjectionRequest,
+  type ProtectedOpaqueLiteral,
 } from "@/features/protocol-designer/conversation-language-gateway";
 import {
   naturalConversationContext,
@@ -42,8 +45,13 @@ const requestFor = (input: {
   sourceText: string;
   sourceLanguage: string;
   targetLanguage: string;
+  protectedOpaqueLiterals?: readonly ProtectedOpaqueLiteral[];
 }): LanguageProjectionRequest => {
   const projectionKind = input.projectionKind ?? "INPUT_TO_FRENCH";
+  const protectedOpaqueLiterals = [
+    ...extractProtectedOpaqueLiterals(input.sourceText),
+    ...(input.protectedOpaqueLiterals ?? []),
+  ];
   return {
     apiVersion: "1.0.0",
     operation: "LANGUAGE_PROJECTION",
@@ -59,7 +67,9 @@ const requestFor = (input: {
       targetLanguage: input.targetLanguage,
       provider: "GOOGLE_GEMINI",
       model,
+      protectedOpaqueLiterals,
     }),
+    protectedOpaqueLiterals,
   };
 };
 
@@ -169,7 +179,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     expect(state.scientificDecisionAuthorized).toBe(false);
   });
 
-  it("accepts the exact FIC02 witness MRI to IRM projection as a bounded conventional acronym equivalence", () => {
+  it("accepts the exact FIC02 witness MRI to IRM projection without treating scientific acronyms as opaque identifiers", () => {
     const originalText = "We have historical cardiac MRI and echocardiography data from patients followed after a first myocardial infarction, and we can prospectively recruit new patients with follow-up imaging. We want to understand adverse left ventricular remodeling, but the exact study design, timing, primary endpoint, and role of each imaging modality are not decided.";
     const translatedText = "Nous disposons de données historiques d'IRM cardiaque et d'échocardiographie provenant de patients suivis après un premier infarctus du myocarde, et nous pouvons recruter de nouveaux patients de manière prospective avec une imagerie de suivi. Nous voulons comprendre le remodelage ventriculaire gauche indésirable, mais le plan d'étude exact, le calendrier, le critère d'évaluation principal et le rôle de chaque modalité d'imagerie ne sont pas décidés.";
     const request = requestFor({ sourceText: originalText, sourceLanguage: "en", targetLanguage: "fr" });
@@ -177,30 +187,49 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     expect(projection.translatedText).toBe(translatedText);
     expect(projection.invariants.find((item) => item.invariant === "IDENTIFIERS")).toEqual({
       invariant: "IDENTIFIERS",
-      status: "PRESERVED",
-      sourceEvidence: ["MRI"],
-      targetEvidence: ["IRM"],
+      status: "NOT_PRESENT",
+      sourceEvidence: [],
+      targetEvidence: [],
     });
     expect(projection.providerResultDigest).toMatch(/^ke1-/u);
   });
 
-  it("keeps unknown acronym and opaque identifier substitutions rejected with exact diagnostics", () => {
-    const request = requestFor({ sourceText: "Study ABC and site ABC-ID are pending.", sourceLanguage: "en", targetLanguage: "fr" });
-    expect(() => projectionFor({
-      request,
-      detectedLanguage: "en",
-      translatedText: "L’étude XYZ et le site ABC-ZZ sont en attente.",
-    })).toThrowError(expect.objectContaining({
-      name: "LanguageProjectionContractError",
-      message: expect.stringContaining("LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"),
-    }));
+  it.each([
+    ["MRI imaging", "imagerie IRM"],
+    ["CT imaging", "imagerie TDM"],
+    ["PET imaging", "imagerie TEP"],
+    ["QXZ imaging", "imagerie ZXQ"],
+  ])("allows translated scientific language without production terminology knowledge: %s → %s", (sourceText, translatedText) => {
+    const request = requestFor({ sourceText, sourceLanguage: "en", targetLanguage: "fr" });
+    const projection = projectionFor({ request, detectedLanguage: "en", translatedText });
+    expect(projection.invariants.find((item) => item.invariant === "IDENTIFIERS")?.status).toBe("NOT_PRESENT");
+  });
+
+  it("transmits only protected opaque literals to the provider, not scientific acronyms", () => {
+    const request = requestFor({
+      sourceText: "Compare MRI with CT in trial NCT01234567.",
+      sourceLanguage: "en",
+      targetLanguage: "fr",
+    });
+    const providerText = buildLanguageProjectionProviderPayload(request).contents[0]!.parts[0]!.text;
+    const protectedLine = providerText.split("\n").find((line) => line.startsWith("PROTECTED_OPAQUE_LITERALS_JSON="));
+    expect(protectedLine).toBe('PROTECTED_OPAQUE_LITERALS_JSON=["NCT01234567"]');
+  });
+
+  it("keeps explicitly protected and structurally opaque identifiers rejected with exact diagnostics", () => {
+    const request = requestFor({
+      sourceText: "Study SITEALPHA and sample ABC-001 are pending.",
+      sourceLanguage: "en",
+      targetLanguage: "fr",
+      protectedOpaqueLiterals: [{ literal: "SITEALPHA", kind: "EXPLICIT_CONTEXT", source: "EXPLICIT_CONTEXT" }],
+    });
     try {
-      projectionFor({ request, detectedLanguage: "en", translatedText: "L’étude XYZ et le site ABC-ZZ sont en attente." });
+      projectionFor({ request, detectedLanguage: "en", translatedText: "L’étude SITEBETA et l’échantillon ABC-002 sont en attente." });
       throw new Error("EXPECTED_LANGUAGE_PROJECTION_REJECTION");
     } catch (error) {
       expect(error).toBeInstanceOf(LanguageProjectionContractError);
       expect((error as LanguageProjectionContractError).diagnostic).toMatchObject({
-        subInvariantIds: ["LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"],
+        subInvariantIds: expect.arrayContaining(["LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"]),
         provider: "GOOGLE_GEMINI",
         model,
         providerResultDigest: expect.stringMatching(/^ke1-/u),
@@ -208,9 +237,33 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     }
   });
 
+  it.each([
+    ["Trial NCT01234567 is open.", "L’essai NCT01234568 est ouvert.", "CLINICAL_TRIAL_IDENTIFIER"],
+    ["Sample ABC-001 is stored.", "L’échantillon ABC-002 est conservé.", "STRUCTURED_IDENTIFIER"],
+    ["Subject 123e4567-e89b-12d3-a456-426614174000 is eligible.", "Le sujet 123e4567-e89b-12d3-a456-426614174001 est éligible.", "UUID"],
+    ["Variable project_var_01 is primary.", "La variable project_var_02 est principale.", "VARIABLE_IDENTIFIER"],
+  ])("rejects mutation of mechanically classified opaque literals: %s", (sourceText, translatedText, expectedKind) => {
+    const protectedLiterals = extractProtectedOpaqueLiterals(sourceText);
+    expect(protectedLiterals.map((candidate) => candidate.kind)).toContain(expectedKind);
+    const request = requestFor({ sourceText, sourceLanguage: "en", targetLanguage: "fr" });
+    try {
+      projectionFor({ request, detectedLanguage: "en", translatedText });
+      throw new Error("EXPECTED_LANGUAGE_PROJECTION_REJECTION");
+    } catch (error) {
+      expect(error).toBeInstanceOf(LanguageProjectionContractError);
+      expect((error as LanguageProjectionContractError).diagnostic.subInvariantIds).toContain(
+        "LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
+      );
+    }
+  });
+
   it("keeps provenance, provider shape, numbers, units, uncertainty and negation fail-closed", () => {
     const validRequest = requestFor({ sourceText: "Dose 10 mg; MRI may show no lesion.", sourceLanguage: "en", targetLanguage: "fr" });
     expect(parseLanguageProjectionRequest({ ...validRequest, projectionIdentityDigest: "" })).toBeNull();
+    expect(parseLanguageProjectionRequest({
+      ...validRequest,
+      protectedOpaqueLiterals: [{ literal: "ABSENT_ID", kind: "EXPLICIT_CONTEXT", source: "EXPLICIT_CONTEXT" }],
+    })).toBeNull();
     expect(parseLanguageProjectionProviderResult({
       detectedLanguage: "en",
       supportStatus: "MALFORMED",
@@ -245,13 +298,14 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
 
   it("preserves Japanese numbers, MRI units, uncertainty, conditionality and UNKNOWN status", () => {
     const source = "もし 1.5 T と 3 T の MRI を比較する場合、結果は異なるかもしれません。主要な判断は UNKNOWN です。";
-    const target = "Si l’on compare la MRI à 1.5 T et 3 T, les résultats pourraient être différents. La décision principale reste UNKNOWN.";
+    const target = "Si l’on compare l’IRM à 1,5 T et 3 T, les résultats pourraient être différents. La décision principale reste UNKNOWN.";
     const request = requestFor({ sourceText: source, sourceLanguage: "ja", targetLanguage: "fr" });
     const projection = projectionFor({ request, detectedLanguage: "ja", translatedText: target });
     expect(detectConversationLanguage(source)).toMatchObject({ detectedLanguage: "ja", confidence: "HIGH" });
     expect(projection.invariants.filter((item) => item.status === "PRESERVED").map((item) => item.invariant)).toEqual(expect.arrayContaining([
-      "NUMBERS", "UNITS", "IDENTIFIERS", "UNCERTAINTY", "CONDITIONALITY", "COMPARISON", "DECISION_STATUS",
+      "NUMBERS", "UNITS", "UNCERTAINTY", "CONDITIONALITY", "COMPARISON", "DECISION_STATUS",
     ]));
+    expect(projection.invariants.find((item) => item.invariant === "IDENTIFIERS")?.status).toBe("NOT_PRESENT");
   });
 
   it("preserves Chinese comparison, negation, uncertainty and technical acronyms", () => {
@@ -261,8 +315,9 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     const projection = projectionFor({ request, detectedLanguage: "zh", translatedText: target });
     expect(detectConversationLanguage(source)).toMatchObject({ detectedLanguage: "zh", confidence: "HIGH" });
     expect(projection.invariants.filter((item) => item.status === "PRESERVED").map((item) => item.invariant)).toEqual(expect.arrayContaining([
-      "IDENTIFIERS", "NEGATION", "UNCERTAINTY", "COMPARISON",
+      "NEGATION", "UNCERTAINTY", "COMPARISON",
     ]));
+    expect(projection.invariants.find((item) => item.invariant === "IDENTIFIERS")?.status).toBe("NOT_PRESENT");
   });
 
   it("keeps a mixed French scientific sentence in French and does not switch on weak English evidence", () => {
@@ -393,14 +448,19 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
   });
 
   it("returns the rejected sub-invariant and provider-result digest without returning provider text", async () => {
-    const request = requestFor({ sourceText: "Study ABC-ID is pending.", sourceLanguage: "en", targetLanguage: "fr" });
+    const request = requestFor({
+      sourceText: "Study SITEALPHA is pending.",
+      sourceLanguage: "en",
+      targetLanguage: "fr",
+      protectedOpaqueLiterals: [{ literal: "SITEALPHA", kind: "EXPLICIT_CONTEXT", source: "EXPLICIT_CONTEXT" }],
+    });
     const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
       responseId: "gemini-language:contract-rejection",
       candidates: [{ content: { parts: [{ functionCall: { name: "return_language_projection", args: {
         detectedLanguage: "en",
         supportStatus: "SUPPORTED",
         qualificationStatus: "QUALIFIED",
-        translatedText: "L’étude ABC-ZZ est en attente.",
+        translatedText: "L’étude SITEBETA est en attente.",
         ambiguityPreserved: true,
         limitations: [],
       } } }] } }],
@@ -419,7 +479,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
         },
       },
     });
-    expect(JSON.stringify(result.body)).not.toContain("ABC-ZZ");
+    expect(JSON.stringify(result.body)).not.toContain("SITEBETA");
   });
 
   it("uses the existing one-attempt provider policy and reports a bounded language failure", async () => {
