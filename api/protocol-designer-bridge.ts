@@ -2,6 +2,7 @@ import { detectSensitiveData } from "../src/features/protocol-designer/intake/pr
 import {
   PRODUCT_BRIDGE_API_VERSION,
   buildPersistentSourceCatalog,
+  constrainPersistentRelationsToCanonicalSignatures,
   contributionFromPersistentDelta,
   materializePersistentSourceAnchors,
   parseProductBridgeRequest,
@@ -205,8 +206,11 @@ export const executeProtocolDesignerBridge = async (input: {
           catalog: sourceCatalog,
           currentUserTurn: { turnId: latestUser.turnId, content: latestUser.content },
         });
-        const checked = materialized.value
-          ? validatePersistentProjectDelta(materialized.value, latestUser.content, request.currentProject, request.conversation)
+        const constrained = materialized.value
+          ? constrainPersistentRelationsToCanonicalSignatures(materialized.value, request.currentProject)
+          : { value: null, omissions: [] };
+        const checkedWithoutConstraintNotice = constrained.value
+          ? validatePersistentProjectDelta(constrained.value, latestUser.content, request.currentProject, request.conversation)
           : {
             wireCandidate: null,
             candidate: null,
@@ -221,6 +225,16 @@ export const executeProtocolDesignerBridge = async (input: {
               normalizations: [],
             },
           };
+        const checked = constrained.omissions.length ? {
+          ...checkedWithoutConstraintNotice,
+          validation: {
+            ...checkedWithoutConstraintNotice.validation,
+            noOps: [
+              ...checkedWithoutConstraintNotice.validation.noOps,
+              ...constrained.omissions.map((omission) => `relation:${omission.relationRef}:OMITTED_NO_COMPATIBLE_CANONICAL_SIGNATURE`),
+            ],
+          },
+        } : checkedWithoutConstraintNotice;
         const validation = providerContract.valid && materialized.valid ? checked.validation : {
           ...checked.validation,
           valid: false,

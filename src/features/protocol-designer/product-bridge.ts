@@ -973,6 +973,84 @@ const projectElements = (project: ResearchProjectOwnerProjection | null) => proj
     }))
   : [];
 
+export type PersistentRelationConstraintOmission = Readonly<{
+  relationRef: string;
+  relationType: string;
+  sourceObjectRef: string;
+  targetObjectRef: string;
+  sourceType: CanonicalProjectObjectType;
+  targetType: CanonicalProjectObjectType;
+  reason: "NO_COMPATIBLE_CANONICAL_SIGNATURE";
+}>;
+
+/**
+ * Constrains optional provider-authored relations to the same endpoint catalog
+ * used by the canonical Project validator. Both endpoint types must already be
+ * structurally resolvable before a relation can be omitted: malformed types,
+ * unsupported relation names and unknown references remain untouched so the
+ * Project validator still rejects them fail-closed.
+ */
+export const constrainPersistentRelationsToCanonicalSignatures = (
+  value: unknown,
+  project: ResearchProjectOwnerProjection | null,
+): { value: unknown; omissions: PersistentRelationConstraintOmission[] } => {
+  const parsed = persistentProjectDeltaSchema.safeParse(value);
+  if (!parsed.success) return { value, omissions: [] };
+
+  const currentTypes = new Map(project
+    ? ensureCanonicalProjectState(project).objects
+      .filter((object) => object.actuality === "CURRENT")
+      .map((object) => [object.objectId, object.objectType] as const)
+    : []);
+  const knownTypes = new Map(currentTypes);
+  const acquisitionTimeSubjectRefs = new Set(parsed.data.temporalQualifications
+    .filter((qualification) => qualification.temporalRole === "ACQUISITION_TIME")
+    .map((qualification) => qualification.subjectProjectRef));
+
+  for (const change of parsed.data.changes) {
+    if (change.operation === "REMOVE") continue;
+    const currentType = change.targetProjectRef ? currentTypes.get(change.targetProjectRef) : null;
+    let candidateType = canonicalProjectObjectType({
+      proposedType: change.proposedType ?? currentType ?? null,
+      studyRole: change.studyRole ?? null,
+    });
+    if (change.operation === "ADD"
+      && candidateType === "IMAGING_MODALITY"
+      && [change.candidateRef, change.semanticIdentity]
+        .some((ref) => Boolean(ref && acquisitionTimeSubjectRefs.has(ref)))) {
+      candidateType = "ACQUISITION";
+    }
+    for (const ref of [change.candidateRef, change.semanticIdentity]
+      .filter((candidate): candidate is string => Boolean(candidate))) {
+      knownTypes.set(ref, candidateType);
+    }
+  }
+
+  const omissions: PersistentRelationConstraintOmission[] = [];
+  const relations = parsed.data.relations.filter((relation) => {
+    if (!PERSISTENT_PROJECT_RELATION_TYPES.includes(relation.relationType as PersistentProjectRelationType)) return true;
+    const sourceType = knownTypes.get(relation.sourceObjectRef);
+    const targetType = knownTypes.get(relation.targetObjectRef);
+    if (!sourceType || !targetType) return true;
+    if (persistentProjectRelationEndpointsCompatible(relation.relationType, sourceType, targetType)) return true;
+    omissions.push({
+      relationRef: relation.relationRef,
+      relationType: relation.relationType,
+      sourceObjectRef: relation.sourceObjectRef,
+      targetObjectRef: relation.targetObjectRef,
+      sourceType,
+      targetType,
+      reason: "NO_COMPATIBLE_CANONICAL_SIGNATURE",
+    });
+    return false;
+  });
+
+  return {
+    value: omissions.length ? { ...parsed.data, relations } : parsed.data,
+    omissions,
+  };
+};
+
 export const validatePersistentProjectDelta = (
   value: unknown,
   rawUserTurn: string,
