@@ -224,6 +224,7 @@ export type ScientificSessionContext = {
   routeIntent: RoutingIntent | null;
   routeConfidence: ConfidenceLevel;
   routeReasons: string[];
+  secondaryRouteIntents?: RoutingIntent[];
   centralScientificObject: string;
   preservedScientificTerms: string[];
   detectedRelationships: string[];

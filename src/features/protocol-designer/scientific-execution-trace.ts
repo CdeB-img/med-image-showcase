@@ -333,6 +333,9 @@ export type PreProjectScientificTracePoint =
     sourceTextCapture: "MINIMIZED" | "DIAGNOSTIC_FULL";
     routeIntent: string | null;
     routeReasons: readonly string[];
+    secondaryRouteIntents?: readonly string[];
+    constructionIntentPresent?: boolean;
+    projectConstructionEligible?: boolean;
     centralScientificObject: string;
     preservedScientificTerms: readonly string[];
     missingInformation: readonly string[];
@@ -421,6 +424,9 @@ export type CreatePreProjectScientificTraceSegmentInput = {
   routing: {
     routeIntent: string | null;
     routeReasons: readonly string[];
+    secondaryRouteIntents?: readonly string[];
+    constructionIntentPresent?: boolean;
+    projectConstructionEligible?: boolean;
     scientificContext: {
       centralScientificObject: string;
       preservedScientificTerms: readonly string[];
@@ -2266,10 +2272,14 @@ export const recordProductEntryRoutingTrace = (input: {
     contractVersion: string;
     routeIntent: string | null;
     routeReasons: readonly string[];
+    secondaryRouteIntents?: readonly string[];
+    constructionIntentPresent?: boolean;
+    projectConstructionEligible?: boolean;
     scientificContext: Readonly<{
       centralScientificObject: string;
       preservedScientificTerms: readonly string[];
       missingInformation: readonly string[];
+      secondaryRouteIntents?: readonly string[];
     }>;
     explicitScientificDimensions: readonly Readonly<{ dimensionRef: string }>[],
   }>;
@@ -2300,7 +2310,13 @@ export const recordProductEntryRoutingTrace = (input: {
         output: [{
           ref: `${input.traceRunId}:route`,
           version: input.routing.contractVersion,
-          digest: logicalDigest({ routeIntent: input.routing.routeIntent, routeReasons: input.routing.routeReasons }),
+          digest: logicalDigest({
+            routeIntent: input.routing.routeIntent,
+            routeReasons: input.routing.routeReasons,
+            secondaryRouteIntents: input.routing.secondaryRouteIntents ?? [],
+            constructionIntentPresent: input.routing.constructionIntentPresent ?? false,
+            projectConstructionEligible: input.routing.projectConstructionEligible ?? false,
+          }),
         }],
         reasonCode: input.routing.routeReasons[0] ?? "ROUTE_SELECTED_WITHOUT_REASON_CODE",
         completedAt: input.observedAt,
@@ -2324,7 +2340,17 @@ export const recordProductEntryRoutingTrace = (input: {
         provider: "NONE",
         componentId: "PRODUCT_ENTRY_ROUTING",
         componentVersion: input.routing.contractVersion,
-        input: [{ ref: `${input.traceRunId}:route`, version: input.routing.contractVersion, digest: logicalDigest({ routeIntent: input.routing.routeIntent, routeReasons: input.routing.routeReasons }) }],
+        input: [{
+          ref: `${input.traceRunId}:route`,
+          version: input.routing.contractVersion,
+          digest: logicalDigest({
+            routeIntent: input.routing.routeIntent,
+            routeReasons: input.routing.routeReasons,
+            secondaryRouteIntents: input.routing.secondaryRouteIntents ?? [],
+            constructionIntentPresent: input.routing.constructionIntentPresent ?? false,
+            projectConstructionEligible: input.routing.projectConstructionEligible ?? false,
+          }),
+        }],
         output: [{
           ref: `${input.traceRunId}:intent`,
           version: input.routing.contractVersion,
@@ -2332,6 +2358,7 @@ export const recordProductEntryRoutingTrace = (input: {
             centralScientificObject: input.routing.scientificContext.centralScientificObject,
             preservedScientificTerms: input.routing.scientificContext.preservedScientificTerms,
             missingInformation: input.routing.scientificContext.missingInformation,
+            secondaryRouteIntents: input.routing.scientificContext.secondaryRouteIntents ?? [],
             explicitDimensionRefs: input.routing.explicitScientificDimensions.map((dimension) => dimension.dimensionRef),
           }),
         }],
@@ -3200,6 +3227,9 @@ export const createPreProjectScientificTraceSegment = (
     sourceTextCapture: captureMode,
     routeIntent: input.routing.routeIntent,
     routeReasons: [...input.routing.routeReasons],
+    secondaryRouteIntents: [...(input.routing.secondaryRouteIntents ?? [])],
+    constructionIntentPresent: input.routing.constructionIntentPresent ?? false,
+    projectConstructionEligible: input.routing.projectConstructionEligible ?? false,
     centralScientificObject: input.routing.scientificContext.centralScientificObject,
     preservedScientificTerms: [...input.routing.scientificContext.preservedScientificTerms],
     missingInformation: [...input.routing.scientificContext.missingInformation],
@@ -3396,7 +3426,13 @@ export const recordPreProjectScientificTraceSegment = (input: {
       componentId: "PRODUCT_ENTRY_ROUTING",
       componentVersion: "1.0.0",
       input: [{ ref: routing.sourceTurnRef, version: "NOT_APPLICABLE", digest: routing.sourceTextDigest }],
-      output: [outputRef("route", { routeIntent: routing.routeIntent, routeReasons: routing.routeReasons })],
+      output: [outputRef("route", {
+        routeIntent: routing.routeIntent,
+        routeReasons: routing.routeReasons,
+        secondaryRouteIntents: routing.secondaryRouteIntents ?? [],
+        constructionIntentPresent: routing.constructionIntentPresent ?? false,
+        projectConstructionEligible: routing.projectConstructionEligible ?? false,
+      })],
       reasonCode: routing.routeReasons[0] ?? "ROUTE_SELECTED_WITHOUT_REASON_CODE",
       completedAt: input.observedAt,
       conversationId: input.conversationId,
@@ -3417,7 +3453,13 @@ export const recordPreProjectScientificTraceSegment = (input: {
       provider: "NONE",
       componentId: "PRODUCT_ENTRY_ROUTING",
       componentVersion: "1.0.0",
-      input: [outputRef("route", { routeIntent: routing.routeIntent, routeReasons: routing.routeReasons })],
+      input: [outputRef("route", {
+        routeIntent: routing.routeIntent,
+        routeReasons: routing.routeReasons,
+        secondaryRouteIntents: routing.secondaryRouteIntents ?? [],
+        constructionIntentPresent: routing.constructionIntentPresent ?? false,
+        projectConstructionEligible: routing.projectConstructionEligible ?? false,
+      })],
       output: [outputRef("intent", {
         centralScientificObject: routing.centralScientificObject,
         preservedScientificTerms: routing.preservedScientificTerms,

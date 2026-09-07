@@ -62,6 +62,7 @@ const normalized = (value: string) => value.normalize("NFKC").toLocaleLowerCase(
 
 const EXPLICIT_STUDY_CONSTRUCTION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on)\s+)?(?:(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|désire|désirons)\s+)?(?:maintenant\s+)?(?:créer|construire|concevoir|faire|mener|conduire|définir|structurer|planifier|monter|élaborer|mettre\s+en\s+place|construisons|concevons|menons|conduisons|définissons|structurons|planifions|montons|élaborons)\s+(?:(?:une?|l['’])\s+)?(?:[\p{L}\p{N}'’.-]+\s+){0,2}(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
 const EXPLICIT_STUDY_DESIGN = /(?:^|[^\p{L}\p{N}_])(?:étude|protocole|essai|cohorte)\s+(?:multicentrique|monocentrique|randomisée?|prospective?|rétrospective?|exploratoire|pilote)(?![\p{L}\p{N}_])/iu;
+const STRUCTURED_STUDY_PLAN = /(?:^|[^\p{L}\p{N}_])(?:dans|pour|avec|selon|au\s+sein\s+d['’e])\s+(?:une?|l['’])\s+(?:[\p{L}\p{N}'’.-]+\s+){0,2}(?:étude|protocole|essai|cohorte)\s+(?:multicentrique|monocentrique|randomisée?|prospective?|rétrospective?|exploratoire|pilote)(?![\p{L}\p{N}_])/iu;
 const EXPLICIT_STUDY_MODIFICATION = /(?:^|[^\p{L}\p{N}_])(?:modifier|modifie|modifions|changer|change|corriger|corrige|ajouter|ajoute|retirer|retire)\s+(?:[\p{L}\p{N}'’.-]+\s+){0,6}(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
 
 const EXPLICIT_UNDERSTANDING_REQUEST = /(?:^|[^\p{L}\p{N}_])(?:comprendre|expliquer|fonctionne|différences?|rôle|signifie|qu['’]est-ce)(?![\p{L}\p{N}_])/iu;
@@ -71,6 +72,8 @@ const PROSPECTIVE_RESEARCH_ACTION = /(?:^|[^\p{L}\p{N}_])(?:étudier|évaluer|ev
 const POPULATION_OR_GROUP_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:populations?|patients?|participants?|sujets?|groupes?|cohortes?)(?![\p{L}\p{N}_])/iu;
 const COMPARISON_OR_ENDPOINT_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:comparer|comparaison|versus|objectif|critère|endpoint|devenir|incidence|nombre|taux)(?![\p{L}\p{N}_])/iu;
 const METHOD_OR_DATA_COLLECTION_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:méthodes?|mesures?|recueillir|collecte|prélèvements?|imagerie|modalités?|données|questionnaires?|suivi|détecter|detecter|examens?)(?![\p{L}\p{N}_])/iu;
+const UNRESOLVED_STUDY_STRUCTURE = /(?:^|[^\p{L}\p{N}_])(?:plan|schéma|design|cadre|temporalité|calendrier|critère|endpoint|stratégie|rôle)\b.{0,160}(?:(?:pas|non)\s+(?:encore\s+)?(?:décidé(?:e|es|s)?|défini(?:e|es|s)?|fixé(?:e|es|s)?)|ne\s+(?:sont|est)\s+pas\s+(?:encore\s+)?(?:décidé(?:e|es|s)?|défini(?:e|es|s)?|fixé(?:e|es|s)?)|reste(?:nt)?\s+(?:à|a)\s+(?:décider|définir|fixer))(?![\p{L}\p{N}_])/iu;
+const EXPLICIT_VALIDATION_ACTION = /(?:^|[^\p{L}\p{N}_])(?:(?:je|nous|on)\s+)?(?:(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions)\s+)?(?:valider|vérifier|verifier|confirmer|qualifier)(?![\p{L}\p{N}_])/iu;
 
 const hasProspectiveStructuralStudyEvidence = (value: string) => {
   if (!PROSPECTIVE_PLANNING.test(value) || !PROSPECTIVE_RESEARCH_ACTION.test(value)) return false;
@@ -97,8 +100,16 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
   routeIntent: RoutingIntent;
   confidence: ConfidenceLevel;
   reasons: string[];
+  secondaryRouteIntents: RoutingIntent[];
+  constructionIntentPresent: boolean;
 } => {
   const corpus = normalized(`${intent.originalQuestion} ${intent.validatedReformulation} ${fieldValues(intent, "scientificPurpose").join(" ")}`);
+  const explicitStudyConstruction = EXPLICIT_STUDY_CONSTRUCTION.test(corpus) || EXPLICIT_STUDY_MODIFICATION.test(corpus);
+  const prospectiveStructuralStudy = hasProspectiveStructuralStudyEvidence(corpus);
+  const structuredStudyPlan = STRUCTURED_STUDY_PLAN.test(corpus) && PROSPECTIVE_RESEARCH_ACTION.test(corpus);
+  const unresolvedStructureDeclaration = UNRESOLVED_STUDY_STRUCTURE.test(corpus);
+  const explicitValidation = EXPLICIT_VALIDATION_ACTION.test(corpus) && unresolvedStructureDeclaration;
+  const unresolvedStudyStructure = unresolvedStructureDeclaration;
   const scores: Record<RoutingIntent, number> = { UNDERSTAND: 0, FORMALIZE_IDEA: 0, DESIGN_STUDY: 0, DOCUMENT: Number.NEGATIVE_INFINITY };
   const reasons: Record<RoutingIntent, string[]> = { UNDERSTAND: [], FORMALIZE_IDEA: [], DESIGN_STUDY: [], DOCUMENT: [] };
   const add = (route: RoutingIntent, pattern: RegExp, reason: string, weight = 1) => {
@@ -114,7 +125,15 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
   add("DESIGN_STUDY", EXPLICIT_STUDY_CONSTRUCTION, "La demande exprime explicitement la construction d’une étude ou d’un protocole.", 5);
   add("DESIGN_STUDY", EXPLICIT_STUDY_DESIGN, "La demande nomme explicitement une structure de design d’étude.", 3);
   add("DESIGN_STUDY", EXPLICIT_STUDY_MODIFICATION, "La demande exprime explicitement une modification d’étude ou de protocole.", 5);
-  if (hasProspectiveStructuralStudyEvidence(corpus)) {
+  if (explicitValidation) {
+    scores.DESIGN_STUDY += 3;
+    reasons.DESIGN_STUDY.push("La demande exprime une opération de validation ou de qualification à structurer.");
+  }
+  if (unresolvedStudyStructure) {
+    scores.DESIGN_STUDY += 3;
+    reasons.DESIGN_STUDY.push("La demande conserve une finalité de construction avec des choix d’étude ou de validation explicitement non décidés.");
+  }
+  if (prospectiveStructuralStudy) {
     scores.DESIGN_STUDY += 4;
     reasons.DESIGN_STUDY.push("La demande combine une action prospective de recherche avec des éléments de population, de comparaison ou critère, et de méthode ou collecte.");
   }
@@ -131,6 +150,14 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
     routeIntent,
     confidence: scores[routeIntent] >= 3 && margin >= 2 ? "HIGH" : scores[routeIntent] >= 2 ? "MEDIUM" : "LOW",
     reasons: reasons[routeIntent].length ? reasons[routeIntent] : ["L’intention reste peu explicite ; NOXIA propose le parcours le plus réversible."],
+    secondaryRouteIntents: ordered.filter((candidate) => candidate !== routeIntent
+      && scores[candidate] > 0
+      && (candidate !== "DESIGN_STUDY" || explicitStudyConstruction || structuredStudyPlan || prospectiveStructuralStudy || explicitValidation || unresolvedStudyStructure)),
+    constructionIntentPresent: explicitStudyConstruction
+      || structuredStudyPlan
+      || prospectiveStructuralStudy
+      || explicitValidation
+      || unresolvedStudyStructure,
   };
 };
 
@@ -184,6 +211,7 @@ export const buildScientificSessionContext = (
     routeIntent: routing.routeIntent,
     routeConfidence: routing.confidence,
     routeReasons: routing.reasons,
+    secondaryRouteIntents: routing.secondaryRouteIntents,
     centralScientificObject: centralScientificObject(intent),
     preservedScientificTerms: preservedScientificTerms(intent),
     detectedRelationships: detectedRelationships(intent),

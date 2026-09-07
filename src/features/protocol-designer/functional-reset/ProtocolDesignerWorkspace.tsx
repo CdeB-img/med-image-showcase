@@ -1840,7 +1840,7 @@ export default function ProtocolDesignerWorkspace({
         return;
       }
 
-      if (entryRouting.routeIntent === "UNDERSTAND") {
+      if (entryRouting.routeIntent === "UNDERSTAND" && !entryRouting.projectConstructionEligible) {
         const knowledge = executeProductUnderstandInteraction({ raw: preparedInput.workingText, decision: entryRouting, createdAt: now });
         const answeredAt = new Date().toISOString();
         const localized = await localizeCanonicalFrenchResponse({

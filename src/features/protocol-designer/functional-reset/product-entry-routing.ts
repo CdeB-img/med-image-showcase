@@ -37,15 +37,18 @@ export type ProductEntryExplicitExclusion = {
 
 export type ProductEntryRoutingDecision = {
   contract: "FUNCTIONAL_PRODUCT_ENTRY_ROUTING";
-  contractVersion: "1.1.0";
+  contractVersion: "1.2.0";
   sourceTurnRef: string;
   domainGate: ProductEntryDomainGate;
   routeIntent: RoutingIntent | null;
   routeConfidence: ConfidenceLevel;
   routeReasons: string[];
+  secondaryRouteIntents: readonly RoutingIntent[];
+  secondaryRouteReasons: Readonly<Partial<Record<RoutingIntent, readonly string[]>>>;
   scientificContext: ScientificSessionContext;
   explicitScientificDimensions: readonly ExplicitScientificDimension[];
   explicitExclusions: ProductEntryExplicitExclusion[];
+  constructionIntentPresent: boolean;
   projectConstructionEligible: boolean;
   projectWriteAuthorized: false;
 };
@@ -214,6 +217,10 @@ const mergeContext = (
     routeIntent,
     routeConfidence,
     routeReasons,
+    secondaryRouteIntents: [...new Set([
+      ...(previous?.secondaryRouteIntents ?? []),
+      ...(current.secondaryRouteIntents ?? []),
+    ])].filter((candidate) => candidate !== routeIntent),
     centralScientificObject: current.preservedScientificTerms.length
       ? current.centralScientificObject
       : previous?.centralScientificObject ?? current.centralScientificObject ?? "Question scientifique à préciser",
@@ -271,6 +278,20 @@ export const routeProductEntry = (input: {
       : retainsPrevious
         ? ["Le message précise le parcours courant sans exprimer une nouvelle finalité."]
         : baseRouting.reasons;
+  const secondaryRouteIntents = domainGate !== "IN_SCOPE" || input.forceUnderstand || exclusionGuarded
+    ? []
+    : [...new Set([
+      ...baseRouting.secondaryRouteIntents,
+      ...(retainsPrevious ? input.previousContext?.secondaryRouteIntents ?? [] : []),
+    ])].filter((candidate) => candidate !== routeIntent);
+  const constructionIntentPresent = domainGate === "IN_SCOPE"
+    && !input.forceUnderstand
+    && !exclusionGuarded
+    && (baseRouting.constructionIntentPresent
+      || Boolean(retainsPrevious && (
+        input.previousContext?.routeIntent === "DESIGN_STUDY"
+        || input.previousContext?.secondaryRouteIntents?.includes("DESIGN_STUDY")
+      )));
   const currentContext = buildScientificSessionContext(intent, input.previousContext);
   const scientificContext = mergeContext(
     currentContext,
@@ -282,19 +303,25 @@ export const routeProductEntry = (input: {
   );
   return {
     contract: "FUNCTIONAL_PRODUCT_ENTRY_ROUTING",
-    contractVersion: "1.1.0",
+    contractVersion: "1.2.0",
     sourceTurnRef: input.sourceTurnRef,
     domainGate,
     routeIntent,
     routeConfidence,
     routeReasons,
+    secondaryRouteIntents,
+    secondaryRouteReasons: Object.freeze(Object.fromEntries(secondaryRouteIntents.map((candidate) => [
+      candidate,
+      candidate === baseRouting.routeIntent ? baseRouting.reasons : ["Intention secondaire explicitement représentée sans remplacer l’intention principale."],
+    ]))),
     scientificContext,
     explicitScientificDimensions: representExplicitScientificDimensions({
       raw: input.raw,
       sourceTurnRef: input.sourceTurnRef,
     }),
     explicitExclusions: exclusions,
-    projectConstructionEligible: domainGate === "IN_SCOPE" && routeIntent === "DESIGN_STUDY" && exclusions.length === 0,
+    constructionIntentPresent,
+    projectConstructionEligible: domainGate === "IN_SCOPE" && constructionIntentPresent && exclusions.length === 0,
     projectWriteAuthorized: false,
   };
 };
