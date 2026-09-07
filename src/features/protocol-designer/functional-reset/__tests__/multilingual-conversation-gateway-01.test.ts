@@ -9,7 +9,10 @@ import {
   evaluateLinguisticInvariants,
   findReusableLanguageProjection,
   languageProjectionIdentityDigest,
+  LanguageProjectionContractError,
   materializeLanguageProjectionArtifact,
+  parseLanguageProjectionProviderResult,
+  parseLanguageProjectionRequest,
   resolveConversationLanguage,
   type LanguageProjectionArtifact,
   type LanguageProjectionRequest,
@@ -22,6 +25,7 @@ import {
 import {
   END_TO_END_TRACE_PROFILE_VERSION,
   createProductTraceRunId,
+  createScientificTraceCaptureConfiguration,
   createScientificExecutionTraceLedger,
   listEndToEndTraceEvents,
   recordConversationLanguageGatewayFailureTrace,
@@ -163,6 +167,80 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     })).toBeNull();
     expect(state.projectWriteAuthorized).toBe(false);
     expect(state.scientificDecisionAuthorized).toBe(false);
+  });
+
+  it("accepts the exact FIC02 witness MRI to IRM projection as a bounded conventional acronym equivalence", () => {
+    const originalText = "We have historical cardiac MRI and echocardiography data from patients followed after a first myocardial infarction, and we can prospectively recruit new patients with follow-up imaging. We want to understand adverse left ventricular remodeling, but the exact study design, timing, primary endpoint, and role of each imaging modality are not decided.";
+    const translatedText = "Nous disposons de données historiques d'IRM cardiaque et d'échocardiographie provenant de patients suivis après un premier infarctus du myocarde, et nous pouvons recruter de nouveaux patients de manière prospective avec une imagerie de suivi. Nous voulons comprendre le remodelage ventriculaire gauche indésirable, mais le plan d'étude exact, le calendrier, le critère d'évaluation principal et le rôle de chaque modalité d'imagerie ne sont pas décidés.";
+    const request = requestFor({ sourceText: originalText, sourceLanguage: "en", targetLanguage: "fr" });
+    const projection = projectionFor({ request, detectedLanguage: "en", translatedText });
+    expect(projection.translatedText).toBe(translatedText);
+    expect(projection.invariants.find((item) => item.invariant === "IDENTIFIERS")).toEqual({
+      invariant: "IDENTIFIERS",
+      status: "PRESERVED",
+      sourceEvidence: ["MRI"],
+      targetEvidence: ["IRM"],
+    });
+    expect(projection.providerResultDigest).toMatch(/^ke1-/u);
+  });
+
+  it("keeps unknown acronym and opaque identifier substitutions rejected with exact diagnostics", () => {
+    const request = requestFor({ sourceText: "Study ABC and site ABC-ID are pending.", sourceLanguage: "en", targetLanguage: "fr" });
+    expect(() => projectionFor({
+      request,
+      detectedLanguage: "en",
+      translatedText: "L’étude XYZ et le site ABC-ZZ sont en attente.",
+    })).toThrowError(expect.objectContaining({
+      name: "LanguageProjectionContractError",
+      message: expect.stringContaining("LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"),
+    }));
+    try {
+      projectionFor({ request, detectedLanguage: "en", translatedText: "L’étude XYZ et le site ABC-ZZ sont en attente." });
+      throw new Error("EXPECTED_LANGUAGE_PROJECTION_REJECTION");
+    } catch (error) {
+      expect(error).toBeInstanceOf(LanguageProjectionContractError);
+      expect((error as LanguageProjectionContractError).diagnostic).toMatchObject({
+        subInvariantIds: ["LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"],
+        provider: "GOOGLE_GEMINI",
+        model,
+        providerResultDigest: expect.stringMatching(/^ke1-/u),
+      });
+    }
+  });
+
+  it("keeps provenance, provider shape, numbers, units, uncertainty and negation fail-closed", () => {
+    const validRequest = requestFor({ sourceText: "Dose 10 mg; MRI may show no lesion.", sourceLanguage: "en", targetLanguage: "fr" });
+    expect(parseLanguageProjectionRequest({ ...validRequest, projectionIdentityDigest: "" })).toBeNull();
+    expect(parseLanguageProjectionProviderResult({
+      detectedLanguage: "en",
+      supportStatus: "MALFORMED",
+      qualificationStatus: "QUALIFIED",
+      translatedText: "Dose 10 mg ; l’IRM pourrait ne montrer aucune lésion.",
+      ambiguityPreserved: true,
+      limitations: [],
+    })).toBeNull();
+
+    const rejectedSubInvariants = (sourceText: string, translatedText: string) => {
+      const request = requestFor({ sourceText, sourceLanguage: "en", targetLanguage: "fr" });
+      try {
+        projectionFor({ request, detectedLanguage: "en", translatedText });
+        throw new Error("EXPECTED_LANGUAGE_PROJECTION_REJECTION");
+      } catch (error) {
+        expect(error).toBeInstanceOf(LanguageProjectionContractError);
+        return (error as LanguageProjectionContractError).diagnostic.subInvariantIds;
+      }
+    };
+
+    expect(rejectedSubInvariants("Dose 10 mg.", "Dose 5 g.")).toEqual(expect.arrayContaining([
+      "LINGUISTIC_INVARIANT_UNVERIFIED:NUMBERS",
+      "LINGUISTIC_INVARIANT_UNVERIFIED:UNITS",
+    ]));
+    expect(rejectedSubInvariants("MRI may show a lesion.", "L’IRM montre une lésion.")).toContain(
+      "LINGUISTIC_INVARIANT_UNVERIFIED:UNCERTAINTY",
+    );
+    expect(rejectedSubInvariants("No MRI lesion.", "Lésion en IRM.")).toContain(
+      "LINGUISTIC_INVARIANT_UNVERIFIED:NEGATION",
+    );
   });
 
   it("preserves Japanese numbers, MRI units, uncertainty, conditionality and UNKNOWN status", () => {
@@ -314,6 +392,36 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     });
   });
 
+  it("returns the rejected sub-invariant and provider-result digest without returning provider text", async () => {
+    const request = requestFor({ sourceText: "Study ABC-ID is pending.", sourceLanguage: "en", targetLanguage: "fr" });
+    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
+      responseId: "gemini-language:contract-rejection",
+      candidates: [{ content: { parts: [{ functionCall: { name: "return_language_projection", args: {
+        detectedLanguage: "en",
+        supportStatus: "SUPPORTED",
+        qualificationStatus: "QUALIFIED",
+        translatedText: "L’étude ABC-ZZ est en attente.",
+        ambiguityPreserved: true,
+        limitations: [],
+      } } }] } }],
+    }), { status: 200, headers: { "content-type": "application/json" } })) as unknown as typeof fetch;
+    const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", fetchImpl, now: () => Date.parse(createdAt) });
+    expect(result.status).toBe(422);
+    expect(result.body).toMatchObject({
+      error: {
+        code: "LANGUAGE_PROJECTION_CONTRACT_FAILED:LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
+        diagnostic: {
+          subInvariantIds: ["LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"],
+          provider: "GOOGLE_GEMINI",
+          model,
+          providerResponseId: "gemini-language:contract-rejection",
+          providerResultDigest: expect.stringMatching(/^ke1-/u),
+        },
+      },
+    });
+    expect(JSON.stringify(result.body)).not.toContain("ABC-ZZ");
+  });
+
   it("uses the existing one-attempt provider policy and reports a bounded language failure", async () => {
     const request = requestFor({ sourceText: "We want a prospective MRI study.", sourceLanguage: "en", targetLanguage: "fr" });
     const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
@@ -399,5 +507,96 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     ]);
     expect(evaluateLinguisticInvariants("No MRI at 3 T; UNKNOWN.", "Pas de MRI à 3 T ; UNKNOWN.")
       .filter((item) => item.status === "UNKNOWN")).toEqual([]);
+  });
+
+  it("records the complete successful and rejected language materialization boundaries at LEVEL_2", () => {
+    const sessionId = "session:language-level-2";
+    const conversationId = "conversation:language-level-2";
+    const configuration = createScientificTraceCaptureConfiguration({
+      captureLevel: "LEVEL_2_DIAGNOSTIC",
+      captureReason: "MANUAL_DIAGNOSTIC",
+    });
+    const source = "We want a prospective cardiac MRI study after infarction.";
+    const request = requestFor({ sourceText: source, sourceLanguage: "en", targetLanguage: "fr" });
+    const projection = projectionFor({
+      request,
+      detectedLanguage: "en",
+      translatedText: "Nous voulons une étude prospective d’IRM cardiaque après un infarctus.",
+    });
+    const turn = buildMultilingualUserTurn({
+      turnId: "turn:language-level-2-success",
+      originalText: source,
+      detection: detectConversationLanguage(source),
+      currentConversationLanguage: null,
+      projection,
+    });
+    const successRunId = createProductTraceRunId(sessionId, turn.turnId);
+    const success = recordConversationLanguageGatewayTrace({
+      ledger: createScientificExecutionTraceLedger(sessionId),
+      traceRunId: successRunId,
+      conversationId,
+      turn,
+      observedAt: createdAt,
+      captureConfiguration: configuration,
+    });
+    const successfulEvents = listEndToEndTraceEvents({ ledger: success, traceRunId: successRunId });
+    expect(successfulEvents.map((event) => event.stage)).toEqual([
+      "USER_TURN_RECEIVED",
+      "LANGUAGE_DETECTED",
+      "LANGUAGE_PROVIDER_RESULT_RECEIVED",
+      "LANGUAGE_PROJECTION_MATERIALIZATION_STARTED",
+      "LANGUAGE_PROJECTION_MATERIALIZED",
+    ]);
+    expect(successfulEvents.every((event) => event.captureLevel === "LEVEL_2_DIAGNOSTIC")).toBe(true);
+    expect(successfulEvents.find((event) => event.stage === "LANGUAGE_PROVIDER_RESULT_RECEIVED")).toMatchObject({
+      provider: "GOOGLE_GEMINI",
+      component: expect.objectContaining({ componentVersion: model }),
+      output: [expect.objectContaining({ digest: projection.providerResultDigest })],
+    });
+
+    const failedTurnId = "turn:language-level-2-rejected";
+    const failedRunId = createProductTraceRunId(sessionId, failedTurnId);
+    const diagnostic = {
+      contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC" as const,
+      contractVersion: "1.0.0" as const,
+      subInvariantIds: ["LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"],
+      provider: "GOOGLE_GEMINI" as const,
+      model,
+      providerResponseId: "gemini-language:rejected",
+      providerResultDigest: "digest:provider-result",
+    };
+    const failed = recordConversationLanguageGatewayFailureTrace({
+      ledger: success,
+      traceRunId: failedRunId,
+      conversationId,
+      turnId: failedTurnId,
+      originalTextDigest: "digest:source",
+      projectionSourceTextDigest: "digest:source",
+      detection: { status: "DETECTED", detectedLanguage: "en", confidence: "HIGH", reasonCode: "ENGLISH_LEXICAL_EVIDENCE" },
+      projectionKind: "INPUT_TO_FRENCH",
+      targetLanguage: "fr",
+      failureCode: "LANGUAGE_PROJECTION_CONTRACT_FAILED:LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
+      conformanceDiagnostic: diagnostic,
+      observedAt: createdAt,
+      captureConfiguration: configuration,
+    });
+    const failedEvents = listEndToEndTraceEvents({ ledger: failed, traceRunId: failedRunId });
+    expect(failedEvents.map((event) => event.stage)).toEqual([
+      "USER_TURN_RECEIVED",
+      "LANGUAGE_DETECTED",
+      "LANGUAGE_PROVIDER_RESULT_RECEIVED",
+      "LANGUAGE_PROJECTION_MATERIALIZATION_STARTED",
+      "LANGUAGE_PROJECTION_CONTRACT_REJECTED",
+    ]);
+    expect(failedEvents.at(-1)).toMatchObject({
+      reasonCode: "LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
+      provider: "GOOGLE_GEMINI",
+      realizationOutcome: {
+        providerResponseReceived: true,
+        providerResponseAccepted: false,
+        providerRejectionReason: "LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
+      },
+    });
+    expect(JSON.stringify(failedEvents)).not.toContain("Study ABC");
   });
 });

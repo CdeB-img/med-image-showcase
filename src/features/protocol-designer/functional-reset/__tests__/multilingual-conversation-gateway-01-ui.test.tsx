@@ -15,7 +15,7 @@ const runtime = vi.hoisted(() => ({
 
 vi.mock("@/features/protocol-designer/product-bridge-client", () => ({
   ProductBridgeClientError: class ProductBridgeClientError extends Error {
-    constructor(readonly code: string, message: string) { super(message); }
+    constructor(readonly code: string, message: string, readonly diagnostic: unknown = null) { super(message); }
   },
   requestProtocolDesignerBridge: runtime.bridge,
   requestConversationLanguageProjection: runtime.language,
@@ -49,6 +49,7 @@ const projectionResponse = (request: {
       targetLanguage: request.targetLanguage.toLowerCase(),
       translatedText,
       translatedTextDigest: logicalDigest(translatedText),
+      providerResultDigest: logicalDigest({ translatedText, projectionKind: request.projectionKind }),
       status: "SUCCEEDED",
       supportStatus: "SUPPORTED",
       qualificationStatus: "QUALIFIED",
@@ -70,6 +71,7 @@ const projectionResponse = (request: {
 
 describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — Standard integration", () => {
   beforeEach(() => {
+    window.history.replaceState({}, "", "/protocol-designer/demo");
     window.localStorage.clear();
     runtime.bridge.mockReset();
     runtime.language.mockReset();
@@ -197,5 +199,77 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — Standard integration", () => 
     const stages = state.scientificExecutionTraceLedger.events.map((event) => event.common?.stage ?? event.eventType);
     expect(stages).toContain("LANGUAGE_PROJECTION_FAILED");
     expect(stages).not.toContain("RESPONSE_LOCALIZED");
+  });
+
+  it("binds an explicit Standard LEVEL_2 request before language projection and routing", async () => {
+    window.history.replaceState({}, "", "/protocol-designer/demo?traceCaptureLevel=LEVEL_2_DIAGNOSTIC");
+    renderDemo();
+    fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: ENGLISH_FIC_D } });
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
+
+    await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
+    const state = storedSession();
+    const run = state.scientificExecutionTraceLedger.runBindings[0];
+    const events = state.scientificExecutionTraceLedger.events
+      .filter((event) => event.runId === run.runId)
+      .map((event) => event.common!);
+    expect(run.captureConfiguration).toMatchObject({
+      captureLevel: "LEVEL_2_DIAGNOSTIC",
+      captureReason: "MANUAL_DIAGNOSTIC",
+    });
+    expect(events.every((event) => event.captureLevel === "LEVEL_2_DIAGNOSTIC")).toBe(true);
+    expect(events.map((event) => event.stage)).toEqual(expect.arrayContaining([
+      "USER_TURN_RECEIVED",
+      "LANGUAGE_DETECTED",
+      "LANGUAGE_PROVIDER_RESULT_RECEIVED",
+      "LANGUAGE_PROJECTION_MATERIALIZATION_STARTED",
+      "LANGUAGE_PROJECTION_MATERIALIZED",
+      "ROUTE_SELECTED",
+      "INTENT_REPRESENTED",
+    ]));
+    expect(events.map((event) => event.stage)).not.toContain("LANGUAGE_PROJECTION_CREATED");
+  });
+
+  it("keeps an exact conformance rejection reconstructible at Standard LEVEL_2 without routing", async () => {
+    window.history.replaceState({}, "", "/protocol-designer/demo?traceCaptureLevel=LEVEL_2_DIAGNOSTIC");
+    runtime.language.mockRejectedValueOnce(new ProductBridgeClientError(
+      "LANGUAGE_PROJECTION_CONTRACT_FAILED:LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
+      "La projection linguistique n’a pas conservé les invariants requis.",
+      {
+        contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC",
+        contractVersion: "1.0.0",
+        subInvariantIds: ["LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"],
+        provider: "GOOGLE_GEMINI",
+        model: "gemini-3.5-flash-lite",
+        providerResponseId: "provider:contract-rejected",
+        providerResultDigest: "digest:contract-rejected-provider-result",
+      },
+    ));
+    renderDemo();
+    fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: ENGLISH_FIC_D } });
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
+
+    expect(await screen.findByRole("alert")).toHaveTextContent("projection linguistique nécessaire n’a pas abouti");
+    expect(runtime.bridge).not.toHaveBeenCalled();
+    const state = storedSession();
+    const events = state.scientificExecutionTraceLedger.events.map((event) => event.common!);
+    expect(events.map((event) => event.stage)).toEqual([
+      "USER_TURN_RECEIVED",
+      "LANGUAGE_DETECTED",
+      "LANGUAGE_PROVIDER_RESULT_RECEIVED",
+      "LANGUAGE_PROJECTION_MATERIALIZATION_STARTED",
+      "LANGUAGE_PROJECTION_CONTRACT_REJECTED",
+      "ERROR_BOUNDARY",
+    ]);
+    expect(events[4]).toMatchObject({
+      reasonCode: "LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
+      provider: "GOOGLE_GEMINI",
+      component: { componentVersion: "1.0.0" },
+      input: [expect.objectContaining({
+        version: "gemini-3.5-flash-lite",
+        digest: "digest:contract-rejected-provider-result",
+      })],
+    });
+    expect(JSON.stringify(events)).not.toContain(ENGLISH_FIC_D);
   });
 });

@@ -59,6 +59,40 @@ export type LanguageProjectionProviderResult = Readonly<{
   limitations: readonly string[];
 }>;
 
+export type LanguageProjectionContractFailureDiagnostic = Readonly<{
+  contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC";
+  contractVersion: "1.0.0";
+  subInvariantIds: readonly string[];
+  provider: "GOOGLE_GEMINI";
+  model: string;
+  providerResponseId: string | null;
+  providerResultDigest: string;
+}>;
+
+export class LanguageProjectionContractError extends Error {
+  readonly code = "LANGUAGE_PROJECTION_CONTRACT_FAILED" as const;
+  readonly diagnostic: LanguageProjectionContractFailureDiagnostic;
+
+  constructor(input: {
+    blocks: readonly string[];
+    model: string;
+    providerResponseId: string | null;
+    providerResultDigest: string;
+  }) {
+    super(`LANGUAGE_PROJECTION_CONTRACT_FAILED:${input.blocks.join(",")}`);
+    this.name = "LanguageProjectionContractError";
+    this.diagnostic = Object.freeze({
+      contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC",
+      contractVersion: "1.0.0",
+      subInvariantIds: Object.freeze([...input.blocks]),
+      provider: "GOOGLE_GEMINI",
+      model: input.model,
+      providerResponseId: input.providerResponseId,
+      providerResultDigest: input.providerResultDigest,
+    });
+  }
+}
+
 export type LanguageProjectionArtifact = Readonly<{
   contract: typeof LANGUAGE_PROJECTION_CONTRACT;
   contractVersion: typeof LANGUAGE_PROJECTION_CONTRACT_VERSION;
@@ -69,6 +103,7 @@ export type LanguageProjectionArtifact = Readonly<{
   targetLanguage: ConversationLanguageCode;
   translatedText: string;
   translatedTextDigest: string;
+  providerResultDigest: string;
   status: Extract<LanguageProjectionStatus, "SUCCEEDED">;
   supportStatus: "SUPPORTED";
   qualificationStatus: LanguageQualificationStatus;
@@ -106,6 +141,7 @@ export type MultilingualUserTurn = Readonly<{
   translationModel: string | "NONE";
   translationContractVersion: typeof LANGUAGE_PROJECTION_CONTRACT_VERSION;
   translationDigest: string | null;
+  translationProviderResultDigest: string | null;
   ambiguityPreserved: boolean | null;
   limitations: readonly string[];
   languageQualificationStatus: LanguageQualificationStatus;
@@ -297,6 +333,32 @@ const exactMultisetPreserved = (source: readonly string[], target: readonly stri
   });
 };
 
+/**
+ * Bounded language-level equivalences for acronyms whose conventional form
+ * changes with word order in the target language. This is not a scientific
+ * synonym registry: unknown substitutions remain rejected and opaque
+ * identifiers are still literal.
+ */
+const LANGUAGE_ACRONYM_EQUIVALENCE_GROUPS: readonly ReadonlySet<string>[] = Object.freeze([
+  new Set(["MRI", "IRM"]),
+]);
+
+const acronymOrIdentifierEquivalent = (source: string, target: string) => {
+  const left = source.normalize("NFKC").toLocaleUpperCase("en-US");
+  const right = target.normalize("NFKC").toLocaleUpperCase("en-US");
+  return left === right || LANGUAGE_ACRONYM_EQUIVALENCE_GROUPS.some((group) => group.has(left) && group.has(right));
+};
+
+const identifierMultisetPreserved = (source: readonly string[], target: readonly string[]) => {
+  const remaining = [...target];
+  return source.every((item) => {
+    const index = remaining.findIndex((candidate) => acronymOrIdentifierEquivalent(item, candidate));
+    if (index < 0) return false;
+    remaining.splice(index, 1);
+    return true;
+  });
+};
+
 const semanticMarkerInvariant = (input: {
   invariant: LanguageProjectionInvariant["invariant"];
   source: string;
@@ -322,10 +384,21 @@ export const evaluateLinguisticInvariants = (source: string, target: string): re
     const targetEvidence = occurrences(target, pattern);
     return { invariant, status: exactMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN", sourceEvidence, targetEvidence };
   };
+  const identifiers = (): LanguageProjectionInvariant => {
+    const sourceEvidence = occurrences(source, /\b[A-Z][A-Z0-9_-]{1,}\b/gu);
+    if (!sourceEvidence.length) return { invariant: "IDENTIFIERS", status: "NOT_PRESENT", sourceEvidence: [], targetEvidence: [] };
+    const targetEvidence = occurrences(target, /\b[A-Z][A-Z0-9_-]{1,}\b/gu);
+    return {
+      invariant: "IDENTIFIERS",
+      status: identifierMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN",
+      sourceEvidence,
+      targetEvidence,
+    };
+  };
   return [
     exact("NUMBERS", /\b\d+(?:[.,]\d+)?\b/gu),
     exact("UNITS", /\b(?:T|ms|s|min|h|d|mg|g|kg|µg|ug|mL|ml|L|mm|cm|m|Hz|MHz|%)\b/gu),
-    exact("IDENTIFIERS", /\b[A-Z][A-Z0-9_-]{1,}\b/gu),
+    identifiers(),
     semanticMarkerInvariant({ invariant: "NEGATION", source, target, sourcePattern: /\b(?:not|no|without|ne|pas|sans|aucun|none)\b|ない|なし|不|未|无|沒有|没有/giu, targetPattern: /\b(?:not|no|without|ne|pas|sans|aucun|non|none)\b|ない|なし|不|未|无|沒有|没有/giu }),
     semanticMarkerInvariant({ invariant: "UNCERTAINTY", source, target, sourcePattern: /\b(?:may|might|could|uncertain|unknown|possibly|peut|pourrait|incertain|inconnu|possible)\b|かもしれない|可能|不明/giu, targetPattern: /\b(?:may|might|could|uncertain|unknown|possibly|peut|pourrait|incertain|inconnu|possible)\b|かもしれない|可能|不明/giu }),
     semanticMarkerInvariant({ invariant: "CONDITIONALITY", source, target, sourcePattern: /\b(?:if|unless|si|condition)\b|場合|なら|如果|若/giu, targetPattern: /\b(?:if|unless|si|condition)\b|場合|なら|如果|若/giu }),
@@ -360,7 +433,13 @@ export const materializeLanguageProjectionArtifact = (input: {
   createdAt: string;
 }): LanguageProjectionArtifact => {
   const validation = validateLanguageProjectionProviderResult({ request: input.request, result: input.result });
-  if (!validation.valid) throw new Error(`LANGUAGE_PROJECTION_CONTRACT_FAILED:${validation.blocks.join(",")}`);
+  const providerResultDigest = logicalDigest(input.result);
+  if (!validation.valid) throw new LanguageProjectionContractError({
+    blocks: validation.blocks,
+    model: input.model,
+    providerResponseId: input.providerResponseId,
+    providerResultDigest,
+  });
   const sourceLanguage = input.request.sourceLanguageHint === "UNKNOWN"
     ? normalizeLanguageCode(input.result.detectedLanguage)
     : normalizeLanguageCode(input.request.sourceLanguageHint);
@@ -375,6 +454,7 @@ export const materializeLanguageProjectionArtifact = (input: {
     targetLanguage: normalizeLanguageCode(input.request.targetLanguage),
     translatedText,
     translatedTextDigest: logicalDigest(translatedText),
+    providerResultDigest,
     status: "SUCCEEDED",
     supportStatus: "SUPPORTED",
     qualificationStatus: input.result.qualificationStatus,
@@ -432,6 +512,7 @@ export const buildMultilingualUserTurn = (input: {
     translationModel: isFrench || languageNeutral ? "NONE" : input.projection!.model,
     translationContractVersion: LANGUAGE_PROJECTION_CONTRACT_VERSION,
     translationDigest: input.projection?.translatedTextDigest ?? null,
+    translationProviderResultDigest: input.projection?.providerResultDigest ?? null,
     ambiguityPreserved: isFrench || languageNeutral ? null : input.projection!.ambiguityPreserved,
     limitations: input.projection?.limitations ?? [],
     languageQualificationStatus: isFrench ? "QUALIFIED" : languageNeutral ? "UNKNOWN" : input.projection!.qualificationStatus,
@@ -562,7 +643,7 @@ Ta seule mission est de détecter la langue et de traduire le texte fourni vers 
 
 Tu ne réalises aucune interprétation scientifique, aucune décision, aucune clarification, aucune complétion et aucune écriture Project.
 
-Préserve strictement les nombres, unités, dates, identifiants, noms d'étude, noms de médicaments et dispositifs, acronymes, termes techniques, négations, incertitudes, conditions, comparaisons, statuts connu/inconnu/retenu/non décidé, décisions humaines et références de sources.
+Préserve strictement les nombres, unités, dates, identifiants, noms d'étude, noms de médicaments et dispositifs, acronymes, termes techniques, négations, incertitudes, conditions, comparaisons, statuts connu/inconnu/retenu/non décidé, décisions humaines et références de sources. Un acronyme peut prendre sa forme conventionnelle dans la langue cible uniquement lorsqu'il désigne strictement la même entité ; sinon copie-le caractère pour caractère.
 
 N'augmente jamais la certitude. Ne transforme jamais une hypothèse ou une ambiguïté en fait. Si une ambiguïté possède plusieurs interprétations, conserve-la dans la traduction sans en choisir une.
 
@@ -587,7 +668,7 @@ export const buildLanguageProjectionProviderPayload = (request: LanguageProjecti
         detectedLanguage: { type: "string" },
         supportStatus: { type: "string", enum: ["SUPPORTED", "UNSUPPORTED", "UNKNOWN"] },
         qualificationStatus: { type: "string", enum: ["QUALIFIED", "PROVIDER_SUPPORTED_UNQUALIFIED", "UNKNOWN"] },
-        translatedText: { type: "string" },
+        translatedText: { type: "string", description: "Strict linguistic projection. Preserve opaque identifiers literally. A technical acronym may use its conventional target-language form only when it denotes exactly the same entity; otherwise copy it character-for-character." },
         ambiguityPreserved: { type: "boolean" },
         limitations: { type: "array", items: { type: "string" } },
       },

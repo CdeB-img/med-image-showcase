@@ -4,12 +4,17 @@ import {
   type ProductBridgeResponse,
 } from "./product-bridge";
 import type {
+  LanguageProjectionContractFailureDiagnostic,
   LanguageProjectionRequest,
   LanguageProjectionResponse,
 } from "./conversation-language-gateway";
 
 export class ProductBridgeClientError extends Error {
-  constructor(readonly code: string, message: string) { super(message); }
+  constructor(
+    readonly code: string,
+    message: string,
+    readonly diagnostic: LanguageProjectionContractFailureDiagnostic | null = null,
+  ) { super(message); }
 }
 
 export const requestProtocolDesignerBridge = async (
@@ -45,6 +50,9 @@ export const requestConversationLanguageProjection = async (
   if (!response.ok) throw new ProductBridgeClientError(
     value?.error?.code ?? "LANGUAGE_PROJECTION_UNAVAILABLE",
     value?.error?.message ?? "Cette langue ne peut pas être traitée pour le moment.",
+    value?.error?.diagnostic?.contract === "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC"
+      ? value.error.diagnostic as LanguageProjectionContractFailureDiagnostic
+      : null,
   );
   if (value?.apiVersion !== PRODUCT_BRIDGE_API_VERSION
     || value?.operation !== "LANGUAGE_PROJECTION"

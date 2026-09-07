@@ -26,6 +26,7 @@ import {
   languageProjectionFailure,
   LANGUAGE_PROJECTION_CONTRACT_VERSION,
   type ConversationLanguageGatewayState,
+  type LanguageProjectionContractFailureDiagnostic,
   type LanguageProjectionArtifact,
   type LanguageProjectionRequest,
   type LocalizedConversationResponse,
@@ -37,10 +38,12 @@ import {
   captureProductBridgeTraceText,
   createPreProjectScientificTraceSegment,
   createProductTraceRunId,
+  DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
   recordConversationLanguageGatewayTrace,
   recordConversationLanguageGatewayFailureTrace,
   recordLocalizedConversationResponseTrace,
   recordProductEntryRoutingTrace,
+  type ScientificTraceCaptureConfiguration,
 } from "@/features/protocol-designer/scientific-execution-trace";
 import {
   authorizeResearchProjectDocumentHandoff,
@@ -175,6 +178,7 @@ const productBridgeClientErrorCode = (error: unknown) => error && typeof error =
 type LanguageProjectionRequestFailure = Error & Readonly<{
   code: string;
   languageProjectionRequest: LanguageProjectionRequest;
+  languageProjectionDiagnostic: LanguageProjectionContractFailureDiagnostic | null;
 }>;
 
 const languageProjectionRequestFromError = (error: unknown) => error && typeof error === "object"
@@ -182,6 +186,13 @@ const languageProjectionRequestFromError = (error: unknown) => error && typeof e
   && error.languageProjectionRequest
   && typeof error.languageProjectionRequest === "object"
   ? error.languageProjectionRequest as LanguageProjectionRequest
+  : null;
+
+const languageProjectionDiagnosticFromError = (error: unknown) => error && typeof error === "object"
+  && "languageProjectionDiagnostic" in error
+  && error.languageProjectionDiagnostic
+  && typeof error.languageProjectionDiagnostic === "object"
+  ? error.languageProjectionDiagnostic as LanguageProjectionContractFailureDiagnostic
   : null;
 
 const languageBoundaryFor = (
@@ -242,6 +253,9 @@ const requestOrReuseLanguageProjection = async (input: {
       name: "LanguageProjectionRequestFailure",
       code: productBridgeClientErrorCode(error) ?? "LANGUAGE_PROJECTION_UNAVAILABLE",
       languageProjectionRequest: request,
+      languageProjectionDiagnostic: error && typeof error === "object" && "diagnostic" in error
+        ? error.diagnostic as LanguageProjectionContractFailureDiagnostic | null
+        : null,
     });
     throw failure;
   }
@@ -797,7 +811,13 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
   }
 };
 
-export default function ProtocolDesignerWorkspace() {
+type ProtocolDesignerWorkspaceProps = Readonly<{
+  traceCaptureConfiguration?: ScientificTraceCaptureConfiguration;
+}>;
+
+export default function ProtocolDesignerWorkspace({
+  traceCaptureConfiguration = DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
+}: ProtocolDesignerWorkspaceProps) {
   const [session, setSession] = useState<FunctionalResetSession>(loadInitialSession);
   const [projectionMode, setProjectionMode] = useState<"STANDARD" | "EXPERT">("STANDARD");
   const [draft, setDraft] = useState("");
@@ -1712,6 +1732,7 @@ export default function ProtocolDesignerWorkspace() {
         conversationId: session.conversationId,
         turn: preparedGateway.turn,
         observedAt: now,
+        captureConfiguration: traceCaptureConfiguration,
       });
       entryTraceLedger = recordProductEntryRoutingTrace({
         ledger: entryTraceLedger,
@@ -1962,6 +1983,7 @@ export default function ProtocolDesignerWorkspace() {
             }),
           } : {}),
         },
+        captureConfiguration: traceCaptureConfiguration,
       });
       const effectiveExtractionStatus = entryRouting.projectConstructionEligible
         ? response.persistentExtraction.status
@@ -2070,6 +2092,7 @@ export default function ProtocolDesignerWorkspace() {
       const failedAt = new Date().toISOString();
       const failureCode = productBridgeClientErrorCode(error) ?? "PRODUCT_BRIDGE_REQUEST_FAILED";
       const failedProjectionRequest = languageProjectionRequestFromError(error);
+      const failedProjectionDiagnostic = languageProjectionDiagnosticFromError(error);
       const languageGatewayFailed = failedProjectionRequest !== null || failureCode.includes("LANGUAGE_PROJECTION");
       const message = languageGatewayFailed
         ? "La projection linguistique nécessaire n’a pas abouti. Votre message original est conservé et n’a pas été transmis au routeur scientifique. Vous pouvez réessayer."
@@ -2112,7 +2135,9 @@ export default function ProtocolDesignerWorkspace() {
             projectionKind,
             targetLanguage: failure.targetLanguage,
             failureCode,
+            conformanceDiagnostic: failedProjectionDiagnostic,
             observedAt: failedAt,
+            captureConfiguration: traceCaptureConfiguration,
           });
         }
         scientificExecutionTraceLedger = recordProductErrorBoundary({

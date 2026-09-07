@@ -17,6 +17,7 @@ import {
   executeNaturalConversation,
 } from "./protocol-designer-bridge-provider.js";
 import {
+  LanguageProjectionContractError,
   materializeLanguageProjectionArtifact,
   parseLanguageProjectionRequest,
 } from "../src/features/protocol-designer/conversation-language-gateway.js";
@@ -128,6 +129,20 @@ export const executeProtocolDesignerBridge = async (input: {
     } catch (error) {
       if (error instanceof ProductBridgeProviderError) {
         return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LANGUAGE_PROJECTION_PROVIDER_FAILURE", message: "Cette langue ne peut pas être traitée pour le moment.", provider: safeProviderError(error) } } };
+      }
+      if (error instanceof LanguageProjectionContractError) {
+        const subInvariantId = error.diagnostic.subInvariantIds[0] ?? "UNKNOWN";
+        return {
+          status: 422,
+          body: {
+            apiVersion: PRODUCT_BRIDGE_API_VERSION,
+            error: {
+              code: `LANGUAGE_PROJECTION_CONTRACT_FAILED:${subInvariantId}`,
+              message: "La projection linguistique n’a pas conservé les invariants requis.",
+              diagnostic: error.diagnostic,
+            },
+          },
+        };
       }
       return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LANGUAGE_PROJECTION_CONTRACT_FAILED", message: "La projection linguistique n’a pas conservé les invariants requis." } } };
     }
