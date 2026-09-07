@@ -60,7 +60,7 @@ const requestFor = (input: {
     sourceText: input.sourceText,
     sourceLanguageHint: input.sourceLanguage,
     targetLanguage: input.targetLanguage,
-    translationContractVersion: "1.2.0",
+    translationContractVersion: "1.3.0",
     projectionIdentityDigest: languageProjectionIdentityDigest({
       projectionKind,
       sourceText: input.sourceText,
@@ -79,15 +79,16 @@ const SEMANTIC_INVARIANTS = ["NEGATION", "UNCERTAINTY", "CONDITIONALITY", "COMPA
 const semanticInvariantsFor = (
   source: string,
   target: string,
-  overrides: readonly ProviderSemanticInvariantEvidence[] = [],
+  overrides: readonly (Omit<ProviderSemanticInvariantEvidence, "attestationStatus"> & Partial<Pick<ProviderSemanticInvariantEvidence, "attestationStatus">>)[] = [],
 ): readonly ProviderSemanticInvariantEvidence[] => {
   const detected = evaluateLinguisticInvariants(source, target);
   return SEMANTIC_INVARIANTS.map((invariant) => {
     const override = overrides.find((item) => item.invariantId === invariant);
-    if (override) return override;
+    if (override) return { attestationStatus: "ATTESTED", ...override };
     const evidence = detected.find((item) => item.invariant === invariant);
     return {
       invariantId: invariant,
+      attestationStatus: "ATTESTED",
       sourcePresent: evidence?.status !== "NOT_PRESENT",
       preserved: evidence?.status === "PRESERVED",
       sourceEvidence: evidence?.sourceEvidence ?? [],

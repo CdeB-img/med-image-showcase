@@ -70,9 +70,29 @@ const DimensionList = ({ label, dimensions }: {
   </dd>
 </div>;
 
+const LanguageEvidenceWitnesses = ({ witnesses }: {
+  witnesses: TraceInspectorEventProjection["languageProjectionEvidenceWitnesses"];
+}) => witnesses.length === 0 ? null : <div className="rounded-lg border bg-card p-2.5 lg:col-span-2">
+  <dt className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">LANGUAGE PROJECTION EVIDENCE WITNESSES</dt>
+  <dd className="mt-2 space-y-2">
+    {witnesses.map((witness) => <div key={witness.invariantId} className="rounded-md bg-muted p-2 font-mono text-[11px] break-all">
+      <p>{witness.invariantId} · sourceClaim={witness.sourceInvariantClaim} · preservationClaim={witness.providerPreservationClaim} · verdict={witness.deterministicContractVerdict}</p>
+      <p>sourceDigest={witness.sourceTextDigest} · translatedDigest={witness.translatedTextDigest}</p>
+      <p>sourceEvidence={witness.sourceEvidence.join(" | ") || "NONE"}</p>
+      <p>surfaceMarkerObservations={witness.sourceMarkerObservations.join(" | ") || "NONE"}</p>
+      <p>targetEvidence={witness.targetEvidence.join(" | ") || "NONE"}</p>
+      <p>support={witness.providerSupportStatus} · validator={witness.validatorVersion} · prompt={witness.promptVersion} · schema={witness.schemaVersion}</p>
+      <p>provider={witness.provider} · model={witness.model} · responseId={witness.providerResponseId ?? "NONE"}</p>
+    </div>)}
+  </dd>
+</div>;
+
 const DiagnosticDetails = ({ run }: { run: ReturnType<typeof buildTraceInspectorRunProjection> }) => {
   if (run.captureLevel === "LEVEL_1_CORE") return <p className="rounded-xl border bg-background p-3 text-sm text-muted-foreground">UNKNOWN — ce run CORE ne capture pas les transformations sémantiques détaillées.</p>;
-  const enrichedEvents = run.events.filter((event) => event.semanticTransformation || event.actionDecision || event.realizationOutcome);
+  const enrichedEvents = run.events.filter((event) => event.semanticTransformation
+    || event.actionDecision
+    || event.realizationOutcome
+    || event.languageProjectionEvidenceWitnesses.length);
   return <div className="space-y-3" data-testid="trace-inspector-diagnostic-view">
     <dl className="grid gap-2 sm:grid-cols-2 xl:grid-cols-4">
       <LabelValue label="ASK_VS_PROPOSE_OWNER" value={run.ownerFacts.askVsProposeOwner} />
@@ -106,6 +126,7 @@ const DiagnosticDetails = ({ run }: { run: ReturnType<typeof buildTraceInspector
         <LabelValue label="PROVIDER_REJECTION_REASON" value={event.realizationOutcome?.providerRejectionReason ?? "UNKNOWN"} />
         <LabelValue label="EFFECTIVE_EXECUTOR" value={event.realizationOutcome?.effectiveExecutor ?? "UNKNOWN"} />
         <LabelValue label="FALLBACK_REASON" value={event.realizationOutcome?.fallbackReason ?? "UNKNOWN"} />
+        <LanguageEvidenceWitnesses witnesses={event.languageProjectionEvidenceWitnesses} />
       </dl>
     </article>)}
 

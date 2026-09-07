@@ -1,9 +1,12 @@
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 
 export const CONVERSATION_LANGUAGE_GATEWAY_CONTRACT = "PROTOCOL_DESIGNER_CONVERSATION_LANGUAGE_GATEWAY" as const;
-export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.2.0" as const;
+export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.3.0" as const;
 export const LANGUAGE_PROJECTION_CONTRACT = "CONVERSATION_LANGUAGE_PROJECTION" as const;
-export const LANGUAGE_PROJECTION_CONTRACT_VERSION = "1.2.0" as const;
+export const LANGUAGE_PROJECTION_CONTRACT_VERSION = "1.3.0" as const;
+export const LANGUAGE_PROJECTION_PROMPT_VERSION = "1.3.0" as const;
+export const LANGUAGE_PROJECTION_SCHEMA_VERSION = "1.3.0" as const;
+export const LANGUAGE_PROJECTION_VALIDATOR_VERSION = "1.3.0" as const;
 export const CANONICAL_WORKING_LANGUAGE = "fr" as const;
 
 export type ConversationLanguageCode = string;
@@ -56,10 +59,30 @@ export type SemanticLanguageProjectionInvariant = Extract<LanguageProjectionInva
 
 export type ProviderSemanticInvariantEvidence = Readonly<{
   invariantId: SemanticLanguageProjectionInvariant;
+  attestationStatus: "ATTESTED" | "UNKNOWN";
   sourcePresent: boolean;
   preserved: boolean;
   sourceEvidence: readonly string[];
   targetEvidence: readonly string[];
+}>;
+
+export type LanguageProjectionEvidenceWitness = Readonly<{
+  invariantId: SemanticLanguageProjectionInvariant;
+  sourceTextDigest: string;
+  sourceInvariantClaim: "PRESENT" | "ABSENT" | "UNKNOWN";
+  sourceEvidence: readonly string[];
+  sourceMarkerObservations: readonly string[];
+  translatedTextDigest: string;
+  targetEvidence: readonly string[];
+  providerPreservationClaim: "PRESERVED" | "LOST" | "NOT_APPLICABLE" | "UNKNOWN";
+  providerSupportStatus: LanguageSupportStatus;
+  deterministicContractVerdict: "ACCEPTED" | "REJECTED";
+  validatorVersion: typeof LANGUAGE_PROJECTION_VALIDATOR_VERSION;
+  promptVersion: typeof LANGUAGE_PROJECTION_PROMPT_VERSION;
+  schemaVersion: typeof LANGUAGE_PROJECTION_SCHEMA_VERSION;
+  provider: "GOOGLE_GEMINI";
+  model: string;
+  providerResponseId: string | null;
 }>;
 
 export type LanguageProjectionProviderResult = Readonly<{
@@ -89,7 +112,7 @@ export type ProtectedOpaqueLiteral = Readonly<{
   source: "DETERMINISTIC_SOURCE_PATTERN" | "EXPLICIT_CONTEXT";
 }>;
 
-export type LanguageProjectionContractFailureDiagnostic = Readonly<{
+export type LegacyLanguageProjectionContractFailureDiagnostic = Readonly<{
   contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC";
   contractVersion: "1.0.0";
   subInvariantIds: readonly string[];
@@ -97,6 +120,17 @@ export type LanguageProjectionContractFailureDiagnostic = Readonly<{
   model: string;
   providerResponseId: string | null;
   providerResultDigest: string;
+}>;
+
+export type LanguageProjectionContractFailureDiagnostic = LegacyLanguageProjectionContractFailureDiagnostic | Readonly<{
+  contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC";
+  contractVersion: "1.1.0";
+  subInvariantIds: readonly string[];
+  provider: "GOOGLE_GEMINI";
+  model: string;
+  providerResponseId: string | null;
+  providerResultDigest: string;
+  evidenceWitnesses: readonly LanguageProjectionEvidenceWitness[];
 }>;
 
 export class LanguageProjectionContractError extends Error {
@@ -108,17 +142,24 @@ export class LanguageProjectionContractError extends Error {
     model: string;
     providerResponseId: string | null;
     providerResultDigest: string;
+    evidenceWitnesses: readonly LanguageProjectionEvidenceWitness[];
   }) {
     super(`LANGUAGE_PROJECTION_CONTRACT_FAILED:${input.blocks.join(",")}`);
     this.name = "LanguageProjectionContractError";
     this.diagnostic = Object.freeze({
       contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC",
-      contractVersion: "1.0.0",
+      contractVersion: "1.1.0",
       subInvariantIds: Object.freeze([...input.blocks]),
       provider: "GOOGLE_GEMINI",
       model: input.model,
       providerResponseId: input.providerResponseId,
       providerResultDigest: input.providerResultDigest,
+      evidenceWitnesses: Object.freeze(input.evidenceWitnesses.map((witness) => Object.freeze({
+        ...witness,
+        sourceEvidence: Object.freeze([...witness.sourceEvidence]),
+        sourceMarkerObservations: Object.freeze([...witness.sourceMarkerObservations]),
+        targetEvidence: Object.freeze([...witness.targetEvidence]),
+      }))),
     });
   }
 }
@@ -481,24 +522,39 @@ const measuredUnits = (value: string) => [...value.matchAll(MEASURED_UNIT_PATTER
 
 const boundedEvidenceArray = (value: unknown): value is readonly string[] => Array.isArray(value)
   && value.length <= 6
-  && value.every((item) => typeof item === "string" && item.length > 0 && item.length <= 240);
+  && value.every((item) => typeof item === "string" && item.length > 0 && item.length <= 240 && !item.includes("\n"));
 
 const isProviderSemanticInvariantEvidence = (value: unknown): value is ProviderSemanticInvariantEvidence => {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   const record = value as Partial<ProviderSemanticInvariantEvidence>;
   return SEMANTIC_LANGUAGE_INVARIANTS.includes(record.invariantId as SemanticLanguageProjectionInvariant)
+    && ["ATTESTED", "UNKNOWN"].includes(String(record.attestationStatus))
     && typeof record.sourcePresent === "boolean"
     && typeof record.preserved === "boolean"
     && boundedEvidenceArray(record.sourceEvidence)
     && boundedEvidenceArray(record.targetEvidence);
 };
 
+type LanguageProjectionEvidenceWitnessBasis = Pick<LanguageProjectionEvidenceWitness,
+  | "invariantId"
+  | "sourceTextDigest"
+  | "sourceInvariantClaim"
+  | "sourceEvidence"
+  | "sourceMarkerObservations"
+  | "translatedTextDigest"
+  | "targetEvidence"
+  | "providerPreservationClaim">;
+
 const providerSemanticInvariants = (input: {
   source: string;
   target: string;
   evidence: readonly ProviderSemanticInvariantEvidence[];
   deterministic: readonly LanguageProjectionInvariant[];
-}): Readonly<{ invariants: readonly LanguageProjectionInvariant[]; blocks: readonly string[] }> => {
+}): Readonly<{
+  invariants: readonly LanguageProjectionInvariant[];
+  blocks: readonly string[];
+  evidenceWitnesses: readonly LanguageProjectionEvidenceWitnessBasis[];
+}> => {
   const blocks: string[] = [];
   const seen = new Set<SemanticLanguageProjectionInvariant>();
   const byInvariant = new Map<SemanticLanguageProjectionInvariant, ProviderSemanticInvariantEvidence>();
@@ -512,12 +568,59 @@ const providerSemanticInvariants = (input: {
   }
   if (input.evidence.length !== SEMANTIC_LANGUAGE_INVARIANTS.length) blocks.push("SEMANTIC_INVARIANT_EVIDENCE_CARDINALITY");
 
+  const evidenceWitnesses: LanguageProjectionEvidenceWitnessBasis[] = [];
   const invariants = SEMANTIC_LANGUAGE_INVARIANTS.map((invariant): LanguageProjectionInvariant => {
     const evidence = byInvariant.get(invariant);
-    if (!evidence) return { invariant, status: "UNKNOWN", evidenceClass: "LLM_ATTESTED", sourceEvidence: [], targetEvidence: [] };
+    const deterministic = input.deterministic.find((item) => item.invariant === invariant);
+    if (!evidence) {
+      evidenceWitnesses.push({
+        invariantId: invariant,
+        sourceTextDigest: logicalDigest(input.source),
+        sourceInvariantClaim: "UNKNOWN",
+        sourceEvidence: [],
+        sourceMarkerObservations: [...(deterministic?.sourceEvidence ?? [])],
+        translatedTextDigest: logicalDigest(input.target),
+        targetEvidence: [],
+        providerPreservationClaim: "UNKNOWN",
+      });
+      return { invariant, status: "UNKNOWN", evidenceClass: "LLM_ATTESTED", sourceEvidence: [], targetEvidence: [] };
+    }
+    const sourceInvariantClaim = evidence.attestationStatus === "UNKNOWN"
+      ? "UNKNOWN" as const
+      : evidence.sourcePresent ? "PRESENT" as const : "ABSENT" as const;
+    const providerPreservationClaim = evidence.attestationStatus === "UNKNOWN"
+      ? "UNKNOWN" as const
+      : !evidence.sourcePresent ? "NOT_APPLICABLE" as const
+        : evidence.preserved ? "PRESERVED" as const : "LOST" as const;
+    evidenceWitnesses.push({
+      invariantId: invariant,
+      sourceTextDigest: logicalDigest(input.source),
+      sourceInvariantClaim,
+      sourceEvidence: [...evidence.sourceEvidence],
+      sourceMarkerObservations: [...(deterministic?.sourceEvidence ?? [])],
+      translatedTextDigest: logicalDigest(input.target),
+      targetEvidence: [...evidence.targetEvidence],
+      providerPreservationClaim,
+    });
     if (!evidence.sourceEvidence.every((snippet) => input.source.includes(snippet))
       || !evidence.targetEvidence.every((snippet) => input.target.includes(snippet))) {
       blocks.push(`SEMANTIC_INVARIANT_EVIDENCE_NOT_VERBATIM:${invariant}`);
+    }
+    if (evidence.attestationStatus === "UNKNOWN") {
+      blocks.push(`SEMANTIC_INVARIANT_ATTESTATION_UNKNOWN:${invariant}`);
+      if (evidence.sourcePresent || evidence.preserved) {
+        blocks.push(`SEMANTIC_INVARIANT_UNKNOWN_WITH_BOOLEAN_CLAIM:${invariant}`);
+      }
+      if (evidence.sourceEvidence.length || evidence.targetEvidence.length) {
+        blocks.push(`SEMANTIC_INVARIANT_UNKNOWN_WITH_EVIDENCE:${invariant}`);
+      }
+      return {
+        invariant,
+        status: "UNKNOWN",
+        evidenceClass: "LLM_ATTESTED",
+        sourceEvidence: [...evidence.sourceEvidence],
+        targetEvidence: [...evidence.targetEvidence],
+      };
     }
     if (evidence.sourcePresent && !evidence.sourceEvidence.length) {
       blocks.push(`SEMANTIC_INVARIANT_SOURCE_EVIDENCE_MISSING:${invariant}`);
@@ -534,9 +637,8 @@ const providerSemanticInvariants = (input: {
     if (evidence.sourcePresent && !evidence.preserved) {
       blocks.push(`SEMANTIC_INVARIANT_DECLARED_LOST:${invariant}`);
     }
-    const deterministic = input.deterministic.find((item) => item.invariant === invariant);
     if (!evidence.sourcePresent && deterministic?.status !== "NOT_PRESENT") {
-      blocks.push(`SEMANTIC_INVARIANT_SOURCE_CONFLICT:${invariant}`);
+      blocks.push(`SOURCE_CLAIM_SURFACE_OBSERVATION_CONFLICT:${invariant}`);
     }
     return {
       invariant,
@@ -548,7 +650,7 @@ const providerSemanticInvariants = (input: {
       targetEvidence: [...evidence.targetEvidence],
     };
   });
-  return { invariants, blocks };
+  return { invariants, blocks, evidenceWitnesses };
 };
 
 /**
@@ -642,7 +744,12 @@ export const evaluateLinguisticInvariants = (
 export const validateLanguageProjectionProviderResult = (input: {
   request: LanguageProjectionRequest;
   result: LanguageProjectionProviderResult;
-}): Readonly<{ valid: boolean; blocks: readonly string[]; invariants: readonly LanguageProjectionInvariant[] }> => {
+}): Readonly<{
+  valid: boolean;
+  blocks: readonly string[];
+  invariants: readonly LanguageProjectionInvariant[];
+  evidenceWitnesses: readonly LanguageProjectionEvidenceWitnessBasis[];
+}> => {
   const blocks: string[] = [];
   const detectedLanguage = normalizeLanguageCode(input.result.detectedLanguage);
   const targetLanguage = normalizeLanguageCode(input.request.targetLanguage);
@@ -682,7 +789,7 @@ export const validateLanguageProjectionProviderResult = (input: {
     ...semantic.invariants,
   ];
   blocks.push(...invariants.filter((item) => item.status === "UNKNOWN").map((item) => `LINGUISTIC_INVARIANT_UNVERIFIED:${item.invariant}`));
-  return { valid: blocks.length === 0, blocks, invariants };
+  return { valid: blocks.length === 0, blocks, invariants, evidenceWitnesses: semantic.evidenceWitnesses };
 };
 
 export const materializeLanguageProjectionArtifact = (input: {
@@ -694,11 +801,23 @@ export const materializeLanguageProjectionArtifact = (input: {
 }): LanguageProjectionArtifact => {
   const validation = validateLanguageProjectionProviderResult({ request: input.request, result: input.result });
   const providerResultDigest = logicalDigest(input.result);
+  const evidenceWitnesses: readonly LanguageProjectionEvidenceWitness[] = validation.evidenceWitnesses.map((witness) => ({
+    ...witness,
+    providerSupportStatus: input.result.supportStatus,
+    deterministicContractVerdict: validation.valid ? "ACCEPTED" : "REJECTED",
+    validatorVersion: LANGUAGE_PROJECTION_VALIDATOR_VERSION,
+    promptVersion: LANGUAGE_PROJECTION_PROMPT_VERSION,
+    schemaVersion: LANGUAGE_PROJECTION_SCHEMA_VERSION,
+    provider: "GOOGLE_GEMINI",
+    model: input.model,
+    providerResponseId: input.providerResponseId,
+  }));
   if (!validation.valid) throw new LanguageProjectionContractError({
     blocks: validation.blocks,
     model: input.model,
     providerResponseId: input.providerResponseId,
     providerResultDigest,
+    evidenceWitnesses,
   });
   const sourceLanguage = input.request.sourceLanguageHint === "UNKNOWN"
     ? normalizeLanguageCode(input.result.detectedLanguage)
@@ -916,7 +1035,9 @@ Traduis naturellement la terminologie scientifique, les noms de modalités et le
 
 Préserve strictement les nombres, unités, dates, négations, incertitudes, conditions, comparaisons, statuts connu/inconnu/retenu/non décidé, décisions humaines et références de sources. Chaque valeur fournie dans PROTECTED_OPAQUE_LITERALS_JSON est un littéral opaque : recopie-la caractère pour caractère, sans traduction ni normalisation.
 
-Pour chacun des cinq invariants sémantiques demandés, fournis une attestation structurée issue de ce même appel. sourcePresent indique si l'invariant est présent dans la source. Si sourcePresent=true, sourceEvidence contient le plus court extrait source qui le porte : preserved=true exige alors le plus court extrait cible qui conserve le même invariant, tandis que preserved=false déclare une perte ou une impossibilité d'attester la préservation et provoquera un rejet. Si sourcePresent=false, preserved=false signifie seulement NON_APPLICABLE et les deux listes de preuve restent vides. Les extraits doivent être des sous-chaînes verbatim exactes des textes correspondants, sans ajout, normalisation ni reformulation.
+Pour chacun des cinq invariants sémantiques demandés, fournis une attestation structurée issue de ce même appel. Ces catégories sont non exclusives et peuvent se superposer dans un même segment. attestationStatus=ATTESTED signifie que sourcePresent est ton claim sémantique de présence ou d'absence dans la source. Si tu ne peux pas honnêtement déterminer la présence ou la préservation, utilise attestationStatus=UNKNOWN ; sourcePresent=false et preserved=false deviennent alors uniquement des valeurs de transport sans claim d'absence ou de perte, les preuves restent vides et la projection sera rejetée explicitement. N'utilise jamais sourcePresent=false pour masquer une impossibilité d'attester.
+
+Si attestationStatus=ATTESTED et sourcePresent=true, sourceEvidence contient le plus court segment source suffisamment contextualisé qui porte l'invariant ; preserved=true exige alors le plus court segment cible suffisamment contextualisé qui conserve le même invariant, tandis que preserved=false déclare une perte et provoquera un rejet. Si sourcePresent=false, preserved=false signifie seulement NON_APPLICABLE et les deux listes de preuve restent vides. Chaque segment doit montrer autant que possible l'opérateur, la proposition et sa portée locale pertinente. Les extraits doivent être des sous-chaînes verbatim exactes des textes correspondants, sans ajout, normalisation ni reformulation. Une liste bornée d'extraits est un witness inspectable, jamais une preuve exhaustive de couverture sémantique.
 
 Après avoir produit translatedText, identifie la langue réellement utilisée dans ce texte et retourne son code BCP 47 de base dans translatedTextLanguage. Ce champ décrit le texte produit ; il ne doit jamais recopier mécaniquement TARGET_LANGUAGE. Une projection qui ne satisfait pas la langue cible sera rejetée.
 
@@ -954,18 +1075,19 @@ export const buildLanguageProjectionProviderPayload = (request: LanguageProjecti
           type: "array",
           minItems: 5,
           maxItems: 5,
-          description: "Exactly one same-call evidence record for each of NEGATION, UNCERTAINTY, CONDITIONALITY, COMPARISON and TEMPORAL_RELATION.",
+          description: "Exactly one same-call evidence record for each of NEGATION, UNCERTAINTY, CONDITIONALITY, COMPARISON and TEMPORAL_RELATION. Categories are non-exclusive and may overlap.",
           items: {
             type: "object",
             additionalProperties: false,
             properties: {
               invariantId: { type: "string", enum: [...SEMANTIC_LANGUAGE_INVARIANTS] },
-              sourcePresent: { type: "boolean", description: "True only when this invariant is present in SOURCE_TEXT. False means the invariant is not applicable to this projection." },
-              preserved: { type: "boolean", description: "When sourcePresent=true, true attests preservation and false declares loss. When sourcePresent=false, this must be false because preservation is not applicable." },
-              sourceEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 }, description: "Shortest exact verbatim substrings of SOURCE_TEXT supporting sourcePresent=true; empty when sourcePresent=false." },
-              targetEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 }, description: "Shortest exact verbatim substrings of translatedText supporting preserved=true; empty when sourcePresent=false or preserved=false." },
+              attestationStatus: { type: "string", enum: ["ATTESTED", "UNKNOWN"], description: "ATTESTED makes the boolean fields provider claims. UNKNOWN means the provider cannot honestly attest; booleans are then false transport placeholders, evidence is empty, and the projection fails closed." },
+              sourcePresent: { type: "boolean", description: "Provider semantic claim when attestationStatus=ATTESTED. True means present; false means absent. It is not deterministic proof and must not encode inability to attest." },
+              preserved: { type: "boolean", description: "Provider preservation claim when attestationStatus=ATTESTED and sourcePresent=true. False then declares loss. When sourcePresent=false, false means not applicable." },
+              sourceEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 }, description: "Shortest sufficiently contextualized exact verbatim segments of SOURCE_TEXT supporting sourcePresent=true; include operator, proposition and relevant local scope when possible. Empty when absent or UNKNOWN." },
+              targetEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 }, description: "Shortest sufficiently contextualized exact verbatim segments of translatedText supporting preserved=true; include operator, proposition and relevant local scope when possible. Empty when absent, lost or UNKNOWN." },
             },
-            required: ["invariantId", "sourcePresent", "preserved", "sourceEvidence", "targetEvidence"],
+            required: ["invariantId", "attestationStatus", "sourcePresent", "preserved", "sourceEvidence", "targetEvidence"],
           },
         },
         limitations: { type: "array", items: { type: "string" } },

@@ -74,6 +74,7 @@ export type TraceInspectorEventProjection = Readonly<{
   semanticTransformation: ScientificProductTraceCommonEnvelope["semanticTransformation"] | null;
   actionDecision: ScientificProductTraceCommonEnvelope["actionDecision"] | null;
   realizationOutcome: ScientificProductTraceCommonEnvelope["realizationOutcome"] | null;
+  languageProjectionEvidenceWitnesses: NonNullable<ScientificProductTraceCommonEnvelope["languageProjectionEvidenceWitnesses"]>;
   attemptedProvider: string | null;
   providerResponseReceived: boolean | null;
   providerResponseAccepted: boolean | null;
@@ -360,6 +361,7 @@ export const buildTraceInspectorRunProjection = (input: {
     semanticTransformation: common.semanticTransformation ?? null,
     actionDecision: common.actionDecision ?? null,
     realizationOutcome: common.realizationOutcome ?? null,
+    languageProjectionEvidenceWitnesses: common.languageProjectionEvidenceWitnesses ?? [],
     attemptedProvider: common.realizationOutcome?.attemptedProvider ?? null,
     providerResponseReceived: common.realizationOutcome?.providerResponseReceived ?? null,
     providerResponseAccepted: common.realizationOutcome?.providerResponseAccepted ?? null,
@@ -443,6 +445,9 @@ export const compareTraceInspectorRuns = (input: {
       ...(stableValidationStringify(leftEvent.semanticTransformation) !== stableValidationStringify(rightEvent.semanticTransformation) ? ["TRANSFORMATIONS"] : []),
       ...(stableValidationStringify(leftEvent.actionDecision) !== stableValidationStringify(rightEvent.actionDecision) ? ["ACTION_DECISION"] : []),
       ...(stableValidationStringify(leftEvent.realizationOutcome) !== stableValidationStringify(rightEvent.realizationOutcome) ? ["REALIZATION_OUTCOME"] : []),
+      ...(stableValidationStringify(leftEvent.languageProjectionEvidenceWitnesses) !== stableValidationStringify(rightEvent.languageProjectionEvidenceWitnesses)
+        ? ["LANGUAGE_PROJECTION_EVIDENCE_WITNESSES"]
+        : []),
     ];
     if (fields.length) differences.push(Object.freeze({
       stage: leftEvent.stage,

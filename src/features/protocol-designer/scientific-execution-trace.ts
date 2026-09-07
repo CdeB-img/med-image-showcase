@@ -9,6 +9,7 @@ import type {
 } from "./product-owner-result-ledger";
 import type { ProductValidationRunLedgerEntry } from "./product-validation-run-ledger";
 import type {
+  LanguageProjectionEvidenceWitness,
   LanguageProjectionContractFailureDiagnostic,
   LocalLanguageDetection,
   LocalizedConversationResponse,
@@ -23,7 +24,8 @@ export const END_TO_END_TRACE_PROFILE = "NOXIA_END_TO_END_PRODUCT_TRACE" as cons
 export const LEGACY_END_TO_END_TRACE_PROFILE_VERSION = "1.0.0" as const;
 export const EARLIER_END_TO_END_TRACE_PROFILE_VERSION = "1.1.0" as const;
 export const PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION = "1.2.0" as const;
-export const END_TO_END_TRACE_PROFILE_VERSION = "1.3.0" as const;
+export const RECENT_END_TO_END_TRACE_PROFILE_VERSION = "1.3.0" as const;
+export const END_TO_END_TRACE_PROFILE_VERSION = "1.4.0" as const;
 export const PRE_PROJECT_SCIENTIFIC_TRACE_SEGMENT_CONTRACT = "SCIENTIFIC_EXECUTION_TRACE_PRE_PROJECT_SEGMENT" as const;
 export const PRE_PROJECT_SCIENTIFIC_TRACE_SEGMENT_VERSION = "0.1.0" as const;
 
@@ -225,7 +227,7 @@ export type ScientificTraceVersionedReference = {
 
 export type ScientificProductTraceCommonEnvelope = {
   contract: "SCIENTIFIC_EXECUTION_TRACE_COMMON_EVENT";
-  contractVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof EARLIER_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
+  contractVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof RECENT_END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof EARLIER_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
   traceRunId: string;
   turnId: string | ScientificProductTraceSentinel;
   eventId: string;
@@ -263,6 +265,7 @@ export type ScientificProductTraceCommonEnvelope = {
   semanticTransformation?: ScientificTraceSemanticTransformation;
   actionDecision?: ScientificTraceActionDecision;
   realizationOutcome?: ScientificTraceRealizationOutcome;
+  languageProjectionEvidenceWitnesses?: readonly LanguageProjectionEvidenceWitness[];
   forensicPayload?: ScientificTraceForensicPayload;
   traceMutatesProduct: false;
   traceDecides: false;
@@ -294,6 +297,7 @@ export type ScientificProductTraceEnvelopeInput = {
   semanticTransformation?: ScientificTraceSemanticTransformation;
   actionDecision?: ScientificTraceActionDecision;
   realizationOutcome?: ScientificTraceRealizationOutcome;
+  languageProjectionEvidenceWitnesses?: readonly LanguageProjectionEvidenceWitness[];
   forensicPayload?: ScientificTraceForensicPayload;
 };
 
@@ -670,7 +674,7 @@ export type ScientificExecutionTraceLedger = {
   privateReasoningStored: false;
   traceProfile?: {
     profile: typeof END_TO_END_TRACE_PROFILE;
-    profileVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof EARLIER_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
+    profileVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof RECENT_END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof EARLIER_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
     redactionPolicyId: ReadableTraceRedactionPolicyId;
     retentionPolicyId: ReadableTraceRetentionPolicyId;
     capturePolicyId: ReadableTraceCapturePolicyId;
@@ -1145,6 +1149,13 @@ const TRACE_FORENSIC_FIELDS = new Set<ScientificTraceForensicField>([
   "STRUCTURED_ERROR_DIAGNOSTICS",
   "ERROR_STACK_WHEN_ALLOWED",
 ]);
+const TRACE_LANGUAGE_SEMANTIC_INVARIANTS = new Set([
+  "NEGATION",
+  "UNCERTAINTY",
+  "CONDITIONALITY",
+  "COMPARISON",
+  "TEMPORAL_RELATION",
+]);
 
 const validateCaptureConfiguration = (value: unknown): value is ScientificTraceCaptureConfiguration => {
   if (!isRecord(value)
@@ -1218,6 +1229,28 @@ const validateForensicPayload = (value: unknown): value is ScientificTraceForens
     && item.value.length <= 1024
     && !item.value.includes("\n"));
 
+const validateBoundedLanguageEvidence = (value: unknown): value is readonly string[] => Array.isArray(value)
+  && value.length <= 6
+  && value.every((item) => typeof item === "string" && item.length > 0 && item.length <= 240 && !item.includes("\n"));
+
+const validateLanguageProjectionEvidenceWitness = (value: unknown): value is LanguageProjectionEvidenceWitness => isRecord(value)
+  && TRACE_LANGUAGE_SEMANTIC_INVARIANTS.has(String(value.invariantId))
+  && typeof value.sourceTextDigest === "string"
+  && ["PRESENT", "ABSENT", "UNKNOWN"].includes(String(value.sourceInvariantClaim))
+  && validateBoundedLanguageEvidence(value.sourceEvidence)
+  && validateBoundedLanguageEvidence(value.sourceMarkerObservations)
+  && typeof value.translatedTextDigest === "string"
+  && validateBoundedLanguageEvidence(value.targetEvidence)
+  && ["PRESERVED", "LOST", "NOT_APPLICABLE", "UNKNOWN"].includes(String(value.providerPreservationClaim))
+  && ["SUPPORTED", "UNSUPPORTED", "UNKNOWN"].includes(String(value.providerSupportStatus))
+  && ["ACCEPTED", "REJECTED"].includes(String(value.deterministicContractVerdict))
+  && value.validatorVersion === "1.3.0"
+  && value.promptVersion === "1.3.0"
+  && value.schemaVersion === "1.3.0"
+  && value.provider === "GOOGLE_GEMINI"
+  && typeof value.model === "string"
+  && (value.providerResponseId === null || typeof value.providerResponseId === "string");
+
 const validateCaptureExtensions = (value: Record<string, unknown>) => {
   if (!TRACE_CAPTURE_LEVELS.has(value.captureLevel as ScientificTraceCaptureLevel)
     || !TRACE_CAPTURE_REASONS.has(value.captureReason as ScientificTraceCaptureReason)
@@ -1230,11 +1263,16 @@ const validateCaptureExtensions = (value: Record<string, unknown>) => {
   if (value.semanticTransformation !== undefined && !validateSemanticTransformation(value.semanticTransformation)) return false;
   if (value.actionDecision !== undefined && !validateActionDecision(value.actionDecision)) return false;
   if (value.realizationOutcome !== undefined && !validateRealizationOutcome(value.realizationOutcome)) return false;
+  if (value.languageProjectionEvidenceWitnesses !== undefined
+    && (!Array.isArray(value.languageProjectionEvidenceWitnesses)
+      || value.languageProjectionEvidenceWitnesses.length > 5
+      || !value.languageProjectionEvidenceWitnesses.every(validateLanguageProjectionEvidenceWitness))) return false;
   if (value.forensicPayload !== undefined && !validateForensicPayload(value.forensicPayload)) return false;
   if (level === "LEVEL_1_CORE") {
     return value.semanticTransformation === undefined
       && value.actionDecision === undefined
       && value.realizationOutcome === undefined
+      && value.languageProjectionEvidenceWitnesses === undefined
       && value.forensicPayload === undefined;
   }
   if (level === "LEVEL_2_DIAGNOSTIC") return value.forensicPayload === undefined;
@@ -1244,7 +1282,7 @@ const validateCaptureExtensions = (value: Record<string, unknown>) => {
 const validateCommonEnvelope = (value: unknown, eventId: string, runId: string): value is ScientificProductTraceCommonEnvelope => {
   if (!isRecord(value)
     || value.contract !== "SCIENTIFIC_EXECUTION_TRACE_COMMON_EVENT"
-    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, EARLIER_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.contractVersion))
+    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, EARLIER_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, RECENT_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.contractVersion))
     || value.traceRunId !== runId
     || value.eventId !== eventId
     || typeof value.turnId !== "string"
@@ -1288,6 +1326,7 @@ const validateCommonEnvelope = (value: unknown, eventId: string, runId: string):
       && value.semanticTransformation === undefined
       && value.actionDecision === undefined
       && value.realizationOutcome === undefined
+      && value.languageProjectionEvidenceWitnesses === undefined
       && value.forensicPayload === undefined;
   }
   return validateCaptureExtensions(value);
@@ -1339,7 +1378,7 @@ const validateEventShape = (event: unknown): event is ScientificExecutionTraceEv
 const validateTraceProfile = (value: unknown) => {
   if (!isRecord(value)
     || value.profile !== END_TO_END_TRACE_PROFILE
-    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, EARLIER_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.profileVersion))
+    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, EARLIER_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, RECENT_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.profileVersion))
     || value.oneTraceSystem !== true
     || value.oneEventTaxonomy !== true
     || value.oneTraceIdentityModel !== true
@@ -1578,6 +1617,9 @@ const commonEnvelopeFor = (input: {
     ...(specified?.semanticTransformation ? { semanticTransformation: clone(specified.semanticTransformation) } : {}),
     ...(specified?.actionDecision ? { actionDecision: clone(specified.actionDecision) } : {}),
     ...(specified?.realizationOutcome ? { realizationOutcome: clone(specified.realizationOutcome) } : {}),
+    ...(specified?.languageProjectionEvidenceWitnesses
+      ? { languageProjectionEvidenceWitnesses: clone(specified.languageProjectionEvidenceWitnesses) }
+      : {}),
     ...(specified?.forensicPayload ? { forensicPayload: clone(specified.forensicPayload) } : {}),
     traceMutatesProduct: false,
     traceDecides: false,
@@ -2235,6 +2277,9 @@ export const recordConversationLanguageGatewayFailureTrace = (input: {
           effectiveExecutor: "LANGUAGE_PROJECTION_MATERIALIZER",
           fallbackReason: "NOT_APPLICABLE",
         },
+        ...(conformanceDiagnostic.contractVersion === "1.1.0"
+          ? { languageProjectionEvidenceWitnesses: conformanceDiagnostic.evidenceWitnesses }
+          : {}),
       },
     }).ledger;
   }
