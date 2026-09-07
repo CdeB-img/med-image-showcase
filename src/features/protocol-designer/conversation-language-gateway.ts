@@ -1,9 +1,9 @@
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 
 export const CONVERSATION_LANGUAGE_GATEWAY_CONTRACT = "PROTOCOL_DESIGNER_CONVERSATION_LANGUAGE_GATEWAY" as const;
-export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.0.0" as const;
+export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.1.0" as const;
 export const LANGUAGE_PROJECTION_CONTRACT = "CONVERSATION_LANGUAGE_PROJECTION" as const;
-export const LANGUAGE_PROJECTION_CONTRACT_VERSION = "1.0.0" as const;
+export const LANGUAGE_PROJECTION_CONTRACT_VERSION = "1.1.0" as const;
 export const CANONICAL_WORKING_LANGUAGE = "fr" as const;
 
 export type ConversationLanguageCode = string;
@@ -46,6 +46,18 @@ export type LanguageSwitchCandidate = Readonly<{
 export type LanguageProjectionInvariant = Readonly<{
   invariant: "NUMBERS" | "UNITS" | "IDENTIFIERS" | "NEGATION" | "UNCERTAINTY" | "CONDITIONALITY" | "COMPARISON" | "TEMPORAL_RELATION" | "DECISION_STATUS";
   status: "PRESERVED" | "NOT_PRESENT" | "UNKNOWN";
+  evidenceClass: "DETERMINISTICALLY_PROVABLE" | "STRUCTURALLY_CHECKABLE" | "LLM_ATTESTED" | "NOT_RELIABLY_CHECKABLE_DETERMINISTICALLY";
+  sourceEvidence: readonly string[];
+  targetEvidence: readonly string[];
+}>;
+
+export type SemanticLanguageProjectionInvariant = Extract<LanguageProjectionInvariant["invariant"],
+  "NEGATION" | "UNCERTAINTY" | "CONDITIONALITY" | "COMPARISON" | "TEMPORAL_RELATION">;
+
+export type ProviderSemanticInvariantEvidence = Readonly<{
+  invariantId: SemanticLanguageProjectionInvariant;
+  sourcePresent: boolean;
+  preserved: boolean;
   sourceEvidence: readonly string[];
   targetEvidence: readonly string[];
 }>;
@@ -56,6 +68,7 @@ export type LanguageProjectionProviderResult = Readonly<{
   qualificationStatus: LanguageQualificationStatus;
   translatedText: string;
   ambiguityPreserved: boolean;
+  semanticInvariants: readonly ProviderSemanticInvariantEvidence[];
   limitations: readonly string[];
 }>;
 
@@ -452,6 +465,90 @@ const numericMultisetPreserved = (source: readonly string[], target: readonly st
   });
 };
 
+const SEMANTIC_LANGUAGE_INVARIANTS: readonly SemanticLanguageProjectionInvariant[] = Object.freeze([
+  "NEGATION",
+  "UNCERTAINTY",
+  "CONDITIONALITY",
+  "COMPARISON",
+  "TEMPORAL_RELATION",
+]);
+
+const MEASURED_UNIT_PATTERN = /(?<![\p{L}\p{N}_])\d+(?:[.,]\d+)?\s*(T|ms|s|min|h|d|mg|g|kg|µg|ug|mL|ml|L|mm|cm|m|Hz|MHz|%)(?![\p{L}\p{N}_])/gu;
+
+const measuredUnits = (value: string) => [...value.matchAll(MEASURED_UNIT_PATTERN)].map((match) => match[1]);
+
+const boundedEvidenceArray = (value: unknown): value is readonly string[] => Array.isArray(value)
+  && value.length <= 6
+  && value.every((item) => typeof item === "string" && item.length > 0 && item.length <= 240);
+
+const isProviderSemanticInvariantEvidence = (value: unknown): value is ProviderSemanticInvariantEvidence => {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const record = value as Partial<ProviderSemanticInvariantEvidence>;
+  return SEMANTIC_LANGUAGE_INVARIANTS.includes(record.invariantId as SemanticLanguageProjectionInvariant)
+    && typeof record.sourcePresent === "boolean"
+    && typeof record.preserved === "boolean"
+    && boundedEvidenceArray(record.sourceEvidence)
+    && boundedEvidenceArray(record.targetEvidence);
+};
+
+const providerSemanticInvariants = (input: {
+  source: string;
+  target: string;
+  evidence: readonly ProviderSemanticInvariantEvidence[];
+  deterministic: readonly LanguageProjectionInvariant[];
+}): Readonly<{ invariants: readonly LanguageProjectionInvariant[]; blocks: readonly string[] }> => {
+  const blocks: string[] = [];
+  const seen = new Set<SemanticLanguageProjectionInvariant>();
+  const byInvariant = new Map<SemanticLanguageProjectionInvariant, ProviderSemanticInvariantEvidence>();
+  for (const item of input.evidence) {
+    if (seen.has(item.invariantId)) blocks.push(`SEMANTIC_INVARIANT_EVIDENCE_DUPLICATE:${item.invariantId}`);
+    seen.add(item.invariantId);
+    byInvariant.set(item.invariantId, item);
+  }
+  for (const invariant of SEMANTIC_LANGUAGE_INVARIANTS) {
+    if (!byInvariant.has(invariant)) blocks.push(`SEMANTIC_INVARIANT_EVIDENCE_MISSING:${invariant}`);
+  }
+  if (input.evidence.length !== SEMANTIC_LANGUAGE_INVARIANTS.length) blocks.push("SEMANTIC_INVARIANT_EVIDENCE_CARDINALITY");
+
+  const invariants = SEMANTIC_LANGUAGE_INVARIANTS.map((invariant): LanguageProjectionInvariant => {
+    const evidence = byInvariant.get(invariant);
+    if (!evidence) return { invariant, status: "UNKNOWN", evidenceClass: "LLM_ATTESTED", sourceEvidence: [], targetEvidence: [] };
+    if (!evidence.sourceEvidence.every((snippet) => input.source.includes(snippet))
+      || !evidence.targetEvidence.every((snippet) => input.target.includes(snippet))) {
+      blocks.push(`SEMANTIC_INVARIANT_EVIDENCE_NOT_VERBATIM:${invariant}`);
+    }
+    if (evidence.sourcePresent && !evidence.sourceEvidence.length) {
+      blocks.push(`SEMANTIC_INVARIANT_SOURCE_EVIDENCE_MISSING:${invariant}`);
+    }
+    if (evidence.sourcePresent && evidence.preserved && !evidence.targetEvidence.length) {
+      blocks.push(`SEMANTIC_INVARIANT_EVIDENCE_INCOMPLETE:${invariant}`);
+    }
+    if (!evidence.sourcePresent && (evidence.sourceEvidence.length || evidence.targetEvidence.length)) {
+      blocks.push(`SEMANTIC_INVARIANT_NOT_PRESENT_WITH_EVIDENCE:${invariant}`);
+    }
+    if (!evidence.sourcePresent && !evidence.preserved) {
+      blocks.push(`SEMANTIC_INVARIANT_NOT_PRESENT_DECLARED_LOST:${invariant}`);
+    }
+    if (evidence.sourcePresent && !evidence.preserved) {
+      blocks.push(`SEMANTIC_INVARIANT_DECLARED_LOST:${invariant}`);
+    }
+    const deterministic = input.deterministic.find((item) => item.invariant === invariant);
+    if (!evidence.sourcePresent && deterministic?.status !== "NOT_PRESENT") {
+      blocks.push(`SEMANTIC_INVARIANT_SOURCE_CONFLICT:${invariant}`);
+    }
+    return {
+      invariant,
+      status: evidence.sourcePresent
+        ? (evidence.preserved ? "PRESERVED" : "UNKNOWN")
+        : "NOT_PRESENT",
+      evidenceClass: "LLM_ATTESTED",
+      sourceEvidence: [...evidence.sourceEvidence],
+      targetEvidence: [...evidence.targetEvidence],
+    };
+  });
+  return { invariants, blocks };
+};
+
 /**
  * This is a structural marker sentinel only. A PRESERVED result records that
  * compatible surface evidence remains present; it does not adjudicate the
@@ -465,11 +562,12 @@ const semanticMarkerInvariant = (input: {
   targetPattern: RegExp;
 }): LanguageProjectionInvariant => {
   const sourceEvidence = occurrences(input.source, input.sourcePattern);
-  if (!sourceEvidence.length) return { invariant: input.invariant, status: "NOT_PRESENT", sourceEvidence: [], targetEvidence: [] };
+  if (!sourceEvidence.length) return { invariant: input.invariant, status: "NOT_PRESENT", evidenceClass: "STRUCTURALLY_CHECKABLE", sourceEvidence: [], targetEvidence: [] };
   const targetEvidence = occurrences(input.target, input.targetPattern);
   return {
     invariant: input.invariant,
     status: targetEvidence.length ? "PRESERVED" : "UNKNOWN",
+    evidenceClass: "STRUCTURALLY_CHECKABLE",
     sourceEvidence,
     targetEvidence,
   };
@@ -484,37 +582,51 @@ export const evaluateLinguisticInvariants = (
   // such as units and governed decision-status tokens.
   const exact = (invariant: LanguageProjectionInvariant["invariant"], pattern: RegExp): LanguageProjectionInvariant => {
     const sourceEvidence = occurrences(source, pattern);
-    if (!sourceEvidence.length) return { invariant, status: "NOT_PRESENT", sourceEvidence: [], targetEvidence: [] };
+    if (!sourceEvidence.length) return { invariant, status: "NOT_PRESENT", evidenceClass: "DETERMINISTICALLY_PROVABLE", sourceEvidence: [], targetEvidence: [] };
     const targetEvidence = occurrences(target, pattern);
-    return { invariant, status: exactMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN", sourceEvidence, targetEvidence };
+    return { invariant, status: exactMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN", evidenceClass: "DETERMINISTICALLY_PROVABLE", sourceEvidence, targetEvidence };
   };
   const identifiers = (): LanguageProjectionInvariant => {
     const sourceEvidence = protectedOpaqueLiterals.flatMap((candidate) => literalOccurrences(source, candidate.literal));
-    if (!sourceEvidence.length) return { invariant: "IDENTIFIERS", status: "NOT_PRESENT", sourceEvidence: [], targetEvidence: [] };
+    if (!sourceEvidence.length) return { invariant: "IDENTIFIERS", status: "NOT_PRESENT", evidenceClass: "DETERMINISTICALLY_PROVABLE", sourceEvidence: [], targetEvidence: [] };
     const targetEvidence = protectedOpaqueLiterals.flatMap((candidate) => literalOccurrences(target, candidate.literal));
     const preserved = protectedOpaqueLiterals.every((candidate) =>
       literalOccurrences(target, candidate.literal).length >= literalOccurrences(source, candidate.literal).length);
     return {
       invariant: "IDENTIFIERS",
       status: preserved ? "PRESERVED" : "UNKNOWN",
+      evidenceClass: "DETERMINISTICALLY_PROVABLE",
       sourceEvidence,
       targetEvidence,
     };
   };
   const numbers = (): LanguageProjectionInvariant => {
     const sourceEvidence = occurrences(source, /\b\d+(?:[.,]\d+)?\b/gu);
-    if (!sourceEvidence.length) return { invariant: "NUMBERS", status: "NOT_PRESENT", sourceEvidence: [], targetEvidence: [] };
+    if (!sourceEvidence.length) return { invariant: "NUMBERS", status: "NOT_PRESENT", evidenceClass: "DETERMINISTICALLY_PROVABLE", sourceEvidence: [], targetEvidence: [] };
     const targetEvidence = occurrences(target, /\b\d+(?:[.,]\d+)?\b/gu);
     return {
       invariant: "NUMBERS",
       status: numericMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN",
+      evidenceClass: "DETERMINISTICALLY_PROVABLE",
+      sourceEvidence,
+      targetEvidence,
+    };
+  };
+  const units = (): LanguageProjectionInvariant => {
+    const sourceEvidence = measuredUnits(source);
+    if (!sourceEvidence.length) return { invariant: "UNITS", status: "NOT_PRESENT", evidenceClass: "DETERMINISTICALLY_PROVABLE", sourceEvidence: [], targetEvidence: [] };
+    const targetEvidence = measuredUnits(target);
+    return {
+      invariant: "UNITS",
+      status: exactMultisetPreserved(sourceEvidence, targetEvidence) ? "PRESERVED" : "UNKNOWN",
+      evidenceClass: "DETERMINISTICALLY_PROVABLE",
       sourceEvidence,
       targetEvidence,
     };
   };
   return [
     numbers(),
-    exact("UNITS", /\b(?:T|ms|s|min|h|d|mg|g|kg|µg|ug|mL|ml|L|mm|cm|m|Hz|MHz|%)\b/gu),
+    units(),
     identifiers(),
     semanticMarkerInvariant({ invariant: "NEGATION", source, target, sourcePattern: /\b(?:not|no|without|ne|pas|sans|aucun|none)\b|ない|なし|不|未|无|沒有|没有/giu, targetPattern: /\b(?:not|no|without|ne|pas|sans|aucun|non|none)\b|ない|なし|不|未|无|沒有|没有/giu }),
     semanticMarkerInvariant({ invariant: "UNCERTAINTY", source, target, sourcePattern: /\b(?:may|might|could|uncertain|unknown|possibly|peut|pourrait|incertain|inconnu|possible)\b|かもしれない|可能|不明/giu, targetPattern: /\b(?:may|might|could|uncertain|unknown|possibly|peut|pourrait|incertain|inconnu|possible)\b|かもしれない|可能|不明/giu }),
@@ -545,7 +657,19 @@ export const validateLanguageProjectionProviderResult = (input: {
     sourceText: input.request.sourceText,
     explicit: explicitProtectedLiterals,
   });
-  const invariants = evaluateLinguisticInvariants(input.request.sourceText, input.result.translatedText, protectedOpaqueLiterals);
+  const deterministicInvariants = evaluateLinguisticInvariants(input.request.sourceText, input.result.translatedText, protectedOpaqueLiterals);
+  const semantic = providerSemanticInvariants({
+    source: input.request.sourceText,
+    target: input.result.translatedText,
+    evidence: input.result.semanticInvariants,
+    deterministic: deterministicInvariants,
+  });
+  blocks.push(...semantic.blocks);
+  const semanticIds = new Set<string>(SEMANTIC_LANGUAGE_INVARIANTS);
+  const invariants = [
+    ...deterministicInvariants.filter((item) => !semanticIds.has(item.invariant)),
+    ...semantic.invariants,
+  ];
   blocks.push(...invariants.filter((item) => item.status === "UNKNOWN").map((item) => `LINGUISTIC_INVARIANT_UNVERIFIED:${item.invariant}`));
   return { valid: blocks.length === 0, blocks, invariants };
 };
@@ -776,6 +900,8 @@ Traduis naturellement la terminologie scientifique, les noms de modalités et le
 
 Préserve strictement les nombres, unités, dates, négations, incertitudes, conditions, comparaisons, statuts connu/inconnu/retenu/non décidé, décisions humaines et références de sources. Chaque valeur fournie dans PROTECTED_OPAQUE_LITERALS_JSON est un littéral opaque : recopie-la caractère pour caractère, sans traduction ni normalisation.
 
+Pour chacun des cinq invariants sémantiques demandés, fournis une attestation structurée issue de ce même appel. sourcePresent indique si l'invariant est présent dans la source. Si sourcePresent=true, sourceEvidence contient le plus court extrait source qui le porte. preserved=true exige le plus court extrait cible qui conserve le même invariant. preserved=false déclare une perte ou une impossibilité d'attester la préservation et provoquera un rejet. Si sourcePresent=false, les deux listes de preuve restent vides et preserved doit rester true. Les extraits doivent être des sous-chaînes verbatim des textes correspondants.
+
 N'augmente jamais la certitude. Ne transforme jamais une hypothèse ou une ambiguïté en fait. Si une ambiguïté possède plusieurs interprétations, conserve-la dans la traduction sans en choisir une.
 
 Retourne uniquement l'appel de fonction demandé.`;
@@ -805,9 +931,27 @@ export const buildLanguageProjectionProviderPayload = (request: LanguageProjecti
         qualificationStatus: { type: "string", enum: ["QUALIFIED", "PROVIDER_SUPPORTED_UNQUALIFIED", "UNKNOWN"] },
         translatedText: { type: "string", description: "Strict linguistic projection. Translate scientific language and acronyms naturally. Preserve every value listed in PROTECTED_OPAQUE_LITERALS_JSON character-for-character." },
         ambiguityPreserved: { type: "boolean" },
+        semanticInvariants: {
+          type: "array",
+          minItems: 5,
+          maxItems: 5,
+          description: "Exactly one same-call evidence record for each of NEGATION, UNCERTAINTY, CONDITIONALITY, COMPARISON and TEMPORAL_RELATION.",
+          items: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+              invariantId: { type: "string", enum: [...SEMANTIC_LANGUAGE_INVARIANTS] },
+              sourcePresent: { type: "boolean" },
+              preserved: { type: "boolean" },
+              sourceEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 } },
+              targetEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 } },
+            },
+            required: ["invariantId", "sourcePresent", "preserved", "sourceEvidence", "targetEvidence"],
+          },
+        },
         limitations: { type: "array", items: { type: "string" } },
       },
-      required: ["detectedLanguage", "supportStatus", "qualificationStatus", "translatedText", "ambiguityPreserved", "limitations"],
+      required: ["detectedLanguage", "supportStatus", "qualificationStatus", "translatedText", "ambiguityPreserved", "semanticInvariants", "limitations"],
     },
   }] }],
   toolConfig: { functionCallingConfig: { mode: "ANY", allowedFunctionNames: ["return_language_projection"] } },
@@ -821,6 +965,9 @@ export const parseLanguageProjectionProviderResult = (value: unknown): LanguageP
     || !["QUALIFIED", "PROVIDER_SUPPORTED_UNQUALIFIED", "UNKNOWN"].includes(String(record.qualificationStatus))
     || typeof record.translatedText !== "string"
     || typeof record.ambiguityPreserved !== "boolean"
+    || !Array.isArray(record.semanticInvariants)
+    || record.semanticInvariants.length !== SEMANTIC_LANGUAGE_INVARIANTS.length
+    || !record.semanticInvariants.every(isProviderSemanticInvariantEvidence)
     || !Array.isArray(record.limitations) || !record.limitations.every((item) => typeof item === "string")) return null;
   return record as LanguageProjectionProviderResult;
 };

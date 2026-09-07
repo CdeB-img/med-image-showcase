@@ -18,6 +18,7 @@ import {
   resolveConversationLanguage,
   type LanguageProjectionArtifact,
   type LanguageProjectionRequest,
+  type ProviderSemanticInvariantEvidence,
   type ProtectedOpaqueLiteral,
 } from "@/features/protocol-designer/conversation-language-gateway";
 import {
@@ -59,7 +60,7 @@ const requestFor = (input: {
     sourceText: input.sourceText,
     sourceLanguageHint: input.sourceLanguage,
     targetLanguage: input.targetLanguage,
-    translationContractVersion: "1.0.0",
+    translationContractVersion: "1.1.0",
     projectionIdentityDigest: languageProjectionIdentityDigest({
       projectionKind,
       sourceText: input.sourceText,
@@ -73,11 +74,34 @@ const requestFor = (input: {
   };
 };
 
+const SEMANTIC_INVARIANTS = ["NEGATION", "UNCERTAINTY", "CONDITIONALITY", "COMPARISON", "TEMPORAL_RELATION"] as const;
+
+const semanticInvariantsFor = (
+  source: string,
+  target: string,
+  overrides: readonly ProviderSemanticInvariantEvidence[] = [],
+): readonly ProviderSemanticInvariantEvidence[] => {
+  const detected = evaluateLinguisticInvariants(source, target);
+  return SEMANTIC_INVARIANTS.map((invariant) => {
+    const override = overrides.find((item) => item.invariantId === invariant);
+    if (override) return override;
+    const evidence = detected.find((item) => item.invariant === invariant);
+    return {
+      invariantId: invariant,
+      sourcePresent: evidence?.status !== "NOT_PRESENT",
+      preserved: evidence?.status !== "UNKNOWN",
+      sourceEvidence: evidence?.sourceEvidence ?? [],
+      targetEvidence: evidence?.targetEvidence ?? [],
+    };
+  });
+};
+
 const projectionFor = (input: {
   request: LanguageProjectionRequest;
   detectedLanguage: string;
   translatedText: string;
   limitations?: readonly string[];
+  semanticInvariants?: readonly ProviderSemanticInvariantEvidence[];
 }): LanguageProjectionArtifact => materializeLanguageProjectionArtifact({
   request: input.request,
   result: {
@@ -88,6 +112,7 @@ const projectionFor = (input: {
       : "PROVIDER_SUPPORTED_UNQUALIFIED",
     translatedText: input.translatedText,
     ambiguityPreserved: true,
+    semanticInvariants: input.semanticInvariants ?? semanticInvariantsFor(input.request.sourceText, input.translatedText),
     limitations: input.limitations ?? [],
   },
   model,
@@ -185,7 +210,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     const request = requestFor({ sourceText: originalText, sourceLanguage: "en", targetLanguage: "fr" });
     const projection = projectionFor({ request, detectedLanguage: "en", translatedText });
     expect(projection.translatedText).toBe(translatedText);
-    expect(projection.invariants.find((item) => item.invariant === "IDENTIFIERS")).toEqual({
+    expect(projection.invariants.find((item) => item.invariant === "IDENTIFIERS")).toMatchObject({
       invariant: "IDENTIFIERS",
       status: "NOT_PRESENT",
       sourceEvidence: [],
@@ -296,6 +321,87 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     );
   });
 
+  it("accepts same-call uncertainty evidence without requiring a local target synonym", () => {
+    const sourceText = "Imaging may contribute to the principal evaluation.";
+    const translatedText = "Une contribution de l’imagerie à l’évaluation principale demeure envisageable.";
+    const request = requestFor({ sourceText, sourceLanguage: "en", targetLanguage: "fr" });
+    const projection = projectionFor({
+      request,
+      detectedLanguage: "en",
+      translatedText,
+      semanticInvariants: semanticInvariantsFor(sourceText, translatedText, [{
+        invariantId: "UNCERTAINTY",
+        sourcePresent: true,
+        preserved: true,
+        sourceEvidence: ["may"],
+        targetEvidence: ["demeure envisageable"],
+      }]),
+    });
+    expect(projection.invariants.find((item) => item.invariant === "UNCERTAINTY")).toMatchObject({
+      status: "PRESERVED",
+      evidenceClass: "LLM_ATTESTED",
+      sourceEvidence: ["may"],
+      targetEvidence: ["demeure envisageable"],
+    });
+  });
+
+  it("requires complete semantic attestations and rejects an attested uncertainty loss", () => {
+    const sourceText = "Imaging may contribute to the evaluation.";
+    const translatedText = "L’imagerie contribue à l’évaluation.";
+    expect(parseLanguageProjectionProviderResult({
+      detectedLanguage: "en",
+      supportStatus: "SUPPORTED",
+      qualificationStatus: "QUALIFIED",
+      translatedText,
+      ambiguityPreserved: true,
+      limitations: [],
+    })).toBeNull();
+    const request = requestFor({ sourceText, sourceLanguage: "en", targetLanguage: "fr" });
+    expect(parseLanguageProjectionProviderResult({
+      detectedLanguage: "en",
+      supportStatus: "SUPPORTED",
+      qualificationStatus: "QUALIFIED",
+      translatedText,
+      ambiguityPreserved: true,
+      semanticInvariants: semanticInvariantsFor(sourceText, translatedText).slice(0, 4),
+      limitations: [],
+    })).toBeNull();
+    expect(() => projectionFor({
+      request,
+      detectedLanguage: "en",
+      translatedText,
+      semanticInvariants: semanticInvariantsFor(sourceText, translatedText, [{
+        invariantId: "UNCERTAINTY",
+        sourcePresent: true,
+        preserved: false,
+        sourceEvidence: ["may"],
+        targetEvidence: [],
+      }]),
+    })).toThrow(LanguageProjectionContractError);
+  });
+
+  it("binds unit evidence to measured quantities rather than isolated prose letters", () => {
+    expect(evaluateLinguisticInvariants("Le plan d’étude et la stratégie d’analyse restent ouverts.", "The study plan and analysis strategy remain open.")
+      .find((item) => item.invariant === "UNITS")).toMatchObject({ status: "NOT_PRESENT", evidenceClass: "DETERMINISTICALLY_PROVABLE" });
+    expect(evaluateLinguisticInvariants("IRM à 1,5 T, délai 40 ms, dose 5 mg et volume 10 mL.", "MRI at 1.5 T, delay 40 ms, dose 5 mg and volume 10 mL.")
+      .filter((item) => item.status === "UNKNOWN")).toEqual([]);
+    expect(evaluateLinguisticInvariants("IRM à 3 T.", "MRI at 1.5 T.")
+      .find((item) => item.invariant === "NUMBERS")?.status).toBe("UNKNOWN");
+    expect(evaluateLinguisticInvariants("Délai 40 ms.", "Delay 40 s.")
+      .find((item) => item.invariant === "UNITS")?.status).toBe("UNKNOWN");
+    expect(evaluateLinguisticInvariants("Dose 5 mg.", "Dose 5 g.")
+      .find((item) => item.invariant === "UNITS")?.status).toBe("UNKNOWN");
+    for (const [sourceText, translatedText] of [
+      ["MRI at 3 T.", "IRM à 1,5 T."],
+      ["Delay 40 ms.", "Délai 40 s."],
+      ["Dose 5 mg.", "Dose 5 g."],
+    ] as const) {
+      const request = requestFor({ sourceText, sourceLanguage: "en", targetLanguage: "fr" });
+      expect(() => projectionFor({ request, detectedLanguage: "en", translatedText }))
+        .toThrow(LanguageProjectionContractError);
+    }
+  });
+
   it("preserves Japanese numbers, MRI units, uncertainty, conditionality and UNKNOWN status", () => {
     const source = "もし 1.5 T と 3 T の MRI を比較する場合、結果は異なるかもしれません。主要な判断は UNKNOWN です。";
     const target = "Si l’on compare l’IRM à 1,5 T et 3 T, les résultats pourraient être différents. La décision principale reste UNKNOWN.";
@@ -351,6 +457,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
         qualificationStatus: "QUALIFIED",
         translatedText: target,
         ambiguityPreserved: false,
+        semanticInvariants: semanticInvariantsFor(request.sourceText, target),
         limitations: [],
       },
       model,
@@ -369,6 +476,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
         qualificationStatus: "UNKNOWN",
         translatedText: "IRM.",
         ambiguityPreserved: true,
+        semanticInvariants: semanticInvariantsFor(request.sourceText, "IRM."),
         limitations: [],
       },
       model,
@@ -383,6 +491,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
         qualificationStatus: "UNKNOWN",
         translatedText: "Pas de MRI à 3 T ; statut UNKNOWN.",
         ambiguityPreserved: true,
+        semanticInvariants: semanticInvariantsFor(request.sourceText, "Pas de MRI à 3 T ; statut UNKNOWN."),
         limitations: [],
       },
       model,
@@ -432,6 +541,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
         qualificationStatus: "QUALIFIED",
         translatedText: "Nous voulons une étude MRI prospective.",
         ambiguityPreserved: true,
+        semanticInvariants: semanticInvariantsFor(request.sourceText, "Nous voulons une étude MRI prospective."),
         limitations: [],
       } } }] } }],
     }), { status: 200, headers: { "content-type": "application/json" } })) as unknown as typeof fetch;
@@ -462,6 +572,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
         qualificationStatus: "QUALIFIED",
         translatedText: "L’étude SITEBETA est en attente.",
         ambiguityPreserved: true,
+        semanticInvariants: semanticInvariantsFor(request.sourceText, "L’étude SITEBETA est en attente."),
         limitations: [],
       } } }] } }],
     }), { status: 200, headers: { "content-type": "application/json" } })) as unknown as typeof fetch;

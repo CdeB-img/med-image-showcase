@@ -41,7 +41,7 @@ const projectionResponse = (request: {
     operation: "LANGUAGE_PROJECTION",
     projection: {
       contract: "CONVERSATION_LANGUAGE_PROJECTION",
-      contractVersion: "1.0.0",
+      contractVersion: "1.1.0",
       projectionId: `language-projection:${request.projectionIdentityDigest}`,
       projectionKind: request.projectionKind,
       sourceTextDigest: logicalDigest(request.sourceText),
@@ -57,7 +57,7 @@ const projectionResponse = (request: {
       model: "gemini-3.5-flash-lite",
       providerResponseId: `provider:${request.projectionKind}`,
       providerCalls: 1,
-      translationContractVersion: "1.0.0",
+      translationContractVersion: "1.1.0",
       ambiguityPreserved: true,
       limitations: [],
       invariants: [],
