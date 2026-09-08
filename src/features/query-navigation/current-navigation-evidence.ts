@@ -14,6 +14,11 @@ import type { RetainedContributionCandidate } from "../protocol-designer/functio
 import type { StudyDesignProposalContribution } from "../study-design/contracts.js";
 import type { NavigationNeed, QueryNavigationSourceState } from "./contracts.js";
 import { makeQueryNavigationId, queryNavigationDigest } from "./canonical.js";
+import type {
+  BoundedConversationInteraction,
+  BoundedConversationReferentContext,
+} from "./current-turn-navigation.js";
+import type { GovernedRealizationContent, GovernedVisibleObligation } from "./governed-conversation-realization.js";
 
 /** Explicit consumer scope, not a recency rule and not a new result store. */
 export type CurrentNavigationOwnerResultRef = Readonly<{
@@ -88,6 +93,80 @@ const emptyState = (): CurrentNavigationEvidence["sourceState"] => ({
   validationSemanticReviews: [], validationGates: [], readiness: [], documentGenerability: [],
   knowledgeGaps: [], dependencies: [], governedNeeds: [],
 });
+
+const candidateReferentContent = (record: Readonly<RetainedContributionCandidate>): GovernedRealizationContent[] => {
+  const changes = record.candidate.canonicalChangeSet.objectChanges.filter((change) => change.candidate && change.operation !== "REMOVE");
+  const objectives = changes.filter((change) => ["OBJECTIVE", "SCIENTIFIC_QUESTION"].includes(change.candidate!.objectType));
+  const comparisonRefs = new Set(record.candidate.canonicalChangeSet.relationChanges
+    .filter((relation) => relation.candidate?.relationType === "COMPARES_WITH")
+    .flatMap((relation) => relation.candidate ? [relation.candidate.sourceObjectRef, relation.candidate.targetObjectRef] : []));
+  const comparisons = changes.filter((change) => comparisonRefs.has(change.objectId));
+  return (objectives.length ? objectives : comparisons.length ? comparisons : changes).map((change) => ({
+    ref: change.objectId,
+    text: change.candidate!.content,
+    status: change.candidate!.epistemicState,
+  }));
+};
+
+/** Pure lifecycle projection: no transcript, no recency-only merge, no scientific interpretation. */
+export const buildBoundedConversationReferentContext = (input: {
+  retained: readonly RetainedContributionCandidate[];
+  currentProject: Readonly<ResearchProjectOwnerProjection> | null;
+  conversationId: string;
+  runtimeTurns: readonly Readonly<{ turnId: string; role: "USER" | "NOXIA"; content: string }>[];
+}): BoundedConversationReferentContext => {
+  const expectedBase = input.currentProject ? {
+    projectId: input.currentProject.projectId,
+    versionId: input.currentProject.versionId,
+    projectDigest: input.currentProject.projectDigest,
+  } : null;
+  const eligible = input.retained.filter((record) => {
+    const source = input.runtimeTurns.find((turn) => turn.role === "USER" && turn.turnId === record.sourceTurnRef);
+    return record.actuality === "CURRENT" && !record.humanDecision
+      && record.validation.valid && !record.validation.blocks.length
+      && record.contribution.source.conversationId === input.conversationId
+      && source && logicalDigest(source.content) === record.sourceDigest
+      && same(record.baseProject, expectedBase)
+      && same(record.candidateDigest, logicalDigest({ contribution: record.contribution, candidate: record.candidate }));
+  });
+  if (eligible.length > 1) return Object.freeze({
+    resolution: "AMBIGUOUS", candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
+    reason: "MULTIPLE_CURRENT_NON_ADOPTED_CANDIDATES", projectWriteAuthorized: false,
+  });
+  const record = eligible[0];
+  if (record) return Object.freeze({
+    resolution: "UNIQUE_CURRENT", candidateRef: record.candidateRef, sourceTurnRef: record.sourceTurnRef,
+    sourceDigest: record.sourceDigest, content: Object.freeze(candidateReferentContent(record)),
+    reason: "EXACT_CURRENT_RETAINED_CANDIDATE_BINDING", projectWriteAuthorized: false,
+  });
+  const nonCurrentExists = input.retained.some((record) => record.actuality !== "CURRENT" || Boolean(record.humanDecision));
+  return Object.freeze({
+    resolution: nonCurrentExists ? "STALE_OR_SUPERSEDED" : "NONE",
+    candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
+    reason: nonCurrentExists ? "ONLY_NON_CURRENT_OR_DECIDED_CANDIDATES_AVAILABLE" : "NO_RETAINED_CANDIDATE",
+    projectWriteAuthorized: false,
+  });
+};
+
+/** Closed interaction-language grammar, not a scientific/domain synonym dictionary. */
+export const selectBoundedConversationInteraction = (input: {
+  sourceText: string;
+  correctionMode: boolean;
+  referentContext: Readonly<BoundedConversationReferentContext>;
+}): BoundedConversationInteraction | undefined => {
+  if (input.correctionMode) return Object.freeze({
+    kind: "ACKNOWLEDGE_USER_DIRECTION", evidenceRefs: Object.freeze([input.referentContext.candidateRef].filter((ref): ref is string => Boolean(ref))),
+  });
+  const normalized = input.sourceText.normalize("NFKC").replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
+    .toLocaleLowerCase("fr-FR").replace(/\s+/gu, " ").trim();
+  const asksToExplain = /^(?:explique|expliquez|expliquer)\b/u.test(normalized);
+  const hasDeicticReference = /\b(?:ce|cet|cette|ces|celui|celle|ceux|celles)\b/u.test(normalized);
+  if (asksToExplain && hasDeicticReference) return Object.freeze({
+    kind: "EXPLAIN_REFERENCED_CONTENT",
+    evidenceRefs: Object.freeze([input.referentContext.candidateRef, input.referentContext.sourceTurnRef].filter((ref): ref is string => Boolean(ref))),
+  });
+  return undefined;
+};
 
 const snapshotReasons = (entry: Readonly<ProductOwnerResultLedgerEntry>, snapshot: Readonly<ProjectContextSnapshot>) => {
   const result = entry.result;
@@ -266,10 +345,86 @@ export const buildCurrentNavigationEvidence = (input: {
 
 export const currentNavigationEvidenceRef = (evidence: CurrentNavigationEvidence) => makeQueryNavigationId("current-navigation-evidence", { digest: evidence.contextDigest });
 
+const currentStudyDesignDecisionSupport = (input: {
+  project: Readonly<ResearchProjectOwnerProjection>;
+  navigation: Readonly<import("./functional-reset-progression").FunctionalResetQueryNavigation>;
+  ownerResultLedger?: Readonly<ProductOwnerResultLedger> | null;
+}): Readonly<{
+  authorizedContent: readonly GovernedRealizationContent[];
+  requiredContentRefs: readonly string[];
+  requiredVisibleObligations: readonly GovernedVisibleObligation[];
+}> | null => {
+  const selected = input.navigation.selection.selected;
+  if (selected?.actionCategory !== "COMPARE_OPTIONS" || !input.ownerResultLedger) return null;
+  const sourceRefs = input.navigation.selection.needs
+    .filter((need) => selected.navigationNeedRefs.includes(need.needId))
+    .map((need) => need.sourceRef);
+  if (new Set(sourceRefs).size !== 1) return null;
+  const sourceRef = sourceRefs[0];
+  const ledger = rehydrateProductOwnerResultLedger(input.ownerResultLedger);
+  const entry = ledger.entries.find((item) => item.result?.owner === "STUDY_DESIGN"
+    && item.result.resultId === sourceRef);
+  const result = entry?.result;
+  const payload = result?.nativePayload as StudyDesignProposalContribution | null | undefined;
+  if (!result || !payload || payload.contract !== "STUDY_DESIGN_PROPOSAL_CONTRIBUTION"
+    || payload.validation.status !== "PASS" || payload.projectWriteAuthorized !== false
+    || payload.candidateIsAdopted !== false || payload.sourceProject.projectId !== input.project.projectId
+    || payload.sourceProject.projectVersion !== input.project.versionId
+    || payload.sourceProject.projectDigest !== input.project.projectDigest
+    || result.sourceProjectRef !== input.project.projectId || result.sourceProjectVersion !== input.project.versionId
+    || result.sourceProjectDigest !== input.project.projectDigest
+    || !selected.sourceRefs.includes(result.resultId) || !ownerResultNativeDigest(result)) return null;
+  const options = payload.options.filter((option) => selected.knownOptionRefs.includes(option.optionId));
+  if (options.length !== selected.knownOptionRefs.length || options.length < 2) return null;
+  const optionContent = options.map((option): GovernedRealizationContent => ({
+    ref: option.optionId,
+    text: [
+      `Option : ${option.label}.`, option.conciseDescription,
+      `Justification : ${option.rationale.statement}.`,
+      option.advantages.length ? `Avantages : ${option.advantages.join(" ; ")}.` : "",
+      option.limitations.length ? `Limites : ${option.limitations.join(" ; ")}.` : "",
+      option.prerequisites.length ? `Prérequis : ${option.prerequisites.join(" ; ")}.` : "",
+      option.consequences.length ? `Conséquences : ${option.consequences.join(" ; ")}.` : "",
+    ].filter(Boolean).join(" "),
+    status: option.epistemicStatus,
+  }));
+  const tradeOffs = payload.tradeOffs.filter((tradeOff) => tradeOff.decisionRequired
+    && tradeOff.optionRefs.every((ref) => selected.knownOptionRefs.includes(ref)))
+    .map((tradeOff): GovernedRealizationContent => ({
+      ref: tradeOff.tradeOffId,
+      text: `Compromis. Gains : ${tradeOff.gains.join(" ; ")}. Pertes : ${tradeOff.losses.join(" ; ")}. Une décision humaine est requise.`,
+      status: payload.epistemicStatus,
+    }));
+  const limitations = payload.limitations.map((text, index): GovernedRealizationContent => ({
+    ref: `${payload.proposalId}:limitation:${index + 1}`, text, status: payload.epistemicStatus,
+  }));
+  const authorizedContent = [...optionContent, ...tradeOffs, ...limitations];
+  const obligations: GovernedVisibleObligation[] = options.flatMap((option) => [
+    { obligationId: `${option.optionId}:identity`, sourceRef: option.optionId, role: "OPTION_IDENTITY", exactText: option.label },
+    { obligationId: `${option.optionId}:discriminant`, sourceRef: option.optionId, role: "OPTION_DISCRIMINANT", exactText: option.conciseDescription || option.rationale.statement },
+    ...(option.limitations[0] ? [{ obligationId: `${option.optionId}:material-limit`, sourceRef: option.optionId,
+      role: "MATERIAL_LIMIT" as const, exactText: option.limitations[0] }] : []),
+  ]);
+  if (payload.limitations[0]) obligations.push({
+    obligationId: `${payload.proposalId}:global-material-limit`, sourceRef: `${payload.proposalId}:limitation:1`,
+    role: "MATERIAL_LIMIT", exactText: payload.limitations[0],
+  });
+  obligations.push({
+    obligationId: `${payload.proposalId}:human-decision-boundary`, sourceRef: result.resultId,
+    role: "HUMAN_DECISION_BOUNDARY", exactText: "Aucune option n’est adoptée ; la décision vous revient.",
+  });
+  return Object.freeze({
+    authorizedContent: Object.freeze(authorizedContent),
+    requiredContentRefs: Object.freeze(authorizedContent.map((item) => item.ref)),
+    requiredVisibleObligations: Object.freeze(obligations),
+  });
+};
+
 /** Bounded HOW transport of an action already selected by QRY. */
 export const currentGovernedNavigationInput = (input: {
   project: Readonly<ResearchProjectOwnerProjection>;
   navigation: Readonly<import("./functional-reset-progression").FunctionalResetQueryNavigation> | null;
+  ownerResultLedger?: Readonly<ProductOwnerResultLedger> | null;
 }): import("./current-turn-navigation").CurrentGovernedNavigationInput | undefined => {
   const navigation = input.navigation;
   const selected = navigation?.selection.selected;
@@ -279,7 +434,10 @@ export const currentGovernedNavigationInput = (input: {
     || action.actionCandidateRef !== selected.candidateId) return undefined;
   const snapshot = buildProjectContextSnapshot({ project: input.project });
   const scope = new Set([selected.targetRef, ...selected.sourceRefs, ...selected.affectedBranchRefs, ...selected.knownOptionRefs]);
-  const authorizedContent = [
+  const decisionSupport = currentStudyDesignDecisionSupport({
+    project: input.project, navigation, ownerResultLedger: input.ownerResultLedger,
+  });
+  const authorizedContent = decisionSupport?.authorizedContent ?? [
     { ref: selected.candidateId, text: navigation.standardQuestion?.text ?? selected.explanation, status: null },
     ...snapshot.objects.filter((object) => scope.has(object.stableId) || scope.has(object.versionRef))
       .map((object) => ({ ref: object.stableId, text: object.content, status: object.epistemicState })),
@@ -288,6 +446,10 @@ export const currentGovernedNavigationInput = (input: {
     projectId: input.project.projectId, projectVersion: input.project.versionId, projectDigest: input.project.projectDigest,
     selectedActionRef: action.selectedActionId, sourceStateDigest: navigation.sourceStateDigest,
     selected: structuredClone(selected), authorizedContent,
+    ...(decisionSupport ? {
+      requiredContentRefs: decisionSupport.requiredContentRefs,
+      requiredVisibleObligations: decisionSupport.requiredVisibleObligations,
+    } : {}),
     informationNeedScopes: navigation.selection.needs
       .filter((need) => selected.navigationNeedRefs.includes(need.needId))
       .map((need) => ({ needRef: need.needId, sourceRef: need.sourceRef,

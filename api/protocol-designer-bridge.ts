@@ -356,6 +356,8 @@ export const executeProtocolDesignerBridge = async (input: {
       currentProject: request.currentProject, preProjectNavigation: request.preProjectNavigation,
       interaction: request.conversation.interactionContext,
       currentNavigation: request.currentNavigation,
+      boundedReferentContext: request.boundedReferentContext,
+      boundedInteraction: request.boundedInteraction,
       requestKind: request.requestKind,
     });
     downstreamStage = "HOW";

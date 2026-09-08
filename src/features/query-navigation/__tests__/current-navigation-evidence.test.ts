@@ -6,7 +6,7 @@ import { invokeStudyDesignForProjectSnapshot } from "@/features/protocol-designe
 import { retainValidatedContributionCandidate, type RetainedContributionCandidate } from "@/features/protocol-designer/functional-reset/contribution-lifecycle";
 import { adoptBehaviorContribution, behaviorContribution, behaviorItem, behaviorRelation, behaviorTurn } from "@/features/protocol-designer/functional-reset/__tests__/p1-behavior-01a-contract-fixtures";
 import { executeStudyDesignRuntime, type StudyDesignProposalContribution } from "@/features/study-design";
-import { buildCurrentNavigationEvidence, type CurrentNavigationOwnerResultRef } from "../current-navigation-evidence";
+import { buildCurrentNavigationEvidence, currentGovernedNavigationInput, type CurrentNavigationOwnerResultRef } from "../current-navigation-evidence";
 import { buildQueryNavigationContext } from "../adapters";
 import { selectNextAction } from "../engine";
 import { buildFunctionalResetQueryNavigation } from "../functional-reset-progression";
@@ -207,6 +207,33 @@ describe("PASS3A current navigation evidence — exact sources, no new science",
     expect(selected.selected?.affectedDecisionRefs).toContain(sourceTradeOff.tradeOffId);
     expect([...(selected.selected?.knownOptionRefs ?? [])].sort()).toEqual([...sourceTradeOff.optionRefs].sort());
     expect(selected.selected?.projectWriteAuthorized).toBe(false);
+  });
+
+  it("projects the selected current Study Design options, discriminants and limitations into HOW obligations", () => {
+    const sourceContribution = contribution();
+    const scientificQuestion = sourceContribution.scientificContent.candidateObjects.find((item) => item.proposedType === "SCIENTIFIC_QUESTION")!;
+    scientificQuestion.content = "Étudier une trajectoire longitudinale avec données rétrospectives existantes puis suivi prospectif";
+    scientificQuestion.epistemicBoundary.sourceText = scientificQuestion.content;
+    sourceContribution.source.turns[0].content = scientificQuestion.content;
+    sourceContribution.source.originalRequest = scientificQuestion.content;
+    const value = adoptBehaviorContribution(sourceContribution, null, 1);
+    const invocation = result(value);
+    const evidence = buildCurrentNavigationEvidence({
+      ...currentInput(value), ownerResultLedger: invocation.ledger,
+      activeOwnerResultRefs: [selection(invocation, value)],
+    });
+    const navigation = buildFunctionalResetQueryNavigation({ project: value, currentNavigationEvidence: evidence, recordedAt: AT });
+    expect(navigation.selection.selected?.actionCategory).toBe("COMPARE_OPTIONS");
+    const governed = currentGovernedNavigationInput({ project: value, navigation, ownerResultLedger: invocation.ledger });
+    expect(governed).toBeDefined();
+    expect(governed!.requiredContentRefs).toEqual(governed!.authorizedContent.map((item) => item.ref));
+    expect(governed!.requiredVisibleObligations?.filter((item) => item.role === "OPTION_IDENTITY").length).toBeGreaterThanOrEqual(2);
+    expect(governed!.requiredVisibleObligations?.filter((item) => item.role === "OPTION_DISCRIMINANT").length).toBeGreaterThanOrEqual(2);
+    expect(governed!.requiredVisibleObligations?.some((item) => item.role === "MATERIAL_LIMIT")).toBe(true);
+    expect(governed!.requiredVisibleObligations).toContainEqual(expect.objectContaining({
+      role: "HUMAN_DECISION_BOUNDARY", exactText: "Aucune option n’est adoptée ; la décision vous revient.",
+    }));
+    expect(governed!.authorizedContent.every((item) => !item.ref.startsWith("qry-action-"))).toBe(true);
   });
 
   it("does not include unselected ledger entries in QRY context or digest", () => {

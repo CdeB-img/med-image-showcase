@@ -126,7 +126,9 @@ describe("Pass3A post-adoption common receipt, no legacy WHAT resurrection", () 
     input.response.assistantReply = text;
     input.response.governedRealization = realizeGovernedConversation({ envelope, providerReply: text,
       requireProviderClaim: true, providerClaim: { whatRef: envelope.whatRef, action: envelope.action,
-        actionWitness: text, targetRefs: [...envelope.targetRefs], informationNeedRefs: [],
+        actionWitness: text, interventionKind: envelope.intervention.kind,
+        contentSource: envelope.intervention.contentSource,
+        targetRefs: [...envelope.targetRefs], informationNeedRefs: [],
         contentClaims: [], relationClaims: [], adoptionClaimed: false, projectWriteClaimed: false } });
     expect(input.response.governedRealization.providerReplyAccepted).toBe(true);
     const result = resolveGovernedPostAdoptionReceipt(input);

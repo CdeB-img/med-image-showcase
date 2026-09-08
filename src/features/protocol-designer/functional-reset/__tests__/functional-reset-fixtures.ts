@@ -190,6 +190,7 @@ export const makeGovernedPostAdoptionResponse = (
   const governedRealization = realizeGovernedConversation({ envelope, providerReply: text, requireProviderClaim: true,
     localWhatText: navigation.localWhatText,
     providerClaim: { whatRef: envelope.whatRef, action: envelope.action, actionWitness: text,
+      interventionKind: envelope.intervention.kind, contentSource: envelope.intervention.contentSource,
       targetRefs: [...envelope.targetRefs], informationNeedRefs: envelope.selectedInformationNeedRef ? [envelope.selectedInformationNeedRef] : [],
       contentClaims: envelope.authorizedContent.map((item) => ({ ref: item.ref, witness: text, status: item.status })),
       relationClaims: envelope.requiredRelations.map((item) => ({ ...item, witness: text })),

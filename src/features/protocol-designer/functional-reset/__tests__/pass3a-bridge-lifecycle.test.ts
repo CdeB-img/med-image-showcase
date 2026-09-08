@@ -67,6 +67,7 @@ const howResponse = (requestBody: string) => {
       assistantReply: reply,
       claim: {
         whatRef: envelope.whatRef, action: envelope.action, actionWitness: reply,
+        interventionKind: envelope.intervention.kind, contentSource: envelope.intervention.contentSource,
         targetRefs: envelope.targetRefs,
         informationNeedRefs: envelope.selectedInformationNeedRef ? [envelope.selectedInformationNeedRef] : [],
         contentClaims: envelope.requiredContentRefs.map((ref) => ({

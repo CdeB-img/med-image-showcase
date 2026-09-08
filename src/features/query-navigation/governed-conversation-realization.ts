@@ -5,7 +5,32 @@ import { evaluateLinguisticInvariants } from "../protocol-designer/conversation-
 
 /** A consumer projection of QRY's decision, never a second next-action owner. */
 export const GOVERNED_CONVERSATION_REALIZATION_CONTRACT = "GOVERNED_CONVERSATION_REALIZATION" as const;
-export const GOVERNED_CONVERSATION_REALIZATION_VERSION = "1.0.0" as const;
+export const GOVERNED_CONVERSATION_REALIZATION_VERSION = "1.1.0" as const;
+
+export type GovernedConversationInterventionKind =
+  | "ASK_INFORMATION"
+  | "STRUCTURE_USER_SUPPLIED_CONTENT"
+  | "PRESENT_OWNER_DECISION_SUPPORT"
+  | "EXPLAIN_REFERENCED_CONTENT"
+  | "ACKNOWLEDGE_USER_DIRECTION"
+  | "RESPOND_WITHOUT_MUTATION";
+
+export type GovernedConversationContentSource =
+  | "QUERY_NAVIGATION"
+  | "USER_SUPPLIED"
+  | "OWNER_RESULT"
+  | "RETAINED_CANDIDATE"
+  | "CURRENT_PROJECT"
+  | "NONE";
+
+export type GovernedVisibleObligation = Readonly<{
+  obligationId: string;
+  sourceRef: string;
+  role: "OPTION_IDENTITY" | "OPTION_DISCRIMINANT" | "MATERIAL_LIMIT" | "HUMAN_DECISION_BOUNDARY" | "REFERENT_CONTENT"
+    | "USER_SOURCE_ATTRIBUTION" | "USER_DIRECTION_ACKNOWLEDGEMENT";
+  /** Exact owner/consumer-selected fragment; the real visible span is resolved after normalization. */
+  exactText: string;
+}>;
 
 export type GovernedRealizationContent = Readonly<{
   ref: string;
@@ -28,6 +53,11 @@ export type GovernedConversationEnvelope = Readonly<{
   whatRef: string;
   action: PreProjectNavigationAction;
   actionCategory: NextActionCandidate["actionCategory"] | null;
+  intervention: Readonly<{
+    kind: GovernedConversationInterventionKind;
+    contentSource: GovernedConversationContentSource;
+    sourceRefs: readonly string[];
+  }>;
   purpose: string;
   sourceTurnRef: string;
   projectBinding: Readonly<{ projectId: string; projectVersion: string; projectDigest: string }> | null;
@@ -35,6 +65,7 @@ export type GovernedConversationEnvelope = Readonly<{
   targetRefs: readonly string[];
   authorizedContent: readonly GovernedRealizationContent[];
   requiredContentRefs: readonly string[];
+  requiredVisibleObligations: readonly GovernedVisibleObligation[];
   requiredRelations: readonly GovernedRealizationRelation[];
   /** Owner-selected exact invariants, not every word/dimension of the source. */
   protectedLiterals: readonly Readonly<{ ref: string; literal: string }>[];
@@ -47,9 +78,9 @@ export type GovernedConversationEnvelope = Readonly<{
 
 type EnvelopeInput = Omit<GovernedConversationEnvelope,
   "contract" | "contractVersion" | "responsibilityOwner" | "humanDecisionBoundary" | "projectWriteAuthorized"
-  | "actionCategory" | "candidateRef" | "requiredContentRefs" | "requiredRelations" | "protectedLiterals"
+  | "actionCategory" | "intervention" | "candidateRef" | "requiredContentRefs" | "requiredVisibleObligations" | "requiredRelations" | "protectedLiterals"
   | "alreadyProvidedInformationRefs" | "selectedInformationNeedRef" | "scientificLimitations"> & Partial<Pick<GovernedConversationEnvelope,
-    "actionCategory" | "candidateRef" | "requiredContentRefs" | "requiredRelations" | "protectedLiterals"
+    "actionCategory" | "intervention" | "candidateRef" | "requiredContentRefs" | "requiredVisibleObligations" | "requiredRelations" | "protectedLiterals"
     | "alreadyProvidedInformationRefs" | "selectedInformationNeedRef" | "scientificLimitations">>;
 
 const strings = (value: unknown): value is string[] => Array.isArray(value)
@@ -67,10 +98,24 @@ export const buildGovernedConversationEnvelope = (input: EnvelopeInput): Governe
   const contents = input.authorizedContent.map((item) => Object.freeze({ ...item }));
   const contentRefs = contents.map((item) => item.ref);
   const required = [...(input.requiredContentRefs ?? [])];
+  const visibleObligations = [...(input.requiredVisibleObligations ?? [])];
   if (!unique(contentRefs) || !unique(input.targetRefs) || !unique(required)
     || contents.some((item) => !nonempty(item.ref) || !nonempty(item.text))
     || required.some((ref) => !contentRefs.includes(ref))) {
     throw new Error("GOVERNED_REALIZATION_CONTENT_IDENTITY_INVALID");
+  }
+  if (!unique(visibleObligations.map((item) => item.obligationId))
+    || visibleObligations.some((item) => !nonempty(item.obligationId) || !nonempty(item.sourceRef) || !nonempty(item.exactText)
+      || !["OPTION_IDENTITY", "OPTION_DISCRIMINANT", "MATERIAL_LIMIT", "HUMAN_DECISION_BOUNDARY", "REFERENT_CONTENT",
+        "USER_SOURCE_ATTRIBUTION", "USER_DIRECTION_ACKNOWLEDGEMENT"].includes(item.role))) {
+    throw new Error("GOVERNED_REALIZATION_VISIBLE_OBLIGATION_INVALID");
+  }
+  const defaultIntervention = input.action === "ASK_QUESTION"
+    ? { kind: "ASK_INFORMATION" as const, contentSource: "QUERY_NAVIGATION" as const, sourceRefs: input.selectedInformationNeedRef ? [input.selectedInformationNeedRef] : [] }
+    : { kind: "RESPOND_WITHOUT_MUTATION" as const, contentSource: "NONE" as const, sourceRefs: [] };
+  const intervention = input.intervention ?? defaultIntervention;
+  if (!unique(intervention.sourceRefs) || intervention.sourceRefs.some((ref) => !nonempty(ref))) {
+    throw new Error("GOVERNED_REALIZATION_INTERVENTION_SOURCE_INVALID");
   }
   if ((input.protectedLiterals ?? []).some((item) => !nonempty(item.ref) || !nonempty(item.literal))) {
     throw new Error("GOVERNED_REALIZATION_PROTECTED_LITERAL_INVALID");
@@ -89,6 +134,7 @@ export const buildGovernedConversationEnvelope = (input: EnvelopeInput): Governe
     whatRef: input.whatRef,
     action: input.action,
     actionCategory: input.actionCategory ?? null,
+    intervention: Object.freeze({ ...intervention, sourceRefs: Object.freeze([...intervention.sourceRefs]) }),
     purpose: input.purpose,
     sourceTurnRef: input.sourceTurnRef,
     projectBinding: input.projectBinding ? Object.freeze({ ...input.projectBinding }) : null,
@@ -96,6 +142,7 @@ export const buildGovernedConversationEnvelope = (input: EnvelopeInput): Governe
     targetRefs: Object.freeze([...input.targetRefs]),
     authorizedContent: Object.freeze(contents),
     requiredContentRefs: Object.freeze(required),
+    requiredVisibleObligations: Object.freeze(visibleObligations.map((item) => Object.freeze({ ...item }))),
     requiredRelations: Object.freeze((input.requiredRelations ?? []).map((item) => Object.freeze({ ...item }))),
     protectedLiterals: Object.freeze((input.protectedLiterals ?? []).map((item) => Object.freeze({ ...item }))),
     alreadyProvidedInformationRefs: Object.freeze([...(input.alreadyProvidedInformationRefs ?? [])]),
@@ -111,6 +158,9 @@ export type GovernedRealizationProviderClaim = Readonly<{
   whatRef: string;
   action: PreProjectNavigationAction;
   actionWitness: string;
+  /** Required for source-sensitive interventions in 1.1.0; optional only to requalify immutable 1.0.0 outputs. */
+  interventionKind?: GovernedConversationInterventionKind;
+  contentSource?: GovernedConversationContentSource;
   targetRefs: readonly string[];
   informationNeedRefs: readonly string[];
   contentClaims: readonly Readonly<{ ref: string; witness: string; status: string | null }>[];
@@ -131,12 +181,19 @@ export const parseGovernedRealizationProviderOutput = (raw: unknown): GovernedRe
   }
   if (!record(value) || !nonempty(value.assistantReply) || !record(value.claim)) return null;
   const claim = value.claim;
-  if (!exactKeys(value, ["assistantReply", "claim"]) || !exactKeys(claim, ["whatRef", "action", "actionWitness", "targetRefs",
-    "informationNeedRefs", "contentClaims", "relationClaims", "adoptionClaimed", "projectWriteClaimed"])) return null;
+  const legacyClaimKeys = ["whatRef", "action", "actionWitness", "targetRefs",
+    "informationNeedRefs", "contentClaims", "relationClaims", "adoptionClaimed", "projectWriteClaimed"] as const;
+  const currentClaimKeys = [...legacyClaimKeys, "interventionKind", "contentSource"] as const;
+  if (!exactKeys(value, ["assistantReply", "claim"])
+    || (!exactKeys(claim, legacyClaimKeys) && !exactKeys(claim, currentClaimKeys))) return null;
   if (!nonempty(claim.whatRef) || !nonempty(claim.actionWitness) || !["ASK_QUESTION", "PROPOSE", "RESPOND"].includes(String(claim.action))
     || !strings(claim.targetRefs) || !strings(claim.informationNeedRefs)
     || typeof claim.adoptionClaimed !== "boolean" || typeof claim.projectWriteClaimed !== "boolean"
     || !Array.isArray(claim.contentClaims) || !Array.isArray(claim.relationClaims)) return null;
+  if (("interventionKind" in claim || "contentSource" in claim)
+    && (!currentClaimKeys.every((key) => key in claim)
+      || !["ASK_INFORMATION", "STRUCTURE_USER_SUPPLIED_CONTENT", "PRESENT_OWNER_DECISION_SUPPORT", "EXPLAIN_REFERENCED_CONTENT", "ACKNOWLEDGE_USER_DIRECTION", "RESPOND_WITHOUT_MUTATION"].includes(String(claim.interventionKind))
+      || !["QUERY_NAVIGATION", "USER_SUPPLIED", "OWNER_RESULT", "RETAINED_CANDIDATE", "CURRENT_PROJECT", "NONE"].includes(String(claim.contentSource)))) return null;
   if (!claim.contentClaims.every((item) => record(item) && exactKeys(item, ["ref", "witness", "status"])
     && nonempty(item.ref) && nonempty(item.witness)
     && (item.status === null || nonempty(item.status)))) return null;
@@ -149,6 +206,61 @@ export const parseGovernedRealizationProviderOutput = (raw: unknown): GovernedRe
 
 const sameRefs = (left: readonly string[], right: readonly string[]) => unique(left)
   && unique(right) && left.length === right.length && left.every((ref) => right.includes(ref));
+
+export type GovernedVisibleSpan = Readonly<{
+  start: number;
+  end: number;
+  exactText: string;
+}>;
+
+type NormalizedVisibleText = Readonly<{
+  value: string;
+  starts: readonly number[];
+  ends: readonly number[];
+}>;
+
+/** NFKC + case fold + controlled apostrophe/space normalization, with a map back to the exact visible span. */
+const normalizedVisibleText = (source: string): NormalizedVisibleText => {
+  const value: string[] = [];
+  const starts: number[] = [];
+  const ends: number[] = [];
+  const clusters = [...source.matchAll(/\P{M}\p{M}*|\p{M}+/gu)];
+  for (const match of clusters) {
+    const original = match[0];
+    const start = match.index;
+    const end = start + original.length;
+    const normalized = original.normalize("NFKC").replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
+      .toLocaleLowerCase("fr-FR");
+    for (const character of normalized) {
+      const isSpace = /\s/u.test(character);
+      if (isSpace) {
+        if (!value.length || value.at(-1) === " ") {
+          if (value.at(-1) === " ") ends[ends.length - 1] = end;
+          continue;
+        }
+        value.push(" "); starts.push(start); ends.push(end);
+        continue;
+      }
+      for (let index = 0; index < character.length; index += 1) {
+        value.push(character[index]); starts.push(start); ends.push(end);
+      }
+    }
+  }
+  if (value.at(-1) === " ") { value.pop(); starts.pop(); ends.pop(); }
+  return { value: value.join(""), starts, ends };
+};
+
+const normalizedVisibleSpan = (visibleText: string, witness: string): GovernedVisibleSpan | null => {
+  if (!nonempty(witness)) return null;
+  const visible = normalizedVisibleText(visibleText);
+  const normalizedWitness = normalizedVisibleText(witness).value;
+  if (!normalizedWitness) return null;
+  const offset = visible.value.indexOf(normalizedWitness);
+  if (offset < 0) return null;
+  const start = visible.starts[offset];
+  const end = visible.ends[offset + normalizedWitness.length - 1];
+  return start === undefined || end === undefined ? null : Object.freeze({ start, end, exactText: visibleText.slice(start, end) });
+};
 
 /** Checks the exact literal with token boundaries; it does not infer quantities from prose. */
 const containsProtectedLiteral = (text: string, literal: string) => {
@@ -184,6 +296,9 @@ export type GovernedRealizationConformance = Readonly<{
   visibleTextFidelity: "UNKNOWN";
   structuredRefCoverage: "CONTRACT_EVIDENCE_NOT_SEMANTIC_ORACLE";
   diagnostics: readonly string[];
+  actionWitnessSpan: GovernedVisibleSpan | null;
+  contentWitnessSpans: readonly Readonly<{ ref: string; span: GovernedVisibleSpan }>[];
+  visibleObligationSpans: readonly Readonly<{ obligationId: string; span: GovernedVisibleSpan }>[];
   representedContentRefs: readonly string[];
   missingRequiredContentRefs: readonly string[];
   projectWriteAuthorized: false;
@@ -198,13 +313,26 @@ export const validateGovernedConversationRealization = (input: {
   const { envelope, assistantReply: text, claim } = input;
   const diagnostics: string[] = [];
   const actionFailures: string[] = [];
+  let actionWitnessSpan: GovernedVisibleSpan | null = null;
+  const contentWitnessSpans: { ref: string; span: GovernedVisibleSpan }[] = [];
+  const visibleObligationSpans: { obligationId: string; span: GovernedVisibleSpan }[] = [];
   if (!nonempty(text)) diagnostics.push("EMPTY_REALIZATION");
   if (input.requireProviderClaim && !claim) diagnostics.push("STRUCTURED_REALIZATION_CLAIM_REQUIRED");
   if (UNAUTHORIZED_WRITE_DECLARATION.test(text)) diagnostics.push("UNAUTHORIZED_PROJECT_WRITE_DECLARATION");
+  const sourceTurnContent = envelope.authorizedContent.find((item) => item.ref === envelope.sourceTurnRef)?.text;
+  if (envelope.action === "RESPOND" && sourceTurnContent
+    && normalizedVisibleText(text).value === normalizedVisibleText(sourceTurnContent).value) {
+    diagnostics.push("EXACT_SOURCE_TURN_ECHO_AS_ASSISTANT_RESPONSE");
+  }
   // A question mark is an observable surface constraint, not proof that an ASK was realized.
   if (envelope.action !== "ASK_QUESTION" && text.includes("?")) actionFailures.push("UNAUTHORIZED_INTERROGATIVE_SURFACE");
   for (const item of envelope.protectedLiterals) {
     if (!containsProtectedLiteral(text, item.literal)) diagnostics.push(`REQUIRED_PROTECTED_LITERAL_MISSING:${item.ref}`);
+  }
+  for (const obligation of envelope.requiredVisibleObligations) {
+    const span = normalizedVisibleSpan(text, obligation.exactText);
+    if (!span) diagnostics.push(`REQUIRED_VISIBLE_OBLIGATION_MISSING:${obligation.obligationId}`);
+    else visibleObligationSpans.push({ obligationId: obligation.obligationId, span });
   }
   const allowedQuantities = new Set(measuredQuantitySurfaces([
     ...envelope.authorizedContent.map((item) => item.text),
@@ -217,7 +345,17 @@ export const validateGovernedConversationRealization = (input: {
   if (claim) {
     if (claim.whatRef !== envelope.whatRef) diagnostics.push("WHAT_REFERENCE_MISMATCH");
     if (claim.action !== envelope.action) actionFailures.push("ACTION_CLAIM_MISMATCH");
-    if (!nonempty(claim.actionWitness) || !text.includes(claim.actionWitness)) actionFailures.push("ACTION_WITNESS_NOT_IN_VISIBLE_TEXT");
+    actionWitnessSpan = normalizedVisibleSpan(text, claim.actionWitness);
+    if (!actionWitnessSpan) actionFailures.push("ACTION_WITNESS_NOT_IN_VISIBLE_TEXT");
+    const sourceSensitive = ["STRUCTURE_USER_SUPPLIED_CONTENT", "PRESENT_OWNER_DECISION_SUPPORT",
+      "EXPLAIN_REFERENCED_CONTENT", "ACKNOWLEDGE_USER_DIRECTION"].includes(envelope.intervention.kind);
+    if (sourceSensitive && (!claim.interventionKind || !claim.contentSource)) {
+      diagnostics.push("INTERVENTION_SEMANTICS_CLAIM_REQUIRED");
+    } else if (claim.interventionKind && claim.interventionKind !== envelope.intervention.kind) {
+      diagnostics.push("INTERVENTION_KIND_MISMATCH");
+    } else if (claim.contentSource && claim.contentSource !== envelope.intervention.contentSource) {
+      diagnostics.push("CONTENT_SOURCE_MISMATCH");
+    }
     if (!sameRefs(claim.targetRefs, envelope.targetRefs)) diagnostics.push("TARGET_REFERENCE_MISMATCH");
     if (claim.adoptionClaimed || claim.projectWriteClaimed) diagnostics.push("UNAUTHORIZED_ADOPTION_OR_WRITE_CLAIM");
     const expectedNeed = envelope.selectedInformationNeedRef ? [envelope.selectedInformationNeedRef] : [];
@@ -229,11 +367,13 @@ export const validateGovernedConversationRealization = (input: {
     for (const item of claim.contentClaims) {
       const authorized = envelope.authorizedContent.find((content) => content.ref === item.ref);
       if (!authorized) { diagnostics.push(`UNAUTHORIZED_CONTENT_REFERENCE:${item.ref}`); continue; }
-      if (!nonempty(item.witness) || !text.includes(item.witness)) {
+      const span = normalizedVisibleSpan(text, item.witness);
+      if (!span) {
         diagnostics.push(`CONTENT_WITNESS_NOT_IN_VISIBLE_TEXT:${item.ref}`); continue;
       }
       if (item.status !== authorized.status) diagnostics.push(`STRUCTURED_STATUS_MISMATCH:${item.ref}`);
       represented.push(item.ref);
+      contentWitnessSpans.push({ ref: item.ref, span });
     }
     if (!unique(claim.relationClaims.map((item) => item.ref))) diagnostics.push("DUPLICATE_RELATION_CLAIM");
     for (const item of claim.relationClaims) {
@@ -241,7 +381,7 @@ export const validateGovernedConversationRealization = (input: {
       if (!relation) { diagnostics.push(`UNAUTHORIZED_RELATION_REFERENCE:${item.ref}`); continue; }
       if (item.sourceRef !== relation.sourceRef || item.relationType !== relation.relationType
         || item.targetRef !== relation.targetRef) diagnostics.push(`STRUCTURED_RELATION_MISMATCH:${item.ref}`);
-      if (!nonempty(item.witness) || !text.includes(item.witness)) diagnostics.push(`RELATION_WITNESS_NOT_IN_VISIBLE_TEXT:${item.ref}`);
+      if (!normalizedVisibleSpan(text, item.witness)) diagnostics.push(`RELATION_WITNESS_NOT_IN_VISIBLE_TEXT:${item.ref}`);
     }
     for (const relation of envelope.requiredRelations) {
       if (!claim.relationClaims.some((item) => item.ref === relation.ref)) diagnostics.push(`REQUIRED_RELATION_CLAIM_MISSING:${relation.ref}`);
@@ -256,6 +396,9 @@ export const validateGovernedConversationRealization = (input: {
     visibleTextFidelity: "UNKNOWN",
     structuredRefCoverage: "CONTRACT_EVIDENCE_NOT_SEMANTIC_ORACLE",
     diagnostics: Object.freeze(diagnostics),
+    actionWitnessSpan,
+    contentWitnessSpans: Object.freeze(contentWitnessSpans),
+    visibleObligationSpans: Object.freeze(visibleObligationSpans),
     representedContentRefs: Object.freeze([...new Set(represented)]),
     missingRequiredContentRefs: Object.freeze(missing),
     projectWriteAuthorized: false,
@@ -300,8 +443,9 @@ export const realizeGovernedConversation = (input: {
   });
 };
 
-export const GOVERNED_REALIZATION_SYSTEM_INSTRUCTION = `Tu réalises uniquement le WHAT décidé par QUERY_NAVIGATION et contenu dans l’enveloppe fournie. Tu ne sélectionnes aucune question, option, relation ou conclusion supplémentaire. La réponse visible ne récite pas la candidate : seulement l’action sélectionnée et son contexte minimum nécessaire. Préserve les statuts, limites, quantités et littéraux requis. Aucune adoption, écriture Project ou décision humaine implicite. Les informations déjà fournies ne doivent pas être redemandées. Formule naturellement et brièvement en français.
-Retourne l’objet JSON demandé : assistantReply est la seule prose visible ; claim déclare l’action et les références réalisées avec un witness verbatim dans cette prose. actionWitness est le passage qui réalise l’intervention, pas seulement une mention du sujet. Ces claims ne sont pas une preuve sémantique indépendante. Ne crée aucun statut ou relation. Pour chaque contentClaim, copie exactement le status autorisé, y compris null. Si une réalisation n’est pas possible, n’invente pas de contenu pour compléter les champs.`;
+export const GOVERNED_REALIZATION_SYSTEM_INSTRUCTION = `Tu réalises uniquement le WHAT décidé par QUERY_NAVIGATION et contenu dans l’enveloppe fournie. Tu ne sélectionnes aucune question, option, relation ou conclusion supplémentaire. Respecte intervention.kind et intervention.contentSource : lorsqu’un contenu vient de USER_SUPPLIED ou RETAINED_CANDIDATE, attribue-le explicitement à l’utilisateur et ne le présente pas comme une option scientifique inventée par NOXIA ; NOXIA peut seulement proposer sa structuration ou sa présentation pour revue. Lorsqu’il vient de OWNER_RESULT, présente les options comme des propositions de cet owner, sans sélectionner de gagnant. Une correction ou un refus reçoit un accusé de réception ; ne répète jamais l’instruction utilisateur à la première personne comme réponse de NOXIA.
+Chaque requiredVisibleObligation doit apparaître dans assistantReply avec son exactText, modulo casse, espaces, Unicode NFKC et apostrophes typographiques. Ces fragments peuvent être intégrés dans une prose naturelle. Le contenu de contrôle QRY qui n’est pas une obligation visible ne doit pas être récité. Préserve les statuts, limites, quantités et littéraux requis. Aucune adoption, écriture Project ou décision humaine implicite. Les informations déjà fournies ne doivent pas être redemandées. Formule naturellement et brièvement en français.
+Retourne l’objet JSON demandé : assistantReply est la seule prose visible ; claim déclare l’action, interventionKind, contentSource et les références réalisées avec un witness verbatim dans cette prose. actionWitness est le passage qui réalise l’intervention, pas seulement une mention du sujet. Ces claims et leurs spans ancrés sont des preuves structurelles, jamais une preuve d’équivalence sémantique générale. Ne crée aucun statut ou relation. Pour chaque contentClaim, copie exactement le status autorisé, y compris null. Si une réalisation n’est pas possible, n’invente pas de contenu pour compléter les champs.`;
 
 const relationProperties = {
   ref: { type: "string" }, sourceRef: { type: "string" }, relationType: { type: "string" },
@@ -315,10 +459,12 @@ export const GOVERNED_REALIZATION_JSON_SCHEMA = {
     assistantReply: { type: "string" },
     claim: {
       type: "object", additionalProperties: false,
-      required: ["whatRef", "action", "actionWitness", "targetRefs", "informationNeedRefs", "contentClaims", "relationClaims", "adoptionClaimed", "projectWriteClaimed"],
+      required: ["whatRef", "action", "actionWitness", "interventionKind", "contentSource", "targetRefs", "informationNeedRefs", "contentClaims", "relationClaims", "adoptionClaimed", "projectWriteClaimed"],
       properties: {
         whatRef: { type: "string" }, action: { type: "string", enum: ["ASK_QUESTION", "PROPOSE", "RESPOND"] },
         actionWitness: { type: "string" },
+        interventionKind: { type: "string", enum: ["ASK_INFORMATION", "STRUCTURE_USER_SUPPLIED_CONTENT", "PRESENT_OWNER_DECISION_SUPPORT", "EXPLAIN_REFERENCED_CONTENT", "ACKNOWLEDGE_USER_DIRECTION", "RESPOND_WITHOUT_MUTATION"] },
+        contentSource: { type: "string", enum: ["QUERY_NAVIGATION", "USER_SUPPLIED", "OWNER_RESULT", "RETAINED_CANDIDATE", "CURRENT_PROJECT", "NONE"] },
         targetRefs: { type: "array", items: { type: "string" } },
         informationNeedRefs: { type: "array", items: { type: "string" } },
         contentClaims: {

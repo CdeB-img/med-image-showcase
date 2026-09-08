@@ -1,0 +1,1302 @@
+{
+  "fixtureIdentity": "PASS3A_GEMINI_DEV_EXACT_OUTPUTS_2026_09_08",
+  "sourceRoot": "validation/protocol-designer-v1-pass3a-gemini-dev-conversation-qualification-01",
+  "immutableCopy": true,
+  "cases": [
+    {
+      "caseId": "CASE-01",
+      "stepId": "CASE-01_T1",
+      "userExact": "We have historical cardiac MRI and echocardiography data from patients followed after a first myocardial infarction, and we can prospectively recruit new patients with follow-up imaging. We want to understand adverse left ventricular remodeling, but the exact study design, timing, primary endpoint, and role of each imaging modality are not decided.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-3990661077d96e54",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Proposer une structuration réversible des questions et objectifs explicitement représentés : Comprendre le remodelage défavorable du ventricule gauche. Conserver leurs identités, sans présumer qu’ils désignent des objectifs distincts, ni résoudre les inconnues ou adopter la proposition.",
+        "sourceTurnRef": "fic02-luna-execution-01:A:turn-1",
+        "projectBinding": null,
+        "candidateRef": "persistent-project-contribution:ke1-aad743b225d717d6",
+        "targetRefs": [
+          "candidate:objective-comprendre-remodelage-vg-defavorable"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "candidate:objective-comprendre-remodelage-vg-defavorable",
+            "text": "Comprendre le remodelage défavorable du ventricule gauche",
+            "status": "KNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "candidate:objective-comprendre-remodelage-vg-defavorable"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "candidate:objective-comprendre-remodelage-vg-defavorable",
+          "candidate:population-patients-post-premier-infarctus",
+          "candidate:imaging-modalite-irm-cardiaque",
+          "candidate:imaging-modalite-echocardiographie",
+          "candidate:information-donnees-historiques-imagerie",
+          "candidate:information-capacite-recrutement-prospectif"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose la structuration suivante concernant l'objectif : Comprendre le remodelage défavorable du ventricule gauche.",
+        "claim": {
+          "whatRef": "realized-what-3990661077d96e54",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose la structuration suivante concernant l'objectif : Comprendre le remodelage défavorable du ventricule gauche.",
+          "targetRefs": [
+            "candidate:objective-comprendre-remodelage-vg-defavorable"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "candidate:objective-comprendre-remodelage-vg-defavorable",
+              "witness": "Comprendre le remodelage défavorable du ventricule gauche",
+              "status": "KNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose la structuration suivante concernant l'objectif : Comprendre le remodelage défavorable du ventricule gauche."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-02",
+      "stepId": "CASE-02_T1",
+      "userExact": "We want to conduct a multicenter randomized study comparing two management strategies after an acute cardiovascular event. Imaging will be used to characterize remodeling and may contribute to the principal evaluation, but the exact endpoint hierarchy, follow-up strategy, and analysis plan are not yet fixed.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-af27f0fa286bfd16",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Structurer la comparaison explicitement représentée entre Deuxième stratégie de prise en charge, identité précise non fournie et Première stratégie de prise en charge, identité précise non fournie, sans sélectionner un bras, un critère ou un plan non fourni.",
+        "sourceTurnRef": "fic02-luna-execution-01:B:turn-1",
+        "projectBinding": null,
+        "candidateRef": "persistent-project-contribution:ke1-85923d248f0a7190",
+        "targetRefs": [
+          "management-strategy-arm-2",
+          "management-strategy-arm-1"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "management-strategy-arm-2",
+            "text": "Deuxième stratégie de prise en charge, identité précise non fournie",
+            "status": "UNKNOWN"
+          },
+          {
+            "ref": "management-strategy-arm-1",
+            "text": "Première stratégie de prise en charge, identité précise non fournie",
+            "status": "UNKNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "management-strategy-arm-2",
+          "management-strategy-arm-1"
+        ],
+        "requiredRelations": [
+          {
+            "ref": "relation:management-strategy-comparison",
+            "sourceRef": "management-strategy-arm-1",
+            "relationType": "COMPARES_WITH",
+            "targetRef": "management-strategy-arm-2"
+          }
+        ],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "multicenter-randomized-comparative-study-design",
+          "candidate:study-design-multicenter-randomized"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose de structurer la comparaison entre Première stratégie de prise en charge, identité précise non fournie et Deuxième stratégie de prise en charge, identité précise non fournie.",
+        "claim": {
+          "whatRef": "realized-what-af27f0fa286bfd16",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose de structurer la comparaison entre Première stratégie de prise en charge, identité précise non fournie et Deuxième stratégie de prise en charge, identité précise non fournie.",
+          "targetRefs": [
+            "management-strategy-arm-2",
+            "management-strategy-arm-1"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "management-strategy-arm-1",
+              "witness": "Première stratégie de prise en charge, identité précise non fournie",
+              "status": "UNKNOWN"
+            },
+            {
+              "ref": "management-strategy-arm-2",
+              "witness": "Deuxième stratégie de prise en charge, identité précise non fournie",
+              "status": "UNKNOWN"
+            }
+          ],
+          "relationClaims": [
+            {
+              "ref": "relation:management-strategy-comparison",
+              "sourceRef": "management-strategy-arm-1",
+              "relationType": "COMPARES_WITH",
+              "targetRef": "management-strategy-arm-2",
+              "witness": "comparaison entre Première stratégie de prise en charge, identité précise non fournie et Deuxième stratégie de prise en charge, identité précise non fournie"
+            }
+          ],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose de structurer la comparaison entre Première stratégie de prise en charge, identité précise non fournie et Deuxième stratégie de prise en charge, identité précise non fournie."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-03",
+      "stepId": "CASE-03_T1",
+      "userExact": "We have developed an automated quantitative measurement of myocardial fibrosis from late-gadolinium-enhancement cardiac MRI. We want to validate it across several centers against expert manual assessment, but we have not yet decided the exact validation framework or primary performance endpoint.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-ce6aada38fa8b4ef",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Proposer une structuration réversible des questions et objectifs explicitement représentés : Valider dans plusieurs centres la mesure quantitative automatisée de la fibrose myocardique par rapport à une évaluation manuelle experte. Conserver leurs identités, sans présumer qu’ils désignent des objectifs distincts, ni résoudre les inconnues ou adopter la proposition.",
+        "sourceTurnRef": "fic02-luna-execution-01:C:turn-1",
+        "projectBinding": null,
+        "candidateRef": "persistent-project-contribution:ke1-8c4e82bdc5eb0d11",
+        "targetRefs": [
+          "multicenter-validation-of-automated-myocardial-fibrosis-measurement"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "multicenter-validation-of-automated-myocardial-fibrosis-measurement",
+            "text": "Valider dans plusieurs centres la mesure quantitative automatisée de la fibrose myocardique par rapport à une évaluation manuelle experte",
+            "status": "KNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "multicenter-validation-of-automated-myocardial-fibrosis-measurement"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "multicenter-validation-of-automated-myocardial-fibrosis-measurement",
+          "cand-objective-multicenter-validation",
+          "late-gadolinium-enhancement-cardiac-mri",
+          "cand-imaging-lge-cmr",
+          "automated-quantitative-myocardial-fibrosis-measurement",
+          "cand-variable-automated-myocardial-fibrosis",
+          "expert-manual-myocardial-fibrosis-assessment",
+          "cand-variable-expert-manual-fibrosis-assessment"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose de structurer la validation dans plusieurs centres de la mesure quantitative automatisée de la fibrose myocardique par rapport à une évaluation manuelle experte.",
+        "claim": {
+          "whatRef": "realized-what-ce6aada38fa8b4ef",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose de structurer la validation dans plusieurs centres de la mesure quantitative automatisée de la fibrose myocardique par rapport à une évaluation manuelle experte.",
+          "targetRefs": [
+            "multicenter-validation-of-automated-myocardial-fibrosis-measurement"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "multicenter-validation-of-automated-myocardial-fibrosis-measurement",
+              "witness": "validation dans plusieurs centres de la mesure quantitative automatisée de la fibrose myocardique par rapport à une évaluation manuelle experte",
+              "status": "KNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose de structurer la validation dans plusieurs centres de la mesure quantitative automatisée de la fibrose myocardique par rapport à une évaluation manuelle experte."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-04",
+      "stepId": "CASE-04_T1",
+      "userExact": "We want to build a prospective multicenter study using quantitative cardiac MRI across different manufacturers, field strengths and software versions. The aim is to compare a disease population with a reference population. A central Core Lab is planned, but acquisition harmonization, quality control, reader organization and analysis strategy are not yet fixed.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-980fbd27add60ff3",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Proposer une structuration réversible des questions et objectifs explicitement représentés : Comparer une population atteinte d’une maladie à une population de référence. Conserver leurs identités, sans présumer qu’ils désignent des objectifs distincts, ni résoudre les inconnues ou adopter la proposition.",
+        "sourceTurnRef": "fic02-luna-execution-01:D:turn-1",
+        "projectBinding": null,
+        "candidateRef": "persistent-project-contribution:ke1-a9bfb6272671cb6b",
+        "targetRefs": [
+          "objective-compare-disease-and-reference-populations"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "objective-compare-disease-and-reference-populations",
+            "text": "Comparer une population atteinte d’une maladie à une population de référence",
+            "status": "UNKNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "objective-compare-disease-and-reference-populations"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "population-reference",
+          "cand-population-reference",
+          "study-design-prospective-multicentric",
+          "cand-study-design-prospective-multicentric",
+          "imaging-modality-quantitative-cardiac-mri",
+          "cand-imaging-modality-quantitative-cardiac-mri",
+          "project-organization-central-core-lab",
+          "cand-project-info-central-core-lab"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose de comparer une population atteinte d’une maladie à une population de référence.",
+        "claim": {
+          "whatRef": "realized-what-980fbd27add60ff3",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose de comparer une population atteinte d’une maladie à une population de référence.",
+          "targetRefs": [
+            "objective-compare-disease-and-reference-populations"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "objective-compare-disease-and-reference-populations",
+              "witness": "comparer une population atteinte d’une maladie à une population de référence",
+              "status": "UNKNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose de comparer une population atteinte d’une maladie à une population de référence."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-05",
+      "stepId": "CASE-05_T1",
+      "userExact": "je souhaite étudier les thrombus intraventriculaires gauches post IDM. ils sont souvent ratés a l'échographies et plus visibles à l'IRM. je voudrais donc faire un double protocole. évaluer le nombre de thrombus manqués à l'écho et detectés à l'IRM et évaluer le devenir clinique des patientss atteints de thrombus intra VG. pour cela nous allons nous concentrer sur les sus décalage ST antérieur",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-63c12780db7062c4",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Proposer une structuration réversible des questions et objectifs explicitement représentés : Évaluer les thrombus manqués à l’échographie et détectés à l’IRM ; Évaluer le devenir clinique des patients atteints de thrombus intra-VG. Conserver leurs identités, sans présumer qu’ils désignent des objectifs distincts, ni résoudre les inconnues ou adopter la proposition.",
+        "sourceTurnRef": "pass3a:packet:thrombus:t1",
+        "projectBinding": null,
+        "candidateRef": "persistent-project-contribution:ke1-ff8ea914c7489600",
+        "targetRefs": [
+          "objective:detection",
+          "objective:clinical-outcome"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "objective:detection",
+            "text": "Évaluer les thrombus manqués à l’échographie et détectés à l’IRM",
+            "status": "KNOWN"
+          },
+          {
+            "ref": "objective:clinical-outcome",
+            "text": "Évaluer le devenir clinique des patients atteints de thrombus intra-VG",
+            "status": "KNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "objective:detection",
+          "objective:clinical-outcome"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "objective:detection",
+          "objective:clinical-outcome",
+          "population:anterior-st-elevation"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose d’évaluer les thrombus manqués à l’échographie et détectés à l’IRM ainsi que le devenir clinique des patients atteints de thrombus intra-VG.",
+        "claim": {
+          "whatRef": "realized-what-63c12780db7062c4",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose d’évaluer les thrombus manqués à l’échographie et détectés à l’IRM ainsi que le devenir clinique des patients atteints de thrombus intra-VG.",
+          "targetRefs": [
+            "objective:detection",
+            "objective:clinical-outcome"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "objective:detection",
+              "witness": "évaluer les thrombus manqués à l’échographie et détectés à l’IRM",
+              "status": "KNOWN"
+            },
+            {
+              "ref": "objective:clinical-outcome",
+              "witness": "le devenir clinique des patients atteints de thrombus intra-VG",
+              "status": "KNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose d’évaluer les thrombus manqués à l’échographie et détectés à l’IRM ainsi que le devenir clinique des patients atteints de thrombus intra-VG."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-05",
+      "stepId": "CASE-05_T2",
+      "userExact": "Explique pourquoi ces deux objectifs sont à distinguer sans les adopter.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-6b7ca51e8ef3f49a",
+        "action": "RESPOND",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+        "sourceTurnRef": "pass3a:packet:thrombus:t2",
+        "projectBinding": null,
+        "candidateRef": null,
+        "targetRefs": [
+          "pass3a:packet:thrombus:t2"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "pass3a:packet:thrombus:t2",
+            "text": "Explique pourquoi ces deux objectifs sont à distinguer sans les adopter.",
+            "status": null
+          }
+        ],
+        "requiredContentRefs": [],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Ces deux objectifs sont à distinguer car ils répondent à des finalités méthodologiques et opérationnelles différentes, sans qu'il soit question ici de les adopter.",
+        "claim": {
+          "whatRef": "realized-what-6b7ca51e8ef3f49a",
+          "action": "RESPOND",
+          "actionWitness": "Ces deux objectifs sont à distinguer car ils répondent à des finalités méthodologiques et opérationnelles différentes",
+          "targetRefs": [
+            "pass3a:packet:thrombus:t2"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "pass3a:packet:thrombus:t2",
+              "witness": "Ces deux objectifs sont à distinguer",
+              "status": null
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Ces deux objectifs sont à distinguer car ils répondent à des finalités méthodologiques et opérationnelles différentes, sans qu'il soit question ici de les adopter."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-06",
+      "stepId": "CASE-06_T1",
+      "userExact": "Une visite de contrôle est prévue.",
+      "oldStatus": "FAIL",
+      "oldDiagnostics": [
+        "ACTION_WITNESS_NOT_IN_VISIBLE_TEXT"
+      ],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-65d0cecf7829551b",
+        "action": "ASK_QUESTION",
+        "actionCategory": "CLARIFY_BY_ADAPTIVE_EXCHANGE",
+        "purpose": "Préciser la population étudiée.",
+        "sourceTurnRef": "pass3a:packet:candidate-native:current",
+        "projectBinding": {
+          "projectId": "project:pass3a-packet",
+          "projectVersion": "project:pass3a-packet:version:1",
+          "projectDigest": "ke1-094eccd0705ead84"
+        },
+        "candidateRef": "persistent-project-contribution:ke1-109a0cd773ec0b73",
+        "targetRefs": [
+          "project:unknown:population"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "project:unknown:population",
+            "text": "Préciser la population étudiée.",
+            "status": "UNKNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "project:unknown:population"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "visit:control"
+        ],
+        "selectedInformationNeedRef": "qry-need-bb00a721a0e98e85",
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Pouvez-vous préciser la population étudiée ?",
+        "claim": {
+          "whatRef": "realized-what-65d0cecf7829551b",
+          "action": "ASK_QUESTION",
+          "actionWitness": "Préciser la population étudiée",
+          "targetRefs": [
+            "project:unknown:population"
+          ],
+          "informationNeedRefs": [
+            "qry-need-bb00a721a0e98e85"
+          ],
+          "contentClaims": [
+            {
+              "ref": "project:unknown:population",
+              "witness": "population étudiée",
+              "status": "UNKNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "LOCAL_DETERMINISTIC_REALIZATION",
+        "frenchText": "Préciser la population étudiée."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-07",
+      "stepId": "CASE-07_T1",
+      "userExact": "Une visite de contrôle est prévue.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-748504b5c84f4131",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Préparer la revue humaine des 1 changements explicitement représentés : Visite de contrôle. Préserver leurs opérations et valeurs, sans compléter les informations absentes.",
+        "sourceTurnRef": "pass3a:packet:candidate-native:current",
+        "projectBinding": {
+          "projectId": "project:pass3a-packet",
+          "projectVersion": "project:pass3a-packet:version:1",
+          "projectDigest": "ke1-094eccd0705ead84"
+        },
+        "candidateRef": "persistent-project-contribution:ke1-109a0cd773ec0b73",
+        "targetRefs": [
+          "visit:control"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "visit:control",
+            "text": "Visite de contrôle",
+            "status": "KNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "visit:control"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "visit:control"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose la Visite de contrôle.",
+        "claim": {
+          "whatRef": "realized-what-748504b5c84f4131",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose la Visite de contrôle.",
+          "targetRefs": [
+            "visit:control"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "visit:control",
+              "witness": "Visite de contrôle",
+              "status": "KNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose la Visite de contrôle."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-08",
+      "stepId": "CASE-08_T1",
+      "userExact": "Une visite de contrôle est prévue.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-4824fea770969683",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Préparer la revue humaine des 1 changements explicitement représentés : Visite de contrôle. Préserver leurs opérations et valeurs, sans compléter les informations absentes.",
+        "sourceTurnRef": "pass3a:packet:candidate-native:current",
+        "projectBinding": {
+          "projectId": "project:pass3a-packet",
+          "projectVersion": "project:pass3a-packet:version:1",
+          "projectDigest": "ke1-094eccd0705ead84"
+        },
+        "candidateRef": "persistent-project-contribution:ke1-109a0cd773ec0b73",
+        "targetRefs": [
+          "visit:control"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "visit:control",
+            "text": "Visite de contrôle",
+            "status": "KNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "visit:control"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "project:unknown:population",
+          "visit:control"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose la modification concernant la Visite de contrôle.",
+        "claim": {
+          "whatRef": "realized-what-4824fea770969683",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose la modification concernant la Visite de contrôle.",
+          "targetRefs": [
+            "visit:control"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "visit:control",
+              "witness": "Visite de contrôle",
+              "status": "KNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose la modification concernant la Visite de contrôle."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-09",
+      "stepId": "CASE-09_T1",
+      "userExact": "Étudier une trajectoire longitudinale avec données rétrospectives existantes puis suivi prospectif",
+      "oldStatus": "FAIL",
+      "oldDiagnostics": [
+        "CONTENT_WITNESS_NOT_IN_VISIBLE_TEXT:qry-action-3437ee4f6e7182eb",
+        "REQUIRED_CONTENT_CLAIM_MISSING:qry-action-3437ee4f6e7182eb"
+      ],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-57e6fd3ea7cff2ca",
+        "action": "PROPOSE",
+        "actionCategory": "COMPARE_OPTIONS",
+        "purpose": "Cohorte longitudinale prospective / Cohorte rétrospective à partir de données existantes / Cohorte longitudinale ambispective",
+        "sourceTurnRef": "turn:navigation:1",
+        "projectBinding": {
+          "projectId": "research-project:p1-behavior-01a",
+          "projectVersion": "research-project:p1-behavior-01a:version:1",
+          "projectDigest": "ke1-bb365c201ababaf4"
+        },
+        "candidateRef": null,
+        "targetRefs": [
+          "study-design-proposal:ke1-c5b266bdcb350091",
+          "study-design-option:ke1-a8c546fdbe2106c9",
+          "study-design-option:ke1-416a58c68e770f32",
+          "study-design-option:ke1-d64e3d8de4ad3dd9"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "qry-action-3437ee4f6e7182eb",
+            "text": "Cohorte longitudinale prospective / Cohorte rétrospective à partir de données existantes / Cohorte longitudinale ambispective",
+            "status": null
+          },
+          {
+            "ref": "study-design-option:ke1-a8c546fdbe2106c9",
+            "text": "Option : Cohorte longitudinale prospective. Estimer un changement et sa variabilité dans une Population définie. Justification : La Question examine une évolution au cours du temps ou une variation intra-sujet. Avantages : Estimer un changement et sa variabilité dans une Population définie.. Limites : Attrition ; Effet de maturation ou de temporalité ; Fenêtre scientifique et fréquence des mesures restent à justifier.. Prérequis : Mesures répétées comparables. Conséquences : Les décisions de mesure, d’analyse, d’effectif et d’exécution restent chez leurs owners spécialisés. ; Une revue humaine est requise avant toute adoption dans le Research Project..",
+            "status": "SUPPORTED_CANDIDATE_NOT_ADOPTED"
+          },
+          {
+            "ref": "study-design-option:ke1-416a58c68e770f32",
+            "text": "Option : Cohorte rétrospective à partir de données existantes. Explorer la relation avec les données effectivement disponibles et leur temporalité réelle. Justification : Des données existantes peuvent instruire une trajectoire ou une association sans recrutement immédiat. Avantages : Explorer la relation avec les données effectivement disponibles et leur temporalité réelle.. Limites : Biais d’information ; Biais de sélection ; Qualité, exhaustivité et calendrier des données ne sont pas contrôlés prospectivement.. Prérequis : Provenance et qualité des données existantes à vérifier. Conséquences : Les décisions de mesure, d’analyse, d’effectif et d’exécution restent chez leurs owners spécialisés. ; Une revue humaine est requise avant toute adoption dans le Research Project..",
+            "status": "SUPPORTED_CANDIDATE_NOT_ADOPTED"
+          },
+          {
+            "ref": "study-design-option:ke1-d64e3d8de4ad3dd9",
+            "text": "Option : Cohorte longitudinale ambispective. Relier une trajectoire historique documentée à des observations futures sans assimiler les deux niveaux de contrôle des données. Justification : Le Project explicite à la fois des observations historiques et un suivi prospectif pour une même question longitudinale. Avantages : Relier une trajectoire historique documentée à des observations futures sans assimiler les deux niveaux de contrôle des données.. Limites : Attrition prospective ; Biais d’information historique ; La continuité des définitions, mesures et calendriers entre périodes doit être démontrée.. Prérequis : Provenance et comparabilité temporelle des deux périodes à qualifier. Conséquences : Les décisions de mesure, d’analyse, d’effectif et d’exécution restent chez leurs owners spécialisés. ; Une revue humaine est requise avant toute adoption dans le Research Project..",
+            "status": "SUPPORTED_CANDIDATE_NOT_ADOPTED"
+          },
+          {
+            "ref": "study-design-tradeoff:ke1-9f07d09dc6a232e9",
+            "text": "Compromis entre study-design-option:ke1-a8c546fdbe2106c9 et study-design-option:ke1-416a58c68e770f32 et study-design-option:ke1-d64e3d8de4ad3dd9. Gains : study-design-option:ke1-a8c546fdbe2106c9: Estimer un changement et sa variabilité dans une Population définie. ; study-design-option:ke1-416a58c68e770f32: Explorer la relation avec les données effectivement disponibles et leur temporalité réelle. ; study-design-option:ke1-d64e3d8de4ad3dd9: Relier une trajectoire historique documentée à des observations futures sans assimiler les deux niveaux de contrôle des données.. Pertes : study-design-option:ke1-a8c546fdbe2106c9: Attrition Effet de maturation ou de temporalité Fenêtre scientifique et fréquence des mesures restent à justifier. ; study-design-option:ke1-416a58c68e770f32: Biais d’information Biais de sélection Qualité, exhaustivité et calendrier des données ne sont pas contrôlés prospectivement. ; study-design-option:ke1-d64e3d8de4ad3dd9: Attrition prospective Biais d’information historique La continuité des définitions, mesures et calendriers entre périodes doit être démontrée.. Une décision humaine est requise.",
+            "status": "PROPOSAL_ONLY"
+          },
+          {
+            "ref": "study-design-proposal:ke1-c5b266bdcb350091:limitation:1",
+            "text": "Aucun modèle statistique, effectif, paramètre d’acquisition, endpoint final ou qualification réglementaire n’est produit.",
+            "status": "PROPOSAL_ONLY"
+          },
+          {
+            "ref": "study-design-proposal:ke1-c5b266bdcb350091:limitation:2",
+            "text": "Contribution bornée de cohérence de design ; elle ne constitue ni adoption, ni protocole, ni validation scientifique.",
+            "status": "PROPOSAL_ONLY"
+          }
+        ],
+        "requiredContentRefs": [
+          "qry-action-3437ee4f6e7182eb",
+          "study-design-option:ke1-a8c546fdbe2106c9",
+          "study-design-option:ke1-416a58c68e770f32",
+          "study-design-option:ke1-d64e3d8de4ad3dd9",
+          "study-design-tradeoff:ke1-9f07d09dc6a232e9",
+          "study-design-proposal:ke1-c5b266bdcb350091:limitation:1",
+          "study-design-proposal:ke1-c5b266bdcb350091:limitation:2"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose de comparer trois options pour votre design d'étude : la cohorte longitudinale prospective, la cohorte rétrospective à partir de données existantes, et la cohorte longitudinale ambispective.",
+        "claim": {
+          "whatRef": "realized-what-57e6fd3ea7cff2ca",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose de comparer trois options pour votre design d'étude : la cohorte longitudinale prospective, la cohorte rétrospective à partir de données existantes, et la cohorte longitudinale ambispective.",
+          "targetRefs": [
+            "study-design-proposal:ke1-c5b266bdcb350091",
+            "study-design-option:ke1-a8c546fdbe2106c9",
+            "study-design-option:ke1-416a58c68e770f32",
+            "study-design-option:ke1-d64e3d8de4ad3dd9"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "qry-action-3437ee4f6e7182eb",
+              "witness": "Cohorte longitudinale prospective / Cohorte rétrospective à partir de données existantes / Cohorte longitudinale ambispective",
+              "status": null
+            },
+            {
+              "ref": "study-design-option:ke1-a8c546fdbe2106c9",
+              "witness": "cohorte longitudinale prospective",
+              "status": "SUPPORTED_CANDIDATE_NOT_ADOPTED"
+            },
+            {
+              "ref": "study-design-option:ke1-416a58c68e770f32",
+              "witness": "cohorte rétrospective à partir de données existantes",
+              "status": "SUPPORTED_CANDIDATE_NOT_ADOPTED"
+            },
+            {
+              "ref": "study-design-option:ke1-d64e3d8de4ad3dd9",
+              "witness": "cohorte longitudinale ambispective",
+              "status": "SUPPORTED_CANDIDATE_NOT_ADOPTED"
+            },
+            {
+              "ref": "study-design-tradeoff:ke1-9f07d09dc6a232e9",
+              "witness": "comparer trois options",
+              "status": "PROPOSAL_ONLY"
+            },
+            {
+              "ref": "study-design-proposal:ke1-c5b266bdcb350091:limitation:1",
+              "witness": "design d'étude",
+              "status": "PROPOSAL_ONLY"
+            },
+            {
+              "ref": "study-design-proposal:ke1-c5b266bdcb350091:limitation:2",
+              "witness": "design d'étude",
+              "status": "PROPOSAL_ONLY"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "LOCAL_DETERMINISTIC_REALIZATION",
+        "frenchText": "Cohorte longitudinale prospective / Cohorte rétrospective à partir de données existantes / Cohorte longitudinale ambispective"
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-11",
+      "stepId": "CASE-11_T1",
+      "userExact": "Nous souhaitons étudier le phénomène alpha.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-81d235da45383a26",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Proposer une structuration réversible des questions et objectifs explicitement représentés : Étudier le phénomène alpha. Conserver leurs identités, sans présumer qu’ils désignent des objectifs distincts, ni résoudre les inconnues ou adopter la proposition.",
+        "sourceTurnRef": "pass3a:packet:adopted-base",
+        "projectBinding": null,
+        "candidateRef": "persistent-project-contribution:ke1-3712f0fb12f994ff",
+        "targetRefs": [
+          "objective:alpha"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "objective:alpha",
+            "text": "Étudier le phénomène alpha",
+            "status": "KNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "objective:alpha"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "objective:alpha"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose d'étudier le phénomène alpha.",
+        "claim": {
+          "whatRef": "realized-what-81d235da45383a26",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose d'étudier le phénomène alpha.",
+          "targetRefs": [
+            "objective:alpha"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "objective:alpha",
+              "witness": "phénomène alpha",
+              "status": "KNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose d'étudier le phénomène alpha."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-11",
+      "stepId": "CASE-11_T2",
+      "userExact": "Remplacer l’objectif alpha par l’objectif bêta.",
+      "oldStatus": "FAIL",
+      "oldDiagnostics": [
+        "CONTENT_WITNESS_NOT_IN_VISIBLE_TEXT:objective:alpha",
+        "REQUIRED_CONTENT_CLAIM_MISSING:objective:alpha"
+      ],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-a660fd12112fd74e",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Proposer une structuration réversible des questions et objectifs explicitement représentés : Étudier le phénomène bêta. Conserver leurs identités, sans présumer qu’ils désignent des objectifs distincts, ni résoudre les inconnues ou adopter la proposition.",
+        "sourceTurnRef": "pass3a:packet:correction:t2",
+        "projectBinding": {
+          "projectId": "project:pass3a-packet",
+          "projectVersion": "project:pass3a-packet:version:1",
+          "projectDigest": "ke1-094eccd0705ead84"
+        },
+        "candidateRef": "persistent-project-contribution:ke1-a8d47a02f67e0bd6",
+        "targetRefs": [
+          "objective:alpha"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "objective:alpha",
+            "text": "Étudier le phénomène bêta",
+            "status": "KNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "objective:alpha"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "objective:alpha",
+          "objective:beta"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose d'étudier le phénomène bêta.",
+        "claim": {
+          "whatRef": "realized-what-a660fd12112fd74e",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose d'étudier le phénomène bêta.",
+          "targetRefs": [
+            "objective:alpha"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "objective:alpha",
+              "witness": "Étudier le phénomène bêta",
+              "status": "KNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "LOCAL_DETERMINISTIC_REALIZATION",
+        "frenchText": "Je propose de structurer les questions et objectifs représentés : Étudier le phénomène bêta. Cette proposition reste à confirmer ; aucune information manquante n’est complétée."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-11",
+      "stepId": "CASE-11_T3",
+      "userExact": "Je refuse cette modification ; conserve l’objectif précédent.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-970a3bc321f3e7ff",
+        "action": "RESPOND",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.",
+        "sourceTurnRef": "pass3a:packet:correction:t3",
+        "projectBinding": {
+          "projectId": "project:pass3a-packet",
+          "projectVersion": "project:pass3a-packet:version:1",
+          "projectDigest": "ke1-094eccd0705ead84"
+        },
+        "candidateRef": null,
+        "targetRefs": [
+          "pass3a:packet:correction:t3"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "pass3a:packet:correction:t3",
+            "text": "Je refuse cette modification ; conserve l’objectif précédent.",
+            "status": null
+          }
+        ],
+        "requiredContentRefs": [],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je refuse cette modification ; conserve l’objectif précédent.",
+        "claim": {
+          "whatRef": "realized-what-970a3bc321f3e7ff",
+          "action": "RESPOND",
+          "actionWitness": "Je refuse cette modification ; conserve l’objectif précédent.",
+          "targetRefs": [
+            "pass3a:packet:correction:t3"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "pass3a:packet:correction:t3",
+              "witness": "Je refuse cette modification ; conserve l’objectif précédent.",
+              "status": null
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je refuse cette modification ; conserve l’objectif précédent."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    },
+    {
+      "caseId": "CASE-12",
+      "stepId": "CASE-12_T1",
+      "userExact": "Nous souhaitons évaluer la stabilité d’un échantillon biologique pendant son stockage. Le plan d’analyse reste à définir.",
+      "oldStatus": "PASS",
+      "oldDiagnostics": [],
+      "envelope": {
+        "contract": "GOVERNED_CONVERSATION_REALIZATION",
+        "contractVersion": "1.0.0",
+        "responsibilityOwner": "QUERY_NAVIGATION",
+        "whatRef": "realized-what-55d8f1f59e080309",
+        "action": "PROPOSE",
+        "actionCategory": "BUILD_OR_REVISE_OBJECT",
+        "purpose": "Proposer une structuration réversible des questions et objectifs explicitement représentés : Évaluer la stabilité d’un échantillon biologique pendant son stockage. Conserver leurs identités, sans présumer qu’ils désignent des objectifs distincts, ni résoudre les inconnues ou adopter la proposition.",
+        "sourceTurnRef": "pass3a:packet:non-imaging",
+        "projectBinding": null,
+        "candidateRef": "persistent-project-contribution:ke1-10207dcb933c82cf",
+        "targetRefs": [
+          "objective:sample-stability"
+        ],
+        "authorizedContent": [
+          {
+            "ref": "objective:sample-stability",
+            "text": "Évaluer la stabilité d’un échantillon biologique pendant son stockage",
+            "status": "KNOWN"
+          }
+        ],
+        "requiredContentRefs": [
+          "objective:sample-stability"
+        ],
+        "requiredRelations": [],
+        "protectedLiterals": [],
+        "alreadyProvidedInformationRefs": [
+          "objective:sample-stability"
+        ],
+        "selectedInformationNeedRef": null,
+        "scientificLimitations": [
+          "NO_SCIENTIFIC_COMPLETION_BY_CONSUMER",
+          "VALIDATED_CANDIDATE_IS_NOT_ADOPTED_TRUTH"
+        ],
+        "humanDecisionBoundary": "NO_ADOPTION_NO_PROJECT_WRITE",
+        "projectWriteAuthorized": false
+      },
+      "providerOutput": {
+        "assistantReply": "Je propose d’évaluer la stabilité d’un échantillon biologique pendant son stockage.",
+        "claim": {
+          "whatRef": "realized-what-55d8f1f59e080309",
+          "action": "PROPOSE",
+          "actionWitness": "Je propose d’évaluer la stabilité d’un échantillon biologique pendant son stockage.",
+          "targetRefs": [
+            "objective:sample-stability"
+          ],
+          "informationNeedRefs": [],
+          "contentClaims": [
+            {
+              "ref": "objective:sample-stability",
+              "witness": "évaluer la stabilité d’un échantillon biologique pendant son stockage",
+              "status": "KNOWN"
+            }
+          ],
+          "relationClaims": [],
+          "adoptionClaimed": false,
+          "projectWriteClaimed": false
+        }
+      },
+      "effectiveResponse": {
+        "source": "GEMINI_ACCEPTED",
+        "frenchText": "Je propose d’évaluer la stabilité d’un échantillon biologique pendant son stockage."
+      },
+      "humanReview": {
+        "UNDERSTANDING": "PENDING_HUMAN_REVIEW",
+        "SCIENTIFIC_VALUE_PER_TURN": "PENDING_HUMAN_REVIEW",
+        "NEXT_ACTION_VALUE": "PENDING_HUMAN_REVIEW",
+        "NATURALNESS": "PENDING_HUMAN_REVIEW",
+        "UNNECESSARY_REPETITION": "PENDING_HUMAN_REVIEW",
+        "UNSUPPORTED_SCIENTIFIC_ADDITION": "PENDING_HUMAN_REVIEW",
+        "HUMAN_DECISION_BOUNDARY": "PENDING_HUMAN_REVIEW",
+        "WOULD_A_RESEARCHER_REASONABLY_PROGRESS": "PENDING_HUMAN_REVIEW",
+        "COMMENTAIRE_HUMAIN": ""
+      }
+    }
+  ]
+}

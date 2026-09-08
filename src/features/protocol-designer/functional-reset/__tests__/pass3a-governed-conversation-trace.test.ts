@@ -34,10 +34,12 @@ const fixture = (captureLevel: ScientificTraceCaptureLevel = "LEVEL_2_DIAGNOSTIC
   const navigation = buildCurrentTurnNavigation({
     sourceTurnRef: source.turnId, sourceText: source.content, candidate, contribution, validation, currentProject: null,
   });
-  const text = `Je propose de structurer cette question : ${navigation.envelope.authorizedContent.map((item) => item.text).join(" ; ")}.`;
+  const text = `Je propose de structurer les éléments que vous avez formulés : ${navigation.envelope.authorizedContent.map((item) => item.text).join(" ; ")}.`;
   const governed = realizeGovernedConversation({ envelope: navigation.envelope, providerReply: text,
     requireProviderClaim: true, providerClaim: {
       whatRef: navigation.envelope.whatRef, action: navigation.envelope.action, actionWitness: text,
+      interventionKind: navigation.envelope.intervention.kind,
+      contentSource: navigation.envelope.intervention.contentSource,
       targetRefs: [...navigation.envelope.targetRefs], informationNeedRefs: [],
       contentClaims: navigation.envelope.authorizedContent.map((item) => ({ ref: item.ref, witness: item.text, status: item.status })),
       relationClaims: [], adoptionClaimed: false, projectWriteClaimed: false,

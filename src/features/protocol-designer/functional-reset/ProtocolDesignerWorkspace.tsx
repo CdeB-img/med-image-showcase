@@ -1,5 +1,9 @@
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
-import { currentGovernedNavigationInput } from "@/features/query-navigation/current-navigation-evidence";
+import {
+  buildBoundedConversationReferentContext,
+  currentGovernedNavigationInput,
+  selectBoundedConversationInteraction,
+} from "@/features/query-navigation/current-navigation-evidence";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -795,7 +799,9 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
       },
     },
     currentProject: job.project,
-    currentNavigation: currentGovernedNavigationInput({ project: job.project, navigation: job.queryNavigation }),
+    currentNavigation: currentGovernedNavigationInput({
+      project: job.project, navigation: job.queryNavigation, ownerResultLedger: job.ownerResultLedger,
+    }),
     evaluatePersistentDelta: false,
   });
   const realizedAt = new Date().toISOString();
@@ -1728,6 +1734,13 @@ export default function ProtocolDesignerWorkspace({
       }
       const userTurn: ScientificInterpretationTurn = { turnId, role: "USER", content, createdAt: now };
       const runtimeTurns = [...session.runtimeTurns, userTurn];
+      const boundedReferentContext = buildBoundedConversationReferentContext({
+        retained: session.retainedContributionCandidates ?? [], currentProject: session.project,
+        conversationId: session.conversationId, runtimeTurns,
+      });
+      const boundedInteraction = selectBoundedConversationInteraction({
+        sourceText: preparedInput.workingText, correctionMode, referentContext: boundedReferentContext,
+      });
       const asksForExplanationOrRephrase = isFunctionalResetQueryMisunderstanding(preparedInput.workingText);
       const previousContext = [...session.bridgeTraces]
         .reverse()
@@ -1849,7 +1862,7 @@ export default function ProtocolDesignerWorkspace({
         return;
       }
 
-      if (entryRouting.routeIntent === "UNDERSTAND" && !entryRouting.projectConstructionEligible) {
+      if (entryRouting.routeIntent === "UNDERSTAND" && !entryRouting.projectConstructionEligible && !boundedInteraction) {
         const knowledge = executeProductUnderstandInteraction({ raw: preparedInput.workingText, decision: entryRouting, createdAt: now });
         const answeredAt = new Date().toISOString();
         const localized = await localizeCanonicalFrenchResponse({
@@ -1931,8 +1944,12 @@ export default function ProtocolDesignerWorkspace({
           } : {}),
         },
         currentProject: session.project,
-        ...(session.project ? { currentNavigation: currentGovernedNavigationInput({ project: session.project, navigation: queryNavigation }) } : {}),
+        ...(session.project ? { currentNavigation: currentGovernedNavigationInput({
+          project: session.project, navigation: queryNavigation, ownerResultLedger: session.knowledgeOwnerLedger,
+        }) } : {}),
         ...(preProjectNavigation ? { preProjectNavigation } : {}),
+        boundedReferentContext,
+        ...(boundedInteraction ? { boundedInteraction } : {}),
         languageBoundary: languageBoundaryFor(preparedGateway.state),
         // Routing governs Project eligibility. Conversation-only turns remain
         // usable, but cannot trigger persistent extraction.

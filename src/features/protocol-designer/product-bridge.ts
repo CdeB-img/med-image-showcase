@@ -876,6 +876,9 @@ export type ProductBridgeRequest = {
   /** Server-owned bounded HOW input, never accepted from unvalidated HTTP input. */
   governedRealization?: import("../query-navigation/governed-conversation-realization.js").GovernedConversationEnvelope;
   currentNavigation?: import("../query-navigation/current-turn-navigation.js").CurrentGovernedNavigationInput;
+  /** Client-projected, lifecycle-bound context; never a transcript or a second context owner. */
+  boundedReferentContext?: import("../query-navigation/current-turn-navigation.js").BoundedConversationReferentContext;
+  boundedInteraction?: import("../query-navigation/current-turn-navigation.js").BoundedConversationInteraction;
 };
 
 export type ProductBridgeResponse = {
@@ -1735,6 +1738,14 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
         || typeof navigation.selectedActionRef !== "string" || typeof navigation.sourceStateDigest !== "string"
         || !Array.isArray(navigation.authorizedContent)
         || !navigation.authorizedContent.every((item) => typeof item.ref === "string" && typeof item.text === "string" && (item.status === null || typeof item.status === "string"))
+        || (navigation.requiredContentRefs !== undefined && (!Array.isArray(navigation.requiredContentRefs)
+          || !navigation.requiredContentRefs.every((ref) => typeof ref === "string"
+            && navigation.authorizedContent.some((item) => item.ref === ref))))
+        || (navigation.requiredVisibleObligations !== undefined && (!Array.isArray(navigation.requiredVisibleObligations)
+          || !navigation.requiredVisibleObligations.every((item) => typeof item.obligationId === "string"
+            && typeof item.sourceRef === "string" && typeof item.exactText === "string" && item.exactText.trim().length > 0
+            && ["OPTION_IDENTITY", "OPTION_DISCRIMINANT", "MATERIAL_LIMIT", "HUMAN_DECISION_BOUNDARY", "REFERENT_CONTENT",
+              "USER_SOURCE_ATTRIBUTION", "USER_DIRECTION_ACKNOWLEDGEMENT"].includes(item.role))))
         || !Array.isArray(navigation.alreadyProvidedInformationRefs)
         || !navigation.alreadyProvidedInformationRefs.every((ref) => typeof ref === "string")
         || !Array.isArray(navigation.selected.navigationNeedRefs) || !Array.isArray(navigation.selected.affectedDecisionRefs)
@@ -1746,6 +1757,29 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
           && Array.isArray(scope.affectedBranchRefs) && scope.affectedBranchRefs.length > 0
           && scope.affectedBranchRefs.every((ref) => typeof ref === "string" && navigation.selected.affectedBranchRefs.includes(ref))))) return null;
     } catch { return null; }
+  }
+  if (record.boundedReferentContext) {
+    const context = record.boundedReferentContext;
+    const source = context.sourceTurnRef
+      ? record.conversation.turns.find((turn) => turn.role === "USER" && turn.turnId === context.sourceTurnRef) : null;
+    const uniqueContentRefs = new Set(context.content?.map((item) => item.ref));
+    if (!Array.isArray(context.content) || context.projectWriteAuthorized !== false
+      || !["UNIQUE_CURRENT", "AMBIGUOUS", "STALE_OR_SUPERSEDED", "NONE"].includes(context.resolution)
+      || typeof context.reason !== "string" || !context.reason.trim()
+      || context.content.some((item) => typeof item.ref !== "string" || !item.ref.trim()
+        || typeof item.text !== "string" || !item.text.trim() || (item.status !== null && typeof item.status !== "string"))
+      || uniqueContentRefs.size !== context.content.length
+      || (context.resolution === "UNIQUE_CURRENT" && (typeof context.candidateRef !== "string" || !context.candidateRef
+        || typeof context.sourceTurnRef !== "string" || !context.sourceTurnRef || typeof context.sourceDigest !== "string"
+        || !source || logicalDigest(source.content) !== context.sourceDigest || !context.content.length))
+      || (context.resolution !== "UNIQUE_CURRENT" && (context.candidateRef !== null || context.sourceTurnRef !== null
+        || context.sourceDigest !== null || context.content.length))) return null;
+  }
+  if (record.boundedInteraction) {
+    const interaction = record.boundedInteraction;
+    if (!Array.isArray(interaction.evidenceRefs) || !interaction.evidenceRefs.every((ref) => typeof ref === "string" && ref.trim())
+      || !["EXPLAIN_REFERENCED_CONTENT", "ACKNOWLEDGE_USER_DIRECTION"].includes(interaction.kind)
+      || (interaction.kind === "EXPLAIN_REFERENCED_CONTENT" && !record.boundedReferentContext)) return null;
   }
   // HTTP callers cannot inject the server's post-validation realization envelope.
   return { ...record, governedRealization: undefined } as ProductBridgeRequest;

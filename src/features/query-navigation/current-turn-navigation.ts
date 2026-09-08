@@ -8,15 +8,37 @@ import type { NextActionCandidate, QueryNavigationSourceState } from "./contract
 import { PD009_ACTION_LABELS } from "./contracts.js";
 import { selectNextAction } from "./engine.js";
 import { buildGovernedConversationEnvelope } from "./governed-conversation-realization.js";
-import type { GovernedRealizationContent } from "./governed-conversation-realization.js";
+import type {
+  GovernedConversationContentSource,
+  GovernedConversationInterventionKind,
+  GovernedRealizationContent,
+  GovernedVisibleObligation,
+} from "./governed-conversation-realization.js";
 
 export type CurrentGovernedNavigationInput = Readonly<{
   projectId: string; projectVersion: string; projectDigest: string;
   selectedActionRef: string; sourceStateDigest: string;
   selected: NextActionCandidate;
   authorizedContent: readonly GovernedRealizationContent[];
+  requiredContentRefs?: readonly string[];
+  requiredVisibleObligations?: readonly GovernedVisibleObligation[];
   alreadyProvidedInformationRefs: readonly string[];
   informationNeedScopes?: readonly CurrentInformationNeedScope[];
+}>;
+
+export type BoundedConversationReferentContext = Readonly<{
+  resolution: "UNIQUE_CURRENT" | "AMBIGUOUS" | "STALE_OR_SUPERSEDED" | "NONE";
+  candidateRef: string | null;
+  sourceTurnRef: string | null;
+  sourceDigest: string | null;
+  content: readonly GovernedRealizationContent[];
+  reason: string;
+  projectWriteAuthorized: false;
+}>;
+
+export type BoundedConversationInteraction = Readonly<{
+  kind: "EXPLAIN_REFERENCED_CONTENT" | "ACKNOWLEDGE_USER_DIRECTION";
+  evidenceRefs: readonly string[];
 }>;
 
 export type CurrentInformationNeedScope = Readonly<{
@@ -94,6 +116,8 @@ export const buildCurrentTurnNavigation = (input: {
   preProjectNavigation?: ProductBridgePreProjectNavigation;
   interaction?: ScientificInterpretationConversation["interactionContext"];
   currentNavigation?: CurrentGovernedNavigationInput;
+  boundedReferentContext?: BoundedConversationReferentContext;
+  boundedInteraction?: BoundedConversationInteraction;
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
 }) => {
   const candidate = input.validation?.valid && !input.validation.blocks.length
@@ -138,9 +162,28 @@ export const buildCurrentTurnNavigation = (input: {
     && supplied.selected.projectWriteAuthorized === false && supplied.selected.sourceOfTruth === false
     && supplied.selected.eligibility === "ELIGIBLE" ? supplied : null;
   const currentActionToConsider = candidate || input.requestKind === "POST_ADOPTION_QRY_CONTINUATION" ? governed : null;
+  const boundedReferents = input.boundedInteraction?.kind === "EXPLAIN_REFERENCED_CONTENT"
+    && input.boundedReferentContext?.resolution === "UNIQUE_CURRENT"
+    && input.boundedReferentContext.content.length
+    ? input.boundedReferentContext : null;
+  const boundedReferentBoundary = input.boundedInteraction?.kind === "EXPLAIN_REFERENCED_CONTENT"
+    ? input.boundedReferentContext ?? null : null;
+  const boundedReferentLimit = boundedReferentBoundary && !boundedReferents
+    ? boundedReferentBoundary.resolution === "AMBIGUOUS"
+      ? "Plusieurs candidates courantes peuvent être visées ; le référent doit être précisé avant toute explication."
+      : boundedReferentBoundary.resolution === "STALE_OR_SUPERSEDED"
+        ? "Le référent n’est plus disponible comme candidate courante ; aucune explication ne peut lui être attribuée comme état actuel."
+        : "Aucune candidate courante explicitement liée au référent n’est disponible pour être expliquée."
+    : null;
   const contextDigest = logicalDigest({ sourceTurnRef: input.sourceTurnRef, sourceText: input.sourceText,
     candidate: candidate?.canonicalChangeSet ?? null, projectBinding, interaction: input.interaction ?? null,
-    preProjectNavigation: input.preProjectNavigation ?? null, governed });
+    preProjectNavigation: input.preProjectNavigation ?? null, governed,
+    boundedReferentBoundary: boundedReferentBoundary ? {
+      resolution: boundedReferentBoundary.resolution, reason: boundedReferentBoundary.reason,
+      candidateRef: boundedReferentBoundary.candidateRef, sourceTurnRef: boundedReferentBoundary.sourceTurnRef,
+      sourceDigest: boundedReferentBoundary.sourceDigest, refs: boundedReferentBoundary.content.map((item) => item.ref),
+    } : null,
+    boundedInteraction: input.boundedInteraction ?? null });
   const legacyGovernedAsk = !input.currentProject && input.preProjectNavigation?.action === "ASK_QUESTION"
     && input.preProjectNavigation.expectedInformationGain.startsWith("MAY_CHANGE_DECISION:")
     && Boolean(input.preProjectNavigation.selectedInformationNeedRef);
@@ -153,6 +196,12 @@ export const buildCurrentTurnNavigation = (input: {
       : relations.length
         ? `Structurer la comparaison explicitement représentée entre ${content.map((item) => item.text).join(" et ")}, sans sélectionner un bras, un critère ou un plan non fourni.`
         : `Préparer la revue humaine des ${candidate.humanReviewProjection.expectedChangeRefs.length} changements explicitement représentés : ${content.map((item) => item.text).join(" ; ")}. Préserver leurs opérations et valeurs, sans compléter les informations absentes.`
+    : boundedReferents
+      ? `Expliquer uniquement les contenus explicitement référencés par la candidate courante ${boundedReferents.candidateRef}, sans ajouter de justification absente, sans adoption et sans écriture Project.`
+    : boundedReferentLimit
+      ? boundedReferentLimit
+    : input.boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION"
+      ? "Accuser réception de la direction donnée par l’utilisateur sans reprendre son instruction à la première personne et sans déclarer de modification Project."
     : input.preProjectNavigation?.selectedInformationNeed
       ?? "Répondre à la demande courante sans créer de proposition scientifique ni de décision Project.";
   const alreadyProvidedInformationRefs = [...new Set([
@@ -218,18 +267,53 @@ export const buildCurrentTurnNavigation = (input: {
   const realizedPurpose = unresolved
     ? "Plusieurs actions restent non dominées. Conserver les alternatives et leur provenance sans arbitrer ni adopter à la place de l’utilisateur."
     : selectedNative ? native!.explanation : purpose;
-  const realizedTargets = selectedNative ? [native!.targetRef, ...native!.knownOptionRefs] : targetRefs;
-  const realizedContent = selectedNative ? [...currentActionToConsider!.authorizedContent] : unresolved ? [] : content;
+  const realizedTargets = selectedNative ? [native!.targetRef, ...native!.knownOptionRefs]
+    : boundedReferents ? boundedReferents.content.map((item) => item.ref) : targetRefs;
+  const realizedContent = selectedNative ? [...currentActionToConsider!.authorizedContent]
+    : unresolved ? [] : candidate ? content : boundedReferents ? [...boundedReferents.content] : [];
+  const nativeRequiredContentRefs = selectedNative
+    ? currentActionToConsider!.requiredContentRefs ?? realizedContent.map((item) => item.ref).filter((ref) => ref !== native!.candidateId)
+    : [];
+  const requiredContentRefs = selectedNative ? nativeRequiredContentRefs
+    : candidate || boundedReferents ? realizedContent.map((item) => item.ref) : [];
+  const requiredVisibleObligations = selectedNative
+    ? [...(currentActionToConsider!.requiredVisibleObligations ?? [])]
+    : candidate ? [{
+      obligationId: `user-source:${candidate.contributionRef}`, sourceRef: candidate.contributionRef,
+      role: "USER_SOURCE_ATTRIBUTION" as const, exactText: "les éléments que vous avez formulés",
+    }]
+    : boundedReferents ? realizedContent.map((item) => ({
+      obligationId: `referent:${item.ref}`, sourceRef: item.ref,
+      role: "REFERENT_CONTENT" as const, exactText: item.text,
+    })) : input.boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION" ? [{
+      obligationId: `acknowledgement:${input.sourceTurnRef}`, sourceRef: input.sourceTurnRef,
+      role: "USER_DIRECTION_ACKNOWLEDGEMENT" as const, exactText: "Votre instruction est reçue",
+    }] : [];
+  const interventionKind: GovernedConversationInterventionKind = realizedAsk ? "ASK_INFORMATION"
+    : selectedNative && realizedActionCategory === "COMPARE_OPTIONS" ? "PRESENT_OWNER_DECISION_SUPPORT"
+      : candidate ? "STRUCTURE_USER_SUPPLIED_CONTENT"
+        : boundedReferents ? "EXPLAIN_REFERENCED_CONTENT"
+          : input.boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION" ? "ACKNOWLEDGE_USER_DIRECTION"
+            : "RESPOND_WITHOUT_MUTATION";
+  const interventionSource: GovernedConversationContentSource = realizedAsk ? "QUERY_NAVIGATION"
+    : selectedNative ? "OWNER_RESULT" : candidate ? "USER_SUPPLIED"
+      : boundedReferents ? "RETAINED_CANDIDATE" : "NONE";
+  const interventionSourceRefs = selectedNative ? [...new Set([native!.candidateId, ...native!.sourceRefs])]
+    : candidate ? [candidate.contributionRef, input.sourceTurnRef]
+      : boundedReferents ? [boundedReferents.candidateRef!, boundedReferents.sourceTurnRef!, ...realizedContent.map((item) => item.ref)]
+        : input.boundedInteraction?.evidenceRefs ?? [];
   const envelope = buildGovernedConversationEnvelope({
     whatRef: makeQueryNavigationId("realized-what", { whatRef, selectionRef: selection.trace.traceId }),
     action: realizedAsk ? "ASK_QUESTION" : !unresolved && (selectedNative ? realizedActionCategory === "COMPARE_OPTIONS" : Boolean(candidate)) ? "PROPOSE" : "RESPOND",
     actionCategory: realizedActionCategory, purpose: realizedPurpose, sourceTurnRef: input.sourceTurnRef, projectBinding,
+    intervention: { kind: interventionKind, contentSource: interventionSource, sourceRefs: interventionSourceRefs },
     candidateRef: candidate?.contributionRef ?? null, targetRefs: [...new Set(realizedTargets)],
-    authorizedContent: candidate || selectedNative ? realizedContent : [
+    authorizedContent: candidate || selectedNative || boundedReferents ? realizedContent : [
       { ref: input.sourceTurnRef, text: input.sourceText, status: null },
       ...(governed?.authorizedContent ?? []),
     ],
-    requiredContentRefs: realizedContent.map((item) => item.ref),
+    requiredContentRefs,
+    requiredVisibleObligations,
     requiredRelations: selectedNative || unresolved || objectives.length ? [] : relations.flatMap((item) => item.candidate ? [{
       ref: item.candidate.relationId, sourceRef: item.candidate.sourceObjectRef,
       relationType: item.candidate.relationType, targetRef: item.candidate.targetObjectRef,
@@ -242,7 +326,17 @@ export const buildCurrentTurnNavigation = (input: {
     enoughForReversibleCandidate: Boolean(candidate),
     highValueNextActionAvailable: Boolean(native && !excludedNativeReasons.length && ["MAY_CHANGE_DECISION", "SEPARATES_ACTIVE_OPTIONS"].includes(native.informationValue.discrimination)),
     excludedNativeReasons,
-    localWhatText: unresolved ? realizedPurpose : selectedNative ? native!.explanation : candidate
-    ? `${objectives.length ? "Je propose de structurer les questions et objectifs représentés" : relations.length ? "Je propose de structurer cette comparaison" : "Je propose de préparer la revue de ces changements"}${content.length ? ` : ${content.map((item) => item.text).join(" ; ")}` : ". Les changements repérés sont conservés pour revue"}. Cette proposition reste à confirmer ; aucune information manquante n’est complétée.`
-    : null, candidateRef: candidate?.contributionRef ?? null, candidateAdopted: false as const };
+    localWhatText: unresolved ? realizedPurpose
+      : selectedNative && requiredVisibleObligations.length
+        ? `${requiredVisibleObligations.map((item) => item.exactText).join("\n")}\nAucune adoption ni écriture Project n’est effectuée.`
+        : selectedNative ? native!.explanation : candidate
+          ? `Je vous propose de structurer pour revue les éléments que vous avez formulés${content.length ? ` : ${content.map((item) => item.text).join(" ; ")}` : ". Les changements repérés sont conservés pour revue"}. Cette proposition reste à confirmer ; aucune information manquante n’est complétée.`
+          : boundedReferents
+            ? `Les contenus explicitement référencés sont : ${realizedContent.map((item) => item.text).join(" ; ")}. Leur distinction ne peut être précisée au-delà de ces éléments sans justification gouvernée supplémentaire.`
+            : boundedReferentLimit
+              ? boundedReferentLimit
+            : input.boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION"
+              ? "Votre instruction est reçue. Cette réponse n’effectue aucune modification du Project ; l’état antérieur ne peut être déclaré conservé que par le lifecycle compétent."
+              : null,
+    candidateRef: candidate?.contributionRef ?? null, candidateAdopted: false as const };
 };
