@@ -1,0 +1,44 @@
+{
+  "manifestId": "FIC02-OPENAI-LUNA-LOW-SCENARIOS",
+  "version": "1.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02-OPENAI-LUNA-LOW@3.0.0",
+  "derivationMode": "EXACT_REFERENCE_TO_HISTORICAL_FIC02_PRIMARY_SCENARIOS",
+  "order": ["A", "B", "C", "D"],
+  "scenarios": [
+    {
+      "key": "A",
+      "scenarioId": "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+      "historicalWrapperRef": "../frozen-integrated-campaign-02/scenario-a.json",
+      "scientificDefinitionRef": "../frozen-integrated-campaign-01/scenario-a.json",
+      "originalUserTextEn": "We have historical cardiac MRI and echocardiography data from patients followed after a first myocardial infarction, and we can prospectively recruit new patients with follow-up imaging. We want to understand adverse left ventricular remodeling, but the exact study design, timing, primary endpoint, and role of each imaging modality are not decided.",
+      "requiresLocalAnaphoricContext": false
+    },
+    {
+      "key": "B",
+      "scenarioId": "FIC01-B-INTERVENTIONAL-ANALYTIC",
+      "historicalWrapperRef": "../frozen-integrated-campaign-02/scenario-b.json",
+      "scientificDefinitionRef": "../frozen-integrated-campaign-01/scenario-b.json",
+      "originalUserTextEn": "We want to conduct a multicenter randomized study comparing two management strategies after an acute cardiovascular event. Imaging will be used to characterize remodeling and may contribute to the principal evaluation, but the exact endpoint hierarchy, follow-up strategy, and analysis plan are not yet fixed.",
+      "requiresLocalAnaphoricContext": false
+    },
+    {
+      "key": "C",
+      "scenarioId": "FIC01-C-MEASUREMENT-VALIDATION",
+      "historicalWrapperRef": "../frozen-integrated-campaign-02/scenario-c.json",
+      "scientificDefinitionRef": "../frozen-integrated-campaign-01/scenario-c.json",
+      "originalUserTextEn": "We have developed an automated quantitative measurement of myocardial fibrosis from late-gadolinium-enhancement cardiac MRI. We want to validate it across several centers against expert manual assessment, but we have not yet decided the exact validation framework or primary performance endpoint.",
+      "requiresLocalAnaphoricContext": false
+    },
+    {
+      "key": "D",
+      "scenarioId": "FIC01-D-MULTICENTER-HARMONIZATION",
+      "historicalWrapperRef": "../frozen-integrated-campaign-02/scenario-d.json",
+      "scientificDefinitionRef": "../frozen-integrated-campaign-01/scenario-d.json",
+      "originalUserTextEn": "We want to build a prospective multicenter study using quantitative cardiac MRI across different manufacturers, field strengths and software versions. The aim is to compare a disease population with a reference population. A central Core Lab is planned, but acquisition harmonization, quality control, reader organization and analysis strategy are not yet fixed.",
+      "requiresLocalAnaphoricContext": false
+    }
+  ],
+  "scenarioTextsChanged": 0,
+  "scientificExpectationsChanged": 0,
+  "optionalHistoricalScenarioEIncluded": false
+}

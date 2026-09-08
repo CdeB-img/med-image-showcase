@@ -1,0 +1,41 @@
+{
+  "configurationId": "FIC02-OPENAI-LUNA-LOW-TRACE",
+  "version": "1.0.0",
+  "profile": "NOXIA_END_TO_END_PRODUCT_TRACE",
+  "profileVersion": "1.5.0",
+  "captureLevel": "LEVEL_2_DIAGNOSTIC",
+  "captureReason": "FROZEN_INTEGRATED_CAMPAIGN_REPLAY",
+  "ledger": {
+    "contract": "SCIENTIFIC_EXECUTION_TRACE_LEDGER",
+    "version": "0.1.0"
+  },
+  "eventSchemaVersion": "0.1.0",
+  "preProjectSegment": {
+    "contract": "SCIENTIFIC_EXECUTION_TRACE_PRE_PROJECT_SEGMENT",
+    "version": "0.1.0"
+  },
+  "capturePolicyId": "NOXIA_TRACE_CAPTURE_STRUCTURED_DIAGNOSTIC_V1",
+  "redactionPolicyId": "NOXIA_TRACE_REDACTION_DIAGNOSTIC_V1",
+  "retentionPolicyId": "NOXIA_TRACE_RETENTION_SESSION_DIAGNOSTIC_V1",
+  "requiredObservableProviderFacts": [
+    "PROVIDER",
+    "MODEL",
+    "REASONING_EFFORT",
+    "PROVIDER_RESPONSE_ID",
+    "CONTEXT_SCOPE_ID",
+    "CONTEXT_ITEM_REFS_OR_DIGESTS",
+    "INPUT_TOKEN_COUNT_IF_AVAILABLE",
+    "OUTPUT_TOKEN_COUNT_IF_AVAILABLE",
+    "REASONING_TOKEN_COUNT_IF_AVAILABLE"
+  ],
+  "requiredDiagnosticCapabilities": [
+    "REJECTED_WITNESSES",
+    "FIRST_DIVERGENCE",
+    "CAUSAL_OWNER"
+  ],
+  "traceDecides": "NOTHING",
+  "traceRepairs": "NOTHING",
+  "traceJudgesScience": false,
+  "traceMutatesProduct": false,
+  "fullTextCampaignCaptureLocation": "BOUNDED_EXECUTION_ARTIFACTS_NOT_TRACE_CORE"
+}

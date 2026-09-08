@@ -1,0 +1,65 @@
+{
+  "configurationId": "FIC02-OPENAI-LUNA-LOW-PROVIDER-CONFIGURATION",
+  "version": "1.0.0",
+  "status": "FROZEN_REPOSITORY_CONFIGURATION_PENDING_LIVE_REPLAY_WITNESS",
+  "languageGateway": {
+    "provider": "OPENAI",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "low",
+    "apiFamily": "RESPONSES",
+    "endpoint": "https://api.openai.com/v1/responses",
+    "structuredOutput": {
+      "mode": "JSON_SCHEMA",
+      "schemaId": "conversation_language_projection_v1_4_0",
+      "strict": false
+    },
+    "maxOutputTokens": 8000,
+    "timeoutMs": 120000,
+    "store": false,
+    "automaticRetry": false,
+    "operatorRetry": false,
+    "automaticProviderFallback": false,
+    "automaticReasoningEffortEscalation": false,
+    "requiredExecutionEvidence": [
+      "provider",
+      "modelRequested",
+      "modelReturned",
+      "reasoningEffort",
+      "providerResponseId",
+      "requestIdIfAvailable",
+      "usage",
+      "latency"
+    ]
+  },
+  "naturalScientificConversation": {
+    "provider": "GOOGLE_GEMINI",
+    "model": "gemini-3.5-flash-lite",
+    "role": "EXISTING_NATURAL_CONVERSATION_EXECUTOR_NOT_LANGUAGE_GATEWAY_FALLBACK",
+    "retryPolicy": "NO_CONVERSATION_RETRY_IN_PRODUCT_BRIDGE",
+    "semanticChangeFromHistoricalFic02": false
+  },
+  "persistentProjectExtraction": {
+    "provider": "OPENAI",
+    "model": "gpt-5.6-terra",
+    "apiFamily": "RESPONSES",
+    "structuredOutput": "JSON_SCHEMA_STRICT_FALSE",
+    "maxOutputTokens": 8000,
+    "timeoutMs": 120000,
+    "store": false,
+    "retryPolicy": "AT_MOST_ONE_AUTOMATIC_RECOVERY_AFTER_RECOVERABLE_DETERMINISTIC_VALIDATION_FAILURE",
+    "operatorRetry": false,
+    "semanticChangeFromHistoricalFic02": false
+  },
+  "executionBinding": {
+    "verifyBeforeScenarioA": true,
+    "preserveUnchangedAcrossAThroughD": true,
+    "blockOnLanguageGatewayProviderOrModelMismatch": true,
+    "blockOnReasoningEffortMismatch": true,
+    "providerSwitchBetweenScenarios": false,
+    "credentialsStoredInFreeze": false
+  },
+  "modelSelectionStatus": "PROVISIONAL_OPERATIONAL_BASELINE_PENDING_REPLAY",
+  "futureEscalationPolicy": "LUNA_LOW_THEN_MEDIUM_THEN_HIGH_THEN_TERRA_IF_CAUSALLY_JUSTIFIED",
+  "futureEscalationExecuted": false,
+  "providerCallsDuringFreeze": 0
+}

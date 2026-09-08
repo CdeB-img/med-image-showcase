@@ -1,0 +1,82 @@
+{
+  "manifestId": "FIC02-OPENAI-LUNA-LOW-DIGEST-MANIFEST",
+  "version": "1.0.0",
+  "algorithm": "SHA-256_RAW_FILE_BYTES",
+  "compositeDigestAlgorithm": "sha256(JSON([{path,sha256}], paths sorted lexicographically))",
+  "files": [
+    {
+      "path": "acceptance-envelopes.json",
+      "bytes": 4707,
+      "sha256": "39eaccdfc1e8bdaaa94d7a9a767e51edb70c10394fefcbb83419c6f4c9d753d2"
+    },
+    {
+      "path": "artifact-capture-policy.json",
+      "bytes": 1241,
+      "sha256": "15ece25112f48d7d10badc2a8e985a21f5bc86686217c0da4bde812c3b919a40"
+    },
+    {
+      "path": "baseline.json",
+      "bytes": 4404,
+      "sha256": "ebf2956a672a71051908c259c28d614ede2ebffade9bc70ef773678f628a827b"
+    },
+    {
+      "path": "campaign-manifest.json",
+      "bytes": 2681,
+      "sha256": "291eccf2684ea9b4c4d1936f03fdf8890cca6e46637a1bb3a7ca0df94789bf87"
+    },
+    {
+      "path": "context-boundary.json",
+      "bytes": 1210,
+      "sha256": "dd66e456fff34a0d401661a41cb37a936258e45973d7ec0ac0545574d5159cb4"
+    },
+    {
+      "path": "language-gateway-contract.json",
+      "bytes": 2775,
+      "sha256": "eaf4136d9310116d4f6592a9f862a2e35a1871b00e7504dc3cb380c1310de42b"
+    },
+    {
+      "path": "provider-call-budget.json",
+      "bytes": 1995,
+      "sha256": "581669283685662e0c5905471ba5363d256b23d35a5fd1e44ec0b461e53fa679"
+    },
+    {
+      "path": "provider-configuration.json",
+      "bytes": 2229,
+      "sha256": "26e935be8278731098fa24d5cba0797da9dd4fd94745e773352027cb42e1d2a2"
+    },
+    {
+      "path": "refreeze-report.md",
+      "bytes": 12422,
+      "sha256": "37a070f6b551ac191e8344c206b059190736291ecb5bc8cb272cc12a8fd0d368"
+    },
+    {
+      "path": "replay-gates.json",
+      "bytes": 2182,
+      "sha256": "502ce7fde0099358055de14c3a0ad2ab339731a57984c3261d2aa7eb5fcc528d"
+    },
+    {
+      "path": "scenario-digests.json",
+      "bytes": 1556,
+      "sha256": "49fcbdb40a40c0792d9f0c92071fa9ecee5b94f41399f7848a405541f735996a"
+    },
+    {
+      "path": "scenario-manifest.json",
+      "bytes": 3044,
+      "sha256": "0669425dace701665e0bcf52aeb659552c555ea1e654365e843955ef85fbca80"
+    },
+    {
+      "path": "supersession.json",
+      "bytes": 1021,
+      "sha256": "00098bd93b0a235328b8d6c3d566f17a3dd8a9e68cc0efeb6968db517dd8a411"
+    },
+    {
+      "path": "trace-configuration.json",
+      "bytes": 1316,
+      "sha256": "d169266f692a7650f8e0c2b09c8e56362b60219dd6edd39db3a332ceef73b7cd"
+    }
+  ],
+  "fileCount": 14,
+  "compositeDigest": "f5eb173ce5c296b56bd654ca21054224d34789e3fb7685b93ca4ce7ef93ecd9e",
+  "selfDigestStatus": "NOT_APPLICABLE_SELF_REFERENTIAL",
+  "coverage": "ALL_FREEZE_FILES_EXCEPT_THIS_MANIFEST"
+}

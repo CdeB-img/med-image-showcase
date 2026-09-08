@@ -1,0 +1,42 @@
+{
+  "budgetId": "FIC02-OPENAI-LUNA-LOW-PROVIDER-CALL-BUDGET",
+  "version": "1.0.0",
+  "primaryScenarioCount": 4,
+  "maxStandardConversationTurnsPerScenario": 8,
+  "derivation": {
+    "languageGateway": "2 calls per completed user/assistant turn: one EN-to-FR input projection and one FR-to-EN output projection",
+    "scientificConversation": "1 Gemini natural-conversation call per routed scientific turn",
+    "persistentExtraction": "0 when ineligible; for the frozen construction scenarios, 1 normal OpenAI extraction call and at most 1 automatic recovery call after a recoverable deterministic validation failure",
+    "operatorRerolls": "PROHIBITED"
+  },
+  "expectedLanguageGatewayCalls": {
+    "minimum": 8,
+    "maximum": 64,
+    "normalMinimumBasis": "4 scenarios multiplied by one initial completed turn multiplied by 2 projections",
+    "maximumBasis": "4 scenarios multiplied by 8 turns multiplied by 2 projections"
+  },
+  "expectedScientificProviderCalls": {
+    "minimum": 4,
+    "maximum": 32,
+    "provider": "GOOGLE_GEMINI",
+    "normalMinimumBasis": "one routed natural-conversation call for each initial frozen construction request",
+    "maximumBasis": "one natural-conversation call per allowed turn"
+  },
+  "expectedExtractionCalls": {
+    "minimum": 4,
+    "maximum": 64,
+    "provider": "OPENAI",
+    "normalMinimumBasis": "one extraction attempt for each initial construction-eligible scenario",
+    "maximumBasis": "two attempts per eligible turn across all scenarios"
+  },
+  "overallProviderCallBudget": 160,
+  "overallBudgetFormula": "64_LANGUAGE_GATEWAY_PLUS_32_SCIENTIFIC_CONVERSATION_PLUS_64_EXTRACTION",
+  "operatorRetries": 0,
+  "languageGatewayAutomaticRetries": 0,
+  "scientificConversationAutomaticRetries": 0,
+  "persistentExtractionAutomaticRecoveryAttemptsPerEligibleTurnMaximum": 1,
+  "automaticProviderFallback": false,
+  "automaticReasoningEffortEscalation": false,
+  "stopOnDemonstratedLunaLowLimitation": true,
+  "budgetIsPermissionToReroll": false
+}

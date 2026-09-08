@@ -1,0 +1,74 @@
+{
+  "campaignId": "FROZEN-INTEGRATED-CAMPAIGN-02-OPENAI-LUNA-LOW",
+  "campaignVersion": "3.0.0",
+  "createdAt": "2026-09-08",
+  "status": "FROZEN_READY_FOR_EXPLICIT_REPLAY",
+  "missionId": "FIC02_OPENAI_LUNA_LOW_PROVIDER_REFREEZE_01",
+  "freezeType": "PROVIDER_BOUND_CONFIGURATION_SUPERSESSION",
+  "baselineRef": "baseline.json",
+  "previousFreeze": "FROZEN-INTEGRATED-CAMPAIGN-02@2.0.0",
+  "supersessionRef": "supersession.json",
+  "primaryScenarioIds": [
+    "FIC01-A-LONGITUDINAL-MULTIMODAL-IMAGING",
+    "FIC01-B-INTERVENTIONAL-ANALYTIC",
+    "FIC01-C-MEASUREMENT-VALIDATION",
+    "FIC01-D-MULTICENTER-HARMONIZATION"
+  ],
+  "primaryScenarioOrder": ["A", "B", "C", "D"],
+  "scenarioManifestRef": "scenario-manifest.json",
+  "scenarioDigestsRef": "scenario-digests.json",
+  "acceptanceEnvelopesRef": "acceptance-envelopes.json",
+  "providerConfigurationRef": "provider-configuration.json",
+  "languageGatewayContractRef": "language-gateway-contract.json",
+  "contextBoundaryRef": "context-boundary.json",
+  "traceConfigurationRef": "trace-configuration.json",
+  "providerCallBudgetRef": "provider-call-budget.json",
+  "artifactCapturePolicyRef": "artifact-capture-policy.json",
+  "replayGatesRef": "replay-gates.json",
+  "digestManifestRef": "digest-manifest.json",
+  "reportRef": "refreeze-report.md",
+  "languageGateway": {
+    "contract": "PROTOCOL_DESIGNER_CONVERSATION_LANGUAGE_GATEWAY",
+    "version": "1.4.0",
+    "provider": "OPENAI",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "low",
+    "api": "RESPONSES",
+    "schemaId": "conversation_language_projection_v1_4_0",
+    "contextScopeId": "LANGUAGE_GATEWAY_CURRENT_SOURCE_TEXT_V1",
+    "automaticProviderFallback": false,
+    "automaticReasoningEffortEscalation": false
+  },
+  "trace": {
+    "profile": "NOXIA_END_TO_END_PRODUCT_TRACE",
+    "profileVersion": "1.5.0",
+    "captureLevel": "LEVEL_2_DIAGNOSTIC",
+    "passive": true
+  },
+  "languages": {
+    "sourceUserLanguage": "EN",
+    "conversationLanguage": "EN",
+    "internalWorkingLanguage": "FR",
+    "productEntryRouterLanguage": "FR",
+    "canonicalInternalResponseLanguage": "FR",
+    "visibleResponseLanguage": "EN"
+  },
+  "expectedCorridor": [
+    "ORIGINAL_USER_TEXT_EN",
+    "LANGUAGE_GATEWAY_INPUT_PROJECTION_TO_FR",
+    "PRODUCT_ENTRY_ROUTER",
+    "QRY",
+    "KNOWLEDGE_AND_GOVERNED_OWNERS_WHEN_REACHED",
+    "PROJECT_EXTRACTION_AND_HUMAN_REVIEW_WHEN_REACHED",
+    "CANONICAL_INTERNAL_RESPONSE_FR",
+    "LANGUAGE_GATEWAY_OUTPUT_PROJECTION_TO_EN",
+    "LOCALIZED_VISIBLE_RESPONSE_EN"
+  ],
+  "executionAuthorization": {
+    "providerCalls": false,
+    "replay": false,
+    "productChange": false,
+    "push": false,
+    "deployment": false
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "supersessionId": "FIC02-OPENAI-LUNA-LOW-SUPERSESSION",
+  "version": "1.0.0",
+  "previousFreeze": {
+    "id": "FROZEN-INTEGRATED-CAMPAIGN-02",
+    "version": "2.0.0",
+    "root": "validation/frozen-integrated-campaign-02",
+    "status": "HISTORICAL_TERMINAL_FOR_ITS_PROVIDER_BOUND_CONFIGURATION",
+    "historicalValidityPreserved": true
+  },
+  "newFreeze": {
+    "id": "FROZEN-INTEGRATED-CAMPAIGN-02-OPENAI-LUNA-LOW",
+    "version": "3.0.0",
+    "root": "validation/frozen-integrated-campaign-02-openai-luna-low",
+    "status": "FROZEN_READY_FOR_EXPLICIT_REPLAY"
+  },
+  "relation": "SUPERSEDES_FOR_FUTURE_FIC02_PROVIDER_BOUND_REPLAY_ONLY",
+  "reason": [
+    "LANGUAGE_GATEWAY_1_4_0",
+    "PROVIDER_MIGRATION_GEMINI_TO_OPENAI",
+    "MODEL_GPT_5_6_LUNA_LOW",
+    "REFERENCE_GATE_CORRECTION",
+    "CONTEXT_BOUNDARY_OBSERVABILITY"
+  ],
+  "historicalFreezeDeclaredFalse": false,
+  "historicalFilesMayBeModified": false,
+  "scenarioScientificIdentityChanged": false,
+  "humanReferenceAuthorityChangedByThisFreeze": false
+}

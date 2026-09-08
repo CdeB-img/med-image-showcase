@@ -1,0 +1,28 @@
+{
+  "digestSetId": "FIC02-OPENAI-LUNA-LOW-SCENARIO-DIGESTS",
+  "version": "1.0.0",
+  "algorithm": "SHA-256_RAW_FILE_BYTES_OR_UTF8_TEXT_AS_DECLARED",
+  "scenarios": {
+    "A": {
+      "historicalWrapperSha256": "5af0ad8254aedd0604c0fcbb263e6af19af21d899a94bf7fdb1c1d78d6a0911f",
+      "scientificDefinitionSha256": "2eb2cb2ee21d867e536f13166480220292cfc7af41fc6c16b991af93d5d7322d",
+      "originalUserTextUtf8Sha256": "5fc6af27df6644606f2bc009f2f00d5663e08424927b0e69feb307e34ef12db1"
+    },
+    "B": {
+      "historicalWrapperSha256": "906cfa1c834230caa3dc1bf73c4fb207d64b18dff397940dd66d23fa22375a79",
+      "scientificDefinitionSha256": "a36ec25050555c6d7cabe9964e0ba64115a2587473b6827dc9a1dde354fdf4c1",
+      "originalUserTextUtf8Sha256": "af6f811186ec94c6aa40ceec07f21c7fe21a2126e7ab78a200c3a3b31484c54e"
+    },
+    "C": {
+      "historicalWrapperSha256": "3fbc7d6e7b1d3127b8ef96b2a8f0d8609a2f768e9164bc767b8ad85b70ec7ac1",
+      "scientificDefinitionSha256": "6bf9df1d2b1d4a14b3dbd57a5ea4a17fe672c2d1140dbd738d1f522725585170",
+      "originalUserTextUtf8Sha256": "c1fb5beeb53df3a8685900b8f9fc2b28c493b43dc81a498502e72b6b38f90868"
+    },
+    "D": {
+      "historicalWrapperSha256": "a9c70b7315d8bb462d8d7dc84797fbd9960b1b72fd9dbf6a167d34f80615bfb4",
+      "scientificDefinitionSha256": "d6331000cd1d95764d603d0b4bd54de549bd64feea0e95d6a854654b470dd321",
+      "originalUserTextUtf8Sha256": "c8c943530f1d6cc424bff3d1631770eacea8cc731b637fb393c0f40a68c2b026"
+    }
+  },
+  "identityRule": "ALL_THREE_DIGESTS_MUST_MATCH_BEFORE_EACH_SCENARIO_EXECUTION"
+}

@@ -1,0 +1,53 @@
+{
+  "gateSetId": "FIC02-OPENAI-LUNA-LOW-REPLAY-GATES",
+  "version": "1.0.0",
+  "evaluationRule": "REPORT_EACH_GATE_SEPARATELY_WITH_EVIDENCE_AND_FIRST_DIVERGENCE",
+  "gates": [
+    {
+      "gateId": "GATE_A",
+      "name": "VISIBLE_PRODUCT_CORRIDOR",
+      "requires": ["STANDARD_ENTRY_REACHABLE", "VISIBLE_RESPONSE_CAPTURED_OR_EXPLICIT_FAILURE_CAPTURED"]
+    },
+    {
+      "gateId": "GATE_B",
+      "name": "LANGUAGE_GATEWAY_PRODUCT_CONTRACT",
+      "requires": ["PRODUCT_SCHEMA_STATUS", "PRODUCT_CONTRACT_STATUS", "INVARIANT_WITNESSES", "EXACT_TEXT_CAPTURE"]
+    },
+    {
+      "gateId": "GATE_C",
+      "name": "ROUTER_AND_QRY_REACHABILITY",
+      "requires": ["ROUTE_SELECTED", "CONSTRUCTION_ELIGIBILITY_RECORDED", "QRY_REACHED_OR_EXACT_REASON_NOT_REACHED"]
+    },
+    {
+      "gateId": "GATE_D",
+      "name": "SCIENTIFIC_OWNER_HANDOFFS",
+      "requires": ["OWNER_SELECTION_RECORDED", "HANDOFF_BINDINGS_RECORDED", "NO_LANGUAGE_GATEWAY_OWNER_PROMOTION"]
+    },
+    {
+      "gateId": "GATE_E",
+      "name": "PROJECT_EXTRACTION_AND_VALIDATION",
+      "requires": ["EXTRACTION_ATTEMPTS_RECORDED", "DETERMINISTIC_VALIDATION_RECORDED", "PROJECT_WRITE_ONLY_AFTER_LEGITIMATE_DECISION"]
+    },
+    {
+      "gateId": "GATE_F",
+      "name": "HUMAN_REVIEW_BOUNDARY",
+      "requires": ["PROPOSAL_DISTINCT_FROM_ADOPTION", "CORRECTION_AND_REFUSAL_AVAILABLE", "QUALITATIVE_JUDGMENT_NOT_AUTOMATED"]
+    },
+    {
+      "gateId": "GATE_G",
+      "name": "TRACE_AND_PROVENANCE",
+      "requires": ["LEVEL_2_DIAGNOSTIC", "TRACE_IDENTITY_CONTINUITY", "PROVIDER_AND_CONTEXT_PROVENANCE", "FIRST_DIVERGENCE_LOCATABLE"]
+    },
+    {
+      "gateId": "GATE_H",
+      "name": "REFERENCE_AGREEMENT_IF_REFERENCE_EXISTS",
+      "requires": ["REFERENCE_STATUS_SEPARATE_FROM_PRODUCT_STATUS", "NOT_EVALUATED_WHEN_NO_REFERENCE", "REFERENCE_AUTHORITY_RECORDED"]
+    }
+  ],
+  "barePassFailWithoutGateIdAllowed": false,
+  "firstBlockingDivergenceStopsScientificQualification": true,
+  "downstreamAfterUpstreamDivergence": "NOT_ASSESSABLE_AFTER_UPSTREAM_DIVERGENCE",
+  "providerTechnicalFailureAutomaticallyScientificFailure": false,
+  "repairsDuringReplay": false,
+  "providerOrModelSwitchDuringReplay": false
+}

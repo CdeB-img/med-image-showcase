@@ -1,0 +1,33 @@
+{
+  "policyId": "FIC02-OPENAI-LUNA-LOW-ARTIFACT-CAPTURE",
+  "version": "1.0.0",
+  "appliesTo": "FUTURE_EXPLICITLY_AUTHORIZED_A_TO_D_REPLAY",
+  "requiredPerProjection": {
+    "sourceTextExact": "CAPTURE",
+    "translatedTextExact": "CAPTURE_WHEN_PROVIDER_RETURNED_ONE",
+    "rawStructuredProviderOutput": "CAPTURE_IN_BOUNDED_EXECUTION_ARTIFACT",
+    "visibleUserResponse": "CAPTURE",
+    "canonicalScientificResponse": "CAPTURE_WHEN_PRODUCED",
+    "sourceAndTargetLanguages": "CAPTURE",
+    "providerModelEffortAndResponseId": "CAPTURE",
+    "contractSchemaAndInvariantWitnesses": "CAPTURE",
+    "contextScopeAndDigestRefs": "CAPTURE",
+    "tokenUsageAndLatency": "CAPTURE_IF_AVAILABLE"
+  },
+  "allowedAbsence": {
+    "status": "NOT_CAPTURED_WITH_REASON",
+    "reasonRequired": true,
+    "silentAbsenceAllowed": false
+  },
+  "digestAloneSubstitutesForHumanReviewText": false,
+  "rawStructuredOutputScope": "CAMPAIGN_EXECUTION_ARTIFACT_ONLY",
+  "traceCoreExpansionRequired": false,
+  "redaction": {
+    "credentials": "NEVER_CAPTURE",
+    "apiKeys": "NEVER_CAPTURE",
+    "authorizationHeaders": "NEVER_CAPTURE",
+    "secrets": "NEVER_CAPTURE"
+  },
+  "preserveAfterBlockingFirstDivergence": true,
+  "historicalArtifactsRewriteAllowed": false
+}

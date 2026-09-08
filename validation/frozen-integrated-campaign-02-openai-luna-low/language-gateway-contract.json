@@ -1,0 +1,72 @@
+{
+  "contractId": "FIC02-OPENAI-LUNA-LOW-LANGUAGE-GATEWAY-CONTRACT",
+  "version": "1.4.0",
+  "runtimeContract": "PROTOCOL_DESIGNER_CONVERSATION_LANGUAGE_GATEWAY@1.4.0",
+  "projectionContract": "CONVERSATION_LANGUAGE_PROJECTION@1.4.0",
+  "promptVersion": "1.4.0",
+  "schemaVersion": "1.4.0",
+  "validatorVersion": "1.4.0",
+  "schemaId": "conversation_language_projection_v1_4_0",
+  "categoriesNonExclusive": true,
+  "providerFieldsAreClaims": true,
+  "verbatimEvidenceIsWitnessNotIndependentProof": true,
+  "unknownAbsentAndLostDistinct": true,
+  "unresolvedConflictPolicy": "FAIL_CLOSED",
+  "scientificInterpretationAuthorized": false,
+  "businessCompletionAuthorized": false,
+  "projectWriteAuthorized": false,
+  "scientificDecisionAuthorized": false,
+  "uncertainty": {
+    "definition": "EXPLICIT_EPISTEMIC_MODALITY_OR_EXPLICIT_RESERVATION_ON_CERTAINTY_OR_POSSIBILITY",
+    "positiveExamples": ["may", "might", "possibly", "perhaps", "uncertain", "pourrait", "peut-être", "possiblement", "incertain"],
+    "doesNotAutomaticallyInclude": [
+      "DECISION_NOT_YET_TAKEN",
+      "PLAN_NOT_YET_DEFINED",
+      "INFORMATION_NOT_YET_COLLECTED",
+      "OPEN_CONSTRUCTION_STATE",
+      "DEFERRED_DECISION",
+      "SIMPLE_NEGATION",
+      "NOT_YET_OR_PAS_ENCORE_ALONE"
+    ]
+  },
+  "notYetBoundary": {
+    "englishExample": "The study design is not yet decided.",
+    "frenchExample": "Le plan d’analyse n’est pas encore défini.",
+    "expected": {
+      "NEGATION": "PRESENT",
+      "TEMPORAL_RELATION": "PRESENT",
+      "UNCERTAINTY": "ABSENT"
+    },
+    "surfaceMarkerObservationIsSemanticProof": false
+  },
+  "requiredProjectionRecord": {
+    "exactTexts": ["SOURCE_TEXT_EXACT", "TARGET_TEXT_EXACT"],
+    "languages": ["SOURCE_LANGUAGE", "TARGET_LANGUAGE"],
+    "providerIdentity": ["PROVIDER", "MODEL", "REASONING_EFFORT", "PROVIDER_RESPONSE_ID"],
+    "contractIdentity": ["CONTRACT_VERSION", "SCHEMA_ID"],
+    "invariantAttestation": ["ATTESTATION_STATUS", "SOURCE_PRESENT", "PRESERVED", "SOURCE_EVIDENCE", "TARGET_EVIDENCE"],
+    "surfaceObservations": ["SURFACE_MARKER_OBSERVATIONS"],
+    "separateEvaluationAxes": [
+      "PRODUCT_SCHEMA_STATUS",
+      "PRODUCT_CONTRACT_STATUS",
+      "REFERENCE_AGREEMENT_STATUS",
+      "HUMAN_VISIBLE_TRANSLATION_STATUS"
+    ],
+    "contextAndUsage": [
+      "CONTEXT_SCOPE_ID",
+      "CONTEXT_ITEM_DIGEST_REFS",
+      "INPUT_TOKENS",
+      "OUTPUT_TOKENS",
+      "REASONING_TOKENS",
+      "CACHED_TOKENS_IF_AVAILABLE",
+      "LATENCY_IF_AVAILABLE"
+    ]
+  },
+  "historicalLunaCase04": {
+    "sourceContractVersion": "1.3.0",
+    "observedClaim": "UNCERTAINTY_CLAIM_PRESENT",
+    "currentContractRequalification": "PRODUCT_CONTRACT_REJECTED",
+    "currentLuna14Behavior": "UNKNOWN",
+    "predictiveOfCurrentRuntime": false
+  }
+}

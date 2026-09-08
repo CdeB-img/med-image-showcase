@@ -1,0 +1,99 @@
+{
+  "baselineId": "FIC02-OPENAI-LUNA-LOW-BASELINE",
+  "version": "1.0.0",
+  "repository": "/Users/charles/Documents/Projets/NOXIA/noxia-dev",
+  "branch": "protocol-designer-canonical-ingestion",
+  "freezeAuthoringHead": "8e5d12e46c7d090ed1b03c10047c914b5b17076d",
+  "freezeAuthoringTree": "27a799caf3d6e728d5cb88aedf5dbadde0a32621",
+  "sourceProductCommit": "9675ebac2dbc77ee268e2d83a7351b9d49c82e29",
+  "sourceProductTree": "88592ad468c3d8b2c4643194000d694bd9878412",
+  "sourceMigrationReportCommit": "8e5d12e46c7d090ed1b03c10047c914b5b17076d",
+  "sourceMigrationReport": {
+    "path": "docs/implementation/language-gateway-openai-luna-context-boundary-01-report.md",
+    "sha256": "6654f006a3f6874504761160d0e84537a79294026dbed7335f69c248f3d0bf03"
+  },
+  "historicalFic02": {
+    "root": "validation/frozen-integrated-campaign-02",
+    "gitTree": "3205ef081b0e448d0c15a47da12c99e867ace7f7",
+    "manifestSha256": "c4e68adfae7ed8ece8a30f8b82ca97639c68c73c71cff32fc31b3434ef23a8b1",
+    "status": "PRESERVE_READ_ONLY"
+  },
+  "authorityBindings": [
+    {
+      "path": "0. NOXIA — SOURCE-OF-TRUTH-INDEX.md",
+      "role": "UNIQUE_AUTHORITY_ROUTER",
+      "sha256": "16866593c1452e4264084540056fd9e4fd77a082e37af5c15473bc23837d18f4"
+    },
+    {
+      "path": "output/documents/noxia-protocol-designer-scientific-product-manifesto-v2.0.docx",
+      "role": "CURRENT_SPECIALIZED_SCIENTIFIC_CONSTITUTION",
+      "sha256": "2efcd7528da964b5c4144eecfb29bd6332374748a82787b6577872a62c9d0893"
+    },
+    {
+      "path": "output/documents/noxia-protocol-designer-product-specification-v1.0.docx",
+      "role": "FUNCTIONAL_PRODUCT_SPECIFICATION",
+      "sha256": "efcd73f2d79737b688896f4598a6244904448903dcf676daf3375cdb8ad5cdad"
+    },
+    {
+      "path": "docs/pd-004-ux-manifesto.md",
+      "role": "UX_HUMAN_DECISION_AND_UNCERTAINTY_AUTHORITY",
+      "sha256": "008ed584d3b57fb4037509191c680ca6ed0670dbbba1b93db1b9cfa0e82b6f7e"
+    },
+    {
+      "path": "docs/pd-009-decision-engine-architecture.md",
+      "role": "NEXT_ACTION_AND_QRY_AUTHORITY",
+      "sha256": "4e971ab426272c0ea12874907e937118dba41f056c884aa1b1a495b2306d9c62"
+    }
+  ],
+  "criticalRuntimeBindings": [
+    {
+      "path": "src/features/protocol-designer/conversation-language-gateway.ts",
+      "sha256": "339ac2b82211df7c7724aea044c62f4d2f054501bf31d3602098f9329bca6b8c"
+    },
+    {
+      "path": "api/protocol-designer-openai-extraction-provider.ts",
+      "sha256": "9f28a5933c759b7e383c63fc1f221631a48767b424eb7e466a3b4f3e444c0cdc"
+    },
+    {
+      "path": "api/protocol-designer-bridge.ts",
+      "sha256": "2b89acd61843dea066e4ff187ff83cc3d3088018db2ddfa9cd59ec5b31cb95b4"
+    },
+    {
+      "path": "src/features/protocol-designer/product-bridge.ts",
+      "sha256": "6d554ead272830444ee822a9b54a311dee629562cfed096d5284a8312d9b1d22"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx",
+      "sha256": "e97df1abe6d7583b808a0c49e01d44c1a8e77fe44a70bcf1ca036f2e74b40046"
+    },
+    {
+      "path": "src/features/protocol-designer/scientific-execution-trace.ts",
+      "sha256": "63407987c0afdaa05cbdc07b69b6fc8b94f143c9f0f935d184703dd54122cbe9"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/end-to-end-trace-adapter.ts",
+      "sha256": "a8fba5aa4f37749cb63e5a36712eb9375cca16fe27ab5dfbdf62fcf4cac4293c"
+    },
+    {
+      "path": "src/features/query-navigation/contracts.ts",
+      "sha256": "e9757e0fe5fb594d6281c3680522b0ab4536055123e31d31b27c866dcef57358"
+    },
+    {
+      "path": "src/features/query-navigation/pre-project-navigation.ts",
+      "sha256": "23e17f000953b3e38d587f2d4699dd550675741b91c585a4fbd4a6a2b30bb368"
+    },
+    {
+      "path": "src/features/research-project-construction/canonical-project-backbone.ts",
+      "sha256": "b0b33401972c0ba199f94ec6ec32b8c17e27f974108906ee866892393ac99269"
+    }
+  ],
+  "componentConfiguration": {
+    "qry": "QRY001@1.0.0_PD-009-1.0",
+    "preProjectQry": "PRE_PROJECT_QUERY_NAVIGATION@1.0.0",
+    "project": "CANONICAL_RESEARCH_PROJECT_STATE@0.2.0",
+    "scientificOwners": "UNCHANGED_FROM_CURRENT_BASELINE_AND_BOUND_BY_GIT_TREE",
+    "persistentExtraction": "OPENAI_RESPONSES_GPT-5.6-TERRA_AT_MOST_ONE_DETERMINISTIC_RECOVERY",
+    "trace": "NOXIA_END_TO_END_PRODUCT_TRACE@1.5.0_LEVEL_2_DIAGNOSTIC"
+  },
+  "baselineReproducibility": "EXACT_GIT_COMMIT_PLUS_CRITICAL_FILE_DIGESTS"
+}

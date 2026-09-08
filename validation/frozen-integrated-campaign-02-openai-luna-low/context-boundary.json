@@ -1,0 +1,36 @@
+{
+  "boundaryId": "FIC02-OPENAI-LUNA-LOW-CONTEXT-BOUNDARY",
+  "version": "1.0.0",
+  "contextScopeId": "LANGUAGE_GATEWAY_CURRENT_SOURCE_TEXT_V1",
+  "allowed": [
+    "CURRENT_SOURCE_TEXT",
+    "SOURCE_LANGUAGE",
+    "TARGET_LANGUAGE",
+    "PROTECTED_LITERALS",
+    "REQUIRED_STRUCTURED_INVARIANT_CONTRACT",
+    "MINIMAL_RELEVANT_LINGUISTIC_CONTEXT_IF_EXPLICITLY_REFERENCED"
+  ],
+  "excludedByDefault": [
+    "FULL_CONVERSATION_TRANSCRIPT",
+    "FULL_CANONICAL_PROJECT",
+    "ALL_PROJECT_VERSIONS",
+    "FULL_OWNER_RESULT_LEDGER",
+    "KNOWLEDGE_CORPUS",
+    "DOCUMENT_PORTFOLIO",
+    "SUPERSEDED_PROPOSAL_HISTORY",
+    "FULL_TRACE"
+  ],
+  "requiredContextEvidence": [
+    "CONTEXT_SCOPE_ID",
+    "SOURCE_TEXT_DIGEST",
+    "PROTECTED_LITERALS_DIGEST",
+    "STRUCTURED_CONTRACT_REF",
+    "LOCAL_LINGUISTIC_CONTEXT_REFS"
+  ],
+  "tokenCountMethod": "PROVIDER_USAGE_IF_AVAILABLE",
+  "localLinguisticContextSelectionGap": true,
+  "fic02ScenariosRequireLocalAnaphoricContext": false,
+  "scenarioAssessmentBasis": "A_TO_D_ARE_STANDALONE_COMPLETE_INITIAL_MESSAGES_WITH_NO_PRONOMINAL_OR_ELLIPTICAL_DEPENDENCY_ON_PRIOR_TURNS",
+  "fullTranscriptAsScientificContext": false,
+  "contextBoundaryBlockingForThisFreeze": false
+}

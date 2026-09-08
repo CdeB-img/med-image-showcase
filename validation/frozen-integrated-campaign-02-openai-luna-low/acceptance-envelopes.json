@@ -1,0 +1,98 @@
+{
+  "envelopeSetId": "FIC02-OPENAI-LUNA-LOW-ACCEPTANCE-ENVELOPES",
+  "version": "3.0.0",
+  "campaignBinding": "FROZEN-INTEGRATED-CAMPAIGN-02-OPENAI-LUNA-LOW@3.0.0",
+  "scientificEnvelopes": {
+    "mode": "EXACT_UNCHANGED_REFERENCES_TO_HISTORICAL_FIC02_AND_FIC01",
+    "entries": {
+      "A": {
+        "historicalWrapperRef": "../frozen-integrated-campaign-02/acceptance-envelope-a.json",
+        "historicalWrapperSha256": "71246848ef1f926242795e01806e661f1bd8cd4976100d63560f3afd581c1200",
+        "scientificEnvelopeRef": "../frozen-integrated-campaign-01/acceptance-envelope-a.json",
+        "scientificEnvelopeSha256": "efd0559462cf448d1a85edb7e82d72890e3563994908f44e5e9ff07f90534ea3"
+      },
+      "B": {
+        "historicalWrapperRef": "../frozen-integrated-campaign-02/acceptance-envelope-b.json",
+        "historicalWrapperSha256": "fced4800b74207651939efc9fea5e8942e6863b6019a2e856b4a9c3d80291798",
+        "scientificEnvelopeRef": "../frozen-integrated-campaign-01/acceptance-envelope-b.json",
+        "scientificEnvelopeSha256": "966eada5154a0b48df65cc4d072ee46cae7cf54863751f512c7669ce72c9ffe2"
+      },
+      "C": {
+        "historicalWrapperRef": "../frozen-integrated-campaign-02/acceptance-envelope-c.json",
+        "historicalWrapperSha256": "ea91b6fb51fce6042e41fa5fcfaa1a8fa111e027d7254286d7274564ba3931cf",
+        "scientificEnvelopeRef": "../frozen-integrated-campaign-01/acceptance-envelope-c.json",
+        "scientificEnvelopeSha256": "ae8b1637fff8c065cf8e956190ad266dd1bf8c1b50cf654de3f8eaaced0d777a"
+      },
+      "D": {
+        "historicalWrapperRef": "../frozen-integrated-campaign-02/acceptance-envelope-d.json",
+        "historicalWrapperSha256": "aae8dd3644a32425f84e6221dfb392d92e78af0f34850e23c2b7b07894046a94",
+        "scientificEnvelopeRef": "../frozen-integrated-campaign-01/acceptance-envelope-d.json",
+        "scientificEnvelopeSha256": "04e2ffef3624676ab4d2cda6eacfb09581dea6c9b3b9d6360ca344ff0aae57f2"
+      }
+    },
+    "scientificExpectationsChanged": 0
+  },
+  "languageAcceptance": {
+    "contractVersion": "1.4.0",
+    "mustPreserve": [
+      "SOURCE_TEXT_EXACT",
+      "NUMBERS",
+      "UNITS",
+      "IDENTIFIERS",
+      "NEGATION",
+      "UNCERTAINTY_WHEN_EXPLICITLY_EPISTEMIC",
+      "CONDITIONALITY",
+      "COMPARISON",
+      "TEMPORAL_RELATION",
+      "DECISION_STATUS",
+      "SCIENTIFIC_ENTITIES",
+      "UNKNOWN_AND_WITHHELD_SEMANTICS"
+    ],
+    "mustNot": [
+      "ADD_SCIENTIFIC_INFORMATION",
+      "RESOLVE_SCIENTIFIC_AMBIGUITY",
+      "CHANGE_DECISION_STATUS",
+      "WRITE_PROJECT",
+      "CHANGE_SCIENTIFIC_OWNER_SELECTION",
+      "PROMOTE_CANDIDATE_TO_ADOPTED",
+      "SELF_CERTIFY_SCIENTIFIC_CORRECTNESS"
+    ],
+    "humanReviewBoundary": "QUALITATIVE_SCIENTIFIC_OR_VISIBLE_TRANSLATION_JUDGMENT_REMAINS_HUMAN",
+    "projectWriteGate": "EXPLICIT_LEGITIMATE_HUMAN_DECISION_REQUIRED",
+    "zeroAutomaticAdoption": true
+  },
+  "languageAcceptanceChanges": [
+    {
+      "oldValue": "LANGUAGE_GATEWAY_1.0.0_WITH_BROAD_PRESERVE_UNCERTAINTY_LABEL",
+      "newValue": "LANGUAGE_GATEWAY_1.4.0_WITH_EXPLICIT_EPISTEMIC_UNCERTAINTY_BOUNDARY",
+      "why": "The current product contract distinguishes epistemic uncertainty from a merely open or not-yet-decided state.",
+      "owner": "CONVERSATION_LANGUAGE_GATEWAY_PRODUCT_CONTRACT",
+      "normativeOrProductBasis": "SOURCE_PRODUCT_COMMIT_9675ebac_AND_EXPLICIT_HUMAN_PRODUCT_DECISION_2026_09_08"
+    },
+    {
+      "oldValue": "NOT_YET_TEMPORAL_AND_UNCERTAINTY_RELATION_NOT_EXPLICITLY_SEPARATED",
+      "newValue": "NOT_YET_ALONE_MEANS_NEGATION_PRESENT_TEMPORAL_RELATION_PRESENT_UNCERTAINTY_ABSENT",
+      "why": "Preserve the aspectuo-temporal construction without inventing epistemic uncertainty.",
+      "owner": "CONVERSATION_LANGUAGE_GATEWAY_PRODUCT_CONTRACT",
+      "normativeOrProductBasis": "LANGUAGE_GATEWAY_1.4.0_AND_EXPLICIT_HUMAN_PRODUCT_DECISION_2026_09_08"
+    },
+    {
+      "oldValue": "COMPOSITE_HISTORICAL_LANGUAGE_RESULT_COULD_CONFLATE_PRODUCT_AND_REFERENCE",
+      "newValue": "PRODUCT_SCHEMA_PRODUCT_CONTRACT_REFERENCE_AGREEMENT_AND_HUMAN_VISIBLE_JUDGMENT_ARE_SEPARATE",
+      "why": "A reference disagreement is not a product-contract failure after product validation passes.",
+      "owner": "LANGUAGE_GATEWAY_REFERENCE_EVALUATOR",
+      "normativeOrProductBasis": "SOURCE_PRODUCT_COMMIT_9675ebac_AND_MIGRATION_REPORT"
+    }
+  ],
+  "referenceGate": {
+    "fields": [
+      "PRODUCT_SCHEMA_STATUS",
+      "PRODUCT_CONTRACT_STATUS",
+      "REFERENCE_AGREEMENT_STATUS",
+      "REFERENCE_AUTHORITY",
+      "HUMAN_VISIBLE_TRANSLATION_STATUS"
+    ],
+    "historicalCompositeEightOfEightProhibited": true,
+    "referenceAbsentMeans": "REFERENCE_AGREEMENT_STATUS_NOT_EVALUATED"
+  }
+}
