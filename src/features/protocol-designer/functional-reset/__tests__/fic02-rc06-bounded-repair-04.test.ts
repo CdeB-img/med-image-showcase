@@ -159,6 +159,14 @@ describe("FIC02-RC06-BOUNDED-REPAIR-04 — semantic evidence claim contract", ()
           sourceEvidence: ["may change"],
           targetEvidence: ["pourrait évoluer"],
         },
+        {
+          invariantId: "TEMPORAL_RELATION",
+          attestationStatus: "ATTESTED",
+          sourcePresent: true,
+          preserved: true,
+          sourceEvidence: ["not yet decided"],
+          targetEvidence: ["pas encore arrêté"],
+        },
       ]),
     }));
     expect(projection.invariants.filter((invariant) => invariant.status === "PRESERVED").map((invariant) => invariant.invariant))
@@ -231,7 +239,7 @@ describe("FIC02-RC06-BOUNDED-REPAIR-04 — semantic evidence claim contract", ()
     expect(LANGUAGE_PROJECTION_SYSTEM_INSTRUCTION).toContain("segment source suffisamment contextualisé");
     expect(LANGUAGE_PROJECTION_SYSTEM_INSTRUCTION).toContain("l'opérateur, la proposition et sa portée locale");
     expect(schema.properties.semanticInvariants.items.properties.sourceEvidence.description).toContain("sufficiently contextualized");
-    expect(LANGUAGE_PROJECTION_SCHEMA_VERSION).toBe("1.3.0");
+    expect(LANGUAGE_PROJECTION_SCHEMA_VERSION).toBe("1.4.0");
   });
 
   it("J rejects a duplicated invariant and K rejects a missing invariant", () => {
@@ -289,10 +297,12 @@ describe("FIC02-RC06-BOUNDED-REPAIR-04 — semantic evidence claim contract", ()
     const request = requestFor(source);
     const result = providerResult({ translatedText: target });
     const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
-      responseId: "gemini-language:rc06-bridge",
-      candidates: [{ content: { parts: [{ functionCall: { name: "return_language_projection", args: result } }] } }],
+      id: "resp_language_rc06_bridge",
+      model: "gpt-5.6-luna",
+      status: "completed",
+      output_text: JSON.stringify(result),
     }), { status: 200, headers: { "content-type": "application/json" } })) as unknown as typeof fetch;
-    const bridge = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", fetchImpl, now: () => Date.parse(createdAt) });
+    const bridge = await executeProtocolDesignerBridge({ body: request, apiKey: null, openAiApiKey: "test-openai-key", fetchImpl, now: () => Date.parse(createdAt) });
     expect(fetchImpl).toHaveBeenCalledTimes(1);
     expect(bridge.status).toBe(422);
     const diagnostic = (bridge.body as { error: { diagnostic: LanguageProjectionContractFailureDiagnostic } }).error.diagnostic;
@@ -309,12 +319,12 @@ describe("FIC02-RC06-BOUNDED-REPAIR-04 — semantic evidence claim contract", ()
       providerPreservationClaim: "NOT_APPLICABLE",
       providerSupportStatus: "SUPPORTED",
       deterministicContractVerdict: "REJECTED",
-      validatorVersion: "1.3.0",
-      promptVersion: "1.3.0",
-      schemaVersion: "1.3.0",
-      provider: "GOOGLE_GEMINI",
-      model,
-      providerResponseId: "gemini-language:rc06-bridge",
+      validatorVersion: "1.4.0",
+      promptVersion: "1.4.0",
+      schemaVersion: "1.4.0",
+      provider: "OPENAI",
+      model: "gpt-5.6-luna",
+      providerResponseId: "resp_language_rc06_bridge",
     });
     expect(JSON.stringify(diagnostic)).not.toContain(target);
 

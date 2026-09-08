@@ -4,6 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import { logicalDigest } from "@/features/knowledge-engine";
+import { languageGatewayContextBoundary } from "@/features/protocol-designer/conversation-language-gateway";
 import { ProductBridgeClientError } from "@/features/protocol-designer/product-bridge-client";
 import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
 import { makeFunctionalResetBridgeResponseForRequest } from "./functional-reset-fixtures";
@@ -36,12 +37,13 @@ const projectionResponse = (request: {
   projectionIdentityDigest: string;
 }) => {
   const translatedText = request.projectionKind === "INPUT_TO_FRENCH" ? FRENCH_WORKING : ENGLISH_VISIBLE;
+  const contextBoundary = languageGatewayContextBoundary({ sourceText: request.sourceText, protectedOpaqueLiterals: [] });
   return {
     apiVersion: "1.0.0",
     operation: "LANGUAGE_PROJECTION",
     projection: {
       contract: "CONVERSATION_LANGUAGE_PROJECTION",
-      contractVersion: "1.3.0",
+      contractVersion: "1.4.0",
       projectionId: `language-projection:${request.projectionIdentityDigest}`,
       projectionKind: request.projectionKind,
       sourceTextDigest: logicalDigest(request.sourceText),
@@ -54,11 +56,14 @@ const projectionResponse = (request: {
       status: "SUCCEEDED",
       supportStatus: "SUPPORTED",
       qualificationStatus: "QUALIFIED",
-      provider: "GOOGLE_GEMINI",
-      model: "gemini-3.5-flash-lite",
+      provider: "OPENAI",
+      model: "gpt-5.6-luna",
       providerResponseId: `provider:${request.projectionKind}`,
+      reasoningEffort: "low",
+      usage: { input_tokens: 100, output_tokens: 30, reasoning_tokens: 8, cached_tokens: 0 },
+      contextBoundary,
       providerCalls: 1,
-      translationContractVersion: "1.3.0",
+      translationContractVersion: "1.4.0",
       ambiguityPreserved: true,
       limitations: [],
       invariants: [],
@@ -66,7 +71,16 @@ const projectionResponse = (request: {
       projectWriteAuthorized: false,
       scientificDecisionAuthorized: false,
     },
-    observability: { provider: "GOOGLE_GEMINI", model: "gemini-3.5-flash-lite", calls: 1, latencyMs: 1 },
+    observability: {
+      provider: "OPENAI",
+      model: "gpt-5.6-luna",
+      reasoningEffort: "low",
+      providerResponseId: `provider:${request.projectionKind}`,
+      usage: { input_tokens: 100, output_tokens: 30, reasoning_tokens: 8, cached_tokens: 0 },
+      contextBoundary,
+      calls: 1,
+      latencyMs: 1,
+    },
   } as const;
 };
 
@@ -240,8 +254,8 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — Standard integration", () => 
         contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC",
         contractVersion: "1.0.0",
         subInvariantIds: ["LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"],
-        provider: "GOOGLE_GEMINI",
-        model: "gemini-3.5-flash-lite",
+        provider: "OPENAI",
+        model: "gpt-5.6-luna",
         providerResponseId: "provider:contract-rejected",
         providerResultDigest: "digest:contract-rejected-provider-result",
       },
@@ -264,10 +278,10 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — Standard integration", () => 
     ]);
     expect(events[4]).toMatchObject({
       reasonCode: "LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
-      provider: "GOOGLE_GEMINI",
+      provider: "OPENAI",
       component: { componentVersion: "1.0.0" },
       input: [expect.objectContaining({
-        version: "gemini-3.5-flash-lite",
+        version: "gpt-5.6-luna",
         digest: "digest:contract-rejected-provider-result",
       })],
     });

@@ -1,13 +1,19 @@
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 
 export const CONVERSATION_LANGUAGE_GATEWAY_CONTRACT = "PROTOCOL_DESIGNER_CONVERSATION_LANGUAGE_GATEWAY" as const;
-export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.3.0" as const;
+export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.4.0" as const;
 export const LANGUAGE_PROJECTION_CONTRACT = "CONVERSATION_LANGUAGE_PROJECTION" as const;
-export const LANGUAGE_PROJECTION_CONTRACT_VERSION = "1.3.0" as const;
-export const LANGUAGE_PROJECTION_PROMPT_VERSION = "1.3.0" as const;
-export const LANGUAGE_PROJECTION_SCHEMA_VERSION = "1.3.0" as const;
-export const LANGUAGE_PROJECTION_VALIDATOR_VERSION = "1.3.0" as const;
+export const LANGUAGE_PROJECTION_CONTRACT_VERSION = "1.4.0" as const;
+export const LANGUAGE_PROJECTION_PROMPT_VERSION = "1.4.0" as const;
+export const LANGUAGE_PROJECTION_SCHEMA_VERSION = "1.4.0" as const;
+export const LANGUAGE_PROJECTION_VALIDATOR_VERSION = "1.4.0" as const;
+export const LANGUAGE_PROJECTION_SCHEMA_IDENTITY = "conversation_language_projection_v1_4_0" as const;
 export const CANONICAL_WORKING_LANGUAGE = "fr" as const;
+export const DEFAULT_LANGUAGE_GATEWAY_PROVIDER = "OPENAI" as const;
+export const DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL = "gpt-5.6-luna" as const;
+export const DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT = "low" as const;
+export const LANGUAGE_GATEWAY_CONTEXT_SCOPE_ID = "LANGUAGE_GATEWAY_CURRENT_SOURCE_TEXT_V1" as const;
+export const LANGUAGE_GATEWAY_CONTEXT_TOKEN_COUNT_METHOD = "PROVIDER_USAGE_IF_AVAILABLE" as const;
 
 export type ConversationLanguageCode = string;
 export type LanguageDetectionStatus = "DETECTED" | "INSUFFICIENT_EVIDENCE" | "PROVIDER_REQUIRED";
@@ -16,14 +22,38 @@ export type LanguageSupportStatus = "SUPPORTED" | "UNSUPPORTED" | "UNKNOWN";
 export type LanguageQualificationStatus = "QUALIFIED" | "PROVIDER_SUPPORTED_UNQUALIFIED" | "UNKNOWN";
 export type LanguageProjectionKind = "INPUT_TO_FRENCH" | "OUTPUT_FROM_FRENCH";
 export type LanguageProjectionStatus = "NOT_REQUIRED" | "SUCCEEDED" | "FAILED" | "UNSUPPORTED";
+export type LanguageProjectionProvider = "GOOGLE_GEMINI" | "OPENAI";
+export type LanguageProjectionReasoningEffort = "low" | "medium" | "high" | "NONE";
+export type LanguageProjectionUsage = Readonly<{
+  input_tokens: number | null;
+  output_tokens: number | null;
+  reasoning_tokens: number | null;
+  cached_tokens: number | null;
+}>;
+
+export type LanguageGatewayContextBoundary = Readonly<{
+  contextScopeId: typeof LANGUAGE_GATEWAY_CONTEXT_SCOPE_ID;
+  contextItemRefsOrDigests: readonly string[];
+  sourceTextDigest: string;
+  protectedOpaqueLiteralsDigest: string;
+  localLinguisticContextRefs: readonly string[];
+  tokenCountMethod: typeof LANGUAGE_GATEWAY_CONTEXT_TOKEN_COUNT_METHOD;
+  fullTranscriptIncluded: false;
+  fullProjectIncluded: false;
+  ownerResultsIncluded: false;
+  documentPortfolioIncluded: false;
+  knowledgeCorpusIncluded: false;
+}>;
 
 export type LanguageProjectionFailure = Readonly<{
   projectionKind: LanguageProjectionKind;
   sourceTextDigest: string;
   sourceLanguage: ConversationLanguageCode | "UNKNOWN";
   targetLanguage: ConversationLanguageCode;
-  provider: "GOOGLE_GEMINI";
+  provider: LanguageProjectionProvider;
   model: string;
+  reasoningEffort?: LanguageProjectionReasoningEffort;
+  contextScopeId?: typeof LANGUAGE_GATEWAY_CONTEXT_SCOPE_ID;
   failureCategory: string;
   retryStatus: "NOT_RETRIED";
   occurredAt: string;
@@ -80,7 +110,7 @@ export type LanguageProjectionEvidenceWitness = Readonly<{
   validatorVersion: typeof LANGUAGE_PROJECTION_VALIDATOR_VERSION;
   promptVersion: typeof LANGUAGE_PROJECTION_PROMPT_VERSION;
   schemaVersion: typeof LANGUAGE_PROJECTION_SCHEMA_VERSION;
-  provider: "GOOGLE_GEMINI";
+  provider: LanguageProjectionProvider;
   model: string;
   providerResponseId: string | null;
 }>;
@@ -116,7 +146,7 @@ export type LegacyLanguageProjectionContractFailureDiagnostic = Readonly<{
   contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC";
   contractVersion: "1.0.0";
   subInvariantIds: readonly string[];
-  provider: "GOOGLE_GEMINI";
+  provider: LanguageProjectionProvider;
   model: string;
   providerResponseId: string | null;
   providerResultDigest: string;
@@ -126,7 +156,7 @@ export type LanguageProjectionContractFailureDiagnostic = LegacyLanguageProjecti
   contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC";
   contractVersion: "1.1.0";
   subInvariantIds: readonly string[];
-  provider: "GOOGLE_GEMINI";
+  provider: LanguageProjectionProvider;
   model: string;
   providerResponseId: string | null;
   providerResultDigest: string;
@@ -139,6 +169,7 @@ export class LanguageProjectionContractError extends Error {
 
   constructor(input: {
     blocks: readonly string[];
+    provider?: LanguageProjectionProvider;
     model: string;
     providerResponseId: string | null;
     providerResultDigest: string;
@@ -150,7 +181,7 @@ export class LanguageProjectionContractError extends Error {
       contract: "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC",
       contractVersion: "1.1.0",
       subInvariantIds: Object.freeze([...input.blocks]),
-      provider: "GOOGLE_GEMINI",
+      provider: input.provider ?? "GOOGLE_GEMINI",
       model: input.model,
       providerResponseId: input.providerResponseId,
       providerResultDigest: input.providerResultDigest,
@@ -179,9 +210,12 @@ export type LanguageProjectionArtifact = Readonly<{
   status: Extract<LanguageProjectionStatus, "SUCCEEDED">;
   supportStatus: "SUPPORTED";
   qualificationStatus: LanguageQualificationStatus;
-  provider: "GOOGLE_GEMINI";
+  provider: LanguageProjectionProvider;
   model: string;
   providerResponseId: string | null;
+  reasoningEffort?: LanguageProjectionReasoningEffort;
+  usage?: LanguageProjectionUsage | null;
+  contextBoundary?: LanguageGatewayContextBoundary;
   providerCalls: 1;
   translationContractVersion: typeof LANGUAGE_PROJECTION_CONTRACT_VERSION;
   ambiguityPreserved: boolean;
@@ -209,8 +243,12 @@ export type MultilingualUserTurn = Readonly<{
   frenchWorkingTextDigest: string | null;
   translationRequired: boolean;
   translationStatus: LanguageProjectionStatus;
-  translationProvider: "GOOGLE_GEMINI" | "NONE";
+  translationProvider: LanguageProjectionProvider | "NONE";
   translationModel: string | "NONE";
+  translationReasoningEffort?: LanguageProjectionReasoningEffort;
+  translationProviderResponseId?: string | null;
+  translationUsage?: LanguageProjectionUsage | null;
+  translationContextBoundary?: LanguageGatewayContextBoundary | null;
   translationContractVersion: typeof LANGUAGE_PROJECTION_CONTRACT_VERSION;
   translationDigest: string | null;
   translationProviderResultDigest: string | null;
@@ -240,8 +278,12 @@ export type LocalizedConversationResponse = Readonly<{
   targetLanguage: ConversationLanguageCode;
   translationRequired: boolean;
   translationStatus: Extract<LanguageProjectionStatus, "NOT_REQUIRED" | "SUCCEEDED">;
-  translationProvider: "GOOGLE_GEMINI" | "NONE";
+  translationProvider: LanguageProjectionProvider | "NONE";
   translationModel: string | "NONE";
+  translationReasoningEffort?: LanguageProjectionReasoningEffort;
+  translationProviderResponseId?: string | null;
+  translationUsage?: LanguageProjectionUsage | null;
+  translationContextBoundary?: LanguageGatewayContextBoundary | null;
   translationDigest: string | null;
   limitations: readonly string[];
   provenance: Readonly<{
@@ -282,8 +324,12 @@ export type LanguageProjectionResponse = Readonly<{
   operation: "LANGUAGE_PROJECTION";
   projection: LanguageProjectionArtifact;
   observability: Readonly<{
-    provider: "GOOGLE_GEMINI";
+    provider: LanguageProjectionProvider;
     model: string;
+    reasoningEffort: LanguageProjectionReasoningEffort;
+    providerResponseId: string | null;
+    usage: LanguageProjectionUsage | null;
+    contextBoundary: LanguageGatewayContextBoundary;
     calls: 1;
     latencyMs: number;
   }>;
@@ -466,12 +512,48 @@ const resolvedProtectedOpaqueLiterals = (input: {
     });
 };
 
+export const resolveOpenAILanguageGatewayModel = (value?: string | null): string =>
+  value?.trim() || DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL;
+
+export const resolveOpenAILanguageGatewayReasoningEffort = (
+  value?: string | null,
+): Exclude<LanguageProjectionReasoningEffort, "NONE"> => (
+  value === "medium" || value === "high" ? value : DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT
+);
+
+export const languageGatewayContextBoundary = (
+  request: Pick<LanguageProjectionRequest, "sourceText" | "protectedOpaqueLiterals">,
+): LanguageGatewayContextBoundary => {
+  const sourceTextDigest = logicalDigest(request.sourceText);
+  const protectedOpaqueLiteralsDigest = logicalDigest(resolvedProtectedOpaqueLiterals({
+    sourceText: request.sourceText,
+    explicit: request.protectedOpaqueLiterals,
+  }));
+  return Object.freeze({
+    contextScopeId: LANGUAGE_GATEWAY_CONTEXT_SCOPE_ID,
+    contextItemRefsOrDigests: Object.freeze([
+      `CURRENT_SOURCE_TEXT:${sourceTextDigest}`,
+      `PROTECTED_OPAQUE_LITERALS:${protectedOpaqueLiteralsDigest}`,
+      `REQUIRED_STRUCTURED_INVARIANT_CONTRACT:${LANGUAGE_PROJECTION_CONTRACT_VERSION}`,
+    ]),
+    sourceTextDigest,
+    protectedOpaqueLiteralsDigest,
+    localLinguisticContextRefs: Object.freeze([]),
+    tokenCountMethod: LANGUAGE_GATEWAY_CONTEXT_TOKEN_COUNT_METHOD,
+    fullTranscriptIncluded: false,
+    fullProjectIncluded: false,
+    ownerResultsIncluded: false,
+    documentPortfolioIncluded: false,
+    knowledgeCorpusIncluded: false,
+  });
+};
+
 export const languageProjectionIdentityDigest = (input: {
   projectionKind: LanguageProjectionKind;
   sourceText: string;
   sourceLanguage: ConversationLanguageCode | "UNKNOWN";
   targetLanguage: ConversationLanguageCode;
-  provider: "GOOGLE_GEMINI";
+  provider: LanguageProjectionProvider;
   model: string;
   protectedOpaqueLiterals?: readonly ProtectedOpaqueLiteral[];
 }) => logicalDigest({
@@ -637,6 +719,12 @@ const providerSemanticInvariants = (input: {
     if (evidence.sourcePresent && !evidence.preserved) {
       blocks.push(`SEMANTIC_INVARIANT_DECLARED_LOST:${invariant}`);
     }
+    if (invariant === "UNCERTAINTY"
+      && evidence.sourcePresent
+      && deterministic?.status === "NOT_PRESENT"
+      && /\b(?:not\s+yet|pas\s+encore)\b/iu.test(input.source)) {
+      blocks.push("SOURCE_CLAIM_NOT_YET_IS_NOT_UNCERTAINTY");
+    }
     if (!evidence.sourcePresent && deterministic?.status !== "NOT_PRESENT") {
       blocks.push(`SOURCE_CLAIM_SURFACE_OBSERVATION_CONFLICT:${invariant}`);
     }
@@ -733,10 +821,10 @@ export const evaluateLinguisticInvariants = (
     units(),
     identifiers(),
     semanticMarkerInvariant({ invariant: "NEGATION", source, target, sourcePattern: /\b(?:not|no|without|ne|pas|sans|aucun|none)\b|ない|なし|不|未|无|沒有|没有/giu, targetPattern: /\b(?:not|no|without|ne|pas|sans|aucun|non|none)\b|ない|なし|不|未|无|沒有|没有/giu }),
-    semanticMarkerInvariant({ invariant: "UNCERTAINTY", source, target, sourcePattern: /\b(?:may|might|could|uncertain|unknown|possibly|peut|pourrait|incertain|inconnu|possible)\b|かもしれない|可能|不明/giu, targetPattern: /\b(?:may|might|could|uncertain|unknown|possibly|peut|pourrait|incertain|inconnu|possible)\b|かもしれない|可能|不明/giu }),
+    semanticMarkerInvariant({ invariant: "UNCERTAINTY", source, target, sourcePattern: /\b(?:may|might|could|perhaps|uncertain|possibly|possible|pourrait|pourraient|peut[- ]être|possiblement|incertain|incertaine)\b|\bpeut\s+(?:ne\s+pas\s+)?(?:[a-zà-öø-ÿ]+(?:er|ir|re)|être|avoir)\b|かもしれ(?:ない|ません)|可能/giu, targetPattern: /\b(?:may|might|could|perhaps|uncertain|possibly|possible|pourrait|pourraient|peut[- ]être|possiblement|incertain|incertaine)\b|\bpeut\s+(?:ne\s+pas\s+)?(?:[a-zà-öø-ÿ]+(?:er|ir|re)|être|avoir)\b|かもしれ(?:ない|ません)|可能/giu }),
     semanticMarkerInvariant({ invariant: "CONDITIONALITY", source, target, sourcePattern: /\b(?:if|unless|si|condition)\b|場合|なら|如果|若/giu, targetPattern: /\b(?:if|unless|si|condition)\b|場合|なら|如果|若/giu }),
     semanticMarkerInvariant({ invariant: "COMPARISON", source, target, sourcePattern: /\b(?:versus|vs|compare|compared|comparison|comparer|comparaison)\b|比較|比较|对比/giu, targetPattern: /\b(?:versus|vs|compare|compared|comparison|comparer|compare|comparons|comparent|comparaison|comparé)\b|比較|比较|对比/giu }),
-    semanticMarkerInvariant({ invariant: "TEMPORAL_RELATION", source, target, sourcePattern: /\b(?:before|after|during|at baseline|avant|après|pendant)\b|前|後|后|期间/giu, targetPattern: /\b(?:before|after|during|at baseline|avant|après|pendant)\b|前|後|后|期间/giu }),
+    semanticMarkerInvariant({ invariant: "TEMPORAL_RELATION", source, target, sourcePattern: /\b(?:not\s+yet|pas\s+encore|before|after|during|at baseline|avant|après|pendant)\b|前|後|后|期间/giu, targetPattern: /\b(?:not\s+yet|pas\s+encore|before|after|during|at baseline|avant|après|pendant)\b|前|後|后|期间/giu }),
     exact("DECISION_STATUS", /\b(?:UNKNOWN|WITHHELD|KNOWN|UNDECIDED)\b/gu),
   ];
 };
@@ -795,8 +883,12 @@ export const validateLanguageProjectionProviderResult = (input: {
 export const materializeLanguageProjectionArtifact = (input: {
   request: LanguageProjectionRequest;
   result: LanguageProjectionProviderResult;
+  provider?: LanguageProjectionProvider;
   model: string;
   providerResponseId: string | null;
+  reasoningEffort?: LanguageProjectionReasoningEffort;
+  usage?: LanguageProjectionUsage | null;
+  contextBoundary?: LanguageGatewayContextBoundary;
   createdAt: string;
 }): LanguageProjectionArtifact => {
   const validation = validateLanguageProjectionProviderResult({ request: input.request, result: input.result });
@@ -808,12 +900,13 @@ export const materializeLanguageProjectionArtifact = (input: {
     validatorVersion: LANGUAGE_PROJECTION_VALIDATOR_VERSION,
     promptVersion: LANGUAGE_PROJECTION_PROMPT_VERSION,
     schemaVersion: LANGUAGE_PROJECTION_SCHEMA_VERSION,
-    provider: "GOOGLE_GEMINI",
+    provider: input.provider ?? "GOOGLE_GEMINI",
     model: input.model,
     providerResponseId: input.providerResponseId,
   }));
   if (!validation.valid) throw new LanguageProjectionContractError({
     blocks: validation.blocks,
+    provider: input.provider,
     model: input.model,
     providerResponseId: input.providerResponseId,
     providerResultDigest,
@@ -838,9 +931,12 @@ export const materializeLanguageProjectionArtifact = (input: {
     status: "SUCCEEDED",
     supportStatus: "SUPPORTED",
     qualificationStatus: input.result.qualificationStatus,
-    provider: "GOOGLE_GEMINI",
+    provider: input.provider ?? "GOOGLE_GEMINI",
     model: input.model,
     providerResponseId: input.providerResponseId,
+    reasoningEffort: input.reasoningEffort ?? "NONE",
+    usage: input.usage ?? null,
+    contextBoundary: input.contextBoundary ?? languageGatewayContextBoundary(input.request),
     providerCalls: 1,
     translationContractVersion: LANGUAGE_PROJECTION_CONTRACT_VERSION,
     ambiguityPreserved: true,
@@ -888,8 +984,12 @@ export const buildMultilingualUserTurn = (input: {
     frenchWorkingTextDigest: logicalDigest(frenchWorkingText),
     translationRequired: !isFrench && !languageNeutral,
     translationStatus: isFrench || languageNeutral ? "NOT_REQUIRED" : "SUCCEEDED",
-    translationProvider: isFrench || languageNeutral ? "NONE" : "GOOGLE_GEMINI",
+    translationProvider: isFrench || languageNeutral ? "NONE" : input.projection!.provider,
     translationModel: isFrench || languageNeutral ? "NONE" : input.projection!.model,
+    translationReasoningEffort: isFrench || languageNeutral ? "NONE" : input.projection!.reasoningEffort ?? "NONE",
+    translationProviderResponseId: isFrench || languageNeutral ? null : input.projection!.providerResponseId,
+    translationUsage: isFrench || languageNeutral ? null : input.projection!.usage ?? null,
+    translationContextBoundary: isFrench || languageNeutral ? null : input.projection!.contextBoundary ?? null,
     translationContractVersion: LANGUAGE_PROJECTION_CONTRACT_VERSION,
     translationDigest: input.projection?.translatedTextDigest ?? null,
     translationProviderResultDigest: input.projection?.providerResultDigest ?? null,
@@ -953,8 +1053,12 @@ export const buildLocalizedConversationResponse = (input: {
     targetLanguage: normalizeLanguageCode(input.targetLanguage),
     translationRequired: !frenchTarget,
     translationStatus: frenchTarget ? "NOT_REQUIRED" : "SUCCEEDED",
-    translationProvider: frenchTarget ? "NONE" : "GOOGLE_GEMINI",
+    translationProvider: frenchTarget ? "NONE" : input.projection!.provider,
     translationModel: frenchTarget ? "NONE" : input.projection!.model,
+    translationReasoningEffort: frenchTarget ? "NONE" : input.projection!.reasoningEffort ?? "NONE",
+    translationProviderResponseId: frenchTarget ? null : input.projection!.providerResponseId,
+    translationUsage: frenchTarget ? null : input.projection!.usage ?? null,
+    translationContextBoundary: frenchTarget ? null : input.projection!.contextBoundary ?? null,
     translationDigest: input.projection?.translatedTextDigest ?? null,
     limitations: input.projection?.limitations ?? [],
     provenance: {
@@ -990,7 +1094,9 @@ export const languageProjectionFailure = (input: {
   sourceText: string;
   sourceLanguage: ConversationLanguageCode | "UNKNOWN";
   targetLanguage: ConversationLanguageCode;
+  provider?: LanguageProjectionProvider;
   model: string;
+  reasoningEffort?: LanguageProjectionReasoningEffort;
   failureCategory: string;
   occurredAt: string;
 }): LanguageProjectionFailure => ({
@@ -998,8 +1104,10 @@ export const languageProjectionFailure = (input: {
   sourceTextDigest: logicalDigest(input.sourceText),
   sourceLanguage: normalizeLanguageCode(input.sourceLanguage),
   targetLanguage: normalizeLanguageCode(input.targetLanguage),
-  provider: "GOOGLE_GEMINI",
+  provider: input.provider ?? "GOOGLE_GEMINI",
   model: input.model,
+  reasoningEffort: input.reasoningEffort ?? "NONE",
+  contextScopeId: LANGUAGE_GATEWAY_CONTEXT_SCOPE_ID,
   failureCategory: input.failureCategory,
   retryStatus: "NOT_RETRIED",
   occurredAt: input.occurredAt,
@@ -1034,6 +1142,10 @@ Tu ne réalises aucune interprétation scientifique, aucune décision, aucune cl
 Traduis naturellement la terminologie scientifique, les noms de modalités et les acronymes selon l'usage de la langue cible. Ne crée aucun équivalent sémantique absent du texte source.
 
 Préserve strictement les nombres, unités, dates, négations, incertitudes, conditions, comparaisons, statuts connu/inconnu/retenu/non décidé, décisions humaines et références de sources. Chaque valeur fournie dans PROTECTED_OPAQUE_LITERALS_JSON est un littéral opaque : recopie-la caractère pour caractère, sans traduction ni normalisation.
+
+UNCERTAINTY désigne uniquement une modalité épistémique explicite ou une réserve explicite sur la possibilité ou le degré de certitude d'une proposition, par exemple may, might, possibly, perhaps, uncertain, pourrait, peut-être, possiblement ou incertain. Une décision non encore prise, un plan non encore défini, une information non encore recueillie, un état de construction ouvert, une décision différée, une simple négation ou le seul marqueur not yet / pas encore ne constituent pas automatiquement UNCERTAINTY.
+
+La construction complète not yet / pas encore porte au minimum NEGATION et TEMPORAL_RELATION, mais pas UNCERTAINTY en l'absence d'une modalité épistémique distincte. Préserve cette relation aspectuo-temporelle sans la promouvoir en statut métier. Un marqueur de surface isolé n'est jamais une preuve sémantique : yet ou encore seuls ne suffisent pas à attester TEMPORAL_RELATION.
 
 Pour chacun des cinq invariants sémantiques demandés, fournis une attestation structurée issue de ce même appel. Ces catégories sont non exclusives et peuvent se superposer dans un même segment. attestationStatus=ATTESTED signifie que sourcePresent est ton claim sémantique de présence ou d'absence dans la source. Si tu ne peux pas honnêtement déterminer la présence ou la préservation, utilise attestationStatus=UNKNOWN ; sourcePresent=false et preserved=false deviennent alors uniquement des valeurs de transport sans claim d'absence ou de perte, les preuves restent vides et la projection sera rejetée explicitement. N'utilise jamais sourcePresent=false pour masquer une impossibilité d'attester.
 
@@ -1082,7 +1194,7 @@ export const buildLanguageProjectionProviderPayload = (request: LanguageProjecti
             properties: {
               invariantId: { type: "string", enum: [...SEMANTIC_LANGUAGE_INVARIANTS] },
               attestationStatus: { type: "string", enum: ["ATTESTED", "UNKNOWN"], description: "ATTESTED makes the boolean fields provider claims. UNKNOWN means the provider cannot honestly attest; booleans are then false transport placeholders, evidence is empty, and the projection fails closed." },
-              sourcePresent: { type: "boolean", description: "Provider semantic claim when attestationStatus=ATTESTED. True means present; false means absent. It is not deterministic proof and must not encode inability to attest." },
+              sourcePresent: { type: "boolean", description: "Provider semantic claim when attestationStatus=ATTESTED. True means present; false means absent. It is not deterministic proof and must not encode inability to attest. UNCERTAINTY requires explicit epistemic modality; not yet / pas encore alone is NEGATION plus TEMPORAL_RELATION, not UNCERTAINTY." },
               preserved: { type: "boolean", description: "Provider preservation claim when attestationStatus=ATTESTED and sourcePresent=true. False then declares loss. When sourcePresent=false, false means not applicable." },
               sourceEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 }, description: "Shortest sufficiently contextualized exact verbatim segments of SOURCE_TEXT supporting sourcePresent=true; include operator, proposition and relevant local scope when possible. Empty when absent or UNKNOWN." },
               targetEvidence: { type: "array", maxItems: 6, items: { type: "string", maxLength: 240 }, description: "Shortest sufficiently contextualized exact verbatim segments of translatedText supporting preserved=true; include operator, proposition and relevant local scope when possible. Empty when absent, lost or UNKNOWN." },

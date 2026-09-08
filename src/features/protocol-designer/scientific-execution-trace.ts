@@ -25,7 +25,8 @@ export const LEGACY_END_TO_END_TRACE_PROFILE_VERSION = "1.0.0" as const;
 export const EARLIER_END_TO_END_TRACE_PROFILE_VERSION = "1.1.0" as const;
 export const PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION = "1.2.0" as const;
 export const RECENT_END_TO_END_TRACE_PROFILE_VERSION = "1.3.0" as const;
-export const END_TO_END_TRACE_PROFILE_VERSION = "1.4.0" as const;
+export const PRIOR_END_TO_END_TRACE_PROFILE_VERSION = "1.4.0" as const;
+export const END_TO_END_TRACE_PROFILE_VERSION = "1.5.0" as const;
 export const PRE_PROJECT_SCIENTIFIC_TRACE_SEGMENT_CONTRACT = "SCIENTIFIC_EXECUTION_TRACE_PRE_PROJECT_SEGMENT" as const;
 export const PRE_PROJECT_SCIENTIFIC_TRACE_SEGMENT_VERSION = "0.1.0" as const;
 
@@ -136,6 +137,20 @@ export type ScientificTraceRealizationOutcome = {
   fallbackReason: string | ScientificProductTraceSentinel;
 };
 
+export type ScientificTraceProviderExecution = {
+  contract: "SCIENTIFIC_TRACE_PROVIDER_EXECUTION";
+  contractVersion: "1.0.0";
+  model: string | ScientificProductTraceSentinel;
+  reasoningEffort: "low" | "medium" | "high" | ScientificProductTraceSentinel;
+  providerResponseId: string | null;
+  contextScopeId: string | ScientificProductTraceSentinel;
+  contextItemRefsOrDigests: readonly string[];
+  inputTokenCount: number | null;
+  outputTokenCount: number | null;
+  reasoningTokenCount: number | null;
+  cachedTokenCount: number | null;
+};
+
 export type ScientificTraceForensicField =
   | "EXACT_USER_INPUT"
   | "EXACT_COMPONENT_SEMANTIC_INPUT"
@@ -227,7 +242,7 @@ export type ScientificTraceVersionedReference = {
 
 export type ScientificProductTraceCommonEnvelope = {
   contract: "SCIENTIFIC_EXECUTION_TRACE_COMMON_EVENT";
-  contractVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof RECENT_END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof EARLIER_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
+  contractVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof PRIOR_END_TO_END_TRACE_PROFILE_VERSION | typeof RECENT_END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof EARLIER_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
   traceRunId: string;
   turnId: string | ScientificProductTraceSentinel;
   eventId: string;
@@ -265,6 +280,7 @@ export type ScientificProductTraceCommonEnvelope = {
   semanticTransformation?: ScientificTraceSemanticTransformation;
   actionDecision?: ScientificTraceActionDecision;
   realizationOutcome?: ScientificTraceRealizationOutcome;
+  providerExecution?: ScientificTraceProviderExecution;
   languageProjectionEvidenceWitnesses?: readonly LanguageProjectionEvidenceWitness[];
   forensicPayload?: ScientificTraceForensicPayload;
   traceMutatesProduct: false;
@@ -297,6 +313,7 @@ export type ScientificProductTraceEnvelopeInput = {
   semanticTransformation?: ScientificTraceSemanticTransformation;
   actionDecision?: ScientificTraceActionDecision;
   realizationOutcome?: ScientificTraceRealizationOutcome;
+  providerExecution?: ScientificTraceProviderExecution;
   languageProjectionEvidenceWitnesses?: readonly LanguageProjectionEvidenceWitness[];
   forensicPayload?: ScientificTraceForensicPayload;
 };
@@ -674,7 +691,7 @@ export type ScientificExecutionTraceLedger = {
   privateReasoningStored: false;
   traceProfile?: {
     profile: typeof END_TO_END_TRACE_PROFILE;
-    profileVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof RECENT_END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof EARLIER_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
+    profileVersion: typeof END_TO_END_TRACE_PROFILE_VERSION | typeof PRIOR_END_TO_END_TRACE_PROFILE_VERSION | typeof RECENT_END_TO_END_TRACE_PROFILE_VERSION | typeof PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION | typeof EARLIER_END_TO_END_TRACE_PROFILE_VERSION | typeof LEGACY_END_TO_END_TRACE_PROFILE_VERSION;
     redactionPolicyId: ReadableTraceRedactionPolicyId;
     retentionPolicyId: ReadableTraceRetentionPolicyId;
     capturePolicyId: ReadableTraceCapturePolicyId;
@@ -781,6 +798,12 @@ const isRecord = (value: unknown): value is Record<string, unknown> => Boolean(v
 const unique = <T>(values: readonly T[]) => [...new Set(values)];
 
 const FORBIDDEN_FIELD = /(secret|token|password|authorization|cookie|credential|api.?key|chain.?of.?thought|private.?reasoning|transcript|raw.?prompt|patient)/i;
+const ALLOWED_NON_SECRET_TOKEN_COUNT_FIELDS = new Set([
+  "inputTokenCount",
+  "outputTokenCount",
+  "reasoningTokenCount",
+  "cachedTokenCount",
+]);
 const FORBIDDEN_VALUE = /(-----BEGIN [A-Z ]*PRIVATE KEY-----|\bBearer\s+[A-Za-z0-9._~+/=-]+|\bsk-[A-Za-z0-9_-]{8,}|\bAIza[A-Za-z0-9_-]{12,}|\b(?:authorization|proxy-authorization|cookie|set-cookie)\s*:)/i;
 const DIAGNOSTIC_CODE = /^[A-Z0-9][A-Z0-9_.:@/-]{1,255}$/;
 const TECHNICAL_METADATA_KEYS = new Set([
@@ -822,7 +845,9 @@ const assertNoForbiddenData = (value: unknown, path = "trace") => {
   }
   if (!isRecord(value)) return;
   for (const [key, nested] of Object.entries(value)) {
-    if (FORBIDDEN_FIELD.test(key) && key !== "privateReasoningStored") {
+    if (FORBIDDEN_FIELD.test(key)
+      && key !== "privateReasoningStored"
+      && !ALLOWED_NON_SECRET_TOKEN_COUNT_FIELDS.has(key)) {
       throw new Error("SCIENTIFIC_TRACE_PRIVATE_OR_SENSITIVE_FIELD_FORBIDDEN");
     }
     assertNoForbiddenData(nested, `${path}.${key}`);
@@ -1244,12 +1269,28 @@ const validateLanguageProjectionEvidenceWitness = (value: unknown): value is Lan
   && ["PRESERVED", "LOST", "NOT_APPLICABLE", "UNKNOWN"].includes(String(value.providerPreservationClaim))
   && ["SUPPORTED", "UNSUPPORTED", "UNKNOWN"].includes(String(value.providerSupportStatus))
   && ["ACCEPTED", "REJECTED"].includes(String(value.deterministicContractVerdict))
-  && value.validatorVersion === "1.3.0"
-  && value.promptVersion === "1.3.0"
-  && value.schemaVersion === "1.3.0"
-  && value.provider === "GOOGLE_GEMINI"
+  && ["1.3.0", "1.4.0"].includes(String(value.validatorVersion))
+  && ["1.3.0", "1.4.0"].includes(String(value.promptVersion))
+  && ["1.3.0", "1.4.0"].includes(String(value.schemaVersion))
+  && ["GOOGLE_GEMINI", "OPENAI"].includes(String(value.provider))
   && typeof value.model === "string"
   && (value.providerResponseId === null || typeof value.providerResponseId === "string");
+
+const nullableTokenCount = (value: unknown) => value === null || (typeof value === "number" && Number.isInteger(value) && value >= 0);
+
+const validateProviderExecution = (value: unknown): value is ScientificTraceProviderExecution => isRecord(value)
+  && value.contract === "SCIENTIFIC_TRACE_PROVIDER_EXECUTION"
+  && value.contractVersion === "1.0.0"
+  && typeof value.model === "string"
+  && ["low", "medium", "high", "NONE", "NOT_APPLICABLE", "UNKNOWN"].includes(String(value.reasoningEffort))
+  && (value.providerResponseId === null || typeof value.providerResponseId === "string")
+  && typeof value.contextScopeId === "string"
+  && isStringArray(value.contextItemRefsOrDigests)
+  && value.contextItemRefsOrDigests.length <= 16
+  && nullableTokenCount(value.inputTokenCount)
+  && nullableTokenCount(value.outputTokenCount)
+  && nullableTokenCount(value.reasoningTokenCount)
+  && nullableTokenCount(value.cachedTokenCount);
 
 const validateCaptureExtensions = (value: Record<string, unknown>) => {
   if (!TRACE_CAPTURE_LEVELS.has(value.captureLevel as ScientificTraceCaptureLevel)
@@ -1263,6 +1304,7 @@ const validateCaptureExtensions = (value: Record<string, unknown>) => {
   if (value.semanticTransformation !== undefined && !validateSemanticTransformation(value.semanticTransformation)) return false;
   if (value.actionDecision !== undefined && !validateActionDecision(value.actionDecision)) return false;
   if (value.realizationOutcome !== undefined && !validateRealizationOutcome(value.realizationOutcome)) return false;
+  if (value.providerExecution !== undefined && !validateProviderExecution(value.providerExecution)) return false;
   if (value.languageProjectionEvidenceWitnesses !== undefined
     && (!Array.isArray(value.languageProjectionEvidenceWitnesses)
       || value.languageProjectionEvidenceWitnesses.length > 5
@@ -1282,7 +1324,7 @@ const validateCaptureExtensions = (value: Record<string, unknown>) => {
 const validateCommonEnvelope = (value: unknown, eventId: string, runId: string): value is ScientificProductTraceCommonEnvelope => {
   if (!isRecord(value)
     || value.contract !== "SCIENTIFIC_EXECUTION_TRACE_COMMON_EVENT"
-    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, EARLIER_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, RECENT_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.contractVersion))
+    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, EARLIER_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, RECENT_END_TO_END_TRACE_PROFILE_VERSION, PRIOR_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.contractVersion))
     || value.traceRunId !== runId
     || value.eventId !== eventId
     || typeof value.turnId !== "string"
@@ -1326,6 +1368,7 @@ const validateCommonEnvelope = (value: unknown, eventId: string, runId: string):
       && value.semanticTransformation === undefined
       && value.actionDecision === undefined
       && value.realizationOutcome === undefined
+      && value.providerExecution === undefined
       && value.languageProjectionEvidenceWitnesses === undefined
       && value.forensicPayload === undefined;
   }
@@ -1378,7 +1421,7 @@ const validateEventShape = (event: unknown): event is ScientificExecutionTraceEv
 const validateTraceProfile = (value: unknown) => {
   if (!isRecord(value)
     || value.profile !== END_TO_END_TRACE_PROFILE
-    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, EARLIER_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, RECENT_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.profileVersion))
+    || !(new Set<string>([LEGACY_END_TO_END_TRACE_PROFILE_VERSION, EARLIER_END_TO_END_TRACE_PROFILE_VERSION, PREVIOUS_END_TO_END_TRACE_PROFILE_VERSION, RECENT_END_TO_END_TRACE_PROFILE_VERSION, PRIOR_END_TO_END_TRACE_PROFILE_VERSION, END_TO_END_TRACE_PROFILE_VERSION])).has(String(value.profileVersion))
     || value.oneTraceSystem !== true
     || value.oneEventTaxonomy !== true
     || value.oneTraceIdentityModel !== true
@@ -1617,6 +1660,7 @@ const commonEnvelopeFor = (input: {
     ...(specified?.semanticTransformation ? { semanticTransformation: clone(specified.semanticTransformation) } : {}),
     ...(specified?.actionDecision ? { actionDecision: clone(specified.actionDecision) } : {}),
     ...(specified?.realizationOutcome ? { realizationOutcome: clone(specified.realizationOutcome) } : {}),
+    ...(specified?.providerExecution ? { providerExecution: clone(specified.providerExecution) } : {}),
     ...(specified?.languageProjectionEvidenceWitnesses
       ? { languageProjectionEvidenceWitnesses: clone(specified.languageProjectionEvidenceWitnesses) }
       : {}),
@@ -1947,6 +1991,27 @@ const productTraceCaptureLevel = (
   ?? requested?.captureLevel
   ?? "LEVEL_1_CORE";
 
+const languageProjectionExecutor = (provider: MultilingualUserTurn["translationProvider"] | LocalizedConversationResponse["translationProvider"]) =>
+  provider === "OPENAI" ? "OPENAI_LANGUAGE_PROJECTION"
+    : provider === "GOOGLE_GEMINI" ? "GEMINI_LANGUAGE_PROJECTION"
+      : "LOCAL_IDENTITY_PROJECTION";
+
+const languageProviderExecution = (
+  input: Readonly<MultilingualUserTurn | LocalizedConversationResponse>,
+): ScientificTraceProviderExecution => ({
+  contract: "SCIENTIFIC_TRACE_PROVIDER_EXECUTION",
+  contractVersion: "1.0.0",
+  model: input.translationModel,
+  reasoningEffort: input.translationReasoningEffort ?? "NONE",
+  providerResponseId: input.translationProviderResponseId ?? null,
+  contextScopeId: input.translationContextBoundary?.contextScopeId ?? "UNKNOWN",
+  contextItemRefsOrDigests: input.translationContextBoundary?.contextItemRefsOrDigests ?? [],
+  inputTokenCount: input.translationUsage?.input_tokens ?? null,
+  outputTokenCount: input.translationUsage?.output_tokens ?? null,
+  reasoningTokenCount: input.translationUsage?.reasoning_tokens ?? null,
+  cachedTokenCount: input.translationUsage?.cached_tokens ?? null,
+});
+
 export const recordConversationLanguageGatewayTrace = (input: {
   ledger: Readonly<ScientificExecutionTraceLedger>;
   traceRunId: string;
@@ -2039,7 +2104,7 @@ export const recordConversationLanguageGatewayTrace = (input: {
         stage: "LANGUAGE_PROJECTION_CREATED",
         responsibilityOwner: "LANGUAGE_GATEWAY",
         decisionOwner: "NONE",
-        executor: "GEMINI_LANGUAGE_PROJECTION",
+        executor: languageProjectionExecutor(input.turn.translationProvider),
         provider: input.turn.translationProvider,
         componentId: "CONVERSATION_LANGUAGE_GATEWAY",
         componentVersion: input.turn.translationContractVersion,
@@ -2052,6 +2117,7 @@ export const recordConversationLanguageGatewayTrace = (input: {
         reasonCode: "NON_FRENCH_INPUT_PROJECTED_TO_FRENCH",
         completedAt: input.observedAt,
         conversationId: input.conversationId,
+        providerExecution: languageProviderExecution(input.turn),
       },
     }).ledger;
   }
@@ -2069,7 +2135,7 @@ export const recordConversationLanguageGatewayTrace = (input: {
       stage: "LANGUAGE_PROVIDER_RESULT_RECEIVED",
       responsibilityOwner: "LANGUAGE_GATEWAY",
       decisionOwner: "NONE",
-      executor: "GEMINI_LANGUAGE_PROJECTION",
+      executor: languageProjectionExecutor(input.turn.translationProvider),
       provider: input.turn.translationProvider,
       componentId: "PRODUCT_BRIDGE_LANGUAGE_PROVIDER",
       componentVersion: input.turn.translationModel,
@@ -2078,6 +2144,7 @@ export const recordConversationLanguageGatewayTrace = (input: {
       reasonCode: "STRUCTURED_LANGUAGE_PROVIDER_RESULT_RECEIVED",
       completedAt: input.observedAt,
       conversationId: input.conversationId,
+      providerExecution: languageProviderExecution(input.turn),
     },
   }).ledger;
   ledger = appendProductTraceStage({
@@ -2147,6 +2214,10 @@ export const recordConversationLanguageGatewayFailureTrace = (input: {
   detection: Readonly<LocalLanguageDetection>;
   projectionKind: "INPUT_TO_FRENCH" | "OUTPUT_FROM_FRENCH";
   targetLanguage: string;
+  provider?: "GOOGLE_GEMINI" | "OPENAI";
+  model?: string;
+  reasoningEffort?: "low" | "medium" | "high" | "NONE";
+  contextScopeId?: string;
   failureCode: string;
   conformanceDiagnostic?: Readonly<LanguageProjectionContractFailureDiagnostic> | null;
   observedAt: string;
@@ -2208,7 +2279,7 @@ export const recordConversationLanguageGatewayFailureTrace = (input: {
         stage: "LANGUAGE_PROVIDER_RESULT_RECEIVED",
         responsibilityOwner: "LANGUAGE_GATEWAY",
         decisionOwner: "NONE",
-        executor: "GEMINI_LANGUAGE_PROJECTION",
+        executor: conformanceDiagnostic.provider === "OPENAI" ? "OPENAI_LANGUAGE_PROJECTION" : "GEMINI_LANGUAGE_PROJECTION",
         provider: conformanceDiagnostic.provider,
         componentId: "PRODUCT_BRIDGE_LANGUAGE_PROVIDER",
         componentVersion: conformanceDiagnostic.model,
@@ -2217,6 +2288,19 @@ export const recordConversationLanguageGatewayFailureTrace = (input: {
         reasonCode: "STRUCTURED_LANGUAGE_PROVIDER_RESULT_RECEIVED",
         completedAt: input.observedAt,
         conversationId: input.conversationId,
+        providerExecution: {
+          contract: "SCIENTIFIC_TRACE_PROVIDER_EXECUTION",
+          contractVersion: "1.0.0",
+          model: conformanceDiagnostic.model,
+          reasoningEffort: input.reasoningEffort ?? "NONE",
+          providerResponseId: conformanceDiagnostic.providerResponseId,
+          contextScopeId: input.contextScopeId ?? "UNKNOWN",
+          contextItemRefsOrDigests: [],
+          inputTokenCount: null,
+          outputTokenCount: null,
+          reasoningTokenCount: null,
+          cachedTokenCount: null,
+        },
       },
     }).ledger;
     ledger = appendProductTraceStage({
@@ -2295,8 +2379,8 @@ export const recordConversationLanguageGatewayFailureTrace = (input: {
       stage: "LANGUAGE_PROJECTION_FAILED",
       responsibilityOwner: "LANGUAGE_GATEWAY",
       decisionOwner: "NONE",
-      executor: "GEMINI_LANGUAGE_PROJECTION",
-      provider: "GOOGLE_GEMINI",
+      executor: input.provider === "OPENAI" ? "OPENAI_LANGUAGE_PROJECTION" : "GEMINI_LANGUAGE_PROJECTION",
+      provider: input.provider ?? "GOOGLE_GEMINI",
       componentId: "CONVERSATION_LANGUAGE_GATEWAY",
       componentVersion: "1.0.0",
       input: [{ ref: input.turnId, version: input.projectionKind, digest: input.projectionSourceTextDigest }],
@@ -2304,6 +2388,19 @@ export const recordConversationLanguageGatewayFailureTrace = (input: {
       reasonCode: input.failureCode,
       completedAt: input.observedAt,
       conversationId: input.conversationId,
+      providerExecution: {
+        contract: "SCIENTIFIC_TRACE_PROVIDER_EXECUTION",
+        contractVersion: "1.0.0",
+        model: input.model ?? "UNKNOWN",
+        reasoningEffort: input.reasoningEffort ?? "NONE",
+        providerResponseId: null,
+        contextScopeId: input.contextScopeId ?? "UNKNOWN",
+        contextItemRefsOrDigests: [],
+        inputTokenCount: null,
+        outputTokenCount: null,
+        reasoningTokenCount: null,
+        cachedTokenCount: null,
+      },
     },
   }).ledger;
 };
@@ -2435,7 +2532,7 @@ export const recordLocalizedConversationResponseTrace = (input: {
       stage: "RESPONSE_LOCALIZED",
       responsibilityOwner: "LANGUAGE_GATEWAY",
       decisionOwner: "NONE",
-      executor: input.response.translationRequired ? "GEMINI_LANGUAGE_PROJECTION" : "LOCAL_IDENTITY_PROJECTION",
+      executor: languageProjectionExecutor(input.response.translationProvider),
       provider: input.response.translationProvider,
       componentId: "CONVERSATION_LANGUAGE_GATEWAY",
       componentVersion: input.response.contractVersion,
@@ -2444,6 +2541,7 @@ export const recordLocalizedConversationResponseTrace = (input: {
       reasonCode: input.response.translationRequired ? "VISIBLE_RESPONSE_LOCALIZED" : "FRENCH_RESPONSE_USED_DIRECTLY",
       completedAt: input.observedAt,
       conversationId: input.conversationId,
+      ...(input.response.translationRequired ? { providerExecution: languageProviderExecution(input.response) } : {}),
     },
   }).ledger;
 };

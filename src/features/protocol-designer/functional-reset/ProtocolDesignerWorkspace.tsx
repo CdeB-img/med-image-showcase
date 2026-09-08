@@ -8,7 +8,6 @@ import {
   requestProtocolDesignerBridge,
 } from "@/features/protocol-designer/product-bridge-client";
 import {
-  DEFAULT_GEMINI_CONVERSATION_MODEL,
   NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
   naturalConversationContext,
   type ProductBridgeLanguageBoundary,
@@ -20,6 +19,8 @@ import {
   appendLocalizedResponseToGatewayState,
   buildLocalizedConversationResponse,
   buildMultilingualUserTurn,
+  DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
+  DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
   detectConversationLanguage,
   extractProtectedOpaqueLiterals,
   findReusableLanguageProjection,
@@ -229,8 +230,8 @@ const requestOrReuseLanguageProjection = async (input: {
     sourceText: input.sourceText,
     sourceLanguage: input.sourceLanguage,
     targetLanguage: input.targetLanguage,
-    provider: "GOOGLE_GEMINI",
-    model: DEFAULT_GEMINI_CONVERSATION_MODEL,
+    provider: "OPENAI",
+    model: DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
     protectedOpaqueLiterals,
   });
   const cached = findReusableLanguageProjection({ state: input.state, projectionIdentityDigest });
@@ -2116,7 +2117,9 @@ export default function ProtocolDesignerWorkspace({
             ?? (projectionKind === "OUTPUT_FROM_FRENCH"
               ? preparedGatewaySnapshot?.state.conversationLanguage ?? "fr"
               : "fr"),
-          model: DEFAULT_GEMINI_CONVERSATION_MODEL,
+          provider: "OPENAI",
+          model: DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
+          reasoningEffort: DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
           failureCategory: failureCode,
           occurredAt: failedAt,
         }) : null;
@@ -2138,6 +2141,10 @@ export default function ProtocolDesignerWorkspace({
             detection,
             projectionKind,
             targetLanguage: failure.targetLanguage,
+            provider: failure.provider,
+            model: failure.model,
+            reasoningEffort: failure.reasoningEffort,
+            contextScopeId: failure.contextScopeId,
             failureCode,
             conformanceDiagnostic: failedProjectionDiagnostic,
             observedAt: failedAt,
@@ -2153,10 +2160,10 @@ export default function ProtocolDesignerWorkspace({
           failedAt,
           owner: languageGatewayFailed ? "LANGUAGE_GATEWAY" : "TRACE",
           responsibilityOwner: languageGatewayFailed ? "LANGUAGE_GATEWAY" : "PRODUCT_BRIDGE",
-          executor: languageGatewayFailed ? "GEMINI_LANGUAGE_PROJECTION" : "PRODUCT_BRIDGE_CLIENT",
+          executor: languageGatewayFailed ? "OPENAI_LANGUAGE_PROJECTION" : "PRODUCT_BRIDGE_CLIENT",
           componentId: languageGatewayFailed ? "CONVERSATION_LANGUAGE_GATEWAY" : "PRODUCT_BRIDGE_CLIENT",
           componentVersion: "UNKNOWN",
-          provider: languageGatewayFailed ? "GOOGLE_GEMINI" : "UNKNOWN",
+          provider: languageGatewayFailed ? "OPENAI" : "UNKNOWN",
           code: failureCode,
           category: languageGatewayFailed ? "BOUNDARY_REJECTION" : "UNKNOWN",
           sourceDigest: failure?.sourceTextDigest ?? "UNKNOWN",

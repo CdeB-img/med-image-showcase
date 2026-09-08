@@ -12,17 +12,18 @@ import {
   validatePersistentProjectDelta,
   type ProductBridgeResponse,
 } from "../src/features/protocol-designer/product-bridge.js";
+import { ProductBridgeProviderError, executeNaturalConversation } from "./protocol-designer-bridge-provider.js";
 import {
-  ProductBridgeProviderError,
-  executeLanguageProjection,
-  executeNaturalConversation,
-} from "./protocol-designer-bridge-provider.js";
-import {
+  DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
+  DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
   LanguageProjectionContractError,
   materializeLanguageProjectionArtifact,
   parseLanguageProjectionRequest,
 } from "../src/features/protocol-designer/conversation-language-gateway.js";
-import { executeOpenAIPersistentDelta } from "./protocol-designer-openai-extraction-provider.js";
+import {
+  executeOpenAILanguageProjection,
+  executeOpenAIPersistentDelta,
+} from "./protocol-designer-openai-extraction-provider.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
@@ -100,17 +101,28 @@ export const executeProtocolDesignerBridge = async (input: {
     if (detectSensitiveData(languageRequest.sourceText).length) {
       return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED", message: "Retirez toute donnée personnelle, patient ou confidentielle." } } };
     }
-    if (!input.apiKey?.trim()) {
-      return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "GEMINI_API_KEY_MISSING", message: "Cette langue ne peut pas être traitée pour le moment." } } };
+    if (!input.openAiApiKey?.trim()) {
+      return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "OPENAI_API_KEY_MISSING", message: "Cette langue ne peut pas être traitée pour le moment." } } };
     }
-    const model = resolveGeminiConversationModel(input.geminiModel);
+    const model = DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL;
+    const reasoningEffort = DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT;
     try {
-      const projected = await executeLanguageProjection(languageRequest, input.apiKey, input.fetchImpl, model);
+      const projected = await executeOpenAILanguageProjection(
+        languageRequest,
+        input.openAiApiKey,
+        input.fetchImpl,
+        model,
+        reasoningEffort,
+      );
       const projection = materializeLanguageProjectionArtifact({
         request: languageRequest,
         result: projected.value,
+        provider: "OPENAI",
         model,
         providerResponseId: projected.responseId,
+        reasoningEffort: projected.reasoningEffort,
+        usage: projected.usage,
+        contextBoundary: projected.contextBoundary,
         createdAt: new Date(input.now?.() ?? Date.now()).toISOString(),
       });
       return {
@@ -120,8 +132,12 @@ export const executeProtocolDesignerBridge = async (input: {
           operation: "LANGUAGE_PROJECTION",
           projection,
           observability: {
-            provider: "GOOGLE_GEMINI",
+            provider: "OPENAI",
             model,
+            reasoningEffort,
+            providerResponseId: projected.responseId,
+            usage: projected.usage,
+            contextBoundary: projected.contextBoundary,
             calls: 1,
             latencyMs: projected.latencyMs,
           },

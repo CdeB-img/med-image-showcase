@@ -60,7 +60,7 @@ const requestFor = (input: {
     sourceText: input.sourceText,
     sourceLanguageHint: input.sourceLanguage,
     targetLanguage: input.targetLanguage,
-    translationContractVersion: "1.3.0",
+    translationContractVersion: "1.4.0",
     projectionIdentityDigest: languageProjectionIdentityDigest({
       projectionKind,
       sourceText: input.sourceText,
@@ -682,11 +682,9 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
     expect(localized.provenance.localizedProseIsScientificTruth).toBe(false);
   });
 
-  it("reuses the existing Gemini bridge for one structured projection call without Project authority", async () => {
+  it("uses the shared OpenAI Responses bridge for one structured projection call without Project authority", async () => {
     const request = requestFor({ sourceText: "We want a prospective MRI study.", sourceLanguage: "en", targetLanguage: "fr" });
-    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
-      responseId: "gemini-language:api",
-      candidates: [{ content: { parts: [{ functionCall: { name: "return_language_projection", args: {
+    const openAIOutput = {
         detectedLanguage: "en",
         supportStatus: "SUPPORTED",
         qualificationStatus: "QUALIFIED",
@@ -695,16 +693,21 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
         ambiguityPreserved: true,
         semanticInvariants: semanticInvariantsFor(request.sourceText, "Nous voulons une étude MRI prospective."),
         limitations: [],
-      } } }] } }],
+    };
+    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
+      id: "resp_language_api",
+      model: "gpt-5.6-luna",
+      status: "completed",
+      output_text: JSON.stringify(openAIOutput),
     }), { status: 200, headers: { "content-type": "application/json" } })) as unknown as typeof fetch;
-    const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", fetchImpl, now: () => Date.parse(createdAt) });
+    const result = await executeProtocolDesignerBridge({ body: request, apiKey: null, openAiApiKey: "test-openai-key", fetchImpl, now: () => Date.parse(createdAt) });
     expect(fetchImpl).toHaveBeenCalledTimes(1);
     expect(result).toMatchObject({
       status: 200,
       body: {
         operation: "LANGUAGE_PROJECTION",
-        projection: { provider: "GOOGLE_GEMINI", projectWriteAuthorized: false, scientificDecisionAuthorized: false },
-        observability: { provider: "GOOGLE_GEMINI", calls: 1 },
+        projection: { provider: "OPENAI", model: "gpt-5.6-luna", reasoningEffort: "low", projectWriteAuthorized: false, scientificDecisionAuthorized: false },
+        observability: { provider: "OPENAI", model: "gpt-5.6-luna", reasoningEffort: "low", calls: 1 },
       },
     });
   });
@@ -716,9 +719,7 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
       targetLanguage: "fr",
       protectedOpaqueLiterals: [{ literal: "SITEALPHA", kind: "EXPLICIT_CONTEXT", source: "EXPLICIT_CONTEXT" }],
     });
-    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
-      responseId: "gemini-language:contract-rejection",
-      candidates: [{ content: { parts: [{ functionCall: { name: "return_language_projection", args: {
+    const openAIOutput = {
         detectedLanguage: "en",
         supportStatus: "SUPPORTED",
         qualificationStatus: "QUALIFIED",
@@ -727,18 +728,23 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
         ambiguityPreserved: true,
         semanticInvariants: semanticInvariantsFor(request.sourceText, "L’étude SITEBETA est en attente."),
         limitations: [],
-      } } }] } }],
+    };
+    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
+      id: "resp_language_contract_rejection",
+      model: "gpt-5.6-luna",
+      status: "completed",
+      output_text: JSON.stringify(openAIOutput),
     }), { status: 200, headers: { "content-type": "application/json" } })) as unknown as typeof fetch;
-    const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", fetchImpl, now: () => Date.parse(createdAt) });
+    const result = await executeProtocolDesignerBridge({ body: request, apiKey: null, openAiApiKey: "test-openai-key", fetchImpl, now: () => Date.parse(createdAt) });
     expect(result.status).toBe(422);
     expect(result.body).toMatchObject({
       error: {
         code: "LANGUAGE_PROJECTION_CONTRACT_FAILED:LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS",
         diagnostic: {
           subInvariantIds: ["LINGUISTIC_INVARIANT_UNVERIFIED:IDENTIFIERS"],
-          provider: "GOOGLE_GEMINI",
-          model,
-          providerResponseId: "gemini-language:contract-rejection",
+          provider: "OPENAI",
+          model: "gpt-5.6-luna",
+          providerResponseId: "resp_language_contract_rejection",
           providerResultDigest: expect.stringMatching(/^ke1-/u),
         },
       },
@@ -749,9 +755,9 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — bounded language contract", (
   it("uses the existing one-attempt provider policy and reports a bounded language failure", async () => {
     const request = requestFor({ sourceText: "We want a prospective MRI study.", sourceLanguage: "en", targetLanguage: "fr" });
     const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
-      error: { status: "UNAVAILABLE", message: "temporary failure" },
+      error: { code: "UNAVAILABLE", message: "temporary failure" },
     }), { status: 503, headers: { "content-type": "application/json" } })) as unknown as typeof fetch;
-    const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", fetchImpl });
+    const result = await executeProtocolDesignerBridge({ body: request, apiKey: null, openAiApiKey: "test-openai-key", fetchImpl });
     expect(fetchImpl).toHaveBeenCalledTimes(1);
     expect(result).toMatchObject({
       status: 503,
