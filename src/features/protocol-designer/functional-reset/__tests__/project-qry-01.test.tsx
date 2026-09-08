@@ -23,6 +23,7 @@ import {
   COLCHICINE_03A_INITIAL,
   makeFunctionalResetBridgeResponse,
   makeFunctionalResetContribution,
+  makeGovernedPostAdoptionResponse,
 } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
@@ -32,13 +33,15 @@ vi.mock("@/features/protocol-designer/product-bridge-client", async (importOrigi
   return { ...original, requestProtocolDesignerBridge: runtime.request };
 });
 
-// Transport fixtures only: no scientific adequacy is inferred from this prose.
-const INITIAL_CONTINUATION = "La suite reste ouverte à votre décision.";
-const UPDATE_CONTINUATION = "La modification confirmée reste distincte des prochaines options.";
 const UPDATE_RAW = "L’âge maximal sera 75 ans.";
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
 const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const lastVisibleNoxiaText = (session: FunctionalResetSession) => {
+  const entry = [...session.entries].reverse().find((candidate) => candidate.kind === "TEXT" && candidate.role === "NOXIA");
+  if (!entry || entry.kind !== "TEXT") throw new Error("EXPECTED_VISIBLE_NOXIA_TEXT");
+  return entry.content;
+};
 const submit = (content: string) => {
   fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: content } });
   fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
@@ -95,9 +98,10 @@ const populationUpdateContribution = (
 const responseWithoutPersistentDelta = (turns: ScientificInterpretationTurn[], assistantReply: string) =>
   makeFunctionalResetBridgeResponse(turns, null, assistantReply);
 
-const governedContinuationReceipt = async (request: ProductBridgeRequest, text: string) => {
+const governedContinuationReceipt = async (request: ProductBridgeRequest, text?: string) => {
+  const visibleText = text ?? makeGovernedPostAdoptionResponse(request).assistantReply;
   const result = await executeProtocolDesignerBridge({ body: { ...request, apiVersion: "1.0.0" }, apiKey: "MOCK_NO_NETWORK",
-    fetchImpl: mockBridgeProviderFetch({ geminiText: text }) });
+    fetchImpl: mockBridgeProviderFetch({ geminiText: visibleText }) });
   if (result.status !== 200 || !("assistantReply" in result.body)) throw new Error("MOCK_GOVERNED_RECEIPT_FAILED");
   return result.body as ProductBridgeResponse;
 };
@@ -110,10 +114,7 @@ const installNominalRuntime = (options: { failInitialContinuation?: boolean; dup
       if (options.failInitialContinuation && continuationCount === 1) {
         throw new ProductBridgeClientError("PRODUCT_BRIDGE_UNAVAILABLE", "Mediation unavailable");
       }
-      return governedContinuationReceipt(
-        request,
-        options.duplicateReply ?? (request.currentProject?.revision === 1 ? INITIAL_CONTINUATION : UPDATE_CONTINUATION),
-      );
+      return governedContinuationReceipt(request);
     }
     const contribution = request.currentProject
       ? populationUpdateContribution(request.conversation.turns)
@@ -145,7 +146,7 @@ const updateProject = async () => {
   submit(UPDATE_RAW);
   await acceptPendingReview();
   await screen.findByText("Projet mis à jour.");
-  await screen.findByText(UPDATE_CONTINUATION);
+  await waitFor(() => expect(stored().bridgeTraces.at(-1)?.requestKind).toBe("POST_ADOPTION_QRY_CONTINUATION"));
   return stored();
 };
 
@@ -218,7 +219,8 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     renderDemo();
     await createInitialProject();
     const session = await updateProject();
-    expect(await screen.findByText(UPDATE_CONTINUATION)).toBeInTheDocument();
+    expect(await screen.findByText(lastVisibleNoxiaText(session))).toBeInTheDocument();
+    expect(lastVisibleNoxiaText(session)).toMatch(/\?$/);
     expect(session.bridgeTraces.at(-1)?.continuationPresentationSource).toBe("GEMINI_MEDIATED");
   });
 
@@ -226,10 +228,12 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     installNominalRuntime();
     renderDemo();
     const created = await createInitialProject();
-    expect(created.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === INITIAL_CONTINUATION))
+    const initialContinuation = lastVisibleNoxiaText(created);
+    expect(created.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === initialContinuation))
       .toBeGreaterThan(created.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === "Projet créé."));
     const updated = await updateProject();
-    expect(updated.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === UPDATE_CONTINUATION))
+    const updatedContinuation = lastVisibleNoxiaText(updated);
+    expect(updated.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === updatedContinuation))
       .toBeGreaterThan(updated.entries.findIndex((entry) => entry.kind === "TEXT" && entry.content === "Projet mis à jour."));
   });
 
@@ -238,26 +242,28 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     renderDemo();
     const session = await createInitialProject();
     expect(session.entries.some((entry) => entry.kind === "REVIEW" && entry.status === "CONFIRMED")).toBe(true);
-    expect(session.entries.some((entry) => entry.kind === "TEXT" && entry.content === INITIAL_CONTINUATION)).toBe(true);
+    expect(lastVisibleNoxiaText(session)).toMatch(/\?$/);
   });
 
   it("Q09 workspace reload preserves the visible continuation", async () => {
     installNominalRuntime();
     const first = renderDemo();
-    await createInitialProject();
+    const session = await createInitialProject();
+    const continuation = lastVisibleNoxiaText(session);
     first.unmount();
     renderDemo();
-    expect(await screen.findByText(INITIAL_CONTINUATION)).toBeInTheDocument();
+    expect(await screen.findByText(continuation)).toBeInTheDocument();
   });
 
-  it("Q10 owner-governed pre-Project realization keeps message identities unique despite repeated provider text", async () => {
+  it("Q10 owner-governed flow does not surface an ungoverned repeated provider text", async () => {
     installNominalRuntime({ duplicateReply: "Même contenu visible." });
     renderDemo();
     const session = await createInitialProject();
-    expect(session.entries.filter((entry) => entry.kind === "TEXT" && entry.content === "Même contenu visible.")).toHaveLength(1);
+    expect(session.entries.filter((entry) => entry.kind === "TEXT" && entry.content === "Même contenu visible.")).toHaveLength(0);
     expect(session.entries.some((entry) => entry.kind === "TEXT" && entry.content.includes("première compréhension structurée"))).toBe(true);
+    expect(lastVisibleNoxiaText(session)).toMatch(/\?$/);
     expect(new Set(session.entries.map((entry) => entry.entryId)).size).toBe(session.entries.length);
-    expect(await screen.findAllByText("Même contenu visible.")).toHaveLength(1);
+    expect(screen.queryByText("Même contenu visible.")).not.toBeInTheDocument();
   });
 
   it("Q11 no continuation is created when QRY has no useful need", () => {
@@ -277,14 +283,14 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     expect(stored().pendingContribution).toBeNull();
   });
 
-  it("Q13 the current non-ASK continuation is compact without an automatic question", async () => {
+  it("Q13 the current governed ASK continuation is compact and contains one question", async () => {
     installNominalRuntime();
     renderDemo();
     const session = await createInitialProject();
     const lastEntry = session.entries.at(-1);
     const content = lastEntry?.kind === "TEXT" ? lastEntry.content : "";
     expect(content.length).toBeLessThanOrEqual(240);
-    expect((content.match(/\?/g) ?? [])).toHaveLength(0);
+    expect((content.match(/\?/g) ?? [])).toHaveLength(1);
   });
 
   it("Q14 post-adoption continuation performs no Project write", async () => {
@@ -302,8 +308,9 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     const projectAfterDecision = JSON.stringify(stored().project);
     expect(resolveContinuation).not.toBeNull();
     const request = runtime.request.mock.calls.find(([item]) => item.requestKind === "POST_ADOPTION_QRY_CONTINUATION")![0];
-    resolveContinuation!(await governedContinuationReceipt(request, INITIAL_CONTINUATION));
-    await screen.findByText(INITIAL_CONTINUATION);
+    const receipt = await governedContinuationReceipt(request);
+    resolveContinuation!(receipt);
+    await screen.findByText(receipt.assistantReply);
     expect(JSON.stringify(stored().project)).toBe(projectAfterDecision);
     expect(stored().bridgeTraces.at(-1)).toMatchObject({ persistentExtractionCalled: false, calls: 1 });
   });
@@ -336,9 +343,7 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
       currentNavigation: currentGovernedNavigationInput({ project: session.project!, navigation: session.queryNavigation! }) ?? undefined,
       evaluatePersistentDelta: false,
     };
-    // Transport-only witness: a legacy eligibility-section question with no
-    // represented material impact must no longer force the new ASK gate.
-    const routingReply = "La prochaine action reste gouvernée, sans modification du projet.";
+    const routingReply = makeGovernedPostAdoptionResponse(request).assistantReply;
     const fetchImpl = mockBridgeProviderFetch({ geminiText: routingReply, geminiResponseId: "qry-01-continuation" });
     const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", openAiApiKey: "unused", fetchImpl });
     expect(fetchImpl).toHaveBeenCalledTimes(1);
@@ -353,9 +358,10 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     installNominalRuntime();
     renderDemo();
     const before = await createInitialProject();
+    const continuation = lastVisibleNoxiaText(before);
     const reloaded = loadFunctionalResetSession(window.localStorage);
     expect(JSON.stringify(reloaded.project)).toBe(JSON.stringify(before.project));
-    expect(reloaded.entries.at(-1)).toMatchObject({ kind: "TEXT", role: "NOXIA", content: INITIAL_CONTINUATION });
+    expect(reloaded.entries.at(-1)).toMatchObject({ kind: "TEXT", role: "NOXIA", content: continuation });
     expect(reloaded.queryNavigation).toMatchObject({
       projectVersion: reloaded.project?.versionId,
       projectDigest: reloaded.project?.projectDigest,
@@ -378,7 +384,7 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
           && committed.entries.some((entry) => entry.kind === "TEXT" && entry.content === "Projet créé.")
           && committed.entries.some((entry) => entry.kind === "REVIEW" && entry.status === "CONFIRMED"),
         );
-        return governedContinuationReceipt(request as ProductBridgeRequest, INITIAL_CONTINUATION);
+        return governedContinuationReceipt(request as ProductBridgeRequest);
       }
       return makeFunctionalResetBridgeResponse(
         request.conversation.turns,
@@ -390,7 +396,8 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
     await acceptPendingReview();
-    await screen.findByText(INITIAL_CONTINUATION);
+    await waitFor(() => expect(stored().bridgeTraces.at(-1)?.requestKind).toBe("POST_ADOPTION_QRY_CONTINUATION"));
+    expect(lastVisibleNoxiaText(stored())).toMatch(/\?$/);
 
     expect(adoptionCommittedBeforeRequest).toBe(true);
     expect(continuationRequests).toBe(1);

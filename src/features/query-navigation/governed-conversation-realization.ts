@@ -5,7 +5,7 @@ import { evaluateLinguisticInvariants } from "../protocol-designer/conversation-
 
 /** A consumer projection of QRY's decision, never a second next-action owner. */
 export const GOVERNED_CONVERSATION_REALIZATION_CONTRACT = "GOVERNED_CONVERSATION_REALIZATION" as const;
-export const GOVERNED_CONVERSATION_REALIZATION_VERSION = "1.1.0" as const;
+export const GOVERNED_CONVERSATION_REALIZATION_VERSION = "1.2.0" as const;
 
 export type GovernedConversationInterventionKind =
   | "ASK_INFORMATION"
@@ -27,7 +27,7 @@ export type GovernedVisibleObligation = Readonly<{
   obligationId: string;
   sourceRef: string;
   role: "OPTION_IDENTITY" | "OPTION_DISCRIMINANT" | "MATERIAL_LIMIT" | "HUMAN_DECISION_BOUNDARY" | "REFERENT_CONTENT"
-    | "USER_SOURCE_ATTRIBUTION" | "USER_DIRECTION_ACKNOWLEDGEMENT";
+    | "DECISION_TRADEOFF" | "USER_SOURCE_ATTRIBUTION" | "USER_DIRECTION_ACKNOWLEDGEMENT";
   /** Exact owner/consumer-selected fragment; the real visible span is resolved after normalization. */
   exactText: string;
 }>;
@@ -107,7 +107,7 @@ export const buildGovernedConversationEnvelope = (input: EnvelopeInput): Governe
   if (!unique(visibleObligations.map((item) => item.obligationId))
     || visibleObligations.some((item) => !nonempty(item.obligationId) || !nonempty(item.sourceRef) || !nonempty(item.exactText)
       || !["OPTION_IDENTITY", "OPTION_DISCRIMINANT", "MATERIAL_LIMIT", "HUMAN_DECISION_BOUNDARY", "REFERENT_CONTENT",
-        "USER_SOURCE_ATTRIBUTION", "USER_DIRECTION_ACKNOWLEDGEMENT"].includes(item.role))) {
+        "DECISION_TRADEOFF", "USER_SOURCE_ATTRIBUTION", "USER_DIRECTION_ACKNOWLEDGEMENT"].includes(item.role))) {
     throw new Error("GOVERNED_REALIZATION_VISIBLE_OBLIGATION_INVALID");
   }
   const defaultIntervention = input.action === "ASK_QUESTION"
@@ -289,6 +289,29 @@ const measuredQuantitySurfaces = (text: string): string[] => {
 /** Bounded forbidden claims, not a classifier of meaning or the scientific speech act. */
 const UNAUTHORIZED_WRITE_DECLARATION = /\b(?:j['’]ai\s+(?:adopté|enregistré|modifié|créé)\s+(?:le|votre)\s+(?:projet|étude)|(?:le|votre)\s+(?:projet|étude)\s+(?:est|a été)\s+(?:adopté|enregistré|modifié|créé))(?=$|[^\p{L}])/iu;
 
+/** Closed evidence grammar for the actor/source relation, never general semantic similarity. */
+const USER_SOURCE_ATTRIBUTION_SURFACE = /\b(?:vous\s+(?:avez\s+)?(?:formul(?:ez|é|ée|és|ées)|propos(?:ez|é|ée|és|ées)|indiqu(?:ez|é|ée|és|ées)|demand(?:ez|é|ée|és|ées))|votr(?:e|es)\s+(?:formulation|correction|proposition|demande|éléments?|objectifs?))\b/iu;
+
+/** Surface articulation only; this is not proof that the explanation is scientifically correct. */
+const EXPLANATION_ARTICULATION_SURFACE = /\b(?:différ\p{L}*|distinct\p{L}*|premier\p{L}*|second\p{L}*|chacun\p{L}*|respectiv\p{L}*|tandis\s+que|alors\s+que|d['’]une\s+part|d['’]autre\s+part|l['’]un|l['’]autre)\b/iu;
+const UNSUPPORTED_HISTORICAL_EXPLANATION = /\bfinalités?\s+méthodologiques?\s+et\s+opérationnelles?\b/iu;
+
+const INTERNAL_STANDARD_TERMINOLOGY = /(?:\b(?:owner|Owner|OWNER)\b|\bQRY\b|\bProject\b|\bcandidateRef\b|\bsourceRef\b|\b(?:validator|Validator)\b|\bTRACE\b|\bGOVERNED_CONVERSATION_REALIZATION\b|\b(?:qry-action|study-design-(?:option|proposal|tradeoff)):[\w:-]+\b)/u;
+
+const overlaps = (left: GovernedVisibleSpan, right: GovernedVisibleSpan) => left.start < right.end && right.start < left.end;
+const containedBy = (inner: GovernedVisibleSpan, outer: GovernedVisibleSpan) => inner.start >= outer.start && inner.end <= outer.end;
+
+const interrogativeSentence = (text: string): GovernedVisibleSpan | null => {
+  const marks = [...text.matchAll(/\?/gu)];
+  if (marks.length !== 1 || !text.trimEnd().endsWith("?")) return null;
+  const end = marks[0].index + 1;
+  const preceding = text.slice(0, marks[0].index);
+  const boundary = Math.max(preceding.lastIndexOf("."), preceding.lastIndexOf("!"), preceding.lastIndexOf("\n"));
+  let start = boundary + 1;
+  while (start < end && /\s/u.test(text[start])) start += 1;
+  return Object.freeze({ start, end, exactText: text.slice(start, end) });
+};
+
 export type GovernedRealizationConformance = Readonly<{
   structuralStatus: "PASS" | "FAIL" | "UNKNOWN";
   actionConformance: "PASS" | "FAIL" | "UNKNOWN";
@@ -324,8 +347,16 @@ export const validateGovernedConversationRealization = (input: {
     && normalizedVisibleText(text).value === normalizedVisibleText(sourceTurnContent).value) {
     diagnostics.push("EXACT_SOURCE_TURN_ECHO_AS_ASSISTANT_RESPONSE");
   }
-  // A question mark is an observable surface constraint, not proof that an ASK was realized.
-  if (envelope.action !== "ASK_QUESTION" && text.includes("?")) actionFailures.push("UNAUTHORIZED_INTERROGATIVE_SURFACE");
+  // These are bounded observable surface constraints, not proof of naturalness or scientific value.
+  const questionMarks = [...text.matchAll(/\?/gu)].length;
+  const questionSentence = envelope.action === "ASK_QUESTION" ? interrogativeSentence(text) : null;
+  if (envelope.action === "ASK_QUESTION") {
+    if (!questionSentence) actionFailures.push(questionMarks > 1
+      ? "MULTIPLE_INTERROGATIVE_SURFACES_NOT_AUTHORIZED" : "ASK_INTERROGATIVE_SURFACE_MISSING");
+  } else if (questionMarks) actionFailures.push("UNAUTHORIZED_INTERROGATIVE_SURFACE");
+  if (envelope.intervention.kind === "PRESENT_OWNER_DECISION_SUPPORT" && INTERNAL_STANDARD_TERMINOLOGY.test(text)) {
+    diagnostics.push("INTERNAL_PRODUCT_TERMINOLOGY_VISIBLE");
+  }
   for (const item of envelope.protectedLiterals) {
     if (!containsProtectedLiteral(text, item.literal)) diagnostics.push(`REQUIRED_PROTECTED_LITERAL_MISSING:${item.ref}`);
   }
@@ -388,6 +419,32 @@ export const validateGovernedConversationRealization = (input: {
     }
   }
   const missing = claim ? envelope.requiredContentRefs.filter((ref) => !represented.includes(ref)) : [];
+  if (claim && envelope.intervention.kind === "ASK_INFORMATION" && questionSentence) {
+    if (!actionWitnessSpan || !containedBy(actionWitnessSpan, questionSentence)) {
+      actionFailures.push("ACTION_WITNESS_OUTSIDE_INTERROGATIVE_SENTENCE");
+    }
+    const targetVisibleInQuestion = contentWitnessSpans.some((item) => envelope.targetRefs.includes(item.ref)
+      && containedBy(item.span, questionSentence));
+    if (!targetVisibleInQuestion) actionFailures.push("ASK_TARGET_NOT_VISIBLE_IN_INTERROGATIVE_SENTENCE");
+  }
+  if (claim && envelope.intervention.kind === "EXPLAIN_REFERENCED_CONTENT") {
+    const witness = actionWitnessSpan?.exactText ?? "";
+    const separateFromReferents = actionWitnessSpan
+      ? contentWitnessSpans.every((item) => !overlaps(actionWitnessSpan!, item.span)) : false;
+    if (!separateFromReferents || !EXPLANATION_ARTICULATION_SURFACE.test(witness)) {
+      actionFailures.push("EXPLANATION_NOT_REALIZED");
+    }
+    if (UNSUPPORTED_HISTORICAL_EXPLANATION.test(witness)
+      && !envelope.authorizedContent.some((item) => UNSUPPORTED_HISTORICAL_EXPLANATION.test(item.text))) {
+      diagnostics.push("UNSUPPORTED_EXPLANATORY_CONTENT");
+    }
+  }
+  if (claim && envelope.intervention.kind === "STRUCTURE_USER_SUPPLIED_CONTENT") {
+    const witness = actionWitnessSpan?.exactText ?? "";
+    if (claim.contentSource !== "USER_SUPPLIED" || !USER_SOURCE_ATTRIBUTION_SURFACE.test(witness)) {
+      diagnostics.push("USER_SOURCE_ATTRIBUTION_SURFACE_MISSING");
+    }
+  }
   diagnostics.push(...missing.map((ref) => `REQUIRED_CONTENT_CLAIM_MISSING:${ref}`), ...actionFailures);
   return Object.freeze({
     structuralStatus: diagnostics.length ? "FAIL" : claim ? "PASS" : "UNKNOWN",
@@ -403,6 +460,48 @@ export const validateGovernedConversationRealization = (input: {
     missingRequiredContentRefs: Object.freeze(missing),
     projectWriteAuthorized: false,
   });
+};
+
+const sentence = (value: string) => {
+  const trimmed = value.trim().replace(/[.!?]+$/u, "");
+  return trimmed ? `${trimmed}.` : "";
+};
+
+const lowerInitial = (value: string) => value ? `${value[0].toLocaleLowerCase("fr-FR")}${value.slice(1)}` : value;
+
+/** Deterministic realization of the same envelope; it selects no option and creates no scientific content. */
+export const buildGovernedConversationLocalFallback = (envelope: GovernedConversationEnvelope): string | null => {
+  if (envelope.intervention.kind === "ASK_INFORMATION") {
+    const target = envelope.authorizedContent.find((item) => envelope.targetRefs.includes(item.ref))?.text.trim()
+      ?? envelope.authorizedContent.find((item) => envelope.requiredContentRefs.includes(item.ref))?.text.trim()
+      ?? envelope.authorizedContent[0]?.text.trim();
+    if (!target) return null;
+    if (target.endsWith("?") && [...target.matchAll(/\?/gu)].length === 1) return target;
+    return `Pouvez-vous ${lowerInitial(target.replace(/[.!?]+$/u, ""))} ?`;
+  }
+  if (envelope.intervention.kind !== "PRESENT_OWNER_DECISION_SUPPORT") return null;
+  const obligations = envelope.requiredVisibleObligations;
+  const identities = obligations.filter((item) => item.role === "OPTION_IDENTITY");
+  if (identities.length < 2) return null;
+  const optionLines = identities.map((identity) => {
+    const discriminant = obligations.find((item) => item.role === "OPTION_DISCRIMINANT" && item.sourceRef === identity.sourceRef);
+    const limit = obligations.find((item) => item.role === "MATERIAL_LIMIT" && item.sourceRef === identity.sourceRef);
+    if (!discriminant || !limit) return null;
+    return `- ${identity.exactText} — ${sentence(discriminant.exactText)} Limite principale : ${sentence(limit.exactText)}`;
+  });
+  if (optionLines.some((line) => !line)) return null;
+  const optionRefs = new Set(identities.map((item) => item.sourceRef));
+  const tradeOff = obligations.find((item) => item.role === "DECISION_TRADEOFF")?.exactText;
+  const globalLimits = obligations.filter((item) => item.role === "MATERIAL_LIMIT" && !optionRefs.has(item.sourceRef));
+  const humanBoundary = obligations.find((item) => item.role === "HUMAN_DECISION_BOUNDARY")?.exactText;
+  if (!humanBoundary) return null;
+  return [
+    `${identities.length === 2 ? "Deux" : identities.length === 3 ? "Trois" : identities.length} options restent possibles :`,
+    ...optionLines as string[],
+    tradeOff ? sentence(tradeOff) : "",
+    ...globalLimits.map((item) => sentence(item.exactText)),
+    humanBoundary,
+  ].filter(Boolean).join("\n");
 };
 
 /** No source/candidate dump: the caller supplies a governed local formulation of WHAT. */
@@ -443,9 +542,10 @@ export const realizeGovernedConversation = (input: {
   });
 };
 
-export const GOVERNED_REALIZATION_SYSTEM_INSTRUCTION = `Tu réalises uniquement le WHAT décidé par QUERY_NAVIGATION et contenu dans l’enveloppe fournie. Tu ne sélectionnes aucune question, option, relation ou conclusion supplémentaire. Respecte intervention.kind et intervention.contentSource : lorsqu’un contenu vient de USER_SUPPLIED ou RETAINED_CANDIDATE, attribue-le explicitement à l’utilisateur et ne le présente pas comme une option scientifique inventée par NOXIA ; NOXIA peut seulement proposer sa structuration ou sa présentation pour revue. Lorsqu’il vient de OWNER_RESULT, présente les options comme des propositions de cet owner, sans sélectionner de gagnant. Une correction ou un refus reçoit un accusé de réception ; ne répète jamais l’instruction utilisateur à la première personne comme réponse de NOXIA.
+export const GOVERNED_REALIZATION_SYSTEM_INSTRUCTION = `Tu réalises uniquement le WHAT décidé par QUERY_NAVIGATION et contenu dans l’enveloppe fournie. Tu ne sélectionnes aucune question, option, relation ou conclusion supplémentaire. Respecte intervention.kind et intervention.contentSource : lorsqu’un contenu vient de USER_SUPPLIED, attribue-le explicitement à l’utilisateur dans actionWitness et ne le présente pas comme une option scientifique inventée par NOXIA ; NOXIA peut seulement proposer sa structuration ou sa présentation pour revue. Lorsqu’il vient de RETAINED_CANDIDATE, conserve l’identité exacte des référents. Lorsqu’il vient de OWNER_RESULT, présente les options comme des propositions à examiner, sans employer de label technique tel que owner, QRY, Project, candidateRef, sourceRef, validator ou TRACE, et sans sélectionner de gagnant. Une correction ou un refus reçoit un accusé de réception ; ne répète jamais l’instruction utilisateur à la première personne comme réponse de NOXIA.
+Pour ASK_INFORMATION, assistantReply contient exactement une question principale et se termine par « ? » ; actionWitness et le witness de la cible demandée appartiennent à cette phrase interrogative. Pour EXPLAIN_REFERENCED_CONTENT, rends d’abord les référents exigés visibles puis utilise actionWitness pour une clause distincte qui articule leur différence ; une simple réénumération ne constitue pas une explication. N’ajoute aucune justification scientifique absente des contenus autorisés. Pour PRESENT_OWNER_DECISION_SUPPORT, rends visibles les facettes requises — identités, discriminants, limites, compromis et frontière humaine — sans réciter les objets de contrôle internes.
 Chaque requiredVisibleObligation doit apparaître dans assistantReply avec son exactText, modulo casse, espaces, Unicode NFKC et apostrophes typographiques. Ces fragments peuvent être intégrés dans une prose naturelle. Le contenu de contrôle QRY qui n’est pas une obligation visible ne doit pas être récité. Préserve les statuts, limites, quantités et littéraux requis. Aucune adoption, écriture Project ou décision humaine implicite. Les informations déjà fournies ne doivent pas être redemandées. Formule naturellement et brièvement en français.
-Retourne l’objet JSON demandé : assistantReply est la seule prose visible ; claim déclare l’action, interventionKind, contentSource et les références réalisées avec un witness verbatim dans cette prose. actionWitness est le passage qui réalise l’intervention, pas seulement une mention du sujet. Ces claims et leurs spans ancrés sont des preuves structurelles, jamais une preuve d’équivalence sémantique générale. Ne crée aucun statut ou relation. Pour chaque contentClaim, copie exactement le status autorisé, y compris null. Si une réalisation n’est pas possible, n’invente pas de contenu pour compléter les champs.`;
+Retourne l’objet JSON demandé : assistantReply est la seule prose visible ; claim déclare l’action, interventionKind, contentSource et les références réalisées avec un witness verbatim dans cette prose. actionWitness est le passage qui réalise l’intervention, pas seulement une mention du sujet. Pour STRUCTURE_USER_SUPPLIED_CONTENT, actionWitness doit porter l’attribution visible à l’utilisateur. Pour EXPLAIN_REFERENCED_CONTENT, actionWitness doit viser uniquement la clause d’articulation, distincte des witnesses de contenu. Ces claims et leurs spans ancrés sont des preuves structurelles, jamais une preuve d’équivalence sémantique générale. Ne crée aucun statut ou relation. Pour chaque contentClaim, copie exactement le status autorisé, y compris null. Si une réalisation n’est pas possible, n’invente pas de contenu pour compléter les champs.`;
 
 const relationProperties = {
   ref: { type: "string" }, sourceRef: { type: "string" }, relationType: { type: "string" },

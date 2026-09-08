@@ -78,7 +78,9 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
       projectVersion: v1.project!.versionId,
       projectDigest: v1.project!.projectDigest,
     });
-    expect(v1.entries.some((entry) => entry.kind === "TEXT" && entry.role === "NOXIA" && entry.content === "La prochaine étape reste ouverte à votre décision.")).toBe(true);
+    const governedContinuation = [...v1.entries].reverse().find((entry) => entry.kind === "TEXT" && entry.role === "NOXIA");
+    expect(governedContinuation).toMatchObject({ kind: "TEXT", role: "NOXIA" });
+    expect(governedContinuation?.kind === "TEXT" ? governedContinuation.content.match(/\?/g) : []).toHaveLength(1);
 
     const projectV1BeforeDocument = JSON.stringify(v1.project);
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" }));

@@ -1745,7 +1745,7 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
           || !navigation.requiredVisibleObligations.every((item) => typeof item.obligationId === "string"
             && typeof item.sourceRef === "string" && typeof item.exactText === "string" && item.exactText.trim().length > 0
             && ["OPTION_IDENTITY", "OPTION_DISCRIMINANT", "MATERIAL_LIMIT", "HUMAN_DECISION_BOUNDARY", "REFERENT_CONTENT",
-              "USER_SOURCE_ATTRIBUTION", "USER_DIRECTION_ACKNOWLEDGEMENT"].includes(item.role))))
+              "DECISION_TRADEOFF", "USER_SOURCE_ATTRIBUTION", "USER_DIRECTION_ACKNOWLEDGEMENT"].includes(item.role))))
         || !Array.isArray(navigation.alreadyProvidedInformationRefs)
         || !navigation.alreadyProvidedInformationRefs.every((ref) => typeof ref === "string")
         || !Array.isArray(navigation.selected.navigationNeedRefs) || !Array.isArray(navigation.selected.affectedDecisionRefs)

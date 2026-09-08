@@ -7,7 +7,10 @@ import type {
 import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 import { buildCurrentTurnNavigation } from "@/features/query-navigation/current-turn-navigation";
-import { realizeGovernedConversation } from "@/features/query-navigation/governed-conversation-realization";
+import {
+  buildGovernedConversationLocalFallback,
+  realizeGovernedConversation,
+} from "@/features/query-navigation/governed-conversation-realization";
 
 export const COLCHICINE_INITIAL = "Je veux étudier l’effet de la colchicine après infarctus du myocarde, notamment sur l’inflammation et les lésions en IRM, dans une étude multicentrique comparant colchicine et placebo. Je veux également prévoir des biomarqueurs sanguins et mesurer la taille de l’infarctus à l’IRM.";
 export const COLCHICINE_MODIFICATION = "Je veux faire l’IRM entre J3 et J5 et limiter l’âge à 75 ans.";
@@ -179,7 +182,7 @@ export const makeFunctionalResetBridgeResponse = (
 // Current structured receipt fixture; no provider execution or linguistic oracle.
 export const makeGovernedPostAdoptionResponse = (
   request: Pick<ProductBridgeRequest, "requestKind" | "conversation"> & Partial<ProductBridgeRequest>,
-  text = "La prochaine étape reste ouverte à votre décision.",
+  text?: string,
 ): ProductBridgeResponse => {
   const source = request.conversation.turns.filter((turn) => turn.role === "USER").at(-1)!;
   const navigation = buildCurrentTurnNavigation({ sourceTurnRef: source.turnId, sourceText: source.content,
@@ -187,15 +190,22 @@ export const makeGovernedPostAdoptionResponse = (
     requestKind: request.requestKind, currentNavigation: request.currentNavigation,
     interaction: request.conversation.interactionContext });
   const envelope = navigation.envelope;
-  const governedRealization = realizeGovernedConversation({ envelope, providerReply: text, requireProviderClaim: true,
+  const visibleText = text ?? buildGovernedConversationLocalFallback(envelope)
+    ?? "La formulation de cette étape n’a pas abouti. Aucune décision ni modification du projet n’a été effectuée.";
+  const questionStart = Math.max(visibleText.lastIndexOf("."), visibleText.lastIndexOf("!"), visibleText.lastIndexOf("\n")) + 1;
+  const actionWitness = envelope.action === "ASK_QUESTION"
+    ? visibleText.slice(questionStart).trim()
+    : visibleText;
+  const governedRealization = realizeGovernedConversation({ envelope, providerReply: visibleText, requireProviderClaim: true,
     localWhatText: navigation.localWhatText,
-    providerClaim: { whatRef: envelope.whatRef, action: envelope.action, actionWitness: text,
+    providerClaim: { whatRef: envelope.whatRef, action: envelope.action, actionWitness,
       interventionKind: envelope.intervention.kind, contentSource: envelope.intervention.contentSource,
       targetRefs: [...envelope.targetRefs], informationNeedRefs: envelope.selectedInformationNeedRef ? [envelope.selectedInformationNeedRef] : [],
-      contentClaims: envelope.authorizedContent.map((item) => ({ ref: item.ref, witness: text, status: item.status })),
-      relationClaims: envelope.requiredRelations.map((item) => ({ ...item, witness: text })),
+      contentClaims: envelope.authorizedContent.filter((item) => envelope.requiredContentRefs.includes(item.ref))
+        .map((item) => ({ ref: item.ref, witness: visibleText.includes(item.text) ? item.text : visibleText, status: item.status })),
+      relationClaims: envelope.requiredRelations.map((item) => ({ ...item, witness: visibleText })),
       adoptionClaimed: false, projectWriteClaimed: false } });
-  const result = makeFunctionalResetBridgeResponse(request.conversation.turns, null, text);
+  const result = makeFunctionalResetBridgeResponse(request.conversation.turns, null, visibleText);
   return { ...result, currentTurnNavigation: navigation, governedRealization,
     conversationFailure: governedRealization.providerReplyAccepted ? null : {
       stage: "CONFORMANCE", code: "TEST_RECEIPT_CONFORMANCE_FAILURE", message: "Fixture rejected", provider: null },

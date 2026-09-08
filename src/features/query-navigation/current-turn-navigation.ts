@@ -7,7 +7,7 @@ import { makeQueryNavigationId } from "./canonical.js";
 import type { NextActionCandidate, QueryNavigationSourceState } from "./contracts.js";
 import { PD009_ACTION_LABELS } from "./contracts.js";
 import { selectNextAction } from "./engine.js";
-import { buildGovernedConversationEnvelope } from "./governed-conversation-realization.js";
+import { buildGovernedConversationEnvelope, buildGovernedConversationLocalFallback } from "./governed-conversation-realization.js";
 import type {
   GovernedConversationContentSource,
   GovernedConversationInterventionKind,
@@ -272,16 +272,17 @@ export const buildCurrentTurnNavigation = (input: {
   const realizedContent = selectedNative ? [...currentActionToConsider!.authorizedContent]
     : unresolved ? [] : candidate ? content : boundedReferents ? [...boundedReferents.content] : [];
   const nativeRequiredContentRefs = selectedNative
-    ? currentActionToConsider!.requiredContentRefs ?? realizedContent.map((item) => item.ref).filter((ref) => ref !== native!.candidateId)
+    ? [...new Set([
+      ...(realizedAsk ? [native!.targetRef] : []),
+      ...(currentActionToConsider!.requiredContentRefs
+        ?? realizedContent.map((item) => item.ref).filter((ref) => ref !== native!.candidateId)),
+    ])]
     : [];
   const requiredContentRefs = selectedNative ? nativeRequiredContentRefs
     : candidate || boundedReferents ? realizedContent.map((item) => item.ref) : [];
   const requiredVisibleObligations = selectedNative
     ? [...(currentActionToConsider!.requiredVisibleObligations ?? [])]
-    : candidate ? [{
-      obligationId: `user-source:${candidate.contributionRef}`, sourceRef: candidate.contributionRef,
-      role: "USER_SOURCE_ATTRIBUTION" as const, exactText: "les éléments que vous avez formulés",
-    }]
+    : candidate ? []
     : boundedReferents ? realizedContent.map((item) => ({
       obligationId: `referent:${item.ref}`, sourceRef: item.ref,
       role: "REFERENT_CONTENT" as const, exactText: item.text,
@@ -321,12 +322,13 @@ export const buildCurrentTurnNavigation = (input: {
     selectedInformationNeedRef: realizedAsk ? selectedNative ? native!.navigationNeedRefs[0] : selectedInformationNeedRef : null, alreadyProvidedInformationRefs,
     scientificLimitations: [...context.limitations],
   });
+  const governedLocalFallback = buildGovernedConversationLocalFallback(envelope);
   return { contextDigest, selection, envelope,
     currentCandidateScopeEvidence,
     enoughForReversibleCandidate: Boolean(candidate),
     highValueNextActionAvailable: Boolean(native && !excludedNativeReasons.length && ["MAY_CHANGE_DECISION", "SEPARATES_ACTIVE_OPTIONS"].includes(native.informationValue.discrimination)),
     excludedNativeReasons,
-    localWhatText: unresolved ? realizedPurpose
+    localWhatText: governedLocalFallback ?? (unresolved ? realizedPurpose
       : selectedNative && requiredVisibleObligations.length
         ? `${requiredVisibleObligations.map((item) => item.exactText).join("\n")}\nAucune adoption ni écriture Project n’est effectuée.`
         : selectedNative ? native!.explanation : candidate
@@ -337,6 +339,6 @@ export const buildCurrentTurnNavigation = (input: {
               ? boundedReferentLimit
             : input.boundedInteraction?.kind === "ACKNOWLEDGE_USER_DIRECTION"
               ? "Votre instruction est reçue. Cette réponse n’effectue aucune modification du Project ; l’état antérieur ne peut être déclaré conservé que par le lifecycle compétent."
-              : null,
+              : null),
     candidateRef: candidate?.contributionRef ?? null, candidateAdopted: false as const };
 };

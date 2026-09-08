@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -227,10 +227,12 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
 
     expect(await screen.findByText("Projet créé.")).toBeInTheDocument();
-    expect(await screen.findByText("La prochaine étape reste ouverte à votre décision.")).toBeInTheDocument();
+    await waitFor(() => expect(stored().entries.at(-1)?.content).toMatch(/\?$/u));
     const after = stored();
+    const continuationText = after.entries.at(-1).content;
+    expect(screen.getByText(continuationText)).toBeInTheDocument();
     const feedbackIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === "Projet créé.");
-    const continuationIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === "La prochaine étape reste ouverte à votre décision.");
+    const continuationIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === continuationText);
     expect(continuationIndex).toBeGreaterThan(feedbackIndex);
     expect(after.queryNavigation).toMatchObject({
       projectVersion: after.project.versionId,

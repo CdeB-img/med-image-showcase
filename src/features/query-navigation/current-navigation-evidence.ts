@@ -87,6 +87,14 @@ export type CurrentNavigationEvidence = Readonly<{
 
 const unique = (values: readonly string[]) => [...new Set(values.filter(Boolean))].sort();
 const same = (left: unknown, right: unknown) => logicalDigest(left) === logicalDigest(right);
+const currentQuestionTargetText = (text: string) => {
+  const trimmed = text.trim();
+  if (!trimmed.endsWith("?") || [...trimmed.matchAll(/\?/gu)].length !== 1) return trimmed;
+  const mark = trimmed.lastIndexOf("?");
+  const preceding = trimmed.slice(0, mark);
+  const boundary = Math.max(preceding.lastIndexOf("."), preceding.lastIndexOf("!"), preceding.lastIndexOf("\n"));
+  return trimmed.slice(boundary + 1).trim();
+};
 const emptyState = (): CurrentNavigationEvidence["sourceState"] => ({
   projectUnknowns: [], projectAmbiguities: [], projectContradictions: [], dataNeeds: [],
   planningDecisionRequirements: [], validationFindings: [], validationHumanReviews: [],
@@ -388,17 +396,19 @@ const currentStudyDesignDecisionSupport = (input: {
     ].filter(Boolean).join(" "),
     status: option.epistemicStatus,
   }));
-  const tradeOffs = payload.tradeOffs.filter((tradeOff) => tradeOff.decisionRequired
-    && tradeOff.optionRefs.every((ref) => selected.knownOptionRefs.includes(ref)))
-    .map((tradeOff): GovernedRealizationContent => ({
-      ref: tradeOff.tradeOffId,
-      text: `Compromis. Gains : ${tradeOff.gains.join(" ; ")}. Pertes : ${tradeOff.losses.join(" ; ")}. Une décision humaine est requise.`,
-      status: payload.epistemicStatus,
-    }));
-  const limitations = payload.limitations.map((text, index): GovernedRealizationContent => ({
-    ref: `${payload.proposalId}:limitation:${index + 1}`, text, status: payload.epistemicStatus,
-  }));
-  const authorizedContent = [...optionContent, ...tradeOffs, ...limitations];
+  const tradeOff = payload.tradeOffs.find((item) => item.decisionRequired
+    && item.optionRefs.length === options.length && item.optionRefs.every((ref) => selected.knownOptionRefs.includes(ref)));
+  const tradeOffContent: GovernedRealizationContent[] = tradeOff ? [{
+    ref: tradeOff.tradeOffId,
+    text: "Le choix met en balance les avantages et les limites propres à chaque option.",
+    status: payload.epistemicStatus,
+  }] : [];
+  // The first owner limitation is the primary interpretation boundary. Later
+  // control summaries remain available in the OwnerResult but are not recited.
+  const primaryLimitation: GovernedRealizationContent[] = payload.limitations[0] ? [{
+    ref: `${payload.proposalId}:limitation:1`, text: payload.limitations[0], status: payload.epistemicStatus,
+  }] : [];
+  const authorizedContent = [...optionContent, ...tradeOffContent, ...primaryLimitation];
   const obligations: GovernedVisibleObligation[] = options.flatMap((option) => [
     { obligationId: `${option.optionId}:identity`, sourceRef: option.optionId, role: "OPTION_IDENTITY", exactText: option.label },
     { obligationId: `${option.optionId}:discriminant`, sourceRef: option.optionId, role: "OPTION_DISCRIMINANT", exactText: option.conciseDescription || option.rationale.statement },
@@ -409,13 +419,17 @@ const currentStudyDesignDecisionSupport = (input: {
     obligationId: `${payload.proposalId}:global-material-limit`, sourceRef: `${payload.proposalId}:limitation:1`,
     role: "MATERIAL_LIMIT", exactText: payload.limitations[0],
   });
+  if (tradeOffContent[0]) obligations.push({
+    obligationId: `${tradeOffContent[0].ref}:decision-tradeoff`, sourceRef: tradeOffContent[0].ref,
+    role: "DECISION_TRADEOFF", exactText: tradeOffContent[0].text,
+  });
   obligations.push({
     obligationId: `${payload.proposalId}:human-decision-boundary`, sourceRef: result.resultId,
     role: "HUMAN_DECISION_BOUNDARY", exactText: "Aucune option n’est adoptée ; la décision vous revient.",
   });
   return Object.freeze({
     authorizedContent: Object.freeze(authorizedContent),
-    requiredContentRefs: Object.freeze(authorizedContent.map((item) => item.ref)),
+    requiredContentRefs: Object.freeze(options.map((item) => item.optionId)),
     requiredVisibleObligations: Object.freeze(obligations),
   });
 };
@@ -438,7 +452,8 @@ export const currentGovernedNavigationInput = (input: {
     project: input.project, navigation, ownerResultLedger: input.ownerResultLedger,
   });
   const authorizedContent = decisionSupport?.authorizedContent ?? [
-    { ref: selected.candidateId, text: navigation.standardQuestion?.text ?? selected.explanation, status: null },
+    { ref: selected.targetRef,
+      text: currentQuestionTargetText(navigation.standardQuestion?.text ?? selected.explanation), status: null },
     ...snapshot.objects.filter((object) => scope.has(object.stableId) || scope.has(object.versionRef))
       .map((object) => ({ ref: object.stableId, text: object.content, status: object.epistemicState })),
   ];

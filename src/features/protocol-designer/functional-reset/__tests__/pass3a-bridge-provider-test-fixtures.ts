@@ -18,15 +18,19 @@ export const mechanicalGovernedGeminiResponse = (
   if (!text) throw new Error("TEST_GEMINI_ENVELOPE_REQUIRED");
   const envelope = JSON.parse(text) as GovernedConversationEnvelope;
   if (envelope.contract !== "GOVERNED_CONVERSATION_REALIZATION") throw new Error("TEST_GOVERNED_ENVELOPE_REQUIRED");
+  const questionStart = Math.max(assistantReply.lastIndexOf("."), assistantReply.lastIndexOf("!"), assistantReply.lastIndexOf("\n")) + 1;
+  const actionWitness = envelope.action === "ASK_QUESTION"
+    ? assistantReply.slice(questionStart).trim()
+    : assistantReply;
   const structured = {
     assistantReply,
     claim: {
-      whatRef: envelope.whatRef, action: envelope.action, actionWitness: assistantReply,
+      whatRef: envelope.whatRef, action: envelope.action, actionWitness,
       interventionKind: envelope.intervention.kind, contentSource: envelope.intervention.contentSource,
       targetRefs: [...envelope.targetRefs],
       informationNeedRefs: envelope.selectedInformationNeedRef ? [envelope.selectedInformationNeedRef] : [],
       contentClaims: envelope.authorizedContent.filter((item) => envelope.requiredContentRefs.includes(item.ref))
-        .map((item) => ({ ref: item.ref, witness: assistantReply, status: item.status })),
+        .map((item) => ({ ref: item.ref, witness: assistantReply.includes(item.text) ? item.text : assistantReply, status: item.status })),
       relationClaims: envelope.requiredRelations.map((relation) => ({ ...relation, witness: assistantReply })),
       adoptionClaimed: false, projectWriteClaimed: false,
     },

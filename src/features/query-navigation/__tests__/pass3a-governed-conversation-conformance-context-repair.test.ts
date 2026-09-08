@@ -239,9 +239,7 @@ describe("PASS3A CC04 — intervention and source ownership", () => {
     expect(navigation.envelope.intervention).toMatchObject({
       kind: "STRUCTURE_USER_SUPPLIED_CONTENT", contentSource: "USER_SUPPLIED",
     });
-    expect(navigation.envelope.requiredVisibleObligations).toContainEqual(expect.objectContaining({
-      role: "USER_SOURCE_ATTRIBUTION", exactText: "les éléments que vous avez formulés",
-    }));
+    expect(navigation.envelope.requiredVisibleObligations.some((item) => item.role === "USER_SOURCE_ATTRIBUTION")).toBe(false);
     expect(navigation.localWhatText).toContain("que vous avez formulés");
     const result = validateGovernedConversationRealization({ envelope: navigation.envelope,
       assistantReply: navigation.localWhatText!, claim: providerClaim(navigation.envelope, navigation.localWhatText!,

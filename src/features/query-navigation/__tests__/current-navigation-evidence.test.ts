@@ -10,6 +10,7 @@ import { buildCurrentNavigationEvidence, currentGovernedNavigationInput, type Cu
 import { buildQueryNavigationContext } from "../adapters";
 import { selectNextAction } from "../engine";
 import { buildFunctionalResetQueryNavigation } from "../functional-reset-progression";
+import { buildQuestionPresentationRequest, buildSelectedNavigationAction } from "../lifecycle";
 
 const AT = "2026-09-08T12:00:00.000Z";
 const source = behaviorTurn("turn:navigation:1", "Je veux comparer prospectivement la croissance des végétaux, avec deux mesures reliées et un protocole ouvert.");
@@ -226,14 +227,39 @@ describe("PASS3A current navigation evidence — exact sources, no new science",
     expect(navigation.selection.selected?.actionCategory).toBe("COMPARE_OPTIONS");
     const governed = currentGovernedNavigationInput({ project: value, navigation, ownerResultLedger: invocation.ledger });
     expect(governed).toBeDefined();
-    expect(governed!.requiredContentRefs).toEqual(governed!.authorizedContent.map((item) => item.ref));
+    const optionRefs = governed!.requiredVisibleObligations
+      ?.filter((item) => item.role === "OPTION_IDENTITY").map((item) => item.sourceRef) ?? [];
+    expect(governed!.requiredContentRefs).toEqual(optionRefs);
     expect(governed!.requiredVisibleObligations?.filter((item) => item.role === "OPTION_IDENTITY").length).toBeGreaterThanOrEqual(2);
     expect(governed!.requiredVisibleObligations?.filter((item) => item.role === "OPTION_DISCRIMINANT").length).toBeGreaterThanOrEqual(2);
     expect(governed!.requiredVisibleObligations?.some((item) => item.role === "MATERIAL_LIMIT")).toBe(true);
+    expect(governed!.requiredVisibleObligations?.some((item) => item.role === "DECISION_TRADEOFF")).toBe(true);
     expect(governed!.requiredVisibleObligations).toContainEqual(expect.objectContaining({
       role: "HUMAN_DECISION_BOUNDARY", exactText: "Aucune option n’est adoptée ; la décision vous revient.",
     }));
     expect(governed!.authorizedContent.every((item) => !item.ref.startsWith("qry-action-"))).toBe(true);
+  });
+
+  it("projects an ASK target as the exact interrogative sentence rather than its Standard preamble", () => {
+    const value = project();
+    const base = buildFunctionalResetQueryNavigation({ project: value, recordedAt: AT });
+    const selected = base.selection.candidates.find((item) => item.actionCategory === "CLARIFY_BY_ADAPTIVE_EXCHANGE")!;
+    const selectionWithAsk = { ...base.selection, selected, nonDominated: [selected],
+      trace: { ...base.selection.trace, nonDominatedCandidateRefs: [selected.candidateId],
+        selectedCandidateRef: selected.candidateId, outcome: "UNIQUE_ACTION_SELECTED" as const } };
+    const action = buildSelectedNavigationAction(selectionWithAsk, selected);
+    const presentation = buildQuestionPresentationRequest(action, selected);
+    const navigation = { ...base, selection: selectionWithAsk, currentAction: action, currentPresentation: presentation,
+      standardQuestion: { questionId: "question:target-surface", selectedActionRef: action.selectedActionId,
+        informationNeedRefs: [...action.navigationNeedRefs], scopeSectionIds: ["TEMPORALITY" as const],
+        priorityLead: "Ce point reste important.", text: "Ce point reste important. À quels moments les mesures sont-elles réalisées ?",
+        presentationSource: "PD004_WORDING" as const, repeatCount: 0, presentationOnly: true as const,
+        choosesScientificScope: false as const } };
+    const governed = currentGovernedNavigationInput({ project: value, navigation });
+    const targetRef = selected.targetRef;
+    const target = governed!.authorizedContent.find((item) => item.ref === targetRef);
+    expect(target?.text).toBe("À quels moments les mesures sont-elles réalisées ?");
+    expect(governed!.selected.targetRef).toBe(targetRef);
   });
 
   it("does not include unselected ledger entries in QRY context or digest", () => {

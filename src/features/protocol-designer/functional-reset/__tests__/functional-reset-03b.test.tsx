@@ -154,7 +154,7 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     await createProjectInUi();
     const visible = screen.getByTestId("functional-reset-workspace").textContent ?? "";
     expect(visible).not.toMatch(/InformationNeed|selectedAction|sourceStateDigest|QRY-|PD-009|score|branch|gate/i);
-    expect(visible).toContain("La prochaine étape reste ouverte à votre décision.");
+    expect(visible).toMatch(/Pour faire progresser le projet,[^?]+\?/);
   });
 
   it("FR03B-C03 — question presentation may reword but cannot widen QRY scope", () => {
