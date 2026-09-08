@@ -1,4 +1,4 @@
-import { makeQueryNavigationId, queryNavigationDigest } from "./canonical";
+import { makeQueryNavigationId, queryNavigationDigest } from "./canonical.js";
 import type {
   NavigationActionability,
   NavigationBlockingState,
@@ -6,7 +6,7 @@ import type {
   NavigationSourceType,
   QueryNavigationContext,
   QueryNavigationSourceState,
-} from "./contracts";
+} from "./contracts.js";
 
 const unique = (values: readonly string[]) => [...new Set(values)].sort((a, b) => a.localeCompare(b));
 
@@ -101,6 +101,16 @@ export const collectNavigationNeeds = (context: QueryNavigationContext): Navigat
   const state = context.sourceState;
   const needs: NavigationNeed[] = [];
   const add = (input: NeedInput) => needs.push(toNeed(input));
+
+  for (const need of state.governedNeeds ?? []) {
+    if (!need.owner || !need.sourceRef || !need.sourceVersion || need.projectionOnly !== true
+      || need.sourceOfTruth !== false || need.projectWriteAuthorized !== false) {
+      throw new Error("QRY_GOVERNED_NEED_BOUNDARY_INVALID");
+    }
+    // The adapter preserves owner purpose, epistemic limitations and refs.
+    // It neither remaps these to ProjectUnknown nor recomputes their science.
+    if (need.status === "OPEN" || need.status === "DEFERRED") needs.push(structuredClone(need));
+  }
 
   state.projectUnknowns.forEach((item) => add({ ...item, sourceRef: item.ref, sourceType: "PROJECT_UNKNOWN", sourceVersion: item.version, sourceObjectKind: "ProjectUnknown", intent: item.intent, blocking: "BLOCKS_CURRENT_BRANCH", actionability: "USER_ANSWERABLE" }));
   state.projectAmbiguities.forEach((item) => add({ ...item, sourceRef: item.ref, sourceType: "PROJECT_AMBIGUITY", sourceVersion: item.version, sourceObjectKind: "ProjectAmbiguity", intent: item.intent, blocking: "BLOCKS_CURRENT_BRANCH", actionability: "USER_ANSWERABLE" }));

@@ -180,6 +180,9 @@ export type DocumentGenerabilitySignal = {
 };
 
 export type QueryNavigationSourceState = {
+  // Already governed, read-only contributions, not invented Project unknowns.
+  governedNeeds?: readonly NavigationNeed[];
+  currentEvidenceDigest?: string;
   projectUnknowns: Array<{ ref: string; version: string; intent: string; owner: string; decisionRefs: string[]; branchRefs: string[]; knownOptions?: string[] }>;
   projectAmbiguities: Array<{ ref: string; version: string; intent: string; owner: string; decisionRefs: string[]; branchRefs: string[]; knownOptions?: string[] }>;
   projectContradictions: Array<{ ref: string; version: string; intent: string; owner: string; decisionRefs: string[]; branchRefs: string[] }>;

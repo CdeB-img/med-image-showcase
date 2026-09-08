@@ -1,4 +1,4 @@
-import { QRY001_CONTRACT_VERSION, type NavigationSelectionTrace, type NextActionCandidate, type QueryNavigationContext } from "./contracts";
+import { QRY001_CONTRACT_VERSION, type NavigationSelectionTrace, type NextActionCandidate, type QueryNavigationContext } from "./contracts.js";
 
 const SEMANTIC_ARRAY_KEYS = new Set([
   "affectedBranchRefs",

@@ -6,6 +6,8 @@ import type {
 } from "@/features/scientific-interpretation/contracts";
 import { HYBRID_PRIMARY_RUNTIME_VERSION } from "@/features/scientific-interpretation/hybrid-primary";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
+import { buildCurrentTurnNavigation } from "@/features/query-navigation/current-turn-navigation";
+import { realizeGovernedConversation } from "@/features/query-navigation/governed-conversation-realization";
 
 export const COLCHICINE_INITIAL = "Je veux étudier l’effet de la colchicine après infarctus du myocarde, notamment sur l’inflammation et les lésions en IRM, dans une étude multicentrique comparant colchicine et placebo. Je veux également prévoir des biomarqueurs sanguins et mesurer la taille de l’infarctus à l’IRM.";
 export const COLCHICINE_MODIFICATION = "Je veux faire l’IRM entre J3 et J5 et limiter l’âge à 75 ans.";
@@ -174,17 +176,37 @@ export const makeFunctionalResetBridgeResponse = (
   });
 };
 
+// Current structured receipt fixture; no provider execution or linguistic oracle.
+export const makeGovernedPostAdoptionResponse = (
+  request: Pick<ProductBridgeRequest, "requestKind" | "conversation"> & Partial<ProductBridgeRequest>,
+  text = "La prochaine étape reste ouverte à votre décision.",
+): ProductBridgeResponse => {
+  const source = request.conversation.turns.filter((turn) => turn.role === "USER").at(-1)!;
+  const navigation = buildCurrentTurnNavigation({ sourceTurnRef: source.turnId, sourceText: source.content,
+    candidate: null, validation: null, currentProject: request.currentProject ?? null,
+    requestKind: request.requestKind, currentNavigation: request.currentNavigation,
+    interaction: request.conversation.interactionContext });
+  const envelope = navigation.envelope;
+  const governedRealization = realizeGovernedConversation({ envelope, providerReply: text, requireProviderClaim: true,
+    localWhatText: navigation.localWhatText,
+    providerClaim: { whatRef: envelope.whatRef, action: envelope.action, actionWitness: text,
+      targetRefs: [...envelope.targetRefs], informationNeedRefs: envelope.selectedInformationNeedRef ? [envelope.selectedInformationNeedRef] : [],
+      contentClaims: envelope.authorizedContent.map((item) => ({ ref: item.ref, witness: text, status: item.status })),
+      relationClaims: envelope.requiredRelations.map((item) => ({ ...item, witness: text })),
+      adoptionClaimed: false, projectWriteClaimed: false } });
+  const result = makeFunctionalResetBridgeResponse(request.conversation.turns, null, text);
+  return { ...result, currentTurnNavigation: navigation, governedRealization,
+    conversationFailure: governedRealization.providerReplyAccepted ? null : {
+      stage: "CONFORMANCE", code: "TEST_RECEIPT_CONFORMANCE_FAILURE", message: "Fixture rejected", provider: null },
+    observability: { ...result.observability, conversationCalls: 1, conversationResponseReceived: true } };
+};
+
 export const makeFunctionalResetBridgeResponseForRequest = (
-  request: Pick<ProductBridgeRequest, "requestKind" | "conversation">,
+  request: Pick<ProductBridgeRequest, "requestKind" | "conversation"> & Partial<ProductBridgeRequest>,
   contribution: ScientificInterpretationContributionEnvelope | null | undefined = undefined,
 ): ProductBridgeResponse => {
   if (request.requestKind === "POST_ADOPTION_QRY_CONTINUATION") {
-    const purpose = request.conversation.interactionContext?.purpose ?? "";
-    const marker = "Question à formuler naturellement : ";
-    const question = purpose.includes(marker)
-      ? purpose.slice(purpose.indexOf(marker) + marker.length).trim()
-      : "Quel point utile souhaitez-vous préciser ensuite ?";
-    return makeFunctionalResetBridgeResponse(request.conversation.turns, null, question);
+    return makeGovernedPostAdoptionResponse(request);
   }
   return makeFunctionalResetBridgeResponse(request.conversation.turns, contribution);
 };

@@ -5,6 +5,7 @@ import {
   type ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation";
 import {
+  buildFunctionalResetQueryNavigation,
   makeQueryNavigationId,
   rememberQuestionPresentation,
   type FunctionalResetQueryNavigation,
@@ -27,6 +28,8 @@ import {
   invokeStudyDesignForProjectSnapshot,
 } from "@/features/protocol-designer/product-study-design-owner-runtime";
 import type { ProductOwnerResultLedger } from "@/features/protocol-designer/product-owner-result-ledger";
+import { ownerResultNativeDigest } from "@/features/protocol-designer/product-owner-result-ledger";
+import { buildCurrentNavigationEvidence } from "@/features/query-navigation/current-navigation-evidence";
 
 export const STANDARD_STUDY_DESIGN_INTERACTION_VERSION = "1.0.0" as const;
 
@@ -226,6 +229,41 @@ const routeInformationNeedBackToQry = (input: {
   };
 };
 
+// Bounded replacement for the modern routeInformationNeedBackToQry call.
+// Its source turn is supplied explicitly by the consumer. No NOXIA presentation
+// turn, last-array-item or fake user identity is substituted when it is absent.
+const routeCurrentStudyDesignResultBackToQry = (input: {
+  project: Readonly<ResearchProjectOwnerProjection>;
+  navigation: Readonly<FunctionalResetQueryNavigation>;
+  ledger: Readonly<ProductOwnerResultLedger>;
+  resultRef: string;
+  resultVersion: string;
+  sourceTurnRef: string;
+  sourceText: string;
+  recordedAt: string;
+}) => {
+  const entry = input.ledger.entries.find((value) => value.result?.owner === "STUDY_DESIGN"
+    && value.result.resultId === input.resultRef && value.result.resultVersion === input.resultVersion);
+  if (!entry?.result) throw new Error("QRY_CURRENT_STUDY_DESIGN_RESULT_NOT_FOUND");
+  const snapshot = buildProjectContextSnapshot({ project: input.project });
+  const projectRefs = new Set(snapshot.objects.flatMap((object) => [object.stableId, object.versionRef]));
+  const scopeRefs = entry.result.stableProjectRefs.filter((ref) => projectRefs.has(ref));
+  const digest = ownerResultNativeDigest(entry.result);
+  if (!digest || !scopeRefs.length) throw new Error("QRY_CURRENT_STUDY_DESIGN_SOURCE_SCOPE_MISSING");
+  const currentNavigationEvidence = buildCurrentNavigationEvidence({
+    currentProject: input.project, sourceTurnRef: input.sourceTurnRef, sourceText: input.sourceText,
+    ownerResultLedger: input.ledger,
+    activeOwnerResultRefs: [{ owner: "STUDY_DESIGN", resultId: input.resultRef,
+      resultVersion: input.resultVersion, resultDigest: digest, scopeRefs,
+      disposition: "ACTIVE", applicability: "APPLICABLE" }],
+    resolvedNeedRefs: input.navigation.memory.resolvedNeedRefs,
+  });
+  return buildFunctionalResetQueryNavigation({
+    project: input.project, previous: input.navigation, currentNavigationEvidence,
+    recordedAt: input.recordedAt,
+  });
+};
+
 export const dispatchStudyDesignFromQuery = (input: {
   project: Readonly<ResearchProjectOwnerProjection>;
   navigation: Readonly<FunctionalResetQueryNavigation>;
@@ -237,6 +275,7 @@ export const dispatchStudyDesignFromQuery = (input: {
   startedAt: string;
   completedAt: string;
   traceEnabled?: boolean;
+  sourceTurn?: Readonly<ScientificInterpretationTurn>;
 }) => {
   if (!isStudyDesignQueryDispatch(input.navigation)) throw new Error("QRY_ACTION_NOT_OWNED_BY_STUDY_DESIGN");
   if (input.navigation.projectRef !== input.project.projectId
@@ -355,7 +394,11 @@ export const dispatchStudyDesignFromQuery = (input: {
     proposal,
     presentation,
     interaction,
-    navigation: proposal.options.length ? input.navigation : routeInformationNeedBackToQry({ navigation: input.navigation, proposal, presentation }),
+    navigation: input.sourceTurn ? routeCurrentStudyDesignResultBackToQry({
+      project: input.project, navigation: input.navigation, ledger: invocation.ledger,
+      resultRef: invocation.result!.resultId, resultVersion: invocation.result!.resultVersion,
+      sourceTurnRef: input.sourceTurn.turnId, sourceText: input.sourceTurn.content, recordedAt: input.completedAt,
+    }) : proposal.options.length ? input.navigation : routeInformationNeedBackToQry({ navigation: input.navigation, proposal, presentation }),
     ownerResultLedger: invocation.ledger,
     traceLedger: trace?.getLedger() ?? input.traceLedger,
     downstreamHandoffRequests: invocation.downstreamHandoffRequests,

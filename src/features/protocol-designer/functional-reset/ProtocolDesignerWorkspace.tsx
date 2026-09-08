@@ -1,9 +1,11 @@
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { currentGovernedNavigationInput } from "@/features/query-navigation/current-navigation-evidence";
 import { Helmet } from "react-helmet-async";
 import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import {
+  ProductBridgeClientError,
   requestConversationLanguageProjection,
   requestProtocolDesignerBridge,
 } from "@/features/protocol-designer/product-bridge-client";
@@ -35,6 +37,8 @@ import {
   type MultilingualUserTurn,
 } from "@/features/protocol-designer/conversation-language-gateway";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
+import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import {
   buildPreProjectTraceRealizationOutcome,
   captureProductBridgeTraceText,
@@ -46,11 +50,11 @@ import {
   recordLocalizedConversationResponseTrace,
   recordProductEntryRoutingTrace,
   type ScientificTraceCaptureConfiguration,
+  type ScientificTraceRealizationOutcome,
 } from "@/features/protocol-designer/scientific-execution-trace";
 import {
   authorizeResearchProjectDocumentHandoff,
   confirmResearchProjectContribution,
-  mergeInitialResearchProjectContributions,
   prepareResearchProjectContributionCandidate,
   rejectResearchProjectContribution,
 } from "@/features/research-project-construction";
@@ -65,7 +69,14 @@ import {
   isFunctionalResetQueryMisunderstanding,
   realizePreProjectNavigationDecision,
 } from "@/features/query-navigation";
-import ContributionReview from "./ContributionReview";
+import ContributionReview, { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
+import {
+  retainValidatedContributionCandidate,
+  markContributionCandidatePresented,
+  recordContributionDownstreamFailure,
+  recordContributionCandidateHumanDecision,
+  type RetainedContributionCandidate,
+} from "./contribution-lifecycle";
 import UnderstandingReviewCard from "../conversation/UnderstandingReviewCard";
 import DevelopmentDiagnostics from "./DevelopmentDiagnostics";
 import {
@@ -73,8 +84,11 @@ import {
   recordContributionRejectionTrace,
   recordDocumentProjectionTrace,
   recordInitialProductTrace,
-  recordPostAdoptionQuestionTrace,
+  recordGovernedConversationTrace,
+  recordPostAdoptionGovernedLocalRealization,
   recordProductErrorBoundary,
+  recordContributionReviewPresentedTrace,
+  recordRetainedContributionValidation,
   recordProjectAdoptionTrace,
   recordStudyDesignConversationTrace,
   recordStudyDesignOptionReviewTrace,
@@ -103,7 +117,7 @@ import {
   loadFunctionalResetSession,
   persistFunctionalResetSession,
   productEntryPromptForIntent,
-  resolvePostAdoptionQueryContinuation,
+  resolveGovernedPostAdoptionReceipt,
   shouldMediatePostAdoptionQuery,
   type ConversationEntry,
   type FunctionalResetSession,
@@ -726,6 +740,7 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
     const completedAt = new Date().toISOString();
     const turnId = createTurnId();
     const dispatched = dispatchStudyDesignFromQuery({
+      sourceTurn: [...job.runtimeTurns].reverse().find((turn) => turn.role === "USER"),
       project: job.project,
       navigation: job.queryNavigation,
       ownerResultLedger: job.ownerResultLedger,
@@ -755,65 +770,41 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
       ...dispatched,
     };
   }
-  const fallback = resolvePostAdoptionQueryContinuation(job.queryNavigation);
-  if (!fallback || !job.queryNavigation.currentAction || !job.queryNavigation.currentPresentation) return null;
-  try {
-    const continuation = await requestProtocolDesignerBridge({
-      requestKind: "POST_ADOPTION_QRY_CONTINUATION",
-      conversation: {
-        conversationId: job.conversationId,
-        language: "fr",
-        turns: job.runtimeTurns,
-        interactionContext: {
-          interactionRef: job.queryNavigation.currentPresentation.presentationId,
-          sourceActionRef: job.queryNavigation.currentAction.selectedActionId,
-          owner: "QUERY_NAVIGATION",
-          purpose: [
-            job.queryNavigation.currentPresentation.intent,
-            `Question à formuler naturellement : ${job.queryNavigation.standardQuestion!.text}`,
-          ].join("\n"),
-          expectedResponseKind: "QRY_INFORMATION_RESPONSE",
-          targetRefs: [job.queryNavigation.currentAction.targetRef],
-          informationNeedRefs: [...job.queryNavigation.currentAction.navigationNeedRefs],
-          projectRef: job.queryNavigation.projectRef,
-          projectVersion: job.queryNavigation.projectVersion,
-          projectDigest: job.queryNavigation.projectDigest,
-        },
+  if (!shouldMediatePostAdoptionQuery(job.queryNavigation)
+    || !job.queryNavigation.currentAction || !job.queryNavigation.currentPresentation) return null;
+  const continuation = await requestProtocolDesignerBridge({
+    requestKind: "POST_ADOPTION_QRY_CONTINUATION",
+    conversation: {
+      conversationId: job.conversationId,
+      language: "fr",
+      turns: job.runtimeTurns,
+      interactionContext: {
+        interactionRef: job.queryNavigation.currentPresentation.presentationId,
+        sourceActionRef: job.queryNavigation.currentAction.selectedActionId,
+        owner: "QUERY_NAVIGATION",
+        purpose: [
+          job.queryNavigation.currentPresentation.intent,
+          `Question à formuler naturellement : ${job.queryNavigation.standardQuestion!.text}`,
+        ].join("\n"),
+        expectedResponseKind: "QRY_INFORMATION_RESPONSE",
+        targetRefs: [job.queryNavigation.currentAction.targetRef],
+        informationNeedRefs: [...job.queryNavigation.currentAction.navigationNeedRefs],
+        projectRef: job.queryNavigation.projectRef,
+        projectVersion: job.queryNavigation.projectVersion,
+        projectDigest: job.queryNavigation.projectDigest,
       },
-      currentProject: job.project,
-      evaluatePersistentDelta: false,
-    });
-    const visible = resolvePostAdoptionQueryContinuation(job.queryNavigation, continuation.assistantReply);
-    if (!visible) return null;
-    return {
-      kind: "QUESTION" as const,
-      turn: { ...continuation.assistantTurn, content: visible.content },
-      content: visible.content,
-      presentationSource: visible.presentationSource,
-      mediationFailure: null,
-      provider: continuation.observability.provider,
-      model: continuation.observability.model,
-      latencyMs: continuation.observability.conversationLatencyMs,
-      calls: continuation.observability.calls,
-    } as const;
-  } catch (error) {
-    return {
-      kind: "QUESTION" as const,
-      turn: {
-        turnId: createTurnId(),
-        role: "NOXIA" as const,
-        content: fallback.content,
-        createdAt: new Date().toISOString(),
-      },
-      content: fallback.content,
-      presentationSource: fallback.presentationSource,
-      mediationFailure: productBridgeClientErrorCode(error) ?? "POST_ADOPTION_MEDIATION_FAILURE",
-      provider: "NONE",
-      model: "NONE",
-      latencyMs: 0,
-      calls: 0,
-    } as const;
-  }
+    },
+    currentProject: job.project,
+    currentNavigation: currentGovernedNavigationInput({ project: job.project, navigation: job.queryNavigation }),
+    evaluatePersistentDelta: false,
+  });
+  const realizedAt = new Date().toISOString();
+  const visible = resolveGovernedPostAdoptionReceipt({ response: continuation, project: job.project, realizedAt });
+  return {
+    kind: "QUESTION" as const, // Existing conversation branch discriminant; the native WHAT may be non-interrogative.
+    turn: { ...continuation.assistantTurn, content: visible.content, createdAt: realizedAt },
+    ...visible,
+  };
 };
 
 type ProtocolDesignerWorkspaceProps = Readonly<{
@@ -847,23 +838,37 @@ export default function ProtocolDesignerWorkspace({
       if (!active || !continuation) return;
       const continuedAt = continuation.turn.createdAt;
       setSession((current) => {
-        const scientificExecutionTraceLedger = continuation.kind !== "QUESTION"
-          ? continuation.traceLedger
-          : recordPostAdoptionQuestionTrace({
-          ledger: current.scientificExecutionTraceLedger,
-          traceRunId: job.traceRunId,
-          conversationId: current.conversationId,
-          observedAt: continuedAt,
-          project: job.project,
-          queryNavigation: job.queryNavigation,
-          continuation: {
-            turnId: continuation.turn.turnId,
-            provider: continuation.provider,
-            model: continuation.model,
-            latencyMs: continuation.latencyMs,
-            presentationSource: continuation.presentationSource,
-          },
+        let scientificExecutionTraceLedger = continuation.kind !== "QUESTION"
+          ? continuation.traceLedger : current.scientificExecutionTraceLedger;
+        if (continuation.kind === "QUESTION" && job.traceRunId
+          && scientificExecutionTraceLedger.runBindings.some((binding) => binding.runId === job.traceRunId)) {
+          const receipt = continuation.nativeReceipt;
+          const source = job.runtimeTurns.find((turn) => turn.turnId === receipt.currentTurnNavigation?.envelope.sourceTurnRef);
+          const nativeTrace = recordGovernedConversationTrace({
+            ledger: scientificExecutionTraceLedger, traceRunId: job.traceRunId,
+            conversationId: current.conversationId, sourceDigest: source ? logicalDigest(source.content) : "UNKNOWN",
+            observedAt: continuedAt, response: receipt,
+            providerContext: JSON.stringify(receipt.currentTurnNavigation!.envelope),
+            systemInstruction: GOVERNED_REALIZATION_SYSTEM_INSTRUCTION,
           });
+          scientificExecutionTraceLedger = nativeTrace.ledger;
+          if (receipt.conversationFailure) scientificExecutionTraceLedger = recordProductErrorBoundary({
+            ledger: scientificExecutionTraceLedger, traceRunId: job.traceRunId,
+            turnId: continuation.turn.turnId, conversationId: current.conversationId,
+            startedAt: receipt.stageTimestamps?.howRequestedAt ?? continuedAt, failedAt: continuedAt,
+            owner: "QUERY_NAVIGATION", responsibilityOwner: "QUERY_NAVIGATION",
+            executor: "GOVERNED_CONVERSATION_REALIZATION", componentId: "GOVERNED_CONVERSATION_REALIZATION",
+            componentVersion: receipt.currentTurnNavigation!.envelope.contractVersion,
+            provider: nativeTrace.realizationOutcome.attemptedProvider,
+            code: receipt.conversationFailure.code, category: "BOUNDARY_REJECTION",
+            project: job.project, realizationOutcome: nativeTrace.realizationOutcome,
+          });
+          scientificExecutionTraceLedger = recordPostAdoptionGovernedLocalRealization({
+            ledger: scientificExecutionTraceLedger, traceRunId: job.traceRunId,
+            conversationId: current.conversationId, turnId: continuation.turn.turnId,
+            response: receipt, realized: continuation, nativeOutcome: nativeTrace.realizationOutcome,
+          });
+        }
         const conversationEntry: ConversationEntry = continuation.kind === "STUDY_DESIGN" && continuation.proposal.options.length
           ? {
             entryId: createConversationEntryId(),
@@ -1696,6 +1701,9 @@ export default function ProtocolDesignerWorkspace({
     const turnId = createTurnId();
     const traceRunId = createProductTraceRunId(session.sessionId, turnId);
     let preparedGatewaySnapshot: Awaited<ReturnType<typeof prepareMultilingualUserTurn>> | null = null;
+    let retainedThisTurn: RetainedContributionCandidate | null = null;
+    let governedRealizationOutcome: ScientificTraceRealizationOutcome | undefined;
+    let downstreamStage = "CONFORMANCE";
     try {
       const preparedGateway = await prepareMultilingualUserTurn({ session, turnId, originalText: content });
       preparedGatewaySnapshot = preparedGateway;
@@ -1923,31 +1931,105 @@ export default function ProtocolDesignerWorkspace({
           } : {}),
         },
         currentProject: session.project,
+        ...(session.project ? { currentNavigation: currentGovernedNavigationInput({ project: session.project, navigation: queryNavigation }) } : {}),
         ...(preProjectNavigation ? { preProjectNavigation } : {}),
         languageBoundary: languageBoundaryFor(preparedGateway.state),
         // Routing governs Project eligibility. Conversation-only turns remain
         // usable, but cannot trigger persistent extraction.
         evaluatePersistentDelta: entryRouting.projectConstructionEligible && !asksForExplanationOrRephrase,
       };
-      const providerContext = naturalConversationContext(bridgeRequest);
       const response = await requestProtocolDesignerBridge(bridgeRequest);
+      const selectedPreProjectNavigation = preProjectNavigation && response.currentTurnNavigation ? {
+        ...preProjectNavigation,
+        action: response.currentTurnNavigation.envelope.action,
+        selection: response.currentTurnNavigation.selection,
+        selectedInformationNeedRef: response.currentTurnNavigation.envelope.selectedInformationNeedRef,
+        selectedInformationNeed: response.currentTurnNavigation.envelope.action === "ASK_QUESTION" ? response.currentTurnNavigation.envelope.purpose : null,
+        scientificReason: response.currentTurnNavigation.envelope.purpose,
+        realizationDirective: response.currentTurnNavigation.envelope.purpose,
+        alreadyProvidedInformationRefs: response.currentTurnNavigation.envelope.alreadyProvidedInformationRefs,
+      } : preProjectNavigation;
+      const realizedBridgeRequest = {
+        ...bridgeRequest,
+        ...(selectedPreProjectNavigation ? { preProjectNavigation: selectedPreProjectNavigation } : {}),
+        ...(response.currentTurnNavigation ? { governedRealization: response.currentTurnNavigation.envelope } : {}),
+      };
+      const providerContext = naturalConversationContext(realizedBridgeRequest);
       const receivedAt = new Date().toISOString();
       const extractedContribution = entryRouting.projectConstructionEligible
         ? response.persistentExtraction.contribution
         : null;
-      const contribution = extractedContribution && !session.project && session.pendingContribution
-        ? mergeInitialResearchProjectContributions(session.pendingContribution, extractedContribution)
-        : extractedContribution;
+      // An independent new candidate does not supersede/merge an older one by
+      // recency. Both identities remain retained; this turn presents its receipt.
+      const contribution = extractedContribution;
       const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
       const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
+      if (effectiveCandidate && contribution) {
+        const retained = retainValidatedContributionCandidate({
+          retained: [], contribution, candidate: effectiveCandidate,
+          validation: response.persistentExtraction.validation,
+          validatorRef: "PERSISTENT_PROJECT_DELTA_AND_PRJ_CONTRIBUTION_V1",
+          sourceTurnRef: userTurn.turnId, baseProject: session.project,
+          dependencyBindings: [], traceRunId, retainedAt: receivedAt,
+        });
+        retainedThisTurn = retained[0] ?? null;
+        if (retainedThisTurn) {
+          const record = retainedThisTurn;
+          entryTraceLedger = recordRetainedContributionValidation({
+            ledger: entryTraceLedger, traceRunId, conversationId: session.conversationId,
+            retainedCandidate: record,
+            extractionExecution: productTraceExtractionExecution({
+              contribution, providerArtifact: response.persistentExtraction.providerArtifact,
+              observedProvider: response.observability.extractionProvider,
+              observedModelRequested: response.observability.extractionModelRequested,
+              observedModelReturned: response.observability.extractionModelReturned,
+            }),
+            extractionLatencyMs: response.observability.extractionLatencyMs,
+            extractedAt: response.stageTimestamps?.extractionCompletedAt,
+            validatedAt: response.stageTimestamps?.extractionCompletedAt,
+          });
+          setSession((current) => ({ ...current,
+            scientificExecutionTraceLedger: entryTraceLedger,
+            retainedContributionCandidates: retainValidatedContributionCandidate({
+              retained: current.retainedContributionCandidates ?? [],
+              contribution: record.contribution, candidate: record.candidate, validation: record.validation,
+              validatorRef: record.validatorRef, sourceTurnRef: record.sourceTurnRef,
+              baseProject: record.baseProject, dependencyBindings: record.dependencyBindings,
+              traceRunId: record.traceRunId, retainedAt: record.retainedAt,
+            }),
+          }));
+        }
+      }
+      if (response.currentTurnNavigation || response.conversationFailure) {
+        const nativeTrace = recordGovernedConversationTrace({
+          ledger: entryTraceLedger, traceRunId, conversationId: session.conversationId,
+          sourceDigest: logicalDigest(content), observedAt: receivedAt,
+          response, retainedCandidate: retainedThisTurn, providerContext,
+          systemInstruction: GOVERNED_REALIZATION_SYSTEM_INSTRUCTION,
+        });
+        entryTraceLedger = nativeTrace.ledger;
+        governedRealizationOutcome = nativeTrace.realizationOutcome;
+        setSession((current) => ({ ...current, scientificExecutionTraceLedger: entryTraceLedger }));
+      }
+      if (response.conversationFailure) {
+        downstreamStage = response.conversationFailure.stage;
+        throw new ProductBridgeClientError(response.conversationFailure.code, response.conversationFailure.message);
+      }
       const structuredUnderstanding = visibleStructuredUnderstandingEvidence({
         contribution: effectiveCandidate ? contribution : null,
         sourceTurnRef: userTurn.turnId,
         explicitDimensions: entryRouting.explicitScientificDimensions,
       });
-      const preProjectRealization = preProjectNavigation
+      const preProjectRealization = response.governedRealization ? {
+        ...response.governedRealization,
+        provider: response.governedRealization.providerReplyAccepted ? response.observability.provider : "NONE",
+        model: response.governedRealization.providerReplyAccepted ? response.observability.model : "LOCAL_WHAT_REALIZATION",
+        conformanceReason: response.governedRealization.conformance.diagnostics.join("|") || "STRUCTURED_CLAIMS_CONFORM_VISIBLE_FIDELITY_NOT_ADJUDICATED",
+        representedDimensionRefs: response.governedRealization.conformance.representedContentRefs,
+        missingDimensionRefs: response.governedRealization.conformance.missingRequiredContentRefs,
+      } : selectedPreProjectNavigation
         ? realizePreProjectNavigationDecision({
-          decision: preProjectNavigation,
+          decision: selectedPreProjectNavigation,
           providerReply: response.assistantReply,
           provider: response.observability.provider,
           model: response.observability.model,
@@ -1956,6 +2038,7 @@ export default function ProtocolDesignerWorkspace({
         : null;
       const canonicalAssistantReply = preProjectRealization?.assistantReply ?? response.assistantReply;
       const canonicalAssistantTurn = { ...response.assistantTurn, content: canonicalAssistantReply };
+      downstreamStage = "LOCALIZATION";
       const localized = await localizeCanonicalFrenchResponse({
         state: preparedGateway.state,
         sourceTurnRef: userTurn.turnId,
@@ -1963,13 +2046,14 @@ export default function ProtocolDesignerWorkspace({
         canonicalFrenchResponse: canonicalAssistantReply,
       });
       const visibleAssistantReply = localized.response.localizedResponse;
-      const preProjectTrace = createPreProjectScientificTraceSegment({
+      downstreamStage = "PRESENTATION";
+      const preProjectTrace = response.currentTurnNavigation ? null : createPreProjectScientificTraceSegment({
         sessionId: session.sessionId,
         sourceTurnRef: userTurn.turnId,
         traceRunId,
         sourceText: content,
         routing: entryRouting,
-        request: bridgeRequest,
+        request: realizedBridgeRequest,
         providerBoundary: {
           systemInstruction: NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
           context: providerContext,
@@ -1994,7 +2078,6 @@ export default function ProtocolDesignerWorkspace({
         ? response.persistentExtraction.status
         : "NOT_REQUESTED" as const;
       const failureMessage = persistenceFailureMessage(effectiveExtractionStatus, candidate?.status ?? null);
-      const replacedPendingContributionId = effectiveCandidate ? session.pendingContribution?.identity.contributionId ?? null : null;
       setSession((current) => {
         let scientificExecutionTraceLedger = recordInitialProductTrace({
           ledger: entryTraceLedger,
@@ -2004,7 +2087,8 @@ export default function ProtocolDesignerWorkspace({
           observedAt: receivedAt,
           contribution,
           candidate,
-          reviewCandidate: effectiveCandidate,
+          reviewCandidate: retainedThisTurn ? null : effectiveCandidate,
+          retainedCandidate: retainedThisTurn,
           extractionStatus: effectiveExtractionStatus,
           extractionLatencyMs: response.observability.extractionLatencyMs,
           extractionExecution: productTraceExtractionExecution({
@@ -2027,11 +2111,9 @@ export default function ProtocolDesignerWorkspace({
         queryNavigation,
         runtimeTurns: [...runtimeTurns, canonicalAssistantTurn],
         pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
+        retainedContributionCandidates: current.retainedContributionCandidates,
         entries: [
-          ...current.entries.filter((entry) => !(replacedPendingContributionId
-            && entry.kind === "REVIEW"
-            && entry.status === "PENDING"
-            && entry.contribution.identity.contributionId === replacedPendingContributionId)),
+          ...current.entries,
           { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: visibleAssistantReply, createdAt: receivedAt },
           ...(effectiveCandidate && contribution ? [{
             entryId: createConversationEntryId(),
@@ -2039,6 +2121,7 @@ export default function ProtocolDesignerWorkspace({
             role: "NOXIA" as const,
             contribution,
             candidate: effectiveCandidate,
+            traceRunId,
             status: "PENDING" as const,
             decision: null,
             createdAt: receivedAt,
@@ -2167,6 +2250,8 @@ export default function ProtocolDesignerWorkspace({
           code: failureCode,
           category: languageGatewayFailed ? "BOUNDARY_REJECTION" : "UNKNOWN",
           sourceDigest: failure?.sourceTextDigest ?? "UNKNOWN",
+          retainedCandidate: retainedThisTurn,
+          realizationOutcome: governedRealizationOutcome,
         });
         return {
         ...current,
@@ -2179,6 +2264,11 @@ export default function ProtocolDesignerWorkspace({
           { entryId: createConversationEntryId(), kind: "ERROR", role: "NOXIA", content: message, createdAt: failedAt },
         ],
         conversationLanguageGateway,
+        retainedContributionCandidates: retainedThisTurn ? recordContributionDownstreamFailure({
+          retained: current.retainedContributionCandidates ?? [],
+          candidateRef: retainedThisTurn.candidateRef, stage: downstreamStage,
+          code: failureCode, occurredAt: failedAt,
+        }) : current.retainedContributionCandidates,
         scientificExecutionTraceLedger,
         updatedAt: failedAt,
       };
@@ -2188,9 +2278,105 @@ export default function ProtocolDesignerWorkspace({
     }
   };
 
+  const acknowledgeContributionReviewPresented = (entryId: string) => {
+    const presentedAt = new Date().toISOString();
+    setSession((current) => {
+      const entry = current.entries.find((item) => item.entryId === entryId && item.kind === "REVIEW");
+      if (!entry || entry.kind !== "REVIEW" || entry.status !== "PENDING") return current;
+      const record = current.retainedContributionCandidates?.find((candidate) =>
+        candidate.candidateRef === entry.contribution.identity.contributionId
+        && candidate.contribution.identity.contributionDigest === entry.contribution.identity.contributionDigest);
+      // Legacy reviews without a retained record keep their existing path.
+      if (!record || record.downstreamState !== "PENDING_DOWNSTREAM"
+        || record.actuality !== "CURRENT" || record.humanDecision || record.presentedAt) return current;
+      return {
+        ...current,
+        retainedContributionCandidates: markContributionCandidatePresented({
+          retained: current.retainedContributionCandidates ?? [],
+          candidateRef: record.candidateRef,
+          presentedAt,
+        }),
+        scientificExecutionTraceLedger: recordContributionReviewPresentedTrace({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId: record.traceRunId,
+          conversationId: current.conversationId,
+          candidate: record.candidate,
+          presentedAt,
+        }),
+        updatedAt: presentedAt,
+      };
+    });
+  };
+
+  const recordContributionReviewPresentationFailure = (
+    entryId: string,
+    failure: ContributionReviewPresentationFailure,
+  ) => {
+    const failedAt = new Date().toISOString();
+    setSession((current) => {
+      const entry = current.entries.find((item) => item.entryId === entryId && item.kind === "REVIEW");
+      if (!entry || entry.kind !== "REVIEW") return current;
+      const errorEntryId = `${entryId}:presentation-failure`;
+      if (current.entries.some((item) => item.entryId === errorEntryId)) return current;
+      const record = current.retainedContributionCandidates?.find((candidate) =>
+        candidate.candidateRef === entry.contribution.identity.contributionId
+        && candidate.contribution.identity.contributionDigest === entry.contribution.identity.contributionDigest);
+      const retainedContributionCandidates = record ? recordContributionDownstreamFailure({
+        retained: current.retainedContributionCandidates ?? [],
+        candidateRef: record.candidateRef,
+        stage: failure.stage,
+        code: failure.code,
+        occurredAt: failedAt,
+      }) : current.retainedContributionCandidates;
+      const traceRunId = record?.traceRunId ?? entry.traceRunId;
+      return {
+        ...current,
+        // Keep the review and all candidate payload/history unchanged. Clear only
+        // this failed actionable selection; never select an older candidate by recency.
+        pendingContribution: current.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId
+          ? null : current.pendingContribution,
+        retainedContributionCandidates,
+        entries: [...current.entries, {
+          entryId: errorEntryId,
+          kind: "ERROR" as const,
+          role: "NOXIA" as const,
+          content: "La présentation de cette proposition n’a pas abouti. La proposition est conservée sans être adoptée.",
+          createdAt: failedAt,
+        }],
+        scientificExecutionTraceLedger: traceRunId ? recordProductErrorBoundary({
+          ledger: current.scientificExecutionTraceLedger,
+          traceRunId,
+          turnId: record?.sourceTurnRef ?? entry.contribution.source.turns.at(-1)?.turnId ?? entry.entryId,
+          conversationId: current.conversationId,
+          startedAt: entry.createdAt,
+          failedAt,
+          owner: "UI",
+          responsibilityOwner: "PROTOCOL_DESIGNER_UI",
+          executor: "CONTRIBUTION_REVIEW",
+          componentId: "CONTRIBUTION_REVIEW",
+          componentVersion: "1.0.0",
+          provider: "NONE",
+          code: failure.code,
+          category: "OWNER_RUNTIME",
+          sourceDigest: record?.sourceDigest,
+          retainedCandidate: record,
+        }) : current.scientificExecutionTraceLedger,
+        updatedAt: failedAt,
+      };
+    });
+  };
+
+  const contributionHasAcknowledgedPresentation = (contributionId: string) => {
+    const record = session.retainedContributionCandidates?.find((candidate) => candidate.candidateRef === contributionId);
+    // This bounded guard does not change older review flows without a lifecycle receipt.
+    return !record || (record.downstreamState === "PRESENTED" && record.presentedAt !== null
+      && record.actuality === "CURRENT" && record.humanDecision === null);
+  };
+
   const confirmContribution = async (contributionId: string) => {
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
+    if (!contributionHasAcknowledgedPresentation(contributionId)) return;
     const now = new Date().toISOString();
     setBusy(true);
     let continuationScheduled = false;
@@ -2314,6 +2500,10 @@ export default function ProtocolDesignerWorkspace({
         documents,
         currentContribution: contribution,
         pendingContribution: null,
+        retainedContributionCandidates: recordContributionCandidateHumanDecision({
+          retained: current.retainedContributionCandidates ?? [], candidateRef: contributionId,
+          decision: project.confirmationDecision,
+        }),
         runtimeTurns,
         entries: [
           ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
@@ -2395,6 +2585,7 @@ export default function ProtocolDesignerWorkspace({
   const rejectContribution = (contributionId: string) => {
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
+    if (!contributionHasAcknowledgedPresentation(contributionId)) return;
     const now = new Date().toISOString();
     try {
       const decision = rejectResearchProjectContribution({
@@ -2421,6 +2612,9 @@ export default function ProtocolDesignerWorkspace({
         return {
         ...current,
         pendingContribution: null,
+        retainedContributionCandidates: recordContributionCandidateHumanDecision({
+          retained: current.retainedContributionCandidates ?? [], candidateRef: contributionId, decision,
+        }),
         studyDesignInteraction: current.studyDesignInteraction?.pendingContributionRef === contributionId
           ? {
             ...current.studyDesignInteraction,
@@ -2795,7 +2989,14 @@ export default function ProtocolDesignerWorkspace({
 
           <div className="flex-1 space-y-5 px-4 py-5 sm:px-6" aria-live="polite">
             {session.entries.map((entry, index) => entry.kind === "REVIEW"
-              ? <div key={entry.entryId} className="space-y-4">
+              ? session.entries.some((item) => item.entryId === `${entry.entryId}:presentation-failure`)
+                || session.retainedContributionCandidates?.some((candidate) => candidate.candidateRef === entry.contribution.identity.contributionId
+                  && candidate.downstreamState === "DOWNSTREAM_FAILED_NOT_PRESENTED") ? null : <ContributionReviewPresentation
+                key={entry.entryId}
+                presentationRef={entry.entryId}
+                onPresented={() => acknowledgeContributionReviewPresented(entry.entryId)}
+                onPresentationFailure={(failure) => recordContributionReviewPresentationFailure(entry.entryId, failure)}
+                renderReview={() => <div className="space-y-4">
                 <UnderstandingReviewCard
                   contribution={entry.contribution}
                   status={entry.status === "REJECTED" ? "CORRECTION_REQUESTED" : entry.status}
@@ -2811,11 +3012,13 @@ export default function ProtocolDesignerWorkspace({
                   projectExistedForReview(index) ? session.project : null,
                 )}
                 status={entry.status}
+                actionable={session.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId}
                 onConfirm={() => confirmContribution(entry.contribution.identity.contributionId)}
                 onCorrect={requestCorrection}
                 onReject={() => rejectContribution(entry.contribution.identity.contributionId)}
               />
-              </div>
+              </div>}
+              />
               : entry.kind === "STUDY_DESIGN_PROPOSAL"
                 ? <StudyDesignStandardCard
                   key={entry.entryId}

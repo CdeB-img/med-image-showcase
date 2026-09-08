@@ -1,4 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
+import { mockBridgeProviderFetch } from "./pass3a-bridge-provider-test-fixtures";
 import {
   buildNaturalConversationPayload,
   buildPersistentDeltaPayload,
@@ -67,7 +68,7 @@ const jsonResponse = (body: unknown, status = 200) => new Response(JSON.stringif
 });
 
 describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () => {
-  it("keeps the validated first call free of schema, tools and machine labels", () => {
+  it("keeps the direct legacy conversation payload free of schema, tools and machine labels", () => {
     const payload = buildNaturalConversationPayload(requestFor("Pourquoi cette question ?", false));
     expect(payload).toHaveProperty("systemInstruction");
     expect(payload).toHaveProperty("contents");
@@ -108,17 +109,16 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
   });
 
   it("keeps a pure Project question conversational when the extractor reports no persistent consequence", async () => {
-    const fetchImpl = vi.fn()
-      .mockResolvedValueOnce(jsonResponse({
-        candidates: [{ content: { parts: [{ text: "Le nombre de procédures n'est pas encore défini dans le Project adopté." }] } }],
-        responseId: "question-conversation",
-      }))
-      .mockResolvedValueOnce(jsonResponse({
+    const fetchImpl = mockBridgeProviderFetch({
+      geminiText: "Le nombre de procédures n'est pas encore défini dans le Project adopté.",
+      geminiResponseId: "question-conversation",
+      openaiResponses: [() => jsonResponse({
         id: "question-no-delta",
         model: "gpt-5.6-terra",
         status: "completed",
         output_text: JSON.stringify({ changes: [], relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
-      })) as unknown as typeof fetch;
+      })],
+    });
     const result = await executeProtocolDesignerBridge({
       body: requestFor("Combien de procédures sont prévues ?"),
       apiKey: "test-key",
@@ -310,10 +310,10 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
   });
 
   it("uses one provider start for a conversation-only turn and performs zero Project writes", async () => {
-    const fetchImpl = vi.fn(async () => jsonResponse({
-      candidates: [{ content: { parts: [{ text: "Le nombre de centres aide à apprécier la faisabilité et l'hétérogénéité attendue." }] } }],
-      responseId: "conversation-only",
-    })) as unknown as typeof fetch;
+    const fetchImpl = mockBridgeProviderFetch({
+      geminiText: "Le nombre de centres aide à apprécier la faisabilité et l'hétérogénéité attendue.",
+      geminiResponseId: "conversation-only",
+    });
     const result = await executeProtocolDesignerBridge({ body: requestFor("Pourquoi tu me demandes le nombre de centres ?", false), apiKey: "test-key", fetchImpl });
     expect(result.status).toBe(200);
     expect(fetchImpl).toHaveBeenCalledTimes(1);
@@ -324,7 +324,7 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
     });
   });
 
-  it("uses the optional second pass only to return a source-grounded Project candidate", async () => {
+  it("uses optional extraction only to return a source-grounded Project candidate", async () => {
     const project = currentProject();
     const age = project.sections.find((section) => section.sectionId === "POPULATION")?.elements
       .find((element) => element.semanticKey === "POPULATION:ELIGIBILITY:AGE:MAX");
@@ -347,17 +347,16 @@ describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () 
       targetProjectRef: age.elementId,
       content: "Âge maximal : 80 ans",
     };
-    const fetchImpl = vi.fn()
-      .mockResolvedValueOnce(jsonResponse({
-        candidates: [{ content: { parts: [{ text: "Je comprends que vous souhaitez porter la borne d'âge à 80 ans. Cette modification restera une proposition jusqu'à votre confirmation." }] } }],
-        responseId: "conversation-change",
-      }))
-      .mockResolvedValueOnce(jsonResponse({
+    const fetchImpl = mockBridgeProviderFetch({
+      geminiText: "Je comprends que vous souhaitez porter la borne d'âge à 80 ans. Cette modification restera une proposition jusqu'à votre confirmation.",
+      geminiResponseId: "conversation-change",
+      openaiResponses: [() => jsonResponse({
         id: "delta-change",
         model: "gpt-5.6-terra",
         status: "completed",
         output_text: JSON.stringify(exactProviderArgs),
-      })) as unknown as typeof fetch;
+      })],
+    });
     const before = JSON.stringify(project);
     const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", openAiApiKey: "test-openai-key", fetchImpl });
     expect(result.status).toBe(200);

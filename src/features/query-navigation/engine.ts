@@ -1,7 +1,7 @@
-import { makeQueryNavigationId, queryNavigationDigest } from "./canonical";
-import { buildNextActionCandidates, collectNavigationDependencies, computeNonDominatedActionSet } from "./information-value";
-import { collectNavigationNeeds } from "./adapters";
-import type { NavigationSelection, NavigationSelectionTrace, NextActionCandidate, QueryNavigationContext } from "./contracts";
+import { makeQueryNavigationId, queryNavigationDigest } from "./canonical.js";
+import { buildNextActionCandidates, collectNavigationDependencies, computeNonDominatedActionSet } from "./information-value.js";
+import { collectNavigationNeeds } from "./adapters.js";
+import type { NavigationSelection, NavigationSelectionTrace, NextActionCandidate, QueryNavigationContext } from "./contracts.js";
 
 const unique = (values: readonly string[]) => [...new Set(values)].sort((a, b) => a.localeCompare(b));
 

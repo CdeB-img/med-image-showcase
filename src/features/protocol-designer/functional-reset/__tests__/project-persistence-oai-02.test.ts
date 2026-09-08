@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
+import { mockBridgeProviderFetch } from "./pass3a-bridge-provider-test-fixtures";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
 import { buildNaturalConversationPayload } from "../../../../../api/protocol-designer-bridge-provider";
 import {
@@ -113,18 +114,17 @@ const jsonResponse = (body: unknown, status = 200, headers?: Record<string, stri
   headers: { "content-type": "application/json", ...headers },
 });
 
-const successfulFetch = (args: unknown, conversationText = "Réponse méthodologique courte.") => vi.fn()
-  .mockResolvedValueOnce(jsonResponse({
-    candidates: [{ content: { parts: [{ text: conversationText }] } }],
-    responseId: "gemini:conversation",
-  }))
-  .mockResolvedValueOnce(jsonResponse({
+const successfulFetch = (args: unknown, conversationText = "Réponse méthodologique courte.") => mockBridgeProviderFetch({
+  geminiText: conversationText,
+  geminiResponseId: "gemini:conversation",
+  openaiResponses: [() => jsonResponse({
     id: "resp_terra_extraction",
     model: "gpt-5.6-terra-2026-08-01",
     status: "completed",
     output_text: JSON.stringify(args),
     usage: { input_tokens: 100, output_tokens: 50, total_tokens: 150 },
-  }, 200, { "x-request-id": "req_terra_extraction" })) as unknown as typeof fetch;
+  }, 200, { "x-request-id": "req_terra_extraction" })],
+});
 
 const anchoredArgs = (body: ProductBridgeRequest, args: typeof cArgs | typeof dArgs) => {
   const sourceAnchorId = buildPersistentSourceCatalog(body.conversation).anchors
@@ -156,14 +156,16 @@ describe("PROJECT-PERSISTENCE-OAI-02 — specialized extraction routing", () => 
   it("O01/O02 resolves the configured Gemini conversation model and its Flash-Lite fallback", async () => {
     expect(resolveGeminiConversationModel("gemini-configured")).toBe("gemini-configured");
     expect(resolveGeminiConversationModel(" ")).toBe(DEFAULT_GEMINI_CONVERSATION_MODEL);
-    const fetchImpl = vi.fn(async () => jsonResponse({ candidates: [{ content: { parts: [{ text: "OK" }] } }] })) as unknown as typeof fetch;
+    const fetchImpl = mockBridgeProviderFetch({ geminiText: "OK" });
     await executeProtocolDesignerBridge({
       body: request("Pourquoi cette information ?", null, false),
       apiKey: "server-gemini-key",
       geminiModel: "gemini-configured",
       fetchImpl,
     });
-    expect(String(vi.mocked(fetchImpl).mock.calls[0]?.[0])).toContain("/models/gemini-configured:generateContent");
+    const geminiCall = vi.mocked(fetchImpl).mock.calls.find(([url]) =>
+      String(url).startsWith("https://generativelanguage.googleapis.com/"));
+    expect(String(geminiCall?.[0])).toContain("/models/gemini-configured:generateContent");
   });
 
   it("O03/O04 resolves the configured Terra extraction model and its fallback", () => {
@@ -184,7 +186,7 @@ describe("PROJECT-PERSISTENCE-OAI-02 — specialized extraction routing", () => 
   });
 
   it("O07 never falls back from missing Terra credentials to Gemini extraction", async () => {
-    const fetchImpl = vi.fn(async () => jsonResponse({ candidates: [{ content: { parts: [{ text: "Réponse courte." }] } }] })) as unknown as typeof fetch;
+    const fetchImpl = mockBridgeProviderFetch({ geminiText: "Réponse courte." });
     const result = await executeProtocolDesignerBridge({ body: request(rawC), apiKey: "test-gemini-key", openAiApiKey: null, fetchImpl });
     expect(fetchImpl).toHaveBeenCalledTimes(1);
     expect(result.body).toMatchObject({
@@ -198,9 +200,10 @@ describe("PROJECT-PERSISTENCE-OAI-02 — specialized extraction routing", () => 
     const contribution = (c.body as ProductBridgeResponse).persistentExtraction.contribution!;
     const project = confirmResearchProjectContribution({ contribution, current: null, projectId: "project:oai-02", authority, confirmedAt: "2026-08-24T16:01:00.000Z" });
     const before = JSON.stringify(project);
-    const fetchImpl = vi.fn()
-      .mockResolvedValueOnce(jsonResponse({ candidates: [{ content: { parts: [{ text: "Réponse courte." }] } }] }))
-      .mockResolvedValueOnce(jsonResponse({ error: { code: "rate_limit_exceeded", message: "Temporary failure" } }, 429)) as unknown as typeof fetch;
+    const fetchImpl = mockBridgeProviderFetch({
+      geminiText: "Réponse courte.",
+      openaiResponses: [() => jsonResponse({ error: { code: "rate_limit_exceeded", message: "Temporary failure" } }, 429)],
+    });
     const result = await executeProtocolDesignerBridge({ body: request(rawD, project), apiKey: "g", openAiApiKey: "o", fetchImpl });
     expect(result.body).toMatchObject({ persistentExtraction: { status: "TECHNICAL_FAILURE", contribution: null } });
     expect(JSON.stringify(project)).toBe(before);

@@ -154,7 +154,7 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     await createProjectInUi();
     const visible = screen.getByTestId("functional-reset-workspace").textContent ?? "";
     expect(visible).not.toMatch(/InformationNeed|selectedAction|sourceStateDigest|QRY-|PD-009|score|branch|gate/i);
-    expect(visible).toMatch(/à quels moments|quels critères|quelle imagerie|quelles mesures/i);
+    expect(visible).toContain("La prochaine étape reste ouverte à votre décision.");
   });
 
   it("FR03B-C03 — question presentation may reword but cannot widen QRY scope", () => {
@@ -301,16 +301,18 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     expect(repeated.standardQuestion?.text).not.toBe(question.text);
   });
 
-  it("FR03B-C12 — reload restores the same QRY action and question", async () => {
+  it("FR03B-C12 — reload restores the same QRY action and actually realized continuation", async () => {
     const firstRender = renderDemo();
     await createProjectInUi();
-    const before = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation;
+    const sessionBefore = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
+    const before = sessionBefore.queryNavigation;
+    const visibleReply = sessionBefore.entries.at(-1).content;
     firstRender.unmount();
     renderDemo();
     const after = JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).queryNavigation;
     expect(after.currentAction.selectedActionId).toBe(before.currentAction.selectedActionId);
     expect(after.standardQuestion.questionId).toBe(before.standardQuestion.questionId);
-    expect(screen.getByRole("region", { name: "Conversation" })).toHaveTextContent(before.standardQuestion.text);
+    expect(screen.getByRole("region", { name: "Conversation" })).toHaveTextContent(visibleReply);
   });
 
   it("FR03B-C13 — reset clears QRY navigation memory", async () => {

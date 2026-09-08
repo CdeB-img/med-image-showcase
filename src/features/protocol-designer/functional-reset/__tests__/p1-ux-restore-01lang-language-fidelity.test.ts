@@ -1,4 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
+import { mockBridgeProviderFetch } from "./pass3a-bridge-provider-test-fixtures";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
 import { buildPersistentDeltaPayload } from "../../../../../api/protocol-designer-bridge-provider";
 import { buildOpenAIPersistentDeltaPayload } from "../../../../../api/protocol-designer-openai-extraction-provider";
@@ -80,17 +81,16 @@ const anchoredArgs = (
 };
 
 const run = async (body: ProductBridgeRequest, args: unknown) => {
-  const fetchImpl = vi.fn()
-    .mockResolvedValueOnce(jsonResponse({
-      candidates: [{ content: { parts: [{ text: body.conversation.language === "fr" ? "Je vous propose une première structure." : "I can propose an initial structure." }] } }],
-      responseId: `gemini:${body.conversation.language}`,
-    }))
-    .mockResolvedValueOnce(jsonResponse({
+  const fetchImpl = mockBridgeProviderFetch({
+    geminiText: body.conversation.language === "fr" ? "Je vous propose une première structure." : "I can propose an initial structure.",
+    geminiResponseId: `gemini:${body.conversation.language}`,
+    openaiResponses: [() => jsonResponse({
       id: `openai:${body.conversation.language}`,
       model: "gpt-5.6-terra",
       status: "completed",
       output_text: JSON.stringify(args),
-    }, { "x-request-id": `request:${body.conversation.language}` })) as unknown as typeof fetch;
+    }, { "x-request-id": `request:${body.conversation.language}` })],
+  });
   const result = await executeProtocolDesignerBridge({
     body,
     apiKey: "test-gemini-key",

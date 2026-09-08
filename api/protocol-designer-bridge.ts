@@ -1,4 +1,7 @@
 import { detectSensitiveData } from "../src/features/protocol-designer/intake/privacy.js";
+import { buildCurrentTurnNavigation } from "../src/features/query-navigation/current-turn-navigation.js";
+import { realizeGovernedConversation } from "../src/features/query-navigation/governed-conversation-realization.js";
+import { prepareResearchProjectContributionCandidate } from "../src/features/research-project-construction/contribution-owner-boundary.js";
 import {
   PRODUCT_BRIDGE_API_VERSION,
   buildPersistentSourceCatalog,
@@ -171,18 +174,10 @@ export const executeProtocolDesignerBridge = async (input: {
   if (detectSensitiveData(latestUser.content).length) return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LOCAL_SAFETY_BLOCKED", message: "Retirez toute donnée personnelle, patient ou confidentielle." } } };
   if (!input.apiKey?.trim()) return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "GEMINI_API_KEY_MISSING", message: "Conversation momentanément indisponible." } } };
 
-  let conversation;
   const conversationModel = resolveGeminiConversationModel(input.geminiModel);
   const extractionModel = resolveOpenAIExtractionModel(input.openAiExtractionModel);
-  try {
-    conversation = await executeNaturalConversation(request, input.apiKey, input.fetchImpl, conversationModel);
-  } catch (error) {
-    const provider = error instanceof ProductBridgeProviderError ? safeProviderError(error) : null;
-    return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "CONVERSATION_PROVIDER_FAILURE", message: "Conversation momentanément indisponible.", provider } } };
-  }
 
   const createdAt = new Date(input.now?.() ?? Date.now()).toISOString();
-  const assistantTurn = { turnId: `noxia-turn:${crypto.randomUUID()}`, role: "NOXIA" as const, content: conversation.value, createdAt };
   let persistentExtraction: ProductBridgeResponse["persistentExtraction"] = {
     called: false,
     status: "NOT_REQUESTED",
@@ -196,7 +191,6 @@ export const executeProtocolDesignerBridge = async (input: {
   let extractionLatencyMs: number | null = null;
   let extractionUsage: ProductBridgeResponse["observability"]["extractionUsage"] = null;
   let extractionModelReturned: string | null = null;
-  let providerStarts: 1 | 2 | 3 = 1;
   let extractionAttempts: 0 | 1 | 2 = 0;
   let recoveryContext: Omit<NonNullable<ProductBridgeResponse["persistentExtraction"]["recovery"]>, "outcome"> | null = null;
 
@@ -209,7 +203,6 @@ export const executeProtocolDesignerBridge = async (input: {
       }
       const executeAndValidateExtraction = async () => {
         extractionAttempts = extractionAttempts === 0 ? 1 : 2;
-        providerStarts = extractionAttempts === 1 ? 2 : 3;
         const extracted = await executeOpenAIPersistentDelta(request, input.openAiApiKey!, input.fetchImpl, extractionModel);
         extractionLatencyMs = (extractionLatencyMs ?? 0) + extracted.latencyMs;
         extractionUsage = addOpenAIUsage(extractionUsage, extracted.usage);
@@ -342,12 +335,67 @@ export const executeProtocolDesignerBridge = async (input: {
     }
   }
 
+  // A downstream conversation failure cannot erase a validated contribution.
+  // Extraction eligibility, validation and its existing bounded recovery are
+  // unchanged; only the consumer order moves after this transaction receipt.
+  let conversation: Awaited<ReturnType<typeof executeNaturalConversation>> | null = null;
+  let conversationFailure: ProductBridgeResponse["conversationFailure"] = null;
+  const extractionCompletedAt = new Date(input.now?.() ?? Date.now()).toISOString();
+  let currentTurnNavigation: ReturnType<typeof buildCurrentTurnNavigation> | undefined;
+  let downstreamStage: "NAVIGATION" | "HOW" | "CONFORMANCE" = "NAVIGATION";
+  let howCalls = 0;
+  let governedRealization: ReturnType<typeof realizeGovernedConversation> | undefined;
+  let howRequestedAt: string | null = null;
+  try {
+    const preparedCandidate = persistentExtraction.contribution
+      ? prepareResearchProjectContributionCandidate(persistentExtraction.contribution, request.currentProject) : null;
+    currentTurnNavigation = buildCurrentTurnNavigation({
+      sourceTurnRef: latestUser.turnId,
+      sourceText: request.languageBoundary?.turnProjections.find((turn) => turn.turnId === latestUser.turnId)?.frenchWorkingText ?? latestUser.content,
+      candidate: preparedCandidate, contribution: persistentExtraction.contribution, validation: persistentExtraction.validation,
+      currentProject: request.currentProject, preProjectNavigation: request.preProjectNavigation,
+      interaction: request.conversation.interactionContext,
+      currentNavigation: request.currentNavigation,
+      requestKind: request.requestKind,
+    });
+    downstreamStage = "HOW";
+    howRequestedAt = new Date(input.now?.() ?? Date.now()).toISOString();
+    howCalls = 1;
+    conversation = await executeNaturalConversation({ ...request, governedRealization: currentTurnNavigation.envelope }, input.apiKey, input.fetchImpl, conversationModel);
+    downstreamStage = "CONFORMANCE";
+    governedRealization = realizeGovernedConversation({
+      envelope: currentTurnNavigation.envelope, providerReply: conversation.value,
+      providerClaim: conversation.governedClaim, requireProviderClaim: true,
+      localWhatText: currentTurnNavigation.localWhatText,
+    });
+  } catch (error) {
+    const provider = error instanceof ProductBridgeProviderError ? safeProviderError(error) : null;
+    conversationFailure = { stage: downstreamStage,
+      code: downstreamStage === "HOW" ? "CONVERSATION_PROVIDER_FAILURE" : `${downstreamStage}_CONSUMER_FAILURE`,
+      message: "Conversation momentanément indisponible.", provider };
+    const validatedContributionSurvives = Boolean(persistentExtraction.validation?.valid && persistentExtraction.contribution);
+    const governedPostAdoptionReceiptSurvives = request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
+      && currentTurnNavigation !== undefined;
+    if (!validatedContributionSurvives && !governedPostAdoptionReceiptSurvives) {
+      return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: conversationFailure } };
+    }
+  }
+  if (governedRealization && !governedRealization.providerReplyAccepted) conversationFailure = {
+    stage: "CONFORMANCE", code: governedRealization.conformance.diagnostics[0] ?? "HOW_CONFORMANCE_REJECTED",
+    message: "La formulation de cette étape n’a pas abouti. La proposition validée reste conservée sans adoption.", provider: null,
+  };
+  const assistantReply = governedRealization?.assistantReply ?? "";
+  const assistantTurn = { turnId: `noxia-turn:${crypto.randomUUID()}`, role: "NOXIA" as const, content: assistantReply, createdAt };
   return {
     status: 200,
     body: {
       apiVersion: PRODUCT_BRIDGE_API_VERSION,
-      assistantReply: conversation.value,
+      assistantReply,
       assistantTurn,
+      conversationFailure,
+      currentTurnNavigation,
+      governedRealization,
+      stageTimestamps: { extractionCompletedAt, howRequestedAt, howCompletedAt: new Date(input.now?.() ?? Date.now()).toISOString() },
       persistentExtraction,
       observability: {
         provider: "GOOGLE_GEMINI",
@@ -357,12 +405,14 @@ export const executeProtocolDesignerBridge = async (input: {
         extractionProvider: request.evaluatePersistentDelta ? "OPENAI" : null,
         extractionModelRequested: request.evaluatePersistentDelta ? extractionModel : null,
         extractionModelReturned,
-        conversationLatencyMs: conversation.latencyMs,
+        conversationLatencyMs: conversation?.latencyMs ?? 0,
         extractionLatencyMs,
-        calls: providerStarts,
+        calls: (extractionAttempts + howCalls) as 0 | 1 | 2 | 3,
+        conversationCalls: howCalls as 0 | 1,
+        conversationResponseReceived: conversation !== null,
         extractionAttempts,
         projectWrites: 0,
-        conversationUsage: conversation.usage,
+        conversationUsage: conversation?.usage ?? null,
         extractionUsage,
       },
     },

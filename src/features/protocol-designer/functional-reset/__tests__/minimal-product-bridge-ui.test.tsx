@@ -3,11 +3,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
+import type { ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import { FUNCTIONAL_RESET_STORAGE_KEY, shouldMediatePostAdoptionQuery } from "../session";
 import {
   COLCHICINE_03A_INITIAL,
   makeFunctionalResetBridgeResponse,
+  makeGovernedPostAdoptionResponse,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
 
@@ -212,8 +214,8 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
   });
 
   it("F11–F13 recomputes QRY after adoption and displays a mediated continuation below the confirmation", async () => {
-    runtime.request.mockImplementation(async (request: { requestKind?: string; conversation: { turns: ScientificInterpretationTurn[] } }) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
-      ? noChangeResponse(request.conversation.turns, "Quel mode de répartition souhaitez-vous entre les groupes ?")
+    runtime.request.mockImplementation(async (request: ProductBridgeRequest) => request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
+      ? makeGovernedPostAdoptionResponse(request)
       : makeFunctionalResetBridgeResponse(
         request.conversation.turns,
         makeFunctionalResetContribution(request.conversation.turns),
@@ -225,10 +227,10 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
 
     expect(await screen.findByText("Projet créé.")).toBeInTheDocument();
-    expect(await screen.findByText("Quel mode de répartition souhaitez-vous entre les groupes ?")).toBeInTheDocument();
+    expect(await screen.findByText("La prochaine étape reste ouverte à votre décision.")).toBeInTheDocument();
     const after = stored();
     const feedbackIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === "Projet créé.");
-    const continuationIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === "Quel mode de répartition souhaitez-vous entre les groupes ?");
+    const continuationIndex = after.entries.findIndex((entry: { content?: string }) => entry.content === "La prochaine étape reste ouverte à votre décision.");
     expect(continuationIndex).toBeGreaterThan(feedbackIndex);
     expect(after.queryNavigation).toMatchObject({
       projectVersion: after.project.versionId,
@@ -286,7 +288,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     });
   });
 
-  it("H03-P01/P02 stages successive pre-creation contributions into one canonical Human Review", async () => {
+  it("H03-P01/P02 preserves distinct pre-creation candidates without inferring a merge from recency", async () => {
     runtime.request.mockImplementation(async ({ conversation }: { conversation: { turns: ScientificInterpretationTurn[] } }) => {
       const latest = conversation.turns.at(-1)?.content ?? "";
       const contribution = latest.includes("CT et IRM")
@@ -298,19 +300,25 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
 
     submit("Je veux construire une étude : je comparerai le CT et IRM.");
     expect((await screen.findAllByText("Acquisition CT")).length).toBeGreaterThan(0);
+    const firstReview = stored().entries.find((entry) => entry.kind === "REVIEW");
     submit("Dans cette étude, la méthode anatomique ex vivo sera la référence.");
 
     expect((await screen.findAllByText("Référence anatomique ex vivo")).length).toBeGreaterThan(0);
     const reviews = await screen.findAllByTestId("functional-contribution-review");
-    expect(reviews).toHaveLength(1);
+    expect(reviews).toHaveLength(2);
     expect(within(reviews[0]!).getByText("Acquisition CT")).toBeInTheDocument();
-    expect(within(reviews[0]!).getByText("Référence anatomique ex vivo")).toBeInTheDocument();
-    expect(stored().pendingContribution.identity.runtimeId).toBe("MINIMAL_PRODUCT_BRIDGE_INITIAL_PROJECT_STAGING");
+    expect(within(reviews[0]!).queryByRole("button", { name: "Cela correspond à mon projet" })).not.toBeInTheDocument();
+    expect(within(reviews[1]!).getByText("Référence anatomique ex vivo")).toBeInTheDocument();
+    expect(stored().entries.find((entry) => entry.kind === "REVIEW")).toEqual(firstReview);
+    expect(stored().pendingContribution.identity.contributionId).toBe("contribution:reference");
 
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     expect(await within(screen.getByTestId("functional-research-project")).findByText("Version 1")).toBeInTheDocument();
-    expect(JSON.stringify(stored().project)).toContain("Acquisition CT");
+    // Human confirmation applies only the displayed, selected receipt. The
+    // earlier candidate is not silently merged into this separate contribution.
+    expect(JSON.stringify(stored().project)).not.toContain("Acquisition CT");
     expect(JSON.stringify(stored().project)).toContain("Référence anatomique ex vivo");
+    expect(stored().entries.find((entry) => entry.kind === "REVIEW")).toEqual(firstReview);
   });
 
   it("H03-P07/P08 makes blocked persistence visible and preserves Project truth", async () => {

@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { buildGovernedConversationProviderPayload } from "../query-navigation/governed-conversation-realization.js";
+import { validateNextActionCandidate } from "../query-navigation/validation.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
 import type {
   ScientificContributionItem,
@@ -275,6 +277,7 @@ const frenchWorkingTurnContent = (
  * provider input therefore remains byte-for-byte identical.
  */
 export const naturalConversationContext = (request: Omit<ProductBridgeRequest, "apiVersion">) => {
+  if (request.governedRealization) return JSON.stringify(request.governedRealization);
   const interaction = request.conversation.interactionContext;
   const preProjectNavigation = request.preProjectNavigation;
   const project = relevantProjectContext(request.currentProject);
@@ -323,7 +326,8 @@ export const naturalConversationContext = (request: Omit<ProductBridgeRequest, "
   return lines.filter((line): line is string => Boolean(line)).join("\n\n");
 };
 
-export const buildNaturalConversationPayload = (request: Omit<ProductBridgeRequest, "apiVersion">) => ({
+export const buildNaturalConversationPayload = (request: Omit<ProductBridgeRequest, "apiVersion">) => request.governedRealization
+  ? buildGovernedConversationProviderPayload(request.governedRealization) : ({
   systemInstruction: { parts: [{ text: NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION }] },
   contents: [{ role: "user", parts: [{ text: naturalConversationContext(request) }] }],
 });
@@ -869,12 +873,25 @@ export type ProductBridgeRequest = {
   requestKind?: "USER_TURN" | "POST_ADOPTION_QRY_CONTINUATION";
   preProjectNavigation?: ProductBridgePreProjectNavigation;
   languageBoundary?: ProductBridgeLanguageBoundary;
+  /** Server-owned bounded HOW input, never accepted from unvalidated HTTP input. */
+  governedRealization?: import("../query-navigation/governed-conversation-realization.js").GovernedConversationEnvelope;
+  currentNavigation?: import("../query-navigation/current-turn-navigation.js").CurrentGovernedNavigationInput;
 };
 
 export type ProductBridgeResponse = {
   apiVersion: typeof PRODUCT_BRIDGE_API_VERSION;
   assistantReply: string;
   assistantTurn: ScientificInterpretationTurn;
+  currentTurnNavigation?: ReturnType<typeof import("../query-navigation/current-turn-navigation.js").buildCurrentTurnNavigation>;
+  governedRealization?: ReturnType<typeof import("../query-navigation/governed-conversation-realization.js").realizeGovernedConversation>;
+  stageTimestamps?: { extractionCompletedAt: string; howRequestedAt: string | null; howCompletedAt: string };
+  /** Partial transaction receipt: contribution retained, no visible reply or human review. */
+  conversationFailure?: {
+    stage: "NAVIGATION" | "HOW" | "CONFORMANCE";
+    code: string;
+    message: string;
+    provider: Readonly<{ provider?: string; httpStatus: number | null; responseId: string | null }> | null;
+  } | null;
   persistentExtraction: {
     called: boolean;
     status: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
@@ -909,8 +926,10 @@ export type ProductBridgeResponse = {
     extractionModelReturned?: string | null;
     conversationLatencyMs: number;
     extractionLatencyMs: number | null;
-    calls: 1 | 2 | 3;
+    calls: 0 | 1 | 2 | 3;
     extractionAttempts?: 0 | 1 | 2;
+    conversationCalls?: 0 | 1;
+    conversationResponseReceived?: boolean;
     projectWrites: 0;
     conversationUsage?: { promptTokenCount?: number; candidatesTokenCount?: number; totalTokenCount?: number } | null;
     extractionUsage?: {
@@ -1708,5 +1727,26 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
       })) return null;
   }
   if (record.currentProject !== null && record.currentProject?.contract !== "RESEARCH_PROJECT_CONSTRUCTION_OWNER_PROJECTION") return null;
-  return record as ProductBridgeRequest;
+  if (record.currentNavigation) {
+    const navigation = record.currentNavigation;
+    try {
+      if (!record.currentProject || navigation.projectId !== record.currentProject.projectId
+        || navigation.projectVersion !== record.currentProject.versionId || navigation.projectDigest !== record.currentProject.projectDigest
+        || typeof navigation.selectedActionRef !== "string" || typeof navigation.sourceStateDigest !== "string"
+        || !Array.isArray(navigation.authorizedContent)
+        || !navigation.authorizedContent.every((item) => typeof item.ref === "string" && typeof item.text === "string" && (item.status === null || typeof item.status === "string"))
+        || !Array.isArray(navigation.alreadyProvidedInformationRefs)
+        || !navigation.alreadyProvidedInformationRefs.every((ref) => typeof ref === "string")
+        || !Array.isArray(navigation.selected.navigationNeedRefs) || !Array.isArray(navigation.selected.affectedDecisionRefs)
+        || !Array.isArray(navigation.selected.affectedBranchRefs) || !Array.isArray(navigation.selected.knownOptionRefs)
+        || !validateNextActionCandidate(navigation.selected).valid) return null;
+      if (navigation.informationNeedScopes !== undefined && (!Array.isArray(navigation.informationNeedScopes)
+        || !navigation.informationNeedScopes.every((scope) => typeof scope.needRef === "string" && typeof scope.sourceRef === "string"
+          && navigation.selected.navigationNeedRefs.includes(scope.needRef) && navigation.selected.sourceRefs.includes(scope.sourceRef)
+          && Array.isArray(scope.affectedBranchRefs) && scope.affectedBranchRefs.length > 0
+          && scope.affectedBranchRefs.every((ref) => typeof ref === "string" && navigation.selected.affectedBranchRefs.includes(ref))))) return null;
+    } catch { return null; }
+  }
+  // HTTP callers cannot inject the server's post-validation realization envelope.
+  return { ...record, governedRealization: undefined } as ProductBridgeRequest;
 };

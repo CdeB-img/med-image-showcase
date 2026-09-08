@@ -10,12 +10,13 @@ type Props = {
   contribution: ScientificInterpretationContributionEnvelope;
   candidate: ResearchProjectContributionCandidate;
   status: "PENDING" | "CONFIRMED" | "REJECTED";
+  actionable?: boolean;
   onConfirm: () => void;
   onCorrect: () => void;
   onReject: () => void;
 };
 
-export default function ContributionReview({ contribution, candidate, status, onConfirm, onCorrect, onReject }: Props) {
+export default function ContributionReview({ contribution, candidate, status, actionable = true, onConfirm, onCorrect, onReject }: Props) {
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
   const sections = candidate.humanReviewProjection.sections;
   const displayedSections = isUpdate ? sections : [{
@@ -53,7 +54,9 @@ export default function ContributionReview({ contribution, candidate, status, on
       <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">{openPoints.map((point) => <li key={point.openPointRef}>{point.content}</li>)}</ul>
     </section>}
 
-    {status === "PENDING" ? <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+    {status === "PENDING" && !actionable
+      ? <p role="status" className="mt-5 text-sm text-muted-foreground">Proposition conservée dans l’historique, non sélectionnée pour une décision dans ce tour.</p>
+      : status === "PENDING" ? <div className="mt-5 flex flex-col gap-2 sm:flex-row">
       <button type="button" onClick={onConfirm} className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Cela correspond à mon projet</button>
       <button type="button" onClick={onCorrect} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium">Décrire une correction</button>
       <button type="button" onClick={onReject} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium text-muted-foreground">Refuser cette proposition</button>
@@ -62,3 +65,74 @@ export default function ContributionReview({ contribution, candidate, status, on
       : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">Proposition refusée. Le Research Project est inchangé.</p>}
   </section>;
 }
+
+
+// This is a local presentation acknowledgement, not a Human Decision.
+// The render factory puts both review surfaces and candidate preparation inside
+// the boundary. Arguments evaluated by the parent before this factory are not covered.
+export type ContributionReviewPresentationFailure = Readonly<{
+  stage: "PRESENTATION";
+  code: "CONTRIBUTION_REVIEW_PRESENTATION_FAILED";
+}>;
+type ContributionReviewPresentationProps = Readonly<{
+  presentationRef: string;
+  renderReview: () => ReactNode;
+  onPresented: () => void;
+  onPresentationFailure: (failure: ContributionReviewPresentationFailure) => void;
+}>;
+
+function ContributionReviewPresentationContent({ renderReview }: Pick<ContributionReviewPresentationProps, "renderReview">) {
+  return renderReview();
+}
+
+class ContributionReviewPresentationBoundary extends Component<
+  ContributionReviewPresentationProps,
+  { failed: boolean }
+> {
+  state = { failed: false };
+  private mounted = false;
+  private acknowledged = false;
+  private failureReported = false;
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    // Defer only the acknowledgement until this commit has finished. A sibling
+    // or descendant render/layout failure must win over a pending acknowledgement.
+    // This does not schedule another render, provider call or scientific retry.
+    queueMicrotask(() => {
+      if (!this.mounted || this.state.failed || this.failureReported || this.acknowledged) return;
+      this.acknowledged = true;
+      this.props.onPresented();
+    });
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
+  componentDidCatch() {
+    if (this.failureReported) return;
+    this.failureReported = true;
+    this.props.onPresentationFailure({
+      stage: "PRESENTATION",
+      code: "CONTRIBUTION_REVIEW_PRESENTATION_FAILED",
+    });
+  }
+
+  render() {
+    if (this.state.failed) return null;
+    return <ContributionReviewPresentationContent renderReview={this.props.renderReview} />;
+  }
+}
+
+/** Explicit identity prevents silently retrying a failed presentation on rerender.
+ * The unchanged default ContributionReview remains usable by existing consumers.
+ */
+export function ContributionReviewPresentation(props: ContributionReviewPresentationProps) {
+  return <ContributionReviewPresentationBoundary key={props.presentationRef} {...props} />;
+}
+import { Component, type ReactNode } from "react";

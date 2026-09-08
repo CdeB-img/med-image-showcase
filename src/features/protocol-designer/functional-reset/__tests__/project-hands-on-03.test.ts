@@ -1,4 +1,5 @@
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
+import { mockBridgeProviderFetch } from "./pass3a-bridge-provider-test-fixtures";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
 import type { ScientificInterpretationConversation } from "@/features/scientific-interpretation/contracts";
 import {
@@ -243,9 +244,10 @@ describe("PROJECT-HANDS-ON-03 — canonical runtime path convergence", () => {
     const raw = "Le suivi inclura une analyse de segmentation.";
     const args = { changes: [change(raw, "analysis:segmentation", "ANALYSIS_SPECIFICATION", "Analyse de segmentation")], relations: [], temporalQualifications: [], expectedVariableOccasions: [] };
     const context = turnConversation("turn:p06", raw);
-    const fetchImpl = vi.fn()
-      .mockResolvedValueOnce(jsonResponse({ candidates: [{ content: { parts: [{ text: "Je retiens cette proposition d'analyse." }] } }] }))
-      .mockResolvedValueOnce(jsonResponse({ id: "terra:p06", model: "gpt-5.6-terra", status: "completed", output_text: JSON.stringify(providerAnchored(context, args)) })) as unknown as typeof fetch;
+    const fetchImpl = mockBridgeProviderFetch({
+      geminiText: "Je retiens cette proposition d'analyse.",
+      openaiResponses: [() => jsonResponse({ id: "terra:p06", model: "gpt-5.6-terra", status: "completed", output_text: JSON.stringify(providerAnchored(context, args)) })],
+    });
     const request: ProductBridgeRequest = { apiVersion: "1.0.0", conversation: context, currentProject: project, evaluatePersistentDelta: true };
     const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", openAiApiKey: "test-openai-key", fetchImpl });
     expect(fetchImpl).toHaveBeenCalledTimes(2);
@@ -257,9 +259,10 @@ describe("PROJECT-HANDS-ON-03 — canonical runtime path convergence", () => {
     const raw = "Je remplace une référence inexistante.";
     const args = { changes: [{ ...change(raw, "candidate:replacement", "ANALYSIS_SPECIFICATION", "Nouvelle analyse"), operation: "REPLACE", targetProjectRef: "project:missing" }], relations: [], temporalQualifications: [], expectedVariableOccasions: [] };
     const context = turnConversation("turn:p07", raw);
-    const fetchImpl = vi.fn()
-      .mockResolvedValueOnce(jsonResponse({ candidates: [{ content: { parts: [{ text: "Je comprends la correction demandée." }] } }] }))
-      .mockResolvedValueOnce(jsonResponse({ id: "terra:p07", model: "gpt-5.6-terra", status: "completed", output_text: JSON.stringify(providerAnchored(context, args)) })) as unknown as typeof fetch;
+    const fetchImpl = mockBridgeProviderFetch({
+      geminiText: "Je comprends la correction demandée.",
+      openaiResponses: [() => jsonResponse({ id: "terra:p07", model: "gpt-5.6-terra", status: "completed", output_text: JSON.stringify(providerAnchored(context, args)) })],
+    });
     const request: ProductBridgeRequest = { apiVersion: "1.0.0", conversation: context, currentProject: project, evaluatePersistentDelta: true };
     const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", openAiApiKey: "test-openai-key", fetchImpl });
     expect(result.body).toMatchObject({ persistentExtraction: {

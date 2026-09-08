@@ -37,6 +37,7 @@ import type {
 } from "./lifecycle-contracts";
 import { buildQuestionResponseEnvelope, routeNavigationResponse } from "./response-routing";
 import type { ProductKnowledgePrerequisiteAction } from "./knowledge-prerequisite";
+import type { CurrentNavigationEvidence } from "./current-navigation-evidence";
 
 export const FUNCTIONAL_RESET_QRY_BOUNDARY = "QRY_001_FUNCTIONAL_RESET_STANDARD_ADAPTER" as const;
 
@@ -98,6 +99,7 @@ export type FunctionalResetQueryNavigation = {
   projectVersion: string;
   projectDigest: string;
   sourceStateDigest: string;
+  currentEvidenceDigest?: string;
   status: "QUESTION_READY" | "OWNER_ACTION_READY" | "NO_USEFUL_QUESTION";
   selection: NavigationSelection;
   memory: QueryNavigationMemory;
@@ -430,7 +432,18 @@ const groupCandidatesByScientificDimension = (
         irreversibility: blocking === "BLOCKS_IRREVERSIBLE_DECISION" ? "HIGH" : "MEDIUM",
       },
       dependencies: [],
-      impacts: members.flatMap((candidate) => candidate.impacts),
+      // This is a new grouped action projection. Its impacts are governed by
+      // that group, not orphaned references to the pre-grouping candidates.
+      // Preserve the existing impact content and identity recipe; no change
+      // to need collection, information value, scope, eligibility or ranking.
+      impacts: members.flatMap((member) => member.impacts.map((impact) => ({
+        ...impact,
+        candidateRef: candidateId,
+        impactId: makeQueryNavigationId("qry-impact", {
+          candidateRef: candidateId, kind: impact.kind,
+          branches: impact.branchRefs, decisions: impact.decisionRefs,
+        }),
+      }))),
       explanation: members.map((candidate) => candidate.explanation).join(" "),
       provenance: {
         sourceRefs: members.flatMap((candidate) => candidate.provenance.sourceRefs).sort(),
@@ -635,6 +648,38 @@ const candidatesOutsideImmediateDeferral = (
     !candidate.affectedBranchRefs.some((ref) => deferredBranches.has(ref)));
 };
 
+const presentCurrentOwnerNavigationAction = (
+  action: SelectedNavigationAction,
+  presentation: QuestionPresentationRequest,
+  selected: NextActionCandidate,
+  evidence: Readonly<CurrentNavigationEvidence>,
+  repeatCount: number,
+): FunctionalResetStandardQuestion => {
+  const need = evidence.sourceState.governedNeeds.find((item) => action.navigationNeedRefs.includes(item.needId));
+  if (!need) throw new Error("QRY_SELECTED_GOVERNED_NEED_MISSING");
+  const owner = evidence.ownerResults.find((result) => result.ref === need.sourceRef);
+  const optionLabels = owner?.options.filter((option) => selected.knownOptionRefs.includes(option.optionId))
+    .map((option) => option.label) ?? [];
+  const text = selected.actionCategory === "COMPARE_OPTIONS"
+    ? `Les stratégies proposées peuvent être comparées : ${optionLabels.join(" ; ")}. Aucune n’est adoptée.`
+    : need.informationIntent.trim();
+  if (!text || (selected.actionCategory === "COMPARE_OPTIONS" && optionLabels.length !== selected.knownOptionRefs.length)) {
+    throw new Error("QRY_SELECTED_OWNER_CONTENT_NOT_AVAILABLE");
+  }
+  return {
+    questionId: makeQueryNavigationId("qry-standard-question", { actionRef: action.selectedActionId, needRef: need.needId, text }),
+    selectedActionRef: action.selectedActionId,
+    informationNeedRefs: [...presentation.informationNeedRefs],
+    scopeSectionIds: [],
+    priorityLead: "Le résultat disponible permet de discuter un choix encore ouvert.",
+    text,
+    presentationSource: "PD004_WORDING",
+    repeatCount,
+    presentationOnly: true,
+    choosesScientificScope: false,
+  };
+};
+
 export const buildFunctionalResetQueryNavigation = (input: {
   project: Readonly<ResearchProjectOwnerProjection>;
   previous?: Readonly<FunctionalResetQueryNavigation> | null;
@@ -643,15 +688,18 @@ export const buildFunctionalResetQueryNavigation = (input: {
   wordingProposal?: FunctionalResetQuestionWordingProposal | null;
   forceRebuild?: boolean;
   dataOwnerState?: Readonly<FunctionalResetDataOwnerState> | null;
+  currentNavigationEvidence?: Readonly<CurrentNavigationEvidence> | null;
 }): FunctionalResetQueryNavigation => {
   if (!input.forceRebuild && input.previous
     && input.previous.projectVersion === input.project.versionId
-    && input.previous.projectDigest === input.project.projectDigest) return structuredClone(input.previous);
+    && input.previous.projectDigest === input.project.projectDigest
+    && input.previous.currentEvidenceDigest === input.currentNavigationEvidence?.contextDigest) return structuredClone(input.previous);
 
   let memory = input.previous
     ? rebaseQueryNavigationMemory(input.previous.memory, input.project.versionId)
     : createQueryNavigationMemory(input.project.projectId, input.project.versionId);
-  if (input.previous?.currentAction && input.previous.projectVersion !== input.project.versionId) {
+  if (input.previous?.currentAction && (input.previous.projectVersion !== input.project.versionId
+    || input.previous.currentEvidenceDigest !== input.currentNavigationEvidence?.contextDigest)) {
     memory = recordLifecycleEvent(memory, {
       eventType: "ACTION_SUPERSEDED",
       actionRef: input.previous.currentAction.selectedActionId,
@@ -660,21 +708,33 @@ export const buildFunctionalResetQueryNavigation = (input: {
       projectRef: input.project.projectId,
       projectVersion: input.project.versionId,
       sourceStateDigest: input.previous.sourceStateDigest,
-      reason: "PROJECT_VERSION_CHANGED_AFTER_HUMAN_CONFIRMATION",
-      evidenceRefs: [input.project.versionId],
+      reason: input.previous.projectVersion !== input.project.versionId
+        ? "PROJECT_VERSION_CHANGED_AFTER_HUMAN_CONFIRMATION" : "CURRENT_APPLICABLE_NAVIGATION_EVIDENCE_CHANGED",
+      evidenceRefs: [input.project.versionId, ...(input.currentNavigationEvidence ? [input.currentNavigationEvidence.contextDigest] : [])],
       recordedAt: input.recordedAt,
     });
   }
 
-  const sourceState = buildFunctionalResetQuerySourceState(input.project, input.dataOwnerState);
+  const evidence = input.currentNavigationEvidence;
+  if (evidence && (!evidence.adoptedProject
+    || evidence.adoptedProject.projectId !== input.project.projectId
+    || evidence.adoptedProject.versionId !== input.project.versionId
+    || evidence.adoptedProject.projectDigest !== input.project.projectDigest)) throw new Error("QRY_CURRENT_NAVIGATION_PROJECT_BINDING_MISMATCH");
+  const sourceState = evidence ? {
+    ...structuredClone(evidence.sourceState), currentEvidenceDigest: evidence.contextDigest,
+  } : buildFunctionalResetQuerySourceState(input.project, input.dataOwnerState);
   const unresolvedContext = buildQueryNavigationContext({
     projectRef: input.project.projectId,
     projectVersion: input.project.versionId,
     sourceState,
     currentUsageRef: "FUNCTIONAL_RESET_STANDARD_CONVERSATION",
+    ...(evidence ? { closedBranchRefs: [...evidence.closedBranchRefs], resolvedNeedRefs: [...evidence.resolvedNeedRefs], sufficiencyEvidenceRefs: [...evidence.alreadyProvidedInformationRefs] } : {}),
   });
   const unresolvedNeeds = selectNextAction(unresolvedContext).needs;
-  if (input.previous) {
+  // A scoped owner-evidence projection is not an exhaustive census of Project
+  // needs. Absence from it cannot establish an authoritative resolution.
+  // Explicit current resolvedNeedRefs remain consumed by the context below.
+  if (input.previous && !evidence) {
     memory = resolveNeedsNoLongerOpen(
       memory,
       input.previous.needSections,
@@ -687,14 +747,20 @@ export const buildFunctionalResetQueryNavigation = (input: {
     projectVersion: input.project.versionId,
     sourceState,
     resolvedNeedRefs: memory.resolvedNeedRefs,
+    ...(evidence ? { closedBranchRefs: [...evidence.closedBranchRefs], resolvedNeedRefs: [...new Set([...memory.resolvedNeedRefs, ...evidence.resolvedNeedRefs])], sufficiencyEvidenceRefs: [...evidence.alreadyProvidedInformationRefs] } : {}),
     currentUsageRef: "FUNCTIONAL_RESET_STANDARD_CONVERSATION",
     limitations: [
       "QRY_SELECTS_INFORMATION_SCOPE_PRESENTATION_ONLY_REWORDS",
       "ONLY_QRY_SELECTED_SPECIALIZED_OWNER_SCOPE_MAY_TRIGGER_OWNER_DISPATCH",
     ],
   });
-  const individualCandidates = buildNextActionCandidates(context, selectNextAction(context).needs);
-  const groupedCandidates = groupCandidatesByScientificDimension(
+  const individualCandidates = buildNextActionCandidates(context, selectNextAction(context).needs).map((candidate) =>
+    evidence && candidate.actionCategory === "CLARIFY_BY_ADAPTIVE_EXCHANGE"
+      && ["UNKNOWN", "NO_DECISION_EFFECT"].includes(candidate.informationValue.discrimination)
+      ? { ...candidate, eligibility: "INELIGIBLE" as const,
+        eligibilityReasons: [...candidate.eligibilityReasons, "MATERIAL_INFORMATION_IMPACT_NOT_STRUCTURED_BY_OWNER"] }
+      : candidate);
+  const groupedCandidates = evidence ? individualCandidates : groupCandidatesByScientificDimension(
     input.project,
     individualCandidates,
     input.documentBlockers ?? [],
@@ -716,6 +782,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
     projectVersion: input.project.versionId,
     projectDigest: input.project.projectDigest,
     sourceStateDigest: context.sourceStateDigest,
+    ...(evidence ? { currentEvidenceDigest: evidence.contextDigest } : {}),
     status: "NO_USEFUL_QUESTION",
     selection,
     memory,
@@ -757,6 +824,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
       projectDigest: input.project.projectDigest,
       sourceStateDigest: context.sourceStateDigest,
       status: "OWNER_ACTION_READY",
+      ...(evidence ? { currentEvidenceDigest: evidence.contextDigest } : {}),
       selection,
       memory,
       currentAction: action,
@@ -776,7 +844,9 @@ export const buildFunctionalResetQueryNavigation = (input: {
   const repeatCount = input.previous?.standardQuestion && sameValues(previousScope, currentScope)
     ? input.previous.standardQuestion.repeatCount + 1
     : 0;
-  const standardQuestion = presentFunctionalResetQuestion(action, presentation, repeatCount, input.wordingProposal ?? null);
+  const standardQuestion = evidence
+    ? presentCurrentOwnerNavigationAction(action, presentation, selection.selected, evidence, repeatCount)
+    : presentFunctionalResetQuestion(action, presentation, repeatCount, input.wordingProposal ?? null);
   memory = rememberSelectedNavigationAction(memory, action);
   memory = rememberQuestionPresentation(memory, presentation);
   memory = recordLifecycleEvent(memory, {
@@ -813,6 +883,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
     projectDigest: input.project.projectDigest,
     sourceStateDigest: context.sourceStateDigest,
     status: "QUESTION_READY",
+    ...(evidence ? { currentEvidenceDigest: evidence.contextDigest } : {}),
     selection,
     memory,
     currentAction: action,

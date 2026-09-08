@@ -3,14 +3,16 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
+import { productHybridProviderGate } from "../../../../../api/scientific-interpretation-provider";
+import { currentGovernedNavigationInput } from "@/features/query-navigation/current-navigation-evidence";
+import { mockBridgeProviderFetch } from "./pass3a-bridge-provider-test-fixtures";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import type {
   ScientificInterpretationContributionEnvelope,
   ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation/contracts";
-import type { ProductBridgeRequest } from "@/features/protocol-designer/product-bridge";
+import type { ProductBridgeRequest, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 import { ProductBridgeClientError } from "@/features/protocol-designer/product-bridge-client";
-import type { ResearchProjectOwnerProjection } from "@/features/research-project-construction";
 import {
   FUNCTIONAL_RESET_STORAGE_KEY,
   loadFunctionalResetSession,
@@ -30,8 +32,9 @@ vi.mock("@/features/protocol-designer/product-bridge-client", async (importOrigi
   return { ...original, requestProtocolDesignerBridge: runtime.request };
 });
 
-const INITIAL_CONTINUATION = "Quel critère d’éligibilité souhaitez-vous préciser ?";
-const UPDATE_CONTINUATION = "Quel autre point utile souhaitez-vous préciser ?";
+// Transport fixtures only: no scientific adequacy is inferred from this prose.
+const INITIAL_CONTINUATION = "La suite reste ouverte à votre décision.";
+const UPDATE_CONTINUATION = "La modification confirmée reste distincte des prochaines options.";
 const UPDATE_RAW = "L’âge maximal sera 75 ans.";
 
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
@@ -92,20 +95,23 @@ const populationUpdateContribution = (
 const responseWithoutPersistentDelta = (turns: ScientificInterpretationTurn[], assistantReply: string) =>
   makeFunctionalResetBridgeResponse(turns, null, assistantReply);
 
+const governedContinuationReceipt = async (request: ProductBridgeRequest, text: string) => {
+  const result = await executeProtocolDesignerBridge({ body: { ...request, apiVersion: "1.0.0" }, apiKey: "MOCK_NO_NETWORK",
+    fetchImpl: mockBridgeProviderFetch({ geminiText: text }) });
+  if (result.status !== 200 || !("assistantReply" in result.body)) throw new Error("MOCK_GOVERNED_RECEIPT_FAILED");
+  return result.body as ProductBridgeResponse;
+};
+
 const installNominalRuntime = (options: { failInitialContinuation?: boolean; duplicateReply?: string } = {}) => {
   let continuationCount = 0;
-  runtime.request.mockImplementation(async (request: {
-    requestKind?: ProductBridgeRequest["requestKind"];
-    conversation: { turns: ScientificInterpretationTurn[] };
-    currentProject: ResearchProjectOwnerProjection | null;
-  }) => {
+  runtime.request.mockImplementation(async (request: ProductBridgeRequest) => {
     if (request.requestKind === "POST_ADOPTION_QRY_CONTINUATION") {
       continuationCount += 1;
       if (options.failInitialContinuation && continuationCount === 1) {
         throw new ProductBridgeClientError("PRODUCT_BRIDGE_UNAVAILABLE", "Mediation unavailable");
       }
-      return responseWithoutPersistentDelta(
-        request.conversation.turns,
+      return governedContinuationReceipt(
+        request,
         options.duplicateReply ?? (request.currentProject?.revision === 1 ? INITIAL_CONTINUATION : UPDATE_CONTINUATION),
       );
     }
@@ -145,10 +151,12 @@ const updateProject = async () => {
 
 describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
   beforeEach(() => {
+    // Test-only transport gate: isolated mocked requests must not wait on the live rolling quota.
+    vi.spyOn(productHybridProviderGate, "run").mockImplementation((operation) => operation());
     window.localStorage.clear();
     runtime.request.mockReset();
   });
-  afterEach(cleanup);
+  afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
   it("Q01 initial Project creation invokes post-adoption QRY mediation", async () => {
     installNominalRuntime();
@@ -192,20 +200,17 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     expect(request.conversation.interactionContext.sourceActionRef).toBe(session.queryNavigation?.currentAction?.selectedActionId);
   });
 
-  it("Q05 a failed natural mediation still returns the QRY-owned standard continuation after creation", async () => {
+  it("Q05 transport failure cannot resurrect a legacy WHAT or invent a zero-call receipt", async () => {
     installNominalRuntime({ failInitialContinuation: true });
     renderDemo();
-    const session = await createInitialProject();
-    const fallback = session.queryNavigation?.standardQuestion?.text;
-    expect(fallback).toBeTruthy();
-    expect(await screen.findByText(fallback!)).toBeInTheDocument();
-    expect(session.bridgeTraces.at(-1)).toMatchObject({
-      requestKind: "POST_ADOPTION_QRY_CONTINUATION",
-      continuationPresentationSource: "QRY_STANDARD_FALLBACK",
-      continuationMediationFailure: "PRODUCT_BRIDGE_UNAVAILABLE",
-      calls: 0,
-      projectVersionAfter: session.project?.versionId,
-    });
+    submit(COLCHICINE_03A_INITIAL);
+    await acceptPendingReview();
+    await screen.findByText("Projet créé.");
+    await screen.findByText("NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.");
+    const session = stored();
+    expect(session.project?.revision).toBe(1);
+    expect(session.bridgeTraces.some((trace) => trace.requestKind === "POST_ADOPTION_QRY_CONTINUATION")).toBe(false);
+    expect(session.entries.some((entry) => entry.kind === "TEXT" && entry.content === session.queryNavigation?.standardQuestion?.text)).toBe(false);
   });
 
   it("Q06 a mediated continuation is returned after an existing Project update", async () => {
@@ -272,14 +277,14 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     expect(stored().pendingContribution).toBeNull();
   });
 
-  it("Q13 the nominal continuation remains one short principal question", async () => {
+  it("Q13 the current non-ASK continuation is compact without an automatic question", async () => {
     installNominalRuntime();
     renderDemo();
     const session = await createInitialProject();
     const lastEntry = session.entries.at(-1);
     const content = lastEntry?.kind === "TEXT" ? lastEntry.content : "";
     expect(content.length).toBeLessThanOrEqual(240);
-    expect((content.match(/\?/g) ?? [])).toHaveLength(1);
+    expect((content.match(/\?/g) ?? [])).toHaveLength(0);
   });
 
   it("Q14 post-adoption continuation performs no Project write", async () => {
@@ -296,7 +301,8 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
     await screen.findByText("Projet créé.");
     const projectAfterDecision = JSON.stringify(stored().project);
     expect(resolveContinuation).not.toBeNull();
-    resolveContinuation!(responseWithoutPersistentDelta(stored().runtimeTurns, INITIAL_CONTINUATION));
+    const request = runtime.request.mock.calls.find(([item]) => item.requestKind === "POST_ADOPTION_QRY_CONTINUATION")![0];
+    resolveContinuation!(await governedContinuationReceipt(request, INITIAL_CONTINUATION));
     await screen.findByText(INITIAL_CONTINUATION);
     expect(JSON.stringify(stored().project)).toBe(projectAfterDecision);
     expect(stored().bridgeTraces.at(-1)).toMatchObject({ persistentExtractionCalled: false, calls: 1 });
@@ -327,16 +333,17 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
         },
       },
       currentProject: session.project,
+      currentNavigation: currentGovernedNavigationInput({ project: session.project!, navigation: session.queryNavigation! }) ?? undefined,
       evaluatePersistentDelta: false,
     };
-    const fetchImpl = vi.fn(async () => new Response(JSON.stringify({
-      candidates: [{ content: { parts: [{ text: INITIAL_CONTINUATION }] } }],
-      responseId: "qry-01-continuation",
-    }), { status: 200, headers: { "content-type": "application/json" } })) as unknown as typeof fetch;
+    // Transport-only witness: a legacy eligibility-section question with no
+    // represented material impact must no longer force the new ASK gate.
+    const routingReply = "La prochaine action reste gouvernée, sans modification du projet.";
+    const fetchImpl = mockBridgeProviderFetch({ geminiText: routingReply, geminiResponseId: "qry-01-continuation" });
     const result = await executeProtocolDesignerBridge({ body: request, apiKey: "test-key", openAiApiKey: "unused", fetchImpl });
     expect(fetchImpl).toHaveBeenCalledTimes(1);
     expect(result.body).toMatchObject({
-      assistantReply: INITIAL_CONTINUATION,
+      assistantReply: routingReply,
       persistentExtraction: { called: false, status: "NOT_REQUESTED" },
       observability: { conversationProvider: "GOOGLE_GEMINI", extractionProvider: null, calls: 1, projectWrites: 0 },
     });
@@ -371,7 +378,7 @@ describe("PROJECT-QRY-01 — post-adoption continuation presentation", () => {
           && committed.entries.some((entry) => entry.kind === "TEXT" && entry.content === "Projet créé.")
           && committed.entries.some((entry) => entry.kind === "REVIEW" && entry.status === "CONFIRMED"),
         );
-        return responseWithoutPersistentDelta(request.conversation.turns, INITIAL_CONTINUATION);
+        return governedContinuationReceipt(request as ProductBridgeRequest, INITIAL_CONTINUATION);
       }
       return makeFunctionalResetBridgeResponse(
         request.conversation.turns,

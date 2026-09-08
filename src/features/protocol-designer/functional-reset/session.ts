@@ -13,6 +13,8 @@ import {
 } from "@/features/document-projection";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-decision";
+import type { RetainedContributionCandidate } from "./contribution-lifecycle";
+import { realizeGovernedConversation } from "@/features/query-navigation/governed-conversation-realization";
 import type {
   ProductEntryRoutingDecision,
   ProductUnderstandKnowledgePresentation,
@@ -83,7 +85,7 @@ export const shouldMediatePostAdoptionQuery = (
 
 export type PostAdoptionQueryContinuation = {
   content: string;
-  presentationSource: "GEMINI_MEDIATED" | "QRY_STANDARD_FALLBACK" | "RDE_STANDARD_PROJECTION" | "RDE_INFORMATION_NEED" | "ST_STANDARD_PROJECTION" | "OBS_STANDARD_PROJECTION" | "IMAGING_STANDARD_PROJECTION" | "BIOSTATISTICS_STANDARD_PROJECTION" | "CDM_STANDARD_PROJECTION" | "DATA_MANAGEMENT_STANDARD_PROJECTION" | "KNOWLEDGE_STANDARD_PROJECTION" | "REG_STANDARD_PROJECTION";
+  presentationSource: "GEMINI_MEDIATED" | "GOVERNED_LOCAL_REALIZATION" | "QRY_STANDARD_FALLBACK" | "RDE_STANDARD_PROJECTION" | "RDE_INFORMATION_NEED" | "ST_STANDARD_PROJECTION" | "OBS_STANDARD_PROJECTION" | "IMAGING_STANDARD_PROJECTION" | "BIOSTATISTICS_STANDARD_PROJECTION" | "CDM_STANDARD_PROJECTION" | "DATA_MANAGEMENT_STANDARD_PROJECTION" | "KNOWLEDGE_STANDARD_PROJECTION" | "REG_STANDARD_PROJECTION";
 };
 
 export const resolvePostAdoptionQueryContinuation = (
@@ -95,6 +97,51 @@ export const resolvePostAdoptionQueryContinuation = (
   return mediated
     ? { content: mediated, presentationSource: "GEMINI_MEDIATED" }
     : { content: navigation.standardQuestion.text, presentationSource: "QRY_STANDARD_FALLBACK" };
+};
+
+export const resolveGovernedPostAdoptionReceipt = (input: {
+  response: Readonly<ProductBridgeResponse>;
+  project: Pick<ResearchProjectOwnerProjection, "projectId" | "versionId" | "projectDigest">;
+  realizedAt: string;
+}) => {
+  const { response } = input;
+  const native = response.currentTurnNavigation;
+  if (!native) throw new Error("POST_ADOPTION_GOVERNED_RECEIPT_REQUIRED");
+  const binding = native.envelope.projectBinding;
+  if (!binding || binding.projectId !== input.project.projectId
+    || binding.projectVersion !== input.project.versionId || binding.projectDigest !== input.project.projectDigest) {
+    throw new Error("POST_ADOPTION_GOVERNED_RECEIPT_PROJECT_MISMATCH");
+  }
+  const accepted = !response.conversationFailure && response.governedRealization?.providerReplyAccepted === true
+    && response.governedRealization.conformance.structuralStatus === "PASS";
+  const realization = accepted ? response.governedRealization! : realizeGovernedConversation({
+    envelope: native.envelope,
+    localWhatText: native.localWhatText,
+    // No legacy question, provider text, new selection, network, retry or extraction.
+  });
+  if (!accepted && (!native.localWhatText?.trim()
+    || realization.assistantReply !== native.localWhatText.trim())) {
+    throw new Error("POST_ADOPTION_GOVERNED_LOCAL_REALIZATION_NOT_AVAILABLE");
+  }
+  return {
+    content: realization.assistantReply,
+    presentationSource: accepted ? "GEMINI_MEDIATED" as const : "GOVERNED_LOCAL_REALIZATION" as const,
+    mediationFailure: accepted ? null
+      : response.conversationFailure?.code ?? "GOVERNED_PROVIDER_REALIZATION_NOT_ACCEPTED",
+    // Provider in bridgeTrace describes the actual attempted execution, not the visible fallback.
+    provider: response.observability.conversationCalls === 1
+      ? response.observability.conversationProvider ?? response.observability.provider
+      : response.observability.conversationCalls === 0 ? "NONE" : "UNKNOWN",
+    model: response.observability.conversationModel ?? response.observability.model,
+    latencyMs: response.observability.conversationLatencyMs,
+    calls: response.observability.calls,
+    nativeReceipt: response,
+    localRealization: accepted ? null : {
+      value: realization, realizedAt: input.realizedAt,
+      // The source of this exact local text is the same governed WHAT receipt.
+      whatRef: native.envelope.whatRef,
+    },
+  };
 };
 
 export type ConversationEntry =
@@ -160,6 +207,9 @@ export type FunctionalResetSession = {
   entries: ConversationEntry[];
   currentContribution: ScientificInterpretationContributionEnvelope | null;
   pendingContribution: ScientificInterpretationContributionEnvelope | null;
+  // Consumer processing is separate from scientific validation and human review.
+  // Optional for existing v2 sessions; absent history is not reconstructed.
+  retainedContributionCandidates?: readonly RetainedContributionCandidate[];
   projectAuthority: ResearchProjectOwnerAuthority;
   project: ResearchProjectOwnerProjection | null;
   queryNavigation: FunctionalResetQueryNavigation | null;
@@ -198,6 +248,7 @@ export const createFunctionalResetSession = (now = new Date().toISOString()): Fu
     entries: [{ entryId: id("conversation-entry"), kind: "TEXT", role: "NOXIA", content: INITIAL_NOXIA_MESSAGE, createdAt: now }],
     currentContribution: null,
     pendingContribution: null,
+    retainedContributionCandidates: [],
     projectAuthority: {
       actorRef: `${sessionId}:CURRENT_RESEARCHER`,
       mandateRef: "PROJECT_OWNER",
@@ -310,6 +361,7 @@ export const loadFunctionalResetSession = (storage: Storage): FunctionalResetSes
     if (!session) return createFunctionalResetSession();
     const reloadSafeSession: FunctionalResetSession = {
       ...session,
+      retainedContributionCandidates: session.retainedContributionCandidates ?? [],
       observabilityInteraction: session.observabilityInteraction ?? null,
       imagingInteraction: session.imagingInteraction ?? null,
       biostatisticsInteraction: session.biostatisticsInteraction ?? null,

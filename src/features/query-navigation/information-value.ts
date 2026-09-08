@@ -1,6 +1,6 @@
-import type { InformationValueVector, NavigationBlockingState, NavigationDependency, NavigationImpact, NavigationNeed, NextActionCandidate, Pd009ActionCategory, QueryNavigationContext } from "./contracts";
-import { PD009_ACTION_LABELS } from "./contracts";
-import { makeQueryNavigationId } from "./canonical";
+import type { InformationValueVector, NavigationBlockingState, NavigationDependency, NavigationImpact, NavigationNeed, NextActionCandidate, Pd009ActionCategory, QueryNavigationContext } from "./contracts.js";
+import { PD009_ACTION_LABELS } from "./contracts.js";
+import { makeQueryNavigationId } from "./canonical.js";
 
 const unique = (values: readonly string[]) => [...new Set(values)].sort((a, b) => a.localeCompare(b));
 

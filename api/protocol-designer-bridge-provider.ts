@@ -1,4 +1,5 @@
 import { productHybridProviderGate } from "./scientific-interpretation-provider.js";
+import { parseGovernedRealizationProviderOutput } from "../src/features/query-navigation/governed-conversation-realization.js";
 import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
 import {
   NATURAL_METHODOLOGIST_SYSTEM_INSTRUCTION,
@@ -334,12 +335,16 @@ export const executeNaturalConversation = async (
   apiKey: string,
   fetchImpl?: typeof fetch,
   model: string = PRODUCT_BRIDGE_MODEL,
-): Promise<ProductBridgeProviderResult<string>> => {
+): Promise<ProductBridgeProviderResult<string> & { governedClaim?: import("../src/features/query-navigation/governed-conversation-realization.js").GovernedRealizationProviderClaim | null }> => {
   const result = await callGemini(apiKey, "CONVERSATION", buildNaturalConversationPayload(request), fetchImpl, resolveGeminiConversationModel(model));
   const reply = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
     .map((part) => part.text)
     .find((value): value is string => typeof value === "string" && value.trim().length > 0)?.trim();
   if (!reply) throw new ProductBridgeProviderError("CONVERSATION", 200, "TEXT_RESPONSE_MISSING", "Gemini returned no visible conversational text.", result.responseId);
+  if (request.governedRealization) {
+    const parsed = parseGovernedRealizationProviderOutput(reply);
+    return { ...result, value: parsed?.assistantReply ?? reply, governedClaim: parsed?.claim ?? null };
+  }
   return { ...result, value: reply };
 };
 

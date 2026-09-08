@@ -1,6 +1,6 @@
-import { PD009_ACTION_CATEGORIES, PD009_ACTION_LABELS, type NavigationNeed, type NavigationSelection, type NextActionCandidate, type QueryNavigationContext, type QueryNavigationValidationIssue, type QueryNavigationValidationResult } from "./contracts";
-import { assertDataNeedInformationNeedSeparation } from "./adapters";
-import { queryNavigationDigest } from "./canonical";
+import { PD009_ACTION_CATEGORIES, PD009_ACTION_LABELS, type NavigationNeed, type NavigationSelection, type NextActionCandidate, type QueryNavigationContext, type QueryNavigationValidationIssue, type QueryNavigationValidationResult } from "./contracts.js";
+import { assertDataNeedInformationNeedSeparation } from "./adapters.js";
+import { queryNavigationDigest } from "./canonical.js";
 
 const validateCommon = (projection: { projectionOnly: boolean; sourceOfTruth: boolean; projectWriteAuthorized: boolean }, path: string): QueryNavigationValidationIssue[] => {
   const issues: QueryNavigationValidationIssue[] = [];
