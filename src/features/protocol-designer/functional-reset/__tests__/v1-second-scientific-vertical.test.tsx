@@ -12,6 +12,7 @@ import {
   makeFunctionalResetBridgeResponse,
   makeGovernedPostAdoptionResponse,
 } from "./functional-reset-fixtures";
+import { confirmResearchProjectContribution, ensureCanonicalProjectState } from "@/features/research-project-construction";
 import {
   FUNCTIONAL_RESET_STORAGE_KEY,
   type FunctionalResetSession,
@@ -161,16 +162,39 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     vi.restoreAllMocks();
   });
 
+  it("keeps documentary projections available when a provider-shaped Project contains an UNKNOWN variable", () => {
+    const sourceTurn = { turnId: "turn:v1-documents:unknown-variable", role: "USER" as const, content: "Une mesure précoce reste à définir.", createdAt: "2026-09-09T10:00:00.000Z" };
+    const contribution = behaviorContribution({
+      contributionId: "contribution:v1-documents:unknown-variable",
+      turns: [sourceTurn],
+      candidateObjects: [
+        behaviorItem({ itemId: "objective:unknown-variable", proposedType: "OBJECTIVE", content: "Structurer une étude", turnId: sourceTurn.turnId }),
+        behaviorItem({ itemId: "variable:early-unspecified", proposedType: "MEASURED_VARIABLE", content: "Évaluation d’un paramètre précoce, dont la nature n’est pas précisée", turnId: sourceTurn.turnId, epistemicState: "UNKNOWN", polarity: "UNKNOWN" }),
+      ],
+    });
+    const project = confirmResearchProjectContribution({
+      contribution,
+      current: null,
+      projectId: "project:v1-documents:unknown-variable",
+      authority: { actorRef: "v1-documents:test", mandateRef: "PROJECT_OWNER", authoritySource: "ACTIVE_RESEARCH_WORKSPACE_SESSION", verification: "DEMO_SESSION_NOT_AUTHENTICATED" },
+      confirmedAt: "2026-09-09T10:01:00.000Z",
+    });
+    expect(ensureCanonicalProjectState(project).objects).toContainEqual(expect.objectContaining({ objectType: "CANONICAL_VARIABLE", epistemicState: "UNKNOWN" }));
+    const portfolio = buildStudyDeliverablePortfolio({ project, protocolProjection: null, generatedAt: project.adoptedAt });
+    expect(portfolio.manifest.variableMappings).toEqual([]);
+    expect(portfolio.artifacts.find((item) => item.kind === "CRF")).toMatchObject({ status: "MISSING_DECISION", files: [] });
+  });
+
   it("advances from the free-text idea to a useful design decision, correction, Project v2, protocol and HTML export", async () => {
     renderDemo();
 
     submit(INITIAL);
     const firstReview = await screen.findByTestId("functional-contribution-review");
     expect(screen.getByText(/Je vous propose de les organiser dans une première compréhension structurée/)).toBeInTheDocument();
-    expect(within(firstReview).getByText(OBJECTIVE)).toBeInTheDocument();
-    expect(within(firstReview).getByText(AUTOMATED_MEASUREMENT)).toBeInTheDocument();
-    expect(within(firstReview).getByText(EXPERT_REFERENCE)).toBeInTheDocument();
-    expect(within(firstReview).getByText(IMAGING)).toBeInTheDocument();
+    expect(firstReview).toHaveTextContent(OBJECTIVE);
+    expect(firstReview).toHaveTextContent(AUTOMATED_MEASUREMENT);
+    expect(firstReview).toHaveTextContent(EXPERT_REFERENCE);
+    expect(firstReview).toHaveTextContent(IMAGING);
     expect(stored().project).toBeNull();
 
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));

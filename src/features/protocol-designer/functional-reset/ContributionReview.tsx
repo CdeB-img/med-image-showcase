@@ -37,7 +37,9 @@ type SummaryRow = { id: string; label: string; items: HumanReviewProjectionItem[
 
 const initialSummaryRows = (candidate: ResearchProjectContributionCandidate): SummaryRow[] => {
   const items = candidate.humanReviewProjection.sections.flatMap((section) => section.items);
-  const objects = items.filter((item) => item.changeKind === "OBJECT");
+  // UNCERTAINTY remains part of the candidate/Project model but is rendered
+  // once through the dedicated clarification row below.
+  const objects = items.filter((item) => item.changeKind === "OBJECT" && item.objectType !== "UNCERTAINTY");
   const endpoints = uniqueItems(objects.filter(primaryEndpoint));
   const endpointTexts = endpoints.map((item) => normalized(item.content));
   const isEndpointMeasurement = (item: HumanReviewProjectionItem) => {

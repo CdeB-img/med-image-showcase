@@ -119,6 +119,8 @@ const liveFirstTurnConformanceFailure = (request: ProductBridgeRequest): Product
     explicit("intervention:stent-immediate", "INTERVENTION", "mise en place immédiate d'un stent", "INTERVENTION_ARM"),
     explicit("comparator:stent-delayed", "COMPARATOR", "mise en place différée d'un stent", "COMPARATOR_ARM"),
     explicit("design:two-groups-double-blind", "STUDY_DESIGN", "deux groupes en double aveugle"),
+    explicit("modality:mri", "IMAGING_MODALITY", "IRM"),
+    explicit("acquisition:mri-j3-j6", "ACQUISITION", "IRM à J3–J6"),
     explicit("measure:segmental-motion", "MEASURED_VARIABLE", "cinétique segmentaire"),
     explicit("measure:strain", "MEASURED_VARIABLE", "strain"),
     explicit("measure:t1-t2", "MEASURED_VARIABLE", "T1/T2"),
@@ -268,6 +270,7 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     runtime.bridge.mockImplementation(async (request: ProductBridgeRequest) => liveFirstTurnConformanceFailure(request));
     renderDemo();
     submit(LIVE_FIRST_TURN);
+    expect(screen.getByText("Je structure votre projet…")).toBeInTheDocument();
 
     await screen.findByTestId("functional-contribution-review");
     await waitFor(() => expect(stored().retainedContributionCandidates?.[0].downstreamState).toBe("PRESENTED"));
@@ -282,6 +285,8 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
       "mise en place immédiate d'un stent",
       "mise en place différée d'un stent",
       "deux groupes en double aveugle",
+      "IRM",
+      "IRM à J3–J6",
       "cinétique segmentaire",
       "strain",
       "T1/T2",
@@ -332,12 +337,17 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expectNonAdopted(state);
     expect(screen.getByTestId("project-global-progress")).toHaveTextContent("Avancement indicatif0 %");
 
-    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    const confirmation = screen.getByRole("button", { name: "Cela correspond à mon projet" });
+    fireEvent.click(confirmation);
+    fireEvent.click(confirmation);
     await waitFor(() => expect(stored().project?.revision).toBe(1));
     expect(screen.queryByText("L’espace Protocol Designer a rencontré une erreur d’affichage.")).not.toBeInTheDocument();
     const adopted = stored().project!;
     expect(adopted.canonicalState?.decisionLedger).toHaveLength(1);
     expect(adopted.llmProjectWrites).toBe(0);
+    expect(adopted.canonicalState?.objects.filter((item) => item.actuality === "CURRENT" && item.objectType === "ACQUISITION")).toHaveLength(1);
+    expect(adopted.canonicalState?.objects.filter((item) => item.actuality === "CURRENT" && item.objectType === "CANONICAL_VARIABLE")
+      .some((item) => /paramètre (?:précoce|tardif)/iu.test(item.content))).toBe(false);
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(projectPanel).toHaveTextContent("Version 1");
     for (const label of ["Question scientifique", "Objectifs", "Hypothèses", "Population", "Design", "Intervention / exposition", "Comparateur", "Critères / endpoints", "Imagerie / méthodes / mesures", "Temporalité / visites", "Données / variables", "Analyses", "Contraintes / faisabilité"]) {

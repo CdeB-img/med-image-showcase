@@ -360,16 +360,29 @@ export const executeProtocolDesignerBridge = async (input: {
       boundedInteraction: request.boundedInteraction,
       requestKind: request.requestKind,
     });
-    downstreamStage = "HOW";
-    howRequestedAt = new Date(input.now?.() ?? Date.now()).toISOString();
-    howCalls = 1;
-    conversation = await executeNaturalConversation({ ...request, governedRealization: currentTurnNavigation.envelope }, input.apiKey, input.fetchImpl, conversationModel);
-    downstreamStage = "CONFORMANCE";
-    governedRealization = realizeGovernedConversation({
-      envelope: currentTurnNavigation.envelope, providerReply: conversation.value,
-      providerClaim: conversation.governedClaim, requireProviderClaim: true,
-      localWhatText: currentTurnNavigation.localWhatText,
-    });
+    const reviewableInitialCandidate = request.requestKind !== "POST_ADOPTION_QRY_CONTINUATION"
+      && request.currentProject === null
+      && request.preProjectNavigation !== undefined
+      && persistentExtraction.validation?.valid === true
+      && persistentExtraction.contribution !== null;
+    if (!reviewableInitialCandidate) {
+      downstreamStage = "HOW";
+      howRequestedAt = new Date(input.now?.() ?? Date.now()).toISOString();
+      howCalls = 1;
+      conversation = await executeNaturalConversation({ ...request, governedRealization: currentTurnNavigation.envelope }, input.apiKey, input.fetchImpl, conversationModel);
+      downstreamStage = "CONFORMANCE";
+      governedRealization = realizeGovernedConversation({
+        envelope: currentTurnNavigation.envelope, providerReply: conversation.value,
+        providerClaim: conversation.governedClaim, requireProviderClaim: true,
+        localWhatText: currentTurnNavigation.localWhatText,
+      });
+    } else {
+      governedRealization = realizeGovernedConversation({
+        envelope: currentTurnNavigation.envelope,
+        providerReply: null,
+        localWhatText: currentTurnNavigation.localWhatText,
+      });
+    }
   } catch (error) {
     const provider = error instanceof ProductBridgeProviderError ? safeProviderError(error) : null;
     conversationFailure = { stage: downstreamStage,
@@ -382,7 +395,7 @@ export const executeProtocolDesignerBridge = async (input: {
       return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: conversationFailure } };
     }
   }
-  if (governedRealization && !governedRealization.providerReplyAccepted) conversationFailure = {
+  if (howCalls > 0 && governedRealization && !governedRealization.providerReplyAccepted) conversationFailure = {
     stage: "CONFORMANCE", code: governedRealization.conformance.diagnostics[0] ?? "HOW_CONFORMANCE_REJECTED",
     message: "La formulation de cette étape n’a pas abouti. La proposition validée reste conservée sans adoption.", provider: null,
   };

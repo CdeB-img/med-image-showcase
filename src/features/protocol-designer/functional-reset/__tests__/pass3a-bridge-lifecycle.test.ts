@@ -3,6 +3,8 @@ import { executeProtocolDesignerBridge } from "../../../../../api/protocol-desig
 import { buildPersistentSourceCatalog, type ProductBridgeRequest, type ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 import { confirmResearchProjectContribution, prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import type { GovernedConversationEnvelope } from "@/features/query-navigation/governed-conversation-realization";
+import { buildPreProjectNavigationDecision } from "@/features/query-navigation";
+import { routeProductEntry } from "../product-entry-routing";
 import { COLCHICINE_INITIAL, makeFunctionalResetContribution } from "./functional-reset-fixtures";
 
 const CREATED_AT = "2026-09-08T16:00:00.000Z";
@@ -147,6 +149,40 @@ describe("PASS3A — extraction transaction before downstream HOW", () => {
       observability: { extractionAttempts: 1, calls: 2, projectWrites: 0 },
     });
     expect(request.currentProject).toBeNull();
+  });
+
+  it("returns a validated initial candidate at extraction completion without waiting for nonessential HOW", async () => {
+    const request = requestFor();
+    request.preProjectNavigation = buildPreProjectNavigationDecision({
+      routing: routeProductEntry({
+        raw: request.conversation.turns[0]!.content,
+        sourceTurnRef: request.conversation.turns[0]!.turnId,
+        routedAt: CREATED_AT,
+      }),
+    });
+    const mocks = isolatedProviderMocks({ extractionOutputs: [visitArgs(request)] });
+    const result = await execute(request, mocks);
+
+    expect(mocks.events).toEqual(["OPENAI_PERSISTENT_EXTRACTION"]);
+    expect(result.status).toBe(200);
+    expect(result.body).toMatchObject({
+      assistantReply: expect.stringMatching(/.+/u),
+      conversationFailure: null,
+      governedRealization: {
+        executor: "LOCAL_DETERMINISTIC_REALIZATION",
+        providerReplyAccepted: false,
+        fallbackUsed: true,
+      },
+      stageTimestamps: { extractionCompletedAt: CREATED_AT, howRequestedAt: null, howCompletedAt: CREATED_AT },
+      persistentExtraction: { status: "CANDIDATE", validation: { valid: true }, contribution: expect.any(Object) },
+      observability: {
+        extractionAttempts: 1,
+        conversationCalls: 0,
+        conversationResponseReceived: false,
+        calls: 1,
+        projectWrites: 0,
+      },
+    });
   });
 
   it("returns the validated candidate receipt when HOW fails, without adopting or mutating Project", async () => {

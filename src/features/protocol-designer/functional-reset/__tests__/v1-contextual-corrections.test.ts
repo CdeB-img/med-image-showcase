@@ -129,6 +129,9 @@ const acquisitionCount = (project: ResearchProjectOwnerProjection) => ensureCano
 describe("V1 contextual corrections and local referents", () => {
   it("keeps local definitions scoped to the current Project and preserves the human adoption gate", () => {
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("restent rattachés à cette même occurrence");
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("ne nomme pas à lui seul une grandeur mesurée");
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("ne devient donc pas une CANONICAL_VARIABLE autonome");
+    expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("preuve explicite de pluralité des réalisations");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("reste locale à ce Project");
     expect(PERSISTENT_DELTA_SYSTEM_INSTRUCTION).toContain("sans alias global");
 
@@ -198,15 +201,38 @@ describe("V1 contextual corrections and local referents", () => {
 
   it("A — a same-exam addition does not create another acquisition", () => {
     const project = initialImagingProject();
-    const raw = "Garde le rehaussement tardif dans cette même IRM, sans examen supplémentaire.";
+    const raw = "Dans cette même IRM, conserve le rehaussement précoce et tardif, sans examen supplémentaire.";
     const contribution = contributionFromWire({
       raw,
       currentProject: project,
       conversationId: "conversation:v1-contextual:same-exam",
-      candidate: wire([add(raw, "project-information:same-mri-late-enhancement", "PROJECT_INFORMATION", "Rehaussement tardif dans la même IRM, sans examen supplémentaire")]),
+      candidate: wire([add(raw, "project-information:same-mri-enhancement-phases", "PROJECT_INFORMATION", "Rehaussement précoce et tardif dans la même IRM, sans examen supplémentaire")]),
     });
     const revised = adopt(contribution, project, project.projectId);
     expect(acquisitionCount(revised)).toBe(1);
+  });
+
+  it("keeps an ellipted phase ambiguity attached to one occurrence and exposes it for clarification", () => {
+    const raw = "Je prévois un essai unique évaluant une lecture précoce et tardive, mais la nature exacte de ces phases reste à préciser.";
+    const contribution = contributionFromWire({
+      raw,
+      currentProject: null,
+      conversationId: "conversation:v1-contextual:ellipted-phases",
+      candidate: wire([
+        add("un essai unique", "acquisition:single-test", "ACQUISITION", "Essai unique"),
+        add("lecture précoce et tardive, mais la nature exacte de ces phases reste à préciser", "uncertainty:early-late-phases", "UNCERTAINTY", "Dans l’essai unique, la nature des phases précoce et tardive reste à préciser", "UNKNOWN"),
+      ]),
+    });
+    expect(contribution.scientificContent.ambiguities).toContainEqual(expect.objectContaining({
+      itemId: "uncertainty:early-late-phases",
+      proposedType: "UNCERTAINTY",
+      epistemicBoundary: expect.objectContaining({ epistemicState: "UNKNOWN" }),
+    }));
+    const project = adopt(contribution, null, "project:v1-contextual:ellipted-phases");
+    const state = ensureCanonicalProjectState(project);
+    expect(acquisitionCount(project)).toBe(1);
+    expect(state.objects.filter((item) => item.actuality === "CURRENT" && item.objectType === "CANONICAL_VARIABLE")).toHaveLength(0);
+    expect(state.objects).toContainEqual(expect.objectContaining({ objectType: "UNCERTAINTY", epistemicState: "UNKNOWN" }));
   });
 
   it("B/C — distinguishes two explicit exams from a context-free temporal ambiguity", () => {

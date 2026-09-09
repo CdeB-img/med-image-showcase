@@ -195,15 +195,17 @@ export const buildCanonicalCrfPackage = (
   const dataManagement = buildDataManagementPlanningContribution(planningContext, studyData);
   const variableVersions = new Map(canonicalState.objects
     .filter((object) => object.actuality === "CURRENT"
-      && object.objectType === "CANONICAL_VARIABLE"
-      && !["UNKNOWN", "WITHHELD"].includes(object.epistemicState))
+      && object.objectType === "CANONICAL_VARIABLE")
     .map((object) => [object.objectId, object]));
   const studyVariables = new Map(studyData.content.canonicalVariables.map((variable) => [variable.variableRef.objectId, variable]));
-  const fields: CanonicalCrfField[] = dataManagement.content.logicalCRF.fields.map((field) => {
+  const fields: CanonicalCrfField[] = dataManagement.content.logicalCRF.fields.flatMap((field): CanonicalCrfField[] => {
     const variable = variableVersions.get(field.canonicalVariableRef.objectId);
     const planned = studyVariables.get(field.canonicalVariableRef.objectId);
     if (!variable || !planned) throw new Error("CANONICAL_CRF_PROJECT_VARIABLE_BINDING_MISSING");
-    return Object.freeze({
+    // UNKNOWN/WITHHELD Project variables are legitimate open scientific
+    // objects, but they are not ready to become operational CRF fields.
+    if (["UNKNOWN", "WITHHELD"].includes(variable.epistemicState)) return [];
+    return [Object.freeze({
       fieldId: field.fieldDefinitionId,
       canonicalVariableId: variable.objectId,
       canonicalVariableVersionId: variable.objectVersionId,
@@ -223,7 +225,7 @@ export const buildCanonicalCrfPackage = (
         variable.objectVersionId,
         ...field.provenance.sourceRefs,
       ])),
-    });
+    })];
   });
   const packageId = `canonical-crf-package:${logicalDigest({
     project: project.projectId,

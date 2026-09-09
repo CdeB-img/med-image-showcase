@@ -841,11 +841,13 @@ export default function ProtocolDesignerWorkspace({
   const [projectionMode, setProjectionMode] = useState<"STANDARD" | "EXPERT">("STANDARD");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
+  const [busyMessage, setBusyMessage] = useState("NOXIA vous répond…");
   const [correctionMode, setCorrectionMode] = useState(false);
   const [deliverableWorkspaceOpen, setDeliverableWorkspaceOpen] = useState(false);
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
+  const confirmationInFlightRef = useRef<string | null>(null);
 
   useEffect(() => {
     persistFunctionalResetSession(window.localStorage, session);
@@ -1700,6 +1702,7 @@ export default function ProtocolDesignerWorkspace({
         : null,
       updatedAt: recordedAt,
     }));
+    setBusyMessage("Je prépare la prochaine décision utile…");
     setBusy(true);
     setPostAdoptionContinuationJob({
       sessionId: session.sessionId,
@@ -1721,6 +1724,7 @@ export default function ProtocolDesignerWorkspace({
     const now = new Date().toISOString();
     setDraft("");
     setCorrectionMode(false);
+    setBusyMessage(session.project ? "Je vérifie les éléments déjà fournis…" : "Je structure votre projet…");
     setBusy(true);
     const turnId = createTurnId();
     const traceRunId = createProductTraceRunId(session.sessionId, turnId);
@@ -2113,7 +2117,10 @@ export default function ProtocolDesignerWorkspace({
       } : selectedPreProjectNavigation
         ? realizePreProjectNavigationDecision({
           decision: selectedPreProjectNavigation,
-          providerReply: response.assistantReply,
+          providerReply: response.observability.conversationCalls === 1
+            && response.observability.conversationResponseReceived
+            ? response.assistantReply
+            : null,
           provider: response.observability.provider,
           model: response.observability.model,
           structuredUnderstanding,
@@ -2261,8 +2268,8 @@ export default function ProtocolDesignerWorkspace({
           projectVersionAfter: session.project?.versionId ?? null,
           qryNeedBefore,
           qryNeedAfter: queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null,
-          provider: response.observability.provider,
-          model: response.observability.model,
+          provider: preProjectRealization?.provider ?? response.observability.provider,
+          model: preProjectRealization?.model ?? response.observability.model,
           conversationLatencyMs: response.observability.conversationLatencyMs,
           extractionLatencyMs: response.observability.extractionLatencyMs,
           calls: response.observability.calls + preparedGateway.providerCalls + localized.providerCalls,
@@ -2479,10 +2486,13 @@ export default function ProtocolDesignerWorkspace({
   };
 
   const confirmContribution = async (contributionId: string) => {
+    if (confirmationInFlightRef.current === contributionId) return;
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
     if (!contributionHasAcknowledgedPresentation(contributionId)) return;
     const now = new Date().toISOString();
+    confirmationInFlightRef.current = contributionId;
+    setBusyMessage("Je prépare la prochaine décision utile…");
     setBusy(true);
     let continuationScheduled = false;
     try {
@@ -2683,6 +2693,7 @@ export default function ProtocolDesignerWorkspace({
       };
       });
     } finally {
+      confirmationInFlightRef.current = null;
       if (!continuationScheduled) setBusy(false);
     }
   };
@@ -3331,7 +3342,7 @@ export default function ProtocolDesignerWorkspace({
                       : entry.role === "USER" ? "bg-primary text-primary-foreground" : "bg-muted"
                   }`} role={entry.kind === "ERROR" ? "alert" : undefined}>{entry.content}</div>}
               </article>)}
-            {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />NOXIA vous répond…</div></div>}
+            {busy && <div className="flex justify-start"><div className="inline-flex items-center gap-2 rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"><LoaderCircle className="h-4 w-4 animate-spin" />{busyMessage}</div></div>}
             <div ref={endRef} />
           </div>
 

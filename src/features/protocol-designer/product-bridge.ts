@@ -366,6 +366,8 @@ Pour l'imagerie, distingue IMAGING_MODALITY, ACQUISITION, CANONICAL_VARIABLE, DA
 
 Résous une correction ou une ellipse à partir du Project courant sans créer une nouvelle identité par défaut. Des phases, temps ou mesures explicitement rattachés au même examen, prélèvement ou essai restent rattachés à cette même occurrence ; ils ne créent une autre ACQUISITION ou VISIT que si le dernier message affirme une occurrence distincte. Inversement, deux examens, prélèvements ou essais explicitement distincts doivent conserver deux identités. Une définition terminologique limitée par « ici », « dans ce contexte » ou « dans ce projet » reste locale à ce Project : conserve-la comme PROJECT_INFORMATION ou correction de l'objet visé selon ce que le dernier message autorise, sans alias global, sans réécriture rétroactive du texte source et sans remplacement d'un autre objectif encore actif.
 
+Un qualificatif de phase, d'étape, de séquence ou de position temporelle employé elliptiquement ne nomme pas à lui seul une grandeur mesurée et ne devient donc pas une CANONICAL_VARIABLE autonome. Lorsqu'il est syntaxiquement rattaché à une occurrence déjà exprimée mais que le phénomène exact qu'il qualifie reste incomplet, conserve une seule occurrence et représente séparément l'information sous-spécifiée comme UNCERTAINTY ou PROJECT_INFORMATION avec epistemicState = UNKNOWN ; son content doit rendre lisibles l'occurrence porteuse, le qualificatif conservé et la nature encore à préciser. Ne crée plusieurs occurrences que si le message fournit une preuve explicite de pluralité des réalisations, et non parce qu'il coordonne plusieurs phases ou lectures d'une même réalisation.
+
 Un élément que l'utilisateur souhaite observer ou mesurer peut devenir CANONICAL_VARIABLE candidate lorsqu'il est suffisamment identifié pour le Project. Il ne devient jamais un BiomarkerRole du seul fait qu'il est mesurable, observable, biologique ou lié à un outcome. Un DATA_NEED ou une intention de caractérisation n'est pas une ANALYSIS_SPECIFICATION : cette dernière reste réservée à une finalité analytique, des entrées et une procédure suffisamment définies.
 
 Une procédure de mesure ou une méthode de référence n'est jamais une INTERVENTION du seul fait qu'elle est appliquée à un tissu, un animal ou un participant. Utilise ACQUISITION pour une acquisition ou un prélèvement, CANONICAL_VARIABLE pour la grandeur produite et DATA_NEED pour le besoin mesuré. ANALYSIS_SPECIFICATION est une spécification analytique autonome : elle exige au minimum une finalité ou question analytique, des entrées et une procédure suffisamment établies pour former une identité de spécification. Une simple mention de traitement, segmentation, quantification ou d'une méthode restant à définir ne suffit pas à la créer. Lorsque ce contexte méthodologique est explicitement dit mais reste trop incomplet pour constituer une MeasurementDefinition ou une ANALYSIS_SPECIFICATION, conserve-le séparément comme PROJECT_INFORMATION avec son fragment source exact, le lien contextuel lisible vers la grandeur concernée dans content et epistemicState = UNKNOWN. PROJECT_INFORMATION préserve ici une information Project sous-spécifiée ; il ne devient ni une méthode qualifiée par son owner ni un substitut permanent à MeasurementDefinition. N'attribue REFERENCE_STANDARD que si l'utilisateur établit explicitement ce rôle ou s'il est déjà adopté dans le Project.
@@ -1561,6 +1563,7 @@ export const contributionFromPersistentDelta = (input: {
   const relations = input.candidate.relations.map((relation) => relationFromPersistentCandidate({ relation, turn: lastUserTurn, conversation: input.conversation }));
   const candidateObjects = items.filter((item, index) => input.candidate.changes[index]?.targetSectionId !== "TEMPORALITY"
     && !/TEMPORAL|TIMING|TIMEPOINT|WINDOW|VISIT/i.test(item.proposedType ?? ""));
+  const ambiguities = candidateObjects.filter((item) => /AMBIGU|UNCERTAINTY/i.test(item.proposedType ?? ""));
   const temporalElements = items.filter((item, index) => input.candidate.changes[index]?.targetSectionId === "TEMPORALITY"
     || /TEMPORAL|TIMING|TIMEPOINT|WINDOW|VISIT/i.test(item.proposedType ?? ""));
   const correctionsAndSupersessions = items.filter((_, index) => input.candidate.changes[index]?.operation !== "ADD");
@@ -1616,7 +1619,7 @@ export const contributionFromPersistentDelta = (input: {
       contextualCandidates: [],
       negationsAndConstraints: [],
       temporalElements,
-      ambiguities: [],
+      ambiguities,
       unknowns: [],
       missingInformation: [],
       correctionsAndSupersessions,
