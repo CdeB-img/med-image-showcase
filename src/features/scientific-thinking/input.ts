@@ -13,6 +13,15 @@ const asValues = (intent: ValidatedScientificIntent, key: InterpretedFieldKey): 
     .filter(Boolean);
 };
 
+const asVerbatimValues = (intent: ValidatedScientificIntent, key: InterpretedFieldKey): string[] => {
+  const review = intent.reviews[key];
+  if (["REMOVED", "UNKNOWN", "NOT_RELEVANT"].includes(review?.state ?? "")) return [];
+  const field = intent.interpretation[key];
+  const value = review?.state === "CORRECTED" ? review.correctedValue : field.value;
+  return (Array.isArray(value) ? value : typeof value === "string" && value !== "UNKNOWN" ? [value] : [])
+    .filter((item): item is string => typeof item === "string" && item.length > 0);
+};
+
 const METHOD_PATTERNS = [
   "T1 mapping", "T2 mapping", "ECV", "LGE", "IRM", "MRI", "CT", "CT spectral", "scanner spectral",
   "MOLLI", "SASHA", "dual energy", "double énergie", "photon counting", "K-edge", "PET", "échographie",
@@ -109,7 +118,7 @@ export const buildScientificThinkingInput = (
       ...textMethods,
       ...declaredMethods,
     ]),
-    scientificPurpose: uniqueSorted(asValues(intent, "scientificPurpose")),
+    scientificPurpose: [...new Set(asVerbatimValues(intent, "scientificPurpose"))],
     existingHypotheses: [],
     context: uniqueSorted(asValues(intent, "clinicalContext")),
     missingInformation: uniqueSorted(intent.interpretation.missingInformation.map(normalizeScientificText).filter(Boolean)),

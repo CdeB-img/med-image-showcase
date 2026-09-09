@@ -136,6 +136,7 @@ import {
   resolveStudyDesignConversation,
 } from "./study-design-standard";
 import {
+  buildPreProjectScientificThinkingIntervention,
   buildScientificThinkingSelectionContribution,
   buildStandardScientificThinkingPresentation,
   dispatchScientificThinkingFromQuery,
@@ -1956,22 +1957,6 @@ export default function ProtocolDesignerWorkspace({
         evaluatePersistentDelta: entryRouting.projectConstructionEligible && !asksForExplanationOrRephrase,
       };
       const response = await requestProtocolDesignerBridge(bridgeRequest);
-      const selectedPreProjectNavigation = preProjectNavigation && response.currentTurnNavigation ? {
-        ...preProjectNavigation,
-        action: response.currentTurnNavigation.envelope.action,
-        selection: response.currentTurnNavigation.selection,
-        selectedInformationNeedRef: response.currentTurnNavigation.envelope.selectedInformationNeedRef,
-        selectedInformationNeed: response.currentTurnNavigation.envelope.action === "ASK_QUESTION" ? response.currentTurnNavigation.envelope.purpose : null,
-        scientificReason: response.currentTurnNavigation.envelope.purpose,
-        realizationDirective: response.currentTurnNavigation.envelope.purpose,
-        alreadyProvidedInformationRefs: response.currentTurnNavigation.envelope.alreadyProvidedInformationRefs,
-      } : preProjectNavigation;
-      const realizedBridgeRequest = {
-        ...bridgeRequest,
-        ...(selectedPreProjectNavigation ? { preProjectNavigation: selectedPreProjectNavigation } : {}),
-        ...(response.currentTurnNavigation ? { governedRealization: response.currentTurnNavigation.envelope } : {}),
-      };
-      const providerContext = naturalConversationContext(realizedBridgeRequest);
       const receivedAt = new Date().toISOString();
       const extractedContribution = entryRouting.projectConstructionEligible
         ? response.persistentExtraction.contribution
@@ -1981,6 +1966,35 @@ export default function ProtocolDesignerWorkspace({
       const contribution = extractedContribution;
       const candidate = contribution ? prepareResearchProjectContributionCandidate(contribution, session.project) : null;
       const effectiveCandidate = candidate?.status === "CANDIDATE_PENDING_HUMAN_CONFIRMATION" ? candidate : null;
+      const scientificThinkingIntervention = !session.project && effectiveCandidate && contribution
+        ? buildPreProjectScientificThinkingIntervention({
+          contribution,
+          sessionId: session.sessionId,
+          sourceJourney: entryRouting.routeIntent === "DOCUMENT" ? "FORMALIZE_IDEA" : entryRouting.routeIntent,
+        })
+        : null;
+      const enrichedPreProjectNavigation = preProjectNavigation && scientificThinkingIntervention?.navigationContribution
+        ? buildPreProjectNavigationDecision({
+          routing: entryRouting,
+          scientificContribution: scientificThinkingIntervention.navigationContribution,
+        })
+        : null;
+      const selectedPreProjectNavigation = enrichedPreProjectNavigation ?? (preProjectNavigation && response.currentTurnNavigation ? {
+        ...preProjectNavigation,
+        action: response.currentTurnNavigation.envelope.action,
+        selection: response.currentTurnNavigation.selection,
+        selectedInformationNeedRef: response.currentTurnNavigation.envelope.selectedInformationNeedRef,
+        selectedInformationNeed: response.currentTurnNavigation.envelope.action === "ASK_QUESTION" ? response.currentTurnNavigation.envelope.purpose : null,
+        scientificReason: response.currentTurnNavigation.envelope.purpose,
+        realizationDirective: response.currentTurnNavigation.envelope.purpose,
+        alreadyProvidedInformationRefs: response.currentTurnNavigation.envelope.alreadyProvidedInformationRefs,
+      } : preProjectNavigation);
+      const realizedBridgeRequest = {
+        ...bridgeRequest,
+        ...(selectedPreProjectNavigation ? { preProjectNavigation: selectedPreProjectNavigation } : {}),
+        ...(!enrichedPreProjectNavigation && response.currentTurnNavigation ? { governedRealization: response.currentTurnNavigation.envelope } : {}),
+      };
+      const providerContext = naturalConversationContext(realizedBridgeRequest);
       if (effectiveCandidate && contribution) {
         const retained = retainValidatedContributionCandidate({
           retained: [], contribution, candidate: effectiveCandidate,
@@ -2017,7 +2031,7 @@ export default function ProtocolDesignerWorkspace({
           }));
         }
       }
-      if (response.currentTurnNavigation || response.conversationFailure) {
+      if (!enrichedPreProjectNavigation && (response.currentTurnNavigation || response.conversationFailure)) {
         const nativeTrace = recordGovernedConversationTrace({
           ledger: entryTraceLedger, traceRunId, conversationId: session.conversationId,
           sourceDigest: logicalDigest(content), observedAt: receivedAt,
@@ -2037,7 +2051,7 @@ export default function ProtocolDesignerWorkspace({
         sourceTurnRef: userTurn.turnId,
         explicitDimensions: entryRouting.explicitScientificDimensions,
       });
-      const preProjectRealization = response.governedRealization ? {
+      const preProjectRealization = !enrichedPreProjectNavigation && response.governedRealization ? {
         ...response.governedRealization,
         provider: response.governedRealization.providerReplyAccepted ? response.observability.provider : "NONE",
         model: response.governedRealization.providerReplyAccepted ? response.observability.model : "LOCAL_WHAT_REALIZATION",
@@ -2064,7 +2078,7 @@ export default function ProtocolDesignerWorkspace({
       });
       const visibleAssistantReply = localized.response.localizedResponse;
       downstreamStage = "PRESENTATION";
-      const preProjectTrace = response.currentTurnNavigation ? null : createPreProjectScientificTraceSegment({
+      const preProjectTrace = response.currentTurnNavigation && !enrichedPreProjectNavigation ? null : createPreProjectScientificTraceSegment({
         sessionId: session.sessionId,
         sourceTurnRef: userTurn.turnId,
         traceRunId,

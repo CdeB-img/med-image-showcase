@@ -53,6 +53,19 @@ export type PreProjectVisibleStructuredUnderstanding = Readonly<{
   projectWriteAuthorized: false;
 }>;
 
+export type PreProjectScientificNavigationContribution = Readonly<{
+  owner: "SCIENTIFIC_THINKING";
+  sourceRef: string;
+  sourceVersion: string;
+  informationNeedRef: string;
+  informationNeed: string;
+  whySelected: string;
+  decisionImpact: string;
+  affectedDecisionRefs: readonly string[];
+  affectedBranchRefs: readonly string[];
+  knownOptions: readonly string[];
+}>;
+
 const normalized = (value: string) => value
   .normalize("NFKD")
   .replace(/\p{M}/gu, "")
@@ -91,30 +104,57 @@ const knownOptionsFrom = (value: string): string[] => {
 const buildSourceState = (
   routing: Readonly<ProductEntryRoutingDecision>,
   ambiguity: ReturnType<typeof declaredAmbiguity>,
+  scientificContribution?: Readonly<PreProjectScientificNavigationContribution> | null,
 ): QueryNavigationSourceState => {
   const state = emptySourceState();
-  if (!ambiguity) return state;
-  state.projectAmbiguities = [{
-    ref: `${ambiguity.dimensionRef}:material-ambiguity`,
-    version: PRE_PROJECT_QUERY_NAVIGATION_VERSION,
-    intent: `Préciser le choix explicitement laissé indéterminé dans « ${ambiguity.sourceText} »`,
+  if (ambiguity) state.projectAmbiguities = [{
+      ref: `${ambiguity.dimensionRef}:material-ambiguity`,
+      version: PRE_PROJECT_QUERY_NAVIGATION_VERSION,
+      intent: `Préciser le choix explicitement laissé indéterminé dans « ${ambiguity.sourceText} »`,
+      owner: "QUERY_NAVIGATION",
+      decisionRefs: ["pre-project-decision:scientific-structure"],
+      branchRefs: [`pre-project-branch:${ambiguity.dimensionRef}`],
+      knownOptions: knownOptionsFrom(ambiguity.sourceText),
+    }];
+  if (scientificContribution) state.governedNeeds = [{
+    needId: scientificContribution.informationNeedRef,
+    sourceRef: scientificContribution.sourceRef,
+    sourceType: "SCIENTIFIC_THINKING_CANDIDATE",
+    sourceVersion: scientificContribution.sourceVersion,
+    sourceObjectKind: "ScientificThinkingAdaptiveQuestion",
     owner: "QUERY_NAVIGATION",
-    decisionRefs: ["pre-project-decision:scientific-structure"],
-    branchRefs: [`pre-project-branch:${ambiguity.dimensionRef}`],
-    knownOptions: knownOptionsFrom(ambiguity.sourceText),
+    informationIntent: scientificContribution.informationNeed,
+    affectedDecisionRefs: [...scientificContribution.affectedDecisionRefs],
+    affectedBranchRefs: [...scientificContribution.affectedBranchRefs],
+    blocking: "BLOCKS_CURRENT_BRANCH",
+    actionability: "USER_ANSWERABLE",
+    status: "OPEN",
+    availableFromOwner: null,
+    knownOptions: [...scientificContribution.knownOptions],
+    provenance: {
+      sourceRefs: [scientificContribution.sourceRef, scientificContribution.informationNeedRef],
+      owner: scientificContribution.owner,
+      evidence: [scientificContribution.whySelected, scientificContribution.decisionImpact],
+      limitations: ["SCIENTIFIC_THINKING_CANDIDATE_NOT_PROJECT_TRUTH"],
+    },
+    limitations: ["SCIENTIFIC_THINKING_CANDIDATE_NOT_PROJECT_TRUTH"],
+    projectionOnly: true,
+    sourceOfTruth: false,
+    projectWriteAuthorized: false,
   }];
   return state;
 };
 
 export const buildPreProjectNavigationDecision = (input: {
   routing: Readonly<ProductEntryRoutingDecision>;
+  scientificContribution?: Readonly<PreProjectScientificNavigationContribution> | null;
 }): PreProjectNavigationDecision => {
   const ambiguity = declaredAmbiguity(input.routing);
   const providedRefs = input.routing.explicitScientificDimensions.map((dimension) => dimension.dimensionRef);
   const context = buildQueryNavigationContext({
     projectRef: `pre-project:${input.routing.sourceTurnRef}`,
     projectVersion: "PRE_PROJECT_NOT_ADOPTED",
-    sourceState: buildSourceState(input.routing, ambiguity),
+    sourceState: buildSourceState(input.routing, ambiguity, input.scientificContribution),
     currentUsageRef: "PRE_PROJECT_NATURAL_CONVERSATION",
     sufficiencyEvidenceRefs: ambiguity ? [] : providedRefs,
     limitations: [
@@ -132,7 +172,9 @@ export const buildPreProjectNavigationDecision = (input: {
   const selectedInformationNeed = action === "ASK_QUESTION" ? candidate?.explanation ?? null : null;
   const selectedInformationNeedRef = action === "ASK_QUESTION" ? candidate?.navigationNeedRefs[0] ?? null : null;
   const scientificReason = action === "ASK_QUESTION"
-    ? "Une ambiguïté explicitement déclarée peut modifier la structure scientifique du projet."
+    ? candidate?.provenance.owner === "SCIENTIFIC_THINKING"
+      ? candidate.provenance.evidence.join(" ")
+      : "Une ambiguïté explicitement déclarée peut modifier la structure scientifique du projet."
     : "Les dimensions explicitement fournies suffisent pour poursuivre par une structuration réversible sans imposer de clarification.";
   const expectedInformationGain = action === "ASK_QUESTION"
     ? `MAY_CHANGE_DECISION:${candidate?.affectedDecisionRefs.join(",") || "pre-project-scientific-structure"}`
@@ -254,6 +296,7 @@ const deterministicProposal = (decision: Readonly<PreProjectNavigationDecision>)
 
 const deterministicQuestion = (decision: PreProjectNavigationDecision) => {
   const need = decision.selectedInformationNeed?.replace(/[?.!]+$/gu, "") ?? "le choix qui reste explicitement indéterminé";
+  if (decision.selectedInformationNeed?.trim().endsWith("?")) return decision.selectedInformationNeed.trim();
   return `Pour lever uniquement l’ambiguïté susceptible de modifier la structure du projet : ${need} ?`;
 };
 

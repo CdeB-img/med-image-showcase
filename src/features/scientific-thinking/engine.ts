@@ -511,6 +511,21 @@ const buildAdaptiveQuestions = (input: ScientificThinkingInput, questions: Quest
     acceptsUnknown: true,
     answeredValue: answers[projectUnknownQuestionId(unknown.objectRef)] ?? null,
   }));
+  if (input.scientificPurpose.length > 1 && !answers["ST-AQ-OBJECTIVE-STRUCTURE"]) proposed.push({
+    questionId: "ST-AQ-OBJECTIVE-STRUCTURE",
+    label: `Souhaitez-vous réunir les objectifs ${input.scientificPurpose.map((purpose) => `« ${purpose} »`).join(" et ")} dans une même étude à plusieurs volets, ou les traiter comme des études distinctes ?`,
+    whyAsked: "Plusieurs objectifs explicites peuvent partager une population et certaines méthodes tout en nécessitant des plans d’étude distincts.",
+    decisionImpact: "La réponse détermine la structure du Research Project et les dépendances communes, sans adopter automatiquement l’une des options.",
+    decisionBlock: "SCOPE",
+    blocking: true,
+    suggestedAnswers: [
+      { value: "coordinated-study", label: "Une étude à plusieurs volets", consequence: "Les objectifs restent distincts dans une structure commune." },
+      { value: "distinct-studies", label: "Des études distinctes", consequence: "Chaque objectif conserve son propre périmètre d’étude." },
+    ],
+    acceptsFreeText: true,
+    acceptsUnknown: true,
+    answeredValue: null,
+  });
   const complete = questions[0]?.testability === "TESTABLE_CANDIDATE" && hasPopulation(input) && (hasOutcome(input) || hasTime(input) || input.relations.length > 0);
   if (complete) return proposed;
   const methodOnlyComparison = isMethodOnlyComparison(input);
@@ -548,7 +563,7 @@ const buildAdaptiveQuestions = (input: ScientificThinkingInput, questions: Quest
       { value: "quantify", label: "Quantifier ou suivre", consequence: "La grandeur et la temporalité devront être explicitées." },
     ], acceptsFreeText: true, acceptsUnknown: true, answeredValue: answers["ST-AQ-FINALITY"] ?? null,
   });
-  if (!methodOnlyComparison && !hasRelation(input.originalExpression) && !isNonTestable(input.originalExpression)) proposed.push({
+  if (!methodOnlyComparison && input.scientificPurpose.length < 2 && !hasRelation(input.originalExpression) && !isNonTestable(input.originalExpression)) proposed.push({
     questionId: "ST-AQ-RELATION", label: "Quelle relation souhaitez-vous examiner ?",
     whyAsked: "La relation distingue une intuition thématique d’une question réfutable.",
     decisionImpact: "Elle structure la question principale et les hypothèses concurrentes.", decisionBlock: "RELATION", blocking: true,

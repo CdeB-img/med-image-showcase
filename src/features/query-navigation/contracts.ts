@@ -26,6 +26,7 @@ export const PD009_ACTION_LABELS: Record<Pd009ActionCategory, string> = {
 };
 
 export type NavigationSourceType =
+  | "SCIENTIFIC_THINKING_CANDIDATE"
   | "PROJECT_MISSING_INFORMATION"
   | "PROJECT_UNKNOWN"
   | "PROJECT_AMBIGUITY"

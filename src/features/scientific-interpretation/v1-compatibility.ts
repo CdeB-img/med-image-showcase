@@ -36,6 +36,7 @@ export const projectScientificContributionToV1IfAllowed = (
 };
 
 const V1_TYPE_MAP: Record<string, InterpretedFieldKey> = {
+  OBJECTIVE: "scientificPurpose",
   SCIENTIFIC_INTENT: "scientificPurpose",
   OPERATION: "scientificPurpose",
   GOAL: "scientificPurpose",
@@ -64,9 +65,12 @@ const V1_TYPE_MAP: Record<string, InterpretedFieldKey> = {
   TEMPORAL_ELEMENT: "declaredTimings",
 };
 
-const v1FieldFor = (contribution: ScientificInterpretationContributionEnvelope, item: ScientificContributionItem) => item.proposedType === "METHOD" && contribution.identity.runtimeId === "LEGACY_SEM_FULL"
-  ? "availableEquipment" as const
-  : item.proposedType ? V1_TYPE_MAP[item.proposedType] : undefined;
+const v1FieldFor = (contribution: ScientificInterpretationContributionEnvelope, item: ScientificContributionItem) => {
+  if (item.proposedType === "OBJECTIVE" && item.epistemicBoundary.epistemicState !== "KNOWN") return undefined;
+  return item.proposedType === "METHOD" && contribution.identity.runtimeId === "LEGACY_SEM_FULL"
+    ? "availableEquipment" as const
+    : item.proposedType ? V1_TYPE_MAP[item.proposedType] : undefined;
+};
 
 const confidence = (value: number | null): ConfidenceLevel => value === null ? "UNKNOWN" : value >= 0.85 ? "HIGH" : value >= 0.6 ? "MEDIUM" : value > 0 ? "LOW" : "UNKNOWN";
 const origin = (items: ScientificContributionItem[]): EvidenceOrigin => items.every((item) => item.epistemicBoundary.epistemicStatus === "EXPLICIT_USER_STATED")

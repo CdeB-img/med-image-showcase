@@ -1,15 +1,19 @@
 import { logicalDigest } from "@/features/knowledge-engine";
 import {
+  buildScientificThinkingInput,
+  executeScientificThinkingEngine,
   SCIENTIFIC_THINKING_ENGINE_VERSION,
   type ScientificModelCandidate,
   type ScientificThinkingOutput,
 } from "@/features/scientific-thinking";
+import type { PreProjectScientificNavigationContribution } from "@/features/query-navigation";
 import {
   canonicalizeScientificContribution,
   type ScientificContributionItem,
   type ScientificInterpretationContributionEnvelope,
   type ScientificInterpretationTurn,
 } from "@/features/scientific-interpretation";
+import { projectScientificContributionToV1IfAllowed } from "@/features/scientific-interpretation/v1-compatibility";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import {
   buildProjectContextSnapshot,
@@ -70,8 +74,54 @@ export type ScientificThinkingConversationResolution =
   | { kind: "DEFER"; response: string }
   | { kind: "FALLTHROUGH" };
 
+export type PreProjectScientificThinkingIntervention = Readonly<{
+  output: ScientificThinkingOutput;
+  navigationContribution: PreProjectScientificNavigationContribution | null;
+  providerCalls: 0;
+  projectWrites: 0;
+}>;
+
 const unique = (values: readonly string[]) => [...new Set(values.filter(Boolean))].sort((left, right) => left.localeCompare(right));
 const folded = (value: string) => value.normalize("NFKD").replace(/\p{M}/gu, "").toLocaleLowerCase("fr-FR").replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+
+export const buildPreProjectScientificThinkingIntervention = (input: {
+  contribution: Readonly<ScientificInterpretationContributionEnvelope>;
+  sessionId: string;
+  sourceJourney: "UNDERSTAND" | "FORMALIZE_IDEA" | "DESIGN_STUDY";
+}): PreProjectScientificThinkingIntervention | null => {
+  const result = projectScientificContributionToV1IfAllowed(input.contribution);
+  if (!result.projection) return null;
+  const { validatedIntent, scientificSessionContext } = result.projection;
+  const scientificInput = buildScientificThinkingInput(
+    validatedIntent,
+    scientificSessionContext.preservedScientificTerms,
+    scientificSessionContext.detectedRelationships,
+    null,
+    {
+      sessionId: input.sessionId,
+      contextVersion: scientificSessionContext.contextVersion,
+      sourceJourney: input.sourceJourney,
+    },
+  );
+  const output = executeScientificThinkingEngine(scientificInput);
+  const question = output.adaptiveQuestions.find((candidate) =>
+    candidate.questionId === "ST-AQ-OBJECTIVE-STRUCTURE"
+    && candidate.blocking
+    && !candidate.answeredValue) ?? null;
+  const navigationContribution = question ? {
+    owner: "SCIENTIFIC_THINKING" as const,
+    sourceRef: output.outputId,
+    sourceVersion: output.contractVersion,
+    informationNeedRef: question.questionId,
+    informationNeed: question.label,
+    whySelected: question.whyAsked,
+    decisionImpact: question.decisionImpact,
+    affectedDecisionRefs: [`pre-project-decision:${question.decisionBlock.toLocaleLowerCase("en-US")}`],
+    affectedBranchRefs: [`pre-project-branch:${question.decisionBlock.toLocaleLowerCase("en-US")}`],
+    knownOptions: question.suggestedAnswers.map((answer) => answer.label),
+  } satisfies PreProjectScientificNavigationContribution : null;
+  return Object.freeze({ output, navigationContribution, providerCalls: 0 as const, projectWrites: 0 as const });
+};
 
 export const isScientificThinkingQueryDispatch = (navigation: Readonly<FunctionalResetQueryNavigation>) => {
   const action = navigation.currentAction;
