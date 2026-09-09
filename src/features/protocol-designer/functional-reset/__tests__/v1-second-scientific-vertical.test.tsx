@@ -1,0 +1,231 @@
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { HelmetProvider } from "react-helmet-async";
+import { MemoryRouter } from "react-router-dom";
+import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
+import type { ProductBridgeRequest, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
+import {
+  behaviorContribution,
+  behaviorItem,
+} from "./p1-behavior-01a-contract-fixtures";
+import {
+  makeFunctionalResetBridgeResponse,
+  makeGovernedPostAdoptionResponse,
+} from "./functional-reset-fixtures";
+import {
+  FUNCTIONAL_RESET_STORAGE_KEY,
+  type FunctionalResetSession,
+} from "../session";
+
+const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn() }));
+vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => {
+  const original = await importOriginal<typeof import("@/features/protocol-designer/product-bridge-client")>();
+  return {
+    ...original,
+    requestProtocolDesignerBridge: runtime.bridge,
+    requestConversationLanguageProjection: runtime.language,
+  };
+});
+
+const INITIAL = "Nous avons développé une mesure quantitative automatisée de la fibrose myocardique à partir d’une IRM cardiaque avec rehaussement tardif au gadolinium. Nous souhaitons la valider dans plusieurs centres par rapport à une évaluation manuelle réalisée par des experts, mais nous n’avons pas encore décidé du cadre exact de validation ni du critère principal de performance.";
+const CORRECTION = "Je modifie cette étude : je retiens une validation méthodologique prospective multicentrique. La mesure automatisée sera comparée à l’évaluation manuelle experte au niveau du patient. Le critère principal sera l’accord absolu entre les deux mesures.";
+const OBJECTIVE = "Valider dans plusieurs centres la mesure quantitative automatisée de la fibrose myocardique par rapport à une évaluation manuelle experte";
+const QUESTION = "Dans quelle mesure la mesure quantitative automatisée de la fibrose myocardique concorde-t-elle avec une évaluation manuelle experte dans plusieurs centres ?";
+const AUTOMATED_MEASUREMENT = "Mesure quantitative automatisée de la fibrose myocardique";
+const EXPERT_REFERENCE = "Évaluation manuelle réalisée par des experts";
+const IMAGING = "IRM cardiaque avec rehaussement tardif au gadolinium";
+const DESIGN = "Étude de validation méthodologique prospective multicentrique";
+const PRIMARY_ENDPOINT = "Accord absolu entre la mesure automatisée et l’évaluation manuelle experte au niveau du patient";
+
+const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
+const submit = (text: string) => {
+  fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: text } });
+  fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
+};
+
+const fixtureResponse = (request: ProductBridgeRequest): ProductBridgeResponse => {
+  if (request.requestKind === "POST_ADOPTION_QRY_CONTINUATION") {
+    const governed = makeGovernedPostAdoptionResponse(request);
+    return {
+      ...governed,
+      conversationFailure: {
+        stage: "CONFORMANCE",
+        code: "LOCAL_V1_PROVIDER_DISABLED",
+        message: "Provider execution is disabled for this deterministic V1 qualification.",
+        provider: null,
+      },
+      observability: {
+        ...governed.observability,
+        model: "GOVERNED_LOCAL_REALIZATION",
+        conversationModel: "GOVERNED_LOCAL_REALIZATION",
+        conversationCalls: 0,
+        conversationResponseReceived: false,
+        conversationLatencyMs: 0,
+        calls: 0,
+      },
+    };
+  }
+  const userTurns = request.conversation.turns.filter((turn) => turn.role === "USER");
+  const turn = userTurns.at(-1)!;
+  const isCorrection = Boolean(request.currentProject);
+  const contribution = behaviorContribution({
+    contributionId: `contribution:v1-fibrosis-validation:${userTurns.length}`,
+    previousContributionId: request.currentProject?.contributionRef ?? null,
+    turns: [turn],
+    candidateObjects: isCorrection ? [
+      behaviorItem({
+        itemId: "study-design:validation-framework:v2",
+        semanticIdentity: "study-design:validation-framework",
+        previousItemIds: ["study-design:validation-framework"],
+        proposedType: "STUDY_DESIGN",
+        content: DESIGN,
+        turnId: turn.turnId,
+      }),
+      behaviorItem({
+        itemId: "endpoint:primary-performance:v2",
+        semanticIdentity: "endpoint:primary-performance",
+        previousItemIds: ["endpoint:primary-performance"],
+        proposedType: "ENDPOINT",
+        studyRole: "PRIMARY_ENDPOINT",
+        content: PRIMARY_ENDPOINT,
+        turnId: turn.turnId,
+      }),
+    ] : [
+      behaviorItem({ itemId: "question:automated-vs-expert", proposedType: "SCIENTIFIC_QUESTION", content: QUESTION, turnId: turn.turnId }),
+      behaviorItem({ itemId: "objective:multicenter-validation", proposedType: "OBJECTIVE", studyRole: "PRIMARY", content: OBJECTIVE, turnId: turn.turnId }),
+      behaviorItem({ itemId: "measurement:automated-fibrosis", proposedType: "MEASUREMENT", content: AUTOMATED_MEASUREMENT, turnId: turn.turnId }),
+      behaviorItem({ itemId: "comparator:expert-manual", proposedType: "COMPARATOR", studyRole: "REFERENCE_METHOD", content: EXPERT_REFERENCE, turnId: turn.turnId }),
+      behaviorItem({ itemId: "modality:lge-cmr", proposedType: "IMAGING_MODALITY", content: IMAGING, turnId: turn.turnId }),
+      behaviorItem({ itemId: "setting:multicenter", proposedType: "PROJECT_INFORMATION", studyRole: "STUDY_SETTING", content: "Validation dans plusieurs centres", turnId: turn.turnId }),
+      behaviorItem({
+        itemId: "study-design:validation-framework",
+        semanticIdentity: "study-design:validation-framework",
+        proposedType: "STUDY_DESIGN",
+        content: "Cadre exact de validation non encore décidé",
+        turnId: turn.turnId,
+        epistemicState: "UNKNOWN",
+        polarity: "UNKNOWN",
+      }),
+      behaviorItem({
+        itemId: "endpoint:primary-performance",
+        semanticIdentity: "endpoint:primary-performance",
+        proposedType: "ENDPOINT",
+        studyRole: "PRIMARY_ENDPOINT",
+        content: "Critère principal de performance non encore décidé",
+        turnId: turn.turnId,
+        epistemicState: "UNKNOWN",
+        polarity: "UNKNOWN",
+      }),
+    ],
+  });
+  contribution.source.conversationId = request.conversation.conversationId;
+  const response = makeFunctionalResetBridgeResponse(
+    request.conversation.turns,
+    contribution,
+    isCorrection
+      ? "J’ai compris votre correction du cadre de validation et du critère principal. Je vous la présente pour confirmation avant toute modification du projet."
+      : "J’ai compris que vous souhaitez valider dans plusieurs centres une mesure automatisée de fibrose myocardique par rapport à une évaluation manuelle experte. Le cadre de validation et le critère principal restent ouverts avant votre confirmation.",
+  );
+  return {
+    ...response,
+    observability: {
+      ...response.observability,
+      model: "LOCAL_V1_FIBROSIS_VALIDATION_FIXTURE",
+      conversationLatencyMs: 0,
+      extractionLatencyMs: 0,
+      conversationCalls: 0,
+      conversationResponseReceived: false,
+      calls: 0,
+    },
+  };
+};
+
+describe("V1 — seconde verticale Standard, validation multicentrique d’une mesure", () => {
+  beforeEach(() => {
+    window.localStorage.clear();
+    runtime.bridge.mockReset();
+    runtime.language.mockReset();
+    runtime.bridge.mockImplementation(async (request: ProductBridgeRequest) => fixtureResponse(request));
+    vi.spyOn(console, "debug").mockImplementation(() => undefined);
+    vi.stubGlobal("fetch", vi.fn(() => { throw new Error("V1_SECOND_VERTICAL_NETWORK_FORBIDDEN"); }));
+    Object.defineProperty(URL, "createObjectURL", { configurable: true, value: vi.fn(() => "blob:v1-second-vertical") });
+    Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: vi.fn() });
+    vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => undefined);
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
+  });
+
+  it("advances from the free-text idea to a useful design decision, correction, Project v2, protocol and HTML export", async () => {
+    renderDemo();
+
+    submit(INITIAL);
+    const firstReview = await screen.findByTestId("functional-contribution-review");
+    expect(screen.getByText(/Je vous propose de les organiser dans une première compréhension structurée/)).toBeInTheDocument();
+    expect(within(firstReview).getByText(OBJECTIVE)).toBeInTheDocument();
+    expect(within(firstReview).getByText(AUTOMATED_MEASUREMENT)).toBeInTheDocument();
+    expect(within(firstReview).getByText(EXPERT_REFERENCE)).toBeInTheDocument();
+    expect(within(firstReview).getByText(IMAGING)).toBeInTheDocument();
+    expect(stored().project).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await screen.findByText("Projet créé.");
+    await waitFor(() => expect(stored().project?.revision).toBe(1));
+    const projectV1 = structuredClone(stored().project!);
+
+    const studyDesign = await screen.findByTestId("standard-study-design-proposal");
+    expect(within(studyDesign).getByText(/Validation méthodologique comparative/)).toBeInTheDocument();
+    expect(studyDesign).toHaveTextContent(/Estimer l’accord, les différences et la répétabilité entre méthodes/);
+    expect(stored().studyDesignInteraction).toMatchObject({ status: "ACTIVE", projectWriteAuthorized: false });
+    expect(stored().knowledgeOwnerLedger.entries.some((entry) => entry.request.owner === "STUDY_DESIGN"
+      && entry.request.capabilityId === "STUDY_DESIGN_COHERENCE")).toBe(true);
+    expect(stored().project).toEqual(projectV1);
+
+    submit("Je rejette toutes ces options.");
+    await screen.findByText(/Aucune option n’est retenue et le Research Project reste inchangé/);
+    expect(stored().studyDesignInteraction).toMatchObject({ status: "REJECTED" });
+    expect(stored().project).toEqual(projectV1);
+
+    submit(CORRECTION);
+    await waitFor(() => expect(runtime.bridge).toHaveBeenCalledTimes(2));
+    await waitFor(() => expect(screen.getAllByTestId("functional-contribution-review")).toHaveLength(2));
+    expect(stored().project).toEqual(projectV1);
+    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await screen.findByText("Projet mis à jour.");
+    await waitFor(() => expect(stored().project?.revision).toBe(2));
+
+    const projectV2 = stored().project!;
+    expect(projectV2.previousVersionId).toBe(projectV1.versionId);
+    const currentObjects = projectV2.canonicalState.objects.filter((object) => object.actuality === "CURRENT");
+    expect(currentObjects.map((object) => object.content)).toEqual(expect.arrayContaining([
+      QUESTION,
+      OBJECTIVE,
+      AUTOMATED_MEASUREMENT,
+      EXPERT_REFERENCE,
+      IMAGING,
+      DESIGN,
+      PRIMARY_ENDPOINT,
+    ]));
+    expect(currentObjects).toContainEqual(expect.objectContaining({ objectType: "STUDY_DESIGN", content: DESIGN, epistemicState: "KNOWN" }));
+    expect(currentObjects).toContainEqual(expect.objectContaining({ objectType: "ENDPOINT", content: PRIMARY_ENDPOINT, epistemicState: "KNOWN" }));
+
+    submit("Affiche-moi un premier protocole de travail.");
+    const preview = await screen.findByTestId("functional-protocol-preview");
+    expect(within(preview).getByText("PROTOCOLE DE TRAVAIL")).toBeInTheDocument();
+    expect(within(preview).getByText(/Research Project version 2/)).toBeInTheDocument();
+    expect(preview.textContent).toContain(OBJECTIVE);
+    expect(preview.textContent).toContain(DESIGN);
+    expect(preview.textContent).toContain(PRIMARY_ENDPOINT);
+    fireEvent.click(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" }));
+    await waitFor(() => expect(stored().scientificExecutionTraceLedger.events.map((event) => event.common?.stage)).toContain("ARTIFACT_GENERATED"));
+    expect(URL.createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+
+    expect(runtime.language).not.toHaveBeenCalled();
+    expect(globalThis.fetch).not.toHaveBeenCalled();
+    expect(document.body.textContent).not.toMatch(/ownerResultRef|traceRunId|STUDY_DESIGN_COHERENCE|QUERY_NAVIGATION/);
+  });
+});
