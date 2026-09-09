@@ -62,13 +62,20 @@ const LOCAL_SOURCE_CATALOG_INTEGRITY_BLOCK_PREFIXES = [
   "SOURCE_ANCHOR_EXACT_TEXT_MISMATCH:",
 ] as const;
 
+const NON_CORRECTIVE_PERSISTENT_BINDING_BLOCK_SUFFIXES = [
+  "EXPECTED_AT_SOURCE_NOT_CANONICAL_VARIABLE",
+] as const;
+
 /**
  * A provider-shaped candidate may be re-extracted once when deterministic
  * validation rejects that output. Local catalog-integrity failures are not
  * recoverable through another provider call and therefore never trigger it.
  */
 export const isRecoverablePersistentValidationFailure = (blocks: readonly string[]) =>
-  blocks.length > 0 && blocks.every((block) => !LOCAL_SOURCE_CATALOG_INTEGRITY_BLOCK_PREFIXES
+  blocks.length > 0
+  && !blocks.some((block) => NON_CORRECTIVE_PERSISTENT_BINDING_BLOCK_SUFFIXES
+    .some((suffix) => block.endsWith(`:${suffix}`) || block === suffix))
+  && blocks.every((block) => !LOCAL_SOURCE_CATALOG_INTEGRITY_BLOCK_PREFIXES
     .some((prefix) => block.startsWith(prefix)));
 
 const addOptional = (left: number | undefined, right: number | undefined) =>

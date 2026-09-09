@@ -386,7 +386,7 @@ ADD crée une nouvelle identité scientifique : omets targetProjectRef. Un objet
 
 Une temporalité portant sur un objet Project existant n'est jamais un nouvel objet autonome. Utilise temporalQualifications avec l'identifiant stable de l'objet porteur, un rôle temporel typé et un anchor structuré. Pour « l'IRM sera réalisée entre J3 et J5 » sur une Acquisition IRM existante, propose ACQUISITION_TIME avec une fenêtre J3–J5 ; si le référentiel de J0 n'est pas fourni, conserve reference.status = UNKNOWN et n'invente aucune relation ANCHORED_TO.
 
-Une occasion attendue de mesure utilise expectedVariableOccasions et référence une CANONICAL_VARIABLE stable. Elle ne crée ni nouvelle variable ni valeur observée. EXPECTED_AT ne s'applique pas à une modalité ou à une Acquisition.
+Une occasion attendue de mesure utilise expectedVariableOccasions et référence une CANONICAL_VARIABLE stable. Elle ne crée ni nouvelle variable ni valeur observée. EXPECTED_AT ne s'applique ni à un ENDPOINT, ni à une modalité, ni à une Acquisition. Lorsqu'un critère quantitatif est explicitement principal et possède un temps de mesure, conserve deux objets distincts : un ENDPOINT portant PRIMARY_ENDPOINT et une CANONICAL_VARIABLE portant la quantité mesurée. Référence exclusivement le candidateRef de cette CANONICAL_VARIABLE dans variableProjectRef ; ne place jamais PRIMARY_ENDPOINT sur la CANONICAL_VARIABLE comme substitut de l'ENDPOINT.
 
 REPLACE et REMOVE modifient l'objet existant désigné par targetProjectRef, qui doit être l'identifiant stable exact fourni dans les objets canoniques du Project. Une section ou un libellé n'est qu'une projection et ne remplace jamais cet identifiant stable.
 

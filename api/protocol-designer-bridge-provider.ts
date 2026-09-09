@@ -253,7 +253,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
           },
           expectedVariableOccasions: {
             type: "array",
-            description: "Expected occasions for one existing CANONICAL_VARIABLE; these are not observed values and do not duplicate the variable.",
+            description: "Expected occasions for one existing CANONICAL_VARIABLE; these are not observed values and do not duplicate the variable. A quantitative endpoint and its measured variable remain distinct objects: PRIMARY_ENDPOINT stays on ENDPOINT, while variableProjectRef must identify the CANONICAL_VARIABLE carrying the measured quantity.",
             items: {
               type: "object",
               additionalProperties: false,
@@ -261,7 +261,7 @@ export const buildPersistentDeltaPayload = (request: ProductBridgeRequest) => {
                 operation: { type: "string", enum: ["ADD", "REMOVE", "REPLACE"] },
                 occasionId: { type: "string", description: "Stable expected-occasion identity. Preserve it for REPLACE or REMOVE." },
                 sourceAnchorId: { type: "string", description: "Select one exact anchorId from the supplied current-user source catalog that semantically supports this expected occasion. FULL_TURN is valid; never invent an ID." },
-                variableProjectRef: { type: "string", description: "Exact stable ID of an existing CANONICAL_VARIABLE or candidateRef for a CANONICAL_VARIABLE declared in changes of this same output." },
+                variableProjectRef: { type: "string", description: "Exact stable ID of an existing CANONICAL_VARIABLE or candidateRef for a CANONICAL_VARIABLE declared in changes of this same output. Never reference an ENDPOINT, including the paired PRIMARY_ENDPOINT." },
                 anchor: { anyOf: [temporalAnchorJsonSchema, { type: "null" }] },
                 studyUnitOrGroupRef: { type: "string", description: "Optional stable Project or candidate-local group reference." },
                 applicableContext: { type: "string", description: "Optional bounded applicability context." },

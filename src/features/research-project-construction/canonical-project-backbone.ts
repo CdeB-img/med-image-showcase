@@ -373,6 +373,16 @@ const temporalValueItem = (item: Pick<ScientificContributionItem, "proposedType"
 };
 
 export const canonicalProjectObjectType = (item: Pick<ScientificContributionItem, "proposedType" | "studyRole">): CanonicalProjectObjectType => {
+  const explicitType = (item.proposedType ?? "").trim().toLocaleUpperCase("en-US");
+  const explicitRole = (item.studyRole ?? "").trim().toLocaleUpperCase("en-US");
+
+  // A source-declared CanonicalVariable remains the measured quantity when it
+  // carries a non-priority outcome role. Endpoint identity is represented by a
+  // distinct ENDPOINT object; OUTCOME_ROLE must not silently change the object
+  // type before EXPECTED_AT binding is validated.
+  if (explicitType === "CANONICAL_VARIABLE" && explicitRole !== "PRIMARY_ENDPOINT") {
+    return "CANONICAL_VARIABLE";
+  }
   const type = typeText(item);
   if (/QUESTION/.test(type)) return "SCIENTIFIC_QUESTION";
   if (/OBJECTIVE|GOAL/.test(type)) return "OBJECTIVE";
