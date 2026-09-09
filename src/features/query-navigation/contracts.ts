@@ -43,7 +43,8 @@ export type NavigationSourceType =
   | "VALIDATION_GATE"
   | "DOMAIN_READINESS"
   | "DOCUMENT_GENERABILITY"
-  | "KNOWLEDGE_GAP";
+  | "KNOWLEDGE_GAP"
+  | "CURRENT_PROJECT_IMPACT";
 
 export type NavigationActionability =
   | "USER_ANSWERABLE"

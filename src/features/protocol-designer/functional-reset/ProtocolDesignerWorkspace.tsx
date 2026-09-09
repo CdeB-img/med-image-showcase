@@ -1,6 +1,7 @@
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import {
   buildBoundedConversationReferentContext,
+  buildCurrentNavigationEvidence,
   currentGovernedNavigationInput,
   selectBoundedConversationInteraction,
 } from "@/features/query-navigation/current-navigation-evidence";
@@ -71,8 +72,11 @@ import {
 import {
   buildPreProjectNavigationDecision,
   buildFunctionalResetQueryNavigation,
+  buildCurrentProjectImpactProjection,
+  deferFunctionalResetQueryNavigation,
   isFunctionalResetQueryMisunderstanding,
   realizePreProjectNavigationDecision,
+  recordFunctionalResetQueryResponse,
 } from "@/features/query-navigation";
 import ContributionReview, { ContributionReviewPresentation, type ContributionReviewPresentationFailure } from "./ContributionReview";
 import {
@@ -93,6 +97,7 @@ import {
   recordPostAdoptionGovernedLocalRealization,
   recordProductErrorBoundary,
   recordContributionReviewPresentedTrace,
+  recordCurrentProjectImpactNavigationTrace,
   recordRetainedContributionValidation,
   recordProjectAdoptionTrace,
   recordStudyDesignConversationTrace,
@@ -109,6 +114,13 @@ import ImagingStandardCard from "./ImagingStandardCard";
 import BiostatisticsStandardCard from "./BiostatisticsStandardCard";
 import CanonicalStudyDataStandardCard from "./CanonicalStudyDataStandardCard";
 import DataManagementStandardCard from "./DataManagementStandardCard";
+import StandardConversationActionGroup from "./StandardConversationActionGroup";
+import {
+  buildStandardConversationActionGroup,
+  summarizeStandardConversationActionResponse,
+  type StandardConversationActionGroupPresentation,
+  type StandardConversationActionGroupResponse,
+} from "./standard-conversation-action-group";
 import {
   executeProductUnderstandInteraction,
   recognizeProductDocumentAction,
@@ -1712,6 +1724,8 @@ export default function ProtocolDesignerWorkspace({
     const traceRunId = createProductTraceRunId(session.sessionId, turnId);
     let preparedGatewaySnapshot: Awaited<ReturnType<typeof prepareMultilingualUserTurn>> | null = null;
     let retainedThisTurn: RetainedContributionCandidate | null = null;
+    let contextualActionPresentation: StandardConversationActionGroupPresentation | null = null;
+    let currentProjectImpactProjection: NonNullable<ReturnType<typeof buildCurrentProjectImpactProjection>> | null = null;
     let governedRealizationOutcome: ScientificTraceRealizationOutcome | undefined;
     let downstreamStage = "CONFORMANCE";
     try {
@@ -1776,7 +1790,7 @@ export default function ProtocolDesignerWorkspace({
       const qryNeedBefore = session.queryNavigation?.currentAction?.navigationNeedRefs[0] ?? null;
       // UNDERSTAND is transversal: a pending QRY remains byte-for-byte available,
       // but it neither captures nor mutates the explanatory turn.
-      const queryNavigation = session.queryNavigation;
+      let queryNavigation = session.queryNavigation;
       const withUser: FunctionalResetSession = {
         ...session,
         queryNavigation,
@@ -2034,6 +2048,32 @@ export default function ProtocolDesignerWorkspace({
           }));
         }
       }
+      if (session.project && retainedThisTurn) {
+        const impact = buildCurrentProjectImpactProjection({
+          project: session.project,
+          candidate: retainedThisTurn.candidate,
+          candidateDigest: retainedThisTurn.candidateDigest,
+          sourceTurnRef: retainedThisTurn.sourceTurnRef,
+        });
+        if (impact) {
+          currentProjectImpactProjection = impact;
+          const evidence = buildCurrentNavigationEvidence({
+            sourceTurnRef: userTurn.turnId,
+            sourceText: content,
+            currentProject: session.project,
+            validatedCandidate: retainedThisTurn,
+            currentProjectImpact: impact,
+          });
+          queryNavigation = buildFunctionalResetQueryNavigation({
+            project: session.project,
+            previous: session.queryNavigation,
+            recordedAt: receivedAt,
+            currentNavigationEvidence: evidence,
+            forceRebuild: true,
+          });
+          contextualActionPresentation = buildStandardConversationActionGroup({ impact, navigation: queryNavigation });
+        }
+      }
       if (!enrichedPreProjectNavigation && (response.currentTurnNavigation || response.conversationFailure)) {
         const nativeTrace = recordGovernedConversationTrace({
           ledger: entryTraceLedger, traceRunId, conversationId: session.conversationId,
@@ -2133,6 +2173,18 @@ export default function ProtocolDesignerWorkspace({
             observedModelReturned: response.observability.extractionModelReturned,
           }),
         });
+        if (session.project && currentProjectImpactProjection && contextualActionPresentation) {
+          scientificExecutionTraceLedger = recordCurrentProjectImpactNavigationTrace({
+            ledger: scientificExecutionTraceLedger,
+            traceRunId,
+            conversationId: current.conversationId,
+            observedAt: receivedAt,
+            project: session.project,
+            impact: currentProjectImpactProjection,
+            queryNavigation,
+            presentation: contextualActionPresentation,
+          });
+        }
         scientificExecutionTraceLedger = recordLocalizedConversationResponseTrace({
           ledger: scientificExecutionTraceLedger,
           traceRunId,
@@ -2149,6 +2201,14 @@ export default function ProtocolDesignerWorkspace({
         entries: [
           ...current.entries,
           { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: visibleAssistantReply, createdAt: receivedAt },
+          ...(contextualActionPresentation ? [{
+            entryId: createConversationEntryId(),
+            kind: "FOLLOW_UP_ACTIONS" as const,
+            role: "NOXIA" as const,
+            presentation: contextualActionPresentation,
+            response: null,
+            createdAt: receivedAt,
+          }] : []),
           ...(effectiveCandidate && contribution ? [{
             entryId: createConversationEntryId(),
             kind: "REVIEW" as const,
@@ -2714,6 +2774,64 @@ export default function ProtocolDesignerWorkspace({
     }
   };
 
+  const respondToConversationActionGroup = (entryId: string, input: {
+    selectedActionRefs: readonly string[];
+    freeTextRequest: string | null;
+    defer: boolean;
+  }) => {
+    const respondedAt = new Date().toISOString();
+    setSession((current) => {
+      const entry = current.entries.find((item) => item.entryId === entryId && item.kind === "FOLLOW_UP_ACTIONS");
+      if (!entry || entry.kind !== "FOLLOW_UP_ACTIONS" || entry.response || !current.project
+        || current.project.versionId !== entry.presentation.sourceProjectVersion
+        || current.project.projectDigest !== entry.presentation.sourceProjectDigest) return current;
+      const allowedRefs = new Set(entry.presentation.actions.map((action) => action.actionRef));
+      const selectedActionRefs = [...new Set(input.selectedActionRefs.filter((ref) => allowedRefs.has(ref)))];
+      const freeTextRequest = input.freeTextRequest?.trim() || null;
+      if (!input.defer && !selectedActionRefs.length && !freeTextRequest) return current;
+      const response: StandardConversationActionGroupResponse = {
+        responseRef: `conversation-action-response:${logicalDigest({ entryId, selectedActionRefs, freeTextRequest, respondedAt })}`,
+        disposition: input.defer ? "DEFERRED_NOT_NOW" : "USER_REQUESTS_THESE_FOLLOW_UP_ACTIONS",
+        selectedActionRefs,
+        unselectedActionRefs: entry.presentation.actions.map((action) => action.actionRef)
+          .filter((ref) => !selectedActionRefs.includes(ref)),
+        freeTextRequest,
+        respondedAt,
+        projectVersionAtPresentation: entry.presentation.sourceProjectVersion,
+        projectWriteAuthorized: false,
+      };
+      const visible = summarizeStandardConversationActionResponse({ presentation: entry.presentation, response });
+      const userTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "USER", content: visible.userText, createdAt: respondedAt };
+      const assistantTurn: ScientificInterpretationTurn = { turnId: createTurnId(), role: "NOXIA", content: visible.assistantText, createdAt: respondedAt };
+      const navigation = current.queryNavigation
+        && current.queryNavigation.currentAction?.selectedActionId === entry.presentation.selectedQryActionRef
+        ? input.defer
+          ? deferFunctionalResetQueryNavigation({ navigation: current.queryNavigation, reason: "USER_REQUESTED_TO_MOVE_ON", recordedAt: respondedAt })
+          : recordFunctionalResetQueryResponse({
+            navigation: current.queryNavigation,
+            rawResponse: visible.userText,
+            actorRef: current.projectAuthority.actorRef,
+            actorRole: "RESEARCHER",
+            receivedAt: respondedAt,
+            responseId: response.responseRef,
+          })
+        : current.queryNavigation;
+      return {
+        ...current,
+        queryNavigation: navigation,
+        runtimeTurns: [...current.runtimeTurns, userTurn, assistantTurn],
+        entries: [
+          ...current.entries.map((item) => item.entryId === entryId && item.kind === "FOLLOW_UP_ACTIONS"
+            ? { ...item, response }
+            : item),
+          { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const, content: visible.userText, createdAt: respondedAt },
+          { entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const, content: visible.assistantText, createdAt: respondedAt },
+        ],
+        updatedAt: respondedAt,
+      };
+    });
+  };
+
   function appendProductDocumentCommandResult(input: {
     command: { content: string; createdAt: string };
     assistantContent: string;
@@ -3059,7 +3177,17 @@ export default function ProtocolDesignerWorkspace({
           </div>
 
           <div className="flex-1 space-y-5 px-4 py-5 sm:px-6" aria-live="polite">
-            {session.entries.map((entry, index) => entry.kind === "REVIEW"
+            {session.entries.map((entry, index) => entry.kind === "FOLLOW_UP_ACTIONS"
+              ? <StandardConversationActionGroup
+                key={entry.entryId}
+                presentation={entry.presentation}
+                response={entry.response}
+                actionable={!entry.response
+                  && session.project?.versionId === entry.presentation.sourceProjectVersion
+                  && session.project?.projectDigest === entry.presentation.sourceProjectDigest}
+                onRespond={(input) => respondToConversationActionGroup(entry.entryId, input)}
+              />
+              : entry.kind === "REVIEW"
               ? session.entries.some((item) => item.entryId === `${entry.entryId}:presentation-failure`)
                 || session.retainedContributionCandidates?.some((candidate) => candidate.candidateRef === entry.contribution.identity.contributionId
                   && candidate.downstreamState === "DOWNSTREAM_FAILED_NOT_PRESENTED") ? null : <ContributionReviewPresentation

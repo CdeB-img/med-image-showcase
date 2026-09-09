@@ -15,3 +15,4 @@ export * from "./closure";
 export * from "./functional-reset-progression";
 export * from "./pre-project-navigation";
 export * from "./knowledge-prerequisite";
+export * from "./current-project-context";

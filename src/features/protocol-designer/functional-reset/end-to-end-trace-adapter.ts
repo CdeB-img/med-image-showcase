@@ -1,7 +1,7 @@
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
 import { logicalDigest } from "@/features/knowledge-engine";
 import type { DocumentProjection, FunctionalResetDocumentPortfolio } from "@/features/document-projection";
-import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
+import type { CurrentProjectImpactProjection, FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import type {
   ResearchProjectContributionCandidate,
   ResearchProjectOwnerProjection,
@@ -10,6 +10,7 @@ import type { HumanDecisionEnvelope } from "@/features/protocol-designer/human-d
 import type { PersistentExtractionProviderArtifact, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 import type { RetainedContributionCandidate } from "./contribution-lifecycle";
 import type { resolveGovernedPostAdoptionReceipt } from "./session";
+import type { StandardConversationActionGroupPresentation } from "./standard-conversation-action-group";
 import {
   appendProductTraceStage,
   recordPreProjectScientificTraceSegment,
@@ -959,6 +960,79 @@ export const recordContributionRejectionTrace = (input: {
     project: input.project,
     executor: "RESEARCH_PROJECT_OWNER_BOUNDARY",
   });
+
+/** Existing TRACE v2 projection for the read-only Project-impact QRY decision. */
+export const recordCurrentProjectImpactNavigationTrace = (input: {
+  ledger: Readonly<ScientificExecutionTraceLedger>;
+  traceRunId: string | null | undefined;
+  conversationId: string;
+  observedAt: string;
+  project: Readonly<ResearchProjectOwnerProjection>;
+  impact: Readonly<CurrentProjectImpactProjection>;
+  queryNavigation: Readonly<FunctionalResetQueryNavigation>;
+  presentation: Readonly<StandardConversationActionGroupPresentation>;
+}): Readonly<ScientificExecutionTraceLedger> => {
+  const action = input.queryNavigation.currentAction;
+  const selected = input.queryNavigation.selection.selected;
+  if (!hasRun(input.ledger, input.traceRunId) || !action || !selected
+    || input.impact.sourceProject.projectId !== input.project.projectId
+    || input.impact.sourceProject.projectVersion !== input.project.versionId
+    || input.impact.sourceProject.projectDigest !== input.project.projectDigest
+    || selected.owner !== "QUERY_NAVIGATION"
+    || selected.targetRef !== input.impact.projectionId
+    || input.presentation.selectedQryActionRef !== action.selectedActionId
+    || input.presentation.selectedInformationNeedRef !== input.impact.qryNeed.needId) return input.ledger;
+  const traceRunId = input.traceRunId!;
+  const binding = projectBinding(input.project);
+  const diagnostic = input.ledger.runBindings.find((item) => item.runId === traceRunId)
+    ?.captureConfiguration?.captureLevel !== "LEVEL_1_CORE";
+  return appendProductTraceStage({
+    ledger: input.ledger,
+    traceRunId,
+    timestamp: input.observedAt,
+    status: input.queryNavigation.status,
+    owner: "QUERY_NAVIGATION",
+    durationMs: 0,
+    envelope: {
+      stage: "QRY_ACTION_SELECTED",
+      responsibilityOwner: "QUERY_NAVIGATION",
+      decisionOwner: "QUERY_NAVIGATION",
+      executor: "QUERY_NAVIGATION",
+      provider: "NONE",
+      componentId: "CURRENT_RELEVANT_PROJECT_CONTEXT",
+      componentVersion: input.impact.contractVersion,
+      input: [
+        { ref: input.impact.sourceCandidate.candidateRef, version: "VALIDATED_NON_ADOPTED_CANDIDATE", digest: input.impact.sourceCandidate.candidateDigest },
+        ...input.impact.relevantProjectItems.map((item) => ({ ref: item.ref, version: item.versionRef, digest: logicalDigest(item) })),
+      ],
+      output: [
+        { ref: input.impact.projectionId, version: input.impact.contractVersion, digest: logicalDigest(input.impact) },
+        { ref: action.selectedActionId, version: action.lifecycleVersion, digest: action.sourceStateDigest },
+        { ref: input.presentation.presentationRef, version: input.presentation.contractVersion, digest: logicalDigest(input.presentation) },
+      ],
+      reasonCode: "CURRENT_PROJECT_IMPACT_SELECTED_BY_PD009",
+      completedAt: input.observedAt,
+      conversationId: input.conversationId,
+      project: binding,
+      ...(diagnostic ? { actionDecision: {
+        contract: "SCIENTIFIC_TRACE_ACTION_DECISION" as const,
+        contractVersion: "1.0.0" as const,
+        declarationSource: "STRUCTURED_COMPONENT_OUTPUT" as const,
+        askVsPropose: "ASK_QUESTION" as const,
+        selectedInformationNeed: input.impact.qryNeed.needId,
+        whySelected: [
+          input.impact.why,
+          ...input.impact.impacts.map((impact) => `${impact.status}:${impact.label}`),
+        ].join(";"),
+        expectedInformationGain: selected.informationValue.discrimination,
+        alreadyProvidedInformationRefs: input.impact.relevantProjectItems.flatMap((item) => [item.ref, item.versionRef]),
+        candidateAlternatives: input.impact.actions.map((candidate) => candidate.actionRef),
+        rejectedAlternatives: [],
+        rejectionReasons: [],
+      } } : {}),
+    },
+  }).ledger;
+};
 
 export const recordPostAdoptionQuestionTrace = (input: {
   ledger: Readonly<ScientificExecutionTraceLedger>;

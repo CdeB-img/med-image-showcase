@@ -19,6 +19,7 @@ import type {
   BoundedConversationReferentContext,
 } from "./current-turn-navigation.js";
 import type { GovernedRealizationContent, GovernedVisibleObligation } from "./governed-conversation-realization.js";
+import type { CurrentProjectImpactProjection } from "./current-project-context.js";
 
 /** Explicit consumer scope, not a recency rule and not a new result store. */
 export type CurrentNavigationOwnerResultRef = Readonly<{
@@ -221,6 +222,7 @@ export const buildCurrentNavigationEvidence = (input: {
   closedBranchRefs?: readonly string[];
   resolvedNeedRefs?: readonly string[];
   invalidatedSourceTurnRefs?: readonly string[];
+  currentProjectImpact?: Readonly<CurrentProjectImpactProjection> | null;
 }): CurrentNavigationEvidence => {
   const sourceState = emptyState();
   const snapshot = input.currentProject ? buildProjectContextSnapshot({ project: input.currentProject }) : null;
@@ -262,6 +264,24 @@ export const buildCurrentNavigationEvidence = (input: {
         validatorRef: record.validatorRef, projectWriteAuthorized: false as const,
       });
     }
+  }
+
+  const impact = input.currentProjectImpact;
+  if (impact) {
+    const impactReasons = [
+      ...(adoptedProject
+        && impact.sourceProject.projectId === adoptedProject.projectId
+        && impact.sourceProject.projectVersion === adoptedProject.versionId
+        && impact.sourceProject.projectDigest === adoptedProject.projectDigest ? [] : ["CURRENT_PROJECT_IMPACT_PROJECT_BINDING_CHANGED"]),
+      ...(candidate
+        && impact.sourceCandidate.candidateRef === candidate.ref
+        && impact.sourceCandidate.candidateDigest === candidate.digest
+        && impact.sourceCandidate.sourceTurnRef === candidate.sourceTurnRef ? [] : ["CURRENT_PROJECT_IMPACT_CANDIDATE_BINDING_CHANGED"]),
+      ...(impact.owner === "QUERY_NAVIGATION" && impact.projectionOnly === true
+        && impact.sourceOfTruth === false && impact.projectWriteAuthorized === false ? [] : ["CURRENT_PROJECT_IMPACT_BOUNDARY_INVALID"]),
+    ];
+    if (impactReasons.length) impactReasons.forEach((reason) => excludedReferences.push({ ref: impact.projectionId, reason }));
+    else sourceState.governedNeeds.push(structuredClone(impact.qryNeed));
   }
 
   const ownerResults: CurrentNavigationEvidence["ownerResults"][number][] = [];

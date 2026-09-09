@@ -58,6 +58,10 @@ import type { StandardImagingInteraction, StandardImagingPresentation } from "./
 import type { StandardBiostatisticsInteraction, StandardBiostatisticsPresentation } from "./biostatistics-standard";
 import type { StandardCanonicalStudyDataInteraction, StandardCanonicalStudyDataPresentation } from "./canonical-study-data-standard";
 import type { StandardDataManagementInteraction, StandardDataManagementPresentation } from "./data-management-standard";
+import type {
+  StandardConversationActionGroupPresentation,
+  StandardConversationActionGroupResponse,
+} from "./standard-conversation-action-group";
 import {
   CONVERSATION_LANGUAGE_GATEWAY_CONTRACT,
   createConversationLanguageGatewayState,
@@ -152,6 +156,7 @@ export type ConversationEntry =
   | { entryId: string; kind: "BIOSTATISTICS_PROPOSAL"; role: "NOXIA"; presentation: StandardBiostatisticsPresentation; createdAt: string }
   | { entryId: string; kind: "CDM_RESULT"; role: "NOXIA"; presentation: StandardCanonicalStudyDataPresentation; createdAt: string }
   | { entryId: string; kind: "DATA_MANAGEMENT_RESULT"; role: "NOXIA"; presentation: StandardDataManagementPresentation; createdAt: string }
+  | { entryId: string; kind: "FOLLOW_UP_ACTIONS"; role: "NOXIA"; presentation: StandardConversationActionGroupPresentation; response: StandardConversationActionGroupResponse | null; createdAt: string }
   | { entryId: string; kind: "REVIEW"; role: "NOXIA"; contribution: ScientificInterpretationContributionEnvelope; candidate?: ResearchProjectContributionCandidate; traceRunId?: string | null; status: "PENDING" | "CONFIRMED" | "REJECTED"; decision?: HumanDecisionEnvelope | null; createdAt: string }
   | { entryId: string; kind: "ERROR"; role: "NOXIA"; content: string; createdAt: string };
 
