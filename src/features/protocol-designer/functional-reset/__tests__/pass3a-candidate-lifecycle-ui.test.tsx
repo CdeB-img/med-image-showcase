@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { HelmetProvider } from "react-helmet-async";
 import { MemoryRouter } from "react-router-dom";
@@ -328,6 +328,27 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(runtime.bridge).toHaveBeenCalledTimes(1);
     expect(runtime.language).not.toHaveBeenCalled();
     expectNonAdopted(state);
+    expect(screen.getByTestId("project-global-progress")).toHaveTextContent("Avancement indicatif0 %");
+
+    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await waitFor(() => expect(stored().project?.revision).toBe(1));
+    expect(screen.queryByText("L’espace Protocol Designer a rencontré une erreur d’affichage.")).not.toBeInTheDocument();
+    const adopted = stored().project!;
+    expect(adopted.canonicalState?.decisionLedger).toHaveLength(1);
+    expect(adopted.llmProjectWrites).toBe(0);
+    const projectPanel = screen.getByTestId("functional-research-project");
+    expect(projectPanel).toHaveTextContent("Version 1");
+    for (const label of ["Question scientifique", "Objectifs", "Hypothèses", "Population", "Design", "Intervention / exposition", "Comparateur", "Critères / endpoints", "Imagerie / méthodes / mesures", "Temporalité / visites", "Données / variables", "Analyses", "Contraintes / faisabilité"]) {
+      expect(within(projectPanel).getAllByText(label).length).toBeGreaterThanOrEqual(2);
+    }
+    expect(screen.queryByText("Voir toutes les rubriques du projet")).not.toBeInTheDocument();
+    expect(screen.getByTestId("project-group-endpoints")).toHaveTextContent("Principal :Taille des lésions microvasculaires à 3 min post-injection");
+    expect(projectPanel).toHaveTextContent("Non généré");
+    expect(projectPanel).not.toHaveTextContent("Construction en cours");
+    expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
+    expect(within(projectPanel).getByTestId("project-cockpit-counts")).toHaveTextContent(/\d+ décisions? confirmées? · \d+ points? matériels? ouverts?/);
+    expect(within(projectPanel).getByTestId("project-next-useful-decision")).toHaveTextContent("Prochaine décision utile");
+    expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).not.toBeInTheDocument();
   });
 
   it("localization failure after successful HOW retains the exact original source and no presented candidate", async () => {

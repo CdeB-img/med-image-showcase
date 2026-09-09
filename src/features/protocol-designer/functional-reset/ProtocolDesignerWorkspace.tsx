@@ -3107,6 +3107,7 @@ export default function ProtocolDesignerWorkspace({
     }}
     onRequestProtocol={requestProtocolProjection}
     deliverablePortfolio={deliverablePortfolio}
+    queryNavigation={session.queryNavigation}
     onOpenDeliverables={() => {
       setSession((current) => ({ ...current, openDocumentProjectionId: null }));
       setDeliverableWorkspaceOpen(true);

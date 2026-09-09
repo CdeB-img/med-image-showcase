@@ -229,10 +229,10 @@ describe("P1-TRACE-02A — one end-to-end trace contract", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_INITIAL } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
-    await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." });
+    await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     const projectPanel = screen.getByTestId("functional-research-project");
-    expect(await within(projectPanel).findByText("Construction en cours")).toBeInTheDocument();
+    expect(await within(projectPanel).findByText("Non généré")).toBeInTheDocument();
     await waitFor(() => expect(screen.getByRole("button", { name: "Créer l’aperçu" })).toBeEnabled());
     fireEvent.click(screen.getByRole("button", { name: "Créer l’aperçu" }));
     await screen.findByTestId("functional-protocol-preview");

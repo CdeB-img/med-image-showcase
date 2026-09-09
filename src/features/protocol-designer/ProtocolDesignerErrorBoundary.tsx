@@ -55,7 +55,7 @@ export default class ProtocolDesignerErrorBoundary extends Component<ProtocolDes
       <section role="alert" className="mx-auto max-w-3xl rounded-2xl border border-amber-500/50 bg-card p-6 shadow-sm">
         <p className="text-xs font-semibold uppercase tracking-[.16em] text-amber-700 dark:text-amber-200">Récupération de l’affichage</p>
         <h1 className="mt-3 text-2xl font-bold">L’espace Protocol Designer a rencontré une erreur d’affichage.</h1>
-        <p className="mt-3 text-muted-foreground">L’application reste disponible. Aucun contenu scientifique n’a été inventé et aucune écriture Project n’a été autorisée.</p>
+        <p className="mt-3 text-muted-foreground">Les données déjà enregistrées dans cette session restent conservées. Réessayez d’abord l’affichage ; la réinitialisation efface la session locale.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <button type="button" onClick={this.retry} className="rounded-lg bg-primary px-4 py-2 font-semibold text-primary-foreground">Réessayer l’affichage</button>
           <button type="button" onClick={this.reset} className="rounded-lg border px-4 py-2">Réinitialiser l’espace Protocol Designer</button>

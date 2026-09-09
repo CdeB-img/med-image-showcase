@@ -98,7 +98,7 @@ const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STO
 
 const confirmInitialAndAge = async () => {
   submit(CHANGESET_INITIAL);
-  await screen.findByText("J’ai suffisamment d’éléments pour vous proposer une première structure d’étude.");
+  await screen.findByText("Voici la structure essentielle à confirmer.");
   await confirm();
   submit(CHANGESET_AGE_TIMING);
   await screen.findByText("J’ai compris deux modifications :");
@@ -247,12 +247,12 @@ describe("FUNCTIONAL-RESET-03A1 — semantic Project changeset", () => {
   it("FR03A1-C13 — a French session does not expose an internal English summary in Standard", async () => {
     renderDemo();
     submit(CHANGESET_INITIAL);
-    await screen.findByText("J’ai suffisamment d’éléments pour vous proposer une première structure d’étude.");
+    await screen.findByText("Voici la structure essentielle à confirmer.");
     expect(screen.getByTestId("functional-contribution-review").textContent).not.toMatch(/The user wants to study/i);
     await confirm();
     const projectPanel = screen.getByTestId("functional-research-project");
     expect(projectPanel.textContent).not.toMatch(/The user wants to study/i);
-    expect(within(projectPanel).getByText("Question de recherche à préciser.")).toBeInTheDocument();
+    expect(within(projectPanel).getByTestId("project-group-scientific-question")).toHaveTextContent("À définir");
     expect(within(projectPanel).queryByText(/Projet sur infarctus du myocarde/)).toBeNull();
   });
 

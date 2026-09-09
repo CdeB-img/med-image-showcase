@@ -121,7 +121,7 @@ const confirm = () => fireEvent.click(screen.getByRole("button", { name: "Cela c
 
 const createProjectInUi = async () => {
   submit(COLCHICINE_03A_INITIAL);
-  await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." });
+  await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
   const callsBefore = runtime.request.mock.calls.length;
   confirm();
   await screen.findByText(/Projet créé\./);

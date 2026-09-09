@@ -105,7 +105,7 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     expect((await screen.findAllByText(/Souhaitez-vous réunir les objectifs/)).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/Évaluer les thrombus manqués à l’échographie et détectés à l’IRM/).length).toBeGreaterThan(0);
     const firstReview = await screen.findByTestId("functional-contribution-review");
-    expect(within(firstReview).getByText(FIRST_OBJECTIVE)).toBeInTheDocument();
+    expect(firstReview).toHaveTextContent(FIRST_OBJECTIVE);
     expect(stored().project).toBeNull();
     expect(stored().bridgeTraces.at(-1)?.preProjectTrace?.points.find((point) => point.point === "ASK_VS_PROPOSE_DECISION")).toMatchObject({
       action: "ASK_QUESTION",

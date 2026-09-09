@@ -31,7 +31,7 @@ const submit = (content: string) => {
 };
 
 const waitForProposal = () => screen.findByRole("heading", {
-  name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude.",
+  name: "Voici la structure essentielle à confirmer.",
 });
 
 const confirm = async () => {
@@ -82,15 +82,18 @@ describe("FUNCTIONAL-RESET-03A — boucle conversationnelle Project", () => {
     await waitForProposal();
 
     const proposal = screen.getByTestId("functional-contribution-review");
-    for (const label of ["Projet", "Pathologie / condition", "Design", "Intervention / exposition", "Comparateur", "Imagerie", "Éléments à observer ou mesurer", "Points encore ouverts"]) {
+    for (const label of ["Étude", "Comparaison", "Évaluation"]) {
       expect(within(proposal).getByText(label)).toBeInTheDocument();
     }
+    fireEvent.click(within(proposal).getByText("Voir les détails"));
+    await within(proposal).findByTestId("understanding-review-card");
+    for (const label of ["Pathologie / condition", "Design", "Intervention / exposition", "Comparateur", "Imagerie", "Éléments à observer ou mesurer"]) {
+      expect(within(proposal).getAllByText(label).length).toBeGreaterThan(0);
+    }
     for (const value of ["infarctus du myocarde", "colchicine", "placebo", "étude multicentrique", "IRM", "inflammation", "lésions myocardiques"]) {
-      expect(within(proposal).getByText(value)).toBeInTheDocument();
+      expect(within(proposal).getAllByText(value).length).toBeGreaterThan(0);
     }
     expect(within(proposal).queryByText(/biomarqueurs sanguins|taille de l’infarctus/i)).toBeNull();
-    expect(within(proposal).getByText("population précise — éléments compris, détails à préciser")).toBeInTheDocument();
-    expect(within(proposal).getByText("question de recherche")).toBeInTheDocument();
   });
 
   it("FR03A-C02 — la Contribution reste candidate avant confirmation", async () => {

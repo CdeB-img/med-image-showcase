@@ -345,7 +345,7 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_03A_INITIAL } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
-    await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." });
+    await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     const projectPanel = screen.getByTestId("functional-research-project");
     await waitFor(() => expect(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" })).toBeEnabled());

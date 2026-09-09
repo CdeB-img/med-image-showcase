@@ -51,10 +51,10 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     expect(screen.queryByTestId("protocol-designer-development-version")).toBeNull();
     expect(screen.queryByTestId("protocol-designer-development-diagnostics")).toBeNull();
     expect(workspace.textContent).not.toMatch(/FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION|projectDigest|contractVersion|NOXIA_PRODUCT_BRIDGE_TRACE|DEV\s*·|SHA/i);
-    expect(screen.getByTestId("standard-project-details")).not.toHaveAttribute("open");
+    expect(screen.queryByText("Voir toutes les rubriques du projet")).not.toBeInTheDocument();
 
     submit(COLCHICINE_03A_INITIAL);
-    await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." });
+    await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." });
     expect(storedSession().project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
@@ -98,7 +98,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
     expect(await within(projectPanel).findByText("Version 2")).toBeInTheDocument();
-    expect(within(projectPanel).getByText("Aperçu à actualiser")).toBeInTheDocument();
+    expect(within(projectPanel).getByText("À actualiser")).toBeInTheDocument();
 
     const staleV1 = storedSession();
     expect(staleV1.project).toMatchObject({

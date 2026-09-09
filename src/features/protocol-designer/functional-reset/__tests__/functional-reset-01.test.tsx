@@ -7,6 +7,7 @@ import { FUNCTIONAL_RESET_STORAGE_KEY } from "../session";
 import ProtocolDesignerDemo from "@/pages/ProtocolDesignerDemo";
 import {
   COLCHICINE_INITIAL,
+  COLCHICINE_LATER_MODIFICATION,
   COLCHICINE_MODIFICATION,
   makeFunctionalResetBridgeResponseForRequest,
   makeFunctionalResetContribution,
@@ -36,11 +37,12 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toHaveTextContent(/préservera votre intention/);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
     const project = screen.getByTestId("functional-research-project");
-    for (const label of ["Question", "Population", "Design", "Intervention", "Comparateur", "Imagerie", "Prélèvements / échantillons", "Éléments à observer ou mesurer", "Temporalité", "Analyse", "Documents"]) {
-      expect(within(project).getByText(label)).toBeInTheDocument();
+    for (const label of ["Question scientifique", "Objectifs", "Hypothèses", "Population", "Design", "Intervention / exposition", "Comparateur", "Critères / endpoints", "Imagerie / méthodes / mesures", "Prélèvements / échantillons", "Temporalité / visites", "Données / variables", "Analyses", "Contraintes / faisabilité", "Documents"]) {
+      expect(within(project).getAllByText(label).length).toBeGreaterThan(0);
     }
-    expect(within(project).getByText("Construction en cours")).toBeInTheDocument();
-    expect(within(project).getAllByText("À préciser dans la conversation.")).toHaveLength(10);
+    expect(within(project).getByText("Projet à confirmer")).toBeInTheDocument();
+    expect(within(project).getAllByText("À définir")).toHaveLength(14);
+    expect(within(project).getByTestId("project-global-progress")).toHaveTextContent("Avancement indicatif0 %");
     expect(screen.queryByText(/Actor|Mandate|Branch|Gate|Guided Intake|Orientation/)).toBeNull();
   });
 
@@ -50,9 +52,8 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     fireEvent.change(composer, { target: { value: COLCHICINE_INITIAL } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
 
-    expect(await screen.findByRole("heading", { name: "J’ai suffisamment d’éléments pour vous proposer une première structure d’étude." })).toBeInTheDocument();
+    expect(await screen.findByRole("heading", { name: "Voici la structure essentielle à confirmer." })).toBeInTheDocument();
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: null }));
-    expect(screen.getAllByText("lésions myocardiques").length).toBeGreaterThan(0);
     expect(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(2));
@@ -76,8 +77,10 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     ]));
     expect(firstProject.sections.flatMap((section: { elements: Array<{ canonicalPromotion: string }> }) => section.elements).every((element: { canonicalPromotion: string }) => element.canonicalPromotion === "NOT_PERFORMED")).toBe(true);
     for (const value of ["colchicine", "placebo", "infarctus du myocarde", "étude multicentrique", "IRM", "inflammation", "lésions myocardiques", "biomarqueurs sanguins", "taille de l’infarctus"]) {
-      expect(within(project).getByText(value)).toBeInTheDocument();
+      expect(within(project).getAllByText(value).length).toBeGreaterThan(0);
     }
+    const adoptedProgressBeforeCorrection = screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ }).getAttribute("aria-valuenow");
+    const adoptedCountsBeforeCorrection = within(project).getByTestId("project-cockpit-counts").textContent;
 
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_MODIFICATION } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
@@ -85,15 +88,35 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(screen.getByText("+ IRM : J3–J5")).toBeInTheDocument();
     expect(screen.getByText("+ Âge maximal : 75 ans")).toBeInTheDocument();
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: expect.objectContaining({ contributionRef: "contribution:colchicine-v1" }) }));
+    expect(within(project).getByText("Version 1")).toBeInTheDocument();
+    expect(within(project).queryByText("Âge maximal : 75 ans")).toBeNull();
+    expect(screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ })).toHaveAttribute("aria-valuenow", adoptedProgressBeforeCorrection);
+    expect(within(project).getByTestId("project-cockpit-counts")).toHaveTextContent(adoptedCountsBeforeCorrection!);
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(4));
     await waitFor(() => expect(screen.queryByText("NOXIA vous répond…")).not.toBeInTheDocument());
 
     expect(within(project).getByText("Version 2")).toBeInTheDocument();
+    expect(within(project).getByTestId("project-cockpit-counts").textContent).not.toBe(adoptedCountsBeforeCorrection);
     expect(within(project).getByText("IRM : J3–J5")).toBeInTheDocument();
     expect(within(project).getByText("Âge maximal : 75 ans")).toBeInTheDocument();
     expect(within(project).getByText("biomarqueurs sanguins")).toBeInTheDocument();
     expect(within(project).getByText("taille de l’infarctus")).toBeInTheDocument();
+
+    const adoptedProjectBeforeRefusal = JSON.stringify(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project);
+    const adoptedProgressBeforeRefusal = screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ }).getAttribute("aria-valuenow");
+    const adoptedCountsBeforeRefusal = within(project).getByTestId("project-cockpit-counts").textContent;
+    fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_LATER_MODIFICATION } });
+    fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
+    await screen.findByText("IRM : J3–J5 → J5–J7");
+    fireEvent.click(screen.getByRole("button", { name: "Refuser cette proposition" }));
+    await screen.findByText("Proposition refusée. Le Research Project est inchangé.");
+    expect(JSON.stringify(JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).project)).toBe(adoptedProjectBeforeRefusal);
+    expect(within(project).getByText("Version 2")).toBeInTheDocument();
+    expect(within(project).getByText("IRM : J3–J5")).toBeInTheDocument();
+    expect(within(project).queryByText("IRM : J5–J7")).toBeNull();
+    expect(screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ })).toHaveAttribute("aria-valuenow", adoptedProgressBeforeRefusal);
+    expect(within(project).getByTestId("project-cockpit-counts")).toHaveTextContent(adoptedCountsBeforeRefusal!);
 
     firstRender.unmount();
     renderDemo();
