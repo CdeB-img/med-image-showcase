@@ -16,6 +16,7 @@ import {
   FUNCTIONAL_RESET_STORAGE_KEY,
   type FunctionalResetSession,
 } from "../session";
+import { buildStudyDeliverablePortfolio, buildStudyPackageZipBytes } from "@/features/document-projection";
 
 const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn() }));
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => {
@@ -223,6 +224,74 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     fireEvent.click(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" }));
     await waitFor(() => expect(stored().scientificExecutionTraceLedger.events.map((event) => event.common?.stage)).toContain("ARTIFACT_GENERATED"));
     expect(URL.createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
+
+    fireEvent.click(within(preview).getByRole("button", { name: "Retour à la conversation" }));
+    submit("Exporte mon CRF pour mon logiciel de collecte.");
+    const portfolioWorkspace = await screen.findByTestId("study-deliverable-workspace");
+    for (const title of [
+      "Protocole complet",
+      "Synopsis",
+      "Schedule of Activities",
+      "CRF",
+      "Data Dictionary",
+      "Data Management Plan",
+      "Export EDC",
+      "Statistical Analysis Plan",
+      "Documents réglementaires / éthiques",
+      "Guide Imaging / Core Lab",
+    ]) expect(within(portfolioWorkspace).getByRole("heading", { name: title })).toBeInTheDocument();
+    expect(within(screen.getByTestId("study-deliverable-STATISTICAL_ANALYSIS_PLAN")).getByText("Décision requise")).toBeInTheDocument();
+    expect(within(screen.getByTestId("study-deliverable-REGULATORY_DOCUMENT_PACKAGE")).getByText("Profil requis")).toBeInTheDocument();
+
+    const finalSession = stored();
+    const projectBeforeProjection = structuredClone(projectV2);
+    const protocolProjection = finalSession.documents.projections.find((projection) => projection.source.projectVersion === projectV2.versionId)!;
+    const portfolio = buildStudyDeliverablePortfolio({ project: projectV2, protocolProjection, generatedAt: protocolProjection.requestedAt });
+    expect(projectV2).toEqual(projectBeforeProjection);
+    expect(finalSession.project).toEqual(projectV2);
+    expect(portfolio.owner).toBe("DOC-001");
+    expect(portfolio.projectRef).toEqual({ projectId: projectV2.projectId, projectVersion: projectV2.versionId, projectDigest: projectV2.projectDigest });
+    expect(portfolio.projectWriteAuthorized).toBe(false);
+    expect(portfolio.manifest.regulatoryComplianceClaim).toBe(false);
+    const canonicalVariable = currentObjects.find((object) => object.objectType === "CANONICAL_VARIABLE")!;
+    expect(canonicalVariable.content).toBe(AUTOMATED_MEASUREMENT);
+    for (const kind of ["SCHEDULE_OF_ACTIVITIES", "CRF", "DATA_DICTIONARY", "EDC_IMPORT_PACKAGE", "STATISTICAL_ANALYSIS_PLAN"] as const) {
+      expect(portfolio.artifacts.find((item) => item.kind === kind)?.canonicalVariableRefs).toContain(canonicalVariable.objectId);
+    }
+    const redcap = portfolio.artifacts.find((item) => item.kind === "EDC_IMPORT_PACKAGE")!.files.find((file) => file.fileName === "redcap-data-dictionary.csv")!;
+    expect(redcap.content).toContain("Variable / Field Name,Form Name");
+    expect(redcap.content).toContain("record_id,study_identification");
+    expect(redcap.content).toContain(canonicalVariable.objectId);
+    const redcapScientificField = portfolio.manifest.variableMappings.find((item) => item.canonicalVariableId === canonicalVariable.objectId)!;
+    expect(redcapScientificField.redcapFieldName.length).toBeLessThanOrEqual(26);
+    expect(portfolio.artifacts.find((item) => item.kind === "EDC_IMPORT_PACKAGE")).toMatchObject({ status: "PARTIAL" });
+    expect(portfolio.artifacts.find((item) => item.kind === "STATISTICAL_ANALYSIS_PLAN")).toMatchObject({ status: "MISSING_DECISION" });
+    expect(portfolio.artifacts.find((item) => item.kind === "SCHEDULE_OF_ACTIVITIES")).toMatchObject({ status: "PARTIAL" });
+    expect(portfolio.artifacts.find((item) => item.kind === "REGULATORY_DOCUMENT_PACKAGE")).toMatchObject({ status: "PROFILE_REQUIRED" });
+    const fullProtocol = portfolio.artifacts.find((item) => item.kind === "PROTOCOL_FULL")!.files.find((file) => file.fileName === "protocol-complet.html")!;
+    expect(fullProtocol.content).toContain("Données et collecte");
+    expect(fullProtocol.content).toContain("Gestion des données");
+    expect(fullProtocol.content).toContain("Cadre réglementaire et éthique");
+    expect(fullProtocol.content).toContain(PRIMARY_ENDPOINT);
+    expect(portfolio.manifest.canonicalCrfPackageRef).toMatch(/^canonical-crf-package:/u);
+    expect(portfolio.manifest.variableMappings).toContainEqual(expect.objectContaining({ canonicalVariableId: canonicalVariable.objectId }));
+    expect(() => buildStudyDeliverablePortfolio({
+      project: projectV2,
+      protocolProjection: { ...protocolProjection, source: { ...protocolProjection.source, projectDigest: "mismatched-digest" } },
+      generatedAt: protocolProjection.requestedAt,
+    })).toThrow("STUDY_DELIVERABLE_PROTOCOL_PROJECT_BINDING_MISMATCH");
+    const zipBytes = buildStudyPackageZipBytes(portfolio);
+    expect([...zipBytes.slice(0, 4)]).toEqual([0x50, 0x4b, 0x03, 0x04]);
+    expect([...zipBytes.slice(-22, -18)]).toEqual([0x50, 0x4b, 0x05, 0x06]);
+    expect(new DataView(zipBytes.buffer, zipBytes.byteOffset, zipBytes.byteLength).getUint16(zipBytes.byteLength - 12, true))
+      .toBe(portfolio.artifacts.reduce((count, item) => count + item.files.length, 1));
+    const uncompressedZipText = new TextDecoder().decode(zipBytes);
+    for (const fileName of ["manifest.json", "protocol-complet.html", "synopsis.html", "schedule-of-activities.csv", "crf.html", "data-dictionary.csv", "canonical-crf-package.json", "redcap-data-dictionary.csv", "statistical-analysis-plan.html", "regulatory-package-index.json", "imaging-core-lab-manual.html"]) {
+      expect(uncompressedZipText).toContain(fileName);
+    }
+
+    fireEvent.click(within(portfolioWorkspace).getByTestId("download-study-package"));
+    expect(URL.createObjectURL).toHaveBeenLastCalledWith(expect.any(Blob));
 
     expect(runtime.language).not.toHaveBeenCalled();
     expect(globalThis.fetch).not.toHaveBeenCalled();

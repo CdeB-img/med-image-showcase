@@ -136,6 +136,10 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
       ["mets à jour l’aperçu", "REGENERATE_PROTOCOL"],
       ["régénère le protocole avec la dernière version du projet", "REGENERATE_PROTOCOL"],
       ["télécharge le protocole", "DOWNLOAD_PROTOCOL"],
+      ["ouvre les livrables de l’étude", "OPEN_STUDY_DELIVERABLES"],
+      ["exporte mon package de l’étude", "OPEN_STUDY_DELIVERABLES"],
+      ["Exporte mon CRF pour mon logiciel de collecte.", "OPEN_EDC_EXPORT"],
+      ["prépare le CRF pour REDCap", "OPEN_EDC_EXPORT"],
     ];
     cases.forEach(([source, expected]) => expect(recognizeProductDocumentAction(source), source).toBe(expected));
 

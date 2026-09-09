@@ -1,4 +1,4 @@
-import type { FunctionalResetDocumentPortfolio } from "@/features/document-projection";
+import type { FunctionalResetDocumentPortfolio, StudyDeliverablePortfolio } from "@/features/document-projection";
 import {
   emptyResearchProjectSections,
   researchProjectQuestionPresentation,
@@ -11,11 +11,21 @@ type Props = {
   mode: "STANDARD" | "EXPERT";
   onOpenProtocol: (projectionId: string) => void;
   onRequestProtocol: () => void;
+  deliverablePortfolio?: StudyDeliverablePortfolio | null;
+  onOpenDeliverables?: () => void;
 };
 
 const projectVersionLabel = (versionId: string) => versionId.match(/:version:(\d+)$/)?.[1] ?? versionId;
 
-export default function ResearchProjectPanel({ project, documents, mode, onOpenProtocol, onRequestProtocol }: Props) {
+export default function ResearchProjectPanel({
+  project,
+  documents,
+  mode,
+  onOpenProtocol,
+  onRequestProtocol,
+  deliverablePortfolio,
+  onOpenDeliverables,
+}: Props) {
   const sections = project?.sections ?? emptyResearchProjectSections();
   const standardQuestion = project ? researchProjectQuestionPresentation(sections) : null;
   const questionSection = sections.find((section) => section.sectionId === "QUESTION")!;
@@ -88,7 +98,17 @@ export default function ResearchProjectPanel({ project, documents, mode, onOpenP
       </>}
 
       <section className="rounded-2xl border px-4 py-3" aria-labelledby="functional-project-documents">
-        <h3 id="functional-project-documents" className="text-sm font-semibold">Documents</h3>
+        <h3 id="functional-project-documents" className="text-sm font-semibold"><span>Documents</span><span> / Livrables de l’étude</span></h3>
+        {deliverablePortfolio && onOpenDeliverables && <div className="mt-3">
+          <ul className="space-y-1.5 text-xs text-muted-foreground" data-testid="study-deliverable-summary">
+            {deliverablePortfolio.artifacts.map((item) => <li key={item.artifactId} className="flex items-start justify-between gap-3">
+              <span>{item.name}</span><span className="shrink-0 font-medium">{item.status}</span>
+            </li>)}
+          </ul>
+          <button type="button" onClick={onOpenDeliverables} className="mt-3 min-h-10 w-full rounded-lg bg-primary px-3 text-xs font-medium text-primary-foreground">
+            Ouvrir les livrables de l’étude
+          </button>
+        </div>}
         {protocol && <div className="mt-3 space-y-2.5">
           <article className="rounded-xl bg-muted/60 p-3">
             <div className="flex items-start justify-between gap-3">

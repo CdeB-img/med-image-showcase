@@ -28,7 +28,9 @@ export type ProductDocumentAction =
   | "OPEN_CURRENT_PROTOCOL"
   | "CREATE_PROTOCOL"
   | "REGENERATE_PROTOCOL"
-  | "DOWNLOAD_PROTOCOL";
+  | "DOWNLOAD_PROTOCOL"
+  | "OPEN_STUDY_DELIVERABLES"
+  | "OPEN_EDC_EXPORT";
 
 export type ProductEntryExplicitExclusion = {
   code: "NO_STUDY" | "NO_PROTOCOL";
@@ -149,6 +151,14 @@ export const recognizeProductDocumentAction = (value: string): ProductDocumentAc
   const politePrefix = "(?:(?:ok|d accord|merci)\\s+)?";
   const politeSuffix = "(?:\\s+s il (?:te|vous) plait)?";
   const protocolResource = "(?:(?:le|la|l)\\s+)?(?:protocole(?:\\s+(?:partiel|de travail))?|apercu(?:\\s+du protocole)?)";
+
+  if (new RegExp(`^${politePrefix}(?:affiche|montre|ouvre)(?:\\s+moi)?\\s+(?:(?:les|mes)\\s+)?(?:documents|livrables|portefeuille\\s+documentaire)(?:\\s+de\\s+(?:l\\s+)?etude)?${politeSuffix}$`, "u").test(command)
+    || new RegExp(`^${politePrefix}(?:telecharge|exporte)(?:\\s+moi)?\\s+(?:(?:le|mon)\\s+)?(?:package|dossier|portefeuille)(?:\\s+(?:de\\s+)?(?:l\\s+)?etude)?${politeSuffix}$`, "u").test(command)) {
+    return "OPEN_STUDY_DELIVERABLES";
+  }
+  if (new RegExp(`^${politePrefix}(?:prepare|telecharge|exporte)(?:\\s+moi)?\\s+(?:(?:le|mon)\\s+)?crf(?:\\s+(?:pour|vers)\\s+(?:(?:mon|un)\\s+)?(?:logiciel\\s+de\\s+collecte|edc|redcap))?${politeSuffix}$`, "u").test(command)) {
+    return "OPEN_EDC_EXPORT";
+  }
 
   if (new RegExp(`^${politePrefix}(?:telecharge|exporte)(?:\\s+moi)?\\s+${protocolResource}${politeSuffix}$`, "u").test(command)) {
     return "DOWNLOAD_PROTOCOL";

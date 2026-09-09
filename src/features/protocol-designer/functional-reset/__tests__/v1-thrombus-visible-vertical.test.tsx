@@ -13,6 +13,7 @@ import {
   FUNCTIONAL_RESET_STORAGE_KEY,
   type FunctionalResetSession,
 } from "../session";
+import { buildStudyDeliverablePortfolio } from "@/features/document-projection";
 
 const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn() }));
 vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => {
@@ -141,6 +142,20 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     expect(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" })).toBeInTheDocument();
     expect(preview.textContent).toContain(FIRST_OBJECTIVE);
     expect(preview.textContent).toContain(SECOND_OBJECTIVE);
+
+    const session = stored();
+    const protocolProjection = session.documents.projections.find((projection) => projection.source.projectVersion === project.versionId)!;
+    const portfolio = buildStudyDeliverablePortfolio({ project, protocolProjection, generatedAt: protocolProjection.requestedAt });
+    const synopsis = portfolio.artifacts.find((item) => item.kind === "PROTOCOL_SYNOPSIS")!;
+    expect(synopsis.files[0]?.content).toContain(FIRST_OBJECTIVE);
+    expect(synopsis.files[0]?.content).toContain(SECOND_OBJECTIVE);
+    expect(synopsis.files[0]?.content).not.toContain("fibrose myocardique");
+    expect(portfolio.artifacts.find((item) => item.kind === "IMAGING_CORE_LAB_MANUAL")).toMatchObject({ status: "PARTIAL" });
+    expect(portfolio.artifacts.find((item) => item.kind === "CRF")).toMatchObject({ status: "MISSING_DECISION" });
+
+    fireEvent.click(within(preview).getByRole("button", { name: "Retour à la conversation" }));
+    fireEvent.click(screen.getAllByRole("button", { name: "Ouvrir les livrables de l’étude" })[0]!);
+    expect(await screen.findByTestId("study-deliverable-workspace")).toHaveTextContent(FIRST_OBJECTIVE);
 
     expect(runtime.language).not.toHaveBeenCalled();
     expect(globalThis.fetch).not.toHaveBeenCalled();

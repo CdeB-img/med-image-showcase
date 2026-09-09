@@ -63,6 +63,7 @@ import {
   rejectResearchProjectContribution,
 } from "@/features/research-project-construction";
 import {
+  buildStudyDeliverablePortfolio,
   functionalProtocolProjection,
   markFunctionalResetDocumentFailure,
   refreshFunctionalResetDocumentPortfolio,
@@ -102,6 +103,7 @@ import ProductUnderstandResponse from "./ProductUnderstandResponse";
 import ProtocolPreview from "./ProtocolPreview";
 import ResearchProjectPanel from "./ResearchProjectPanel";
 import StudyDesignStandardCard from "./StudyDesignStandardCard";
+import StudyDeliverableWorkspace from "./StudyDeliverableWorkspace";
 import ObservabilityStandardCard from "./ObservabilityStandardCard";
 import ImagingStandardCard from "./ImagingStandardCard";
 import BiostatisticsStandardCard from "./BiostatisticsStandardCard";
@@ -826,6 +828,7 @@ export default function ProtocolDesignerWorkspace({
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
   const [correctionMode, setCorrectionMode] = useState(false);
+  const [deliverableWorkspaceOpen, setDeliverableWorkspaceOpen] = useState(false);
   const [postAdoptionContinuationJob, setPostAdoptionContinuationJob] = useState<PostAdoptionContinuationJob | null>(null);
   const composerRef = useRef<HTMLTextAreaElement>(null);
   const endRef = useRef<HTMLDivElement>(null);
@@ -2744,8 +2747,22 @@ export default function ProtocolDesignerWorkspace({
     if (!session.project) {
       appendProductDocumentCommandResult({
         command,
-        assistantContent: "Un Research Project confirmé est nécessaire avant de pouvoir afficher un aperçu du protocole.",
+        assistantContent: action === "OPEN_STUDY_DELIVERABLES" || action === "OPEN_EDC_EXPORT"
+          ? "Un Research Project confirmé est nécessaire avant de pouvoir préparer des livrables d’étude."
+          : "Un Research Project confirmé est nécessaire avant de pouvoir afficher un aperçu du protocole.",
       });
+      return;
+    }
+
+    if (action === "OPEN_STUDY_DELIVERABLES" || action === "OPEN_EDC_EXPORT") {
+      appendProductDocumentCommandResult({
+        command,
+        assistantContent: action === "OPEN_EDC_EXPORT"
+          ? "L’espace des livrables est ouvert sur le CRF canonique et ses exports de collecte. Chaque format reste téléchargeable séparément."
+          : "L’espace des livrables de l’étude est ouvert. Les documents incomplets restent explicitement signalés.",
+      });
+      setSession((current) => ({ ...current, openDocumentProjectionId: null }));
+      setDeliverableWorkspaceOpen(true);
       return;
     }
 
@@ -2911,6 +2928,7 @@ export default function ProtocolDesignerWorkspace({
     setDraft("");
     setBusy(false);
     setCorrectionMode(false);
+    setDeliverableWorkspaceOpen(false);
     setPostAdoptionContinuationJob(null);
     window.setTimeout(() => composerRef.current?.focus(), 0);
   };
@@ -2936,6 +2954,17 @@ export default function ProtocolDesignerWorkspace({
     });
   };
   const protocolCard = session.documents.cards.find((card) => card.kind === "PROTOCOL");
+  const currentProtocolProjection = session.project
+    ? [...session.documents.projections].reverse().find((projection) => projection.projectionType === "PROTOCOL"
+      && projection.source.projectId === session.project!.projectId
+      && projection.source.projectVersion === session.project!.versionId
+      && projection.source.projectDigest === session.project!.projectDigest) ?? null
+    : null;
+  const deliverablePortfolio = useMemo(() => session.project ? buildStudyDeliverablePortfolio({
+    project: session.project,
+    protocolProjection: currentProtocolProjection,
+    generatedAt: currentProtocolProjection?.requestedAt ?? session.project.adoptedAt,
+  }) : null, [currentProtocolProjection, session.project]);
   const activeRouteIntent = [...session.bridgeTraces]
     .reverse()
     .find((trace) => trace.entryRouting)?.entryRouting?.routeIntent;
@@ -2943,8 +2972,16 @@ export default function ProtocolDesignerWorkspace({
     project={session.project}
     documents={session.documents}
     mode={projectionMode}
-    onOpenProtocol={(projectionId) => setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }))}
+    onOpenProtocol={(projectionId) => {
+      setDeliverableWorkspaceOpen(false);
+      setSession((current) => ({ ...current, openDocumentProjectionId: projectionId }));
+    }}
     onRequestProtocol={requestProtocolProjection}
+    deliverablePortfolio={deliverablePortfolio}
+    onOpenDeliverables={() => {
+      setSession((current) => ({ ...current, openDocumentProjectionId: null }));
+      setDeliverableWorkspaceOpen(true);
+    }}
   />;
 
   return <main
@@ -3007,7 +3044,10 @@ export default function ProtocolDesignerWorkspace({
       <div className="grid min-w-0 gap-5 lg:grid-cols-[minmax(310px,.72fr)_minmax(0,1.5fr)]">
         <div className="hidden min-w-0 self-start lg:sticky lg:top-4 lg:block lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">{projectPanel}</div>
 
-        {openProjection ? <ProtocolPreview
+        {deliverableWorkspaceOpen && deliverablePortfolio ? <StudyDeliverableWorkspace
+          portfolio={deliverablePortfolio}
+          onClose={() => setDeliverableWorkspaceOpen(false)}
+        /> : openProjection ? <ProtocolPreview
           projection={openProjection}
           stale={protocolCard?.freshness === "STALE" || openProjection.source.projectVersion !== session.project?.versionId}
           onClose={() => setSession((current) => ({ ...current, openDocumentProjectionId: null }))}
