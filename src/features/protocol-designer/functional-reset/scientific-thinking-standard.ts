@@ -145,6 +145,47 @@ const modelPresentation = (candidate: Readonly<ScientificModelCandidate>): Stand
 export const buildStandardScientificThinkingPresentation = (
   output: Readonly<ScientificThinkingOutput>,
 ): StandardScientificThinkingPresentation => {
+  const contextualProjectQuestion = output.questions.find((candidate) => candidate.questionId === "ST-Q-PROJECT-CONTEXT-001") ?? null;
+  if (contextualProjectQuestion) {
+    const explicitProjectHypotheses = output.hypotheses.filter((candidate) => candidate.hypothesisId.startsWith("ST-H-PROJECT-"));
+    const questionCandidates = output.questions.map((candidate) => ({
+      candidateRef: candidate.questionId,
+      kind: "QUESTION" as const,
+      label: candidate.text,
+      rationale: candidate.rationale,
+      uncertainties: candidate.testability === "TESTABLE_CANDIDATE" ? [] : ["Cette formulation doit encore être précisée avant adoption."],
+    }));
+    const hypothesisCandidates = explicitProjectHypotheses.map((candidate) => ({
+      candidateRef: candidate.hypothesisId,
+      kind: "HYPOTHESIS" as const,
+      label: candidate.text,
+      rationale: candidate.observableCondition,
+      uncertainties: unique([...candidate.unknowns, ...candidate.limitations]),
+    }));
+    const candidates = [...questionCandidates, ...hypothesisCandidates];
+    const informationNeeds = unique(output.adaptiveQuestions
+      .filter((question) => question.blocking && !question.answeredValue)
+      .map((question) => question.label)).slice(0, 3);
+    const introduction = explicitProjectHypotheses.length
+      ? "La question scientifique et l’hypothèse exprimée sont maintenant reliées aux éléments confirmés du projet."
+      : "À partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.";
+    const plainText = [
+      introduction,
+      `Question scientifique de travail\n${contextualProjectQuestion.text}`,
+      ...explicitProjectHypotheses.map((candidate, index) => `${explicitProjectHypotheses.length > 1 ? `Hypothèse ${index + 1}` : "Hypothèse de travail"}\n${candidate.text}`),
+      informationNeeds.length ? `Point à préciser\n${informationNeeds[0]}` : null,
+      "Vous pouvez discuter ou corriger cette formulation avant toute adoption.",
+    ].filter((value): value is string => Boolean(value)).join("\n\n");
+    return {
+      presentationId: `scientific-thinking-standard-presentation:${logicalDigest({ output: output.outputId, digest: output.outputDigest })}`,
+      outputRef: output.outputId,
+      title: explicitProjectHypotheses.length ? "Question et hypothèse de travail" : "Question scientifique de travail",
+      introduction,
+      candidates,
+      informationNeeds,
+      plainText,
+    };
+  }
   const candidates: StandardScientificCandidatePresentation[] = [
     ...output.questions.map((candidate) => ({
       candidateRef: candidate.questionId,

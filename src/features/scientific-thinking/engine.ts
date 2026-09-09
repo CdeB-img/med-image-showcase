@@ -62,9 +62,21 @@ const hasPopulation = (input: ScientificThinkingInput) => input.population.lengt
 const hasOutcome = (input: ScientificThinkingInput) => input.outcomes.length > 0 || has(input.originalExpression, /\b([ée]v[ée]nements?|issue|outcome|mortalit[ée]|hospitalisation|progression|[ée]volution)\b/);
 const hasTime = (input: ScientificThinkingInput) => has(input.originalExpression, /\b(apr[èe]s|avant|pendant|suivi|progression|[ée]volution|longitudinal|temps)\b/);
 const hasPrediction = (text: string) => has(text, /\b(predit|predire|pronostic|evenements?)\b/);
+const termAppearsIn = (text: string, term: string) => {
+  const normalizedText = ` ${lower(text).replace(/[^\p{L}\p{N}]+/gu, " ")} `;
+  const normalizedTerm = lower(term).replace(/[^\p{L}\p{N}]+/gu, " ").trim();
+  return Boolean(normalizedTerm && normalizedText.includes(` ${normalizedTerm} `));
+};
 const hasMethodComparison = (input: ScientificThinkingInput) => {
-  const methods = input.methodsMentioned.map(lower);
-  return (methods.includes("molli") && methods.includes("sasha")) || (methods.length >= 2 && has(input.originalExpression, /\b(vs|versus|ou|compar\w*)\b/));
+  const methods = unique(input.methodsMentioned);
+  const expression = `${input.validatedReformulation} ${input.originalExpression}`;
+  const explicitlyComparedMethods = methods.filter((method) => termAppearsIn(expression, method));
+  const structuredMethodComparison = input.relations.some((relation) => {
+    const normalized = lower(relation);
+    return normalized.startsWith("method_comparison(")
+      || (/compar/.test(normalized) && /(method|methode|methodolog|modalit|acquisition)/.test(normalized));
+  });
+  return structuredMethodComparison || (explicitlyComparedMethods.length >= 2 && has(expression, /\b(vs|versus|ou|compar\w*)\b/));
 };
 const isBroadDomainLabel = (value: string) => has(value, /^(cardiologie|imagerie medicale|radiologie|neurologie|oncologie)$/);
 const hasSpecificScientificComparisonTarget = (input: ScientificThinkingInput) =>
@@ -221,10 +233,18 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
       sourceTerms: unique([labels, methodComparisonContext(input), ...(target ? [target] : []), ...(criterion ? [criterion] : [])]),
     });
   } else if (completeExistingQuestion) {
+    const contextualProjectQuestion = input.information.interpreted.some((item) => item.startsWith("PROJECT_CONTEXTUAL_QUESTION_CANDIDATE:"));
+    const representedSourceTerms = contextualProjectQuestion
+      ? unique([...input.scientificObjectTerms, ...input.pathologyOrCondition, ...input.phenomena, ...input.outcomes]
+        .filter((item) => termAppearsIn(source, item)))
+      : unique([first, ...(second ? [second] : [])]);
     candidates.push({
-      questionId: "ST-Q-001", text: source.trim().replace(/\?*$/, "?"), kind: "PRIMARY",
-      rationale: "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
-      testability: "TESTABLE_CANDIDATE", scope, support, linkedAssumptionIds: hasRelation(source) ? ["ST-A-001"] : [], sourceTerms: unique([first, ...(second ? [second] : [])]),
+      questionId: contextualProjectQuestion ? "ST-Q-PROJECT-CONTEXT-001" : "ST-Q-001",
+      text: source.trim().replace(/\?*$/, "?"), kind: "PRIMARY",
+      rationale: contextualProjectQuestion
+        ? "La relation comparative, ses deux extrémités et le critère sont déjà représentés dans le Project ; ils suffisent à formuler une question candidate sans redemander le phénomène étudié."
+        : "La formulation contient déjà un objet, une relation et un élément de contexte ou de temporalité ; elle est conservée avec une normalisation minimale.",
+      testability: "TESTABLE_CANDIDATE", scope, support, linkedAssumptionIds: hasRelation(source) ? ["ST-A-001"] : [], sourceTerms: representedSourceTerms,
     });
   } else if (hasPrediction(source) && first) {
     const outcome = input.outcomes[0] ?? (answeredOutcome && !["unknown", "exploratory", "declared-event"].includes(answeredOutcome) ? answeredOutcome : hasOutcome(input) ? "les événements mentionnés" : "un résultat à préciser");

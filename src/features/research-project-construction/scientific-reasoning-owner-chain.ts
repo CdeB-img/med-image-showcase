@@ -200,20 +200,29 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
   const question = objectsOf(snapshot, "SCIENTIFIC_QUESTION")[0];
   const projectObjectives = contentsOf(snapshot, "OBJECTIVE");
   const purpose = input.purpose ?? "Examiner la cohérence scientifique de cette question et les hypothèses encore à expliciter.";
-  const comparison = snapshot.relations.find((item) => /COMPARE/i.test(item.type));
-  const comparisonSource = comparison
-    ? snapshot.objects.find((item) => item.stableId === comparison.sourceProjectRef)?.content ?? comparison.sourceProjectRef
-    : null;
-  const comparisonTarget = comparison
-    ? snapshot.objects.find((item) => item.stableId === comparison.targetProjectRef)?.content ?? comparison.targetProjectRef
+  const projectObjectByRef = new Map(snapshot.objects.map((item) => [item.stableId, item]));
+  const comparisons = snapshot.relations
+    .filter((item) => /COMPARE/i.test(item.type) && !["UNKNOWN", "WITHHELD"].includes(item.epistemicState))
+    .map((relation) => ({
+      relation,
+      source: projectObjectByRef.get(relation.sourceProjectRef) ?? null,
+      target: projectObjectByRef.get(relation.targetProjectRef) ?? null,
+    }))
+    .filter((item) => item.source && item.target);
+  const primaryEndpoint = objectsOf(snapshot, "ENDPOINT")
+    .find((item) => item.scientificRole === "PRIMARY_ENDPOINT") ?? objectsOf(snapshot, "ENDPOINT")[0] ?? null;
+  const comparison = comparisons.length === 1 ? comparisons[0]! : null;
+  const condition = objectsOf(snapshot, "CONDITION")[0]?.content ?? null;
+  const contextualQuestion = comparison && primaryEndpoint
+    ? `Observe-t-on une différence entre « ${comparison.source!.content} » et « ${comparison.target!.content} » pour ${primaryEndpoint.scientificRole === "PRIMARY_ENDPOINT" ? "le critère principal" : "le critère"} « ${primaryEndpoint.content} »${condition ? `, dans le contexte « ${condition.replace(/^contexte\s+/iu, "").trim()} »` : ""} ?`
     : null;
   const validatedReformulation = question?.content
-    ? `${comparison ? `Comparaison explicite entre ${comparisonSource} et ${comparisonTarget}. ` : ""}${question.content}`
-    : projectObjectives[0] ?? purpose;
+    ?? contextualQuestion
+    ?? projectObjectives[0]
+    ?? purpose;
   const originalExpression = unique([
     validatedReformulation,
     ...projectObjectives,
-    purpose,
   ]).join(" ");
   const unknowns = unique([
     ...projectUnknowns(snapshot),
@@ -222,6 +231,9 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
   const scientificObjectTerms = unique(snapshot.objects.map((item) => item.content));
   const relations = unique([
     ...snapshot.relations.map((item) => `${item.type}(${item.sourceProjectRef},${item.targetProjectRef})`),
+    ...comparisons
+      .filter((item) => item.source!.type === item.target!.type && ["IMAGING_MODALITY", "ACQUISITION"].includes(item.source!.type))
+      .map((item) => `METHOD_COMPARISON(${item.relation.sourceProjectRef},${item.relation.targetProjectRef})`),
     ...snapshot.temporalQualifications.map(temporalLabel),
     ...snapshot.expectedVariableOccasions.map(occasionLabel),
   ]);
@@ -274,7 +286,7 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     safetyFlags: [],
     information: {
       explicit: snapshot.objects.map((item) => `PROJECT_ADOPTED:${item.stableId}:${item.content}`),
-      interpreted: [],
+      interpreted: contextualQuestion ? [`PROJECT_CONTEXTUAL_QUESTION_CANDIDATE:${contextualQuestion}`] : [],
     },
     knowledge: {
       ownerResultRef: knowledgeOwnerResult ? `${knowledgeOwnerResult.resultId}@${knowledgeOwnerResult.resultVersion}` : null,

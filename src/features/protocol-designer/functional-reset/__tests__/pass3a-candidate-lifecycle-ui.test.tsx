@@ -114,6 +114,7 @@ const liveFirstTurnConformanceFailure = (request: ProductBridgeRequest): Product
   contribution.runtimeEvidence.provider = "TEST_FIXTURE_NO_PROVIDER_CALL";
   contribution.scientificContent.normalizedUnderstanding = LIVE_FIRST_TURN;
   contribution.scientificContent.candidateObjects = [
+    explicit("objective:reperfusion-viability", "OBJECTIVE", "Évaluer l'efficacité des stratégies de reperfusion sur la viabilité myocardique"),
     explicit("condition:post-idm", "CONDITION", "post IDM"),
     explicit("intervention:stent-immediate", "INTERVENTION", "mise en place immédiate d'un stent", "INTERVENTION_ARM"),
     explicit("comparator:stent-delayed", "COMPARATOR", "mise en place différée d'un stent", "COMPARATOR_ARM"),
@@ -276,6 +277,7 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(retained.validation).toMatchObject({ valid: true, blocks: [] });
     expect(retained.candidate.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)))
       .toEqual(expect.arrayContaining([
+      "Évaluer l'efficacité des stratégies de reperfusion sur la viabilité myocardique",
       "post IDM",
       "mise en place immédiate d'un stent",
       "mise en place différée d'un stent",
@@ -349,6 +351,19 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(within(projectPanel).getByTestId("project-cockpit-counts")).toHaveTextContent(/\d+ décisions? confirmées? · \d+ points? matériels? ouverts?/);
     expect(within(projectPanel).getByTestId("project-next-useful-decision")).toHaveTextContent("Prochaine décision utile");
     expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).not.toBeInTheDocument();
+    await waitFor(() => expect(stored().scientificThinkingInteraction?.status).toBe("ACTIVE"));
+    const continuation = stored().entries.find((entry) => entry.kind === "TEXT" && entry.role === "NOXIA"
+      && entry.content.includes("Observe-t-on une différence entre"));
+    expect(continuation).toMatchObject({ kind: "TEXT", role: "NOXIA" });
+    if (continuation?.kind !== "TEXT") throw new Error("SCIENTIFIC_THINKING_STANDARD_CONTINUATION_EXPECTED");
+    expect(continuation.content).toContain("mise en place immédiate d'un stent");
+    expect(continuation.content).toContain("mise en place différée d'un stent");
+    expect(continuation.content).toContain("Taille des lésions microvasculaires à 3 min post-injection");
+    expect(continuation.content).not.toMatch(/Quel phénomène relatif à|indépendamment de la préférence déclarée/i);
+    expect(continuation.content).not.toMatch(/comparaison entre Imagerie par résonance magnétique.*Acquisition IRM/i);
+    expect(continuation.content).not.toMatch(/PENDING_VERIFICATION|PROJECT_SCIENTIFIC_QUESTION_NOT_EXPLICIT|La relation formulée dans/i);
+    expect(continuation.content).toContain("Vous pouvez discuter ou corriger cette formulation avant toute adoption.");
+    expect(runtime.bridge).toHaveBeenCalledTimes(1);
   });
 
   it("localization failure after successful HOW retains the exact original source and no presented candidate", async () => {
