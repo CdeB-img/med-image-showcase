@@ -3206,16 +3206,7 @@ export default function ProtocolDesignerWorkspace({
                 presentationRef={entry.entryId}
                 onPresented={() => acknowledgeContributionReviewPresented(entry.entryId)}
                 onPresentationFailure={(failure) => recordContributionReviewPresentationFailure(entry.entryId, failure)}
-                renderReview={() => <div className="space-y-4">
-                <UnderstandingReviewCard
-                  contribution={entry.contribution}
-                  status={entry.status === "REJECTED" ? "CORRECTION_REQUESTED" : entry.status}
-                  onConfirm={() => undefined}
-                  onCorrect={() => undefined}
-                  onAdd={() => undefined}
-                  presentationOnly
-                />
-                <ContributionReview
+                renderReview={() => <ContributionReview
                 contribution={entry.contribution}
                 candidate={entry.candidate ?? prepareResearchProjectContributionCandidate(
                   entry.contribution,
@@ -3223,11 +3214,18 @@ export default function ProtocolDesignerWorkspace({
                 )}
                 status={entry.status}
                 actionable={session.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId}
+                detailedUnderstanding={<UnderstandingReviewCard
+                  contribution={entry.contribution}
+                  status={entry.status === "REJECTED" ? "CORRECTION_REQUESTED" : entry.status}
+                  onConfirm={() => undefined}
+                  onCorrect={() => undefined}
+                  onAdd={() => undefined}
+                  presentationOnly
+                />}
                 onConfirm={() => confirmContribution(entry.contribution.identity.contributionId)}
                 onCorrect={requestCorrection}
                 onReject={() => rejectContribution(entry.contribution.identity.contributionId)}
-              />
-              </div>}
+              />}
               />
               : entry.kind === "STUDY_DESIGN_PROPOSAL"
                 ? <StudyDesignStandardCard

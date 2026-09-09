@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import UnderstandingReviewCard from "@/features/protocol-designer/conversation/UnderstandingReviewCard";
 import type {
@@ -195,7 +195,7 @@ describe("P1-UX-RESTORE-01FID — generic status fidelity", () => {
     expect([...reviews.values()].find((item) => item.content.includes("Objectif interprété"))).toMatchObject({ statusLabel: "Interprété — à confirmer", specificationLabel: undefined });
   });
 
-  it("renders origin and incompleteness as independent labels in both Standard review projections", () => {
+  it("renders origin and incompleteness as independent labels in both Standard review projections", async () => {
     const source = contributionWith([{
       id: "measure:projection",
       type: "CANONICAL_VARIABLE",
@@ -211,7 +211,10 @@ describe("P1-UX-RESTORE-01FID — generic status fidelity", () => {
 
     render(<ContributionReview contribution={source} candidate={candidate} status="PENDING" onConfirm={vi.fn()} onCorrect={vi.fn()} onReject={vi.fn()} />);
     const review = screen.getByTestId("functional-contribution-review");
-    expect(within(review).getByText("Mesure delta reformulée").parentElement).toHaveTextContent("ReformuléDétails à préciser");
+    fireEvent.click(within(review).getByText("Voir les détails"));
+    await waitFor(() => expect(within(review).getAllByText("Mesure delta reformulée")).toHaveLength(2));
+    const detailedItem = within(review).getAllByText("Mesure delta reformulée");
+    expect(detailedItem.at(-1)?.parentElement).toHaveTextContent("ReformuléDétails à préciser");
   });
 
   it("invalidates a persisted pre-fidelity review projection so the current generic projection is rebuilt", () => {

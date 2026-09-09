@@ -15,6 +15,7 @@ import {
   ensureCanonicalProjectState,
   projectSectionsFromCanonicalState,
   type CanonicalProjectChangeSet,
+  type CanonicalProjectObjectType,
   type CanonicalResearchProjectState,
 } from "./canonical-project-backbone.js";
 import { presentCanonicalTemporalAnchor } from "./temporal-presentation.js";
@@ -92,6 +93,8 @@ export type HumanReviewProjectionItem = {
   statusLabel?: "Déclaré" | "Reformulé" | "Interprété — à confirmer" | "À préciser";
   specificationLabel?: "Détails à préciser";
   projectSectionId?: ResearchProjectSectionId;
+  objectType?: CanonicalProjectObjectType;
+  scientificRole?: string | null;
 };
 
 export type HumanReviewOpenPoint = {
@@ -110,7 +113,7 @@ export type HumanReviewProjectionSection = {
   items: HumanReviewProjectionItem[];
 };
 
-export const HUMAN_REVIEW_PROJECTION_VERSION = "1.2.0" as const;
+export const HUMAN_REVIEW_PROJECTION_VERSION = "1.3.0" as const;
 
 export type HumanReviewProjection = {
   contract: "PRJ001_HUMAN_REVIEW_PROJECTION";
@@ -1097,7 +1100,11 @@ const reviewObjectLabel = (object: { objectType: string; content: string; proven
   return object.content;
 };
 
-const humanReviewObjectSectionLabel = (objectType: string, fallback: ResearchProjectSectionId) => {
+const humanReviewObjectSectionLabel = (
+  objectType: string,
+  scientificRole: string | null | undefined,
+  fallback: ResearchProjectSectionId,
+) => {
   if (objectType === "SCIENTIFIC_QUESTION") return "Question";
   if (objectType === "OBJECTIVE") return "Objectif";
   if (objectType === "HYPOTHESIS") return "Hypothèse de départ";
@@ -1107,6 +1114,7 @@ const humanReviewObjectSectionLabel = (objectType: string, fallback: ResearchPro
   if (objectType === "PROJECT_INFORMATION") return "Contexte du projet";
   if (objectType === "INTERVENTION_OR_EXPOSURE") return "Intervention / exposition";
   if (objectType === "DATA_NEED") return "Besoin de données";
+  if (objectType === "ENDPOINT" && /PRIMARY|PRINCIPAL/i.test(scientificRole ?? "")) return "Critère principal";
   if (["ENDPOINT", "CANONICAL_VARIABLE"].includes(objectType)) return "Éléments à observer ou mesurer";
   if (objectType === "ANALYSIS_SPECIFICATION") return "Analyse";
   return SECTION_LABELS[fallback];
@@ -1260,7 +1268,7 @@ export const buildHumanReviewProjection = (
         ? `${reviewReplacement(previousLabel, nextLabel)}${previous.scientificRole !== next?.scientificRole ? ` (rôle : ${previous.scientificRole ?? "aucun"} → ${next?.scientificRole ?? "aucun"})` : ""}`
         : `${initialStructure ? "" : `${reviewOperationPrefix(change.operation)} `}${initialStructure ? nextLabel : capitalize(nextLabel)}${!initialStructure && next?.scientificRole ? ` (rôle : ${next.scientificRole})` : ""}`;
     const representedObject = next ?? previous;
-    add(humanReviewObjectSectionLabel(representedObject?.objectType ?? "", sectionId), {
+    add(humanReviewObjectSectionLabel(representedObject?.objectType ?? "", representedObject?.scientificRole, sectionId), {
       reviewItemRef: `review:${change.changeRef}`,
       changeRef: change.changeRef,
       changeKind: "OBJECT",
@@ -1269,6 +1277,8 @@ export const buildHumanReviewProjection = (
       statusLabel: representedObject ? humanReviewObjectStatus(representedObject) : undefined,
       specificationLabel: representedObject ? humanReviewObjectSpecification(representedObject) : undefined,
       projectSectionId: sectionId,
+      objectType: representedObject?.objectType,
+      scientificRole: representedObject?.scientificRole,
     });
   });
 

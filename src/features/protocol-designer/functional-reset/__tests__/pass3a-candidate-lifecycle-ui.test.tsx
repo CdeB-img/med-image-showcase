@@ -121,8 +121,11 @@ const liveFirstTurnConformanceFailure = (request: ProductBridgeRequest): Product
     explicit("measure:segmental-motion", "MEASURED_VARIABLE", "cinétique segmentaire"),
     explicit("measure:strain", "MEASURED_VARIABLE", "strain"),
     explicit("measure:t1-t2", "MEASURED_VARIABLE", "T1/T2"),
-    explicit("measure:early-late", "MEASURED_VARIABLE", "précoce et tardif"),
-    explicit("endpoint:microvascular-lesions", "ENDPOINT", "taille des lésions microvasculaire a 3min post injection", "PRIMARY_ENDPOINT"),
+    explicit("measure:microvascular-lesions", "MEASURED_VARIABLE", "Taille des lésions microvasculaires"),
+    explicit("endpoint:microvascular-lesions", "ENDPOINT", "Taille des lésions microvasculaires à 3 min post-injection", "PRIMARY_ENDPOINT"),
+  ];
+  contribution.scientificContent.ambiguities = [
+    explicit("ambiguity:early-late", "AMBIGUITY", "Quand vous dites « précoce et tardif », parlez-vous du rehaussement précoce et tardif après injection ?"),
   ];
   contribution.scientificContent.candidateRelations = [{
     ...contribution.scientificContent.candidateRelations[0]!,
@@ -280,11 +283,42 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
       "cinétique segmentaire",
       "strain",
       "T1/T2",
-      "précoce et tardif",
-      "taille des lésions microvasculaire a 3min post injection",
+      "Taille des lésions microvasculaires",
+      "Taille des lésions microvasculaires à 3 min post-injection",
       "+ IRM : J3–J6",
       ]));
+    expect(retained.contribution.scientificContent.ambiguities.map((item) => item.content)).toContain(
+      "Quand vous dites « précoce et tardif », parlez-vous du rehaussement précoce et tardif après injection ?",
+    );
     expect(screen.getByText(DEGRADED_REPLY)).toBeInTheDocument();
+    const summary = screen.getByTestId("standard-initial-review-summary");
+    expect(summary).toHaveTextContent(/post IDM/i);
+    expect(summary).toHaveTextContent(/mise en place immédiate d'un stent/i);
+    expect(summary).toHaveTextContent(/mise en place différée d'un stent/i);
+    expect(summary).toHaveTextContent("IRM : J3–J6");
+    expect(summary).toHaveTextContent(/cinétique segmentaire/i);
+    expect(summary).toHaveTextContent(/strain/i);
+    expect(summary).toHaveTextContent("T1/T2");
+    expect(summary).toHaveTextContent("Critère principalTaille des lésions microvasculaires à 3 min post-injection");
+    expect(summary).toHaveTextContent("Quand vous dites « précoce et tardif », parlez-vous du rehaussement précoce et tardif après injection ?");
+    expect(summary.textContent?.match(/Taille des lésions microvasculaires/gu)).toHaveLength(1);
+    const primaryEndpointItem = retained.candidate.humanReviewProjection.sections
+      .flatMap((section) => section.items)
+      .find((item) => item.scientificRole === "PRIMARY_ENDPOINT");
+    expect(primaryEndpointItem).toMatchObject({
+      objectType: "ENDPOINT",
+      scientificRole: "PRIMARY_ENDPOINT",
+      content: "Taille des lésions microvasculaires à 3 min post-injection",
+    });
+    expect(retained.candidate.humanReviewProjection.sections.find((section) => section.label === "Critère principal")?.items)
+      .toContainEqual(expect.objectContaining({ changeRef: primaryEndpointItem?.changeRef }));
+    const details = screen.getByTestId("functional-review-details") as HTMLDetailsElement;
+    expect(details.open).toBe(false);
+    expect(screen.queryByTestId("understanding-review-card")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByText("Voir les détails"));
+    expect(details.open).toBe(true);
+    expect(details).toContainElement(await screen.findByTestId("understanding-review-card"));
+    expect(screen.getAllByText("Taille des lésions microvasculaires")).toHaveLength(2);
     expect(screen.getByRole("button", { name: "Cela correspond à mon projet" })).toBeEnabled();
     expect(screen.getByRole("button", { name: "Décrire une correction" })).toBeEnabled();
     expect(screen.getByRole("button", { name: "Refuser cette proposition" })).toBeEnabled();

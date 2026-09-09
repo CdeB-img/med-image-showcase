@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import UnderstandingReviewCard from "@/features/protocol-designer/conversation/UnderstandingReviewCard";
 import type {
@@ -103,7 +103,7 @@ describe("P1-UX-RESTORE-01S — semantic fidelity", () => {
     expect(within(review).getByText("Cadre saisonnier à préciser").nextSibling).toHaveTextContent("À préciser");
   });
 
-  it("does not turn condition, context, hypothesis, data need or measurement intent into another Project field", () => {
+  it("does not turn condition, context, hypothesis, data need or measurement intent into another Project field", async () => {
     const source = contribution();
     const candidate = prepareResearchProjectContributionCandidate(source, null);
     const population = candidate.proposedSections.find((section) => section.sectionId === "POPULATION")!;
@@ -136,7 +136,9 @@ describe("P1-UX-RESTORE-01S — semantic fidelity", () => {
 
     render(<ContributionReview contribution={source} candidate={candidate} status="PENDING" onConfirm={vi.fn()} onCorrect={vi.fn()} onReject={vi.fn()} />);
     const rendered = screen.getByTestId("functional-contribution-review");
-    expect(rendered).toHaveTextContent("Question de recherche à préciser.");
+    expect(within(rendered).getByTestId("standard-initial-review-summary")).not.toHaveTextContent("Question de recherche à préciser.");
+    fireEvent.click(within(rendered).getByText("Voir les détails"));
+    await within(rendered).findByRole("region", { name: "Points encore ouverts" });
     expect(rendered).toHaveTextContent("question de recherche");
     expect(rendered).toHaveTextContent("population précise");
     expect(rendered).toHaveTextContent("Cadre saisonnier à préciser — détails à préciser");
