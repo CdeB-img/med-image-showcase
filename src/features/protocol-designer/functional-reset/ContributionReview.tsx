@@ -1,3 +1,4 @@
+import { Component, type ReactNode } from "react";
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
 import {
   researchProjectQuestionPresentation,
@@ -135,4 +136,3 @@ class ContributionReviewPresentationBoundary extends Component<
 export function ContributionReviewPresentation(props: ContributionReviewPresentationProps) {
   return <ContributionReviewPresentationBoundary key={props.presentationRef} {...props} />;
 }
-import { Component, type ReactNode } from "react";

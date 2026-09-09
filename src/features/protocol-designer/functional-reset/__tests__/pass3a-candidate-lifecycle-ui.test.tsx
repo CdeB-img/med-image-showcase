@@ -11,6 +11,9 @@ import {
 } from "@/features/protocol-designer/conversation-language-gateway";
 import { ProductBridgeClientError } from "@/features/protocol-designer/product-bridge-client";
 import type { ProductBridgeRequest, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
+import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
+import { buildCurrentTurnNavigation } from "@/features/query-navigation/current-turn-navigation";
+import { realizeGovernedConversation } from "@/features/query-navigation/governed-conversation-realization";
 import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
 import {
   COLCHICINE_03A_INITIAL,
@@ -37,6 +40,8 @@ vi.mock("@/features/protocol-designer/product-bridge-client", () => ({
 const ENGLISH_SOURCE = "We want to build a multicenter study comparing colchicine with placebo after myocardial infarction. We want to assess inflammation and myocardial lesions with cardiac MRI.";
 const ENGLISH_VISIBLE = "The proposed working structure is available separately for your review. No Project has been adopted.";
 const MODIFICATION = "Je veux compléter cette étude : l’âge maximal sera de 75 ans et l’IRM sera réalisée entre J3 et J5.";
+const LIVE_FIRST_TURN = "je veux faire une étude évaluant l'effet de méthodes de reperfusion post IDM avec mise en place immédiate ou différée d'un stent afin d'évaluer l'efficacité sur la viabilité myocardique. avec donc deux groupes en double aveugle, une IRM a J3-6 évaluant la cinétique segmentaire, le strain, le T1/T2, le précoce et tardif le critere de jugement principale étant la taille des lésions microvasculaire a 3min post injection";
+const DEGRADED_REPLY = "J’ai identifié plusieurs éléments dans votre projet. Voici ce que j’ai compris ; vous pouvez les corriger avant toute confirmation.";
 const NO_NETWORK = vi.fn(() => { throw new Error("PASS3A_UI_LIFECYCLE_NETWORK_FORBIDDEN"); });
 const stored = (): FunctionalResetSession => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
@@ -91,6 +96,78 @@ const languageResponse = (request: LanguageProjectionRequest): LanguageProjectio
       usage: { input_tokens: 100, output_tokens: 30, reasoning_tokens: 8, cached_tokens: 0 },
       contextBoundary, calls: 1, latencyMs: 1,
     },
+  };
+};
+
+const liveFirstTurnConformanceFailure = (request: ProductBridgeRequest): ProductBridgeResponse => {
+  const contribution = makeFunctionalResetContribution(request.conversation.turns.filter((turn) => turn.role === "USER"));
+  const source = request.conversation.turns.filter((turn) => turn.role === "USER").at(-1)!;
+  const template = contribution.scientificContent.candidateObjects[0]!;
+  const explicit = (itemId: string, proposedType: string, content: string, studyRole: string | null = null) => ({
+    ...template, itemId, semanticIdentity: itemId, proposedType, content, studyRole,
+    epistemicBoundary: { ...template.epistemicBoundary, sourceTurnIds: [source.turnId] },
+  });
+  contribution.identity.contributionId = "contribution:live-standard-first-turn";
+  contribution.identity.contributionDigest = "contribution:live-standard-first-turn:digest";
+  contribution.source.conversationId = request.conversation.conversationId;
+  contribution.source.originalRequest = LIVE_FIRST_TURN;
+  contribution.runtimeEvidence.provider = "TEST_FIXTURE_NO_PROVIDER_CALL";
+  contribution.scientificContent.normalizedUnderstanding = LIVE_FIRST_TURN;
+  contribution.scientificContent.candidateObjects = [
+    explicit("condition:post-idm", "CONDITION", "post IDM"),
+    explicit("intervention:stent-immediate", "INTERVENTION", "mise en place immédiate d'un stent", "INTERVENTION_ARM"),
+    explicit("comparator:stent-delayed", "COMPARATOR", "mise en place différée d'un stent", "COMPARATOR_ARM"),
+    explicit("design:two-groups-double-blind", "STUDY_DESIGN", "deux groupes en double aveugle"),
+    explicit("measure:segmental-motion", "MEASURED_VARIABLE", "cinétique segmentaire"),
+    explicit("measure:strain", "MEASURED_VARIABLE", "strain"),
+    explicit("measure:t1-t2", "MEASURED_VARIABLE", "T1/T2"),
+    explicit("measure:early-late", "MEASURED_VARIABLE", "précoce et tardif"),
+    explicit("endpoint:microvascular-lesions", "ENDPOINT", "taille des lésions microvasculaire a 3min post injection", "PRIMARY_ENDPOINT"),
+  ];
+  contribution.scientificContent.candidateRelations = [{
+    ...contribution.scientificContent.candidateRelations[0]!,
+    relationId: "relation:immediate-vs-delayed",
+    sourceItemId: "intervention:stent-immediate",
+    targetItemId: "comparator:stent-delayed",
+    epistemicBoundary: { ...template.epistemicBoundary, sourceTurnIds: [source.turnId] },
+  }];
+  contribution.scientificContent.temporalElements = [
+    explicit("timing:mri-j3-j6", "TEMPORAL_ELEMENT", "IRM a J3-6"),
+  ];
+  const validation = {
+    valid: true, blocks: [], noOps: [], normalizations: [],
+    acceptedChanges: [], acceptedRelations: [], acceptedTemporalQualifications: [], acceptedExpectedVariableOccasions: [],
+  };
+  const candidate = prepareResearchProjectContributionCandidate(contribution, request.currentProject);
+  const navigation = buildCurrentTurnNavigation({
+    sourceTurnRef: source.turnId, sourceText: source.content,
+    candidate, contribution, validation, currentProject: request.currentProject,
+    preProjectNavigation: request.preProjectNavigation,
+    interaction: request.conversation.interactionContext,
+    currentNavigation: request.currentNavigation,
+    boundedReferentContext: request.boundedReferentContext,
+    boundedInteraction: request.boundedInteraction,
+    requestKind: request.requestKind,
+  });
+  const governedRealization = realizeGovernedConversation({
+    envelope: navigation.envelope,
+    providerReply: "J’ai adopté cette proposition.",
+    requireProviderClaim: true,
+    localWhatText: navigation.localWhatText,
+  });
+  const response = makeFunctionalResetBridgeResponse(request.conversation.turns, contribution, governedRealization.assistantReply);
+  return {
+    ...response,
+    currentTurnNavigation: navigation,
+    governedRealization,
+    conversationFailure: {
+      stage: "CONFORMANCE",
+      code: governedRealization.conformance.diagnostics[0] ?? "HOW_CONFORMANCE_REJECTED",
+      message: "La formulation de cette étape n’a pas abouti. La proposition validée reste conservée sans adoption.",
+      provider: null,
+    },
+    persistentExtraction: { ...response.persistentExtraction, validation },
+    observability: { ...response.observability, conversationCalls: 1, conversationResponseReceived: true },
   };
 };
 
@@ -161,22 +238,59 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(runtime.language).not.toHaveBeenCalled();
   });
 
-  it("HOW failure partial receipt retains the validated candidate unseen and creates no Human Review", async () => {
+  it("HOW failure presents the retained validated candidate through the deterministic degraded path", async () => {
     runtime.bridge.mockImplementation(async (request: ProductBridgeRequest): Promise<ProductBridgeResponse> => ({
       ...validatedResponse(request), assistantReply: "",
       conversationFailure: { stage: "HOW", code: "CONVERSATION_PROVIDER_FAILURE", message: "La formulation n’a pas abouti.", provider: null },
     }));
     renderDemo();
     submit(COLCHICINE_03A_INITIAL);
-    await waitFor(() => expect(stored().retainedContributionCandidates?.[0].downstreamState).toBe("DOWNSTREAM_FAILED_NOT_PRESENTED"));
+    await screen.findByTestId("functional-contribution-review");
+    await waitFor(() => expect(stored().retainedContributionCandidates?.[0].downstreamState).toBe("PRESENTED"));
     const state = stored();
-    expect(state.retainedContributionCandidates![0]).toMatchObject({ presentedAt: null, failure: { stage: "HOW", code: "CONVERSATION_PROVIDER_FAILURE" } });
-    expect(state.pendingContribution).toBeNull();
-    expect(state.entries.filter((entry) => entry.kind === "REVIEW")).toHaveLength(0);
-    expect(screen.queryByTestId("functional-contribution-review")).toBeNull();
+    expect(state.retainedContributionCandidates![0]).toMatchObject({ presentedAt: expect.any(String), failure: null });
+    expect(state.pendingContribution?.identity.contributionId).toBe(state.retainedContributionCandidates![0].candidateRef);
+    expect(state.entries.filter((entry) => entry.kind === "REVIEW")).toHaveLength(1);
+    expect(screen.getByText(DEGRADED_REPLY)).toBeInTheDocument();
     const stages = state.scientificExecutionTraceLedger.events.map((event) => event.common?.stage ?? event.eventType);
     expect(stages.indexOf("PROJECT_CANDIDATE_VALIDATED")).toBeGreaterThanOrEqual(0);
-    expect(stages.indexOf("PROJECT_CANDIDATE_VALIDATED")).toBeLessThan(stages.indexOf("ERROR_BOUNDARY"));
+    expect(stages).not.toContain("ERROR_BOUNDARY");
+    expect(runtime.bridge).toHaveBeenCalledTimes(1);
+    expect(runtime.language).not.toHaveBeenCalled();
+    expectNonAdopted(state);
+  });
+
+  it("keeps the exact live first turn reviewable when Gemini HOW is rejected by conformance", async () => {
+    runtime.bridge.mockImplementation(async (request: ProductBridgeRequest) => liveFirstTurnConformanceFailure(request));
+    renderDemo();
+    submit(LIVE_FIRST_TURN);
+
+    await screen.findByTestId("functional-contribution-review");
+    await waitFor(() => expect(stored().retainedContributionCandidates?.[0].downstreamState).toBe("PRESENTED"));
+    const state = stored();
+    const retained = state.retainedContributionCandidates![0];
+    expect(state.runtimeTurns.find((turn) => turn.role === "USER")?.content).toBe(LIVE_FIRST_TURN);
+    expect(retained.validation).toMatchObject({ valid: true, blocks: [] });
+    expect(retained.candidate.humanReviewProjection.sections.flatMap((section) => section.items.map((item) => item.content)))
+      .toEqual(expect.arrayContaining([
+      "post IDM",
+      "mise en place immédiate d'un stent",
+      "mise en place différée d'un stent",
+      "deux groupes en double aveugle",
+      "cinétique segmentaire",
+      "strain",
+      "T1/T2",
+      "précoce et tardif",
+      "taille des lésions microvasculaire a 3min post injection",
+      "+ IRM : J3–J6",
+      ]));
+    expect(screen.getByText(DEGRADED_REPLY)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Cela correspond à mon projet" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Décrire une correction" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Refuser cette proposition" })).toBeEnabled();
+    expect(state.project).toBeNull();
+    expect(retained.humanDecision).toBeNull();
+    expect(retained.candidate.projectWriteAuthorized).toBe(false);
     expect(runtime.bridge).toHaveBeenCalledTimes(1);
     expect(runtime.language).not.toHaveBeenCalled();
     expectNonAdopted(state);
@@ -206,7 +320,7 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expectNonAdopted(state);
   });
 
-  it("an older presented pending candidate survives a newer HOW failure without a fabricated replacement", async () => {
+  it("keeps an older presented candidate unchanged while presenting a newer validated candidate after HOW failure", async () => {
     runtime.bridge.mockImplementation(async (request: ProductBridgeRequest): Promise<ProductBridgeResponse> => {
       const response = validatedResponse(request);
       return request.conversation.turns.filter((turn) => turn.role === "USER").length === 1 ? response : {
@@ -221,17 +335,16 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     const before = stored();
     const oldCandidate = JSON.stringify(before.retainedContributionCandidates![0]);
     const oldReview = before.entries.find((entry) => entry.kind === "REVIEW")!;
-    const oldPending = JSON.stringify(before.pendingContribution);
     submit(MODIFICATION);
     await waitFor(() => expect(stored().retainedContributionCandidates).toHaveLength(2));
-    await waitFor(() => expect(stored().retainedContributionCandidates![1].downstreamState).toBe("DOWNSTREAM_FAILED_NOT_PRESENTED"));
+    await waitFor(() => expect(stored().retainedContributionCandidates![1].downstreamState).toBe("PRESENTED"));
     const after = stored();
     expect(JSON.stringify(after.retainedContributionCandidates![0])).toBe(oldCandidate);
     expect(after.entries.find((entry) => entry.entryId === oldReview.entryId)).toEqual(oldReview);
-    expect(JSON.stringify(after.pendingContribution)).toBe(oldPending);
-    expect(after.entries.filter((entry) => entry.kind === "REVIEW")).toHaveLength(1);
-    expect(screen.getAllByTestId("functional-contribution-review")).toHaveLength(1);
-    expect(after.retainedContributionCandidates![1]).toMatchObject({ presentedAt: null, humanDecision: null, actuality: "CURRENT", failure: { code: "SECOND_TURN_HOW_FAILURE" } });
+    expect(after.pendingContribution?.identity.contributionId).toBe(after.retainedContributionCandidates![1].candidateRef);
+    expect(after.entries.filter((entry) => entry.kind === "REVIEW")).toHaveLength(2);
+    expect(screen.getAllByTestId("functional-contribution-review")).toHaveLength(2);
+    expect(after.retainedContributionCandidates![1]).toMatchObject({ presentedAt: expect.any(String), humanDecision: null, actuality: "CURRENT", failure: null });
     expect(after.retainedContributionCandidates![0].actuality).toBe("CURRENT");
     expect(runtime.bridge).toHaveBeenCalledTimes(2);
     expect(runtime.language).not.toHaveBeenCalled();

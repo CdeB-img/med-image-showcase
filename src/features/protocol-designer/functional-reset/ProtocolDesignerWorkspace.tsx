@@ -832,6 +832,8 @@ type ProtocolDesignerWorkspaceProps = Readonly<{
   traceCaptureConfiguration?: ScientificTraceCaptureConfiguration;
 }>;
 
+const VALIDATED_CANDIDATE_DEGRADED_REPLY = "J’ai identifié plusieurs éléments dans votre projet. Voici ce que j’ai compris ; vous pouvez les corriger avant toute confirmation.";
+
 export default function ProtocolDesignerWorkspace({
   traceCaptureConfiguration = DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
 }: ProtocolDesignerWorkspaceProps) {
@@ -2085,7 +2087,14 @@ export default function ProtocolDesignerWorkspace({
         governedRealizationOutcome = nativeTrace.realizationOutcome;
         setSession((current) => ({ ...current, scientificExecutionTraceLedger: entryTraceLedger }));
       }
-      if (response.conversationFailure) {
+      const validatedCandidateDegradedPath = Boolean(
+        response.conversationFailure
+        && retainedThisTurn
+        && effectiveCandidate
+        && contribution
+        && ["HOW", "CONFORMANCE"].includes(response.conversationFailure.stage),
+      );
+      if (response.conversationFailure && !validatedCandidateDegradedPath) {
         downstreamStage = response.conversationFailure.stage;
         throw new ProductBridgeClientError(response.conversationFailure.code, response.conversationFailure.message);
       }
@@ -2110,7 +2119,9 @@ export default function ProtocolDesignerWorkspace({
           structuredUnderstanding,
         })
         : null;
-      const canonicalAssistantReply = preProjectRealization?.assistantReply ?? response.assistantReply;
+      const canonicalAssistantReply = validatedCandidateDegradedPath
+        ? VALIDATED_CANDIDATE_DEGRADED_REPLY
+        : preProjectRealization?.assistantReply ?? response.assistantReply;
       const canonicalAssistantTurn = { ...response.assistantTurn, content: canonicalAssistantReply };
       downstreamStage = "LOCALIZATION";
       const localized = await localizeCanonicalFrenchResponse({
