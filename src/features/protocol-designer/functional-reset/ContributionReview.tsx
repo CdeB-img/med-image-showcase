@@ -1,8 +1,11 @@
 import { Component, useState, type ReactNode } from "react";
 import type { ScientificInterpretationContributionEnvelope } from "@/features/scientific-interpretation/contracts";
 import {
+  ensureCanonicalProjectState,
+  presentCanonicalTemporalAnchor,
   type HumanReviewProjectionItem,
   type ResearchProjectContributionCandidate,
+  type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
 
 const countInFrench = (count: number) => count === 1 ? "une modification" : count === 2 ? "deux modifications" : `${count} modifications`;
@@ -10,6 +13,7 @@ const countInFrench = (count: number) => count === 1 ? "une modification" : coun
 type Props = {
   contribution: ScientificInterpretationContributionEnvelope;
   candidate: ResearchProjectContributionCandidate;
+  currentProject?: ResearchProjectOwnerProjection | null;
   status: "PENDING" | "CONFIRMED" | "REJECTED";
   actionable?: boolean;
   detailedUnderstanding?: ReactNode;
@@ -42,17 +46,23 @@ const initialSummaryRows = (candidate: ResearchProjectContributionCandidate): Su
   const objects = items.filter((item) => item.changeKind === "OBJECT" && item.objectType !== "UNCERTAINTY");
   const endpoints = uniqueItems(objects.filter(primaryEndpoint));
   const endpointTexts = endpoints.map((item) => normalized(item.content));
+  const timedEndpointCores = endpointTexts.flatMap((endpoint) => {
+    const marker = endpoint.search(/\b(?:a|au|apres|post)\s+(?:j|m)?\s*\d+/u);
+    return marker > 0 ? [endpoint.slice(0, marker).trim()] : [];
+  });
   const isEndpointMeasurement = (item: HumanReviewProjectionItem) => {
     const measurement = normalized(item.content);
     return endpointTexts.some((endpoint) => endpoint === measurement || endpoint.includes(measurement));
   };
+  const isEndpointOccasionAlreadyVisible = (item: HumanReviewProjectionItem) => item.changeKind === "EXPECTED_VARIABLE_OCCASION"
+    && timedEndpointCores.some((core) => core.length > 0 && normalized(item.content).includes(core));
   const bySection = (...sectionIds: string[]) => uniqueItems(objects.filter((item) => (
     item.projectSectionId && sectionIds.includes(item.projectSectionId)
   )));
   const relations = uniqueItems(items.filter((item) => item.changeKind === "RELATION"));
   const comparison = relations.length ? relations : bySection("INTERVENTION", "COMPARATOR");
   const evaluation = uniqueItems([
-    ...items.filter((item) => item.projectSectionId === "TEMPORALITY"),
+    ...items.filter((item) => item.projectSectionId === "TEMPORALITY" && !isEndpointOccasionAlreadyVisible(item)),
     ...bySection("IMAGING"),
     ...bySection("MEASUREMENTS").filter((item) => !primaryEndpoint(item) && !isEndpointMeasurement(item)),
   ]);
@@ -74,7 +84,61 @@ const activeIssueItems = (contribution: ScientificInterpretationContributionEnve
   ...contribution.scientificContent.ambiguities,
 ].filter((item) => item.epistemicBoundary.activeState !== false));
 
-export default function ContributionReview({ contribution, candidate, status, actionable = true, detailedUnderstanding, onConfirm, onCorrect, onReject }: Props) {
+type PreservedProjectProperty = { id: string; label: string; content: string };
+
+const preservedProjectPropertiesForReview = (
+  candidate: ResearchProjectContributionCandidate,
+  currentProject: ResearchProjectOwnerProjection | null | undefined,
+): PreservedProjectProperty[] => {
+  if (!currentProject || candidate.canonicalChangeSet.baseProjectVersion !== currentProject.versionId) return [];
+  const state = ensureCanonicalProjectState(currentProject);
+  const activeObjects = new Map(state.objects
+    .filter((object) => object.actuality === "CURRENT")
+    .map((object) => [object.objectId, object] as const));
+  const replacements = candidate.canonicalChangeSet.objectChanges.filter((change) => (
+    change.operation === "REPLACE" && change.candidate
+  ));
+  const replacedObjectRefs = new Set(replacements.map((change) => change.objectId));
+  const changedTemporalRefs = new Set(candidate.canonicalChangeSet.temporalQualificationChanges.map((change) => change.qualificationId));
+  const changedOccasionRefs = new Set(candidate.canonicalChangeSet.expectedVariableOccasionChanges.map((change) => change.occasionId));
+  const objectLabels = new Map([...activeObjects].map(([ref, object]) => [ref, object.content] as const));
+  replacements.forEach((change) => {
+    if (change.candidate) objectLabels.set(change.objectId, change.candidate.content);
+  });
+
+  const roles = replacements.flatMap((change): PreservedProjectProperty[] => {
+    const previous = activeObjects.get(change.objectId);
+    if (!previous?.scientificRole || previous.scientificRole !== change.candidate?.scientificRole) return [];
+    if (!/PRIMARY|PRINCIPAL/iu.test(previous.scientificRole)) return [];
+    return [{ id: `role:${change.objectId}`, label: "Rôle conservé", content: "Critère principal" }];
+  });
+  const temporalQualifications = state.temporalQualifications.flatMap((qualification): PreservedProjectProperty[] => (
+    qualification.actuality === "CURRENT"
+      && replacedObjectRefs.has(qualification.subjectProjectRef)
+      && !changedTemporalRefs.has(qualification.qualificationId)
+      ? [{
+        id: `temporal:${qualification.qualificationId}`,
+        label: "Temporalité conservée",
+        content: presentCanonicalTemporalAnchor(qualification.anchor, objectLabels),
+      }]
+      : []
+  ));
+  const expectedOccasions = state.expectedVariableOccasions.flatMap((occasion): PreservedProjectProperty[] => (
+    occasion.actuality === "CURRENT"
+      && replacedObjectRefs.has(occasion.variableProjectRef)
+      && !changedOccasionRefs.has(occasion.occasionId)
+      ? [{
+        id: `occasion:${occasion.occasionId}`,
+        label: "Temporalité conservée",
+        content: presentCanonicalTemporalAnchor(occasion.anchor, objectLabels),
+      }]
+      : []
+  ));
+  return [...new Map([...roles, ...temporalQualifications, ...expectedOccasions]
+    .map((item) => [`${item.label}:${normalized(item.content)}`, item])).values()];
+};
+
+export default function ContributionReview({ contribution, candidate, currentProject, status, actionable = true, detailedUnderstanding, onConfirm, onCorrect, onReject }: Props) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
   const sections = candidate.humanReviewProjection.sections;
@@ -82,9 +146,12 @@ export default function ContributionReview({ contribution, candidate, status, ac
   const openPoints = candidate.humanReviewProjection.openPoints;
   const summaryRows = initialSummaryRows(candidate);
   const issueItems = activeIssueItems(contribution);
+  const preservedProperties = status === "PENDING"
+    ? preservedProjectPropertiesForReview(candidate, currentProject)
+    : [];
 
   return <section className="rounded-3xl border border-primary/30 bg-card p-5 shadow-sm" aria-labelledby={`review-${contribution.identity.contributionId}`} data-testid="functional-contribution-review">
-    <p className="text-xs font-semibold uppercase tracking-[.16em] text-primary">{isUpdate ? "Modifications proposées" : "Synthèse de l’étude"}</p>
+    <p className="text-xs font-semibold uppercase tracking-[.16em] text-primary">{isUpdate ? "Correction proposée" : "Synthèse de l’étude"}</p>
     <h3 id={`review-${contribution.identity.contributionId}`} className="mt-2 text-xl font-semibold">
       {isUpdate ? `J’ai compris ${countInFrench(changeCount)} :` : "Voici la structure essentielle à confirmer."}
     </h3>
@@ -115,6 +182,15 @@ export default function ContributionReview({ contribution, candidate, status, ac
         </li>)}</ul>
       </section>)}
     </div>}
+
+    {isUpdate && preservedProperties.length > 0 && <dl className="mt-3 divide-y rounded-2xl border border-dashed bg-background px-4" data-testid="standard-update-preserved-properties">
+      {preservedProperties.map((property) => <div key={property.id} className="grid gap-1 py-3 sm:grid-cols-[9rem_1fr]">
+        <dt className="text-sm font-semibold">{property.label}</dt>
+        <dd className="text-sm leading-relaxed">{property.content}</dd>
+      </div>)}
+    </dl>}
+
+    {isUpdate && status === "PENDING" && <p className="mt-3 text-sm text-muted-foreground">Cette modification reste à confirmer ; le Research Project est inchangé.</p>}
 
     {!isUpdate && <details
       className="mt-4 rounded-2xl border border-dashed p-4"

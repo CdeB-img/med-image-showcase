@@ -10,8 +10,13 @@ import {
   type LanguageProjectionResponse,
 } from "@/features/protocol-designer/conversation-language-gateway";
 import { ProductBridgeClientError } from "@/features/protocol-designer/product-bridge-client";
-import type { ProductBridgeRequest, ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
-import { prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
+import {
+  contributionFromPersistentDelta,
+  validatePersistentProjectDelta,
+  type ProductBridgeRequest,
+  type ProductBridgeResponse,
+} from "@/features/protocol-designer/product-bridge";
+import { ensureCanonicalProjectState, prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import { buildCurrentTurnNavigation } from "@/features/query-navigation/current-turn-navigation";
 import { realizeGovernedConversation } from "@/features/query-navigation/governed-conversation-realization";
 import { FUNCTIONAL_RESET_STORAGE_KEY, type FunctionalResetSession } from "../session";
@@ -19,6 +24,7 @@ import {
   COLCHICINE_03A_INITIAL,
   makeFunctionalResetBridgeResponse,
   makeFunctionalResetContribution,
+  makeGovernedPostAdoptionResponse,
 } from "./functional-reset-fixtures";
 
 const runtime = vi.hoisted(() => ({ bridge: vi.fn(), language: vi.fn(), reviewFails: false }));
@@ -41,6 +47,8 @@ const ENGLISH_SOURCE = "We want to build a multicenter study comparing colchicin
 const ENGLISH_VISIBLE = "The proposed working structure is available separately for your review. No Project has been adopted.";
 const MODIFICATION = "Je veux compléter cette étude : l’âge maximal sera de 75 ans et l’IRM sera réalisée entre J3 et J5.";
 const LIVE_FIRST_TURN = "je veux faire une étude évaluant l'effet de méthodes de reperfusion post IDM avec mise en place immédiate ou différée d'un stent afin d'évaluer l'efficacité sur la viabilité myocardique. avec donc deux groupes en double aveugle, une IRM a J3-6 évaluant la cinétique segmentaire, le strain, le T1/T2, le précoce et tardif le critere de jugement principale étant la taille des lésions microvasculaire a 3min post injection";
+const NATURAL_ENDPOINT_CORRECTION = "c'est ça mais a la place de taille j'utiliserais peut être % de la masse vg que représentent les lésions microvasculaires afin de pouvoir comparer les sujets entre eux.";
+const PROPOSED_ENDPOINT = "Pourcentage de la masse VG représenté par les lésions microvasculaires";
 const DEGRADED_REPLY = "J’ai identifié plusieurs éléments dans votre projet. Voici ce que j’ai compris ; vous pouvez les corriger avant toute confirmation.";
 const NO_NETWORK = vi.fn(() => { throw new Error("PASS3A_UI_LIFECYCLE_NETWORK_FORBIDDEN"); });
 const stored = (): FunctionalResetSession => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
@@ -140,6 +148,21 @@ const liveFirstTurnConformanceFailure = (request: ProductBridgeRequest): Product
   contribution.scientificContent.temporalElements = [
     explicit("timing:mri-j3-j6", "TEMPORAL_ELEMENT", "IRM a J3-6"),
   ];
+  contribution.scientificContent.expectedVariableOccasions = [{
+    operation: "ADD",
+    occasionId: "occasion:microvascular-lesions:3-min-post-injection",
+    variableProjectRef: "measure:microvascular-lesions",
+    anchor: {
+      kind: "TIMEPOINT", direction: "AFTER", unit: "minutes", offset: 3,
+      lowerBound: null, upperBound: null, relativeEventLabel: "injection", tolerance: null,
+      reference: { status: "EXPLICIT", bindingStatus: "PROJECT_REF_UNRESOLVED" },
+    },
+    studyUnitOrGroupRef: null,
+    applicableContext: null,
+    sourceText: "le critere de jugement principale étant la taille des lésions microvasculaire a 3min post injection",
+    assertionKind: "USER_STATED",
+    evidenceRefs: [],
+  }];
   const validation = {
     valid: true, blocks: [], noOps: [], normalizations: [],
     acceptedChanges: [], acceptedRelations: [], acceptedTemporalQualifications: [], acceptedExpectedVariableOccasions: [],
@@ -174,6 +197,55 @@ const liveFirstTurnConformanceFailure = (request: ProductBridgeRequest): Product
     },
     persistentExtraction: { ...response.persistentExtraction, validation },
     observability: { ...response.observability, conversationCalls: 1, conversationResponseReceived: true },
+  };
+};
+
+const naturalEndpointCorrectionResponse = (
+  request: ProductBridgeRequest,
+  proposedEndpoint = PROPOSED_ENDPOINT,
+): ProductBridgeResponse => {
+  if (!request.currentProject) throw new Error("NPC01_CURRENT_PROJECT_REQUIRED");
+  const source = request.conversation.turns.filter((turn) => turn.role === "USER").at(-1)!;
+  const state = ensureCanonicalProjectState(request.currentProject);
+  const endpoint = state.objects.find((item) => item.actuality === "CURRENT" && item.scientificRole === "PRIMARY_ENDPOINT");
+  const variable = state.objects.find((item) => item.actuality === "CURRENT" && item.objectType === "CANONICAL_VARIABLE"
+    && /lésions microvasculaires/iu.test(item.content));
+  if (!endpoint || !variable) throw new Error("NPC01_CURRENT_ENDPOINT_VARIABLE_REQUIRED");
+  const checked = validatePersistentProjectDelta({
+    changes: [endpoint, variable].map((target) => ({
+      operation: "REPLACE" as const,
+      sourceText: source.content,
+      targetProjectRef: target.objectId,
+      content: proposedEndpoint,
+      polarity: "AFFIRMED" as const,
+      epistemicStatus: "EXPLICIT_USER_STATED" as const,
+      epistemicState: "KNOWN" as const,
+      assertionKind: "USER_STATED" as const,
+      evidenceRefs: [],
+    })),
+    relations: [], temporalQualifications: [], expectedVariableOccasions: [],
+  }, source.content, request.currentProject, request.conversation);
+  if (!checked.candidate || !checked.validation.valid) throw new Error(`NPC01_CORRECTION_FIXTURE_INVALID:${checked.validation.blocks.join("|")}`);
+  const contribution = contributionFromPersistentDelta({
+    candidate: checked.candidate,
+    conversation: request.conversation,
+    currentProject: request.currentProject,
+    createdAt: "2026-09-10T08:10:00.000Z",
+  });
+  if (!contribution) throw new Error("NPC01_CORRECTION_CONTRIBUTION_REQUIRED");
+  contribution.runtimeEvidence.provider = "TEST_FIXTURE_NO_PROVIDER_CALL";
+  const response = makeFunctionalResetBridgeResponse(
+    request.conversation.turns,
+    contribution,
+    "Je comprends que vous proposez de modifier le critère principal afin de comparer les sujets entre eux.",
+  );
+  return {
+    ...response,
+    persistentExtraction: {
+      ...response.persistentExtraction,
+      candidate: checked.candidate,
+      validation: checked.validation,
+    },
   };
 };
 
@@ -374,6 +446,107 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(continuation.content).not.toMatch(/PENDING_VERIFICATION|PROJECT_SCIENTIFIC_QUESTION_NOT_EXPLICIT|La relation formulée dans/i);
     expect(continuation.content).toContain("Vous pouvez discuter ou corriger cette formulation avant toute adoption.");
     expect(runtime.bridge).toHaveBeenCalledTimes(1);
+
+    const projectV1 = stored().project!;
+    const projectV1Snapshot = JSON.stringify(projectV1);
+    const entriesBeforeCorrection = stored().entries.length;
+    runtime.bridge.mockImplementation(async (request: ProductBridgeRequest) => (
+      request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
+        ? makeGovernedPostAdoptionResponse(request)
+        : naturalEndpointCorrectionResponse(request)
+    ));
+    submit(NATURAL_ENDPOINT_CORRECTION);
+
+    await waitFor(() => expect(stored().retainedContributionCandidates).toHaveLength(2));
+    await waitFor(() => expect(stored().retainedContributionCandidates?.[1].downstreamState).toBe("PRESENTED"));
+    const beforeCorrectionConfirmation = stored();
+    const correctionRecord = beforeCorrectionConfirmation.retainedContributionCandidates![1];
+    expect(beforeCorrectionConfirmation.project?.revision).toBe(1);
+    expect(JSON.stringify(beforeCorrectionConfirmation.project)).toBe(projectV1Snapshot);
+    expect(correctionRecord).toMatchObject({
+      baseProject: {
+        projectId: projectV1.projectId,
+        versionId: projectV1.versionId,
+        projectDigest: projectV1.projectDigest,
+      },
+      humanDecision: null,
+      actuality: "CURRENT",
+      downstreamState: "PRESENTED",
+    });
+    expect(correctionRecord.candidate.projectWriteAuthorized).toBe(false);
+    expect(correctionRecord.contribution.source.originalRequest).toBe(NATURAL_ENDPOINT_CORRECTION);
+    expect(correctionRecord.candidate.canonicalChangeSet.objectChanges).toHaveLength(2);
+    expect(correctionRecord.candidate.canonicalChangeSet.objectChanges).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        operation: "REPLACE",
+        objectId: "endpoint:microvascular-lesions",
+        candidate: expect.objectContaining({ content: PROPOSED_ENDPOINT, scientificRole: "PRIMARY_ENDPOINT" }),
+      }),
+      expect.objectContaining({
+        operation: "REPLACE",
+        objectId: "measure:microvascular-lesions",
+        candidate: expect.objectContaining({ content: PROPOSED_ENDPOINT }),
+      }),
+    ]));
+    expect(correctionRecord.candidate.canonicalChangeSet.expectedVariableOccasionChanges).toEqual([]);
+    expect(beforeCorrectionConfirmation.bridgeTraces.at(-1)?.entryRouting).toMatchObject({
+      contractVersion: "1.3.0",
+      currentProjectDirection: "MODIFY_EXISTING_PROJECT_OBJECT",
+      routeIntent: "DESIGN_STUDY",
+      projectConstructionEligible: true,
+      projectWriteAuthorized: false,
+    });
+    const correctionRequest = runtime.bridge.mock.calls.at(-1)?.[0] as ProductBridgeRequest;
+    expect(correctionRequest).toMatchObject({
+      requestKind: "USER_TURN",
+      evaluatePersistentDelta: true,
+      currentProject: {
+        projectId: projectV1.projectId,
+        versionId: projectV1.versionId,
+        projectDigest: projectV1.projectDigest,
+      },
+      conversation: {
+        interactionContext: {
+          owner: "RESEARCH_PROJECT",
+          expectedResponseKind: "SCIENTIFIC_CORRECTION",
+          projectRef: projectV1.projectId,
+          projectVersion: projectV1.versionId,
+          projectDigest: projectV1.projectDigest,
+        },
+      },
+    });
+    const correctionReview = screen.getAllByTestId("functional-contribution-review").at(-1)!;
+    expect(correctionReview).toHaveTextContent("Correction proposée");
+    expect(correctionReview).toHaveTextContent("Taille des lésions microvasculaires à 3 min post-injection → Pourcentage de la masse VG représenté par les lésions microvasculaires");
+    expect(correctionReview).toHaveTextContent("Taille des lésions microvasculaires → Pourcentage de la masse VG représenté par les lésions microvasculaires");
+    expect(within(correctionReview).getByTestId("standard-update-preserved-properties")).toHaveTextContent("Rôle conservéCritère principal");
+    expect(within(correctionReview).getByTestId("standard-update-preserved-properties")).toHaveTextContent(/Temporalité conservée.*3 minutes.*injection/i);
+    expect(correctionReview).toHaveTextContent("Cette modification reste à confirmer ; le Research Project est inchangé.");
+    const correctionEntries = beforeCorrectionConfirmation.entries.slice(entriesBeforeCorrection);
+    expect(correctionEntries.map((entry) => entry.kind)).toEqual(["TEXT", "REVIEW"]);
+    expect(correctionEntries.filter((entry) => entry.kind === "TEXT" && entry.role === "NOXIA")).toHaveLength(0);
+    expect(correctionEntries.some((entry) => entry.kind === "FOLLOW_UP_ACTIONS")).toBe(false);
+    expect(correctionReview).not.toHaveTextContent(/No KnowledgeResult|Scientific Thinking candidates|Hypothèse 1|Hypothèse 2/i);
+
+    const correctionConfirmation = within(correctionReview).getByRole("button", { name: "Cela correspond à mon projet" });
+    fireEvent.click(correctionConfirmation);
+    fireEvent.click(correctionConfirmation);
+    await waitFor(() => expect(stored().project?.revision).toBe(2));
+    const projectV2 = stored().project!;
+    const projectV2State = ensureCanonicalProjectState(projectV2);
+    expect(projectV2).toMatchObject({ previousVersionId: projectV1.versionId, llmProjectWrites: 0 });
+    expect(projectV2State.versionHistory).toHaveLength(2);
+    expect(projectV2State.objects.find((item) => item.actuality === "CURRENT" && item.objectId === "endpoint:microvascular-lesions"))
+      .toMatchObject({ content: PROPOSED_ENDPOINT, scientificRole: "PRIMARY_ENDPOINT", version: 2 });
+    expect(projectV2State.objects.find((item) => item.actuality === "CURRENT" && item.objectId === "measure:microvascular-lesions"))
+      .toMatchObject({ content: PROPOSED_ENDPOINT, version: 2 });
+    expect(projectV2State.objects.find((item) => item.actuality === "SUPERSEDED" && item.objectId === "endpoint:microvascular-lesions"))
+      .toMatchObject({ content: "Taille des lésions microvasculaires à 3 min post-injection", scientificRole: "PRIMARY_ENDPOINT", version: 1 });
+    expect(projectV2State.expectedVariableOccasions.find((item) => item.actuality === "CURRENT"
+      && item.variableProjectRef === "measure:microvascular-lesions")?.anchor)
+      .toMatchObject({ offset: 3, unit: "minutes", relativeEventLabel: "injection" });
+    expect(runtime.language).not.toHaveBeenCalled();
+    expect(NO_NETWORK).not.toHaveBeenCalled();
   });
 
   it("localization failure after successful HOW retains the exact original source and no presented candidate", async () => {

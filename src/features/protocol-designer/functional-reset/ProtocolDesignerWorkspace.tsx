@@ -123,6 +123,7 @@ import {
 } from "./standard-conversation-action-group";
 import {
   executeProductUnderstandInteraction,
+  recognizeCurrentProjectDirection,
   recognizeProductDocumentAction,
   routeProductEntry,
   type ProductDocumentAction,
@@ -1745,11 +1746,19 @@ export default function ProtocolDesignerWorkspace({
         multilingualTurn: preparedGateway.turn,
         gatewayState: preparedGateway.state,
       };
-      if (await applyScientificThinkingInput(preparedInput)) return;
-      if (await applyStudyDesignInput(preparedInput)) return;
-      if (await applyObservabilityInput(preparedInput)) return;
-      if (await applyImagingInput(preparedInput)) return;
-      if (await applyBiostatisticsInput(preparedInput)) return;
+      const currentProjectDirection = correctionMode && session.project
+        ? "MODIFY_EXISTING_PROJECT_OBJECT"
+        : recognizeCurrentProjectDirection(preparedInput.workingText, session.project !== null);
+      // Explicit Project direction outranks an owner-driven continuation. The
+      // router only recognizes the operation; extraction and PRJ validation
+      // still resolve the stable scientific target and prepare the candidate.
+      if (currentProjectDirection === "NONE") {
+        if (await applyScientificThinkingInput(preparedInput)) return;
+        if (await applyStudyDesignInput(preparedInput)) return;
+        if (await applyObservabilityInput(preparedInput)) return;
+        if (await applyImagingInput(preparedInput)) return;
+        if (await applyBiostatisticsInput(preparedInput)) return;
+      }
       const productDocumentAction = recognizeProductDocumentAction(preparedInput.workingText);
       if (productDocumentAction) {
         setSession((current) => ({ ...current, conversationLanguageGateway: preparedGateway.state }));
@@ -1775,6 +1784,8 @@ export default function ProtocolDesignerWorkspace({
         routedAt: now,
         previousContext,
         forceUnderstand: asksForExplanationOrRephrase,
+        currentProjectAvailable: session.project !== null,
+        explicitCorrectionMode: correctionMode,
       });
       let entryTraceLedger = recordConversationLanguageGatewayTrace({
         ledger: session.scientificExecutionTraceLedger,
@@ -1886,6 +1897,50 @@ export default function ProtocolDesignerWorkspace({
         return;
       }
 
+      if (entryRouting.currentProjectDirection === "PRESERVE_EXISTING_PROJECT") {
+        const answeredAt = new Date().toISOString();
+        const assistantReply = "D’accord. Le Research Project courant reste inchangé.";
+        const localized = await localizeCanonicalFrenchResponse({
+          state: preparedGateway.state,
+          sourceTurnRef: userTurn.turnId,
+          responseId: `conversation-response:${userTurn.turnId}`,
+          canonicalFrenchResponse: assistantReply,
+        });
+        const assistantTurn: ScientificInterpretationTurn = {
+          turnId: createTurnId(), role: "NOXIA", content: assistantReply, createdAt: answeredAt,
+        };
+        const scientificExecutionTraceLedger = recordLocalizedConversationResponseTrace({
+          ledger: entryTraceLedger,
+          traceRunId,
+          conversationId: session.conversationId,
+          response: localized.response,
+          observedAt: answeredAt,
+        });
+        setSession((current) => ({
+          ...current,
+          runtimeTurns: [...runtimeTurns, assistantTurn],
+          entries: [...current.entries, {
+            entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA",
+            content: localized.response.localizedResponse, createdAt: answeredAt,
+          }],
+          bridgeTraces: [...current.bridgeTraces, {
+            ...emptyTraceMaterial,
+            assistantReply: captureProductBridgeTraceText({ value: localized.response.localizedResponse, field: "ASSISTANT_REPLY" }),
+            provider: "PRODUCT_ENTRY_ROUTER",
+            model: "DETERMINISTIC_LOCAL",
+            conversationLatencyMs: 0,
+            calls: preparedGateway.providerCalls + localized.providerCalls,
+            languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
+            knowledgeResultRef: null,
+            knowledgeResultDigest: null,
+          }].slice(-20),
+          conversationLanguageGateway: localized.state,
+          scientificExecutionTraceLedger,
+          updatedAt: answeredAt,
+        }));
+        return;
+      }
+
       if (entryRouting.routeIntent === "UNDERSTAND" && !entryRouting.projectConstructionEligible && !boundedInteraction) {
         const knowledge = executeProductUnderstandInteraction({ raw: preparedInput.workingText, decision: entryRouting, createdAt: now });
         const answeredAt = new Date().toISOString();
@@ -1947,7 +2002,21 @@ export default function ProtocolDesignerWorkspace({
           conversationId: session.conversationId,
           language: "fr",
           turns: runtimeTurns,
-          ...(queryNavigation?.currentAction && queryNavigation.currentPresentation ? {
+          ...(entryRouting.currentProjectDirection === "MODIFY_EXISTING_PROJECT_OBJECT"
+            || entryRouting.currentProjectDirection === "ADD_PROJECT_OBJECT" ? {
+            interactionContext: {
+              interactionRef: `project-correction:${userTurn.turnId}`,
+              sourceActionRef: queryNavigation?.currentAction?.selectedActionId ?? null,
+              owner: "RESEARCH_PROJECT",
+              purpose: "Préparer une modification candidate du Research Project courant à partir du dernier message utilisateur, sans adoption.",
+              expectedResponseKind: "SCIENTIFIC_CORRECTION" as const,
+              targetRefs: queryNavigation?.currentAction?.targetRef ? [queryNavigation.currentAction.targetRef] : [],
+              informationNeedRefs: [...(queryNavigation?.currentAction?.navigationNeedRefs ?? [])],
+              projectRef: session.project?.projectId ?? null,
+              projectVersion: session.project?.versionId ?? null,
+              projectDigest: session.project?.projectDigest ?? null,
+            },
+          } : queryNavigation?.currentAction && queryNavigation.currentPresentation ? {
             interactionContext: {
               interactionRef: queryNavigation.currentPresentation.presentationId,
               sourceActionRef: queryNavigation.currentAction.selectedActionId,
@@ -2054,7 +2123,9 @@ export default function ProtocolDesignerWorkspace({
           }));
         }
       }
-      if (session.project && retainedThisTurn) {
+      const explicitCurrentProjectChange = entryRouting.currentProjectDirection === "MODIFY_EXISTING_PROJECT_OBJECT"
+        || entryRouting.currentProjectDirection === "ADD_PROJECT_OBJECT";
+      if (session.project && retainedThisTurn && !explicitCurrentProjectChange) {
         const impact = buildCurrentProjectImpactProjection({
           project: session.project,
           candidate: retainedThisTurn.candidate,
@@ -2138,6 +2209,7 @@ export default function ProtocolDesignerWorkspace({
         canonicalFrenchResponse: canonicalAssistantReply,
       });
       const visibleAssistantReply = localized.response.localizedResponse;
+      const standaloneAssistantReplyVisible = !(explicitCurrentProjectChange && effectiveCandidate && contribution);
       downstreamStage = "PRESENTATION";
       const preProjectTrace = response.currentTurnNavigation && !enrichedPreProjectNavigation ? null : createPreProjectScientificTraceSegment({
         sessionId: session.sessionId,
@@ -2218,7 +2290,10 @@ export default function ProtocolDesignerWorkspace({
         retainedContributionCandidates: current.retainedContributionCandidates,
         entries: [
           ...current.entries,
-          { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: visibleAssistantReply, createdAt: receivedAt },
+          ...(standaloneAssistantReplyVisible ? [{
+            entryId: createConversationEntryId(), kind: "TEXT" as const, role: "NOXIA" as const,
+            content: visibleAssistantReply, createdAt: receivedAt,
+          }] : []),
           ...(contextualActionPresentation ? [{
             entryId: createConversationEntryId(),
             kind: "FOLLOW_UP_ACTIONS" as const,
@@ -3224,6 +3299,7 @@ export default function ProtocolDesignerWorkspace({
                   entry.contribution,
                   projectExistedForReview(index) ? session.project : null,
                 )}
+                currentProject={projectExistedForReview(index) ? session.project : null}
                 status={entry.status}
                 actionable={session.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId}
                 detailedUnderstanding={<UnderstandingReviewCard

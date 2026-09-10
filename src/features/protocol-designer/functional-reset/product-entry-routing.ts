@@ -37,9 +37,15 @@ export type ProductEntryExplicitExclusion = {
   sourceText: string;
 };
 
+export type CurrentProjectDirection =
+  | "NONE"
+  | "MODIFY_EXISTING_PROJECT_OBJECT"
+  | "ADD_PROJECT_OBJECT"
+  | "PRESERVE_EXISTING_PROJECT";
+
 export type ProductEntryRoutingDecision = {
   contract: "FUNCTIONAL_PRODUCT_ENTRY_ROUTING";
-  contractVersion: "1.2.0";
+  contractVersion: "1.3.0";
   sourceTurnRef: string;
   domainGate: ProductEntryDomainGate;
   routeIntent: RoutingIntent | null;
@@ -50,6 +56,7 @@ export type ProductEntryRoutingDecision = {
   scientificContext: ScientificSessionContext;
   explicitScientificDimensions: readonly ExplicitScientificDimension[];
   explicitExclusions: ProductEntryExplicitExclusion[];
+  currentProjectDirection: CurrentProjectDirection;
   constructionIntentPresent: boolean;
   projectConstructionEligible: boolean;
   projectWriteAuthorized: false;
@@ -140,6 +147,34 @@ const comparableProductCommand = (value: string) => value
   .replace(/[^\p{L}\p{N}]+/gu, " ")
   .replace(/\s+/gu, " ")
   .trim();
+
+/**
+ * Recognizes the user's operation on an already adopted Project. The grammar
+ * is intentionally domain-neutral: it identifies an edit operation, not the
+ * scientific object that should be edited. Stable target resolution remains
+ * the persistent extraction/Project validator responsibility.
+ */
+export const recognizeCurrentProjectDirection = (
+  value: string,
+  currentProjectAvailable: boolean,
+): CurrentProjectDirection => {
+  if (!currentProjectAvailable) return "NONE";
+  const command = comparableProductCommand(value);
+  const preserve = /\b(?:finalement|en\s+fait)\s+(?:non|pas)\b.{0,160}\b(?:garde|conserve|maintiens?|reviens?)\b/u.test(command)
+    || /\b(?:garde|conserve|maintiens?)\b.{0,160}\b(?:precedent|actuel|inchange)\b/u.test(command);
+  if (preserve) return "PRESERVE_EXISTING_PROJECT";
+
+  const addition = /\b(?:j\s+ajouterais|nous\s+ajouterions|ajoute|ajouter|completer)\b.{0,160}\b(?:aussi|egalement|en\s+plus)\b/u.test(command)
+    || /\b(?:aussi|egalement|en\s+plus)\b.{0,160}\b(?:ajoute|ajouter|integrer)\b/u.test(command);
+  if (addition) return "ADD_PROJECT_OBJECT";
+
+  const editVerb = "(?:remplace|remplacer|modifie|modifier|corrige|corriger|change|changer|limite|limiter|exprime|exprimer|reporte|reporter|decale|decaler)";
+  const replacement = /\b(?:a\s+la\s+place\s+de|plutot\s+que)\b/u.test(command)
+    || new RegExp(`^(?:(?:(?:c est|d accord|ok|garde)\\b.{0,120}\\bmais)\\s+)?${editVerb}\\b`, "u").test(command)
+    || new RegExp(`\\b(?:je|nous|on)\\s+${editVerb}\\b`, "u").test(command);
+  const boundedPreference = /\b(?:je|nous)\s+(?:prefererais|prefererions)\s+(?:plutot\s+)?(?:[a-z]\s*[+-]?\s*\d+|[-+]?\d+(?:[.,]\d+)?(?:\s*[%°a-z]+)?)(?:\b|$)/u.test(command);
+  return replacement || boundedPreference ? "MODIFY_EXISTING_PROJECT_OBJECT" : "NONE";
+};
 
 /**
  * Finite product-command recognition at the existing Product Entry boundary.
@@ -254,50 +289,70 @@ export const routeProductEntry = (input: {
   routedAt: string;
   previousContext?: ScientificSessionContext;
   forceUnderstand?: boolean;
+  currentProjectAvailable?: boolean;
+  explicitCorrectionMode?: boolean;
 }): ProductEntryRoutingDecision => {
   const intent = rawIntent(input.raw);
   const baseRouting = deriveRoutingIntent(intent);
   const exclusions = explicitExclusions(input.raw);
+  const currentProjectDirection = input.currentProjectAvailable === true && input.explicitCorrectionMode
+    ? "MODIFY_EXISTING_PROJECT_OBJECT"
+    : input.forceUnderstand
+      ? "NONE"
+      : recognizeCurrentProjectDirection(input.raw, input.currentProjectAvailable === true);
+  const forceUnderstand = input.forceUnderstand === true && currentProjectDirection === "NONE";
   const patientSpecificContext = isPatientLevelExpression(input.raw)
     && /\b(?:mon examen|ma valeur|mon t[12]|chez moi|pour moi|que dois-je faire)\b/iu.test(input.raw);
   const sensitive = detectSensitiveData(input.raw).length > 0 || patientSpecificContext;
   const domainGate: ProductEntryDomainGate = sensitive ? "OUT_OF_SCOPE" : "IN_SCOPE";
   const exclusionGuarded = exclusions.length > 0;
-  const retainsPrevious = !input.forceUnderstand
+  const retainsPrevious = !forceUnderstand
     && !exclusionGuarded
     && baseRouting.confidence === "LOW"
     && Boolean(input.previousContext);
+  const currentProjectChange = currentProjectDirection === "MODIFY_EXISTING_PROJECT_OBJECT"
+    || currentProjectDirection === "ADD_PROJECT_OBJECT";
   const routeIntent = domainGate === "OUT_OF_SCOPE"
     ? null
-    : input.forceUnderstand || exclusionGuarded
+    : forceUnderstand || exclusionGuarded
       ? "UNDERSTAND"
-      : retainsPrevious
-        ? input.previousContext!.routeIntent
-        : baseRouting.routeIntent;
+      : currentProjectDirection !== "NONE"
+        ? "DESIGN_STUDY"
+        : retainsPrevious
+          ? input.previousContext!.routeIntent
+          : baseRouting.routeIntent;
   const routeConfidence: ConfidenceLevel = domainGate === "OUT_OF_SCOPE"
     ? "HIGH"
     : exclusionGuarded
       ? "HIGH"
-      : retainsPrevious
-        ? input.previousContext!.routeConfidence
-        : baseRouting.confidence;
+      : currentProjectDirection !== "NONE"
+        ? "HIGH"
+        : retainsPrevious
+          ? input.previousContext!.routeConfidence
+          : baseRouting.confidence;
   const routeReasons = domainGate === "OUT_OF_SCOPE"
     ? ["Le Domain Gate refuse une entrée personnelle ou identifiable avant tout owner."]
     : exclusionGuarded
       ? ["La finalité négative explicite interdit la construction automatique d’une étude ou d’un protocole."]
-      : retainsPrevious
-        ? ["Le message précise le parcours courant sans exprimer une nouvelle finalité."]
-        : baseRouting.reasons;
-  const secondaryRouteIntents = domainGate !== "IN_SCOPE" || input.forceUnderstand || exclusionGuarded
+      : currentProjectDirection === "PRESERVE_EXISTING_PROJECT"
+        ? ["L’utilisateur demande explicitement de conserver le Research Project courant sans appliquer de nouvelle modification."]
+        : currentProjectChange
+          ? ["L’utilisateur propose explicitement une modification du Research Project courant ; la proposition doit rester candidate jusqu’à confirmation."]
+          : retainsPrevious
+            ? ["Le message précise le parcours courant sans exprimer une nouvelle finalité."]
+            : baseRouting.reasons;
+  const secondaryRouteIntents = domainGate !== "IN_SCOPE" || forceUnderstand || exclusionGuarded || currentProjectDirection !== "NONE"
     ? []
     : [...new Set([
       ...baseRouting.secondaryRouteIntents,
       ...(retainsPrevious ? input.previousContext?.secondaryRouteIntents ?? [] : []),
     ])].filter((candidate) => candidate !== routeIntent);
   const constructionIntentPresent = domainGate === "IN_SCOPE"
-    && !input.forceUnderstand
+    && !forceUnderstand
     && !exclusionGuarded
-    && (baseRouting.constructionIntentPresent
+    && currentProjectDirection !== "PRESERVE_EXISTING_PROJECT"
+    && (currentProjectChange
+      || baseRouting.constructionIntentPresent
       || Boolean(retainsPrevious && (
         input.previousContext?.routeIntent === "DESIGN_STUDY"
         || input.previousContext?.secondaryRouteIntents?.includes("DESIGN_STUDY")
@@ -313,7 +368,7 @@ export const routeProductEntry = (input: {
   );
   return {
     contract: "FUNCTIONAL_PRODUCT_ENTRY_ROUTING",
-    contractVersion: "1.2.0",
+    contractVersion: "1.3.0",
     sourceTurnRef: input.sourceTurnRef,
     domainGate,
     routeIntent,
@@ -330,6 +385,7 @@ export const routeProductEntry = (input: {
       sourceTurnRef: input.sourceTurnRef,
     }),
     explicitExclusions: exclusions,
+    currentProjectDirection,
     constructionIntentPresent,
     projectConstructionEligible: domainGate === "IN_SCOPE" && constructionIntentPresent && exclusions.length === 0,
     projectWriteAuthorized: false,
