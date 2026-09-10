@@ -37,7 +37,7 @@ export type BoundedConversationReferentContext = Readonly<{
 }>;
 
 export type BoundedConversationInteraction = Readonly<{
-  kind: "EXPLAIN_REFERENCED_CONTENT" | "ACKNOWLEDGE_USER_DIRECTION";
+  kind: "EXPLAIN_REFERENCED_CONTENT" | "ACKNOWLEDGE_USER_DIRECTION" | "USER_REQUESTS_ASSISTED_PROPOSAL";
   evidenceRefs: readonly string[];
 }>;
 

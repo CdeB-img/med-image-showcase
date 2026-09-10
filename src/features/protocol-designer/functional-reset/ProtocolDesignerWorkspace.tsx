@@ -1941,6 +1941,43 @@ export default function ProtocolDesignerWorkspace({
         return;
       }
 
+      if (boundedInteraction?.kind === "USER_REQUESTS_ASSISTED_PROPOSAL" && session.project) {
+        const proposalNavigation = attachCurrentKnowledgePrerequisiteWhenRequired({
+          project: session.project,
+          navigation: buildFunctionalResetQueryNavigation({
+            project: session.project,
+            previous: session.queryNavigation,
+            documentBlockers: documentBlockerSignals(session.documents),
+            recordedAt: now,
+            forceRebuild: true,
+            requestedAction: "ASSISTED_PROPOSAL",
+            dataOwnerState: deriveFunctionalResetDataOwnerState({ project: session.project, ledger: session.knowledgeOwnerLedger }),
+          }),
+        });
+        const existingOwnerCanPropose = isScientificThinkingQueryDispatch(proposalNavigation)
+          || isStudyDesignQueryDispatch(proposalNavigation)
+          || isObservabilityQueryDispatch(proposalNavigation)
+          || isImagingQueryDispatch(proposalNavigation)
+          || isBiostatisticsQueryDispatch(proposalNavigation);
+        if (existingOwnerCanPropose) {
+          queryNavigation = proposalNavigation;
+          setSession((current) => ({ ...current, queryNavigation: proposalNavigation, updatedAt: now }));
+          setBusyMessage("Je prépare des propositions à partir du Research Project confirmé…");
+          setPostAdoptionContinuationJob({
+            sessionId: session.sessionId,
+            conversationId: session.conversationId,
+            project: session.project,
+            queryNavigation: proposalNavigation,
+            ownerResultLedger: session.knowledgeOwnerLedger,
+            scientificExecutionTraceLedger: entryTraceLedger,
+            runtimeTurns,
+            feedback: content,
+            traceRunId,
+          });
+          return;
+        }
+      }
+
       if (entryRouting.routeIntent === "UNDERSTAND" && !entryRouting.projectConstructionEligible && !boundedInteraction) {
         const knowledge = executeProductUnderstandInteraction({ raw: preparedInput.workingText, decision: entryRouting, createdAt: now });
         const answeredAt = new Date().toISOString();

@@ -496,10 +496,21 @@ const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjec
   const identityAwareContext = folded(itemLocalContext(item));
   const fallbackContext = folded(itemContext(item, contribution));
   const localWithSeparators = foldedWithSeparators(itemScientificValueContext(item));
-  const ageSignal = /\bage\b/.test(localContext)
+  const sourceWithSeparators = foldedWithSeparators(contribution.source.turns
+    .filter((turn) => item.epistemicBoundary.sourceTurnIds.includes(turn.turnId) && turn.role === "USER")
+    .map((turn) => turn.content)
+    .join(" "));
+  const ageSignal = /\bage\b/.test(`${localContext} ${identityAwareContext}`)
     || /\b\d{1,3}(?:[.,]\d+)?\s*(?:ans?|years?)\b/.test(localWithSeparators);
   if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|LOWER_BOUND|UPPER_BOUND/.test(typeOf(item)) || !ageSignal) return [];
-  const range = localWithSeparators.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:a|au|to|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/);
+  const explicitRange = (value: string) => value.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:\/|a|au|to|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/);
+  const contextualAgeRange = (value: string) => value.match(/\b(?:tranche d['’ ]?age|age(?:s)?|agee?s?|aged|age range)\b[^\d]{0,48}(?:entre\s+)?(\d{1,3}(?:[.,]\d+)?)\s*(?:\/|a|au|to|-|–|et|and)\s*(\d{1,3}(?:[.,]\d+)?)(?:\s*(?:ans?|years?))?\b/);
+  // Some providers atomize only one bound (for example "85 ans") while the
+  // exact source turn carries the contextual interval (for example an age
+  // range written "35/85"). Recover both endpoints only when the same source
+  // clause explicitly binds the pair to age; arbitrary numeric pairs remain
+  // outside this compatibility projection.
+  const range = explicitRange(localWithSeparators) ?? contextualAgeRange(localWithSeparators) ?? contextualAgeRange(sourceWithSeparators);
   if (range?.[1] && range[2]) return [
     { semanticKey: "POPULATION:ELIGIBILITY:AGE:MIN", content: `Âge minimal : ${range[1].replace(",", ".")} ans` },
     { semanticKey: "POPULATION:ELIGIBILITY:AGE:MAX", content: `Âge maximal : ${range[2].replace(",", ".")} ans` },
@@ -525,6 +536,54 @@ const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjec
     semanticKey: `POPULATION:ELIGIBILITY:AGE:${direction.toLocaleUpperCase("fr-FR")}`,
     content: value ? `${label} : ${value} ans` : capitalize(item.content.trim()),
   }];
+};
+
+const vulnerablePopulationCriterion = (
+  item: ScientificContributionItem,
+  sectionId: ResearchProjectSectionId,
+): SpecializedProjectElement[] => {
+  if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|INCLUSION|EXCLUSION/.test(typeOf(item))) return [];
+  const originalSource = itemScientificValueContext(item).normalize("NFKC");
+  const source = foldedWithSeparators(originalSource);
+  if (!/\bpopulations?\s+(?:sensibles?|vulnerables?)\b/.test(source)
+    || !(/\b(?:exclu\w*|exclude\w*|exclusion)\b/.test(source) || /EXCLUSION/.test(typeOf(item)))) return [];
+  const base: SpecializedProjectElement = {
+    semanticKey: "POPULATION:ELIGIBILITY:EXCLUSION:CONTROLLED_VULNERABLE_POPULATION_SET",
+    content: "Exclusion : populations sensibles ou vulnérables — ensemble contrôlé à développer selon le profil réglementaire applicable",
+  };
+  const exception = [item.content, item.epistemicBoundary.sourceText]
+    .filter((value): value is string => Boolean(value))
+    .map((value) => value.normalize("NFKC").match(/\b(?:sauf|moins|[àa] l['’ ]exception de|except)\s+(.+?)(?:[.;,]|$)/iu)?.[1]?.trim() ?? null)
+    .find((value): value is string => Boolean(value)) ?? null;
+  if (!exception) return [base];
+  return [base, {
+    semanticKey: `POPULATION:ELIGIBILITY:EXCEPTION:CONTROLLED_VULNERABLE_POPULATION_SET:${folded(exception)}`,
+    content: `Exception explicite à cette exclusion : ${exception} — ne vaut pas critère général d’éligibilité`,
+  }];
+};
+
+const populationEligibilityRole = (
+  item: ScientificContributionItem,
+  sectionId: ResearchProjectSectionId,
+): SpecializedProjectElement | null => {
+  if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|INCLUSION|EXCLUSION/.test(typeOf(item))) return null;
+  const context = folded(itemScientificValueContext(item));
+  const role = /EXCLUSION/.test(typeOf(item)) || /\b(?:exclu\w*|contre indication|contraindication)\b/.test(context)
+    ? "EXCLUSION"
+    : /INCLUSION/.test(typeOf(item)) || /\b(?:inclu\w*|tout venant|all comers?)\b/.test(context)
+      ? "INCLUSION"
+      : null;
+  if (!role) return null;
+  const normalizedContent = capitalize(item.content.trim());
+  const contentAlreadyCarriesRole = role === "INCLUSION"
+    ? /\b(?:inclusion|inclu\w*)\b/.test(context)
+    : /\b(?:exclusion|exclu\w*)\b/.test(context);
+  return {
+    semanticKey: `POPULATION:ELIGIBILITY:${role}:${folded(item.semanticIdentity ?? item.itemId)}`,
+    content: contentAlreadyCarriesRole
+      ? normalizedContent
+      : `${role === "INCLUSION" ? "Inclusion" : "Exclusion"} : ${normalizedContent}`,
+  };
 };
 
 type TemporalOccurrenceRole = "INITIAL" | "FOLLOW_UP" | "WINDOW";
@@ -608,9 +667,16 @@ const elementsFrom = (
   const sectionId = sectionForContributionItem(item, contribution);
   if (!sectionId) return [];
   const age = ageCriteria(item, sectionId, contribution);
+  const vulnerablePopulation = vulnerablePopulationCriterion(item, sectionId);
+  const eligibilityRole = populationEligibilityRole(item, sectionId);
   const eventWindow = populationEventWindow(item, sectionId);
   const timing = timingCriterion(item, sectionId, contribution);
-  const specialized = age.length ? age : eventWindow ? [eventWindow] : timing ? [timing] : [null];
+  const specialized = age.length ? age
+    : vulnerablePopulation.length ? vulnerablePopulation
+      : eventWindow ? [eventWindow]
+        : eligibilityRole ? [eligibilityRole]
+          : timing ? [timing]
+            : [null];
   return specialized.map((value, index) => ({
     elementId: value && specialized.length > 1
       ? `${item.semanticIdentity ?? item.itemId}:${value.semanticKey.split(":").at(-1)?.toLocaleLowerCase("fr-FR") ?? index}`

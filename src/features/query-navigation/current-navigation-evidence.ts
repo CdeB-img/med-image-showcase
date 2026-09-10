@@ -174,6 +174,12 @@ export const selectBoundedConversationInteraction = (input: {
     kind: "EXPLAIN_REFERENCED_CONTENT",
     evidenceRefs: Object.freeze([input.referentContext.candidateRef, input.referentContext.sourceTurnRef].filter((ref): ref is string => Boolean(ref))),
   });
+  const requestsProposal = /^(?:(?:fais|faites|donne|donnez|propose|proposez)(?:[- ]moi)?|(?:peux|pouvez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|proposer)|suggest(?: me)?)\b/u.test(normalized)
+    && /\b(?:propositions?|options?|alternatives?|pistes?|suggestions?|ce qu[' ]il manque|what is missing)\b/u.test(normalized);
+  if (requestsProposal) return Object.freeze({
+    kind: "USER_REQUESTS_ASSISTED_PROPOSAL",
+    evidenceRefs: Object.freeze([]),
+  });
   return undefined;
 };
 

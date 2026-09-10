@@ -77,6 +77,8 @@ export type FunctionalResetQuestionWordingProposal = {
   question: string;
 };
 
+export type FunctionalResetRequestedAction = "ASSISTED_PROPOSAL";
+
 export type FunctionalResetStandardQuestion = {
   questionId: string;
   selectedActionRef: string;
@@ -648,6 +650,16 @@ const candidatesOutsideImmediateDeferral = (
     !candidate.affectedBranchRefs.some((ref) => deferredBranches.has(ref)));
 };
 
+const ASSISTED_PROPOSAL_CAPABILITIES = new Set([
+  "SCIENTIFIC_THINKING_PROPOSAL",
+  "STUDY_DESIGN_COHERENCE",
+  "IMAGING_STUDY_DESIGN",
+  "BIOSTATISTICS_PLANNING",
+]);
+
+const assistedProposalCandidates = (candidates: NextActionCandidate[]) => candidates.filter((candidate) =>
+  ASSISTED_PROPOSAL_CAPABILITIES.has(candidate.capabilityRef ?? ""));
+
 const presentCurrentOwnerNavigationAction = (
   action: SelectedNavigationAction,
   presentation: QuestionPresentationRequest,
@@ -689,8 +701,9 @@ export const buildFunctionalResetQueryNavigation = (input: {
   forceRebuild?: boolean;
   dataOwnerState?: Readonly<FunctionalResetDataOwnerState> | null;
   currentNavigationEvidence?: Readonly<CurrentNavigationEvidence> | null;
+  requestedAction?: FunctionalResetRequestedAction;
 }): FunctionalResetQueryNavigation => {
-  if (!input.forceRebuild && input.previous
+  if (!input.requestedAction && !input.forceRebuild && input.previous
     && input.previous.projectVersion === input.project.versionId
     && input.previous.projectDigest === input.project.projectDigest
     && input.previous.currentEvidenceDigest === input.currentNavigationEvidence?.contextDigest) return structuredClone(input.previous);
@@ -765,7 +778,11 @@ export const buildFunctionalResetQueryNavigation = (input: {
     individualCandidates,
     input.documentBlockers ?? [],
   );
-  const selection = selectNextAction(context, candidatesOutsideImmediateDeferral(groupedCandidates, memory));
+  const immediatelyAvailableCandidates = candidatesOutsideImmediateDeferral(groupedCandidates, memory);
+  const selectionCandidates = input.requestedAction === "ASSISTED_PROPOSAL"
+    ? assistedProposalCandidates(immediatelyAvailableCandidates)
+    : immediatelyAvailableCandidates;
+  const selection = selectNextAction(context, selectionCandidates);
   const needSections = Object.fromEntries(selection.needs.flatMap((need) => {
     const decisionRef = need.affectedDecisionRefs.find((ref) => ref.startsWith("project-section:"));
     return decisionRef ? [[need.needId, decisionRef.replace("project-section:", "") as ResearchProjectSectionId]] : [];
@@ -798,8 +815,10 @@ export const buildFunctionalResetQueryNavigation = (input: {
   };
 
   const action = buildSelectedNavigationAction(selection);
-  const ownerAction = ["STUDY_DATA_CDM", "DATA_MANAGEMENT", "REGULATORY_RESOLUTION", "OBSERVABILITY_MEASUREMENT"].includes(action.owner)
-    && ["STUDY_DATA_PLANNING", "DATA_MANAGEMENT_PLANNING", "REGULATORY_REQUIREMENT_RESOLUTION", "OBSERVABILITY_QUALIFICATION"].includes(selection.selected.capabilityRef ?? "");
+  const ownerAction = (["STUDY_DATA_CDM", "DATA_MANAGEMENT", "REGULATORY_RESOLUTION", "OBSERVABILITY_MEASUREMENT"].includes(action.owner)
+      && ["STUDY_DATA_PLANNING", "DATA_MANAGEMENT_PLANNING", "REGULATORY_REQUIREMENT_RESOLUTION", "OBSERVABILITY_QUALIFICATION"].includes(selection.selected.capabilityRef ?? ""))
+    || (input.requestedAction === "ASSISTED_PROPOSAL"
+      && ASSISTED_PROPOSAL_CAPABILITIES.has(selection.selected.capabilityRef ?? ""));
   if (ownerAction) {
     memory = rememberSelectedNavigationAction(memory, action);
     memory = recordLifecycleEvent(memory, {
@@ -810,7 +829,9 @@ export const buildFunctionalResetQueryNavigation = (input: {
       projectRef: input.project.projectId,
       projectVersion: input.project.versionId,
       sourceStateDigest: context.sourceStateDigest,
-      reason: "QRY_SELECTED_SPECIALIZED_OWNER_ACTION",
+      reason: input.requestedAction === "ASSISTED_PROPOSAL"
+        ? "QRY_SELECTED_EXISTING_OWNER_FOR_EXPLICIT_PROPOSAL_REQUEST"
+        : "QRY_SELECTED_SPECIALIZED_OWNER_ACTION",
       evidenceRefs: action.navigationNeedRefs,
       recordedAt: input.recordedAt,
     });
@@ -1214,7 +1235,8 @@ export const validateFunctionalResetQueryNavigation = (navigation: Readonly<Func
     && navigation.standardQuestion === null;
   if (navigation.status === "OWNER_ACTION_READY") return navigation.owner === "QUERY_NAVIGATION"
     && navigation.currentAction !== null
-    && ["STUDY_DATA_CDM", "DATA_MANAGEMENT", "REGULATORY_RESOLUTION", "OBSERVABILITY_MEASUREMENT"].includes(navigation.currentAction.owner)
+    && (["STUDY_DATA_CDM", "DATA_MANAGEMENT", "REGULATORY_RESOLUTION", "OBSERVABILITY_MEASUREMENT"].includes(navigation.currentAction.owner)
+      || ASSISTED_PROPOSAL_CAPABILITIES.has(navigation.selection.selected?.capabilityRef ?? ""))
     && navigation.currentPresentation === null
     && navigation.standardQuestion === null
     && navigation.projectWriteAuthorized === false;
