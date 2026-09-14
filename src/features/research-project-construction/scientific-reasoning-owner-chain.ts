@@ -14,6 +14,7 @@ import {
   SCIENTIFIC_THINKING_ENGINE_VERSION,
   executeScientificThinkingEngine,
   type ScientificThinkingInput,
+  type ScientificThinkingOperation,
   type ScientificThinkingOutput,
 } from "@/features/scientific-thinking";
 import {
@@ -176,6 +177,7 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
   projectRevision?: number;
   knowledgeOwnerResult?: Readonly<SpecializedOwnerResult<KnowledgeResult>> | null;
   purpose?: string;
+  requestedOperation?: ScientificThinkingOperation;
 }): ScientificThinkingInput => {
   const snapshot = input.projectSnapshot ?? (input.project ? buildProjectContextSnapshot({ project: input.project }) : null);
   if (!snapshot) throw new Error("SCIENTIFIC_THINKING_PROJECT_SNAPSHOT_REQUIRED");
@@ -242,6 +244,7 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     requestId: `scientific-thinking-project-request:${logicalDigest({
       project: snapshot.sourceProjectDigest,
       purpose,
+      ...(input.requestedOperation ? { requestedOperation: input.requestedOperation } : {}),
       relations,
       ...(knowledgeOwnerResult ? { knowledge: {
         resultId: knowledgeOwnerResult.resultId,
@@ -250,6 +253,7 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
       } } : {}),
     })}`,
     originalExpression,
+    ...(input.requestedOperation ? { requestedOperation: input.requestedOperation } : {}),
     validatedReformulation,
     language: "fr",
     scientificIntent: {
@@ -278,7 +282,9 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
     population: contentsOf(snapshot, "POPULATION", "ELIGIBILITY_CRITERION"),
     pathologyOrCondition: contentsOf(snapshot, "CONDITION"),
     phenomena: contentsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE"),
-    outcomes: contentsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE"),
+    outcomes: input.requestedOperation === "GENERATE_ALTERNATIVE_HYPOTHESIS" && primaryEndpoint
+      ? [primaryEndpoint.content, ...contentsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE").filter((content) => content !== primaryEndpoint.content)]
+      : contentsOf(snapshot, "ENDPOINT", "CANONICAL_VARIABLE"),
     methodsMentioned: contentsOf(snapshot, "IMAGING_MODALITY", "ACQUISITION"),
     scientificPurpose: projectObjectives,
     existingHypotheses: contentsOf(snapshot, "HYPOTHESIS"),
@@ -513,6 +519,7 @@ export const invokeScientificThinkingOwnerFromSnapshot = (input: InvocationTimin
   projectRevision?: number;
   knowledgeOwnerResult?: Readonly<SpecializedOwnerResult<KnowledgeResult>> | null;
   purpose?: string;
+  requestedOperation?: ScientificThinkingOperation;
   runtime?: (nativeInput: ScientificThinkingInput) => ScientificThinkingOutput;
 }): ScientificReasoningOwnerInvocation<ScientificThinkingInput, ScientificThinkingOutput> => {
   const nativeInput = buildScientificThinkingInputFromProjectSnapshot({
@@ -520,6 +527,7 @@ export const invokeScientificThinkingOwnerFromSnapshot = (input: InvocationTimin
     projectRevision: input.projectRevision,
     knowledgeOwnerResult: input.knowledgeOwnerResult,
     purpose: input.purpose,
+    requestedOperation: input.requestedOperation,
   });
   const handoffId = `scientific-thinking-handoff:${logicalDigest({ project: input.projectSnapshot.sourceProjectDigest, request: nativeInput.requestId })}`;
   const request = createSpecializedOwnerHandoffRequestFromSnapshot({

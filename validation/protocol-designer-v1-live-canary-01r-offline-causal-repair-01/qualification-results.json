@@ -1,0 +1,511 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_LIVE_CANARY_01R_OFFLINE_CAUSAL_REPAIR_01",
+  "capturedAtUtc": "2026-09-14T20:18:54.869425+00:00",
+  "baselineHead": "755c8c68c38520d8fee283a88f7c39fe7752f99c",
+  "branch": "protocol-designer-canonical-ingestion",
+  "LIVE_01R_T05_OFFLINE_REPRODUCTION": "PASS",
+  "ROOT_CAUSE": "Requested scientific operation: alternative hypotheses versus prior question formulation. Interrogative variants could also be consumed as DISCUSS.",
+  "REAL_OWNER": "Existing QRY Standard scope adapter and Scientific Thinking owner dispatch/native proposal contract.",
+  "FIRST_CAUSAL_BOUNDARY": "ASSISTED_PROPOSAL -> native Scientific Thinking purpose/operation",
+  "RECORDED_LIVE_PROVIDER_RESPONSES_USED": "5/5",
+  "NEW_PROVIDER_CALLS": 0,
+  "OPENAI_CALLS": 0,
+  "GEMINI_CALLS": 0,
+  "T01_T05_REPLAY": "PASS",
+  "SOAK_A_15": "PASS",
+  "SOAK_B_15": "PASS",
+  "SOAK_C_15": "PASS",
+  "FULL_SUITE": {
+    "passed": 4033,
+    "failed": 0,
+    "unhandledErrors": 0,
+    "pending": 12,
+    "todo": 1,
+    "testFiles": 270,
+    "testSuites": 648,
+    "totalTests": 4046,
+    "exitCode": 0,
+    "allChangedSourceFilesPredateSuiteStart": true
+  },
+  "TYPESCRIPT": "PASS",
+  "LINT_AFFECTED": "PASS",
+  "BUILD": "PASS",
+  "buildIncludesFullNpmTypecheck": true,
+  "buildWarnings": [
+    "Vite chunk size > 500 kB; existing bundle-size debt, outside this repair."
+  ],
+  "ADVERSARIAL_REVIEW_AFTER_GREEN": {
+    "model": "gpt-6-astra",
+    "reasoningEffort": "ultra",
+    "status": "PASS_AFTER_TARGETED_CORRECTIONS",
+    "reviewer": "/root/causal_scope_audit",
+    "fixedFindings": [
+      "Equivalent suggérer infinitive",
+      "Factual adopted-options question classification",
+      "Orphan objective hypothesis references after filtering",
+      "Non-comparative recycling of an adopted Project hypothesis",
+      "Negated constraints misclassified as request refusal",
+      "Selection provenance after a new empty alternative result"
+    ],
+    "residualLimit": "Comparative candidate generation qualified; bounded explanation elsewhere. No general scientific generation capability demonstrated."
+  },
+  "focusedResults": {
+    "v1-provider-cost-and-public-boundary-regression.test.ts": {
+      "passed": 10,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "public Protocol Designer provider shutdown across exposed API routes blocks bridge before credentials or network",
+          "status": "passed"
+        },
+        {
+          "name": "public Protocol Designer provider shutdown across exposed API routes blocks intake before credentials or network",
+          "status": "passed"
+        },
+        {
+          "name": "public Protocol Designer provider shutdown across exposed API routes blocks interpretation before credentials or network",
+          "status": "passed"
+        },
+        {
+          "name": "public Protocol Designer provider shutdown across exposed API routes also blocks the deprecated scientific-semantic alias",
+          "status": "passed"
+        },
+        {
+          "name": "cost observations survive failed paid operations retains usage when a successful provider output is rejected by the language contract",
+          "status": "passed"
+        },
+        {
+          "name": "cost observations survive failed paid operations preserves BRIDGE HTTP failure observations in the client error",
+          "status": "passed"
+        },
+        {
+          "name": "cost observations survive failed paid operations preserves LANGUAGE HTTP failure observations in the client error",
+          "status": "passed"
+        },
+        {
+          "name": "cost observations survive failed paid operations preserves a known subtotal and explicitly marks unknown-priced attempts",
+          "status": "passed"
+        },
+        {
+          "name": "cost observations survive failed paid operations records OPENAI body-read failures after successful response headers",
+          "status": "passed"
+        },
+        {
+          "name": "cost observations survive failed paid operations records GOOGLE_GEMINI body-read failures after successful response headers",
+          "status": "passed"
+        }
+      ]
+    },
+    "v1-provider-record-replay.test.ts": {
+      "passed": 31,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "durable provider adapter record/replay, mocks only persists the actual payload, response, usage and context then replays without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "durable provider adapter record/replay, mocks only records HTTP failure and transport failure with no retry; redacts secrets",
+          "status": "passed"
+        },
+        {
+          "name": "durable provider adapter record/replay, mocks only rejects tampered evidence and unsupported endpoints without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "durable provider adapter record/replay, mocks only consumes a fixture only once even for concurrent identical requests",
+          "status": "passed"
+        },
+        {
+          "name": "durable provider adapter record/replay, mocks only blocks before a paid request when recording preflight is unavailable",
+          "status": "passed"
+        },
+        {
+          "name": "durable provider adapter record/replay, mocks only does not lose received usage or trigger another call on completion IO failure",
+          "status": "passed"
+        },
+        {
+          "name": "durable provider adapter record/replay, mocks only replays start order when concurrent responses complete out of order",
+          "status": "passed"
+        },
+        {
+          "name": "durable provider adapter record/replay, mocks only keeps the adapter response usable when only its evidence copy fails",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport B1/B7: records the bound BEFORE spend, preserves payload/response and settles reported cost separately",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport B2: denies a next Terra call that would exceed six dollars, even through a new recorder instance",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport B3: stops at one measured dollar, not at one conservatively committed dollar",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport B4 unknown price/model: refuses unknown bounds without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport B5 unknown output ceiling: refuses unknown bounds without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport unsupported priority class: refuses unknown bounds without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport unsupported inherited auto class: refuses unknown bounds without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport unbounded external tool charge: refuses unknown bounds without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport hidden conversation state: refuses unknown bounds without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport unbounded multimodal input: refuses unknown bounds without a provider",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport B6: recalculates inside the SAME turn; each logical call has its own reservation",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport B8: concurrent instances cannot spend the same reservation, and a duplicate logical call stays consumed",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport cannot create a fresh budget by changing the session within the same campaign",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport stops after USAGE_MISSING without releasing an uncertain reservation",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport stops after OUTPUT_EXCEEDS_BOUND without releasing an uncertain reservation",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport stops after HTTP_FAILURE without releasing an uncertain reservation",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport stops after CAPTURE_FAILURE without releasing an uncertain reservation",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport keeps unknown evidence fail-closed and requires explicit server configuration",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport admits the first Terra call under six dollars without inventing a tighter token bound",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport refuses MISSING journal evidence instead of resetting spend or consumed calls",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport refuses EMPTY journal evidence instead of resetting spend or consumed calls",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport refuses LOST_LAST_PAIR journal evidence instead of resetting spend or consumed calls",
+          "status": "passed"
+        },
+        {
+          "name": "canary B1-B8 — durable admission before every provider transport accounts for Gemini hidden reasoning and rejects missing or mismatched billing/model evidence",
+          "status": "passed"
+        }
+      ]
+    },
+    "local-provider-bridge-config.test.ts": {
+      "passed": 7,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "P1-UX-RESTORE-01H-R — local provider bridge parity dry-run: the real local middleware applies recording/budget/policy and cannot fall through to another API",
+          "status": "passed"
+        },
+        {
+          "name": "P1-UX-RESTORE-01H-R — local provider bridge parity passes the existing Gemini and OpenAI server-side configuration to the governed bridge",
+          "status": "passed"
+        },
+        {
+          "name": "P1-UX-RESTORE-01H-R — local provider bridge parity keeps missing provider configuration explicit and fail-closed",
+          "status": "passed"
+        },
+        {
+          "name": "P1-UX-RESTORE-01H-R — local provider bridge parity keeps provider secrets outside client-facing environment contracts",
+          "status": "passed"
+        },
+        {
+          "name": "P1-UX-RESTORE-01H-R — local provider bridge parity denies HTTP access to the local private evidence store, including custom roots",
+          "status": "passed"
+        },
+        {
+          "name": "P1-UX-RESTORE-01H-R — local provider bridge parity denies the offline browser evidence store at its default and custom roots",
+          "status": "passed"
+        },
+        {
+          "name": "P1-UX-RESTORE-01H-R — local provider bridge parity preserves the handler's invalid-JSON 400 response while recording a bounded raw request",
+          "status": "passed"
+        }
+      ]
+    },
+    "pass3a-bridge-lifecycle.test.ts": {
+      "passed": 14,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "canary A1-A4 — single attempt, existing scientific path A1: keeps a valid first candidate, visible realization and navigation identical, with one extraction",
+          "status": "passed"
+        },
+        {
+          "name": "canary A1-A4 — single attempt, existing scientific path A2/A3: SCHEMA rejection cannot buy re-extraction or downstream HOW",
+          "status": "passed"
+        },
+        {
+          "name": "canary A1-A4 — single attempt, existing scientific path A2/A3: CONTRACT rejection cannot buy re-extraction or downstream HOW",
+          "status": "passed"
+        },
+        {
+          "name": "canary A1-A4 — single attempt, existing scientific path A4: preserves a structurally valid but incomplete scientific output without reroll",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW retains the post-adoption native WHAT on HOW failure with one attempted call and no extraction",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW finishes the existing extraction before HOW without adding extraction calls",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW returns a validated initial candidate at extraction completion without waiting for nonessential HOW",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW returns the validated candidate receipt when HOW fails, without adopting or mutating Project",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW does not fabricate a valid candidate after an extraction transport failure",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW does not extract when the existing caller eligibility says no persistent consequence",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW completes validation-driven existing recovery before HOW, at most two extractions",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW retains the valid recovered candidate when HOW then fails, without a third extraction or HOW retry",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW keeps invalid output blocked after the existing bounded second attempt",
+          "status": "passed"
+        },
+        {
+          "name": "PASS3A — extraction transaction before downstream HOW does not invent a partial candidate receipt when neither extraction nor HOW succeeded",
+          "status": "passed"
+        }
+      ]
+    },
+    "scientific-proposal-purpose.test.ts": {
+      "passed": 27,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_01 — a different purpose cannot reuse the same fresh owner result as equivalent",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_02 — semantically equivalent requests retain compatible owner reuse",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_03 — a genuinely confirmed Project change invalidates the dependent result",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_04 — requesting, discussing, refusing and selecting proposals never adopts Project",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'learning' PROPERTY_REUSE_05 — repeated requests return a bounded exhaustion explanation without invented novelty",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'learning' keeps objective links valid when already represented hypotheses are filtered from new proposals",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'learning' bounds a non-comparative request without recycling confirmed hypotheses (existing=false)",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'learning' bounds a non-comparative request without recycling confirmed hypotheses (existing=true)",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'learning' preserves the last selectable proposals across an empty alternative result, until Project changes",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_01 — a different purpose cannot reuse the same fresh owner result as equivalent",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_02 — semantically equivalent requests retain compatible owner reuse",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_03 — a genuinely confirmed Project change invalidates the dependent result",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_04 — requesting, discussing, refusing and selecting proposals never adopts Project",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' PROPERTY_REUSE_05 — repeated requests return a bounded exhaustion explanation without invented novelty",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' keeps objective links valid when already represented hypotheses are filtered from new proposals",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' bounds a non-comparative request without recycling confirmed hypotheses (existing=false)",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' bounds a non-comparative request without recycling confirmed hypotheses (existing=true)",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal purpose — 'agronomy' preserves the last selectable proposals across an empty alternative result, until Project changes",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries does not reinterpret refusal, stated hypotheses or factual questions as proposals: Ne me propose pas d'alternatives.",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries does not reinterpret refusal, stated hypotheses or factual questions as proposals: Je ne veux pas de propositions.",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries does not reinterpret refusal, stated hypotheses or factual questions as proposals: Aucune proposition pour le moment.",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries does not reinterpret refusal, stated hypotheses or factual questions as proposals: Propose-moi pas de nouvelles options.",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries does not reinterpret refusal, stated hypotheses or factual questions as proposals: Propose-moi aucune alternative.",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries does not reinterpret refusal, stated hypotheses or factual questions as proposals: Notre hypothèse est que les exercices espacés améliorent la lecture.",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries does not reinterpret refusal, stated hypotheses or factual questions as proposals: Quelle est la question scientifique actuelle ?",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries preserves the existing explanation act",
+          "status": "passed"
+        },
+        {
+          "name": "Scientific proposal act boundaries keeps a question about already adopted options in discussion rather than generating proposals",
+          "status": "passed"
+        }
+      ]
+    },
+    "v1-long-horizon-runtime-harness.test.tsx": {
+      "passed": 7,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "V1 long-horizon representative Standard runtime harness traverses Standard UI, real client, bridge, validators and provider adapters for T01–T05",
+          "status": "passed"
+        },
+        {
+          "name": "V1 long-horizon representative Standard runtime harness preserves the adopted Project when a natural-language decision refuses the current candidate",
+          "status": "passed"
+        },
+        {
+          "name": "V1 long-horizon representative Standard runtime harness fails closed on a structurally invalid bridge response without creating a Project",
+          "status": "passed"
+        },
+        {
+          "name": "V1 long-horizon representative Standard runtime harness keeps human review reachable through the real handler when HOW returns 503",
+          "status": "passed"
+        },
+        {
+          "name": "V1 long-horizon representative Standard runtime harness replays the IDM/IRM family for 15 meaningful Standard turns from turn 1",
+          "status": "passed"
+        },
+        {
+          "name": "V1 long-horizon representative Standard runtime harness replays a non-imaging clinical family for 15 meaningful Standard turns from turn 1",
+          "status": "passed"
+        },
+        {
+          "name": "V1 long-horizon representative Standard runtime harness replays a non-medical experimental family for 15 meaningful Standard turns from turn 1",
+          "status": "passed"
+        }
+      ]
+    }
+  },
+  "historicalEvidenceFilesUnchanged": 34,
+  "preexistingUntrackedFilesUnchanged": 518,
+  "sourceFiles": {
+    "src/features/protocol-designer/functional-reset/ProtocolDesignerWorkspace.tsx": "adbc4f563ceaea8a10219581dc66bda908d76dc7bc032ed361be21f888b85e87",
+    "src/features/protocol-designer/functional-reset/__tests__/scientific-proposal-purpose.test.ts": "0d67f4c6787c6707fe2d027f562ae33000c3fd6f1f9ae20d37256c2d6a687354",
+    "src/features/protocol-designer/functional-reset/__tests__/v1-long-horizon-runtime-harness.test.tsx": "10da773f7048bdf7cd6086390f3f8de1e39dca2178ca554efe1649d90dff9f61",
+    "src/features/protocol-designer/functional-reset/scientific-thinking-standard.ts": "3917c3a67abe21e7a79bc37a616a99a26a0f3e9802af9d6d4ac51e72c658f987",
+    "src/features/protocol-designer/product-scientific-thinking-owner-runtime.ts": "a4d7291ba592ead13f438d2813a9498d52d1723a555620435800a43e94129d41",
+    "src/features/query-navigation/current-navigation-evidence.ts": "fa7da1e10be3562632812412d1bf1865117b37171032def3b64a817c2c9e455d",
+    "src/features/query-navigation/functional-reset-progression.ts": "5ffd559c91ee76b8518b5bb5e434775aa5abfb8ae2217a8acd9b45e4670c4177",
+    "src/features/research-project-construction/scientific-reasoning-owner-chain.ts": "644e53987a5e954c8cbb0d1f3705607eab57c5e0998e6d81dc61e69d2df2e0bc",
+    "src/features/scientific-thinking/engine.ts": "6886052058cf889219ce2eec8172cedf21a5f687482369126085f46d16d3a182",
+    "src/features/scientific-thinking/types.ts": "b7a4fd0e77760923c6f1cf2363448b4a91b57cc27c30029dd3cf4f7597f6da5a"
+  },
+  "offlineGuard": {
+    "path": "validation/protocol-designer-v1-pass3a-governed-navigation-and-conversation-backbone-01/offline-guard.cjs",
+    "sha256": "a16a01dd0f304f0acc12d8aeada87ced3513a1806e22daf18b0f4cd6d79369ae"
+  },
+  "resultEvidenceHashes": {
+    "full-suite.json": "5f0835e7ea1bc21e1c1e1a0ed3a0690306bf2e1c605a258fe6d189028e64f749",
+    "full-suite.log": "090614652754d676fa465a16c36aac7f73557c30c47adf310d6b9e03974ab88b",
+    "build.log": "351c512808ca89df3685a8f687bc93724c4d86aa552c772f3498530f2099e412",
+    "lint.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "green-test.json": "adc82bb9eb9ee6dd057f879b2ceff8e9b58f5beda9f4e2f9056207aab119a518",
+    "green-test.log": "a981a3c743f8230eaf24f632ddeb131ddbcff6c70091a74c118f853e458a62ed",
+    "causal-receipt.json": "1756444b2933fb4498a3cad481fd3833d79bfc3a33ebd5ee4f9994d4e0d34167"
+  },
+  "LIVE_PROVIDER": "FAIL_FROM_CANARY_01R_HISTORICAL",
+  "LIVE_PROVIDER_RETEST_AFTER_REPAIR": "NOT_RUN",
+  "HUMAN_LIVE": "NOT_RUN",
+  "P1_COMPLETE": "NO",
+  "P1_EXIT_GATE": "NOT_SATISFIED",
+  "WAVE_2_AUTHORIZED": "NO",
+  "NEXT_ACTION": "NEW_EXPLICITLY_AUTHORIZED_LIVE_CANARY_AFTER_OFFLINE_REPAIR",
+  "PUSH": "NOT_RUN",
+  "DEPLOYMENT": "NOT_RUN",
+  "FINAL_HEAD": "SEE_POST_COMMIT_LOCAL_FINAL_STATE_JSON"
+}

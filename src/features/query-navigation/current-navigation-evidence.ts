@@ -190,8 +190,16 @@ export const selectBoundedConversationInteraction = (input: {
     kind: "EXPLAIN_REFERENCED_CONTENT",
     evidenceRefs: Object.freeze([input.referentContext.candidateRef, input.referentContext.sourceTurnRef].filter((ref): ref is string => Boolean(ref))),
   });
-  const requestsProposal = /^(?:(?:fais|faites|donne|donnez|propose|proposez)(?:[- ]moi)?|(?:peux|pouvez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|proposer)|suggest(?: me)?)\b/u.test(normalized)
-    && /\b(?:propositions?|options?|alternatives?|pistes?|suggestions?|ce qu[' ]il manque|what is missing)\b/u.test(normalized);
+  const proposalObject = /\b(?:propositions?|options?|alternatives?|possibilités?|pistes?|suggestions?|ce qu[' ]il manque|what is missing)\b/u.test(normalized);
+  const imperativeProposal = normalized.match(/^(?:(?:fais|faites|donne|donnez|propose|proposez|suggère|suggérez)(?:[- ]moi)?|(?:peux|pouvez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|proposer|suggérer)|suggest(?: me)?)\b/u);
+  const interrogativeProposal = /^(?:qu[' ]est-ce que|que)\s+(?:tu|vous)\s+(?:me\s+)?(?:proposerais|proposeriez|proposes|proposez|suggères|suggérez)\b/u.test(normalized)
+    || /^(?:tu|vous)\s+(?:vois|voyez|envisages|envisagez)\s+(?:d[' ]autres|des|plusieurs)\s+/u.test(normalized) && proposalObject
+    || /^quelles?\s+(?:autres\s+)?(?:propositions?|options?|alternatives?|possibilités?|pistes?|suggestions?)\s+(?:seraient|sont|te semblent|vous semblent)\s+(?:(?:les plus|encore|scientifiquement)\s+)?(?:intéressantes?|possibles?|pertinentes?|envisageables?|utiles?)\b/u.test(normalized);
+  // Negation of adoption or of a proposed change is a constraint, not a refusal
+  // of the request. Only reject negation directly attached to this predicate.
+  const negatedRequest = imperativeProposal
+    && /^\s+(?:pas|jamais|aucune?s?)\b/u.test(normalized.slice(imperativeProposal[0].length));
+  const requestsProposal = !negatedRequest && (imperativeProposal && proposalObject || interrogativeProposal);
   if (requestsProposal) return Object.freeze({
     kind: "USER_REQUESTS_ASSISTED_PROPOSAL",
     evidenceRefs: Object.freeze([]),

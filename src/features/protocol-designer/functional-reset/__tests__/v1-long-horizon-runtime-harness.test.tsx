@@ -147,6 +147,24 @@ const assertScientificResponse = (session: FunctionalResetSession, text: string)
     sourceProjectVersion: session.project!.versionId, sourceProjectDigest: session.project!.projectDigest });
 };
 
+const assertProposalResponse = (before: FunctionalResetSession, after: FunctionalResetSession, text: string) => {
+  expect(after.project).toEqual(before.project);
+  expect(text).not.toMatch(/ST-Q-|ST-H-|PROJECT_.*UNKNOWN|ke1-/u);
+  const exhausted = /(?:pas d’hypothèse supplémentaire défendable|ne peux pas proposer ici d’hypothèse supplémentaire défendable)/u.test(text);
+  if (exhausted) {
+    expect(text).toContain("éléments disponibles");
+    expect(text).toContain("ne signifie pas que toutes les possibilités scientifiques ont été explorées");
+    expect(after.scientificThinkingInteraction?.sourceProjectDigest).toBe(after.project!.projectDigest);
+  } else {
+    expect(text).not.toBe(before.runtimeTurns.filter((turn) => turn.role === "NOXIA").at(-1)?.content);
+    assertScientificResponse(after, text);
+    expect(text).toContain("hypothèses scientifiques candidates");
+    expect(text).toContain("Pour la confronter");
+    expect(text).toContain("Limite");
+  }
+  expect(text).toContain("Le projet reste inchangé");
+};
+
 const assertUntargetedObjectsPreserved = (before: FunctionalResetSession, after: FunctionalResetSession) => {
   const candidate = before.bridgeTraces.at(-1)?.persistentCandidate;
   const modifiedIds = new Set(candidate?.changes.filter((item) => item.operation !== "ADD")
@@ -235,7 +253,9 @@ const runSoak = async (turns: readonly SoakTurn[]) => {
         await waitFor(() => {
           const replies = currentSession().runtimeTurns.slice(beforeRuntimeLength).filter((item) => item.role === "NOXIA");
           expect(replies.length).toBeGreaterThan(0);
-          assertScientificResponse(currentSession(), replies.map((item) => item.content).join("\n"));
+          const response = replies.map((item) => item.content).join("\n");
+          if (turn.outcome === "PROPOSAL") assertProposalResponse(before, currentSession(), response);
+          else assertScientificResponse(currentSession(), response);
         });
       }
     }
@@ -351,9 +371,10 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
     await waitForComposerReady();
     const callsBeforeProposal = browserTransport.mock.calls.length;
     const turnsBeforeProposal = currentSession().runtimeTurns.length;
+    const beforeProposal = currentSession();
     await submit(T05);
     await waitFor(() => expect(currentSession().runtimeTurns.some((turn) => turn.role === "USER" && turn.content === T05)).toBe(true));
-    await waitFor(() => assertScientificResponse(currentSession(), currentSession().runtimeTurns.slice(turnsBeforeProposal)
+    await waitFor(() => assertProposalResponse(beforeProposal, currentSession(), currentSession().runtimeTurns.slice(turnsBeforeProposal)
       .filter((turn) => turn.role === "NOXIA").map((turn) => turn.content).join("\n")));
     expect(browserTransport).toHaveBeenCalledTimes(callsBeforeProposal);
     expect(currentSession().entries.some((entry) => entry.kind === "ERROR")).toBe(false);

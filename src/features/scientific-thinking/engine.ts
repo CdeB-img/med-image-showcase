@@ -356,6 +356,43 @@ const buildAssumptions = (input: ScientificThinkingInput): AssumptionCandidate[]
 const buildHypotheses = (input: ScientificThinkingInput, questions: QuestionCandidate[], controls: ScientificThinkingControls): HypothesisCandidate[] => {
   const primary = questions.find((item) => item.kind === "PRIMARY");
   if (!primary || primary.testability !== "TESTABLE_CANDIDATE") return [];
+  if (input.requestedOperation === "GENERATE_ALTERNATIVE_HYPOTHESIS") {
+    // Resolve the existing Project relation; domain words are not routing evidence.
+    const comparisons = input.relations.flatMap((relation) => {
+      const match = /^[A-Z_]*COMPARE[A-Z_]*\(([^,]+),([^,]+)\)$/u.exec(relation);
+      const first = match && input.resolvedConcepts.find((item) => item.conceptId === match[1])?.label;
+      const second = match && input.resolvedConcepts.find((item) => item.conceptId === match[2])?.label;
+      return first && second ? [{ first, second }] : [];
+    });
+    const comparison = comparisons.length === 1 ? comparisons[0] : null;
+    const outcome = input.outcomes[0];
+    if (comparison && outcome) {
+      const scope = `entre « ${comparison.first} » et « ${comparison.second} » pour « ${outcome} »`;
+      const limitations = unique([
+        "Ces hypothèses sont des propositions à discuter, sans adoption ni direction d’effet présumée.",
+        "La population, les conditions de mesure et le plan d’étude doivent être précisés avant de conclure à une différence ou à son absence.",
+        ...(input.knowledge.resultId ? input.knowledge.limitations : ["Aucun appui documentaire qualifié n’est disponible pour départager ces hypothèses."]),
+      ]);
+      const candidates: Omit<HypothesisCandidate, "reviewState">[] = [{
+        hypothesisId: "ST-H-001", kind: "PRIMARY",
+        text: `Hypothèse candidate : une différence est observable ${scope}, sans présumer quelle option présente la valeur la plus élevée.`,
+        falsifiability: "NEEDS_CLARIFICATION", direction: null,
+        observableCondition: "Comparer le même critère dans les deux options avec des conditions de mesure explicites et quantifier l’incertitude de l’écart observé.",
+        limitations, unknowns: input.missingInformation, support: candidateSupport(input.knowledge.support), linkedQuestionIds: [primary.questionId],
+      }, {
+        hypothesisId: "ST-H-002", kind: "NULL_OR_COMPETING",
+        text: `Hypothèse concurrente candidate : aucune différence n’est discernable ${scope} dans les conditions étudiées.`,
+        falsifiability: "NEEDS_CLARIFICATION", direction: null,
+        observableCondition: "Examiner si la précision des observations permet de distinguer un faible écart d’une information insuffisante ; une absence de différence détectée ne démontre pas l’équivalence.",
+        limitations, unknowns: input.missingInformation, support: candidateSupport(input.knowledge.support), linkedQuestionIds: [primary.questionId],
+      }];
+      return candidates.filter((item) => !input.existingHypotheses.some((text) => lower(text) === lower(item.text)))
+        .map((item) => ({ ...item, reviewState: reviewFor(item.hypothesisId, controls.hypothesisReviews) }));
+    }
+    // The generic question reformulation below is not evidence of a new
+    // alternative. Keep confirmed hypotheses in Project and bound this request.
+    return [];
+  }
   if (input.existingHypotheses.length) return input.existingHypotheses.slice(0, 3).map((text, index) => ({
     hypothesisId: `ST-H-PROJECT-${String(index + 1).padStart(3, "0")}`,
     text,
@@ -411,12 +448,13 @@ const buildHypotheses = (input: ScientificThinkingInput, questions: QuestionCand
   return hypotheses.map((item) => ({ ...item, reviewState: reviewFor(item.hypothesisId, controls.hypothesisReviews) }));
 };
 
-const buildObjectives = (input: ScientificThinkingInput, questions: QuestionCandidate[], controls: ScientificThinkingControls): ObjectiveCandidate[] => {
+const buildObjectives = (input: ScientificThinkingInput, questions: QuestionCandidate[], controls: ScientificThinkingControls, hypotheses: HypothesisCandidate[]): ObjectiveCandidate[] => {
   const primary = questions.find((item) => item.kind === "PRIMARY");
   if (!primary || primary.testability !== "TESTABLE_CANDIDATE") return [];
   const objectives: Omit<ObjectiveCandidate, "reviewState">[] = [{
     objectiveId: "ST-O-001", text: `Évaluer la question scientifique candidate : « ${sentence(primary.text)} ».`, level: "PRIMARY",
-    support: candidateSupport(input.knowledge.support), linkedQuestionIds: [primary.questionId], linkedHypothesisIds: ["ST-H-001"],
+    support: candidateSupport(input.knowledge.support), linkedQuestionIds: [primary.questionId],
+    linkedHypothesisIds: input.requestedOperation === "GENERATE_ALTERNATIVE_HYPOTHESIS" ? hypotheses.map((hypothesis) => hypothesis.hypothesisId) : ["ST-H-001"],
   }];
   const branch = questions.find((item) => item.kind === "METHODOLOGICAL_BRANCH");
   if (branch) objectives.push({
@@ -784,7 +822,7 @@ export const executeScientificThinkingEngine = (
   if (nonTestable) questions = questions.map((item) => ({ ...item, testability: "NON_TESTABLE" as const }));
   const assumptions = refusal ? [] : buildAssumptions(input);
   const hypotheses = refusal ? [] : buildHypotheses(input, questions, controls);
-  const objectives = refusal ? [] : buildObjectives(input, questions, controls);
+  const objectives = refusal ? [] : buildObjectives(input, questions, controls, hypotheses);
   const mechanisms = refusal ? [] : buildMechanisms(input, hypotheses);
   const scientificModels = refusal ? [] : buildScientificModels(input, hypotheses, mechanisms);
   const adaptiveQuestions = refusal && refusal.code !== "NON_TESTABLE" ? [] : buildAdaptiveQuestions(input, questions, answers);

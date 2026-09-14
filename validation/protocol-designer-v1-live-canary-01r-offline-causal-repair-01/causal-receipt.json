@@ -1,0 +1,156 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_LIVE_CANARY_01R_OFFLINE_CAUSAL_REPAIR_01",
+  "LIVE_01R_T05_OFFLINE_REPRODUCTION": "PASS",
+  "T01_T05_REPLAY": "PASS",
+  "RECORDED_LIVE_PROVIDER_RESPONSES_USED": "5/5",
+  "NEW_PROVIDER_CALLS": 0,
+  "replayLevel": "REAL_STANDARD_REACT_RUNTIME_JSDOM_REAL_HANDLER_REAL_ADAPTERS_EXACT_QUALIFIED_PROVIDER_REPLAY",
+  "requestChecks": [
+    {
+      "index": 1,
+      "requestDigest": "9ae57a6ae52e87fd66a3305596bbd10a627d09a40702862aca7eee954f5ed0a1",
+      "status": "EXACT_QUALIFIED_REPLAY"
+    },
+    {
+      "index": 2,
+      "requestDigest": "a82f39ac8837b4ee219c6faecf50e64bb2110efa72a3b35b81f1f5e84b7f0553",
+      "status": "EXACT_QUALIFIED_REPLAY"
+    },
+    {
+      "index": 3,
+      "requestDigest": "2035866c29bbc00b0a4df4bec2da60c8586b5e485d1ab219dfc717f5ce225813",
+      "status": "EXACT_QUALIFIED_REPLAY"
+    },
+    {
+      "index": 4,
+      "requestDigest": "7d58f22adc6ce62799ae67bd484cb92541c3d9b516ab12b0de1b6412495b5fb3",
+      "status": "EXACT_QUALIFIED_REPLAY"
+    },
+    {
+      "index": 5,
+      "requestDigest": "b7c8836348b463cb4a716c96fc289a718e077ca5ad195565e7e64157799e9a2d",
+      "status": "EXACT_QUALIFIED_REPLAY"
+    }
+  ],
+  "WHY_WAS_EXISTING_ST_RESULT_CONSIDERED_REUSABLE": "Complete native input equality plus exact Project freshness: explicit proposal semantics never reached native purpose/operation.",
+  "WHAT_SEMANTIC_DIMENSION_WAS_MISSING_OR_MISCLASSIFIED": "Requested scientific operation: alternative hypotheses versus prior question formulation. Interrogative variants could also be consumed as DISCUSS.",
+  "REAL_OWNER_OF_DEFECT": "Existing QRY Standard scope adapter and Scientific Thinking owner dispatch/native proposal contract.",
+  "FIRST_CAUSAL_BOUNDARY": "ASSISTED_PROPOSAL -> native Scientific Thinking purpose/operation",
+  "old": {
+    "ledgerCount": 3,
+    "purpose": "Formuler ou préciser la question scientifique à partir de l’objectif adopté.",
+    "requestId": "scientific-thinking-project-request:ke1-6bd39ff4207ea8c0",
+    "ownerResultId": "scientific-thinking-output:ke1-8842b554969999e0",
+    "requestedOperation": null,
+    "oldQuestionRepeated": true,
+    "reply": "À partir des éléments confirmés du projet, voici une question scientifique de travail qui conserve la comparaison et le critère principal.\n\nQuestion scientifique de travail\nObserve-t-on une différence entre « Méthode de reperfusion avec mise en place immédiate d’un stent après IDM. » et « Méthode de reperfusion avec mise en place différée d’un stent après IDM. » pour le critère principal « Proportion de la masse du ventricule gauche représentée par les lésions microvasculaires. », dans le contexte « Infarctus du myocarde (IDM) » ?\n\nVous pouvez discuter ou corriger cette formulation avant toute adoption."
+  },
+  "repaired": {
+    "ledgerCount": 4,
+    "purpose": "Proposer des hypothèses scientifiques candidates et des alternatives à discuter sans adoption. Portée sélectionnée : Formuler ou préciser la question scientifique à partir de l’objectif adopté.",
+    "requestId": "scientific-thinking-project-request:ke1-ab93e1e4af9da678",
+    "ownerResultId": "scientific-thinking-output:ke1-ef5af06eb7d8ef4a",
+    "requestedOperation": "GENERATE_ALTERNATIVE_HYPOTHESIS",
+    "projectRevision": 3,
+    "projectDigest": "ke1-59d16d6d3efdb189",
+    "projectUnchanged": true,
+    "oldQuestionRepeated": false,
+    "reply": "Voici des hypothèses scientifiques candidates à discuter à partir des éléments confirmés du projet. Aucune n’est privilégiée ni adoptée.\n\nHypothèse 1\nHypothèse candidate : une différence est observable entre « Méthode de reperfusion avec mise en place immédiate d’un stent après IDM. » et « Méthode de reperfusion avec mise en place différée d’un stent après IDM. » pour « Proportion de la masse du ventricule gauche représentée par les lésions microvasculaires. », sans présumer quelle option présente la valeur la plus élevée.\nPour la confronter : Comparer le même critère dans les deux options avec des conditions de mesure explicites et quantifier l’incertitude de l’écart observé.\nLimite : Aucun appui documentaire qualifié n'est disponible pour départager ces hypothèses.\nLimite : Ces hypothèses sont des propositions à discuter, sans adoption ni direction d'effet présumée.\nLimite : La population, les conditions de mesure et le plan d'étude doivent être précisés avant de conclure à une différence ou à son absence.\n\nHypothèse 2\nHypothèse concurrente candidate : aucune différence n’est discernable entre « Méthode de reperfusion avec mise en place immédiate d’un stent après IDM. » et « Méthode de reperfusion avec mise en place différée d’un stent après IDM. » pour « Proportion de la masse du ventricule gauche représentée par les lésions microvasculaires. » dans les conditions étudiées.\nPour la confronter : Examiner si la précision des observations permet de distinguer un faible écart d’une information insuffisante ; une absence de différence détectée ne démontre pas l’équivalence.\nLimite : Aucun appui documentaire qualifié n'est disponible pour départager ces hypothèses.\nLimite : Ces hypothèses sont des propositions à discuter, sans adoption ni direction d'effet présumée.\nLimite : La population, les conditions de mesure et le plan d'étude doivent être précisés avant de conclure à une différence ou à son absence.\n\nCes propositions ne disposent pas ici d’un appui documentaire vérifié ; elles restent à confronter aux connaissances disponibles.\n\nPoints à préciser\n– Exclure les personnes ayant déjà eu des problèmes coronariens.\n– Exclure les personnes présentant une contre-indication à l’IRM cardiaque, notamment liée au produit de contraste ou à un pacemaker ; la liste complète des contre-indications reste à préciser.\n– Exclusion : populations sensibles ou vulnérables — ensemble contrôlé à développer selon le profil réglementaire applicable\n– Lors de l’IRM, une évaluation précoce et tardive est prévue ; le phénomène ou la méthode précisément concernés ne sont pas spécifiés.\n– Méthode de reperfusion avec mise en place différée d’un stent après IDM.\n– Méthode de reperfusion avec mise en place immédiate d’un stent après IDM.\n– Population de patients avec primo-infarctus, en tenant compte de la possibilité d’infarctus silencieux antérieurs.\n– Proportion de la masse du ventricule gauche représentée par les lésions microvasculaires.\n– Recrutement tout-venant ; les modalités précises de cette inclusion restent à définir.\n\nVous pouvez discuter ces propositions ou indiquer explicitement celle que vous souhaitez soumettre à confirmation. Le projet reste inchangé."
+  },
+  "equivalentRepeat": {
+    "newProviderCalls": 0,
+    "compatibleResultReused": true,
+    "projectUnchanged": true,
+    "reply": "Avec les éléments actuellement disponibles, je n’ai pas d’hypothèse supplémentaire défendable à ajouter aux propositions déjà présentées.\n\nCes propositions ne disposent pas ici d’un appui documentaire vérifié ; elles restent à confronter aux connaissances disponibles.\n\nPoints à préciser\n– Exclure les personnes ayant déjà eu des problèmes coronariens.\n– Exclure les personnes présentant une contre-indication à l’IRM cardiaque, notamment liée au produit de contraste ou à un pacemaker ; la liste complète des contre-indications reste à préciser.\n– Exclusion : populations sensibles ou vulnérables — ensemble contrôlé à développer selon le profil réglementaire applicable\n– Lors de l’IRM, une évaluation précoce et tardive est prévue ; le phénomène ou la méthode précisément concernés ne sont pas spécifiés.\n– Méthode de reperfusion avec mise en place différée d’un stent après IDM.\n– Méthode de reperfusion avec mise en place immédiate d’un stent après IDM.\n– Population de patients avec primo-infarctus, en tenant compte de la possibilité d’infarctus silencieux antérieurs.\n– Proportion de la masse du ventricule gauche représentée par les lésions microvasculaires.\n– Recrutement tout-venant ; les modalités précises de cette inclusion restent à définir.\n\nCette limite porte sur le projet et les éléments disponibles ici ; elle ne signifie pas que toutes les possibilités scientifiques ont été explorées. Préciser les inconnues ou apporter des connaissances supplémentaires permettra de réexaminer les options. Le projet reste inchangé.",
+    "interaction": {
+      "contract": "FUNCTIONAL_RESET_SCIENTIFIC_THINKING_INTERACTION",
+      "contractVersion": "1.0.0",
+      "owner": "SCIENTIFIC_THINKING",
+      "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+      "ownerResultRef": "scientific-thinking-output:ke1-ef5af06eb7d8ef4a",
+      "ownerResultVersion": "1.3.0",
+      "sourceActionRef": "qry-selected-action-3dd94bf1e9ba8ebd",
+      "sourceProjectRef": "protocol-designer-session:037528bc-223f-43ce-b6ed-493b731d5a68:research-project",
+      "sourceProjectVersion": "protocol-designer-session:037528bc-223f-43ce-b6ed-493b731d5a68:research-project:version:3",
+      "sourceProjectDigest": "ke1-59d16d6d3efdb189",
+      "presentationTurnRef": "turn:00000000-0000-4000-8000-000000000021",
+      "presentedCandidateDigests": [
+        "ke1-5e0dd8b4b145fd88",
+        "ke1-84c3f9a088b770f4",
+        "ke1-deca17f0792f78d4"
+      ],
+      "selectionAnchor": {
+        "ownerResultRef": "scientific-thinking-output:ke1-ef5af06eb7d8ef4a",
+        "presentationTurnRef": "turn:00000000-0000-4000-8000-000000000021",
+        "traceRunId": "scientific-thinking-standard-trace:ke1-77e83fb1e0c2fdcd"
+      },
+      "traceRunId": "scientific-thinking-standard-trace:ke1-f334713718363073",
+      "status": "ACTIVE",
+      "selectedCandidateRef": null,
+      "pendingContributionRef": null,
+      "adoptedProjectVersion": null,
+      "staleReason": null,
+      "projectWriteAuthorized": false
+    }
+  },
+  "selectionAfterExhaustion": {
+    "newProviderCalls": 0,
+    "projectUnchanged": true,
+    "status": "PENDING_HUMAN_REVIEW",
+    "interaction": {
+      "contract": "FUNCTIONAL_RESET_SCIENTIFIC_THINKING_INTERACTION",
+      "contractVersion": "1.0.0",
+      "owner": "SCIENTIFIC_THINKING",
+      "capabilityId": "SCIENTIFIC_THINKING_PROPOSAL",
+      "ownerResultRef": "scientific-thinking-output:ke1-ef5af06eb7d8ef4a",
+      "ownerResultVersion": "1.3.0",
+      "sourceActionRef": "qry-selected-action-3dd94bf1e9ba8ebd",
+      "sourceProjectRef": "protocol-designer-session:037528bc-223f-43ce-b6ed-493b731d5a68:research-project",
+      "sourceProjectVersion": "protocol-designer-session:037528bc-223f-43ce-b6ed-493b731d5a68:research-project:version:3",
+      "sourceProjectDigest": "ke1-59d16d6d3efdb189",
+      "presentationTurnRef": "turn:00000000-0000-4000-8000-000000000021",
+      "presentedCandidateDigests": [
+        "ke1-5e0dd8b4b145fd88",
+        "ke1-84c3f9a088b770f4",
+        "ke1-deca17f0792f78d4"
+      ],
+      "selectionAnchor": {
+        "ownerResultRef": "scientific-thinking-output:ke1-ef5af06eb7d8ef4a",
+        "presentationTurnRef": "turn:00000000-0000-4000-8000-000000000021",
+        "traceRunId": "scientific-thinking-standard-trace:ke1-77e83fb1e0c2fdcd"
+      },
+      "traceRunId": "scientific-thinking-standard-trace:ke1-f334713718363073",
+      "status": "PENDING_HUMAN_REVIEW",
+      "selectedCandidateRef": "ST-H-001",
+      "pendingContributionRef": "scientific-thinking-contribution:ke1-9a2a539d72bd7ef9",
+      "adoptedProjectVersion": null,
+      "staleReason": null,
+      "projectWriteAuthorized": false
+    }
+  },
+  "localEvidenceHashes": {
+    "baseline.json": "e9ea79e103d9e95975dde5a1d6f2455f0fb7e23fefa43c51b44baa6f87590f4f",
+    "red-reproduction.json": "cef68b83e8f10e152f1887ebe0765ac9f4db4652ca1bce3f39f532fe06967d0e",
+    "red-test.json": "b135286b3a7eac4692e4058b6a37694ccce4a2dac2d54f2ce41ac7205eac90c0",
+    "pre-repair-oracle-test.json": "eff8c9e547f032143ed47dcfcd6c40b010519d47c494b1d8509763ddd4b75083",
+    "pre-repair-oracle-failure.json": "b8917bda4eddc184498fee3deaca550742ffa3dde8529d8f7469d6ac994dcc73",
+    "green-replay.json": "e6a89472ea323c50c913a3a4acd7b9032122035048af53e30c3ee327ab3fb18b",
+    "green-test.json": "adc82bb9eb9ee6dd057f879b2ceff8e9b58f5beda9f4e2f9056207aab119a518"
+  },
+  "independentDebts": [
+    {
+      "id": "CANARY_01R_OPEN_POINT_COUNTER",
+      "severity": "MINOR",
+      "owner": "ResearchProjectPanel QRY candidate count projection",
+      "status": "NOT_REPAIRED_INDEPENDENT",
+      "causality": "Shared trigger; filtered eligible needs are counted, Project unknowns unchanged."
+    },
+    {
+      "id": "CANARY_01R_TRACE_RUNNING",
+      "severity": "MINOR",
+      "owner": "Scientific Thinking Standard trace lifecycle",
+      "status": "NOT_REPAIRED_INDEPENDENT",
+      "causality": "No terminal recorder event, equal local timestamps; independent of content/reuse."
+    }
+  ]
+}

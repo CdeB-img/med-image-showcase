@@ -89,6 +89,7 @@ export type KnowledgeReasoningGap = {
 export type ScientificThinkingInput = {
   contractVersion: typeof SCIENTIFIC_THINKING_ENGINE_VERSION;
   requestId: string;
+  requestedOperation?: ScientificThinkingOperation;
   originalExpression: string;
   validatedReformulation: string;
   language: "fr" | "en";
@@ -419,6 +420,7 @@ const referenceArray = z.array(z.string().min(1).max(500)).max(10_000);
 export const scientificThinkingInputSchema = z.object({
   contractVersion: z.literal(SCIENTIFIC_THINKING_ENGINE_VERSION),
   requestId: z.string().min(1).max(200),
+  requestedOperation: z.enum(SCIENTIFIC_THINKING_OPERATIONS).optional(),
   originalExpression: z.string().min(3).max(4_000),
   validatedReformulation: z.string().min(3).max(4_000),
   language: z.enum(["fr", "en"]),

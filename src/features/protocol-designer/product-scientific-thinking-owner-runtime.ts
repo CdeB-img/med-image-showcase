@@ -1,5 +1,5 @@
 import { stableStringify, type KnowledgeResult } from "@/features/knowledge-engine";
-import type { ScientificThinkingInput, ScientificThinkingOutput } from "@/features/scientific-thinking";
+import type { ScientificThinkingInput, ScientificThinkingOperation, ScientificThinkingOutput } from "@/features/scientific-thinking";
 import {
   invokeScientificThinkingOwnerFromSnapshot,
   type ProjectContextSnapshot,
@@ -55,6 +55,7 @@ type ProductScientificThinkingOwnerInvocationInput = {
   ledger: Readonly<ProductKnowledgeOwnerLedger>;
   callerRef: string;
   purpose: string;
+  requestedOperation?: ScientificThinkingOperation;
   startedAt: string;
   completedAt: string;
   retainedAt?: string;
@@ -87,6 +88,7 @@ const executeScientificThinkingForProject = (input: ProductScientificThinkingOwn
     projectRevision: input.project.revision,
     knowledgeOwnerResult,
     purpose: input.purpose,
+    requestedOperation: input.requestedOperation,
     startedAt: input.startedAt,
     completedAt: input.completedAt,
     runtime: input.runtime,

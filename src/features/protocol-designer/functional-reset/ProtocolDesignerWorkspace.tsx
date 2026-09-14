@@ -557,6 +557,7 @@ type PostAdoptionContinuationJob = {
   runtimeTurns: ScientificInterpretationTurn[];
   feedback: string;
   traceRunId: string | null;
+  previousScientificThinkingInteraction?: FunctionalResetSession["scientificThinkingInteraction"];
 };
 
 const resolvePostAdoptionContinuationJob = async (
@@ -683,6 +684,7 @@ const resolvePostAdoptionContinuationJob = async (
       presentationTurnRef: turnId,
       startedAt: completedAt,
       completedAt,
+      previousInteraction: job.previousScientificThinkingInteraction,
     });
     const turn = {
       turnId,
@@ -1162,9 +1164,10 @@ export default function ProtocolDesignerWorkspace({
       }));
       return false;
     }
+    const candidateContext = interaction.selectionAnchor ?? interaction;
     const output = readScientificThinkingOutputFromLedger({
       ledger: session.knowledgeOwnerLedger,
-      resultRef: interaction.ownerResultRef,
+      resultRef: candidateContext.ownerResultRef,
     });
     if (!output) return false;
     const resolution = resolveScientificThinkingConversation({ raw: content, output });
@@ -1176,9 +1179,9 @@ export default function ProtocolDesignerWorkspace({
       content: prepared.originalText,
       createdAt: recordedAt,
     };
-    const priorProposalTurn = session.runtimeTurns.find((turn) => turn.turnId === interaction.presentationTurnRef);
+    const priorProposalTurn = session.runtimeTurns.find((turn) => turn.turnId === candidateContext.presentationTurnRef);
     const proposalTurn: ScientificInterpretationTurn = priorProposalTurn ?? {
-      turnId: interaction.presentationTurnRef,
+      turnId: candidateContext.presentationTurnRef,
       role: "NOXIA",
       content: buildStandardScientificThinkingPresentation(output).plainText,
       createdAt: recordedAt,
@@ -1199,7 +1202,7 @@ export default function ProtocolDesignerWorkspace({
       }
       const scientificExecutionTraceLedger = recordStudyDesignOptionReviewTrace({
         ledger: session.scientificExecutionTraceLedger,
-        traceRunId: interaction.traceRunId,
+        traceRunId: candidateContext.traceRunId,
         conversationId: session.conversationId,
         recordedAt,
         contribution,
@@ -1220,7 +1223,7 @@ export default function ProtocolDesignerWorkspace({
           selectedCandidateRef: resolution.candidateRef,
           pendingContributionRef: contribution.identity.contributionId,
         } : null,
-        retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, interaction.traceRunId),
+        retainedContributionCandidates: retainOwnerReviewedCandidate(current, contribution, candidate, userTurn, candidateContext.traceRunId),
         entries: [...current.entries, {
           entryId: createConversationEntryId(),
           kind: "TEXT",
@@ -1233,7 +1236,7 @@ export default function ProtocolDesignerWorkspace({
           role: "NOXIA",
           contribution,
           candidate,
-          traceRunId: interaction.traceRunId,
+          traceRunId: candidateContext.traceRunId,
           status: "PENDING",
           decision: null,
           createdAt: recordedAt,
@@ -1261,7 +1264,7 @@ export default function ProtocolDesignerWorkspace({
     };
     const scientificExecutionTraceLedger = recordStudyDesignConversationTrace({
       ledger: session.scientificExecutionTraceLedger,
-      traceRunId: interaction.traceRunId,
+      traceRunId: candidateContext.traceRunId,
       conversationId: session.conversationId,
       recordedAt,
       project,
@@ -2133,6 +2136,7 @@ export default function ProtocolDesignerWorkspace({
             runtimeTurns,
             feedback: content,
             traceRunId,
+            previousScientificThinkingInteraction: session.scientificThinkingInteraction,
           });
           return;
         }

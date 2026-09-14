@@ -4,6 +4,7 @@ import {
   executeScientificThinkingEngine,
   SCIENTIFIC_THINKING_ENGINE_VERSION,
   type ScientificModelCandidate,
+  type ScientificThinkingOperation,
   type ScientificThinkingOutput,
 } from "@/features/scientific-thinking";
 import type { PreProjectScientificNavigationContribution } from "@/features/query-navigation";
@@ -15,6 +16,7 @@ import {
 } from "@/features/scientific-interpretation";
 import { projectScientificContributionToV1IfAllowed } from "@/features/scientific-interpretation/v1-compatibility";
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
+import { selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
 import {
   buildProjectContextSnapshot,
   buildScientificThinkingInputFromProjectSnapshot,
@@ -63,6 +65,12 @@ export type StandardScientificThinkingInteraction = {
   sourceProjectVersion: string;
   sourceProjectDigest: string;
   presentationTurnRef: string;
+  presentedCandidateDigests?: readonly string[];
+  selectionAnchor?: Readonly<{
+    ownerResultRef: string;
+    presentationTurnRef: string;
+    traceRunId: string | null;
+  }>;
   traceRunId: string | null;
   status: "ACTIVE" | "PENDING_HUMAN_REVIEW" | "ADOPTED" | "REJECTED" | "STALE";
   selectedCandidateRef: string | null;
@@ -146,9 +154,64 @@ const modelPresentation = (candidate: Readonly<ScientificModelCandidate>): Stand
   uncertainties: candidate.uncertainties,
 });
 
+const scientificCandidateDigest = (candidate: Readonly<StandardScientificCandidatePresentation>) => logicalDigest({
+  kind: candidate.kind,
+  label: candidate.label,
+  rationale: candidate.rationale,
+  uncertainties: unique(candidate.uncertainties),
+});
+
 export const buildStandardScientificThinkingPresentation = (
   output: Readonly<ScientificThinkingOutput>,
+  request: Readonly<{
+    requestedOperation?: ScientificThinkingOperation;
+    presentedCandidateDigests?: readonly string[];
+    projectUnknowns?: readonly { text: string }[];
+  }> = {},
 ): StandardScientificThinkingPresentation => {
+  if (request.requestedOperation === "GENERATE_ALTERNATIVE_HYPOTHESIS") {
+    const availableCandidates = output.hypotheses.map((candidate) => ({
+      candidateRef: candidate.hypothesisId,
+      kind: "HYPOTHESIS" as const,
+      label: candidate.text,
+      rationale: candidate.observableCondition,
+      uncertainties: unique(candidate.limitations),
+    }));
+    const alreadyPresented = new Set(request.presentedCandidateDigests ?? []);
+    const candidates = availableCandidates.filter((candidate) => !alreadyPresented.has(scientificCandidateDigest(candidate)));
+    const informationNeeds = unique([...(request.projectUnknowns ?? []).map((unknown) => unknown.text), ...output.adaptiveQuestions
+      .filter((question) => question.blocking && !question.answeredValue)
+      .map((question) => question.label)]);
+    const introduction = candidates.length
+      ? "Voici des hypothèses scientifiques candidates à discuter à partir des éléments confirmés du projet. Aucune n’est privilégiée ni adoptée."
+      : availableCandidates.length
+        ? "Avec les éléments actuellement disponibles, je n’ai pas d’hypothèse supplémentaire défendable à ajouter aux propositions déjà présentées."
+        : "Je ne peux pas proposer ici d’hypothèse supplémentaire défendable : aucune justification scientifique distincte n’est établie dans les éléments examinés. Reformuler une hypothèse déjà confirmée ne constitue pas une nouvelle proposition.";
+    const plainText = [
+      introduction,
+      ...candidates.map((candidate) => [
+        `Hypothèse ${output.hypotheses.findIndex((hypothesis) => hypothesis.hypothesisId === candidate.candidateRef) + 1}\n${candidate.label}`,
+        `Pour la confronter : ${candidate.rationale}`,
+        ...candidate.uncertainties.map((limitation) => `Limite : ${limitation}`),
+      ].join("\n")),
+      !output.knowledgeDependencies.length
+        ? "Ces propositions ne disposent pas ici d’un appui documentaire vérifié ; elles restent à confronter aux connaissances disponibles."
+        : null,
+      informationNeeds.length ? `Points à préciser\n${informationNeeds.map((need) => `– ${need}`).join("\n")}` : null,
+      candidates.length
+        ? "Vous pouvez discuter ces propositions ou indiquer explicitement celle que vous souhaitez soumettre à confirmation. Le projet reste inchangé."
+        : "Cette limite porte sur le projet et les éléments disponibles ici ; elle ne signifie pas que toutes les possibilités scientifiques ont été explorées. Préciser les inconnues ou apporter des connaissances supplémentaires permettra de réexaminer les options. Le projet reste inchangé.",
+    ].filter((value): value is string => Boolean(value)).join("\n\n");
+    return {
+      presentationId: `scientific-thinking-standard-presentation:${logicalDigest({ output: output.outputId, digest: output.outputDigest, requestedOperation: request.requestedOperation, candidates: candidates.map(scientificCandidateDigest) })}`,
+      outputRef: output.outputId,
+      title: candidates.length ? "Hypothèses scientifiques à discuter" : "Limite des propositions disponibles",
+      introduction,
+      candidates,
+      informationNeeds,
+      plainText,
+    };
+  }
   const contextualProjectQuestion = output.questions.find((candidate) => candidate.questionId === "ST-Q-PROJECT-CONTEXT-001") ?? null;
   if (contextualProjectQuestion) {
     const explicitProjectHypotheses = output.hypotheses.filter((candidate) => candidate.hypothesisId.startsWith("ST-H-PROJECT-"));
@@ -267,6 +330,7 @@ export const dispatchScientificThinkingFromQuery = (input: {
   startedAt: string;
   completedAt: string;
   traceEnabled?: boolean;
+  previousInteraction?: Readonly<StandardScientificThinkingInteraction> | null;
 }) => {
   if (!isScientificThinkingQueryDispatch(input.navigation)) throw new Error("QRY_ACTION_NOT_OWNED_BY_SCIENTIFIC_THINKING");
   if (input.navigation.projectRef !== input.project.projectId
@@ -313,10 +377,16 @@ export const dispatchScientificThinkingFromQuery = (input: {
       project: { projectId: input.project.projectId, projectVersion: input.project.versionId, projectDigest: input.project.projectDigest, snapshotRef: snapshot.snapshotDigest },
     },
   });
+  const requestedOperation = input.navigation.requestedAction === "ASSISTED_PROPOSAL"
+    ? "GENERATE_ALTERNATIVE_HYPOTHESIS" as const : undefined;
+  const purpose = requestedOperation
+    ? `Proposer des hypothèses scientifiques candidates et des alternatives à discuter sans adoption. Portée sélectionnée : ${input.navigation.currentAction!.reason}`
+    : input.navigation.currentAction!.reason;
   const expectedNativeInput = buildScientificThinkingInputFromProjectSnapshot({
     projectSnapshot: snapshot,
     projectRevision: input.project.revision,
-    purpose: input.navigation.currentAction!.reason,
+    purpose,
+    requestedOperation,
   });
   const reusableEntry = [...input.ownerResultLedger.entries].reverse().find((entry) => {
     const nativeOutput = entry.result?.nativePayload as Partial<ScientificThinkingOutput> | null;
@@ -340,7 +410,8 @@ export const dispatchScientificThinkingFromQuery = (input: {
       projectSnapshot: snapshot,
       ledger: input.ownerResultLedger,
       callerRef: input.navigation.currentAction!.selectedActionId,
-      purpose: input.navigation.currentAction!.reason,
+      purpose,
+      requestedOperation,
       startedAt: input.startedAt,
       completedAt: input.completedAt,
       trace,
@@ -352,7 +423,31 @@ export const dispatchScientificThinkingFromQuery = (input: {
     trace?.fail(input.completedAt, failureCode, "SCIENTIFIC_THINKING_ENGINE");
     throw new Error(failureCode);
   }
-  const presentation = buildStandardScientificThinkingPresentation(output);
+  const previousInteraction = input.previousInteraction
+    && scientificThinkingInteractionMatchesCurrentProject(input.previousInteraction, input.project)
+    ? input.previousInteraction : null;
+  const previousCandidateContext = previousInteraction?.selectionAnchor ?? previousInteraction;
+  const previousOutput = previousInteraction ? readScientificThinkingOutputFromLedger({
+    ledger: input.ownerResultLedger, resultRef: previousCandidateContext!.ownerResultRef,
+  }) : null;
+  const presentedCandidateDigests = requestedOperation && previousInteraction && previousOutput
+    ? previousInteraction.presentedCandidateDigests
+      ?? buildStandardScientificThinkingPresentation(previousOutput).candidates.map(scientificCandidateDigest)
+    : [];
+  const presentation = buildStandardScientificThinkingPresentation(output, {
+    requestedOperation, presentedCandidateDigests, projectUnknowns: expectedNativeInput.projectUnknowns,
+  });
+  const selectionAnchor = requestedOperation && !presentation.candidates.length
+    && previousCandidateContext && previousOutput && presentedCandidateDigests.length
+    && previousOutput.sourceProject?.projectId === input.project.projectId
+    && previousOutput.sourceProject.projectVersion === input.project.versionId
+    && previousOutput.sourceProject.projectDigest === input.project.projectDigest
+    && (previousOutput.questions.length || previousOutput.hypotheses.length || previousOutput.scientificModels.length)
+    ? {
+      ownerResultRef: previousCandidateContext.ownerResultRef,
+      presentationTurnRef: previousCandidateContext.presentationTurnRef,
+      traceRunId: previousCandidateContext.traceRunId,
+    } : null;
   trace?.append({
     eventType: "UI_PROJECTION",
     timestamp: input.completedAt,
@@ -387,7 +482,17 @@ export const dispatchScientificThinkingFromQuery = (input: {
     sourceProjectRef: input.project.projectId,
     sourceProjectVersion: input.project.versionId,
     sourceProjectDigest: input.project.projectDigest,
-    presentationTurnRef: input.presentationTurnRef,
+    // Exhaustion presents no new candidate; retain the actual proposal source
+    // if the same result is subsequently selected for human review.
+    presentationTurnRef: requestedOperation && !presentation.candidates.length
+      && previousInteraction?.ownerResultRef === retainedResult.resultId
+      ? previousInteraction.presentationTurnRef : input.presentationTurnRef,
+    ...(requestedOperation ? { presentedCandidateDigests: unique([
+      ...presentedCandidateDigests, ...presentation.candidates.map(scientificCandidateDigest),
+    ]) } : {}),
+    // The current execution keeps its own result/purpose. Earlier visible
+    // candidates remain discussable and selectable through their exact source.
+    ...(selectionAnchor ? { selectionAnchor } : {}),
     traceRunId,
     status: "ACTIVE",
     selectedCandidateRef: null,
@@ -421,6 +526,15 @@ export const resolveScientificThinkingConversation = (input: {
   raw: string;
   output: Readonly<ScientificThinkingOutput>;
 }): ScientificThinkingConversationResolution => {
+  const interaction = selectBoundedConversationInteraction({
+    sourceText: input.raw,
+    correctionMode: false,
+    referentContext: {
+      resolution: "NONE", candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
+      reason: "SCIENTIFIC_THINKING_PROPOSAL_ACT_CLASSIFICATION", projectWriteAuthorized: false,
+    },
+  });
+  if (interaction?.kind === "USER_REQUESTS_ASSISTED_PROPOSAL") return { kind: "FALLTHROUGH" };
   const value = folded(input.raw);
   if (/\b(?:je ne sais pas|pas encore|plus tard|a discuter)\b/.test(value)) return {
     kind: "DEFER",

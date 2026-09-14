@@ -102,6 +102,7 @@ export type FunctionalResetQueryNavigation = {
   projectDigest: string;
   sourceStateDigest: string;
   currentEvidenceDigest?: string;
+  requestedAction?: FunctionalResetRequestedAction;
   status: "QUESTION_READY" | "OWNER_ACTION_READY" | "NO_USEFUL_QUESTION";
   selection: NavigationSelection;
   memory: QueryNavigationMemory;
@@ -704,6 +705,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
   requestedAction?: FunctionalResetRequestedAction;
 }): FunctionalResetQueryNavigation => {
   if (!input.requestedAction && !input.forceRebuild && input.previous
+    && !input.previous.requestedAction
     && input.previous.projectVersion === input.project.versionId
     && input.previous.projectDigest === input.project.projectDigest
     && input.previous.currentEvidenceDigest === input.currentNavigationEvidence?.contextDigest) return structuredClone(input.previous);
@@ -801,6 +803,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
     sourceStateDigest: context.sourceStateDigest,
     ...(evidence ? { currentEvidenceDigest: evidence.contextDigest } : {}),
     status: "NO_USEFUL_QUESTION",
+    ...(input.requestedAction ? { requestedAction: input.requestedAction } : {}),
     selection,
     memory,
     currentAction: null,
@@ -845,6 +848,7 @@ export const buildFunctionalResetQueryNavigation = (input: {
       projectDigest: input.project.projectDigest,
       sourceStateDigest: context.sourceStateDigest,
       status: "OWNER_ACTION_READY",
+      ...(input.requestedAction ? { requestedAction: input.requestedAction } : {}),
       ...(evidence ? { currentEvidenceDigest: evidence.contextDigest } : {}),
       selection,
       memory,
