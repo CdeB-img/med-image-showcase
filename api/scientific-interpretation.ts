@@ -6,23 +6,39 @@ import { HYBRID_PRIMARY_RUNTIME_ID, HYBRID_PRIMARY_RUNTIME_VERSION, parseHybridP
 import { DEFAULT_SCIENTIFIC_INTERPRETATION_MODE, SCIENTIFIC_INTERPRETATION_MODES, ScientificInterpretationTechnicalError, type ScientificInterpretationMode, type ScientificInterpretationRuntime } from "../src/features/scientific-interpretation/contracts.js";
 import { executeScientificInterpretation } from "../src/features/scientific-interpretation/runtime.js";
 import { processScientificInterpretationHttp } from "../src/features/scientific-interpretation/server.js";
+import {
+  PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY,
+  protocolDesignerProviderCallsAllowed,
+} from "../src/features/protocol-designer/public-runtime-access.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
 
-const configuredMode = (): ScientificInterpretationMode => {
-  const candidate = process.env.SCIENTIFIC_INTERPRETATION_MODE?.trim();
+const configuredMode = (environment: Record<string, string | undefined>): ScientificInterpretationMode => {
+  const candidate = environment.SCIENTIFIC_INTERPRETATION_MODE?.trim();
   return SCIENTIFIC_INTERPRETATION_MODES.includes(candidate as ScientificInterpretationMode)
     ? candidate as ScientificInterpretationMode
     : DEFAULT_SCIENTIFIC_INTERPRETATION_MODE;
 };
 
-export const handleScientificInterpretation = async (request: ApiRequest, response: ApiResponse) => {
-  const apiKey = process.env.GEMINI_API_KEY?.trim() || null;
-  const model = process.env.GEMINI_MODEL?.trim() || null;
-  const evidenceRoot = process.env.SCIENTIFIC_INTERPRETATION_EVIDENCE_DIR?.trim() || join("/tmp", "noxia-scientific-interpretation");
+export const handleScientificInterpretation = async (
+  request: ApiRequest,
+  response: ApiResponse,
+  environment: Record<string, string | undefined> = process.env,
+) => {
+  if (!protocolDesignerProviderCallsAllowed(environment)) {
+    response.setHeader("content-type", "application/json; charset=utf-8");
+    response.setHeader("cache-control", "no-store");
+    return response.status(503).json({
+      error: { code: PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY, message: "Protocol Designer est temporairement indisponible en production.", retryable: false },
+      observability: { providerCalls: [], requestEstimatedCostUsd: 0, requestCostIncomplete: false, unpricedCallCount: 0 },
+    });
+  }
+  const apiKey = environment.GEMINI_API_KEY?.trim() || null;
+  const model = environment.GEMINI_MODEL?.trim() || null;
+  const evidenceRoot = environment.SCIENTIFIC_INTERPRETATION_EVIDENCE_DIR?.trim() || join("/tmp", "noxia-scientific-interpretation");
   const evidenceStore = new FileScientificInterpretationEvidenceStore(evidenceRoot);
-  const mode = configuredMode();
+  const mode = configuredMode(environment);
   let nativeExecution: Awaited<ReturnType<GeminiHybridScientificInterpretationProvider["execute"]>> | null = null;
 
   const hybridRuntime: ScientificInterpretationRuntime = apiKey && model

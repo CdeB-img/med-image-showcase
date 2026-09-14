@@ -1566,6 +1566,7 @@ export const rejectResearchProjectContribution = (input: {
   current: ResearchProjectOwnerProjection | null;
   authority: ResearchProjectOwnerAuthority;
   rejectedAt: string;
+  rejectionSourceRefs?: readonly string[];
 }): HumanDecisionEnvelope => {
   const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
   const pendingDecision = createHumanDecisionCandidate({
@@ -1580,7 +1581,8 @@ export const rejectResearchProjectContribution = (input: {
       .filter((change) => change.operation !== "NO_CHANGE")
       .flatMap((change) => change.sourceObjectRefs)],
     reason: "Rejet explicite de la Contribution candidate. Le Research Project reste inchangé.",
-    provenance: [candidate.contributionRef, input.contribution.identity.contributionDigest, ...input.contribution.source.sourceRefs],
+    provenance: [candidate.contributionRef, input.contribution.identity.contributionDigest, ...input.contribution.source.sourceRefs,
+      ...(input.rejectionSourceRefs ?? [])],
     engineSource: "RESEARCH_PROJECT",
     projectVersion: input.current?.versionId ?? null,
   });

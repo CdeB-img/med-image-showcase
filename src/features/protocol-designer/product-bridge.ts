@@ -954,6 +954,8 @@ export type ProductBridgeResponse = {
     } | null;
     providerCalls?: readonly ProviderCallRecord[];
     requestEstimatedCostUsd?: number;
+    requestCostIncomplete?: boolean;
+    unpricedCallCount?: number;
   };
 };
 
@@ -1645,8 +1647,8 @@ export const contributionFromPersistentDelta = (input: {
         occasionId: candidate.occasionId,
         variableProjectRef: candidate.variableProjectRef,
         anchor: contributionTemporalAnchor(candidate.anchor),
-        studyUnitOrGroupRef: candidate.studyUnitOrGroupRef,
-        applicableContext: candidate.applicableContext,
+        studyUnitOrGroupRef: candidate.studyUnitOrGroupRef ?? null,
+        applicableContext: candidate.applicableContext ?? null,
         sourceText: candidate.sourceText,
         assertionKind: candidate.assertionKind,
         evidenceRefs: [...candidate.evidenceRefs],
@@ -1773,7 +1775,7 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
         || !navigation.informationNeedScopes.every((scope) => typeof scope.needRef === "string" && typeof scope.sourceRef === "string"
           && navigation.selected.navigationNeedRefs.includes(scope.needRef) && navigation.selected.sourceRefs.includes(scope.sourceRef)
           && Array.isArray(scope.affectedBranchRefs) && scope.affectedBranchRefs.length > 0
-          && scope.affectedBranchRefs.every((ref) => typeof ref === "string" && navigation.selected.affectedBranchRefs.includes(ref))))) return null;
+          && scope.affectedBranchRefs.every((ref: unknown) => typeof ref === "string" && navigation.selected.affectedBranchRefs.includes(ref))))) return null;
     } catch { return null; }
   }
   if (record.boundedReferentContext) {

@@ -56,6 +56,21 @@ export type ProviderCallAttemptInstrumentation = Readonly<{
   onRecord: (record: ProviderCallRecord) => void;
 }>;
 
+/** Local transport metadata; never serialized into the external provider payload. */
+export type ProviderObservedRequestInit = RequestInit & {
+  noxiaProviderObservation?: Omit<ProviderCallAttemptInstrumentation, "onRecord">;
+};
+
+export const providerCallRequestMetadata = (
+  instrumentation?: ProviderCallAttemptInstrumentation,
+): ProviderObservedRequestInit["noxiaProviderObservation"] => instrumentation ? ({
+  context: instrumentation.context,
+  purpose: instrumentation.purpose,
+  reasoningEffort: instrumentation.reasoningEffort,
+  retryIndex: instrumentation.retryIndex,
+  retryReason: instrumentation.retryReason,
+}) : undefined;
+
 type Pricing = Readonly<{
   inputPerMillionUsd: number;
   cachedInputPerMillionUsd: number;
@@ -164,8 +179,10 @@ export const materializeProviderCallRecord = (input: Readonly<{
 
 export const providerCallWaterfall = (records: readonly ProviderCallRecord[]) => {
   let cumulativeCostUsd = 0;
+  let cumulativeUnpricedCallCount = 0;
   return records.map((record) => {
     cumulativeCostUsd += record.estimatedCostUsd ?? 0;
+    if (record.estimatedCostUsd === null) cumulativeUnpricedCallCount += 1;
     return Object.freeze({
       turnId: record.context.turnId,
       model: record.modelVersion,
@@ -179,14 +196,53 @@ export const providerCallWaterfall = (records: readonly ProviderCallRecord[]) =>
       retryReason: record.retryReason,
       estimatedCostUsd: record.estimatedCostUsd,
       cumulativeCostUsd: Number(cumulativeCostUsd.toFixed(10)),
+      cumulativeCostIncomplete: cumulativeUnpricedCallCount > 0,
+      cumulativeUnpricedCallCount,
     });
   });
 };
 
+/** Known-cost subtotal; consumers must retain the accompanying completeness status. */
 export const providerSessionCostUsd = (records: readonly ProviderCallRecord[]) => Number(records.reduce(
   (total, record) => total + (record.estimatedCostUsd ?? 0),
   0,
 ).toFixed(10));
+
+export type ProviderSessionCostSummary = Readonly<{
+  estimatedCostUsd: number;
+  costIncomplete: boolean;
+  unpricedCallCount: number;
+}>;
+
+export const providerSessionCostSummary = (
+  records: readonly ProviderCallRecord[],
+): ProviderSessionCostSummary => {
+  const unpricedCallCount = records.filter((record) => record.estimatedCostUsd === null).length;
+  return {
+    estimatedCostUsd: providerSessionCostUsd(records),
+    costIncomplete: unpricedCallCount > 0,
+    unpricedCallCount,
+  };
+};
+
+export type ProviderCallRequestObservability = Readonly<{
+  providerCalls: readonly ProviderCallRecord[];
+  requestEstimatedCostUsd: number;
+  requestCostIncomplete: boolean;
+  unpricedCallCount: number;
+}>;
+
+export const providerCallRequestObservability = (
+  records: readonly ProviderCallRecord[],
+): ProviderCallRequestObservability => {
+  const summary = providerSessionCostSummary(records);
+  return {
+    providerCalls: records,
+    requestEstimatedCostUsd: summary.estimatedCostUsd,
+    requestCostIncomplete: summary.costIncomplete,
+    unpricedCallCount: summary.unpricedCallCount,
+  };
+};
 
 export const advanceProviderSessionCostUsd = (
   previousCumulativeCostUsd: number | null | undefined,

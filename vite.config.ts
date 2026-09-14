@@ -2,6 +2,7 @@ import { defineConfig, loadEnv, type Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { executeProtocolDesignerBridge } from "./api/protocol-designer-bridge";
+import { createRecordedProtocolDesignerFetch } from "./api/protocol-designer-provider-replay";
 
 export type LocalProductBridgeConfiguration = Readonly<{
   apiKey: string | null;
@@ -32,7 +33,7 @@ export const executeLocalProductBridgeRequest = (
   executor: typeof executeProtocolDesignerBridge = executeProtocolDesignerBridge,
 ) => executor({ body, ...configuration });
 
-const localProductBridge = (configuration: LocalProductBridgeConfiguration): Plugin => ({
+const localProductBridge = (configuration: LocalProductBridgeConfiguration, evidenceRoot: string): Plugin => ({
   name: "noxia-local-product-bridge",
   configureServer(server) {
     server.middlewares.use("/api/protocol-designer-bridge", async (request, response, next) => {
@@ -52,7 +53,17 @@ const localProductBridge = (configuration: LocalProductBridgeConfiguration): Plu
       }
       let body: unknown = null;
       try { body = JSON.parse(Buffer.concat(chunks).toString("utf8")); } catch { /* parsed as invalid below */ }
-      const result = await executeLocalProductBridgeRequest(body, configuration);
+      // Local live calls become durable, private replay evidence. No request
+      // headers/credentials are persisted and this store is not bundled for UI.
+      const recordedFetch = createRecordedProtocolDesignerFetch({
+        root: evidenceRoot,
+        fetchImpl: fetch,
+        secrets: [configuration.apiKey ?? "", configuration.openAiApiKey ?? ""],
+        context: body && typeof body === "object" && "observabilityContext" in body
+          ? body.observabilityContext : null,
+      });
+      const result = await executeLocalProductBridgeRequest(body, configuration,
+        (input) => executeProtocolDesignerBridge({ ...input, fetchImpl: recordedFetch }));
       response.statusCode = result.status;
       response.setHeader("content-type", "application/json; charset=utf-8");
       response.setHeader("cache-control", "no-store");
@@ -64,11 +75,13 @@ const localProductBridge = (configuration: LocalProductBridgeConfiguration): Plu
 export default defineConfig(({ mode }) => {
   const environment = loadEnv(mode, process.cwd(), "");
   const providerConfiguration = resolveLocalProductBridgeConfiguration(process.env, environment);
+  const evidenceRoot = path.resolve(process.env.PROTOCOL_DESIGNER_EVIDENCE_DIR || ".provider-evidence.local");
   const deploymentGitSha = process.env.VERCEL_GIT_COMMIT_SHA?.trim() || environment.VERCEL_GIT_COMMIT_SHA?.trim() || "";
   const buildGitSha = /^[0-9a-f]{7,40}$/i.test(deploymentGitSha) ? deploymentGitSha.slice(0, 7).toLowerCase() : "";
   return {
     base: "/",
-    plugins: [react(), localProductBridge(providerConfiguration)],
+    plugins: [react(), localProductBridge(providerConfiguration, evidenceRoot)],
+    server: { fs: { deny: [".env", ".env.*", "*.{crt,pem}", "**/.provider-evidence.local/**", `${evidenceRoot}/**`] } },
     define: {
       __NOXIA_BUILD_GIT_SHA__: JSON.stringify(buildGitSha),
     },

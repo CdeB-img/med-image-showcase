@@ -36,7 +36,7 @@ export type RetainedContributionCandidate = Readonly<{
   baseProject: CandidateBaseProject;
   dependencyBindings: readonly CandidateDependencyBinding[];
   validatorRef: string;
-  validation: PersistentDeltaValidation;
+  validation: PersistentDeltaValidation | Pick<PersistentDeltaValidation, "valid" | "blocks">;
   traceRunId: string | null;
   retainedAt: string;
   downstreamState: CandidateDownstreamState;
@@ -69,7 +69,7 @@ export const retainValidatedContributionCandidate = (input: {
   retained: readonly RetainedContributionCandidate[];
   contribution: ScientificInterpretationContributionEnvelope;
   candidate: ResearchProjectContributionCandidate;
-  validation: PersistentDeltaValidation | null;
+  validation: PersistentDeltaValidation | Pick<PersistentDeltaValidation, "valid" | "blocks"> | null;
   validatorRef: string;
   sourceTurnRef: string;
   baseProject: CandidateBaseProject;
@@ -79,7 +79,7 @@ export const retainValidatedContributionCandidate = (input: {
 }): readonly RetainedContributionCandidate[] => {
   const { contribution, candidate } = input;
   const source = contribution.source.turns.find((turn) => turn.turnId === input.sourceTurnRef && turn.role === "USER");
-  // A failed or absent extraction cannot create a validated lifecycle record.
+  // A failed or absent owner validation cannot create a validated lifecycle record.
   if (!input.validation?.valid || input.validation.blocks.length
     || candidate.status !== "CANDIDATE_PENDING_HUMAN_CONFIRMATION"
     || candidate.projectWriteAuthorized !== false || contribution.epistemicBoundary.candidateIsAdopted

@@ -29,7 +29,9 @@ import {
 import {
   emptyProviderTokenUsage,
   materializeProviderCallRecord,
+  providerCallRequestMetadata,
   type ProviderCallAttemptInstrumentation,
+  type ProviderObservedRequestInit,
   type ProviderTokenUsage,
 } from "../src/features/protocol-designer/provider-call-observability.js";
 
@@ -317,36 +319,45 @@ const callGemini = async (
     if (!instrumentation) return;
     instrumentation.onRecord(materializeProviderCallRecord(record));
   };
-  let response: Response;
+  let response: Response | undefined;
+  let text: string;
   try {
-    response = await productBridgeConversationProviderGate.run(async () => {
+    text = await productBridgeConversationProviderGate.run(async () => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 45_000);
       try {
-        return await fetchImpl(geminiEndpoint(model), {
+        const requestInit: ProviderObservedRequestInit = {
           method: "POST",
           headers: { "content-type": "application/json", "x-goog-api-key": apiKey },
           body: JSON.stringify(payload),
           signal: controller.signal,
-        });
+          noxiaProviderObservation: providerCallRequestMetadata(instrumentation),
+        };
+        response = await fetchImpl(geminiEndpoint(model), requestInit);
+        return await response.text();
       } finally {
         clearTimeout(timer);
       }
     });
   } catch (error) {
     const latencyMs = Date.now() - started;
+    const failureReason = error instanceof Error && error.name === "AbortError" ? "TIMEOUT"
+      : response ? "RESPONSE_BODY_READ_FAILURE" : "NETWORK_FAILURE";
+    const requestId = response?.headers.get("x-request-id") ?? null;
     observe({
       provider: "GOOGLE_GEMINI", modelRequested: model, modelReturned: null,
       instrumentation: instrumentation!, usage: emptyProviderTokenUsage(), latencyMs,
-      status: "FAILED", failureReason: error instanceof Error && error.name === "AbortError" ? "TIMEOUT" : "NETWORK_FAILURE",
-      providerRequestId: null, providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
+      status: "FAILED", failureReason,
+      providerRequestId: requestId, providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
     });
-    throw new ProductBridgeProviderError(stage, null, error instanceof Error && error.name === "AbortError" ? "TIMEOUT" : "NETWORK_FAILURE", "Provider request failed.");
+    throw new ProductBridgeProviderError(stage, response?.status ?? null, failureReason, "Provider request failed.", null, "GOOGLE_GEMINI", requestId);
   }
-  const text = await response.text();
+  // The gate resolves only after a response and its complete body were read.
+  const completedResponse = response!;
   let body: GeminiBody;
   try {
     body = JSON.parse(text) as GeminiBody;
+    if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error("INVALID_PROVIDER_JSON");
   } catch {
     const latencyMs = Date.now() - started;
     observe({
@@ -355,11 +366,11 @@ const callGemini = async (
       status: "FAILED", failureReason: "INVALID_PROVIDER_JSON", providerRequestId: null,
       providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
     });
-    throw new ProductBridgeProviderError(stage, response.status, "INVALID_PROVIDER_JSON", "Provider returned invalid JSON.");
+    throw new ProductBridgeProviderError(stage, completedResponse.status, "INVALID_PROVIDER_JSON", "Provider returned invalid JSON.");
   }
-  if (!response.ok) {
+  if (!completedResponse.ok) {
     const latencyMs = Date.now() - started;
-    const failureReason = body.error?.status ?? `HTTP_${response.status}`;
+    const failureReason = body.error?.status ?? `HTTP_${completedResponse.status}`;
     observe({
       provider: "GOOGLE_GEMINI", modelRequested: model, modelReturned: body.modelVersion ?? null,
       instrumentation: instrumentation!, usage: geminiProviderTokenUsage(body.usageMetadata), latencyMs,
@@ -368,7 +379,7 @@ const callGemini = async (
     });
     throw new ProductBridgeProviderError(
       stage,
-      response.status,
+      completedResponse.status,
       failureReason,
       body.error?.message ?? "Gemini request failed.",
       body.responseId ?? null,
@@ -384,7 +395,7 @@ const callGemini = async (
   return {
     value: body,
     latencyMs,
-    httpStatus: response.status,
+    httpStatus: completedResponse.status,
     responseId: body.responseId ?? null,
     usage: body.usageMetadata ?? null,
   };

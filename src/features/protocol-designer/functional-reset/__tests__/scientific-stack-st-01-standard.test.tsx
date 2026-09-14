@@ -12,6 +12,10 @@ import {
   makeFunctionalResetBridgeResponse,
   makeFunctionalResetContribution,
 } from "./functional-reset-fixtures";
+import { dispatchScientificThinkingFromQuery, readScientificThinkingOutputFromLedger } from "../scientific-thinking-standard";
+import { buildKnowledgeRequestFromCanonicalSnapshot, buildProjectContextSnapshot } from "@/features/research-project-construction";
+import { invokeKnowledgeForProject } from "@/features/protocol-designer/product-knowledge-owner-runtime";
+import { invokeScientificThinkingForProject } from "@/features/protocol-designer/product-scientific-thinking-owner-runtime";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
@@ -23,6 +27,11 @@ vi.mock("@/features/protocol-designer/product-bridge-client", async (importOrigi
 const REQUEST = "Je veux créer une étude longitudinale pour caractériser l’évolution de la fonction myocardique après une intervention.";
 const renderDemo = () => render(<HelmetProvider><MemoryRouter><ProtocolDesignerDemo /></MemoryRouter></HelmetProvider>);
 const stored = () => JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession;
+const submit = async (text: string) => {
+  await waitFor(() => expect(screen.getByLabelText("Votre message")).not.toBeDisabled());
+  fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: text } });
+  fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
+};
 
 const objectiveContribution = (turns: ScientificInterpretationTurn[]) => {
   const contribution = makeFunctionalResetContribution(turns);
@@ -109,5 +118,70 @@ describe("SCIENTIFIC-STACK-ST-01 — corridor Standard réel", () => {
 
     await waitFor(() => expect(screen.queryByText(/SCIENTIFIC_THINKING_PROPOSAL/)).toBeNull());
     expect(screen.queryByText(/scientific-thinking-output:/)).toBeNull();
+  });
+
+  it.each([
+    ["je valide", "ADOPTED"],
+    ["je refuse", "REJECTED"],
+  ] as const)("enregistre %s sur une candidate Scientific Thinking présentée avec sa provenance", async (message, decision) => {
+    renderDemo();
+    await submit(REQUEST);
+    await screen.findByTestId("functional-contribution-review");
+    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await waitFor(() => expect(stored().scientificThinkingInteraction?.status).toBe("ACTIVE"));
+    const before = stored();
+    const output = readScientificThinkingOutputFromLedger({
+      ledger: before.knowledgeOwnerLedger,
+      resultRef: before.scientificThinkingInteraction!.ownerResultRef,
+    })!;
+    expect(output.questions.length + output.hypotheses.length).toBeGreaterThan(0);
+    const selectionVerb = decision === "ADOPTED" ? "retiens" : "choisis";
+    await submit(output.questions.length ? `Je ${selectionVerb} la question 1` : `Je ${selectionVerb} l’hypothèse 1`);
+    await waitFor(() => expect(stored().scientificThinkingInteraction?.status).toBe("PENDING_HUMAN_REVIEW"));
+    expect(stored().project!.revision).toBe(before.project!.revision);
+    const candidateRef = stored().pendingContribution!.identity.contributionId;
+    await submit(message);
+    await waitFor(() => expect(stored().retainedContributionCandidates?.find((record) => record.candidateRef === candidateRef)?.humanDecision?.status).toBe(decision));
+    const after = stored();
+    const record = after.retainedContributionCandidates!.find((item) => item.candidateRef === candidateRef)!;
+    const decisionTurn = after.runtimeTurns.find((turn) => turn.role === "USER" && turn.content === message)!;
+    expect(record.humanDecision!.provenance).toContain(decisionTurn.turnId);
+    expect(after.project!.revision).toBe(before.project!.revision + (decision === "ADOPTED" ? 1 : 0));
+    if (decision === "REJECTED") expect(after.project!.projectDigest).toBe(before.project!.projectDigest);
+    expect(runtime.request.mock.calls.filter(([request]) => request.requestKind !== "POST_ADOPTION_QRY_CONTINUATION")).toHaveLength(1);
+  });
+
+  it("distingue l'identité Knowledge et réutilise seulement l'entrée native exacte", async () => {
+    renderDemo();
+    await submit(REQUEST);
+    await screen.findByTestId("functional-contribution-review");
+    fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
+    await waitFor(() => expect(stored().scientificThinkingInteraction?.status).toBe("ACTIVE"));
+    const session = stored();
+    const project = session.project!;
+    const snapshot = buildProjectContextSnapshot({ project });
+    const at = "2026-09-14T13:00:00.000Z";
+    const request = buildKnowledgeRequestFromCanonicalSnapshot({
+      projectSnapshot: snapshot, question: "Quelles connaissances locales sont disponibles ?", createdAt: at,
+    });
+    const knowledge = invokeKnowledgeForProject({
+      project, projectSnapshot: snapshot, knowledgeRequest: request, ledger: session.knowledgeOwnerLedger,
+      callerRef: "test:exact-st-reuse", purpose: request.originalQuestion, startedAt: at, completedAt: at,
+    });
+    const enriched = invokeScientificThinkingForProject({
+      project, projectSnapshot: snapshot, knowledgeResultId: knowledge.result!.resultId, ledger: knowledge.ledger,
+      callerRef: "test:exact-st-reuse", purpose: session.queryNavigation!.currentAction!.reason, startedAt: at, completedAt: at,
+    });
+    const original = session.knowledgeOwnerLedger.entries.find((entry) => entry.result?.resultId === session.scientificThinkingInteraction!.ownerResultRef)!;
+    expect(enriched.request.nativeInput.requestId).not.toBe((original.request.nativeInput as { requestId: string }).requestId);
+    expect(enriched.request.nativeInput).not.toEqual(original.request.nativeInput);
+    const reused = dispatchScientificThinkingFromQuery({
+      project, navigation: session.queryNavigation!, ownerResultLedger: enriched.ledger,
+      traceLedger: session.scientificExecutionTraceLedger, sessionId: session.sessionId, conversationId: session.conversationId,
+      presentationTurnRef: "turn:exact-st-reuse", startedAt: at, completedAt: at,
+    });
+    expect(reused.output).toEqual(original.result!.nativePayload);
+    expect(reused.ownerResultLedger.entries).toHaveLength(enriched.ledger.entries.length);
+    expect(reused.output.knowledgeDependencies).toEqual([]);
   });
 });

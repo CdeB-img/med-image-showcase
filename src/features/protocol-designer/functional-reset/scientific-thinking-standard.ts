@@ -21,7 +21,10 @@ import {
   ensureCanonicalProjectState,
   type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
-import { invokeScientificThinkingForProject } from "@/features/protocol-designer/product-scientific-thinking-owner-runtime";
+import {
+  invokeScientificThinkingForProject,
+  readProductScientificThinkingOwnerResult,
+} from "@/features/protocol-designer/product-scientific-thinking-owner-runtime";
 import type { ProductOwnerResultLedger } from "@/features/protocol-designer/product-owner-result-ledger";
 import {
   createScientificRunTraceRecorder,
@@ -316,15 +319,21 @@ export const dispatchScientificThinkingFromQuery = (input: {
     purpose: input.navigation.currentAction!.reason,
   });
   const reusableEntry = [...input.ownerResultLedger.entries].reverse().find((entry) => {
-    const nativeInput = entry.request.nativeInput as Partial<typeof expectedNativeInput> | null;
     const nativeOutput = entry.result?.nativePayload as Partial<ScientificThinkingOutput> | null;
-    return entry.request.owner === "SCIENTIFIC_THINKING"
-      && entry.request.capabilityId === "SCIENTIFIC_THINKING_PROPOSAL"
-      && entry.request.sourceProject.sourceProjectVersion === input.project.versionId
-      && entry.request.sourceProject.sourceProjectDigest === input.project.projectDigest
-      && nativeInput?.requestId === expectedNativeInput.requestId
-      && nativeOutput?.contractVersion === SCIENTIFIC_THINKING_ENGINE_VERSION
-      && nativeOutput.projectWriteAuthorized === false;
+    if (entry.request.owner !== "SCIENTIFIC_THINKING"
+      || entry.request.capabilityId !== "SCIENTIFIC_THINKING_PROPOSAL"
+      || !entry.result
+      || logicalDigest(entry.request.nativeInput) !== logicalDigest(expectedNativeInput)
+      || entry.dependencies.length !== 0 // This dispatch has no Knowledge input/dependency.
+      || nativeOutput?.contractVersion !== SCIENTIFIC_THINKING_ENGINE_VERSION
+      || nativeOutput.projectWriteAuthorized !== false) return false;
+    return readProductScientificThinkingOwnerResult({
+      ledger: input.ownerResultLedger,
+      resultId: entry.result.resultId,
+      currentProjectSnapshot: snapshot,
+      trace,
+      observedAt: input.startedAt,
+    }).freshness.status === "CURRENT";
   }) ?? null;
   const invocation = reusableEntry ? null : invokeScientificThinkingForProject({
       project: input.project,
@@ -417,7 +426,8 @@ export const resolveScientificThinkingConversation = (input: {
     kind: "DEFER",
     response: "Aucune décision n’est nécessaire maintenant. Les propositions restent discutables et le Research Project demeure inchangé.",
   };
-  const selectionIntent = /\b(?:je|nous)\s+(?:prefer|chois|reten)|\b(?:retenir|choisir|selectionner|adopter)\b/.test(value);
+  const selectionIntent = /\b(?:je|nous)\s+(?:prefer|chois|reten)|\b(?:retenir|choisir|selectionner|adopter)\b/.test(value)
+    || /\bje\s+retiens\b(?!\s+pas\b)/.test(value);
   if (selectionIntent) {
     const groups = [
       { label: "hypothese", values: input.output.hypotheses.map((candidate) => candidate.hypothesisId) },

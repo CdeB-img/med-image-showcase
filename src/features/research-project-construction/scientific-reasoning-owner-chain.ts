@@ -243,6 +243,11 @@ export const buildScientificThinkingInputFromProjectSnapshot = (input: {
       project: snapshot.sourceProjectDigest,
       purpose,
       relations,
+      ...(knowledgeOwnerResult ? { knowledge: {
+        resultId: knowledgeOwnerResult.resultId,
+        resultVersion: knowledgeOwnerResult.resultVersion,
+        resultDigest: knowledgeResult!.resultDigest,
+      } } : {}),
     })}`,
     originalExpression,
     validatedReformulation,

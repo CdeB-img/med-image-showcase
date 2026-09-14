@@ -337,6 +337,8 @@ export type LanguageProjectionResponse = Readonly<{
     latencyMs: number;
     providerCalls?: readonly import("./provider-call-observability.js").ProviderCallRecord[];
     requestEstimatedCostUsd?: number;
+    requestCostIncomplete?: boolean;
+    unpricedCallCount?: number;
   }>;
 }>;
 

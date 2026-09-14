@@ -43,7 +43,8 @@ const CEC_AT = "2026-08-29T10:00:00.000Z";
 
 const runtime = vi.hoisted(() => ({ request: vi.fn() }));
 
-vi.mock("@/features/protocol-designer/product-bridge-client", () => ({
+vi.mock("@/features/protocol-designer/product-bridge-client", async (importOriginal) => ({
+  ...await importOriginal<typeof import("@/features/protocol-designer/product-bridge-client")>(),
   requestProtocolDesignerBridge: runtime.request,
 }));
 

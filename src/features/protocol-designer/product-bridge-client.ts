@@ -8,12 +8,26 @@ import type {
   LanguageProjectionRequest,
   LanguageProjectionResponse,
 } from "./conversation-language-gateway";
+import {
+  providerCallRequestObservability,
+  type ProviderCallRecord,
+  type ProviderCallRequestObservability,
+} from "./provider-call-observability";
+
+const responseObservability = (value: unknown): ProviderCallRequestObservability | null => {
+  if (!value || typeof value !== "object" || !("observability" in value)) return null;
+  const observed = value.observability;
+  if (!observed || typeof observed !== "object" || !("providerCalls" in observed)
+    || !Array.isArray(observed.providerCalls)) return null;
+  return providerCallRequestObservability(observed.providerCalls as ProviderCallRecord[]);
+};
 
 export class ProductBridgeClientError extends Error {
   constructor(
     readonly code: string,
     message: string,
     readonly diagnostic: LanguageProjectionContractFailureDiagnostic | null = null,
+    readonly observability: ProviderCallRequestObservability | null = null,
   ) { super(message); }
 }
 
@@ -30,9 +44,11 @@ export const requestProtocolDesignerBridge = async (
   if (!response.ok) throw new ProductBridgeClientError(
     value?.error?.code ?? "PRODUCT_BRIDGE_UNAVAILABLE",
     value?.error?.message ?? "Conversation momentanément indisponible.",
+    null,
+    responseObservability(value),
   );
   if (value?.apiVersion !== PRODUCT_BRIDGE_API_VERSION || typeof value?.assistantReply !== "string") {
-    throw new ProductBridgeClientError("INVALID_PRODUCT_BRIDGE_RESPONSE", "Réponse conversationnelle invalide.");
+    throw new ProductBridgeClientError("INVALID_PRODUCT_BRIDGE_RESPONSE", "Réponse conversationnelle invalide.", null, responseObservability(value));
   }
   return value as ProductBridgeResponse;
 };
@@ -53,11 +69,12 @@ export const requestConversationLanguageProjection = async (
     value?.error?.diagnostic?.contract === "LANGUAGE_PROJECTION_CONTRACT_FAILURE_DIAGNOSTIC"
       ? value.error.diagnostic as LanguageProjectionContractFailureDiagnostic
       : null,
+    responseObservability(value),
   );
   if (value?.apiVersion !== PRODUCT_BRIDGE_API_VERSION
     || value?.operation !== "LANGUAGE_PROJECTION"
     || value?.projection?.contract !== "CONVERSATION_LANGUAGE_PROJECTION") {
-    throw new ProductBridgeClientError("INVALID_LANGUAGE_PROJECTION_RESPONSE", "Projection linguistique invalide.");
+    throw new ProductBridgeClientError("INVALID_LANGUAGE_PROJECTION_RESPONSE", "Projection linguistique invalide.", null, responseObservability(value));
   }
   return value as LanguageProjectionResponse;
 };

@@ -22,7 +22,8 @@ describe("P-WEB-02 — preserved public boundaries after FUNCTIONAL-RESET-01", (
   });
   it("starts from the scientific question instead of an internal corpus", () => {
     renderDemo();
-    expect(screen.getByRole("heading", { name: "Protocol Designer" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "Construisons votre projet scientifique" })).toBeInTheDocument();
+    expect(screen.getByRole("textbox", { name: "Votre message" })).toBeInTheDocument();
     expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
     expect(screen.queryByText("RB-003")).not.toBeInTheDocument();
   });

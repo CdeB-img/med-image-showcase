@@ -256,6 +256,20 @@ describe("SCIENTIFIC-STACK-ST-01 — governed Scientific Thinking owner", () => 
     expect(scientificThinkingInteractionMatchesCurrentProject(result.interaction, adopted)).toBe(false);
   });
 
+  it("recognizes 'Je retiens' as a proposed selection, never its negation or automatic adoption", () => {
+    const project = projectFrom({ id: "retain-selection", objective: "caractériser l’évolution longitudinale du remodelage" });
+    const { result } = dispatch(project);
+    const before = JSON.stringify(project);
+    expect(result.output.questions.length).toBeGreaterThan(0);
+    expect(resolveScientificThinkingConversation({ raw: "Je retiens la question 1.", output: result.output }))
+      .toEqual({ kind: "SELECT_CANDIDATE", candidateRef: result.output.questions[0]!.questionId });
+    for (const raw of ["Je ne retiens pas la question 1.", "Je retiens pas la question 1."]) {
+      expect(resolveScientificThinkingConversation({ raw, output: result.output }).kind).not.toBe("SELECT_CANDIDATE");
+    }
+    expect(JSON.stringify(project)).toBe(before);
+    expect(result.output.candidateIsAdopted).toBe(false);
+  });
+
   it("QRY boundary — a non-ST scope does not trigger Scientific Thinking", () => {
     const project = projectFrom({ id: "non-st-scope" });
     const navigation = buildFunctionalResetQueryNavigation({ project, recordedAt: AT });

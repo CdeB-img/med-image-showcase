@@ -28,7 +28,7 @@ import {
   executeOpenAIPersistentDelta,
 } from "./protocol-designer-openai-extraction-provider.js";
 import {
-  providerSessionCostUsd,
+  providerCallRequestObservability,
   type ProviderCallObservationContext,
   type ProviderCallRecord,
 } from "../src/features/protocol-designer/provider-call-observability.js";
@@ -183,8 +183,7 @@ export const executeProtocolDesignerBridge = async (input: {
             contextBoundary: projected.contextBoundary,
             calls: 1,
             latencyMs: projected.latencyMs,
-            providerCalls,
-            requestEstimatedCostUsd: providerSessionCostUsd(providerCalls),
+            ...providerCallRequestObservability(providerCalls),
           },
         },
       };
@@ -193,7 +192,7 @@ export const executeProtocolDesignerBridge = async (input: {
         return { status: 503, body: {
           apiVersion: PRODUCT_BRIDGE_API_VERSION,
           error: { code: "LANGUAGE_PROJECTION_PROVIDER_FAILURE", message: "Cette langue ne peut pas être traitée pour le moment.", provider: safeProviderError(error) },
-          observability: { providerCalls, requestEstimatedCostUsd: providerSessionCostUsd(providerCalls) },
+          observability: providerCallRequestObservability(providerCalls),
         } };
       }
       if (error instanceof LanguageProjectionContractError) {
@@ -207,10 +206,15 @@ export const executeProtocolDesignerBridge = async (input: {
               message: "La projection linguistique n’a pas conservé les invariants requis.",
               diagnostic: error.diagnostic,
             },
+            observability: providerCallRequestObservability(providerCalls),
           },
         };
       }
-      return { status: 422, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LANGUAGE_PROJECTION_CONTRACT_FAILED", message: "La projection linguistique n’a pas conservé les invariants requis." } } };
+      return { status: 422, body: {
+        apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        error: { code: "LANGUAGE_PROJECTION_CONTRACT_FAILED", message: "La projection linguistique n’a pas conservé les invariants requis." },
+        observability: providerCallRequestObservability(providerCalls),
+      } };
     }
   }
   const request = parseProductBridgeRequest(input.body);
@@ -471,7 +475,7 @@ export const executeProtocolDesignerBridge = async (input: {
       return { status: 503, body: {
         apiVersion: PRODUCT_BRIDGE_API_VERSION,
         error: conversationFailure,
-        observability: { providerCalls, requestEstimatedCostUsd: providerSessionCostUsd(providerCalls) },
+        observability: providerCallRequestObservability(providerCalls),
       } };
     }
   }
@@ -509,8 +513,7 @@ export const executeProtocolDesignerBridge = async (input: {
         projectWrites: 0,
         conversationUsage: conversation?.usage ?? null,
         extractionUsage,
-        providerCalls,
-        requestEstimatedCostUsd: providerSessionCostUsd(providerCalls),
+        ...providerCallRequestObservability(providerCalls),
       },
     },
   };
@@ -520,6 +523,7 @@ export const handleProtocolDesignerBridge = async (
   request: ApiRequest,
   response: ApiResponse,
   environment: Record<string, string | undefined> = process.env,
+  dependencies: { fetchImpl?: typeof fetch; now?: () => number } = {},
 ) => {
   response.setHeader("content-type", "application/json; charset=utf-8");
   response.setHeader("cache-control", "no-store");
@@ -535,7 +539,7 @@ export const handleProtocolDesignerBridge = async (
         code: PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY,
         message: "Protocol Designer est temporairement indisponible en production.",
       },
-      observability: { providerCalls: [], requestEstimatedCostUsd: 0 },
+      observability: providerCallRequestObservability([]),
     });
   }
   let body: unknown = request.body;
@@ -547,10 +551,12 @@ export const handleProtocolDesignerBridge = async (
   }
   const result = await executeProtocolDesignerBridge({
     body,
-    apiKey: process.env.GEMINI_API_KEY?.trim() || null,
-    openAiApiKey: process.env.OPENAI_API_KEY?.trim() || null,
-    geminiModel: process.env.GEMINI_MODEL,
-    openAiExtractionModel: process.env.OPENAI_EXTRACTION_MODEL,
+    apiKey: environment.GEMINI_API_KEY?.trim() || null,
+    openAiApiKey: environment.OPENAI_API_KEY?.trim() || null,
+    geminiModel: environment.GEMINI_MODEL,
+    openAiExtractionModel: environment.OPENAI_EXTRACTION_MODEL,
+    fetchImpl: dependencies.fetchImpl,
+    now: dependencies.now,
   });
   response.status(result.status).json(result.body);
 };

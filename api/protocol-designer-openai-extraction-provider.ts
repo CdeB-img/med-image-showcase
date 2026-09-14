@@ -25,7 +25,9 @@ import { buildPersistentDeltaPayload, ProductBridgeProviderError } from "./proto
 import {
   emptyProviderTokenUsage,
   materializeProviderCallRecord,
+  providerCallRequestMetadata,
   type ProviderCallAttemptInstrumentation,
+  type ProviderObservedRequestInit,
   type ProviderTokenUsage,
 } from "../src/features/protocol-designer/provider-call-observability.js";
 
@@ -109,38 +111,46 @@ const callOpenAIResponses = async (input: {
   };
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
-  let response: Response;
+  let response: Response | undefined;
+  let raw: string;
   try {
-    response = await input.fetchImpl(OPENAI_RESPONSES_ENDPOINT, {
+    const requestInit: ProviderObservedRequestInit = {
       method: "POST",
       headers: { "content-type": "application/json", authorization: `Bearer ${input.apiKey}` },
       body: JSON.stringify(input.payload),
       signal: controller.signal,
-    });
+      noxiaProviderObservation: providerCallRequestMetadata(input.instrumentation),
+    };
+    response = await input.fetchImpl(OPENAI_RESPONSES_ENDPOINT, requestInit);
+    raw = await response.text();
   } catch (error) {
     const latencyMs = Date.now() - started;
+    const failureReason = error instanceof Error && error.name === "AbortError" ? "TIMEOUT"
+      : response ? "RESPONSE_BODY_READ_FAILURE" : "NETWORK_FAILURE";
+    const requestId = response?.headers.get("x-request-id") ?? null;
     observe({
       provider: "OPENAI", modelRequested: input.modelRequested, modelReturned: null,
       instrumentation: input.instrumentation!, usage: emptyProviderTokenUsage(), latencyMs,
-      status: "FAILED", failureReason: error instanceof Error && error.name === "AbortError" ? "TIMEOUT" : "NETWORK_FAILURE",
-      providerRequestId: null, providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
+      status: "FAILED", failureReason,
+      providerRequestId: requestId, providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
     });
     throw new ProductBridgeProviderError(
       input.stage,
-      null,
-      error instanceof Error && error.name === "AbortError" ? "TIMEOUT" : "NETWORK_FAILURE",
+      response?.status ?? null,
+      failureReason,
       "Provider request failed.",
       null,
       "OPENAI",
+      requestId,
     );
   } finally {
     clearTimeout(timer);
   }
   const requestId = response.headers.get("x-request-id");
-  const raw = await response.text();
   let body: OpenAIResponseBody;
   try {
     body = JSON.parse(raw) as OpenAIResponseBody;
+    if (!body || typeof body !== "object" || Array.isArray(body)) throw new Error("INVALID_PROVIDER_JSON");
   } catch {
     const latencyMs = Date.now() - started;
     observe({

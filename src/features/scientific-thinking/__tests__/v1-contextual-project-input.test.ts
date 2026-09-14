@@ -48,7 +48,62 @@ const adoptedInitialProject = () => {
   return adoptBehaviorContribution(contribution, null, 41);
 };
 
+const adoptedGenericComparisonInput = (question: string) => {
+  const turn = behaviorTurn("turn:structured-comparison", question);
+  const contribution = behaviorContribution({
+    contributionId: "contribution:structured-comparison",
+    turns: [turn],
+    candidateObjects: [
+      behaviorItem({ itemId: "question:function", proposedType: "SCIENTIFIC_QUESTION", content: question, turnId: turn.turnId }),
+      behaviorItem({ itemId: "objective:function", proposedType: "OBJECTIVE", content: "Décrire la capacité de marche", turnId: turn.turnId }),
+      behaviorItem({ itemId: "condition:function", proposedType: "CONDITION", content: "Limitation fonctionnelle", turnId: turn.turnId }),
+      behaviorItem({ itemId: "intervention:remote", proposedType: "INTERVENTION", content: "Suivi à distance", turnId: turn.turnId }),
+      behaviorItem({ itemId: "comparator:onsite", proposedType: "COMPARATOR", content: "Suivi en consultation", turnId: turn.turnId }),
+      behaviorItem({ itemId: "acquisition:walking", proposedType: "ACQUISITION", content: "Test de marche", turnId: turn.turnId }),
+      behaviorItem({ itemId: "endpoint:walking", proposedType: "ENDPOINT", content: "Distance de marche", turnId: turn.turnId, studyRole: "PRIMARY_ENDPOINT" }),
+    ],
+    relations: [behaviorRelation({
+      relationId: "relation:followup-comparison", relationType: "COMPARES_WITH",
+      sourceItemId: "intervention:remote", targetItemId: "comparator:onsite", turnId: turn.turnId,
+    })],
+  });
+  const project = adoptBehaviorContribution(contribution, null, 42);
+  return buildScientificThinkingInputFromProjectSnapshot({ project });
+};
+
 describe("V1 contextual Project input to Scientific Thinking", () => {
+  it.each([
+    "Le format du suivi change-t-il la distance de marche des participants ?",
+    "La distance de marche varie-t-elle selon le format du suivi ?",
+  ])("preserves an adopted structured comparison without lexical or Knowledge support: %s", (question) => {
+    const input = adoptedGenericComparisonInput(question);
+    const before = JSON.stringify(input);
+    const output = executeScientificThinkingEngine(input);
+
+    expect(output.questions[0]).toMatchObject({ text: question, testability: "TESTABLE_CANDIDATE", scope: "BALANCED", reviewState: "PENDING", support: "UNAVAILABLE" });
+    expect(output.hypotheses.length).toBeGreaterThan(0);
+    expect(output.hypotheses.every((hypothesis) => hypothesis.reviewState === "PENDING")).toBe(true);
+    expect(output.sourceProject?.projectDigest).toBe(input.researchContext.researchProjectDigest);
+    expect(JSON.stringify(input)).toBe(before);
+  });
+
+  it.each(["NO_RELATION", "UNRESOLVED_REF", "NO_ADOPTED_PROVENANCE", "NO_ENDPOINT", "UNKNOWN_ENDPOINT", "NO_ADAPTER_PROVENANCE", "STALE_BINDING"] as const)(
+    "does not infer a complete comparison when structural evidence is missing: %s", (gap) => {
+      const question = "Le format du suivi change-t-il la distance de marche des participants ?";
+      const input = adoptedGenericComparisonInput(question);
+      if (gap === "NO_RELATION") input.relations = [];
+      if (gap === "UNRESOLVED_REF") input.resolvedConcepts = input.resolvedConcepts.filter((item) => item.conceptId !== "intervention:remote");
+      if (gap === "NO_ADOPTED_PROVENANCE") input.information.explicit = [];
+      if (gap === "NO_ENDPOINT") input.outcomes = [];
+      if (gap === "UNKNOWN_ENDPOINT") input.projectUnknowns.push({ objectRef: "endpoint:walking", objectType: "ENDPOINT", text: "Distance de marche" });
+      if (gap === "NO_ADAPTER_PROVENANCE") input.information.interpreted = [];
+      if (gap === "STALE_BINDING") input.scientificIntent.semanticModelDigest = "different-project-digest";
+
+      const output = executeScientificThinkingEngine(input);
+      expect(output.questions.some((item) => item.text === question && item.testability === "TESTABLE_CANDIDATE")).toBe(false);
+    },
+  );
+
   it("uses the explicit intervention comparison and primary endpoint instead of re-asking the phenomenon", () => {
     const project = adoptedInitialProject();
     const input = buildScientificThinkingInputFromProjectSnapshot({

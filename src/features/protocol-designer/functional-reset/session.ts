@@ -27,7 +27,11 @@ import type {
   ProductBridgeRequest,
   ProductBridgeResponse,
 } from "@/features/protocol-designer/product-bridge";
-import type { ProviderCallRecord } from "@/features/protocol-designer/provider-call-observability";
+import {
+  latestRecordedProviderSessionCostUsd,
+  providerSessionCostSummary,
+  type ProviderCallRecord,
+} from "@/features/protocol-designer/provider-call-observability";
 import type { CanonicalProjectChangeSet, ContributionProjectChangeSet, HumanReviewProjection } from "@/features/research-project-construction";
 import { HUMAN_REVIEW_PROJECTION_VERSION, ensureCanonicalProjectState } from "@/features/research-project-construction";
 import {
@@ -168,7 +172,7 @@ export type ProductBridgeTrace = {
   raw: string;
   assistantReply: string;
   persistentExtractionCalled: boolean;
-  persistentExtractionStatus: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE";
+  persistentExtractionStatus: "NOT_REQUESTED" | "NO_CHANGE" | "CANDIDATE" | "BLOCKED" | "TECHNICAL_FAILURE" | "UNKNOWN";
   persistentExtractionFailure?: ProductBridgeResponse["persistentExtraction"]["failure"];
   persistentExtractionRecovery?: ProductBridgeResponse["persistentExtraction"]["recovery"];
   providerArtifact: PersistentExtractionProviderArtifact | null;
@@ -201,6 +205,8 @@ export type ProductBridgeTrace = {
   languageGatewayCalls?: number;
   providerCallRecords?: readonly ProviderCallRecord[];
   cumulativeSessionCostUsd?: number;
+  cumulativeSessionCostIncomplete?: boolean;
+  cumulativeSessionUnpricedCallCount?: number;
 };
 
 export type FunctionalResetSession = {
@@ -235,6 +241,69 @@ export type FunctionalResetSession = {
   validationRunLedger: Readonly<ProductValidationRunLedger>;
   scientificExecutionTraceLedger: Readonly<ScientificExecutionTraceLedger>;
   conversationLanguageGateway: Readonly<ConversationLanguageGatewayState>;
+};
+
+/** Attach observations to the existing bridge trace, including early local/error exits. */
+export const appendFunctionalResetProviderCallRecords = (
+  session: FunctionalResetSession,
+  input: { turnId: string; traceRunId?: string; requestKind?: ProductBridgeRequest["requestKind"]; records: readonly ProviderCallRecord[] },
+): FunctionalResetSession => {
+  const known = new Set(session.bridgeTraces.flatMap((trace) => trace.providerCallRecords ?? []).map((record) => record.callId));
+  const newRecords = input.records.filter((record) => {
+    if (known.has(record.callId)) return false;
+    known.add(record.callId);
+    return true;
+  });
+  const delta = providerSessionCostSummary(newRecords);
+  const previousSummary = [...session.bridgeTraces].reverse().find((trace) => trace.cumulativeSessionCostUsd !== undefined);
+  const retainedSummary = providerSessionCostSummary(session.bridgeTraces.flatMap((trace) => trace.providerCallRecords ?? []));
+  const reverseTargetIndex = [...session.bridgeTraces].reverse().findIndex((trace) => trace.turnId === input.turnId
+    && (input.requestKind === undefined || trace.requestKind === input.requestKind));
+  const targetIndex = reverseTargetIndex < 0 ? -1 : session.bridgeTraces.length - 1 - reverseTargetIndex;
+  const summaryIndex = previousSummary?.cumulativeSessionCostIncomplete === undefined ? -1 : session.bridgeTraces.indexOf(previousSummary);
+  const legacyUnobserved = session.bridgeTraces.reduce((total, trace, index) => index <= summaryIndex ? total
+    : total + Math.max(0, trace.calls - (trace.providerCallRecords?.length ?? 0) - (index === targetIndex ? newRecords.length : 0)), 0);
+  const cumulativeSessionUnpricedCallCount = (previousSummary?.cumulativeSessionUnpricedCallCount
+    ?? retainedSummary.unpricedCallCount) + legacyUnobserved + delta.unpricedCallCount;
+  const cumulativeSessionCostIncomplete = (previousSummary?.cumulativeSessionCostIncomplete
+    ?? retainedSummary.costIncomplete) || legacyUnobserved > 0 || delta.costIncomplete;
+  const cumulativeSessionCostUsd = Number(((previousSummary ? latestRecordedProviderSessionCostUsd(session.bridgeTraces)
+    : retainedSummary.estimatedCostUsd) + delta.estimatedCostUsd).toFixed(10));
+  if (!newRecords.length) {
+    const latest = session.bridgeTraces.at(-1);
+    if (!latest || !previousSummary && !legacyUnobserved
+      || latest.cumulativeSessionCostUsd === cumulativeSessionCostUsd
+        && latest.cumulativeSessionCostIncomplete === cumulativeSessionCostIncomplete
+        && latest.cumulativeSessionUnpricedCallCount === cumulativeSessionUnpricedCallCount) return session;
+    return { ...session, bridgeTraces: [...session.bridgeTraces.slice(0, -1), {
+      ...latest, cumulativeSessionCostUsd, cumulativeSessionCostIncomplete, cumulativeSessionUnpricedCallCount,
+    }] };
+  }
+  const bridgeTraces = [...session.bridgeTraces];
+  if (targetIndex >= 0) {
+    const target = bridgeTraces[targetIndex]!;
+    const providerCallRecords = [...(target.providerCallRecords ?? []), ...newRecords];
+    bridgeTraces[targetIndex] = { ...target, providerCallRecords, calls: Math.max(target.calls, providerCallRecords.length) };
+  } else {
+    bridgeTraces.push({
+      turnId: input.turnId, traceRunId: input.traceRunId, requestKind: input.requestKind ?? "USER_TURN",
+      raw: "[NOT_CAPTURED:PROVIDER_OBSERVATION]", assistantReply: "[NOT_CAPTURED:PROVIDER_OBSERVATION]",
+      persistentExtractionCalled: newRecords.some((record) => record.purpose === "PERSISTENT_DELTA"),
+      persistentExtractionStatus: newRecords.some((record) => record.purpose === "PERSISTENT_DELTA") ? "UNKNOWN" : "NOT_REQUESTED",
+      providerArtifact: null, wireCandidate: null,
+      persistentCandidate: null, deterministicValidation: null, projectChangeSetCandidate: null,
+      canonicalProjectChangeSetCandidate: null, humanReviewProjection: null, humanDecision: null,
+      projectVersionBefore: session.project?.versionId ?? null, projectVersionAfter: session.project?.versionId ?? null,
+      qryNeedBefore: null, qryNeedAfter: null, provider: newRecords[0]!.provider, model: newRecords[0]!.modelRequested,
+      conversationLatencyMs: newRecords.filter((record) => record.purpose === "CONVERSATION_REALIZATION")
+        .reduce((total, record) => total + record.latencyMs, 0),
+      extractionLatencyMs: null, calls: newRecords.length, providerCallRecords: newRecords,
+    });
+  }
+  bridgeTraces[bridgeTraces.length - 1] = {
+    ...bridgeTraces.at(-1)!, cumulativeSessionCostUsd, cumulativeSessionCostIncomplete, cumulativeSessionUnpricedCallCount,
+  };
+  return { ...session, bridgeTraces: bridgeTraces.slice(-20) };
 };
 
 const id = (prefix: string) => {

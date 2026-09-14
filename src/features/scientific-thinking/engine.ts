@@ -161,9 +161,29 @@ const explicitAlternativeClauses = (input: ScientificThinkingInput) => {
     .filter((item) => item.length >= 4);
   return parts.length >= 2 ? unique(parts) : [];
 };
+const hasRepresentedProjectComparison = (input: ScientificThinkingInput) => {
+  const project = input.researchContext;
+  if (!project.researchProjectId || !project.researchProjectVersion || !project.researchProjectDigest || !project.projectSnapshotDigest
+    || input.scientificIntent.sourceJourney !== "DESIGN_STUDY"
+    || input.scientificIntent.semanticModelRef !== project.researchProjectId
+    || input.scientificIntent.semanticModelDigest !== project.researchProjectDigest) return false;
+
+  // The existing Project adapter only emits this provenance after resolving a
+  // represented comparison and endpoint. It is not evidence of scientific truth.
+  if (!input.information.interpreted.some((item) => item.startsWith("PROJECT_CONTEXTUAL_QUESTION_CANDIDATE:"))) return false;
+  const adoptedConcepts = input.resolvedConcepts.filter((concept) =>
+    input.information.explicit.includes(`PROJECT_ADOPTED:${concept.conceptId}:${concept.label}`)
+    && !input.projectUnknowns.some((unknown) => unknown.objectRef === concept.conceptId));
+  const adoptedRefs = new Set(adoptedConcepts.map((concept) => concept.conceptId));
+  const representedComparison = input.relations.some((relation) => {
+    const match = /^COMPARES_WITH\(([^,()]+),([^,()]+)\)$/.exec(relation);
+    return Boolean(match && match[1] !== match[2] && adoptedRefs.has(match[1]!) && adoptedRefs.has(match[2]!));
+  });
+  return representedComparison && adoptedConcepts.some((concept) => input.outcomes.includes(concept.label));
+};
 const scopeFor = (input: ScientificThinkingInput): QuestionCandidate["scope"] => {
   if (!input.scientificObjectTerms.length || has(input.originalExpression, /\b(tout|tous|general|imagerie medicale|plusieurs maladies|choses)\b/)) return "TOO_BROAD";
-  if (input.methodsMentioned.length > 0 && !hasRelation(input.originalExpression)) return "TOO_NARROW";
+  if (input.methodsMentioned.length > 0 && !hasRelation(input.originalExpression) && !hasRepresentedProjectComparison(input)) return "TOO_NARROW";
   return "BALANCED";
 };
 
@@ -211,6 +231,7 @@ const buildQuestionCandidates = (input: ScientificThinkingInput, controls: Scien
   const methodOnlyComparison = isMethodOnlyComparison(input);
   const completeExistingQuestion = hasQuestionForm(source)
     && ((hasRelation(source) && (hasPopulation(input) || hasTime(input) || hasOutcome(input)) && !hasMethodComparison(input))
+      || (hasRepresentedProjectComparison(input) && !hasMethodComparison(input))
       || hasSupportedStructuredProjectQuestion(input, source));
   const candidates: Omit<QuestionCandidate, "reviewState">[] = [];
 

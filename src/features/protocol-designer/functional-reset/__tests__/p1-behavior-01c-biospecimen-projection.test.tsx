@@ -162,7 +162,7 @@ describe("P1-BEHAVIOR-01C — generic Biospecimen/material-collection Project pr
       onRequestProtocol={() => undefined}
     />);
     const biospecimenSection = screen.getByRole("heading", { name: "Prélèvements / échantillons" }).closest("section")!;
-    const imagingSection = screen.getByRole("heading", { name: "Imagerie" }).closest("section")!;
+    const imagingSection = screen.getByRole("heading", { name: "Imagerie / méthodes / mesures" }).closest("section")!;
     expect(within(biospecimenSection).getByText("ressource matérielle E à collecter")).toBeInTheDocument();
     expect(within(imagingSection).queryByText("ressource matérielle E à collecter")).toBeNull();
 
