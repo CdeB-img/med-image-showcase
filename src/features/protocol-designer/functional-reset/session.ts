@@ -27,6 +27,7 @@ import type {
   ProductBridgeRequest,
   ProductBridgeResponse,
 } from "@/features/protocol-designer/product-bridge";
+import type { ProviderCallRecord } from "@/features/protocol-designer/provider-call-observability";
 import type { CanonicalProjectChangeSet, ContributionProjectChangeSet, HumanReviewProjection } from "@/features/research-project-construction";
 import { HUMAN_REVIEW_PROJECTION_VERSION, ensureCanonicalProjectState } from "@/features/research-project-construction";
 import {
@@ -198,6 +199,8 @@ export type ProductBridgeTrace = {
   preProjectTrace?: Readonly<PreProjectScientificTraceSegment> | null;
   multilingualUserTurn?: Readonly<MultilingualUserTurn> | null;
   languageGatewayCalls?: number;
+  providerCallRecords?: readonly ProviderCallRecord[];
+  cumulativeSessionCostUsd?: number;
 };
 
 export type FunctionalResetSession = {

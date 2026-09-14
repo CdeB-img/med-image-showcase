@@ -254,6 +254,8 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
       preProjectNavigation: { owner: "QUERY_NAVIGATION", action: "PROPOSE", projectWriteAuthorized: false },
     });
     expect(await screen.findByText(NATURAL_CEC_RESPONSE)).toBeInTheDocument();
+    const details = await screen.findByTestId("functional-review-details");
+    fireEvent.click(within(details).getByText("Voir les détails"));
 
     const understanding = await screen.findByTestId("understanding-review-card");
     expect(within(understanding).getByText("Voici ce que j’ai compris")).toBeInTheDocument();
@@ -277,7 +279,7 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
     expect(understanding).not.toHaveTextContent(CEC_INPUT);
     const humanReview = screen.getByTestId("functional-contribution-review");
     expect(humanReview).toBeInTheDocument();
-    expect(humanReview).toHaveTextContent("Question de recherche à préciser.");
+    expect(humanReview).toHaveTextContent("question de recherche — éléments compris, détails à préciser");
     expect(humanReview).toHaveTextContent("Hypothèse de départ");
     expect(humanReview).toHaveTextContent("Objectif");
     expect(humanReview).toHaveTextContent("Contexte du projet");

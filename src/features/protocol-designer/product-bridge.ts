@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { ProviderCallObservationContext, ProviderCallRecord } from "./provider-call-observability.js";
 import { buildGovernedConversationProviderPayload } from "../query-navigation/governed-conversation-realization.js";
 import { validateNextActionCandidate } from "../query-navigation/validation.js";
 import { logicalDigest } from "../knowledge-engine/canonical.js";
@@ -883,6 +884,8 @@ export type ProductBridgeRequest = {
   /** Client-projected, lifecycle-bound context; never a transcript or a second context owner. */
   boundedReferentContext?: import("../query-navigation/current-turn-navigation.js").BoundedConversationReferentContext;
   boundedInteraction?: import("../query-navigation/current-turn-navigation.js").BoundedConversationInteraction;
+  /** Technical correlation only. It never contributes to scientific routing or provider content. */
+  observabilityContext?: ProviderCallObservationContext;
 };
 
 export type ProductBridgeResponse = {
@@ -949,6 +952,8 @@ export type ProductBridgeResponse = {
       candidatesTokenCount?: number;
       totalTokenCount?: number;
     } | null;
+    providerCalls?: readonly ProviderCallRecord[];
+    requestEstimatedCostUsd?: number;
   };
 };
 
@@ -1701,6 +1706,14 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
     || !record.conversation.turns.every((turn) => turn && typeof turn.turnId === "string"
       && ["USER", "NOXIA"].includes(turn.role)
       && typeof turn.content === "string" && turn.content.trim().length > 0 && turn.content.length <= 4_000)) return null;
+  if (record.observabilityContext !== undefined) {
+    const context = record.observabilityContext;
+    if (typeof context.clientRequestId !== "string" || !context.clientRequestId.trim()
+      || (context.sessionId !== null && typeof context.sessionId !== "string")
+      || (context.conversationId !== null && typeof context.conversationId !== "string")
+      || (context.turnId !== null && typeof context.turnId !== "string")
+      || (context.testSessionId !== null && typeof context.testSessionId !== "string")) return null;
+  }
   if (record.preProjectNavigation !== undefined) {
     const navigation = record.preProjectNavigation;
     const latestUserTurn = [...record.conversation.turns].reverse().find((turn) => turn.role === "USER");

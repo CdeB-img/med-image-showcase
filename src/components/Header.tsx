@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { ChevronDown, Menu, X, ChevronRight } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
+import { protocolDesignerPublicUiEnabled } from "@/features/protocol-designer/public-runtime-access";
 
 /* =========================
    CONFIG & TYPES (description ajouté)
@@ -84,10 +85,10 @@ const NAV_CONFIG: NavItemType[] = [
       },
     ],
   },
-  {
+  ...(protocolDesignerPublicUiEnabled(import.meta.env.DEV) ? [{
     label: "Protocol Designer",
     path: "/protocol-designer",
-  },
+  }] : []),
   {
     label: "Prestations",
     path: "/prestations-imagerie-medicale",

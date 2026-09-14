@@ -31,6 +31,7 @@ describe("P1-BEHAVIOR-02B — generic study-construction routing", () => {
     ["R-F", "Quelles sont les différences entre la méthode alpha et la méthode bêta ?", "UNDERSTAND"],
     ["R-G", "J’aimerais peut-être travailler sur le phénomène alpha.", "FORMALIZE_IDEA"],
     ["R-H", "Je souhaite construire un protocole de recherche sur le phénomène alpha.", "DESIGN_STUDY"],
+    ["R-I", "Je veux construire un essai randomisé ouvert comparant deux suivis.", "DESIGN_STUDY"],
   ] as const)("%s routes to %s", (id, raw, expected) => {
     const { routing } = routed(raw, id);
     expect(routing.routeIntent).toBe(expected);

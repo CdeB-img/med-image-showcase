@@ -160,6 +160,8 @@ export const recognizeCurrentProjectDirection = (
 ): CurrentProjectDirection => {
   if (!currentProjectAvailable) return "NONE";
   const command = comparableProductCommand(value);
+  const interrogative = /\?\s*$/u.test(value.trim())
+    || /^(?:pourquoi|comment|en quoi|quel(?:le)?s?)\b/u.test(command);
   const preserve = /\b(?:finalement|en\s+fait)\s+(?:non|pas)\b.{0,160}\b(?:garde|conserve|maintiens?|reviens?)\b/u.test(command)
     || /\b(?:garde|conserve|maintiens?)\b.{0,160}\b(?:precedent|actuel|inchange)\b/u.test(command);
   if (preserve) return "PRESERVE_EXISTING_PROJECT";
@@ -169,8 +171,8 @@ export const recognizeCurrentProjectDirection = (
   if (addition) return "ADD_PROJECT_OBJECT";
 
   const editVerb = "(?:remplace|remplacer|modifie|modifier|corrige|corriger|change|changer|limite|limiter|exprime|exprimer|reporte|reporter|decale|decaler)";
-  const replacement = /\b(?:a\s+la\s+place\s+de|plutot\s+que)\b/u.test(command)
-    || new RegExp(`^(?:(?:(?:c est|d accord|ok|garde)\\b.{0,120}\\bmais)\\s+)?${editVerb}\\b`, "u").test(command)
+  const replacement = (!interrogative && /\b(?:a\s+la\s+place\s+de|plutot\s+que)\b/u.test(command))
+    || new RegExp(`^(?:(?:finalement|en fait)\\s+)?(?:(?:(?:c est|d accord|ok|garde)\\b.{0,120}\\bmais)\\s+)?${editVerb}\\b`, "u").test(command)
     || new RegExp(`\\b(?:je|nous|on)\\s+${editVerb}\\b`, "u").test(command);
   const boundedPreference = /\b(?:je|nous)\s+(?:prefererais|prefererions)\s+(?:plutot\s+)?(?:[a-z]\s*[+-]?\s*\d+|[-+]?\d+(?:[.,]\d+)?(?:\s*[%°a-z]+)?)(?:\b|$)/u.test(command);
   return replacement || boundedPreference ? "MODIFY_EXISTING_PROJECT_OBJECT" : "NONE";

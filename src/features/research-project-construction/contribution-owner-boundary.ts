@@ -456,6 +456,16 @@ const itemLocalContext = (item: ScientificContributionItem) => [
   item.studyRole,
 ].filter((value): value is string => Boolean(value)).join(" ");
 
+// A sourceText witness may contain the complete user turn. It can recover a
+// value for an already identified object, but it must not assign every sibling
+// object the same scientific role.
+const itemIntrinsicContext = (item: ScientificContributionItem) => [
+  item.semanticIdentity,
+  item.content,
+  item.proposedType,
+  item.studyRole,
+].filter((value): value is string => Boolean(value)).join(" ");
+
 const itemScientificValueContext = (item: ScientificContributionItem) => [
   item.content,
   item.epistemicBoundary.sourceText,
@@ -493,15 +503,15 @@ const populationEventWindow = (
 
 const ageCriteria = (item: ScientificContributionItem, sectionId: ResearchProjectSectionId, contribution: ScientificInterpretationContributionEnvelope): SpecializedProjectElement[] => {
   const localContext = folded(itemScientificValueContext(item));
-  const identityAwareContext = folded(itemLocalContext(item));
+  const identityAwareContext = folded(itemIntrinsicContext(item));
   const fallbackContext = folded(itemContext(item, contribution));
   const localWithSeparators = foldedWithSeparators(itemScientificValueContext(item));
   const sourceWithSeparators = foldedWithSeparators(contribution.source.turns
     .filter((turn) => item.epistemicBoundary.sourceTurnIds.includes(turn.turnId) && turn.role === "USER")
     .map((turn) => turn.content)
     .join(" "));
-  const ageSignal = /\bage\b/.test(`${localContext} ${identityAwareContext}`)
-    || /\b\d{1,3}(?:[.,]\d+)?\s*(?:ans?|years?)\b/.test(localWithSeparators);
+  const ageSignal = /\bage\b/.test(identityAwareContext)
+    || /\b\d{1,3}(?:[.,]\d+)?\s*(?:ans?|years?)\b/.test(foldedWithSeparators(itemIntrinsicContext(item)));
   if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|LOWER_BOUND|UPPER_BOUND/.test(typeOf(item)) || !ageSignal) return [];
   const explicitRange = (value: string) => value.match(/\b(\d{1,3}(?:[.,]\d+)?)\s*(?:\/|a|au|to|-|–)\s*(\d{1,3}(?:[.,]\d+)?)\s*(?:ans?|years?)\b/);
   const contextualAgeRange = (value: string) => value.match(/\b(?:tranche d['’ ]?age|age(?:s)?|agee?s?|aged|age range)\b[^\d]{0,48}(?:entre\s+)?(\d{1,3}(?:[.,]\d+)?)\s*(?:\/|a|au|to|-|–|et|and)\s*(\d{1,3}(?:[.,]\d+)?)(?:\s*(?:ans?|years?))?\b/);
@@ -543,7 +553,7 @@ const vulnerablePopulationCriterion = (
   sectionId: ResearchProjectSectionId,
 ): SpecializedProjectElement[] => {
   if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|INCLUSION|EXCLUSION/.test(typeOf(item))) return [];
-  const originalSource = itemScientificValueContext(item).normalize("NFKC");
+  const originalSource = itemIntrinsicContext(item).normalize("NFKC");
   const source = foldedWithSeparators(originalSource);
   if (!/\bpopulations?\s+(?:sensibles?|vulnerables?)\b/.test(source)
     || !(/\b(?:exclu\w*|exclude\w*|exclusion)\b/.test(source) || /EXCLUSION/.test(typeOf(item)))) return [];
@@ -567,12 +577,16 @@ const populationEligibilityRole = (
   sectionId: ResearchProjectSectionId,
 ): SpecializedProjectElement | null => {
   if (sectionId !== "POPULATION" || !/ELIGIBILITY|CRITERION|INCLUSION|EXCLUSION/.test(typeOf(item))) return null;
-  const context = folded(itemScientificValueContext(item));
-  const role = /EXCLUSION/.test(typeOf(item)) || /\b(?:exclu\w*|contre indication|contraindication)\b/.test(context)
+  const context = folded(itemIntrinsicContext(item));
+  const role = /EXCLUSION/.test(typeOf(item))
     ? "EXCLUSION"
-    : /INCLUSION/.test(typeOf(item)) || /\b(?:inclu\w*|tout venant|all comers?)\b/.test(context)
+    : /INCLUSION/.test(typeOf(item))
       ? "INCLUSION"
-      : null;
+      : /\b(?:exclu\w*|contre indication|contraindication)\b/.test(context)
+        ? "EXCLUSION"
+        : /\b(?:inclu\w*|tout venant|all comers?)\b/.test(context)
+          ? "INCLUSION"
+          : null;
   if (!role) return null;
   const normalizedContent = capitalize(item.content.trim());
   const contentAlreadyCarriesRole = role === "INCLUSION"
@@ -1455,6 +1469,8 @@ export const confirmResearchProjectContribution = (input: {
   authority: ResearchProjectOwnerAuthority;
   confirmedAt: string;
   reviewedProjection?: HumanReviewProjection;
+  confirmationReason?: string;
+  confirmationSourceRefs?: readonly string[];
 }): ResearchProjectOwnerProjection => {
   const candidate = prepareResearchProjectContributionCandidate(input.contribution, input.current);
   if (candidate.changeSet.effectiveChangeCount === 0 && candidate.canonicalChangeSet.status === "NO_NET_CHANGE") {
@@ -1477,7 +1493,12 @@ export const confirmResearchProjectContribution = (input: {
       .filter((change) => change.operation !== "NO_CHANGE")
       .flatMap((change) => change.sourceObjectRefs)],
     reason: "Confirmation explicite de la Contribution comme information de travail du Research Project, sans promotion d’objet scientifique V2.",
-    provenance: [candidate.contributionRef, input.contribution.identity.contributionDigest, ...input.contribution.source.sourceRefs],
+    provenance: [
+      candidate.contributionRef,
+      input.contribution.identity.contributionDigest,
+      ...input.contribution.source.sourceRefs,
+      ...(input.confirmationSourceRefs ?? []),
+    ],
     engineSource: "RESEARCH_PROJECT",
     projectVersion: versionId,
   });
@@ -1485,7 +1506,8 @@ export const confirmResearchProjectContribution = (input: {
     status: "ADOPTED",
     actor: input.authority.actorRef,
     mandate: input.authority.mandateRef,
-    reason: "L’utilisateur a activé « Cela correspond à mon projet » dans la session de travail courante.",
+    reason: input.confirmationReason
+      ?? "L’utilisateur a activé « Cela correspond à mon projet » dans la session de travail courante.",
     timestamp: input.confirmedAt,
   });
   if (confirmationDecision.status !== "ADOPTED") throw new Error("PRJ_CONTRIBUTION_CONFIRMATION_AUTHORITY_REQUIRED");

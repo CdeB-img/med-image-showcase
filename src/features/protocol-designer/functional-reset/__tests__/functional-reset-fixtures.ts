@@ -172,6 +172,8 @@ export const makeFunctionalResetBridgeResponse = (
     provider: "GOOGLE_GEMINI",
     model: "gemini-3.5-flash-lite",
     conversationLatencyMs: 10,
+    conversationCalls: 1,
+    conversationResponseReceived: true,
     extractionLatencyMs: effectiveContribution ? 10 : null,
     calls: effectiveContribution ? 2 : 1,
     projectWrites: 0,

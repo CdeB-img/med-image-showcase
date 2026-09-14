@@ -1,4 +1,5 @@
 import { logicalDigest } from "../knowledge-engine/canonical.js";
+import type { ProviderCallObservationContext } from "./provider-call-observability.js";
 
 export const CONVERSATION_LANGUAGE_GATEWAY_CONTRACT = "PROTOCOL_DESIGNER_CONVERSATION_LANGUAGE_GATEWAY" as const;
 export const CONVERSATION_LANGUAGE_GATEWAY_VERSION = "1.4.0" as const;
@@ -317,6 +318,8 @@ export type LanguageProjectionRequest = Readonly<{
   translationContractVersion: typeof LANGUAGE_PROJECTION_CONTRACT_VERSION;
   projectionIdentityDigest: string;
   protectedOpaqueLiterals?: readonly ProtectedOpaqueLiteral[];
+  /** Technical correlation only; excluded from the provider linguistic payload. */
+  observabilityContext?: ProviderCallObservationContext;
 }>;
 
 export type LanguageProjectionResponse = Readonly<{
@@ -332,6 +335,8 @@ export type LanguageProjectionResponse = Readonly<{
     contextBoundary: LanguageGatewayContextBoundary;
     calls: 1;
     latencyMs: number;
+    providerCalls?: readonly import("./provider-call-observability.js").ProviderCallRecord[];
+    requestEstimatedCostUsd?: number;
   }>;
 }>;
 
@@ -1126,6 +1131,13 @@ export const parseLanguageProjectionRequest = (value: unknown): LanguageProjecti
     || typeof record.targetLanguage !== "string" || !record.targetLanguage.trim()
     || record.translationContractVersion !== LANGUAGE_PROJECTION_CONTRACT_VERSION
     || typeof record.projectionIdentityDigest !== "string" || !record.projectionIdentityDigest.trim()
+    || (record.observabilityContext !== undefined
+      && (typeof record.observabilityContext.clientRequestId !== "string"
+        || !record.observabilityContext.clientRequestId.trim()
+        || (record.observabilityContext.sessionId !== null && typeof record.observabilityContext.sessionId !== "string")
+        || (record.observabilityContext.conversationId !== null && typeof record.observabilityContext.conversationId !== "string")
+        || (record.observabilityContext.turnId !== null && typeof record.observabilityContext.turnId !== "string")
+        || (record.observabilityContext.testSessionId !== null && typeof record.observabilityContext.testSessionId !== "string")))
     || (record.protectedOpaqueLiterals !== undefined
       && (!Array.isArray(record.protectedOpaqueLiterals)
         || !record.protectedOpaqueLiterals.every((candidate) => isProtectedOpaqueLiteral(candidate)

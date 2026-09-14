@@ -168,6 +168,22 @@ export const selectBoundedConversationInteraction = (input: {
   });
   const normalized = input.sourceText.normalize("NFKC").replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
     .toLocaleLowerCase("fr-FR").replace(/\s+/gu, " ").trim();
+  if (input.referentContext.resolution === "UNIQUE_CURRENT") {
+    const decisionEvidence = Object.freeze([
+      input.referentContext.candidateRef,
+      input.referentContext.sourceTurnRef,
+    ].filter((ref): ref is string => Boolean(ref)));
+    const confirmsCandidate = /^(?:(?:oui[, ]+)?c[' ]est bon|je valide|garde (?:ça|cela)|ça me va|cela me va|d[' ]accord|ok)(?:[.!])?$/u.test(normalized);
+    if (confirmsCandidate) return Object.freeze({
+      kind: "USER_CONFIRMS_CURRENT_CANDIDATE",
+      evidenceRefs: decisionEvidence,
+    });
+    const refusesCandidate = /^(?:non|je refuse|je rejette|rejette (?:ça|cela)|ne (?:garde|retiens) pas (?:ça|cela))(?:[.!])?$/u.test(normalized);
+    if (refusesCandidate) return Object.freeze({
+      kind: "USER_REFUSES_CURRENT_CANDIDATE",
+      evidenceRefs: decisionEvidence,
+    });
+  }
   const asksToExplain = /^(?:explique|expliquez|expliquer)\b/u.test(normalized);
   const hasDeicticReference = /\b(?:ce|cet|cette|ces|celui|celle|ceux|celles)\b/u.test(normalized);
   if (asksToExplain && hasDeicticReference) return Object.freeze({

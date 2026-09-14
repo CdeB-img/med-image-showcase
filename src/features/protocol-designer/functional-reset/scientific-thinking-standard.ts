@@ -17,6 +17,7 @@ import { projectScientificContributionToV1IfAllowed } from "@/features/scientifi
 import type { FunctionalResetQueryNavigation } from "@/features/query-navigation";
 import {
   buildProjectContextSnapshot,
+  buildScientificThinkingInputFromProjectSnapshot,
   ensureCanonicalProjectState,
   type ResearchProjectOwnerProjection,
 } from "@/features/research-project-construction";
@@ -309,20 +310,38 @@ export const dispatchScientificThinkingFromQuery = (input: {
       project: { projectId: input.project.projectId, projectVersion: input.project.versionId, projectDigest: input.project.projectDigest, snapshotRef: snapshot.snapshotDigest },
     },
   });
-  const invocation = invokeScientificThinkingForProject({
-    project: input.project,
+  const expectedNativeInput = buildScientificThinkingInputFromProjectSnapshot({
     projectSnapshot: snapshot,
-    ledger: input.ownerResultLedger,
-    callerRef: input.navigation.currentAction!.selectedActionId,
+    projectRevision: input.project.revision,
     purpose: input.navigation.currentAction!.reason,
-    startedAt: input.startedAt,
-    completedAt: input.completedAt,
-    trace,
   });
-  const output = invocation.result?.nativePayload;
+  const reusableEntry = [...input.ownerResultLedger.entries].reverse().find((entry) => {
+    const nativeInput = entry.request.nativeInput as Partial<typeof expectedNativeInput> | null;
+    const nativeOutput = entry.result?.nativePayload as Partial<ScientificThinkingOutput> | null;
+    return entry.request.owner === "SCIENTIFIC_THINKING"
+      && entry.request.capabilityId === "SCIENTIFIC_THINKING_PROPOSAL"
+      && entry.request.sourceProject.sourceProjectVersion === input.project.versionId
+      && entry.request.sourceProject.sourceProjectDigest === input.project.projectDigest
+      && nativeInput?.requestId === expectedNativeInput.requestId
+      && nativeOutput?.contractVersion === SCIENTIFIC_THINKING_ENGINE_VERSION
+      && nativeOutput.projectWriteAuthorized === false;
+  }) ?? null;
+  const invocation = reusableEntry ? null : invokeScientificThinkingForProject({
+      project: input.project,
+      projectSnapshot: snapshot,
+      ledger: input.ownerResultLedger,
+      callerRef: input.navigation.currentAction!.selectedActionId,
+      purpose: input.navigation.currentAction!.reason,
+      startedAt: input.startedAt,
+      completedAt: input.completedAt,
+      trace,
+    });
+  const retainedResult = reusableEntry?.result ?? invocation?.result ?? null;
+  const output = retainedResult?.nativePayload as ScientificThinkingOutput | null | undefined;
   if (!output) {
-    trace?.fail(input.completedAt, invocation.observation.failureCode ?? "SCIENTIFIC_THINKING_RESULT_MISSING", "SCIENTIFIC_THINKING_ENGINE");
-    throw new Error(invocation.observation.failureCode ?? "SCIENTIFIC_THINKING_RESULT_MISSING");
+    const failureCode = invocation?.observation.failureCode ?? "SCIENTIFIC_THINKING_RESULT_MISSING";
+    trace?.fail(input.completedAt, failureCode, "SCIENTIFIC_THINKING_ENGINE");
+    throw new Error(failureCode);
   }
   const presentation = buildStandardScientificThinkingPresentation(output);
   trace?.append({
@@ -353,8 +372,8 @@ export const dispatchScientificThinkingFromQuery = (input: {
     contractVersion: STANDARD_SCIENTIFIC_THINKING_INTERACTION_VERSION,
     owner: "SCIENTIFIC_THINKING",
     capabilityId: "SCIENTIFIC_THINKING_PROPOSAL",
-    ownerResultRef: invocation.result!.resultId,
-    ownerResultVersion: invocation.result!.resultVersion,
+    ownerResultRef: retainedResult.resultId,
+    ownerResultVersion: retainedResult.resultVersion,
     sourceActionRef: input.navigation.currentAction!.selectedActionId,
     sourceProjectRef: input.project.projectId,
     sourceProjectVersion: input.project.versionId,
@@ -372,7 +391,7 @@ export const dispatchScientificThinkingFromQuery = (input: {
     output,
     presentation,
     interaction,
-    ownerResultLedger: invocation.ledger,
+    ownerResultLedger: invocation?.ledger ?? input.ownerResultLedger,
     traceLedger: trace?.getLedger() ?? input.traceLedger,
     downstreamHandoffs: output.downstreamHandoffs,
     providerCalls: 0 as const,

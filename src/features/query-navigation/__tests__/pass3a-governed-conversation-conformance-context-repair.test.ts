@@ -206,6 +206,23 @@ describe("PASS3A CC03 — bounded referent context", () => {
       candidate: null, validation: null, currentProject: null, boundedReferentContext: context, boundedInteraction });
     expect(navigation.localWhatText).toContain("n’est plus disponible comme candidate courante");
   });
+
+  it("10b. binds short natural confirmation and refusal only to one exact current candidate", () => {
+    const { context } = uniqueReferent();
+    expect(selectBoundedConversationInteraction({
+      sourceText: "c'est bon", correctionMode: false, referentContext: context,
+    })).toMatchObject({ kind: "USER_CONFIRMS_CURRENT_CANDIDATE", evidenceRefs: [context.candidateRef, context.sourceTurnRef] });
+    expect(selectBoundedConversationInteraction({
+      sourceText: "je refuse", correctionMode: false, referentContext: context,
+    })).toMatchObject({ kind: "USER_REFUSES_CURRENT_CANDIDATE", evidenceRefs: [context.candidateRef, context.sourceTurnRef] });
+    expect(selectBoundedConversationInteraction({
+      sourceText: "c'est bon mais remplace J3 par J5", correctionMode: false, referentContext: context,
+    })).toBeUndefined();
+    expect(selectBoundedConversationInteraction({
+      sourceText: "c'est bon", correctionMode: false,
+      referentContext: { ...context, resolution: "AMBIGUOUS", candidateRef: null, sourceTurnRef: null, content: [] },
+    })).toBeUndefined();
+  });
 });
 
 describe("PASS3A CC04 — intervention and source ownership", () => {

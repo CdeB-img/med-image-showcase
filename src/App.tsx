@@ -7,6 +7,7 @@ import { useEffect, lazy, Suspense } from "react";
 import Header from "@/components/Header";
 import GlobalEntitySchema from "@/components/GlobalEntitySchema";
 import ProtocolDesignerErrorBoundary from "@/features/protocol-designer/ProtocolDesignerErrorBoundary";
+import { protocolDesignerPublicUiEnabled } from "@/features/protocol-designer/public-runtime-access";
 
 const Index = lazy(() => import("./pages/Index"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -43,6 +44,7 @@ const ReferencesPublications = lazy(() => import("@/pages/ReferencesPublications
 const ScientificKnowledgeExplorer = lazy(() => import("@/pages/ScientificKnowledgeExplorer"));
 const ProtocolDesigner = lazy(() => import("@/pages/ProtocolDesigner"));
 const ProtocolDesignerDemo = lazy(() => import("@/pages/ProtocolDesignerDemo"));
+const ProtocolDesignerUnavailable = lazy(() => import("@/pages/ProtocolDesignerUnavailable"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -121,8 +123,11 @@ const App = () => (
             <Route path="/expertise" element={<Expertise />} />
             <Route path="/references-publications" element={<ReferencesPublications />} />
             <Route path="/connaissances" element={<ScientificKnowledgeExplorer />} />
-            <Route path="/protocol-designer" element={<ProtocolDesigner />} />
-            <Route path="/protocol-designer/demo" element={<ProtocolDesignerErrorBoundary><ProtocolDesignerDemo /></ProtocolDesignerErrorBoundary>} />
+            <Route path="/protocol-designer" element={protocolDesignerPublicUiEnabled(import.meta.env.DEV)
+              ? <ProtocolDesigner /> : <ProtocolDesignerUnavailable />} />
+            <Route path="/protocol-designer/demo" element={protocolDesignerPublicUiEnabled(import.meta.env.DEV)
+              ? <ProtocolDesignerErrorBoundary><ProtocolDesignerDemo /></ProtocolDesignerErrorBoundary>
+              : <ProtocolDesignerUnavailable />} />
 
             <Route path="/corelabirm" element={<Navigate to="/corelab-essais-cliniques" replace />} />
             <Route path="/cmro2" element={<Navigate to="/cmro2-imagerie-cerebrale" replace />} />

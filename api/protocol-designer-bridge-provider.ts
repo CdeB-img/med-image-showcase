@@ -1,4 +1,4 @@
-import { productHybridProviderGate } from "./scientific-interpretation-provider.js";
+import { RollingSingleConcurrencyGate } from "./scientific-interpretation-provider.js";
 import { parseGovernedRealizationProviderOutput } from "../src/features/query-navigation/governed-conversation-realization.js";
 import { logicalDigest } from "../src/features/knowledge-engine/canonical.js";
 import {
@@ -26,21 +26,44 @@ import {
   type LanguageProjectionProviderResult,
   type LanguageProjectionRequest,
 } from "../src/features/protocol-designer/conversation-language-gateway.js";
+import {
+  emptyProviderTokenUsage,
+  materializeProviderCallRecord,
+  type ProviderCallAttemptInstrumentation,
+  type ProviderTokenUsage,
+} from "../src/features/protocol-designer/provider-call-observability.js";
 
 export { buildNaturalConversationPayload, naturalConversationContext };
 
 const FUNCTION_NAME = "propose_persistent_project_delta";
 const geminiEndpoint = (model: string) => `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
 
+// Conversation realization is already one-shot and fail-closed. It shares the
+// existing single-concurrency primitive, but not the Scientific Interpretation
+// rolling-start budget: coupling both traffic classes caused valid long
+// conversations to sleep for almost a minute after ten aggregate starts.
+export const productBridgeConversationProviderGate = new RollingSingleConcurrencyGate(Number.POSITIVE_INFINITY);
+
 type GeminiUsage = {
   promptTokenCount?: number;
+  cachedContentTokenCount?: number;
   candidatesTokenCount?: number;
   totalTokenCount?: number;
 };
 
+const geminiProviderTokenUsage = (usage?: GeminiUsage | null): ProviderTokenUsage => usage ? ({
+  inputTokens: usage.promptTokenCount ?? null,
+  cachedInputTokens: usage.cachedContentTokenCount ?? null,
+  cacheWriteTokens: null,
+  outputTokens: usage.candidatesTokenCount ?? null,
+  reasoningTokens: null,
+  totalTokens: usage.totalTokenCount ?? null,
+}) : emptyProviderTokenUsage();
+
 type GeminiBody = {
   candidates?: Array<{ content?: { parts?: Array<{ text?: unknown; functionCall?: { name?: unknown; args?: unknown } }> } }>;
   usageMetadata?: GeminiUsage;
+  modelVersion?: string;
   responseId?: string;
   error?: { code?: number; status?: string; message?: string; details?: unknown };
 };
@@ -286,11 +309,17 @@ const callGemini = async (
   payload: unknown,
   fetchImpl: typeof fetch = fetch,
   model: string = PRODUCT_BRIDGE_MODEL,
+  instrumentation?: ProviderCallAttemptInstrumentation,
 ): Promise<ProductBridgeProviderResult<GeminiBody>> => {
   const started = Date.now();
+  const startedAt = new Date(started).toISOString();
+  const observe = (record: Parameters<typeof materializeProviderCallRecord>[0]) => {
+    if (!instrumentation) return;
+    instrumentation.onRecord(materializeProviderCallRecord(record));
+  };
   let response: Response;
   try {
-    response = await productHybridProviderGate.run(async () => {
+    response = await productBridgeConversationProviderGate.run(async () => {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 45_000);
       try {
@@ -305,6 +334,13 @@ const callGemini = async (
       }
     });
   } catch (error) {
+    const latencyMs = Date.now() - started;
+    observe({
+      provider: "GOOGLE_GEMINI", modelRequested: model, modelReturned: null,
+      instrumentation: instrumentation!, usage: emptyProviderTokenUsage(), latencyMs,
+      status: "FAILED", failureReason: error instanceof Error && error.name === "AbortError" ? "TIMEOUT" : "NETWORK_FAILURE",
+      providerRequestId: null, providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
+    });
     throw new ProductBridgeProviderError(stage, null, error instanceof Error && error.name === "AbortError" ? "TIMEOUT" : "NETWORK_FAILURE", "Provider request failed.");
   }
   const text = await response.text();
@@ -312,18 +348,42 @@ const callGemini = async (
   try {
     body = JSON.parse(text) as GeminiBody;
   } catch {
+    const latencyMs = Date.now() - started;
+    observe({
+      provider: "GOOGLE_GEMINI", modelRequested: model, modelReturned: null,
+      instrumentation: instrumentation!, usage: emptyProviderTokenUsage(), latencyMs,
+      status: "FAILED", failureReason: "INVALID_PROVIDER_JSON", providerRequestId: null,
+      providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
+    });
     throw new ProductBridgeProviderError(stage, response.status, "INVALID_PROVIDER_JSON", "Provider returned invalid JSON.");
   }
-  if (!response.ok) throw new ProductBridgeProviderError(
-    stage,
-    response.status,
-    body.error?.status ?? `HTTP_${response.status}`,
-    body.error?.message ?? "Gemini request failed.",
-    body.responseId ?? null,
-  );
+  if (!response.ok) {
+    const latencyMs = Date.now() - started;
+    const failureReason = body.error?.status ?? `HTTP_${response.status}`;
+    observe({
+      provider: "GOOGLE_GEMINI", modelRequested: model, modelReturned: body.modelVersion ?? null,
+      instrumentation: instrumentation!, usage: geminiProviderTokenUsage(body.usageMetadata), latencyMs,
+      status: "FAILED", failureReason, providerRequestId: null, providerResponseId: body.responseId ?? null,
+      startedAt, completedAt: new Date().toISOString(),
+    });
+    throw new ProductBridgeProviderError(
+      stage,
+      response.status,
+      failureReason,
+      body.error?.message ?? "Gemini request failed.",
+      body.responseId ?? null,
+    );
+  }
+  const latencyMs = Date.now() - started;
+  observe({
+    provider: "GOOGLE_GEMINI", modelRequested: model, modelReturned: body.modelVersion ?? null,
+    instrumentation: instrumentation!, usage: geminiProviderTokenUsage(body.usageMetadata), latencyMs,
+    status: "SUCCEEDED", failureReason: null, providerRequestId: null, providerResponseId: body.responseId ?? null,
+    startedAt, completedAt: new Date().toISOString(),
+  });
   return {
     value: body,
-    latencyMs: Date.now() - started,
+    latencyMs,
     httpStatus: response.status,
     responseId: body.responseId ?? null,
     usage: body.usageMetadata ?? null,
@@ -335,8 +395,12 @@ export const executeNaturalConversation = async (
   apiKey: string,
   fetchImpl?: typeof fetch,
   model: string = PRODUCT_BRIDGE_MODEL,
+  instrumentation?: ProviderCallAttemptInstrumentation,
 ): Promise<ProductBridgeProviderResult<string> & { governedClaim?: import("../src/features/query-navigation/governed-conversation-realization.js").GovernedRealizationProviderClaim | null }> => {
-  const result = await callGemini(apiKey, "CONVERSATION", buildNaturalConversationPayload(request), fetchImpl, resolveGeminiConversationModel(model));
+  const result = await callGemini(
+    apiKey, "CONVERSATION", buildNaturalConversationPayload(request), fetchImpl,
+    resolveGeminiConversationModel(model), instrumentation,
+  );
   const reply = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
     .map((part) => part.text)
     .find((value): value is string => typeof value === "string" && value.trim().length > 0)?.trim();
@@ -353,6 +417,7 @@ export const executeLanguageProjection = async (
   apiKey: string,
   fetchImpl?: typeof fetch,
   model: string = PRODUCT_BRIDGE_MODEL,
+  instrumentation?: ProviderCallAttemptInstrumentation,
 ): Promise<ProductBridgeProviderResult<LanguageProjectionProviderResult>> => {
   const resolvedModel = resolveGeminiConversationModel(model);
   const result = await callGemini(
@@ -361,6 +426,7 @@ export const executeLanguageProjection = async (
     buildLanguageProjectionProviderPayload(request),
     fetchImpl,
     resolvedModel,
+    instrumentation,
   );
   const args = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
     .map((part) => part.functionCall)
@@ -383,12 +449,15 @@ export const executePersistentDelta = async (
   apiKey: string,
   fetchImpl?: typeof fetch,
   model: string = PRODUCT_BRIDGE_MODEL,
+  instrumentation?: ProviderCallAttemptInstrumentation,
 ): Promise<ProductBridgeProviderResult<{
   structuredArgs: unknown;
   providerArtifact: PersistentExtractionProviderArtifact;
 }>> => {
   const resolvedModel = resolveGeminiConversationModel(model);
-  const result = await callGemini(apiKey, "PERSISTENT_DELTA", buildPersistentDeltaPayload(request), fetchImpl, resolvedModel);
+  const result = await callGemini(
+    apiKey, "PERSISTENT_DELTA", buildPersistentDeltaPayload(request), fetchImpl, resolvedModel, instrumentation,
+  );
   const call = result.value.candidates?.flatMap((candidate) => candidate.content?.parts ?? [])
     .map((part) => part.functionCall)
     .find((candidate) => candidate?.name === FUNCTION_NAME);

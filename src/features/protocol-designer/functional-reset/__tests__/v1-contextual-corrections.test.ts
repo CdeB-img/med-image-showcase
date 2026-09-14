@@ -341,6 +341,8 @@ describe("NPC01 — natural current-Project correction", () => {
   it.each([
     ["c'est bon mais je préférerais M6", "MODIFY_EXISTING_PROJECT_OBJECT"],
     ["garde le design mais limite la population aux moins de 75 ans", "MODIFY_EXISTING_PROJECT_OBJECT"],
+    ["finalement remplace le suivi de 24 semaines par 36 semaines", "MODIFY_EXISTING_PROJECT_OBJECT"],
+    ["en fait remplace 40 cycles par 60 cycles", "MODIFY_EXISTING_PROJECT_OBJECT"],
     ["c'est bien, j'ajouterais aussi le strain", "ADD_PROJECT_OBJECT"],
     ["finalement non, garde le critère précédent", "PRESERVE_EXISTING_PROJECT"],
     ["c'est ça mais exprime-la par unité de surface", "MODIFY_EXISTING_PROJECT_OBJECT"],
@@ -359,6 +361,8 @@ describe("NPC01 — natural current-Project correction", () => {
     expect(routed("Je retiens l’hypothèse 2").currentProjectDirection).toBe("NONE");
     expect(routed("Quelle est la limite de détection de cette méthode ?").currentProjectDirection).toBe("NONE");
     expect(routed("Est-ce que la température change après exposition ?").currentProjectDirection).toBe("NONE");
+    expect(routed("Pourquoi cette stratégie plutôt que des comparaisons séparées ?").currentProjectDirection).toBe("NONE");
+    expect(routed("Comment comparer A plutôt que B ?").currentProjectDirection).toBe("NONE");
     expect(routeProductEntry({
       raw: "Formule-la autrement.",
       sourceTurnRef: "turn:npc01:correct-again",

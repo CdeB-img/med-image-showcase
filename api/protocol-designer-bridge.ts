@@ -27,6 +27,15 @@ import {
   executeOpenAILanguageProjection,
   executeOpenAIPersistentDelta,
 } from "./protocol-designer-openai-extraction-provider.js";
+import {
+  providerSessionCostUsd,
+  type ProviderCallObservationContext,
+  type ProviderCallRecord,
+} from "../src/features/protocol-designer/provider-call-observability.js";
+import {
+  PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY,
+  protocolDesignerProviderCallsAllowed,
+} from "../src/features/protocol-designer/public-runtime-access.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
@@ -106,6 +115,18 @@ export const executeProtocolDesignerBridge = async (input: {
   now?: () => number;
   onPersistentProviderArtifact?: (artifact: NonNullable<ProductBridgeResponse["persistentExtraction"]["providerArtifact"]>) => void;
 }): Promise<{ status: number; body: ProductBridgeResponse | Record<string, unknown> }> => {
+  const providerCalls: ProviderCallRecord[] = [];
+  const observeProviderCall = (record: ProviderCallRecord) => providerCalls.push(record);
+  const technicalContext = (
+    supplied: ProviderCallObservationContext | undefined,
+    fallback: Pick<ProviderCallObservationContext, "conversationId" | "turnId">,
+  ): ProviderCallObservationContext => supplied ?? {
+    sessionId: null,
+    conversationId: fallback.conversationId,
+    turnId: fallback.turnId,
+    clientRequestId: `bridge-request:${crypto.randomUUID()}`,
+    testSessionId: null,
+  };
   const languageRequest = parseLanguageProjectionRequest(input.body);
   if (languageRequest) {
     if (detectSensitiveData(languageRequest.sourceText).length) {
@@ -116,6 +137,10 @@ export const executeProtocolDesignerBridge = async (input: {
     }
     const model = DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL;
     const reasoningEffort = DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT;
+    const observationContext = technicalContext(languageRequest.observabilityContext, {
+      conversationId: null,
+      turnId: null,
+    });
     try {
       const projected = await executeOpenAILanguageProjection(
         languageRequest,
@@ -123,6 +148,14 @@ export const executeProtocolDesignerBridge = async (input: {
         input.fetchImpl,
         model,
         reasoningEffort,
+        {
+          context: observationContext,
+          purpose: "LANGUAGE_PROJECTION",
+          reasoningEffort,
+          retryIndex: 0,
+          retryReason: null,
+          onRecord: observeProviderCall,
+        },
       );
       const projection = materializeLanguageProjectionArtifact({
         request: languageRequest,
@@ -150,12 +183,18 @@ export const executeProtocolDesignerBridge = async (input: {
             contextBoundary: projected.contextBoundary,
             calls: 1,
             latencyMs: projected.latencyMs,
+            providerCalls,
+            requestEstimatedCostUsd: providerSessionCostUsd(providerCalls),
           },
         },
       };
     } catch (error) {
       if (error instanceof ProductBridgeProviderError) {
-        return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "LANGUAGE_PROJECTION_PROVIDER_FAILURE", message: "Cette langue ne peut pas être traitée pour le moment.", provider: safeProviderError(error) } } };
+        return { status: 503, body: {
+          apiVersion: PRODUCT_BRIDGE_API_VERSION,
+          error: { code: "LANGUAGE_PROJECTION_PROVIDER_FAILURE", message: "Cette langue ne peut pas être traitée pour le moment.", provider: safeProviderError(error) },
+          observability: { providerCalls, requestEstimatedCostUsd: providerSessionCostUsd(providerCalls) },
+        } };
       }
       if (error instanceof LanguageProjectionContractError) {
         const subInvariantId = error.diagnostic.subInvariantIds[0] ?? "UNKNOWN";
@@ -183,6 +222,10 @@ export const executeProtocolDesignerBridge = async (input: {
 
   const conversationModel = resolveGeminiConversationModel(input.geminiModel);
   const extractionModel = resolveOpenAIExtractionModel(input.openAiExtractionModel);
+  const observationContext = technicalContext(request.observabilityContext, {
+    conversationId: request.conversation.conversationId,
+    turnId: latestUser.turnId,
+  });
 
   const createdAt = new Date(input.now?.() ?? Date.now()).toISOString();
   let persistentExtraction: ProductBridgeResponse["persistentExtraction"] = {
@@ -210,7 +253,20 @@ export const executeProtocolDesignerBridge = async (input: {
       }
       const executeAndValidateExtraction = async () => {
         extractionAttempts = extractionAttempts === 0 ? 1 : 2;
-        const extracted = await executeOpenAIPersistentDelta(request, input.openAiApiKey!, input.fetchImpl, extractionModel);
+        const extracted = await executeOpenAIPersistentDelta(
+          request,
+          input.openAiApiKey!,
+          input.fetchImpl,
+          extractionModel,
+          {
+            context: observationContext,
+            purpose: "PERSISTENT_DELTA",
+            reasoningEffort: null,
+            retryIndex: extractionAttempts - 1,
+            retryReason: extractionAttempts === 2 ? "RECOVERABLE_PROVIDER_OUTPUT_VALIDATION_FAILURE" : null,
+            onRecord: observeProviderCall,
+          },
+        );
         extractionLatencyMs = (extractionLatencyMs ?? 0) + extracted.latencyMs;
         extractionUsage = addOpenAIUsage(extractionUsage, extracted.usage);
         extractionModelReturned = extracted.modelReturned;
@@ -376,7 +432,20 @@ export const executeProtocolDesignerBridge = async (input: {
       downstreamStage = "HOW";
       howRequestedAt = new Date(input.now?.() ?? Date.now()).toISOString();
       howCalls = 1;
-      conversation = await executeNaturalConversation({ ...request, governedRealization: currentTurnNavigation.envelope }, input.apiKey, input.fetchImpl, conversationModel);
+      conversation = await executeNaturalConversation(
+        { ...request, governedRealization: currentTurnNavigation.envelope },
+        input.apiKey,
+        input.fetchImpl,
+        conversationModel,
+        {
+          context: observationContext,
+          purpose: "CONVERSATION_REALIZATION",
+          reasoningEffort: null,
+          retryIndex: 0,
+          retryReason: null,
+          onRecord: observeProviderCall,
+        },
+      );
       downstreamStage = "CONFORMANCE";
       governedRealization = realizeGovernedConversation({
         envelope: currentTurnNavigation.envelope, providerReply: conversation.value,
@@ -399,7 +468,11 @@ export const executeProtocolDesignerBridge = async (input: {
     const governedPostAdoptionReceiptSurvives = request.requestKind === "POST_ADOPTION_QRY_CONTINUATION"
       && currentTurnNavigation !== undefined;
     if (!validatedContributionSurvives && !governedPostAdoptionReceiptSurvives) {
-      return { status: 503, body: { apiVersion: PRODUCT_BRIDGE_API_VERSION, error: conversationFailure } };
+      return { status: 503, body: {
+        apiVersion: PRODUCT_BRIDGE_API_VERSION,
+        error: conversationFailure,
+        observability: { providerCalls, requestEstimatedCostUsd: providerSessionCostUsd(providerCalls) },
+      } };
     }
   }
   if (howCalls > 0 && governedRealization && !governedRealization.providerReplyAccepted) conversationFailure = {
@@ -436,12 +509,18 @@ export const executeProtocolDesignerBridge = async (input: {
         projectWrites: 0,
         conversationUsage: conversation?.usage ?? null,
         extractionUsage,
+        providerCalls,
+        requestEstimatedCostUsd: providerSessionCostUsd(providerCalls),
       },
     },
   };
 };
 
-export const handleProtocolDesignerBridge = async (request: ApiRequest, response: ApiResponse) => {
+export const handleProtocolDesignerBridge = async (
+  request: ApiRequest,
+  response: ApiResponse,
+  environment: Record<string, string | undefined> = process.env,
+) => {
   response.setHeader("content-type", "application/json; charset=utf-8");
   response.setHeader("cache-control", "no-store");
   if (request.method !== "POST") return response.status(405).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "METHOD_NOT_ALLOWED", message: "Méthode non autorisée." } });
@@ -449,6 +528,16 @@ export const handleProtocolDesignerBridge = async (request: ApiRequest, response
     return response.status(415).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_CONTENT_TYPE", message: "Un corps JSON est requis." } });
   }
   if (!validOrigin(request.headers)) return response.status(403).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "ORIGIN_NOT_ALLOWED", message: "Origine non autorisée." } });
+  if (!protocolDesignerProviderCallsAllowed(environment)) {
+    return response.status(503).json({
+      apiVersion: PRODUCT_BRIDGE_API_VERSION,
+      error: {
+        code: PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY,
+        message: "Protocol Designer est temporairement indisponible en production.",
+      },
+      observability: { providerCalls: [], requestEstimatedCostUsd: 0 },
+    });
+  }
   let body: unknown = request.body;
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch { return response.status(400).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "JSON invalide." } }); }

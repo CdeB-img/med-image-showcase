@@ -42,6 +42,11 @@ import {
   type MultilingualUserTurn,
 } from "@/features/protocol-designer/conversation-language-gateway";
 import { formatProductDevelopmentVersion } from "@/features/protocol-designer/product-development-version";
+import {
+  advanceProviderSessionCostUsd,
+  latestRecordedProviderSessionCostUsd,
+  type ProviderCallRecord,
+} from "@/features/protocol-designer/provider-call-observability";
 import { GOVERNED_REALIZATION_SYSTEM_INSTRUCTION } from "@/features/query-navigation/governed-conversation-realization";
 import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import {
@@ -257,7 +262,12 @@ const requestOrReuseLanguageProjection = async (input: {
   sourceText: string;
   sourceLanguage: string | "UNKNOWN";
   targetLanguage: string;
-}): Promise<{ projection: LanguageProjectionArtifact; providerCalls: 0 | 1 }> => {
+  observabilityContext: NonNullable<LanguageProjectionRequest["observabilityContext"]>;
+}): Promise<{
+  projection: LanguageProjectionArtifact;
+  providerCalls: 0 | 1;
+  providerCallRecords: readonly ProviderCallRecord[];
+}> => {
   const protectedOpaqueLiterals = extractProtectedOpaqueLiterals(input.sourceText);
   const projectionIdentityDigest = languageProjectionIdentityDigest({
     projectionKind: input.projectionKind,
@@ -269,7 +279,7 @@ const requestOrReuseLanguageProjection = async (input: {
     protectedOpaqueLiterals,
   });
   const cached = findReusableLanguageProjection({ state: input.state, projectionIdentityDigest });
-  if (cached) return { projection: cached, providerCalls: 0 };
+  if (cached) return { projection: cached, providerCalls: 0, providerCallRecords: [] };
   const request: LanguageProjectionRequest = {
     apiVersion: "1.0.0",
     operation: "LANGUAGE_PROJECTION",
@@ -280,6 +290,7 @@ const requestOrReuseLanguageProjection = async (input: {
     translationContractVersion: LANGUAGE_PROJECTION_CONTRACT_VERSION,
     projectionIdentityDigest,
     protectedOpaqueLiterals,
+    observabilityContext: input.observabilityContext,
   };
   let response: Awaited<ReturnType<typeof requestConversationLanguageProjection>>;
   try {
@@ -298,14 +309,23 @@ const requestOrReuseLanguageProjection = async (input: {
     });
     throw failure;
   }
-  return { projection: response.projection, providerCalls: 1 };
+  return {
+    projection: response.projection,
+    providerCalls: 1,
+    providerCallRecords: response.observability.providerCalls ?? [],
+  };
 };
 
 const prepareMultilingualUserTurn = async (input: {
   session: Readonly<FunctionalResetSession>;
   turnId: string;
   originalText: string;
-}): Promise<{ turn: MultilingualUserTurn; state: ConversationLanguageGatewayState; providerCalls: 0 | 1 }> => {
+}): Promise<{
+  turn: MultilingualUserTurn;
+  state: ConversationLanguageGatewayState;
+  providerCalls: 0 | 1;
+  providerCallRecords: readonly ProviderCallRecord[];
+}> => {
   let detection = detectConversationLanguage(input.originalText);
   if (detection.status === "INSUFFICIENT_EVIDENCE" && input.session.conversationLanguageGateway.conversationLanguage) {
     detection = {
@@ -324,6 +344,13 @@ const prepareMultilingualUserTurn = async (input: {
       sourceText: input.originalText,
       sourceLanguage,
       targetLanguage: "fr",
+      observabilityContext: {
+        sessionId: input.session.sessionId,
+        conversationId: input.session.conversationId,
+        turnId: input.turnId,
+        clientRequestId: `language-projection:${input.turnId}:INPUT_TO_FRENCH`,
+        testSessionId: null,
+      },
     })
     : null;
   const turn = buildMultilingualUserTurn({
@@ -342,6 +369,7 @@ const prepareMultilingualUserTurn = async (input: {
       projection: requested?.projection,
     }),
     providerCalls: requested?.providerCalls ?? 0,
+    providerCallRecords: requested?.providerCallRecords ?? [],
   };
 };
 
@@ -350,10 +378,13 @@ const localizeCanonicalFrenchResponse = async (input: {
   sourceTurnRef: string;
   responseId: string;
   canonicalFrenchResponse: string;
+  sessionId: string;
+  conversationId: string;
 }): Promise<{
   response: LocalizedConversationResponse;
   state: ConversationLanguageGatewayState;
   providerCalls: 0 | 1;
+  providerCallRecords: readonly ProviderCallRecord[];
 }> => {
   const targetLanguage = input.state.conversationLanguage ?? "fr";
   const requested = targetLanguage === "fr"
@@ -364,6 +395,13 @@ const localizeCanonicalFrenchResponse = async (input: {
       sourceText: input.canonicalFrenchResponse,
       sourceLanguage: "fr",
       targetLanguage,
+      observabilityContext: {
+        sessionId: input.sessionId,
+        conversationId: input.conversationId,
+        turnId: input.sourceTurnRef,
+        clientRequestId: `language-projection:${input.responseId}:OUTPUT_FROM_FRENCH`,
+        testSessionId: null,
+      },
     });
   const response = buildLocalizedConversationResponse({
     responseId: input.responseId,
@@ -376,6 +414,7 @@ const localizeCanonicalFrenchResponse = async (input: {
     response,
     state: appendLocalizedResponseToGatewayState({ state: input.state, response, projection: requested?.projection }),
     providerCalls: requested?.providerCalls ?? 0,
+    providerCallRecords: requested?.providerCallRecords ?? [],
   };
 };
 
@@ -386,6 +425,13 @@ type PreparedGatewayUserInput = Readonly<{
   createdAt: string;
   multilingualTurn: MultilingualUserTurn;
   gatewayState: ConversationLanguageGatewayState;
+}>;
+
+type NaturalContributionDecisionContext = Readonly<{
+  userTurn: ScientificInterpretationTurn;
+  originalText: string;
+  gatewayState: ConversationLanguageGatewayState;
+  traceLedger: FunctionalResetSession["scientificExecutionTraceLedger"];
 }>;
 
 const normalizePreparedUserInput = (input: string | PreparedGatewayUserInput) => typeof input === "string"
@@ -794,6 +840,13 @@ const resolvePostAdoptionContinuationJob = async (job: PostAdoptionContinuationJ
     || !job.queryNavigation.currentAction || !job.queryNavigation.currentPresentation) return null;
   const continuation = await requestProtocolDesignerBridge({
     requestKind: "POST_ADOPTION_QRY_CONTINUATION",
+    observabilityContext: {
+      sessionId: job.sessionId,
+      conversationId: job.conversationId,
+      turnId: [...job.runtimeTurns].reverse().find((candidate) => candidate.role === "USER")?.turnId ?? null,
+      clientRequestId: `product-bridge:${[...job.runtimeTurns].reverse().find((candidate) => candidate.role === "USER")?.turnId ?? "NO_USER_TURN"}:POST_ADOPTION_QRY_CONTINUATION`,
+      testSessionId: null,
+    },
     conversation: {
       conversationId: job.conversationId,
       language: "fr",
@@ -1142,6 +1195,8 @@ export default function ProtocolDesignerWorkspace({
     }
     const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
       state: prepared.gatewayState,
+      sessionId: session.sessionId,
+      conversationId: session.conversationId,
       sourceTurnRef: userTurn.turnId,
       responseId: `conversation-response:${userTurn.turnId}`,
       canonicalFrenchResponse: resolution.response,
@@ -1292,6 +1347,8 @@ export default function ProtocolDesignerWorkspace({
 
     const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
       state: prepared.gatewayState,
+      sessionId: session.sessionId,
+      conversationId: session.conversationId,
       sourceTurnRef: userTurn.turnId,
       responseId: `conversation-response:${userTurn.turnId}`,
       canonicalFrenchResponse: resolution.response,
@@ -1420,6 +1477,8 @@ export default function ProtocolDesignerWorkspace({
     }
     const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
       state: prepared.gatewayState,
+      sessionId: session.sessionId,
+      conversationId: session.conversationId,
       sourceTurnRef: userTurn.turnId,
       responseId: `conversation-response:${userTurn.turnId}`,
       canonicalFrenchResponse: resolution.response,
@@ -1529,6 +1588,8 @@ export default function ProtocolDesignerWorkspace({
     }
     const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
       state: prepared.gatewayState,
+      sessionId: session.sessionId,
+      conversationId: session.conversationId,
       sourceTurnRef: userTurn.turnId,
       responseId: `conversation-response:${userTurn.turnId}`,
       canonicalFrenchResponse: resolution.response,
@@ -1638,6 +1699,8 @@ export default function ProtocolDesignerWorkspace({
     }
     const localized = prepared.gatewayState ? await localizeCanonicalFrenchResponse({
       state: prepared.gatewayState,
+      sessionId: session.sessionId,
+      conversationId: session.conversationId,
       sourceTurnRef: userTurn.turnId,
       responseId: `conversation-response:${userTurn.turnId}`,
       canonicalFrenchResponse: resolution.response,
@@ -1734,6 +1797,7 @@ export default function ProtocolDesignerWorkspace({
     let contextualActionPresentation: StandardConversationActionGroupPresentation | null = null;
     let currentProjectImpactProjection: NonNullable<ReturnType<typeof buildCurrentProjectImpactProjection>> | null = null;
     let governedRealizationOutcome: ScientificTraceRealizationOutcome | undefined;
+    let busyLifecycleDelegated = false;
     let downstreamStage = "CONFORMANCE";
     try {
       const preparedGateway = await prepareMultilingualUserTurn({ session, turnId, originalText: content });
@@ -1774,6 +1838,30 @@ export default function ProtocolDesignerWorkspace({
       const boundedInteraction = selectBoundedConversationInteraction({
         sourceText: preparedInput.workingText, correctionMode, referentContext: boundedReferentContext,
       });
+      if ((boundedInteraction?.kind === "USER_CONFIRMS_CURRENT_CANDIDATE"
+        || boundedInteraction?.kind === "USER_REFUSES_CURRENT_CANDIDATE")
+        && boundedReferentContext.candidateRef) {
+        const naturalDecision: NaturalContributionDecisionContext = {
+          userTurn,
+          originalText: content,
+          gatewayState: preparedGateway.state,
+          traceLedger: recordConversationLanguageGatewayTrace({
+            ledger: session.scientificExecutionTraceLedger,
+            traceRunId,
+            conversationId: session.conversationId,
+            turn: preparedGateway.turn,
+            observedAt: now,
+            captureConfiguration: traceCaptureConfiguration,
+          }),
+        };
+        if (boundedInteraction.kind === "USER_CONFIRMS_CURRENT_CANDIDATE") {
+          busyLifecycleDelegated = await confirmContribution(boundedReferentContext.candidateRef, naturalDecision);
+        } else {
+          rejectContribution(boundedReferentContext.candidateRef, naturalDecision);
+          setBusy(false);
+        }
+        return;
+      }
       const asksForExplanationOrRephrase = isFunctionalResetQueryMisunderstanding(preparedInput.workingText);
       const previousContext = [...session.bridgeTraces]
         .reverse()
@@ -1844,6 +1932,11 @@ export default function ProtocolDesignerWorkspace({
         projectWriteCount: 0,
         protocolProjectionCount: 0,
         multilingualUserTurn: preparedGateway.turn,
+        providerCallRecords: preparedGateway.providerCallRecords,
+        cumulativeSessionCostUsd: advanceProviderSessionCostUsd(
+          latestRecordedProviderSessionCostUsd(session.bridgeTraces),
+          preparedGateway.providerCallRecords,
+        ),
       };
 
       if (entryRouting.domainGate !== "IN_SCOPE") {
@@ -1851,6 +1944,8 @@ export default function ProtocolDesignerWorkspace({
         const assistantReply = "Cette entrée ne peut pas être transmise à un owner scientifique. Reformulez-la comme une question scientifique générale, sans donnée personnelle ni identifiante. Aucun projet ni protocole n’a été créé.";
         const localized = await localizeCanonicalFrenchResponse({
           state: preparedGateway.state,
+          sessionId: session.sessionId,
+          conversationId: session.conversationId,
           sourceTurnRef: userTurn.turnId,
           responseId: `conversation-response:${userTurn.turnId}`,
           canonicalFrenchResponse: assistantReply,
@@ -1887,6 +1982,14 @@ export default function ProtocolDesignerWorkspace({
             conversationLatencyMs: 0,
             calls: preparedGateway.providerCalls + localized.providerCalls,
             languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
+            providerCallRecords: [...preparedGateway.providerCallRecords, ...localized.providerCallRecords],
+            cumulativeSessionCostUsd: advanceProviderSessionCostUsd(
+              latestRecordedProviderSessionCostUsd(current.bridgeTraces),
+              [
+              ...preparedGateway.providerCallRecords,
+              ...localized.providerCallRecords,
+              ],
+            ),
             knowledgeResultRef: null,
             knowledgeResultDigest: null,
           }].slice(-20),
@@ -1902,6 +2005,8 @@ export default function ProtocolDesignerWorkspace({
         const assistantReply = "D’accord. Le Research Project courant reste inchangé.";
         const localized = await localizeCanonicalFrenchResponse({
           state: preparedGateway.state,
+          sessionId: session.sessionId,
+          conversationId: session.conversationId,
           sourceTurnRef: userTurn.turnId,
           responseId: `conversation-response:${userTurn.turnId}`,
           canonicalFrenchResponse: assistantReply,
@@ -1931,6 +2036,14 @@ export default function ProtocolDesignerWorkspace({
             conversationLatencyMs: 0,
             calls: preparedGateway.providerCalls + localized.providerCalls,
             languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
+            providerCallRecords: [...preparedGateway.providerCallRecords, ...localized.providerCallRecords],
+            cumulativeSessionCostUsd: advanceProviderSessionCostUsd(
+              latestRecordedProviderSessionCostUsd(current.bridgeTraces),
+              [
+              ...preparedGateway.providerCallRecords,
+              ...localized.providerCallRecords,
+              ],
+            ),
             knowledgeResultRef: null,
             knowledgeResultDigest: null,
           }].slice(-20),
@@ -1960,6 +2073,9 @@ export default function ProtocolDesignerWorkspace({
           || isImagingQueryDispatch(proposalNavigation)
           || isBiostatisticsQueryDispatch(proposalNavigation);
         if (existingOwnerCanPropose) {
+          // The delegated continuation owns the busy lifecycle. The composer
+          // must remain closed until that continuation has fully settled.
+          busyLifecycleDelegated = true;
           queryNavigation = proposalNavigation;
           setSession((current) => ({ ...current, queryNavigation: proposalNavigation, updatedAt: now }));
           setBusyMessage("Je prépare des propositions à partir du Research Project confirmé…");
@@ -1983,6 +2099,8 @@ export default function ProtocolDesignerWorkspace({
         const answeredAt = new Date().toISOString();
         const localized = await localizeCanonicalFrenchResponse({
           state: preparedGateway.state,
+          sessionId: session.sessionId,
+          conversationId: session.conversationId,
           sourceTurnRef: userTurn.turnId,
           responseId: `conversation-response:${userTurn.turnId}`,
           canonicalFrenchResponse: knowledge.assistantReply,
@@ -2020,6 +2138,14 @@ export default function ProtocolDesignerWorkspace({
             conversationLatencyMs: 0,
             calls: preparedGateway.providerCalls + localized.providerCalls,
             languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
+            providerCallRecords: [...preparedGateway.providerCallRecords, ...localized.providerCallRecords],
+            cumulativeSessionCostUsd: advanceProviderSessionCostUsd(
+              latestRecordedProviderSessionCostUsd(current.bridgeTraces),
+              [
+              ...preparedGateway.providerCallRecords,
+              ...localized.providerCallRecords,
+              ],
+            ),
             knowledgeResultRef: knowledge.knowledgeResultRef,
             knowledgeResultDigest: knowledge.knowledgeResultDigest,
           }].slice(-20),
@@ -2035,6 +2161,13 @@ export default function ProtocolDesignerWorkspace({
         : buildPreProjectNavigationDecision({ routing: entryRouting });
       const bridgeRequest: Omit<ProductBridgeRequest, "apiVersion"> = {
         requestKind: "USER_TURN",
+        observabilityContext: {
+          sessionId: session.sessionId,
+          conversationId: session.conversationId,
+          turnId: userTurn.turnId,
+          clientRequestId: `product-bridge:${userTurn.turnId}`,
+          testSessionId: null,
+        },
         conversation: {
           conversationId: session.conversationId,
           language: "fr",
@@ -2241,6 +2374,8 @@ export default function ProtocolDesignerWorkspace({
       downstreamStage = "LOCALIZATION";
       const localized = await localizeCanonicalFrenchResponse({
         state: preparedGateway.state,
+        sessionId: session.sessionId,
+        conversationId: session.conversationId,
         sourceTurnRef: userTurn.turnId,
         responseId: `conversation-response:${userTurn.turnId}`,
         canonicalFrenchResponse: canonicalAssistantReply,
@@ -2386,6 +2521,19 @@ export default function ProtocolDesignerWorkspace({
           extractionLatencyMs: response.observability.extractionLatencyMs,
           calls: response.observability.calls + preparedGateway.providerCalls + localized.providerCalls,
           languageGatewayCalls: preparedGateway.providerCalls + localized.providerCalls,
+          providerCallRecords: [
+            ...preparedGateway.providerCallRecords,
+            ...(response.observability.providerCalls ?? []),
+            ...localized.providerCallRecords,
+          ],
+          cumulativeSessionCostUsd: advanceProviderSessionCostUsd(
+            latestRecordedProviderSessionCostUsd(current.bridgeTraces),
+            [
+            ...preparedGateway.providerCallRecords,
+            ...(response.observability.providerCalls ?? []),
+            ...localized.providerCallRecords,
+            ],
+          ),
           extractionAttempts: response.observability.extractionAttempts,
           entryRouting,
           preProjectTrace,
@@ -2498,7 +2646,7 @@ export default function ProtocolDesignerWorkspace({
       };
       });
     } finally {
-      setBusy(false);
+      if (!busyLifecycleDelegated) setBusy(false);
     }
   };
 
@@ -2597,11 +2745,14 @@ export default function ProtocolDesignerWorkspace({
       && record.actuality === "CURRENT" && record.humanDecision === null);
   };
 
-  const confirmContribution = async (contributionId: string) => {
-    if (confirmationInFlightRef.current === contributionId) return;
+  const confirmContribution = async (
+    contributionId: string,
+    naturalDecision?: NaturalContributionDecisionContext,
+  ) => {
+    if (confirmationInFlightRef.current === contributionId) return false;
     const contribution = session.pendingContribution;
-    if (!contribution || contribution.identity.contributionId !== contributionId) return;
-    if (!contributionHasAcknowledgedPresentation(contributionId)) return;
+    if (!contribution || contribution.identity.contributionId !== contributionId) return false;
+    if (!contributionHasAcknowledgedPresentation(contributionId)) return false;
     const now = new Date().toISOString();
     confirmationInFlightRef.current = contributionId;
     setBusyMessage("Je prépare la prochaine décision utile…");
@@ -2615,6 +2766,10 @@ export default function ProtocolDesignerWorkspace({
         projectId: session.projectId,
         authority: session.projectAuthority,
         confirmedAt: now,
+        confirmationReason: naturalDecision
+          ? "L’utilisateur a explicitement confirmé la candidate courante dans son message."
+          : undefined,
+        confirmationSourceRefs: naturalDecision ? [naturalDecision.userTurn.turnId] : undefined,
         reviewedProjection: reviewEntry?.kind === "REVIEW"
           ? (reviewEntry.candidate ?? prepareResearchProjectContributionCandidate(reviewEntry.contribution, session.project)).humanReviewProjection
           : undefined,
@@ -2645,12 +2800,16 @@ export default function ProtocolDesignerWorkspace({
         content: feedback,
         createdAt: now,
       };
-      const runtimeTurns = [...session.runtimeTurns, confirmationTurn];
+      const runtimeTurns = [
+        ...session.runtimeTurns,
+        ...(naturalDecision ? [naturalDecision.userTurn] : []),
+        confirmationTurn,
+      ];
       const correlatedTraceRunId = reviewEntry?.kind === "REVIEW" && reviewEntry.traceRunId
         ? reviewEntry.traceRunId
         : session.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
       const scientificExecutionTraceLedger = recordProjectAdoptionTrace({
-        ledger: session.scientificExecutionTraceLedger,
+        ledger: naturalDecision?.traceLedger ?? session.scientificExecutionTraceLedger,
         traceRunId: correlatedTraceRunId,
         conversationId: session.conversationId,
         recordedAt: now,
@@ -2731,11 +2890,20 @@ export default function ProtocolDesignerWorkspace({
           retained: current.retainedContributionCandidates ?? [], candidateRef: contributionId,
           decision: project.confirmationDecision,
         }),
-        runtimeTurns,
+        runtimeTurns: naturalDecision
+          ? [...current.runtimeTurns, naturalDecision.userTurn, confirmationTurn]
+          : runtimeTurns,
         entries: [
           ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
             ? { ...entry, status: "CONFIRMED" as const, decision: project.confirmationDecision }
             : entry),
+          ...(naturalDecision ? [{
+            entryId: createConversationEntryId(),
+            kind: "TEXT" as const,
+            role: "USER" as const,
+            content: naturalDecision.originalText,
+            createdAt: naturalDecision.userTurn.createdAt,
+          }] : []),
           { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now },
           ...(documentWarning ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const, role: "NOXIA" as const, content: "NOXIA n’a pas pu mettre à jour la partie documentaire du projet. Le Research Project confirmé reste disponible.", createdAt: now }] : []),
         ],
@@ -2743,6 +2911,7 @@ export default function ProtocolDesignerWorkspace({
           ? { ...trace, humanDecision: project.confirmationDecision, projectVersionAfter: project.versionId }
           : trace),
         scientificExecutionTraceLedger,
+        conversationLanguageGateway: naturalDecision?.gatewayState ?? current.conversationLanguageGateway,
         updatedAt: now,
       }));
 
@@ -2808,9 +2977,13 @@ export default function ProtocolDesignerWorkspace({
       confirmationInFlightRef.current = null;
       if (!continuationScheduled) setBusy(false);
     }
+    return continuationScheduled;
   };
 
-  const rejectContribution = (contributionId: string) => {
+  const rejectContribution = (
+    contributionId: string,
+    naturalDecision?: NaturalContributionDecisionContext,
+  ) => {
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
     if (!contributionHasAcknowledgedPresentation(contributionId)) return;
@@ -2829,7 +3002,7 @@ export default function ProtocolDesignerWorkspace({
           ? reviewEntry.traceRunId
           : current.bridgeTraces.find((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId)?.traceRunId;
         const scientificExecutionTraceLedger = recordContributionRejectionTrace({
-          ledger: current.scientificExecutionTraceLedger,
+          ledger: naturalDecision?.traceLedger ?? current.scientificExecutionTraceLedger,
           traceRunId: correlatedTraceRunId,
           conversationId: current.conversationId,
           recordedAt: now,
@@ -2883,13 +3056,21 @@ export default function ProtocolDesignerWorkspace({
             pendingContributionRef: null,
           }
           : current.biostatisticsInteraction,
-        entries: current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
-          ? { ...entry, status: "REJECTED" as const, decision }
-          : entry),
+        runtimeTurns: naturalDecision ? [...current.runtimeTurns, naturalDecision.userTurn] : current.runtimeTurns,
+        entries: [
+          ...current.entries.map((entry) => entry.kind === "REVIEW" && entry.contribution.identity.contributionId === contributionId
+            ? { ...entry, status: "REJECTED" as const, decision }
+            : entry),
+          ...(naturalDecision ? [{
+            entryId: createConversationEntryId(), kind: "TEXT" as const, role: "USER" as const,
+            content: naturalDecision.originalText, createdAt: naturalDecision.userTurn.createdAt,
+          }] : []),
+        ],
         bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
           ? { ...trace, humanDecision: decision, projectVersionAfter: current.project?.versionId ?? null }
           : trace),
         scientificExecutionTraceLedger,
+        conversationLanguageGateway: naturalDecision?.gatewayState ?? current.conversationLanguageGateway,
         updatedAt: now,
       };
       });

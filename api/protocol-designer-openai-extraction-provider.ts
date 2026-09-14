@@ -22,6 +22,12 @@ import {
   type LanguageProjectionUsage,
 } from "../src/features/protocol-designer/conversation-language-gateway.js";
 import { buildPersistentDeltaPayload, ProductBridgeProviderError } from "./protocol-designer-bridge-provider.js";
+import {
+  emptyProviderTokenUsage,
+  materializeProviderCallRecord,
+  type ProviderCallAttemptInstrumentation,
+  type ProviderTokenUsage,
+} from "../src/features/protocol-designer/provider-call-observability.js";
 
 export const OPENAI_RESPONSES_ENDPOINT = "https://api.openai.com/v1/responses";
 const FUNCTION_NAME = "propose_persistent_project_delta" as const;
@@ -34,9 +40,18 @@ export type OpenAIUsage = {
   input_tokens?: number;
   output_tokens?: number;
   total_tokens?: number;
-  input_tokens_details?: { cached_tokens?: number };
+  input_tokens_details?: { cached_tokens?: number; cache_write_tokens?: number };
   output_tokens_details?: { reasoning_tokens?: number };
 };
+
+const openAIProviderTokenUsage = (usage?: OpenAIUsage | null): ProviderTokenUsage => usage ? ({
+  inputTokens: usage.input_tokens ?? null,
+  cachedInputTokens: usage.input_tokens_details?.cached_tokens ?? null,
+  cacheWriteTokens: usage.input_tokens_details?.cache_write_tokens ?? null,
+  outputTokens: usage.output_tokens ?? null,
+  reasoningTokens: usage.output_tokens_details?.reasoning_tokens ?? null,
+  totalTokens: usage.total_tokens ?? null,
+}) : emptyProviderTokenUsage();
 
 type OpenAIResponseBody = {
   id?: string;
@@ -83,8 +98,15 @@ const callOpenAIResponses = async (input: {
   apiKey: string;
   payload: unknown;
   fetchImpl: typeof fetch;
+  modelRequested: string;
+  instrumentation?: ProviderCallAttemptInstrumentation;
 }): Promise<OpenAIResponsesResult> => {
   const started = Date.now();
+  const startedAt = new Date(started).toISOString();
+  const observe = (record: Parameters<typeof materializeProviderCallRecord>[0]) => {
+    if (!input.instrumentation) return;
+    input.instrumentation.onRecord(materializeProviderCallRecord(record));
+  };
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   let response: Response;
@@ -96,6 +118,13 @@ const callOpenAIResponses = async (input: {
       signal: controller.signal,
     });
   } catch (error) {
+    const latencyMs = Date.now() - started;
+    observe({
+      provider: "OPENAI", modelRequested: input.modelRequested, modelReturned: null,
+      instrumentation: input.instrumentation!, usage: emptyProviderTokenUsage(), latencyMs,
+      status: "FAILED", failureReason: error instanceof Error && error.name === "AbortError" ? "TIMEOUT" : "NETWORK_FAILURE",
+      providerRequestId: null, providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
+    });
     throw new ProductBridgeProviderError(
       input.stage,
       null,
@@ -113,11 +142,26 @@ const callOpenAIResponses = async (input: {
   try {
     body = JSON.parse(raw) as OpenAIResponseBody;
   } catch {
+    const latencyMs = Date.now() - started;
+    observe({
+      provider: "OPENAI", modelRequested: input.modelRequested, modelReturned: null,
+      instrumentation: input.instrumentation!, usage: emptyProviderTokenUsage(), latencyMs,
+      status: "FAILED", failureReason: "INVALID_PROVIDER_JSON", providerRequestId: requestId,
+      providerResponseId: null, startedAt, completedAt: new Date().toISOString(),
+    });
     throw new ProductBridgeProviderError(
       input.stage, response.status, "INVALID_PROVIDER_JSON", "Provider returned invalid JSON.", null, "OPENAI", requestId,
     );
   }
   if (!response.ok || body.status === "failed" || body.status === "incomplete") {
+    const latencyMs = Date.now() - started;
+    const failureReason = body.error?.code ?? body.error?.type ?? body.status ?? `HTTP_${response.status}`;
+    observe({
+      provider: "OPENAI", modelRequested: input.modelRequested, modelReturned: body.model ?? null,
+      instrumentation: input.instrumentation!, usage: openAIProviderTokenUsage(body.usage), latencyMs,
+      status: "FAILED", failureReason, providerRequestId: requestId, providerResponseId: body.id ?? null,
+      startedAt, completedAt: new Date().toISOString(),
+    });
     throw new ProductBridgeProviderError(
       input.stage,
       response.status,
@@ -128,7 +172,14 @@ const callOpenAIResponses = async (input: {
       requestId,
     );
   }
-  return { body, httpStatus: response.status, latencyMs: Date.now() - started, requestId };
+  const latencyMs = Date.now() - started;
+  observe({
+    provider: "OPENAI", modelRequested: input.modelRequested, modelReturned: body.model ?? null,
+    instrumentation: input.instrumentation!, usage: openAIProviderTokenUsage(body.usage), latencyMs,
+    status: "SUCCEEDED", failureReason: null, providerRequestId: requestId, providerResponseId: body.id ?? null,
+    startedAt, completedAt: new Date().toISOString(),
+  });
+  return { body, httpStatus: response.status, latencyMs, requestId };
 };
 
 export const buildOpenAILanguageProjectionPayload = (
@@ -182,6 +233,7 @@ export const executeOpenAILanguageProjection = async (
   fetchImpl: typeof fetch = fetch,
   model: string = DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
   reasoningEffort: string = DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
+  instrumentation?: ProviderCallAttemptInstrumentation,
 ): Promise<OpenAILanguageProjectionResult> => {
   const modelRequested = resolveOpenAILanguageGatewayModel(model);
   const resolvedEffort = resolveOpenAILanguageGatewayReasoningEffort(reasoningEffort);
@@ -190,6 +242,8 @@ export const executeOpenAILanguageProjection = async (
     apiKey,
     payload: buildOpenAILanguageProjectionPayload(request, modelRequested, resolvedEffort),
     fetchImpl,
+    modelRequested,
+    instrumentation,
   });
   const serialized = responseOutputText(result.body);
   let rawProjection: unknown;
@@ -248,6 +302,7 @@ export const executeOpenAIPersistentDelta = async (
   apiKey: string,
   fetchImpl: typeof fetch = fetch,
   model: string = DEFAULT_OPENAI_EXTRACTION_MODEL,
+  instrumentation?: ProviderCallAttemptInstrumentation,
 ): Promise<OpenAIPersistentDeltaResult> => {
   const modelRequested = resolveOpenAIExtractionModel(model);
   const payload = buildOpenAIPersistentDeltaPayload(request, modelRequested);
@@ -264,7 +319,9 @@ export const executeOpenAIPersistentDelta = async (
     promptDigest,
     schemaDigest,
   });
-  const response = await callOpenAIResponses({ stage: "PERSISTENT_DELTA", apiKey, payload, fetchImpl });
+  const response = await callOpenAIResponses({
+    stage: "PERSISTENT_DELTA", apiKey, payload, fetchImpl, modelRequested, instrumentation,
+  });
   const { body, requestId } = response;
 
   const structuredArgsSerialized = responseOutputText(body);
