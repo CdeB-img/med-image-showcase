@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { executeProtocolDesignerBridge } from "../../../../../api/protocol-designer-bridge";
+import { SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../../api/protocol-designer-canary-policy";
 import { buildPersistentSourceCatalog, type ProductBridgeRequest, type ProductBridgeResponse } from "@/features/protocol-designer/product-bridge";
 import { confirmResearchProjectContribution, prepareResearchProjectContributionCandidate } from "@/features/research-project-construction";
 import type { GovernedConversationEnvelope } from "@/features/query-navigation/governed-conversation-realization";
@@ -121,6 +122,60 @@ const execute = (body: ProductBridgeRequest, mocks: ReturnType<typeof isolatedPr
   openAiApiKey: "synthetic-unused-openai-credential",
   fetchImpl: mocks.fetchImpl,
   now: () => Date.parse(CREATED_AT),
+});
+
+describe("canary A1-A4 — single attempt, existing scientific path", () => {
+  const initial = (raw = RAW) => {
+    const request = requestFor({ raw });
+    request.preProjectNavigation = buildPreProjectNavigationDecision({ routing: routeProductEntry({
+      raw, sourceTurnRef: request.conversation.turns[0]!.turnId, routedAt: CREATED_AT,
+    }) });
+    return request;
+  };
+  const single = (request: ProductBridgeRequest, mocks: ReturnType<typeof isolatedProviderMocks>) => executeProtocolDesignerBridge({
+    body: request, apiKey: "synthetic", openAiApiKey: "synthetic", fetchImpl: mocks.fetchImpl,
+    now: () => Date.parse(CREATED_AT), providerAttemptPolicy: SINGLE_ATTEMPT_FAIL_CLOSED,
+  });
+  it("A1: keeps a valid first candidate, visible realization and navigation identical, with one extraction", async () => {
+    const request = initial();
+    const normalMocks = isolatedProviderMocks({ extractionOutputs: [visitArgs(request)] });
+    const canaryMocks = isolatedProviderMocks({ extractionOutputs: [visitArgs(request)] });
+    const normal = (await execute(request, normalMocks)).body as ProductBridgeResponse;
+    const canary = (await single(request, canaryMocks)).body as ProductBridgeResponse;
+    for (const field of ["assistantReply", "conversationFailure", "currentTurnNavigation", "governedRealization"] as const) {
+      expect(canary[field]).toEqual(normal[field]);
+    }
+    // Separate HTTP responses legitimately have different receipt timestamps.
+    expect({ ...canary.persistentExtraction, providerArtifact: {
+      ...canary.persistentExtraction.providerArtifact,
+      receivedAt: normal.persistentExtraction.providerArtifact!.receivedAt,
+    } }).toEqual(normal.persistentExtraction);
+    expect(canary.persistentExtraction.validation?.valid).toBe(true);
+    expect(canaryMocks.fetchMock).toHaveBeenCalledTimes(1);
+    expect(normalMocks.fetchMock).toHaveBeenCalledTimes(1);
+  });
+  it.each(["SCHEMA", "CONTRACT"] as const)("A2/A3: %s rejection cannot buy re-extraction or downstream HOW", async (kind) => {
+    const request = initial();
+    const invalid = kind === "SCHEMA" ? { ...visitArgs(request), changes: "INVALID_ARRAY" } : invalidAnchorArgs(request);
+    const mocks = isolatedProviderMocks({ extractionOutputs: [invalid, visitArgs(request)] });
+    const result = (await single(request, mocks)).body as ProductBridgeResponse;
+    expect(mocks.fetchMock).toHaveBeenCalledTimes(1);
+    expect(result.persistentExtraction).toMatchObject({ status: "BLOCKED", recovery: null, contribution: null });
+    expect(result.observability).toMatchObject({ extractionAttempts: 1, conversationCalls: 0, calls: 1, projectWrites: 0 });
+    expect(request.currentProject).toBeNull();
+  });
+  it("A4: preserves a structurally valid but incomplete scientific output without reroll", async () => {
+    const request = initial("Ajouter une visite de contrôle et un objectif de surveillance de la tolérance.");
+    // Deliberately omits the explicit objective. The test asserts no reroll,
+    // not scientific adequacy or permission to adopt this incomplete output.
+    const mocks = isolatedProviderMocks({ extractionOutputs: [visitArgs(request)] });
+    const result = (await single(request, mocks)).body as ProductBridgeResponse;
+    expect(result.persistentExtraction.validation?.valid).toBe(true);
+    expect(result.persistentExtraction.candidate?.changes).toHaveLength(1);
+    expect(result.persistentExtraction.recovery).toBeNull();
+    expect(mocks.fetchMock).toHaveBeenCalledTimes(1);
+    expect(result.observability.projectWrites).toBe(0);
+  });
 });
 
 describe("PASS3A — extraction transaction before downstream HOW", () => {

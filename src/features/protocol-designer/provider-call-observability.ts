@@ -100,6 +100,9 @@ const PRICING_BY_MODEL: Readonly<Record<string, Pricing>> = Object.freeze({
   }),
 });
 
+/** Shared dated tariff, including cache writes; not an assertion of invoice cost. */
+export const providerModelPricing = (model: string): Pricing | null => PRICING_BY_MODEL[model] ?? null;
+
 const nonNegative = (value: number | null | undefined) => typeof value === "number" && Number.isFinite(value)
   ? Math.max(0, value)
   : 0;

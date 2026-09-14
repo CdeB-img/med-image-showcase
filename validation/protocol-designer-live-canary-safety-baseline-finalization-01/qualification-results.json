@@ -1,0 +1,126 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_LIVE_CANARY_SAFETY_BASELINE_FINALIZATION_01",
+  "initialHead": "02b5bb671339c0aa720c165da5a3b577b9474baf",
+  "branch": "protocol-designer-canonical-ingestion",
+  "safetyRepairReview": "PASS",
+  "singleAttemptGuard": "PASS",
+  "precallAbsoluteBudgetGuard": "PASS",
+  "absoluteHardCampaignBoundUsd": 6,
+  "measuredCostSoftStopUsd": 1,
+  "firstTerraCanaryDryRun": "ADMITTED",
+  "targeted": {
+    "passed": 82,
+    "failed": 0,
+    "files": 7
+  },
+  "fullSuite": {
+    "passed": 4006,
+    "failed": 0,
+    "unhandledErrors": 0,
+    "skipped": 12,
+    "todo": 1,
+    "passedFiles": 267,
+    "skippedFiles": 2
+  },
+  "fullSuiteRerunReason": "FUNCTIONAL_CHANGE_BUDGET_CUMULATIVE_MEASURED_COST_AND_LEDGER_INTEGRITY",
+  "typeScript": "PASS",
+  "nodeTypes": "PASS",
+  "lintAffected": "PASS",
+  "build": "PASS_WITH_EXISTING_CHUNK_SIZE_WARNING",
+  "networkGuard": "FETCH_HTTP_HTTPS_NET_TLS_BLOCKED",
+  "preexistingUntrackedCount": 493,
+  "preexistingUntrackedUnchangedBytes": 492,
+  "preexistingUntrackedAuthorizedModified": [
+    "api/protocol-designer-canary-policy.ts"
+  ],
+  "newScientificResponsibility": false,
+  "scientificPayloadPromptModelEffortChanges": false,
+  "onlyAdditionalCanaryOpenAiWireField": "service_tier=default",
+  "providerCalls": 0,
+  "liveProvider": "NOT_RUN",
+  "humanLive": "NOT_RUN",
+  "push": false,
+  "deployment": false,
+  "reviewFinding": {
+    "id": "JOURNAL_LOSS_RESETS_BUDGET",
+    "status": "CORRECTED_AND_TESTED",
+    "cases": [
+      "MISSING",
+      "EMPTY",
+      "LOST_LAST_PAIR"
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/full-suite.json",
+      "sha256": "89c53a09157b8347a3c745fc0c37f4200d58e1beb02b63f380e43b8f4f78c4eb"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/full.log",
+      "sha256": "ed6deca760fa86bfeaa3f5b40eaa7515ac2ca065e2c071d437255d57b09f079b"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/targeted-suite.json",
+      "sha256": "1f0e7b535b31135314a7e83e45c8d28edaa7896a06aaf15c902a11e584b7c32b"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/targeted.log",
+      "sha256": "7a8ae81fbe478a70d8141aeb1c86039fcbc207c3b1fdc1672137e77cb1080f6f"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/build.log",
+      "sha256": "b0e851a14615910987cdd3f8eabf15b2cf6bc8c5b9cfb59ea7793d528d917ed8"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/lint.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/node-types.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/network-guard-verification.json",
+      "sha256": "0ceae5fd4db004f510c77744940676246b7e006d885df749b0d3389e915ad7c4"
+    },
+    {
+      "path": "validation/protocol-designer-live-canary-safety-baseline-finalization-01/canary-dry-run.json",
+      "sha256": "f20407c58cf9bd5187eaa3bb3491e5cecf0fa023c4498ddd5dfa13820525abfa"
+    }
+  ],
+  "qualifiedSourceFiles": [
+    {
+      "path": "api/protocol-designer-bridge.ts",
+      "sha256": "6f732c227072fe01d46eff781cde1e723290f5f20ccc43ccb04a39ab258224d8"
+    },
+    {
+      "path": "api/protocol-designer-provider-replay.ts",
+      "sha256": "682249068258d52f54a3bf8246852f5f20629754a89ec1ff414152cff2e0287c"
+    },
+    {
+      "path": "api/protocol-designer-canary-policy.ts",
+      "sha256": "aa5cd8f6ca754475ad28d09631cc5312c0bf2c27bf9a598a7559987857c66d19"
+    },
+    {
+      "path": "src/features/protocol-designer/provider-call-observability.ts",
+      "sha256": "002bbd43e6b20d93056b559c7fdc8f0a2bde35031b69ccb21879e4e423bba2a9"
+    },
+    {
+      "path": "src/features/protocol-designer/__tests__/v1-provider-record-replay.test.ts",
+      "sha256": "3920bee65e572455ca47446e5ceb85000ea7a9a922119894150877c37f3755bf"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/pass3a-bridge-lifecycle.test.ts",
+      "sha256": "796e85455ba6cbef9ae0fb72a89f9a7ebf7a7d3beb3c8425953dd403b7e8d130"
+    },
+    {
+      "path": "src/features/protocol-designer/functional-reset/__tests__/local-provider-bridge-config.test.ts",
+      "sha256": "e7ac49208d11a0f62bb9117c60d2d11f5adae4cb5e91638cbbcfeae6b0f209e6"
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "203eadb8a316d5f4b221a0d3c38ce097308560bdf8e448387a99584b3dbcef7f"
+    }
+  ],
+  "secondIndependentReview": "PASS_AFTER_JOURNAL_LOSS_REPAIR"
+}

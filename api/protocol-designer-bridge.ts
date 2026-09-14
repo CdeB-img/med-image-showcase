@@ -16,6 +16,7 @@ import {
   type ProductBridgeResponse,
 } from "../src/features/protocol-designer/product-bridge.js";
 import { ProductBridgeProviderError, executeNaturalConversation } from "./protocol-designer-bridge-provider.js";
+import { SINGLE_ATTEMPT_FAIL_CLOSED, type ProviderAttemptPolicy } from "./protocol-designer-canary-policy.js";
 import {
   DEFAULT_OPENAI_LANGUAGE_GATEWAY_MODEL,
   DEFAULT_OPENAI_LANGUAGE_GATEWAY_REASONING_EFFORT,
@@ -113,6 +114,7 @@ export const executeProtocolDesignerBridge = async (input: {
   openAiExtractionModel?: string | null;
   fetchImpl?: typeof fetch;
   now?: () => number;
+  providerAttemptPolicy?: ProviderAttemptPolicy;
   onPersistentProviderArtifact?: (artifact: NonNullable<ProductBridgeResponse["persistentExtraction"]["providerArtifact"]>) => void;
 }): Promise<{ status: number; body: ProductBridgeResponse | Record<string, unknown> }> => {
   const providerCalls: ProviderCallRecord[] = [];
@@ -330,7 +332,8 @@ export const executeProtocolDesignerBridge = async (input: {
 
       const firstAttempt = await executeAndValidateExtraction();
       let selectedAttempt = firstAttempt;
-      if (!firstAttempt.validation.valid && isRecoverablePersistentValidationFailure(firstAttempt.validation.blocks)) {
+      if (input.providerAttemptPolicy !== SINGLE_ATTEMPT_FAIL_CLOSED
+        && !firstAttempt.validation.valid && isRecoverablePersistentValidationFailure(firstAttempt.validation.blocks)) {
         recoveryContext = {
           attempted: true,
           reason: "RECOVERABLE_PROVIDER_OUTPUT_VALIDATION_FAILURE",
@@ -432,7 +435,9 @@ export const executeProtocolDesignerBridge = async (input: {
       && request.preProjectNavigation !== undefined
       && persistentExtraction.validation?.valid === true
       && persistentExtraction.contribution !== null;
-    if (!reviewableInitialCandidate) {
+    const canaryExtractionStopped = input.providerAttemptPolicy === SINGLE_ATTEMPT_FAIL_CLOSED
+      && persistentExtraction.called && persistentExtraction.validation?.valid !== true;
+    if (!reviewableInitialCandidate && !canaryExtractionStopped) {
       downstreamStage = "HOW";
       howRequestedAt = new Date(input.now?.() ?? Date.now()).toISOString();
       howCalls = 1;
@@ -523,7 +528,7 @@ export const handleProtocolDesignerBridge = async (
   request: ApiRequest,
   response: ApiResponse,
   environment: Record<string, string | undefined> = process.env,
-  dependencies: { fetchImpl?: typeof fetch; now?: () => number } = {},
+  dependencies: { fetchImpl?: typeof fetch; now?: () => number; providerAttemptPolicy?: ProviderAttemptPolicy } = {},
 ) => {
   response.setHeader("content-type", "application/json; charset=utf-8");
   response.setHeader("cache-control", "no-store");
@@ -557,6 +562,7 @@ export const handleProtocolDesignerBridge = async (
     openAiExtractionModel: environment.OPENAI_EXTRACTION_MODEL,
     fetchImpl: dependencies.fetchImpl,
     now: dependencies.now,
+    providerAttemptPolicy: dependencies.providerAttemptPolicy,
   });
   response.status(result.status).json(result.body);
 };

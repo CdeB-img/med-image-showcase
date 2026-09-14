@@ -4,6 +4,8 @@ import path from "node:path";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { ViteDevServer } from "vite";
 import { describe, expect, it, vi } from "vitest";
+import { languageProjectionIdentityDigest } from "../../conversation-language-gateway";
+import { SINGLE_ATTEMPT_FAIL_CLOSED } from "../../../../../api/protocol-designer-canary-policy";
 
 vi.mock("vite", () => ({
   defineConfig: (configuration: unknown) => configuration,
@@ -14,6 +16,53 @@ vi.mock("@vitejs/plugin-react-swc", () => ({ default: () => ({ name: "react-test
 const loadLocalBridgeConfiguration = () => import("../../../../../vite.config");
 
 describe("P1-UX-RESTORE-01H-R — local provider bridge parity", () => {
+  it("dry-run: the real local middleware applies recording/budget/policy and cannot fall through to another API", async () => {
+    const root = mkdtempSync(path.join(tmpdir(), "noxia-canary-local-dry-run-"));
+    try {
+      const { localProductBridge } = await loadLocalBridgeConfiguration();
+      const sourceText = "A study remains pending.";
+      const body = {
+        apiVersion: "1.0.0", operation: "LANGUAGE_PROJECTION", projectionKind: "INPUT_TO_FRENCH",
+        sourceText, sourceLanguageHint: "en", targetLanguage: "fr", translationContractVersion: "1.4.0",
+        projectionIdentityDigest: languageProjectionIdentityDigest({ projectionKind: "INPUT_TO_FRENCH",
+          sourceText, sourceLanguage: "en", targetLanguage: "fr", provider: "OPENAI", model: "gpt-5.6-luna", protectedOpaqueLiterals: [] }),
+        observabilityContext: { sessionId: "s1", conversationId: "c1", turnId: "t1", clientRequestId: "r1", testSessionId: "dry-run" },
+      };
+      const fetchMock = vi.fn(async () => new Response(JSON.stringify({
+        id: "synthetic-local-response", model: "gpt-5.6-luna", status: "completed", output_text: "{}",
+        usage: { input_tokens: 1_000, output_tokens: 100 },
+      })));
+      const plugin = localProductBridge({ apiKey: "synthetic", openAiApiKey: "synthetic",
+        geminiModel: "gemini-3.5-flash-lite", openAiExtractionModel: "gpt-5.6-terra" }, root,
+      { attemptPolicy: SINGLE_ATTEMPT_FAIL_CLOSED, campaignId: "dry-run" }, fetchMock);
+      const use = vi.fn();
+      if (typeof plugin.configureServer !== "function") throw new Error("Expected middleware hook");
+      await plugin.configureServer({ middlewares: { use } } as unknown as ViteDevServer);
+      expect(use.mock.calls[0][0]).toBe("/api/");
+      const middleware = use.mock.calls[0][1];
+      const invoke = async (url: string, payload: unknown) => {
+        const request = { method: "POST", url, async *[Symbol.asyncIterator]() { yield Buffer.from(JSON.stringify(payload)); } };
+        const response = { statusCode: 200, setHeader: vi.fn(), end: vi.fn() };
+        const next = vi.fn();
+        await middleware(request, response, next);
+        expect(next).not.toHaveBeenCalled();
+        return { status: response.statusCode, body: JSON.parse(response.end.mock.calls[0][0]) };
+      };
+      const result = await invoke("/protocol-designer-bridge", body);
+      // This synthetic invalid translation is retained, not regenerated. The
+      // existing language parser still rejects it after the guarded call.
+      expect(result.status).toBe(503);
+      expect(result.body.error.code).toBe("LANGUAGE_PROJECTION_PROVIDER_FAILURE");
+      expect(result.body.observability.providerCalls).toHaveLength(1);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      const journal = readFileSync(path.join(root, "canary-dry-run", "protocol-designer-exchanges.jsonl"), "utf8");
+      expect(journal).toContain("REQUEST_PREPARED");
+      expect(journal).toContain("COMPLETED");
+      expect((await invoke("/protocol-designer-bridge", body)).body.error.code).toBe("CANARY_LOGICAL_CALL_ALREADY_CONSUMED");
+      expect((await invoke("/scientific-intake", body)).body.error.code).toBe("CANARY_OTHER_API_ROUTE_FORBIDDEN");
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    } finally { rmSync(root, { recursive: true }); }
+  });
   it("passes the existing Gemini and OpenAI server-side configuration to the governed bridge", async () => {
     const {
       executeLocalProductBridgeRequest,

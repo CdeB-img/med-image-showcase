@@ -1,0 +1,229 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_LIVE_CANARY_SAFETY_BASELINE_FINALIZATION_01",
+  "evidenceLevel": "OFFLINE_REAL_RECORDED_TRANSPORT_WITH_SYNTHETIC_BROWSER_RESPONSES",
+  "source": "validation/protocol-designer-v1-live-canary-preflight-safety-repair-01/browser-http-exchanges.jsonl",
+  "sourceSha256": "98791d8ad28471893cf61e5ab802b189303ab613d0cd8b894f053623f0e897c3",
+  "providerCalls": 0,
+  "simulatedTransportCalls": 11,
+  "absoluteHardCampaignBoundUsd": 6,
+  "measuredCostSoftStopUsd": 1,
+  "firstTerraCanaryDryRun": "ADMITTED",
+  "peakCommittedPlusReservationUsd": 5.4957,
+  "finalSyntheticMeasuredCostUsd": 0.110225,
+  "finalSyntheticCommittedCostUsd": 0.122225,
+  "scientificPayloadsUnchanged": true,
+  "onlyCanaryWireAddition": "OPENAI_SERVICE_TIER_DEFAULT",
+  "preparedBeforeEverySimulatedCall": true,
+  "liveUsagePrediction": "UNKNOWN_SYNTHETIC_USAGE_IS_NOT_A_PREDICTION",
+  "calls": [
+    {
+      "index": 1,
+      "model": "gpt-5.6-terra",
+      "requestDigest": "29b9abb147ccc4d712fc80afad493424141fadea9b3bc1977581c73d78960e4e",
+      "serviceTier": "default",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0,
+      "committedBeforeUsd": 0,
+      "reservationUsd": 5.394,
+      "committedPlusReservationUsd": 5.394,
+      "settlement": {
+        "inputTokens": 4000,
+        "billableOutputTokens": 800,
+        "measuredCostUsd": 0.0176,
+        "committedCostUpperBoundUsd": 0.0196
+      },
+      "measuredAfterUsd": 0.0176,
+      "committedAfterUsd": 0.0196
+    },
+    {
+      "index": 2,
+      "model": "gpt-5.6-terra",
+      "requestDigest": "1302ba25496268977dafcc57351820145c29164af2e2dea17a03fbb53d5f847b",
+      "serviceTier": "default",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.0176,
+      "committedBeforeUsd": 0.0196,
+      "reservationUsd": 5.394,
+      "committedPlusReservationUsd": 5.4136,
+      "settlement": {
+        "inputTokens": 4000,
+        "billableOutputTokens": 800,
+        "measuredCostUsd": 0.0176,
+        "committedCostUpperBoundUsd": 0.0196
+      },
+      "measuredAfterUsd": 0.0352,
+      "committedAfterUsd": 0.0392
+    },
+    {
+      "index": 3,
+      "model": "gemini-3.5-flash-lite",
+      "requestDigest": "23760d38f603a198c5687e18eb4e42ee22034ee1e36132efa0151b9fa74a371d",
+      "serviceTier": "NOT_APPLICABLE",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.0352,
+      "committedBeforeUsd": 0.0392,
+      "reservationUsd": 0.4784128,
+      "committedPlusReservationUsd": 0.5176128,
+      "settlement": {
+        "inputTokens": 1000,
+        "billableOutputTokens": 250,
+        "measuredCostUsd": 0.000925,
+        "committedCostUpperBoundUsd": 0.000925
+      },
+      "measuredAfterUsd": 0.036125,
+      "committedAfterUsd": 0.040125
+    },
+    {
+      "index": 4,
+      "model": "gpt-5.6-terra",
+      "requestDigest": "d7d68ce72f36c4d1f26737d8231990e54d99c17e0558fd1b46fe3b946e0da631",
+      "serviceTier": "default",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.036125,
+      "committedBeforeUsd": 0.040125,
+      "reservationUsd": 5.394,
+      "committedPlusReservationUsd": 5.434125,
+      "settlement": {
+        "inputTokens": 4000,
+        "billableOutputTokens": 800,
+        "measuredCostUsd": 0.0176,
+        "committedCostUpperBoundUsd": 0.0196
+      },
+      "measuredAfterUsd": 0.053725,
+      "committedAfterUsd": 0.059725
+    },
+    {
+      "index": 5,
+      "model": "gemini-3.5-flash-lite",
+      "requestDigest": "16a5b46c41fdfbed34f1d8826586d49c7066a285235a0ddef25d63ebc01f6b17",
+      "serviceTier": "NOT_APPLICABLE",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.053725,
+      "committedBeforeUsd": 0.059725,
+      "reservationUsd": 0.4784128,
+      "committedPlusReservationUsd": 0.5381378,
+      "settlement": {
+        "inputTokens": 1000,
+        "billableOutputTokens": 250,
+        "measuredCostUsd": 0.000925,
+        "committedCostUpperBoundUsd": 0.000925
+      },
+      "measuredAfterUsd": 0.05465,
+      "committedAfterUsd": 0.06065
+    },
+    {
+      "index": 6,
+      "model": "gpt-5.6-terra",
+      "requestDigest": "e4dc9c10073d537e9be0fc2d51e7cc4e067be39d1c02744deea3fc82e4f65eda",
+      "serviceTier": "default",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.05465,
+      "committedBeforeUsd": 0.06065,
+      "reservationUsd": 5.394,
+      "committedPlusReservationUsd": 5.45465,
+      "settlement": {
+        "inputTokens": 4000,
+        "billableOutputTokens": 800,
+        "measuredCostUsd": 0.0176,
+        "committedCostUpperBoundUsd": 0.0196
+      },
+      "measuredAfterUsd": 0.07225,
+      "committedAfterUsd": 0.08025
+    },
+    {
+      "index": 7,
+      "model": "gemini-3.5-flash-lite",
+      "requestDigest": "f84e4d109eb9824a1179b1ef9061c6add29c86175f76fe6bf1cc488ea3ce43b4",
+      "serviceTier": "NOT_APPLICABLE",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.07225,
+      "committedBeforeUsd": 0.08025,
+      "reservationUsd": 0.4784128,
+      "committedPlusReservationUsd": 0.5586628,
+      "settlement": {
+        "inputTokens": 1000,
+        "billableOutputTokens": 250,
+        "measuredCostUsd": 0.000925,
+        "committedCostUpperBoundUsd": 0.000925
+      },
+      "measuredAfterUsd": 0.073175,
+      "committedAfterUsd": 0.081175
+    },
+    {
+      "index": 8,
+      "model": "gpt-5.6-terra",
+      "requestDigest": "9fa11f95c91f775a6fa80b6043bd0cac2adf53250a092164bcd37c25d24881c7",
+      "serviceTier": "default",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.073175,
+      "committedBeforeUsd": 0.081175,
+      "reservationUsd": 5.394,
+      "committedPlusReservationUsd": 5.475175,
+      "settlement": {
+        "inputTokens": 4000,
+        "billableOutputTokens": 800,
+        "measuredCostUsd": 0.0176,
+        "committedCostUpperBoundUsd": 0.0196
+      },
+      "measuredAfterUsd": 0.090775,
+      "committedAfterUsd": 0.100775
+    },
+    {
+      "index": 9,
+      "model": "gemini-3.5-flash-lite",
+      "requestDigest": "84fd699ad9a837f990636cf200f3c87deae9c2cff672d7369ccf6d325c7ab2ae",
+      "serviceTier": "NOT_APPLICABLE",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.090775,
+      "committedBeforeUsd": 0.100775,
+      "reservationUsd": 0.4784128,
+      "committedPlusReservationUsd": 0.5791878,
+      "settlement": {
+        "inputTokens": 1000,
+        "billableOutputTokens": 250,
+        "measuredCostUsd": 0.000925,
+        "committedCostUpperBoundUsd": 0.000925
+      },
+      "measuredAfterUsd": 0.0917,
+      "committedAfterUsd": 0.1017
+    },
+    {
+      "index": 10,
+      "model": "gpt-5.6-terra",
+      "requestDigest": "bb3cdc91e55b120bfd26c99626e3325ffefae8a590692b7c3b770bca6cc24647",
+      "serviceTier": "default",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.0917,
+      "committedBeforeUsd": 0.1017,
+      "reservationUsd": 5.394,
+      "committedPlusReservationUsd": 5.4957,
+      "settlement": {
+        "inputTokens": 4000,
+        "billableOutputTokens": 800,
+        "measuredCostUsd": 0.0176,
+        "committedCostUpperBoundUsd": 0.0196
+      },
+      "measuredAfterUsd": 0.1093,
+      "committedAfterUsd": 0.1213
+    },
+    {
+      "index": 11,
+      "model": "gemini-3.5-flash-lite",
+      "requestDigest": "6f230de5c373fb788addb9eca74accc2922a829eafdb62fd3f3e57a336d7a561",
+      "serviceTier": "NOT_APPLICABLE",
+      "admission": "ADMITTED",
+      "measuredBeforeUsd": 0.1093,
+      "committedBeforeUsd": 0.1213,
+      "reservationUsd": 0.4784128,
+      "committedPlusReservationUsd": 0.5997128,
+      "settlement": {
+        "inputTokens": 1000,
+        "billableOutputTokens": 250,
+        "measuredCostUsd": 0.000925,
+        "committedCostUpperBoundUsd": 0.000925
+      },
+      "measuredAfterUsd": 0.110225,
+      "committedAfterUsd": 0.122225
+    }
+  ]
+}

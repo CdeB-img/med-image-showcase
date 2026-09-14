@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { executeProtocolDesignerBridge } from "./api/protocol-designer-bridge";
 import { createRecordedProtocolDesignerFetch } from "./api/protocol-designer-provider-replay";
+import { resolveCanaryExecution } from "./api/protocol-designer-canary-policy";
 
 export type LocalProductBridgeConfiguration = Readonly<{
   apiKey: string | null;
@@ -33,10 +34,21 @@ export const executeLocalProductBridgeRequest = (
   executor: typeof executeProtocolDesignerBridge = executeProtocolDesignerBridge,
 ) => executor({ body, ...configuration });
 
-const localProductBridge = (configuration: LocalProductBridgeConfiguration, evidenceRoot: string): Plugin => ({
+export const localProductBridge = (
+  configuration: LocalProductBridgeConfiguration,
+  evidenceRoot: string,
+  canary: ReturnType<typeof resolveCanaryExecution> = null,
+  fetchImpl: typeof fetch = fetch,
+): Plugin => ({
   name: "noxia-local-product-bridge",
   configureServer(server) {
-    server.middlewares.use("/api/protocol-designer-bridge", async (request, response, next) => {
+    server.middlewares.use(canary ? "/api/" : "/api/protocol-designer-bridge", async (request, response, next) => {
+      if (canary && request.url !== "/protocol-designer-bridge") {
+        response.statusCode = 503;
+        response.setHeader("content-type", "application/json; charset=utf-8");
+        response.end(JSON.stringify({ error: { code: "CANARY_OTHER_API_ROUTE_FORBIDDEN" } }));
+        return;
+      }
       if (request.method !== "POST") return next();
       const chunks: Buffer[] = [];
       let size = 0;
@@ -55,19 +67,25 @@ const localProductBridge = (configuration: LocalProductBridgeConfiguration, evid
       try { body = JSON.parse(Buffer.concat(chunks).toString("utf8")); } catch { /* parsed as invalid below */ }
       // Local live calls become durable, private replay evidence. No request
       // headers/credentials are persisted and this store is not bundled for UI.
+      let canaryDenial: string | null = null;
       const recordedFetch = createRecordedProtocolDesignerFetch({
-        root: evidenceRoot,
-        fetchImpl: fetch,
+        root: canary ? path.join(evidenceRoot, `canary-${canary.campaignId}`) : evidenceRoot,
+        fetchImpl,
+        ...(canary ? { canaryCampaignId: canary.campaignId, onCanaryDenied: (code: string) => { canaryDenial = code; } } : {}),
         secrets: [configuration.apiKey ?? "", configuration.openAiApiKey ?? ""],
         context: body && typeof body === "object" && "observabilityContext" in body
           ? body.observabilityContext : null,
       });
       const result = await executeLocalProductBridgeRequest(body, configuration,
-        (input) => executeProtocolDesignerBridge({ ...input, fetchImpl: recordedFetch }));
-      response.statusCode = result.status;
+        (input) => executeProtocolDesignerBridge({ ...input, fetchImpl: recordedFetch,
+          ...(canary ? { providerAttemptPolicy: canary.attemptPolicy } : {}),
+        }));
+      response.statusCode = canaryDenial ? 503 : result.status;
       response.setHeader("content-type", "application/json; charset=utf-8");
       response.setHeader("cache-control", "no-store");
-      response.end(JSON.stringify(result.body));
+      response.end(JSON.stringify(canaryDenial ? {
+        ...result.body, error: { code: canaryDenial, message: "Canary arrêté avant tout nouvel appel provider : condition de sécurité non satisfaite." },
+      } : result.body));
     });
   },
 });
@@ -75,12 +93,15 @@ const localProductBridge = (configuration: LocalProductBridgeConfiguration, evid
 export default defineConfig(({ mode }) => {
   const environment = loadEnv(mode, process.cwd(), "");
   const providerConfiguration = resolveLocalProductBridgeConfiguration(process.env, environment);
+  // Opt-in is server-side only. Invalid/partial configuration cannot select the
+  // normal runtime silently; no browser field may weaken the campaign policy.
+  const canary = resolveCanaryExecution(process.env);
   const evidenceRoot = path.resolve(process.env.PROTOCOL_DESIGNER_EVIDENCE_DIR || ".provider-evidence.local");
   const deploymentGitSha = process.env.VERCEL_GIT_COMMIT_SHA?.trim() || environment.VERCEL_GIT_COMMIT_SHA?.trim() || "";
   const buildGitSha = /^[0-9a-f]{7,40}$/i.test(deploymentGitSha) ? deploymentGitSha.slice(0, 7).toLowerCase() : "";
   return {
     base: "/",
-    plugins: [react(), localProductBridge(providerConfiguration, evidenceRoot)],
+    plugins: [react(), localProductBridge(providerConfiguration, evidenceRoot, canary)],
     server: { fs: { deny: [".env", ".env.*", "*.{crt,pem}", "**/.provider-evidence.local/**", `${evidenceRoot}/**`] } },
     define: {
       __NOXIA_BUILD_GIT_SHA__: JSON.stringify(buildGitSha),
