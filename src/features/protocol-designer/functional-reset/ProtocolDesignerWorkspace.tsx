@@ -936,6 +936,8 @@ export default function ProtocolDesignerWorkspace({
   traceCaptureConfiguration = DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
 }: ProtocolDesignerWorkspaceProps) {
   const [session, setSession] = useState<FunctionalResetSession>(loadInitialSession);
+  const latestSessionRef = useRef(session);
+  useEffect(() => { latestSessionRef.current = session; }, [session]);
   const [projectionMode, setProjectionMode] = useState<"STANDARD" | "EXPERT">("STANDARD");
   const [draft, setDraft] = useState("");
   const [busy, setBusy] = useState(false);
@@ -1879,10 +1881,21 @@ export default function ProtocolDesignerWorkspace({
       const currentProjectDirection = correctionMode && session.project
         ? "MODIFY_EXISTING_PROJECT_OBJECT"
         : recognizeCurrentProjectDirection(preparedInput.workingText, session.project !== null);
+      const userTurn: ScientificInterpretationTurn = { turnId, role: "USER", content, createdAt: now };
+      const runtimeTurns = [...session.runtimeTurns, userTurn];
+      const boundedReferentContext = buildBoundedConversationReferentContext({
+        retained: session.retainedContributionCandidates ?? [], currentProject: session.project,
+        conversationId: session.conversationId, runtimeTurns,
+      });
+      const boundedInteraction = selectBoundedConversationInteraction({
+        sourceText: preparedInput.workingText, correctionMode, referentContext: boundedReferentContext,
+      });
       // Explicit Project direction outranks an owner-driven continuation. The
       // router only recognizes the operation; extraction and PRJ validation
       // still resolve the stable scientific target and prepare the candidate.
-      if (currentProjectDirection === "NONE") {
+      // Resolve current candidate decisions and QRY-owned purposes first. An
+      // active scientific result is not authority to consume another act.
+      if (currentProjectDirection === "NONE" && !boundedInteraction) {
         if (await applyScientificThinkingInput(preparedInput)) return;
         if (await applyStudyDesignInput(preparedInput)) return;
         if (await applyObservabilityInput(preparedInput)) return;
@@ -1895,15 +1908,6 @@ export default function ProtocolDesignerWorkspace({
         dispatchProductDocumentAction(productDocumentAction, { content, createdAt: now });
         return;
       }
-      const userTurn: ScientificInterpretationTurn = { turnId, role: "USER", content, createdAt: now };
-      const runtimeTurns = [...session.runtimeTurns, userTurn];
-      const boundedReferentContext = buildBoundedConversationReferentContext({
-        retained: session.retainedContributionCandidates ?? [], currentProject: session.project,
-        conversationId: session.conversationId, runtimeTurns,
-      });
-      const boundedInteraction = selectBoundedConversationInteraction({
-        sourceText: preparedInput.workingText, correctionMode, referentContext: boundedReferentContext,
-      });
       if ((boundedInteraction?.kind === "USER_CONFIRMS_CURRENT_CANDIDATE"
         || boundedInteraction?.kind === "USER_REFUSES_CURRENT_CANDIDATE")
         && boundedReferentContext.candidateRef) {
@@ -2054,9 +2058,14 @@ export default function ProtocolDesignerWorkspace({
         return;
       }
 
-      if (entryRouting.currentProjectDirection === "PRESERVE_EXISTING_PROJECT") {
+      if (entryRouting.currentProjectDirection === "PRESERVE_EXISTING_PROJECT"
+        || boundedInteraction?.kind === "CLARIFY_CANDIDATE_REFERENCE") {
         const answeredAt = new Date().toISOString();
-        const assistantReply = "D’accord. Le Research Project courant reste inchangé.";
+        const assistantReply = boundedInteraction?.kind === "CLARIFY_CANDIDATE_REFERENCE"
+          ? boundedReferentContext.resolution === "AMBIGUOUS"
+            ? "Plusieurs candidates courantes peuvent être visées. Précisez celle que vous souhaitez confirmer ou refuser, ou utilisez sa carte de validation. Votre décision n’a pas été appliquée ; le Research Project reste inchangé."
+            : "Aucune candidate courante n’est liée de manière univoque à cette décision. La proposition visée doit être identifiée et vérifiée contre la version actuelle du Research Project avant confirmation ou refus. Aucune décision n’a été appliquée."
+          : "D’accord. Le Research Project courant reste inchangé.";
         const localized = await localizeCanonicalFrenchResponse({
           state: preparedGateway.state,
           onProviderCallRecords,
@@ -2101,7 +2110,8 @@ export default function ProtocolDesignerWorkspace({
         return;
       }
 
-      if (boundedInteraction?.kind === "USER_REQUESTS_ASSISTED_PROPOSAL" && session.project) {
+      const requestedProposalNavigation = () => {
+        if (boundedInteraction?.kind !== "USER_REQUESTS_ASSISTED_PROPOSAL" || !session.project) return null;
         const proposalNavigation = attachCurrentKnowledgePrerequisiteWhenRequired({
           project: session.project,
           navigation: buildFunctionalResetQueryNavigation({
@@ -2119,27 +2129,36 @@ export default function ProtocolDesignerWorkspace({
           || isObservabilityQueryDispatch(proposalNavigation)
           || isImagingQueryDispatch(proposalNavigation)
           || isBiostatisticsQueryDispatch(proposalNavigation);
-        if (existingOwnerCanPropose) {
-          // The delegated continuation owns the busy lifecycle. The composer
-          // must remain closed until that continuation has fully settled.
-          busyLifecycleDelegated = true;
-          queryNavigation = proposalNavigation;
-          setSession((current) => ({ ...current, queryNavigation: proposalNavigation, updatedAt: now }));
-          setBusyMessage("Je prépare des propositions à partir du Research Project confirmé…");
-          setPostAdoptionContinuationJob({
-            sessionId: session.sessionId,
-            conversationId: session.conversationId,
-            project: session.project,
-            queryNavigation: proposalNavigation,
-            ownerResultLedger: session.knowledgeOwnerLedger,
-            scientificExecutionTraceLedger: entryTraceLedger,
-            runtimeTurns,
-            feedback: content,
-            traceRunId,
-            previousScientificThinkingInteraction: session.scientificThinkingInteraction,
-          });
-          return;
-        }
+        return existingOwnerCanPropose ? proposalNavigation : null;
+      };
+      const delegateAssistedProposal = (
+        proposalNavigation: NonNullable<ReturnType<typeof requestedProposalNavigation>>,
+        ledger: typeof entryTraceLedger,
+      ) => {
+        if (!session.project) return;
+        // Both entry paths share the same QRY selection and owner continuation.
+        // The continuation owns the busy lifecycle until its result settles.
+        busyLifecycleDelegated = true;
+        setSession((current) => ({ ...current, queryNavigation: proposalNavigation, updatedAt: now }));
+        setBusyMessage("Je prépare des propositions à partir du Research Project confirmé…");
+        setPostAdoptionContinuationJob({
+          sessionId: session.sessionId,
+          conversationId: session.conversationId,
+          project: session.project,
+          queryNavigation: proposalNavigation,
+          ownerResultLedger: session.knowledgeOwnerLedger,
+          scientificExecutionTraceLedger: ledger,
+          runtimeTurns,
+          feedback: content,
+          traceRunId,
+          previousScientificThinkingInteraction: session.scientificThinkingInteraction,
+        });
+      };
+      const directProposalNavigation = !entryRouting.projectConstructionEligible
+        ? requestedProposalNavigation() : null;
+      if (directProposalNavigation) {
+        delegateAssistedProposal(directProposalNavigation, entryTraceLedger);
+        return;
       }
 
       if (entryRouting.routeIntent === "UNDERSTAND" && !entryRouting.projectConstructionEligible && !boundedInteraction) {
@@ -2259,8 +2278,19 @@ export default function ProtocolDesignerWorkspace({
         // usable, but cannot trigger persistent extraction.
         evaluatePersistentDelta: entryRouting.projectConstructionEligible && !asksForExplanationOrRephrase,
       };
+      const assertSubmissionContextCurrent = () => {
+        const latest = latestSessionRef.current;
+        if (latest.sessionId !== session.sessionId || latest.conversationId !== session.conversationId
+          || latest.project?.projectId !== session.project?.projectId
+          || latest.project?.versionId !== session.project?.versionId
+          || latest.project?.projectDigest !== session.project?.projectDigest) {
+          throw new ProductBridgeClientError("SUBMISSION_CONTEXT_CHANGED",
+            "Le contexte a changé pendant le traitement. Cette réponse n’a pas été appliquée ; le projet courant et les décisions déjà enregistrées sont conservés.");
+        }
+      };
       const response = await requestProtocolDesignerBridge(bridgeRequest);
       onProviderCallRecords(response.observability.providerCalls ?? []);
+      assertSubmissionContextCurrent();
       const receivedAt = new Date().toISOString();
       const extractedContribution = entryRouting.projectConstructionEligible
         ? response.persistentExtraction.contribution
@@ -2385,6 +2415,13 @@ export default function ProtocolDesignerWorkspace({
         downstreamStage = response.conversationFailure.stage;
         throw new ProductBridgeClientError(response.conversationFailure.code, response.conversationFailure.message);
       }
+      // A mixed statement/request first traverses extraction. Only a successful
+      // empty delta may resume the same proposal purpose; a candidate, blocked
+      // extraction or technical failure must retain its own lifecycle.
+      const deferredProposalNavigation = response.persistentExtraction.status === "NO_CHANGE"
+        && !contribution && !candidate && !response.conversationFailure
+        ? requestedProposalNavigation() : null;
+      if (deferredProposalNavigation) queryNavigation = deferredProposalNavigation;
       const structuredUnderstanding = visibleStructuredUnderstandingEvidence({
         contribution: effectiveCandidate ? contribution : null,
         sourceTurnRef: userTurn.turnId,
@@ -2423,8 +2460,10 @@ export default function ProtocolDesignerWorkspace({
         responseId: `conversation-response:${userTurn.turnId}`,
         canonicalFrenchResponse: canonicalAssistantReply,
       });
+      assertSubmissionContextCurrent();
       const visibleAssistantReply = localized.response.localizedResponse;
-      const standaloneAssistantReplyVisible = !(explicitCurrentProjectChange && effectiveCandidate && contribution);
+      const standaloneAssistantReplyVisible = !deferredProposalNavigation
+        && !(explicitCurrentProjectChange && effectiveCandidate && contribution);
       downstreamStage = "PRESENTATION";
       const preProjectTrace = response.currentTurnNavigation && !enrichedPreProjectNavigation ? null : createPreProjectScientificTraceSegment({
         sessionId: session.sessionId,
@@ -2457,50 +2496,50 @@ export default function ProtocolDesignerWorkspace({
         ? response.persistentExtraction.status
         : "NOT_REQUESTED" as const;
       const failureMessage = persistenceFailureMessage(effectiveExtractionStatus, candidate?.status ?? null);
-      setSession((current) => {
-        let scientificExecutionTraceLedger = recordInitialProductTrace({
-          ledger: entryTraceLedger,
-          traceRunId,
-          conversationId: current.conversationId,
-          segment: preProjectTrace,
-          observedAt: receivedAt,
+      let scientificExecutionTraceLedger = recordInitialProductTrace({
+        ledger: entryTraceLedger,
+        traceRunId,
+        conversationId: session.conversationId,
+        segment: preProjectTrace,
+        observedAt: receivedAt,
+        contribution,
+        candidate,
+        reviewCandidate: retainedThisTurn ? null : effectiveCandidate,
+        retainedCandidate: retainedThisTurn,
+        extractionStatus: effectiveExtractionStatus,
+        extractionLatencyMs: response.observability.extractionLatencyMs,
+        extractionExecution: productTraceExtractionExecution({
           contribution,
-          candidate,
-          reviewCandidate: retainedThisTurn ? null : effectiveCandidate,
-          retainedCandidate: retainedThisTurn,
-          extractionStatus: effectiveExtractionStatus,
-          extractionLatencyMs: response.observability.extractionLatencyMs,
-          extractionExecution: productTraceExtractionExecution({
-            contribution,
-            providerArtifact: response.persistentExtraction.providerArtifact,
-            observedProvider: response.observability.extractionProvider,
-            observedModelRequested: response.observability.extractionModelRequested,
-            observedModelReturned: response.observability.extractionModelReturned,
-          }),
-        });
-        if (session.project && currentProjectImpactProjection && contextualActionPresentation) {
-          scientificExecutionTraceLedger = recordCurrentProjectImpactNavigationTrace({
-            ledger: scientificExecutionTraceLedger,
-            traceRunId,
-            conversationId: current.conversationId,
-            observedAt: receivedAt,
-            project: session.project,
-            impact: currentProjectImpactProjection,
-            queryNavigation,
-            presentation: contextualActionPresentation,
-          });
-        }
-        scientificExecutionTraceLedger = recordLocalizedConversationResponseTrace({
+          providerArtifact: response.persistentExtraction.providerArtifact,
+          observedProvider: response.observability.extractionProvider,
+          observedModelRequested: response.observability.extractionModelRequested,
+          observedModelReturned: response.observability.extractionModelReturned,
+        }),
+      });
+      if (session.project && currentProjectImpactProjection && contextualActionPresentation) {
+        scientificExecutionTraceLedger = recordCurrentProjectImpactNavigationTrace({
           ledger: scientificExecutionTraceLedger,
           traceRunId,
-          conversationId: current.conversationId,
-          response: localized.response,
+          conversationId: session.conversationId,
           observedAt: receivedAt,
+          project: session.project,
+          impact: currentProjectImpactProjection,
+          queryNavigation,
+          presentation: contextualActionPresentation,
         });
+      }
+      scientificExecutionTraceLedger = recordLocalizedConversationResponseTrace({
+        ledger: scientificExecutionTraceLedger,
+        traceRunId,
+        conversationId: session.conversationId,
+        response: localized.response,
+        observedAt: receivedAt,
+      });
+      setSession((current) => {
         return {
         ...current,
         queryNavigation,
-        runtimeTurns: [...runtimeTurns, canonicalAssistantTurn],
+        runtimeTurns: deferredProposalNavigation ? runtimeTurns : [...runtimeTurns, canonicalAssistantTurn],
         pendingContribution: effectiveCandidate && contribution ? contribution : current.pendingContribution,
         retainedContributionCandidates: current.retainedContributionCandidates,
         entries: [
@@ -2578,6 +2617,9 @@ export default function ProtocolDesignerWorkspace({
         updatedAt: receivedAt,
       };
       });
+      if (deferredProposalNavigation) {
+        delegateAssistedProposal(deferredProposalNavigation, scientificExecutionTraceLedger);
+      }
     } catch (error) {
       const failedAt = new Date().toISOString();
       onProviderCallRecords(providerRecordsFromError(error));
@@ -2783,6 +2825,7 @@ export default function ProtocolDesignerWorkspace({
     contributionId: string,
     naturalDecision?: NaturalContributionDecisionContext,
   ) => {
+    if (busy && !naturalDecision) return false;
     if (confirmationInFlightRef.current === contributionId) return false;
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return false;
@@ -3018,6 +3061,7 @@ export default function ProtocolDesignerWorkspace({
     contributionId: string,
     naturalDecision?: NaturalContributionDecisionContext,
   ) => {
+    if (busy && !naturalDecision) return;
     const contribution = session.pendingContribution;
     if (!contribution || contribution.identity.contributionId !== contributionId) return;
     if (!contributionHasAcknowledgedPresentation(contributionId)) return;
@@ -3504,7 +3548,7 @@ export default function ProtocolDesignerWorkspace({
               <div className="pt-7">{projectPanel}</div>
             </SheetContent>
           </Sheet>
-          <button type="button" aria-label="Recommencer" onClick={reset} className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><RotateCcw className="h-4 w-4" /><span>Recommencer</span></button>
+          <button type="button" aria-label="Recommencer" disabled={busy} onClick={reset} className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><RotateCcw className="h-4 w-4" /><span>Recommencer</span></button>
         </div>
       </header>
 
@@ -3555,6 +3599,7 @@ export default function ProtocolDesignerWorkspace({
                 currentProject={projectExistedForReview(index) ? session.project : null}
                 status={entry.status}
                 actionable={session.pendingContribution?.identity.contributionId === entry.contribution.identity.contributionId}
+                disabled={busy}
                 detailedUnderstanding={<UnderstandingReviewCard
                   contribution={entry.contribution}
                   status={entry.status === "REJECTED" ? "CORRECTION_REQUESTED" : entry.status}

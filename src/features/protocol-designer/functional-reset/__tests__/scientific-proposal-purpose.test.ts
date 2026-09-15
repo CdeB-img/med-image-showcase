@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { logicalDigest } from "@/features/knowledge-engine/canonical";
 import { buildFunctionalResetQueryNavigation } from "@/features/query-navigation";
 import {
   selectBoundedConversationInteraction,
@@ -62,6 +63,10 @@ const EQUIVALENT_PROPOSAL_REQUESTS = [
   "Pouvez-vous me suggérer des pistes ?",
   "Propose-moi des alternatives sans aucune adoption.",
   "Propose-moi des options qui ne changent pas le critère principal.",
+  "La comparaison est importante. Propose-moi plusieurs approches possibles.",
+  "Merci, maintenant propose-moi d'autres choix, sans les adopter.",
+  "Quelles nouvelles pistes pouvez-vous présenter pour la suite ?",
+  "Quelles possibilités proposes-tu pour les observations ?",
 ] as const;
 const NO_REFERENT: BoundedConversationReferentContext = {
   resolution: "NONE", candidateRef: null, sourceTurnRef: null, sourceDigest: null,
@@ -219,15 +224,19 @@ describe.each(DOMAINS)("Scientific proposal purpose — $id", (domain) => {
     const selected = resolveScientificThinkingConversation({ raw: "Je choisis l'hypothèse 1", output: proposal.output });
     expect(selected.kind).toBe("SELECT_CANDIDATE");
     if (selected.kind !== "SELECT_CANDIDATE") throw new Error("CANDIDATE_SELECTION_REQUIRED");
+    const selectionTurn = behaviorTurn("turn:proposal-purpose:select", "Je choisis l'hypothèse 1");
     const selection = buildScientificThinkingSelectionContribution({
       conversationId: "conversation:proposal-purpose", project, output: proposal.output,
       candidateRef: selected.candidateRef,
       proposalTurn: { ...behaviorTurn(proposal.interaction.presentationTurnRef, proposal.presentation.plainText), role: "NOXIA" },
-      selectionTurn: behaviorTurn("turn:proposal-purpose:select", "Je choisis l'hypothèse 1"), createdAt: AT,
+      selectionTurn, createdAt: AT,
     });
     const pending = prepareResearchProjectContributionCandidate(selection, project);
     expect(pending.status).toBe("CANDIDATE_PENDING_HUMAN_CONFIRMATION");
-    expect(classify("je refuse", { ...NO_REFERENT, resolution: "UNIQUE_CURRENT", candidateRef: selection.identity.contributionId })?.kind).toBe("USER_REFUSES_CURRENT_CANDIDATE");
+    expect(classify("je refuse", {
+      ...NO_REFERENT, resolution: "UNIQUE_CURRENT", candidateRef: selection.identity.contributionId,
+      sourceTurnRef: selectionTurn.turnId, sourceDigest: logicalDigest(selectionTurn.content),
+    })?.kind).toBe("USER_REFUSES_CURRENT_CANDIDATE");
     expect(resolveScientificThinkingConversation({ raw: "Je ne retiens pas l'hypothèse 1", output: proposal.output }).kind).not.toBe("SELECT_CANDIDATE");
     expect(buildProjectContextSnapshot({ project })).toEqual(snapshotBefore);
     expect(project).toEqual(before);
@@ -374,6 +383,10 @@ describe("Scientific proposal act boundaries", () => {
     "Propose-moi aucune alternative.",
     "Notre hypothèse est que les exercices espacés améliorent la lecture.",
     "Quelle est la question scientifique actuelle ?",
+    "Par exemple, propose-moi des alternatives serait une formulation possible.",
+    "La phrase « propose-moi des options » est seulement un exemple.",
+    "Si nécessaire, propose-moi plusieurs options.",
+    "Je propose une hypothèse à examiner, sans demander de nouvelles options.",
   ])("does not reinterpret refusal, stated hypotheses or factual questions as proposals: %s", (raw) => {
     expect(classify(raw)?.kind).not.toBe("USER_REQUESTS_ASSISTED_PROPOSAL");
   });
@@ -382,10 +395,39 @@ describe("Scientific proposal act boundaries", () => {
     expect(classify("Explique ces alternatives")?.kind).toBe("EXPLAIN_REFERENCED_CONTENT");
   });
 
-  it("keeps a question about already adopted options in discussion rather than generating proposals", () => {
+  it("leaves a question about adopted options to QRY rather than an unadopted owner result", () => {
     const raw = "Quelles options sont déjà adoptées dans le projet ?";
     const proposal = dispatch(makeProject(DOMAINS[0]), "ASSISTED_PROPOSAL");
     expect(classify(raw)?.kind).not.toBe("USER_REQUESTS_ASSISTED_PROPOSAL");
-    expect(resolveScientificThinkingConversation({ raw, output: proposal.output }).kind).toBe("DISCUSS");
+    expect(resolveScientificThinkingConversation({ raw, output: proposal.output }).kind).toBe("FALLTHROUGH");
+  });
+
+  it("does not let an active owner consume declarative corrections or unrelated explanations", () => {
+    const proposal = dispatch(makeProject(DOMAINS[0]), "ASSISTED_PROPOSAL");
+    for (const raw of [
+      "La différence sera exprimée dans une autre unité. Je soumets cette correction.",
+      "Je voudrais changer la mesure ; l'incertitude sur les autres éléments demeure.",
+      "Le suivi passe à neuf mois ; je ne sais pas encore quel sera l'effectif.",
+      "Explique le principe mathématique de la corrélation.",
+      "Pourquoi la corrélation ne suffit-elle pas à établir une causalité ?",
+      "Nous prévoyons cinq ateliers. Pourquoi ces hypothèses ?",
+      "Pourquoi le modèle linéaire impose-t-il une relation additive ?",
+      "Nous prévoyons cinq ateliers, pourquoi ces hypothèses ?",
+      "Pourquoi ces hypothèses, les observations couvriront cinq ateliers ?",
+    ]) expect(resolveScientificThinkingConversation({ raw, output: proposal.output }), raw).toEqual({ kind: "FALLTHROUGH" });
+    for (const raw of [
+      "Je choisis pas l'hypothèse 1.",
+      "Si elle est confirmée, je choisis l'hypothèse 1.",
+      "Par exemple, je choisis l'hypothèse 1.",
+      "Je préfère comprendre l'hypothèse 1 avant de choisir.",
+      "Je choisis l'hypothèse 1 ?",
+      "La citation est « je choisis la première hypothèse ».",
+      "La formule est 'je choisis la première hypothèse'.",
+      "Il disait que je choisis la première hypothèse.",
+      "Je choisis la première hypothèse et la première question.",
+      "Je choisis la première hypothèse et la deuxième hypothèse.",
+      "Je choisis la première hypothèse et les observations couvriront cinq ateliers.",
+    ]) expect(resolveScientificThinkingConversation({ raw, output: proposal.output }).kind, raw).not.toBe("SELECT_CANDIDATE");
+    expect(resolveScientificThinkingConversation({ raw: "Pourquoi ces hypothèses ?", output: proposal.output }).kind).toBe("DISCUSS");
   });
 });

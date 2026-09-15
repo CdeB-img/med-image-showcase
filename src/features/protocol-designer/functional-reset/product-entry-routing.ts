@@ -10,6 +10,7 @@ import {
 } from "@/features/protocol-designer/intake/journey";
 import { detectSensitiveData } from "@/features/protocol-designer/intake/privacy";
 import { createEmptyInterpretation } from "@/features/protocol-designer/intake/schema";
+import { selectBoundedConversationInteraction } from "@/features/query-navigation/current-navigation-evidence";
 import {
   INTAKE_SCHEMA_VERSION,
   type ConfidenceLevel,
@@ -58,6 +59,7 @@ export type ProductEntryRoutingDecision = {
   explicitExclusions: ProductEntryExplicitExclusion[];
   currentProjectDirection: CurrentProjectDirection;
   constructionIntentPresent: boolean;
+  /** Admission to the existing reversible extractor, never permission to adopt a Project. */
   projectConstructionEligible: boolean;
   projectWriteAuthorized: false;
 };
@@ -163,7 +165,7 @@ export const recognizeCurrentProjectDirection = (
   const interrogative = /\?\s*$/u.test(value.trim())
     || /^(?:pourquoi|comment|en quoi|quel(?:le)?s?)\b/u.test(command);
   const preserve = /\b(?:finalement|en\s+fait)\s+(?:non|pas)\b.{0,160}\b(?:garde|conserve|maintiens?|reviens?)\b/u.test(command)
-    || /\b(?:garde|conserve|maintiens?)\b.{0,160}\b(?:precedent|actuel|inchange)\b/u.test(command);
+    || /\b(?:garde|conserve|maintiens?)\b.{0,160}\b(?:precedent|actuel|inchange|tel\s+quel)\b/u.test(command);
   if (preserve) return "PRESERVE_EXISTING_PROJECT";
 
   const addition = /\b(?:j\s+ajouterais|nous\s+ajouterions|ajoute|ajouter|completer)\b.{0,160}\b(?:aussi|egalement|en\s+plus)\b/u.test(command)
@@ -225,13 +227,48 @@ const explicitExclusions = (text: string): ProductEntryExplicitExclusion[] => {
   const noProtocol = /\b(?:ne\s+(?:souhaite|veux|désire)\s+pas|sans)\s+(?:créer|construire|concevoir|faire)?\s*(?:d['’]?)?(?:un\s+)?protocole\b/u;
   const coordinatedNoStudy = /\bni\s+(?:d['’])?(?:une?\s+)?étude\b/u;
   const coordinatedNoProtocol = /\bni\s+(?:de\s+|d['’])?(?:un\s+)?protocole\b/u;
-  const negativeFinality = /\b(?:ne\s+(?:souhaite|veux|désire)\s+pas|sans)\b/u.test(normalized);
+  const negativeFinality = /\b(?:ne\s+(?:souhaite|veux|désire)\s+(?:pas|ni)|sans)\b/u.test(normalized);
   const studyExcluded = noStudy.test(normalized) || (negativeFinality && coordinatedNoStudy.test(normalized));
   const protocolExcluded = noProtocol.test(normalized) || (negativeFinality && coordinatedNoProtocol.test(normalized));
   return [
     ...(studyExcluded ? [{ code: "NO_STUDY" as const, sourceText: sentenceContaining(text, /étude/u) }] : []),
     ...(protocolExcluded ? [{ code: "NO_PROTOCOL" as const, sourceText: sentenceContaining(text, /protocole/u) }] : []),
   ];
+};
+
+/**
+ * Reuses the bounded conversational-act owner before admitting an unresolved
+ * statement to extraction. Remaining checks concern sentence mood only: they
+ * contain neither scientific-domain terms nor a list of construction synonyms.
+ */
+const isConversationOnlyInput = (raw: string) => {
+  const sentences = raw.trim().split(/(?<=[.!?;])\s+|\n+/u).filter((part) => part.trim());
+  const interactionFor = (sentence: string) => selectBoundedConversationInteraction({
+    sourceText: sentence,
+    correctionMode: false,
+    referentContext: {
+      resolution: "NONE", candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [],
+      reason: "PRODUCT_ENTRY_EXTRACTION_ADMISSION_ONLY", projectWriteAuthorized: false,
+    },
+  });
+  const questionOrRequest = (sentence: string): boolean => {
+    // A request cannot consume unclassified material on either side of a
+    // clause boundary. Ambiguous list fragments may therefore reach reversible
+    // extraction, which can return NO_CHANGE; admission never authorizes a write.
+    const clauseParts = sentence.split(/,\s+|\s+(?:et|puis)\s+/iu).filter(part => part.trim());
+    if (clauseParts.length > 1 && clauseParts.some(part => Boolean(interactionFor(part)))) {
+      return clauseParts.every(part => questionOrRequest(part));
+    }
+    if (interactionFor(sentence)) return true;
+    const routing = deriveRoutingIntent(rawIntent(sentence));
+    if (routing.nonConstructiveIntentExplicit && !routing.constructionIntentPresent) return true;
+    const command = comparableProductCommand(sentence);
+    return sentence.trim().endsWith("?")
+      || /^(?:pourquoi|comment|quel(?:le)?s?|qui|que|quand|ou|combien|est ce|qu est ce)\b/u.test(command)
+      || /^(?:peux tu|pouvez vous|pourrais tu|pourriez vous|dois je|devons nous)\b/u.test(command)
+      || /^(?:explique(?:r|z)?|compare(?:r|z)?|decris|decrivez|decrire|reformule(?:r|z)?)\b/u.test(command);
+  };
+  return sentences.length > 0 && sentences.every(questionOrRequest);
 };
 
 const rawIntent = (question: string): ValidatedScientificIntent => ({
@@ -303,8 +340,7 @@ export const routeProductEntry = (input: {
       ? "NONE"
       : recognizeCurrentProjectDirection(input.raw, input.currentProjectAvailable === true);
   const forceUnderstand = input.forceUnderstand === true && currentProjectDirection === "NONE";
-  const patientSpecificContext = isPatientLevelExpression(input.raw)
-    && /\b(?:mon examen|ma valeur|mon t[12]|chez moi|pour moi|que dois-je faire)\b/iu.test(input.raw);
+  const patientSpecificContext = isPatientLevelExpression(input.raw);
   const sensitive = detectSensitiveData(input.raw).length > 0 || patientSpecificContext;
   const domainGate: ProductEntryDomainGate = sensitive ? "OUT_OF_SCOPE" : "IN_SCOPE";
   const exclusionGuarded = exclusions.length > 0;
@@ -359,6 +395,17 @@ export const routeProductEntry = (input: {
         input.previousContext?.routeIntent === "DESIGN_STUDY"
         || input.previousContext?.secondaryRouteIntents?.includes("DESIGN_STUDY")
       )));
+  // A low-confidence route cannot veto representation of user-supplied
+  // material. The existing extractor decides whether any persistent delta is
+  // supported, including returning an empty delta. Validators and Human Review
+  // remain mandatory; this admission does not assert a construction finality.
+  const conversationOnly = input.explicitCorrectionMode !== true && isConversationOnlyInput(input.raw);
+  const reversibleEvaluationEligible = !conversationOnly
+    && /[\p{L}\p{N}]/u.test(input.raw);
+  const projectConstructionEligible = domainGate === "IN_SCOPE"
+    && !forceUnderstand && !exclusionGuarded
+    && currentProjectDirection !== "PRESERVE_EXISTING_PROJECT"
+    && reversibleEvaluationEligible;
   const currentContext = buildScientificSessionContext(intent, input.previousContext);
   const scientificContext = mergeContext(
     currentContext,
@@ -389,7 +436,7 @@ export const routeProductEntry = (input: {
     explicitExclusions: exclusions,
     currentProjectDirection,
     constructionIntentPresent,
-    projectConstructionEligible: domainGate === "IN_SCOPE" && constructionIntentPresent && exclusions.length === 0,
+    projectConstructionEligible,
     projectWriteAuthorized: false,
   };
 };

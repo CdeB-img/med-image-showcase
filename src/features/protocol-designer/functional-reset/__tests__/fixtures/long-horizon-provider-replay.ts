@@ -446,7 +446,7 @@ export const replayJsonResponse = (body: unknown, status = 200): Response => {
 /** Offline contract fixture only. Each immutable response is keyed by the ACTUAL serialized request digest. */
 export const createLongHorizonProviderReplay = (
   witnesses: ProviderCallWitness[],
-  options: { how: "SUCCESS" | "UNAVAILABLE" } = { how: "SUCCESS" },
+  options: { how: "SUCCESS" | "UNAVAILABLE"; additionalReplays?: Readonly<Record<string, (request: ExtractionReplayContext) => unknown>> } = { how: "SUCCESS" },
 ): typeof fetch => {
   const responses = new Map<string, { body: unknown; status: number; turnText: string }>();
   return (async (resource: string | URL | Request, init?: RequestInit) => {
@@ -476,7 +476,7 @@ export const createLongHorizonProviderReplay = (
         turnText: context.sourceText,
         status: 200,
         body: { id: `synthetic-terra:${requestDigest}`, model: "gpt-5.6-terra", status: "completed",
-          output_text: JSON.stringify(extractionReplayFor(context, EXTRA_LONG_REPLAYS)),
+          output_text: JSON.stringify(extractionReplayFor(context, { ...EXTRA_LONG_REPLAYS, ...options.additionalReplays })),
           usage: { input_tokens: 4_000, output_tokens: 800, total_tokens: 4_800 } },
       };
     }

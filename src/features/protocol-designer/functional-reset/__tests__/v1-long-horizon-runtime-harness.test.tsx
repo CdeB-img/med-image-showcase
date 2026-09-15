@@ -75,9 +75,11 @@ const waitForPostAdoptionContinuation = async () => {
 
 const installRuntimeReplayTransport = (
   witnesses: ProviderCallWitness[],
-  options: { how: "SUCCESS" | "UNAVAILABLE" } = { how: "SUCCESS" },
+  options: NonNullable<Parameters<typeof createLongHorizonProviderReplay>[1]> = { how: "SUCCESS" },
+  wrapProvider?: (provider: typeof fetch) => typeof fetch,
 ) => {
-  const providerReplay = createLongHorizonProviderReplay(witnesses, options);
+  const replay = createLongHorizonProviderReplay(witnesses, options);
+  const providerReplay = wrapProvider ? wrapProvider(replay) : replay;
   const browserTransport = vi.fn(async (resource: string | URL | Request, init?: RequestInit) => {
     if (String(resource) !== "/api/protocol-designer-bridge" || typeof init?.body !== "string") {
       throw new Error(`RUNTIME_REPLAY_UNEXPECTED_BROWSER_TRANSPORT:${String(resource)}`);
@@ -378,6 +380,119 @@ describe("V1 long-horizon representative Standard runtime harness", () => {
       .filter((turn) => turn.role === "NOXIA").map((turn) => turn.content).join("\n")));
     expect(browserTransport).toHaveBeenCalledTimes(callsBeforeProposal);
     expect(currentSession().entries.some((entry) => entry.kind === "ERROR")).toBe(false);
+  });
+
+  it.each([
+    { text: "Les éléments déjà validés me servent de base. Fais-moi des propositions.", hasDelta: false },
+    { text: "Notre comparaison reste celle qui est confirmée. Donne-moi plusieurs options.", hasDelta: false },
+    { text: "Ajoute une mesure secondaire de reproductibilité. Fais-moi des propositions.", hasDelta: true },
+  ])("preserves proposal purpose after extraction without bypassing review: $text", async ({ text, hasDelta }) => {
+    const witnesses: ProviderCallWitness[] = [];
+    installRuntimeReplayTransport(witnesses, { how: "SUCCESS", additionalReplays: {
+      [text]: ({ sourceAnchorId }) => ({
+        changes: hasDelta ? [{ operation: "ADD", sourceAnchorId, proposedType: "ENDPOINT",
+          content: "Reproductibilité de la mesure", polarity: "AFFIRMED", epistemicStatus: "EXPLICIT_USER_STATED",
+          epistemicState: "KNOWN", assertionKind: "USER_STATED", evidenceRefs: [sourceAnchorId] }] : [],
+        relations: [], temporalQualifications: [], expectedVariableOccasions: [],
+      }),
+    } });
+    renderWorkspace();
+    await submit(T01);
+    const initial = await screen.findByTestId("functional-contribution-review");
+    await clickAndFlush(within(initial).getByRole("button", { name: "Cela correspond à mon projet" }));
+    await waitForPostAdoptionContinuation();
+    await waitForComposerReady();
+    const before = currentSession();
+    const callCount = witnesses.length;
+    await submit(text);
+    await waitForComposerReady();
+    const after = currentSession();
+    expect(after.entries.filter(entry => entry.kind === "ERROR")).toEqual([]);
+    expect(after.project).toEqual(before.project);
+    expect(witnesses.slice(callCount).filter(w => w.endpoint === "https://api.openai.com/v1/responses")).toHaveLength(1);
+    if (hasDelta) {
+      expect(after.pendingContribution?.identity.contributionId).not.toBe(before.pendingContribution?.identity.contributionId);
+      expect(after.knowledgeOwnerLedger.entries).toEqual(before.knowledgeOwnerLedger.entries);
+      expect(screen.getAllByTestId("functional-contribution-review").at(-1)).toHaveTextContent("Reproductibilité");
+    } else {
+      expect(after.pendingContribution).toEqual(before.pendingContribution);
+      expect(after.bridgeTraces.some(trace => trace.turnId === after.runtimeTurns.find(turn => turn.role === "USER" && turn.content === text)?.turnId && trace.persistentExtractionStatus === "NO_CHANGE")).toBe(true);
+      assertProposalResponse(before, after, after.runtimeTurns.slice(before.runtimeTurns.length)
+        .filter(turn => turn.role === "NOXIA").map(turn => turn.content).join("\n"));
+    }
+  });
+
+  it("clarifies an ambiguous candidate decision locally without adopting the most recent candidate", async () => {
+    const transport = installRuntimeReplayTransport([]);
+    renderWorkspace();
+    await submit(T01);
+    const first = await screen.findByTestId("functional-contribution-review");
+    await clickAndFlush(within(first).getByRole("button", { name: "Cela correspond à mon projet" }));
+    await waitForPostAdoptionContinuation();
+    await waitForComposerReady();
+    await submit(T02);
+    await waitForComposerReady();
+    await submit(T04);
+    await waitForComposerReady();
+    const before = currentSession();
+    expect(before.retainedContributionCandidates?.filter(candidate => !candidate.humanDecision)).toHaveLength(2);
+    const calls = transport.mock.calls.length;
+    await submit("Oui, je confirme cette proposition.");
+    await waitForComposerReady();
+    expect(currentSession().project).toEqual(before.project);
+    expect(currentSession().retainedContributionCandidates).toEqual(before.retainedContributionCandidates);
+    expect(currentSession().runtimeTurns.at(-1)?.content).toContain("Plusieurs candidates courantes");
+    expect(transport).toHaveBeenCalledTimes(calls);
+  });
+
+  it("serializes a pending human review with extraction and preserves current owner, history and trace", async () => {
+    const text = "Les observations actuelles restent disponibles. Propose-moi plusieurs possibilités.";
+    let reached = false;
+    let release!: () => void;
+    const held = new Promise<void>(resolve => { release = resolve; });
+    installRuntimeReplayTransport([], { how: "SUCCESS", additionalReplays: {
+      [text]: () => ({ changes: [], relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
+    } }, provider => async (url, init) => {
+      if (String(url) === "https://api.openai.com/v1/responses" && String(init?.body).includes(text)) {
+        reached = true;
+        await held;
+      }
+      return provider(url, init);
+    });
+    renderWorkspace();
+    const confirmation = () => within(screen.getAllByTestId("functional-contribution-review").at(-1)!)
+      .getByRole("button", { name: "Cela correspond à mon projet" });
+    await submit(T01);
+    await screen.findByTestId("functional-contribution-review");
+    await clickAndFlush(confirmation());
+    await waitForPostAdoptionContinuation();
+    await waitForComposerReady();
+    await submit(T02);
+    await waitForComposerReady();
+    const before = currentSession();
+    await submit(text);
+    await waitFor(() => expect(reached).toBe(true));
+    expect(confirmation()).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Recommencer" })).toBeDisabled();
+    await clickAndFlush(confirmation());
+    expect(currentSession().project).toEqual(before.project);
+    await act(async () => { release(); await new Promise(resolve => setTimeout(resolve, 0)); });
+    await waitForComposerReady();
+    const afterResponse = currentSession();
+    expect(confirmation()).toBeEnabled();
+    expect(afterResponse.project).toEqual(before.project);
+    await clickAndFlush(confirmation());
+    await waitForComposerReady();
+    const afterConfirmation = currentSession();
+    expect(afterConfirmation.project?.revision).toBe(before.project!.revision + 1);
+    for (const [previous, next] of [[before, afterResponse], [afterResponse, afterConfirmation]]) {
+      expect(next.runtimeTurns.map(turn => turn.turnId)).toEqual(expect.arrayContaining(previous.runtimeTurns.map(turn => turn.turnId)));
+      expect(next.knowledgeOwnerLedger.entries.map(entry => entry.result?.resultId)).toEqual(expect.arrayContaining(previous.knowledgeOwnerLedger.entries.map(entry => entry.result?.resultId)));
+      expect(next.scientificExecutionTraceLedger.events.map(event => event.eventId)).toEqual(expect.arrayContaining(previous.scientificExecutionTraceLedger.events.map(event => event.eventId)));
+      expect(next.scientificThinkingInteraction).toMatchObject({ sourceProjectRef: next.project!.projectId,
+        sourceProjectVersion: next.project!.versionId, sourceProjectDigest: next.project!.projectDigest });
+      expect(next.entries.filter(entry => entry.kind === "ERROR")).toEqual([]);
+    }
   });
 
   it("preserves the adopted Project when a natural-language decision refuses the current candidate", async () => {

@@ -66,7 +66,11 @@ const STRUCTURED_STUDY_PLAN = /(?:^|[^\p{L}\p{N}_])(?:dans|pour|avec|selon|au\s+
 const EXPLICIT_STUDY_MODIFICATION = /(?:^|[^\p{L}\p{N}_])(?:modifier|modifie|modifions|changer|change|corriger|corrige|ajouter|ajoute|retirer|retire)\s+(?:[\p{L}\p{N}'’.-]+\s+){0,6}(?:étude|protocole|projet\s+de\s+recherche)(?![\p{L}\p{N}_])/iu;
 
 const EXPLICIT_UNDERSTANDING_REQUEST = /(?:^|[^\p{L}\p{N}_])(?:comprendre|expliquer|fonctionne|différences?|rôle|signifie|qu['’]est-ce)(?![\p{L}\p{N}_])/iu;
+// A topic such as "rôle" or "différence" can score UNDERSTAND without being
+// an explicit read-only request. Only the latter excludes reversible intake.
+const EXPLICIT_UNDERSTANDING_FINALITY = /(?:^|[^\p{L}\p{N}_])(?:je|nous|on)\s+(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|cherche|cherchons)\s+(?:à\s+)?(?:(?:uniquement|seulement|simplement|surtout|mieux)\s+)?(?:comprendre|savoir|apprendre)(?![\p{L}\p{N}_])/iu;
 const VAGUE_FUTURE_IDEA = /(?:^|[^\p{L}\p{N}_])(?:j['’]aimerais|nous\s+aimerions|je\s+souhaiterais|nous\s+souhaiterions)\s+(?:peut-être\s+)?(?:travailler|explorer|réfléchir)\s+(?:sur|à)(?![\p{L}\p{N}_])/iu;
+const EXPLICIT_IDEA_FORMALIZATION = /(?:^|[^\p{L}\p{N}_])(?:formaliser|formalise|formalisons|formalisez)\s+(?:[\p{L}'’]+\s+){0,2}(?:idée|hypothèse)(?![\p{L}\p{N}_])/iu;
 const PROSPECTIVE_PLANNING = /(?:^|[^\p{L}\p{N}_])(?:je|nous|on)\s+(?:veux|voulons|souhaite|souhaitons|voudrais|voudrions|prévois|prévoyons|compte|comptons|vais|allons)(?![\p{L}\p{N}_])/iu;
 const PROSPECTIVE_RESEARCH_ACTION = /(?:^|[^\p{L}\p{N}_])(?:étudier|évaluer|evaluer|mesurer|quantifier|détecter|detecter|suivre|observer|analyser|tester|comparer|recruter|recueillir|collecter)(?![\p{L}\p{N}_])/iu;
 const POPULATION_OR_GROUP_EVIDENCE = /(?:^|[^\p{L}\p{N}_])(?:populations?|patients?|participants?|sujets?|groupes?|cohortes?)(?![\p{L}\p{N}_])/iu;
@@ -104,6 +108,8 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
   reasons: string[];
   secondaryRouteIntents: RoutingIntent[];
   constructionIntentPresent: boolean;
+  /** Explicit read-only/future-idea language, distinct from an uncertain route score. */
+  nonConstructiveIntentExplicit: boolean;
 } => {
   const corpus = [...new Set([
     intent.originalQuestion,
@@ -173,6 +179,9 @@ export const deriveRoutingIntent = (intent: ValidatedScientificIntent): {
       || prospectiveStructuralStudy
       || explicitValidation
       || unresolvedStudyStructure,
+    nonConstructiveIntentExplicit: EXPLICIT_UNDERSTANDING_FINALITY.test(corpus)
+      || VAGUE_FUTURE_IDEA.test(corpus)
+      || EXPLICIT_IDEA_FORMALIZATION.test(corpus),
   };
 };
 

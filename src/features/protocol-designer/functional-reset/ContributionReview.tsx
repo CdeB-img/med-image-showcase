@@ -16,6 +16,7 @@ type Props = {
   currentProject?: ResearchProjectOwnerProjection | null;
   status: "PENDING" | "CONFIRMED" | "REJECTED";
   actionable?: boolean;
+  disabled?: boolean;
   detailedUnderstanding?: ReactNode;
   onConfirm: () => void;
   onCorrect: () => void;
@@ -138,7 +139,7 @@ const preservedProjectPropertiesForReview = (
     .map((item) => [`${item.label}:${normalized(item.content)}`, item])).values()];
 };
 
-export default function ContributionReview({ contribution, candidate, currentProject, status, actionable = true, detailedUnderstanding, onConfirm, onCorrect, onReject }: Props) {
+export default function ContributionReview({ contribution, candidate, currentProject, status, actionable = true, disabled = false, detailedUnderstanding, onConfirm, onCorrect, onReject }: Props) {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const isUpdate = candidate.changeSet.baseProjectVersion !== null;
   const sections = candidate.humanReviewProjection.sections;
@@ -222,9 +223,9 @@ export default function ContributionReview({ contribution, candidate, currentPro
     {status === "PENDING" && !actionable
       ? <p role="status" className="mt-5 text-sm text-muted-foreground">Proposition conservée dans l’historique, non sélectionnée pour une décision dans ce tour.</p>
       : status === "PENDING" ? <div className="mt-5 flex flex-col gap-2 sm:flex-row">
-      <button type="button" onClick={onConfirm} className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Cela correspond à mon projet</button>
-      <button type="button" onClick={onCorrect} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium">Décrire une correction</button>
-      <button type="button" onClick={onReject} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium text-muted-foreground">Refuser cette proposition</button>
+      <button type="button" disabled={disabled} onClick={onConfirm} className="min-h-11 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">Cela correspond à mon projet</button>
+      <button type="button" disabled={disabled} onClick={onCorrect} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium">Décrire une correction</button>
+      <button type="button" disabled={disabled} onClick={onReject} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium text-muted-foreground">Refuser cette proposition</button>
     </div> : status === "CONFIRMED"
       ? <p role="status" className="mt-5 rounded-xl bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">{isUpdate ? "Modifications confirmées." : "Structure confirmée."}</p>
       : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">Proposition refusée. Le Research Project est inchangé.</p>}

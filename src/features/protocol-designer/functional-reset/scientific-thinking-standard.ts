@@ -514,12 +514,12 @@ export const dispatchScientificThinkingFromQuery = (input: {
   };
 };
 
-const candidateIndex = (raw: string, label: string, count: number) => {
+const candidateIndexes = (raw: string, label: string, count: number) => {
   const value = folded(raw);
-  const numeric = value.match(new RegExp(`\\b${label}\\s*(?:numero\\s*)?([123])\\b`))?.[1];
-  const ordinal = value.match(new RegExp(`\\b(?:la |le )?(premiere|premier|deuxieme|troisieme)\\s+${label}\\b`))?.[1];
-  const index = numeric ? Number(numeric) - 1 : ordinal ? ({ premiere: 0, premier: 0, deuxieme: 1, troisieme: 2 } as Record<string, number>)[ordinal] : null;
-  return index !== null && index !== undefined && index < count ? index : null;
+  const numeric = [...value.matchAll(new RegExp(`\\b${label}\\s*(?:numero\\s*)?([123])\\b`, "g"))].map((match) => Number(match[1]) - 1);
+  const ordinal = [...value.matchAll(new RegExp(`\\b(?:la |le )?(premiere|premier|deuxieme|troisieme)\\s+${label}\\b`, "g"))]
+    .map((match) => ({ premiere: 0, premier: 0, deuxieme: 1, troisieme: 2 } as Record<string, number>)[match[1]]!);
+  return [...new Set([...numeric, ...ordinal])].filter((index) => index < count);
 };
 
 export const resolveScientificThinkingConversation = (input: {
@@ -535,30 +535,62 @@ export const resolveScientificThinkingConversation = (input: {
     },
   });
   if (interaction?.kind === "USER_REQUESTS_ASSISTED_PROPOSAL") return { kind: "FALLTHROUGH" };
+  // Local owner handling consumes the whole turn. Quoted speech or a separate
+  // assertion must remain available to the application/QRY rather than being
+  // silently discarded while discussing or selecting a native proposal.
+  if (/["«»“”]/u.test(input.raw)
+    || input.raw.split(/[.!?;\n]+/u).filter((clause) => clause.trim()).length !== 1) return { kind: "FALLTHROUGH" };
   const value = folded(input.raw);
-  if (/\b(?:je ne sais pas|pas encore|plus tard|a discuter)\b/.test(value)) return {
+  if (/^(?:je ne sais pas(?: encore)?|pas encore|plus tard|a discuter)$/.test(value)) return {
     kind: "DEFER",
     response: "Aucune décision n’est nécessaire maintenant. Les propositions restent discutables et le Research Project demeure inchangé.",
   };
-  const selectionIntent = /\b(?:je|nous)\s+(?:prefer|chois|reten)|\b(?:retenir|choisir|selectionner|adopter)\b/.test(value)
-    || /\bje\s+retiens\b(?!\s+pas\b)/.test(value);
+  const nonAssertedSelection = /\b(?:si|exemple|supposons|imaginons|peut etre|pas encore|avant de)\b/.test(value)
+    || /\b(?:ne|n)\s+(?:\w+\s+){0,2}(?:choisis|choisissons|retiens|retenons|selectionne|selectionnons|adopte|adoptons)\b/.test(value)
+    || /\b(?:choisis|choisissons|retiens|retenons|selectionne|selectionnons|adopte|adoptons)\s+(?:pas|jamais|plus)\b/.test(value);
+  const selectionIntent = !nonAssertedSelection && !input.raw.includes("?") && (
+    /^(?:(?:oui|finalement|apres (?:relecture|reflexion))\s+)?je\s+(?:choisis|retiens|selectionne|adopte)\b/.test(value)
+    || /^(?:(?:oui|finalement|apres (?:relecture|reflexion))\s+)?nous\s+(?:choisissons|retenons|selectionnons|adoptons)\b/.test(value)
+    || /^(?:retenir|choisir|selectionner|adopter)\b/.test(value));
   if (selectionIntent) {
+    const command = value.match(/^(?:(?:oui|finalement|apres (?:relecture|reflexion))\s+)?(?:(?:je\s+(?:choisis|retiens|selectionne|adopte)|nous\s+(?:choisissons|retenons|selectionnons|adoptons))|retenir|choisir|selectionner|adopter)\s+/u);
+    const referenceText = command ? value.slice(command[0].length).replace(/\s+(?:pour revue|comme candidate|sans adoption)$/u, "") : "";
     const groups = [
       { label: "hypothese", values: input.output.hypotheses.map((candidate) => candidate.hypothesisId) },
       { label: "question", values: input.output.questions.map((candidate) => candidate.questionId) },
       { label: "modele", values: input.output.scientificModels.map((candidate) => candidate.modelId) },
     ];
-    for (const group of groups) {
-      const index = candidateIndex(input.raw, group.label, group.values.length);
-      if (index !== null) return { kind: "SELECT_CANDIDATE", candidateRef: group.values[index]! };
+    const indexed = groups.flatMap((group) => candidateIndexes(input.raw, group.label, Number.POSITIVE_INFINITY).map((index) => group.values[index]));
+    if (indexed.length > 1) return { kind: "FALLTHROUGH" };
+    if (indexed.length === 1) {
+      const completeReference = /^(?:(?:l|la|le)\s+)?(?:(?:hypothese|question|modele)\s+(?:numero\s+)?[123]|(?:premiere|premier|deuxieme|troisieme)\s+(?:hypothese|question|modele))$/u.test(referenceText);
+      return indexed[0] && completeReference ? { kind: "SELECT_CANDIDATE", candidateRef: indexed[0] } : { kind: "FALLTHROUGH" };
     }
     const all = [...input.output.questions.map((candidate) => ({ ref: candidate.questionId, text: candidate.text })),
       ...input.output.hypotheses.map((candidate) => ({ ref: candidate.hypothesisId, text: candidate.text })),
       ...input.output.scientificModels.map((candidate) => ({ ref: candidate.modelId, text: candidate.text }))];
-    const mentioned = all.filter((candidate) => folded(candidate.text).split(" ").filter((token) => token.length >= 7).some((token) => value.includes(token)));
+    // A shared scientific word cannot establish the identity of a selection.
+    const mentioned = all.filter((candidate) => referenceText === folded(candidate.text));
     if (mentioned.length === 1) return { kind: "SELECT_CANDIDATE", candidateRef: mentioned[0]!.ref };
+    return { kind: "FALLTHROUGH" };
   }
-  if (/\b(?:pourquoi|explique|difference|comparer|compare|argument|limite|incertitude)\b/.test(value) || input.raw.trim().endsWith("?")) {
+  const nativeGroups = [
+    { label: "hypothese", count: input.output.hypotheses.length },
+    { label: "question", count: input.output.questions.length },
+    { label: "modele", count: input.output.scientificModels.length },
+  ].filter((group) => group.count > 0);
+  const nativeLabels = nativeGroups.map((group) => `${group.label}s?`).join("|");
+  const indexedReferences = nativeGroups.flatMap((group) => Array.from({ length: Math.min(3, group.count) }, (_, index) =>
+    `(?:(?:l|la|le)\\s+)?(?:${group.label}\\s+(?:numero\\s+)?${index + 1}|${["(?:premiere|premier)", "deuxieme", "troisieme"][index]}\\s+${group.label})`));
+  const ownerReference = nativeGroups.length ? `(?:(?:ces|cette|ce|cet)\\s+(?:(?:deux|trois)\\s+)?(?:${nativeLabels}|propositions?|options?)|${indexedReferences.join("|")})` : "(?!)";
+  // Full-scope grammar: no leading assertion and no trailing coordinated
+  // payload can be consumed by this local projection-only explanation.
+  const boundedDiscussion = new RegExp(`^(?:(?:pourquoi|explique(?:z)?(?: moi)?|expliquer|compare(?:z)?|comparer|discutons de)\\s+${ownerReference}|(?:quelle est la difference|quelles sont les differences) entre ${ownerReference}|(?:quels sont les arguments|quelles sont les limites) de ${ownerReference})$`, "u").test(value)
+    || nativeGroups.length > 0 && /^(?:pourquoi|explique|explique moi|expliquez moi)$/u.test(value);
+  // Ownership of an active proposal does not grant ownership of every later
+  // message. In particular, a declarative correction mentioning a difference
+  // must reach Project extraction, and an unrelated explanation must reach QRY.
+  if (boundedDiscussion) {
     const hypotheses = input.output.hypotheses;
     const response = hypotheses.length
       ? hypotheses.map((candidate, index) => [

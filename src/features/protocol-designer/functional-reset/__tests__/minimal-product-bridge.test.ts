@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { mockBridgeProviderFetch } from "./pass3a-bridge-provider-test-fixtures";
 import {
   buildNaturalConversationPayload,
@@ -10,6 +10,7 @@ import {
   buildPersistentSourceCatalog,
   contributionFromPersistentDelta,
   PERSISTENT_DELTA_SYSTEM_INSTRUCTION,
+  parseProductBridgeRequest,
   validatePersistentProjectDelta,
   type ProductBridgeRequest,
   type ProductBridgeResponse,
@@ -65,6 +66,82 @@ const requestFor = (raw: string, evaluatePersistentDelta = true): ProductBridgeR
 const jsonResponse = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
   status,
   headers: { "content-type": "application/json" },
+});
+
+describe("PRODUCT BRIDGE — non-adopting assisted proposal request contract", () => {
+  it.each([true, false])("accepts the bounded proposal act independently of extraction eligibility=%s", (evaluatePersistentDelta) => {
+    const request: ProductBridgeRequest = {
+      ...requestFor("Les observations sont disponibles. Propose-moi plusieurs options.", evaluatePersistentDelta),
+      boundedInteraction: { kind: "USER_REQUESTS_ASSISTED_PROPOSAL", evidenceRefs: [] },
+    };
+    const before = JSON.stringify(request.currentProject);
+    const parsed = parseProductBridgeRequest(request);
+    expect(parsed).toMatchObject({ evaluatePersistentDelta, boundedInteraction: request.boundedInteraction });
+    expect(parsed!.currentProject).toBe(request.currentProject);
+    expect(JSON.stringify(request.currentProject)).toBe(before);
+  });
+
+  it("accepts the non-adopting act without manufacturing a Project or accepting an injected realization", () => {
+    const parsed = parseProductBridgeRequest({
+      ...requestFor("Propose-moi plusieurs options.", false), currentProject: null,
+      boundedInteraction: { kind: "USER_REQUESTS_ASSISTED_PROPOSAL", evidenceRefs: [] },
+      governedRealization: { action: "ADOPT", projectWriteAuthorized: true },
+    });
+    expect(parsed).not.toBeNull();
+    expect(parsed!.currentProject).toBeNull();
+    expect(parsed!.governedRealization).toBeUndefined();
+  });
+
+  it.each(["USER_CONFIRMS_CURRENT_CANDIDATE", "USER_REFUSES_CURRENT_CANDIDATE", "CLARIFY_CANDIDATE_REFERENCE", "UNKNOWN_INTERACTION"])(
+    "rejects unsupported or human-decision act %s before every provider",
+    async (kind) => {
+      const fetchImpl = vi.fn<typeof fetch>();
+      const result = await executeProtocolDesignerBridge({
+        body: { ...requestFor("Voici mon choix.", false), boundedInteraction: { kind, evidenceRefs: [] } },
+        apiKey: "offline-test-key", openAiApiKey: "offline-test-key", fetchImpl,
+      });
+      expect(result).toMatchObject({ status: 400, body: { error: { code: "INVALID_REQUEST" } } });
+      expect(fetchImpl).not.toHaveBeenCalled();
+    },
+  );
+
+  it.each([undefined, null, "ref", [null], [7], [""], ["   "]])("rejects malformed proposal evidence %j", (evidenceRefs) => {
+    expect(parseProductBridgeRequest({
+      ...requestFor("Propose-moi plusieurs options."),
+      boundedInteraction: { kind: "USER_REQUESTS_ASSISTED_PROPOSAL", evidenceRefs },
+    })).toBeNull();
+  });
+
+  it("keeps the existing explanation referent requirement", () => {
+    expect(parseProductBridgeRequest({
+      ...requestFor("Explique cette option.", false),
+      boundedInteraction: { kind: "EXPLAIN_REFERENCED_CONTENT", evidenceRefs: [] },
+    })).toBeNull();
+  });
+
+  it("lets a mixed proposal request reach validated empty extraction without adopting Project", async () => {
+    const request = {
+      ...requestFor("Les observations sont disponibles. Propose-moi plusieurs options."),
+      boundedInteraction: { kind: "USER_REQUESTS_ASSISTED_PROPOSAL" as const, evidenceRefs: [] },
+    };
+    const before = JSON.stringify(request.currentProject);
+    const fetchImpl = mockBridgeProviderFetch({
+      geminiText: "La demande est reçue, aucune décision n'est prise.",
+      openaiResponses: [() => jsonResponse({
+        id: "proposal-empty-delta", model: "gpt-5.6-terra", status: "completed",
+        output_text: JSON.stringify({ changes: [], relations: [], temporalQualifications: [], expectedVariableOccasions: [] }),
+      })],
+    });
+    const result = await executeProtocolDesignerBridge({
+      body: request, apiKey: "offline-test-key", openAiApiKey: "offline-test-key", fetchImpl,
+    });
+    expect(result).toMatchObject({ status: 200, body: {
+      persistentExtraction: { called: true, status: "NO_CHANGE", contribution: null },
+      observability: { projectWrites: 0 },
+    } });
+    expect(fetchImpl).toHaveBeenCalledTimes(2);
+    expect(JSON.stringify(request.currentProject)).toBe(before);
+  });
 });
 
 describe("MINIMAL PRODUCT BRIDGE — conversation and persistent ownership", () => {

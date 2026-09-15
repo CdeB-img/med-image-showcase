@@ -1798,7 +1798,9 @@ export const parseProductBridgeRequest = (value: unknown): ProductBridgeRequest 
   if (record.boundedInteraction) {
     const interaction = record.boundedInteraction;
     if (!Array.isArray(interaction.evidenceRefs) || !interaction.evidenceRefs.every((ref) => typeof ref === "string" && ref.trim())
-      || !["EXPLAIN_REFERENCED_CONTENT", "ACKNOWLEDGE_USER_DIRECTION"].includes(interaction.kind)
+      // A proposal request is a non-adopting navigation act. Confirmation and
+      // refusal remain outside this HTTP path and require their lifecycle gate.
+      || !["EXPLAIN_REFERENCED_CONTENT", "ACKNOWLEDGE_USER_DIRECTION", "USER_REQUESTS_ASSISTED_PROPOSAL"].includes(interaction.kind)
       || (interaction.kind === "EXPLAIN_REFERENCED_CONTENT" && !record.boundedReferentContext)) return null;
   }
   // HTTP callers cannot inject the server's post-validation realization envelope.

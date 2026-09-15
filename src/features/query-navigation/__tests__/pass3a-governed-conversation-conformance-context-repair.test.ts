@@ -221,7 +221,124 @@ describe("PASS3A CC03 — bounded referent context", () => {
     expect(selectBoundedConversationInteraction({
       sourceText: "c'est bon", correctionMode: false,
       referentContext: { ...context, resolution: "AMBIGUOUS", candidateRef: null, sourceTurnRef: null, content: [] },
-    })).toBeUndefined();
+    })).toEqual({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
+  });
+
+  it("10c. composes current-candidate decisions without authorizing quoted, conditional or mixed acts", () => {
+    const { context } = uniqueReferent();
+    const classify = (sourceText: string, referentContext = context) => selectBoundedConversationInteraction({
+      sourceText, correctionMode: false, referentContext,
+    });
+    for (const sourceText of [
+      "Après relecture, je confirme cette candidate telle que présentée.",
+      "Oui, cette proposition me convient, je la confirme.",
+      "Nous confirmons cet ajout. Le reste demeure inchangé.",
+    ]) expect(classify(sourceText), sourceText).toMatchObject({ kind: "USER_CONFIRMS_CURRENT_CANDIDATE", evidenceRefs: [context.candidateRef, context.sourceTurnRef] });
+    for (const sourceText of [
+      "Après réflexion, je refuse cette proposition. Le projet demeure inchangé.",
+      "Non, je rejette cet ajout.",
+    ]) expect(classify(sourceText), sourceText).toMatchObject({ kind: "USER_REFUSES_CURRENT_CANDIDATE", evidenceRefs: [context.candidateRef, context.sourceTurnRef] });
+    for (const sourceText of [
+      "Je ne confirme pas cette candidate.", "Je confirme pas cette candidate.",
+      "D'accord. Je ne confirme pas cette candidate.",
+      "Si les résultats sont bons, je confirme cette candidate.",
+      "Par exemple, je confirme cette candidate.", "Je dirais : je confirme cette candidate.",
+      "La formule « je confirme cette candidate » serait plus claire.",
+      "Est-ce que je confirme cette candidate ?", "Je confirme cette candidate ?",
+      "Je confirme cette candidate sauf le troisième point.",
+      "Je confirme cette candidate, mais remplace la valeur proposée.",
+      "Je confirme une partie et je refuse l'autre.",
+      "Je confirme l'ancienne proposition.",
+      "Nous supposons que cette méthode fonctionne.",
+      "Je confirme que l'équipe est en déplacement.",
+      "Je valide uniquement la ponctuation.",
+      "Je confirme la proposition seulement pour son premier élément.",
+      "OK. Ne confirmez aucune donnée à ce stade.",
+      "Je confirme cette candidate. Sans adopter quoi que ce soit.",
+      "Je confirme cette candidate. Mais seulement une partie.",
+      "Je confirme cette candidate. Finalement, je retire mon accord.",
+      "Ce nombre est exact, je le confirme.",
+      "Je refuse que les participants soient mineurs.",
+      "Je confirme « aucune adoption ».",
+      'Je confirme "aucune adoption".',
+      "Je confirme “aucune adoption”.",
+      "Je confirme cette candidate. Le suivi durera dix mois.",
+      "Je confirme cette contribution. Nous mesurerons aussi la mobilité.",
+      "Le suivi durera dix mois, je confirme cette candidate.",
+      "Je confirme cette candidate. Je ne donne aucune autorisation.",
+    ]) expect(["USER_CONFIRMS_CURRENT_CANDIDATE", "USER_REFUSES_CURRENT_CANDIDATE"], sourceText).not.toContain(classify(sourceText)?.kind);
+    expect(classify("Je confirme cette candidate.", { ...context, resolution: "AMBIGUOUS", candidateRef: null })?.kind).not.toBe("USER_CONFIRMS_CURRENT_CANDIDATE");
+    expect(classify("D'accord. Propose-moi plusieurs possibilités.")?.kind).toBe("USER_REQUESTS_ASSISTED_PROPOSAL");
+  });
+
+  it("10d. preserves accented demonstrative boundaries without broadening decision scope", () => {
+    const { context } = uniqueReferent();
+    const classify = (sourceText: string) => selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext: context });
+    for (const sourceText of [
+      "Nous confirmons cette contribution-là.",
+      "Je valide cette candidate-là, celle que vous venez de proposer.",
+    ]) expect(classify(sourceText)).toMatchObject({ kind: "USER_CONFIRMS_CURRENT_CANDIDATE", evidenceRefs: [context.candidateRef, context.sourceTurnRef] });
+    expect(classify("Je rejette cette proposition-là.")?.kind).toBe("USER_REFUSES_CURRENT_CANDIDATE");
+    for (const sourceText of [
+      "Je confirme cette proposition-là seulement pour sa conclusion.",
+      "Je confirme cette contribution-là et les observations dureront neuf jours.",
+      "Je confirme cette proposition-làs.",
+      "Je valide cette propositionélargie.",
+      "Je valide « cette contribution-là ».",
+      "Si cela convient, je valide cette contribution-là.",
+      "Je ne valide pas cette contribution-là.",
+    ]) expect(["USER_CONFIRMS_CURRENT_CANDIDATE", "USER_REFUSES_CURRENT_CANDIDATE"], sourceText).not.toContain(classify(sourceText)?.kind);
+  });
+
+  it("10e. clarifies complete decision acts with an unavailable or ambiguous reference", () => {
+    const { context } = uniqueReferent();
+    for (const resolution of ["AMBIGUOUS", "STALE_OR_SUPERSEDED", "NONE"] as const) {
+      const referentContext = { ...context, resolution, candidateRef: null, sourceTurnRef: null, sourceDigest: null, content: [] };
+      for (const sourceText of ["Nous confirmons cette contribution.", "Je rejette cette proposition.", "C'est bon."]) {
+        expect(selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext }))
+          .toEqual({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
+      }
+      for (const sourceText of [
+        "Nous confirmons cette contribution. Nous observerons aussi la pression.",
+        "Je confirme cette proposition sauf son titre.",
+        "Si nécessaire, je refuse cette proposition.",
+        "L'exemple est « je refuse cette proposition ».",
+        "Je confirme que le prestataire est absent.",
+      ]) expect(selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext })).toBeUndefined();
+    }
+    expect(selectBoundedConversationInteraction({ sourceText: "Je confirme cette contribution.", correctionMode: true, referentContext: context }))
+      .toMatchObject({ kind: "ACKNOWLEDGE_USER_DIRECTION" });
+  });
+
+  it("10f. rejects a unique-resolution label without complete reference provenance", () => {
+    const { context } = uniqueReferent();
+    for (const referentContext of [
+      { ...context, candidateRef: null }, { ...context, sourceTurnRef: null }, { ...context, sourceDigest: null },
+    ]) expect(selectBoundedConversationInteraction({ sourceText: "Je confirme cette contribution.", correctionMode: false, referentContext }))
+      .toEqual({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: [] });
+  });
+
+  it("10g. recognizes generic proposal request grammar without licensing decisions", () => {
+    const { context } = uniqueReferent();
+    const classify = (sourceText: string) => selectBoundedConversationInteraction({ sourceText, correctionMode: false, referentContext: context });
+    for (const sourceText of [
+      "Présentez-moi différentes possibilités pour poursuivre.",
+      "Proposez plusieurs façons de procéder.",
+      "Tu peux me proposer des pistes pour poursuivre ?",
+      "Avec cette contrainte, quelles alternatives suggéreriez-vous ?",
+      "Quelles options verrais-tu pour la suite ?",
+      "Quelles possibilités pourrait-on explorer ?",
+      "La série comprend sept lots. Quelles possibilités pourrait-on explorer ?",
+    ]) expect(classify(sourceText), sourceText).toEqual({ kind: "USER_REQUESTS_ASSISTED_PROPOSAL", evidenceRefs: [] });
+    for (const sourceText of [
+      "Ne présentez pas de nouvelles possibilités.",
+      "Quelles options ne proposeriez-vous pas ?",
+      "Si les données changent, quelles possibilités pourrait-on explorer ?",
+      "L'exemple est « présentez-moi différentes possibilités ».",
+      "Supposons : proposez plusieurs façons de procéder.",
+      "Je confirme cette proposition uniquement pour son titre.",
+      "Quelles propositions avons-nous déjà rejetées ?",
+    ]) expect(classify(sourceText), sourceText).toBeUndefined();
   });
 });
 

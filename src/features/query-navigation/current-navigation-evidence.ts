@@ -157,7 +157,97 @@ export const buildBoundedConversationReferentContext = (input: {
   });
 };
 
-/** Closed interaction-language grammar, not a scientific/domain synonym dictionary. */
+// The act grammar works on clauses, while reference resolution remains the
+// lifecycle projection above. Quoted, hypothetical and interrogative decisions
+// never become a human authorization merely because a decision verb is present.
+const interactionClauses = (source: string) => {
+  const clauses: string[] = [];
+  let clause = "";
+  let closingQuote: string | null = null;
+  for (const character of source) {
+    clause += character;
+    if (closingQuote) {
+      if (character === closingQuote) closingQuote = null;
+    } else if (character === '"' || character === "«" || character === "“") {
+      closingQuote = character === "«" ? "»" : character === "“" ? "”" : '"';
+    } else if (/[.!?;\n]/u.test(character)) {
+      if (clause.trim()) clauses.push(clause.trim());
+      clause = "";
+    }
+  }
+  if (clause.trim()) clauses.push(clause.trim());
+  return clauses;
+};
+
+const nonAssertedDecision = (clause: string) => /\?|\b(?:si|peut-être|éventuellement|exemple|supposons|imaginons|dirais|dirions)\b/u.test(clause)
+  || /\b(?:ne|n')\s*(?:\w+\s+){0,3}(?:confirme|confirmons|valide|validons|accepte|acceptons|refuse|refusons|rejette|rejetons)\b/u.test(clause)
+  || /\b(?:confirme|confirmons|valide|validons|accepte|acceptons|refuse|refusons|rejette|rejetons)\s+(?:pas|jamais|plus)\b/u.test(clause);
+
+const candidateDecision = (clauses: readonly string[]): "CONFIRM" | "REFUSE" | null => {
+  // A qualified/partial decision is not authorization for the whole candidate.
+  if (clauses.some((clause) => /["«»“”]|\b(?:sauf|excepté|hormis|seulement|uniquement|partiellement|à condition|si|peut-être|éventuellement|exemple|supposons|imaginons|dirais|dirions)\b/u.test(clause)
+    || /\b(?:ne|n'|sans)\s*(?:\w+\s+){0,3}(?:confirm\w*|valid\w*|accept\w*|adopt\w*|refus\w*|rejet\w*|décision)\b/u.test(clause)
+    || /\b(?:pas|aucune?)\s+(?:de\s+)?(?:décision|confirmation|validation|adoption)\b/u.test(clause)
+    || /\b(?:annul\w*|retir\w*)\b.{0,60}\b(?:accord|confirmation|validation|décision)\b/u.test(clause)
+    || /\b(?:remplace[rz]?|modifie[rz]?|corrige[rz]?|ajoute[rz]?|change[rz]?)\b/u.test(clause))) return null;
+  const decisions = new Set<"CONFIRM" | "REFUSE">();
+  for (const clause of clauses) {
+    if (nonAssertedDecision(clause)) return null;
+    const shortConfirmation = clauses.length === 1 && /^(?:(?:oui[, ]+)?c[' ]est bon|je valide|garde (?:ça|cela)|ça me va|cela me va|d[' ]accord|ok)(?:[.!])?$/u.test(clause);
+    const shortRefusal = clauses.length === 1 && /^(?:non|je refuse|je rejette|rejette (?:ça|cela)|ne (?:garde|retiens) pas (?:ça|cela))(?:[.!])?$/u.test(clause);
+    if (shortConfirmation) decisions.add("CONFIRM");
+    if (shortRefusal) decisions.add("REFUSE");
+    // A performative is insufficient: its object must denote the current
+    // candidate, never a fact ("je confirme que…") or one of its attributes.
+    const acts = [...clause.matchAll(/(?:^|[,;]\s*|\bet\s+|^finalement\s+)(?:je|nous)\s+(?:(la|le|l'|les)\s*)?(confirme|confirmons|valide|validons|accepte|acceptons|refuse|refusons|rejette|rejetons)\b/gu)];
+    // The local decision handler consumes the entire turn. An unrelated
+    // assertion or request must therefore stay in the full governed corridor.
+    const preservesProject = /^(?:le reste|le projet|les autres éléments)\s+(?:reste|restent|demeure|demeurent)\s+inchangée?s?[.!]?$/u.test(clause);
+    if (!acts.length && !shortConfirmation && !shortRefusal && !preservesProject) return null;
+    for (const act of acts) {
+      const tail = clause.slice(act.index! + act[0].length).replace(/[.!;]+$/u, "").trim();
+      const prefix = clause.slice(0, act.index!).trim();
+      const decision = /^(?:refus|rejet)/u.test(act[2]) ? "REFUSE" : "CONFIRM";
+      const neutralPrefix = /^(?:(?:oui|non|finalement)|après (?:relecture|réflexion|examen))?$/u.test(prefix);
+      const presentedAntecedent = /^(?:oui[, ]+)?(?:ce|cet|cette)\s+(?:(?:candidate|contribution|proposition)|[^,;:.!?]+\s+(?:comme|telle? que)\s+présentée?)\s+(?:me|nous)\s+convient$/u.test(prefix);
+      const currentObject = /^(?:cette?|cet|la|le|l')\s*(?:candidate|contribution|proposition|ajout|modification|changement)(?:[- ]là)?(?![\p{L}\p{N}\p{M}_])/u.exec(tail);
+      const qualifier = currentObject ? tail.slice(currentObject[0].length).trim() : "";
+      const boundedQualifier = /^(?:(?:courante?|actuelle?|présentée?|en cours|dans son ensemble|en l'état|telle? que présentée?|sans modification))?$/u.test(qualifier)
+        || /^(?:que (?:tu viens|vous venez) de (?:présenter|proposer)|,?\s*celle que (?:tu viens|vous venez) de (?:présenter|proposer))$/u.test(qualifier);
+      const scoped = (neutralPrefix || presentedAntecedent) && (tail === ""
+        || !act[1] && Boolean(currentObject) && boundedQualifier);
+      if (!scoped) return null;
+      decisions.add(decision);
+    }
+  }
+  return decisions.size === 1 ? [...decisions][0]! : null;
+};
+
+const requestsAssistedProposal = (clause: string) => {
+  if (/["«»“”]|\b(?:exemple|supposons|imaginons|si)\b/u.test(clause)) return false;
+  const proposalObject = /\b(?:propositions?|options?|alternatives?|possibilités?|pistes?|suggestions?|hypothèses?|approches?|choix|ce qu[' ]il manque|what is missing)\b/u.test(clause);
+  const imperative = clause.match(/(?:^|[,;:]\s*|\b(?:puis|ensuite|maintenant|alors)\s+)((?:fais|faites|donne|donnez|propose|proposez|suggère|suggérez|présente|présentez)(?:[- ]moi)?|(?:peux|pouvez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|proposer|suggérer|présenter)|suggest(?: me)?)\b/u);
+  // A negative constraint on adoption is not negation of the proposal request.
+  const negated = imperative && /^\s+(?:pas|jamais|aucune?s?)\b/u.test(clause.slice(imperative.index! + imperative[0].length));
+  if (imperative && !negated && (proposalObject || /^(?:proposez?|suggère|suggérez|suggest)\b/u.test(imperative[1]))) return true;
+  if (proposalObject && /^(?:tu|vous)\s+(?:peux|pouvez|pourrais|pourriez)\s+(?:me\s+)?(?:proposer|suggérer|présenter)\b/u.test(clause)) return true;
+  // Interrogative requests may follow a contextual preamble. Their proposal
+  // purpose does not authorize adoption or remove another clause's payload.
+  const question = /(?:^|[,;:]\s*|\bet\s+)(quelles?\s+[^.!?]+)[?]?$/u.exec(clause)?.[1];
+  const negativeQuestion = question && /\b(?:ne|n')\s*(?:\p{L}+\s+){0,3}(?:propos\p{L}*|sugg\p{L}*|voi\p{L}*|verr\p{L}*|peu\p{L}*|pouv\p{L}*|pourr\p{L}*)/u.test(question);
+  if (question && proposalObject && !negativeQuestion && (
+    /\b(?:proposes?|proposez|proposerais|proposeriez|suggères?|suggérez|suggérerais|suggéreriez|vois|voyez|verrais|verriez)[- ](?:tu|vous)\b/u.test(question)
+    || /\b(?:peut|pourrait)[- ]on\s+(?:proposer|envisager|examiner|explorer)\b/u.test(question)
+  )) return true;
+  return /^(?:qu[' ]est-ce que|que)\s+(?:tu|vous)\s+(?:me\s+)?(?:proposerais|proposeriez|proposes|proposez|suggères|suggérez)\b/u.test(clause)
+    || /^(?:tu|vous)\s+(?:vois|voyez|envisages|envisagez)\s+(?:d[' ]autres|des|plusieurs)\s+/u.test(clause) && proposalObject
+    || /^quelles?\b/u.test(clause) && proposalObject && !negativeQuestion && (
+      /\b(?:proposes?|proposez|proposer|suggères?|suggérez|suggérer)\b/u.test(clause)
+      || /\b(?:peux|pouvez|pourrais|pourriez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|présenter)\b/u.test(clause)
+      || /\b(?:seraient|sont|te semblent|vous semblent)\s+(?:(?:les plus|encore|scientifiquement)\s+)?(?:intéressantes?|possibles?|pertinentes?|envisageables?|utiles?)\b/u.test(clause));
+};
+
+/** Bounded interaction acts; no scientific target or Project state is inferred. */
 export const selectBoundedConversationInteraction = (input: {
   sourceText: string;
   correctionMode: boolean;
@@ -168,39 +258,33 @@ export const selectBoundedConversationInteraction = (input: {
   });
   const normalized = input.sourceText.normalize("NFKC").replace(/[\u2018\u2019\u02bc\uff07]/gu, "'")
     .toLocaleLowerCase("fr-FR").replace(/\s+/gu, " ").trim();
-  if (input.referentContext.resolution === "UNIQUE_CURRENT") {
+  const clauses = interactionClauses(normalized);
+  const decision = candidateDecision(clauses);
+  if (decision && (input.referentContext.resolution !== "UNIQUE_CURRENT"
+    || !input.referentContext.candidateRef || !input.referentContext.sourceTurnRef || !input.referentContext.sourceDigest)) {
+    return Object.freeze({ kind: "CLARIFY_CANDIDATE_REFERENCE", evidenceRefs: Object.freeze([]) });
+  }
+  if (decision && input.referentContext.resolution === "UNIQUE_CURRENT") {
     const decisionEvidence = Object.freeze([
       input.referentContext.candidateRef,
       input.referentContext.sourceTurnRef,
     ].filter((ref): ref is string => Boolean(ref)));
-    const confirmsCandidate = /^(?:(?:oui[, ]+)?c[' ]est bon|je valide|garde (?:ça|cela)|ça me va|cela me va|d[' ]accord|ok)(?:[.!])?$/u.test(normalized);
-    if (confirmsCandidate) return Object.freeze({
+    if (decision === "CONFIRM") return Object.freeze({
       kind: "USER_CONFIRMS_CURRENT_CANDIDATE",
       evidenceRefs: decisionEvidence,
     });
-    const refusesCandidate = /^(?:non|je refuse|je rejette|rejette (?:ça|cela)|ne (?:garde|retiens) pas (?:ça|cela))(?:[.!])?$/u.test(normalized);
-    if (refusesCandidate) return Object.freeze({
+    if (decision === "REFUSE") return Object.freeze({
       kind: "USER_REFUSES_CURRENT_CANDIDATE",
       evidenceRefs: decisionEvidence,
     });
   }
-  const asksToExplain = /^(?:explique|expliquez|expliquer)\b/u.test(normalized);
+  const asksToExplain = /^(?:explique|expliquez|expliquer|discutons|discuter)\b/u.test(normalized);
   const hasDeicticReference = /\b(?:ce|cet|cette|ces|celui|celle|ceux|celles)\b/u.test(normalized);
   if (asksToExplain && hasDeicticReference) return Object.freeze({
     kind: "EXPLAIN_REFERENCED_CONTENT",
     evidenceRefs: Object.freeze([input.referentContext.candidateRef, input.referentContext.sourceTurnRef].filter((ref): ref is string => Boolean(ref))),
   });
-  const proposalObject = /\b(?:propositions?|options?|alternatives?|possibilités?|pistes?|suggestions?|ce qu[' ]il manque|what is missing)\b/u.test(normalized);
-  const imperativeProposal = normalized.match(/^(?:(?:fais|faites|donne|donnez|propose|proposez|suggère|suggérez)(?:[- ]moi)?|(?:peux|pouvez)[- ](?:tu|vous)\s+(?:me\s+)?(?:faire|donner|proposer|suggérer)|suggest(?: me)?)\b/u);
-  const interrogativeProposal = /^(?:qu[' ]est-ce que|que)\s+(?:tu|vous)\s+(?:me\s+)?(?:proposerais|proposeriez|proposes|proposez|suggères|suggérez)\b/u.test(normalized)
-    || /^(?:tu|vous)\s+(?:vois|voyez|envisages|envisagez)\s+(?:d[' ]autres|des|plusieurs)\s+/u.test(normalized) && proposalObject
-    || /^quelles?\s+(?:autres\s+)?(?:propositions?|options?|alternatives?|possibilités?|pistes?|suggestions?)\s+(?:seraient|sont|te semblent|vous semblent)\s+(?:(?:les plus|encore|scientifiquement)\s+)?(?:intéressantes?|possibles?|pertinentes?|envisageables?|utiles?)\b/u.test(normalized);
-  // Negation of adoption or of a proposed change is a constraint, not a refusal
-  // of the request. Only reject negation directly attached to this predicate.
-  const negatedRequest = imperativeProposal
-    && /^\s+(?:pas|jamais|aucune?s?)\b/u.test(normalized.slice(imperativeProposal[0].length));
-  const requestsProposal = !negatedRequest && (imperativeProposal && proposalObject || interrogativeProposal);
-  if (requestsProposal) return Object.freeze({
+  if (clauses.some(requestsAssistedProposal)) return Object.freeze({
     kind: "USER_REQUESTS_ASSISTED_PROPOSAL",
     evidenceRefs: Object.freeze([]),
   });
