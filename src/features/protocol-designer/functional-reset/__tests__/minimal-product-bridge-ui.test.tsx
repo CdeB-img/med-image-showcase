@@ -139,7 +139,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     });
     expect(stored().project).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Refuser cette proposition" }));
-    expect(await screen.findByText("Proposition refusée. Le Research Project est inchangé.")).toBeInTheDocument();
+    expect(await screen.findByText("Proposition refusée. Le projet est inchangé.")).toBeInTheDocument();
     expect(stored().project).toBeNull();
     expect(stored().entries.find((entry: { kind: string }) => entry.kind === "REVIEW")).toMatchObject({
       status: "REJECTED",
@@ -351,7 +351,7 @@ describe("MINIMAL PRODUCT BRIDGE — real Functional Reset wiring", () => {
     submit("Je modifie cette référence dans mon protocole d’étude.");
     expect(await screen.findByText(/premi[èe]re compr[ée]hension structur[ée]e/u)).toBeInTheDocument();
     expect(screen.queryByText("Je comprends la correction demandée.")).toBeNull();
-    expect(await screen.findByText(/proposition persistante est bloquée/)).toHaveAttribute("role", "alert");
+    expect(await screen.findByText(/proposition est bloquée/)).toHaveAttribute("role", "alert");
     expect(stored().project).toBeNull();
     expect(stored().bridgeTraces.at(-1)).toMatchObject({
       persistentExtractionStatus: "BLOCKED",

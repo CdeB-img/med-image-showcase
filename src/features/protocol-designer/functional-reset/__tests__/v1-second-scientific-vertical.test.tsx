@@ -212,7 +212,7 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     expect(stored().project).toEqual(projectV1);
 
     submit("Je rejette toutes ces options.");
-    await screen.findByText(/Aucune option n’est retenue et le Research Project reste inchangé/);
+    await screen.findByText(/Aucune option n’est retenue et le projet reste inchangé/);
     expect(stored().studyDesignInteraction).toMatchObject({ status: "REJECTED" });
     expect(stored().project).toEqual(projectV1);
 
@@ -242,7 +242,7 @@ describe("V1 — seconde verticale Standard, validation multicentrique d’une m
     submit("Affiche-moi un premier protocole de travail.");
     const preview = await screen.findByTestId("functional-protocol-preview");
     expect(within(preview).getByText("PROTOCOLE DE TRAVAIL")).toBeInTheDocument();
-    expect(within(preview).getByText(/Research Project version 2/)).toBeInTheDocument();
+    expect(within(preview).getByText(/projet version 2/)).toBeInTheDocument();
     expect(preview.textContent).toContain(OBJECTIVE);
     expect(preview.textContent).toContain(DESIGN);
     expect(preview.textContent).toContain(PRIMARY_ENDPOINT);

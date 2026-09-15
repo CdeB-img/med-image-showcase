@@ -441,11 +441,11 @@ export const resolveStudyDesignConversation = (input: {
   const carriesAlternative = /\b(?:je voudrais|nous voudrions|a la place|autre chose|plutot une|plutot un)\b/.test(value);
   if (rejectsAll && !carriesAlternative) return {
     kind: "REJECT_ALL",
-    response: "Aucune option n’est retenue et le Research Project reste inchangé. Décrivez librement la stratégie que vous souhaitez explorer.",
+    response: "Aucune option n’est retenue et le projet reste inchangé. Décrivez librement la stratégie que vous souhaitez explorer.",
   };
   if (/\b(?:je ne sais pas|pas encore|plus tard|a discuter)\b/.test(value)) return {
     kind: "DEFER",
-    response: "Aucune décision n’est nécessaire maintenant. Les options restent disponibles pour la discussion et le Research Project demeure inchangé.",
+    response: "Aucune décision n’est nécessaire maintenant. Les options restent disponibles pour la discussion et le projet demeure inchangé.",
   };
   const selectionIntent = /\b(?:je|nous)\s+(?:prefer|chois|reten|opt)|\b(?:retenir|choisir|selectionner)\b/.test(value);
   if (selectionIntent) {

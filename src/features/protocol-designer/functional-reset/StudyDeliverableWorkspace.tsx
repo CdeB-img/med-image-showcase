@@ -35,7 +35,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose }: Props)
           <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Documents / Livrables de l’étude</p>
           <h2 id="study-deliverable-workspace-title" className="mt-1 text-2xl font-semibold">Portefeuille documentaire</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground">
-            {availableCount} livrable{availableCount > 1 ? "s" : ""} téléchargeable{availableCount > 1 ? "s" : ""} depuis le Research Project version {portfolio.projectRef.projectVersion.split(":").at(-1)}. Les éléments ouverts restent signalés et ne sont pas inventés.
+            {availableCount} livrable{availableCount > 1 ? "s" : ""} téléchargeable{availableCount > 1 ? "s" : ""} depuis le projet version {portfolio.projectRef.projectVersion.split(":").at(-1)}. Les éléments ouverts restent signalés et ne sont pas inventés.
           </p>
         </div>
         <button
@@ -83,7 +83,7 @@ export default function StudyDeliverableWorkspace({ portfolio, onClose }: Props)
     </div>
 
     <footer className="border-t px-5 py-4 text-xs leading-relaxed text-muted-foreground sm:px-6">
-      Source : Research Project {portfolio.projectRef.projectId} · {portfolio.projectRef.projectVersion}. Cette projection en lecture seule ne modifie ni le projet, ni les décisions scientifiques. Le dossier réglementaire ne revendique aucune conformité juridictionnelle.
+      Source : version confirmée du projet. Cette vue ne modifie ni le projet ni les décisions scientifiques. Le dossier réglementaire ne revendique aucune conformité juridictionnelle.
     </footer>
   </section>;
 }

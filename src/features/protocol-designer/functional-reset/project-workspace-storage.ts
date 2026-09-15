@@ -65,6 +65,43 @@ export const saveProjectSession = (storage: Storage, saved: SavedProjectSession,
   return raw;
 };
 
+export const renameProjectSession = (
+  storage: Storage,
+  saved: SavedProjectSession,
+  title: string,
+  updatedAt = new Date().toISOString(),
+): SavedProjectSession => {
+  const workspace = saved.session.workspace ?? {
+    title: "Projet sans titre",
+    revision: 0,
+    administration: emptyProjectAdministration(),
+  };
+  const session: FunctionalResetSession = {
+    ...saved.session,
+    updatedAt,
+    workspace: {
+      ...workspace,
+      title: title.trim() || "Projet sans titre",
+      revision: workspace.revision + 1,
+    },
+  };
+  const raw = saveProjectSession(storage, saved, session);
+  return { ...saved, raw, session };
+};
+
+export const deleteProjectSession = (storage: Storage, saved: SavedProjectSession): void => {
+  if (!isProjectSessionKey(saved.key)
+    || storage.getItem(saved.key) !== saved.raw
+    || saved.session.sessionId.length === 0
+    || saved.session.projectId.length === 0) {
+    throw new Error("Ce projet a changé dans un autre écran. Rouvrez sa version enregistrée avant de le supprimer.");
+  }
+  storage.removeItem(saved.key);
+  if (storage.getItem(ACTIVE_PROJECT_STORAGE_KEY) === saved.key) {
+    storage.setItem(ACTIVE_PROJECT_STORAGE_KEY, "LIST");
+  }
+};
+
 export const readResearcherProfile = (storage: Storage): LocalResearcherProfile => {
   const raw = storage.getItem(RESEARCHER_PROFILE_STORAGE_KEY);
   if (!raw) return emptyLocalProfile();

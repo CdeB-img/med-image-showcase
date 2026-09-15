@@ -145,7 +145,8 @@ describe("MULTILINGUAL-CONVERSATION-GATEWAY-01 — Standard integration", () => 
     ]));
     expect(screen.queryByTestId("trace-inspector")).toBeNull();
 
-    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     const inspector = screen.getByTestId("trace-inspector");
     expect(within(inspector).getByTestId("trace-event-LANGUAGE_DETECTED")).toBeInTheDocument();
     expect(within(inspector).getByTestId("trace-event-ROUTE_SELECTED")).toBeInTheDocument();

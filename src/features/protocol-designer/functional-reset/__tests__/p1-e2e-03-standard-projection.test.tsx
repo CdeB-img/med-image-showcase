@@ -49,7 +49,6 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     renderDemo();
     const workspace = screen.getByTestId("functional-reset-workspace");
     expect(workspace).toHaveAttribute("data-product-mode", "STANDARD");
-    expect(screen.getByRole("button", { name: "Standard" })).toHaveAttribute("aria-pressed", "true");
     expect(screen.queryByTestId("protocol-designer-development-version")).toBeNull();
     expect(screen.queryByTestId("protocol-designer-development-diagnostics")).toBeNull();
     expect(workspace.textContent).not.toMatch(/FUNCTIONAL_RESET_PROTOCOL_DESIGNER_SESSION|projectDigest|contractVersion|NOXIA_PRODUCT_BRIDGE_TRACE|DEV\s*·|SHA/i);
@@ -87,7 +86,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     const projectV1BeforeDocument = JSON.stringify(v1.project);
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" }));
     const previewV1 = await screen.findByTestId("functional-protocol-preview");
-    expect(within(previewV1).getByText("Aperçu produit à partir du Research Project version 1.")).toBeInTheDocument();
+    expect(within(previewV1).getByText("Aperçu produit à partir du projet version 1.")).toBeInTheDocument();
     fireEvent.click(within(previewV1).getByRole("button", { name: "Télécharger le protocole (.html)" }));
     expect(createObjectURL).toHaveBeenCalledWith(expect.any(Blob));
     expect(JSON.stringify(storedSession().project)).toBe(projectV1BeforeDocument);
@@ -119,7 +118,7 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     const projectV2BeforeDocument = JSON.stringify(staleV1.project);
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Actualiser l’aperçu" }));
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
-    expect(within(previewV2).getByText("Aperçu produit à partir du Research Project version 2.")).toBeInTheDocument();
+    expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
     expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);
     expect(within(previewV2).getByRole("heading", { name: "Temporalité" }).closest("article")).toHaveTextContent(/IRM\s*J3.?J5/i);
     fireEvent.click(within(previewV2).getByRole("button", { name: "Télécharger le protocole (.html)" }));
@@ -139,14 +138,16 @@ describe("P1-E2E-03 — PROD/STANDARD projection wiring", () => {
     fireEvent.click(within(previewV2).getByRole("button", { name: "Retour à la conversation" }));
     const providerRequestsBeforeSwitch = runtime.request.mock.calls.length;
     const stateBeforeSwitch = window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY);
-    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     expect(workspace).toHaveAttribute("data-product-mode", "EXPERT");
     expect(screen.getByTestId("protocol-designer-development-version")).toHaveTextContent(/^DEV · (LOCAL|[0-9a-f]{7})$/);
     expect(screen.getByTestId("protocol-designer-development-diagnostics")).toHaveTextContent(v2WithDocuments.project!.projectId);
     expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe(stateBeforeSwitch);
     expect(runtime.request).toHaveBeenCalledTimes(providerRequestsBeforeSwitch);
 
-    fireEvent.click(screen.getByRole("button", { name: "Standard" }));
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(workspace).toHaveAttribute("data-product-mode", "STANDARD");
     expect(screen.queryByTestId("protocol-designer-development-diagnostics")).toBeNull();
     expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe(stateBeforeSwitch);

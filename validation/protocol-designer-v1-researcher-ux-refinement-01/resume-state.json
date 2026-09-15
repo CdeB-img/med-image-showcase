@@ -1,0 +1,50 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_V1_RESEARCHER_UX_REFINEMENT_01",
+  "status": "QUALIFIED_COMPLETE_SNAPSHOT",
+  "expectedBaseline": "8f40aa73716636c3c531f453092116e816bc3652",
+  "startingHead": "2aa83735f1912ab5a86b6f56d9ee0d88d22976e3",
+  "finalHead": "COMMIT_CONTAINING_THIS_SNAPSHOT",
+  "branch": "protocol-designer-canonical-ingestion",
+  "providerCalls": 0,
+  "completed": [
+    "Landing reworked around the V1 researcher value proposition",
+    "Persistent top navigation added to project, list, profile and administration views",
+    "Project name promoted to primary heading with rename access",
+    "Local atomic rename and fail-closed delete implemented",
+    "Project cards simplified and destructive confirmation added",
+    "Standard jargon removed from researcher-facing presentation paths",
+    "Progress detail collapsed by default and conversation copy reduced",
+    "Future continuum retained as visible disabled work in progress",
+    "Technical diagnostics moved to a secondary overflow menu",
+    "Public fallback and no-JavaScript copy aligned with the V1",
+    "Targeted tests, TypeScript, affected lint, production build and real-browser review passed"
+  ],
+  "remaining": [],
+  "modifiedFileCount": 39,
+  "testsPassed": {
+    "targeted": 121,
+    "finalRenameDeletePersistenceRecheck": 32,
+    "typescript": "PASS",
+    "lintAffected": "PASS",
+    "build": "PASS",
+    "browser": "PASS"
+  },
+  "browserEvidence": {
+    "landing": "PASS",
+    "multiProjectList": "PASS",
+    "rename": "PASS",
+    "deleteCancel": "PASS",
+    "deleteConfirmed": "PASS",
+    "profileTopNavigation": "PASS",
+    "standardWorkspace": "PASS",
+    "technicalDiagnostic": "PASS",
+    "responsive390x844": "PASS",
+    "consoleErrors": 0
+  },
+  "notes": [
+    "The qualified snapshot is complete when the commit containing this file is created.",
+    "Unrelated pre-existing untracked evidence remains preserved and excluded.",
+    "The pre-existing local pipeline commit 2aa83735 remains in branch history and is still unpushed.",
+    "No provider call or deployment occurred."
+  ]
+}

@@ -11,8 +11,8 @@ export default function ObservabilityStandardCard({ presentation, interaction, o
   const active = interaction?.status === "ACTIVE";
   const status = interaction?.status === "PENDING_HUMAN_REVIEW"
     ? "Une mesure est en attente de votre confirmation dans la revue ci-dessous."
-    : interaction?.status === "ADOPTED" ? "La conséquence confirmée est intégrée au Research Project."
-      : interaction?.status === "STALE" ? "Ces propositions correspondent à une version antérieure du Research Project."
+    : interaction?.status === "ADOPTED" ? "La conséquence confirmée est intégrée au projet."
+      : interaction?.status === "STALE" ? "Ces propositions correspondent à une version antérieure du projet."
         : null;
   return <article className="max-w-[94%] rounded-2xl border bg-muted/35 p-4 text-sm shadow-sm sm:max-w-[88%]" data-testid="standard-observability-proposal">
     <h3 className="font-semibold">{presentation.title}</h3>

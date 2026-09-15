@@ -10,9 +10,9 @@ type Props = {
 const statusMessage = (interaction: StandardStudyDesignInteraction | null) => {
   if (!interaction) return null;
   if (interaction.status === "PENDING_HUMAN_REVIEW") return "Une option est en attente de votre confirmation dans la revue ci-dessous.";
-  if (interaction.status === "ADOPTED") return "Le design confirmé est maintenant intégré au Research Project.";
-  if (interaction.status === "REJECTED") return "Ces options ont été écartées. Le Research Project n’a pas été modifié.";
-  if (interaction.status === "STALE") return "Ces options correspondent à une version antérieure du Research Project.";
+  if (interaction.status === "ADOPTED") return "Le design confirmé est maintenant intégré au projet.";
+  if (interaction.status === "REJECTED") return "Ces options ont été écartées. Le projet n’a pas été modifié.";
+  if (interaction.status === "STALE") return "Ces options correspondent à une version antérieure du projet.";
   return null;
 };
 

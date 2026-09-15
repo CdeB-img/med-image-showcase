@@ -430,8 +430,8 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(screen.getByTestId("project-group-endpoints")).toHaveTextContent("Principal :Taille des lésions microvasculaires à 3 min post-injection");
     expect(projectPanel).toHaveTextContent("Non généré");
     expect(projectPanel).not.toHaveTextContent("Construction en cours");
-    expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
-    expect(within(projectPanel).getByTestId("project-cockpit-counts")).toHaveTextContent(/\d+ décisions? confirmées? · \d+ points? matériels? ouverts?/);
+    expect(Number(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow"))).toBeGreaterThan(0);
+    expect(within(projectPanel).getByTestId("project-cockpit-counts")).toHaveTextContent(/\d+ éléments? confirmés? · \d+ points? à préciser/);
     expect(within(projectPanel).getByTestId("project-next-useful-decision")).toHaveTextContent("Prochaine décision utile");
     expect(screen.queryByRole("button", { name: "Cela correspond à mon projet" })).not.toBeInTheDocument();
     await waitFor(() => expect(stored().scientificThinkingInteraction?.status).toBe("ACTIVE"));
@@ -522,7 +522,7 @@ describe("PASS3A — candidate survival across real Workspace consumer boundarie
     expect(correctionReview).toHaveTextContent("Taille des lésions microvasculaires → Pourcentage de la masse VG représenté par les lésions microvasculaires");
     expect(within(correctionReview).getByTestId("standard-update-preserved-properties")).toHaveTextContent("Rôle conservéCritère principal");
     expect(within(correctionReview).getByTestId("standard-update-preserved-properties")).toHaveTextContent(/Temporalité conservée.*3 minutes.*injection/i);
-    expect(correctionReview).toHaveTextContent("Cette modification reste à confirmer ; le Research Project est inchangé.");
+    expect(correctionReview).toHaveTextContent("Cette modification reste à confirmer ; le projet est inchangé.");
     const correctionEntries = beforeCorrectionConfirmation.entries.slice(entriesBeforeCorrection);
     expect(correctionEntries.map((entry) => entry.kind)).toEqual(["TEXT", "REVIEW"]);
     expect(correctionEntries.filter((entry) => entry.kind === "TEXT" && entry.role === "NOXIA")).toHaveLength(0);

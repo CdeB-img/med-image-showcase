@@ -200,7 +200,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
       </div>)}
     </dl>}
 
-    {isUpdate && status === "PENDING" && <p className="mt-3 text-sm text-muted-foreground">Cette modification reste à confirmer ; le Research Project est inchangé.</p>}
+    {isUpdate && status === "PENDING" && <p className="mt-3 text-sm text-muted-foreground">Cette modification reste à confirmer ; le projet est inchangé.</p>}
 
     {!isUpdate && <details
       className="mt-4 rounded-2xl border border-dashed p-4"
@@ -237,7 +237,7 @@ export default function ContributionReview({ contribution, candidate, currentPro
       <button type="button" disabled={disabled} onClick={onReject} className="min-h-11 rounded-xl border px-4 py-2 text-sm font-medium text-muted-foreground">Refuser cette proposition</button>
     </div> : status === "CONFIRMED"
       ? <p role="status" className="mt-5 rounded-xl bg-emerald-500/10 p-3 text-sm text-emerald-800 dark:text-emerald-100">{isUpdate ? "Modifications confirmées." : "Structure confirmée."}</p>
-      : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">Proposition refusée. Le Research Project est inchangé.</p>}
+      : <p role="status" className="mt-5 rounded-xl bg-muted p-3 text-sm text-muted-foreground">Proposition refusée. Le projet est inchangé.</p>}
   </section>;
 }
 

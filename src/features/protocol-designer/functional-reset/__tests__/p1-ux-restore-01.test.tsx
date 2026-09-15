@@ -244,7 +244,7 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
 
   it("shows the natural CEC response and a governed working understanding in Standard without adopting a Project", async () => {
     renderDemo();
-    expect(screen.getByRole("button", { name: "Standard" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByTestId("functional-reset-workspace")).toHaveAttribute("data-product-mode", "STANDARD");
     expect(screen.queryByTestId("trace-inspector")).toBeNull();
 
     submit(CEC_INPUT);
@@ -314,7 +314,8 @@ describe("P1-UX-RESTORE-01 — governed first-turn restoration", () => {
       (dimension: { visibleOutput: string }) => dimension.visibleOutput === "PRESENT",
     )).toBe(true);
 
-    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     expect(screen.getByTestId("trace-inspector")).toBeInTheDocument();
     expect(screen.getByTestId("protocol-designer-development-diagnostics")).toHaveTextContent("MOTIVATES_DATA_NEED");
   });

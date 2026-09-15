@@ -258,7 +258,7 @@ export const resolveBiostatisticsConversation = (input: {
   const value = folded(input.raw);
   if (/\b(?:je ne sais pas|pas encore|plus tard|a discuter)\b/.test(value)) return {
     kind: "DEFER",
-    response: "Aucune stratégie analytique n’est adoptée. Le Research Project reste inchangé.",
+    response: "Aucune stratégie analytique n’est adoptée. Le projet reste inchangé.",
   };
   const selectionIntent = /\b(?:je|nous)\s+(?:prefer\w*|chois\w*|reti\w*)|\b(?:retenir|choisir|selectionner|adopter)\b/.test(value);
   if (selectionIntent) {

@@ -8,11 +8,12 @@ export default function ProtocolDesignerUnavailable() {
         <meta name="robots" content="noindex,nofollow" />
       </Helmet>
       <section className="mx-auto max-w-2xl rounded-2xl border border-border bg-card/40 p-8">
-        <p className="font-mono text-xs text-muted-foreground">ACCÈS TEMPORAIREMENT SUSPENDU</p>
-        <h1 className="mt-3 text-2xl font-semibold">Protocol Designer n’est pas accessible publiquement.</h1>
+        <p className="text-xs font-semibold uppercase tracking-[.18em] text-muted-foreground">Version d’évaluation</p>
+        <h1 className="mt-3 text-2xl font-semibold">Protocol Designer est temporairement indisponible.</h1>
         <p className="mt-4 text-muted-foreground">
-          La surface est maintenue hors production pendant sa stabilisation. Aucun traitement externe n’est déclenché depuis cette page.
+          La conception d’étude, les sources et les documents de travail seront de nouveau accessibles après cette interruption. Aucun traitement externe n’est déclenché depuis cette page.
         </p>
+        <p className="mt-4 text-sm text-muted-foreground">Un document généré nécessite une validation scientifique, réglementaire et institutionnelle adaptée à son usage.</p>
       </section>
     </main>
   );

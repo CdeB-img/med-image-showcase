@@ -271,7 +271,7 @@ describe("V1 QRY continuation and proactive proposal flow", () => {
     expect(within(review).getByRole("button", { name: "Décrire une correction" })).toBeEnabled();
     expect(within(review).getByRole("button", { name: "Refuser cette proposition" })).toBeEnabled();
     fireEvent.click(within(review).getByRole("button", { name: "Refuser cette proposition" }));
-    await within(review).findByText("Proposition refusée. Le Research Project est inchangé.");
+    await within(review).findByText("Proposition refusée. Le projet est inchangé.");
     expect((JSON.parse(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!) as FunctionalResetSession).project?.versionId)
       .toBe(projectVersionBeforeReview);
     expect(screen.queryByText("J'accuse réception de votre demande.")).toBeNull();

@@ -21,6 +21,5 @@ export default function ProjectContinuum({ documentsAvailable, documentsOpen, di
         </button>
       </li>)}
     </ol>
-    <p className="mt-3 text-xs text-muted-foreground">Les étapes « À venir » présentent la suite envisagée du parcours. Elles ne sont pas disponibles dans cette version.</p>
   </nav>;
 }

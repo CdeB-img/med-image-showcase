@@ -575,7 +575,7 @@ export const resolveScientificThinkingConversation = (input: {
   const value = folded(clauses[0] ?? "");
   if (/^(?:je ne sais pas(?: encore)?|pas encore|plus tard|a discuter)$/.test(value)) return {
     kind: "DEFER",
-    response: "Aucune décision n’est nécessaire maintenant. Les propositions restent discutables et le Research Project demeure inchangé.",
+    response: "Aucune décision n’est nécessaire maintenant. Les propositions restent discutables et le projet demeure inchangé.",
   };
   const nonAssertedSelection = /\b(?:si|exemple|supposons|imaginons|peut etre|pas encore|avant de)\b/.test(value)
     || /\b(?:ne|n)\s+(?:\w+\s+){0,2}(?:choisis|choisissons|retiens|retenons|selectionne|selectionnons|adopte|adoptons)\b/.test(value)

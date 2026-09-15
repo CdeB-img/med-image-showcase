@@ -114,7 +114,7 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     });
 
     fireEvent.click(screen.getByRole("button", { name: "Refuser cette proposition" }));
-    await screen.findByText("Proposition refusée. Le Research Project est inchangé.");
+    await screen.findByText("Proposition refusée. Le projet est inchangé.");
     expect(stored().project).toBeNull();
 
     submit(CORRECTED);
@@ -139,7 +139,7 @@ describe("V1 — verticale Standard continue thrombus intra-VG", () => {
     submit("Affiche-moi un premier protocole de travail.");
     const preview = await screen.findByTestId("functional-protocol-preview");
     expect(within(preview).getByText("PROTOCOLE DE TRAVAIL")).toBeInTheDocument();
-    expect(within(preview).getByText(/Research Project version 2/)).toBeInTheDocument();
+    expect(within(preview).getByText(/projet version 2/)).toBeInTheDocument();
     expect(within(preview).getByRole("button", { name: "Télécharger le protocole (.html)" })).toBeInTheDocument();
     expect(preview.textContent).toContain(FIRST_OBJECTIVE);
     expect(preview.textContent).toContain(SECOND_OBJECTIVE);

@@ -232,7 +232,8 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     expect(screen.queryByTestId("trace-inspector")).toBeNull();
     const before = window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY);
     const providerCallsBefore = runtime.request.mock.calls.length;
-    fireEvent.click(screen.getByRole("button", { name: "Expert" }));
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Diagnostic technique" }));
     const inspector = screen.getByTestId("trace-inspector");
     expect(inspector).toHaveTextContent("CAPTURE_LEVEL=LEVEL_2_DIAGNOSTIC · VIEW_LEVEL=SUMMARY");
     expect(within(inspector).getByTestId("trace-inspector-summary-view")).toBeInTheDocument();
@@ -247,7 +248,8 @@ describe("P1-TRACE-02C — Trace Inspector and TRACE v2 qualification", () => {
     expect(inspector).toHaveTextContent("NOT_CAPTURED");
     expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe(before);
     expect(runtime.request).toHaveBeenCalledTimes(providerCallsBefore);
-    fireEvent.click(screen.getByRole("button", { name: "Standard" }));
+    fireEvent.click(screen.getByLabelText("Plus d’options"));
+    fireEvent.click(screen.getByRole("button", { name: "Quitter le diagnostic" }));
     expect(screen.queryByTestId("trace-inspector")).toBeNull();
     expect(window.localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)).toBe(before);
   });

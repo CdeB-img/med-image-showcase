@@ -265,7 +265,7 @@ describe("P1-UX-DOC-ACTION-01 — natural-language protocol actions", () => {
 
     submit("affiche le protocole");
 
-    expect(await screen.findByText("Un Research Project confirmé est nécessaire avant de pouvoir afficher un aperçu du protocole.")).toBeInTheDocument();
+    expect(await screen.findByText("Des éléments d’étude confirmés sont nécessaires avant de pouvoir afficher un aperçu du protocole.")).toBeInTheDocument();
     await waitFor(() => expect(stored().entries.length).toBe(before.entries.length + 2));
     const after = stored();
     expect(runtime.request).not.toHaveBeenCalled();

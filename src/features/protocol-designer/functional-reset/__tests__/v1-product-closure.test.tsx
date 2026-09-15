@@ -115,15 +115,16 @@ describe("V1 product closure: independent durable projects", () => {
   it("REFRESH_RECOVERY: closes to the list, creates B and reopens A through Standard UI", () => {
     const mounted = renderDemo();
     const a = JSON.parse(localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!);
-    fireEvent.click(screen.getByRole("button", { name: "Mes projets" }));
-    fireEvent.change(screen.getByLabelText("Nouveau projet — titre temporaire"), { target: { value: "Neuro B" } });
+    fireEvent.click(screen.getByRole("button", { name: "← Mes projets" }));
+    fireEvent.change(screen.getByLabelText("Nouveau projet"), { target: { value: "Neuro B" } });
     fireEvent.click(screen.getByRole("button", { name: "Créer un projet" }));
-    expect(screen.getByLabelText("Projet ouvert")).toHaveTextContent("Neuro B");
+    expect(screen.getByRole("heading", { level: 1, name: "Neuro B" })).toBeInTheDocument();
     expect(readProjectSessions(localStorage).projects).toHaveLength(2);
-    fireEvent.click(screen.getByRole("button", { name: "Mes projets" }));
+    fireEvent.click(screen.getByRole("button", { name: "← Mes projets" }));
     mounted.unmount(); renderDemo();
-    expect(screen.getByRole("heading", { name: "Mes projets de recherche" })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: "Ouvrir Projet sans titre" }));
+    expect(screen.getByRole("heading", { name: "Mes projets" })).toBeInTheDocument();
+    const firstCard = screen.getByRole("heading", { name: "Projet sans titre" }).closest("article")!;
+    fireEvent.click(within(firstCard).getByRole("button", { name: "Ouvrir" }));
     expect(localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)).toBe(FUNCTIONAL_RESET_STORAGE_KEY);
     expect(JSON.parse(localStorage.getItem(FUNCTIONAL_RESET_STORAGE_KEY)!).sessionId).toBe(a.sessionId);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
@@ -220,7 +221,7 @@ it("FUTURE_CONTINUUM_VISIBLE / NO_FALSE_CAPABILITY_CLAIM: disabled WIP modules h
     fireEvent.click(button);
   }
   expect(conversation).not.toHaveBeenCalled(); expect(documents).not.toHaveBeenCalled();
-  expect(nav).toHaveTextContent("Elles ne sont pas disponibles dans cette version");
+  expect(nav).not.toHaveTextContent("Elles ne sont pas disponibles dans cette version");
 });
 
 
@@ -286,7 +287,7 @@ it("preserves negation through the Project snapshot, panel and real document wit
   expect(JSON.stringify(project)).toBe(before);
   saved.session.project = project; saved.raw = saveProjectSession(localStorage, saved, saved.session);
   localStorage.setItem(ACTIVE_PROJECT_STORAGE_KEY, saved.key); renderDemo();
-  const panel = screen.getByRole("complementary", { name: "Research Project" });
+  const panel = screen.getByRole("complementary", { name: "Projet de recherche" });
   expect(panel).toHaveTextContent("Exclusion / absence : AVC aigu");
   expect(panel).toHaveTextContent("Exclusion / absence : Essai de traitement");
 });

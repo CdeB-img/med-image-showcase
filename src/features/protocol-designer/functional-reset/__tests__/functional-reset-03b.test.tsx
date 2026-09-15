@@ -328,7 +328,7 @@ describe("FUNCTIONAL-RESET-03B — QRY-guided conversational progression", () =>
     fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
     await waitFor(() => expect(readPersistedSessionForTest(window.localStorage, window.localStorage.getItem(ACTIVE_PROJECT_STORAGE_KEY)!, true).queryNavigation).toBeNull());
     expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).queryNavigation).not.toBeNull();
-    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Décrivez votre projet de recherche/).length).toBeGreaterThan(0);
   });
 
   it("FR03B-C14 — nominal progression dispatches ST only through the QRY-selected owner and imports no direct engine or IMG capability", () => {

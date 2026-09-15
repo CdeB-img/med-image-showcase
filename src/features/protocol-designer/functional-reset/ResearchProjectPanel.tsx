@@ -79,7 +79,9 @@ export default function ResearchProjectPanel({
   const historicalProtocols = documents.projections.filter((projection) => projection.projectionType === "PROTOCOL"
     && projection.projectionId !== protocol?.projectionId);
   const protocolState = protocol?.stateLabel ?? "Projet à confirmer";
-  const protocolExplanation = protocol?.explanation ?? "Aucun livrable généré.";
+  const protocolExplanation = project
+    ? (protocol?.explanation ?? "Aucun livrable généré.").replace(/Research Project/g, "projet")
+    : null;
   const applicableQueryNavigation = project && queryNavigation
     && queryNavigation.projectRef === project.projectId
     && queryNavigation.projectVersion === project.versionId
@@ -167,9 +169,9 @@ export default function ResearchProjectPanel({
     </section>;
   };
 
-  return <aside aria-label="Research Project" className="rounded-3xl border bg-card shadow-sm" data-testid="functional-research-project" data-projection-mode={mode}>
+  return <aside aria-label="Projet de recherche" className="rounded-3xl border bg-card shadow-sm" data-testid="functional-research-project" data-projection-mode={mode}>
     <div className="border-b px-5 py-5">
-      <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Research Project</p>
+      <p className="text-xs font-semibold uppercase tracking-[.18em] text-primary">Projet de recherche</p>
       <div className="mt-2 flex items-center justify-between gap-3">
         <h2 className="text-xl font-semibold">Mon projet</h2>
         {project && <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">Version {project.revision}</span>}
@@ -177,18 +179,11 @@ export default function ResearchProjectPanel({
       <div className="mt-4 rounded-2xl border bg-muted/35 p-3" data-testid="project-cockpit">
         <div data-testid="project-global-progress">
           <div className="flex items-baseline justify-between gap-3 text-sm"><span className="font-medium">Avancement indicatif</span><span className="tabular-nums">{globalProgress} %</span></div>
-          <div className="mt-2 h-2 overflow-hidden rounded-full bg-muted" aria-label={`Avancement indicatif du Research Project : ${globalProgress} %`} role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={globalProgress}>
+          <div className="mt-2 h-2 overflow-hidden rounded-full bg-muted" aria-label={`Avancement indicatif du projet : ${globalProgress} %`} role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={globalProgress} title="Cet indicateur décrit la complétude des éléments actuellement nécessaires, pas la qualité scientifique.">
             <div className="h-full rounded-full bg-primary/70" style={{ width: `${globalProgress}%` }} />
           </div>
         </div>
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">Complétude approximative des décisions actuellement nécessaires — pas une mesure de qualité scientifique.</p>
-        <p className="mt-3 text-xs font-medium" data-testid="project-cockpit-counts">{confirmedDecisionCount} décision{confirmedDecisionCount > 1 ? "s" : ""} confirmée{confirmedDecisionCount > 1 ? "s" : ""} · {openMaterialPointCount} point{openMaterialPointCount > 1 ? "s" : ""} matériel{openMaterialPointCount > 1 ? "s" : ""} ouvert{openMaterialPointCount > 1 ? "s" : ""}</p>
-        <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1.5" data-testid="project-section-progress">
-          {CURRENT_PROJECT_GROUPS.map((group) => <div key={group.id} className="flex min-w-0 items-baseline justify-between gap-2 text-xs">
-            <span className="truncate text-muted-foreground">{group.label}</span>
-            <span className="shrink-0 tabular-nums">{groupProgress.get(group.id)!.value} %</span>
-          </div>)}
-        </div>
+        <p className="mt-3 text-xs font-medium" data-testid="project-cockpit-counts">{confirmedDecisionCount} élément{confirmedDecisionCount > 1 ? "s" : ""} confirmé{confirmedDecisionCount > 1 ? "s" : ""} · {openMaterialPointCount} point{openMaterialPointCount > 1 ? "s" : ""} à préciser</p>
         {nextUsefulDecision && <div className="mt-3 border-t pt-3 text-xs" data-testid="project-next-useful-decision">
           <p className="font-medium">Prochaine décision utile</p>
           <p className="mt-1 leading-relaxed text-muted-foreground">{nextUsefulDecision}</p>
@@ -211,7 +206,16 @@ export default function ResearchProjectPanel({
             <ul className="mt-2 space-y-1.5 text-muted-foreground">{confirmedChanges.map((change) => <li key={change.changeId}>{change.presentation}</li>)}</ul>
           </details>}
         </section>
-        {CURRENT_PROJECT_GROUPS.map(renderPermanentGroup)}
+        <details className="rounded-2xl border bg-background" data-testid="project-progress-details">
+          <summary className="cursor-pointer px-4 py-3 text-sm font-semibold">Voir le détail de l’étude</summary>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 border-t px-4 py-3" data-testid="project-section-progress">
+            {CURRENT_PROJECT_GROUPS.map((group) => <div key={group.id} className="flex min-w-0 items-baseline justify-between gap-2 text-xs">
+              <span className="truncate text-muted-foreground">{group.label}</span>
+              <span className="shrink-0 tabular-nums">{groupProgress.get(group.id)!.value} %</span>
+            </div>)}
+          </div>
+          <div className="space-y-3 border-t p-3">{CURRENT_PROJECT_GROUPS.map(renderPermanentGroup)}</div>
+        </details>
       </>}
 
       <section className="rounded-2xl border px-4 py-3" aria-labelledby="functional-project-documents">
@@ -232,7 +236,7 @@ export default function ResearchProjectPanel({
               <p className="text-sm font-medium">Protocole</p>
               <span className="text-right text-xs font-medium text-muted-foreground">{protocolState}</span>
             </div>
-            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{protocolExplanation}</p>
+            {protocolExplanation && <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{protocolExplanation}</p>}
             {protocol.blockerGroups.length > 0 && <details className="mt-2 text-xs">
               <summary className="cursor-pointer font-medium">Points restant à préciser</summary>
               <div className="mt-2 space-y-2">

@@ -11,9 +11,9 @@ export default function ImagingStandardCard({ presentation, interaction, onSelec
   const active = interaction?.status === "ACTIVE";
   const status = interaction?.status === "PENDING_HUMAN_REVIEW"
     ? "Une stratégie d’acquisition est en attente de votre confirmation dans la revue ci-dessous."
-    : interaction?.status === "ADOPTED" ? "La stratégie confirmée est intégrée au Research Project."
-      : interaction?.status === "REJECTED" ? "La proposition a été écartée sans modifier le Research Project."
-        : interaction?.status === "STALE" ? "Ces propositions correspondent à une version antérieure du Research Project."
+    : interaction?.status === "ADOPTED" ? "La stratégie confirmée est intégrée au projet."
+      : interaction?.status === "REJECTED" ? "La proposition a été écartée sans modifier le projet."
+        : interaction?.status === "STALE" ? "Ces propositions correspondent à une version antérieure du projet."
           : null;
   return <article className="max-w-[94%] rounded-2xl border bg-muted/35 p-4 text-sm shadow-sm sm:max-w-[88%]" data-testid="standard-imaging-proposal">
     <h3 className="font-semibold">{presentation.title}</h3>

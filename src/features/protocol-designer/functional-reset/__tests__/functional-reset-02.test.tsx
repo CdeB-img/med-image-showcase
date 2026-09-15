@@ -158,7 +158,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Créer l’aperçu" }));
 
     const previewV1 = await screen.findByTestId("functional-protocol-preview");
-    expect(within(previewV1).getByText("Aperçu produit à partir du Research Project version 1.")).toBeInTheDocument();
+    expect(within(previewV1).getByText("Aperçu produit à partir du projet version 1.")).toBeInTheDocument();
     expect(within(previewV1).getAllByText(/colchicine/i).length).toBeGreaterThan(0);
     expect(within(previewV1).getAllByText(/placebo/i).length).toBeGreaterThan(0);
     expect(within(previewV1).getAllByText(/taille de l’infarctus/i).length).toBeGreaterThan(0);
@@ -174,7 +174,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     fireEvent.click(within(projectPanel).getByRole("button", { name: "Actualiser l’aperçu" }));
 
     const previewV2 = await screen.findByTestId("functional-protocol-preview");
-    expect(within(previewV2).getByText("Aperçu produit à partir du Research Project version 2.")).toBeInTheDocument();
+    expect(within(previewV2).getByText("Aperçu produit à partir du projet version 2.")).toBeInTheDocument();
     expect(within(previewV2).getByRole("heading", { name: "Population" }).closest("article")).toHaveTextContent(/âge maximal\s*75 ans/i);
     expect(within(previewV2).getByRole("heading", { name: "Temporalité" }).closest("article")).toHaveTextContent(/IRM\s*J3.?J5/i);
     const storedV2 = readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true);
@@ -205,7 +205,7 @@ describe("FUNCTIONAL-RESET-02 — Project vers documents", () => {
     expect(reset.project).toBeNull();
     expect(reset.documents.projections).toEqual([]);
     expect(reset.runtimeTurns).toEqual([]);
-    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Décrivez votre projet de recherche/).length).toBeGreaterThan(0);
   });
 
   it("FR02 error recovery — preserves Project and the prior preview when DOC fails", () => {

@@ -77,7 +77,7 @@ import {
 } from "@/features/protocol-designer/conversation-language-gateway";
 
 export const FUNCTIONAL_RESET_STORAGE_KEY = "noxia-protocol-designer-functional-reset-v3";
-export const INITIAL_NOXIA_MESSAGE = "Dites-moi ce que vous souhaitez comprendre, formaliser ou construire.\nNOXIA préservera votre intention avant de proposer la suite.";
+export const INITIAL_NOXIA_MESSAGE = "Décrivez votre projet de recherche, une question, une hypothèse ou un protocole existant.";
 export const LEGACY_PROJECT_FIRST_NOXIA_MESSAGE = "Décrivez-moi le projet de recherche que vous souhaitez construire.";
 
 export const productEntryPromptForIntent = (
@@ -88,7 +88,7 @@ export const productEntryPromptForIntent = (
     ? "Décrivez l’idée ou l’intuition scientifique que vous souhaitez travailler."
     : routeIntent === "DESIGN_STUDY"
       ? "Décrivez le projet de recherche que vous souhaitez construire."
-      : "Que souhaitez-vous comprendre, formaliser ou construire ?";
+    : "Décrivez votre projet ou posez votre première question…";
 
 export const shouldMediatePostAdoptionQuery = (
   navigation: Pick<FunctionalResetQueryNavigation, "currentAction" | "currentPresentation" | "standardQuestion">,

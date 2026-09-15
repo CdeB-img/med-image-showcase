@@ -10,7 +10,7 @@ import {
   selectBoundedConversationInteraction,
 } from "@/features/query-navigation/current-navigation-evidence";
 import { Helmet } from "react-helmet-async";
-import { ArrowUp, LoaderCircle, MessageSquareText, RotateCcw } from "lucide-react";
+import { ArrowUp, LoaderCircle, MessageSquareText, Pencil, RotateCcw } from "lucide-react";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { ScientificInterpretationContributionEnvelope, ScientificInterpretationTurn } from "@/features/scientific-interpretation/contracts";
 import {
@@ -505,16 +505,16 @@ const persistenceFailureMessage = (
   candidateStatus: ReturnType<typeof prepareResearchProjectContributionCandidate>["status"] | null,
 ) => {
   if (status === "TECHNICAL_FAILURE") {
-    return "Je vous ai répondu, mais NOXIA n’a pas pu préparer ces informations pour le Research Project. Le Project reste inchangé.";
+    return "Je vous ai répondu, mais ces informations n’ont pas pu être préparées pour le projet. Le projet reste inchangé.";
   }
   if (status === "BLOCKED") {
-    return "Je vous ai répondu, mais la proposition persistante est bloquée et n’a pas été enregistrée. Le Research Project reste inchangé.";
+    return "Je vous ai répondu, mais la proposition est bloquée et n’a pas été enregistrée. Le projet reste inchangé.";
   }
   if (candidateStatus === "BLOCKED_BY_STRUCTURAL_CONFLICT") {
-    return "Cette proposition entre en conflit avec l’état actuel du Research Project. Elle n’a pas été appliquée.";
+    return "Cette proposition entre en conflit avec l’état actuel du projet. Elle n’a pas été appliquée.";
   }
   if (candidateStatus === "REVIEW_PROJECTION_INCOMPLETE") {
-    return "NOXIA ne peut pas vous demander de confirmer cette proposition, car la revue ne montre pas encore tous les changements. Le Research Project reste inchangé.";
+    return "Cette proposition ne peut pas encore être confirmée, car la revue ne montre pas tous les changements. Le projet reste inchangé.";
   }
   return null;
 };
@@ -944,13 +944,15 @@ type ProtocolDesignerWorkspaceProps = Readonly<{
   onLeaveWorkspace?: () => void;
   onEditAdministration?: () => void;
   onNewProject?: () => void;
+  onOpenProfile?: () => void;
+  onRenameProject?: () => void;
 }>;
 
 const VALIDATED_CANDIDATE_DEGRADED_REPLY = "J’ai identifié plusieurs éléments dans votre projet. Voici ce que j’ai compris ; vous pouvez les corriger avant toute confirmation.";
 
 export default function ProtocolDesignerWorkspace({
   traceCaptureConfiguration = DEFAULT_SCIENTIFIC_TRACE_CAPTURE_CONFIGURATION,
-  initialSession, onSessionChange, onLeaveWorkspace, onEditAdministration, onNewProject,
+  initialSession, onSessionChange, onLeaveWorkspace, onEditAdministration, onNewProject, onOpenProfile, onRenameProject,
 }: ProtocolDesignerWorkspaceProps) {
   const [session, setSession] = useState<FunctionalResetSession>(() => initialSession ?? loadInitialSession());
   const administration = useMemo(() => session.workspace
@@ -1133,19 +1135,19 @@ export default function ProtocolDesignerWorkspace({
           kind: "ERROR",
           role: "NOXIA",
           content: isScientificThinkingQueryDispatch(job.queryNavigation)
-            ? "NOXIA n’a pas pu préparer les propositions scientifiques à partir de cette version du Research Project. Le Project reste inchangé."
+            ? "Les propositions scientifiques n’ont pas pu être préparées à partir de cette version du projet. Le projet reste inchangé."
             : isObservabilityQueryDispatch(job.queryNavigation)
-              ? "NOXIA n’a pas pu qualifier les besoins d’observation et de mesure à partir de cette version du Research Project. Le Project reste inchangé."
+              ? "Les besoins d’observation et de mesure n’ont pas pu être qualifiés à partir de cette version du projet. Le projet reste inchangé."
             : isImagingQueryDispatch(job.queryNavigation)
-              ? "NOXIA n’a pas pu préparer la stratégie d’imagerie à partir de cette version du Research Project. Le Project reste inchangé."
+              ? "La stratégie d’imagerie n’a pas pu être préparée à partir de cette version du projet. Le projet reste inchangé."
             : isBiostatisticsQueryDispatch(job.queryNavigation)
-              ? "NOXIA n’a pas pu préparer les stratégies analytiques à partir de cette version du Research Project. Le Project reste inchangé."
+              ? "Les stratégies analytiques n’ont pas pu être préparées à partir de cette version du projet. Le projet reste inchangé."
             : isCanonicalStudyDataQueryDispatch(job.queryNavigation)
-              ? "NOXIA n’a pas pu représenter les données attendues à partir de cette version du Research Project. Le Project reste inchangé."
+              ? "Les données attendues n’ont pas pu être représentées à partir de cette version du projet. Le projet reste inchangé."
             : isDataManagementQueryDispatch(job.queryNavigation)
-              ? "NOXIA n’a pas pu préparer la gestion opérationnelle des données à partir du résultat canonique courant. Le Project reste inchangé."
+              ? "La gestion opérationnelle des données n’a pas pu être préparée à partir du résultat courant. Le projet reste inchangé."
             : isStudyDesignQueryDispatch(job.queryNavigation)
-              ? "NOXIA n’a pas pu préparer les stratégies d’étude à partir de cette version du Research Project. Le Project reste inchangé."
+              ? "Les stratégies d’étude n’ont pas pu être préparées à partir de cette version du projet. Le projet reste inchangé."
               : "NOXIA n’a pas pu présenter la prochaine étape. Vous pouvez poursuivre librement.",
           createdAt: failedAt,
         }],
@@ -2113,9 +2115,9 @@ export default function ProtocolDesignerWorkspace({
             : boundedInteraction.clarificationReason === "DECISION_SCOPE"
               ? "J’ai repéré votre décision, mais son objet ou sa portée doit être précisé avant de l’appliquer. Indiquez la proposition concernée et les changements que vous confirmez ou refusez. Une décision partielle ou conditionnelle ne vaut pas confirmation de l’ensemble ; aucune modification n’a été appliquée au projet."
               : boundedReferentContext.resolution === "AMBIGUOUS"
-            ? "Plusieurs candidates courantes peuvent être visées. Précisez celle que vous souhaitez confirmer ou refuser, ou utilisez sa carte de validation. Votre décision n’a pas été appliquée ; le Research Project reste inchangé."
-            : "Aucune candidate courante n’est liée de manière univoque à cette décision. La proposition visée doit être identifiée et vérifiée contre la version actuelle du Research Project avant confirmation ou refus. Aucune décision n’a été appliquée."
-          : "D’accord. Le Research Project courant reste inchangé.";
+            ? "Plusieurs propositions peuvent être visées. Précisez celle que vous souhaitez confirmer ou refuser, ou utilisez sa carte de validation. Votre décision n’a pas été appliquée ; le projet reste inchangé."
+            : "Aucune proposition n’est liée de manière univoque à cette décision. La proposition visée doit être identifiée et vérifiée dans la version actuelle du projet avant confirmation ou refus. Aucune décision n’a été appliquée."
+          : "D’accord. Le projet courant reste inchangé.";
         const localized = await localizeCanonicalFrenchResponse({
           state: preparedGateway.state,
           onProviderCallRecords,
@@ -2191,7 +2193,7 @@ export default function ProtocolDesignerWorkspace({
         // The continuation owns the busy lifecycle until its result settles.
         busyLifecycleDelegated = true;
         setSession((current) => ({ ...current, queryNavigation: proposalNavigation, updatedAt: now }));
-        setBusyMessage("Je prépare des propositions à partir du Research Project confirmé…");
+        setBusyMessage("Je prépare des propositions à partir du projet confirmé…");
         setPostAdoptionContinuationJob({
           sessionId: session.sessionId,
           conversationId: session.conversationId,
@@ -3051,7 +3053,7 @@ export default function ProtocolDesignerWorkspace({
             createdAt: naturalDecision.userTurn.createdAt,
           }] : []),
           { entryId: createConversationEntryId(), kind: "TEXT", role: "NOXIA", content: feedback, createdAt: now },
-          ...(documentWarning ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const, role: "NOXIA" as const, content: "NOXIA n’a pas pu mettre à jour la partie documentaire du projet. Le Research Project confirmé reste disponible.", createdAt: now }] : []),
+          ...(documentWarning ? [{ entryId: createConversationEntryId(), kind: "ERROR" as const, role: "NOXIA" as const, content: "La partie documentaire n’a pas pu être mise à jour. Le projet confirmé reste disponible.", createdAt: now }] : []),
         ],
         bridgeTraces: current.bridgeTraces.map((trace) => trace.projectChangeSetCandidate?.sourceContributionRef === contributionId
           ? { ...trace, humanDecision: project.confirmationDecision, projectVersionAfter: project.versionId }
@@ -3229,7 +3231,7 @@ export default function ProtocolDesignerWorkspace({
           entryId: createConversationEntryId(),
           kind: "ERROR",
           role: "NOXIA",
-          content: "NOXIA n’a pas pu enregistrer ce refus. Le Research Project reste inchangé.",
+          content: "Ce refus n’a pas pu être enregistré. Le projet reste inchangé.",
           createdAt: now,
         }],
         updatedAt: now,
@@ -3330,8 +3332,8 @@ export default function ProtocolDesignerWorkspace({
       appendProductDocumentCommandResult({
         command,
         assistantContent: action === "OPEN_STUDY_DELIVERABLES" || action === "OPEN_EDC_EXPORT"
-          ? "Un Research Project confirmé est nécessaire avant de pouvoir préparer des livrables d’étude."
-          : "Un Research Project confirmé est nécessaire avant de pouvoir afficher un aperçu du protocole.",
+          ? "Des éléments d’étude confirmés sont nécessaires avant de pouvoir préparer les livrables."
+          : "Des éléments d’étude confirmés sont nécessaires avant de pouvoir afficher un aperçu du protocole.",
       });
       return;
     }
@@ -3386,7 +3388,7 @@ export default function ProtocolDesignerWorkspace({
     if (action === "REGENERATE_PROTOCOL" && protocolCard?.freshness === "CURRENT" && projectionId) {
       appendProductDocumentCommandResult({
         command,
-        assistantContent: "Le protocole reflète déjà la version actuelle du Research Project.",
+        assistantContent: "Le protocole reflète déjà la version actuelle du projet.",
         projectionId,
       });
       return;
@@ -3402,7 +3404,7 @@ export default function ProtocolDesignerWorkspace({
       setSession((current) => ({ ...current, ...evidence }));
       setDocumentMessage(`${evidence.sourceLibrary.sources.length} source(s) du corpus local conservée(s). Les qualifications existantes sont distinctes de votre intérêt pour ces références.`);
     } catch {
-      setDocumentMessage("Les sources ne peuvent pas être préparées dans cet état. Le Project et les documents sont conservés ; aucune recherche externe n’a été lancée.");
+      setDocumentMessage("Les sources ne peuvent pas être préparées dans cet état. Le projet et les documents sont conservés ; aucune recherche externe n’a été lancée.");
     }
   }
 
@@ -3441,7 +3443,7 @@ export default function ProtocolDesignerWorkspace({
       retainedEvidence = evidence;
       if (intent.kind === "PREPARE_EVIDENCE") {
         requestProtocolProjection(recordUser ? { content: instruction, createdAt: timestamp } : undefined, evidence);
-        setDocumentMessage("Le contexte et la bibliographie ont été produits depuis les assertions soutenues du corpus local. La science propre à l’étude reste celle du Project adopté.");
+        setDocumentMessage("Le contexte et la bibliographie ont été produits depuis les éléments soutenus du corpus local. Les choix scientifiques de l’étude restent ceux du projet confirmé.");
         setSourceLibraryOpen(false);
         return;
       }
@@ -3491,7 +3493,7 @@ export default function ProtocolDesignerWorkspace({
       const code = error instanceof Error ? error.message : "DOCUMENT_REVISION_UNAVAILABLE";
       reply(code === "SOURCE_WITHOUT_APPLICABLE_DOCUMENTARY_ASSERTION" ? "Cette référence ne dispose pas d’une assertion rédigée suffisamment qualifiée pour cette révision. Son ajout comme citation décorative a été refusé."
         : code === "DOCUMENT_RESTORE_SOURCE_CHANGED" ? "Cette version dépend d’un autre état scientifique ou administratif. Elle reste consultable dans l’historique ; la restauration ne peut pas remplacer silencieusement le Project courant."
-          : "La révision n’a pas pu être qualifiée. Le Project et toutes les versions documentaires précédentes sont conservés.", retainedEvidence ?? {});
+          : "La révision n’a pas pu être qualifiée. Le projet et toutes les versions documentaires précédentes sont conservés.", retainedEvidence ?? {});
     }
   }
 
@@ -3596,7 +3598,7 @@ export default function ProtocolDesignerWorkspace({
           entryId: createConversationEntryId(),
           kind: "ERROR",
           role: "NOXIA",
-          content: "NOXIA n’a pas pu produire l’aperçu du protocole. Le Project et la conversation sont conservés.",
+          content: "L’aperçu du protocole n’a pas pu être produit. Le projet et la conversation sont conservés.",
           createdAt: now,
         }],
         updatedAt: now,
@@ -3656,6 +3658,8 @@ export default function ProtocolDesignerWorkspace({
   const activeRouteIntent = [...session.bridgeTraces]
     .reverse()
     .find((trace) => trace.entryRouting)?.entryRouting?.routeIntent;
+  const workspaceTitle = session.workspace?.title?.trim() || "Projet sans titre";
+  const hasNamedProject = workspaceTitle !== "Projet sans titre";
   const projectPanel = <ResearchProjectPanel
     project={session.project}
     documents={session.documents}
@@ -3682,56 +3686,46 @@ export default function ProtocolDesignerWorkspace({
   >
     <Helmet>
       <title>Protocol Designer — NOXIA</title>
-      <meta name="description" content="Comprenez, formalisez ou construisez un Research Project dans une conversation continue avec NOXIA." />
+      <meta name="description" content="Concevez et révisez un protocole scientifique sourcé dans une conversation continue." />
       <meta name="robots" content="noindex, follow" />
     </Helmet>
 
-    <div className="mx-auto max-w-[1480px] px-4 py-5 sm:px-6 lg:px-8">
-      <header className="mb-5 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">NOXIA</p>
-          <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{projectionMode === "STANDARD" ? "Construisons votre projet scientifique" : "Protocol Designer"}</h1>
-            {projectionMode === "EXPERT" && <span
-              className="font-mono text-[10px] font-medium tracking-wide text-muted-foreground/70"
-              data-testid="protocol-designer-development-version"
-            >{formatProductDevelopmentVersion(
-              typeof __NOXIA_BUILD_GIT_SHA__ === "undefined" ? null : __NOXIA_BUILD_GIT_SHA__,
-            )}</span>}
+    <div className="mx-auto max-w-[1480px] px-4 pb-5 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 -mx-4 mb-5 border-b bg-background/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8" data-testid="project-top-navigation">
+        <div className="mx-auto flex max-w-[1480px] flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-[.2em] text-primary">NOXIA · Protocol Designer</p>
+            <div className="mt-1 flex min-w-0 items-center gap-2">
+              <h1 className="truncate text-2xl font-bold tracking-tight sm:text-3xl">{projectionMode === "EXPERT" ? "Diagnostic technique" : hasNamedProject ? workspaceTitle : "Construisons votre projet scientifique"}</h1>
+              {projectionMode === "STANDARD" && onRenameProject && <button type="button" onClick={onRenameProject} aria-label={`Renommer ${workspaceTitle}`} className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground"><Pencil className="h-4 w-4" /></button>}
+              {projectionMode === "EXPERT" && <span className="font-mono text-[10px] font-medium tracking-wide text-muted-foreground/70" data-testid="protocol-designer-development-version">{formatProductDevelopmentVersion(
+                typeof __NOXIA_BUILD_GIT_SHA__ === "undefined" ? null : __NOXIA_BUILD_GIT_SHA__,
+              )}</span>}
+            </div>
+            <p className="mt-1 text-sm text-muted-foreground">{projectionMode === "STANDARD" ? "Conception de l’étude" : workspaceTitle}</p>
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">{projectionMode === "STANDARD"
-            ? "Décrivez votre question : NOXIA vous aide à la structurer, étape par étape."
-            : "Surface détaillée de développement et de diagnostic"}</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {onLeaveWorkspace && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onLeaveWorkspace} className="min-h-11 rounded-xl border bg-background px-3 text-sm font-medium">Mes projets</button>}
+          <div className="flex flex-wrap items-center gap-2">
+          {onLeaveWorkspace && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onLeaveWorkspace} className="min-h-11 rounded-xl border bg-background px-3 text-sm font-medium">← Mes projets</button>}
+          {onOpenProfile && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onOpenProfile} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Profil / organisation</button>}
           {onEditAdministration && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={onEditAdministration} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Informations du projet</button>}
-          {session.project && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={() => setSourceLibraryOpen(true)} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Sources du projet</button>}
-          <div className="inline-flex rounded-xl border bg-background p-1" role="group" aria-label="Mode d’affichage">
-            <button
-              type="button"
-              aria-pressed={projectionMode === "STANDARD"}
-              onClick={() => setProjectionMode("STANDARD")}
-              className={`min-h-10 rounded-lg px-3 text-sm font-medium ${projectionMode === "STANDARD" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
-            >Standard</button>
-            <button
-              type="button"
-              aria-pressed={projectionMode === "EXPERT"}
-              onClick={() => setProjectionMode("EXPERT")}
-              className={`min-h-10 rounded-lg px-3 text-sm font-medium ${projectionMode === "EXPERT" ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
-            >Expert</button>
-          </div>
+          {session.project && <button type="button" disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={() => setSourceLibraryOpen(true)} className="min-h-11 rounded-xl border bg-background px-3 text-sm">Sources</button>}
           <Sheet>
             <SheetTrigger asChild><button type="button" className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium lg:hidden"><MessageSquareText className="h-4 w-4" />Voir mon projet</button></SheetTrigger>
             <SheetContent side="left" className="w-[min(92vw,420px)] overflow-y-auto p-4">
-              <SheetHeader className="sr-only"><SheetTitle>Research Project</SheetTitle><SheetDescription>État actuel du projet et des documents.</SheetDescription></SheetHeader>
+              <SheetHeader className="sr-only"><SheetTitle>Projet de recherche</SheetTitle><SheetDescription>État actuel du projet et des documents.</SheetDescription></SheetHeader>
               <div className="pt-7">{projectPanel}</div>
             </SheetContent>
           </Sheet>
-          <button type="button" aria-label={onNewProject ? "Nouveau projet" : "Recommencer"} disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={reset} className="inline-flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 text-sm font-medium"><RotateCcw className="h-4 w-4" /><span>{onNewProject ? "Nouveau projet" : "Recommencer"}</span></button>
+          <details className="relative">
+            <summary aria-label="Plus d’options" className="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-xl border bg-background text-xl marker:hidden">⋯</summary>
+            <div className="absolute right-0 z-50 mt-2 w-56 rounded-xl border bg-background p-1 shadow-xl">
+              <button type="button" onClick={() => setProjectionMode((mode) => mode === "STANDARD" ? "EXPERT" : "STANDARD")} className="min-h-10 w-full rounded-lg px-3 text-left text-sm hover:bg-muted">{projectionMode === "STANDARD" ? "Diagnostic technique" : "Quitter le diagnostic"}</button>
+              <button type="button" aria-label={onNewProject ? "Nouveau projet" : "Recommencer"} disabled={busy || Boolean(postAdoptionContinuationJob)} onClick={reset} className="flex min-h-10 w-full items-center gap-2 rounded-lg px-3 text-left text-sm hover:bg-muted"><RotateCcw className="h-4 w-4" />{onNewProject ? "Nouveau projet" : "Recommencer"}</button>
+            </div>
+          </details>
+          </div>
         </div>
       </header>
-      {session.workspace && <p className="mb-4 text-sm font-medium" aria-label="Projet ouvert">{session.workspace.title} <span className="font-normal text-muted-foreground">· sauvegarde locale dans ce navigateur</span></p>}
       <ProjectContinuum documentsAvailable={Boolean(session.project)} documentsOpen={Boolean(openProjection) || deliverableWorkspaceOpen}
         disabled={busy || Boolean(postAdoptionContinuationJob)}
         onConversation={() => { setSourceLibraryOpen(false); setDeliverableWorkspaceOpen(false); setSession((current) => ({ ...current, openDocumentProjectionId: null })); }}
@@ -3759,7 +3753,6 @@ export default function ProtocolDesignerWorkspace({
         /> : <section aria-label="Conversation" className="flex min-h-[calc(100vh-7.5rem)] min-w-0 flex-col rounded-3xl border bg-background shadow-sm">
           <div className="border-b px-5 py-4">
             <h2 className="font-semibold">Conversation</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Décrivez votre question ou votre objectif. NOXIA oriente d’abord l’échange, puis n’ouvre un Research Project que si vous demandez de construire une étude.</p>
           </div>
 
           <div className="flex-1 space-y-5 px-4 py-5 sm:px-6" aria-live="polite">
@@ -3911,7 +3904,7 @@ export default function ProtocolDesignerWorkspace({
             <div ref={endRef} />
           </div>
 
-          <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5">
+          <form onSubmit={submit} className="sticky bottom-0 border-t bg-background/95 p-4 backdrop-blur sm:p-5" data-testid="conversation-composer">
             {correctionMode && <p className="mb-2 text-sm font-medium text-primary">Décrivez librement ce que vous souhaitez corriger. Vous pouvez regrouper plusieurs changements dans un seul message.</p>}
             <label htmlFor="protocol-designer-message" className="sr-only">Votre message</label>
             <div className="flex items-end gap-2 rounded-2xl border bg-background p-2 shadow-sm focus-within:ring-2 focus-within:ring-ring">

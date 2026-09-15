@@ -24,7 +24,7 @@ describe("P-WEB-02 — preserved public boundaries after FUNCTIONAL-RESET-01", (
     renderDemo();
     expect(screen.getByRole("heading", { level: 1, name: "Construisons votre projet scientifique" })).toBeInTheDocument();
     expect(screen.getByRole("textbox", { name: "Votre message" })).toBeInTheDocument();
-    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Décrivez votre projet de recherche/).length).toBeGreaterThan(0);
     expect(screen.queryByText("RB-003")).not.toBeInTheDocument();
   });
   it("retains the public landing and private demo routes", () => {

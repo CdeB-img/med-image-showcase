@@ -37,7 +37,7 @@ export default function ProtocolPreview({ projection, stale, onClose, onArtifact
       </button>
       <p className="mt-5 text-xs font-semibold uppercase tracking-[.18em] text-primary">Protocole de travail</p>
       <h2 className="mt-1 text-2xl font-semibold">PROTOCOLE DE TRAVAIL</h2>
-      <p className="mt-2 text-sm text-muted-foreground">Aperçu produit à partir du Research Project version {sourceVersion}.</p>
+      <p className="mt-2 text-sm text-muted-foreground">Aperçu produit à partir du projet version {sourceVersion}.</p>
       <p className="mt-1 text-sm text-muted-foreground">Version générée {projection.projectionVersion} · {new Date(projection.requestedAt).toLocaleString("fr-FR")}</p>
       {projection.administration && <div className="mt-4 rounded-xl border bg-muted/30 p-4" data-document-administration-status={projection.administration.status}>
         <p className="font-semibold">{administrationStatusLabel(projection.administration)}</p>
@@ -97,7 +97,7 @@ export default function ProtocolPreview({ projection, stale, onClose, onArtifact
       </section>
       {onDocumentInstruction && <section className="mt-6 rounded-2xl border p-4" aria-label="Conversation documentaire">
         <h3 className="font-semibold">Travailler sur ce document</h3>
-        <p className="mt-2 text-sm text-muted-foreground">La révision porte sur l’introduction et ses références. Une demande qui modifie la science revient dans la conversation du Project pour revue. Les autres sections restent conservées.</p>
+        <p className="mt-2 text-sm text-muted-foreground">La révision porte sur l’introduction et ses références. Une demande qui modifie la science revient dans la conversation du projet pour revue. Les autres sections restent conservées.</p>
         {!projection.evidenceContent && <button type="button" disabled={stale} onClick={() => onDocumentInstruction("Préparer le contexte sourcé et les références du protocole")} className="mt-3 min-h-11 rounded-lg border px-3 text-sm">Préparer le contexte sourcé et les références</button>}
         <form className="mt-3" onSubmit={(event) => { event.preventDefault(); if (instruction.trim()) { onDocumentInstruction(instruction.trim()); setInstruction(""); } }}>
           <label htmlFor="document-instruction" className="block text-sm font-medium">Instruction documentaire</label>
@@ -105,7 +105,7 @@ export default function ProtocolPreview({ projection, stale, onClose, onArtifact
           <button type="submit" disabled={stale || !instruction.trim()} className="mt-2 min-h-11 rounded-lg border px-4 text-sm disabled:opacity-50">Travailler sur le document</button>
         </form>
         {documentMessage && <p role="status" className="mt-3 rounded-lg bg-muted p-3 text-sm">{documentMessage}</p>}
-        {projection.documentaryRevision && <p className="mt-3 text-sm">Dernière instruction : {projection.documentaryRevision.instruction}. Modification documentaire, Project source inchangé.</p>}
+        {projection.documentaryRevision && <p className="mt-3 text-sm">Dernière instruction : {projection.documentaryRevision.instruction}. Modification documentaire, projet source inchangé.</p>}
         {history.find((item) => item.projectionId === projection.priorProjectionId) && <p className="mt-2 text-sm">{readableDocumentDiff(history.find((item) => item.projectionId === projection.priorProjectionId)!, projection)}</p>}
       </section>}
       {history.length > 1 && onOpenVersion && <section className="mt-6 rounded-2xl border p-4" aria-label="Historique documentaire">

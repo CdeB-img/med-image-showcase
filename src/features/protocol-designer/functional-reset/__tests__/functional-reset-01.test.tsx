@@ -34,9 +34,9 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
   it("starts with one conversation, one Project panel and honest document states", () => {
     renderDemo();
     expect(screen.getByTestId("functional-reset-workspace")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Standard" })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByTestId("functional-reset-workspace")).toHaveAttribute("data-product-mode", "STANDARD");
     expect(screen.queryByTestId("protocol-designer-development-version")).toBeNull();
-    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toHaveTextContent(/préservera votre intention/);
+    expect(screen.getAllByText(/Décrivez votre projet de recherche/).length).toBeGreaterThan(0);
     expect(screen.getByLabelText("Votre message")).toBeInTheDocument();
     const project = screen.getByTestId("functional-research-project");
     for (const label of ["Question scientifique", "Objectifs", "Hypothèses", "Population", "Design", "Intervention / exposition", "Comparateur", "Critères / endpoints", "Imagerie / méthodes / mesures", "Prélèvements / échantillons", "Temporalité / visites", "Données / variables", "Analyses", "Contraintes / faisabilité", "Documents"]) {
@@ -81,7 +81,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     for (const value of ["colchicine", "placebo", "infarctus du myocarde", "étude multicentrique", "IRM", "inflammation", "lésions myocardiques", "biomarqueurs sanguins", "taille de l’infarctus"]) {
       expect(within(project).getAllByText(value).length).toBeGreaterThan(0);
     }
-    const adoptedProgressBeforeCorrection = screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ }).getAttribute("aria-valuenow");
+    const adoptedProgressBeforeCorrection = screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow");
     const adoptedCountsBeforeCorrection = within(project).getByTestId("project-cockpit-counts").textContent;
 
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_MODIFICATION } });
@@ -92,7 +92,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(runtime.request).toHaveBeenLastCalledWith(expect.objectContaining({ currentProject: expect.objectContaining({ contributionRef: "contribution:colchicine-v1" }) }));
     expect(within(project).getByText("Version 1")).toBeInTheDocument();
     expect(within(project).queryByText("Âge maximal : 75 ans")).toBeNull();
-    expect(screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ })).toHaveAttribute("aria-valuenow", adoptedProgressBeforeCorrection);
+    expect(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ })).toHaveAttribute("aria-valuenow", adoptedProgressBeforeCorrection);
     expect(within(project).getByTestId("project-cockpit-counts")).toHaveTextContent(adoptedCountsBeforeCorrection!);
     fireEvent.click(screen.getByRole("button", { name: "Cela correspond à mon projet" }));
     await waitFor(() => expect(runtime.request.mock.calls.length).toBeGreaterThanOrEqual(4));
@@ -106,18 +106,18 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
     expect(within(project).getByText("taille de l’infarctus")).toBeInTheDocument();
 
     const adoptedProjectBeforeRefusal = JSON.stringify(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project);
-    const adoptedProgressBeforeRefusal = screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ }).getAttribute("aria-valuenow");
+    const adoptedProgressBeforeRefusal = screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ }).getAttribute("aria-valuenow");
     const adoptedCountsBeforeRefusal = within(project).getByTestId("project-cockpit-counts").textContent;
     fireEvent.change(screen.getByLabelText("Votre message"), { target: { value: COLCHICINE_LATER_MODIFICATION } });
     fireEvent.click(screen.getByRole("button", { name: "Envoyer" }));
     await screen.findByText("IRM : J3–J5 → J5–J7");
     fireEvent.click(screen.getByRole("button", { name: "Refuser cette proposition" }));
-    await screen.findByText("Proposition refusée. Le Research Project est inchangé.");
+    await screen.findByText("Proposition refusée. Le projet est inchangé.");
     expect(JSON.stringify(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project)).toBe(adoptedProjectBeforeRefusal);
     expect(within(project).getByText("Version 2")).toBeInTheDocument();
     expect(within(project).getByText("IRM : J3–J5")).toBeInTheDocument();
     expect(within(project).queryByText("IRM : J5–J7")).toBeNull();
-    expect(screen.getByRole("progressbar", { name: /Avancement indicatif du Research Project/ })).toHaveAttribute("aria-valuenow", adoptedProgressBeforeRefusal);
+    expect(screen.getByRole("progressbar", { name: /Avancement indicatif du projet/ })).toHaveAttribute("aria-valuenow", adoptedProgressBeforeRefusal);
     expect(within(project).getByTestId("project-cockpit-counts")).toHaveTextContent(adoptedCountsBeforeRefusal!);
 
     firstRender.unmount();
@@ -128,7 +128,7 @@ describe("FUNCTIONAL-RESET-01 — nominal Protocol Designer", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Nouveau projet" }));
     await waitFor(() => expect(within(screen.getByTestId("functional-research-project")).queryByText("Version 2")).toBeNull());
-    expect(screen.getByText(/Dites-moi ce que vous souhaitez comprendre/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Décrivez votre projet de recherche/).length).toBeGreaterThan(0);
     expect(within(screen.getByTestId("functional-research-project")).queryByText("colchicine")).toBeNull();
     // A new workspace no longer deletes the prior Project.
     expect(readPersistedSessionForTest(window.localStorage, FUNCTIONAL_RESET_STORAGE_KEY, true).project.revision).toBe(2);
