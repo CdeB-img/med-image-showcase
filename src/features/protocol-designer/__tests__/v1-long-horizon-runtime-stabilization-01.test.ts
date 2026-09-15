@@ -12,9 +12,9 @@ import {
   type ProviderCallRecord,
 } from "../provider-call-observability";
 import {
-  PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY,
   protocolDesignerProviderCallsAllowed,
   protocolDesignerPublicUiEnabled,
+  protocolDesignerStandardConversationCallsAllowed,
 } from "../public-runtime-access";
 
 const context: ProviderCallObservationContext = {
@@ -185,16 +185,17 @@ describe("V1 long-horizon provider observability", () => {
   });
 });
 
-describe("temporary public Protocol Designer shutdown", () => {
-  it("keeps local development enabled and production fail-closed", () => {
+describe("public Protocol Designer runtime boundaries", () => {
+  it("keeps legacy provider surfaces closed while the Standard bridge is enabled", () => {
     expect(protocolDesignerPublicUiEnabled(true)).toBe(true);
     expect(protocolDesignerPublicUiEnabled(false)).toBe(false);
     expect(protocolDesignerProviderCallsAllowed({ NODE_ENV: "development" })).toBe(true);
     expect(protocolDesignerProviderCallsAllowed({ NODE_ENV: "production" })).toBe(false);
     expect(protocolDesignerProviderCallsAllowed({ VERCEL_ENV: "production" })).toBe(false);
+    expect(protocolDesignerStandardConversationCallsAllowed({ VERCEL_ENV: "production" })).toBe(true);
   });
 
-  it("blocks the production API before any provider credential or call is considered", async () => {
+  it("admits the production Standard bridge through its server-side provider", async () => {
     let statusCode = 0;
     let body: unknown = null;
     const response: ApiResponse = {
@@ -203,16 +204,23 @@ describe("temporary public Protocol Designer shutdown", () => {
       json(value) { body = value; },
     };
 
+    const provider = vi.fn(async () => new Response(JSON.stringify({
+      responseId: "gemini-public-standard",
+      modelVersion: "gemini-3.5-flash-lite",
+      candidates: [{ content: { parts: [{ text: "Réponse Standard réelle." }] } }],
+      usageMetadata: { promptTokenCount: 100, candidatesTokenCount: 20, totalTokenCount: 120 },
+    }), { status: 200 }));
     await handleProtocolDesignerBridge({
       method: "POST",
-      headers: { "content-type": "application/json" },
+      headers: { "content-type": "application/json", "x-forwarded-for": "203.0.113.12" },
       body: bridgeRequest,
-    }, response, { NODE_ENV: "production" });
+    }, response, { NODE_ENV: "production", GEMINI_API_KEY: "server-only", GEMINI_MODEL: "gemini-3.5-flash-lite" }, { fetchImpl: provider });
 
-    expect(statusCode).toBe(503);
+    expect(statusCode).toBe(200);
     expect(body).toMatchObject({
-      error: { code: PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY },
-      observability: { providerCalls: [], requestEstimatedCostUsd: 0 },
+      observability: { calls: 1, projectWrites: 0, providerCalls: [{ provider: "GOOGLE_GEMINI" }] },
     });
+    expect((body as { assistantReply: string }).assistantReply).not.toBe("Conversation momentanément indisponible.");
+    expect(provider).toHaveBeenCalledTimes(1);
   });
 });

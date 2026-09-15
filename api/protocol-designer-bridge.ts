@@ -34,9 +34,12 @@ import {
   type ProviderCallRecord,
 } from "../src/features/protocol-designer/provider-call-observability.js";
 import {
-  PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY,
-  protocolDesignerProviderCallsAllowed,
+  protocolDesignerStandardConversationCallsAllowed,
 } from "../src/features/protocol-designer/public-runtime-access.js";
+import {
+  admitPublicProtocolDesignerRequest,
+  createPublicProtocolDesignerBudgetedFetch,
+} from "./protocol-designer-public-guard.js";
 
 export type ApiRequest = { method?: string; headers: Record<string, string | string[] | undefined>; body?: unknown; socket?: { remoteAddress?: string } };
 export type ApiResponse = { status(code: number): ApiResponse; setHeader(name: string, value: string): void; json(value: unknown): void };
@@ -537,16 +540,11 @@ export const handleProtocolDesignerBridge = async (
     return response.status(415).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_CONTENT_TYPE", message: "Un corps JSON est requis." } });
   }
   if (!validOrigin(request.headers)) return response.status(403).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "ORIGIN_NOT_ALLOWED", message: "Origine non autorisée." } });
-  if (!protocolDesignerProviderCallsAllowed(environment)) {
-    return response.status(503).json({
-      apiVersion: PRODUCT_BRIDGE_API_VERSION,
-      error: {
-        code: PROTOCOL_DESIGNER_PUBLIC_RUNTIME_POLICY,
-        message: "Protocol Designer est temporairement indisponible en production.",
-      },
-      observability: providerCallRequestObservability([]),
-    });
-  }
+  if (!protocolDesignerStandardConversationCallsAllowed(environment)) return response.status(503).json({
+    apiVersion: PRODUCT_BRIDGE_API_VERSION,
+    error: { code: "STANDARD_CONVERSATION_DISABLED", message: "Protocol Designer est temporairement indisponible en production." },
+    observability: providerCallRequestObservability([]),
+  });
   let body: unknown = request.body;
   if (typeof body === "string") {
     try { body = JSON.parse(body); } catch { return response.status(400).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "INVALID_REQUEST", message: "JSON invalide." } }); }
@@ -554,13 +552,28 @@ export const handleProtocolDesignerBridge = async (
   if (new TextEncoder().encode(JSON.stringify(body)).byteLength > 300_000) {
     return response.status(413).json({ apiVersion: PRODUCT_BRIDGE_API_VERSION, error: { code: "PAYLOAD_TOO_LARGE", message: "Conversation trop volumineuse." } });
   }
+  const publicAdmission = admitPublicProtocolDesignerRequest({
+    headers: request.headers,
+    remoteAddress: request.socket?.remoteAddress,
+    body,
+    now: dependencies.now?.(),
+  });
+  if ("status" in publicAdmission) return response.status(publicAdmission.status).json({
+    apiVersion: PRODUCT_BRIDGE_API_VERSION,
+    error: { code: publicAdmission.code, message: publicAdmission.message },
+    observability: providerCallRequestObservability([]),
+  });
+  const providerFetch = createPublicProtocolDesignerBudgetedFetch(
+    publicAdmission.sessionKey,
+    dependencies.fetchImpl ?? fetch,
+  );
   const result = await executeProtocolDesignerBridge({
     body,
     apiKey: environment.GEMINI_API_KEY?.trim() || null,
     openAiApiKey: environment.OPENAI_API_KEY?.trim() || null,
     geminiModel: environment.GEMINI_MODEL,
     openAiExtractionModel: environment.OPENAI_EXTRACTION_MODEL,
-    fetchImpl: dependencies.fetchImpl,
+    fetchImpl: providerFetch,
     now: dependencies.now,
     providerAttemptPolicy: dependencies.providerAttemptPolicy,
   });

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { executeProtocolDesignerBridge, handleProtocolDesignerBridge, type ApiResponse } from "../../../../api/protocol-designer-bridge";
+import { executeProtocolDesignerBridge, type ApiResponse } from "../../../../api/protocol-designer-bridge";
 import handleScientificIntake from "../../../../api/scientific-intake";
 import { handleScientificInterpretation } from "../../../../api/scientific-interpretation";
 import handleScientificSemanticAlias from "../../../../api/scientific-semantic";
@@ -91,7 +91,6 @@ const languageRequest = (): LanguageProjectionRequest => {
 
 describe("public Protocol Designer provider shutdown across exposed API routes", () => {
   it.each([
-    ["bridge", handleProtocolDesignerBridge],
     ["intake", handleScientificIntake],
     ["interpretation", handleScientificInterpretation],
   ] as const)("blocks %s before credentials or network", async (_name, handler) => {

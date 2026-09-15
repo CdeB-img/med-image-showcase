@@ -1,0 +1,40 @@
+{
+  "missionId": "PROTOCOL_DESIGNER_PUBLIC_CONVERSATION_ACTIVATION_01",
+  "updatedAt": "2026-09-15T00:00:00.000Z",
+  "baseline": "bf9e46fdda9843a7dcb34a40ac35b4e1ddf914ca",
+  "branch": "protocol-designer-canonical-ingestion",
+  "phase": "READY_FOR_REMOTE_INTEGRATION",
+  "reproduction": {
+    "target": "https://noxia-imagerie.fr/protocol-designer/demo",
+    "result": "FAILURE_REPRODUCED",
+    "visibleError": "Conversation momentanément indisponible.",
+    "projectModified": false,
+    "providerCalls": 0
+  },
+  "rootCause": "PROTOCOL_DESIGNER_PUBLIC_RUNTIME_DISABLED_V1 blocks the product bridge in production before credentials, request parsing, and provider transport.",
+  "repairBoundary": "Enable only the Standard product bridge in production and add bounded public request/session/cost guards; leave legacy routes disabled.",
+  "modifiedFiles": [
+    "validation/protocol-designer-public-conversation-activation-01/MANDATE-REFERENCE.md",
+    "validation/protocol-designer-public-conversation-activation-01/checkpoint-log.md",
+    "validation/protocol-designer-public-conversation-activation-01/resume-state.json",
+    "api/protocol-designer-public-guard.ts",
+    "api/protocol-designer-bridge.ts",
+    "src/features/protocol-designer/public-runtime-access.ts",
+    "src/features/protocol-designer/__tests__/v1-public-conversation-activation-01.test.ts",
+    "src/features/protocol-designer/__tests__/v1-long-horizon-runtime-stabilization-01.test.ts",
+    "src/features/protocol-designer/__tests__/v1-provider-cost-and-public-boundary-regression.test.ts"
+  ],
+  "testsPassed": [
+    "54/54 targeted Vitest tests",
+    "npm run typecheck",
+    "npm run build",
+    "provider-secret bundle scan"
+  ],
+  "remaining": [
+    "Verify live remote state",
+    "Review exact diff and final source safety",
+    "Run final source safety checks",
+    "Commit and deploy through existing origin/main Vercel production path",
+    "Run the exact live browser journey and capture provider observability"
+  ]
+}
